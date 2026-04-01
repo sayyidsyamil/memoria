@@ -13,9 +13,6 @@ from pydantic import BaseModel
 from openai import OpenAI
 
 
-# Fireworks AI Configuration
-FIREWORKS_API_KEY = os.getenv("FIREWORKS_API_KEY")
-FIREWORKS_BASE_URL = os.getenv("FIREWORKS_BASE_URL", "https://api.fireworks.ai/inference/v1")
 WHISPER_MODEL = "fireworks/whisper-v3-turbo"
 
 
@@ -128,9 +125,16 @@ def apply_vad(audio_path: str) -> bytes:
 
 def transcribe_with_fireworks_whisper(audio_bytes: bytes, filename: str = "audio.mp3") -> str:
     """Transcribe audio using Fireworks AI Whisper V3 Turbo."""
+    # Read API credentials at runtime (after load_dotenv has been called)
+    api_key = os.getenv("FIREWORKS_API_KEY")
+    base_url = os.getenv("FIREWORKS_BASE_URL", "https://api.fireworks.ai/inference/v1")
+    
+    if not api_key:
+        raise ValueError("FIREWORKS_API_KEY environment variable not set")
+    
     client = OpenAI(
-        api_key=FIREWORKS_API_KEY,
-        base_url=FIREWORKS_BASE_URL
+        api_key=api_key,
+        base_url=base_url
     )
     
     # Create a temporary file for the audio
