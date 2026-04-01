@@ -13,7 +13,8 @@ from pydantic import BaseModel
 from openai import OpenAI
 
 
-WHISPER_MODEL = "whisper-v3"
+WHISPER_MODEL = "whisper-v3-turbo"
+AUDIO_API_BASE_URL = "https://audio-turbo.api.fireworks.ai/v1"
 
 
 class IngestRequest(BaseModel):
@@ -127,7 +128,10 @@ def transcribe_with_fireworks_whisper(audio_bytes: bytes, filename: str = "audio
     """Transcribe audio using Fireworks AI Whisper V3 Turbo."""
     # Read API credentials at runtime (after load_dotenv has been called)
     api_key = os.getenv("FIREWORKS_API_KEY")
-    base_url = os.getenv("FIREWORKS_BASE_URL", "https://api.fireworks.ai/inference/v1")
+    # Audio API uses different endpoint than chat completions
+    # whisper-v3: https://audio-prod.api.fireworks.ai/v1
+    # whisper-v3-turbo: https://audio-turbo.api.fireworks.ai/v1
+    base_url = AUDIO_API_BASE_URL
     
     if not api_key:
         raise ValueError("FIREWORKS_API_KEY environment variable not set")
