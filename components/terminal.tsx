@@ -127,6 +127,7 @@ export function Terminal() {
           setLogs(prev => [...prev,
             { id: Date.now(), type: "system", prefix: "Whisper ASR", content: `Transcribing via Fireworks Whisper V3 Turbo...` },
             { id: Date.now() + 1, type: "success", prefix: "System", content: data.message },
+            { id: Date.now() + 2, type: "link", prefix: "Graph", content: `Source #${data.source_id} ready for review in Graph view` },
           ])
           
           // Show transcript preview (first 500 chars)
