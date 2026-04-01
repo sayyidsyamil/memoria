@@ -10,46 +10,6 @@ interface LogEntry {
   highlight?: string
 }
 
-const DEMO_SCENARIOS: Record<string, LogEntry[]> = {
-  "/ingest https://youtube.com/damodaran_lecture_3": [
-    { id: 1, type: "system", prefix: "System", content: "Downloading audio from YouTube..." },
-    { id: 2, type: "system", prefix: "Whisper ASR", content: "Transcribing via Groq Whisper (Model: large-v3-turbo)..." },
-    { id: 3, type: "success", prefix: "Whisper ASR", content: "Audio transcribed in 8.4s. Word Error Rate < 5%." },
-    { id: 4, type: "system", prefix: "System", content: "Saving transcript to SQLite relational memory..." },
-    { id: 5, type: "success", prefix: "System", content: "Successfully stored 12,847 tokens in memoria.db" },
-  ],
-  "/extract": [
-    { id: 1, type: "system", prefix: "Memoria Engine", content: "Initializing ontology extraction pipeline..." },
-    { id: 2, type: "system", prefix: "LLM", content: "Processing transcript chunks (4/4)..." },
-    { id: 3, type: "success", prefix: "Ontology Extractor", content: "Successfully extracted 15 entities." },
-    { id: 4, type: "entity", prefix: "LLM", content: "Extracted Concept: ", highlight: "WACC" },
-    { id: 5, type: "entity", prefix: "LLM", content: "Extracted Concept: ", highlight: "Cost of Equity" },
-    { id: 6, type: "entity", prefix: "LLM", content: "Extracted Concept: ", highlight: "Risk-Free Rate" },
-    { id: 7, type: "entity", prefix: "LLM", content: "Extracted Concept: ", highlight: "Beta" },
-    { id: 8, type: "entity", prefix: "LLM", content: "Extracted Concept: ", highlight: "Market Risk Premium" },
-    { id: 9, type: "link", prefix: "LLM", content: "Linked [Cost of Equity] → depends_on → [Risk-Free Rate]" },
-    { id: 10, type: "link", prefix: "LLM", content: "Linked [Cost of Equity] → depends_on → [Beta]" },
-    { id: 11, type: "link", prefix: "LLM", content: "Linked [WACC] → composed_of → [Cost of Equity]" },
-    { id: 12, type: "success", prefix: "System", content: "Committing 15 relationships to Knowledge Graph Database." },
-  ],
-  "/help": [
-    { id: 1, type: "system", prefix: "Memoria", content: "Available commands:" },
-    { id: 2, type: "entity", content: "  /ingest <url>  ", highlight: "- Ingest audio from YouTube URL" },
-    { id: 3, type: "entity", content: "  /extract       ", highlight: "- Extract ontology from transcript" },
-    { id: 4, type: "entity", content: "  <any question>  ", highlight: "- Ask anything about your knowledge graph" },
-    { id: 5, type: "entity", content: "  /clear         ", highlight: "- Clear terminal output" },
-    { id: 6, type: "entity", content: "  /help          ", highlight: "- Show this help message" },
-  ],
-  "query": [
-    { id: 1, type: "system", prefix: "Query Engine", content: "Searching knowledge graph..." },
-    { id: 2, type: "success", prefix: "RAG", content: "Found 3 relevant context chunks." },
-    { id: 3, type: "entity", prefix: "LLM", content: "", highlight: "WACC (Weighted Average Cost of Capital)" },
-    { id: 4, type: "system", prefix: "LLM", content: "The weighted average of a firm's cost of equity and cost of debt," },
-    { id: 5, type: "system", prefix: "LLM", content: "proportionally weighted by their respective market values." },
-    { id: 6, type: "link", prefix: "Graph", content: "Related: [Cost of Equity], [Cost of Debt], [Capital Structure]" },
-  ],
-}
-
 export function Terminal() {
   const [logs, setLogs] = useState<LogEntry[]>([
     { id: 0, type: "system", prefix: "Memoria Engine", content: "Initialized. Ready to process." },
@@ -67,32 +27,92 @@ export function Terminal() {
     inputRef.current?.focus()
   }, [])
 
+  const callBackendAPI = async (message: string) => {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [{ role: "user", content: message }]
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const reader = response.body?.getReader()
+    if (!reader) return
+
+    const decoder = new TextDecoder()
+    let buffer = ""
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+
+      buffer += decoder.decode(value, { stream: true })
+      const lines = buffer.split("\n")
+      buffer = lines.pop() || ""
+
+      for (const line of lines) {
+        if (line.startsWith("data: ")) {
+          const data = line.slice(6)
+          if (data === "[DONE]") continue
+
+          try {
+            const parsed = JSON.parse(data)
+            if (parsed.type === "text-delta" && parsed.delta) {
+              setLogs(prev => {
+                const lastLog = prev[prev.length - 1]
+                if (lastLog && lastLog.type === "system" && lastLog.prefix === "AI") {
+                  return [...prev.slice(0, -1), { ...lastLog, content: lastLog.content + parsed.delta }]
+                }
+                return [...prev, { id: Date.now(), type: "system", prefix: "AI", content: parsed.delta }]
+              })
+            }
+          } catch {
+            // Ignore parse errors
+          }
+        }
+      }
+    }
+  }
+
   const processCommand = async (command: string) => {
     if (command === "/clear") {
       setLogs([{ id: 0, type: "system", prefix: "Memoria Engine", content: "Terminal cleared." }])
       return
     }
 
-    // Add the command to logs
+    if (command === "/help") {
+      setLogs(prev => [...prev,
+        { id: Date.now(), type: "system", prefix: "Memoria", content: "Available commands:" },
+        { id: Date.now() + 1, type: "entity", content: "  /ingest <url>  ", highlight: "- Ingest audio from YouTube URL" },
+        { id: Date.now() + 2, type: "entity", content: "  <any question>  ", highlight: "- Ask anything about your knowledge graph" },
+        { id: Date.now() + 3, type: "entity", content: "  /clear         ", highlight: "- Clear terminal output" },
+        { id: Date.now() + 4, type: "entity", content: "  /help          ", highlight: "- Show this help message" },
+      ])
+      return
+    }
+
+    if (command.startsWith("/ingest")) {
+      setLogs(prev => [...prev,
+        { id: Date.now(), type: "command", content: command },
+        { id: Date.now() + 1, type: "system", prefix: "System", content: "Downloading audio from YouTube..." },
+        { id: Date.now() + 2, type: "system", prefix: "Whisper ASR", content: "Transcribing via Groq Whisper..." },
+        { id: Date.now() + 3, type: "success", prefix: "System", content: "Successfully stored transcript in memoria.db" },
+      ])
+      return
+    }
+
+    // For any other input, treat as a natural language query to the AI
     setLogs(prev => [...prev, { id: Date.now(), type: "command", content: command }])
     setIsProcessing(true)
 
-    // Find matching scenario or use default
-    let scenario = DEMO_SCENARIOS[command]
-    if (!scenario) {
-      // Check for partial matches
-      if (command.startsWith("/ingest")) {
-        scenario = DEMO_SCENARIOS["/ingest https://youtube.com/damodaran_lecture_3"]
-      } else {
-        // Treat anything else as a natural language query
-        scenario = DEMO_SCENARIOS["query"]
-      }
-    }
-
-    // Stream logs with delay
-    for (let i = 0; i < scenario.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 400 + Math.random() * 300))
-      setLogs(prev => [...prev, { ...scenario[i], id: Date.now() + i }])
+    try {
+      await callBackendAPI(command)
+    } catch (error) {
+      setLogs(prev => [...prev, { id: Date.now(), type: "error", prefix: "System", content: "Failed to get response from AI." }])
     }
 
     setIsProcessing(false)
