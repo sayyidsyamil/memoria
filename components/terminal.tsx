@@ -36,11 +36,11 @@ const DEMO_SCENARIOS: Record<string, LogEntry[]> = {
     { id: 1, type: "system", prefix: "Memoria", content: "Available commands:" },
     { id: 2, type: "entity", content: "  /ingest <url>  ", highlight: "- Ingest audio from YouTube URL" },
     { id: 3, type: "entity", content: "  /extract       ", highlight: "- Extract ontology from transcript" },
-    { id: 4, type: "entity", content: "  /query <text>  ", highlight: "- Query the knowledge graph" },
+    { id: 4, type: "entity", content: "  <any question>  ", highlight: "- Ask anything about your knowledge graph" },
     { id: 5, type: "entity", content: "  /clear         ", highlight: "- Clear terminal output" },
     { id: 6, type: "entity", content: "  /help          ", highlight: "- Show this help message" },
   ],
-  "/query What is WACC?": [
+  "query": [
     { id: 1, type: "system", prefix: "Query Engine", content: "Searching knowledge graph..." },
     { id: 2, type: "success", prefix: "RAG", content: "Found 3 relevant context chunks." },
     { id: 3, type: "entity", prefix: "LLM", content: "", highlight: "WACC (Weighted Average Cost of Capital)" },
@@ -83,13 +83,9 @@ export function Terminal() {
       // Check for partial matches
       if (command.startsWith("/ingest")) {
         scenario = DEMO_SCENARIOS["/ingest https://youtube.com/damodaran_lecture_3"]
-      } else if (command.startsWith("/query")) {
-        scenario = DEMO_SCENARIOS["/query What is WACC?"]
       } else {
-        scenario = [
-          { id: 1, type: "error", prefix: "System", content: `Unknown command: ${command}` },
-          { id: 2, type: "system", prefix: "System", content: "Type /help to see available commands." },
-        ]
+        // Treat anything else as a natural language query
+        scenario = DEMO_SCENARIOS["query"]
       }
     }
 
@@ -167,7 +163,7 @@ export function Terminal() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isProcessing}
-            placeholder="Type /help to see available commands or paste a URL..."
+            placeholder="Ask anything or type /help for commands..."
             className="w-full bg-white/5 border border-white/10 rounded-lg py-4 pl-10 pr-4 
                        font-mono text-white placeholder:text-white/30
                        focus:outline-none focus:border-white/20 focus:ring-1 focus:ring-white/10
