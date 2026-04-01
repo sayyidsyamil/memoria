@@ -15,7 +15,9 @@
 # python
 venv/
 .env
-__pycache__
+__pycache__/
+*.pyc
+.pytest_cache/
 
 # production
 /build
@@ -39,3 +41,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# memoria
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+.memoria/
