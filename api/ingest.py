@@ -182,38 +182,22 @@ def process_youtube_url(url: str) -> tuple[TranscriptionResult, int]:
     with tempfile.TemporaryDirectory() as temp_dir:
         audio_path = os.path.join(temp_dir, "audio.mp3")
         
-        # Download and get info in one step
+        # Get video info first without downloading
         try:
             import yt_dlp
             ydl_opts = {
-                "format": "bestaudio/best",
-                "postprocessors": [{
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "192",
-                }],
-                "outtmpl": audio_path.replace(".mp3", ""),
                 "quiet": True,
                 "no_warnings": True,
-                "noplaylist": True,
+                "skip_download": True,
             }
-            
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                duration = info.get("duration", 0)
-                title = info.get("title", f"YouTube Video ({video_id})")
-        except Exception as e:
-            error_msg = str(e).lower()
-            if "unavailable" in error_msg or "not available" in error_msg:
-                raise ValueError(
-                    "Video format not available. This video may be:\n"
-                    "1. Age-restricted\n"
-                    "2. Region-blocked\n" 
-                    "3. Requires authentication\n"
-                    "4. Using a format not supported by current yt-dlp\n\n"
-                    "Try: pip install -U yt-dlp"
-                )
-            raise
+                info = ydl.extract_info(url, download=False)
+                title = info.get("title", f"YouTube Video ({video_id})") if info else f"YouTube Video ({video_id})"
+        except:
+            title = f"YouTube Video ({video_id})"
+        
+        # Download audio
+        duration = download_youtube_audio(url, audio_path)
         
         audio_bytes = apply_vad(audio_path)
         transcript = transcribe_with_fireworks_whisper(audio_bytes, f"{video_id}.mp3")
