@@ -40,7 +40,8 @@ interface ProposedEntity {
   name: string
   type: string
   description: string
-  confidence: number
+  confidence?: number
+  sources?: string[]
 }
 
 interface ProposedRelationship {
@@ -49,6 +50,7 @@ interface ProposedRelationship {
   target: string
   type: string
   description: string
+  confidence?: number
 }
 
 interface SourceDetails {
@@ -557,8 +559,42 @@ export function KnowledgeGraph() {
               <div className="p-4 space-y-4">
                 {/* Source Info */}
                 <div className="space-y-2">
-                  <h3 className="text-sm font-medium text-white">{sourceDetails.title}</h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-medium text-white">{sourceDetails.title}</h3>
+                    {/* Quality score if available */}
+                    {(sourceDetails as any).quality_score !== undefined && (
+                      <Badge 
+                        variant="outline" 
+                        className={`text-xs ${
+                          (sourceDetails as any).quality_score >= 0.7 
+                            ? 'border-emerald-500/50 text-emerald-400' 
+                            : (sourceDetails as any).quality_score >= 0.5 
+                              ? 'border-yellow-500/50 text-yellow-400'
+                              : 'border-red-500/50 text-red-400'
+                        }`}
+                      >
+                        Quality: {Math.round((sourceDetails as any).quality_score * 100)}%
+                      </Badge>
+                    )}
+                  </div>
                   <p className="text-xs text-white/50 line-clamp-2">{sourceDetails.transcript_preview}</p>
+                  
+                  {/* Confidence Legend */}
+                  <div className="flex items-center gap-2 text-xs text-white/40 pt-1">
+                    <span>Confidence:</span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+                      <span>High (80%+)</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
+                      <span>Med (60-79%)</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-red-400"></div>
+                      <span>Low (&lt;60%)</span>
+                    </div>
+                  </div>
                 </div>
 
                 <Separator className="bg-white/10" />
@@ -597,13 +633,28 @@ export function KnowledgeGraph() {
                               className="mt-0.5"
                             />
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-sm font-medium text-white truncate">
                                   {edit?.name || entity.name}
                                 </span>
                                 <Badge variant="outline" className="text-xs border-white/20 text-white/60 shrink-0">
                                   {edit?.type || entity.type}
                                 </Badge>
+                                {/* Confidence indicator */}
+                                {entity.confidence !== undefined && (
+                                  <Badge 
+                                    variant="outline" 
+                                    className={`text-xs shrink-0 ${
+                                      entity.confidence >= 0.8 
+                                        ? 'border-emerald-500/50 text-emerald-400 bg-emerald-500/10' 
+                                        : entity.confidence >= 0.6 
+                                          ? 'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
+                                          : 'border-red-500/50 text-red-400 bg-red-500/10'
+                                    }`}
+                                  >
+                                    {Math.round(entity.confidence * 100)}%
+                                  </Badge>
+                                )}
                                 {isDuplicate && (
                                   <Badge className="text-xs bg-yellow-500/20 text-yellow-400 border-yellow-500/50 shrink-0">
                                     Merge with "{isDuplicate}"
@@ -613,6 +664,12 @@ export function KnowledgeGraph() {
                               <p className="text-xs text-white/50 mt-1 line-clamp-2">
                                 {edit?.description || entity.description}
                               </p>
+                              {/* Show source snippets if available */}
+                              {entity.sources && entity.sources.length > 0 && (
+                                <p className="text-xs text-white/30 mt-1 italic truncate">
+                                  "{entity.sources[0]}"
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -647,7 +704,7 @@ export function KnowledgeGraph() {
                           key={rel.id}
                           className={`p-2 rounded-lg border text-sm ${isSelected ? 'border-emerald-500/50 bg-emerald-500/10' : 'border-white/10 bg-white/5'}`}
                         >
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <Checkbox
                               checked={isSelected}
                               onCheckedChange={() => toggleRelationship(rel.id)}
@@ -657,7 +714,27 @@ export function KnowledgeGraph() {
                             <span className="text-cyan-400">{rel.type}</span>
                             <span className="text-emerald-400">→</span>
                             <span className="text-white/80">{rel.target}</span>
+                            {/* Confidence indicator */}
+                            {rel.confidence !== undefined && (
+                              <Badge 
+                                variant="outline" 
+                                className={`text-xs shrink-0 ${
+                                  rel.confidence >= 0.8 
+                                    ? 'border-emerald-500/50 text-emerald-400 bg-emerald-500/10' 
+                                    : rel.confidence >= 0.6 
+                                      ? 'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
+                                      : 'border-red-500/50 text-red-400 bg-red-500/10'
+                                }`}
+                              >
+                                {Math.round(rel.confidence * 100)}%
+                              </Badge>
+                            )}
                           </div>
+                          {rel.description && (
+                            <p className="text-xs text-white/40 mt-1 ml-6">
+                              {rel.description}
+                            </p>
+                          )}
                         </div>
                       )
                     })}

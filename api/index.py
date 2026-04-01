@@ -112,8 +112,29 @@ async def get_source_details(source_id: int):
         "created_at": source.created_at,
         "proposed_entities": source.proposed_entities,
         "proposed_relationships": source.proposed_relationships,
-        "duplicates": duplicates
+        "duplicates": duplicates,
+        "quality_score": calculate_quality_score(source.proposed_entities, source.proposed_relationships)
     }
+
+
+def calculate_quality_score(entities: List[Dict], relationships: List[Dict]) -> float:
+    """Calculate overall extraction quality score."""
+    if not entities:
+        return 0.0
+    
+    # Average entity confidence
+    entity_confidences = [e.get("confidence", 0.5) for e in entities]
+    avg_entity_conf = sum(entity_confidences) / len(entity_confidences)
+    
+    # Average relationship confidence
+    if relationships:
+        rel_confidences = [r.get("confidence", 0.5) for r in relationships]
+        avg_rel_conf = sum(rel_confidences) / len(rel_confidences)
+    else:
+        avg_rel_conf = 0.0
+    
+    # Weight entities more heavily (60%) than relationships (40%)
+    return round(avg_entity_conf * 0.6 + avg_rel_conf * 0.4, 2)
 
 
 class ApproveRequest(BaseModel):
