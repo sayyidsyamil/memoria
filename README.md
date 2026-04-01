@@ -1,183 +1,180 @@
-# Memoria
+# Memoria - Self-Improving AI with Knowledge Graph
 
-**A Self-Learning Personal Knowledge Agent with Persistent Memory and Autonomous Knowledge Discovery**
+Memoria is a self-improving AI assistant that learns from interactions and builds a knowledge graph over time. Inspired by [hermes-agent](https://github.com/jimscard/hermes-agent), it implements persistent memory, reusable skills, and session search.
 
+## Features
+
+### Core AI Features
+- **Natural Language Queries**: Ask anything, Memoria uses its knowledge graph to answer
+- **YouTube Ingestion**: Download, transcribe (Whisper V3 Turbo), and extract knowledge from videos
+- **Knowledge Graph**: Entities, relationships, and sources stored in SQLite
+- **Smart Extraction**: AI-powered entity/relationship extraction with confidence scoring
+
+### Self-Improvement System (from hermes-agent)
+- **Memory Tool**: Persistent curated memory across sessions
+  - `target="user"`: User preferences, name, role, communication style
+  - `target="memory"`: Environment facts, tool quirks, project conventions
+- **Skill Manager**: Create reusable skills/procedures
+  - Store as SKILL.md files in `~/.memoria/skills/`
+  - Actions: create, edit, patch, delete, write_file, remove_file, list, view
+- **Session Search**: FTS5-based conversation history
+  - Search past sessions with keywords
+  - List recent conversations
+
+## Terminal Commands
+
+```
+/help                    - Show all available commands
+/ingest <url>            - Ingest YouTube video and extract knowledge
+/memory                  - Show saved memories
+/memory add <t> <c>      - Add memory (target: memory/user)
+/skills                  - List saved skills
+/skill view <name>       - View a skill by name
+/sessions                - List recent sessions
+/session <query>         - Search past sessions
+/clear                   - Clear terminal
+```
+
+## API Endpoints
+
+### Chat & Tools
+- `POST /api/chat` - Chat with AI (streaming response)
+- `POST /api/tools/execute` - Execute a tool (memory, skill_manage, session_search)
+- `GET /api/tools` - List available tools
+
+### Memory
+- `GET /api/memory` - Get current memory contents
+
+### Skills
+- `GET /api/skills` - List all skills
+- `GET /api/skills/{name}` - View specific skill
+
+### Sessions
+- `GET /api/sessions/recent` - List recent sessions
+- `POST /api/sessions/search` - Search past sessions
+
+### Knowledge Graph
+- `GET /api/graph/pending` - List pending extractions
+- `GET /api/sources/{id}` - Get source details
+- `POST /api/sources/{id}/approve` - Approve extraction
+- `GET /api/graph/entities` - List entities
+- `GET /api/graph/relationships` - List relationships
+
+## How Self-Improvement Works
+
+### 1. Memory Persistence
+The AI saves important discoveries to persistent memory:
+```
+/memory add user "User prefers TypeScript over JavaScript"
+/memory add memory "Always use atomic writes for file operations"
+```
+
+These are injected into the system prompt on every conversation.
+
+### 2. Skill Creation
+After complex tasks, the AI can save the approach as a reusable skill:
+```
+/skill create nextjs-deploy
+```
+
+Skills are stored as SKILL.md files:
+```yaml
 ---
-
-## 🧠 What is Memoria?
-
-Memoria is an AI-powered personal knowledge agent that listens to meetings, lectures, and online content, then automatically generates structured notes, extracts key facts and concepts, and stores everything into a persistent knowledge graph that you can search, edit, and explore.
-
-While you sleep, a background research agent reviews the day's knowledge, identifies gaps and open questions, searches the internet for relevant information, and enriches the knowledge graph with new connections and findings. You wake up to a morning briefing showing what Memoria learned overnight and what surprising connections it found across sessions.
-
-### The Problem Memoria Solves
-
-The average knowledge worker attends **25.6 meetings per week** (Otter.ai, 2025 Meeting Statistics Report). The average university student sits through **15 to 20 hours of lectures weekly**. In both cases, information is delivered, discussed, and then largely forgotten.
-
-Ebbinghaus (1885) demonstrated that without active reinforcement, people lose roughly **two-thirds of new information within a single day**. But forgetting is not even the biggest problem.
-
-The bigger problem is that the connections between what was said in Monday's meeting, what was taught in Wednesday's lecture, and what was read in Friday's article are **never made**. Those connections are where real insight lives, and they are lost because human memory cannot search across contexts.
-
-Existing note-taking tools like Notion and Otter.ai treat each session as an island. They transcribe, they summarize, and they file. **They do not understand, connect, or grow.**
-
+name: nextjs-deploy
+description: Deploy Next.js to Vercel
+description: Deploy Next.js to Vercel
 ---
+# Steps
+1. Run `vercel --version` to check CLI
+2. Run `vercel` in project root
+3. Follow prompts
 
-## ✨ Features
+# Pitfalls
+- Ensure vercel.json is configured
+- Check environment variables in dashboard
+```
 
-### 🎙️ **Intelligent Ingestion**
-- Ingest audio from YouTube URLs
-- Transcribe meetings and lectures via Groq Whisper (large-v3-turbo)
-- Process transcripts with low Word Error Rate (< 5%)
+### 3. Session Search
+Recall past conversations:
+```
+/session "docker deployment"
+/sessions           # List recent
+```
 
-### 🧩 **Automatic Ontology Extraction**
-- Extract key concepts, entities, and relationships using LLM
-- Identify important facts and ideas automatically
-- Generate structured notes from unstructured content
+## Project Structure
 
-### 🔗 **Persistent Knowledge Graph**
-- Store everything in a SQLite relational database
-- Visualize connections between concepts from different contexts
-- Surface relationships between ideas that came from completely different sources
-- Interactive graph exploration with force-directed layout
+```
+memoria/
+├── api/
+│   ├── index.py              # FastAPI app with self-improvement endpoints
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   ├── memory.py         # Memory tool (hermes-agent style)
+│   │   ├── skill_manager.py  # Skill management
+│   │   └── session_search.py # Session history with FTS5
+│   ├── utils/
+│   │   ├── tools.py          # Tool registry
+│   │   ├── prompt.py         # Message conversion
+│   │   └── stream.py         # Streaming response
+│   ├── database.py           # Knowledge graph storage
+│   ├── extraction_v2.py      # Smart AI extraction
+│   └── ingest.py             # YouTube ingestion
+├── components/
+│   ├── terminal.tsx          # Terminal UI with commands
+│   └── knowledge-graph.tsx   # Graph visualization
+└── app/
+    ├── page.tsx              # Main terminal view
+    └── graph/page.tsx        # Knowledge graph view
+```
 
-### 🤖 **Autonomous Research Agent**
-- Runs while you sleep
-- Reviews daily knowledge for gaps and open questions
-- Searches the internet for relevant information
-- Enriches the knowledge graph with new connections and findings
-- Delivers morning briefings of overnight discoveries
+## Data Storage
 
-### 🖥️ **Terminal Interface**
-- Command-line style interaction
-- Quick commands: `/ingest`, `/extract`, `/query`, `/help`
-- Real-time streaming responses
-- Beautiful dark chrome aesthetic
+All persistent data is stored in `~/.memoria/`:
+```
+~/.memoria/
+├── memories/
+│   ├── MEMORY.md            # Agent's notes
+│   └── USER.md               # User profile
+├── skills/
+│   └── {category}/
+│       └── {skill-name}/
+│           ├── SKILL.md
+│           ├── references/
+│           ├── templates/
+│           ├── scripts/
+│           └── assets/
+├── memoria.db               # Knowledge graph
+└── memoria_sessions.db      # Conversation history
+```
 
----
+## Environment Variables
 
-## 🚀 Tech Stack
+```env
+FIREWORKS_API_KEY=your_api_key
+FIREWORKS_BASE_URL=https://api.fireworks.ai/inference/v1
+FIREWORKS_MODEL=accounts/fireworks/routers/kimi-k2p5-turbo
+WHISPER_MODEL=whisper-v3-turbo
+AUDIO_API_BASE_URL=https://audio-turbo.api.fireworks.ai/v1
+```
 
-- **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS v4
-- **Backend**: FastAPI (Python)
-- **AI/ML**: Groq Whisper, LLM for ontology extraction
-- **Database**: SQLite with knowledge graph structure
-- **UI Components**: shadcn/ui
-
----
-
-## 🛠️ Installation
-
-### Prerequisites
-- Node.js 18+ and pnpm
-- Python 3.11+
-
-### Setup
+## Running Locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/sayyidsyamil/memoria.git
+# Backend
+cd api
+uvicorn index:app --reload --port 8000
+
+# Frontend
 cd memoria
-
-# Install Node.js dependencies
-pnpm install
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run development server (starts both Next.js and FastAPI)
 pnpm dev
 ```
 
-The app will be available at `http://localhost:3000`
+## Inspiration
 
----
+This project implements the self-improvement architecture from [hermes-agent](https://github.com/jimscard/hermes-agent), adapted for Memoria's knowledge graph system.
 
-## 📖 Usage
-
-### Available Commands
-
-| Command | Description |
-|---------|-------------|
-| `/ingest <url>` | Ingest audio from YouTube URL |
-| `/extract` | Extract ontology from transcript |
-| `/query <text>` | Query the knowledge graph |
-| `/clear` | Clear terminal output |
-| `/help` | Show available commands |
-
-### Example Workflow
-
-1. **Ingest a lecture**: `/ingest https://youtube.com/damodaran_lecture_3`
-2. **Extract concepts**: `/extract`
-3. **Query knowledge**: `/query What is WACC?`
-
----
-
-## 🏢 Use Case: Khazanah Nasional Berhad
-
-For organizations like **Khazanah Nasional Berhad**, where investment analysts attend dozens of meetings weekly and institutional knowledge directly impacts billion-ringgit decisions, Memoria ensures that:
-
-- **No insight is lost** - Every meeting, every lecture, every article is captured
-- **No connection is missed** - The system surfaces relationships between ideas from different contexts
-- **Knowledge compounds** - Over weeks and months, Memoria builds a growing map of everything encountered
-
----
-
-## 🔒 Privacy-First Approach
-
-Memoria is built with privacy at its core:
-- Local SQLite database for personal knowledge storage
-- No third-party data sharing without explicit consent
-- User controls all data retention and deletion policies
-
----
-
-## 📸 Screenshots
-
-### Terminal View
-The main interface with command input and streaming output showing system logs, extracted entities, and relationship links.
-
-### Knowledge Graph View
-Interactive canvas visualization showing concept nodes (WACC, Cost of Equity, Risk-Free Rate, etc.) connected by relationship edges.
-
----
-
-## 🤝 Collaboration
-
-**Partner Organization**: Khazanah Nasional Berhad
-
-This project is developed in collaboration with Khazanah Nasional Berhad as part of a research initiative to enhance institutional knowledge management and decision-making processes.
-
----
-
-## 📚 Research Foundation
-
-- **Ebbinghaus Forgetting Curve** (1885) - Demonstrates the exponential nature of forgetting
-- **Knowledge Graph Theory** - Connecting entities and relationships for semantic understanding
-- **Active Learning** - Reinforcement through spaced repetition and contextual connections
-
----
-
-## 🗺️ Roadmap
-
-- [ ] Integration with Zoom/Teams for live meeting transcription
-- [ ] Mobile app for on-the-go knowledge capture
-- [ ] Advanced graph analytics and clustering
-- [ ] Export to various formats (PDF, Notion, Obsidian)
-- [ ] Team/collaborative knowledge sharing
-- [ ] Voice interface for hands-free interaction
-
----
-
-## 📄 License
-
-This project is proprietary and developed for academic and research purposes.
-
----
-
-## 👤 Author
-
-**Sayyid Syamil** - Developer & Researcher
-
----
-
-*Memoria turns passive listening into active, compounding knowledge.*
+Key hermes-agent concepts implemented:
+- **Procedural memory** via skills (SKILL.md)
+- **Declarative memory** via MEMORY.md/USER.md
+- **Episodic memory** via FTS5 session search
+- **Self-improvement guidance** in system prompts
