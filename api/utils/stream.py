@@ -14,6 +14,7 @@ def stream_text(
     tool_definitions: Sequence[Dict[str, Any]],
     available_tools: Mapping[str, Callable[..., Any]],
     protocol: str = "data",
+    model: str = "accounts/fireworks/routers/kimi-k2p5-turbo",
 ):
     """Yield Server-Sent Events for a streaming chat completion."""
     try:
@@ -32,7 +33,7 @@ def stream_text(
 
         stream = client.chat.completions.create(
             messages=messages,
-            model="gpt-4o",
+            model=model,
             stream=True,
             tools=tool_definitions,
         )
