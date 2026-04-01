@@ -13,7 +13,7 @@ from pydantic import BaseModel
 from openai import OpenAI
 
 
-WHISPER_MODEL = "fireworks/whisper-v3-turbo"
+WHISPER_MODEL = "whisper-v3-turbo"
 AUDIO_API_BASE_URL = "https://audio-turbo.api.fireworks.ai/v1"
 
 
