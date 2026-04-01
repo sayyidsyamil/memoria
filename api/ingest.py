@@ -54,128 +54,39 @@ def extract_youtube_id(url: str) -> Optional[str]:
 
 
 def download_youtube_audio(url: str, output_path: str) -> float:
-    """Download audio from YouTube video using yt-dlp with multiple fallback strategies."""
+    """Download audio from YouTube video using yt-dlp."""
     try:
         import yt_dlp
     except ImportError:
         raise ImportError("yt-dlp is required. Install with: pip install yt-dlp")
     
-    # Try multiple format options and configurations
-    attempts = [
-        # Attempt 1: Best audio with standard settings
-        {
-            "format": "bestaudio/best",
-            "postprocessors": [{
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "192",
-            }],
-        },
-        # Attempt 2: Try with any available audio format
-        {
-            "format": "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio",
-            "postprocessors": [{
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "192",
-            }],
-        },
-        # Attempt 3: Worst audio quality (most likely to be available)
-        {
-            "format": "worstaudio",
-            "postprocessors": [{
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "128",
-            }],
-        },
-        # Attempt 4: Any video format and extract audio
-        {
-            "format": "worst[ext=mp4]/worst",
-            "postprocessors": [{
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "128",
-            }],
-        },
-        # Attempt 5: Try without postprocessors (raw download)
-        {
-            "format": "bestaudio",
-            "postprocessors": [],
-        },
-    ]
+    # Single simple attempt - let yt-dlp handle format selection
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "postprocessors": [{
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3",
+            "preferredquality": "192",
+        }],
+        "outtmpl": output_path.replace(".mp3", ""),
+        "quiet": True,
+        "no_warnings": True,
+        "noplaylist": True,
+    }
     
-    last_error = None
-    
-    for i, opts in enumerate(attempts, 1):
-        ydl_opts = {
-            **opts,
-            "outtmpl": output_path.replace(".mp3", "") if opts.get("postprocessors") else output_path.replace(".mp3", ".%(ext)s"),
-            "quiet": True,
-            "no_warnings": True,
-            "noplaylist": True,
-            "cookiesfrombrowser": None,
-        }
-        
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                if info:
-                    # Handle case where we didn't use postprocessors
-                    if not opts.get("postprocessors"):
-                        downloaded_ext = info.get("ext", "webm")
-                        downloaded_path = output_path.replace(".mp3", f".{downloaded_ext}")
-                        # Convert to mp3 manually if needed
-                        if downloaded_path != output_path and os.path.exists(downloaded_path):
-                            try:
-                                from pydub import AudioSegment
-                                audio = AudioSegment.from_file(downloaded_path)
-                                audio.export(output_path, format="mp3")
-                                os.remove(downloaded_path)
-                            except:
-                                # If conversion fails, just use the original file
-                                os.rename(downloaded_path, output_path)
-                    return info.get("duration", 0)
-        except Exception as e:
-            last_error = e
-            error_msg = str(e).lower()
-            
-            # Check for specific errors that warrant trying again
-            if any(x in error_msg for x in ["format", "unavailable", "403", "forbidden", "sign in"]):
-                print(f"Download attempt {i} failed with format error, trying fallback...")
-                continue
-            
-            # For other errors, raise immediately
-            raise
-    
-        # If all attempts failed, provide helpful error message
-        if last_error:
-            error_msg = str(last_error).lower()
-            if "403" in error_msg or "forbidden" in error_msg:
-                raise ValueError(
-                    "YouTube is blocking the download (403 Forbidden). "
-                    "This typically means:\n"
-                    "1. The video is age-restricted\n"
-                    "2. The video requires sign-in\n"
-                    "3. The video is region-restricted\n"
-                    "4. YouTube has updated their anti-bot measures\n\n"
-                    "Solutions:\n"
-                    "1. Update yt-dlp: pip install -U yt-dlp\n"
-                    "2. Try a different video (preferably one without restrictions)\n"
-                    "3. If this is your own video, make sure it's public (not private/unlisted)\n"
-                    "4. Wait a few minutes and try again"
-                )
-            elif "unavailable" in error_msg or "not available" in error_msg:
-                raise ValueError(
-                    "Video format not available. The video may be:\n"
-                    "1. Removed or deleted by the creator\n"
-                    "2. Region-restricted in your location\n"
-                    "3. Using a new YouTube format not yet supported\n\n"
-                    "Try a different video."
-                )
-            raise last_error
-        
-        raise ValueError("Could not download audio with any available format")
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            return info.get("duration", 0)
+    except Exception as e:
+        error_msg = str(e)
+        # Check if it's a format error and provide clearer message
+        if "format" in error_msg.lower() or "not available" in error_msg.lower():
+            raise ValueError(
+                f"Could not download audio: {error_msg}\n"
+                "This video may have restricted formats or require authentication."
+            )
+        raise
 
 
 def apply_vad(audio_path: str) -> bytes:
