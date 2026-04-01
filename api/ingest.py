@@ -146,12 +146,14 @@ def run_extraction_async(source_id: int, transcript: str):
             result = extract_entities_from_transcript(transcript)
             update_source_extraction(
                 source_id,
-                result["entities"],
-                result["relationships"]
+                [e.to_dict() for e in result.entities],
+                [r.to_dict() for r in result.relationships]
             )
-            print(f"Extraction completed for source {source_id}: {len(result['entities'])} entities, {len(result['relationships'])} relationships")
+            print(f"Extraction completed for source {source_id}: {len(result.entities)} entities, {len(result.relationships)} relationships (quality: {result.quality_score})")
         except Exception as e:
+            import traceback
             print(f"Extraction failed for source {source_id}: {e}")
+            print(traceback.format_exc())
     
     thread = threading.Thread(target=extract, daemon=True)
     thread.start()

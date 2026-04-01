@@ -5,9 +5,8 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { ChevronRight, ChevronLeft, Check, X, FileText, AlertCircle } from "lucide-react"
+import { ChevronRight, Check, X, FileText, AlertCircle } from "lucide-react"
 
 interface GraphNode {
   id: number
@@ -445,9 +444,9 @@ export function KnowledgeGraph() {
   }
 
   return (
-    <div className="absolute inset-0 bg-[#050505] flex">
+    <div className="absolute inset-0 bg-[#050505] flex overflow-hidden">
       {/* Main Graph Area */}
-      <div className="flex-1 relative">
+      <div className="flex-1 relative min-w-0">
         <canvas
           ref={canvasRef}
           className="w-full h-full cursor-crosshair"
@@ -488,7 +487,7 @@ export function KnowledgeGraph() {
 
       {/* Review Panel */}
       {reviewPanelOpen && (
-        <div className="w-[450px] bg-[#0A0A0A] border-l border-white/10 flex flex-col">
+        <div className="w-[600px] bg-[#0A0A0A] border-l border-white/10 flex flex-col h-[calc(100vh-5rem)] mt-20 z-[60]">
           {/* Header */}
           <div className="p-4 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -512,7 +511,7 @@ export function KnowledgeGraph() {
           </div>
 
           {/* Content */}
-          <ScrollArea className="flex-1">
+          <div className="flex-1 overflow-y-auto">
             {!selectedSource ? (
               // Source List
               <div className="p-4 space-y-3">
@@ -692,7 +691,7 @@ export function KnowledgeGraph() {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
               </div>
             )}
-          </ScrollArea>
+          </div>
         </div>
       )}
     </div>
