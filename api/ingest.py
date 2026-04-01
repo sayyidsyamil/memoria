@@ -60,7 +60,6 @@ def download_youtube_audio(url: str, output_path: str) -> float:
     except ImportError:
         raise ImportError("yt-dlp is required. Install with: pip install yt-dlp")
     
-    # Single simple attempt - let yt-dlp handle format selection
     ydl_opts = {
         "format": "bestaudio/best",
         "postprocessors": [{
@@ -71,22 +70,11 @@ def download_youtube_audio(url: str, output_path: str) -> float:
         "outtmpl": output_path.replace(".mp3", ""),
         "quiet": True,
         "no_warnings": True,
-        "noplaylist": True,
     }
     
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=True)
-            return info.get("duration", 0)
-    except Exception as e:
-        error_msg = str(e)
-        # Check if it's a format error and provide clearer message
-        if "format" in error_msg.lower() or "not available" in error_msg.lower():
-            raise ValueError(
-                f"Could not download audio: {error_msg}\n"
-                "This video may have restricted formats or require authentication."
-            )
-        raise
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=True)
+        return info.get("duration", 0)
 
 
 def apply_vad(audio_path: str) -> bytes:
@@ -182,30 +170,14 @@ def process_youtube_url(url: str) -> tuple[TranscriptionResult, int]:
     with tempfile.TemporaryDirectory() as temp_dir:
         audio_path = os.path.join(temp_dir, "audio.mp3")
         
-        # Get video info first without downloading
-        try:
-            import yt_dlp
-            ydl_opts = {
-                "quiet": True,
-                "no_warnings": True,
-                "skip_download": True,
-            }
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=False)
-                title = info.get("title", f"YouTube Video ({video_id})") if info else f"YouTube Video ({video_id})"
-        except:
-            title = f"YouTube Video ({video_id})"
-        
-        # Download audio
         duration = download_youtube_audio(url, audio_path)
-        
         audio_bytes = apply_vad(audio_path)
         transcript = transcribe_with_fireworks_whisper(audio_bytes, f"{video_id}.mp3")
         word_count = len(transcript.split())
         
         source_id = save_source(
             url=url,
-            title=title,
+            title=f"YouTube Video ({video_id})",
             transcript=transcript,
             duration_seconds=duration,
             word_count=word_count
