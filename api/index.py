@@ -9,6 +9,7 @@ import os
 from .utils.prompt import ClientMessage, convert_to_openai_messages
 from .utils.stream import patch_response_with_headers, stream_text
 from .utils.tools import AVAILABLE_TOOLS, TOOL_DEFINITIONS
+from .ingest import ingest_youtube_video, IngestRequest, IngestResponse
 
 
 load_dotenv(".env")
@@ -45,3 +46,9 @@ async def handle_chat_data(request: Request, protocol: str = Query('data')):
         media_type="text/event-stream",
     )
     return patch_response_with_headers(response, protocol)
+
+
+@app.post("/api/ingest")
+async def handle_ingest(request: IngestRequest) -> IngestResponse:
+    """Ingest a YouTube video: download audio, apply VAD, transcribe with Whisper V3 Turbo."""
+    return ingest_youtube_video(request.url)

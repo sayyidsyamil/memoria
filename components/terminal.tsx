@@ -96,12 +96,54 @@ export function Terminal() {
     }
 
     if (command.startsWith("/ingest")) {
-      setLogs(prev => [...prev,
-        { id: Date.now(), type: "command", content: command },
-        { id: Date.now() + 1, type: "system", prefix: "System", content: "Downloading audio from YouTube..." },
-        { id: Date.now() + 2, type: "system", prefix: "Whisper ASR", content: "Transcribing via Groq Whisper..." },
-        { id: Date.now() + 3, type: "success", prefix: "System", content: "Successfully stored transcript in memoria.db" },
-      ])
+      const url = command.replace("/ingest", "").trim()
+      if (!url) {
+        setLogs(prev => [...prev,
+          { id: Date.now(), type: "command", content: command },
+          { id: Date.now() + 1, type: "error", prefix: "System", content: "Usage: /ingest <youtube_url>" },
+        ])
+        return
+      }
+
+      setLogs(prev => [...prev, { id: Date.now(), type: "command", content: command }])
+      setIsProcessing(true)
+
+      try {
+        setLogs(prev => [...prev, { id: Date.now(), type: "system", prefix: "System", content: "Downloading audio from YouTube..." }])
+        
+        const response = await fetch("/api/ingest", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+
+        if (data.success) {
+          setLogs(prev => [...prev,
+            { id: Date.now(), type: "system", prefix: "Whisper ASR", content: `Transcribing via Fireworks Whisper V3 Turbo...` },
+            { id: Date.now() + 1, type: "success", prefix: "System", content: data.message },
+          ])
+          
+          // Show transcript preview (first 500 chars)
+          if (data.transcript) {
+            const preview = data.transcript.slice(0, 500) + (data.transcript.length > 500 ? "..." : "")
+            setLogs(prev => [...prev,
+              { id: Date.now() + 2, type: "entity", prefix: "Transcript", content: "Preview: ", highlight: preview },
+            ])
+          }
+        } else {
+          setLogs(prev => [...prev, { id: Date.now(), type: "error", prefix: "System", content: data.message }])
+        }
+      } catch (error) {
+        setLogs(prev => [...prev, { id: Date.now(), type: "error", prefix: "System", content: `Ingestion failed: ${error}` }])
+      }
+
+      setIsProcessing(false)
       return
     }
 
