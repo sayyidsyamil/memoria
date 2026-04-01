@@ -104,9 +104,13 @@ def apply_vad(audio_path: str) -> bytes:
             speech_segments.append(audio[start:end])
         
         if speech_segments:
-            # Add small padding between segments
+            # Concatenate non-silent segments with padding
             padding = AudioSegment.silent(duration=100)  # 100ms padding
-            final_audio = padding.join(speech_segments)
+            final_audio = AudioSegment.empty()
+            for i, segment in enumerate(speech_segments):
+                if i > 0:
+                    final_audio += padding
+                final_audio += segment
             
             # Export to bytes
             buffer = io.BytesIO()
