@@ -8,6 +8,10 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 
 
+# Database path constant
+DB_PATH = "memoria.db"
+
+
 class ExtractionStatus(str, Enum):
     PENDING = "pending"
     APPROVED = "approved"
