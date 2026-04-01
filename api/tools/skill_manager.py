@@ -437,6 +437,12 @@ def _view_skill(name: str) -> Optional[Dict[str, Any]]:
 # Main Entry Point
 # =============================================================================
 
+# Export these for external use
+list_skills = _list_skills
+view_skill = _view_skill
+
+__all__ = ['skill_manage', 'list_skills', 'view_skill', 'SKILL_MANAGE_SCHEMA']
+
 def skill_manage(
     action: str,
     name: str = None,

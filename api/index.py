@@ -134,12 +134,8 @@ When a user references past work, search your session history."""
     return f"{base_prompt}\n\n{SELF_IMPROVEMENT_GUIDANCE}"
 
 
-# Extended tool definitions with new self-improvement tools
-EXTENDED_TOOL_DEFINITIONS = TOOL_DEFINITIONS + [
-    MEMORY_SCHEMA,
-    SKILL_MANAGE_SCHEMA,
-    SESSION_SEARCH_SCHEMA,
-]
+# Extended tool definitions - use TOOL_DEFINITIONS directly since it already includes all tools
+EXTENDED_TOOL_DEFINITIONS = TOOL_DEFINITIONS
 
 
 # =============================================================================

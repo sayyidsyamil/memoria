@@ -403,9 +403,11 @@ def memory_tool(
         return store.replace(target, old_text, content)
     
     elif action == "remove":
-        if not old_text:
-            return {"success": False, "error": "old_text is required for 'remove'."}
-        return store.remove(target, old_text)
+        # Accept either old_text or content for removal (for better UX)
+        text_to_remove = old_text if old_text else content
+        if not text_to_remove:
+            return {"success": False, "error": "old_text or content is required for 'remove'."}
+        return store.remove(target, text_to_remove)
     
     elif action == "read":
         return store.read(target)

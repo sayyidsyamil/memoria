@@ -28,23 +28,48 @@ class Session:
     id: str
     title: str
     source: str  # 'cli', 'api', etc.
-    started_at: float
-    last_active: float
-    message_count: int
-    preview: str
+    created_at: str = ""  # ISO format string for backward compatibility
+    updated_at: str = ""   # ISO format string for backward compatibility
+    started_at: float = 0.0
+    last_active: float = 0.0
+    message_count: int = 0
+    preview: str = ""
+    is_child: bool = False  # For backward compatibility
     parent_session_id: Optional[str] = None
+    
+    def __post_init__(self):
+        """Ensure compatibility with both old and new field names."""
+        # If created_at is set but started_at is not, sync them
+        if self.created_at and not self.started_at:
+            try:
+                from datetime import datetime
+                self.started_at = datetime.fromisoformat(self.created_at).timestamp()
+            except:
+                self.started_at = 0.0
+        # If updated_at is set but last_active is not, sync them
+        if self.updated_at and not self.last_active:
+            try:
+                from datetime import datetime
+                self.last_active = datetime.fromisoformat(self.updated_at).timestamp()
+            except:
+                self.last_active = 0.0
 
 
 @dataclass
 class Message:
     """Represents a message in a session."""
-    id: int
-    session_id: str
-    role: str  # 'user', 'assistant', 'tool', 'system'
-    content: str
+    id: int = 0  # Optional for new messages
+    session_id: str = ""  # Optional for new messages
+    role: str = ""  # 'user', 'assistant', 'tool', 'system'
+    content: str = ""
     tool_name: Optional[str] = None
     tool_call_id: Optional[str] = None
-    timestamp: float = 0
+    timestamp: float = 0.0
+    
+    def __post_init__(self):
+        """Set timestamp if not provided."""
+        if not self.timestamp:
+            self.timestamp = datetime.now().timestamp()
 
 
 class SessionStore:

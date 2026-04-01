@@ -4,13 +4,28 @@ from typing import Dict, Any, Callable
 
 # Import self-improvement tools - use try/except since these might not exist yet
 try:
-    from ..tools.memory import memory_tool, MEMORY_SCHEMA
-    from ..tools.skill_manager import skill_manage, SKILL_MANAGE_SCHEMA
-    from ..tools.session_search import session_search, SESSION_SEARCH_SCHEMA
+    from ..tools.memory import memory_tool, MEMORY_SCHEMA, get_memory_store
+    from ..tools.skill_manager import skill_manage, SKILL_MANAGE_SCHEMA, list_skills, view_skill
+    from ..tools.session_search import session_search, SESSION_SEARCH_SCHEMA, get_session_store
     _SELF_IMPROVEMENT_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     _SELF_IMPROVEMENT_AVAILABLE = False
-    # Define placeholder schemas if imports fail
+    # Define placeholder functions and schemas if imports fail
+    def memory_tool(**kwargs):
+        return {"success": False, "error": "Memory tool not available"}
+    def skill_manage(**kwargs):
+        return {"success": False, "error": "Skill manager not available"}
+    def session_search(**kwargs):
+        return {"success": False, "error": "Session search not available"}
+    def get_memory_store():
+        return None
+    def get_session_store():
+        return None
+    def list_skills():
+        return []
+    def view_skill(name):
+        return None
+    
     MEMORY_SCHEMA = {"name": "memory", "description": "Memory tool not available", "parameters": {"type": "object", "properties": {}}}
     SKILL_MANAGE_SCHEMA = {"name": "skill_manage", "description": "Skill manager not available", "parameters": {"type": "object", "properties": {}}}
     SESSION_SEARCH_SCHEMA = {"name": "session_search", "description": "Session search not available", "parameters": {"type": "object", "properties": {}}}
@@ -147,4 +162,5 @@ def execute_tool(tool_name: str, arguments: Dict[str, Any]) -> str:
         else:
             return json.dumps({"result": str(result)}, ensure_ascii=False)
     except Exception as e:
-        return json.dumps({"error": str(e)}, ensure_ascii=False)
+        import traceback
+        return json.dumps({"error": str(e), "traceback": traceback.format_exc()}, ensure_ascii=False)
