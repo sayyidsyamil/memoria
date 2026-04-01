@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 
 interface LogEntry {
   id: number
@@ -9,6 +9,8 @@ interface LogEntry {
   content: string
   highlight?: string
 }
+
+let logIdCounter = 1
 
 export function Terminal() {
   const [logs, setLogs] = useState<LogEntry[]>([
@@ -22,6 +24,11 @@ export function Terminal() {
   useEffect(() => {
     logsEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [logs])
+
+  const getLogId = useCallback(() => {
+    logIdCounter += 1
+    return Date.now() + logIdCounter
+  }, [])
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -67,7 +74,7 @@ export function Terminal() {
                 if (lastLog && lastLog.type === "system" && lastLog.prefix === "AI") {
                   return [...prev.slice(0, -1), { ...lastLog, content: lastLog.content + parsed.delta }]
                 }
-                return [...prev, { id: Date.now(), type: "system", prefix: "AI", content: parsed.delta }]
+                return [...prev, { id: getLogId(), type: "system", prefix: "AI", content: parsed.delta }]
               })
             }
           } catch {
@@ -85,13 +92,14 @@ export function Terminal() {
     }
 
     if (command === "/help") {
-      setLogs(prev => [...prev,
-        { id: Date.now(), type: "system", prefix: "Memoria", content: "Available commands:" },
-        { id: Date.now() + 1, type: "entity", content: "  /ingest <url>  ", highlight: "- Ingest audio from YouTube URL" },
-        { id: Date.now() + 2, type: "entity", content: "  <any question>  ", highlight: "- Ask anything about your knowledge graph" },
-        { id: Date.now() + 3, type: "entity", content: "  /clear         ", highlight: "- Clear terminal output" },
-        { id: Date.now() + 4, type: "entity", content: "  /help          ", highlight: "- Show this help message" },
-      ])
+      const helpLogs = [
+        { id: getLogId(), type: "system" as const, prefix: "Memoria", content: "Available commands:" },
+        { id: getLogId(), type: "entity" as const, content: "  /ingest <url>  ", highlight: "- Ingest audio from YouTube URL" },
+        { id: getLogId(), type: "entity" as const, content: "  <any question>  ", highlight: "- Ask anything about your knowledge graph" },
+        { id: getLogId(), type: "entity" as const, content: "  /clear         ", highlight: "- Clear terminal output" },
+        { id: getLogId(), type: "entity" as const, content: "  /help          ", highlight: "- Show this help message" },
+      ]
+      setLogs(prev => [...prev, ...helpLogs])
       return
     }
 
@@ -99,17 +107,17 @@ export function Terminal() {
       const url = command.replace("/ingest", "").trim()
       if (!url) {
         setLogs(prev => [...prev,
-          { id: Date.now(), type: "command", content: command },
-          { id: Date.now() + 1, type: "error", prefix: "System", content: "Usage: /ingest <youtube_url>" },
+          { id: getLogId(), type: "command", content: command },
+          { id: getLogId(), type: "error", prefix: "System", content: "Usage: /ingest <youtube_url>" },
         ])
         return
       }
 
-      setLogs(prev => [...prev, { id: Date.now(), type: "command", content: command }])
+      setLogs(prev => [...prev, { id: getLogId(), type: "command", content: command }])
       setIsProcessing(true)
 
       try {
-        setLogs(prev => [...prev, { id: Date.now(), type: "system", prefix: "System", content: "Downloading audio from YouTube..." }])
+        setLogs(prev => [...prev, { id: getLogId(), type: "system", prefix: "System", content: "Downloading audio from YouTube..." }])
         
         const response = await fetch("/api/ingest", {
           method: "POST",
@@ -124,24 +132,25 @@ export function Terminal() {
         const data = await response.json()
 
         if (data.success) {
+          const baseId = getLogId()
           setLogs(prev => [...prev,
-            { id: Date.now(), type: "system", prefix: "Whisper ASR", content: `Transcribing via Fireworks Whisper V3 Turbo...` },
-            { id: Date.now() + 1, type: "success", prefix: "System", content: data.message },
-            { id: Date.now() + 2, type: "link", prefix: "Graph", content: `Source #${data.source_id} ready for review in Graph view` },
+            { id: baseId, type: "system", prefix: "Whisper ASR", content: `Transcribing via Fireworks Whisper V3 Turbo...` },
+            { id: baseId + 1, type: "success", prefix: "System", content: data.message },
+            { id: baseId + 2, type: "link", prefix: "Graph", content: `Source #${data.source_id} ready for review in Graph view` },
           ])
           
           // Show transcript preview (first 500 chars)
           if (data.transcript) {
             const preview = data.transcript.slice(0, 500) + (data.transcript.length > 500 ? "..." : "")
             setLogs(prev => [...prev,
-              { id: Date.now() + 2, type: "entity", prefix: "Transcript", content: "Preview: ", highlight: preview },
+              { id: baseId + 3, type: "entity", prefix: "Transcript", content: "Preview: ", highlight: preview },
             ])
           }
         } else {
-          setLogs(prev => [...prev, { id: Date.now(), type: "error", prefix: "System", content: data.message }])
+          setLogs(prev => [...prev, { id: getLogId(), type: "error", prefix: "System", content: data.message }])
         }
       } catch (error) {
-        setLogs(prev => [...prev, { id: Date.now(), type: "error", prefix: "System", content: `Ingestion failed: ${error}` }])
+        setLogs(prev => [...prev, { id: getLogId(), type: "error", prefix: "System", content: `Ingestion failed: ${error}` }])
       }
 
       setIsProcessing(false)
@@ -149,13 +158,13 @@ export function Terminal() {
     }
 
     // For any other input, treat as a natural language query to the AI
-    setLogs(prev => [...prev, { id: Date.now(), type: "command", content: command }])
+    setLogs(prev => [...prev, { id: getLogId(), type: "command", content: command }])
     setIsProcessing(true)
 
     try {
       await callBackendAPI(command)
     } catch (error) {
-      setLogs(prev => [...prev, { id: Date.now(), type: "error", prefix: "System", content: "Failed to get response from AI." }])
+      setLogs(prev => [...prev, { id: getLogId(), type: "error", prefix: "System", content: "Failed to get response from AI." }])
     }
 
     setIsProcessing(false)

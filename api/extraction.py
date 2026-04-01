@@ -76,24 +76,33 @@ def extract_entities_from_transcript(transcript: str) -> Dict[str, Any]:
         max_tokens=2000
     )
     
-    content = response.choices[0].message.content
+    content = response.choices[0].message.content.strip()
+    
+    # Clean up common LLM response issues
+    # Remove markdown code blocks if present
+    if content.startswith("```"):
+        content = content.split("\n", 1)[1] if "\n" in content else content
+        content = content.rsplit("\n", 1)[0] if "\n" in content else content
+        content = content.replace("```json", "").replace("```", "").strip()
     
     # Extract JSON from the response
     try:
-        # Try to find JSON in the content
+        # Try to find JSON object in the content
         json_start = content.find('{')
         json_end = content.rfind('}')
         
-        if json_start != -1 and json_end != -1:
+        if json_start != -1 and json_end != -1 and json_end > json_start:
             json_str = content[json_start:json_end + 1]
+            # Clean up any trailing commas (common JSON error)
+            json_str = json_str.replace(',\n  ]', '\n  ]').replace(',\n]', '\n]')
             result = json.loads(json_str)
         else:
             result = json.loads(content)
         
         # Validate structure
-        if "entities" not in result:
+        if "entities" not in result or not isinstance(result["entities"], list):
             result["entities"] = []
-        if "relationships" not in result:
+        if "relationships" not in result or not isinstance(result["relationships"], list):
             result["relationships"] = []
         
         # Add IDs to entities and relationships for tracking
@@ -107,7 +116,10 @@ def extract_entities_from_transcript(transcript: str) -> Dict[str, Any]:
         
     except json.JSONDecodeError as e:
         print(f"Failed to parse extraction JSON: {e}")
-        print(f"Raw content: {content}")
+        print(f"Raw content: {repr(content)}")
+        return {"entities": [], "relationships": []}
+    except Exception as e:
+        print(f"Unexpected error parsing extraction: {e}")
         return {"entities": [], "relationships": []}
 
 
