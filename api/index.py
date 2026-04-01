@@ -67,8 +67,8 @@ async def handle_ingest(request: IngestRequest) -> IngestResponse:
 @app.get("/api/graph/pending")
 async def get_pending_extractions():
     """Get all sources with pending extractions."""
-    init_database(DB_PATH)
-    sources = get_pending_sources(DB_PATH)
+    init_database()
+    sources = get_pending_sources()
     return {
         "sources": [
             {
@@ -89,13 +89,13 @@ async def get_pending_extractions():
 @app.get("/api/sources/{source_id}")
 async def get_source_details(source_id: int):
     """Get full source details including proposed entities/relationships."""
-    init_database(DB_PATH)
-    source = get_source(DB_PATH, source_id)
+    init_database()
+    source = get_source(source_id)
     if not source:
         return {"error": "Source not found"}, 404
     
     # Check for duplicates with existing entities
-    existing_entities = get_all_entities(DB_PATH)
+    existing_entities = get_all_entities()
     duplicates = find_duplicate_entities(
         source.proposed_entities,
         [{"name": e.name, "type": e.type} for e in existing_entities]
@@ -126,8 +126,8 @@ class ApproveRequest(BaseModel):
 @app.post("/api/sources/{source_id}/approve")
 async def approve_extraction(source_id: int, request: ApproveRequest):
     """Approve and add selected entities/relationships to the graph."""
-    init_database(DB_PATH)
-    source = get_source(DB_PATH, source_id)
+    init_database()
+    source = get_source(source_id)
     if not source:
         return {"error": "Source not found"}, 404
     
@@ -141,7 +141,7 @@ async def approve_extraction(source_id: int, request: ApproveRequest):
         # Check if we should merge with existing
         if entity["name"] in request.merge_map:
             existing_name = request.merge_map[entity["name"]]
-            existing = get_entity_by_name(DB_PATH, existing_name)
+            existing = get_entity_by_name(existing_name)
             if existing:
                 created_entities[entity_id] = existing.id
                 continue
@@ -153,7 +153,7 @@ async def approve_extraction(source_id: int, request: ApproveRequest):
             entity_type = request.entity_edits.get(entity_id, {}).get("type", entity["type"])
             description = request.entity_edits.get(entity_id, {}).get("description", entity.get("description", ""))
             
-            new_id = create_entity(DB_PATH, name, entity_type, description, source_id)
+            new_id = create_entity(name, entity_type, description, source_id)
             created_entities[entity_id] = new_id
     
     # Create relationships
@@ -166,7 +166,6 @@ async def approve_extraction(source_id: int, request: ApproveRequest):
             # Map to new entity IDs
             if source_entity_old_id in created_entities and target_entity_old_id in created_entities:
                 new_rel_id = create_relationship(
-                    DB_PATH,
                     created_entities[source_entity_old_id],
                     created_entities[target_entity_old_id],
                     rel["type"],
@@ -176,7 +175,7 @@ async def approve_extraction(source_id: int, request: ApproveRequest):
                 created_relationships.append(new_rel_id)
     
     # Mark source as approved
-    approve_source_extraction(DB_PATH, source_id, [], [])
+    approve_source_extraction(source_id, [], [])
     
     return {
         "success": True,
@@ -188,16 +187,16 @@ async def approve_extraction(source_id: int, request: ApproveRequest):
 @app.post("/api/sources/{source_id}/skip")
 async def skip_extraction(source_id: int):
     """Skip the extraction for this source."""
-    init_database(DB_PATH)
-    skip_source_extraction(DB_PATH, source_id)
+    init_database()
+    skip_source_extraction(source_id)
     return {"success": True}
 
 
 @app.get("/api/graph/entities")
 async def list_entities():
     """Get all entities in the graph."""
-    init_database(DB_PATH)
-    entities = get_all_entities(DB_PATH)
+    init_database()
+    entities = get_all_entities()
     return {
         "entities": [
             {
@@ -215,8 +214,8 @@ async def list_entities():
 @app.get("/api/graph/relationships")
 async def list_relationships():
     """Get all relationships in the graph."""
-    init_database(DB_PATH)
-    relationships = get_all_relationships(DB_PATH)
+    init_database()
+    relationships = get_all_relationships()
     return {
         "relationships": [
             {

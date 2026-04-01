@@ -56,7 +56,7 @@ class Relationship:
     created_at: str
 
 
-def init_database(db_path: str = "memoria.db"):
+def init_database(db_path: str = DB_PATH):
     """Initialize SQLite database with all tables."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -111,12 +111,12 @@ def init_database(db_path: str = "memoria.db"):
 
 
 def save_source(
-    db_path: str,
     url: str,
     title: str,
     transcript: str,
     duration_seconds: float,
-    word_count: int
+    word_count: int,
+    db_path: str = DB_PATH
 ) -> int:
     """Save a new source and return its ID."""
     conn = sqlite3.connect(db_path)
@@ -144,10 +144,10 @@ def save_source(
 
 
 def update_source_extraction(
-    db_path: str,
     source_id: int,
     proposed_entities: List[Dict[str, Any]],
-    proposed_relationships: List[Dict[str, Any]]
+    proposed_relationships: List[Dict[str, Any]],
+    db_path: str = DB_PATH
 ):
     """Update source with proposed extraction results."""
     conn = sqlite3.connect(db_path)
@@ -167,7 +167,7 @@ def update_source_extraction(
     conn.close()
 
 
-def get_source(db_path: str, source_id: int) -> Optional[Source]:
+def get_source(source_id: int, db_path: str = DB_PATH) -> Optional[Source]:
     """Get a source by ID."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -194,7 +194,7 @@ def get_source(db_path: str, source_id: int) -> Optional[Source]:
     )
 
 
-def get_pending_sources(db_path: str) -> List[Source]:
+def get_pending_sources(db_path: str = DB_PATH) -> List[Source]:
     """Get all sources with pending extractions."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -228,10 +228,10 @@ def get_pending_sources(db_path: str) -> List[Source]:
 
 
 def approve_source_extraction(
-    db_path: str,
     source_id: int,
     entity_ids: List[int],
-    relationship_ids: List[int]
+    relationship_ids: List[int],
+    db_path: str = DB_PATH
 ) -> bool:
     """Mark source extraction as approved."""
     conn = sqlite3.connect(db_path)
@@ -251,7 +251,7 @@ def approve_source_extraction(
     return cursor.rowcount > 0
 
 
-def skip_source_extraction(db_path: str, source_id: int) -> bool:
+def skip_source_extraction(source_id: int, db_path: str = DB_PATH) -> bool:
     """Mark source extraction as skipped."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -271,11 +271,11 @@ def skip_source_extraction(db_path: str, source_id: int) -> bool:
 
 
 def create_entity(
-    db_path: str,
     name: str,
     type: str,
     description: str,
-    source_id: int
+    source_id: int,
+    db_path: str = DB_PATH
 ) -> int:
     """Create a new entity and return its ID."""
     conn = sqlite3.connect(db_path)
@@ -297,7 +297,7 @@ def create_entity(
     return entity_id
 
 
-def get_entity_by_name(db_path: str, name: str) -> Optional[Entity]:
+def get_entity_by_name(name: str, db_path: str = DB_PATH) -> Optional[Entity]:
     """Get entity by name (for deduplication)."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -320,7 +320,7 @@ def get_entity_by_name(db_path: str, name: str) -> Optional[Entity]:
     )
 
 
-def get_all_entities(db_path: str) -> List[Entity]:
+def get_all_entities(db_path: str = DB_PATH) -> List[Entity]:
     """Get all entities in the graph."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -345,12 +345,12 @@ def get_all_entities(db_path: str) -> List[Entity]:
 
 
 def create_relationship(
-    db_path: str,
     source_entity_id: int,
     target_entity_id: int,
     type: str,
     description: str,
-    source_id: int
+    source_id: int,
+    db_path: str = DB_PATH
 ) -> int:
     """Create a new relationship and return its ID."""
     conn = sqlite3.connect(db_path)
@@ -372,7 +372,7 @@ def create_relationship(
     return relationship_id
 
 
-def get_all_relationships(db_path: str) -> List[Relationship]:
+def get_all_relationships(db_path: str = DB_PATH) -> List[Relationship]:
     """Get all relationships in the graph."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()

@@ -145,7 +145,6 @@ def run_extraction_async(source_id: int, transcript: str):
         try:
             result = extract_entities_from_transcript(transcript)
             update_source_extraction(
-                DB_PATH,
                 source_id,
                 result["entities"],
                 result["relationships"]
@@ -175,7 +174,6 @@ def process_youtube_url(url: str) -> tuple[TranscriptionResult, int]:
         word_count = len(transcript.split())
         
         source_id = save_source(
-            DB_PATH,
             url=url,
             title=f"YouTube Video ({video_id})",
             transcript=transcript,
