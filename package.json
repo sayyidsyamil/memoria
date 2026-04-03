@@ -1,0 +1,13 @@
+{
+  "name": "memoria",
+  "private": true,
+  "scripts": {
+    "install:py": "py -m pip install -r backend/requirements.txt",
+    "dev": "pnpm run install:py && concurrently -n web,api -c cyan,magenta \"pnpm --dir frontend dev\" \"pnpm run dev:api\"",
+    "dev:web": "pnpm --dir frontend dev",
+    "dev:api": "cd backend && py -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

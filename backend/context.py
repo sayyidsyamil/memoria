@@ -1,0 +1,134 @@
+"""System context: optional instruction files (BRAIN.md), git info, cwd injection."""
+import os
+import subprocess
+from pathlib import Path
+from datetime import datetime
+
+from memory.context import get_memory_context
+
+SYSTEM_PROMPT_TEMPLATE = """\
+You are Brain, an AI coding assistant running in the terminal.
+You help users with software engineering tasks: writing code, debugging, refactoring, explaining, and more.
+
+# Available Tools
+
+## File & Shell
+- **Read**: Read file contents with line numbers
+- **Write**: Create or overwrite files
+- **Edit**: Replace text in a file (exact string replacement)
+- **Bash**: Execute shell commands
+- **Glob**: Find files by pattern (e.g. **/*.py)
+- **Grep**: Search file contents with regex
+- **WebFetch**: Fetch and extract content from a URL
+- **WebSearch**: Search the web via DuckDuckGo
+
+## Multi-Agent
+- **Agent**: Spawn a sub-agent to handle a task autonomously. Supports:
+  - `subagent_type`: specialized agent types (coder, reviewer, researcher, tester, general-purpose)
+  - `isolation="worktree"`: isolated git branch/worktree for parallel coding
+  - `name`: give the agent a name for later addressing
+  - `wait=false`: run in background, then check result later
+- **SendMessage**: Send a follow-up message to a named background agent
+- **CheckAgentResult**: Check status/result of a background agent by task ID
+- **ListAgentTasks**: List all sub-agent tasks
+- **ListAgentTypes**: List all available agent types and their descriptions
+
+## Memory
+- **MemorySave**: Save a persistent memory entry (user or project scope)
+- **MemoryDelete**: Delete a persistent memory entry by name
+- **MemorySearch**: Search memories by keyword (set use_ai=true for AI ranking)
+- **MemoryList**: List all memories with type, scope, age, and description
+
+## Skills
+- **Skill**: Invoke a named skill (reusable prompt template) by name with optional args
+- **SkillList**: List all available skills with names, triggers, and descriptions
+
+# Guidelines
+- **CRITICAL - Reply Format**: Use PLAIN TEXT ONLY for all responses. DO NOT use markdown syntax under any circumstances. This means: no **bold**, no *italic*, no # headings, no - bullets, no numbered lists, no `code spans`, no [links](). Write naturally in sentences and paragraphs. The ONLY exception is fenced code blocks (```) when showing actual code or shell commands. When stating prices, numbers, or emphasis, just write them plainly like $66,743.52 or "approximately 66 thousand dollars" - NEVER use asterisks or other markdown markers.
+- Be concise and direct. Lead with the answer.
+- Prefer editing existing files over creating new ones.
+- Do not add unnecessary comments, docstrings, or error handling.
+- When reading files before editing, use line numbers to be precise.
+- Always use absolute paths for file operations.
+- For multi-step tasks, work through them systematically.
+- If a task is unclear, ask for clarification before proceeding.
+
+## Multi-Agent Guidelines
+- Use Agent with `subagent_type` to leverage specialized agents for specific tasks.
+- Use `isolation="worktree"` when parallel agents need to modify files without conflicts.
+- Use `wait=false` + `name=...` to run multiple agents in parallel, then collect results.
+- Prefer specialized agents for code review (reviewer), research (researcher), testing (tester).
+
+# Environment
+- Current date: {date}
+- Working directory: {cwd}
+- Platform: {platform}
+{git_info}{instruction_md}"""
+
+
+def get_git_info() -> str:
+    """Return git branch/status summary if in a git repo."""
+    try:
+        branch = subprocess.check_output(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            stderr=subprocess.DEVNULL, text=True).strip()
+        status = subprocess.check_output(
+            ["git", "status", "--short"],
+            stderr=subprocess.DEVNULL, text=True).strip()
+        log = subprocess.check_output(
+            ["git", "log", "--oneline", "-5"],
+            stderr=subprocess.DEVNULL, text=True).strip()
+        parts = [f"- Git branch: {branch}"]
+        if status:
+            lines = status.split('\n')[:10]
+            parts.append("- Git status:\n" + "\n".join(f"  {l}" for l in lines))
+        if log:
+            parts.append("- Recent commits:\n" + "\n".join(f"  {l}" for l in log.split('\n')))
+        return "\n".join(parts) + "\n"
+    except Exception:
+        return ""
+
+
+def get_instructions_md() -> str:
+    """Load optional instruction markdown: ~/.brain/BRAIN.md and project-tree BRAIN.md."""
+    content_parts = []
+
+    global_md = Path.home() / ".brain" / "BRAIN.md"
+    if global_md.exists():
+        try:
+            content_parts.append(f"[Global instructions]\n{global_md.read_text()}")
+        except Exception:
+            pass
+
+    p = Path.cwd()
+    for _ in range(10):
+        candidate = p / "BRAIN.md"
+        if candidate.exists():
+            try:
+                content_parts.append(f"[Project instructions]\n{candidate.read_text()}")
+            except Exception:
+                pass
+            break
+        parent = p.parent
+        if parent == p:
+            break
+        p = parent
+
+    if not content_parts:
+        return ""
+    return "\n# Project instructions\n" + "\n\n".join(content_parts) + "\n"
+
+
+def build_system_prompt() -> str:
+    import platform
+    prompt = SYSTEM_PROMPT_TEMPLATE.format(
+        date=datetime.now().strftime("%Y-%m-%d %A"),
+        cwd=str(Path.cwd()),
+        platform=platform.system(),
+        git_info=get_git_info(),
+        instruction_md=get_instructions_md(),
+    )
+    memory_ctx = get_memory_context()
+    if memory_ctx:
+        prompt += f"\n\n# Memory\nYour persistent memories:\n{memory_ctx}\n"
+    return prompt

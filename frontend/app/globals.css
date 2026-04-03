@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@import "../node_modules/tw-animate-css/dist/tw-animate.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Vercel-style dark */
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111111;
+  --card-foreground: #fafafa;
+  --popover: #111111;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+  --secondary: #18181b;
+  --secondary-foreground: #fafafa;
+  --muted: #18181b;
+  --muted-foreground: #71717a;
+  --accent: #10b981;
+  --accent-foreground: #09090b;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #10b981;
+
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+
+[data-panel-group-direction="horizontal"] > [data-panel-resize-handle-id] {
+  width: 1px;
+  background: #27272a;
+  transition: background 150ms ease;
+}
+
+[data-panel-group-direction="horizontal"] > [data-panel-resize-handle-id]:hover,
+[data-panel-group-direction="horizontal"]
+  > [data-panel-resize-handle-id][data-resize-handle-active] {
+  background: #10b981;
+}
+
+[cmdk-root] {
+  background: #111111;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+[cmdk-list] {
+  padding: 8px;
+  max-height: 300px;
+  overflow: auto;
+}
+
+[cmdk-item] {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #a1a1aa;
+  font-size: 14px;
+  transition: all 150ms ease;
+}
+
+[cmdk-item][data-selected="true"] {
+  background: #18181b;
+  color: #fafafa;
+}
+
+[cmdk-item]:hover {
+  background: #18181b;
+}
+
+@keyframes spin-dots {
+  0%,
+  100% {
+    content: "⠋";
+  }
+  8.33% {
+    content: "⠙";
+  }
+  16.67% {
+    content: "⠹";
+  }
+  25% {
+    content: "⠸";
+  }
+  33.33% {
+    content: "⠼";
+  }
+  41.67% {
+    content: "⠴";
+  }
+  50% {
+    content: "⠦";
+  }
+  58.33% {
+    content: "⠧";
+  }
+  66.67% {
+    content: "⠇";
+  }
+  75% {
+    content: "⠏";
+  }
+}
+
+.loading-spinner::after {
+  animation: spin-dots 0.8s steps(1) infinite;
+  content: "⠋";
+}
+
+.markdown-content h1 {
+  @apply text-xl font-semibold text-foreground mb-4;
+}
+.markdown-content h2 {
+  @apply text-lg font-semibold text-foreground mb-3;
+}
+.markdown-content h3 {
+  @apply text-base font-semibold text-foreground mb-2;
+}
+.markdown-content p {
+  @apply text-muted-foreground mb-3 leading-relaxed;
+}
+.markdown-content ul {
+  @apply list-disc list-inside text-muted-foreground mb-3 space-y-1;
+}
+.markdown-content ol {
+  @apply list-decimal list-inside text-muted-foreground mb-3 space-y-1;
+}
+.markdown-content code {
+  @apply bg-secondary px-1.5 py-0.5 rounded text-sm font-mono text-accent;
+}
+.markdown-content pre {
+  @apply bg-secondary p-4 rounded-lg overflow-x-auto mb-3;
+}
+.markdown-content pre code {
+  @apply bg-transparent p-0;
+}
+.markdown-content blockquote {
+  @apply border-l-2 border-accent pl-4 italic text-muted-foreground mb-3;
+}

@@ -1,0 +1,176 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+*.log
+
+# Build outputs
+.next/
+dist/
+build/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+*.egg
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Large files
+*.mp4
+*.mp3
+*.wav
+*.avi
+*.mov
+*.mkv
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.exe
+*.msi
+*.dmg
+*.iso
+
+# Documents (not source code)
+*.pdf
+*.docx
+*.pptx
+*.xlsx
+*.doc
+*.ppt
+*.xls
+
+# Data files
+*.csv
+*.parquet
+*.db
+*.sqlite
+*.json.gz
+
+# Model files
+*.onnx
+*.safetensors
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pb
+
+# Images (except source assets)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.bmp
+*.svg
+!frontend/public/*.svg
+!frontend/public/*.png
+
+# Frontend specific
+frontend/.next/
+frontend/node_modules/
+frontend/out/
+
+# Backend specific
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/.pytest_cache/
+backend/.mypy_cache/
+
+# Knowledge vault (user data)
+knowledge/memory/*.md
+!knowledge/memory/.gitkeep
+knowledge/vault/*.md
+!knowledge/vault/.gitkeep
+
+# Session data
+*.session
+sessions/
+
+# Large media
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.wma
+*.m4a
+*.aiff
+*.au
+*.ra
+*.ram
+*.mid
+*.midi
+*.ac3
+*.dts
+
+# Archives
+*.zip
+*.tar
+*.gz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.tar.gz
+*.tgz
+*.tar.bz2
+*.tbz2
+*.tar.xz
+*.txz
+
+# Executables
+*.exe
+*.msi
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.AppImage
+*.snap
+*.flatpak
+*.app
+*.ipa
+*.apk
+*.xap
+
+# Other
+*.ico
+*.cur
+*.ani
+*.ttf
+*.otf
+*.woff
+*.woff2
+*.eot
