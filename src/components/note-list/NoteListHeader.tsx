@@ -1,8 +1,15 @@
-import { CircleNotch as Loader2, MagnifyingGlass, Plus, SidebarSimple, X } from '@phosphor-icons/react'
+import { CircleNotch as Loader2, LinkSimple, MagnifyingGlass, Microphone, NotePencil, Plus, SidebarSimple, X } from '@phosphor-icons/react'
 import type { VaultEntry } from '../../types'
 import type { SortOption, SortDirection } from '../../utils/noteListHelpers'
 import { translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { APP_COMMAND_EVENT_NAME, APP_COMMAND_IDS } from '../../hooks/appCommandDispatcher'
 import { trackEvent } from '../../lib/telemetry'
@@ -12,6 +19,7 @@ import { ListPropertiesPopover, type ListPropertiesPopoverProps } from './ListPr
 import { GitRepositorySelect } from '../GitRepositorySelect'
 import type { GitRepositoryOption } from '../../utils/gitRepositories'
 import { isMac } from '../../utils/platform'
+import { requestImportSource, requestStartMeeting } from '../../utils/memoriaWorkflow'
 
 const NOTE_LIST_ACTION_BUTTON_CLASSNAME = '!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'
 const NOTE_LIST_EXPAND_BUTTON_CLASSNAME = '!h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-4'
@@ -19,6 +27,7 @@ const COLLAPSED_SIDEBAR_MAC_CHROME_PADDING = 80
 const PROPERTY_TRIGGER_TITLE_KEYS: Record<string, TranslationKey> = {
   'Customize columns': 'noteList.properties.customizeColumns',
   'Customize All Notes columns': 'noteList.properties.customizeAllColumns',
+  'Customize Wiki columns': 'noteList.properties.customizeWikiColumns',
   'Customize Inbox columns': 'noteList.properties.customizeInboxColumns',
 }
 
@@ -39,6 +48,7 @@ interface NoteListHeaderProps {
   typeDocument: VaultEntry | null
   isEntityView: boolean
   isChangesView?: boolean
+  isInboxView?: boolean
   listSort: SortOption
   listDirection: SortDirection
   customProperties: string[]
@@ -199,9 +209,25 @@ function HeaderActions({
           locale={locale}
         />
       )}
-      <Button type="button" variant="ghost" size="icon-xs" className={NOTE_LIST_ACTION_BUTTON_CLASSNAME} onClick={onCreateNote} title={translate(locale, 'noteList.createNote')} aria-label={translate(locale, 'noteList.createNote')}>
-        <Plus size={16} />
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button type="button" variant="ghost" size="icon-xs" className={NOTE_LIST_ACTION_BUTTON_CLASSNAME} title={translate(locale, 'noteList.createNote')} aria-label={translate(locale, 'noteList.createNote')}>
+            <Plus size={16} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuItem onSelect={onCreateNote} className="gap-2">
+            <NotePencil size={16} /> {translate(locale, 'noteList.createNote')}
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={() => requestStartMeeting()} className="gap-2">
+            <Microphone size={16} /> Record meeting
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => requestImportSource()} className="gap-2">
+            <LinkSimple size={16} /> Import web · YouTube · PDF
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }

@@ -47,5 +47,6 @@ export function isOptionalAllNotesFileVisible(
   const previewKind = filePreviewKind(entry)
   if (previewKind === 'pdf') return visibility.pdfs
   if (previewKind === 'image') return visibility.images
+  if (previewKind === 'html') return true // HTML pages are first-class previews
   return visibility.unsupported
 }

@@ -523,7 +523,7 @@ function filterFolderEntries(entries: VaultEntry[], selection: Extract<SidebarSe
 
 function filterSectionGroupEntries(entries: VaultEntry[], type: string, subFilter?: NoteListFilter): VaultEntry[] {
   const typeVisibility = buildTypeVisibilityLookup(entries)
-  const typeEntries = entries.filter((entry) => isSectionEntryVisibleForType(entry, type, typeVisibility))
+  const typeEntries = entries.filter((entry) => isWikiEntry(entry) && isSectionEntryVisibleForType(entry, type, typeVisibility))
   return subFilter ? applySubFilter(typeEntries, subFilter) : typeEntries.filter(isActive)
 }
 
@@ -534,6 +534,8 @@ function filterTopLevelEntries(
 ): VaultEntry[] {
   const filterableEntries = selection.filter === 'all'
     ? entries.filter((entry) => isAllNotesEntry(entry, options.allNotesFileVisibility))
+    : selection.filter === 'sources'
+      ? entries
     : entries.filter(isMarkdown)
   if (selection.filter === 'all' && options.subFilter) return applySubFilter(filterableEntries, options.subFilter)
   return filterByFilterType(filterableEntries, selection.filter)
@@ -553,6 +555,9 @@ function filterByKind(
 
 function filterByFilterType(entries: VaultEntry[], filter: string): VaultEntry[] {
   if (filter === 'all') return entries.filter(isActive)
+  if (filter === 'wiki') return entries.filter(isWikiEntry)
+  if (filter === 'sources') return entries.filter(isSourceEntry)
+  if (filter === 'briefs') return entries.filter(isBriefEntry)
   if (filter === 'archived') return entries.filter((e) => e.archived)
   if (filter === 'favorites') return entries.filter((e) => e.favorite && !e.archived)
   if (filter === 'pulse') return []
@@ -572,7 +577,7 @@ export function countByFilter(entries: VaultEntry[], type: string): Record<NoteL
   const typeVisibility = buildTypeVisibilityLookup(entries)
   let open = 0, archived = 0
   for (const e of entries) {
-    if (!isSectionEntryVisibleForType(e, type, typeVisibility)) continue
+    if (!isWikiEntry(e) || !isSectionEntryVisibleForType(e, type, typeVisibility)) continue
     if (e.archived) archived++
     else open++
   }
@@ -601,6 +606,66 @@ export function countAllNotesByFilter(
   return countEntriesByArchiveStatus(
     entries.filter((entry) => isAllNotesEntry(entry, allNotesFileVisibility)),
   )
+}
+
+const SOURCE_TYPE_NAMES = new Set(['source', 'transcript', 'meeting minute', 'meeting minutes', 'document', 'article', 'report', 'deck', 'pdf'])
+const SOURCE_PATH_SEGMENTS = new Set(['raw', 'sources', 'source', 'transcripts', 'articles'])
+const BRIEF_TYPE_NAMES = new Set(['brief', 'briefing', 'summary'])
+const BRIEF_PATH_SEGMENTS = new Set(['briefs', 'brief'])
+
+function normalizedPathSegments(path: string): string[] {
+  return path
+    .split(/[\\/]+/u)
+    .map((segment) => segment.trim().toLowerCase())
+    .filter(Boolean)
+}
+
+function normalizedType(entry: VaultEntry): string {
+  return entry.isA?.trim().toLowerCase() ?? ''
+}
+
+function hasAnyPathSegment(entry: VaultEntry, segments: Set<string>): boolean {
+  return normalizedPathSegments(entry.path).some((segment) => segments.has(segment))
+}
+
+export function isBriefEntry(entry: VaultEntry): boolean {
+  if (entry.archived) return false
+  const type = normalizedType(entry)
+  return BRIEF_TYPE_NAMES.has(type) || hasAnyPathSegment(entry, BRIEF_PATH_SEGMENTS)
+}
+
+export function isSourceEntry(entry: VaultEntry): boolean {
+  if (entry.archived) return false
+  if (entry.fileKind === 'binary') return true
+  const type = normalizedType(entry)
+  return SOURCE_TYPE_NAMES.has(type) || hasAnyPathSegment(entry, SOURCE_PATH_SEGMENTS)
+}
+
+export function isWikiEntry(entry: VaultEntry): boolean {
+  if (!isMarkdown(entry)) return false
+  if (entry.archived) return false
+  if (entry.isA === 'Type') return false
+  if (!entry.organized) return false
+  if (isSourceEntry(entry) || isBriefEntry(entry)) return false
+  return true
+}
+
+export function countPrimaryMemoryFilters(entries: VaultEntry[]) {
+  return {
+    wikiCount: entries.filter(isWikiEntry).length,
+    sourcesCount: entries.filter(isSourceEntry).length,
+    briefsCount: entries.filter(isBriefEntry).length,
+  }
+}
+
+export function countWikiEntriesByType(entries: VaultEntry[]): Record<string, number> {
+  const counts: Record<string, number> = {}
+  for (const entry of entries) {
+    if (!isWikiEntry(entry) || !entry.isA) continue
+    const current = Reflect.get(counts, entry.isA) as number | undefined
+    Reflect.set(counts, entry.isA, (current ?? 0) + 1)
+  }
+  return counts
 }
 
 // --- Inbox ---

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { APP_COMMAND_IDS, getAppCommandShortcutDisplay } from '../hooks/appCommandCatalog'
 import {
+  AI_AGENT_DEFINITIONS,
   isAiAgentInstalled,
   type AiAgentId,
   type AiAgentsStatus,
@@ -39,6 +40,21 @@ function selectedTargetForButton({
   } as Settings)
 }
 
+function firstInstalledAgent(statuses: AiAgentsStatus): AiAgentId | null {
+  const found = AI_AGENT_DEFINITIONS.find((definition) => isAiAgentInstalled(statuses, definition.id))
+  return found ? found.id : null
+}
+
+/** Match the selected local agent. Trust the user's selection rather than the
+ * (sometimes flaky) install detection, so the icon always reflects the agent
+ * they actually picked. For an API-model target, show an installed agent if any. */
+function resolveDisplayAgent(selectedTarget: AiTarget, statuses: AiAgentsStatus): AiAgentId | null {
+  if (selectedTarget.kind === 'agent') {
+    return selectedTarget.agent
+  }
+  return firstInstalledAgent(statuses)
+}
+
 function FloatingButtonIcon({
   selectedTarget,
   statuses,
@@ -46,8 +62,9 @@ function FloatingButtonIcon({
   selectedTarget: AiTarget
   statuses: AiAgentsStatus
 }) {
-  if (selectedTarget.kind === 'agent' && isAiAgentInstalled(statuses, selectedTarget.agent)) {
-    return <AiAgentIcon agent={selectedTarget.agent} size={24} />
+  const agent = resolveDisplayAgent(selectedTarget, statuses)
+  if (agent) {
+    return <AiAgentIcon agent={agent} size={24} />
   }
   return <Sparkle size={22} weight="regular" />
 }

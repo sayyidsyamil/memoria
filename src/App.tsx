@@ -7,6 +7,7 @@ import { CreateTypeDialog } from './components/CreateTypeDialog'
 import { CreateViewDialog } from './components/CreateViewDialog'
 import { QuickOpenPalette } from './components/QuickOpenPalette'
 import { LiveTranscribePanel } from './components/LiveTranscribePanel'
+import { ImportSourcePanel } from './components/ImportSourcePanel'
 import { CommandPalette } from './components/CommandPalette'
 import { SearchPanel } from './components/SearchPanel'
 import { Toast } from './components/Toast'
@@ -81,6 +82,7 @@ import { type NoteListFilter } from './utils/noteListHelpers'
 import { openNoteInNewWindow } from './utils/openNoteWindow'
 import { getPulledVaultUpdateOptions, refreshPulledVaultState } from './utils/pulledVaultRefresh'
 import { viewMatchesSelection } from './utils/viewIdentity'
+import { withSourceNoteMetadata } from './utils/sourceNoteMetadata'
 import { isAiWorkspaceWindow, isNoteWindow, getNoteWindowParams, type NoteWindowParams } from './utils/windowMode'
 import { GitSetupDialog } from './components/GitRequiredModal'
 import { RenameDetectedBanner } from './components/RenameDetectedBanner'
@@ -89,6 +91,7 @@ import type { NoteListMultiSelectionCommands } from './components/note-list/mult
 import { focusNoteIconPropertyEditor } from './components/noteIconPropertyEvents'
 import { trackEvent } from './lib/telemetry'
 import { areAiFeaturesEnabled } from './lib/aiFeatures'
+import { resolveAiTarget, targetAgent } from './lib/aiTargets'
 import { areGitFeaturesEnabled } from './lib/gitSettings'
 import { useAppCommandAiActions } from './hooks/useAppCommandAiActions'
 import { MEMORIA_DOCS_URL } from './constants/feedback'
@@ -286,6 +289,19 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   const handleActiveAiWorkspaceConversationChange = useCallback((id: string) => {
     setLastAiWorkspaceConversationId(id)
   }, [])
+  // The AI floating button mirrors the agent selected in the active chat
+  // conversation (persisted in settings), so it tracks "what's active" and
+  // updates live as you switch agents in the composer.
+  const activeAiTargetId = useMemo(() => {
+    const conversations = settings.ai_workspace_conversations ?? []
+    const active = conversations.find((c) => c.id === lastAiWorkspaceConversationId && !c.archived)
+      ?? conversations.find((c) => !c.archived)
+    return active?.target_id ?? settings.default_ai_target ?? undefined
+  }, [settings.ai_workspace_conversations, settings.default_ai_target, lastAiWorkspaceConversationId])
+  const activeAiAgent = useMemo(
+    () => targetAgent(resolveAiTarget({ ...settings, default_ai_target: activeAiTargetId ?? null })),
+    [settings, activeAiTargetId],
+  )
   const {
     folderVaults,
     graphDefaultWorkspacePath,
@@ -771,7 +787,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     }
 
     if (effectiveSelection.kind !== 'filter') return
-    if (effectiveSelection.filter === 'all') {
+    if (effectiveSelection.filter === 'wiki') {
       openNoteListPropertiesPicker('all')
       return
     }
@@ -1217,8 +1233,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
       return selectedView ? `Customize ${selectedView.definition.name} columns` : 'Customize View columns'
     }
 
-    return effectiveSelection.kind === 'filter' && effectiveSelection.filter === 'all'
-      ? 'Customize All Notes columns'
+    return effectiveSelection.kind === 'filter' && effectiveSelection.filter === 'wiki'
+      ? 'Customize Wiki columns'
       : 'Customize Inbox columns'
   }, [effectiveSelection, vault.views])
   const viewOrdering = useSavedViewOrdering({
@@ -1652,8 +1668,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         {aiFeaturesEnabled && !effectiveShowAIChat ? (
           <AiWorkspaceFloatingButton
             statuses={aiAgentsStatus}
-            defaultAgent={aiAgentPreferences.defaultAiAgent}
-            defaultTarget={settings.default_ai_target ?? undefined}
+            defaultAgent={activeAiAgent}
+            defaultTarget={activeAiTargetId}
             providers={settings.ai_model_providers ?? []}
             locale={appLocale}
             updateBannerVisible={updateStatus.state !== 'idle' && updateStatus.state !== 'error'}
@@ -1664,22 +1680,53 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         <DeleteProgressNotice count={deleteActions.pendingDeleteCount} />
         <Toast message={toastMessage} onDismiss={() => setToastMessage(null)} />
         {!noteWindowParams && !aiWorkspaceWindow && resolvedPath ? (
-          <LiveTranscribePanel
-            onSave={async (title, markdown) => {
-              const safeTitle = title.replace(/[\\/:*?"<>|]/g, '-')
-              try {
-                await invoke('create_note_content', {
-                  path: `${resolvedPath}/${safeTitle}.md`,
-                  content: markdown,
-                  vaultPath: resolvedPath,
-                })
-                await vault.reloadVault()
-                setToastMessage(`Saved transcript "${safeTitle}"`)
-              } catch (e) {
-                setToastMessage(`Failed to save transcript: ${String(e)}`)
+          (() => {
+            const saveNote = async (
+              title: string,
+              markdown: string,
+              kind: string,
+              options: { directory?: string; sourceType?: string } = {},
+            ) => {
+              const safeTitle = title.replace(/[\\/:*?"<>|]/g, '-').slice(0, 120) || 'Untitled'
+              const content = options.directory === 'sources'
+                ? withSourceNoteMetadata(markdown, { sourceType: options.sourceType })
+                : markdown
+              const pathForTitle = (candidateTitle: string) => {
+                const relativePath = options.directory
+                  ? `${options.directory}/${candidateTitle}.md`
+                  : `${candidateTitle}.md`
+                return `${resolvedPath}/${relativePath}`
               }
-            }}
-          />
+
+              let lastError: unknown = null
+              for (let attempt = 1; attempt <= 100; attempt += 1) {
+                const candidateTitle = attempt === 1 ? safeTitle : `${safeTitle} ${attempt}`
+                try {
+                  await invoke('create_note_content', {
+                    path: pathForTitle(candidateTitle),
+                    content,
+                    vaultPath: resolvedPath,
+                  })
+                  await vault.reloadVault()
+                  setToastMessage(`Saved ${kind} "${candidateTitle}"`)
+                  return
+                } catch (e) {
+                  lastError = e
+                  if (!String(e).toLowerCase().includes('file already exists')) break
+                }
+              }
+              setToastMessage(`Failed to save ${kind}: ${String(lastError)}`)
+            }
+            return (
+              <>
+                <LiveTranscribePanel onSave={(title, markdown) => saveNote(title, markdown, 'transcript')} />
+                <ImportSourcePanel onSave={(title, markdown, metadata) => saveNote(title, markdown, 'source', {
+                  directory: 'sources',
+                  sourceType: metadata.sourceType,
+                })} />
+              </>
+            )
+          })()
         ) : null}
         <QuickOpenPalette open={dialogs.showQuickOpen} entries={visibleEntries} isLoading={vault.isLoading} onSelect={notes.handleSelectNote} onCreateNote={(title) => notes.handleCreateNote(title, 'Note', 'quick_open')} onClose={dialogs.closeQuickOpen} locale={appLocale} />
         <CommandPalette

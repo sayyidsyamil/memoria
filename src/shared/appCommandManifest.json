@@ -301,7 +301,7 @@
     },
     "goAllNotes": {
       "id": "go-all-notes",
-      "route": { "kind": "filter", "value": "all" },
+      "route": { "kind": "filter", "value": "wiki" },
       "menuOwned": true
     },
     "goArchived": {
@@ -504,7 +504,7 @@
     {
       "label": "Go",
       "items": [
-        { "kind": "command", "command": "goAllNotes", "label": "All Notes" },
+        { "kind": "command", "command": "goAllNotes", "label": "Wiki" },
         { "kind": "command", "command": "goArchived", "label": "Archived" },
         { "kind": "command", "command": "goChanges", "label": "Changes" },
         { "kind": "command", "command": "goInbox", "label": "Inbox" },

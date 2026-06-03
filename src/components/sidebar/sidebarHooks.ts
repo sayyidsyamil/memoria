@@ -6,7 +6,7 @@ import {
 import type { VaultEntry } from '../../types'
 import { APP_STORAGE_KEYS, LEGACY_APP_STORAGE_KEYS, getAppStorageItem } from '../../constants/appStorage'
 import { buildTypeEntryMap } from '../../utils/typeColors'
-import { countAllNotesByFilter } from '../../utils/noteListHelpers'
+import { countAllNotesByFilter, countPrimaryMemoryFilters, countWikiEntriesByType } from '../../utils/noteListHelpers'
 import { buildDynamicSections, sortSections } from '../../utils/sidebarSections'
 import type { AllNotesFileVisibility } from '../../utils/allNotesFileVisibility'
 import { buildTypeVisibilityLookup, isTypeSectionVisible } from '../../utils/typeVisibility'
@@ -205,7 +205,11 @@ export function useEntryCounts(
 ) {
   return useMemo(() => {
     const counts = countAllNotesByFilter(entries, allNotesFileVisibility)
-    return { activeCount: counts.open, archivedCount: counts.archived }
+    return {
+      ...countPrimaryMemoryFilters(entries),
+      archivedCount: counts.archived,
+      wikiTypeCounts: countWikiEntriesByType(entries),
+    }
   }, [allNotesFileVisibility, entries])
 }
 

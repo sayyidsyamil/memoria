@@ -214,7 +214,7 @@ export function useAppViewActions({
     await vault.reloadVault()
     vault.reloadFolders()
     if (selection.kind === 'view' && viewMatchesSelection(existing, selection)) {
-      handleSetSelection({ kind: 'filter', filter: 'all' })
+      handleSetSelection({ kind: 'filter', filter: 'wiki' })
     }
     setToastMessage('View deleted')
   }, [handleSetSelection, resolvedPath, selection, setToastMessage, vault])

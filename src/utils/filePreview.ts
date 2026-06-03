@@ -1,6 +1,6 @@
 import type { VaultEntry } from '../types'
 
-export type FilePreviewKind = 'image' | 'pdf' | 'audio' | 'video'
+export type FilePreviewKind = 'image' | 'pdf' | 'audio' | 'video' | 'html'
 
 const IMAGE_PREVIEW_EXTENSIONS = new Set([
   'apng',
@@ -17,6 +17,7 @@ const IMAGE_PREVIEW_EXTENSIONS = new Set([
   'webp',
 ])
 const PDF_PREVIEW_EXTENSIONS = new Set(['pdf'])
+const HTML_PREVIEW_EXTENSIONS = new Set(['html', 'htm'])
 const AUDIO_PREVIEW_EXTENSIONS = new Set(['aac', 'flac', 'm4a', 'mp3', 'oga', 'ogg', 'opus', 'wav', 'wave'])
 const VIDEO_PREVIEW_EXTENSIONS = new Set(['m4v', 'mov', 'mp4', 'ogv', 'webm'])
 
@@ -40,9 +41,12 @@ export function isPdfPreviewEntry(entry: Pick<VaultEntry, 'fileKind' | 'filename
 }
 
 export function filePreviewKind(entry: Pick<VaultEntry, 'fileKind' | 'filename' | 'path'>): FilePreviewKind | null {
+  const extension = previewExtension(entry)
+  // HTML renders as a preview even though it's a text file.
+  if (extension && HTML_PREVIEW_EXTENSIONS.has(extension)) return 'html'
+
   if (entry.fileKind && entry.fileKind !== 'binary') return null
 
-  const extension = previewExtension(entry)
   if (!extension) return null
   if (IMAGE_PREVIEW_EXTENSIONS.has(extension)) return 'image'
   if (PDF_PREVIEW_EXTENSIONS.has(extension)) return 'pdf'

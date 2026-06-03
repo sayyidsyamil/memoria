@@ -1,7 +1,7 @@
 import type { SidebarSelection } from '../types'
 
 export const INBOX_SELECTION: SidebarSelection = { kind: 'filter', filter: 'inbox' }
-export const ALL_NOTES_SELECTION: SidebarSelection = { kind: 'filter', filter: 'all' }
+export const ALL_NOTES_SELECTION: SidebarSelection = { kind: 'filter', filter: 'wiki' }
 
 export function isExplicitOrganizationEnabled(explicitOrganization?: boolean | null): boolean {
   return explicitOrganization !== false

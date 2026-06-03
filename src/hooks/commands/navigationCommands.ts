@@ -90,7 +90,9 @@ function buildBaseCommands(config: NavigationCommandsConfig): CommandAction[] {
 
   return [
     { id: 'search-notes', label: 'Search Notes', group: 'Navigation', shortcut: getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileQuickOpen), keywords: ['find', 'open', 'quick'], enabled: true, execute: onQuickOpen },
-    { id: 'go-all', label: 'Go to All Notes', group: 'Navigation', keywords: ['filter'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'all' }) },
+    { id: 'go-all', label: 'Go to Wiki', group: 'Navigation', keywords: ['filter', 'memory'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'wiki' }) },
+    { id: 'go-sources', label: 'Go to Sources', group: 'Navigation', keywords: ['files', 'evidence', 'raw'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'sources' }) },
+    { id: 'go-briefs', label: 'Go to Briefs', group: 'Navigation', keywords: ['brief', 'summary'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'briefs' }) },
     { id: 'go-archived', label: 'Go to Archived', group: 'Navigation', keywords: [], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'archived' }) },
     { id: 'go-changes', label: 'Go to Changes', group: 'Navigation', keywords: ['git', 'modified', 'pending'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'changes' }) },
     { id: 'go-pulse', label: 'Go to History', group: 'Navigation', keywords: ['activity', 'history', 'commits', 'git', 'feed'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'pulse' }) },

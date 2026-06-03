@@ -15,8 +15,11 @@ export interface DeletedNoteEntry extends VaultEntry {
 const FILTER_TITLE_KEYS = {
   archived: 'noteList.title.archive',
   changes: 'noteList.title.changes',
+  briefs: 'noteList.title.briefs',
   inbox: 'noteList.title.inbox',
   pulse: 'noteList.title.history',
+  sources: 'noteList.title.sources',
+  wiki: 'noteList.title.wiki',
 } as const
 
 type LocalizedFilter = keyof typeof FILTER_TITLE_KEYS

@@ -571,7 +571,11 @@ macro_rules! app_invoke_handler {
             vault_watcher::start_vault_watcher,
             vault_watcher::stop_vault_watcher,
             commands::start_live_transcribe,
-            commands::stop_live_transcribe
+            commands::pause_live_transcribe,
+            commands::resume_live_transcribe,
+            commands::stop_live_transcribe,
+            commands::enroll_voices,
+            commands::import_source
         ]
     };
 }

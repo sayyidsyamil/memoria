@@ -618,7 +618,7 @@ export function useAppCommands(config: AppCommandsConfig): CommandAction[] {
   const { onSelect } = config
 
   const selectFilter = useCallback((filter: SidebarFilter) => {
-    const safeFilter = !config.showInbox && filter === 'inbox' ? 'all' : filter
+    const safeFilter = !config.showInbox && filter === 'inbox' ? 'wiki' : filter
     onSelect({ kind: 'filter', filter: safeFilter })
   }, [config.showInbox, onSelect])
 

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react'
+import { memo, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import type { NoteWidthMode, VaultEntry } from '../types'
 import { cn } from '@/lib/utils'
 import { translate, type AppLocale } from '../lib/i18n'
@@ -6,8 +6,7 @@ import { APP_COMMAND_IDS, formatShortcutDisplay, getAppCommandShortcutDisplay } 
 import { extractFrontmatterTitleFromContent, extractH1TitleFromContent } from '../utils/noteTitle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ActionTooltip, type ActionTooltipCopy } from '@/components/ui/action-tooltip'
-import { TooltipProvider } from '@/components/ui/tooltip'
+import { ActionTooltip } from '@/components/ui/action-tooltip'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
 import {
   DropdownMenu,
@@ -37,6 +36,12 @@ import {
 } from '@phosphor-icons/react'
 import { slugify } from '../hooks/useNoteCreation'
 import { useDragRegion } from '../hooks/useDragRegion'
+import {
+  EDITOR_HEADER_ICON_CLASS,
+  EditorHeaderActionButton,
+  EditorHeaderActions,
+  EditorHeaderRoot,
+} from './EditorHeaderChrome'
 
 interface BreadcrumbBarProps {
   entry: VaultEntry
@@ -75,7 +80,6 @@ interface BreadcrumbBarProps {
   content?: string | null
 }
 
-const BREADCRUMB_ICON_CLASS = 'size-[16px]'
 const TITLE_ACTION_GAP_PX = 24
 
 function focusFilenameInput(
@@ -123,41 +127,7 @@ function handleFilenameInputKeyDown(
   }
 }
 
-function IconActionButton({
-  copy,
-  onClick,
-  className,
-  style,
-  children,
-  testId,
-  tooltipAlign = 'end',
-}: {
-  copy: ActionTooltipCopy
-  onClick?: () => void
-  className?: string
-  style?: CSSProperties
-  children: ReactNode
-  testId?: string
-  tooltipAlign?: 'start' | 'center' | 'end'
-}) {
-  return (
-    <ActionTooltip copy={copy} side="bottom" align={tooltipAlign}>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-xs"
-        className={cn('text-muted-foreground [&_svg:not([class*=size-])]:size-4', className)}
-        style={style}
-        onClick={onClick}
-        aria-label={copy.label}
-        aria-disabled={onClick ? undefined : true}
-        data-testid={testId}
-      >
-        {children}
-      </Button>
-    </ActionTooltip>
-  )
-}
+const IconActionButton = EditorHeaderActionButton
 
 interface ToggleIconActionProps {
   active: boolean
@@ -221,21 +191,21 @@ const TOGGLE_ACTION_CONFIGS = {
     activeLabelKey: 'editor.toolbar.rawReturn',
     inactiveLabelKey: 'editor.toolbar.rawOpen',
     shortcut: '⌘\\',
-    renderIcon: () => <Code size={16} className={BREADCRUMB_ICON_CLASS} />,
+    renderIcon: () => <Code size={16} className={EDITOR_HEADER_ICON_CLASS} />,
   },
   favorite: {
     activeClassName: 'text-[var(--accent-yellow)]',
     activeLabelKey: 'editor.toolbar.removeFavorite',
     inactiveLabelKey: 'editor.toolbar.addFavorite',
     shortcut: '⌘D',
-    renderIcon: (active: boolean) => <Star size={16} weight={active ? 'fill' : 'regular'} className={BREADCRUMB_ICON_CLASS} />,
+    renderIcon: (active: boolean) => <Star size={16} weight={active ? 'fill' : 'regular'} className={EDITOR_HEADER_ICON_CLASS} />,
   },
   organized: {
     activeClassName: 'text-[var(--accent-green)]',
     activeLabelKey: 'editor.toolbar.markUnorganized',
     inactiveLabelKey: 'editor.toolbar.markOrganized',
     shortcut: '⌘E',
-    renderIcon: (active: boolean) => <CheckCircle size={16} weight={active ? 'fill' : 'regular'} className={BREADCRUMB_ICON_CLASS} />,
+    renderIcon: (active: boolean) => <CheckCircle size={16} weight={active ? 'fill' : 'regular'} className={EDITOR_HEADER_ICON_CLASS} />,
   },
 } satisfies Record<string, {
   activeClassName: string
@@ -294,8 +264,8 @@ function NoteWidthAction({
       className={cn(isWide ? 'text-foreground' : 'hover:text-foreground')}
     >
       {isWide
-        ? <ArrowsInLineHorizontal size={16} className={BREADCRUMB_ICON_CLASS} />
-        : <ArrowsOutLineHorizontal size={16} className={BREADCRUMB_ICON_CLASS} />}
+        ? <ArrowsInLineHorizontal size={16} className={EDITOR_HEADER_ICON_CLASS} />
+        : <ArrowsOutLineHorizontal size={16} className={EDITOR_HEADER_ICON_CLASS} />}
     </IconActionButton>
   )
 }
@@ -330,7 +300,7 @@ function NeighborhoodAction({
       onClick={() => onEnterNeighborhood(entry)}
       className="hover:text-foreground"
     >
-      <MapTrifold size={16} className={BREADCRUMB_ICON_CLASS} />
+      <MapTrifold size={16} className={EDITOR_HEADER_ICON_CLASS} />
     </IconActionButton>
   )
 }
@@ -351,7 +321,7 @@ function TableOfContentsAction({
       onClick={onToggleTableOfContents}
       className={cn(showTableOfContents ? 'text-foreground' : 'hover:text-foreground')}
     >
-      <ListBullets size={16} weight={showTableOfContents ? 'bold' : 'regular'} className={BREADCRUMB_ICON_CLASS} />
+      <ListBullets size={16} weight={showTableOfContents ? 'bold' : 'regular'} className={EDITOR_HEADER_ICON_CLASS} />
     </IconActionButton>
   )
 }
@@ -371,7 +341,7 @@ function FilePathActions({
           className="hover:text-foreground"
           testId="breadcrumb-reveal-file"
         >
-          <FolderOpen size={16} className={BREADCRUMB_ICON_CLASS} />
+          <FolderOpen size={16} className={EDITOR_HEADER_ICON_CLASS} />
         </IconActionButton>
       )}
       {onCopyFilePath && (
@@ -381,7 +351,7 @@ function FilePathActions({
           className="hover:text-foreground"
           testId="breadcrumb-copy-file-path"
         >
-          <ClipboardText size={16} className={BREADCRUMB_ICON_CLASS} />
+          <ClipboardText size={16} className={EDITOR_HEADER_ICON_CLASS} />
         </IconActionButton>
       )}
     </>
@@ -405,7 +375,7 @@ function InspectorAction({
       testId="breadcrumb-properties-button"
       tooltipAlign="end"
     >
-      <SidebarSimple size={16} weight="regular" className={BREADCRUMB_ICON_CLASS} />
+      <SidebarSimple size={16} weight="regular" className={EDITOR_HEADER_ICON_CLASS} />
     </IconActionButton>
   )
 }
@@ -832,12 +802,7 @@ function BreadcrumbActions({
   overflowCollapsed: boolean
 }) {
   return (
-    <div
-      ref={actionsRef}
-      className="breadcrumb-bar__actions ml-auto flex shrink-0 items-center"
-      data-overflow-collapsed={overflowCollapsed}
-      style={{ gap: 8 }}
-    >
+    <EditorHeaderActions actionsRef={actionsRef} overflowCollapsed={overflowCollapsed}>
       <FavoriteAction favorite={entry.favorite} locale={locale} onToggleFavorite={onToggleFavorite} />
       <OrganizedAction organized={entry.organized} locale={locale} onToggleOrganized={onToggleOrganized} />
       <OverflowToolbarAction>
@@ -877,7 +842,7 @@ function BreadcrumbActions({
         locale={locale}
       />
       <InspectorAction inspectorCollapsed={inspectorCollapsed} locale={locale} onToggleInspector={onToggleInspector} />
-    </div>
+    </EditorHeaderActions>
   )
 }
 
@@ -945,7 +910,7 @@ function BreadcrumbOverflowMenu({
             aria-label={translate(locale, 'editor.toolbar.moreActions')}
             data-testid="breadcrumb-overflow-menu-trigger"
           >
-            <DotsThree size={18} weight="bold" className={BREADCRUMB_ICON_CLASS} />
+            <DotsThree size={18} weight="bold" className={EDITOR_HEADER_ICON_CLASS} />
           </Button>
         </DropdownMenuTrigger>
       </ActionTooltip>
@@ -1071,20 +1036,10 @@ export const BreadcrumbBar = memo(function BreadcrumbBar({
   }, [dragRegionRef, onMouseDown])
 
   return (
-    <TooltipProvider>
-      <div
-        ref={breadcrumbDragRegionRef}
-        data-tauri-drag-region
-        data-title-hidden=""
-        className="breadcrumb-bar flex shrink-0 items-center border-b border-transparent"
-        style={{
-          height: 52,
-          background: 'var(--background)',
-          padding: '6px 16px 6px var(--breadcrumb-bar-left-padding, 16px)',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div ref={titleRef} className="breadcrumb-bar__title min-w-0 flex-1 overflow-hidden">
+    <EditorHeaderRoot
+      rootRef={breadcrumbDragRegionRef}
+      titleRef={titleRef}
+      title={
           <BreadcrumbTitle
             content={content}
             entry={entry}
@@ -1092,12 +1047,8 @@ export const BreadcrumbBar = memo(function BreadcrumbBar({
             loadingTitle={loadingTitle}
             onRenameFilename={onRenameFilename}
           />
-        </div>
-        <div
-          aria-hidden="true"
-          data-tauri-drag-region
-          className="breadcrumb-bar__drag-spacer w-6 shrink-0"
-        />
+      }
+      actions={
         <BreadcrumbActions
           actionsRef={actionsRef}
           entry={entry}
@@ -1105,7 +1056,7 @@ export const BreadcrumbBar = memo(function BreadcrumbBar({
           overflowCollapsed={overflowCollapsed}
           {...actionProps}
         />
-      </div>
-    </TooltipProvider>
+      }
+    />
   )
 })

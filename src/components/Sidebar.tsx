@@ -1,4 +1,4 @@
-import { useCallback, memo } from 'react'
+import { useCallback, memo, useMemo } from 'react'
 import type {
   FolderCreationParent, FolderNode, SidebarSelection, VaultEntry, ViewDefinition, ViewFile,
 } from '../types'
@@ -7,6 +7,7 @@ import {
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { FolderTree } from './FolderTree'
+import type { SectionGroup } from './SidebarParts'
 import {
   computeReorder,
   useEntryCounts,
@@ -107,8 +108,11 @@ interface SidebarNavigationProps extends Pick<
   | 'locale'
   | 'loading'
 > {
-  activeCount: number
+  wikiCount: number
+  sourcesCount: number
+  briefsCount: number
   archivedCount: number
+  wikiTypeSections: Array<SectionGroup & { count: number }>
   groupCollapsed: ReturnType<typeof useSidebarCollapsed>['collapsed']
   toggleGroup: ReturnType<typeof useSidebarCollapsed>['toggle']
   visibleSections: ReturnType<typeof useSidebarSections>['visibleSections']
@@ -121,6 +125,8 @@ interface SidebarNavigationProps extends Pick<
   isSectionVisible: (type: string) => boolean
   toggleVisibility: (type: string, typeEntryPath?: string) => void
 }
+
+const SHOW_LEGACY_SIDEBAR_SECTIONS = false
 
 type SidebarFavoritesNavigationProps = Pick<
   SidebarNavigationProps,
@@ -383,12 +389,15 @@ function SidebarTopNavigation(props: SidebarNavigationProps) {
         onSelect={props.onSelect}
         showInbox={props.showInbox ?? true}
         inboxCount={props.inboxCount ?? 0}
-        activeCount={props.activeCount}
+        wikiCount={props.wikiCount}
+        sourcesCount={props.sourcesCount}
+        briefsCount={props.briefsCount}
         archivedCount={props.archivedCount}
+        wikiTypeSections={props.wikiTypeSections}
         locale={props.locale ?? 'en'}
         loading={props.loading ?? false}
       />
-      {(props.loading || props.entries.some((entry) => entry.favorite && !entry.archived)) && (
+      {SHOW_LEGACY_SIDEBAR_SECTIONS && (props.loading || props.entries.some((entry) => entry.favorite && !entry.archived)) && (
         <SidebarFavoritesNavigation
           loading={props.loading}
           entries={props.entries}
@@ -455,24 +464,28 @@ function SidebarNavigation(props: SidebarNavigationProps) {
   return (
     <nav className="flex-1 overflow-y-auto">
       <SidebarTopNavigation {...props} />
-      <SidebarViewAndTypeNavigation {...props} />
-      <SidebarFoldersNavigation
-        loading={props.loading}
-        folders={props.folders ?? []}
-        selection={props.selection}
-        onSelect={props.onSelect}
-        onCreateFolder={props.onCreateFolder}
-        onRenameFolder={props.onRenameFolder}
-        onDeleteFolder={props.onDeleteFolder}
-        folderFileActions={props.folderFileActions}
-        renamingFolderPath={props.renamingFolderPath}
-        onStartRenameFolder={props.onStartRenameFolder}
-        onCancelRenameFolder={props.onCancelRenameFolder}
-        vaultRootPath={props.vaultRootPath}
-        groupCollapsed={props.groupCollapsed}
-        toggleGroup={props.toggleGroup}
-        locale={props.locale}
-      />
+      {SHOW_LEGACY_SIDEBAR_SECTIONS && (
+        <>
+          <SidebarViewAndTypeNavigation {...props} />
+          <SidebarFoldersNavigation
+            loading={props.loading}
+            folders={props.folders ?? []}
+            selection={props.selection}
+            onSelect={props.onSelect}
+            onCreateFolder={props.onCreateFolder}
+            onRenameFolder={props.onRenameFolder}
+            onDeleteFolder={props.onDeleteFolder}
+            folderFileActions={props.folderFileActions}
+            renamingFolderPath={props.renamingFolderPath}
+            onStartRenameFolder={props.onStartRenameFolder}
+            onCancelRenameFolder={props.onCancelRenameFolder}
+            vaultRootPath={props.vaultRootPath}
+            groupCollapsed={props.groupCollapsed}
+            toggleGroup={props.toggleGroup}
+            locale={props.locale}
+          />
+        </>
+      )}
     </nav>
   )
 }
@@ -518,7 +531,7 @@ function useSidebarRuntime({
     visibleSections,
     sectionIds,
   } = useSidebarSections(entries, pluralizeTypeLabels)
-  const { activeCount, archivedCount } = useEntryCounts(entries, allNotesFileVisibility)
+  const { wikiCount, sourcesCount, briefsCount, archivedCount, wikiTypeCounts } = useEntryCounts(entries, allNotesFileVisibility)
   const { collapsed: groupCollapsed, toggle: toggleGroup } = useSidebarCollapsed()
   const typeInteractions = useSidebarTypeInteractions({
     allSectionGroups,
@@ -542,6 +555,11 @@ function useSidebarRuntime({
   }, [onSelectNote, typeEntryMap])
 
   const sensors = useSidebarDndSensors()
+  const wikiTypeSections = useMemo(() => (
+    visibleSections
+      .map((section) => ({ ...section, count: wikiTypeCounts[section.type] ?? 0 }))
+      .filter((section) => section.count > 0 && !['Source', 'Type'].includes(section.type))
+  ), [visibleSections, wikiTypeCounts])
 
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event
@@ -565,7 +583,7 @@ function useSidebarRuntime({
   }
 
   return {
-    activeCount,
+    briefsCount,
     allSectionGroups,
     archivedCount,
     groupCollapsed,
@@ -574,12 +592,15 @@ function useSidebarRuntime({
     sectionIds,
     sectionProps,
     sensors,
+    sourcesCount,
     toggleGroup,
     toggleVisibility,
     typeEntryMap,
     typeVisibility,
     typeInteractions,
     visibleSections,
+    wikiTypeSections,
+    wikiCount,
   }
 }
 
@@ -618,8 +639,11 @@ function SidebarRuntimeNavigation({
       locale={props.locale}
       loading={props.loading}
       onCreateNewType={props.onCreateNewType}
-      activeCount={runtime.activeCount}
+      wikiCount={runtime.wikiCount}
+      sourcesCount={runtime.sourcesCount}
+      briefsCount={runtime.briefsCount}
       archivedCount={runtime.archivedCount}
+      wikiTypeSections={runtime.wikiTypeSections}
       groupCollapsed={runtime.groupCollapsed}
       toggleGroup={runtime.toggleGroup}
       visibleSections={runtime.visibleSections}

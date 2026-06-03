@@ -187,8 +187,8 @@ export function useCommandRegistry(config: CommandRegistryConfig): import('./com
   const isSectionGroup = selection?.kind === 'sectionGroup'
   const folderCreateOptions = useMemo(() => currentFolderCreateOptions(selection), [selection])
   const noteListColumnsLabel = config.noteListColumnsLabel ?? (
-    selection?.kind === 'filter' && selection.filter === 'all'
-      ? 'Customize All Notes columns'
+    selection?.kind === 'filter' && selection.filter === 'wiki'
+      ? 'Customize Wiki columns'
       : 'Customize Inbox columns'
   )
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { convertFileSrc } from '@tauri-apps/api/core'
-import { ArrowSquareOut, ClipboardText, FileDashed, FilePdf, FolderOpen, ImageSquare, Link, SpeakerHigh, Video, WarningCircle } from '@phosphor-icons/react'
+import { ArrowSquareOut, ClipboardText, FileDashed, FolderOpen, Link, WarningCircle } from '@phosphor-icons/react'
 import type { VaultEntry } from '../types'
 import { translate, type AppLocale } from '../lib/i18n'
 import { trackFilePreviewAction, trackFilePreviewFailed, trackFilePreviewOpened } from '../lib/productAnalytics'
@@ -8,6 +8,12 @@ import { filePreviewKind, previewFileTypeLabel, type FilePreviewKind } from '../
 import { useExternalMediaPreview } from '../utils/mediaPreviewRuntime'
 import { focusNoteListContainer } from '../utils/neighborhoodHistory'
 import { openLocalFile } from '../utils/url'
+import {
+  EDITOR_HEADER_ICON_CLASS,
+  EditorHeaderActionButton,
+  EditorHeaderActions,
+  EditorHeaderRoot,
+} from './EditorHeaderChrome'
 import { Button } from './ui/button'
 
 interface FilePreviewProps {
@@ -45,31 +51,19 @@ function fallbackContentForPreviewKind(previewKind: FilePreviewKind | null): Omi
     }
   }
 
+  if (previewKind === 'html') {
+    return {
+      icon: 'warning',
+      title: 'HTML preview failed',
+      description: 'Memoria could not render this HTML file in the preview.',
+    }
+  }
+
   return {
     icon: 'file',
     title: 'Preview unavailable',
     description: 'Memoria does not have an in-app preview for this file type.',
   }
-}
-
-function FilePreviewHeaderIcon({ previewKind }: { previewKind: FilePreviewKind | null }) {
-  if (previewKind === 'image') {
-    return <ImageSquare size={17} className="shrink-0 text-muted-foreground" aria-hidden="true" />
-  }
-
-  if (previewKind === 'pdf') {
-    return <FilePdf size={17} className="shrink-0 text-muted-foreground" aria-hidden="true" />
-  }
-
-  if (previewKind === 'audio') {
-    return <SpeakerHigh size={17} className="shrink-0 text-muted-foreground" aria-hidden="true" />
-  }
-
-  if (previewKind === 'video') {
-    return <Video size={17} className="shrink-0 text-muted-foreground" aria-hidden="true" />
-  }
-
-  return <FileDashed size={17} className="shrink-0 text-muted-foreground" aria-hidden="true" />
 }
 
 function FilePreviewFallback({ icon, title, description, onOpenExternal }: FilePreviewFallbackProps) {
@@ -95,7 +89,6 @@ function FilePreviewFallback({ icon, title, description, onOpenExternal }: FileP
 
 function FilePreviewHeader({
   entry,
-  previewKind,
   fileTypeLabel,
   locale = 'en',
   onOpenExternal,
@@ -104,7 +97,6 @@ function FilePreviewHeader({
   onCopyDeepLink,
 }: {
   entry: VaultEntry
-  previewKind: FilePreviewKind | null
   fileTypeLabel: string
   locale?: AppLocale
   onOpenExternal: () => void
@@ -112,43 +104,48 @@ function FilePreviewHeader({
   onCopyFilePath?: () => void
   onCopyDeepLink?: () => void
 }) {
+  const filenameStem = entry.filename.replace(/\.[^.]+$/u, '')
+  const copyDeepLinkLabel = translate(locale, 'filePreview.copyDeepLink')
+
   return (
-    <div
-      className="flex h-[52px] shrink-0 items-center justify-between border-b border-border px-4"
-      data-tauri-drag-region
-    >
-      <div className="flex min-w-0 items-center gap-2">
-        <FilePreviewHeaderIcon previewKind={previewKind} />
-        <div className="min-w-0">
-          <h1 className="m-0 truncate text-[14px] font-semibold text-foreground">{entry.title}</h1>
-          <p className="m-0 text-[11px] text-muted-foreground">{fileTypeLabel}</p>
+    <EditorHeaderRoot
+      title={
+        <div className="breadcrumb-bar__title-content flex min-w-0 items-center gap-1.5 text-sm text-muted-foreground">
+          <span className="shrink-0">{fileTypeLabel}</span>
+          <span aria-hidden="true" className="shrink-0 text-border">›</span>
+          <div className="flex min-w-0 items-center gap-1 truncate">
+            <span
+              className="breadcrumb-bar__filename-text truncate text-sm font-medium text-foreground"
+              title={entry.filename}
+            >
+              {filenameStem}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="flex items-center gap-1">
-        {onRevealFile && (
-          <Button type="button" variant="ghost" size="sm" onClick={onRevealFile}>
-            <FolderOpen size={15} />
-            Reveal
-          </Button>
-        )}
-        {onCopyFilePath && (
-          <Button type="button" variant="ghost" size="sm" onClick={onCopyFilePath}>
-            <ClipboardText size={15} />
-            Copy path
-          </Button>
-        )}
-        {onCopyDeepLink && (
-          <Button type="button" variant="ghost" size="sm" onClick={onCopyDeepLink}>
-            <Link size={15} />
-            {translate(locale, 'filePreview.copyDeepLink')}
-          </Button>
-        )}
-        <Button type="button" variant="ghost" size="sm" onClick={onOpenExternal}>
-          <ArrowSquareOut size={15} />
-          Open
-        </Button>
-      </div>
-    </div>
+      }
+      actions={
+        <EditorHeaderActions>
+          {onRevealFile && (
+            <EditorHeaderActionButton copy={{ label: 'Reveal in Finder' }} onClick={onRevealFile}>
+              <FolderOpen size={16} className={EDITOR_HEADER_ICON_CLASS} />
+            </EditorHeaderActionButton>
+          )}
+          {onCopyFilePath && (
+            <EditorHeaderActionButton copy={{ label: 'Copy path' }} onClick={onCopyFilePath}>
+              <ClipboardText size={16} className={EDITOR_HEADER_ICON_CLASS} />
+            </EditorHeaderActionButton>
+          )}
+          {onCopyDeepLink && (
+            <EditorHeaderActionButton copy={{ label: copyDeepLinkLabel }} onClick={onCopyDeepLink}>
+              <Link size={16} className={EDITOR_HEADER_ICON_CLASS} />
+            </EditorHeaderActionButton>
+          )}
+          <EditorHeaderActionButton copy={{ label: 'Open in default app' }} onClick={onOpenExternal}>
+            <ArrowSquareOut size={16} className={EDITOR_HEADER_ICON_CLASS} />
+          </EditorHeaderActionButton>
+        </EditorHeaderActions>
+      }
+    />
   )
 }
 
@@ -178,6 +175,21 @@ function FilePreviewPdf({
         onOpenExternal={onOpenExternal}
       />
     </object>
+  )
+}
+
+function FilePreviewHtml({ entry, htmlSrc }: { entry: VaultEntry; htmlSrc: string }) {
+  // Interactive preview: scripts run so pages can be interactive (drag/drop, etc.).
+  // The iframe loads from the asset:// origin (separate from the app), so it can't
+  // reach the app window or its IPC; it only sees the user's own vault files.
+  return (
+    <iframe
+      src={htmlSrc}
+      title={entry.title}
+      sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"
+      className="h-full min-h-[320px] w-full border-0 bg-white"
+      data-testid="html-file-preview"
+    />
   )
 }
 
@@ -291,6 +303,10 @@ function FilePreviewBody({
 
   if (previewKind === 'pdf' && assetSrc !== null) {
     return <FilePreviewPdf entry={entry} pdfSrc={assetSrc} onOpenExternal={onOpenExternal} />
+  }
+
+  if (previewKind === 'html' && assetSrc !== null) {
+    return <FilePreviewHtml entry={entry} htmlSrc={assetSrc} />
   }
 
   if (previewKind === 'audio' && assetSrc !== null) {
@@ -453,7 +469,6 @@ export function FilePreview({
     >
       <FilePreviewHeader
         entry={entry}
-        previewKind={previewKind}
         fileTypeLabel={fileTypeLabel}
         locale={locale}
         onOpenExternal={actions.handleOpenExternal}

@@ -822,7 +822,7 @@ function resolvePropertyPicker(options: {
     noteListProperties: options.allNotesNoteListProperties,
     defaultDisplay: options.allNotesDefaultDisplay,
     onSave: options.onUpdateAllNotesNoteListProperties,
-    triggerTitle: 'Customize All Notes columns',
+    triggerTitle: 'Customize Wiki columns',
   }) ?? buildFilterPropertyPicker({
     scope: 'inbox',
     isActive: options.isInboxView,
@@ -925,7 +925,7 @@ export function useListPropertyPicker({
   onUpdateTypeSort,
   views,
 }: UseListPropertyPickerParams) {
-  const isAllNotesView = selection.kind === 'filter' && selection.filter === 'all'
+  const isAllNotesView = selection.kind === 'filter' && selection.filter === 'wiki'
   const isInboxView = selection.kind === 'filter' && selection.filter === 'inbox'
   const isSectionGroup = selection.kind === 'sectionGroup'
   const allNotesState = useAllNotesPropertyPickerState(entries, selection, isAllNotesView, typeEntryMap)

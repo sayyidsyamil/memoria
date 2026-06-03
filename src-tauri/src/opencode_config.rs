@@ -66,7 +66,9 @@ fn build_config(
 }
 
 fn permission_config(permission_mode: AiAgentPermissionMode) -> serde_json::Value {
-    let bash_permission = match permission_mode {
+    // Power User grants full local access (shell + writes anywhere, including the
+    // file it just created); Safe keeps edits inside the active vault only.
+    let elevated = match permission_mode {
         AiAgentPermissionMode::Safe => "deny",
         AiAgentPermissionMode::PowerUser => "allow",
     };
@@ -77,8 +79,8 @@ fn permission_config(permission_mode: AiAgentPermissionMode) -> serde_json::Valu
         "glob": "allow",
         "grep": "allow",
         "list": "allow",
-        "external_directory": "deny",
-        "bash": bash_permission
+        "external_directory": elevated,
+        "bash": elevated
     })
 }
 
@@ -234,7 +236,7 @@ mod tests {
     }
 
     #[test]
-    fn power_user_config_allows_bash_but_keeps_external_directories_denied() {
+    fn power_user_config_allows_bash_and_external_directories() {
         if let Ok(config) = build_config(
             "/tmp/vault",
             &[],
@@ -242,7 +244,7 @@ mod tests {
         ) {
             let json: serde_json::Value = serde_json::from_str(&config).unwrap();
             assert_eq!(json["permission"]["bash"], "allow");
-            assert_eq!(json["permission"]["external_directory"], "deny");
+            assert_eq!(json["permission"]["external_directory"], "allow");
         }
     }
 

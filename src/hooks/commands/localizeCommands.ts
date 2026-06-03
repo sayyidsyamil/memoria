@@ -14,6 +14,8 @@ const GROUP_LABEL_KEYS = {
 const STATIC_LABEL_KEYS: Partial<Record<string, TranslationKey>> = {
   'search-notes': 'command.navigation.searchNotes',
   'go-all': 'command.navigation.goAllNotes',
+  'go-sources': 'command.navigation.goSources',
+  'go-briefs': 'command.navigation.goBriefs',
   'go-archived': 'command.navigation.goArchived',
   'go-changes': 'command.navigation.goChanges',
   'go-pulse': 'command.navigation.goHistory',
@@ -122,6 +124,7 @@ function localizeNoteStateCommand(command: CommandAction, t: Translate): string 
 }
 
 function localizeColumnsCommand(command: CommandAction, t: Translate): string {
+  if (command.label === 'Customize Wiki columns') return t('noteList.properties.customizeWikiColumns')
   if (command.label === 'Customize All Notes columns') return t('noteList.properties.customizeAllColumns')
   if (command.label === 'Customize Inbox columns') return t('noteList.properties.customizeInboxColumns')
   const viewName = wrappedLabelValue(command.label, 'Customize ', ' columns')

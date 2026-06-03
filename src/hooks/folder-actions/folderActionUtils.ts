@@ -19,7 +19,7 @@ export interface ConfirmFolderDeleteState {
   confirmLabel: string
 }
 
-export const DEFAULT_SELECTION: SidebarSelection = { kind: 'filter', filter: 'all' }
+export const DEFAULT_SELECTION: SidebarSelection = { kind: 'filter', filter: 'wiki' }
 
 function trimTrailingSlash(path: string): string {
   return path.endsWith('/') ? path.slice(0, -1) : path

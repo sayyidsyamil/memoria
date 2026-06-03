@@ -1,5 +1,6 @@
 import { BulkActionBar } from '../BulkActionBar'
 import { FilterPills } from './FilterPills'
+import { InboxWorkflowPanel } from './InboxWorkflowPanel'
 import { NoteListHeader } from './NoteListHeader'
 import { EntityView, ListView } from './NoteListViews'
 import type { useNoteListModel } from './useNoteListModel'
@@ -255,6 +256,7 @@ function NoteListLayoutHeader({
   typeDocument,
   isEntityView,
   isChangesView,
+  isInboxView,
   listSort,
   listDirection,
   customProperties,
@@ -274,12 +276,14 @@ function NoteListLayoutHeader({
   toggleSearch,
   setSearch,
   handleSearchKeyDown,
+  inboxItemCount,
 }: Pick<
   NoteListLayoutProps,
   | 'title'
   | 'typeDocument'
   | 'isEntityView'
   | 'isChangesView'
+  | 'isInboxView'
   | 'listSort'
   | 'listDirection'
   | 'customProperties'
@@ -299,33 +303,40 @@ function NoteListLayoutHeader({
   | 'toggleSearch'
   | 'setSearch'
   | 'handleSearchKeyDown'
+  | 'inboxItemCount'
 >) {
   return (
-    <NoteListHeader
-      title={title}
-      typeDocument={typeDocument}
-      isEntityView={isEntityView}
-      isChangesView={isChangesView}
-      listSort={listSort}
-      listDirection={listDirection}
-      customProperties={customProperties}
-      gitRepositories={gitRepositories}
-      selectedGitRepositoryPath={selectedGitRepositoryPath}
-      onGitRepositoryChange={onGitRepositoryChange}
-      locale={locale}
-      sidebarCollapsed={sidebarCollapsed}
-      searchVisible={searchVisible}
-      search={search}
-      isSearching={isSearching}
-      searchInputRef={searchInputRef}
-      propertyPicker={propertyPicker}
-      onSortChange={handleSortChange}
-      onCreateNote={handleCreateNote}
-      onOpenType={onOpenType}
-      onToggleSearch={toggleSearch}
-      onSearchChange={setSearch}
-      onSearchKeyDown={handleSearchKeyDown}
-    />
+    <>
+      <NoteListHeader
+        title={title}
+        typeDocument={typeDocument}
+        isEntityView={isEntityView}
+        isChangesView={isChangesView}
+        isInboxView={isInboxView}
+        listSort={listSort}
+        listDirection={listDirection}
+        customProperties={customProperties}
+        gitRepositories={gitRepositories}
+        selectedGitRepositoryPath={selectedGitRepositoryPath}
+        onGitRepositoryChange={onGitRepositoryChange}
+        locale={locale}
+        sidebarCollapsed={sidebarCollapsed}
+        searchVisible={searchVisible}
+        search={search}
+        isSearching={isSearching}
+        searchInputRef={searchInputRef}
+        propertyPicker={propertyPicker}
+        onSortChange={handleSortChange}
+        onCreateNote={handleCreateNote}
+        onOpenType={onOpenType}
+        onToggleSearch={toggleSearch}
+        onSearchChange={setSearch}
+        onSearchKeyDown={handleSearchKeyDown}
+      />
+      {isInboxView && (
+        <InboxWorkflowPanel itemCount={inboxItemCount} onCreateNote={handleCreateNote} />
+      )}
+    </>
   )
 }
 

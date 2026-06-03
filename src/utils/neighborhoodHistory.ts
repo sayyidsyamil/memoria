@@ -62,7 +62,7 @@ export function resolveNeighborhoodSelection(
 ): NeighborhoodSelectionUpdate {
   const nextSelection: SidebarSelection = { kind: 'entity', entry }
   if (selectionsEqual(currentSelection, nextSelection)) {
-    return { action: 'exit', selection: { kind: 'filter', filter: 'all' } }
+    return { action: 'exit', selection: { kind: 'filter', filter: 'wiki' } }
   }
 
   return {

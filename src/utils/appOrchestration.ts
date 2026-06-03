@@ -57,7 +57,7 @@ export function canCustomizeColumnsForSelection(
 ): boolean {
   if (selection.kind === 'view') return true
   if (selection.kind !== 'filter') return false
-  if (selection.filter === 'all') return true
+  if (selection.filter === 'wiki') return true
   return explicitOrganizationEnabled && selection.filter === 'inbox'
 }
 

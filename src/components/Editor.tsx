@@ -21,6 +21,7 @@ import { EditorRightPanel } from './EditorRightPanel'
 import { EditorContent } from './EditorContent'
 import { EditorMemoryProbe } from './EditorMemoryProbe'
 import { FilePreview } from './FilePreview'
+import { filePreviewKind } from '../utils/filePreview'
 import { schema } from './editorSchema'
 import { useRightPanelExclusion } from './useRightPanelExclusion'
 import type { RawEditorFindRequest } from './RawEditorFindBar'
@@ -481,7 +482,9 @@ function EditorLayout({
   locale?: AppLocale
   onExportPdf?: (source?: NotePdfExportSource) => void
 }) {
-  const activeBinaryTab = activeTab?.entry.fileKind === 'binary' ? activeTab : null
+  const activeBinaryTab = activeTab && (activeTab.entry.fileKind === 'binary' || filePreviewKind(activeTab.entry) === 'html')
+    ? activeTab
+    : null
   const showEmptyState = tabs.length === 0 && activeTabPath === null && !isVaultLoading
 
   return (

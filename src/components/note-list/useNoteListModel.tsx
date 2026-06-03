@@ -46,7 +46,7 @@ function useViewFlags(selection: SidebarSelection) {
   const isSectionGroup = selection.kind === 'sectionGroup'
   const isFolderView = selection.kind === 'folder'
   const isInboxView = selection.kind === 'filter' && selection.filter === 'inbox'
-  const isAllNotesView = selection.kind === 'filter' && selection.filter === 'all'
+  const isAllNotesView = selection.kind === 'filter' && selection.filter === 'wiki'
   const isChangesView = selection.kind === 'filter' && selection.filter === 'changes'
   const showFilterPills = isSectionGroup || isFolderView
   return { isSectionGroup, isFolderView, isInboxView, isAllNotesView, isChangesView, showFilterPills }
@@ -143,7 +143,7 @@ function useFilterCounts(
   return useMemo(() => {
     if (selection.kind === 'sectionGroup') return countByFilter(entries, selection.type)
     if (selection.kind === 'folder') return countAllByFilter(entries)
-    if (selection.kind === 'filter' && selection.filter === 'all') {
+    if (selection.kind === 'filter' && selection.filter === 'wiki') {
       return countAllNotesByFilter(entries, allNotesFileVisibility)
     }
     return { open: 0, archived: 0 }
@@ -633,6 +633,7 @@ function buildNoteListLayoutModel(params: {
     isInboxView: params.selection.kind === 'filter' && params.selection.filter === 'inbox',
     modifiedFilesError: params.modifiedFilesError,
     searched: params.content.searched,
+    inboxItemCount: params.content.searched.length,
     query: params.content.query,
     showFilterPills: params.selection.kind === 'sectionGroup' || params.selection.kind === 'folder',
     noteListFilter: params.noteListFilter,

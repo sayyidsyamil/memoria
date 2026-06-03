@@ -35,31 +35,6 @@ export function getTypeIcon(isA: string | null, customIcon?: string | null): Com
   return (isA && (Reflect.get(TYPE_ICON_MAP, isA) as ComponentType<SVGAttributes<SVGSVGElement>> | undefined)) || FileText
 }
 
-type VisibleNoteStatus = Exclude<NoteStatus, 'clean'>
-
-const NOTE_STATUS_DOT: Record<VisibleNoteStatus, { color: string; testId: string; title: string }> = {
-  pendingSave: { color: 'var(--accent-green)', testId: 'pending-save-indicator', title: 'Saving to disk…' },
-  unsaved: { color: 'var(--accent-green)', testId: 'unsaved-indicator', title: 'Saving to disk…' },
-  new: { color: 'var(--accent-green)', testId: 'new-indicator', title: 'New (uncommitted)' },
-  modified: { color: 'var(--accent-orange)', testId: 'modified-indicator', title: 'Modified (uncommitted)' },
-}
-
-function hasStatusDot(noteStatus: NoteStatus): noteStatus is VisibleNoteStatus {
-  return noteStatus !== 'clean'
-}
-
-function StatusDot({ noteStatus }: { noteStatus: VisibleNoteStatus }) {
-  const dot = Reflect.get(NOTE_STATUS_DOT, noteStatus) as { color: string; testId: string; title: string }
-  return (
-    <span
-      className="mr-1.5 inline-block align-middle"
-      style={{ width: 6, height: 6, borderRadius: '50%', background: dot.color, verticalAlign: 'middle' }}
-      data-testid={dot.testId}
-      title={dot.title}
-    />
-  )
-}
-
 function StateBadge({ archived }: { archived: boolean }) {
   if (archived) {
     return (
@@ -182,7 +157,6 @@ function NotePropertySection({
 
 function InteractiveNoteDetails({
   entry,
-  noteStatus,
   isSelected,
   displayProps,
   allEntries,
@@ -190,7 +164,6 @@ function InteractiveNoteDetails({
   onClickNote,
 }: {
   entry: VaultEntry
-  noteStatus: NoteStatus
   isSelected: boolean
   displayProps: string[]
   allEntries: VaultEntry[]
@@ -203,7 +176,6 @@ function InteractiveNoteDetails({
         entry={entry}
         isBinary={false}
         isSelected={isSelected}
-        noteStatus={noteStatus}
       />
       <NoteSnippet snippet={entry.snippet} />
       <NotePropertySection
@@ -232,7 +204,6 @@ function StandardNoteContent({
   entry,
   isBinary,
   isUnavailableBinary,
-  noteStatus,
   isSelected,
   typeColor,
   displayProps,
@@ -243,7 +214,6 @@ function StandardNoteContent({
   entry: VaultEntry
   isBinary: boolean
   isUnavailableBinary: boolean
-  noteStatus: NoteStatus
   isSelected: boolean
   typeColor: string
   displayProps: string[]
@@ -264,12 +234,10 @@ function StandardNoteContent({
             entry={entry}
             isBinary={isUnavailableBinary}
             isSelected={isSelected}
-            noteStatus={noteStatus}
           />
         ) : (
           <InteractiveNoteDetails
             entry={entry}
-            noteStatus={noteStatus}
             isSelected={isSelected}
             displayProps={displayProps}
             allEntries={allEntries}
@@ -286,19 +254,16 @@ function NoteTitleRow({
   entry,
   isBinary,
   isSelected,
-  noteStatus,
 }: {
   entry: VaultEntry
   isBinary: boolean
   isSelected: boolean
-  noteStatus: NoteStatus
 }) {
   return (
     <div
       className={cn('truncate pr-5 text-[13px]', isBinary ? 'text-muted-foreground' : 'text-foreground', isSelected && !isBinary ? 'font-semibold' : 'font-medium')}
       data-testid="note-title-row"
     >
-      {hasStatusDot(noteStatus) && !isBinary && <StatusDot noteStatus={noteStatus} />}
       <NoteTitleIcon icon={entry.icon} size={15} className="mr-1" testId="note-title-icon" />
       {entry.title}
       {!isBinary && <StateBadge archived={entry.archived} />}
@@ -497,7 +462,6 @@ function NoteItemContent({
   isBinary,
   isUnavailableBinary,
   isSelected,
-  noteStatus,
   changeStatus,
   typeColor,
   displayProps,
@@ -509,7 +473,6 @@ function NoteItemContent({
   isBinary: boolean
   isUnavailableBinary: boolean
   isSelected: boolean
-  noteStatus: NoteStatus
   changeStatus?: NoteItemProps['changeStatus']
   typeColor: string
   displayProps: string[]
@@ -529,12 +492,11 @@ function NoteItemContent({
   }
 
   return (
-    <StandardNoteContent
-      entry={entry}
-      isBinary={isBinary}
-      isUnavailableBinary={isUnavailableBinary}
-      noteStatus={noteStatus}
-      isSelected={isSelected}
+      <StandardNoteContent
+        entry={entry}
+        isBinary={isBinary}
+        isUnavailableBinary={isUnavailableBinary}
+        isSelected={isSelected}
       typeColor={typeColor}
       displayProps={displayProps}
       allEntries={allEntries}
@@ -544,7 +506,7 @@ function NoteItemContent({
   )
 }
 
-export function NoteItem({ entry, isSelected, isMultiSelected = false, isHighlighted = false, noteStatus = 'clean', changeStatus, typeEntryMap, allEntries, displayPropsOverride, onClickNote, onPrefetch, onContextMenu }: NoteItemProps) {
+export function NoteItem({ entry, isSelected, isMultiSelected = false, isHighlighted = false, changeStatus, typeEntryMap, allEntries, displayPropsOverride, onClickNote, onPrefetch, onContextMenu }: NoteItemProps) {
   const isBinary = entry.fileKind === 'binary'
   const previewKind = filePreviewKind(entry)
   const isPreviewableFile = previewKind !== null
@@ -581,7 +543,6 @@ export function NoteItem({ entry, isSelected, isMultiSelected = false, isHighlig
         isBinary={isBinary}
         isUnavailableBinary={isUnavailableBinary}
         isSelected={isSelected}
-        noteStatus={noteStatus}
         changeStatus={changeStatus}
         typeColor={typeColor}
         displayProps={displayProps}
