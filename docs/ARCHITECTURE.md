@@ -452,7 +452,7 @@ The ledger tab bar ("Decisions & commitments", `LedgerPanel`) is a UI over the s
 - The engine's state lives outside the vault: `<app data dir>/ledger/<first 8 hex of sha1(vault path)>/` (`ledger.sqlite`, `ledger.jsonl`, `registry.json`).
 - Environment overrides: `MEMORIA_LEDGER_EXTRACTOR` (`mlx` default, `keyword`, `none`), `MEMORIA_PYTHON` (default `/opt/homebrew/bin/python3.11`), `MEMORIA_ENGINE_DIR` (default `../../engine` next to the app).
 - Calls are serialized; a call that exceeds its timeout (15 minutes for `meetings.ingest` and `ask`, 60 s otherwise) kills the child, which restarts on the next call. The child is stopped on app exit.
-- In browser mock mode (`pnpm dev`), `src/mock-tauri/mock-ledger.ts` serves an in-memory dataset.
+- In browser mock mode (`pnpm dev`), `src/mock-tauri/mock-ledger.ts` serves an in-memory dataset. `localStorage['memoria:mock-ledger']` selects it: unset = seeded sample, `fresh` = empty first run, `demo` = the real service output of the fictional procurement series (`mock-ledger-demo-snapshot.json`, copied from `engine/results/demo/service_snapshot.json`) with the review inbox as it was before review, `demo-reviewed` = the same facts with an empty inbox.
 
 ## Voice Profiles (Privacy)
 

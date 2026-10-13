@@ -1,8 +1,10 @@
 import type { VaultEntry } from '../types'
+import { DEMO_DATES, DEMO_NOTE_TEXT, DEMO_ROOT, DEMO_TITLES, demoMode } from './mock-ledger-demo'
 
-const ROOT = '/Users/luca/Laputa/transcripts'
-const NAMES = ['Steering 1 - Kick-off', 'Steering 2 - Vendor and budget', 'Steering 3 - Timeline', 'Steering 4 - Go-live check']
-const DATES = ['2026-09-14', '2026-09-28', '2026-10-12', '2026-10-12']
+const demo = demoMode() !== null
+const ROOT = DEMO_ROOT
+const NAMES = demo ? DEMO_TITLES : ['Steering 1 - Kick-off', 'Steering 2 - Vendor and budget', 'Steering 3 - Timeline', 'Steering 4 - Go-live check']
+const DATES = demo ? DEMO_DATES : ['2026-09-14', '2026-09-28', '2026-10-12', '2026-10-12']
 
 const LINES = [
   ['**Aisha** · 0:05', 'Welcome everyone. Let us start with the vendor and the go-live date.', '**Raj** · 0:40', 'Finance can commit the pilot budget once we agree on a vendor.'],
@@ -12,6 +14,7 @@ const LINES = [
 ]
 
 function content(index: number): string {
+  if (demo) return DEMO_NOTE_TEXT[index]
   const body = LINES[index].reduce<string[]>((all, line, i) => (i % 2 === 0 ? [...all, `${line}\n${LINES[index][i + 1]}\n`] : all), [])
   return `---\ntype: Transcript\ndate: ${DATES[index]}T09:30:00\n---\n\n# ${NAMES[index]}\n\n> ${DATES[index]} · 3:00 · Aisha, Raj, Wei Ling\n\n## Transcript\n\n${body.join('\n')}`
 }

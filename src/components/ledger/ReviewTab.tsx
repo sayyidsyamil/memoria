@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { ledgerErrorKind, type Proposal } from '../../lib/ledgerApi'
 import { attributeLabel, findAttribute, formatValue, proposalReasonText } from '../../lib/ledgerFormat'
+import { initialEditText, isMisreadNumber } from '../../lib/ledgerNumbers'
 import { Button } from '../ui/button'
 import { Card } from '../ui/card'
 import { useLedger } from './ledgerContext'
 import { EmptyState, ErrorNotice, QuoteBlock } from './ui'
-import { parseEditedValue, toInputText } from './valueEdit'
+import { parseEditedValue } from './valueEdit'
 import { ValueInput } from './ValueInput'
 
 function ProposalCard({ proposal }: { proposal: Proposal }) {
@@ -13,7 +14,7 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
   const spec = findAttribute(data.registry, proposal.object_id, proposal.attribute)
   const show = (v: Proposal['value']) => formatValue(v, spec, data.registry.people)
   const [editing, setEditing] = useState(false)
-  const [draft, setDraft] = useState(toInputText(proposal.value))
+  const [draft, setDraft] = useState(initialEditText(proposal.value, proposal.reason, proposal.quote))
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [stale, setStale] = useState(false)
@@ -59,9 +60,13 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
           Memoria wants to record <strong>{show(proposal.value)}</strong>
           {proposal.current_value !== null && proposal.current_value !== undefined
             ? <>, but <strong>{show(proposal.current_value)}</strong> is recorded now.</>
-            : '.'}
+            : <>. Nothing is recorded yet for {proposal.label}.</>}
         </p>
-        <p className="m-0 mt-1 text-xs text-muted-foreground">{proposalReasonText(proposal.reason)}</p>
+        <p className="m-0 mt-1 text-xs text-muted-foreground">
+          {isMisreadNumber(proposal.reason)
+            ? `The number ${show(proposal.value)} does not appear in the quote. Please check it.`
+            : proposalReasonText(proposal.reason)}
+        </p>
       </div>
       {proposal.quote
         ? <QuoteBlock evidence={{ quote: proposal.quote, speaker: proposal.speaker ?? 'Unknown speaker', meeting: proposal.meeting ?? '' }} meetingLabel={proposal.meeting ? meetingLabel(proposal.meeting) : 'an unknown meeting'} />

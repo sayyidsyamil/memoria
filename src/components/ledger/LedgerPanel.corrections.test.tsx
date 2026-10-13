@@ -52,6 +52,11 @@ describe('corrections in the Evidence dialog', () => {
     expect(historyCalls()).toBe(0)
   })
 
+  it('offers the history of a corrected value even when it never changed otherwise', async () => {
+    await openGolive([], { fact_id: 8, value: '2026-12-20', n_changes: 0, corrects: 3, correction: { reviewer: 'Aisha', reason: 'The year was wrong', replaced_fact_id: 3 } })
+    expect(await screen.findByRole('button', { name: 'History: Go-live date Date' })).toHaveTextContent('corrected')
+  })
+
   it('shows no banner for a value nobody corrected', async () => {
     await openGolive([REPLACED, ORIGINAL_CURRENT], {})
     fireEvent.click(await screen.findByRole('button', { name: 'Evidence: Go-live date Date' }))

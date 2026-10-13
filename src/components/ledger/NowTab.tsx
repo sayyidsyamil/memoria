@@ -57,16 +57,17 @@ function FactRow({ fact, onOpen }: { fact: LedgerFact; onOpen: (kind: NonNullabl
   const value = formatValue(fact.value, spec, data.registry.people)
   const name = `${fact.label} ${attributeLabel(fact.attribute)}`
   const source = fact.evidence[0]?.meeting
+  const corrected = (fact.corrects ?? null) !== null || Boolean(fact.correction)
   return (
     <div className="grid grid-cols-[9rem_1fr_auto] items-center gap-3 border-t border-border px-4 py-2.5 first:border-t-0">
       <div className="text-xs font-medium text-muted-foreground">{attributeLabel(fact.attribute)}</div>
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-semibold text-foreground">{value}</span>
-          {fact.n_changes > 0 ? (
+          {fact.n_changes > 0 || corrected ? (
             <button type="button" aria-label={`History: ${name}`} onClick={() => onOpen('history')}
               className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-foreground hover:bg-accent">
-              <ClockCounterClockwise size={12} /> changed {fact.n_changes} {fact.n_changes === 1 ? 'time' : 'times'}
+              <ClockCounterClockwise size={12} /> {fact.n_changes > 0 ? `changed ${fact.n_changes} ${fact.n_changes === 1 ? 'time' : 'times'}` : 'corrected'}
             </button>
           ) : null}
           {fact.evidence.length === 0 ? <Badge variant="outline">No evidence</Badge> : null}

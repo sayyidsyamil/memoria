@@ -1,6 +1,7 @@
 import type { Brief, HistoryEntry, LedgerFact, LedgerRegistry, MeetingSummary, Proposal } from '../lib/ledgerApi'
 import { SAMPLE_REGISTRY } from '../lib/ledgerSampleRegistry'
 import { M1, M2, M3, MOCK_MEETINGS, MOCK_PROPOSALS, MOCK_SLOTS, type SeedSlot } from './mock-ledger-data'
+import { demoMode, demoSeed } from './mock-ledger-demo'
 
 // localStorage['memoria:mock-ledger'] = 'fresh' starts with nothing set up and reveals each
 // meeting's facts when it is added, so the whole first-run flow can be walked in a browser.
@@ -21,6 +22,15 @@ function labelOf(objectId: string): string {
 }
 
 function seed(): void {
+  if (demoMode()) {
+    const demo = demoSeed()
+    registry = demo.registry
+    meetings = demo.meetings
+    proposals = demo.proposals
+    history = demo.history
+    nextId = 1000
+    return
+  }
   const fresh = isFresh()
   registry = fresh ? { objects: [], people: {} } : clone(SAMPLE_REGISTRY)
   meetings = fresh ? [] : clone(MOCK_MEETINGS)
@@ -50,18 +60,25 @@ seed()
 
 const live = (key: string) => (history.get(key) ?? []).filter((h) => !h.retracted)
 
+/** Confirmations of the same value leave the current fact where the value was first recorded. */
+function runStart(valid: HistoryEntry[]): number {
+  let start = valid.length - 1
+  while (start > 0 && valid[start - 1].value === valid[start].value && valid[start].change_type === 'CONFIRM') start--
+  return start
+}
+
 function currentFacts(): LedgerFact[] {
   const rows: LedgerFact[] = []
   for (const key of history.keys()) {
     const valid = live(key)
-    const last = valid[valid.length - 1]
-    if (!last) continue
+    if (valid.length === 0) continue
+    const last = valid[runStart(valid)]
     const [objectId] = key.split('.')
     const changes = valid.filter((v, i) => i > 0 && v.value !== valid[i - 1].value).length
     rows.push({
       fact_id: last.fact_id, object_id: objectId, attribute: last.attribute, label: labelOf(objectId),
       kind: registry.objects.find((o) => o.object_id === objectId)?.kind ?? 'decision', value: last.value, n_changes: changes,
-      valid_from: last.claim_from, decided_at: last.decided_at, claim_from: last.claim_from, corrects: last.corrects, evidence: last.evidence,
+      valid_from: last.claim_from, decided_at: last.decided_at, claim_from: last.claim_from, corrects: last.corrects, correction: last.correction, evidence: last.evidence,
     })
   }
   return rows
@@ -75,8 +92,8 @@ function findVersion(factId: number): { key: string; entry: HistoryEntry } | nul
   return null
 }
 
-function addVersion(base: HistoryEntry, value: HistoryEntry['value'], type: string, corrects: number | null): number {
-  const entry: HistoryEntry = { ...base, fact_id: nextId++, value, change_type: type, corrects, retracted: null, claim_to: null }
+function addVersion(base: HistoryEntry, value: HistoryEntry['value'], type: string, corrects: number | null, correction?: HistoryEntry['correction']): number {
+  const entry: HistoryEntry = { ...base, fact_id: nextId++, value, change_type: type, corrects, retracted: null, claim_to: null, correction }
   const key = `${base.object_id}.${base.attribute}`
   const list = history.get(key) ?? []
   const last = list[list.length - 1]
@@ -88,16 +105,19 @@ function addVersion(base: HistoryEntry, value: HistoryEntry['value'], type: stri
 function brief(): Brief {
   const facts = currentFacts()
   const value = (id: string, attr: string) => facts.find((f) => f.object_id === id && f.attribute === attr)?.value
+  const known = (id: string) => facts.some((f) => f.object_id === id)
   const open = registry.objects.filter((o) => o.kind === 'commitment').flatMap((o) => {
     const status = value(o.object_id, 'status')
-    if (status === 'done' || status === 'cancelled' || value(o.object_id, 'owner') === undefined) return []
+    if (status === 'done' || status === 'cancelled' || !known(o.object_id)) return []
     return [{ object_id: o.object_id, label: o.label, status: 'open', owner: value(o.object_id, 'owner'), deadline: value(o.object_id, 'deadline') }]
   })
-  const changes = ['budget.amount', 'golive.date'].flatMap((key) => {
+  const changed = demoMode() ? [...history.keys()] : ['budget.amount', 'golive.date']
+  const changes = changed.flatMap((key) => {
     const valid = live(key)
-    const [a, b] = [valid[valid.length - 2], valid[valid.length - 1]]
+    const start = runStart(valid)
+    const [a, b] = [valid[start - 1], valid[start]]
     return a && b ? [{ label: labelOf(b.object_id), attribute: b.attribute, from: a.value, to: b.value, decided_at: b.decided_at, quote: b.evidence[0]?.quote ?? null }] : []
-  })
+  }).sort((x, y) => (y.decided_at ?? '').localeCompare(x.decided_at ?? ''))
   return { open_commitments: open, recent_changes: changes, decisions: [], waiting_for_review: proposals.length, meetings: meetings.length }
 }
 
@@ -188,8 +208,15 @@ function call(method: string, params: Record<string, unknown>): unknown {
     case 'facts.correct': {
       const found = findVersion(Number(params.fact_id))
       if (!found) throw new Error(`fact ${String(params.fact_id)} not found`)
-      found.entry.retracted = { tx: nextId++, by: 'you', reason: `corrected: ${String(params.reason ?? '')}` }
-      return { fact_id: addVersion(found.entry, params.value as HistoryEntry['value'], 'CORRECT', found.entry.fact_id), status: 'applied' }
+      const retraction = () => ({ tx: nextId++, by: 'you', reason: `corrected: ${String(params.reason ?? '')}` })
+      found.entry.retracted = retraction()
+      // Later confirmations of the wrong value are set aside with it.
+      for (const later of (history.get(found.key) ?? []).slice((history.get(found.key) ?? []).indexOf(found.entry) + 1)) {
+        if (later.retracted) continue
+        if (later.change_type !== 'CONFIRM' || later.value !== found.entry.value) break
+        later.retracted = retraction()
+      }
+      return { fact_id: addVersion(found.entry, params.value as HistoryEntry['value'], 'CORRECT', found.entry.fact_id, { reviewer: 'you', reason: String(params.reason ?? ''), replaced_fact_id: found.entry.fact_id }), status: 'applied' }
     }
     case 'facts.retract': {
       const found = findVersion(Number(params.fact_id))
