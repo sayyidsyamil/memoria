@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { needsTelemetryConsent as askTelemetryConsent } from '../lib/firstRun'
 
 interface StartupOnboardingState {
   status: string
@@ -66,7 +67,7 @@ function needsTelemetryConsent(
   settingsLoaded: boolean,
   telemetryConsent: boolean | null,
 ): boolean {
-  return !isStartupLoading && settingsLoaded && telemetryConsent === null
+  return !isStartupLoading && settingsLoaded && askTelemetryConsent(telemetryConsent)
 }
 
 function needsAiAgentsOnboarding(

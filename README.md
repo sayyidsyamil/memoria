@@ -51,6 +51,8 @@ npx eslint . --max-warnings=0   # lint
 cd src-tauri && cargo test --locked   # Rust tests (about 1,000; heavy, run with: nice -n 19)
 ```
 
+End-to-end UI tests (`npm run test:e2e`, Playwright, browser mock mode, no model) walk the five acceptance tasks in `e2e/`; if Playwright's Chromium is missing, set `MEMORIA_E2E_CHROMIUM` to a Chromium binary.
+
 Most Rust tests are inherited from Tolaria. Memoria's own tests cover the engine bridge (`ledger`), the starter vault (`demo_starter`, `getting_started`), resource lookup (`bundled_resources`), voice profiles (`voice_profiles`), and the frontend files in `src/components/ledger/`, `src/lib/ledgerApi`, `src/lib/transcriptNote` and the voice-consent setting.
 
 ## Privacy
@@ -61,6 +63,7 @@ Most Rust tests are inherited from Tolaria. Memoria's own tests cover the engine
 - Crash reporting and usage analytics are off unless you switch them on, and no keys for them are configured in this repository (`.env.example` is empty).
 - Links and update checks that pointed at the upstream project are switched off (`SHOW_UPSTREAM_LINKS` in `src/constants/feedback.ts`).
 - Models are downloaded once from Hugging Face on first use; nothing else needs the internet.
+- Fonts are bundled and the web view's Content-Security-Policy only allows itself, IPC and local sockets for connections, so the app contacts no server at start-up. `scripts/privacy-check.sh` lists every outbound URL and scans `dist/` for telemetry keys.
 
 ## Status and limitations
 

@@ -19,12 +19,25 @@ On the **target machine** (the one that will use the app):
 
 ## Build a release
 
+Commit your changes, then:
+
 ```bash
 pnpm install
-pnpm tauri build
+pnpm build-release
 ```
 
-`pnpm tauri build` first runs `pnpm build`, `pnpm bundle-mcp` and `pnpm agent-docs` (see `beforeBuildCommand` in `src-tauri/tauri.conf.json`). It is heavy (several minutes, high CPU and memory); close other programs.
+`pnpm build-release` (`scripts/build-release.sh`) is the supported way to build. It:
+
+1. refuses to run if the working tree is dirty or if `SENTRY_DSN`, `VITE_SENTRY_DSN`, `VITE_POSTHOG_KEY` or `VITE_POSTHOG_HOST` is set (in the environment or a `.env` file), so a release cannot carry telemetry keys;
+2. copies the engine to `src-tauri/target/release-staging/` without `__pycache__`/`.pyc` files (the default resource glob would copy them into the app);
+3. runs `pnpm bundle-mcp` and `vite build`, then `tauri build` for the `app` and `dmg` targets;
+4. checks that `Memoria.app/Contents/Resources` contains `demo-vault/`, `python/` and `engine/memoria_engine/` and no `__pycache__`;
+5. runs the privacy scan (`scripts/privacy-check.sh`) on `dist/` and fails if it finds a Sentry DSN or PostHog key or a Google font host;
+6. prints the SHA-256 of the `.dmg` and of the app binary and the git commit, and writes `docs/RELEASE_RECORD.md` (version, date, commit, checksums, machine, rustc/cargo/node/pnpm/tauri-cli versions). Commit that file with the release tag.
+
+Plain `pnpm tauri build` also works: `beforeBuildCommand` is `pnpm build && pnpm bundle-mcp` (the old `pnpm agent-docs` step was removed because no such script exists; the generated docs are committed in `src-tauri/resources/agent-docs`). It skips the checks above and copies `__pycache__` folders from the engine into the app.
+
+The build is heavy (several minutes, high CPU and memory); close other programs. Run `scripts/privacy-check.sh` yourself at any time to list every outbound URL in the source.
 
 Results:
 
@@ -61,7 +74,7 @@ The three notes are copies of `engine/data/demo/meeting_1.md` to `meeting_3.md`.
 | Decision ledger | `~/Library/Application Support/com.memoria.app/ledger/<8 hex characters of the vault path hash>/` (`ledger.sqlite`, `ledger.jsonl`, `registry.json`) |
 | App settings | `~/Library/Application Support/com.memoria.app/settings.json` |
 | Voice profiles (only if switched on) | `~/.memoria/` (`voices.json`, `sessions/`) |
-| Downloaded models | `~/.cache/huggingface/hub/` (or `$HF_HUB_CACHE`) |
+| Downloaded models | `~/.cache/huggingface/hub/` (or `$HF_HOME/hub`, or `$HF_HUB_CACHE`) |
 
 ## Reset and uninstall
 
@@ -80,6 +93,11 @@ The three notes are copies of `engine/data/demo/meeting_1.md` to `meeting_3.md`.
 | Decisions panel stays on "Starting the decision engine" | Model loading on first use, or Python packages missing | Wait a few minutes; run `scripts/memoria-doctor.sh`; try `MEMORIA_LEDGER_EXTRACTOR=keyword` to test without the model |
 | Transcription fails to start | Packages missing or microphone not allowed | Install `requirements.txt`; System Settings, Privacy & Security, Microphone, allow Memoria |
 | First meeting takes very long | Models downloading | One-time download of about 5 GB; needs internet |
+| Models are downloaded again on a new macOS account | The model cache is per user (`~/.cache/huggingface`) | Put the cache in a shared folder: `export HF_HOME=/Users/Shared/memoria-models` before the first launch, and `launchctl setenv HF_HOME /Users/Shared/memoria-models` for launches from Finder (then restart Memoria). The scripts and the engine use `huggingface_hub`, which reads `HF_HOME`; nothing hard-codes `~/.cache/huggingface`. |
 | Getting Started fails with a git error | git missing | `xcode-select --install` |
 | Setting a variable has no effect | App launched from Finder | `launchctl setenv`, then restart the app, or launch from Terminal |
 | A suggestion says it is out of date | Something newer was recorded after it was made | It is refreshed automatically; press Dismiss or review the new value |
+
+## Content-Security-Policy in this fork
+
+`src-tauri/tauri.conf.json` is tighter than upstream Tolaria. Removed: the Google font hosts (`fonts.googleapis.com`, `fonts.gstatic.com`) from `style-src`, `style-src-elem` and `font-src`, because the fonts are now bundled (`src/fonts.ts`); the PostHog hosts from `script-src`; and `https:` from `connect-src` (and from `default-src` in `devCsp`), so the web view can only reach itself, IPC, `data:` and the two local WebSockets (ports 9710 and 9711). Model downloads and the Python bridges do not go through the web view. `img-src` and `media-src` still allow `https:`, so remote images that a user puts in a note still display. To restore upstream behaviour (for example to enable analytics), add the hosts back to these directives; `src/lib/securityConfig.test.ts` fails while a Google font host or an open `connect-src https:` is present, so update it in the same change.

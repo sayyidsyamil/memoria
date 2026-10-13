@@ -6,6 +6,7 @@ import type { useAiAgentsOnboarding } from '../hooks/useAiAgentsOnboarding'
 import type { useAiAgentsStatus } from '../hooks/useAiAgentsStatus'
 import type { useOnboarding } from '../hooks/useOnboarding'
 import type { useVaultSwitcher } from '../hooks/useVaultSwitcher'
+import { needsTelemetryConsent } from '../lib/firstRun'
 import type { Settings } from '../types'
 import type { NoteWindowParams } from '../utils/windowMode'
 
@@ -35,7 +36,7 @@ function shouldShowTelemetryConsent(params: StartupScreenParams): boolean {
   return !params.noteWindowParams
     && !params.isStartupLoading
     && params.settingsLoaded
-    && params.settings.telemetry_consent === null
+    && needsTelemetryConsent(params.settings.telemetry_consent)
 }
 
 function shouldShowWelcomeView(params: StartupScreenParams): boolean {

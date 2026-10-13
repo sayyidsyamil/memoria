@@ -1,6 +1,10 @@
 import type { Brief, HistoryEntry, LedgerFact, LedgerRegistry, MeetingSummary, Proposal } from '../lib/ledgerApi'
 import { SAMPLE_REGISTRY } from '../lib/ledgerSampleRegistry'
-import { MOCK_ASK_EVIDENCE, MOCK_MEETINGS, MOCK_PROPOSALS, MOCK_SLOTS, type SeedSlot } from './mock-ledger-data'
+import { M1, M2, M3, MOCK_MEETINGS, MOCK_PROPOSALS, MOCK_SLOTS, type SeedSlot } from './mock-ledger-data'
+
+// localStorage['memoria:mock-ledger'] = 'fresh' starts with nothing set up and reveals each
+// meeting's facts when it is added, so the whole first-run flow can be walked in a browser.
+const isFresh = () => typeof localStorage !== 'undefined' && localStorage.getItem('memoria:mock-ledger') === 'fresh'
 
 interface Args { vaultPath?: string; method: string; params?: Record<string, unknown> }
 
@@ -17,18 +21,30 @@ function labelOf(objectId: string): string {
 }
 
 function seed(): void {
-  registry = clone(SAMPLE_REGISTRY)
-  meetings = clone(MOCK_MEETINGS)
-  proposals = clone(MOCK_PROPOSALS)
+  const fresh = isFresh()
+  registry = fresh ? { objects: [], people: {} } : clone(SAMPLE_REGISTRY)
+  meetings = fresh ? [] : clone(MOCK_MEETINGS)
+  proposals = fresh ? [] : clone(MOCK_PROPOSALS)
   history = new Map()
   nextId = 1
-  for (const slot of MOCK_SLOTS as SeedSlot[]) {
-    history.set(`${slot.object_id}.${slot.attribute}`, slot.versions.map((v, i, all) => ({
+  if (!fresh) for (const slot of MOCK_SLOTS as SeedSlot[]) revealVersions(slot, () => true)
+}
+
+function revealVersions(slot: SeedSlot, wanted: (meeting: string) => boolean): number {
+  const key = `${slot.object_id}.${slot.attribute}`
+  const list = history.get(key) ?? []
+  const added = slot.versions.filter((v) => wanted(v.evidence.meeting))
+  for (const v of added) {
+    const last = list[list.length - 1]
+    if (last) last.claim_to = v.from
+    list.push({
       fact_id: nextId++, object_id: slot.object_id, attribute: slot.attribute, label: labelOf(slot.object_id), value: v.value,
-      claim_from: v.from, claim_to: all[i + 1]?.from ?? null, decided_at: `${v.from}T09:30:00`, change_type: v.type,
+      claim_from: v.from, claim_to: null, decided_at: `${v.from}T09:30:00`, change_type: v.type,
       supersedes: null, confirms: null, corrects: null, retracted: null, evidence: [v.evidence],
-    })))
+    })
   }
+  if (added.length > 0) history.set(key, list)
+  return added.length
 }
 seed()
 
@@ -85,19 +101,33 @@ function brief(): Brief {
   return { open_commitments: open, recent_changes: changes, decisions: [], waiting_for_review: proposals.length, meetings: meetings.length }
 }
 
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+
+function askedDate(question: string): string | null {
+  const match = /(\d{1,2}) (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/.exec(question)
+  if (!match) return null
+  return `2026-${String(MONTHS.indexOf(match[2]) + 1).padStart(2, '0')}-${match[1].padStart(2, '0')}`
+}
+
 function ask(question: string): unknown {
   const q = question.toLowerCase()
   const route = (type: string, objectId: string, attribute: string, validAt: string | null = null) => ({ type, object_id: objectId, attribute, valid_at: validAt, tx_at: null, ok: true, reason: '' })
   if (/how many|times|changed/.test(q) && /go-?live/.test(q)) {
-    return { ok: true, route: route('n_changes', 'golive', 'date'), label: 'Go-live date', seconds: 0.4, type: 'n_changes', answer: 2, evidence: [] }
+    const valid = live('golive.date')
+    if (valid.length === 0) return { ok: false, reason: 'Nothing is recorded about this yet.', route: route('current', '', '') }
+    const changes = valid.filter((v, i) => i > 0 && v.value !== valid[i - 1].value).length
+    return { ok: true, route: route('n_changes', 'golive', 'date'), label: 'Go-live date', seconds: 0.4, type: 'n_changes', answer: changes, evidence: [] }
   }
-  if (/budget/.test(q) && /1 nov|november/.test(q)) {
-    const v = live('budget.amount')[0]
-    return { ok: true, route: route('as_of_valid', 'budget', 'amount', '2026-09-20'), label: 'Pilot budget (RM)', seconds: 0.4, type: 'as_of_valid', answer: v.value, decided_at: v.decided_at, evidence: v.evidence }
+  const asked = askedDate(q)
+  if (/budget/.test(q) && asked) {
+    const v = live('budget.amount').filter((x) => (x.claim_from ?? '') <= asked).at(-1)
+    if (!v) return { ok: false, reason: 'Nothing was recorded for that date.', route: route('as_of_valid', 'budget', 'amount', asked) }
+    return { ok: true, route: route('as_of_valid', 'budget', 'amount', asked), label: 'Pilot budget (RM)', seconds: 0.4, type: 'as_of_valid', answer: v.value, decided_at: v.decided_at, evidence: v.evidence }
   }
   if (/go-?live/.test(q)) {
     const v = live('golive.date').at(-1)
-    return { ok: true, route: route('current', 'golive', 'date'), label: 'Go-live date', seconds: 0.4, type: 'current', answer: v?.value ?? null, decided_at: v?.decided_at, evidence: v ? MOCK_ASK_EVIDENCE : [] }
+    if (!v) return { ok: false, reason: 'Nothing is recorded about this yet.', route: route('current', '', '') }
+    return { ok: true, route: route('current', 'golive', 'date'), label: 'Go-live date', seconds: 0.4, type: 'current', answer: v?.value ?? null, decided_at: v?.decided_at, evidence: v.evidence }
   }
   return { ok: false, reason: 'The question does not match a tracked item.', route: route('current', '', '') }
 }
@@ -105,8 +135,17 @@ function ask(question: string): unknown {
 function ingest(params: Record<string, unknown>) {
   const id = String(params.meeting_id)
   const turns = (params.turns as unknown[]) ?? []
-  meetings = [...meetings, { meeting_id: id, occurred_at: String(params.occurred_at ?? new Date().toISOString().slice(0, 19)), source_id: `m${meetings.length}`.padEnd(12, '0'), evidence_items: 2 }]
-  return { meeting_id: id, stored_only: false, turns: turns.length, counts: { applied: 2, proposed: 1, ungrounded: 0, invalid: 0, unresolved: 0 }, items: [], seconds: 0.5 }
+  const known = isFresh() ? [M1, M2, M3].find((m) => m === id || m.endsWith(`/${id}`)) : undefined
+  let applied = 2
+  let proposed = 1
+  if (known) {
+    applied = (MOCK_SLOTS as SeedSlot[]).reduce((n, slot) => n + revealVersions(slot, (m) => m === known), 0)
+    const waiting = MOCK_PROPOSALS.filter((p) => p.meeting === known)
+    proposals = [...proposals, ...clone(waiting)]
+    proposed = waiting.length
+  }
+  meetings = [...meetings, { meeting_id: id, occurred_at: String(params.occurred_at ?? new Date().toISOString().slice(0, 19)), source_id: `m${meetings.length}`.padEnd(12, '0'), evidence_items: applied + proposed }]
+  return { meeting_id: id, stored_only: false, turns: turns.length, counts: { applied, proposed, ungrounded: 0, invalid: 0, unresolved: 0 }, items: [], seconds: 0.5 }
 }
 
 // The real app identifies a meeting by its note path relative to the vault.

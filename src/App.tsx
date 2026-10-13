@@ -26,6 +26,8 @@ import { McpSetupDialog } from './components/McpSetupDialog'
 import { NoteRetargetingDialogs } from './components/note-retargeting/NoteRetargetingDialogs'
 import { StartupScreen } from './components/StartupScreen'
 import { useAiAgentsOnboarding } from './hooks/useAiAgentsOnboarding'
+import { useSilentTelemetryConsent } from './hooks/useSilentTelemetryConsent'
+import { SHOW_AI_ONBOARDING_PROMPTS } from './lib/firstRun'
 import { useAiAgentsStatus } from './hooks/useAiAgentsStatus'
 import { useVaultAiGuidanceStatus } from './hooks/useVaultAiGuidanceStatus'
 import { useAutoGit } from './hooks/useAutoGit'
@@ -197,6 +199,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   }, [])
   const networkStatus = useNetworkStatus()
   const { settings, loaded: settingsLoaded, saveSettings } = useSettings()
+  useSilentTelemetryConsent(settings, settingsLoaded, saveSettings)
   const aiFeaturesEnabled = areAiFeaturesEnabled(settings)
 
   // onSwitch closure captures `notes` declared below — safe because it's only
@@ -254,7 +257,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     enabled: aiFeaturesEnabled && !noteWindowParams && !aiWorkspaceWindow,
   })
   const aiAgentsOnboarding = useAiAgentsOnboarding(
-    aiFeaturesEnabled && onboarding.state.status === 'ready' && !noteWindowParams && !aiWorkspaceWindow,
+    SHOW_AI_ONBOARDING_PROMPTS && aiFeaturesEnabled && onboarding.state.status === 'ready' && !noteWindowParams && !aiWorkspaceWindow,
   )
 
   // Onboarding can briefly own the vault path for a newly created/opened vault

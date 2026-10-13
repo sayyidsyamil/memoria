@@ -30,6 +30,10 @@ The **decision and commitment ledger engine** (`../engine`, Python) is original 
 
 Models are downloaded from Hugging Face on first use and run entirely on the user's computer. Check each model card for the current terms.
 
+## Bundled fonts
+
+The app bundles Inter, IBM Plex Mono and JetBrains Mono through the `@fontsource/inter`, `@fontsource/ibm-plex-mono` and `@fontsource/jetbrains-mono` npm packages (`src/fonts.ts`). All three are licensed under the SIL Open Font License 1.1, so no font is loaded from the internet.
+
 ## Data
 
 Meeting audio, transcripts, voice profiles and the ledger stay on the user's machine. The fictional demo meetings in `../engine/data/demo` contain invented people, vendors and numbers. The real-meeting evaluation uses the AMI Meeting Corpus (CC BY 4.0).
