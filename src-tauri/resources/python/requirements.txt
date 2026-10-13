@@ -1,0 +1,22 @@
+# Python 3.11 packages used by the live transcription, import and decision-engine scripts.
+# Install with:  /opt/homebrew/bin/python3.11 -m pip install -r requirements.txt
+# Versions are the ones Memoria was developed and tested with (Apple silicon only).
+
+# Speech recognition, speaker separation and the local language model
+mlx==0.31.2
+mlx-lm==0.31.3
+mlx-audio==0.4.3
+huggingface_hub==1.15.0
+
+# Audio capture and processing
+numpy==2.4.5
+scipy==1.17.1
+librosa==0.11.0
+sounddevice==0.5.5
+
+# "Import source" (web pages, YouTube, documents, images)
+trafilatura==2.0.0
+youtube-transcript-api==1.0.3
+yt-dlp==2026.3.17
+liteparse==2.0.4
+pillow==12.2.0

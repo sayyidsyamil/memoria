@@ -16,14 +16,19 @@ use std::time::Duration;
 use serde_json::Value;
 use tauri::Manager;
 
+use crate::bundled_resources::{bundled_resource_dir, python_interpreter};
 use super::ledger_protocol::{ledger_home, read_ready, read_response, timeout_for, write_request, LedgerError};
 
-const DEFAULT_PYTHON: &str = "/opt/homebrew/bin/python3.11";
 const COMPILED_ENGINE_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/../../engine");
 const STARTUP_TIMEOUT: Duration = Duration::from_secs(60);
 const STDERR_LINES_KEPT: usize = 30;
 const STDERR_LINES_SHOWN: usize = 4;
 const EXTRACTORS: &[&str] = &["mlx", "keyword", "none"];
+
+/// The engine shipped inside the app when there is one, else the folder next to the source tree.
+fn default_engine_dir() -> PathBuf {
+    bundled_resource_dir("engine", "memoria_engine/service.py").unwrap_or_else(|| PathBuf::from(COMPILED_ENGINE_DIR))
+}
 
 #[derive(Clone, Debug)]
 struct EngineConfig {
@@ -42,8 +47,8 @@ impl EngineConfig {
             )));
         }
         Ok(Self {
-            python: var("MEMORIA_PYTHON").map_or_else(|| PathBuf::from(DEFAULT_PYTHON), PathBuf::from),
-            engine_dir: var("MEMORIA_ENGINE_DIR").map_or_else(|| PathBuf::from(COMPILED_ENGINE_DIR), PathBuf::from),
+            python: python_interpreter(),
+            engine_dir: var("MEMORIA_ENGINE_DIR").map_or_else(default_engine_dir, PathBuf::from),
             extractor,
         })
     }
@@ -278,8 +283,8 @@ mod tests {
     #[test]
     fn real_service_answers_ping_and_registry_get_without_a_model() {
         let config = EngineConfig {
-            python: PathBuf::from(std::env::var("MEMORIA_PYTHON").unwrap_or_else(|_| DEFAULT_PYTHON.into())),
-            engine_dir: PathBuf::from(std::env::var("MEMORIA_ENGINE_DIR").unwrap_or_else(|_| COMPILED_ENGINE_DIR.into())),
+            python: python_interpreter(),
+            engine_dir: std::env::var("MEMORIA_ENGINE_DIR").map_or_else(|_| default_engine_dir(), PathBuf::from),
             extractor: "none".into(),
         };
         if let Err(missing) = config.check_installed() {

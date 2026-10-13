@@ -1,0 +1,7 @@
+name: Active Projects
+icon: rocket
+filters:
+  all:
+    - field: type
+      op: equals
+      value: Project

@@ -34,7 +34,7 @@ _site/
 /coverage/
 
 # Demo vault and helper scripts
-demo-vault/
+/demo-vault/
 generated-fixtures/
 select_demo_notes*.py
 final_selection.py

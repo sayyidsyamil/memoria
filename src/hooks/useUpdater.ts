@@ -8,6 +8,7 @@ import {
 } from '../lib/appUpdater'
 import { formatCalendarVersionForDisplay } from '../utils/calendarVersion'
 import { openExternalUrl } from '../utils/url'
+import { SHOW_UPSTREAM_LINKS } from '../constants/feedback'
 
 const RELEASE_NOTES_URL = 'https://memoria.md/releases/'
 
@@ -101,6 +102,9 @@ export function useUpdater(
 
   const checkForUpdates = useCallback(async (): Promise<UpdateCheckResult> => {
     if (!isTauri()) return { kind: 'up-to-date' }
+    if (!SHOW_UPSTREAM_LINKS) {
+      return { kind: 'error', message: 'Automatic updates are turned off in this build. Install new versions by hand.' }
+    }
 
     setStatus({ state: 'checking' })
 
@@ -124,7 +128,7 @@ export function useUpdater(
   }, [releaseChannel])
 
   useEffect(() => {
-    if (!isTauri()) return
+    if (!isTauri() || !SHOW_UPSTREAM_LINKS) return
     const timer = setTimeout(() => { checkForUpdates() }, 3000)
     return () => clearTimeout(timer)
   }, [checkForUpdates])

@@ -1,10 +1,6 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-/// Public starter vault cloned when the user chooses Getting Started.
-pub const GETTING_STARTED_REPO_URL: &str =
-    "https://github.com/refactoringhq/memoria-getting-started.git";
-
 /// Default location for the Getting Started vault.
 pub fn default_vault_path() -> Result<PathBuf, String> {
     dirs::document_dir()
@@ -21,7 +17,7 @@ pub fn vault_exists(path: &str) -> bool {
     vault_exists_with_default_path(Path::new(path), default_path.as_deref())
 }
 
-fn vault_exists_with_default_path(path: &Path, default_path: Option<&Path>) -> bool {
+pub(super) fn vault_exists_with_default_path(path: &Path, default_path: Option<&Path>) -> bool {
     if !path.is_dir() {
         return false;
     }
@@ -511,16 +507,21 @@ Use kebab-case: `my-note-title.md`. One note per file.
 Do not modify app configuration files — those are local to each installation.
 "##;
 
-/// Clone the public starter vault into the requested path.
+/// Create the Getting Started vault at the requested path. By default it is built offline from
+/// the starter files bundled in the app; `MEMORIA_GETTING_STARTED_REPO_URL` clones a repo instead.
 pub fn create_getting_started_vault(target_path: &str) -> Result<String, String> {
-    let vault_path = create_getting_started_vault_from_repo(
-        Path::new(target_path),
-        &getting_started_repo_url(),
-    )?;
+    let target = Path::new(target_path);
+    let vault_path = match getting_started_repo_url_override() {
+        Some(url) => create_getting_started_vault_from_repo(target, &url)?,
+        None => {
+            let starter = super::demo_starter::build_bundled_starter_repo()?;
+            create_getting_started_vault_from_repo(target, &starter.path().to_string_lossy())?
+        }
+    };
     Ok(vault_path.to_string_lossy().to_string())
 }
 
-fn create_getting_started_vault_from_repo(
+pub(super) fn create_getting_started_vault_from_repo(
     target_path: &Path,
     repo_url: &str,
 ) -> Result<PathBuf, String> {
@@ -536,10 +537,11 @@ fn create_getting_started_vault_from_repo(
     Ok(vault_path)
 }
 
-fn getting_started_repo_url() -> String {
+fn getting_started_repo_url_override() -> Option<String> {
     std::env::var("MEMORIA_GETTING_STARTED_REPO_URL")
         .or_else(|_| std::env::var("LAPUTA_GETTING_STARTED_REPO_URL"))
-        .unwrap_or_else(|_| GETTING_STARTED_REPO_URL.to_string())
+        .ok()
+        .filter(|url| !url.trim().is_empty())
 }
 
 fn canonical_vault_path(target_path: &Path) -> Result<PathBuf, String> {
@@ -682,11 +684,10 @@ mod tests {
     }
 
     #[test]
-    fn test_default_getting_started_repo_url_uses_memoria_slug() {
-        assert_eq!(
-            GETTING_STARTED_REPO_URL,
-            "https://github.com/refactoringhq/memoria-getting-started.git"
-        );
+    fn test_default_getting_started_source_is_the_bundled_offline_starter() {
+        // No remote repository is involved: the default source is built from bundled files.
+        let starter = super::super::demo_starter::build_bundled_starter_repo().unwrap();
+        assert!(starter.path().join("welcome.md").is_file());
     }
 
     #[test]

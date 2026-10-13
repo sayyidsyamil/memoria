@@ -13,10 +13,10 @@ use std::process::{Command, Stdio};
 use tauri::ipc::Channel;
 
 use super::voice_profiles::voices_enabled_in_settings;
+use crate::bundled_resources::{python_interpreter, python_script};
 
-const PYTHON: &str = "/opt/homebrew/bin/python3.11";
-const SCRIPT: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/python/transcribe_server.py");
-const IMPORT_SCRIPT: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/python/import_source.py");
+const SCRIPT_FILE: &str = "transcribe_server.py";
+const IMPORT_SCRIPT_FILE: &str = "import_source.py";
 
 /// Spawn a Python script and stream its newline-delimited JSON stdout to the
 /// frontend over an IPC channel. Shared by live transcribe and source import.
@@ -68,8 +68,8 @@ fn spawn_json_stream(
 /// status/final/error events; the frontend saves the result into the vault.
 #[tauri::command]
 pub fn import_source(input: String, on_event: Channel<serde_json::Value>) -> Result<(), String> {
-    let mut cmd = Command::new(PYTHON);
-    cmd.arg(IMPORT_SCRIPT).arg(&input);
+    let mut cmd = Command::new(python_interpreter());
+    cmd.arg(python_script(IMPORT_SCRIPT_FILE)).arg(&input);
     spawn_json_stream(cmd, on_event)
 }
 
@@ -86,8 +86,8 @@ pub fn start_live_transcribe(on_event: Channel<serde_json::Value>) -> Result<(),
     let ctl = control_path();
     let _ = std::fs::remove_file(&ctl);
 
-    let mut command = Command::new(PYTHON);
-    command.arg(SCRIPT).arg("--control").arg(&ctl);
+    let mut command = Command::new(python_interpreter());
+    command.arg(python_script(SCRIPT_FILE)).arg("--control").arg(&ctl);
     if voices_enabled_in_settings() {
         command.arg("--remember-voices");
     }
@@ -158,8 +158,8 @@ pub fn enroll_voices(session_id: String, labels: HashMap<String, String>) -> Res
         return Ok(());
     }
     let labels_json = serde_json::to_string(&labels).map_err(|e| e.to_string())?;
-    let status = Command::new(PYTHON)
-        .arg(SCRIPT)
+    let status = Command::new(python_interpreter())
+        .arg(python_script(SCRIPT_FILE))
         .arg("--enroll-session")
         .arg(&session_id)
         .arg("--labels")

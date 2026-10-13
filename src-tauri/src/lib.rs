@@ -1,5 +1,6 @@
 pub mod ai_agents;
 pub mod ai_models;
+pub mod bundled_resources;
 mod app_icon;
 pub mod app_updater;
 pub mod claude_cli;

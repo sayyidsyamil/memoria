@@ -1,5 +1,6 @@
 mod cache;
 mod config_seed;
+mod demo_starter;
 mod entry;
 mod file;
 pub(crate) mod filename_rules;
