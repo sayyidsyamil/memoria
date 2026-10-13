@@ -445,6 +445,19 @@ flowchart LR
 
 The `WsBridgeChild` state wrapper in `lib.rs` ensures the bridge process is replaced on vault switches, stopped when no active vault is selected, and killed plus waited on app exit via the `RunEvent::Exit` handler. The same desktop layer keeps Tauri asset protocol access limited to vault roots loaded during the current app session; command calls remain active-vault scoped for reads, writes, and external opens.
 
+## Decisions & Commitments Ledger
+
+The ledger tab bar ("Decisions & commitments", `LedgerPanel`) is a UI over the separate Python `memoria_engine` package, which keeps every decision and commitment with its evidence quote and history. Rust starts the engine's JSON-lines service once and keeps it running (`src-tauri/src/commands/ledger.rs`; pure protocol helpers in `ledger_protocol.rs`). The frontend calls it only through `ledger_call` wrapped by `src/lib/ledgerApi.ts`; `src/lib/transcriptNote.ts` turns a Transcript note into the turns the engine ingests.
+
+- The engine's state lives outside the vault: `<app data dir>/ledger/<first 8 hex of sha1(vault path)>/` (`ledger.sqlite`, `ledger.jsonl`, `registry.json`).
+- Environment overrides: `MEMORIA_LEDGER_EXTRACTOR` (`mlx` default, `keyword`, `none`), `MEMORIA_PYTHON` (default `/opt/homebrew/bin/python3.11`), `MEMORIA_ENGINE_DIR` (default `../../engine` next to the app).
+- Calls are serialized; a call that exceeds its timeout (15 minutes for `meetings.ingest` and `ask`, 60 s otherwise) kills the child, which restarts on the next call. The child is stopped on app exit.
+- In browser mock mode (`pnpm dev`), `src/mock-tauri/mock-ledger.ts` serves an in-memory dataset.
+
+## Voice Profiles (Privacy)
+
+Voiceprints are biometric data. The `remember_voices` setting is off unless the user opts in (Settings → Privacy, or the one-time question after naming a speaker). When it is off, `transcribe_server.py` computes and stores no voiceprints and `enroll_voices` does nothing. Profiles live in `~/.memoria/voices.json` and `~/.memoria/sessions/`; the `delete_voice_profiles` command (Settings → Privacy) removes both.
+
 ## Search
 
 Search is keyword-based, using `walkdir` to scan all `.md` files in the vault directory. No external binary or indexing step required.

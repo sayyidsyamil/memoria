@@ -61,6 +61,7 @@ const EMPTY_SETTINGS: Settings = {
   all_notes_show_images: null,
   all_notes_show_unsupported: null,
   multi_workspace_enabled: null,
+  remember_voices: null,
 }
 
 function normalizeSettings(settings: Settings): Settings {
@@ -87,6 +88,7 @@ function normalizeSettings(settings: Settings): Settings {
     all_notes_show_images: settings.all_notes_show_images ?? null,
     all_notes_show_unsupported: settings.all_notes_show_unsupported ?? null,
     multi_workspace_enabled: settings.multi_workspace_enabled ?? null,
+    remember_voices: settings.remember_voices ?? null,
   }
 }
 

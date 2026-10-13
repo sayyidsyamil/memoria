@@ -2,6 +2,7 @@ import { useId } from 'react'
 import type { createTranslator } from '../lib/i18n'
 import { SectionHeading, SettingsGroup, SettingsGroupItem } from './SettingsControls'
 import { Checkbox } from './ui/checkbox'
+import { VoiceProfilesSettings } from './VoiceProfilesSettings'
 
 type Translate = ReturnType<typeof createTranslator>
 
@@ -11,6 +12,8 @@ interface PrivacySettingsSectionProps {
   setCrashReporting: (value: boolean) => void
   analytics: boolean
   setAnalytics: (value: boolean) => void
+  rememberVoices: boolean
+  setRememberVoices: (value: boolean) => void
 }
 
 function isChecked(checked: boolean | 'indeterminate'): boolean {
@@ -51,6 +54,8 @@ export function PrivacySettingsSection({
   setCrashReporting,
   analytics,
   setAnalytics,
+  rememberVoices,
+  setRememberVoices,
 }: PrivacySettingsSectionProps) {
   return (
     <>
@@ -70,6 +75,7 @@ export function PrivacySettingsSection({
           onChange={setAnalytics}
           testId="settings-analytics"
         />
+        <VoiceProfilesSettings rememberVoices={rememberVoices} setRememberVoices={setRememberVoices} />
       </SettingsGroup>
     </>
   )

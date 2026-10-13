@@ -1,6 +1,7 @@
 import { APP_COMMAND_IDS, getAppCommandShortcutDisplay } from '../appCommandCatalog'
 import type { CommandAction } from './types'
 import type { SidebarSelection } from '../../types'
+import { requestOpenLedger } from '../../utils/memoriaWorkflow'
 
 interface NavigationCommandsConfig {
   onQuickOpen: () => void
@@ -93,6 +94,7 @@ function buildBaseCommands(config: NavigationCommandsConfig): CommandAction[] {
     { id: 'go-all', label: 'Go to Wiki', group: 'Navigation', keywords: ['filter', 'memory'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'wiki' }) },
     { id: 'go-sources', label: 'Go to Sources', group: 'Navigation', keywords: ['files', 'evidence', 'raw'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'sources' }) },
     { id: 'go-briefs', label: 'Go to Briefs', group: 'Navigation', keywords: ['brief', 'summary'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'briefs' }) },
+    { id: 'open-decision-ledger', label: 'Open decision ledger', group: 'Navigation', keywords: ['decisions', 'commitments', 'promises', 'evidence', 'ledger', 'brief'], enabled: true, execute: () => requestOpenLedger() },
     { id: 'go-archived', label: 'Go to Archived', group: 'Navigation', keywords: [], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'archived' }) },
     { id: 'go-changes', label: 'Go to Changes', group: 'Navigation', keywords: ['git', 'modified', 'pending'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'changes' }) },
     { id: 'go-pulse', label: 'Go to History', group: 'Navigation', keywords: ['activity', 'history', 'commits', 'git', 'feed'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'pulse' }) },

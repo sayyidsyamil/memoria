@@ -6,10 +6,13 @@ mod folders;
 mod git;
 pub mod git_clone;
 mod git_connect;
+mod ledger;
+mod ledger_protocol;
 mod memory;
 mod runtime;
 mod system;
 mod transcribe;
+mod voice_profiles;
 mod vault;
 mod version;
 
@@ -22,10 +25,12 @@ pub use delete::*;
 pub use folders::*;
 pub use git::*;
 pub use git_connect::*;
+pub use ledger::*;
 pub use memory::*;
 pub use runtime::*;
 pub use system::*;
 pub use transcribe::*;
+pub use voice_profiles::*;
 pub use vault::*;
 pub use version::*;
 

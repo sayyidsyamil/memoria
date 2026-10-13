@@ -49,6 +49,7 @@ import { AiProviderSettings } from './AiProviderSettings'
 import { AiAgentIcon } from './AiAgentIcon'
 import { GitSettingsSection } from './GitSettingsSection'
 import { PrivacySettingsSection } from './PrivacySettingsSection'
+import { rememberVoicesEnabled } from '../utils/voiceProfiles'
 import { SettingsBodyNav } from './SettingsBodyNav'
 import {
   SectionHeading,
@@ -124,6 +125,7 @@ interface SettingsDraft {
   multiWorkspaceEnabled: boolean
   crashReporting: boolean
   analytics: boolean
+  rememberVoices: boolean
   explicitOrganization: boolean
 }
 
@@ -183,6 +185,8 @@ interface SettingsBodyProps {
   setCrashReporting: (value: boolean) => void
   analytics: boolean
   setAnalytics: (value: boolean) => void
+  rememberVoices: boolean
+  setRememberVoices: (value: boolean) => void
 }
 
 const PULL_INTERVAL_OPTIONS = [1, 2, 5, 10, 15, 30] as const
@@ -227,6 +231,7 @@ function createSettingsDraft(
     multiWorkspaceEnabled: settings.multi_workspace_enabled === true,
     crashReporting: settings.crash_reporting_enabled ?? false,
     analytics: settings.analytics_enabled ?? false,
+    rememberVoices: rememberVoicesEnabled(settings),
     explicitOrganization: explicitOrganizationEnabled,
   }
 }
@@ -240,6 +245,12 @@ function resolveSettingsDraftThemeMode(themeMode: Settings['theme_mode']): Theme
 function resolveTelemetryConsent(settings: Settings, draft: SettingsDraft): boolean | null {
   if (draft.crashReporting || draft.analytics) return true
   return settings.telemetry_consent === null ? null : false
+}
+
+// Saving Settings must not count as answering the first-use voice question.
+function resolveRememberVoices(settings: Settings, draft: SettingsDraft): boolean | null {
+  if (draft.rememberVoices) return true
+  return settings.remember_voices === true ? false : settings.remember_voices ?? null
 }
 
 function resolveAnonymousId(settings: Settings, draft: SettingsDraft): string | null {
@@ -275,6 +286,7 @@ function buildSettingsFromDraft(settings: Settings, draft: SettingsDraft): Setti
     ai_model_providers: draft.aiModelProviders.length > 0 ? draft.aiModelProviders : null,
     hide_gitignored_files: draft.hideGitignoredFiles,
     multi_workspace_enabled: draft.multiWorkspaceEnabled,
+    remember_voices: resolveRememberVoices(settings, draft),
   }
   return settingsWithAllNotesFileVisibility(nextSettings, draft.allNotesFileVisibility)
 }
@@ -593,6 +605,8 @@ function SettingsBodyFromDraft({
       setCrashReporting={(value) => updateDraft('crashReporting', value)}
       analytics={draft.analytics}
       setAnalytics={(value) => updateDraft('analytics', value)}
+      rememberVoices={draft.rememberVoices}
+      setRememberVoices={(value) => updateDraft('rememberVoices', value)}
     />
   )
 }
@@ -754,6 +768,8 @@ function SettingsAgentWorkflowSections({
   setCrashReporting,
   analytics,
   setAnalytics,
+  rememberVoices,
+  setRememberVoices,
 }: SettingsBodyProps) {
   return (
     <>
@@ -790,6 +806,8 @@ function SettingsAgentWorkflowSections({
           setCrashReporting={setCrashReporting}
           analytics={analytics}
           setAnalytics={setAnalytics}
+          rememberVoices={rememberVoices}
+          setRememberVoices={setRememberVoices}
         />
       </SettingsSection>
     </>

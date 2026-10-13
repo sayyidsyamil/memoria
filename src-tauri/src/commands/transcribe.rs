@@ -12,9 +12,11 @@ use std::process::{Command, Stdio};
 
 use tauri::ipc::Channel;
 
+use super::voice_profiles::voices_enabled_in_settings;
+
 const PYTHON: &str = "/opt/homebrew/bin/python3.11";
-const SCRIPT: &str = "/Users/sayyid/Documents/playground/transcribe_server.py";
-const IMPORT_SCRIPT: &str = "/Users/sayyid/Documents/playground/import_source.py";
+const SCRIPT: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/python/transcribe_server.py");
+const IMPORT_SCRIPT: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/python/import_source.py");
 
 /// Spawn a Python script and stream its newline-delimited JSON stdout to the
 /// frontend over an IPC channel. Shared by live transcribe and source import.
@@ -84,10 +86,12 @@ pub fn start_live_transcribe(on_event: Channel<serde_json::Value>) -> Result<(),
     let ctl = control_path();
     let _ = std::fs::remove_file(&ctl);
 
-    let mut child = Command::new(PYTHON)
-        .arg(SCRIPT)
-        .arg("--control")
-        .arg(&ctl)
+    let mut command = Command::new(PYTHON);
+    command.arg(SCRIPT).arg("--control").arg(&ctl);
+    if voices_enabled_in_settings() {
+        command.arg("--remember-voices");
+    }
+    let mut child = command
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .spawn()
@@ -150,7 +154,7 @@ pub fn stop_live_transcribe() -> Result<(), String> {
 /// fast (no model load — it only merges already-computed embeddings).
 #[tauri::command]
 pub fn enroll_voices(session_id: String, labels: HashMap<String, String>) -> Result<(), String> {
-    if session_id.is_empty() {
+    if session_id.is_empty() || !voices_enabled_in_settings() {
         return Ok(());
     }
     let labels_json = serde_json::to_string(&labels).map_err(|e| e.to_string())?;

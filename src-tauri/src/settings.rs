@@ -102,6 +102,8 @@ pub struct Settings {
     pub all_notes_show_images: Option<bool>,
     pub all_notes_show_unsupported: Option<bool>,
     pub multi_workspace_enabled: Option<bool>,
+    /// Voiceprints are biometric data: `None` and `Some(false)` both mean off.
+    pub remember_voices: Option<bool>,
 }
 
 fn normalize_optional_string(value: Option<String>) -> Option<String> {
@@ -220,6 +222,7 @@ fn normalize_settings(settings: Settings) -> Settings {
         all_notes_show_images: settings.all_notes_show_images,
         all_notes_show_unsupported: settings.all_notes_show_unsupported,
         multi_workspace_enabled: settings.multi_workspace_enabled,
+        remember_voices: settings.remember_voices,
     }
 }
 
@@ -451,6 +454,7 @@ mod tests {
             ai_workspace_conversations: None,
             hide_gitignored_files: Some(false),
             multi_workspace_enabled: Some(true),
+            remember_voices: Some(true),
             all_notes_show_pdfs: Some(true),
             all_notes_show_images: Some(true),
             all_notes_show_unsupported: Some(false),
@@ -488,6 +492,7 @@ mod tests {
             default_ai_agent: Some("codex".to_string()),
             hide_gitignored_files: Some(false),
             multi_workspace_enabled: Some(true),
+            remember_voices: Some(true),
             all_notes_show_pdfs: Some(true),
             all_notes_show_images: Some(false),
             all_notes_show_unsupported: Some(true),
@@ -510,6 +515,7 @@ mod tests {
         assert_eq!(loaded.default_ai_agent.as_deref(), Some("codex"));
         assert_eq!(loaded.hide_gitignored_files, Some(false));
         assert_eq!(loaded.multi_workspace_enabled, Some(true));
+        assert_eq!(loaded.remember_voices, Some(true));
         assert_eq!(loaded.all_notes_show_pdfs, Some(true));
         assert_eq!(loaded.all_notes_show_images, Some(false));
         assert_eq!(loaded.all_notes_show_unsupported, Some(true));

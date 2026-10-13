@@ -1,4 +1,4 @@
-import { CircleNotch as Loader2, LinkSimple, MagnifyingGlass, Microphone, NotePencil, Plus, SidebarSimple, X } from '@phosphor-icons/react'
+import { CircleNotch as Loader2, LinkSimple, ListChecks, MagnifyingGlass, Microphone, NotePencil, Plus, SidebarSimple, X } from '@phosphor-icons/react'
 import type { VaultEntry } from '../../types'
 import type { SortOption, SortDirection } from '../../utils/noteListHelpers'
 import { translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
@@ -19,7 +19,7 @@ import { ListPropertiesPopover, type ListPropertiesPopoverProps } from './ListPr
 import { GitRepositorySelect } from '../GitRepositorySelect'
 import type { GitRepositoryOption } from '../../utils/gitRepositories'
 import { isMac } from '../../utils/platform'
-import { requestImportSource, requestStartMeeting } from '../../utils/memoriaWorkflow'
+import { requestImportSource, requestOpenLedger, requestStartMeeting } from '../../utils/memoriaWorkflow'
 
 const NOTE_LIST_ACTION_BUTTON_CLASSNAME = '!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'
 const NOTE_LIST_EXPAND_BUTTON_CLASSNAME = '!h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-4'
@@ -225,6 +225,9 @@ function HeaderActions({
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={() => requestImportSource()} className="gap-2">
             <LinkSimple size={16} /> Import web · YouTube · PDF
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => requestOpenLedger()} className="gap-2">
+            <ListChecks size={16} /> Decisions &amp; commitments
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

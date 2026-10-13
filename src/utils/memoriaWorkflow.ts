@@ -1,5 +1,6 @@
 export const MEMORIA_IMPORT_SOURCE_EVENT = 'memoria:import-source'
 export const MEMORIA_START_MEETING_EVENT = 'memoria:start-meeting'
+export const MEMORIA_OPEN_LEDGER_EVENT = 'memoria:open-ledger'
 
 export interface ImportSourceEventDetail {
   input?: string
@@ -8,6 +9,10 @@ export interface ImportSourceEventDetail {
 
 export interface StartMeetingEventDetail {
   autoStart?: boolean
+}
+
+export interface OpenLedgerEventDetail {
+  tab?: 'now' | 'review' | 'ask' | 'prepare' | 'meetings' | 'setup'
 }
 
 export const COMPILE_INBOX_PROMPT = [
@@ -31,4 +36,8 @@ export function requestImportSource(detail?: ImportSourceEventDetail): void {
 
 export function requestStartMeeting(detail?: StartMeetingEventDetail): void {
   window.dispatchEvent(new CustomEvent<StartMeetingEventDetail>(MEMORIA_START_MEETING_EVENT, { detail }))
+}
+
+export function requestOpenLedger(detail?: OpenLedgerEventDetail): void {
+  window.dispatchEvent(new CustomEvent<OpenLedgerEventDetail | undefined>(MEMORIA_OPEN_LEDGER_EVENT, { detail }))
 }

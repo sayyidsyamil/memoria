@@ -574,7 +574,10 @@ macro_rules! app_invoke_handler {
             commands::pause_live_transcribe,
             commands::resume_live_transcribe,
             commands::stop_live_transcribe,
+            commands::delete_voice_profiles,
             commands::enroll_voices,
+            commands::ledger_call,
+            commands::ledger_stop,
             commands::import_source
         ]
     };
@@ -591,6 +594,7 @@ fn handle_run_event(app_handle: &tauri::AppHandle, event: &tauri::RunEvent) {
     window_state::handle_run_event(app_handle, event);
 
     if let tauri::RunEvent::Exit = event {
+        commands::stop_ledger_service();
         let state: tauri::State<'_, WsBridgeChild> = app_handle.state();
         let mut guard = state.0.lock().unwrap();
         stop_ws_bridge_child(&mut guard);

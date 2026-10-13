@@ -4,6 +4,7 @@
  */
 
 import type { VaultEntry } from '../types'
+import { MOCK_TRANSCRIPT_ENTRIES } from './mock-ledger-notes'
 
 const now = Date.now() / 1000
 
@@ -1117,3 +1118,4 @@ function generateBulkEntries(count: number): VaultEntry[] {
 
 // Append 9000 generated entries for realistic large-vault testing
 MOCK_ENTRIES.push(...generateBulkEntries(9000))
+MOCK_ENTRIES.push(...MOCK_TRANSCRIPT_ENTRIES)

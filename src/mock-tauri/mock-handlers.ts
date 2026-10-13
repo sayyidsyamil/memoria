@@ -16,6 +16,7 @@ import type {
 } from '../types'
 import { MOCK_CONTENT } from './mock-content'
 import { MOCK_ENTRIES } from './mock-entries'
+import { mockLedgerHandlers } from './mock-ledger'
 
 function syncWindowContent(): void {
   if (typeof window !== 'undefined') {
@@ -145,6 +146,7 @@ let mockSettings: Settings = {
   all_notes_show_images: null,
   all_notes_show_unsupported: null,
   multi_workspace_enabled: null,
+  remember_voices: null,
 }
 
 const DEFAULT_MOCK_VAULT_PATH = '/Users/mock/demo-vault-v2'
@@ -420,6 +422,8 @@ function handleMoveNoteToWorkspace(args: {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mock handler map accepts heterogeneous arg types
 export const mockHandlers: Record<string, (args: any) => any> = {
+  ...mockLedgerHandlers,
+  delete_voice_profiles: () => 0,
   list_vault: () => MOCK_ENTRIES,
   list_vault_folders: () => [],
   list_views: () => [],
@@ -554,6 +558,7 @@ export const mockHandlers: Record<string, (args: any) => any> = {
       all_notes_show_images: s.all_notes_show_images ?? null,
       all_notes_show_unsupported: s.all_notes_show_unsupported ?? null,
       multi_workspace_enabled: s.multi_workspace_enabled ?? null,
+      remember_voices: s.remember_voices ?? null,
     }
     return null
   },

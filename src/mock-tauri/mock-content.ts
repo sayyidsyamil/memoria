@@ -2,6 +2,7 @@
  * Mock markdown content keyed by file path.
  * Used by the mock Tauri layer when running in browser dev mode.
  */
+import { MOCK_TRANSCRIPT_CONTENT } from './mock-ledger-notes'
 
 export const MOCK_CONTENT: Record<string, string> = {
   '/Users/luca/Laputa/26q1-laputa-app.md': `---
@@ -696,3 +697,5 @@ rating: 5
 Essential reading for anyone building distributed systems. Covers replication, partitioning, transactions, and stream processing.
 `,
 }
+
+Object.assign(MOCK_CONTENT, MOCK_TRANSCRIPT_CONTENT)

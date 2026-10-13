@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Archive, Books, CaretDown, CaretRight, Files, NewspaperClipping, Tray } from '@phosphor-icons/react'
+import { Archive, Books, CaretDown, CaretRight, Files, ListChecks, NewspaperClipping, Tray } from '@phosphor-icons/react'
 import type { SidebarSelection } from '../../types'
 import { isSelectionActive, NavItem, SidebarCountPill, type SectionGroup } from '../SidebarParts'
 import { translate, type AppLocale } from '../../lib/i18n'
 import { getTypeColor } from '../../utils/typeColors'
+import { requestOpenLedger } from '../../utils/memoriaWorkflow'
 
 type WikiTypeSection = SectionGroup & { count: number }
 
@@ -169,6 +170,12 @@ export function SidebarTopNav({
         badgeStyle={{ background: 'var(--muted)' }}
         activeBadgeClassName="bg-primary text-primary-foreground"
         onClick={() => onSelect({ kind: 'filter', filter: 'briefs' })}
+      />
+      <NavItem
+        icon={ListChecks}
+        label="Decisions"
+        isActive={false}
+        onClick={() => requestOpenLedger()}
       />
       <NavItem
         icon={Archive}

@@ -8,6 +8,8 @@ import { CreateViewDialog } from './components/CreateViewDialog'
 import { QuickOpenPalette } from './components/QuickOpenPalette'
 import { LiveTranscribePanel } from './components/LiveTranscribePanel'
 import { ImportSourcePanel } from './components/ImportSourcePanel'
+import { LedgerPanel } from './components/LedgerPanel'
+import { withTranscriptNoteMetadata } from './utils/transcriptNoteMetadata'
 import { CommandPalette } from './components/CommandPalette'
 import { SearchPanel } from './components/SearchPanel'
 import { Toast } from './components/Toast'
@@ -1690,7 +1692,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               const safeTitle = title.replace(/[\\/:*?"<>|]/g, '-').slice(0, 120) || 'Untitled'
               const content = options.directory === 'sources'
                 ? withSourceNoteMetadata(markdown, { sourceType: options.sourceType })
-                : markdown
+                : kind === 'transcript' ? withTranscriptNoteMetadata(markdown) : markdown
               const pathForTitle = (candidateTitle: string) => {
                 const relativePath = options.directory
                   ? `${options.directory}/${candidateTitle}.md`
@@ -1719,11 +1721,16 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
             }
             return (
               <>
-                <LiveTranscribePanel onSave={(title, markdown) => saveNote(title, markdown, 'transcript')} />
+                <LiveTranscribePanel
+                  onSave={(title, markdown) => saveNote(title, markdown, 'transcript')}
+                  rememberVoices={settings.remember_voices}
+                  onRememberVoicesChange={(value) => void saveSettings({ ...settings, remember_voices: value })}
+                />
                 <ImportSourcePanel onSave={(title, markdown, metadata) => saveNote(title, markdown, 'source', {
                   directory: 'sources',
                   sourceType: metadata.sourceType,
                 })} />
+                <LedgerPanel vaultPath={resolvedPath} entries={visibleEntries} onSaveNote={(title, markdown) => saveNote(title, markdown, 'brief')} />
               </>
             )
           })()

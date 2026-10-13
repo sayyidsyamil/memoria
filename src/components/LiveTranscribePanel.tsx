@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Channel, invoke } from '@tauri-apps/api/core'
 import { ArrowsOutSimple, Microphone, Minus, Pause, Play, Stop, X } from '@phosphor-icons/react'
 import { MEMORIA_START_MEETING_EVENT, type StartMeetingEventDetail } from '../utils/memoriaWorkflow'
+import { VOICE_CONSENT_QUESTION, shouldAskVoiceConsent, voiceProfileLabels } from '../utils/voiceProfiles'
 
 type TranscribeEvent =
   | { type: 'status'; msg: string }
@@ -27,6 +28,9 @@ type Phase = 'idle' | 'starting' | 'recording' | 'paused' | 'finalizing' | 'revi
 
 interface Props {
   onSave: (title: string, markdown: string) => Promise<void> | void
+  /** true = opted in, false = declined, null/undefined = never asked (treated as off) */
+  rememberVoices?: boolean | null
+  onRememberVoicesChange?: (value: boolean) => void
 }
 
 const SPEAKER_COLORS = [
@@ -43,7 +47,7 @@ function clock(seconds: number): string {
   return `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`
 }
 
-export function LiveTranscribePanel({ onSave }: Props) {
+export function LiveTranscribePanel({ onSave, rememberVoices, onRememberVoicesChange }: Props) {
   const [open, setOpen] = useState(false)
   const [minimized, setMinimized] = useState(false)
   const [phase, setPhase] = useState<Phase>('idle')
@@ -226,11 +230,7 @@ export function LiveTranscribePanel({ onSave }: Props) {
     try {
       await onSave(title.trim() || 'Meeting Notes', buildMarkdown())
       if (sessionId) {
-        const enrollLabels: Record<string, string> = {}
-        for (const spk of speakers) {
-          const name = labels[spk]?.trim()
-          if (name && name !== spk) enrollLabels[spk] = name
-        }
+        const enrollLabels = voiceProfileLabels(rememberVoices === true, labels, speakers)
         if (Object.keys(enrollLabels).length) {
           try { await invoke('enroll_voices', { sessionId, labels: enrollLabels }) } catch { /* best effort */ }
         }
@@ -239,7 +239,7 @@ export function LiveTranscribePanel({ onSave }: Props) {
     } finally {
       setSaving(false)
     }
-  }, [onSave, title, buildMarkdown, sessionId, speakers, labels])
+  }, [onSave, title, buildMarkdown, sessionId, speakers, labels, rememberVoices])
 
   const reassign = (index: number, newSpeaker: string) =>
     setTurns((prev) => prev.map((t, i) => (i === index ? { ...t, speaker: newSpeaker } : t)))
@@ -319,6 +319,14 @@ export function LiveTranscribePanel({ onSave }: Props) {
                 </div>
               )
             })}
+          </div>
+        )}
+
+        {phase === 'review' && onRememberVoicesChange && shouldAskVoiceConsent({ remember_voices: rememberVoices }, labels, speakers) && (
+          <div role="group" aria-label="Voice profiles" style={consentBar}>
+            <span>{VOICE_CONSENT_QUESTION} <span style={{ color: 'var(--muted-foreground)' }}>This applies from your next meeting.</span></span>
+            <button style={consentButton} onClick={() => onRememberVoicesChange(true)}>Save voice profiles</button>
+            <button style={consentButton} onClick={() => onRememberVoicesChange(false)}>No thanks</button>
           </div>
         )}
 
@@ -498,4 +506,13 @@ const primaryBtn: React.CSSProperties = {
 const textBtn: React.CSSProperties = {
   padding: '8px 14px', borderRadius: 7, border: 'none', background: 'transparent',
   color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 13, fontWeight: 500,
+}
+
+const consentBar: React.CSSProperties = {
+  display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', padding: '8px 16px',
+  borderBottom: '1px solid var(--border)', fontSize: 12.5,
+}
+const consentButton: React.CSSProperties = {
+  border: '1px solid var(--border)', borderRadius: 6, padding: '3px 10px', background: 'var(--background)',
+  color: 'var(--foreground)', cursor: 'pointer', fontSize: 12.5,
 }
