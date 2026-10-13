@@ -34,7 +34,7 @@ import numpy as np
 import sounddevice as sd
 import mlx.core as mx
 
-from transcribe_v3 import STT, DIAR, aligned_words, build_turns
+from transcribe_v3 import STT, DIAR, aligned_words, build_turns, diarize
 import voice_store
 
 SAMPLE_RATE = 16000
@@ -205,8 +205,7 @@ def finalize(stt, diar, captured):
     audio = np.concatenate(captured).astype(np.float32)
 
     result = stt.generate(mx.array(audio), chunk_duration=120.0)
-    dia = diar.generate(mx.array(audio), threshold=0.5)
-    spk_segments = [(d.start, d.end, d.speaker) for d in dia.segments]
+    spk_segments = diarize(diar, audio)   # streaming for recordings >= 2 min, see diar_stream.py
 
     words, labels = aligned_words(result, spk_segments)
     turns = build_turns(words, labels)

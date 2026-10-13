@@ -30,11 +30,14 @@ import numpy as np
 import mlx.core as mx
 from scipy.io import wavfile
 
+import diar_stream
+
 STT = "mlx-community/parakeet-tdt-0.6b-v3"
 DIAR = "mlx-community/diar_streaming_sortformer_4spk-v2.1-fp16"
 SPK = "mlx-community/wespeaker-voxceleb-resnet34-LM"
 SAMPLE_RATE = 16000
 ID_FLOOR = 0.50          # below this best-match similarity -> keep anonymous label
+DIAR_THRESHOLD = diar_stream.DEFAULT_THRESHOLD   # speaker activity threshold
 
 
 def load_wav(path):
@@ -132,6 +135,100 @@ def build_turns(words, labels):
     return turns
 
 
+def supports_streaming(diar):
+    return bool(getattr(diar.config.modules_config, "use_aosc", False)) and hasattr(diar, "streaming_step")
+
+
+def require_streaming(diar):
+    if not supports_streaming(diar):
+        raise RuntimeError("streaming diarization needs the v2.1 (use_aosc) Sortformer model")
+
+
+def diarize_oneshot(diar, audio, threshold=DIAR_THRESHOLD):
+    """The library's one-shot call. Fine for short audio; its memory grows with the square of the
+    length and the model has only 120 s of positions, so use diarize() for anything longer."""
+    dia = diar.generate(mx.array(audio), threshold=threshold)
+    return [(d.start, d.end, d.speaker) for d in dia.segments]
+
+
+def stream_probabilities(diar, audio, chunk_s=diar_stream.STREAM_CHUNK_SECONDS):
+    """Speaker probabilities of the whole recording, one (frames, speakers) float32 array per chunk.
+
+    Replica of Sortformer.generate_stream() in file mode (v2.1 model), with the right-context
+    pre-encode done block-wise rather than for the whole recording; plan and block bookkeeping
+    are in diar_stream.py.
+    """
+    from mlx_audio.vad.models.sortformer import sortformer as sf
+
+    require_streaming(diar)
+    mc = diar.config.modules_config
+    proc = diar._processor_config
+    sub = diar.config.fc_encoder_config.subsampling_factor
+    waveform, _ = diar._load_audio(audio, SAMPLE_RATE)
+    features = sf.extract_mel_features(
+        waveform, sample_rate=proc.sampling_rate, n_fft=proc.n_fft, hop_length=proc.hop_length,
+        win_length=proc.win_length, n_mels=proc.feature_size, preemphasis_coeff=proc.preemphasis,
+        normalize=None, pad_to=0)
+    total_mel = features.shape[2]
+    chunks = diar_stream.plan_chunks(
+        total_mel, diar_stream.chunk_mel_frames(chunk_s, proc.sampling_rate, proc.hop_length, sub),
+        sub, mc.chunk_right_context)
+    blocks = diar_stream.PreEncodeBlocks(total_mel, sub)
+    spkcache_max, fifo_max = diar_stream.cache_sizes(mc.spkcache_len, mc.fifo_len)
+
+    state = diar.init_streaming_state()
+    pre_encoded = None
+    for ch in chunks:
+        right_ctx = None
+        if ch.has_right_context:
+            block, lo, hi = blocks.request(ch.rc_start, ch.rc_end)
+            if block is not None:
+                pre_encoded, _ = diar.fc_encoder.pre_encode(
+                    features[:, :, block.mel_start:block.mel_end],
+                    mx.array([block.mel_end - block.mel_start]))
+                mx.eval(pre_encoded)
+            right_ctx = pre_encoded[:, lo:hi, :]
+        chunk_preds, state = diar.streaming_step(
+            features[:, :, ch.mel_start:ch.mel_end], mx.array([ch.mel_len]), state,
+            right_context_embs=right_ctx)
+        yield np.array(chunk_preds, dtype=np.float32)
+        state = diar._maybe_compress_state(state, spkcache_max, fifo_max, mc)
+
+
+def diarize_stream(diar, audio, threshold=DIAR_THRESHOLD, chunk_s=diar_stream.STREAM_CHUNK_SECONDS):
+    require_streaming(diar)
+    proc = diar._processor_config
+    acc = diar_stream.SegmentAccumulator(threshold, diar_stream.frame_seconds(
+        proc.hop_length, diar.config.fc_encoder_config.subsampling_factor, proc.sampling_rate))
+    for probs in stream_probabilities(diar, audio, chunk_s):
+        acc.feed(probs)
+    return acc.finish()
+
+
+def diarize_with_info(diar, audio, threshold=DIAR_THRESHOLD, mode="auto"):
+    """([(start_s, end_s, speaker_slot)], info) for a whole recording.
+
+    mode "auto": the one-shot call below diar_stream.STREAM_MIN_SECONDS, the memory-bounded
+    streaming procedure from there on; "oneshot" / "stream" force one of them. info says what ran.
+    """
+    if len(audio) == 0:
+        return [], {"mode": "none", "duration_s": 0.0}
+    duration = len(audio) / SAMPLE_RATE
+    chosen = diar_stream.choose_mode(duration, mode)
+    info = {"mode": chosen, "duration_s": duration}
+    if chosen == "stream" and mode == "auto" and not supports_streaming(diar):
+        chosen = "oneshot"
+        info.update(mode=chosen, note="model has no streaming support")
+    if chosen == "stream":
+        return diarize_stream(diar, audio, threshold), info
+    return diarize_oneshot(diar, audio, threshold), info
+
+
+def diarize(diar, audio, threshold=DIAR_THRESHOLD, mode="auto"):
+    """[(start_s, end_s, speaker_slot)] for a whole recording, sorted by start; see diarize_with_info."""
+    return diarize_with_info(diar, audio, threshold, mode)[0]
+
+
 def make_embedder():
     """Load the pure-MLX WeSpeaker ResNet34 model and return embed(samples)->vec.
 
@@ -205,8 +302,7 @@ def main():
     print("Diarizing (Sortformer)...")
     diar = load_vad(DIAR)
     t = time.time()
-    dia = diar.generate(mx.array(audio), threshold=0.5)
-    spk_segments = [(d.start, d.end, d.speaker) for d in dia.segments]
+    spk_segments = diarize(diar, audio)
     print(f"  {len(spk_segments)} segments, speakers={sorted({s for *_, s in spk_segments})} "
           f"in {time.time() - t:.1f}s")
 

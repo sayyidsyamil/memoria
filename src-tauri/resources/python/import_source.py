@@ -127,7 +127,7 @@ def transcribe_file(path):
     """Diarized transcript of an audio file via the local MLX pipeline."""
     import librosa
     import mlx.core as mx
-    from transcribe_v3 import STT, DIAR, aligned_words, build_turns
+    from transcribe_v3 import STT, DIAR, aligned_words, build_turns, diarize
     from mlx_audio.stt.utils import load as load_stt
     from mlx_audio.vad.utils import load_model as load_vad
 
@@ -136,8 +136,7 @@ def transcribe_file(path):
     stt, diar = load_stt(STT), load_vad(DIAR)
     emit({"type": "status", "msg": "transcribing & diarizing"})
     result = stt.generate(mx.array(audio), chunk_duration=120.0)
-    dia = diar.generate(mx.array(audio), threshold=0.5)
-    spk = [(d.start, d.end, d.speaker) for d in dia.segments]
+    spk = diarize(diar, audio)
     words, labels = aligned_words(result, spk)
     turns = [(s, e, f"Speaker {k}", t) for s, e, k, t in build_turns(words, labels)]
     return format_segments(turns)
