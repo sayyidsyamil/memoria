@@ -23,10 +23,10 @@ Commit your changes, then:
 
 ```bash
 pnpm install
-pnpm build-release
+bash scripts/build-release.sh
 ```
 
-`pnpm build-release` (`scripts/build-release.sh`) is the supported way to build. It:
+`bash scripts/build-release.sh` (`scripts/build-release.sh`) is the supported way to build. It:
 
 1. refuses to run if the working tree is dirty or if `SENTRY_DSN`, `VITE_SENTRY_DSN`, `VITE_POSTHOG_KEY` or `VITE_POSTHOG_HOST` is set (in the environment or a `.env` file), so a release cannot carry telemetry keys;
 2. copies the engine to `src-tauri/target/release-staging/` without `__pycache__`/`.pyc` files (the default resource glob would copy them into the app);

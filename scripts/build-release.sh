@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Build the release Memoria.app and .dmg and write docs/RELEASE_RECORD.md.
 #
-#   pnpm build-release        (or)   bash scripts/build-release.sh
+#   bash scripts/build-release.sh
+#   (plain `pnpm build-release` also works where pnpm's own dependency check passes; on pnpm 11 that check can fail with ERR_PNPM_IGNORED_BUILDS)
 #
 # Refuses to run on a dirty working tree or when telemetry keys are set, so a release can only
 # come from a committed state and cannot carry a Sentry/PostHog key. Heavy (a full release
@@ -35,7 +36,7 @@ mkdir -p "$STAGE_DIR"
 rsync -a --exclude '__pycache__' --exclude '*.pyc' --exclude '.DS_Store' "$ENGINE_SRC/" "$STAGE_DIR/memoria_engine/"
 
 echo "▸ bundling mcp-server…"
-pnpm bundle-mcp
+node scripts/bundle-mcp-server.mjs
 
 echo "▸ building frontend…"
 ./node_modules/.bin/vite build
