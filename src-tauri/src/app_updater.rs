@@ -174,6 +174,7 @@ fn build_updater<R: Runtime>(
         .map_err(|e| format!("Failed to build updater: {e}"))
 }
 
+#[allow(dead_code)]
 fn to_update_metadata(update: tauri_plugin_updater::Update) -> AppUpdateMetadata {
     AppUpdateMetadata {
         current_version: update.current_version,
@@ -224,17 +225,24 @@ pub async fn check_for_app_update<R: Runtime>(
     app_handle: AppHandle<R>,
     release_channel: Option<String>,
 ) -> Result<Option<AppUpdateMetadata>, String> {
-    let channel = ReleaseChannel::from_settings_value(release_channel.as_deref());
-    let updater = build_updater(&app_handle, updater_endpoint(channel).await?)?;
-    let update = updater
-        .check()
-        .await
-        .map_err(|e| format!("Failed to check for updates: {e}"))?;
-
-    Ok(update.map(to_update_metadata))
+    // Memoria is distributed as a tagged release that is installed by hand. The updater inherited from the
+    // upstream project would fetch builds signed by someone else, so it is switched off: no network call is made.
+    let _ = (&app_handle, &release_channel);
+    Ok(None)
 }
 
 pub async fn download_and_install_app_update<R: Runtime>(
+    app_handle: AppHandle<R>,
+    release_channel: Option<String>,
+    expected_version: String,
+    on_event: Channel<AppUpdateDownloadEvent>,
+) -> Result<(), String> {
+    let _ = (&app_handle, &release_channel, &expected_version, &on_event);
+    Err("In-app updates are disabled in this build; install a tagged release instead.".to_string())
+}
+
+#[allow(dead_code)]
+async fn download_and_install_upstream_update<R: Runtime>(
     app_handle: AppHandle<R>,
     release_channel: Option<String>,
     expected_version: String,

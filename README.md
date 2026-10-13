@@ -70,7 +70,7 @@ bash scripts/rebuild-app.sh
 The live transcription bridge is implemented in `src-tauri/src/commands/transcribe.rs` and calls:
 
 ```text
-/Users/sayyid/Documents/playground/transcribe_server.py
+src-tauri/resources/python/transcribe_server.py
 ```
 
 ## Project Status
