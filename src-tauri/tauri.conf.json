@@ -65,11 +65,11 @@
       }
     },
     "resources": {
-      "resources/mcp-server/**/*": "mcp-server/",
-      "resources/agent-docs/**/*": "agent-docs/",
-      "resources/demo-vault/**/*": "demo-vault/",
-      "resources/python/**/*": "python/",
-      "../../engine/memoria_engine/**/*": "engine/memoria_engine/"
+      "resources/mcp-server": "mcp-server",
+      "resources/agent-docs": "agent-docs",
+      "resources/demo-vault": "demo-vault",
+      "resources/python": "python",
+      "../../engine/memoria_engine": "engine/memoria_engine"
     },
     "icon": [
       "icons/32x32.png",

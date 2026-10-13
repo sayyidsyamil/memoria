@@ -44,7 +44,7 @@ echo "▸ building frontend…"
 echo "▸ building Memoria.app and .dmg (release)…"
 # JSON merge patch: a null removes the default engine resource, which would copy __pycache__.
 ./node_modules/.bin/tauri build \
-  --config '{"build":{"beforeBuildCommand":""},"bundle":{"targets":["app"],"createUpdaterArtifacts":false,"resources":{"../../engine/memoria_engine/**/*":null,"target/release-staging/memoria_engine/**/*":"engine/memoria_engine/"}}}'
+  --config '{"build":{"beforeBuildCommand":""},"bundle":{"targets":["app"],"createUpdaterArtifacts":false,"resources":{"../../engine/memoria_engine":null,"target/release-staging/memoria_engine":"engine/memoria_engine"}}}'
 
 APP="$BUNDLE_DIR/macos/Memoria.app"
 [ -d "$APP" ] || fail "$APP was not produced."
@@ -62,6 +62,12 @@ for path in demo-vault python engine/memoria_engine; do
   [ -d "$RES/$path" ] || fail "$RES/$path is missing from the bundle."
 done
 [ -f "$RES/python/requirements.txt" ] || fail "python/requirements.txt is missing from the bundle."
+# Tauri flattens folders that are given as a glob ("dir/**/*"); only plain directory entries keep their sub-folders. Check the nested files.
+for nested in engine/memoria_engine/evaluation/router.py demo-vault/views/active-projects.yml; do
+  [ -f "$RES/$nested" ] || fail "$RES/$nested is missing: a resource folder was flattened (use a directory entry in bundle.resources, not a glob)."
+done
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$RES/engine" "${MEMORIA_PYTHON:-/opt/homebrew/bin/python3.11}" -c "import memoria_engine.service" \
+  || fail "the engine inside the bundle cannot be imported."
 if find "$RES" -name '__pycache__' -o -name '*.pyc' | grep -q .; then
   fail "the bundle contains __pycache__/.pyc files under $RES (the engine staging step did not take effect)."
 fi
