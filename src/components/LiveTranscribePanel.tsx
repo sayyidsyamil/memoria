@@ -75,6 +75,8 @@ export function LiveTranscribePanel({ onSave, rememberVoices, onRememberVoicesCh
   const levelPeakRef = useRef(0.02)
   const phaseRef = useRef<Phase>(phase)
   phaseRef.current = phase
+  const sessionIdRef = useRef('')
+  sessionIdRef.current = sessionId
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -91,6 +93,8 @@ export function LiveTranscribePanel({ onSave, rememberVoices, onRememberVoicesCh
 
   const close = useCallback(() => {
     if (phaseRef.current === 'recording' || phaseRef.current === 'paused' || phaseRef.current === 'finalizing') return
+    const pendingSession = sessionIdRef.current
+    if (pendingSession) invoke('discard_voice_session', { sessionId: pendingSession }).catch(() => {})
     setOpen(false)
     setPhase('idle')
     resetState()
@@ -230,10 +234,9 @@ export function LiveTranscribePanel({ onSave, rememberVoices, onRememberVoicesCh
     try {
       await onSave(title.trim() || 'Meeting Notes', buildMarkdown())
       if (sessionId) {
+        // Always sent, even with no names: the backend then deletes the session's embeddings.
         const enrollLabels = voiceProfileLabels(rememberVoices === true, labels, speakers)
-        if (Object.keys(enrollLabels).length) {
-          try { await invoke('enroll_voices', { sessionId, labels: enrollLabels }) } catch { /* best effort */ }
-        }
+        try { await invoke('enroll_voices', { sessionId, labels: enrollLabels }) } catch { /* best effort */ }
       }
       setOpen(false); setPhase('idle'); resetState()
     } finally {

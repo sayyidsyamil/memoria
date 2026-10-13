@@ -11,6 +11,7 @@
     "rebuild-app": "bash scripts/rebuild-app.sh",
     "lint": "eslint . --max-warnings=0",
     "test:e2e": "playwright test",
+    "test:python": "python3.11 -B -m unittest discover -s tests/python",
     "build-release": "bash scripts/build-release.sh",
     "preview": "vite preview",
     "tauri": "tauri"

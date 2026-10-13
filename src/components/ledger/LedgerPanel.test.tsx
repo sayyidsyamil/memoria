@@ -373,7 +373,7 @@ describe('LedgerPanel: Meetings', () => {
       turns: [{ speaker: 'Aisha', text: 'Welcome back.', start: 5 }, { speaker: 'Raj', text: 'Training is done.', start: 40 }],
       occurred_at: expect.stringMatching(/^2026-11-30/),
     })
-    expect(await screen.findByText(/Steering 2: 1 decision or promise recorded, 1 waiting for your review\./)).toBeInTheDocument()
+    expect(await screen.findByText(/Steering 2: 1 decision or promise recorded, 1 waiting for your review, 0 ignored\./)).toBeInTheDocument()
   })
 
   it('prevents adding the same note twice', async () => {

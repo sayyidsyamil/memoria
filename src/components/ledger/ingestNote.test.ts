@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { IngestResult } from '../../lib/ledgerApi'
 import type { VaultEntry } from '../../types'
-import { ingestNote, isNote, isTranscriptCandidate, meetingIdForNote, NoTranscriptError, summariseIngest } from './ingestNote'
+import { ingestNote, isNote, isTranscriptCandidate, meetingIdForNote, NoTranscriptError } from './ingestNote'
 
 const entry = (over: Partial<VaultEntry>): VaultEntry => ({ path: '/v/a.md', title: 'A', isA: null, archived: false, ...over }) as VaultEntry
 
@@ -58,20 +58,5 @@ describe('ingestNote', () => {
     const fake = api()
     await expect(ingestNote({ api: fake as never, entry: entry({ title: 'Plan' }), vaultPath: '/v', readNote: async () => '# Plan\n\nJust prose.' })).rejects.toBeInstanceOf(NoTranscriptError)
     expect(fake.ingestMeeting).not.toHaveBeenCalled()
-  })
-})
-
-describe('summariseIngest', () => {
-  it('says how many were recorded and how many wait for review', () => {
-    expect(summariseIngest(result({ applied: 3, proposed: 1 }))).toBe('3 decisions and promises recorded, 1 waiting for your review.')
-    expect(summariseIngest(result({ applied: 1, proposed: 0 }))).toBe('1 decision or promise recorded, 0 waiting for your review.')
-  })
-
-  it('mentions ignored suggestions that had no matching quote', () => {
-    expect(summariseIngest(result({ applied: 0, proposed: 0, ungrounded: 2, invalid: 1 }))).toContain('3 suggestions ignored')
-  })
-
-  it('explains that nothing was read when the reader is off', () => {
-    expect(summariseIngest(result({}, true))).toMatch(/switched off/)
   })
 })

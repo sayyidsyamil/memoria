@@ -101,7 +101,7 @@ else
 fi
 
 # 6. Models already downloaded (information only, never a failure)
-hub="${HF_HUB_CACHE:-${HF_HOME:+$HF_HOME/hub}}"
+hub="${HF_HUB_CACHE:-${HUGGINGFACE_HUB_CACHE:-${HF_HOME:+$HF_HOME/hub}}}"
 hub="${hub:-$HOME/.cache/huggingface/hub}"
 models=(
   "mlx-community/Qwen3.5-4B-MLX-4bit"

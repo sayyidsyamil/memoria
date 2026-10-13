@@ -42,18 +42,18 @@ async function saveNote() {
 describe('LiveTranscribePanel voice profiles', () => {
   beforeEach(() => { invokeMock.mockReset(); invokeMock.mockResolvedValue(undefined); channels.length = 0 })
 
-  it('saves the note but does not enrol voices when the setting is unanswered', async () => {
+  it('saves the note but enrols no names when the setting is unanswered', async () => {
     const { onSave } = await reachReview({ rememberVoices: null, onRememberVoicesChange: vi.fn() })
     await saveNote()
     expect(onSave).toHaveBeenCalledTimes(1)
     expect(onSave.mock.calls[0][1]).toContain('**Aisha**')
-    expect(invokeMock).not.toHaveBeenCalledWith('enroll_voices', expect.anything())
+    expect(invokeMock).toHaveBeenCalledWith('enroll_voices', { sessionId: 'sess1', labels: {} })
   })
 
-  it('does not enrol voices when the user declined', async () => {
+  it('enrols no names when the user declined', async () => {
     await reachReview({ rememberVoices: false, onRememberVoicesChange: vi.fn() })
     await saveNote()
-    expect(invokeMock).not.toHaveBeenCalledWith('enroll_voices', expect.anything())
+    expect(invokeMock).toHaveBeenCalledWith('enroll_voices', { sessionId: 'sess1', labels: {} })
     expect(screen.queryByText(/Save voice profiles on this computer only/)).not.toBeInTheDocument()
   })
 
@@ -61,6 +61,13 @@ describe('LiveTranscribePanel voice profiles', () => {
     await reachReview({ rememberVoices: true, onRememberVoicesChange: vi.fn() })
     await saveNote()
     expect(invokeMock).toHaveBeenCalledWith('enroll_voices', { sessionId: 'sess1', labels: { 'Speaker 0': 'Aisha' } })
+  })
+
+  it('forgets the session voices when the panel is closed without saving', async () => {
+    await reachReview({ rememberVoices: true, onRememberVoicesChange: vi.fn() })
+    fireEvent.keyDown(window, { key: 'Escape' })
+    await waitFor(() => expect(invokeMock).toHaveBeenCalledWith('discard_voice_session', { sessionId: 'sess1' }))
+    expect(invokeMock).not.toHaveBeenCalledWith('enroll_voices', expect.anything())
   })
 
   it('asks the plain-words question the first time a speaker is named, and records the answer', async () => {

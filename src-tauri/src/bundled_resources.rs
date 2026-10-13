@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn the_source_tree_has_the_bundled_python_scripts() {
-        for script in ["transcribe_server.py", "import_source.py"] {
+        for script in ["transcribe_server.py", "import_source.py", "voice_store.py"] {
             assert!(python_script(script).is_file(), "{script} missing");
         }
     }

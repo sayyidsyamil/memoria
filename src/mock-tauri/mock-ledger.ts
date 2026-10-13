@@ -61,7 +61,7 @@ function currentFacts(): LedgerFact[] {
     rows.push({
       fact_id: last.fact_id, object_id: objectId, attribute: last.attribute, label: labelOf(objectId),
       kind: registry.objects.find((o) => o.object_id === objectId)?.kind ?? 'decision', value: last.value, n_changes: changes,
-      valid_from: last.claim_from, decided_at: last.decided_at, claim_from: last.claim_from, evidence: last.evidence,
+      valid_from: last.claim_from, decided_at: last.decided_at, claim_from: last.claim_from, corrects: last.corrects, evidence: last.evidence,
     })
   }
   return rows
@@ -188,6 +188,7 @@ function call(method: string, params: Record<string, unknown>): unknown {
     case 'facts.correct': {
       const found = findVersion(Number(params.fact_id))
       if (!found) throw new Error(`fact ${String(params.fact_id)} not found`)
+      found.entry.retracted = { tx: nextId++, by: 'you', reason: `corrected: ${String(params.reason ?? '')}` }
       return { fact_id: addVersion(found.entry, params.value as HistoryEntry['value'], 'CORRECT', found.entry.fact_id), status: 'applied' }
     }
     case 'facts.retract': {

@@ -17,6 +17,13 @@ export interface LedgerEvidence {
   extractor?: string
 }
 
+/** Set by the engine on a value that a person corrected (newer engines). */
+export interface FactCorrection {
+  reviewer: string
+  reason: string
+  replaced_fact_id: number | null
+}
+
 export interface LedgerFact {
   fact_id?: number
   object_id: string
@@ -28,6 +35,9 @@ export interface LedgerFact {
   valid_from: string | null
   decided_at?: string | null
   claim_from?: string | null
+  /** Id of the fact this value corrected (older engines only report this). */
+  corrects?: number | null
+  correction?: FactCorrection | null
   evidence: LedgerEvidence[]
 }
 
@@ -44,6 +54,7 @@ export interface HistoryEntry {
   supersedes: number | null
   confirms: number | null
   corrects: number | null
+  correction?: FactCorrection | null
   retracted: { tx: number; by: string; reason: string } | null
   evidence: LedgerEvidence[]
 }
@@ -92,6 +103,8 @@ export interface IngestResult {
   counts: Record<string, number>
   items: IngestItem[]
   seconds: number
+  /** Reader statistics; `parsed_cleanly` is false when the model's reply could only be partly read. */
+  stats?: { parsed_cleanly?: boolean }
 }
 
 export interface Proposal {

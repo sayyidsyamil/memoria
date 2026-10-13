@@ -153,7 +153,7 @@ def delete_all(base=DEFAULT_BASE):
     return removed
 
 
-def main(argv=None):
+def main(argv=None, base=DEFAULT_BASE):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     sub = ap.add_subparsers(dest="command", required=True)
     enroll = sub.add_parser("enroll")
@@ -164,11 +164,11 @@ def main(argv=None):
     sub.add_parser("sweep")
     args = ap.parse_args(argv)
     if args.command == "enroll":
-        enroll_session(args.session_id, json.loads(args.labels))
+        enroll_session(args.session_id, json.loads(args.labels), base)
     elif args.command == "discard":
-        discard_session(args.session_id)
+        discard_session(args.session_id, base)
     else:
-        sweep_stale_sessions()
+        sweep_stale_sessions(base)
     return 0
 
 

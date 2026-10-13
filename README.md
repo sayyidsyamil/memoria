@@ -38,6 +38,7 @@ The first time you open the app, choose **Getting Started**. It creates a small 
 | `MEMORIA_PYTHON` | `/opt/homebrew/bin/python3.11` | Python 3.11 used for transcription, import and the decision engine |
 | `MEMORIA_ENGINE_DIR` | engine bundled in the app, else `../engine` | Folder that contains `memoria_engine/` |
 | `MEMORIA_LEDGER_EXTRACTOR` | `mlx` | `mlx` (local language model), `keyword` (simple rules, no model) or `none` (no extraction). Use `keyword` or `none` to try the app without loading a model |
+| `MEMORIA_ALLOW_NETWORK` | unset | `1` stops Memoria from setting `HF_HUB_OFFLINE=1` when all four models are already cached (see `docs/DEPLOYMENT.md`) |
 | `MEMORIA_GETTING_STARTED_REPO_URL` | unset | Clone this git repository instead of the bundled starter vault |
 
 Apps started from Finder do not see shell variables. Set them for a Finder launch with `launchctl setenv NAME value`, or start the app from a terminal with `open -a Memoria` after exporting them.
@@ -51,6 +52,8 @@ npx eslint . --max-warnings=0   # lint
 cd src-tauri && cargo test --locked   # Rust tests (about 1,000; heavy, run with: nice -n 19)
 ```
 
+Python tests for the voice-profile store (`npm run test:python`, numpy only, no model) check that nothing about voices is written when profiles are off.
+
 End-to-end UI tests (`npm run test:e2e`, Playwright, browser mock mode, no model) walk the five acceptance tasks in `e2e/`; if Playwright's Chromium is missing, set `MEMORIA_E2E_CHROMIUM` to a Chromium binary.
 
 Most Rust tests are inherited from Tolaria. Memoria's own tests cover the engine bridge (`ledger`), the starter vault (`demo_starter`, `getting_started`), resource lookup (`bundled_resources`), voice profiles (`voice_profiles`), and the frontend files in `src/components/ledger/`, `src/lib/ledgerApi`, `src/lib/transcriptNote` and the voice-consent setting.
@@ -59,7 +62,7 @@ Most Rust tests are inherited from Tolaria. Memoria's own tests cover the engine
 
 - Transcription, extraction and questions run on your computer. Meeting audio, transcripts and the ledger are never uploaded.
 - The ledger lives in the app data folder, outside your notes; transcripts are notes in your vault.
-- Recognising people by voice is **off by default**. When you turn it on (in Settings, or via the one-time question after you name speakers), voice profiles are saved only on this computer, and **Delete all saved voice profiles** in Settings removes them.
+- Recognising people by voice is **off by default**; with it off, nothing about voices is computed or written. When you turn it on (in Settings, or via the one-time question after you name speakers), voice data lives only in `~/.memoria/` on this computer (`voices.json`, owner-only). Only speakers you name are saved. A temporary `~/.memoria/sessions/<id>.json` holds the meeting's voice data until you save the note or close the panel, then it is deleted (leftovers older than 6 hours are removed at the next recording). **Delete all saved voice profiles** in Settings removes `~/.memoria/voices.json` and `sessions/`.
 - Crash reporting and usage analytics are off unless you switch them on, and no keys for them are configured in this repository (`.env.example` is empty).
 - Links and update checks that pointed at the upstream project are switched off (`SHOW_UPSTREAM_LINKS` in `src/constants/feedback.ts`).
 - Models are downloaded once from Hugging Face on first use; nothing else needs the internet.

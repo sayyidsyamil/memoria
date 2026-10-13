@@ -136,27 +136,18 @@ class VoiceStoreTest(unittest.TestCase):
 
     def test_command_line_enrols_and_discards(self):
         session = voice_store.save_session(True, three_speakers(), self.base)
-        previous = voice_store.DEFAULT_BASE
-        try:
-            # The CLI uses the default folder, so point the module at the test folder for this call.
-            for name in ("load_voices", "save_voices", "save_session", "discard_session", "enroll_session", "sweep_stale_sessions", "delete_all"):
-                func = getattr(voice_store, name)
-                func.__defaults__ = tuple(self.base if d == previous else d for d in (func.__defaults__ or ()))
-            self.assertEqual(voice_store.main(["enroll", session, "--labels", json.dumps({"Speaker 1": "Raj"})]), 0)
-            self.assertEqual(list(voice_store.load_voices().keys()), ["Raj"])
-            pending = voice_store.save_session(True, three_speakers())
-            self.assertEqual(voice_store.main(["discard", pending]), 0)
-            self.assertEqual([p.name for p in all_files(self.base)], ["voices.json"])
-            self.assertEqual(voice_store.main(["sweep"]), 0)
-        finally:
-            for name in ("load_voices", "save_voices", "save_session", "discard_session", "enroll_session", "sweep_stale_sessions", "delete_all"):
-                func = getattr(voice_store, name)
-                func.__defaults__ = tuple(previous if d == self.base else d for d in (func.__defaults__ or ()))
+        labels = json.dumps({"Speaker 1": "Raj"})
+        self.assertEqual(voice_store.main(["enroll", session, "--labels", labels], base=self.base), 0)
+        self.assertEqual(list(voice_store.load_voices(self.base)), ["Raj"])
+        pending = voice_store.save_session(True, three_speakers(), self.base)
+        self.assertEqual(voice_store.main(["discard", pending], base=self.base), 0)
+        self.assertEqual([p.name for p in all_files(self.base)], ["voices.json"])
+        self.assertEqual(voice_store.main(["sweep"], base=self.base), 0)
 
     def test_the_live_script_stores_nothing_itself(self):
         source = (PYTHON_DIR / "transcribe_server.py").read_text()
-        self.assertNotIn("write_text(", source)
-        self.assertNotIn(".memoria", source.split('"""')[2])  # no path logic outside the docstring
+        for call in ("write_text(", "mkdir(", "json.dump(", "open("):
+            self.assertNotIn(call, source)
 
 
 if __name__ == "__main__":

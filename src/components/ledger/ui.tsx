@@ -25,6 +25,15 @@ export function ErrorNotice({ message, onRetry }: { message: string; onRetry?: (
   )
 }
 
+export function WarningNotice({ children }: { children: ReactNode }) {
+  return (
+    <div role="alert" className="flex items-start gap-3 rounded-md border border-[var(--feedback-warning-border)] bg-[var(--feedback-warning-bg)] p-3 text-sm text-[var(--feedback-warning-text)]">
+      <Warning size={18} className="mt-0.5 shrink-0" />
+      <div className="min-w-0 flex-1 break-words">{children}</div>
+    </div>
+  )
+}
+
 export function Busy({ label }: { label: string }) {
   return (
     <div role="status" className="flex items-center gap-2 py-6 text-sm text-muted-foreground">

@@ -2,6 +2,8 @@ import type { IngestResult, LedgerApi } from '../../lib/ledgerApi'
 import { parseTranscriptNote } from '../../lib/transcriptNote'
 import type { VaultEntry } from '../../types'
 
+export { summariseIngest } from './ingestSummary'
+
 const TRANSCRIPT_TYPES = new Set(['transcript', 'meeting', 'meeting minute', 'meeting minutes'])
 
 /** A stable id for a note: its path relative to the vault root. */
@@ -40,15 +42,4 @@ export async function ingestNote(args: {
     turns: parsed.turns,
     occurredAt: parsed.occurredAt ?? fallback,
   })
-}
-
-export function summariseIngest(result: IngestResult): string {
-  if (result.stored_only) return 'Saved the meeting. Automatic reading is switched off, so no decisions were looked for.'
-  const applied = result.counts.applied ?? 0
-  const proposed = result.counts.proposed ?? 0
-  const skipped = (result.counts.ungrounded ?? 0) + (result.counts.invalid ?? 0) + (result.counts.unresolved ?? 0)
-  const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`
-  const parts = [`${plural(applied, 'decision or promise', 'decisions and promises')} recorded`, `${proposed} waiting for your review`]
-  if (skipped > 0) parts.push(`${plural(skipped, 'suggestion', 'suggestions')} ignored because no matching quote was found`)
-  return `${parts.join(', ')}.`
 }

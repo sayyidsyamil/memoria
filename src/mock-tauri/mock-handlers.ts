@@ -424,6 +424,8 @@ function handleMoveNoteToWorkspace(args: {
 export const mockHandlers: Record<string, (args: any) => any> = {
   ...mockLedgerHandlers,
   delete_voice_profiles: () => 0,
+  enroll_voices: () => null,
+  discard_voice_session: () => null,
   list_vault: () => MOCK_ENTRIES,
   list_vault_folders: () => [],
   list_views: () => [],

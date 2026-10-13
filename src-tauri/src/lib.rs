@@ -1,6 +1,7 @@
 pub mod ai_agents;
 pub mod ai_models;
 pub mod bundled_resources;
+pub mod offline_models;
 mod app_icon;
 pub mod app_updater;
 pub mod claude_cli;
@@ -577,6 +578,7 @@ macro_rules! app_invoke_handler {
             commands::stop_live_transcribe,
             commands::delete_voice_profiles,
             commands::enroll_voices,
+            commands::discard_voice_session,
             commands::ledger_call,
             commands::ledger_stop,
             commands::import_source

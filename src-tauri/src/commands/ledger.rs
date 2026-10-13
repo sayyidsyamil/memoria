@@ -17,6 +17,7 @@ use serde_json::Value;
 use tauri::Manager;
 
 use crate::bundled_resources::{bundled_resource_dir, python_interpreter};
+use crate::offline_models::apply_offline_env;
 use super::ledger_protocol::{ledger_home, read_ready, read_response, timeout_for, write_request, LedgerError};
 
 const COMPILED_ENGINE_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/../../engine");
@@ -115,14 +116,17 @@ fn remember_active(child: Option<SharedChild>) {
 fn spawn_session(config: &EngineConfig, home: &Path) -> Result<Session, LedgerError> {
     config.check_installed()?;
     std::fs::create_dir_all(home).map_err(|e| LedgerError::Spawn(format!("cannot create {}: {e}", home.display())))?;
-    let mut child = Command::new(&config.python)
+    let mut command = Command::new(&config.python);
+    command
         .args(["-m", "memoria_engine.service", "--home"])
         .arg(home)
         .args(["--extractor", &config.extractor])
         .current_dir(&config.engine_dir)
         .env("PYTHONPATH", &config.engine_dir)
         .env("PYTHONDONTWRITEBYTECODE", "1")
-        .env("PYTHONIOENCODING", "utf-8")
+        .env("PYTHONIOENCODING", "utf-8");
+    apply_offline_env(&mut command);
+    let mut child = command
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())

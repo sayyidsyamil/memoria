@@ -73,13 +73,19 @@ The three notes are copies of `engine/data/demo/meeting_1.md` to `meeting_3.md`.
 | Notes and transcripts (the vault) | the folder you chose, default `~/Documents/Getting Started` |
 | Decision ledger | `~/Library/Application Support/com.memoria.app/ledger/<8 hex characters of the vault path hash>/` (`ledger.sqlite`, `ledger.jsonl`, `registry.json`) |
 | App settings | `~/Library/Application Support/com.memoria.app/settings.json` |
-| Voice profiles (only if switched on) | `~/.memoria/` (`voices.json`, `sessions/`) |
+| Voice profiles (only if switched on) | `~/.memoria/voices.json` (voiceprints of speakers you named) and a temporary `~/.memoria/sessions/<id>.json`; files are owner-only (`0600`). Nothing is written there while the setting is off. |
 | Downloaded models | `~/.cache/huggingface/hub/` (or `$HF_HOME/hub`, or `$HF_HUB_CACHE`) |
+
+## Offline models
+
+When all four models are already in the Hugging Face cache (`mlx-community/Qwen3.5-4B-MLX-4bit`, `parakeet-tdt-0.6b-v3`, `diar_streaming_sortformer_4spk-v2.1-fp16`, `wespeaker-voxceleb-resnet34-LM`), Memoria starts the Python programs (decision engine, live transcription, import) with `HF_HUB_OFFLINE=1`, so `huggingface_hub` makes no network check when a model loads. The cache is looked up like Hugging Face does: `HF_HUB_CACHE`, then `HUGGINGFACE_HUB_CACHE`, then `$HF_HOME/hub`, then `~/.cache/huggingface/hub` (`src-tauri/src/offline_models.rs`, same rule as the doctor script). If any model is missing nothing is set, so the first download still works. Set `MEMORIA_ALLOW_NETWORK=1` to never set it (for example to fetch a model update). The setting only affects Hugging Face; importing a web page or video still needs the internet.
 
 ## Reset and uninstall
 
 - Forget the ledger of one vault: quit the app and delete its folder under `~/Library/Application Support/com.memoria.app/ledger/`. Notes are not affected; add the meetings again.
-- Delete voice profiles: Settings, Telemetry section, **Delete all saved voice profiles** (or delete `~/.memoria/`).
+- Delete voice profiles: Settings, Telemetry section, **Delete all saved voice profiles** (or delete `~/.memoria/voices.json` and `~/.memoria/sessions/`).
+- Voice data lifecycle (`src-tauri/resources/python/voice_store.py`): with profiles off nothing is computed or written. With them on, the transcriber keeps every speaker's voiceprint in `sessions/<id>.json` only until the review step ends. **Save note** adds only the speakers you named (a pre-filled suggestion you keep counts as named) to `voices.json` and deletes the session file; closing the panel without saving deletes it too; unnamed speakers are never stored. A session file left by a crash is removed at the next recording once it is 6 hours old.
+- Tests for this: `npm run test:python`.
 - Start from scratch: delete `~/Documents/Getting Started` and `~/Library/Application Support/com.memoria.app/`, then reopen the app.
 - Uninstall: drag `/Applications/Memoria.app` to the Bin and delete the folders above. To free disk space, delete the Hugging Face models you no longer need from `~/.cache/huggingface/hub/` (`models--mlx-community--Qwen3.5-4B-MLX-4bit`, `...parakeet-tdt-0.6b-v3`, `...diar_streaming_sortformer_4spk-v2.1-fp16`, `...wespeaker-voxceleb-resnet34-LM`).
 

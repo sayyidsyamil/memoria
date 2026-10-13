@@ -5,9 +5,10 @@ import { Input } from '../ui/input'
 import type { VaultEntry } from '../../types'
 import { formatDateTime } from '../../lib/ledgerFormat'
 import { parseTranscriptNote } from '../../lib/transcriptNote'
-import { ingestNote, isNote, isTranscriptCandidate, meetingIdForNote, summariseIngest } from './ingestNote'
+import { ingestNote, isNote, isTranscriptCandidate, meetingIdForNote } from './ingestNote'
+import { describeIngest, summariseIngest } from './ingestSummary'
 import { useLedger } from './ledgerContext'
-import { Busy, EmptyState, ErrorNotice } from './ui'
+import { Busy, EmptyState, ErrorNotice, WarningNotice } from './ui'
 
 export function MeetingsTab() {
   const { api, data, entries, vaultPath, refresh, readNote, notify, meetingLabel } = useLedger()
@@ -15,7 +16,7 @@ export function MeetingsTab() {
   const [search, setSearch] = useState('')
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [summary, setSummary] = useState<string | null>(null)
+  const [summary, setSummary] = useState<{ title: string; text: string; readCleanly: boolean } | null>(null)
 
   const added = useMemo(() => new Set(data.meetings.map((m) => m.meeting_id)), [data.meetings])
   const candidates = useMemo(() => {
@@ -35,8 +36,9 @@ export function MeetingsTab() {
     setSummary(null)
     try {
       const result = await ingestNote({ api, entry, vaultPath, readNote })
-      setSummary(`${entry.title}: ${summariseIngest(result)}`)
-      notify(`Added "${entry.title}".`)
+      const { readCleanly } = describeIngest(result)
+      setSummary({ title: entry.title, text: summariseIngest(result), readCleanly })
+      notify(readCleanly ? `Added "${entry.title}".` : `Added "${entry.title}", but some decisions may be missing.`)
       await refresh()
       return true
     } catch (e) {
@@ -92,7 +94,10 @@ export function MeetingsTab() {
         </div>
         {busy ? <Busy label="Reading the meeting… this can take a few minutes the first time." /> : null}
         {error ? <ErrorNotice message={error} /> : null}
-        {summary ? <div role="status" className="rounded-md border border-border bg-muted/40 p-3 text-sm text-foreground">{summary}</div> : null}
+        {summary && !summary.readCleanly ? (
+          <WarningNotice>{`${summary.title}: ${summary.text}`}</WarningNotice>
+        ) : null}
+        {summary?.readCleanly ? <div role="status" className="rounded-md border border-border bg-muted/40 p-3 text-sm text-foreground">{`${summary.title}: ${summary.text}`}</div> : null}
         {candidates.length === 0 ? (
           <EmptyState title={showAll ? 'No notes found' : 'No transcripts found'}>
             Record a meeting with &ldquo;Record meeting&rdquo; and save it, or tick &ldquo;Show all notes&rdquo; to pick any note that contains a conversation.
