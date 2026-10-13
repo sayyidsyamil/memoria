@@ -14,19 +14,19 @@ Spawned by Memoria's Rust backend. Emits newline-delimited JSON on stdout:
 Control file (--control PATH): contents are one of "", "pause", "stop".
   - "pause" suspends capture (mic blocks discarded); "" resumes; "stop" finalizes.
 
-Voice enrollment (the FYP differentiator): on finalize we compute a WeSpeaker
-embedding per diarized speaker and match it against the user's named voiceprints
-in ~/.memoria/voices.json. Matches are returned as `speakers[].suggested` so the
-UI can pre-fill names. The per-speaker embeddings are written to
-~/.memoria/sessions/<id>.json so a later `--enroll-session` pass can persist the
-names the user confirms — building up each voiceprint over time.
+Voice enrollment (opt-in, see voice_store.py): when the user has switched voice profiles on,
+on finalize we compute a WeSpeaker embedding per diarized speaker and match it against the
+named voiceprints in ~/.memoria/voices.json. Matches come back as `speakers[].suggested` so
+the UI can pre-fill names. The embeddings of all speakers wait in a short-lived, owner-only
+~/.memoria/sessions/<id>.json until the user saves (only named speakers are enrolled) or
+closes the panel (nothing is kept); either way the file is deleted. With voice profiles off,
+no embedding is computed and nothing is written.
 """
 
 import argparse
 import json
 import sys
 import time
-import uuid
 import queue
 from pathlib import Path
 
@@ -35,6 +35,7 @@ import sounddevice as sd
 import mlx.core as mx
 
 from transcribe_v3 import STT, DIAR, aligned_words, build_turns
+import voice_store
 
 SAMPLE_RATE = 16000
 BLOCK_MS = 100
@@ -44,12 +45,8 @@ MIN_SPEECH_MS = 300
 MAX_SEGMENT_MS = 15000
 PREROLL_BLOCKS = 3
 
-MEMORIA_DIR = Path.home() / ".memoria"
-VOICES_PATH = MEMORIA_DIR / "voices.json"
-SESSIONS_DIR = MEMORIA_DIR / "sessions"
 REMEMBER_VOICES = False   # set by --remember-voices (the user opted in)
 MATCH_FLOOR = 0.50          # cosine >= this -> auto-suggest the enrolled name
-MAX_SAMPLES_PER_VOICE = 6   # voiceprint history cap per person
 
 
 def emit(obj):
@@ -65,31 +62,8 @@ def read_control(control_path):
 
 
 # --------------------------------------------------------------------------- #
-# Voice enrollment store
+# Voice matching (storage rules live in voice_store.py)
 # --------------------------------------------------------------------------- #
-
-def load_voices():
-    try:
-        return json.loads(VOICES_PATH.read_text())
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {}
-
-
-def save_voices(voices):
-    MEMORIA_DIR.mkdir(parents=True, exist_ok=True)
-    VOICES_PATH.write_text(json.dumps(voices))
-
-
-def best_match(emb, voices):
-    """Return (name, score) of the closest enrolled voice, or (None, 0)."""
-    best_name, best_score = None, 0.0
-    for name, samples in voices.items():
-        for ref in samples:
-            score = float(np.dot(emb, np.array(ref, dtype=np.float32)))
-            if score > best_score:
-                best_name, best_score = name, score
-    return best_name, best_score
-
 
 _EMBED = None
 
@@ -256,42 +230,20 @@ def match_and_store_speakers(audio, spk_segments):
         return speakers, session_id
     try:
         emit({"type": "status", "msg": "identifying speakers"})
+        voice_store.sweep_stale_sessions()
         embs = speaker_embeddings(audio, spk_segments)
-        voices = load_voices()
+        voices = voice_store.load_voices()
         for sp in speakers:
             emb = embs.get(sp["id"])
             if emb is None:
                 continue
-            name, score = best_match(emb, voices)
+            name, score = voice_store.best_match(emb, voices)
             if name is not None and score >= MATCH_FLOOR:
                 sp["suggested"] = name
-        if embs:
-            session_id = uuid.uuid4().hex[:12]
-            SESSIONS_DIR.mkdir(parents=True, exist_ok=True)
-            store = {sid: emb.tolist() for sid, emb in embs.items()}
-            (SESSIONS_DIR / f"{session_id}.json").write_text(json.dumps(store))
+        session_id = voice_store.save_session(True, embs)
     except Exception as e:  # enrollment is best-effort; never block the transcript
         emit({"type": "status", "msg": f"speaker id unavailable: {type(e).__name__}"})
     return speakers, session_id
-
-
-def enroll_session(session_id, labels):
-    """Persist user-confirmed names: append each speaker's embedding under its name."""
-    path = SESSIONS_DIR / f"{session_id}.json"
-    try:
-        store = json.loads(path.read_text())
-    except (FileNotFoundError, json.JSONDecodeError):
-        return
-    voices = load_voices()
-    for spk_id, name in labels.items():
-        name = (name or "").strip()
-        emb = store.get(spk_id)
-        if not name or name.startswith("Speaker ") or emb is None:
-            continue
-        samples = voices.setdefault(name, [])
-        samples.append(emb)
-        del samples[:-MAX_SAMPLES_PER_VOICE]   # keep most recent N
-    save_voices(voices)
 
 
 def run_live(args):
@@ -311,15 +263,9 @@ def main():
     ap.add_argument("--control", help="poll file; 'stop'/'pause' control capture")
     ap.add_argument("--device", type=int, default=None)
     ap.add_argument("--remember-voices", action="store_true", help="opt-in: compute and store voiceprints")
-    ap.add_argument("--enroll-session", default=None, help="session id to persist names for")
-    ap.add_argument("--labels", default=None, help="JSON {speakerId: name} to enroll")
     args = ap.parse_args()
     global REMEMBER_VOICES
     REMEMBER_VOICES = args.remember_voices
-
-    if args.enroll_session:
-        enroll_session(args.enroll_session, json.loads(args.labels or "{}"))
-        return
 
     run_live(args)
 
