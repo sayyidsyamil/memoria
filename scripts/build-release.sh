@@ -44,12 +44,17 @@ echo "▸ building frontend…"
 echo "▸ building Memoria.app and .dmg (release)…"
 # JSON merge patch: a null removes the default engine resource, which would copy __pycache__.
 ./node_modules/.bin/tauri build \
-  --config '{"build":{"beforeBuildCommand":""},"bundle":{"targets":["app","dmg"],"createUpdaterArtifacts":false,"resources":{"../../engine/memoria_engine/**/*":null,"target/release-staging/memoria_engine/**/*":"engine/memoria_engine/"}}}'
+  --config '{"build":{"beforeBuildCommand":""},"bundle":{"targets":["app"],"createUpdaterArtifacts":false,"resources":{"../../engine/memoria_engine/**/*":null,"target/release-staging/memoria_engine/**/*":"engine/memoria_engine/"}}}'
 
 APP="$BUNDLE_DIR/macos/Memoria.app"
-DMG="$(ls -t "$BUNDLE_DIR"/dmg/*.dmg 2>/dev/null | head -n 1 || true)"
 [ -d "$APP" ] || fail "$APP was not produced."
-[ -n "$DMG" ] || fail "no .dmg found in $BUNDLE_DIR/dmg."
+# Tauri's own dmg step styles the Finder window through AppleScript and fails without Finder access; a plain compressed image is enough.
+mkdir -p "$BUNDLE_DIR/dmg"
+rm -f "$BUNDLE_DIR"/dmg/rw.*.dmg
+DMG="$BUNDLE_DIR/dmg/Memoria_${VERSION}_aarch64.dmg"
+rm -f "$DMG"
+hdiutil create -quiet -volname "Memoria" -srcfolder "$APP" -ov -format UDZO "$DMG"
+[ -f "$DMG" ] || fail "could not create $DMG."
 
 echo "▸ checking the bundle contents…"
 RES="$APP/Contents/Resources"
