@@ -100,6 +100,7 @@ When all four models are already in the Hugging Face cache (`mlx-community/Qwen3
 | Transcription fails to start | Packages missing or microphone not allowed | Install `requirements.txt`; System Settings, Privacy & Security, Microphone, allow Memoria |
 | First meeting takes very long | Models downloading | One-time download of about 5 GB; needs internet |
 | Models are downloaded again on a new macOS account | The model cache is per user (`~/.cache/huggingface`) | Put the cache in a shared folder: `export HF_HOME=/Users/Shared/memoria-models` before the first launch, and `launchctl setenv HF_HOME /Users/Shared/memoria-models` for launches from Finder (then restart Memoria). The scripts and the engine use `huggingface_hub`, which reads `HF_HOME`; nothing hard-codes `~/.cache/huggingface`. |
+| The vault stays on "Reloading vault..." and no notes appear | macOS is asking "Memoria.app would like to access files in your Desktop (or Documents) folder" and waits for the answer; the dialog can be behind other windows or on another desktop | Click Allow. The question is asked again for every new build, because the build is ad-hoc signed |
 | Getting Started fails with a git error | git missing | `xcode-select --install` |
 | Setting a variable has no effect | App launched from Finder | `launchctl setenv`, then restart the app, or launch from Terminal |
 | A suggestion says it is out of date | Something newer was recorded after it was made | It is refreshed automatically; press Dismiss or review the new value |
