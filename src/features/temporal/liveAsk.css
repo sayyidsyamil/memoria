@@ -1,0 +1,25 @@
+.live-ask { align-self: stretch; width: 100%; min-width: 0; min-height: 32px; max-height: min(240px, 44vh); flex: 0 1 auto; display: flex; flex-direction: column; overflow: hidden; border-top: 1px solid var(--hud-line, var(--border)); color: var(--hud-text, var(--foreground)); font: inherit; font-size: 12px; line-height: 1.5; }
+.live-ask *, .live-ask { box-sizing: border-box; }
+.live-ask button, .live-ask input { font: inherit; color: inherit; }
+.live-ask button { cursor: pointer; }
+.live-ask button:disabled, .live-ask input:disabled { opacity: .5; cursor: default; }
+.live-ask button:focus-visible, .live-ask input:focus-visible, .live-ask-scroll:focus-visible { outline: 2px solid var(--hud-muted, var(--muted-foreground)); outline-offset: -2px; }
+.live-ask-toggle { display: flex; align-items: center; gap: 6px; flex-shrink: 0; min-height: 32px; padding: 6px 0; border: 0; background: transparent; text-align: left; }
+.live-ask-toggle:hover { color: var(--hud-muted, var(--muted-foreground)); }
+.live-ask-body { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.live-ask-scroll { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 0 6px 4px 0; overflow-wrap: anywhere; user-select: text; }
+.live-ask p { margin: 0 0 6px; white-space: pre-wrap; }
+.live-ask-note { color: var(--hud-muted, var(--muted-foreground)); font-size: 11px; }
+.live-ask-error { color: var(--hud-text, var(--foreground)); }
+.live-ask-question { font-weight: 600; }
+.live-ask-answer h3 { font-size: 12px; font-weight: 600; margin: 8px 0 4px; }
+.live-ask-item { margin-bottom: 8px; }
+.live-ask-citations { display: flex; flex-wrap: wrap; gap: 4px; }
+.live-ask-citation { min-width: 0; max-width: 100%; }
+.live-ask-citation button { max-width: 100%; padding: 3px 7px; border: 1px solid var(--hud-line, var(--border)); border-radius: 6px; background: var(--muted); text-align: left; overflow-wrap: anywhere; font-size: 11px; }
+.live-ask-citation blockquote { margin: 6px 0; padding: 6px 8px; border-left: 2px solid var(--hud-muted, var(--muted-foreground)); }
+.live-ask-citation footer { color: var(--hud-muted, var(--muted-foreground)); font-size: 10px; }
+.live-ask-composer { display: flex; flex-shrink: 0; min-width: 0; gap: 6px; padding: 6px 0 8px; }
+.live-ask-composer input { flex: 1; min-width: 0; height: 32px; padding: 5px 8px; border: 1px solid var(--hud-line, var(--border)); border-radius: 7px; background: var(--muted); user-select: text; }
+.live-ask-composer input::placeholder { color: var(--hud-muted, var(--muted-foreground)); }
+.live-ask-composer button { flex-shrink: 0; min-height: 32px; padding: 5px 10px; border: 1px solid var(--hud-line, var(--border)); border-radius: 7px; background: var(--muted); }

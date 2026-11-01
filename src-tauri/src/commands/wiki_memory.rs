@@ -51,7 +51,7 @@ pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Re
     if action == "save_voice_profiles" {
         uuid::Uuid::parse_str(request["sessionId"].as_str().ok_or("Missing session identifier")?).map_err(|_| "Invalid session identifier")?;
     }
-    let cancellable = matches!(action.as_str(), "compile" | "ask" | "brief" | "transcribe");
+    let cancellable = matches!(action.as_str(), "compile" | "ask" | "brief" | "transcribe" | "live_ask" | "live_check") || (action == "temporal_api" && request["method"] == "ingest_reviewed_meeting");
     let job_id = request["jobId"].as_str().map(str::to_string).unwrap_or_else(|| uuid::Uuid::new_v4().to_string());
     let job_key = key(&window, &job_id)?;
     let cancelled = Arc::new(AtomicBool::new(false));

@@ -1,5 +1,19 @@
 # Architecture
 
+## Workspace-scoped temporal memory and live evidence checks
+
+The preserved original `memoria_engine` is accessed through `temporal_api`, separate
+from compiled wiki proposals. A tracked-item registry defines typed slots; reviewed
+meeting ingestion preserves dates and offsets and uses `confirm_all` policy.
+Current/historical facts, human review, corrections, and retractions remain ledger
+operations. Change-count responses add history-backed evidence in the adapter.
+
+The recording HUD can opt into `live_memory_check` against approved tracked facts.
+The most recent transcript turn remains provisional; earlier turns are checked
+serially with deduplicated cues. Numeric checks require comparable scope/units;
+semantic checks use the existing Qwen worker. This new adapter is not the original
+benchmark guard configuration, and full live latency remains unmeasured.
+
 ## Explicit meeting API
 
 Meeting CRUD now crosses a dedicated frontend client and Tauri `meetings_api`

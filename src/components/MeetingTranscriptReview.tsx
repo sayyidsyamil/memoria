@@ -14,9 +14,10 @@ import { MemoryAsk } from './MemoryAsk'
 import './meetingReview.css'
 import { meetingService } from '../features/meetings/meetingService'
 import type { TranscriptDraft, TranscriptTurn as Turn } from '../features/meetings/meetingTypes'
+import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
 export type { TranscriptDraft } from '../features/meetings/meetingTypes'
 
-export type MeetingTab = 'transcript' | 'summary' | 'ask'
+export type MeetingTab = 'transcript' | 'summary' | 'ask' | 'facts'
 
 /** Collapsible metadata block: open when it needs attention, folded away when it does not. */
 function Fold({ title, count, defaultOpen, aside, children }: { title: string; count: number; defaultOpen: boolean; aside?: ReactNode; children: ReactNode }) {
@@ -158,6 +159,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
           { value: 'transcript', label: 'Transcript' },
           { value: 'summary', label: 'Summary', disabled: !reviewed, attention: reviewed && outcomesStatus === 'needs-review' },
           { value: 'ask', label: 'Ask', disabled: !reviewed },
+          { value: 'facts', label: 'Tracked facts', disabled: !reviewed },
         ]} />
         <Chip tone={reviewed ? 'green' : 'orange'} dot>{reviewed ? 'Transcript reviewed' : 'Draft — check before saving'}</Chip>
       </div>
@@ -236,6 +238,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
       <PillTabPanel value="summary" className="review-body review-summary">
         <MeetingSummary vaultPath={vaultPath} sourcePath={outcomeSource} title={meetingTitle} turns={turns} names={names} marks={marks} buildNow={buildNow} onSeek={seekTo} onBrief={onBrief} />
       </PillTabPanel>
+      <PillTabPanel value="facts" className="review-body"><TemporalMemoryPanel vaultPath={vaultPath} meetingId={sessionId} /></PillTabPanel>
       <PillTabPanel value="ask" forceMount hidden={tab !== 'ask'} className="review-ask">
         {reviewed
           ? <MemoryAsk vaultPath={vaultPath} scope={outcomeSource ? [outcomeSource] : undefined} placeholder="Ask about this meeting…" onOpenMoment={(_, at) => seekTo(at)} />

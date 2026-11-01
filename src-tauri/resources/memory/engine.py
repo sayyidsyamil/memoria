@@ -834,10 +834,26 @@ def workspace_product(engine, request):
 
 def main():
     request = json.load(sys.stdin)
+    if request.get('action') == 'live_check':
+        # Live reads snapshot their own ledger and release it before inference;
+        # never hold the workspace publication lock during model verification.
+        from types import SimpleNamespace
+        from live_assistance import live_check
+        print(json.dumps({'result': live_check(SimpleNamespace(root=Path(request['vaultPath']).resolve(strict=True)), request)}))
+        return
     engine = Engine(request['vaultPath'])
     with engine.locked():
         action = request['action']
-        if action == 'meeting_api':
+        if action == 'live_ask':
+            from live_ask import live_ask
+            result = live_ask(engine, request)
+        elif action == 'live_check':
+            from live_assistance import live_check
+            result = live_check(engine, request)
+        elif action == 'temporal_api':
+            from temporal_service import temporal_api
+            result = temporal_api(engine, request)
+        elif action == 'meeting_api':
             from meetings_service import meeting_api
             result = meeting_api(engine, request)
         elif action in ['meetings', 'summary', 'save_meeting', 'delete_meeting', 'meeting_record', 'approved', 'search', 'save_brief', 'briefs']:

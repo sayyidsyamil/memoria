@@ -15,8 +15,9 @@ import type { WorkspaceSummary } from '../hooks/useWorkspaceSummary'
 import './workspaceMemoryHub.css'
 import { meetingService } from '../features/meetings/meetingService'
 import type { MeetingRecord } from '../features/meetings/meetingTypes'
+import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
 
-export type HubView = 'meetings' | 'search' | 'ask' | 'approved' | 'briefs'
+export type HubView = 'meetings' | 'search' | 'ask' | 'approved' | 'briefs' | 'facts'
 type Meeting = MeetingRecord
 interface Approved {
   id: string; title: string; kind: string; statement: string; quote: string; sourcePath: string
@@ -140,6 +141,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
     { value: 'ask', label: 'Ask' },
     { value: 'approved', label: 'Approved', count: count(summary?.approved, approved.length, loaded.approved), attention: (summary?.sourceChanged ?? changed) > 0 },
     { value: 'briefs', label: 'Briefs', count: count(summary?.briefs, briefs.length, loaded.briefs) },
+    { value: 'facts', label: 'Tracked facts' },
   ]
   const row = (icon: ReactNode, label: string, target: HubView, value?: number, attention = false) => <Button variant="ghost" className="workspace-row" onClick={() => open(target)}>
     {icon}<span>{label}</span>{!!value && <span className="workspace-row-count" data-attention={attention || undefined}>{value}</span>}
@@ -155,6 +157,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
       {row(<Quotes size={16} />, 'Ask', 'ask')}
       {row(<SealCheck size={16} />, 'All approved', 'approved', summary?.approved, (summary?.sourceChanged ?? 0) > 0)}
       {row(<FileText size={16} />, 'Briefs', 'briefs', summary?.briefs)}
+      {row(<SealCheck size={16} />, 'Tracked facts', 'facts')}
     </nav>
     <Dialog open={!!view && !meeting} onOpenChange={value => { if (!value) setView(null) }}>
       <DialogContent className="hub-dialog" onOpenAutoFocus={event => event.preventDefault()}>
@@ -167,7 +170,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
               <input aria-label={view === 'approved' ? 'Search approved knowledge' : 'Search meetings'} placeholder={view === 'approved' ? 'Filter claims and sources' : 'Filter meetings and people'} value={search} onChange={event => setSearch(event.target.value)} /></label>}
           </header>
           {error && <p role="alert" className="hub-error">{error}</p>}
-          <div className="hub-page-heading">
+          <div className="hub-page-heading" hidden={current === 'facts'}>
             <div><h1>{tabs.find(item => item.value === current)?.label}</h1>
               <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Answers from knowledge you have approved' : current === 'approved' ? 'Accepted claims with their original evidence' : 'Context for your next conversation'}</p></div>
             {current === 'meetings' && meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
@@ -194,6 +197,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
               {!busy && loaded.meetings && !meetings.length && <EmptyState icon={<Microphone size={20} />} title="No meetings yet" action={onStartMeeting && <Button onClick={() => { setView(null); onStartMeeting() }}>Start meeting</Button>}>Recordings, reviewed transcripts and approved outcomes appear here after you end a meeting.</EmptyState>}
               {!busy && !!meetings.length && !shownMeetings.length && <p className="hub-muted">No meetings match “{search}”.</p>}
             </PillTabPanel>
+            <PillTabPanel value="facts"><TemporalMemoryPanel vaultPath={vaultPath} /></PillTabPanel>
             <PillTabPanel value="search" forceMount hidden={view !== 'search'}>
               <MemorySearch vaultPath={vaultPath} active={view === 'search'} onOpenMoment={openMoment} onOpenPage={openPage} />
             </PillTabPanel>
@@ -247,7 +251,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
           <footer className="hub-footer">
             <span>{busy && !loaded[current] ? 'Loading…' : view === 'approved'
               ? `${plural(approved.length, 'approved claim')} across ${plural(new Set(approved.map(item => item.knowledgePath)).size, 'page')}${changed ? ` · ${changed} ${changed === 1 ? 'needs' : 'need'} review` : ''}`
-              : view === 'briefs' ? plural(briefs.length, 'saved brief') : view === 'search' ? 'Keyword search over saved transcripts and approved claims' : view === 'ask' ? 'Answers use approved knowledge only' : plural(meetings.length, 'meeting')}</span>
+               : view === 'facts' ? 'Tracked values and their evidence history' : view === 'briefs' ? plural(briefs.length, 'saved brief') : view === 'search' ? 'Keyword search over saved transcripts and approved claims' : view === 'ask' ? 'Answers use approved knowledge only' : plural(meetings.length, 'meeting')}</span>
             <Button variant="ghost" onClick={() => setView(null)}>Done</Button>
           </footer>
         </PillTabsRoot>

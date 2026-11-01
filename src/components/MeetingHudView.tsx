@@ -6,9 +6,13 @@ import { speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
 import { COMPACT_BARS, PREPARATION_STEPS, clockText } from '../lib/hud'
 import { Avatar, LevelMeter } from './memoriaUi'
 import './meetingHud.css'
+import type { LiveCue } from '../features/temporal/liveAssistanceService'
+import { LiveAskPanel } from '../features/temporal/LiveAskPanel'
 
 export type HudState = 'starting' | 'recording' | 'paused' | 'saving' | 'error'
 export interface HudViewProps {
+  vaultPath?: string
+  assistanceEnabled?: boolean; onToggleAssistance?: (enabled: boolean) => void; liveCues?: LiveCue[]; assistanceNotice?: string
   state: HudState; saveStage: string; seconds: number; levels: number[]; prep: number; captionsOpen: boolean
   liveTurns: TranscriptDraft['segments']; caption: string; captionError: string; marks: { at: number; label: string }[]; markNotice: string; error: string; micWait?: boolean
   transcriptRef?: Ref<HTMLDivElement>; onTranscriptScroll?: (event: UIEvent<HTMLDivElement>) => void
@@ -17,6 +21,7 @@ export interface HudViewProps {
 
 /** Presentation only: the notch, its preparation steps and the expanded Record view. */
 export function MeetingHudView({ state, saveStage, seconds, levels, prep, captionsOpen, liveTurns, caption, captionError, marks, markNotice, error, micWait,
+  assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, vaultPath,
   transcriptRef, onTranscriptScroll, onToggleCaptions, onOpenWorkspace, onPause, onEnd, onMark }: HudViewProps): ReactNode {
   const liveOrder = speakerOrder(liveTurns.map(turn => turn.speaker))
   const statusText = state === 'starting' ? 'Preparing' : state === 'recording' ? 'Recording' : state === 'paused' ? 'Paused' : state === 'saving' ? saveStage : 'Needs attention'
@@ -37,8 +42,12 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         <span className="meeting-hud-pill" role="status"><i />{statusText}</span>
         <div className="meeting-hud-bigtime" aria-label="Meeting duration">{clockText(seconds)}</div>
         <LevelMeter className="meeting-hud-wave" levels={levels} paused={state === 'paused'} />
+        {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Check against approved tracked facts</label>}
+        {assistanceNotice && <p className="meeting-hud-caption-warning" role="status">{assistanceNotice}</p>}
+        {!!liveCues?.length && <section className="meeting-hud-evidence" aria-label="Evidence to review">{liveCues.map(cue => <details key={`${cue.factId}:${cue.reason}`}><summary>{cue.label}: {String(cue.currentValue)}</summary><p>{cue.reason}</p><blockquote>{cue.quote}</blockquote><small>{cue.speaker || 'Unknown speaker'} · {cue.meeting || 'Approved memory'}</small></details>)}</section>}
         {captionError && <p role="alert" className="meeting-hud-caption-warning">Live transcript paused. Your recording is preserved.</p>}
         {transcript}
+        {vaultPath && <LiveAskPanel vaultPath={vaultPath} sessionText={caption} />}
         <small className="meeting-hud-hint">{captionError ? <details><summary>Show details</summary>{captionError}</details> : 'Speaker labels are provisional. Add names in review.'}</small>
       </section>
       <footer className="meeting-hud-actions">

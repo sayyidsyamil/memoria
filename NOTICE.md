@@ -37,6 +37,11 @@ owners. Memoria is a separate project, not an official Tolaria release.
 
 ## Design references (inspiration only)
 
+The black-and-white Memoria app icon is the user's existing artwork from the
+separate Dock application, reproduced at native icon sizes for this workspace.
+The preserved original Memoria decision engine is attributed to Sayyid Syamil;
+integration adapters are separate from its historical evaluated configuration.
+
 The November 2026 meeting-surface redesign (Record, Transcript, Summary, Ask and
 Search views, pill tabs, speaker avatars, citation chips) was informed by the public
 Aceternity UI site and a "Meeting Notes" reference page (Parley). No code, markup,

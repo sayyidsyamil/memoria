@@ -7,6 +7,7 @@ import { startMeetingLiveSpeech } from '../lib/meetingLiveSpeech'
 import { MeetingHudView, type HudState } from './MeetingHudView'
 import { clockText } from '../lib/hud'
 import { meetingService } from '../features/meetings/meetingService'
+import { checkLiveStatement, type LiveCue } from '../features/temporal/liveAssistanceService'
 
 const METER_BARS = 56
 
@@ -47,6 +48,47 @@ export function MeetingHud() {
   const captureStarted = useRef(false)
   const transcriptView = useRef<HTMLDivElement | null>(null)
   const followTranscript = useRef(true)
+  const [assistanceEnabled, setAssistanceEnabled] = useState(false)
+  const [liveCues, setLiveCues] = useState<LiveCue[]>([])
+  const [assistanceNotice, setAssistanceNotice] = useState('')
+  const checkedTurns = useRef(new Set<string>())
+  const assistanceBusy = useRef(false)
+  const assistanceJob = useRef<string | null>(null)
+  const assistanceAttempts = useRef(new Map<string, number>())
+  const assistanceTurns = useRef(liveTurns)
+  useEffect(() => { assistanceTurns.current = liveTurns }, [liveTurns])
+
+  useEffect(() => {
+    if (!assistanceEnabled || state !== 'recording') return
+    let active = true
+    const timer = window.setInterval(() => {
+      if (assistanceBusy.current) return
+      // The newest turn is provisional; inspect completed earlier turns only.
+      const turn = assistanceTurns.current.slice(0, -1).find(item => !checkedTurns.current.has(`${item.start}:${item.text}`))
+      if (!turn) return
+      const key = `${turn.start}:${turn.text}`
+      assistanceAttempts.current.set(key, (assistanceAttempts.current.get(key) ?? 0) + 1)
+      assistanceBusy.current = true
+      const jobId = crypto.randomUUID()
+      assistanceJob.current = jobId
+      void checkLiveStatement(vaultPath, turn.text, jobId).then(result => {
+        if (!active) return
+        checkedTurns.current.add(key)
+        if (result.cues?.length) setLiveCues(previous => [...result.cues, ...previous].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3))
+        setAssistanceNotice(result.warnings?.includes('No approved tracked facts') ? 'No approved tracked facts. Add and approve tracked items before using live checks.' : result.status === 'uncertain' ? 'A statement could not be verified. Inspect the transcript.' : '')
+      }).catch(() => {
+        if (active) {
+          if ((assistanceAttempts.current.get(key) ?? 0) >= 2) checkedTurns.current.add(key)
+          setAssistanceNotice('Live evidence checks are unavailable. Recording continues.')
+        }
+      })
+        .finally(() => { assistanceBusy.current = false; if (assistanceJob.current === jobId) assistanceJob.current = null })
+    }, 1500)
+    return () => {
+      active = false; window.clearInterval(timer)
+      if (assistanceJob.current) void invoke('cancel_wiki_memory', { jobId: assistanceJob.current }).catch(() => undefined)
+    }
+  }, [assistanceEnabled, state, vaultPath])
 
   useEffect(() => {
     const view = transcriptView.current
@@ -218,6 +260,8 @@ export function MeetingHud() {
   if (review && savedSource.current?.originalPath) return <MeetingTranscriptReview vaultPath={vaultPath} sessionId={sessionId.current}
     originalPath={savedSource.current.originalPath} title={savedSource.current.title} created={new Date(startTime.current).toISOString()} liveText={caption} initialDraft={finalDraft.current} initialMarks={marks} onClose={() => invoke('finish_meeting_hud')} />
   return <MeetingHudView state={state} saveStage={saveStage} seconds={seconds} levels={levels} prep={prep} captionsOpen={captionsOpen}
+    vaultPath={vaultPath}
+    assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={assistanceEnabled ? liveCues : []} assistanceNotice={assistanceEnabled ? assistanceNotice : ''}
     liveTurns={liveTurns} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}
     transcriptRef={transcriptView} onTranscriptScroll={event => { const view = event.currentTarget; followTranscript.current = view.scrollHeight - view.scrollTop - view.clientHeight < 40 }}
     onToggleCaptions={setCaptionsOpen} onOpenWorkspace={() => { void invoke('show_meeting_workspace') }} onPause={pause} onEnd={() => { void end() }} onMark={markMoment} />
