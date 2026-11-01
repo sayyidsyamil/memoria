@@ -26,7 +26,7 @@
 .knowledge-claim-statement { margin: 0; font-size: 14px; line-height: 1.6; }
 .knowledge-claim-destination { margin: 0; font-size: 12px; color: var(--muted-foreground); overflow-wrap: anywhere; }
 .knowledge-review-evidence { padding: 10px 12px; border-radius: 8px; background: var(--muted); }
-.knowledge-review-evidence summary { cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-foreground); }
+.knowledge-review-evidence summary { cursor: pointer; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--muted-foreground); }
 .knowledge-review-evidence blockquote { margin: 8px 0 4px; padding-left: 12px; border-left: 2px solid var(--accent-blue); font-size: 13px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
 .knowledge-review-evidence button { margin-left: -8px; color: var(--muted-foreground); }
 .knowledge-review-details { font-size: 12px; color: var(--muted-foreground); }

@@ -4,7 +4,7 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 }
 .meeting-hud {
   /* Kit components read theme variables; the HUD is always dark. */
-  --foreground: #eeeef0; --muted-foreground: #aaaab2; --background: #1c1c1e; --muted: #ffffff12; --border: #ffffff14;
+   --foreground: #ededed; --muted-foreground: #a1a1a6; --background: #19191b; --muted: #232325; --border: #2b2b2e;
   --hud-text: #eeeef0;
   --hud-muted: #aaaab2;
   --hud-line: #ffffff12;
@@ -15,9 +15,9 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
   box-sizing: border-box;
   border: 1px solid #ffffff14;
   border-radius: 20px;
-  background: #1c1c1e;
+   background: #19191b;
   color: var(--hud-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter Variable', sans-serif;
+   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   user-select: none;
 }
@@ -28,7 +28,7 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-title { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; line-height: 16px; }
 .meeting-hud-title .meeting-hud-status { font-size: 12px; font-weight: 600; color: var(--hud-text); }
 .meeting-hud-dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: #88888f; }
-.meeting-hud[data-state='recording'] .meeting-hud-dot { background: #ee817a; animation: meeting-hud-pulse 1.6s ease-in-out infinite; }
+.meeting-hud[data-state='recording'] .meeting-hud-dot { background: #ee817a; }
 @keyframes meeting-hud-pulse { 50% { opacity: .35; } }
 .meeting-hud-meter { height: 14px; margin-top: 3px; color: #c4c4cc; }
 .meeting-hud-status { font-size: 11px; line-height: 14px; color: var(--hud-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -75,9 +75,9 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-record { display: flex; flex: 1; flex-direction: column; align-items: center; min-height: 0; padding: 4px 28px 0; }
 .meeting-hud-pill { display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 500; color: #f0a39d; background: #ee817a1f; }
 .meeting-hud-pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.meeting-hud[data-state='recording'] .meeting-hud-pill i { animation: meeting-hud-pulse 1.6s ease-in-out infinite; }
+.meeting-hud[data-state='recording'] .meeting-hud-pill i { background: currentColor; }
 .meeting-hud[data-state='paused'] .meeting-hud-pill, .meeting-hud[data-state='saving'] .meeting-hud-pill { color: var(--hud-muted); background: #ffffff12; }
-.meeting-hud-bigtime { margin: 10px 0 2px; font-size: 60px; font-weight: 200; line-height: 1.1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.meeting-hud-bigtime { margin: 12px 0 4px; font-size: 56px; font-weight: 400; line-height: 1.1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .meeting-hud-wave { width: 100%; max-width: 440px; height: 56px; gap: 3px; color: #d4d4d8; -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); }
 .meeting-hud-wave span { flex: 1; width: auto; max-width: 4px; }
 .meeting-hud-record .meeting-hud-transcript { align-self: stretch; flex: 1; min-height: 0; margin-top: 12px; padding: 4px 4px 0; font-size: 17px; line-height: 1.55; white-space: normal; }
@@ -86,7 +86,7 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-live-turn p { margin: 0; padding-top: 2px; }
 .meeting-hud-empty { margin: 0; text-align: center; color: var(--hud-muted); }
 .meeting-hud-hint { align-self: stretch; padding: 8px 0 12px; font-size: 11px; color: var(--hud-muted); text-align: center; }
-.meeting-hud-actions { display: flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px 18px; border-top: 1px solid var(--hud-line); }
+.meeting-hud-actions { display: flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--hud-line); }
 .meeting-hud-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 10px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 120ms, opacity 120ms; }
 .meeting-hud-actions button:disabled { opacity: .35; cursor: default; }
 .meeting-hud-mark { border: 1px solid #ffffff1f; color: var(--hud-text); }
@@ -94,8 +94,8 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-mark kbd { padding: 1px 6px; border-radius: 5px; font: inherit; font-size: 11px; color: var(--hud-muted); background: #ffffff12; }
 .meeting-hud-pause { color: var(--hud-text); background: #ffffff0f; }
 .meeting-hud-pause:hover:not(:disabled) { background: #ffffff1a; }
-.meeting-hud-stop { color: #2a1210; background: #ee817a; font-weight: 600; }
-.meeting-hud-stop:hover:not(:disabled) { background: #f4968f; }
+.meeting-hud-stop { color: #19191b; background: #ededed; font-weight: 500; }
+.meeting-hud-stop:hover:not(:disabled) { background: #d4d4d8; }
 .meeting-hud-marked { min-width: 70px; font-size: 12px; color: var(--hud-muted); }
 .meeting-hud-actions button:focus-visible, .meeting-hud-bar button:focus-visible { outline: 2px solid #d4d4d8; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .meeting-hud-live-turn, .meeting-hud-actions button { transition: none; } .meeting-hud[data-state='recording'] .meeting-hud-pill i { animation: none; } }

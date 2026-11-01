@@ -20,14 +20,14 @@
   --font-hand-family: "Comic Neue", cursive;
 }
 /* bold display type (a single-weight brand display face, when present, looks the same at any weight) */
-@layer utilities { .font-display { font-weight: 700; } }
+@layer utilities { .font-display { font-weight: 500; } }
 html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { -webkit-font-smoothing: antialiased; background: var(--background); }
 /* iPhone notch / status bar: viewport-fit=cover + theme-color #155DFF (index.html) let the blue hero run under the status
  * bar; the hero and the fixed nav add env(safe-area-inset-top). html paints blue above the fold and white below, so a
  * rubber-band overscroll at the top shows blue and at the bottom white (body itself stays white). */
-html { background: linear-gradient(to bottom, var(--primary) 50%, var(--background) 50%); }
+html { background: var(--background); }
 
 
 /* Full-bleed hero band. --hero-inset is the inset from the blue edge to the hero copy; --hero-gap (the vertical gap

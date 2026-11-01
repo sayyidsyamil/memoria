@@ -1,5 +1,5 @@
 /* Shared meeting-memory primitives. Theme variables only, so light and dark follow the workspace. */
-.mui-label { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .06em; line-height: 16px; text-transform: uppercase; color: var(--muted-foreground); }
+.mui-label { margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 16px; color: var(--muted-foreground); }
 
 .mui-chip { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 500; line-height: 1; white-space: nowrap; color: var(--muted-foreground); background: var(--muted); }
 .mui-chip[data-dot]::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -11,6 +11,9 @@
 .mui-chip[data-tone='teal'] { color: color-mix(in srgb, var(--accent-teal) 62%, var(--foreground)); background: var(--accent-teal-light); }
 .mui-chip[data-tone='pink'] { color: color-mix(in srgb, var(--accent-pink) 68%, var(--foreground)); background: var(--accent-pink-light); }
 
+/* Classification is conveyed by the label; reserve colour for feedback, not every type. */
+.mui-chip[data-tone='blue'], .mui-chip[data-tone='purple'], .mui-chip[data-tone='teal'], .mui-chip[data-tone='pink'] { color: var(--muted-foreground); background: var(--muted); }
+
 /* Speaker / type tones: one variable every surface reads */
 [data-tone='neutral'] { --tone: var(--muted-foreground); }
 [data-tone='blue'] { --tone: var(--accent-blue); }
@@ -21,18 +24,18 @@
 [data-tone='pink'] { --tone: var(--accent-pink); }
 [data-tone='red'] { --tone: var(--accent-red); }
 
-.mui-avatar { display: inline-grid; flex-shrink: 0; place-items: center; border-radius: 50%; font-weight: 600; line-height: 1; letter-spacing: -.01em; color: color-mix(in srgb, var(--tone, var(--muted-foreground)) 78%, var(--foreground)); background: color-mix(in srgb, var(--tone, var(--muted-foreground)) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone, var(--muted-foreground)) 26%, transparent); }
+.mui-avatar { display: inline-grid; flex-shrink: 0; place-items: center; border-radius: 50%; font-weight: 500; line-height: 1; letter-spacing: 0; color: var(--foreground); background: var(--muted); box-shadow: inset 0 0 0 1px var(--border); }
 .mui-avatar[data-unknown] { box-shadow: inset 0 0 0 1px var(--border); background: transparent; color: var(--muted-foreground); }
 
 /* Sliding pill tabs */
 .mui-tabs-root { display: flex; flex-direction: column; min-height: 0; }
 .mui-tab-panel { outline: none; }
 .mui-tab-panel[data-state='inactive'] { display: none; }
-.mui-tabs { position: relative; display: inline-flex; align-items: center; flex-shrink: 1; min-width: 0; max-width: 100%; width: fit-content; padding: 3px; border-radius: 999px; background: var(--muted); overflow-x: auto; scrollbar-width: none; }
+.mui-tabs { position: relative; display: inline-flex; align-items: center; flex-shrink: 1; min-width: 0; max-width: 100%; width: fit-content; gap: 4px; padding: 4px; border-radius: 12px; background: var(--muted); overflow-x: auto; scrollbar-width: none; }
 .mui-tabs::-webkit-scrollbar { display: none; }
-.mui-tabs-indicator { position: absolute; top: 3px; bottom: 3px; left: 0; border-radius: 999px; background: var(--background); box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / .08); pointer-events: none; }
-.mui-tabs-indicator[data-ready] { transition: transform 300ms cubic-bezier(.3, 1.25, .45, 1), width 300ms cubic-bezier(.3, 1.25, .45, 1); }
-.mui-tab { position: relative; z-index: 1; flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 500; white-space: nowrap; color: var(--muted-foreground); cursor: pointer; transition: color 150ms; }
+.mui-tabs-indicator { position: absolute; top: 4px; bottom: 4px; left: 0; border-radius: 8px; background: var(--background); box-shadow: inset 0 0 0 1px var(--border); pointer-events: none; }
+.mui-tabs-indicator[data-ready] { transition: transform 160ms cubic-bezier(.22, 1, .36, 1); }
+.mui-tab { position: relative; z-index: 1; flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 14px; font-weight: 500; white-space: nowrap; color: var(--muted-foreground); cursor: pointer; transition: color 160ms; }
 .mui-tab:hover:not(:disabled) { color: var(--foreground); }
 .mui-tab[data-state='active'] { color: var(--foreground); }
 .mui-tab:disabled { opacity: .45; cursor: default; }
@@ -48,7 +51,7 @@
 .mui-rail li[data-state='done'], .mui-rail li[data-state='current'] { color: var(--foreground); }
 .mui-rail-mark { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--border-strong, var(--border)); color: var(--background); }
 .mui-rail li[data-state='done'] .mui-rail-mark { background: var(--accent-green); border-color: var(--accent-green); }
-.mui-rail li[data-state='current'] .mui-rail-mark { border-color: var(--accent-blue); box-shadow: 0 0 0 3px var(--accent-blue-light); }
+.mui-rail li[data-state='current'] .mui-rail-mark { border-color: var(--foreground); }
 
 /* Stateful button */
 .mui-state-button[data-status='done'] { background: var(--accent-green); color: var(--background); }
@@ -63,7 +66,7 @@
 
 /* Level meter: height shows the real input level of each ~250 ms block */
 .mui-meter { display: flex; align-items: center; justify-content: center; gap: 2px; height: 16px; }
-.mui-meter span { width: 2px; min-height: 2px; border-radius: 1px; background: currentColor; transition: height 200ms ease-out, opacity 200ms; }
+.mui-meter span { width: 2px; min-height: 2px; border-radius: 1px; background: currentColor; transition: opacity 160ms; }
 .mui-meter[data-paused] span { opacity: .35; }
 
 @media (prefers-reduced-motion: reduce) {

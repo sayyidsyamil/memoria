@@ -1,0 +1,47 @@
+/* Unslop method: Damir Sokolovsky / heydamir/unslop, CC BY 4.0. */
+:root { --background: #fafafa; --foreground: #242424; --muted-foreground: #626262; --border: #e5e5e5; --primary: #242424; --primary-foreground: #fff; color-scheme: light; }
+html { background: var(--background); scroll-behavior: auto; scroll-padding-top: 24px; }
+body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 15px; line-height: 1.6; color: var(--foreground); }
+* { box-sizing: border-box; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid #155dff; outline-offset: 4px; border-radius: 4px; }
+a:hover { color: #155dff; }
+h1, h2, h3, p, figure { margin: 0; }
+h1, h2, h3 { font-weight: 500; }
+.skip-link { position: absolute; left: 24px; top: -80px; padding: 12px; background: white; z-index: 2; }
+.skip-link:focus { top: 12px; }
+.site-header, main, .site-footer { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+.site-header { height: 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.wordmark { font-size: 18px; font-weight: 500; }
+.site-header nav { display: flex; align-items: center; gap: 24px; font-size: 14px; }
+.site-header nav a { display: inline-flex; align-items: center; gap: 8px; }
+.product-intro { padding-top: 80px; }
+.eyebrow { font-size: 12px; color: var(--muted-foreground); margin-bottom: 16px; }
+h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.08; letter-spacing: -.025em; }
+.intro-detail { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: 24px; }
+.intro-detail > p { max-width: 560px; color: var(--muted-foreground); font-size: 18px; line-height: 1.6; }
+.primary-link { display: inline-flex; align-items: center; justify-content: center; gap: 16px; flex-shrink: 0; height: 44px; padding: 0 20px; border-radius: 8px; background: var(--primary); color: white; font-size: 14px; transition: background 160ms; }
+.primary-link:hover { background: #414141; color: white; }
+.product-view { margin-top: 48px; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 12px; }
+figure a { display: block; }
+figcaption { font-size: 12px; color: var(--muted-foreground); padding-top: 12px; }
+.workflow { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 96px 0; }
+h2 { font-size: 32px; line-height: 1.2; letter-spacing: -.015em; }
+h3 { font-size: 16px; line-height: 1.5; }
+.workflow-list { list-style: none; margin: 0; padding: 0; }
+.workflow-list li { display: flex; gap: 24px; padding: 24px 0; border-top: 1px solid var(--border); }
+.workflow-list li:first-child { padding-top: 0; border: 0; }
+.workflow-list li > span { font-size: 12px; color: var(--muted-foreground); font-variant-numeric: tabular-nums; padding-top: 4px; }
+.workflow-list p { margin-top: 8px; color: var(--muted-foreground); }
+.evidence-section { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center; padding: 64px 0; border-top: 1px solid var(--border); }
+.evidence-section > div > p:not(.eyebrow) { margin-top: 24px; color: var(--muted-foreground); }
+.text-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; margin-top: 24px; text-decoration: underline; text-underline-offset: 4px; }
+.development { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 96px 0; border-top: 1px solid var(--border); }
+.development h2 + p { margin-top: 24px; color: var(--muted-foreground); }
+.development-notes p { color: var(--muted-foreground); }
+.development-notes p + p { margin-top: 16px; }
+.site-footer { display: flex; justify-content: space-between; gap: 24px; padding: 24px 0 48px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted-foreground); }
+.site-footer a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 720px) { .site-header, main, .site-footer { width: calc(100% - 40px); } .site-header { height: 64px; } .site-header nav { gap: 16px; } .site-header nav a:first-child { display: none; } .product-intro { padding-top: 48px; } .intro-detail { align-items: flex-start; flex-direction: column; gap: 24px; } .product-view { margin-top: 32px; } .workflow, .evidence-section, .development { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; } h2 { font-size: 28px; } .site-footer { flex-direction: column; gap: 8px; } }
+@media (prefers-color-scheme: dark) { :root { --background: #141415; --foreground: #ededed; --muted-foreground: #a1a1a6; --border: #2b2b2e; --primary: #ededed; --primary-foreground: #141415; color-scheme: dark; } .primary-link { color: var(--primary-foreground); } .primary-link:hover { background: #d4d4d8; color: #141415; } .skip-link { background: #232325; } }

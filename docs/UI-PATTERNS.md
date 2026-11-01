@@ -50,6 +50,12 @@ confidence or accuracy claim.
 
 ## Shared kit
 
+The product-wide Unslop follow-up in [UNSLOP-PASS.md](UNSLOP-PASS.md) supersedes
+the earlier visual treatment: labels use sentence case, shared controls use 8px
+corners inside 12px segmented groups, avatars are neutral, primary chrome is
+graphite, and the selected tab moves without bounce or animated width. Evidence
+timestamps and semantic feedback retain meaningful accent colour.
+
 `src/components/memoriaUi.tsx` and `memoriaUi.css`:
 
 - `SectionLabel`, `Chip` (tones: neutral, blue, green, orange, red, purple, teal,

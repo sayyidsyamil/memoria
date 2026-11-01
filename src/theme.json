@@ -6,18 +6,18 @@
     "maxWidth": 820,
     "paddingHorizontal": 40,
     "paddingVertical": 20,
-    "paragraphSpacing": 6,
+    "paragraphSpacing": 8,
     "dividerFollowedByHeadingMarginTop": 8
   },
   "headings": {
     "h1": {
       "fontSize": 26,
-      "fontWeight": 600,
+      "fontWeight": 500,
       "lineHeight": 1.2,
       "marginTop": 20,
-      "marginBottom": 10,
+      "marginBottom": 12,
       "color": "var(--text-heading)",
-      "letterSpacing": -0.5
+      "letterSpacing": 0
     },
     "h2": {
       "fontSize": 20,
@@ -26,7 +26,7 @@
       "marginTop": 20,
       "marginBottom": 8,
       "color": "var(--text-heading)",
-      "letterSpacing": -0.5
+      "letterSpacing": 0
     },
     "h3": {
       "fontSize": 17,
@@ -35,14 +35,14 @@
       "marginTop": 16,
       "marginBottom": 8,
       "color": "var(--text-heading)",
-      "letterSpacing": -0.5
+      "letterSpacing": 0
     },
     "h4": {
       "fontSize": 16,
       "fontWeight": 600,
       "lineHeight": 1.4,
-      "marginTop": 14,
-      "marginBottom": 6,
+      "marginTop": 16,
+      "marginBottom": 8,
       "color": "var(--text-heading)",
       "letterSpacing": 0
     }
@@ -50,7 +50,7 @@
   "lists": {
     "bulletSymbol": "•",
     "bulletSize": 24,
-    "bulletColor": "var(--accent-blue)",
+    "bulletColor": "var(--text-secondary)",
     "indentSize": 24,
     "itemSpacing": 4,
     "paddingLeft": 8,
@@ -66,7 +66,7 @@
   },
   "inlineStyles": {
     "bold": {
-      "fontWeight": 700,
+      "fontWeight": 600,
       "color": "var(--text-primary)"
     },
     "italic": {

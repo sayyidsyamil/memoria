@@ -7,6 +7,49 @@ This document adapts that method; application code retains its existing licence.
 
 ## Direction
 
+### Product-wide follow-up
+
+The 1 November follow-up applies to the desktop workspace, shared meeting
+components, recording HUD, mobile palette, public landing page, documentation
+chrome, and GitHub README. Direction: calm, precise, editorial; the product's
+world is working notes and source documents. Signature: timestamp → quote →
+approved outcome. Existing features and evidence remain intact.
+
+Audit: competing font stacks, tracked uppercase labels, saturated chrome,
+over-rounded controls, bouncy tab motion, arbitrary spacing, brown-tinted dark
+surfaces, and marketing claims inherited from Tolaria. The README's badge stack,
+equal-card tour, added screenshot backdrop, and mixed alignment obscured the UI.
+
+Passes:
+
+1. Spacing: 4px rhythm for shared tabs, navigation, hub headers, and form controls.
+2. Color: graphite surfaces in both themes; neutral primary controls, semantic
+   feedback, and evidence accents inside content.
+3. Icons: existing Phosphor set; neutral avatars and no added decorative icons.
+4. Copy: plain meeting-workflow wording; remove inherited sponsor/download claims
+   from the Memoria landing page.
+5. Type: shared Inter stack, sentence-case labels, readable metadata, restrained
+   headings, and a legible recording timer.
+6. Layout: editorial landing sections and a plain README with two readable images,
+   instead of equal marketing cards and half-width screenshots.
+7. Details: 8px controls inside 12px groups, quiet state indicators, fewer pills.
+8. Visuals: native product captures without an added presentation backdrop.
+9. Motion: remove bounce, pulsing recording decoration, and animated bar geometry;
+   retain short purposeful feedback and reduced-motion support.
+
+Scope note: shared tokens propagate to inherited views; this is not an exhaustive
+native audit of every editor, mobile, or settings interaction. Native recording
+acceptance remains a separate task. The screenshot archive predates this follow-up
+and is labelled accordingly until new native captures are made.
+
+Verification: desktop TypeScript, 66 scoped frontend tests, landing TypeScript and
+production build, mobile TypeScript and the mobile palette test pass. The updated
+native debug bundle builds. Representative Summary and dark Ask layouts were
+inspected in the fixture harness; the website was inspected at desktop and narrow
+widths. The docs CSS follows the same typography and neutral-navigation treatment;
+the full documentation site and every inherited mobile screen were not visually
+audited in this pass.
+
 - Product: meeting knowledge with inspectable evidence.
 - Character: calm, precise, readable.
 - World: working notes and source documents.

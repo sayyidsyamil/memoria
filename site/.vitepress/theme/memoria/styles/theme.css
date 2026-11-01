@@ -61,18 +61,18 @@
   --vp-c-brand-2: var(--tl-blue-300);
   --vp-c-brand-3: var(--tl-blue-600);
   --vp-c-brand-soft: rgb(110 158 255 / 0.16);
-  --vp-c-bg: #111111;
+  --vp-c-bg: #141415;
   --vp-c-bg-alt: var(--tl-gray-950);
-  --vp-c-bg-elv: var(--tl-gray-900);
-  --vp-c-bg-soft: var(--tl-gray-900);
+  --vp-c-bg-elv: #19191b;
+  --vp-c-bg-soft: #232325;
   --vp-c-text-1: #F2F2F2;
   --vp-c-text-2: var(--tl-gray-300);
   --vp-c-text-3: var(--tl-gray-500);
   --vp-c-border: var(--tl-gray-800);
   --vp-c-divider: #262626;
   --vp-c-gutter: #262626;
-  --vp-nav-screen-bg-color: #111111;
-  --vp-sidebar-bg-color: #111111;
+  --vp-nav-screen-bg-color: #141415;
+  --vp-sidebar-bg-color: #141415;
   --vp-code-bg: rgb(110 158 255 / 0.14);
   --vp-code-color: var(--tl-blue-300);
   --vp-code-block-bg: #181818;
@@ -99,9 +99,9 @@ body { -webkit-font-smoothing: antialiased; }
 .VPNav { isolation: isolate; border-bottom: 1px solid var(--tl-glass-border); transition: box-shadow 300ms var(--tl-ease); }
 .VPNav::before {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
-  background: var(--tl-glass); -webkit-backdrop-filter: blur(20px) saturate(1.5); backdrop-filter: blur(20px) saturate(1.5);
+  background: var(--vp-c-bg);
 }
-.tl-scrolled .VPNav { box-shadow: 0 6px 24px -16px rgb(10 30 80 / 0.35); }
+.tl-scrolled .VPNav { box-shadow: none; }
 /* VitePress paints the bar, its title and content-body from these variables; clearing them lets the glass show through. */
 .VPNav .VPNavBar { --vp-nav-bg-color: transparent; --vp-sidebar-bg-color: transparent; background-color: transparent; }
 .VPNavBar .divider, .VPNavBar .divider-line { display: none; }

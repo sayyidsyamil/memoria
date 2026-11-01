@@ -3,11 +3,11 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
   height: 100vh; display: flex; flex-direction: column; overflow: hidden;
   background: var(--background); color: var(--foreground);
   border: 1px solid var(--border); border-radius: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter Variable', sans-serif;
+  font-family: inherit;
 }
 .review-header { flex-shrink: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 20px 28px 0; }
 .review-heading { flex: 1; min-width: 0; }
-.review-eyebrow { margin: 0 0 4px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-foreground); }
+.review-eyebrow { margin: 0 0 8px; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--muted-foreground); }
 .review-title { display: block; width: calc(100% + 12px); margin: 0 -6px; padding: 2px 6px; border-radius: 8px; background: transparent; font-size: 20px; font-weight: 600; letter-spacing: -.3px; line-height: 28px; text-overflow: ellipsis; outline: none; transition: background 120ms, box-shadow 120ms; }
 .review-title:hover:not(:disabled) { background: var(--muted); }
 .review-title:focus { background: var(--muted); box-shadow: 0 0 0 2px var(--ring); }
@@ -52,7 +52,7 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
 .review-speaker select { flex: 1; cursor: pointer; }
 .review-speaker input { flex: 1; }
 .review-share-bar { flex-shrink: 0; width: 120px; height: 4px; border-radius: 2px; background: var(--muted); overflow: hidden; }
-.review-share-bar i { display: block; height: 100%; border-radius: 2px; background: var(--tone, var(--muted-foreground)); transition: width 300ms ease; }
+.review-share-bar i { display: block; height: 100%; border-radius: 2px; background: var(--muted-foreground); }
 .review-share { flex-shrink: 0; min-width: 34px; font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; color: var(--muted-foreground); }
 
 /* Marked moments */

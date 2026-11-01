@@ -1,10 +1,10 @@
 .summary { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 36px; padding: 8px 0 24px; }
 .summary-main { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-width: 0; }
-.summary-lead { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.5; letter-spacing: -.01em; }
+.summary-lead { margin: 0; font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0; }
 .summary-section { width: 100%; }
 .summary-section ul { display: flex; flex-direction: column; margin: 10px 0 0; padding: 0; list-style: none; }
 .summary-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-.summary-dot { flex-shrink: 0; width: 7px; height: 7px; margin-top: 9px; border-radius: 50%; background: var(--tone, var(--muted-foreground)); }
+.summary-dot { flex-shrink: 0; width: 4px; height: 4px; margin-top: 10px; border-radius: 50%; background: var(--muted-foreground); }
 .summary-item-body { flex: 1; min-width: 0; }
 .summary-item-body p { margin: 0; font-size: 15px; line-height: 1.6; }
 .summary-item-body summary { margin-top: 2px; font-size: 12px; color: var(--muted-foreground); cursor: pointer; }
@@ -13,7 +13,7 @@
 .summary-time { flex-shrink: 0; margin-top: 3px; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-variant-numeric: tabular-nums; color: color-mix(in srgb, var(--accent-orange) 72%, var(--foreground)); background: var(--accent-orange-light); cursor: pointer; transition: background 120ms; }
 .summary-time:hover { background: color-mix(in srgb, var(--accent-orange) 26%, transparent); }
 .summary-time:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-.summary-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border-radius: 14px; background: var(--muted); color: var(--muted-foreground); }
+.summary-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; width: 100%; padding: 16px 0; border-top: 1px solid var(--border); color: var(--muted-foreground); }
 .summary-bar p { flex: 1; min-width: 180px; margin: 0; font-size: 13px; color: var(--foreground); }
 .summary-bar button { color: var(--foreground); }
 .summary-side { display: flex; flex-direction: column; gap: 26px; }

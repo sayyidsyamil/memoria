@@ -1,5 +1,13 @@
 # Architecture
 
+## Product-wide visual consistency
+
+The Unslop follow-up uses `src/index.css` as the desktop surface/text contract;
+mobile palettes are regenerated from those tokens. Meeting components share
+typography, sentence-case labels, neutral chrome, and restrained control geometry.
+The public landing page presents Memoria's actual meeting workflow rather than
+inherited release and sponsorship claims. See [UNSLOP-PASS.md](UNSLOP-PASS.md).
+
 ## Permanent meeting workspace (1 November 2026)
 
 The current Meetings / All approved / Briefs flow and native acceptance evidence

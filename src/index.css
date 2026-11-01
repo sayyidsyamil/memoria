@@ -35,7 +35,7 @@
 
   /* --- Semantic surfaces (light mode) --- */
   --surface-app: #FFFFFF;
-  --surface-sidebar: #F7F6F3;
+  --surface-sidebar: #FAFAFA;
   --surface-panel: #FFFFFF;
   --surface-card: #FFFFFF;
   --surface-popover: #FFFFFF;
@@ -46,12 +46,12 @@
   --surface-overlay: rgba(0, 0, 0, 0.3);
 
   /* --- Semantic text (light mode) --- */
-  --text-primary: #37352F;
-  --text-secondary: #787774;
-  --text-tertiary: #787774;
-  --text-muted: #B4B4B4;
+  --text-primary: #242424;
+  --text-secondary: #626262;
+  --text-tertiary: #737373;
+  --text-muted: #737373;
   --text-faint: #B4B4B4;
-  --text-heading: #37352F;
+  --text-heading: #242424;
   --text-inverse: #FFFFFF;
 
   /* --- Semantic borders (light mode) --- */
@@ -65,10 +65,10 @@
   /* --- Interaction states (light mode) --- */
   --state-hover: #EBEBEA;
   --state-hover-subtle: #F0F0EF;
-  --state-selected: #E8F4FE;
-  --state-selected-strong: #D8ECFE;
+  --state-selected: #ECECEC;
+  --state-selected-strong: #E2E2E2;
   --editor-selection: var(--state-selected);
-  --state-active: #E8F4FE;
+  --state-active: #ECECEC;
   --state-focus-ring: #155DFF;
   --state-drag-target: #155DFF18;
   --state-disabled: #F0F0EF;
@@ -154,7 +154,7 @@
   --card-foreground: var(--text-primary);
   --popover: var(--surface-popover);
   --popover-foreground: var(--text-primary);
-  --primary: var(--accent-blue);
+  --primary: var(--text-primary);
   --primary-foreground: var(--text-inverse);
   --secondary: var(--state-hover);
   --secondary-foreground: var(--text-primary);
@@ -197,44 +197,44 @@
   color-scheme: dark;
 
   /* --- Semantic surfaces (dark mode) --- */
-  --surface-app: #1F1E1B;
-  --surface-sidebar: #191814;
-  --surface-panel: #23221F;
-  --surface-card: #23221F;
-  --surface-popover: #292823;
-  --surface-input: #1F1E1B;
-  --surface-button: #34322D;
-  --surface-dialog: #272622;
-  --surface-editor: #1F1E1B;
+  --surface-app: #141415;
+  --surface-sidebar: #101011;
+  --surface-panel: #19191B;
+  --surface-card: #19191B;
+  --surface-popover: #232325;
+  --surface-input: #19191B;
+  --surface-button: #232325;
+  --surface-dialog: #19191B;
+  --surface-editor: #141415;
   --surface-overlay: rgba(8, 8, 7, 0.58);
 
   /* --- Semantic text (dark mode) --- */
-  --text-primary: #E6E1D8;
-  --text-secondary: #B8B1A6;
-  --text-tertiary: #9C9488;
-  --text-muted: #7F776D;
+  --text-primary: #EDEDED;
+  --text-secondary: #A1A1A6;
+  --text-tertiary: #919197;
+  --text-muted: #919197;
   --text-faint: #625B53;
-  --text-heading: #F1ECE3;
-  --text-inverse: #151411;
+  --text-heading: #EDEDED;
+  --text-inverse: #141415;
 
   /* --- Semantic borders (dark mode) --- */
-  --border-default: #34322D;
-  --border-subtle: #2A2925;
-  --border-strong: #46433B;
-  --border-input: #3A3832;
-  --border-dialog: #3A3832;
+  --border-default: #2B2B2E;
+  --border-subtle: #232325;
+  --border-strong: #414146;
+  --border-input: #2B2B2E;
+  --border-dialog: #2B2B2E;
   --border-focus: #78A4FF;
 
   /* --- Interaction states (dark mode) --- */
-  --state-hover: #2D2B27;
-  --state-hover-subtle: #262520;
-  --state-selected: #1E344C;
-  --state-selected-strong: #25415F;
+  --state-hover: #232325;
+  --state-hover-subtle: #1E1E20;
+  --state-selected: #2B2B2E;
+  --state-selected-strong: #353539;
   --editor-selection: #3A63A0;
-  --state-active: #203A55;
+  --state-active: #2B2B2E;
   --state-focus-ring: #78A4FF;
   --state-drag-target: rgba(120, 164, 255, 0.2);
-  --state-disabled: #292824;
+  --state-disabled: #232325;
 
   /* --- Accent roles (dark mode) --- */
   --accent-blue: #78A4FF;
@@ -318,7 +318,7 @@
   --card-foreground: var(--text-primary);
   --popover: var(--surface-popover);
   --popover-foreground: var(--text-primary);
-  --primary: var(--accent-blue);
+  --primary: var(--text-primary);
   --primary-foreground: var(--text-inverse);
   --secondary: var(--state-hover);
   --secondary-foreground: var(--text-primary);
