@@ -11,7 +11,7 @@ const roots: string[] = []
 afterEach(async () => { await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true }))) })
 
 async function repository() {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-git-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-git-'))
   roots.push(dir)
   await git.init({ fs, dir, defaultBranch: 'main' })
   await writeFile(join(dir, 'note.md'), '---\ntags: [work]\n---\n# Original\n')

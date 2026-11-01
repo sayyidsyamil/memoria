@@ -24,7 +24,7 @@ Startup responsiveness and explicit, independent consent remain requirements.
   app/build version, release channel and distribution. Versions are bounded and
   validated. Use ephemeral anonymous PostHog session IDs, no person profiles,
   no GeoIP and no identity inferred from GitHub authorization. Cross-device
-  identity linking requires a future explicitly consented Tolaria identity.
+  identity linking requires a future explicitly consented Memoria identity.
 - Use the Expo-compatible official `@sentry/react-native` SDK and its matching
   `@sentry/core` transport utilities, not a hand-written Sentry protocol. Declare
   the matching `@sentry/cli` directly for pnpm-isolated native build scripts. Use

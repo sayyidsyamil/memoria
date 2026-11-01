@@ -6,7 +6,7 @@ interface EditorViewProps {
 }
 
 /**
- * EditorView - High-fidelity Tolaria editor
+ * EditorView - High-fidelity Memoria editor
  * Matches real editor typography, spacing, and styling from Editor.css
  */
 export const EditorView: React.FC<EditorViewProps> = ({ content, style }) => {
@@ -43,7 +43,7 @@ interface WikilinkProps {
 }
 
 /**
- * Wikilink - Exact Tolaria wikilink styling from Editor.css
+ * Wikilink - Exact Memoria wikilink styling from Editor.css
  * Dotted underline, subtle background, proper spacing
  */
 export const Wikilink: React.FC<WikilinkProps> = ({ children, style, position }) => {

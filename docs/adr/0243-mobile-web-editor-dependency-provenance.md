@@ -10,7 +10,7 @@ Proposed; dependency remediation and native acceptance pending in TOL-97.
 
 TenTap's published web entry contains bundled TipTap and ProseMirror code. Its
 package dependency declarations do not establish which versions are embedded in
-that artifact. Rebuilding Tolaria's HTML while importing that entry can therefore
+that artifact. Rebuilding Memoria's HTML while importing that entry can therefore
 preserve vulnerable code even after the lockfile is updated.
 
 The installed source also exposed a pre-existing mismatch: a TipTap text-style
@@ -20,7 +20,7 @@ had hidden this incompatibility from the normal editor build.
 ## Decision
 
 Resolve `@10play/tentap-editor/web` to the web source shipped in the installed,
-integrity-checked TenTap package when building Tolaria's editor HTML. Keep using
+integrity-checked TenTap package when building Memoria's editor HTML. Keep using
 TenTap's implementation and bridges; do not fork or reimplement the editor.
 Resolve React through the mobile package as before.
 
@@ -35,7 +35,7 @@ bundle. A missing source entry, incompatible peer, or failed build is an error,
 not a reason to silently fall back to the opaque bundled entry.
 
 Align TipTap core, ProseMirror peers and unpatched extensions on the same
-published release. Preserve Tolaria's existing link/code patches on their
+published release. Preserve Memoria's existing link/code patches on their
 compatible caret peer ranges. Declare `@floating-ui/dom`, required by TipTap's
 React peer contract, directly in the desktop and mobile packages. It is browser
 editor positioning code, not a new native module or vault-storage dependency.

@@ -61,7 +61,7 @@ type NativeWysiwygMutationSeedNote = Pick<MobileNote, 'favorite' | 'snippet' | '
 type NativeWysiwygMutationBooleanField = Exclude<keyof NativeWysiwygMutationProof, 'contentLength' | 'noteId'>
 type VaultRootUri = string | null | undefined
 
-const mutationLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_MUTATION_PROBE'
+const mutationLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_MUTATION_PROBE'
 const mutationTitle = 'Native WYSIWYG Mutation Probe'
 const mutationText = 'Native bridge mutation saved through TenTap.'
 const mutationAttachmentLink = '[project brief.pdf](<attachments/project brief.pdf>)'
@@ -266,7 +266,7 @@ export function assertNativeWysiwygMutationProofs(
     proofFailure(latest.titleSaved, 'editor.wysiwyg.mutation.title', 'Optional H1 title is saved as document content'),
     proofFailure(latest.mutationTextSaved, 'editor.wysiwyg.mutation.body', 'TenTap body mutation reaches the markdown save pipeline'),
     proofFailure(latest.inlineMarksSaved, 'editor.wysiwyg.mutation.inline', 'Native WYSIWYG inline marks serialize to desktop markdown syntax'),
-    proofFailure(latest.wikilinkSaved, 'editor.wysiwyg.mutation.wikilink', 'Native WYSIWYG links can preserve Tolaria wikilink markdown'),
+    proofFailure(latest.wikilinkSaved, 'editor.wysiwyg.mutation.wikilink', 'Native WYSIWYG links can preserve Memoria wikilink markdown'),
     proofFailure(latest.listBlocksSaved, 'editor.wysiwyg.mutation.lists', 'Native WYSIWYG list blocks serialize to desktop markdown syntax'),
     proofFailure(latest.quoteSaved, 'editor.wysiwyg.mutation.quote', 'Native WYSIWYG quote blocks serialize to desktop markdown syntax'),
     proofFailure(latest.codeBlockSaved, 'editor.wysiwyg.mutation.codeBlock', 'Native WYSIWYG structured codeBlock serializes to desktop fenced-code markdown'),
@@ -337,7 +337,7 @@ function mutationRichInlineParagraphNode(vaultRootUri?: VaultRootUri): TiptapJso
       { marks: [{ type: 'highlight' }], text: 'highlight', type: 'text' },
       { text: ', ', type: 'text' },
       {
-        marks: [{ attrs: { href: 'tolaria://wikilink/AI%20Ops%20Guide' }, type: 'link' }],
+        marks: [{ attrs: { href: 'memoria://wikilink/AI%20Ops%20Guide' }, type: 'link' }],
         text: 'AI Ops Guide',
         type: 'text',
       },
@@ -392,7 +392,7 @@ function paragraphNode(...lines: readonly FrontmatterValue[]): TiptapJsonNode {
 function tableRowNode(cellType: 'tableCell' | 'tableHeader', cells: MutationTableCell[]): TiptapJsonNode {
   return {
     content: cells.map((cell) => ({
-      attrs: { tolariaAlignment: cell.alignment },
+      attrs: { memoriaAlignment: cell.alignment },
       content: [paragraphNode(cell.text)],
       type: cellType,
     })),

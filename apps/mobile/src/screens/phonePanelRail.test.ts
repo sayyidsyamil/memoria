@@ -77,7 +77,7 @@ it('initializes captured helpers before the production worklet transform uses th
   const require = createRequire(import.meta.url)
   const presetRequire = createRequire(require.resolve('babel-preset-expo'))
   const babel = presetRequire('@babel/core')
-  const folder = mkdtempSync(join(tmpdir(), 'tolaria-phone-worklets-'))
+  const folder = mkdtempSync(join(tmpdir(), 'memoria-phone-worklets-'))
   try {
     for (const name of ['phoneWorkspaceTransitions', 'phonePanelRail']) {
       const source = new URL(`./${name}.ts`, import.meta.url).pathname

@@ -68,11 +68,11 @@ describe('handleMobileLinkContextMenu', () => {
     const postMessage = vi.fn()
     vi.stubGlobal('window', { ReactNativeWebView: { postMessage } })
     const preventDefault = vi.fn()
-    const target = { closest: () => ({ getAttribute: () => 'tolaria://wikilink/Note' }), parentElement: null }
+    const target = { closest: () => ({ getAttribute: () => 'memoria://wikilink/Note' }), parentElement: null }
     const handlers = plugins[0].props as { handleDOMEvents: {
       contextmenu: (view: unknown, event: MouseEvent) => boolean
     } }
     expect(handlers.handleDOMEvents.contextmenu({}, { target, preventDefault } as unknown as MouseEvent)).toBe(true)
-    expect(postMessage).toHaveBeenCalledWith(expect.stringContaining('tolaria://wikilink/Note'))
+    expect(postMessage).toHaveBeenCalledWith(expect.stringContaining('memoria://wikilink/Note'))
   })
 })

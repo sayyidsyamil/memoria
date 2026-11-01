@@ -4,7 +4,7 @@ import { importRemoteImagesToVault, resolveRemoteAttachmentUrl, uploadRemoteImag
 const trackEvent = vi.hoisted(() => vi.fn())
 vi.mock('./telemetry', () => ({ trackEvent }))
 
-// TOL-204: images on a Tolaria remote are files under attachments/, read with the session token.
+// TOL-204: images on a Memoria remote are files under attachments/, read with the session token.
 
 interface Call {
   method: string
@@ -18,13 +18,13 @@ let answer: (call: Call) => Response | Promise<Response>
 let objectUrlCount: number
 
 function configureRemote(on: boolean) {
-  const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+  const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
   if (on) {
-    target.TOLARIA_REMOTE_URL = 'https://vault.example'
-    target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+    target.MEMORIA_REMOTE_URL = 'https://vault.example'
+    target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
   } else {
-    delete target.TOLARIA_REMOTE_URL
-    delete target.TOLARIA_REMOTE_TOKEN
+    delete target.MEMORIA_REMOTE_URL
+    delete target.MEMORIA_REMOTE_TOKEN
   }
 }
 
@@ -86,7 +86,7 @@ describe('uploading an image to the remote', () => {
   it('needs a configured remote', async () => {
     configureRemote(false)
     const file = imageFile('a.png', [7])
-    await expect(uploadRemoteImage(file)).rejects.toThrow('No Tolaria remote')
+    await expect(uploadRemoteImage(file)).rejects.toThrow('No Memoria remote')
   })
 })
 

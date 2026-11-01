@@ -6,7 +6,7 @@ import { markdownToBlocks as parseMarkdownBlocks } from './markdownParse.ts'
 import { headlessSchema } from './schema.ts'
 
 /**
- * Markdown body to BlockNote blocks and back, through the same steps the Tolaria editor runs
+ * Markdown body to BlockNote blocks and back, through the same steps the Memoria editor runs
  * when it opens and saves a note (`src/hooks/editorBlockResolution.ts`,
  * `src/utils/richEditorMarkdown.ts`), on an editor that is never mounted.
  */

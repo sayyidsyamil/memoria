@@ -67,6 +67,9 @@ export function useAppAiWorkspaceBridge(options: UseAppAiWorkspaceBridgeOptions)
     setSettingsInitialSectionId,
     showAIChat,
   } = options
+  useEffect(() => {
+    if (!aiWorkspaceWindow) closeAIChat()
+  }, [aiWorkspaceWindow, closeAIChat])
   useCloseDisabledAiWorkspace(aiFeaturesEnabled, closeAIChat, showAIChat)
   useDockRequestEvent(aiFeaturesEnabled, aiWorkspaceWindow, openAIChat)
 

@@ -59,7 +59,7 @@ describe('GET /v1/changes', () => {
     const response = await fetch(`${base}/v1/changes`, {
       headers: {
         authorization: `Bearer ${TOKEN}`,
-        'tolaria-protocol-version': PROTOCOL_VERSION,
+        'memoria-protocol-version': PROTOCOL_VERSION,
       },
       signal: controller.signal,
     })

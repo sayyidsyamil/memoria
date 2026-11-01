@@ -11,7 +11,7 @@ const roots: string[] = []
 afterEach(async () => { for (const root of roots.splice(0)) await rm(root, { recursive: true, force: true }) })
 
 async function fixture(base: string | Uint8Array, ours: string | Uint8Array, theirs: string | Uint8Array) {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-merge-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-merge-'))
   roots.push(dir)
   const context = { fs, dir }
   const vault = createGitVault(context)

@@ -172,7 +172,7 @@ export function requireVaultPaths(env = process.env, options = {}) {
 		const configuredPaths = configuredVaultPaths(options);
 		if (configuredPaths.length > 0) return configuredPaths;
 		throw new Error(
-			"VAULT_PATH is required. Open a vault in Tolaria before starting MCP tools.",
+			"VAULT_PATH is required. Open a vault in Memoria before starting MCP tools.",
 		);
 	}
 	return vaultPaths;

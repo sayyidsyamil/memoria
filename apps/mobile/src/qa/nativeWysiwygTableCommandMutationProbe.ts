@@ -41,7 +41,7 @@ type TableDimensions = {
   rows: number
 }
 
-export const nativeWysiwygTableCommandMutationLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_TABLE_COMMAND_MUTATION_PROBE'
+export const nativeWysiwygTableCommandMutationLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_TABLE_COMMAND_MUTATION_PROBE'
 
 const proofFieldTypes = {
   columnCount: 'number',
@@ -334,7 +334,7 @@ function tableCellContainingText(node: TiptapJsonNode, text: string): TiptapJson
 }
 
 function probeCellAlignment(node: TiptapJsonNode): MobileMarkdownTableAlignment {
-  return mobileTableAlignment(node.attrs?.tolariaAlignment)
+  return mobileTableAlignment(node.attrs?.memoriaAlignment)
     ?? mobileTableAlignment(node.attrs?.align)
     ?? mobileTableAlignment(node.attrs?.textAlign)
     ?? 'default'
@@ -347,7 +347,7 @@ function mobileTableAlignment(value: unknown): MobileMarkdownTableAlignment | nu
 function tableRowNode(cellType: 'tableCell' | 'tableHeader', cells: ProbeTableCell[]): TiptapJsonNode {
   return {
     content: cells.map(({ alignment, text }) => ({
-      attrs: { tolariaAlignment: alignment },
+      attrs: { memoriaAlignment: alignment },
       content: [{ content: [{ text, type: 'text' }], type: 'paragraph' }],
       type: cellType,
     })),

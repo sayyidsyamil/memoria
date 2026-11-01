@@ -77,12 +77,12 @@ describe('fixtureReadOnlyWorkspaceRepository', () => {
 
   it('reads host note content from the injected content map', async () => {
     Reflect.set(globalThis, HOST_WORKSPACE_NOTE_CONTENTS_GLOBAL_KEY, {
-      'Tolaria/Mobile UI/Hidden Note.md': '# Hidden Note\n\nHydrated body.\n',
+      'Memoria/Mobile UI/Hidden Note.md': '# Hidden Note\n\nHydrated body.\n',
     })
 
     await expect(readOnlyWorkspaceRepository.readNoteContent({
       ...workspaceScenarios.default.notes[0],
-      path: 'Tolaria/Mobile UI/Hidden Note.md',
+      path: 'Memoria/Mobile UI/Hidden Note.md',
       rawContent: undefined,
     }, { source: 'host' })).resolves.toBe('# Hidden Note\n\nHydrated body.\n')
 

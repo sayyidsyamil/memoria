@@ -17,8 +17,8 @@ use base64::engine::general_purpose::STANDARD;
 use base64::Engine;
 use serde_json::{Map, Value};
 use tempfile::TempDir;
-use tolaria_lib::frontmatter::{update_frontmatter_content, FrontmatterValue};
-use tolaria_lib::vault::{rename_note, save_image, scan_vault, RenameNoteRequest};
+use memoria_lib::frontmatter::{update_frontmatter_content, FrontmatterValue};
+use memoria_lib::vault::{rename_note, save_image, scan_vault, RenameNoteRequest};
 
 type Notes = BTreeMap<String, String>;
 

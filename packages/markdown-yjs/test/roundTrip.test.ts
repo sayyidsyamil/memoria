@@ -96,7 +96,7 @@ describe('round-trip differences', () => {
     expect([...kinds].sort()).toEqual(['blank-lines', 'escaping', 'image-path-prefix'])
   })
 
-  it('cover the Tolaria block types in the fixtures', async () => {
+  it('cover the Memoria block types in the fixtures', async () => {
     const types = new Set<string>()
     for (const { markdown } of fixtureNotes) {
       for (const block of (await codec.parse(markdown)).blocks) types.add(block.type)

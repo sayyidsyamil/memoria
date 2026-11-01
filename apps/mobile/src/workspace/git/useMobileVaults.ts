@@ -460,5 +460,5 @@ function mobileGitAuthor(session: { login: string; userId: number } | null): Git
         name: session.login,
         email: `${session.userId}+${session.login}@users.noreply.github.com`,
       }
-    : { name: 'Tolaria mobile', email: 'mobile@tolaria.app' }
+    : { name: 'Memoria mobile', email: 'mobile@memoria.app' }
 }

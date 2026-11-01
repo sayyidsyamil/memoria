@@ -140,12 +140,12 @@ Reserved in protocol 1.0, so that adding collaboration changes nothing in the fi
 
 - `GET /v1/collab/docs/<docId>` as the websocket route (answers `501` today); capabilities `collab.yjs` and `collab.awareness`; `collab.available` in `GET /v1/vault`.
 - A stable `docId` per note, following renames, including renames arriving from git.
-- The document format `tolaria.blocknote/1`: a `Y.XmlFragment` named `blocks`, because BlockNote's collaboration binding edits a fragment and not a `Y.Text` of markdown; a `frontmatter` shared type; a `meta` map with `format` and `baseRevision`.
+- The document format `memoria.blocknote/1`: a `Y.XmlFragment` named `blocks`, because BlockNote's collaboration binding edits a fragment and not a `Y.Text` of markdown; a `frontmatter` shared type; a `meta` map with `format` and `baseRevision`.
 - `BlobStore` for snapshots, and `Vault.onChange`, which already reports every file change, including pulls, to listeners under the vault lock. That is the hook reconciliation attaches to.
 
 Missing, in dependency order:
 
-1. **`packages/markdown-yjs`**: markdown to `Y.XmlFragment` and back, with the Tolaria BlockNote schema (wikilinks, callouts, math, highlights, sheets, whiteboards), running headless in Node. This is the hard part and the reason (b) was not started: the markdown pipeline in `src/` has client-only steps around BlockNote's converter. The gate is a golden-file test over `demo-vault-v2/`: markdown to fragment to markdown must be byte-stable, or opening a note produces a git diff.
+1. **`packages/markdown-yjs`**: markdown to `Y.XmlFragment` and back, with the Memoria BlockNote schema (wikilinks, callouts, math, highlights, sheets, whiteboards), running headless in Node. This is the hard part and the reason (b) was not started: the markdown pipeline in `src/` has client-only steps around BlockNote's converter. The gate is a golden-file test over `demo-vault-v2/`: markdown to fragment to markdown must be byte-stable, or opening a note produces a git diff.
 2. **The room server**: y-protocols sync and awareness over `ws` (already in the lockfile, like `yjs`, `y-protocols` and `lib0`), one room per `docId`, loaded from a snapshot whose `baseRevision` matches the file or seeded from markdown.
 3. **Flush**: serialise an idle document to markdown and commit it through the same `Vault` write path, skipping byte-identical results.
 4. **Reconciliation**: when a pull changes a note with a live document, apply the change as a Yjs transaction or fall back to a conflict copy. The flow is drawn in `s1-tauri-inventory.md`.

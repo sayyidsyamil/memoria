@@ -34,7 +34,7 @@ remount the workspace for a confirmed no-change/outbound-only result.
 
 "Saved to folder" means coordinated provider writes completed, not that iCloud
 has delivered them to another device. iCloud controls that transport and its
-availability. Background delivery while Tolaria is suspended is not promised.
+availability. Background delivery while Memoria is suspended is not promised.
 Android remains copy-only until an equivalent persisted SAF adapter is verified.
 No custom iCloud entitlement or network protocol is needed for Files access.
 

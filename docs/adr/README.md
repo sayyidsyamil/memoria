@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-This folder contains Architecture Decision Records (ADRs) for the Tolaria app.
+This folder contains Architecture Decision Records (ADRs) for the Memoria app.
 
 ## Format
 
@@ -186,7 +186,7 @@ proposed → active → superseded
 | [0126](0126-renderer-action-history.md) | Renderer action history for app-level undo and redo | active |
 | [0127](0127-native-ai-workspace-window.md) | Native AI workspace window | superseded -> [0128](0128-lightweight-ai-workspace-window.md) |
 | [0128](0128-lightweight-ai-workspace-window.md) | Lightweight AI workspace window | active |
-| [0129](0129-tolaria-vault-item-deep-links.md) | Tolaria vault item deep links | active |
+| [0129](0129-memoria-vault-item-deep-links.md) | Memoria vault item deep links | active |
 | [0130](0130-windows-authenticode-release-signing.md) | Windows Authenticode signing for release installers | amended -> [0139](0139-temporary-windows-authenticode-soft-gate.md) |
 | [0131](0131-reusable-release-artifact-build-workflow.md) | Reusable release artifact build workflow | active |
 | [0132](0132-alpha-authenticode-soft-gate.md) | Alpha Authenticode soft gate | superseded -> [0139](0139-temporary-windows-authenticode-soft-gate.md) |
@@ -237,8 +237,8 @@ proposed → active → superseded
 | [0182](0182-app-owned-cross-platform-pdf-rendering.md) | App-owned cross-platform PDF rendering | active |
 | [0183](0183-normalize-stale-prosemirror-selection-boundaries.md) | Normalize stale ProseMirror selection boundaries | active |
 | [0184](0184-host-compatible-appimage-library-boundary.md) | Host-compatible AppImage library boundary | active |
-| [0185](0185-tolaria-web-target-and-vault-backend-seam.md) | Tolaria Web target and VaultBackend seam | active |
-| [0186](0186-tolaria-remote-file-service-and-protocol.md) | Tolaria remote: git-backed file service and versioned protocol | active |
+| [0185](0185-memoria-web-target-and-vault-backend-seam.md) | Memoria Web target and VaultBackend seam | active |
+| [0186](0186-memoria-remote-file-service-and-protocol.md) | Memoria remote: git-backed file service and versioned protocol | active |
 | [0187](0187-yjs-collaboration-with-markdown-as-canonical-form.md) | Yjs collaboration with the markdown file as canonical form | active |
 | [0248](0248-expo-react-native-mobile-ui-foundation.md) | Expo React Native mobile UI foundation | active |
 | [0249](0249-nativewind-react-native-reusables-mobile-primitives.md) | Nativewind and React Native Reusables for mobile primitives | active |
@@ -276,7 +276,7 @@ proposed → active → superseded
 | [0277](0277-mobile-read-only-reload-reconciliation.md) | Reconcile read-only mobile reloads in the existing snapshot frame | active |
 | [0278](0278-desktop-note-save-byte-transport.md) | Desktop note saves use UTF-8 byte transport | active |
 | [0279](0279-mobile-preview-configuration-tolerance.md) | Mobile preview configuration tolerance | active |
-| [0280](0280-debounced-push-and-background-fetch.md) | Debounced push and background fetch for Tolaria remote | active |
+| [0280](0280-debounced-push-and-background-fetch.md) | Debounced push and background fetch for Memoria remote | active |
 | [0282](0282-web-offline-read-service-worker.md) | Web offline read with a hand-written, per-account service worker | active |
 | [0283](0283-web-attachments-portable-paths-and-guarded-import.md) | Web attachments: portable paths, token-authorized object URLs and a server-side guarded image import | active |
 | [0284](0284-web-url-routing-with-query-routes.md) | Web URL routing with query routes over the History API | active |

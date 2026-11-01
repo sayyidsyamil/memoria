@@ -9,7 +9,7 @@ supersedes: "0117"
 
 ## Context
 
-Tolaria AppImages are built on Ubuntu 22.04 so their application dependencies remain compatible with older supported distributions. Tauri CLI 2.11's linuxdeploy path nevertheless copied several host-owned system libraries into the image. On Ubuntu 26.04, the bundled `libsystemd.so.0` was loaded into the host `/usr/bin/env` process and failed because it lacked the host's `LIBSYSTEMD_254` symbol version. The same mixed-library boundary had already caused Wayland/Mesa and system Git/libnghttp2 failures.
+Memoria AppImages are built on Ubuntu 22.04 so their application dependencies remain compatible with older supported distributions. Tauri CLI 2.11's linuxdeploy path nevertheless copied several host-owned system libraries into the image. On Ubuntu 26.04, the bundled `libsystemd.so.0` was loaded into the host `/usr/bin/env` process and failed because it lacked the host's `LIBSYSTEMD_254` symbol version. The same mixed-library boundary had already caused Wayland/Mesa and system Git/libnghttp2 failures.
 
 Core GTK and GLib libraries remain a coherent private application stack because removing them can break older distributions. Low-level service, display, and networking libraries instead belong to the host because host executables, drivers, and modules must load a matching version family.
 
@@ -17,7 +17,7 @@ Core GTK and GLib libraries remain a coherent private application stack because 
 
 **Build Linux AppImages with Tauri CLI 2.12.1 or newer, exclude host-owned system-library families through linuxdeploy, and reject sealed AppImages that contain any excluded family.**
 
-The exclusion boundary covers systemd/udev, D-Bus, Wayland, epoxy, and nghttp2. Both release build paths (the CircleCI Linux job and the reusable GitHub Actions artifact workflow) export the exclusion list as `LINUXDEPLOY_EXCLUDED_LIBRARIES` and then run `validate-appimage-libraries`, which extracts each finished AppImage and checks the library inventory alongside the existing updater-signature and installer checks. The stricter `validate-appimages` command also requires the symlink-safe AppRun and fcitx payload produced only by the experimental output-plugin shim, so it is not a gate for stock packaging. Tauri's stock updated GTK plugin remains responsible for GTK modules; Tolaria does not replace the output plugin in Tauri's tools cache.
+The exclusion boundary covers systemd/udev, D-Bus, Wayland, epoxy, and nghttp2. Both release build paths (the CircleCI Linux job and the reusable GitHub Actions artifact workflow) export the exclusion list as `LINUXDEPLOY_EXCLUDED_LIBRARIES` and then run `validate-appimage-libraries`, which extracts each finished AppImage and checks the library inventory alongside the existing updater-signature and installer checks. The stricter `validate-appimages` command also requires the symlink-safe AppRun and fcitx payload produced only by the experimental output-plugin shim, so it is not a gate for stock packaging. Tauri's stock updated GTK plugin remains responsible for GTK modules; Memoria does not replace the output plugin in Tauri's tools cache.
 
 ## Options considered
 

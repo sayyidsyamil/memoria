@@ -32,12 +32,12 @@ final class TabletVaultManagerTests: XCTestCase {
 
   private func openManager() -> XCUIApplication {
     continueAfterFailure = false
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     app.terminate()
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
     let search = "?source=fixture&phoneState=sidebar&forceDesktopPanels=1&qaRun=vault-manager"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     let openSettings = element(app, "open-mobile-settings")
     XCTAssertTrue(openSettings.waitForExistence(timeout: 30))

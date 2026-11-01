@@ -5,7 +5,7 @@ import { useKeyboardAwareViewport } from './useKeyboardAwareViewport'
 import { usePhoneLayout } from './usePhoneLayout'
 
 /** Set on a history entry pushed while leaving the note list (useWebRouting). */
-export const BACK_TO_NOTE_LIST_STATE_KEY = 'tolariaBackToNoteList'
+export const BACK_TO_NOTE_LIST_STATE_KEY = 'memoriaBackToNoteList'
 /** On `<html>` while the phone layout is active; App.css lays the panes out from it. */
 export const PHONE_PANE_ATTRIBUTE = 'data-phone-pane'
 

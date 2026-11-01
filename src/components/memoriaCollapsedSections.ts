@@ -1,0 +1,942 @@
+import {
+  useLayoutEffect,
+  useSyncExternalStore,
+} from 'react'
+import {
+  BLOCK_OUTER_SELECTOR,
+  editorBlockElement,
+  renderedSectionBlockElements,
+  type MemoriaBlockNoteEditor,
+} from './memoriaBlockNoteDom'
+
+export type CollapsibleBlock = {
+  children?: CollapsibleBlock[]
+  id?: unknown
+  props?: Record<string, unknown>
+  type?: unknown
+}
+
+type CollapsedHeadingStore = {
+  collapsedHeadingIds: Set<string>
+  emit: () => void
+  getSnapshot: () => number
+  listeners: Set<() => void>
+  visibleBlockIds: Set<string>
+  subscribe: (listener: () => void) => () => void
+  version: number
+}
+type CollapsedSectionRenderState = {
+  collapsedHeadingIds: Set<string>
+  hiddenBlockIds: Set<string>
+}
+type CollapsedSectionItem = {
+  blockId?: string
+  descendantBlockIds: readonly string[]
+  headingLevel: number | null
+}
+type CollapsedHeadingDotsHit = {
+  blockId: string
+  inlineContent: HTMLElement
+}
+type CollapsedHeadingRenderingController = {
+  attachedEditorElement: HTMLElement | null
+  frame: number | null
+  ownerWindow: Window | undefined
+}
+const COLLAPSIBLE_LIST_ITEM_TYPES = new Set(['bulletListItem', 'numberedListItem', 'checkListItem'])
+const HEADING_TAG_LEVELS = new Map([
+  ['h1', 1],
+  ['h2', 2],
+  ['h3', 3],
+  ['h4', 4],
+  ['h5', 5],
+  ['h6', 6],
+])
+const headingCollapseStores = new WeakMap<MemoriaBlockNoteEditor, CollapsedHeadingStore>()
+const headingCollapseRenderers = createWeakKeyMap<HTMLElement, () => void>()
+const collapsedSectionStyleElements = createWeakKeyMap<HTMLElement, HTMLStyleElement>()
+let collapsedSectionScopeSequence = 0
+
+function createWeakKeyMap<Key extends object, Value>(): WeakMap<Key, Value> {
+  return new WeakMap<Key, Value>()
+}
+
+function createCollapsedHeadingStore(): CollapsedHeadingStore {
+  const store: CollapsedHeadingStore = {
+    collapsedHeadingIds: new Set(),
+    emit: () => {
+      store.version += 1
+      store.listeners.forEach((listener) => {
+        listener()
+      })
+    },
+    getSnapshot: () => store.version,
+    listeners: new Set(),
+    visibleBlockIds: new Set(),
+    subscribe: (listener) => {
+      store.listeners.add(listener)
+      return () => store.listeners.delete(listener)
+    },
+    version: 0,
+  }
+
+  return store
+}
+
+function collapsedHeadingStore(editor: MemoriaBlockNoteEditor) {
+  let store = headingCollapseStores.get(editor)
+  if (!store) {
+    store = createCollapsedHeadingStore()
+    headingCollapseStores.set(editor, store)
+  }
+
+  return store
+}
+
+export function useCollapsedHeadingIds(editor: MemoriaBlockNoteEditor) {
+  const store = collapsedHeadingStore(editor)
+  useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot)
+  return store.collapsedHeadingIds
+}
+
+export function blockHeadingLevel(block: CollapsibleBlock | undefined): number | null {
+  if (block?.type !== 'heading') return null
+
+  return normalizedHeadingLevel(block.props?.level)
+}
+
+function collapsedSectionOwnerIndex(items: readonly { block: CollapsibleBlock; level: number | null }[],
+  headingId: string, collapsedIds: ReadonlySet<string>) {
+  if (!collapsedIds.has(headingId)) return -1
+  let activeLevel: number | null = null
+  let ownerIndex = -1
+  for (const [index, { block, level }] of items.entries()) {
+    activeLevel = openCollapsedSectionLevel(activeLevel, level)
+    if (activeLevel === null && typeof block.id === 'string' && collapsedIds.has(block.id) && level !== null) {
+      ownerIndex = index
+      activeLevel = level
+    }
+    if (block.id === headingId) return ownerIndex
+  }
+  return ownerIndex
+}
+
+function collapsedSectionLastBlock(items: readonly { block: CollapsibleBlock; level: number | null }[],
+  ownerIndex: number, ownerLevel: number) {
+  let endBlock = items.at(ownerIndex)?.block
+  for (const item of items.slice(ownerIndex + 1)) {
+    if (isClosingHeading(item.level, ownerLevel)) break
+    endBlock = item.block
+  }
+  return endBlock
+}
+
+function topLevelBlockContaining(blocks: readonly CollapsibleBlock[], target: CollapsibleBlock) {
+  return blocks.find((block) => block === target || flattenBlocks(block.children ?? []).includes(target)) ?? null
+}
+
+export function collapsedSectionEndBlock(editor: MemoriaBlockNoteEditor, headingId: string): CollapsibleBlock | null {
+  const blocks = editor.document as readonly CollapsibleBlock[]
+  const collapsedIds = collapsedHeadingStore(editor).collapsedHeadingIds
+  const items = flattenBlocks(blocks).map((block) => ({ block, level: blockHeadingLevel(block) }))
+  const ownerIndex = collapsedSectionOwnerIndex(items, headingId, collapsedIds)
+  const owner = items.at(ownerIndex)
+  const endBlock = owner?.level ? collapsedSectionLastBlock(items, ownerIndex, owner.level) : null
+  return endBlock ? topLevelBlockContaining(blocks, endBlock) : null
+}
+
+function normalizedHeadingLevel(rawLevel: unknown): number | null {
+  const level = headingLevelValue(rawLevel)
+  return isValidHeadingLevel(level) ? level : null
+}
+
+function headingLevelValue(rawLevel: unknown) {
+  if (typeof rawLevel === 'number') return rawLevel
+  if (typeof rawLevel === 'string') return Number.parseInt(rawLevel, 10)
+  return 1
+}
+
+function isListItemBlockType(type: unknown) {
+  return typeof type === 'string' && COLLAPSIBLE_LIST_ITEM_TYPES.has(type)
+}
+
+function isCollapsibleListItemBlock(block: CollapsibleBlock | undefined) {
+  return isListItemBlockType(block?.type)
+    && Array.isArray(block?.children)
+    && block.children.length > 0
+}
+
+function isCollapsibleSectionBlock(block: CollapsibleBlock | undefined) {
+  return blockHeadingLevel(block) !== null || isCollapsibleListItemBlock(block)
+}
+
+function flattenBlocks(blocks: readonly CollapsibleBlock[], result: CollapsibleBlock[] = []) {
+  for (const block of blocks) {
+    result.push(block)
+    if (Array.isArray(block.children)) flattenBlocks(block.children, result)
+  }
+
+  return result
+}
+
+function descendantBlockIds(block: CollapsibleBlock, result: string[] = []) {
+  if (!Array.isArray(block.children)) return result
+
+  for (const child of block.children) {
+    if (typeof child.id === 'string') result.push(child.id)
+    descendantBlockIds(child, result)
+  }
+
+  return result
+}
+
+function collapsedSectionItemFromBlock(block: CollapsibleBlock): CollapsedSectionItem {
+  return {
+    blockId: typeof block.id === 'string' ? block.id : undefined,
+    descendantBlockIds: isCollapsibleListItemBlock(block) ? descendantBlockIds(block) : [],
+    headingLevel: blockHeadingLevel(block),
+  }
+}
+
+function openCollapsedSectionLevel(
+  activeCollapsedLevel: number | null,
+  headingLevel: number | null,
+) {
+  if (activeCollapsedLevel === null) return null
+  return isClosingHeading(headingLevel, activeCollapsedLevel) ? null : activeCollapsedLevel
+}
+
+function hideBlockInsideCollapsedSection(
+  state: CollapsedSectionRenderState,
+  activeCollapsedLevel: number | null,
+  blockId: string | undefined,
+) {
+  if (activeCollapsedLevel === null) return false
+  if (blockId) state.hiddenBlockIds.add(blockId)
+  return true
+}
+
+function startCollapsedSection(
+  state: CollapsedSectionRenderState,
+  item: CollapsedSectionItem,
+  collapsedHeadingIds: ReadonlySet<string>,
+) {
+  if (!item.blockId || !collapsedHeadingIds.has(item.blockId)) return null
+  if (item.headingLevel === null && item.descendantBlockIds.length === 0) return null
+
+  state.collapsedHeadingIds.add(item.blockId)
+  item.descendantBlockIds.forEach((blockId) => {
+    state.hiddenBlockIds.add(blockId)
+  })
+  return item.headingLevel
+}
+
+function collapsedSectionRenderStateFromItems(
+  items: readonly CollapsedSectionItem[],
+  collapsedHeadingIds: ReadonlySet<string>,
+  visibleBlockIds: ReadonlySet<string>,
+): CollapsedSectionRenderState {
+  const state = emptyCollapsedSectionRenderState()
+  let activeCollapsedLevel: number | null = null
+
+  for (const item of items) {
+    activeCollapsedLevel = openCollapsedSectionLevel(activeCollapsedLevel, item.headingLevel)
+    if (item.blockId && visibleBlockIds.has(item.blockId)) continue
+    if (hideBlockInsideCollapsedSection(state, activeCollapsedLevel, item.blockId)) continue
+    activeCollapsedLevel = startCollapsedSection(state, item, collapsedHeadingIds)
+  }
+
+  return state
+}
+
+function collapsedSectionRenderState(
+  blocks: readonly CollapsibleBlock[],
+  collapsedHeadingIds: ReadonlySet<string>,
+  visibleBlockIds: ReadonlySet<string>,
+): CollapsedSectionRenderState {
+  return collapsedSectionRenderStateFromItems(
+    flattenBlocks(blocks).map(collapsedSectionItemFromBlock),
+    collapsedHeadingIds,
+    visibleBlockIds,
+  )
+}
+
+function cssString(value: string) {
+  return `"${value
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\A ')
+    .replace(/\r/g, '\\D ')}"`
+}
+
+function collapsedSectionContainer(editorElement: HTMLElement) {
+  const container = editorElement.closest('.editor__blocknote-container')
+  return container instanceof HTMLElement ? container : undefined
+}
+
+function collapsedSectionStyleScope(editorElement: HTMLElement) {
+  const container = collapsedSectionContainer(editorElement)
+  if (!container) return ''
+
+  container.dataset.memoriaCollapseScope ??= String(++collapsedSectionScopeSequence)
+  return `[data-memoria-collapse-scope=${cssString(container.dataset.memoriaCollapseScope)}]`
+}
+
+function collapsedSectionStyleElement(editorElement: HTMLElement) {
+  const existingStyle = collapsedSectionStyleElements.get(editorElement)
+  if (existingStyle) return existingStyle
+
+  const styleElement = editorElement.ownerDocument.createElement('style')
+  styleElement.setAttribute('data-memoria-collapsed-sections', 'true')
+  editorElement.ownerDocument.head.appendChild(styleElement)
+  collapsedSectionStyleElements.set(editorElement, styleElement)
+  return styleElement
+}
+
+function blockOuterSelectorsForStyle(
+  editorElement: HTMLElement,
+  blockId: string,
+  scope = collapsedSectionStyleScope(editorElement),
+) {
+  const prefix = scope ? `${scope} ` : ''
+  const id = cssString(blockId)
+  return [
+    `${prefix}.bn-block-outer[data-id=${id}]`,
+    `${prefix}[data-node-type="blockOuter"][data-id=${id}]`,
+  ]
+}
+
+function headingDotsSelectorsForStyle(
+  editorElement: HTMLElement,
+  blockId: string,
+  scope = collapsedSectionStyleScope(editorElement),
+) {
+  return blockOuterSelectorsForStyle(editorElement, blockId, scope)
+    .map((selector) => (
+      `${selector} .bn-block-content .bn-inline-content::after`
+    ))
+}
+
+function headingDotsCssDeclarations() {
+  return [
+    'content: "...";',
+    'display: inline-flex;',
+    'align-items: center;',
+    'justify-content: center;',
+    'min-width: 34px;',
+    'height: 24px;',
+    'margin-inline-start: 10px;',
+    'padding: 0 8px;',
+    'border-radius: 8px;',
+    'background: var(--bg-secondary, rgba(0, 0, 0, 0.08));',
+    'color: var(--colors-muted, rgba(0, 0, 0, 0.46));',
+    'transition: background-color 120ms ease, color 120ms ease;',
+    'font-size: 0.5em;',
+    'font-weight: 700;',
+    'line-height: 1;',
+    'vertical-align: middle;',
+    'cursor: pointer;',
+    'pointer-events: auto;',
+  ].join('\n')
+}
+
+function headingDotsHoverCssDeclarations() {
+  return [
+    'background: var(--bg-tertiary, rgba(0, 0, 0, 0.13));',
+    'color: var(--text-secondary, rgba(0, 0, 0, 0.62));',
+  ].join('\n')
+}
+
+function collapsedSectionStyleText(
+  editorElement: HTMLElement,
+  renderState: CollapsedSectionRenderState,
+) {
+  const hiddenSelectors = Array.from(renderState.hiddenBlockIds)
+    .flatMap((blockId) => blockOuterSelectorsForStyle(editorElement, blockId))
+  const collapsedHeadingSelectors = Array.from(renderState.collapsedHeadingIds)
+    .flatMap((blockId) => headingDotsSelectorsForStyle(editorElement, blockId))
+  const collapsedHeadingHoverSelectors = collapsedHeadingHoverRuleSelectors(editorElement, renderState)
+
+  const rules: string[] = []
+  if (hiddenSelectors.length > 0) {
+    rules.push(`${hiddenSelectors.join(',\n')} {\ndisplay: none !important;\n}`)
+  }
+  if (collapsedHeadingSelectors.length > 0) {
+    rules.push(`${collapsedHeadingSelectors.join(',\n')} {\n${headingDotsCssDeclarations()}\n}`)
+  }
+  if (collapsedHeadingHoverSelectors.length > 0) {
+    rules.push(`${collapsedHeadingHoverSelectors.join(',\n')} {\n${headingDotsHoverCssDeclarations()}\n}`)
+  }
+
+  return rules.join('\n\n')
+}
+
+function collapsedHeadingHoverRuleSelectors(
+  editorElement: HTMLElement,
+  renderState: CollapsedSectionRenderState,
+) {
+  const scope = collapsedSectionStyleScope(editorElement)
+  if (!scope) return []
+
+  return Array.from(renderState.collapsedHeadingIds)
+    .flatMap((blockId) => headingDotsSelectorsForStyle(
+      editorElement,
+      blockId,
+      `${scope}[data-memoria-collapse-hover-id=${cssString(blockId)}]`,
+    ))
+}
+
+function syncCollapsedSectionStyle(
+  editorElement: HTMLElement,
+  renderState: CollapsedSectionRenderState,
+) {
+  collapsedSectionStyleElement(editorElement).textContent = collapsedSectionStyleText(editorElement, renderState)
+}
+
+function renderedBlockElementById(editorElement: HTMLElement, blockId: string): HTMLElement | undefined {
+  return renderedSectionBlockElements(editorElement)
+    .find((element) => element.dataset.id === blockId)
+}
+
+function headingLevelFromRenderedBlock(element: HTMLElement): number | null {
+  const headingContent = renderedHeadingContent(element)
+  if (!headingContent) return null
+
+  return headingDataLevel(headingContent) ?? headingTagLevel(headingContent) ?? 1
+}
+
+function renderedHeadingContent(element: HTMLElement) {
+  const headingContent = element.querySelector('[data-content-type="heading"]')
+  return headingContent instanceof HTMLElement ? headingContent : undefined
+}
+
+function headingDataLevel(headingContent: HTMLElement): number | undefined {
+  const dataLevel = headingContent.dataset.level
+  const parsedDataLevel = dataLevel ? Number.parseInt(dataLevel, 10) : Number.NaN
+  return isValidHeadingLevel(parsedDataLevel) ? parsedDataLevel : undefined
+}
+
+function headingTagLevel(headingContent: HTMLElement): number | undefined {
+  const headingElement = headingContent.querySelector('h1, h2, h3, h4, h5, h6')
+  return HEADING_TAG_LEVELS.get(headingElement?.tagName.toLowerCase() ?? '')
+}
+
+function isValidHeadingLevel(level: number) {
+  return Number.isInteger(level) && level >= 1 && level <= 6
+}
+
+function isRenderedListItemBlock(element: HTMLElement) {
+  const contentType = element.querySelector('.bn-block-content')?.getAttribute('data-content-type')
+  return isListItemBlockType(contentType)
+}
+
+function renderedChildBlockElements(element: HTMLElement) {
+  const blockId = element.dataset.id
+  if (!blockId) return []
+
+  return Array.from(element.querySelectorAll(BLOCK_OUTER_SELECTOR))
+    .filter((child): child is HTMLElement => (
+      child instanceof HTMLElement && child.dataset.id !== blockId
+    ))
+}
+
+function renderedListItemHasChildren(element: HTMLElement) {
+  return isRenderedListItemBlock(element) && renderedChildBlockElements(element).length > 0
+}
+
+function collapsedSectionItemFromElement(element: HTMLElement): CollapsedSectionItem {
+  return {
+    blockId: element.dataset.id,
+    descendantBlockIds: renderedListItemHasChildren(element)
+      ? renderedChildBlockElements(element).flatMap((child) => child.dataset.id ?? [])
+      : [],
+    headingLevel: headingLevelFromRenderedBlock(element),
+  }
+}
+
+function emptyCollapsedSectionRenderState(): CollapsedSectionRenderState {
+  return {
+    collapsedHeadingIds: new Set(),
+    hiddenBlockIds: new Set(),
+  }
+}
+
+function isClosingHeading(headingLevel: number | null, activeCollapsedLevel: number) {
+  return headingLevel !== null && headingLevel <= activeCollapsedLevel
+}
+
+function collapsedSectionRenderStateFromElements(
+  elements: readonly HTMLElement[],
+  collapsedHeadingIds: ReadonlySet<string>,
+  visibleBlockIds: ReadonlySet<string>,
+): CollapsedSectionRenderState {
+  return collapsedSectionRenderStateFromItems(
+    elements.map(collapsedSectionItemFromElement),
+    collapsedHeadingIds,
+    visibleBlockIds,
+  )
+}
+
+function mergeCollapsedSectionRenderStates(...states: CollapsedSectionRenderState[]): CollapsedSectionRenderState {
+  const merged = emptyCollapsedSectionRenderState()
+
+  for (const state of states) {
+    state.collapsedHeadingIds.forEach((blockId) => {
+      merged.collapsedHeadingIds.add(blockId)
+    })
+    state.hiddenBlockIds.forEach((blockId) => {
+      merged.hiddenBlockIds.add(blockId)
+    })
+  }
+
+  return merged
+}
+
+function applyCollapsedSectionRenderingToElement(
+  editorElement: HTMLElement,
+  collapsedHeadingIds: ReadonlySet<string>,
+  fallbackBlocks: readonly CollapsibleBlock[],
+  visibleBlockIds: ReadonlySet<string>,
+) {
+  const blockElements = renderedSectionBlockElements(editorElement)
+  const renderState = mergeCollapsedSectionRenderStates(
+    fallbackBlocks.length > 0
+      ? collapsedSectionRenderState(fallbackBlocks, collapsedHeadingIds, visibleBlockIds)
+      : emptyCollapsedSectionRenderState(),
+    blockElements.length > 0
+      ? collapsedSectionRenderStateFromElements(blockElements, collapsedHeadingIds, visibleBlockIds)
+      : emptyCollapsedSectionRenderState(),
+  )
+
+  syncCollapsedSectionStyle(editorElement, renderState)
+}
+
+function applyCollapsedSectionRenderingFromHeadingIds(
+  editorElement: HTMLElement,
+  collapsedHeadingIds: ReadonlySet<string>,
+  fallbackBlocks: readonly CollapsibleBlock[] = [],
+  visibleBlockIds: ReadonlySet<string> = new Set(),
+) {
+  applyCollapsedSectionRenderingToElement(editorElement, collapsedHeadingIds, fallbackBlocks, visibleBlockIds)
+}
+
+function applyCollapsedSectionRendering(
+  editor: MemoriaBlockNoteEditor,
+  collapsedHeadingIds: ReadonlySet<string>,
+) {
+  const editorElement = editorBlockElement(editor)
+  if (!editorElement) return
+
+  applyCollapsedSectionRenderingToElement(
+    editorElement,
+    collapsedHeadingIds,
+    editor.document as readonly CollapsibleBlock[],
+    collapsedHeadingStore(editor).visibleBlockIds,
+  )
+}
+
+export function collapsedSectionHiddenBlockIds(editor: MemoriaBlockNoteEditor): ReadonlySet<string> {
+  const store = collapsedHeadingStore(editor)
+  if (store.collapsedHeadingIds.size === 0) return new Set()
+
+  const fallbackBlocks = editor.document as readonly CollapsibleBlock[]
+  const editorElement = editorBlockElement(editor)
+  if (!editorElement) {
+    return collapsedSectionRenderState(fallbackBlocks, store.collapsedHeadingIds, store.visibleBlockIds).hiddenBlockIds
+  }
+
+  const blockElements = renderedSectionBlockElements(editorElement)
+  return mergeCollapsedSectionRenderStates(
+    fallbackBlocks.length > 0
+      ? collapsedSectionRenderState(fallbackBlocks, store.collapsedHeadingIds, store.visibleBlockIds)
+      : emptyCollapsedSectionRenderState(),
+    blockElements.length > 0
+      ? collapsedSectionRenderStateFromElements(blockElements, store.collapsedHeadingIds, store.visibleBlockIds)
+      : emptyCollapsedSectionRenderState(),
+  ).hiddenBlockIds
+}
+
+export function isCollapsibleSectionBlockForEditor(
+  editor: MemoriaBlockNoteEditor,
+  block: CollapsibleBlock | undefined,
+) {
+  if (isCollapsibleSectionBlock(block)) return true
+  if (!block || !isListItemBlockType(block.type) || typeof block.id !== 'string') return false
+
+  const editorElement = editorBlockElement(editor)
+  const blockElement = editorElement ? renderedBlockElementById(editorElement, block.id) : undefined
+  return Boolean(blockElement && renderedListItemHasChildren(blockElement))
+}
+
+function parseCssPixelLength(value: string) {
+  const parsed = Number.parseFloat(value)
+  return Number.isFinite(parsed) ? parsed : 0
+}
+
+function lastInlineContentRect(inlineContent: HTMLElement): DOMRect | undefined {
+  const ownerDocument = inlineContent.ownerDocument
+  const range = ownerDocument.createRange()
+  range.selectNodeContents(inlineContent)
+  const rect = Array.from(range.getClientRects())
+    .filter((candidate) => candidate.width > 0 && candidate.height > 0)
+    .at(-1)
+  range.detach()
+
+  return rect
+}
+
+function isCollapsedHeadingDotsHit(inlineContent: HTMLElement, clientX: number, clientY: number) {
+  const ownerWindow = inlineContent.ownerDocument.defaultView
+  if (!ownerWindow) return false
+
+  const textRect = lastInlineContentRect(inlineContent)
+  if (!textRect) return false
+
+  const contentRect = inlineContent.getBoundingClientRect()
+  const afterStyle = ownerWindow.getComputedStyle(inlineContent, '::after')
+  const marginStart = parseCssPixelLength(afterStyle.getPropertyValue('margin-inline-start'))
+  const dotsWidth = Math.max(
+    parseCssPixelLength(afterStyle.width),
+    parseCssPixelLength(afterStyle.minWidth),
+  ) + parseCssPixelLength(afterStyle.paddingLeft) + parseCssPixelLength(afterStyle.paddingRight)
+  const verticalSlop = 4
+  const isRtl = ownerWindow.getComputedStyle(inlineContent).direction === 'rtl'
+  const dotsStart = isRtl ? textRect.left - marginStart - dotsWidth : textRect.right + marginStart
+  const dotsEnd = isRtl ? textRect.left - marginStart : dotsStart + dotsWidth
+
+  return clientX >= dotsStart
+    && clientX <= dotsEnd
+    && clientY >= Math.min(textRect.top, contentRect.top) - verticalSlop
+    && clientY <= Math.max(textRect.bottom, contentRect.bottom) + verticalSlop
+}
+
+function collapsedHeadingDotsHitAtPoint(
+  editorElement: HTMLElement,
+  store: CollapsedHeadingStore,
+  clientX: number,
+  clientY: number,
+) {
+  for (const blockElement of renderedSectionBlockElements(editorElement)) {
+    const blockId = blockElement.dataset.id
+    if (!blockId || !store.collapsedHeadingIds.has(blockId)) continue
+
+    const inlineContent = blockElement.querySelector('.bn-block-content .bn-inline-content')
+    if (!(inlineContent instanceof HTMLElement)) continue
+    if (isCollapsedHeadingDotsHit(inlineContent, clientX, clientY)) return { blockId, inlineContent }
+  }
+
+  return undefined
+}
+
+function collapsedHeadingDotsHitFromEvent(
+  editorElement: HTMLElement,
+  store: CollapsedHeadingStore,
+  event: MouseEvent,
+) {
+  return collapsedHeadingDotsHitAtPoint(editorElement, store, event.clientX, event.clientY)
+    ?? collapsedHeadingDotsHitFromTarget(editorElement, store, event)
+}
+
+function collapsedHeadingDotsHitFromTarget(
+  editorElement: HTMLElement,
+  store: CollapsedHeadingStore,
+  event: MouseEvent,
+) {
+  const inlineContent = inlineContentFromEventTarget(editorElement, event.target)
+  if (!inlineContent) return undefined
+
+  const blockElement = collapsedBlockElementForInlineContent(editorElement, inlineContent)
+  if (!blockElement) return undefined
+
+  const blockId = blockElement.dataset.id
+  if (!blockId || !store.collapsedHeadingIds.has(blockId)) return undefined
+  if (!isCollapsedHeadingDotsHit(inlineContent, event.clientX, event.clientY)) return undefined
+
+  return { blockId, inlineContent }
+}
+
+function inlineContentFromEventTarget(editorElement: HTMLElement, target: EventTarget | null) {
+  if (!(target instanceof Element)) return undefined
+
+  const inlineContent = target.closest('.bn-inline-content')
+  return inlineContent instanceof HTMLElement && editorElement.contains(inlineContent)
+    ? inlineContent
+    : undefined
+}
+
+function collapsedBlockElementForInlineContent(
+  editorElement: HTMLElement,
+  inlineContent: HTMLElement,
+) {
+  const blockElement = inlineContent.closest(BLOCK_OUTER_SELECTOR)
+  return blockElement instanceof HTMLElement && editorElement.contains(blockElement)
+    ? blockElement
+    : undefined
+}
+
+function collapsedHeadingIdFromDotsEvent(
+  editorElement: HTMLElement,
+  store: CollapsedHeadingStore,
+  event: MouseEvent,
+) {
+  return collapsedHeadingDotsHitFromEvent(editorElement, store, event)?.blockId
+}
+
+function expandCollapsedHeading(
+  editorElement: HTMLElement,
+  store: CollapsedHeadingStore,
+  headingId: string,
+  fallbackBlocks: readonly CollapsibleBlock[] = [],
+) {
+  const collapsedHeadingIds = new Set(store.collapsedHeadingIds)
+  if (!collapsedHeadingIds.delete(headingId)) return
+
+  store.collapsedHeadingIds = collapsedHeadingIds
+  applyCollapsedSectionRenderingFromHeadingIds(
+    editorElement,
+    store.collapsedHeadingIds,
+    fallbackBlocks,
+    store.visibleBlockIds,
+  )
+  store.emit()
+}
+
+function ensureCollapsedHeadingRenderer(
+  editor: MemoriaBlockNoteEditor,
+  editorElement: HTMLElement,
+  store = collapsedHeadingStore(editor),
+) {
+  if (headingCollapseRenderers.has(editorElement)) return
+
+  const ownerWindow = editorElement.ownerDocument.defaultView
+  if (!ownerWindow) return
+
+  let frame: number | null = null
+  const apply = () => { applyCollapsedSectionRenderingFromHeadingIds(
+    editorElement,
+    store.collapsedHeadingIds,
+    editor.document as readonly CollapsibleBlock[],
+    store.visibleBlockIds,
+  ); }
+  const scheduleApply = () => {
+    if (frame !== null) return
+    frame = ownerWindow.requestAnimationFrame(() => {
+      frame = null
+      apply()
+    })
+  }
+  const mutationObserver = new ownerWindow.MutationObserver(scheduleApply)
+  mutationObserver.observe(editorElement, {
+    childList: true,
+    subtree: true,
+  })
+  let hoveredDotsElement: HTMLElement | null = null
+  const setHoveredDotsHit = (hit?: CollapsedHeadingDotsHit) => {
+    if (hoveredDotsElement && hoveredDotsElement !== hit?.inlineContent) {
+      hoveredDotsElement.style.removeProperty('cursor')
+    }
+
+    const container = collapsedSectionContainer(editorElement)
+    if (container) {
+      if (hit) container.dataset.memoriaCollapseHoverId = hit.blockId
+      else delete container.dataset.memoriaCollapseHoverId
+    }
+
+    hoveredDotsElement = hit?.inlineContent ?? null
+    if (hoveredDotsElement) {
+      editorElement.style.setProperty('cursor', 'pointer')
+      hoveredDotsElement.style.setProperty('cursor', 'pointer')
+    } else {
+      editorElement.style.removeProperty('cursor')
+    }
+  }
+  const handleCollapsedHeadingMouseMove = (event: MouseEvent) => {
+    setHoveredDotsHit(collapsedHeadingDotsHitFromEvent(editorElement, store, event))
+  }
+  const handleCollapsedHeadingMouseLeave = () => { setHoveredDotsHit(); }
+  const handleCollapsedHeadingMouseDown = (event: MouseEvent) => {
+    if (!collapsedHeadingIdFromDotsEvent(editorElement, store, event)) return
+
+    event.preventDefault()
+    event.stopPropagation()
+  }
+  const handleCollapsedHeadingClick = (event: MouseEvent) => {
+    const headingId = collapsedHeadingIdFromDotsEvent(editorElement, store, event)
+    if (!headingId) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    setHoveredDotsHit()
+    expandCollapsedHeading(
+      editorElement,
+      store,
+      headingId,
+      editor.document as readonly CollapsibleBlock[],
+    )
+  }
+  editorElement.addEventListener('mousemove', handleCollapsedHeadingMouseMove, true)
+  editorElement.addEventListener('mouseleave', handleCollapsedHeadingMouseLeave, true)
+  editorElement.addEventListener('mousedown', handleCollapsedHeadingMouseDown, true)
+  editorElement.addEventListener('click', handleCollapsedHeadingClick, true)
+  const unsubscribeStore = store.subscribe(scheduleApply)
+  const unsubscribeEditorChange = editor.onChange(scheduleApply)
+  const cleanup = () => {
+    if (frame !== null) ownerWindow.cancelAnimationFrame(frame)
+    mutationObserver.disconnect()
+    setHoveredDotsHit()
+    editorElement.removeEventListener('mousemove', handleCollapsedHeadingMouseMove, true)
+    editorElement.removeEventListener('mouseleave', handleCollapsedHeadingMouseLeave, true)
+    editorElement.removeEventListener('mousedown', handleCollapsedHeadingMouseDown, true)
+    editorElement.removeEventListener('click', handleCollapsedHeadingClick, true)
+    collapsedSectionStyleElements.get(editorElement)?.remove()
+    collapsedSectionStyleElements.delete(editorElement)
+    unsubscribeEditorChange()
+    unsubscribeStore()
+  }
+
+  headingCollapseRenderers.set(editorElement, cleanup)
+  apply()
+}
+
+function releaseCollapsedHeadingRenderer(editorElement: HTMLElement) {
+  const cleanup = headingCollapseRenderers.get(editorElement)
+  if (!cleanup) return
+
+  cleanup()
+  headingCollapseRenderers.delete(editorElement)
+}
+
+function toggledCollapsedHeadingIds(collapsedHeadingIds: ReadonlySet<string>, headingId: string) {
+  const nextCollapsedHeadingIds = new Set(collapsedHeadingIds)
+  if (nextCollapsedHeadingIds.has(headingId)) nextCollapsedHeadingIds.delete(headingId)
+  else nextCollapsedHeadingIds.add(headingId)
+  return nextCollapsedHeadingIds
+}
+
+function releaseCurrentCollapsedHeadingRenderer(editor: MemoriaBlockNoteEditor) {
+  const currentEditorElement = editorBlockElement(editor)
+  if (currentEditorElement) releaseCollapsedHeadingRenderer(currentEditorElement)
+}
+
+function releaseCollapsedHeadingRendererForToggle(
+  editor: MemoriaBlockNoteEditor,
+  editorElement: HTMLElement | undefined,
+) {
+  if (editorElement) releaseCollapsedHeadingRenderer(editorElement)
+  else releaseCurrentCollapsedHeadingRenderer(editor)
+}
+
+function applyCollapsedHeadingToggleRendering(options: {
+  editor: MemoriaBlockNoteEditor
+  editorElement?: HTMLElement
+  store: CollapsedHeadingStore
+}) {
+  const { editor, editorElement, store } = options
+
+  if (store.collapsedHeadingIds.size === 0) {
+    releaseCollapsedHeadingRendererForToggle(editor, editorElement)
+    return
+  }
+
+  if (!editorElement) {
+    applyCollapsedSectionRendering(editor, store.collapsedHeadingIds)
+    return
+  }
+
+  ensureCollapsedHeadingRenderer(editor, editorElement, store)
+  applyCollapsedSectionRenderingFromHeadingIds(
+    editorElement,
+    store.collapsedHeadingIds,
+    editor.document as readonly CollapsibleBlock[],
+    store.visibleBlockIds,
+  )
+}
+
+export function keepBlockVisibleOutsideCollapsedSection(editor: MemoriaBlockNoteEditor, blockId: string) {
+  const store = collapsedHeadingStore(editor)
+  store.visibleBlockIds.add(blockId)
+  applyCollapsedSectionRendering(editor, store.collapsedHeadingIds)
+}
+
+function releaseAttachedCollapsedHeadingRenderer(controller: CollapsedHeadingRenderingController) {
+  if (controller.attachedEditorElement) releaseCollapsedHeadingRenderer(controller.attachedEditorElement)
+  controller.attachedEditorElement = null
+}
+
+function scheduleCollapsedHeadingController(
+  controller: CollapsedHeadingRenderingController,
+  attachController: () => void,
+) {
+  if (controller.frame !== null || !controller.ownerWindow) return
+  controller.frame = controller.ownerWindow.requestAnimationFrame(attachController)
+}
+
+function cleanupCollapsedHeadingController(
+  controller: CollapsedHeadingRenderingController,
+  unsubscribeStore: () => void,
+) {
+  unsubscribeStore()
+  if (controller.frame !== null && controller.ownerWindow) {
+    controller.ownerWindow.cancelAnimationFrame(controller.frame)
+  }
+  releaseAttachedCollapsedHeadingRenderer(controller)
+}
+
+function attachCollapsedHeadingController(options: {
+  attachController: () => void
+  controller: CollapsedHeadingRenderingController
+  editor: MemoriaBlockNoteEditor
+  store: CollapsedHeadingStore
+}) {
+  const { attachController, controller, editor, store } = options
+  controller.frame = null
+
+  if (store.collapsedHeadingIds.size === 0) {
+    releaseAttachedCollapsedHeadingRenderer(controller)
+    return
+  }
+
+  const editorElement = editorBlockElement(editor)
+  if (!editorElement) {
+    scheduleCollapsedHeadingController(controller, attachController)
+    return
+  }
+
+  controller.attachedEditorElement = editorElement
+  ensureCollapsedHeadingRenderer(editor, editorElement)
+}
+
+export function toggleCollapsedHeading(
+  editor: MemoriaBlockNoteEditor,
+  headingId: string,
+  editorElement?: HTMLElement,
+) {
+  const store = collapsedHeadingStore(editor)
+  store.collapsedHeadingIds = toggledCollapsedHeadingIds(store.collapsedHeadingIds, headingId)
+  applyCollapsedHeadingToggleRendering({ editor, editorElement, store })
+  store.emit()
+}
+
+export function useCollapsedHeadingRendering(editor: MemoriaBlockNoteEditor) {
+  useLayoutEffect(() => {
+    const store = collapsedHeadingStore(editor)
+    const controller: CollapsedHeadingRenderingController = {
+      attachedEditorElement: null,
+      frame: null,
+      ownerWindow: typeof window === 'undefined' ? undefined : window,
+    }
+    const attachController = () => {
+      attachCollapsedHeadingController({ attachController, controller, editor, store })
+    }
+    const scheduleAttachController = () => {
+      scheduleCollapsedHeadingController(controller, attachController)
+    }
+    const unsubscribeStore = store.subscribe(scheduleAttachController)
+
+    attachController()
+
+    return () => {
+      cleanupCollapsedHeadingController(controller, unsubscribeStore)
+    }
+  }, [editor])
+}

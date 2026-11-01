@@ -9,7 +9,7 @@ export async function initializeLocalVaultCatalog() {
   if (catalog.localVaults !== undefined) return catalog
   const legacy = await restoreNativeWorkspaceDirectory()
   const localVaults = legacy
-    ? [{ id: 'local-legacy', label: legacy.vaultLabel, directory: 'Tolaria Vault' }]
+    ? [{ id: 'local-legacy', label: legacy.vaultLabel, directory: 'Memoria Vault' }]
     : await initialStarterVaults()
   return updateManagedGitCatalog(current => current.localVaults !== undefined ? current : {
     ...current, localVaults, activeLocalId: current.activeId ? null : localVaults[0]?.id ?? null,

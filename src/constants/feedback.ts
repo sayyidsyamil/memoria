@@ -16,7 +16,7 @@ import unblockedLightLogo from "../assets/sponsors/unblocked-light.svg";
 import type { TranslationKey } from "../lib/i18n";
 
 const CONTRIBUTION_LINK_UTM =
-	"utm_source=tolaria&utm_medium=app&utm_campaign=refactoring";
+	"utm_source=memoria&utm_medium=app&utm_campaign=refactoring";
 
 function withContributionUtm(url: string): string {
 	return `${url}?${CONTRIBUTION_LINK_UTM}`;
@@ -33,19 +33,19 @@ export const CIRCLECI_HOME_URL = withContributionUtm("https://circleci.com/");
 export const UNBLOCKED_HOME_URL = withContributionUtm(
 	"https://getunblocked.com/",
 );
-export const TOLARIA_DEVELOPMENT_ARTICLE_URL =
+export const MEMORIA_DEVELOPMENT_ARTICLE_URL =
 	"https://refactoring.fm/p/introducing-the-tolaria-alliance";
-export const TOLARIA_DOCS_URL = "https://refactoringhq.github.io/tolaria/";
-export const TOLARIA_FIRST_LAUNCH_DOCS_URL = `${TOLARIA_DOCS_URL}start/first-launch`;
-export const TOLARIA_PRODUCT_BOARD_URL = "https://tolaria.canny.io/";
-export const TOLARIA_DISCORD_INVITE_URL = "https://discord.gg/tRBC2u428B";
-export const TOLARIA_IOS_DOWNLOAD_URL =
+export const MEMORIA_DOCS_URL = "https://refactoringhq.github.io/tolaria/";
+export const MEMORIA_FIRST_LAUNCH_DOCS_URL = `${MEMORIA_DOCS_URL}start/first-launch`;
+export const MEMORIA_PRODUCT_BOARD_URL = "https://tolaria.canny.io/";
+export const MEMORIA_DISCORD_INVITE_URL = "https://discord.gg/tRBC2u428B";
+export const MEMORIA_IOS_DOWNLOAD_URL =
 	"https://testflight.apple.com/join/7aPD4GAB";
-export const TOLARIA_GITHUB_CONTRIBUTING_URL =
+export const MEMORIA_GITHUB_CONTRIBUTING_URL =
 	"https://github.com/refactoringhq/tolaria/blob/main/CONTRIBUTING.md";
-export const TOLARIA_GITHUB_ISSUES_URL =
+export const MEMORIA_GITHUB_ISSUES_URL =
 	"https://github.com/refactoringhq/tolaria/issues";
-export const TOLARIA_GITHUB_PULL_REQUESTS_URL =
+export const MEMORIA_GITHUB_PULL_REQUESTS_URL =
 	"https://github.com/refactoringhq/tolaria/pulls";
 
 export type ContributionTone = "blue" | "green" | "yellow" | "purple" | "red";
@@ -148,7 +148,7 @@ export const SPONSOR_DEVELOPMENT_ARTICLE_LINK = {
 	analyticsAction: "sponsors_development_article",
 	textKey: "feedback.sponsors.developmentLinkText",
 	labelKey: "feedback.sponsors.developmentLinkLabel",
-	url: TOLARIA_DEVELOPMENT_ARTICLE_URL,
+	url: MEMORIA_DEVELOPMENT_ARTICLE_URL,
 } satisfies ContributionTextLink;
 
 export const CONTRIBUTION_PATHS = [
@@ -158,7 +158,7 @@ export const CONTRIBUTION_PATHS = [
 		descriptionKey: "feedback.featureRequests.description",
 		ctaLabelKey: "feedback.featureRequests.cta",
 		labelKey: "feedback.featureRequests.linkLabel",
-		url: TOLARIA_PRODUCT_BOARD_URL,
+		url: MEMORIA_PRODUCT_BOARD_URL,
 		icon: Lightbulb,
 		tone: "green",
 	},
@@ -168,7 +168,7 @@ export const CONTRIBUTION_PATHS = [
 		descriptionKey: "feedback.community.description",
 		ctaLabelKey: "feedback.community.cta",
 		labelKey: "feedback.community.linkLabel",
-		url: TOLARIA_DISCORD_INVITE_URL,
+		url: MEMORIA_DISCORD_INVITE_URL,
 		icon: DiscordLogo,
 		tone: "purple",
 	},
@@ -178,14 +178,14 @@ export const CONTRIBUTION_PATHS = [
 		descriptionKey: "feedback.contributeCode.description",
 		ctaLabelKey: "feedback.contributeCode.cta",
 		labelKey: "feedback.contributeCode.linkLabel",
-		url: TOLARIA_GITHUB_PULL_REQUESTS_URL,
+		url: MEMORIA_GITHUB_PULL_REQUESTS_URL,
 		icon: GitPullRequest,
 		tone: "yellow",
 		secondaryLink: {
 			analyticsAction: "contributing_guide",
 			ctaLabelKey: "feedback.contributingGuide.cta",
 			labelKey: "feedback.contributingGuide.linkLabel",
-			url: TOLARIA_GITHUB_CONTRIBUTING_URL,
+			url: MEMORIA_GITHUB_CONTRIBUTING_URL,
 		},
 	},
 ] satisfies ContributionPath[];
@@ -196,7 +196,7 @@ export const BUG_REPORT_PATH = {
 	descriptionKey: "feedback.reportBug.description",
 	ctaLabelKey: "feedback.reportBug.cta",
 	labelKey: "feedback.reportBug.linkLabel",
-	url: TOLARIA_GITHUB_ISSUES_URL,
+	url: MEMORIA_GITHUB_ISSUES_URL,
 	icon: Bug,
 	tone: "red",
 } satisfies ContributionPath;

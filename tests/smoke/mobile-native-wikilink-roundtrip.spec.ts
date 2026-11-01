@@ -35,7 +35,7 @@ test('native shipped editor preserves wikilink targets across note switching @sm
   const original = 'See [[Projects/Launch|Launch plan]] and [[Another note]].'
   await openNativeDocument(page, original)
   const link = page.getByRole('link', { name: 'Launch plan' })
-  await expect(link).toHaveAttribute('href', 'tolaria://wikilink/Projects%2FLaunch')
+  await expect(link).toHaveAttribute('href', 'memoria://wikilink/Projects%2FLaunch')
   await expect(link).toHaveCSS('text-decoration-style', 'dotted')
   expect(await link.evaluate(element => getComputedStyle(element, '::before').maskImage)).toContain('data:image/svg+xml')
   await page.locator('.ProseMirror').click()
@@ -46,7 +46,7 @@ test('native shipped editor preserves wikilink targets across note switching @sm
   expect(saved).toContain('Saved edit.')
   await openNativeDocument(page, '# Another note')
   await openNativeDocument(page, saved)
-  await expect(page.getByRole('link', { name: 'Launch plan' })).toHaveAttribute('href', 'tolaria://wikilink/Projects%2FLaunch')
+  await expect(page.getByRole('link', { name: 'Launch plan' })).toHaveAttribute('href', 'memoria://wikilink/Projects%2FLaunch')
   expect(await saveNativeDocument(page)).toBe(saved)
   expect(errors).toEqual([])
 })

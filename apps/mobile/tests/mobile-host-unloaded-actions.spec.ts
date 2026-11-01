@@ -4,7 +4,7 @@ import { longPressMouseTestId } from './mobile-phone-test-gestures'
 import type { MobileWorkspaceWrite } from '../src/workspace/mobileWorkspaceEditing'
 
 const targetId = 'open-source-project'
-const targetPath = 'Tolaria/Mobile UI/How I Run an Open Source Project.md'
+const targetPath = 'Memoria/Mobile UI/How I Run an Open Source Project.md'
 const targetContent = '---\ntitle: How I Run an Open Source Project\ncustom: preserve this\n---\n\nOriginal full body for Undo.\n'
 
 test.beforeEach(async ({ page }, info) => {
@@ -12,12 +12,12 @@ test.beforeEach(async ({ page }, info) => {
   const snapshot = workspaceScenarioForId('default')
   const notes = snapshot.notes.map((note) => ({ ...note, rawContent: undefined }))
   await page.addInitScript(({ snapshot, notes, targetPath, targetContent }) => {
-    Reflect.set(window, '__TOLARIA_MOBILE_WORKSPACE_SNAPSHOT__', { ...snapshot, notes, allNotes: notes })
-    Reflect.set(window, '__TOLARIA_MOBILE_WORKSPACE_NOTE_CONTENTS__', {
-      'Tolaria/Mobile UI/Workflow Orchestration Essay.md': '# Workflow Orchestration Essay\n\nSelected note.',
+    Reflect.set(window, '__MEMORIA_MOBILE_WORKSPACE_SNAPSHOT__', { ...snapshot, notes, allNotes: notes })
+    Reflect.set(window, '__MEMORIA_MOBILE_WORKSPACE_NOTE_CONTENTS__', {
+      'Memoria/Mobile UI/Workflow Orchestration Essay.md': '# Workflow Orchestration Essay\n\nSelected note.',
       [targetPath]: targetContent,
     })
-    Reflect.set(window, '__TOLARIA_MOBILE_WORKSPACE_WRITES__', [])
+    Reflect.set(window, '__MEMORIA_MOBILE_WORKSPACE_WRITES__', [])
   }, { snapshot, notes, targetPath, targetContent })
   await page.goto('/?source=host-vault')
   await expect(page.getByTestId(`note-row-${targetId}`)).toBeVisible()
@@ -45,7 +45,7 @@ test('@smoke delete and Undo restore the entire previously unloaded file', async
 
 test('@smoke a failed bulk read is visible and retry uses recovered file contents', async ({ page }) => {
   await page.evaluate((path) => {
-    const contents = Reflect.get(window, '__TOLARIA_MOBILE_WORKSPACE_NOTE_CONTENTS__')
+    const contents = Reflect.get(window, '__MEMORIA_MOBILE_WORKSPACE_NOTE_CONTENTS__')
     Reflect.deleteProperty(contents, path)
   }, targetPath)
   await longPressMouseTestId(page, `note-row-${targetId}`)
@@ -54,7 +54,7 @@ test('@smoke a failed bulk read is visible and retry uses recovered file content
   expect(await writes(page)).toEqual([])
   await expect(page.getByTestId(`note-row-${targetId}`)).toBeVisible()
   await page.evaluate(({ path, content }) => {
-    Reflect.set(Reflect.get(window, '__TOLARIA_MOBILE_WORKSPACE_NOTE_CONTENTS__'), path, content)
+    Reflect.set(Reflect.get(window, '__MEMORIA_MOBILE_WORKSPACE_NOTE_CONTENTS__'), path, content)
   }, { path: targetPath, content: targetContent })
   await page.getByTestId('workspace-edit-retry').click()
   await expect.poll(() => writes(page)).toContainEqual(expect.objectContaining({ kind: 'saveNote', path: targetPath }))
@@ -62,5 +62,5 @@ test('@smoke a failed bulk read is visible and retry uses recovered file content
 })
 
 async function writes(page: Page): Promise<MobileWorkspaceWrite[]> {
-  return page.evaluate(() => Reflect.get(window, '__TOLARIA_MOBILE_WORKSPACE_WRITES__'))
+  return page.evaluate(() => Reflect.get(window, '__MEMORIA_MOBILE_WORKSPACE_WRITES__'))
 }

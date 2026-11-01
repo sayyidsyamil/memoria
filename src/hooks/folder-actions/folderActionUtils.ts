@@ -72,7 +72,7 @@ export async function invokeRenameFolder(params: {
   return { old_path: oldPath, new_path: newPath }
 }
 
-/** Deletes a folder with everything in it; on a Tolaria remote, the other tabs are told. */
+/** Deletes a folder with everything in it; on a Memoria remote, the other tabs are told. */
 export async function invokeDeleteFolder(params: { vaultPath: string; folderPath: string }): Promise<string> {
   const { vaultPath, folderPath } = params
   const deletedPath = await createVaultBackend(vaultPath).files.deleteFolder(folderPath)

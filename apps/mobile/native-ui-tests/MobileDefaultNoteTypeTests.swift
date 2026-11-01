@@ -2,12 +2,12 @@ import XCTest
 
 final class MobileDefaultNoteTypeTests: XCTestCase {
   func testNewNotePersistsWithItsDefaultTypeAcrossRelaunch() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_DEFAULT_NOTE_TYPE"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_DEFAULT_NOTE_TYPE"] == "1",
       "Requires an empty disposable native vault; never run against user data")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&phoneState=list&qaRun=default-note-type"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&phoneState=list&qaRun=default-note-type"]
     app.launch()
     let create = element(app, "note-list-create-action")
     XCTAssertTrue(create.waitForExistence(timeout: 30))
@@ -21,7 +21,7 @@ final class MobileDefaultNoteTypeTests: XCTestCase {
     DispatchQueue.main.asyncAfter(deadline: .now() + 3) { saved.fulfill() }
     wait(for: [saved], timeout: 5)
     app.terminate()
-    app.launchArguments = ["--tolaria-mobile-search",
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=native-vault&phoneState=list&editorMode=source&qaRun=default-note-reload"]
     app.launch()
     let row = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Default type QA")).firstMatch

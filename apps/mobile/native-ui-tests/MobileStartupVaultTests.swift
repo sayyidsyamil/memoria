@@ -4,13 +4,13 @@ import XCTest
 final class MobileStartupVaultTests: XCTestCase {
   func testWarmVaultOpensAndPreservesFrontmatterAfterEditing() {
     continueAfterFailure = false
-    guard let marker = ProcessInfo.processInfo.environment["TOLARIA_STARTUP_QA_MARKER"] else {
+    guard let marker = ProcessInfo.processInfo.environment["MEMORIA_STARTUP_QA_MARKER"] else {
       XCTFail("An owned startup fixture is required before any vault interaction")
       return
     }
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&qaRun=startup-edit"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&qaRun=startup-edit"]
     app.launch()
     let rows = NSPredicate(format: "identifier BEGINSWITH %@ AND identifier ENDSWITH %@", "note-row-notes/", ".md")
     let row = app.descendants(matching: .any).matching(rows).firstMatch

@@ -8,7 +8,7 @@ import { ShareNoteButton } from './ShareNoteButton'
 import { SharedReadOnlyBanner } from './SharedReadOnlyBanner'
 import { SharingStatusButton } from './SharingStatusButton'
 
-type RemoteWindow = { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 const NOTE = 'notes/plan.md'
 const ANA: OutgoingShare = { id: 's_1', scope: NOTE, role: 'editor', grantee: { userId: 'u_ana', email: 'ana@example.com', github: 'ana' } }
@@ -41,14 +41,14 @@ beforeAll(() => {
 })
 
 beforeEach(() => {
-  Object.assign(window as RemoteWindow, { TOLARIA_REMOTE_URL: 'https://front.test', TOLARIA_REMOTE_TOKEN: 'via-front' })
+  Object.assign(window as RemoteWindow, { MEMORIA_REMOTE_URL: 'https://front.test', MEMORIA_REMOTE_TOKEN: 'via-front' })
 })
 
 afterEach(() => {
   vi.unstubAllGlobals()
   window.history.replaceState(null, '', '/')
-  delete (window as RemoteWindow).TOLARIA_REMOTE_URL
-  delete (window as RemoteWindow).TOLARIA_REMOTE_TOKEN
+  delete (window as RemoteWindow).MEMORIA_REMOTE_URL
+  delete (window as RemoteWindow).MEMORIA_REMOTE_TOKEN
   resetSharingForTests()
   resetVaultAccessForTests()
 })
@@ -210,7 +210,7 @@ describe('the status bar sharing entry', () => {
     expect(await screen.findByTestId('shared-with-me-empty')).toHaveTextContent('Nothing has been shared with you yet.')
     fireEvent.click(screen.getByTestId('shared-with-me-share-vault'))
 
-    expect(await screen.findByTestId('share-dialog')).toHaveTextContent('Invite people with a Tolaria account to your vault.')
+    expect(await screen.findByTestId('share-dialog')).toHaveTextContent('Invite people with a Memoria account to your vault.')
     expect(screen.queryByTestId('share-scope')).toBeNull()
   })
 

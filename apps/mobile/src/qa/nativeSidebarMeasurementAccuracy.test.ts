@@ -54,7 +54,7 @@ describe('native sidebar measurement accuracy', () => {
 
   it('still rejects real folder overlap and retains the actual measured delta', () => {
     expect(assertFolderTreeLayout(folders(29.4))).toEqual([
-      expect.objectContaining({ actual: expect.closeTo(-0.6, 5), expected: 0, id: 'sidebar.folder.tolaria-releases' }),
+      expect.objectContaining({ actual: expect.closeTo(-0.6, 5), expected: 0, id: 'sidebar.folder.memoria-releases' }),
     ])
   })
 
@@ -94,9 +94,9 @@ function folders(releasesY: number): NativeLayoutMetricMap {
     metric('sidebar.folder.writing.container', { height: 90 }),
     metric('sidebar.folder.writing-essays.container', { height: 30 }),
     metric('sidebar.folder.writing-drafts.container', { height: 30, y: 30 }),
-    metric('sidebar.folder.tolaria.container', { height: 90, y: 90 }),
-    metric('sidebar.folder.tolaria-mobile-ui.container', { height: 30 }),
-    metric('sidebar.folder.tolaria-releases.container', { height: 30, y: releasesY }),
+    metric('sidebar.folder.memoria.container', { height: 90, y: 90 }),
+    metric('sidebar.folder.memoria-mobile-ui.container', { height: 30 }),
+    metric('sidebar.folder.memoria-releases.container', { height: 30, y: releasesY }),
   ].map(value => [value.id, value]))
 }
 

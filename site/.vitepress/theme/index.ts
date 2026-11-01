@@ -1,2 +1,2 @@
-import theme from "./tolaria";
+import theme from "./memoria";
 export default theme;

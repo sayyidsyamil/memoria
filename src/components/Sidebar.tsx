@@ -687,6 +687,8 @@ function SidebarInteractionOverlays({
   )
 }
 
+import { WorkspaceActions } from './WorkspaceActions'
+
 export const Sidebar = memo(function Sidebar(props: SidebarProps) {
   const locale = props.locale ?? 'en'
   const runtime = useSidebarRuntime(props)
@@ -701,6 +703,7 @@ export const Sidebar = memo(function Sidebar(props: SidebarProps) {
         canGoBack={props.canGoBack}
         canGoForward={props.canGoForward}
       />
+      {props.vaultRootPath && <WorkspaceActions vaultPath={props.vaultRootPath} />}
       <SidebarRuntimeNavigation props={props} runtime={runtime} />
       <SidebarInteractionOverlays locale={locale} runtime={runtime} />
     </aside>

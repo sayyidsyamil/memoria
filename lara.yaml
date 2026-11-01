@@ -2,7 +2,7 @@ version: "1.0.0"
 
 project:
   instruction: >
-    Tolaria is a desktop knowledge-management app. Keep product names, CLI names,
+    Memoria is a desktop knowledge-management app. Keep product names, CLI names,
     markdown wikilinks, frontmatter keys, file paths, and placeholders like
     {agent}, {zoom}, {language}, {name}, {label}, {file}, and {count} unchanged.
 

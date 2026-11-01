@@ -34,7 +34,7 @@ describe('tablet workspace edit selection', () => {
       setSelectedNoteId: (noteId) => selectedNoteIds.push(noteId),
     })
 
-    expect(selectedNoteIds).toEqual(['Tolaria/Mobile UI/brand-new-target.md'])
+    expect(selectedNoteIds).toEqual(['Memoria/Mobile UI/brand-new-target.md'])
   })
 
   it('returns to the default note list when the current section excludes the newly created note', () => {

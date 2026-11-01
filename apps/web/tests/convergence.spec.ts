@@ -41,13 +41,13 @@ import {
  * the note's live Yjs document over the collab websocket, the surface beta users edit in.
  *
  * By default it runs in the web suite against the run's own server and share front. With
- * TOLARIA_CONVERGENCE_BASE_URL it runs against that deployment (the scheduled staging run of
- * tolaria-cloud); convergenceTargets.ts lists what it then reads from the environment.
+ * MEMORIA_CONVERGENCE_BASE_URL it runs against that deployment (the scheduled staging run of
+ * memoria-cloud); convergenceTargets.ts lists what it then reads from the environment.
  */
 
 const SAMPLES_PER_DIRECTION = Math.max(
 	MIN_SAMPLES / 2,
-	Number(process.env.TOLARIA_CONVERGENCE_SAMPLES_PER_DIRECTION ?? MIN_SAMPLES),
+	Number(process.env.MEMORIA_CONVERGENCE_SAMPLES_PER_DIRECTION ?? MIN_SAMPLES),
 );
 /** An edit that has not arrived after this never will: the run records it as lost. */
 const SAMPLE_TIMEOUT_MS = 10_000;
@@ -218,7 +218,7 @@ async function measure(
 
 function outDir(testInfo: TestInfo): string {
 	const dir =
-		process.env.TOLARIA_CONVERGENCE_OUT_DIR ??
+		process.env.MEMORIA_CONVERGENCE_OUT_DIR ??
 		testInfo.outputPath("convergence");
 	mkdirSync(dir, { recursive: true });
 	return dir;

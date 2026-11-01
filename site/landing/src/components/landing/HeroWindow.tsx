@@ -8,13 +8,13 @@ import {
 import type { Icon } from "@phosphor-icons/react"
 import { TYPES, ESSAY, VAULT, NoteTable, MermaidFlow, CodeBlock, TypeChip, type TypeKey } from "./mock-notes"
 
-// A live HTML recreation of Tolaria's main window in the LIGHT theme, with the Getting Started vault.
+// A live HTML recreation of Memoria's main window in the LIGHT theme, with the Getting Started vault.
 // Layout, note-list rows, sidebar sections and bottom bar are matched to Karn's 2026-10-26 captures
 // (screens/2026-10-26-hybrid-main.png, -editor-wikilinks.png); light colours sampled from the May light capture
 // and screens/2026-10-26-light-main.png (the fidelity reference): sidebar #f7f6f3, rules #e9e9e7, active row #dfe6f4,
 // Project selection #fcebeb with a #e53e3e rule, text #37352f, muted #787774.
-// Story (12s loop, motion.css .hw): the selection moves from "Get familiar with Tolaria" to the "From notes to essays" Essay (table, Mermaid, code), "Related: [[Tol"
-// is typed (the row gets its unsaved dot), the wikilink picker opens and "Tolaria" is linked, then the bottom bar
+// Story (12s loop, motion.css .hw): the selection moves from "Get familiar with Memoria" to the "From notes to essays" Essay (table, Mermaid, code), "Related: [[Tol"
+// is typed (the row gets its unsaved dot), the wikilink picker opens and "Memoria" is linked, then the bottom bar
 // commits, pushes and shows "Synced just now".
 const W = 1200, H = 690, ROW = 104
 const C = { side: "#f7f6f3", rule: "#e9e9e7", ink: "#37352f", head: "#2f2d27", muted: "#787774", faint: "#9b9a97", active: "#dfe6f4", blue: "#2c5cf6" }
@@ -39,7 +39,7 @@ export function HeroWindow({ bare = false }: { bare?: boolean }) {
     <div ref={box} className="w-full" style={{ height: dh * s }}>
       <div
         role="img"
-        aria-label="Illustration of Tolaria's window in the light theme: the sidebar with colour-coded note types, the note list, and an essay with a table, a Mermaid diagram and code, with the wikilink picker open"
+        aria-label="Illustration of Memoria's window in the light theme: the sidebar with colour-coded note types, the note list, and an essay with a table, a Mermaid diagram and code, with the wikilink picker open"
         className={`hw loop origin-top-left overflow-hidden bg-white text-left text-[13px] leading-5 ${bare ? "" : "rounded-2xl border border-black/10 shadow-2xl shadow-blue-950/30"}`}
         style={{ width: dw, height: dh, transform: `scale(${s})`, color: C.ink, ["--row" as string]: `${ROW}px` }}
       >
@@ -107,7 +107,7 @@ function Row({ icon: I, label, n, active, color, fill }: { icon: Icon; label: st
 const NOTES: [string, string, string, TypeKey][] = [
   ["Writing is thinking", "You don't write down what you think. You find out what you think by trying to write it down, again and...", "October 27, 2026", "evergreen"],
   [ESSAY.title, ESSAY.lede, "October 27, 2026", "essay"],
-  ["Get familiar with Tolaria", "Use this checklist as a 15–20 minute tour of Tolaria. Every link opens a real file you can...", "October 26, 2026", "project"],
+  ["Get familiar with Memoria", "Use this checklist as a 15–20 minute tour of Memoria. Every link opens a real file you can...", "October 26, 2026", "project"],
   ["A Philosophy of Software Design", "Deep modules: simple interfaces that hide a lot of complexity. Highlights and notes from chapters 4–6...", "October 26, 2026", "reading"],
   ["Agents need context, not prompts", "The best agent setups I've seen don't have clever prompts. They have great context: docs, decisions...", "October 25, 2026", "idea"],
   ["Jordan Lee", "Staff engineer, platform team. Met at the meetup in Milan; wants to compare notes on onboarding docs...", "October 25, 2026", "person"],
@@ -153,7 +153,7 @@ function EditorTop({ compact }: { compact: boolean }) {
     <div className="flex h-11 shrink-0 items-center gap-1.5 px-5 text-[12.5px]" style={{ borderBottom: `1px solid ${C.rule}` }}>
       <span className="relative inline-flex h-5 items-center">
         <span className="crumb-b flex items-center gap-1.5"><span style={{ color: C.muted }}>Essay</span><CaretRightIcon className="size-3" style={{ color: C.faint }} /><span className="font-medium" style={{ color: C.head }}>{ESSAY.slug}</span></span>
-        <span className="crumb-a absolute inset-y-0 left-0 flex items-center gap-1.5 whitespace-nowrap bg-white"><span style={{ color: C.muted }}>Project</span><CaretRightIcon className="size-3" style={{ color: C.faint }} /><span className="font-medium" style={{ color: C.head }}>get-familiar-with-tolaria</span></span>
+        <span className="crumb-a absolute inset-y-0 left-0 flex items-center gap-1.5 whitespace-nowrap bg-white"><span style={{ color: C.muted }}>Project</span><CaretRightIcon className="size-3" style={{ color: C.faint }} /><span className="font-medium" style={{ color: C.head }}>get-familiar-with-memoria</span></span>
       </span>
       <span className="ml-auto flex items-center gap-3.5" style={{ color: C.muted }}>{icons.map((I, i) => <I key={i} className="size-4" />)}</span>
     </div>
@@ -161,7 +161,7 @@ function EditorTop({ compact }: { compact: boolean }) {
 }
 
 // The wikilink picker after "[[Tol": matching notes, each with its type's icon and colour.
-const PICK: [string, TypeKey][] = [["Tolaria", "topic"], ["Get familiar with Tolaria", "project"], ["Tolerance for ambiguity", "evergreen"], ["Tolkien on worldbuilding", "reading"], ["Tolaria 2026.10.26", "release"]]
+const PICK: [string, TypeKey][] = [["Memoria", "topic"], ["Get familiar with Memoria", "project"], ["Tolerance for ambiguity", "evergreen"], ["Tolkien on worldbuilding", "reading"], ["Memoria 2026.10.26", "release"]]
 const P = "text-[15px] leading-6"
 function Editor({ compact }: { compact: boolean }) {
   const pad = compact ? "px-7" : "px-16"
@@ -179,7 +179,7 @@ function Editor({ compact }: { compact: boolean }) {
             <span className="mask" /><span className="track"><span className="caret-wrap absolute inset-y-0 right-0 w-0"><span className="caret" /></span></span>
           </span>
         </span>
-        <span className="link absolute top-0 left-0 whitespace-nowrap">Related: <span className="rounded px-0.5 underline underline-offset-4" style={{ color: TYPES.topic.deep, textDecorationColor: TYPES.topic.color }}>Tolaria</span></span>
+        <span className="link absolute top-0 left-0 whitespace-nowrap">Related: <span className="rounded px-0.5 underline underline-offset-4" style={{ color: TYPES.topic.deep, textDecorationColor: TYPES.topic.color }}>Memoria</span></span>
         <div className="pop absolute top-8 left-[56px] z-10 w-[320px] overflow-hidden rounded-lg border bg-white py-1 shadow-xl" style={{ borderColor: C.rule }}>
           {(compact ? PICK.slice(0, 4) : PICK).map(([t, k], i) => {
             const ty = TYPES[k], I = ty.icon
@@ -199,16 +199,16 @@ function Editor({ compact }: { compact: boolean }) {
       {!compact && <div className="mt-3 text-[14px]"><CodeBlock /></div>}
       </div>
       <div className={`ed-a absolute inset-0 bg-white pt-9 ${pad}`}>
-        <div className="text-[32px] leading-10 font-bold tracking-[-0.01em]" style={{ color: C.head }}>Get familiar with Tolaria</div>
+        <div className="text-[32px] leading-10 font-bold tracking-[-0.01em]" style={{ color: C.head }}>Get familiar with Memoria</div>
         <div className="mt-1.5 flex items-center gap-1.5 text-[12px] leading-5"><TypeChip k="project" /><span className="rounded-[0.3em] px-[0.45em]" style={{ background: "var(--color-orange-50)", color: "var(--color-orange-700)" }}>In progress</span></div>
         <div className="mt-3 h-px" style={{ background: C.rule }} />
-        <p className={`mt-3 ${P}`}>Use this checklist as a 15–20 minute tour of Tolaria. Every link opens a real file you can inspect, edit, and restore with Git.</p>
+        <p className={`mt-3 ${P}`}>Use this checklist as a 15–20 minute tour of Memoria. Every link opens a real file you can inspect, edit, and restore with Git.</p>
         <div className="mt-3 flex items-start gap-2.5 rounded-lg px-3.5 py-2.5 text-[14px] leading-6" style={{ background: "var(--color-blue-50)" }}>
           <LightbulbIcon weight="fill" className="mt-1 size-4 shrink-0" style={{ color: "var(--color-blue-500)" }} />
           <span><code className="rounded bg-white/80 px-1.5 py-0.5 font-mono text-[12.5px]">Cmd+click</code> a wikilink to open it</span>
         </div>
         <div className="mt-3 flex flex-col gap-2.5 text-[14.5px] leading-6">
-          {([["Read the", "Tolaria Principles", "understand the core philosophy", true], ["Explore the", "Sidebar", "learn Inbox, All Notes, Archive, Favorites, Types, Folders", false], ["Browse the", "Note List", "sorting, display properties, search within list", false], ["Open the", "Project Dashboard", "see a Markdown note render its own properties", false]] as const).map(([a, l, b, done]) => (
+          {([["Read the", "Memoria Principles", "understand the core philosophy", true], ["Explore the", "Sidebar", "learn Inbox, All Notes, Archive, Favorites, Types, Folders", false], ["Browse the", "Note List", "sorting, display properties, search within list", false], ["Open the", "Project Dashboard", "see a Markdown note render its own properties", false]] as const).map(([a, l, b, done]) => (
             <div key={l} className="flex items-start gap-2.5">
               <span className="mt-1 flex size-4 shrink-0 items-center justify-center rounded border" style={done ? { background: C.blue, borderColor: C.blue } : { borderColor: "#c9c8c5" }}>{done && <CheckIcon weight="bold" className="size-3 text-white" />}</span>
               <span style={done ? { color: C.faint } : undefined}><b className="font-semibold">{a}</b> <span className="underline decoration-dashed decoration-1 underline-offset-4" style={{ color: l === "Project Dashboard" ? TYPES.project.color : C.muted }}>{l}</span> — {b}</span>
@@ -238,7 +238,7 @@ function BottomBar({ compact }: { compact: boolean }) {
 }
 
 // MacBook-style frame: black screen bezel with the camera notch, then the aluminium base with its hinge lip and
-// thumb notch. The screen holds the live window recreation edge to edge (a full-screen Tolaria window).
+// thumb notch. The screen holds the live window recreation edge to edge (a full-screen Memoria window).
 export function MacBook({ className = "" }: { className?: string }) {
   return (
     <div className={className}>

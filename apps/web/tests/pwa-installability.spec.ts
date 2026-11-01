@@ -38,8 +38,8 @@ test.describe('PWA installability', () => {
       ]),
     })
 
-    expect(manifest.name).toBe('Tolaria')
-    expect(manifest.short_name).toBe('Tolaria')
+    expect(manifest.name).toBe('Memoria')
+    expect(manifest.short_name).toBe('Memoria')
     expect(manifest.display).toBe('standalone')
     expect(manifest.icons.length).toBeGreaterThanOrEqual(2)
   })
@@ -99,7 +99,7 @@ test.describe('PWA installability', () => {
       'content',
       'default'
     )
-    await expect(page.locator('meta[name="apple-mobile-web-app-title"]')).toHaveAttribute('content', 'Tolaria')
+    await expect(page.locator('meta[name="apple-mobile-web-app-title"]')).toHaveAttribute('content', 'Memoria')
   })
 
   test('has theme-color meta tag', async ({ page }) => {

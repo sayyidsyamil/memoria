@@ -16,16 +16,16 @@ import {
 const gitOptions = { env: gitTestEnvironment(), stdio: "pipe" };
 const standalone = process.argv.includes("--standalone");
 const bundleId =
-	process.env.TOLARIA_QA_BUNDLE_ID ??
-	(standalone ? "com.tolaria.mobile.dev" : "host.exp.Exponent");
-const fileCount = Number(process.env.TOLARIA_GIT_QA_FILES ?? 2);
-const historyMiB = Number(process.env.TOLARIA_GIT_QA_HISTORY_MIB ?? 0);
+	process.env.MEMORIA_QA_BUNDLE_ID ??
+	(standalone ? "com.memoria.mobile.dev" : "host.exp.Exponent");
+const fileCount = Number(process.env.MEMORIA_GIT_QA_FILES ?? 2);
+const historyMiB = Number(process.env.MEMORIA_GIT_QA_HISTORY_MIB ?? 0);
 if (!Number.isInteger(fileCount) || fileCount < 2 || fileCount > 10_000) {
-	throw new Error("TOLARIA_GIT_QA_FILES must be an integer from 2 to 10000");
+	throw new Error("MEMORIA_GIT_QA_FILES must be an integer from 2 to 10000");
 }
 if (!Number.isInteger(historyMiB) || historyMiB < 0 || historyMiB > 256) {
 	throw new Error(
-		"TOLARIA_GIT_QA_HISTORY_MIB must be an integer from 0 to 256",
+		"MEMORIA_GIT_QA_HISTORY_MIB must be an integer from 0 to 256",
 	);
 }
 const probeTimeoutMs = fileCount > 2 || historyMiB > 0 ? 600_000 : 150_000;
@@ -139,7 +139,7 @@ function bootedDevices() {
 }
 
 async function runProbe(deviceId) {
-	const root = await mkdtemp(join(tmpdir(), "tolaria-native-git-"));
+	const root = await mkdtemp(join(tmpdir(), "memoria-native-git-"));
 	let server;
 	let timeout;
 	try {
@@ -161,7 +161,7 @@ async function runProbe(deviceId) {
 			);
 			return true;
 		});
-		const scheme = standalone ? "tolaria:///" : "exp://127.0.0.1:8081/--/";
+		const scheme = standalone ? "memoria:///" : "exp://127.0.0.1:8081/--/";
 		const url = `${scheme}?source=fixture&gitProbe=${encodeURIComponent(server.url)}&qaRun=native-git`;
 		try {
 			execFileSync("xcrun", ["simctl", "terminate", deviceId, bundleId], {
@@ -175,7 +175,7 @@ async function runProbe(deviceId) {
 					"launch",
 					deviceId,
 					bundleId,
-					"--tolaria-mobile-search",
+					"--memoria-mobile-search",
 					new URL(url).search,
 				]
 			: ["openurl", deviceId, url];

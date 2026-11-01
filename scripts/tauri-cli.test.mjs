@@ -46,10 +46,10 @@ test('leaves non-dev tauri commands on the production config', () => {
 
 test('sets the app config namespace only for tauri dev', () => {
   assert.equal(
-    tauriEnv(['dev'], { EXISTING: '1' }).TOLARIA_APP_CONFIG_NAMESPACE,
+    tauriEnv(['dev'], { EXISTING: '1' }).MEMORIA_APP_CONFIG_NAMESPACE,
     DEV_APP_CONFIG_NAMESPACE,
   )
-  assert.equal(tauriEnv(['build'], { EXISTING: '1' }).TOLARIA_APP_CONFIG_NAMESPACE, undefined)
+  assert.equal(tauriEnv(['build'], { EXISTING: '1' }).MEMORIA_APP_CONFIG_NAMESPACE, undefined)
 })
 
 test('uses the Windows command shim through a shell', () => {

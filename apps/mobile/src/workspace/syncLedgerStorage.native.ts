@@ -1,7 +1,7 @@
 import { File, Paths } from 'expo-file-system'
 import { parseSyncLedger } from './syncLedgerModel'
 
-function ledgerFile(suffix = '') { return new File(Paths.document, '.tolaria-mobile-config', `sync-history.json${suffix}`) }
+function ledgerFile(suffix = '') { return new File(Paths.document, '.memoria-mobile-config', `sync-history.json${suffix}`) }
 
 async function validated(file: File) {
   const content = await file.text()

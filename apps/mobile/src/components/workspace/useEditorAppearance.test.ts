@@ -16,7 +16,7 @@ describe('rich editor appearance', () => {
   it('changes only CSS, preserving the document and selection', () => {
     const editor = { injectCSS: vi.fn(), setContent: vi.fn(), setSelection: vi.fn() }
     expect(injectMobileEditorAppearance(editor, 'body { color: white; }')).toBe(true)
-    expect(editor.injectCSS).toHaveBeenCalledWith('body { color: white; }', 'tolaria-editor')
+    expect(editor.injectCSS).toHaveBeenCalledWith('body { color: white; }', 'memoria-editor')
     expect(editor.setContent).not.toHaveBeenCalled()
     expect(editor.setSelection).not.toHaveBeenCalled()
     expect(injectMobileEditorAppearance(null, '')).toBe(false)

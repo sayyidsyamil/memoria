@@ -10,13 +10,13 @@ import {
 import { connect, type Socket } from "node:net";
 
 /**
- * A stand-in for the hosted front end of Tolaria Web in sharing.spec.ts (TOL-237). The real
- * one (the private Worker of tolaria-cloud) keeps accounts and share records and mints access
+ * A stand-in for the hosted front end of Memoria Web in sharing.spec.ts (TOL-237). The real
+ * one (the private Worker of memoria-cloud) keeps accounts and share records and mints access
  * tickets; this one does the same in memory, from the open protocol's text (protocol 1.9,
- * "Access tickets"), so the shell's sharing UI runs against the real Tolaria server:
+ * "Access tickets"), so the shell's sharing UI runs against the real Memoria server:
  *
  * - `/api/shares*`: the share API's routes and answers, for two fixed users told apart by a
- *   cookie (`tolaria-e2e-user`), like the Worker's session.
+ *   cookie (`memoria-e2e-user`), like the Worker's session.
  * - `/vaults/<vaultId>/v1/*`: the owner's vault for whoever it is shared with, through an
  *   access ticket minted per request; collab ticket paths keep the prefix.
  * - `/v1/*`: the owner's own vault with the server token; a user without a vault gets 503.
@@ -28,7 +28,7 @@ import { connect, type Socket } from "node:net";
 const LOOPBACK = "127.0.0.1";
 /** The only hosts this front forwards to: the run's own servers on loopback. */
 const LOOPBACK_HOSTS = new Set([LOOPBACK]);
-export const USER_COOKIE = "tolaria-e2e-user";
+export const USER_COOKIE = "memoria-e2e-user";
 export const VAULT_ID = "v_e2e";
 const TICKET_LIFETIME_MS = 60_000;
 const SHARED_PATH = /^\/vaults\/([A-Za-z0-9_-]+)(\/v1(?:[/?].*)?)$/u;
@@ -106,7 +106,7 @@ function base64url(text: string | Buffer): string {
 /** An access ticket as the protocol defines it: `ta1.<payload>.<HMAC>`, keyed from the token. */
 function mintTicket(token: string, { sub, grants }: { sub: string; grants: object[] }): string {
 	const key = createHmac("sha256", token)
-		.update("tolaria access ticket v1")
+		.update("memoria access ticket v1")
 		.digest();
 	const iat = Date.now();
 	const payload = { v: 1, sub, grants, iat, exp: iat + TICKET_LIFETIME_MS };
@@ -168,7 +168,7 @@ function mayRemove(user: FrontUser, share: ShareRecord): boolean {
 export interface ShareFrontOptions {
 	/** The preview server with the static shell. */
 	previewUrl: string;
-	/** The Tolaria server of the run, and its token. */
+	/** The Memoria server of the run, and its token. */
 	remoteUrl: string;
 	token: string;
 }

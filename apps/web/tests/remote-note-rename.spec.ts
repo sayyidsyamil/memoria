@@ -31,8 +31,8 @@ interface SeededNote {
 
 async function configureRemoteVault(context: BrowserContext): Promise<void> {
 	await context.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 	}, COLLAB_TOKEN);
 }
 

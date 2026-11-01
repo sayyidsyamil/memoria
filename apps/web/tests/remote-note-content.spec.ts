@@ -2,15 +2,15 @@ import { expect, test, type Page } from "@playwright/test";
 
 /**
  * Test for TOL-196: verifies that the web app loads note bodies through the
- * remote VaultBackend when TOLARIA_REMOTE_URL is configured.
+ * remote VaultBackend when MEMORIA_REMOTE_URL is configured.
  */
 
 const TEST_TOKEN = "e2e-token-not-a-secret-0123456789";
 
 async function configureRemoteVault(page: Page): Promise<void> {
 	await page.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 	}, TEST_TOKEN);
 }
 
@@ -42,7 +42,7 @@ test("opens note and displays body content from remote backend", async ({
 	await expect(page.locator(".bn-block").first()).toBeVisible({ timeout: 5000 });
 
 	// Verify that the editor contains actual note content
-	// The Welcome note should have "Welcome to Tolaria" in it
+	// The Welcome note should have "Welcome to Memoria" in it
 	const editorContent = await page
 		.locator(".bn-editor")
 		.textContent({ timeout: 5000 });

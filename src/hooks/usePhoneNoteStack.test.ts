@@ -60,7 +60,7 @@ function popTo(url: string, state: unknown = null) {
 describe('usePhoneNoteStack', () => {
   beforeEach(() => {
     localStorage.clear()
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', 'true')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', 'true')
     stubPhoneMedia(true)
   })
 

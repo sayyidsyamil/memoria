@@ -8,11 +8,11 @@ import { MOBILE_SCREENSHOTS } from "@/content"
 import { TYPES, type TypeKey, ESSAY, VAULT, NoteTable, MermaidFlow, CodeBlock, TypeChip } from "./mock-notes"
 import { reducedMotion } from "@/motion"
 
-// Tolaria on iPhone, in an iPhone frame: a light-mode HTML recreation matched to Karn's iOS captures
+// Memoria on iPhone, in an iPhone frame: a light-mode HTML recreation matched to Karn's iOS captures
 // (screens/ios/2026-10-26-ios-light-notelist.png, -note.png, -sidebar.png; 402x874 pt, iPhone Pro).
 // To show real screens instead, list them in MOBILE_SCREENSHOTS (content.ts): the frame then crossfades the images.
 // Story (12s loop, motion.css .mw): Inbox list -> the sidebar slides in and Projects is tapped -> Projects list ->
-// "Get familiar with Tolaria" opens -> the first checklist item is ticked -> back.
+// "Get familiar with Memoria" opens -> the first checklist item is ticked -> back.
 const W = 402, H = 874
 const C = { rule: "#e9e9e7", ink: "#37352f", head: "#2f2d27", muted: "#787774", faint: "#9b9a97", blue: "#2c5cf6" }
 
@@ -45,7 +45,7 @@ function Shots() {
     return () => clearInterval(t)
   }, [])
   return MOBILE_SCREENSHOTS.map((src, n) => (
-    <img key={src} src={src} alt={n === 0 ? "Tolaria on iPhone" : ""} loading="lazy" decoding="async"
+    <img key={src} src={src} alt={n === 0 ? "Memoria on iPhone" : ""} loading="lazy" decoding="async"
       className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out-weighted ${n === i ? "opacity-100" : "opacity-0"}`} />
   ))
 }
@@ -58,11 +58,11 @@ const INBOX: [string, string, TypeKey][] = [
   ["Agents need context, not prompts", "The best agent setups I've seen don't have clever prompts. They have great context...", "idea"],
   ["Jordan Lee", "Staff engineer, platform team. Wants to compare notes on onboarding docs...", "person"],
   ["Weekly digest #42", "Seven reads from this week: monorepos, on-call fatigue, writing design docs...", "digest"],
-  ["Tolaria", "Notes, links and decisions about Tolaria, the Markdown knowledge base...", "topic"],
+  ["Memoria", "Notes, links and decisions about Memoria, the Markdown knowledge base...", "topic"],
 ]
 const PROJECTS: [string, string, TypeKey][] = [
-  ["Get familiar with Tolaria", "Use this checklist as a 15–20 minute tour of Tolaria. Every link opens a real file you can...", "project"],
-  ["Project Dashboard", "The block below is stored as fenced HTML inside this Markdown note. Tolaria renders it...", "project"],
+  ["Get familiar with Memoria", "Use this checklist as a 15–20 minute tour of Memoria. Every link opens a real file you can...", "project"],
+  ["Project Dashboard", "The block below is stored as fenced HTML inside this Markdown note. Memoria renders it...", "project"],
   ["Newsletter redesign", "New layout for the weekly issue: shorter intro, one deep dive, links at the bottom...", "project"],
   ["Podcast season 3", "Guest list, recording schedule and the editing checklist for the next ten episodes...", "project"],
   ["Q4 reading list", "Five books on engineering management and writing, with a note per chapter...", "project"],
@@ -126,9 +126,9 @@ function Side() {
 }
 
 const TASKS: [string, [string, string?], string][] = [
-  ["Read the", ["Tolaria Principles"], "understand the core philosophy"],
-  ["Explore the", ["tolaria-sidebar"], "learn Inbox, All Notes, Archive, Favorites, Types, Folders"],
-  ["Browse the", ["tolaria-note-list"], "sorting, display properties, search within list"],
+  ["Read the", ["Memoria Principles"], "understand the core philosophy"],
+  ["Explore the", ["memoria-sidebar"], "learn Inbox, All Notes, Archive, Favorites, Types, Folders"],
+  ["Browse the", ["memoria-note-list"], "sorting, display properties, search within list"],
   ["Try the", ["Editor", "editor-playground"], "rich vs raw mode, callouts, blocks, code, highlights, whiteboards, PDF export, and collapsible sections"],
 ]
 const Link = ({ t }: { t: string }) => <span className="whitespace-nowrap" style={{ color: C.blue }}><FileTextIcon className="mr-0.5 inline size-[15px] -translate-y-px" /><span className="underline decoration-dotted decoration-1 underline-offset-[5px]">{t}</span></span>
@@ -137,13 +137,13 @@ function Note() {
   return (
     <div className="m-note absolute inset-0 bg-white shadow-[-12px_0_32px_rgba(0,0,0,0.08)]">
       <div className="flex h-[52px] items-center gap-2 px-4" style={{ borderBottom: `1px solid ${C.rule}` }}>
-        <WrenchIcon className="size-[18px] shrink-0" style={{ color: TYPES.project.color }} /><span className="flex-1 truncate text-[15px] font-medium" style={{ color: C.head }}>get-familiar-with-tolaria.md</span>
+        <WrenchIcon className="size-[18px] shrink-0" style={{ color: TYPES.project.color }} /><span className="flex-1 truncate text-[15px] font-medium" style={{ color: C.head }}>get-familiar-with-memoria.md</span>
         <span className="flex items-center gap-4" style={{ color: C.muted }}><StarIcon className="size-[18px]" /><CodeIcon className="size-[18px]" /><DotsThreeIcon weight="bold" className="size-[18px]" /></span>
       </div>
       <div className="px-6 pt-6 text-[16px] leading-[23px]">
-        <div className="text-[28px] leading-[36px] font-bold" style={{ color: C.head }}>Get familiar with Tolaria</div>
+        <div className="text-[28px] leading-[36px] font-bold" style={{ color: C.head }}>Get familiar with Memoria</div>
         <div className="mt-4 h-px" style={{ background: C.rule }} />
-        <p className="mt-4">Use this checklist as a 15–20 minute tour of Tolaria. Every link opens a real file you can inspect, edit, and restore with Git.</p>
+        <p className="mt-4">Use this checklist as a 15–20 minute tour of Memoria. Every link opens a real file you can inspect, edit, and restore with Git.</p>
         <p className="mt-2"><code className="rounded bg-[#efefed] px-1 font-mono text-[14px]">Cmd+click</code> on wikilinks to navigate 👇</p>
         <div className="mt-2 flex flex-col gap-2 pl-6">
           {TASKS.map(([a, ls, b], i) => (
@@ -168,7 +168,7 @@ function Note() {
 
 function Recreation() {
   return (
-    <div role="img" aria-label="Illustration of Tolaria on iPhone: the Inbox, the sidebar, the Projects list, then the Get familiar with Tolaria checklist" className="mw loop absolute inset-0 text-[15px] leading-[22px]">
+    <div role="img" aria-label="Illustration of Memoria on iPhone: the Inbox, the sidebar, the Projects list, then the Get familiar with Memoria checklist" className="mw loop absolute inset-0 text-[15px] leading-[22px]">
       <div aria-hidden className="absolute inset-0">
         <StatusBar />
         <div className="absolute inset-x-0 top-[54px] bottom-0 overflow-hidden">
@@ -214,7 +214,7 @@ function EssayNote() {
 
 function NoteScreen() {
   return (
-    <div role="img" aria-label={`Illustration of Tolaria on iPhone showing the ${ESSAY.title} essay, with its table, diagram and code`} className="absolute inset-0 text-[15px] leading-[22px]">
+    <div role="img" aria-label={`Illustration of Memoria on iPhone showing the ${ESSAY.title} essay, with its table, diagram and code`} className="absolute inset-0 text-[15px] leading-[22px]">
       <div aria-hidden className="absolute inset-0">
         <StatusBar />
         <div className="absolute inset-x-0 top-[54px] bottom-0 overflow-hidden"><EssayNote /></div>

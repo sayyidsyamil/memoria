@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { buildVersion, SERVICE_WORKER_FILE, shellPrecacheFiles, tolariaServiceWorker } from './serviceWorkerPlugin.ts'
+import { buildVersion, SERVICE_WORKER_FILE, shellPrecacheFiles, memoriaServiceWorker } from './serviceWorkerPlugin.ts'
 
 function chunk(fileName: string, fields: Record<string, unknown> = {}) {
   return { type: 'chunk', fileName, isEntry: false, facadeModuleId: null, imports: [], dynamicImports: [], ...fields }
@@ -36,7 +36,7 @@ describe('service worker build plugin', () => {
   })
 
   it('emits a self-contained worker that carries the version and precache list', async () => {
-    const plugin = tolariaServiceWorker()
+    const plugin = memoriaServiceWorker()
     assert.equal(plugin.apply, 'build')
     const emitted: { fileName: string; source: string }[] = []
     const generateBundle = plugin.generateBundle as (this: unknown, options: unknown, output: unknown) => Promise<void>

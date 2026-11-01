@@ -197,7 +197,7 @@ it("reads exact disk bytes instead of trusting cached content for a native note"
 });
 
 it("uses a disposable vault file as the source of truth for cached note content", async () => {
-	const root = await mkdtemp(join(tmpdir(), "tolaria-disk-read-"));
+	const root = await mkdtemp(join(tmpdir(), "memoria-disk-read-"));
 	const notePath = join(root, "note.md");
 	const rootUri = pathToFileURL(`${root}/`).href;
 	try {

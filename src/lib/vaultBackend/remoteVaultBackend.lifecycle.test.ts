@@ -177,7 +177,7 @@ describe('live documents', () => {
   function serveNote(ticketPath = '/v1/collab/docs/doc-1') {
     handle = (method, path) => {
       if (method === 'PUT') return json({ outcome: 'created', path: 'untitled-note-1.md' }, 201, { etag: '"e1"' })
-      if (method === 'GET') return new Response('# Idea\n', { headers: { etag: '"e1"', 'tolaria-doc-id': 'doc-1' } })
+      if (method === 'GET') return new Response('# Idea\n', { headers: { etag: '"e1"', 'memoria-doc-id': 'doc-1' } })
       if (path === '/v1/rename') return json({ from: 'untitled-note-1.md', path: 'idea.md' })
       if (path === '/v1/collab/tickets') return json({ path: ticketPath, ticket: 't-1' })
       return json({}, 404)

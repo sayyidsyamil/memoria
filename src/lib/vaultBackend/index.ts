@@ -19,7 +19,7 @@ export { contentRevision } from "./contentRevision";
 export * from "./types";
 export { type RemoteVaultConfig, remoteVaultConfig };
 
-/** True in the web build when a Tolaria remote serves the vault. */
+/** True in the web build when a Memoria remote serves the vault. */
 export function hasRemoteVault(): boolean {
 	return !isTauri() && remoteVaultConfig() !== null;
 }
@@ -46,7 +46,7 @@ export function createMockVaultBackend(vaultPath?: string): VaultBackend {
 
 /**
  * Picks the backend for the current runtime. When a remote server is configured
- * (TOLARIA_REMOTE_URL and TOLARIA_REMOTE_TOKEN on window), uses the remote backend.
+ * (MEMORIA_REMOTE_URL and MEMORIA_REMOTE_TOKEN on window), uses the remote backend.
  * Otherwise falls back to Tauri (desktop) or mock (browser).
  */
 export function createVaultBackend(vaultPath?: string): VaultBackend {

@@ -53,8 +53,8 @@ final class TabletEditorFindSlashTests: XCTestCase {
 
   private func launchFixture(_ phoneState: String) -> XCUIApplication {
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=\(phoneState)&editorMode=wysiwyg&qaRun=find-slash"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=\(phoneState)&editorMode=wysiwyg&qaRun=find-slash"]
     app.launch()
     let ready = phoneState == "list" ? "note-list-create-action" : "editor-more-action"
     XCTAssertTrue(element(app, ready).waitForExistence(timeout: 60))

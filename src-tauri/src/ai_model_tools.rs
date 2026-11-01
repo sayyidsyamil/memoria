@@ -7,7 +7,7 @@ const CREATE_NOTE_TOOL_JSON: &str = r#"{
   "type": "function",
   "function": {
     "name": "create_note",
-    "description": "Create a new markdown note inside the active Tolaria vault without overwriting existing files.",
+    "description": "Create a new markdown note inside the active Memoria vault without overwriting existing files.",
     "parameters": {
       "type": "object",
       "properties": {
@@ -254,7 +254,7 @@ fn active_tool_vault_path<'a>(
     if active_vault_paths(request).any(|active| active == vault_path) {
         Ok(vault_path)
     } else {
-        Err(format!("Vault is not active in Tolaria: {vault_path}"))
+        Err(format!("Vault is not active in Memoria: {vault_path}"))
     }
 }
 

@@ -6,9 +6,9 @@ import { Vault, type VaultOptions } from '../src/vault.ts'
 
 const DESKTOP = {
   GIT_AUTHOR_NAME: 'Desktop',
-  GIT_AUTHOR_EMAIL: 'desktop@tolaria.invalid',
+  GIT_AUTHOR_EMAIL: 'desktop@memoria.invalid',
   GIT_COMMITTER_NAME: 'Desktop',
-  GIT_COMMITTER_EMAIL: 'desktop@tolaria.invalid',
+  GIT_COMMITTER_EMAIL: 'desktop@memoria.invalid',
 }
 
 export const SEED_NOTES: Record<string, string> = {
@@ -87,7 +87,7 @@ export interface Fixture {
 
 /** A bare "GitHub" remote seeded with a small vault, plus a desktop clone of it. */
 export async function createFixture(): Promise<Fixture> {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-server-test-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-server-test-'))
   const remote = join(root, 'remote.git')
   await git(root, ['init', '-q', '--bare', '-b', 'main', remote])
   await git(root, ['clone', '-q', '-o', 'hub', remote, 'desktop'])

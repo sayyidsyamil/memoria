@@ -27,7 +27,7 @@ test('@smoke a manual checkpoint preserves a local draft and refreshes recovered
     const processOptions = { env: gitTestEnvironment(), stdio: 'pipe' as const }
     execFileSync('git', ['-C', seed, 'push', remote, 'main'], processOptions)
     execFileSync('git', ['-C', context.dir, 'fetch', remote, 'main'], processOptions)
-    const journal = join(context.dir, '.git', 'tolaria-checkout.json')
+    const journal = join(context.dir, '.git', 'memoria-checkout.json')
     await writeFile(journal, JSON.stringify({ version: 1, branch: 'main', before: base, target: target.oid }))
     const draft = '# Local uncommitted draft\n'
     await writeFile(join(context.dir, 'local-draft.md'), draft)

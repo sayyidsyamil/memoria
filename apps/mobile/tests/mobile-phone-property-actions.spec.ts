@@ -129,9 +129,9 @@ async function addUrlProperty(page: Page) {
   await addProperty(page, 'URL', async () => {
     await expect(page.getByTestId('workspace-property-kind-url')).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByTestId('workspace-property-value-input')).toHaveAttribute('placeholder', 'https://')
-    await page.getByTestId('workspace-property-value-input').fill('https://tolaria.app')
+    await page.getByTestId('workspace-property-value-input').fill('https://memoria.app')
   })
-  await expect(page.getByTestId('property-row-url')).toContainText('https://tolaria.app')
+  await expect(page.getByTestId('property-row-url')).toContainText('https://memoria.app')
 }
 
 async function addColorProperty(page: Page) {

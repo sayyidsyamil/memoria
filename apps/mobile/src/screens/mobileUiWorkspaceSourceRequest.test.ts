@@ -20,12 +20,12 @@ it('preserves explicit development bridge and identity query parameters', () => 
 })
 
 it('retains environment fallbacks without overriding active vault selection', () => {
-  vi.stubEnv('EXPO_PUBLIC_TOLARIA_SCENARIO', 'empty')
-  vi.stubEnv('EXPO_PUBLIC_TOLARIA_WORKSPACE_SOURCE', 'dev-vault')
-  vi.stubEnv('EXPO_PUBLIC_TOLARIA_DEV_VAULT_URL', 'http://localhost:9011')
-  vi.stubEnv('EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_URI', 'file:///environment')
-  vi.stubEnv('EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_LABEL', 'Environment')
-  vi.stubEnv('EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_ALIAS', 'env')
+  vi.stubEnv('EXPO_PUBLIC_MEMORIA_SCENARIO', 'empty')
+  vi.stubEnv('EXPO_PUBLIC_MEMORIA_WORKSPACE_SOURCE', 'dev-vault')
+  vi.stubEnv('EXPO_PUBLIC_MEMORIA_DEV_VAULT_URL', 'http://localhost:9011')
+  vi.stubEnv('EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_URI', 'file:///environment')
+  vi.stubEnv('EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_LABEL', 'Environment')
+  vi.stubEnv('EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_ALIAS', 'env')
   expect(mobileUiWorkspaceSourceRequest(new URLSearchParams(), null)).toEqual({ devVaultUrl: 'http://localhost:9011', request: {
     scenarioId: 'empty', source: 'dev', vaultAlias: 'env', vaultLabel: 'Environment', vaultRootUri: 'file:///environment', workspaceIndex: undefined,
   } })

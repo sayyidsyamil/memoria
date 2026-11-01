@@ -154,7 +154,7 @@ describe('FilePreview', () => {
     expect(preview.tagName).not.toBe('OBJECT')
     expect(preview).toHaveAttribute(
       'data-pdf-source',
-      expect.stringMatching(/^asset:\/\/\/vault\/Attachments\/report\.pdf\?tolaria_pdf_preview=/u),
+      expect.stringMatching(/^asset:\/\/\/vault\/Attachments\/report\.pdf\?memoria_pdf_preview=/u),
     )
     expect(screen.getByText('PDF file')).toBeInTheDocument()
   })
@@ -164,7 +164,7 @@ describe('FilePreview', () => {
 
     expect(screen.getByTestId('pdf-file-preview')).toHaveAttribute(
       'data-pdf-source',
-      expect.stringMatching(/^asset:\/\/\/vault\/Attachments\/report\.pdf\?tolaria_pdf_preview=/u),
+      expect.stringMatching(/^asset:\/\/\/vault\/Attachments\/report\.pdf\?memoria_pdf_preview=/u),
     )
   })
 
@@ -177,7 +177,7 @@ describe('FilePreview', () => {
 
     expect(screen.getByTestId('pdf-file-preview')).toHaveAttribute(
       'data-pdf-source',
-      expect.stringMatching(/^asset:\/\/\/vault\/Attachments\/report\.pdf\?tolaria_pdf_preview=/u),
+      expect.stringMatching(/^asset:\/\/\/vault\/Attachments\/report\.pdf\?memoria_pdf_preview=/u),
     )
     expect(screen.getByTestId('pdf-file-preview').getAttribute('data-pdf-source')).not.toBe(firstPdfSrc)
   })

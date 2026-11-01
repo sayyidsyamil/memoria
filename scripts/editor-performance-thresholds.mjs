@@ -2,7 +2,7 @@ import console from 'node:console'
 import { existsSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 
-const thresholdDescription = 'Ratcheted perceived-latency budgets for stable synthetic Tolaria flows. Lower is better; maxMs values only move down unless a reviewer explicitly changes the threshold file.'
+const thresholdDescription = 'Ratcheted perceived-latency budgets for stable synthetic Memoria flows. Lower is better; maxMs values only move down unless a reviewer explicitly changes the threshold file.'
 
 export async function readThresholds(thresholdsPath) {
   if (!existsSync(thresholdsPath)) {

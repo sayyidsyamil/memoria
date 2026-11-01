@@ -3,7 +3,7 @@ import { isPortableName } from '../utils/portableName'
 import { hasRemoteVault } from './vaultBackend'
 
 /**
- * Folder creates and deletes made in one tab of a Tolaria remote, told to the other tabs of
+ * Folder creates and deletes made in one tab of a Memoria remote, told to the other tabs of
  * the same origin so their folder tree, note list and tabs follow without a reload. The
  * server already made the change in one commit; this only says that it happened.
  */
@@ -16,7 +16,7 @@ export interface RemoteFolderChange {
 
 type FolderChangeListener = (change: RemoteFolderChange) => void
 
-const CHANNEL_PREFIX = 'tolaria:remote-folders:'
+const CHANNEL_PREFIX = 'memoria:remote-folders:'
 const listeners = new Set<FolderChangeListener>()
 // One channel per page: a message never comes back to the channel that posted it.
 let channel: BroadcastChannel | null = null
@@ -37,7 +37,7 @@ function isFolderChange(value: unknown): value is RemoteFolderChange {
 
 /** Tabs of the same remote vault share a channel; another vault served on this origin has its own. */
 export function remoteFolderChannelName(): string {
-  const { TOLARIA_REMOTE_URL: serverUrl = '' } = window as { TOLARIA_REMOTE_URL?: string }
+  const { MEMORIA_REMOTE_URL: serverUrl = '' } = window as { MEMORIA_REMOTE_URL?: string }
   return `${CHANNEL_PREFIX}${serverUrl}`
 }
 

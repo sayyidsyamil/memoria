@@ -33,7 +33,7 @@ fn mcp_runtime_resource_dir_is_optional_in_dev() {
 #[cfg(desktop)]
 #[test]
 fn mcp_runtime_resource_dir_keeps_available_path() {
-    let resource_dir = PathBuf::from("/Applications/Tolaria.app/Contents/Resources");
+    let resource_dir = PathBuf::from("/Applications/Memoria.app/Contents/Resources");
 
     assert_eq!(
         optional_mcp_runtime_resource_dir(Ok::<PathBuf, &str>(resource_dir.clone())),

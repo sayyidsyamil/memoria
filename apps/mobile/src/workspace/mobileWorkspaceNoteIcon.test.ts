@@ -25,7 +25,7 @@ describe('mobile note icon editing', () => {
     expect(withIcon.writes).toEqual([{
       content: expect.stringContaining('_icon: 🚀'),
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     }])
 
     const withoutIcon = applyMobileWorkspaceEditWithWrites(withIcon.snapshot, {

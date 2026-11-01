@@ -9,7 +9,7 @@ The first launch flow is designed to get you into a real vault quickly without h
 
 ## What You Choose
 
-Tolaria asks whether you want to:
+Memoria asks whether you want to:
 
 - Create or clone the Getting Started vault.
 - Open an existing local vault.
@@ -17,9 +17,9 @@ Tolaria asks whether you want to:
 
 The Getting Started vault is cloned locally and then disconnected from its remote. That keeps the sample safe to edit without accidentally pushing tutorial changes.
 
-## What Tolaria Creates
+## What Memoria Creates
 
-Tolaria stores app-level settings on the local machine. Your notes stay in the vault folder you choose.
+Memoria stores app-level settings on the local machine. Your notes stay in the vault folder you choose.
 
 | Data | Stored in |
 | --- | --- |
@@ -37,7 +37,7 @@ Tolaria stores app-level settings on the local machine. Your notes stay in the v
 
 ## AI Setup Prompt
 
-Tolaria can show an optional AI agents prompt after a vault is open. It checks common local install locations for supported coding agents and gives you setup paths, but you can dismiss it and use Tolaria without AI.
+Memoria can show an optional AI agents prompt after a vault is open. It checks common local install locations for supported coding agents and gives you setup paths, but you can dismiss it and use Memoria without AI.
 
 ---
 
@@ -48,9 +48,9 @@ URL: /start/getting-started-vault
 
 # Getting Started Vault
 
-The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
+The Getting Started vault is a small public sample vault hosted at [refactoringhq/memoria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
 
-It exists to show Tolaria's conventions without requiring you to restructure your own notes first.
+It exists to show Memoria's conventions without requiring you to restructure your own notes first.
 
 ## What It Demonstrates
 
@@ -69,13 +69,13 @@ In the cloned vault, open **Editor Playground** for block editing, **Project Das
 
 ## Local-Only By Default
 
-When Tolaria clones the sample, it removes the remote from the local copy. This makes the sample vault disposable. You can edit it freely, commit locally, and delete it later.
+When Memoria clones the sample, it removes the remote from the local copy. This makes the sample vault disposable. You can edit it freely, commit locally, and delete it later.
 
 To connect a vault to your own remote, use the bottom status bar remote chip or run `Add Remote` from the command palette.
 
-Tolaria also repairs starter-vault guidance files when needed. `AGENTS.md` is the canonical guidance file, `CLAUDE.md` is kept as a compatibility shim, and `GEMINI.md` is only created when you explicitly restore Antigravity/Gemini guidance.
+Memoria also repairs starter-vault guidance files when needed. `AGENTS.md` is the canonical guidance file, `CLAUDE.md` is kept as a compatibility shim, and `GEMINI.md` is only created when you explicitly restore Antigravity/Gemini guidance.
 
-Start with the `Start here!` view and follow **Get familiar with Tolaria**. The checklist links to working examples, so you can try each feature without changing your own notes.
+Start with the `Start here!` view and follow **Get familiar with Memoria**. The checklist links to working examples, so you can try each feature without changing your own notes.
 
 ## Use It Alongside Your Own Vaults
 
@@ -85,18 +85,18 @@ This lets search, quick open, note lists, backlinks, and wikilink navigation spa
 
 ## When To Move On
 
-After you understand the sample, open your own vault. Tolaria does not require a special folder structure: a folder of Markdown files is enough to start. You can remove the sample from Tolaria's vault list later without deleting its files from disk.
+After you understand the sample, open your own vault. Memoria does not require a special folder structure: a folder of Markdown files is enough to start. You can remove the sample from Memoria's vault list later without deleting its files from disk.
 
 ---
 
-# Install Tolaria
+# Install Memoria
 
 Source: start/install.md
 URL: /start/install
 
-# Install Tolaria
+# Install Memoria
 
-Tolaria is available on desktop (macOS, Windows, Linux) and mobile (iPhone, iPad).
+Memoria is available on desktop (macOS, Windows, Linux) and mobile (iPhone, iPad).
 
 Desktop builds are published through GitHub Releases and Homebrew. macOS is the primary day-to-day development target, with Windows and Linux builds supported through the release pipeline and fixed as platform issues are found.
 
@@ -115,12 +115,12 @@ Use the latest stable release unless you are intentionally testing pre-release b
 On macOS you can install the cask:
 
 ```bash
-brew install --cask tolaria
+brew install --cask memoria
 ```
 
 ## Mobile (iPhone and iPad)
 
-Tolaria for iOS is in **beta**. The mobile app brings Tolaria's core features to iPhone and iPad:
+Memoria for iOS is in **beta**. The mobile app brings Memoria's core features to iPhone and iPad:
 
 - **WYSIWYG Markdown editor** — Fast, native rich-text editing
 - **Real git integration** — Auto-commit on save, with merge support for multi-device workflows  
@@ -141,11 +141,11 @@ See [Supported Platforms](/reference/supported-platforms) for the current suppor
 
 ## Managed Windows Devices
 
-Do not disable SmartScreen or Windows Security to install Tolaria. On a managed Windows device, install Tolaria through your normal software approval path if policy blocks unsigned or unknown-publisher installers. After Authenticode provisioning is complete, validate that the downloaded installer has a valid Tolaria publisher signature before installing.
+Do not disable SmartScreen or Windows Security to install Memoria. On a managed Windows device, install Memoria through your normal software approval path if policy blocks unsigned or unknown-publisher installers. After Authenticode provisioning is complete, validate that the downloaded installer has a valid Memoria publisher signature before installing.
 
 ## After Installing
 
-1. Open Tolaria.
+1. Open Memoria.
 2. Choose the Getting Started vault if you want a guided sample.
 3. Or open an existing folder of Markdown files as a vault.
 4. Use the command palette with `Cmd+K` on macOS or `Ctrl+K` on Linux and Windows.
@@ -159,11 +159,11 @@ URL: /start/open-or-create-vault
 
 # Open Or Create A Vault
 
-A Tolaria vault is a folder on disk. The folder can contain Markdown notes, attachments, type definitions, saved views, and Git metadata.
+A Memoria vault is a folder on disk. The folder can contain Markdown notes, attachments, type definitions, saved views, and Git metadata.
 
 ## Open An Existing Folder
 
-Choose an existing folder if you already have Markdown notes. Tolaria scans `.md` files and uses frontmatter when it exists.
+Choose an existing folder if you already have Markdown notes. Memoria scans `.md` files and uses frontmatter when it exists.
 
 Good starting points:
 
@@ -174,7 +174,7 @@ Good starting points:
 
 ## Create A New Vault
 
-Choose a new empty folder if you want Tolaria conventions from the start. New notes and optional type definitions are created as Markdown files.
+Choose a new empty folder if you want Memoria conventions from the start. New notes and optional type definitions are created as Markdown files.
 
 ## Use More Than One Vault
 
@@ -184,6 +184,6 @@ Once enabled, the bottom-left vault menu lets you include vaults in the unified 
 
 ## Git Is Recommended, Not Required
 
-Tolaria works well with a plain folder of Markdown files. You can open, edit, organize, and search notes without making the vault a Git repository.
+Memoria works well with a plain folder of Markdown files. You can open, edit, organize, and search notes without making the vault a Git repository.
 
-Git is recommended when you want local history, diff views, recovery, pull, push, and remote sync without a proprietary backend. If a vault is not already a repository, Tolaria can initialize one when you explicitly ask it to.
+Git is recommended when you want local history, diff views, recovery, pull, push, and remote sync without a proprietary backend. If a vault is not already a repository, Memoria can initialize one when you explicitly ask it to.

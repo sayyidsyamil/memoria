@@ -8,7 +8,7 @@ import * as vault from "./vault.js";
 
 for (const key of ["Status", "status"]) {
 	test(`structured creation inherits ${key} without Type display fields`, async () => {
-		const root = await fs.mkdtemp(path.join(os.tmpdir(), "tolaria-defaults-"));
+		const root = await fs.mkdtemp(path.join(os.tmpdir(), "memoria-defaults-"));
 		try {
 			await fs.writeFile(
 				path.join(root, "project.md"),
@@ -56,7 +56,7 @@ test("structured MCP creation matches the desktop Type fixture", async () => {
 		import.meta.url,
 	);
 	const fixture = JSON.parse(await fs.readFile(fixturePath, "utf8"));
-	const root = await fs.mkdtemp(path.join(os.tmpdir(), "tolaria-parity-"));
+	const root = await fs.mkdtemp(path.join(os.tmpdir(), "memoria-parity-"));
 	try {
 		const fields = fixture.fields
 			.map(([key, value]) => `${JSON.stringify(key)}: ${JSON.stringify(value)}`)

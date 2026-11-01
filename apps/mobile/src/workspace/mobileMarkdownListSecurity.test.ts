@@ -33,7 +33,7 @@ it.each([
 
 it.each([
   'https://example.com/readme', 'mailto:notes@example.com', 'tel:+123456',
-  'attachments/note.pdf', '#section', 'tolaria://wikilink/Note',
+  'attachments/note.pdf', '#section', 'memoria://wikilink/Note',
 ])('preserves a supported link target %s', (href) => {
   expect(mobileMarkdownBodyToTentapHtml(`- [safe](${href})`)).toContain(`href="${href}"`)
 })

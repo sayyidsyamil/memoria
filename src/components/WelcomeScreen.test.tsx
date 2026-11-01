@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { beforeEach, describe, it, expect, vi } from 'vitest'
 import { WelcomeScreen } from './WelcomeScreen'
-import tolariaIcon from '@/assets/tolaria-icon.svg'
-import { TOLARIA_FIRST_LAUNCH_DOCS_URL } from '@/constants/feedback'
+import memoriaIcon from '@/assets/memoria-icon.svg'
+import { MEMORIA_FIRST_LAUNCH_DOCS_URL } from '@/constants/feedback'
 
 const dragRegionMouseDown = vi.fn()
 const openExternalUrl = vi.fn()
@@ -35,15 +35,15 @@ describe('WelcomeScreen', () => {
   describe('welcome mode', () => {
     it('renders welcome title and subtitle', () => {
       render(<WelcomeScreen {...defaultProps} />)
-      expect(screen.getByText('Welcome to Tolaria')).toBeInTheDocument()
+      expect(screen.getByText('Welcome to Memoria')).toBeInTheDocument()
       expect(screen.getByText('Markdown knowledge management for the age of AI')).toBeInTheDocument()
     })
 
-    it('renders the local Tolaria branding icon', () => {
+    it('renders the local Memoria branding icon', () => {
       render(<WelcomeScreen {...defaultProps} />)
 
-      const brandIcon = screen.getByAltText('Tolaria icon')
-      expect(brandIcon).toHaveAttribute('src', tolariaIcon)
+      const brandIcon = screen.getByAltText('Memoria icon')
+      expect(brandIcon).toHaveAttribute('src', memoriaIcon)
     })
 
     it('shows the onboarding actions in the guided-first order', () => {
@@ -177,7 +177,7 @@ describe('WelcomeScreen', () => {
     it('opens the first-launch docs from the welcome card', () => {
       render(<WelcomeScreen {...defaultProps} />)
       fireEvent.click(screen.getByTestId('welcome-docs-link'))
-      expect(openExternalUrl).toHaveBeenCalledWith(TOLARIA_FIRST_LAUNCH_DOCS_URL)
+      expect(openExternalUrl).toHaveBeenCalledWith(MEMORIA_FIRST_LAUNCH_DOCS_URL)
     })
   })
 
@@ -190,7 +190,7 @@ describe('WelcomeScreen', () => {
 
     it('keeps the missing-vault state framed as welcome', () => {
       render(<WelcomeScreen {...missingProps} />)
-      expect(screen.getByText('Welcome to Tolaria')).toBeInTheDocument()
+      expect(screen.getByText('Welcome to Memoria')).toBeInTheDocument()
       expect(screen.getByText(/folder may have moved or been deleted/)).toBeInTheDocument()
     })
 

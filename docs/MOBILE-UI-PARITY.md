@@ -1,10 +1,10 @@
 # Mobile UI Parity
 
-Tolaria mobile UI work starts from fixture-driven parity with desktop semantics. The iPad baseline copies desktop visual contracts first, then documents any mobile adaptation as an explicit exception. The goal is to avoid invented mobile UI while production logic is still static.
+Memoria mobile UI work starts from fixture-driven parity with desktop semantics. The iPad baseline copies desktop visual contracts first, then documents any mobile adaptation as an explicit exception. The goal is to avoid invented mobile UI while production logic is still static.
 
 ## Copy-First Rule
 
-Desktop Tolaria is the visual source of truth for the first iPad version. React Native surfaces should copy the desktop component contract before adding mobile-specific behavior.
+Desktop Memoria is the visual source of truth for the first iPad version. React Native surfaces should copy the desktop component contract before adding mobile-specific behavior.
 
 Allowed differences must be documented as exceptions:
 
@@ -61,7 +61,7 @@ pnpm mobile:qa:ios-simulator
 `pnpm mobile:qa:screenshots` exports the Expo web bundle, serves it locally, drives the UI lab with Playwright, and writes screenshots plus a manifest to:
 
 ```text
-/tmp/tolaria-mobile-ui-screenshots
+/tmp/memoria-mobile-ui-screenshots
 ```
 
 The screenshot suite also contains objective parity assertions for tablet landscape. These assertions fail on regressions such as:
@@ -81,17 +81,17 @@ The screenshot suite also contains objective parity assertions for tablet landsc
 
 The same Playwright suite also compares the primary tablet-landscape screen against a committed pixel baseline and checks that mobile parity constants still match desktop `src/index.css` and `src/theme.json`.
 
-`pnpm mobile:qa:ios-layout` opens the native Expo Go deep link with `layoutProbe=1`, reads `TOLARIA_MOBILE_LAYOUT_METRIC` lines from the iPad Simulator logs, and fails when native React Native row boxes drift from the desktop parity contract. This is mandatory for padding, margin, row-height, indentation, text line boxes, text vertical centering, and count-pill alignment because the Expo web/browser lane can pass while the iPad simulator renders differently.
+`pnpm mobile:qa:ios-layout` opens the native Expo Go deep link with `layoutProbe=1`, reads `MEMORIA_MOBILE_LAYOUT_METRIC` lines from the iPad Simulator logs, and fails when native React Native row boxes drift from the desktop parity contract. This is mandatory for padding, margin, row-height, indentation, text line boxes, text vertical centering, and count-pill alignment because the Expo web/browser lane can pass while the iPad simulator renders differently.
 
 `pnpm mobile:qa:ios-workspace-persistence` and `pnpm mobile:qa:ios-phone-workspace-persistence` exercise reducer write plans through the native Expo filesystem repository. The proof must cover note create/save/move/rename/delete/restore, title-driven filename retargeting, bulk note edits, text-file save, typed property writes, relationship add/remove and target creation, folder writes including restore, saved-view create/update/delete/reorder/restore writes, Type definition create/update/delete/rename/reorder/restore changes, wikilink rewrites, note metadata, default note width, All Notes file visibility, primary note-list config, and property display-mode hydration.
 
 `pnpm mobile:qa:ios-simulator` opens the native Expo Go deep link with `layoutProbe=1`, sets the currently booted iPad Simulator to landscape, and captures it into:
 
 ```text
-/tmp/tolaria-mobile-ui-simulator/ipad-landscape.png
+/tmp/memoria-mobile-ui-simulator/ipad-landscape.png
 ```
 
-Use it after launching Expo on iOS with `pnpm mobile:ios`. The command refreshes Expo Go before capture, so the artifact matches the native app surface rather than Mobile Safari, the Expo web build, or a stale foreground Simulator app. The native QA scripts reject `http://` and `https://` open URLs because those launch Mobile Safari; automated native acceptance must use `exp://`, `exps://`, or `tolaria://` deep links.
+Use it after launching Expo on iOS with `pnpm mobile:ios`. The command refreshes Expo Go before capture, so the artifact matches the native app surface rather than Mobile Safari, the Expo web build, or a stale foreground Simulator app. The native QA scripts reject `http://` and `https://` open URLs because those launch Mobile Safari; automated native acceptance must use `exp://`, `exps://`, or `memoria://` deep links.
 
 `pnpm mobile:qa:ios-panel-gestures` validates the installed development build's adaptive tablet chrome in landscape. It launches the fixture workspace, performs real drags through the visible Simulator window, and asserts the accessibility tree after hiding and revealing the left chrome and Properties panel. The test maps React Native layout coordinates onto the rotated Simulator window before injecting the drag; direct framebuffer coordinates are not reliable when the iPad simulator is rotated.
 
@@ -115,12 +115,12 @@ For tablet UI review, treat the native metric gate and simulator artifact as man
 For padding, margin, row-height, and indentation regressions, do not rely on screenshots alone. Enable the layout probe and compare measured React Native layout numbers against the desktop parity contract:
 
 ```bash
-EXPO_PUBLIC_TOLARIA_LAYOUT_PROBE=1 pnpm mobile:start
+EXPO_PUBLIC_MEMORIA_LAYOUT_PROBE=1 pnpm mobile:start
 xcrun simctl terminate booted host.exp.Exponent || true
 xcrun simctl openurl booted 'exp://<host-ip>:8081'
 ```
 
-The native app emits `TOLARIA_MOBILE_LAYOUT_METRIC` lines for probed sidebar rows. A healthy sidebar row should report desktop-derived content insets, row heights, and text boxes, for example `sidebar.item.inbox.content.x = 12`, `sidebar.item.inbox.row.height = 32`, `sidebar.item.inbox.label.height = 18`, and nested folder content offsets of `12 + depth * 25`. The browser screenshot lane also runs `enforces measured sidebar row layout invariants` with `?layoutProbe=1`, but native metrics remain required because React Native browser rendering can pass while the iPad simulator is wrong.
+The native app emits `MEMORIA_MOBILE_LAYOUT_METRIC` lines for probed sidebar rows. A healthy sidebar row should report desktop-derived content insets, row heights, and text boxes, for example `sidebar.item.inbox.content.x = 12`, `sidebar.item.inbox.row.height = 32`, `sidebar.item.inbox.label.height = 18`, and nested folder content offsets of `12 + depth * 25`. The browser screenshot lane also runs `enforces measured sidebar row layout invariants` with `?layoutProbe=1`, but native metrics remain required because React Native browser rendering can pass while the iPad simulator is wrong.
 
 The harness also exercises a read-only real-vault path. By default it looks for:
 
@@ -168,10 +168,10 @@ The phone navigation matrix currently captures:
 | `long-title-list` | Phone note list pressure with long titles |
 | `property-heavy-editor` | Phone editor pressure with the property-heavy selected note |
 
-Run the full desktop/native Tolaria gate only before promotion or when desktop/native production files are intentionally changed:
+Run the full desktop/native Memoria gate only before promotion or when desktop/native production files are intentionally changed:
 
 ```bash
-TOLARIA_MOBILE_FULL_GATE=1 git push
+MEMORIA_MOBILE_FULL_GATE=1 git push
 ```
 
 ## Surface Parity Map
@@ -183,7 +183,7 @@ TOLARIA_MOBILE_FULL_GATE=1 git push
 | P0 | Editor shell | Native editor container | title, rich text preview, empty note | Copy desktop editor theme values for content width, title separator, headings, body, lists, quotes, and tables |
 | P0 | Properties panel | Native property rows | type, date, status, relationships, empty values | Copy compact 12px labels, 24px chips, full-width relationship rows, and property-action rows |
 | P1 | Search and quick open | Native search overlay/sheet | empty query, results, no results, keyboard focus | Results can be scanned quickly; touch, Enter, Escape, and clamped ArrowUp/ArrowDown selection are deterministic |
-| P1 | Create note/type/status/property actions | Native modal/sheet controls | valid input, invalid input, type selection, typed property values, collision | Controls use Tolaria primitives; disabled/loading/error states are visible |
+| P1 | Create note/type/status/property actions | Native modal/sheet controls | valid input, invalid input, type selection, typed property values, collision | Controls use Memoria primitives; disabled/loading/error states are visible |
 | P2 | Phone shell | Reduced navigation and panels | list-only, editor-only, properties sheet, back stack | Phone removes surfaces deliberately after tablet parity is established |
 
 ## Writable Interaction Boundary
@@ -205,16 +205,16 @@ Do not wire direct vault writes into presentation components. New mutations shou
 
 ## Mobile Primitive Layer
 
-Mobile UI follows the same ownership model as desktop shadcn/ui. RNR-derived primitives live locally in `apps/mobile/src/components/ui`, and Tolaria-specific wrappers/compositions live in `apps/mobile/src/ui`.
+Mobile UI follows the same ownership model as desktop shadcn/ui. RNR-derived primitives live locally in `apps/mobile/src/components/ui`, and Memoria-specific wrappers/compositions live in `apps/mobile/src/ui`.
 
-Use the local primitive layer before adding new raw React Native controls. Product-specific surfaces can still use native `View`, `ScrollView`, and `Pressable` where they model Tolaria behavior, but text, buttons, badges/chips, and future shared controls should flow through the local RNR-backed components whenever practical.
+Use the local primitive layer before adding new raw React Native controls. Product-specific surfaces can still use native `View`, `ScrollView`, and `Pressable` where they model Memoria behavior, but text, buttons, badges/chips, and future shared controls should flow through the local RNR-backed components whenever practical.
 
 ## Per-Surface Workflow
 
 1. Identify the desktop source component or workflow.
 2. Add its values to `desktopParity.ts` or reuse an existing contract.
 3. Add or update fixture data for the relevant states.
-4. Compose the screen from `apps/mobile/src/components/ui` primitives and `apps/mobile/src/ui` Tolaria wrappers.
+4. Compose the screen from `apps/mobile/src/components/ui` primitives and `apps/mobile/src/ui` Memoria wrappers.
 5. Add parity assertions for measurable invariants before relying on screenshot review.
 6. Run the fast QA loop and inspect screenshots.
 7. Add interaction checks for taps, selection, scrolling, and state transitions.

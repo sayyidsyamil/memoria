@@ -133,7 +133,7 @@ async function deleteSelectedFileFromMoreSheet(page: Page, rowTestId: string) {
 
 function latestFileOpenAttempt(page: Page) {
   return page.evaluate(() => {
-    const value = Reflect.get(window, '__TOLARIA_MOBILE_FILE_OPEN_ATTEMPTS__')
+    const value = Reflect.get(window, '__MEMORIA_MOBILE_FILE_OPEN_ATTEMPTS__')
     return Array.isArray(value) ? value.at(-1) : null
   })
 }
@@ -147,7 +147,7 @@ async function installFileEntryHostWorkspace(page: Page) {
     ],
     folderPaths: ['Files'],
     vaultAlias: 'tv',
-    vaultLabel: 'Tolaria Vault',
+    vaultLabel: 'Memoria Vault',
     vaultPath: '/Mobile/Test Vault',
   })
   const noteContents = {

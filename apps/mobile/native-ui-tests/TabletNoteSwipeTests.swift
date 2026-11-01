@@ -88,10 +88,10 @@ final class TabletNoteSwipeTests: XCTestCase {
   }
 
   private func launchFixture() -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&phoneState=list&editorMode=wysiwyg&qaRun=row-swipe-\(UUID().uuidString)"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     addTeardownBlock { app.terminate() }
     app.launch()
     return app

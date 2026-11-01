@@ -2,13 +2,13 @@ import XCTest
 import UIKit
 
 final class MobileSidebarControlsTests: XCTestCase {
-  private let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+  private let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
 
   override func setUp() {
     super.setUp()
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    app.launchArguments = ["--tolaria-mobile-search",
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=sidebar&qaRun=sidebar-controls"]
     app.launch()
     XCTAssertTrue(element("workspace-sidebar-panel").waitForExistence(timeout: 30))

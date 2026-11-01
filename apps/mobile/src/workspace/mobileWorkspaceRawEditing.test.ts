@@ -7,7 +7,7 @@ import {
 import type { MobileWorkspaceSnapshot } from './mobileWorkspaceModel'
 
 const workflowNoteId = 'workflow-orchestration'
-const workflowNotePath = 'Tolaria/Mobile UI/Workflow Orchestration Essay.md'
+const workflowNotePath = 'Memoria/Mobile UI/Workflow Orchestration Essay.md'
 
 describe('mobile raw workspace editing', () => {
   it('derives frontmatter metadata from complete markdown edits', () => {
@@ -31,7 +31,7 @@ describe('mobile raw workspace editing', () => {
     expect(note.properties).toContainEqual({ key: 'Priority', label: 'Priority', value: 'High' })
     expect(note.relationships.find((relationship) => relationship.key === 'related_to')?.values).toContainEqual(
       expect.objectContaining({
-        ref: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+        ref: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
         title: 'How I Run an Open Source Project',
         type: 'Procedure',
       }),
@@ -118,7 +118,7 @@ function rawFrontmatterContract() {
     '  - Parity',
     'Priority: High',
     'related_to:',
-    '  - [[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+    '  - [[Memoria/Mobile UI/How I Run an Open Source Project]]',
     '---',
     '# Raw Frontmatter Contract',
     '',

@@ -150,7 +150,7 @@ async function printRealRun(remoteUrl: string, seconds: number): Promise<void> {
   const policy = POLICIES[1]
   const real: FlushPolicy = { idleMs: policy.idleMs / SPEED_UP, maxWaitMs: policy.maxWaitMs / SPEED_UP }
   const times = editTimes(SESSIONS[1], seconds * 1000 * SPEED_UP)
-  const dataDir = await mkdtemp(join(tmpdir(), 'tolaria-collab-bench-'))
+  const dataDir = await mkdtemp(join(tmpdir(), 'memoria-collab-bench-'))
   const vault = await Vault.open({ dir: join(dataDir, 'vault'), remoteUrl })
   const durations = timedUpdates(vault)
   const server = await createVaultServer({

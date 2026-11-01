@@ -64,10 +64,10 @@ describe('Tauri Content Security Policy', () => {
     const devCsp = config.app.security.devCsp as string
 
     expect(csp['frame-src']).toBe(
-      "'self' data: tolaria-html-block: http://tolaria-html-block.localhost",
+      "'self' data: memoria-html-block: http://memoria-html-block.localhost",
     )
     expect(devCsp).toContain(
-      "frame-src 'self' data: tolaria-html-block: http://tolaria-html-block.localhost",
+      "frame-src 'self' data: memoria-html-block: http://memoria-html-block.localhost",
     )
     expect(csp['script-src']).not.toContain("'unsafe-inline'")
   })

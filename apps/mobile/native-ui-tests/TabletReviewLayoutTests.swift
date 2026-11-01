@@ -37,8 +37,8 @@ final class TabletReviewLayoutTests: XCTestCase {
   }
 
   private func launchFixture() -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&qaRun=review-layout"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&qaRun=review-layout"]
     app.launch()
     return app
   }

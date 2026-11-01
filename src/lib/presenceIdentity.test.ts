@@ -30,7 +30,7 @@ describe("deviceName", () => {
 		[ANDROID_FIREFOX, 5, "Firefox · Android"],
 		["SomeBot/1.0 (Windows)", 0, "Windows"],
 		["Mozilla/5.0 Safari/1.0", 0, "Safari"],
-		["", 0, "Tolaria"],
+		["", 0, "Memoria"],
 	])("names %j with %i touch points %j", (userAgent, maxTouchPoints, name) => {
 		expect(deviceName({ userAgent, maxTouchPoints })).toBe(name);
 	});
@@ -52,6 +52,6 @@ describe("localPresenceUser", () => {
 	it("still names the window without a navigator", () => {
 		vi.stubGlobal("navigator", undefined);
 
-		expect(localPresenceUser(0).name).toBe("Tolaria");
+		expect(localPresenceUser(0).name).toBe("Memoria");
 	});
 });

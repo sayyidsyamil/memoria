@@ -34,7 +34,7 @@ type NativeWysiwygFormatEffectSpec = {
   markdown: string
 }
 
-export const nativeWysiwygFormatCommandLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_FORMAT_COMMAND_PROBE'
+export const nativeWysiwygFormatCommandLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_FORMAT_COMMAND_PROBE'
 export const nativeWysiwygFormatCommandHighlightColor = 'rgba(214, 158, 46, 0.1)'
 export const nativeWysiwygFormatCommandEffectText = 'Format me'
 

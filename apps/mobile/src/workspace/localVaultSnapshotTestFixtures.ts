@@ -15,7 +15,7 @@ export function vaultFile(relativePath: string, content: string, index = 0): Loc
 export function realVaultRelationshipFiles(): LocalVaultFile[] {
   return [
     vaultFile('project.md', projectTypeContent),
-    vaultFile('tolaria-mobile.md', tolariaMobileContent),
+    vaultFile('memoria-mobile.md', memoriaMobileContent),
     vaultFile('workflow-orchestration.md', workflowOrchestrationContent),
   ]
 }
@@ -71,7 +71,7 @@ _organized: false
   ]
 }
 
-export const tolariaMobileContent = `---
+export const memoriaMobileContent = `---
 type: Project
 _organized: false
 _width: wide
@@ -80,7 +80,7 @@ aliases:
 related_to:
   - "[[workflow-orchestration|Workflow Orchestration]]"
 ---
-# Tolaria Mobile
+# Memoria Mobile
 
 Use **desktop parity** first.
 

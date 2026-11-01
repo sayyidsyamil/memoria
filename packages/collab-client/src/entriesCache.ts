@@ -6,7 +6,7 @@
 
 import type { VaultEntry as ProtocolVaultEntry } from "../../protocol/src/index.ts";
 
-const DB_NAME = "tolaria-entries";
+const DB_NAME = "memoria-entries";
 const DB_VERSION = 1;
 const STORE_NAME = "entries";
 /** The key of the page's own vault; a shared vault (TOL-237) is cached under a key of its own. */

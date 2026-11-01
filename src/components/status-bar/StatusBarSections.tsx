@@ -36,6 +36,7 @@ const ZOOM_RESET_SHORTCUT = {
 } as const
 
 interface StatusBarPrimarySectionProps {
+  simplified?: boolean
   modifiedCount: number
   vaultPath: string
   defaultWorkspacePath?: string | null
@@ -83,6 +84,7 @@ interface StatusBarPrimarySectionProps {
 }
 
 interface StatusBarSecondarySectionProps {
+  simplified?: boolean
   noteCount: number
   zoomLevel: number
   themeMode?: ThemeMode
@@ -383,6 +385,7 @@ function StatusBarGitControls(
 }
 
 export function StatusBarPrimarySection(options: StatusBarPrimarySectionProps) {
+  const simplified = options.simplified !== false
   const { vaultPath, defaultWorkspacePath, vaults, multiWorkspaceEnabled, onSwitchVault, onSetDefaultWorkspace, onOpenVaultSettings, onOpenLocalFolder, onCreateEmptyVault, onCloneVault, onCloneGettingStarted, buildNumber, onCheckForUpdates, onRemoveVault, onReorderVaults, onUpdateWorkspaceIdentity, syncPill, locale = 'en', stacked = false, compact = false } = options
   return (
     <div style={primarySectionStyle(stacked, compact)}>
@@ -402,14 +405,18 @@ export function StatusBarPrimarySection(options: StatusBarPrimarySectionProps) {
         compact={compact}
         locale={locale}
       />
-      <PrimarySeparator compact={compact} />
-      <BuildNumberButton
+      {!simplified && <PrimarySeparator compact={compact} />}
+      {!simplified && <BuildNumberButton
         buildNumber={buildNumber}
         onCheckForUpdates={onCheckForUpdates}
         compact={compact}
         locale={locale}
-      />
-      {syncPill ?? <StatusBarGitControls {...options} compact={compact} locale={locale} />}
+      />}
+      {syncPill ?? (simplified ? <>
+        <OfflineBadge isOffline={options.isOffline === true} showSeparator={false} compact={compact} locale={locale} />
+        <VaultReloadingBadge isReloading={options.isVaultReloading === true} showSeparator={false} compact={compact} locale={locale} />
+        <ConflictBadge count={options.conflictCount} onClick={options.onOpenConflictResolver} showSeparator={false} compact={compact} locale={locale} />
+      </> : <StatusBarGitControls {...options} compact={compact} locale={locale} />)}
     </div>
   )
 }
@@ -489,6 +496,7 @@ function SettingsButton({ onOpenSettings, locale }: { onOpenSettings?: () => voi
 }
 
 export function StatusBarSecondarySection(options: StatusBarSecondarySectionProps) {
+  const simplified = options.simplified !== false
   const { noteCount, zoomLevel, themeMode = 'light', onZoomReset, onToggleThemeMode, onOpenFeedback, onOpenDocs, onOpenSettings, locale = 'en', stacked = false, compact = false } = options
   void noteCount
 
@@ -504,9 +512,9 @@ export function StatusBarSecondarySection(options: StatusBarSecondarySectionProp
       }}
     >
       <ZoomResetButton zoomLevel={zoomLevel} onZoomReset={onZoomReset} locale={locale} />
-      {onOpenFeedback && <FeedbackButton compact={compact} locale={locale} onOpenFeedback={onOpenFeedback} />}
-      {onOpenDocs && <DocsButton compact={compact} locale={locale} onOpenDocs={onOpenDocs} />}
-      <ThemeModeButton themeMode={themeMode} onToggleThemeMode={onToggleThemeMode} locale={locale} />
+      {!simplified && onOpenFeedback && <FeedbackButton compact={compact} locale={locale} onOpenFeedback={onOpenFeedback} />}
+      {!simplified && onOpenDocs && <DocsButton compact={compact} locale={locale} onOpenDocs={onOpenDocs} />}
+      {!simplified && <ThemeModeButton themeMode={themeMode} onToggleThemeMode={onToggleThemeMode} locale={locale} />}
       <SettingsButton onOpenSettings={onOpenSettings} locale={locale} />
     </div>
   )

@@ -22,13 +22,13 @@ describe('inline rich editor find', () => {
     const selection = editor.state.selection.from
     applyMobileFindRequest(editor, { kind: 'query', query: 'First match', options })
     expect(readMobileFind(editor).matchCount).toBe(2)
-    expect(editor.view.dom.querySelectorAll('.tolaria-find-match').length).toBeGreaterThanOrEqual(2)
+    expect(editor.view.dom.querySelectorAll('.memoria-find-match').length).toBeGreaterThanOrEqual(2)
     applyMobileFindRequest(editor, { kind: 'move', direction: 1 })
     expect(readMobileFind(editor).activeIndex).toBe(1)
-    expect(editor.view.dom.querySelector('[data-tolaria-find-active]')?.parentElement?.textContent).toBe('First match')
+    expect(editor.view.dom.querySelector('[data-memoria-find-active]')?.parentElement?.textContent).toBe('First match')
     expect(editor.state.selection.from).toBe(selection)
     applyMobileFindRequest(editor, { kind: 'close' })
-    expect(editor.view.dom.querySelectorAll('.tolaria-find-match')).toHaveLength(0)
+    expect(editor.view.dom.querySelectorAll('.memoria-find-match')).toHaveLength(0)
   })
 
   it('replaces in transactions, preserves surrounding formatting, and supports Undo', async () => {

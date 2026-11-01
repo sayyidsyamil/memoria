@@ -27,12 +27,12 @@ describe('mobile note paths', () => {
       selectedNote,
       {
         ...base.notes[1],
-        id: 'Tolaria/Mobile UI/manual-name.md',
-        path: 'Tolaria/Mobile UI/manual-name.md',
+        id: 'Memoria/Mobile UI/manual-name.md',
+        path: 'Memoria/Mobile UI/manual-name.md',
       },
     ]
 
-    expect(renamedMobileNoteFilePath(selectedNote, 'Manual Name.md')).toBe('Tolaria/Mobile UI/Manual Name.md')
+    expect(renamedMobileNoteFilePath(selectedNote, 'Manual Name.md')).toBe('Memoria/Mobile UI/Manual Name.md')
     expect(validateMobileRenameNoteFilePath({ filenameStem: 'manual-name', note: selectedNote, notes })).toBe('collision')
     expect(validateMobileRenameNoteFilePath({ filenameStem: 'quarterly:plan', note: selectedNote, notes })).toBe('invalid')
     expect(validateMobileRenameNoteFilePath({ filenameStem: 'Workflow Orchestration Essay', note: selectedNote, notes })).toBe('same')
@@ -59,7 +59,7 @@ describe('mobile note paths', () => {
 
     expect(movedMobileNoteFilePath(selectedNote, 'Writing/Essays')).toBe('Writing/Essays/Workflow Orchestration Essay.md')
     expect(validateMobileMoveNoteFolderPath({ folderPath: 'Writing/Essays', note: selectedNote, notes })).toBe('collision')
-    expect(validateMobileMoveNoteFolderPath({ folderPath: 'Tolaria/Mobile UI', note: selectedNote, notes })).toBe('same')
+    expect(validateMobileMoveNoteFolderPath({ folderPath: 'Memoria/Mobile UI', note: selectedNote, notes })).toBe('same')
     expect(validateMobileMoveNoteFolderPath({ folderPath: 'Empty Folder', folderPaths: ['Empty Folder'], note: selectedNote, notes })).toBe('ok')
     expect(validateMobileMoveNoteFolderPath({ folderPath: 'Missing Folder', note: selectedNote, notes })).toBe('missingFolder')
   })

@@ -141,7 +141,7 @@ function clickPoint(point) {
 }
 
 function coreGraphicsClickerPath() {
-  const directory = join(tmpdir(), 'tolaria-mobile-qa')
+  const directory = join(tmpdir(), 'memoria-mobile-qa')
   const sourcePath = join(directory, 'click-simulator.swift')
   const binaryPath = join(directory, 'click-simulator')
   if (existsSync(binaryPath)) return binaryPath

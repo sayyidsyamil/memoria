@@ -4,7 +4,7 @@ import {
   collapsedSectionEndBlock,
   collapsedSectionHiddenBlockIds,
   toggleCollapsedHeading,
-} from './tolariaCollapsedSections'
+} from './memoriaCollapsedSections'
 
 type KeyListener = (event: KeyboardEvent) => void
 type NavigationKey = 'ArrowDown' | 'ArrowUp' | 'Backspace' | 'Enter'
@@ -203,8 +203,8 @@ describe('createRichEditorEmptyListNavigationExtension', () => {
     const linkedChild = {
       children: [],
       content: [{
-        content: [{ styles: {}, text: 'Tolaria', type: 'text' }],
-        href: 'https://tolaria.app',
+        content: [{ styles: {}, text: 'Memoria', type: 'text' }],
+        href: 'https://memoria.app',
         type: 'link',
       }],
       id: 'linked-child',

@@ -6,7 +6,7 @@ module.exports = ({ config }) => withSentry({
   ...config,
   owner: 'refactoring',
   runtimeVersion: { policy: 'fingerprint' },
-  updates: updateConfiguration(process.env.TOLARIA_BUILD_PROFILE, process.env.TOLARIA_UPDATE_CHANNEL),
+  updates: updateConfiguration(process.env.MEMORIA_BUILD_PROFILE, process.env.MEMORIA_UPDATE_CHANNEL),
   plugins: [...(config.plugins || []), ['expo-build-properties', { ios: { enableSceneSupport: true } }]],
   ios: iosBuildConfiguration(config.ios),
   android: androidBuildConfiguration(config.android),
@@ -23,32 +23,32 @@ module.exports = ({ config }) => withSentry({
 }, { organization: process.env.SENTRY_ORG, project: process.env.SENTRY_PROJECT })
 
 function iosBuildConfiguration(ios) {
-  const profile = process.env.TOLARIA_BUILD_PROFILE
+  const profile = process.env.MEMORIA_BUILD_PROFILE
   if (profile === undefined || profile === 'development') return ios
-  if (profile === 'ota-validation') return { ...ios, bundleIdentifier: 'md.tolaria.mobile.ota-validation' }
+  if (profile === 'ota-validation') return { ...ios, bundleIdentifier: 'md.memoria.mobile.ota-validation' }
   const distribution = { testflight: 'testflight', production: 'store' }[profile]
   if (!distribution) {
-    throw new Error('TOLARIA_BUILD_PROFILE must be development, testflight, production or ota-validation')
+    throw new Error('MEMORIA_BUILD_PROFILE must be development, testflight, production or ota-validation')
   }
   requireEnvironmentValue('EXPO_PUBLIC_DISTRIBUTION', distribution)
   requireEnvironmentValue('EXPO_PUBLIC_RELEASE_CHANNEL', profile === 'testflight' ? 'alpha' : 'stable')
   return {
     ...ios,
-    bundleIdentifier: 'md.tolaria.mobile',
+    bundleIdentifier: 'md.memoria.mobile',
     appleTeamId: 'D84V3C272P',
     buildNumber: testFlightBuildNumber(),
   }
 }
 
 function androidBuildConfiguration(android) {
-  if (process.env.TOLARIA_BUILD_PROFILE !== 'ota-validation') return android
-  return { ...android, package: 'md.tolaria.mobile.ota_validation' }
+  if (process.env.MEMORIA_BUILD_PROFILE !== 'ota-validation') return android
+  return { ...android, package: 'md.memoria.mobile.ota_validation' }
 }
 
 function testFlightBuildNumber() {
-  const number = process.env.TOLARIA_IOS_BUILD_NUMBER || ''
+  const number = process.env.MEMORIA_IOS_BUILD_NUMBER || ''
   if (!/^[1-9][0-9]{0,3}$/.test(number)) {
-    throw new Error('TOLARIA_IOS_BUILD_NUMBER must be an integer from 1 to 9999')
+    throw new Error('MEMORIA_IOS_BUILD_NUMBER must be an integer from 1 to 9999')
   }
   return number
 }

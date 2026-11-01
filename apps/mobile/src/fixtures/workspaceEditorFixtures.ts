@@ -2,7 +2,7 @@ import type { MobileEditorBlock as FixtureEditorBlock } from '../workspace/mobil
 
 export const fixtureEditorBullets = [
   'The current narrative routes every workflow through an LLM surface.',
-  'Tolaria should keep writing, relationships, and properties visible together.',
+  'Memoria should keep writing, relationships, and properties visible together.',
   'The mobile UI should match desktop semantics before phone-specific reduction.',
 ]
 
@@ -10,7 +10,7 @@ export const fixtureEditorBlocks: FixtureEditorBlock[] = [
   {
     kind: 'paragraph',
     content: [
-      { text: 'Tolaria should keep ' },
+      { text: 'Memoria should keep ' },
       { bold: true, text: 'writing, relationships, and properties' },
       { text: ' visible together before we reduce the interface for smaller screens.' },
     ],

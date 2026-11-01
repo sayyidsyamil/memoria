@@ -10,7 +10,7 @@ let cachedModule: NativeWorkspaceAccessModule | null | undefined
 
 export function optionalNativeWorkspaceAccessModule(): NativeWorkspaceAccessModule | null {
   if (cachedModule !== undefined) return cachedModule
-  cachedModule = requireOptionalNativeModule<NativeWorkspaceAccessModule>('TolariaWorkspaceAccess')
+  cachedModule = requireOptionalNativeModule<NativeWorkspaceAccessModule>('MemoriaWorkspaceAccess')
   return cachedModule
 }
 

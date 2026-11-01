@@ -13,7 +13,7 @@ describe('TelemetryConsentDialog', () => {
 
   it('renders the consent dialog', () => {
     render(<TelemetryConsentDialog onAccept={successfulChoice} onDecline={successfulChoice} />)
-    expect(screen.getByText('Help improve Tolaria')).toBeDefined()
+    expect(screen.getByText('Help improve Memoria')).toBeDefined()
     expect(screen.getByText(/anonymous crash reports/i)).toBeDefined()
   })
 

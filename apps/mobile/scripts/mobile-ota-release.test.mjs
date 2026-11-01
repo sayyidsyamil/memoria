@@ -5,8 +5,8 @@ import { parse } from 'yaml'
 import { publishMobileUpdate } from './publish-mobile-update.mjs'
 
 function environment(overrides = {}) {
-  return { CIRCLE_BRANCH: 'main', TOLARIA_OTA_CHANNEL: 'alpha', TOLARIA_OTA_BASE_REF: 'HEAD~1',
-    TOLARIA_OTA_RUNTIME: 'a'.repeat(40), TOLARIA_IOS_BUILD_NUMBER: '42', EXPO_TOKEN: 'test-only',
+  return { CIRCLE_BRANCH: 'main', MEMORIA_OTA_CHANNEL: 'alpha', MEMORIA_OTA_BASE_REF: 'HEAD~1',
+    MEMORIA_OTA_RUNTIME: 'a'.repeat(40), MEMORIA_IOS_BUILD_NUMBER: '42', EXPO_TOKEN: 'test-only',
     SENTRY_AUTH_TOKEN: 'test-only', SENTRY_ORG: 'test-org', SENTRY_PROJECT: 'test-project',
     EXPO_PUBLIC_SENTRY_DSN: 'https://public@example.ingest.sentry.io/1',
     EXPO_PUBLIC_POSTHOG_KEY: 'phc_test-only', EXPO_PUBLIC_POSTHOG_HOST: 'https://us.i.posthog.com', ...overrides }
@@ -30,14 +30,14 @@ function executor(files, runtime = 'a'.repeat(40)) {
 
 test('desktop-only changes never export, upload or publish a mobile update', () => {
   const run = executor(['src/components/NoteItem.tsx', 'src-tauri/src/lib.rs', 'docs/ARCHITECTURE.md'])
-  assert.equal(publishMobileUpdate(environment({ TOLARIA_OTA_RUNTIME: '', TOLARIA_IOS_BUILD_NUMBER: '',
+  assert.equal(publishMobileUpdate(environment({ MEMORIA_OTA_RUNTIME: '', MEMORIA_IOS_BUILD_NUMBER: '',
     EXPO_TOKEN: '', SENTRY_AUTH_TOKEN: '' }), run.execute).published, false)
   assert(run.calls.every(call => call.command === 'git'))
 })
 
 test('a missing push base checks all history rather than only the final commit', () => {
   const run = executor(['apps/mobile/src/App.tsx'])
-  publishMobileUpdate(environment({ TOLARIA_OTA_BASE_REF: '' }), run.execute)
+  publishMobileUpdate(environment({ MEMORIA_OTA_BASE_REF: '' }), run.execute)
   const base = run.calls.find(call => call.args[0] === 'rev-list')
   assert(base, 'First publication must resolve the root commit')
   assert.deepEqual(base.args, ['rev-list', '--max-parents=0', 'HEAD'])
@@ -66,7 +66,7 @@ for (const file of ['apps/mobile/src/App.tsx', 'src/shared/typeLabels.ts', 'src/
     assert(run.calls[upload].args.includes('hbc'))
     assert(run.calls[publish].args.includes('alpha'))
     assert(run.calls.every(call => !call.args.includes('test-only')))
-    assert.equal(run.calls[publish].options.env.TOLARIA_BUILD_PROFILE, 'testflight')
+    assert.equal(run.calls[publish].options.env.MEMORIA_BUILD_PROFILE, 'testflight')
     assert.equal(run.calls[publish].options.env.EXPO_PUBLIC_DISTRIBUTION, 'testflight')
     assert(run.calls.every(call => call.options.env.EXPO_NO_DOTENV === '1'))
   })
@@ -118,9 +118,9 @@ test('a feature branch cannot publish to alpha or stable', () => {
 })
 
 for (const overrides of [
-  { TOLARIA_OTA_CHANNEL: 'unknown' }, { TOLARIA_OTA_CHANNEL: undefined },
-  { TOLARIA_OTA_RUNTIME: 'not-a-native-fingerprint' }, { TOLARIA_OTA_RUNTIME: undefined },
-  { TOLARIA_IOS_BUILD_NUMBER: '0' }, { TOLARIA_IOS_BUILD_NUMBER: undefined },
+  { MEMORIA_OTA_CHANNEL: 'unknown' }, { MEMORIA_OTA_CHANNEL: undefined },
+  { MEMORIA_OTA_RUNTIME: 'not-a-native-fingerprint' }, { MEMORIA_OTA_RUNTIME: undefined },
+  { MEMORIA_IOS_BUILD_NUMBER: '0' }, { MEMORIA_IOS_BUILD_NUMBER: undefined },
 ]) {
   test(`rejects invalid publishing target ${JSON.stringify(overrides)}`, () => {
     const run = executor(['apps/mobile/src/App.tsx'])
@@ -130,13 +130,13 @@ for (const overrides of [
 }
 
 test('the real command runner safely skips an unchanged source commit', () => {
-  assert.equal(publishMobileUpdate(environment({ TOLARIA_OTA_BASE_REF: 'HEAD' })).published, false)
+  assert.equal(publishMobileUpdate(environment({ MEMORIA_OTA_BASE_REF: 'HEAD' })).published, false)
 })
 
 test('validation is isolated and stable has store attribution', () => {
   for (const channel of ['stable', 'ota-validation']) {
     const run = executor(['apps/mobile/src/App.tsx'])
-    const result = publishMobileUpdate(environment({ TOLARIA_OTA_CHANNEL: channel }), run.execute)
+    const result = publishMobileUpdate(environment({ MEMORIA_OTA_CHANNEL: channel }), run.execute)
     assert.equal(result.channel, channel)
     const call = run.calls.at(-1)
     assert(call.args.includes(channel))
@@ -147,7 +147,7 @@ test('validation is isolated and stable has store attribution', () => {
 for (const [channel, easEnvironment] of [['alpha', 'preview'], ['ota-validation', 'preview'], ['stable', 'production']]) {
   test(`publishes ${channel} with the explicit SDK 57 EAS environment`, () => {
     const run = executor(['apps/mobile/src/App.tsx'])
-    publishMobileUpdate(environment({ TOLARIA_OTA_CHANNEL: channel }), run.execute)
+    publishMobileUpdate(environment({ MEMORIA_OTA_CHANNEL: channel }), run.execute)
     const publish = run.calls.at(-1)
     const index = publish.args.indexOf('--environment')
     assert(index >= 0, 'SDK 57 requires an explicit EAS environment')
@@ -199,11 +199,11 @@ test('stable publishing requires an explicit group and never rebuilds an update'
   const job = config.jobs['mobile-ota-publish']
   const command = job.steps.flatMap(step => step.run?.command ?? []).join('\n')
   assert(command.includes('promote-mobile-update.mjs'))
-  assert(command.includes('TOLARIA_ACCEPTED_ALPHA_RUNTIME'))
-  assert(command.includes('TOLARIA_ACCEPTED_STABLE_RUNTIME'))
+  assert(command.includes('MEMORIA_ACCEPTED_ALPHA_RUNTIME'))
+  assert(command.includes('MEMORIA_ACCEPTED_STABLE_RUNTIME'))
   assert(!command.includes('<< pipeline.git.base_revision >>'))
-  assert(command.includes('/tmp/tolaria-mobile-ota/alpha.sha'))
-  assert.equal(job.environment.TOLARIA_OTA_GROUP, '<< pipeline.parameters.mobile-ota-group >>')
+  assert(command.includes('/tmp/memoria-mobile-ota/alpha.sha'))
+  assert.equal(job.environment.MEMORIA_OTA_GROUP, '<< pipeline.parameters.mobile-ota-group >>')
 })
 
 function configuredJob(job) {

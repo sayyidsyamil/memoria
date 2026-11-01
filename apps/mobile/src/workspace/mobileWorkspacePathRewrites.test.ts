@@ -8,7 +8,7 @@ import type { MobileNote } from './mobileWorkspaceModel'
 describe('mobile workspace path rewrites', () => {
   it('retargets inbound wikilinks that use the desktop workspace alias casing', () => {
     const rewrite = movedNoteWikilinkRewrite(mobileNote({
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       workspaceAlias: 'TV',
     }), mobileNote({
       path: 'Writing/Essays/Workflow Orchestration Essay.md',
@@ -16,7 +16,7 @@ describe('mobile workspace path rewrites', () => {
     }))
 
     const content = rewriteMovedWikilinkContent(
-      'Alias ref [[TV/Tolaria/Mobile UI/Workflow Orchestration Essay|alias]] follows the move.',
+      'Alias ref [[TV/Memoria/Mobile UI/Workflow Orchestration Essay|alias]] follows the move.',
       rewrite,
     )
 
@@ -41,7 +41,7 @@ function mobileNote(overrides: Partial<MobileNote>): MobileNote {
     title: 'Workflow Orchestration Essay',
     type: 'Essay',
     typeTone: 'gray',
-    workspace: 'Tolaria Vault',
+    workspace: 'Memoria Vault',
     ...overrides,
   }
 }

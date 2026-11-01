@@ -11,7 +11,7 @@ async function resolveRemoteFileUrl(url: string): Promise<string> {
 }
 
 /**
- * BlockNote's `resolveFileUrl` (TOL-204): only a Tolaria remote needs one, because its
+ * BlockNote's `resolveFileUrl` (TOL-204): only a Memoria remote needs one, because its
  * attachments need the token. Desktop and the mock browser get none, so BlockNote keeps
  * showing and opening their URLs directly, exactly as before.
  */

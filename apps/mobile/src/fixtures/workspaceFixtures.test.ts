@@ -17,7 +17,7 @@ describe('workspaceFixtures', () => {
     expect(workspaceScenarios['property-heavy'].notes[0].relationships[0]).toMatchObject({
       kind: 'belongsTo',
       values: [
-        { title: 'Tolaria Mobile', type: 'Project', typeTone: 'purple' },
+        { title: 'Memoria Mobile', type: 'Project', typeTone: 'purple' },
         { title: 'Tablet Workspace', type: 'Essay', typeTone: 'green' },
       ],
     })
@@ -28,13 +28,13 @@ describe('workspaceFixtures', () => {
     expect(folderIdsForScenario(workspaceScenarios.default)).toEqual(expect.arrayContaining([
       'Writing',
       'Writing/Essays',
-      'Tolaria',
-      'Tolaria/Mobile UI',
-      'Tolaria/Releases',
+      'Memoria',
+      'Memoria/Mobile UI',
+      'Memoria/Releases',
     ]))
     expect(folderIdsForScenario(workspaceScenarios['folder-tree'])).toEqual(expect.arrayContaining([
-      'Tolaria/Mobile UI/Tablet Shell',
-      'Tolaria/Mobile UI/Properties Panel',
+      'Memoria/Mobile UI/Tablet Shell',
+      'Memoria/Mobile UI/Properties Panel',
       'Attachments/Images',
     ]))
   })

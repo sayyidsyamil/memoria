@@ -26,20 +26,20 @@ describe('mobile note file reveal', () => {
     })).resolves.toEqual({
       ok: true,
       opened: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
       shared: true,
     })
 
-    expect(revealer).toHaveBeenCalledWith('file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md')
+    expect(revealer).toHaveBeenCalledWith('file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md')
     expect(globalValue(MOBILE_FILE_REVEAL_ATTEMPTS_GLOBAL_KEY)).toEqual([{
       noteId: 'workflow-orchestration',
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
       title: 'Workflow Orchestration Essay',
     }])
     expect(globalValue(MOBILE_FILE_REVEALS_GLOBAL_KEY)).toEqual([{
       ok: true,
       opened: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
       shared: true,
     }])
   })
@@ -55,14 +55,14 @@ describe('mobile note file reveal', () => {
     }))).resolves.toEqual({
       ok: true,
       opened: false,
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       shared: false,
     })
 
     expect(revealer).not.toHaveBeenCalled()
     expect(globalValue(MOBILE_FILE_REVEAL_ATTEMPTS_GLOBAL_KEY)).toEqual([{
       noteId: 'workflow-orchestration',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       title: 'Workflow Orchestration Essay',
     }])
     expect(globalValue(MOBILE_FILE_REVEALS_GLOBAL_KEY)).toBeUndefined()
@@ -72,20 +72,20 @@ describe('mobile note file reveal', () => {
     const revealer: MobileFileRevealer = vi.fn().mockResolvedValue({ opened: true, shared: true })
 
     await expect(revealMobileFolderPath({
-      folderPath: 'Tolaria/Mobile UI',
+      folderPath: 'Memoria/Mobile UI',
       revealer,
       vaultRootUri: 'file:///vault/root',
     })).resolves.toEqual({
       ok: true,
       opened: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI',
+      path: 'file:///vault/root/Memoria/Mobile%20UI',
       shared: true,
     })
 
-    expect(revealer).toHaveBeenCalledWith('file:///vault/root/Tolaria/Mobile%20UI')
+    expect(revealer).toHaveBeenCalledWith('file:///vault/root/Memoria/Mobile%20UI')
     expect(globalValue(MOBILE_FILE_REVEAL_ATTEMPTS_GLOBAL_KEY)).toEqual([{
-      folderPath: 'Tolaria/Mobile UI',
-      path: 'file:///vault/root/Tolaria/Mobile%20UI',
+      folderPath: 'Memoria/Mobile UI',
+      path: 'file:///vault/root/Memoria/Mobile%20UI',
     }])
   })
 
@@ -93,19 +93,19 @@ describe('mobile note file reveal', () => {
     const revealer: MobileFileRevealer = vi.fn()
 
     await expect(withBrowserRuntime(() => revealMobileFolderPath({
-      folderPath: 'Tolaria/Mobile UI',
+      folderPath: 'Memoria/Mobile UI',
       revealer,
     }))).resolves.toEqual({
       ok: true,
       opened: false,
-      path: 'Tolaria/Mobile UI',
+      path: 'Memoria/Mobile UI',
       shared: false,
     })
 
     expect(revealer).not.toHaveBeenCalled()
     expect(globalValue(MOBILE_FILE_REVEAL_ATTEMPTS_GLOBAL_KEY)).toEqual([{
-      folderPath: 'Tolaria/Mobile UI',
-      path: 'Tolaria/Mobile UI',
+      folderPath: 'Memoria/Mobile UI',
+      path: 'Memoria/Mobile UI',
     }])
   })
 

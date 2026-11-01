@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const mobileClipboardAttemptsGlobalKey = '__TOLARIA_MOBILE_CLIPBOARD_ATTEMPTS__'
+const mobileClipboardAttemptsGlobalKey = '__MEMORIA_MOBILE_CLIPBOARD_ATTEMPTS__'
 
 test.describe('phone note utility actions', () => {
   test('opens a selected note neighborhood from the phone editor more sheet', async ({ page }, testInfo) => {
@@ -34,7 +34,7 @@ test.describe('phone note utility actions', () => {
       const attempts = (window as unknown as Record<string, unknown>)[key]
       return Array.isArray(attempts) ? attempts.at(-1) : null
     }, mobileClipboardAttemptsGlobalKey)).resolves.toBe(
-      'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     )
   })
 

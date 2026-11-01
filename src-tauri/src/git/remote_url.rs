@@ -98,7 +98,7 @@ mod tests {
             "https://github.com/refactoringhq/tolaria.git",
             "http://git.example.test/org/repo.git",
             "ssh://git@git.example.test/org/repo.git",
-            "git@github.com:refactoringhq/tolaria.git",
+            "git@github.com:refactoringhq/memoria.git",
         ] {
             assert_eq!(validate_user_remote_url(url).unwrap(), url);
         }
@@ -120,7 +120,7 @@ mod tests {
             "ext::sh -c touch-pwned %0.git",
             "file:///Users/luca/private.git",
             "/Users/luca/private.git",
-            "github.com:refactoringhq/tolaria.git",
+            "github.com:refactoringhq/memoria.git",
             "git@-oProxyCommand=touch-pwned:repo.git",
             "https://",
             "ssh://git@example.com",

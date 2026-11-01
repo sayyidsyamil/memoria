@@ -5,7 +5,7 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::OnceLock;
 
 const APP_CONFIG_POLICY_JSON: &str = include_str!("../../mcp-server/app-config-policy.json");
-const APP_CONFIG_NAMESPACE_ENV: &str = "TOLARIA_APP_CONFIG_NAMESPACE";
+const APP_CONFIG_NAMESPACE_ENV: &str = "MEMORIA_APP_CONFIG_NAMESPACE";
 
 #[derive(Debug, Deserialize)]
 struct AppConfigPolicy {
@@ -147,7 +147,7 @@ fn app_config_path_is_writable(path: &Path) -> bool {
 
     static PROBE_COUNTER: AtomicU64 = AtomicU64::new(0);
     let probe = parent.join(format!(
-        ".tolaria-write-probe-{}-{}",
+        ".memoria-write-probe-{}-{}",
         std::process::id(),
         PROBE_COUNTER.fetch_add(1, Ordering::Relaxed)
     ));
@@ -216,7 +216,7 @@ mod tests {
 
     #[test]
     fn absolute_xdg_config_home_is_accepted() {
-        let path = absolute_temp_dir("tolaria-xdg-config");
+        let path = absolute_temp_dir("memoria-xdg-config");
         assert_eq!(absolute_path(path.clone()), Some(path));
     }
 
@@ -228,8 +228,8 @@ mod tests {
     #[cfg(not(windows))]
     #[test]
     fn default_unix_config_home_uses_home_dot_config() {
-        let home = absolute_temp_dir("tolaria-home");
-        let platform = absolute_temp_dir("tolaria-platform-config");
+        let home = absolute_temp_dir("memoria-home");
+        let platform = absolute_temp_dir("memoria-platform-config");
 
         assert_eq!(
             primary_config_dir_from_sources(None, Some(home.clone()), Some(platform)),
@@ -239,9 +239,9 @@ mod tests {
 
     #[test]
     fn explicit_xdg_config_home_wins_over_default_and_platform_paths() {
-        let explicit = absolute_temp_dir("tolaria-explicit-xdg");
-        let home = absolute_temp_dir("tolaria-home");
-        let platform = absolute_temp_dir("tolaria-platform-config");
+        let explicit = absolute_temp_dir("memoria-explicit-xdg");
+        let home = absolute_temp_dir("memoria-home");
+        let platform = absolute_temp_dir("memoria-platform-config");
 
         assert_eq!(
             primary_config_dir_from_sources(Some(explicit.clone()), Some(home), Some(platform)),
@@ -251,7 +251,7 @@ mod tests {
 
     #[test]
     fn relative_xdg_config_home_falls_back_to_platform_when_no_home_is_available() {
-        let platform = absolute_temp_dir("tolaria-platform-config");
+        let platform = absolute_temp_dir("memoria-platform-config");
 
         assert_eq!(
             primary_config_dir_from_sources(
@@ -264,19 +264,19 @@ mod tests {
     }
 
     #[test]
-    fn preferred_path_uses_tolaria_namespace() {
-        let config_dir = absolute_temp_dir("tolaria-config-root");
+    fn preferred_path_uses_memoria_namespace() {
+        let config_dir = absolute_temp_dir("memoria-config-root");
         let path = preferred_path_in(&config_dir, "settings.json");
         assert_eq!(
             path,
-            config_dir.join("com.tolaria.app").join("settings.json")
+            config_dir.join("com.memoria.app").join("settings.json")
         );
     }
 
     #[test]
     fn unwritable_primary_config_uses_platform_write_path() {
-        let primary = absolute_temp_dir("tolaria-unwritable-primary");
-        let platform = absolute_temp_dir("tolaria-writable-platform");
+        let primary = absolute_temp_dir("memoria-unwritable-primary");
+        let platform = absolute_temp_dir("memoria-writable-platform");
         let config_dirs = [primary.clone(), platform.clone()];
 
         let path = writable_path_in_dirs(&config_dirs, "settings.json", |candidate| {
@@ -313,8 +313,8 @@ mod tests {
     #[test]
     fn declared_development_namespace_can_replace_current_namespace() {
         assert_eq!(
-            app_config_policy().current_namespace_for(Some("com.tolaria.app.dev")),
-            "com.tolaria.app.dev"
+            app_config_policy().current_namespace_for(Some("com.memoria.app.dev")),
+            "com.memoria.app.dev"
         );
     }
 
@@ -322,7 +322,7 @@ mod tests {
     fn unknown_requested_namespace_keeps_production_namespace() {
         assert_eq!(
             app_config_policy().current_namespace_for(Some("com.example.other")),
-            "com.tolaria.app"
+            "com.memoria.app"
         );
     }
 

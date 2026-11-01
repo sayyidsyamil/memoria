@@ -31,4 +31,4 @@ The shared fixtures cover link and wikilink unwrapping, strikethrough, inline co
 - Rust and TypeScript may use different implementation mechanics, but neither may define an independent behavior contract.
 - Renderer TOC and wikilink display surfaces share one adapter, reducing intra-renderer drift as well as cross-runtime drift.
 - The contract is limited to presentation-oriented inline-Markdown stripping. It does not replace the rendered-markup sanitization and user-regex security boundary in ADR-0108.
-- Re-evaluate if Tolaria adopts an existing shared text-processing runtime that can replace both adapters without adding a new runtime boundary solely for this operation.
+- Re-evaluate if Memoria adopts an existing shared text-processing runtime that can replace both adapters without adding a new runtime boundary solely for this operation.

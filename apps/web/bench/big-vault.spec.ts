@@ -29,7 +29,7 @@ interface LongTask {
 
 declare global {
 	interface Window {
-		__tolariaBench: {
+		__memoriaBench: {
 			longTasks: LongTask[];
 			keyLatencies: number[];
 			recordKeys: boolean;
@@ -40,7 +40,7 @@ declare global {
 /** Collects long tasks from navigation start, and keystroke-to-next-frame latencies. */
 function installProbes(): void {
 	const bench = { longTasks: [], keyLatencies: [], recordKeys: false };
-	window.__tolariaBench = bench;
+	window.__memoriaBench = bench;
 	new PerformanceObserver((list) => {
 		for (const entry of list.getEntries())
 			bench.longTasks.push({
@@ -66,10 +66,10 @@ function installProbes(): void {
 
 async function preparePage(page: Page): Promise<void> {
 	await page.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 		window.localStorage.setItem(
-			"tolaria:claude-code-onboarding-dismissed",
+			"memoria:claude-code-onboarding-dismissed",
 			"1",
 		);
 	}, BENCH_TOKEN);
@@ -79,13 +79,13 @@ async function preparePage(page: Page): Promise<void> {
 /** When the note list first had rows on screen, from the shell's own mark (TOL-206). */
 async function noteListPaintedAt(page: Page): Promise<number> {
 	await page.waitForFunction(
-		() => performance.getEntriesByName("tolaria:note_list_painted").length > 0,
+		() => performance.getEntriesByName("memoria:note_list_painted").length > 0,
 		null,
 		{ timeout: 60_000 },
 	);
 	return page.evaluate(
 		() =>
-			performance.getEntriesByName("tolaria:note_list_painted")[0].startTime,
+			performance.getEntriesByName("memoria:note_list_painted")[0].startTime,
 	);
 }
 
@@ -96,7 +96,7 @@ async function waitForFullCacheSnapshot(page: Page): Promise<void> {
 			() =>
 				page.evaluate(async () => {
 					const db = await new Promise<IDBDatabase | null>((resolve) => {
-						const request = indexedDB.open("tolaria-entries", 1);
+						const request = indexedDB.open("memoria-entries", 1);
 						request.onsuccess = () => resolve(request.result);
 						request.onerror = () => resolve(null);
 					});
@@ -124,7 +124,7 @@ async function longTaskSummary(
 	since = 0,
 ): Promise<{ maxMs: number; blockingMs: number }> {
 	const tasks = await page.evaluate(
-		(from) => window.__tolariaBench.longTasks.filter((t) => t.start >= from),
+		(from) => window.__memoriaBench.longTasks.filter((t) => t.start >= from),
 		since,
 	);
 	return {
@@ -175,14 +175,14 @@ async function typingLatency(page: Page) {
 	await page.keyboard.press("End");
 	const since = await pageNow(page);
 	await page.evaluate(() => {
-		window.__tolariaBench.recordKeys = true;
+		window.__memoriaBench.recordKeys = true;
 	});
 	await page.keyboard.type(TYPED_TEXT, { delay: 40 });
 	await expect(page.locator(".bn-editor")).toContainText(TYPED_TEXT.trim());
 	await page.waitForTimeout(500);
 	const latencies = await page.evaluate(() => {
-		window.__tolariaBench.recordKeys = false;
-		return window.__tolariaBench.keyLatencies;
+		window.__memoriaBench.recordKeys = false;
+		return window.__memoriaBench.keyLatencies;
 	});
 	expect(latencies.length).toBe(TYPED_TEXT.length);
 	return {

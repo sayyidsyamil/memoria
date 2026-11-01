@@ -1,9 +1,9 @@
 import type { useCreateBlockNote } from "@blocknote/react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { createTolariaCodeBlockOptions } from "./codeBlockOptions";
+import { createMemoriaCodeBlockOptions } from "./codeBlockOptions";
 import { useEditorImageRenameSync } from "./editorImageRenameSync";
-import { BLOCK_CONTAINER_SELECTOR } from "./tolariaBlockNoteDom";
+import { BLOCK_CONTAINER_SELECTOR } from "./memoriaBlockNoteDom";
 import {
 	Select,
 	SelectContent,
@@ -28,7 +28,7 @@ const NATIVE_LANGUAGE_CONTROL_SELECTOR =
 	'.bn-block-content[data-content-type="codeBlock"] > div > select';
 
 const LANGUAGE_OPTIONS = Object.entries(
-	createTolariaCodeBlockOptions().supportedLanguages ?? {},
+	createMemoriaCodeBlockOptions().supportedLanguages ?? {},
 ).map(([id, language]) => ({ id, name: language.name }));
 
 function languageControlTarget(

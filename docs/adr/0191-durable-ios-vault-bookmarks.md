@@ -19,7 +19,7 @@ deterministic QA scenarios.
 ## Decision
 
 Standalone iOS builds persist the selected directory as an Apple bookmark through
-the local `TolariaWorkspaceAccess` Expo module. The module resolves the bookmark
+the local `MemoriaWorkspaceAccess` Expo module. The module resolves the bookmark
 and starts security-scoped access before React Native reads the workspace. It
 retains that access for the module lifetime and releases it when the module is
 destroyed.
@@ -32,7 +32,7 @@ probes take precedence over a remembered vault.
 ## Consequences
 
 - Standalone iPad builds can reopen the last explicitly selected vault.
-- Tolaria never treats a persisted URI as proof of filesystem permission.
+- Memoria never treats a persisted URI as proof of filesystem permission.
 - Expo Go users must select the vault again after a restart.
 - QA routes remain deterministic even when the simulator has a remembered vault.
 - Multiple remembered vaults remain outside the launch scope.

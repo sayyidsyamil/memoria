@@ -36,7 +36,7 @@ function sendRequest({ port, route, args = {}, method = "POST" }) {
 }
 
 async function withVault(check) {
-	const vault = await mkdtemp(path.join(os.tmpdir(), "tolaria-api-test-"));
+	const vault = await mkdtemp(path.join(os.tmpdir(), "memoria-api-test-"));
 	const server = await createServer({
 		configFile: false,
 		plugins: [vaultApiPlugin()],

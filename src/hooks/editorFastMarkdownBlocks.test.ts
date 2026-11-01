@@ -90,7 +90,7 @@ describe('tryParseFastMarkdownBlocks', () => {
 
   it('emits BlockNote-compatible hrefs for external links in large-note blocks', () => {
     const result = tryParseFastMarkdownBlocks(
-      '[Obsidian](https://obsidian.md/) and [Tolaria](https://tolaria.md/)',
+      '[Obsidian](https://obsidian.md/) and [Memoria](https://tolaria.md/)',
     )
     const paragraph = result.blocks.at(0)
 
@@ -107,7 +107,7 @@ describe('tryParseFastMarkdownBlocks', () => {
         {
           type: 'link',
           href: 'https://tolaria.md/',
-          content: [{ type: 'text', text: 'Tolaria', styles: {} }],
+          content: [{ type: 'text', text: 'Memoria', styles: {} }],
         },
       ],
     })

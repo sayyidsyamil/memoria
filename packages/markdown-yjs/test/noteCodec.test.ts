@@ -26,7 +26,7 @@ describe('NoteCodec', () => {
     const doc = await docOf(NOTE)
 
     expect(doc.getText('frontmatter').toString()).toBe('---\ntype: Note\n---\n')
-    expect(doc.getMap('meta').toJSON()).toEqual({ format: 'tolaria.blocknote/1', baseRevision: 'etag-1' })
+    expect(doc.getMap('meta').toJSON()).toEqual({ format: 'memoria.blocknote/1', baseRevision: 'etag-1' })
     expect(codec.read(doc)).toBe(await codec.canonical(NOTE))
   })
 

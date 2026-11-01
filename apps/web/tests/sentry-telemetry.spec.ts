@@ -6,11 +6,11 @@ import { originalPosition, type SourceMap } from './sourceMapLookup'
 
 // TOL-232: web error telemetry. CI builds the bundle without a DSN, so the first test checks
 // that nothing is sent even with crash reporting on, and that no source map is served.
-// The second test runs when the bundle was built with TOLARIA_WEB_SENTRY_DSN pointing at a
+// The second test runs when the bundle was built with MEMORIA_WEB_SENTRY_DSN pointing at a
 // local fake ingest (see docs/web/telemetry.md): the envelope of a deliberate error carries
 // the web tag, the commit release and frames that map back to src/main.tsx.
 
-const WEB_DSN = process.env.TOLARIA_WEB_SENTRY_DSN ?? ''
+const WEB_DSN = process.env.MEMORIA_WEB_SENTRY_DSN ?? ''
 const SOURCEMAP_DIR = fileURLToPath(new URL('../sourcemaps/', import.meta.url))
 const MAIN_SOURCE = fileURLToPath(new URL('../../../src/main.tsx', import.meta.url))
 const PROBE_COMMAND = 'tol232-sentry-probe'
@@ -150,12 +150,12 @@ test.describe('web error telemetry', () => {
 
   test('sends a deliberate error with the web tag, release and a source-mapped stack', async ({ page }, testInfo) => {
     skipOutsideChromium(testInfo)
-    test.skip(WEB_DSN === '', 'needs a bundle built with TOLARIA_WEB_SENTRY_DSN (docs/web/telemetry.md)')
+    test.skip(WEB_DSN === '', 'needs a bundle built with MEMORIA_WEB_SENTRY_DSN (docs/web/telemetry.md)')
     const event = await captureProbeEvent(page)
     const manifest = JSON.parse(readFileSync(`${SOURCEMAP_DIR}manifest.json`, 'utf8')) as { release: string }
 
     expect(event.tags?.platform).toBe('web')
-    expect(manifest.release).toMatch(/^tolaria-web@[0-9a-f]{40}$/)
+    expect(manifest.release).toMatch(/^memoria-web@[0-9a-f]{40}$/)
     expect(event.release).toBe(manifest.release)
     expect(mappedThrowPosition(event)).toEqual({ source: expect.stringMatching(/src\/main\.tsx$/), line: probeThrowLine() })
   })

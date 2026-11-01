@@ -14,7 +14,7 @@ afterEach(async () => {
 })
 
 async function repository() {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-dirty-guard-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-dirty-guard-'))
   roots.push(dir)
   const context = { fs, dir }
   await git.init({ ...context, defaultBranch: 'main' })

@@ -24,7 +24,7 @@ export type NativeWysiwygWikilinkInsertAssertionFailure = {
   message: string
 }
 
-export const nativeWysiwygWikilinkInsertLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_WIKILINK_INSERT_PROBE'
+export const nativeWysiwygWikilinkInsertLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_WIKILINK_INSERT_PROBE'
 const probeTarget = 'AI Ops Guide'
 const expectedWikilink = `[[${probeTarget}]]`
 const personMentionProbeLabel = 'Luca'

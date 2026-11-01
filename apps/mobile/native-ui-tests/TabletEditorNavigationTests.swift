@@ -4,8 +4,8 @@ final class TabletEditorNavigationTests: XCTestCase {
   func testEditorInteriorDragsHideAndRestorePanels() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=editor-panel-drag"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=editor-panel-drag"]
     app.launch()
     let editor = element(app, "editor-panel")
     XCTAssertTrue(editor.waitForExistence(timeout: 30))

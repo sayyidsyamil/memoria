@@ -9,7 +9,7 @@ describe('git', () => {
   let dir: string
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'tolaria-git-test-'))
+    dir = await mkdtemp(join(tmpdir(), 'memoria-git-test-'))
     await git(dir, ['init', '-q', '-b', 'main'])
   })
 
@@ -55,7 +55,7 @@ describe('GitRepo.open', () => {
   let root: string
 
   beforeEach(async () => {
-    root = await mkdtemp(join(tmpdir(), 'tolaria-repo-test-'))
+    root = await mkdtemp(join(tmpdir(), 'memoria-repo-test-'))
   })
 
   afterEach(() => rm(root, { recursive: true, force: true }))

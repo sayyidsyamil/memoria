@@ -8,7 +8,7 @@ import { expect, it } from 'vitest'
 import { createGitVault } from './gitVault'
 
 it('checkpoints equal-length edits even when filesystem timestamps have not advanced', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-git-rapid-edit-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-git-rapid-edit-'))
   const author = { name: 'Test', email: 'qa@example.invalid' }
   const notePath = join(dir, 'note.md')
   const deviceFs = {

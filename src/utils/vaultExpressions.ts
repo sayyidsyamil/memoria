@@ -1,5 +1,5 @@
 import type { VaultEntry } from '../types'
-import { buildTolariaDeepLinkForEntry, type DeepLinkVault } from './deepLinks'
+import { buildMemoriaDeepLinkForEntry, type DeepLinkVault } from './deepLinks'
 import { resolveSheetFrontmatterProperty } from './sheetFrontmatterProperties'
 import { splitSheetDocument } from './sheetCsv'
 import { cellAddressToIndexes } from './sheetMetadata'
@@ -582,7 +582,7 @@ function entryDeepLink(entry: VaultEntry, context: VaultExpressionEvaluationCont
   const vaultPath = vaultPathForEntry(entry, fallbackVaultPath)
   if (!vaultPath) return null
 
-  const result = buildTolariaDeepLinkForEntry({
+  const result = buildMemoriaDeepLinkForEntry({
     entry,
     vaultPath,
     vaults: cachedDeepLinkVaults(context),
@@ -804,7 +804,7 @@ function resolveCell(reference: ReferenceExpression, context: VaultExpressionCon
 
   const build = buildWorkbook(
     resolved.content,
-    resolved.entry?.path ?? context.sourceEntry?.path ?? 'Tolaria',
+    resolved.entry?.path ?? context.sourceEntry?.path ?? 'Memoria',
     sheetExternalFormulaContext({
       contentsByPath: context.contentsByPath,
       currentPath: resolved.entry?.path ?? context.sourceEntry?.path ?? '',

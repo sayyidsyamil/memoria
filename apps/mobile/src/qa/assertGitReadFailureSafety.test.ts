@@ -13,7 +13,7 @@ afterEach(async () => {
 })
 
 async function context() {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-read-failure-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-read-failure-'))
   roots.push(dir)
   return { fs: { promises: fs.promises }, dir }
 }

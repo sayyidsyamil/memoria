@@ -28,8 +28,8 @@ export function createMobileFindBridge(runtime = nativeRuntime) {
     configureExtension: () => createMobileFindBridge(runtime),
     extendExtension: () => createMobileFindBridge(runtime),
     configureTiptapExtensionsOnRunTime: () => [runtime.extension],
-    extendCSS: '.tolaria-find-match{background:rgba(245,184,44,.3);color:inherit}'
-      + '[data-tolaria-find-active]{background:rgba(245,184,44,.6);outline:2px solid #305dff}',
+    extendCSS: '.memoria-find-match{background:rgba(245,184,44,.3);color:inherit}'
+      + '[data-memoria-find-active]{background:rgba(245,184,44,.6);outline:2px solid #305dff}',
     extendEditorState: (editor: Editor) => ({ mobileFind: runtime.read(editor) }),
     extendEditorInstance: (send: (message: { type: 'mobile-find'; payload: MobileFindRequest }) => void): MobileFindEditorBridge => ({
       updateMobileFind: (request) => send({ type: 'mobile-find', payload: request }),

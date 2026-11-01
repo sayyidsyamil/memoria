@@ -2,16 +2,16 @@ import { describe, expect, it } from 'vitest'
 import {
   accountCacheName,
   accountKeyFor,
-  deleteTolariaCaches,
+  deleteMemoriaCaches,
   isStaleShellCacheName,
-  isTolariaCacheName,
+  isMemoriaCacheName,
   routeOfflineRequest,
   shellCacheName,
   trimCache,
 } from './offlineCachePolicy'
 import { FakeCacheStorage } from './fakeCacheStorage.testUtils'
 
-const ORIGIN = 'https://tolaria.test'
+const ORIGIN = 'https://memoria.test'
 const SERVER = 'https://server.test'
 
 function get(url: string, init: RequestInit = {}): Request {
@@ -55,9 +55,9 @@ describe('routeOfflineRequest', () => {
 
 describe('cache names', () => {
   it('tells the shell versions and the app caches apart', () => {
-    expect(isTolariaCacheName(shellCacheName('v1'))).toBe(true)
-    expect(isTolariaCacheName(accountCacheName('abc'))).toBe(true)
-    expect(isTolariaCacheName('someone-else')).toBe(false)
+    expect(isMemoriaCacheName(shellCacheName('v1'))).toBe(true)
+    expect(isMemoriaCacheName(accountCacheName('abc'))).toBe(true)
+    expect(isMemoriaCacheName('someone-else')).toBe(false)
     expect(isStaleShellCacheName(shellCacheName('v1'), 'v2')).toBe(true)
     expect(isStaleShellCacheName(shellCacheName('v2'), 'v2')).toBe(false)
     expect(isStaleShellCacheName(accountCacheName('abc'), 'v2')).toBe(false)
@@ -98,7 +98,7 @@ describe('cache maintenance', () => {
     await storage.open(shellCacheName('v1'))
     await storage.open(accountCacheName('alice'))
     await storage.open('another-app')
-    await deleteTolariaCaches(storage.asCacheStorage())
+    await deleteMemoriaCaches(storage.asCacheStorage())
     expect(await storage.keys()).toEqual(['another-app'])
   })
 })

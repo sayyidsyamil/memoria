@@ -13,7 +13,7 @@ const profiles = {
 
 export function publishMobileUpdate(environment, execute = executeCommand) {
   const options = publishingOptions(environment)
-  const baseRef = environment.TOLARIA_OTA_BASE_REF
+  const baseRef = environment.MEMORIA_OTA_BASE_REF
     || execute('git', ['rev-list', '--max-parents=0', 'HEAD'], options).trim()
   const base = execute('git', ['rev-parse', '--verify', '--end-of-options', `${baseRef}^{commit}`], options).trim()
   const ancestor = execute('git', ['merge-base', base, 'HEAD'], options).trim()
@@ -24,19 +24,19 @@ export function publishMobileUpdate(environment, execute = executeCommand) {
   requireCredentials(environment)
   const runtime = JSON.parse(execute('pnpm', ['exec', 'expo-updates', 'runtimeversion:resolve',
     '--platform', 'ios', '--workflow', 'managed'], { ...options, cwd: mobileRoot })).runtimeVersion
-  assert.equal(runtime, environment.TOLARIA_OTA_RUNTIME, 'Expected native runtime differs; install and accept a new binary first')
+  assert.equal(runtime, environment.MEMORIA_OTA_RUNTIME, 'Expected native runtime differs; install and accept a new binary first')
   const sha = execute('git', ['rev-parse', 'HEAD'], options).trim()
   assert.match(sha, /^[a-f0-9]{40}$/, 'Invalid source commit')
-  const output = `/tmp/tolaria-ota-${sha}`
-  execute('pnpm', ['--filter', '@tolaria/mobile', 'exec', 'expo', 'export', '--platform', 'ios',
+  const output = `/tmp/memoria-ota-${sha}`
+  execute('pnpm', ['--filter', '@memoria/mobile', 'exec', 'expo', 'export', '--platform', 'ios',
     '--source-maps', '--output-dir', output], options)
-  execute('pnpm', ['--filter', '@tolaria/mobile', 'exec', 'sentry-cli', 'sourcemaps', 'upload',
+  execute('pnpm', ['--filter', '@memoria/mobile', 'exec', 'sentry-cli', 'sourcemaps', 'upload',
     '--org', environment.SENTRY_ORG, '--project', environment.SENTRY_PROJECT,
     '--strict', '--validate', '--wait-for', '120', '--debug-id-reference', '--ext', 'hbc', '--ext', 'map',
     path.join(output, '_expo/static/js/ios')], options)
-  const receipt = execute(environment.TOLARIA_EAS_CLI || 'eas', ['update', '--channel', options.channel,
+  const receipt = execute(environment.MEMORIA_EAS_CLI || 'eas', ['update', '--channel', options.channel,
     '--environment', profiles[options.channel].environment, '--platform', 'ios',
-    '--input-dir', output, '--skip-bundler', '--message', `Tolaria mobile ${sha}`, '--non-interactive', '--json'],
+    '--input-dir', output, '--skip-bundler', '--message', `Memoria mobile ${sha}`, '--non-interactive', '--json'],
   { ...options, cwd: mobileRoot })
   validatePublication(receipt, { channel: options.channel, runtime, sha })
   return { published: true, channel: options.channel, runtime, sha }
@@ -45,21 +45,21 @@ export function publishMobileUpdate(environment, execute = executeCommand) {
 function publishingOptions(environment) {
   const channel = releaseChannel(environment)
   return { cwd: repoRoot, channel, env: {
-    ...environment, EXPO_NO_DOTENV: '1', TOLARIA_BUILD_PROFILE: profiles[channel].profile, TOLARIA_UPDATE_CHANNEL: channel,
+    ...environment, EXPO_NO_DOTENV: '1', MEMORIA_BUILD_PROFILE: profiles[channel].profile, MEMORIA_UPDATE_CHANNEL: channel,
     EXPO_PUBLIC_DISTRIBUTION: profiles[channel].distribution, EXPO_PUBLIC_RELEASE_CHANNEL: profiles[channel].release,
   } }
 }
 
 function releaseChannel(environment) {
-  const channel = environment.TOLARIA_OTA_CHANNEL
+  const channel = environment.MEMORIA_OTA_CHANNEL
   assert(Object.hasOwn(profiles, channel), 'Unknown mobile OTA channel')
   assert(channel === 'ota-validation' || environment.CIRCLE_BRANCH === 'main', 'Release OTA publishing requires main')
   return channel
 }
 
 function validateNativeTarget(environment) {
-  assert.match(environment.TOLARIA_OTA_RUNTIME ?? '', /^[a-f0-9]{40,64}$/, 'Accepted native runtime is required')
-  assert.match(environment.TOLARIA_IOS_BUILD_NUMBER ?? '', /^[1-9][0-9]{0,3}$/, 'Accepted native build number is required')
+  assert.match(environment.MEMORIA_OTA_RUNTIME ?? '', /^[a-f0-9]{40,64}$/, 'Accepted native runtime is required')
+  assert.match(environment.MEMORIA_IOS_BUILD_NUMBER ?? '', /^[1-9][0-9]{0,3}$/, 'Accepted native build number is required')
 }
 
 function mobileRuntimePath(file) {

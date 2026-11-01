@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { build } from 'esbuild'
 
 const REPO_ROOT = fileURLToPath(new URL('../../..', import.meta.url))
-const OUT_DIR = join(REPO_ROOT, 'node_modules', '.tmp', 'tolaria-server')
+const OUT_DIR = join(REPO_ROOT, 'node_modules', '.tmp', 'memoria-server')
 const VITE_ENV = JSON.stringify({ MODE: 'production', DEV: false, PROD: true, SSR: true })
 
 async function bundle(entry: string): Promise<string> {

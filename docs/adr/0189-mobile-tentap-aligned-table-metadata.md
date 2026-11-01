@@ -12,7 +12,7 @@ The mobile editor now needs more of the desktop table surface to be real WYSIWYG
 
 ## Decision
 
-Extend the mobile Tiptap table cell and header nodes with a Tolaria-owned `tolariaAlignment` attribute parsed from `data-tolaria-alignment` / `text-align`, then serialize structured table cells back through the desktop-compatible Markdown table source builder.
+Extend the mobile Tiptap table cell and header nodes with a Memoria-owned `memoriaAlignment` attribute parsed from `data-memoria-alignment` / `text-align`, then serialize structured table cells back through the desktop-compatible Markdown table source builder.
 
 Aligned Markdown tables now hydrate as native TenTap table nodes instead of source-backed paragraphs when the table itself is otherwise desktop-compatible. Unsupported table syntax still remains source-backed rather than lossy.
 

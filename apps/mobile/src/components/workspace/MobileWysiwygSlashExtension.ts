@@ -3,7 +3,7 @@ import { Plugin, PluginKey } from '@10play/tentap-editor/web'
 import { matchingMobileSlashCommands, type MobileSlashAction, type MobileSlashState } from './MobileWysiwygSlashCommands'
 
 type MenuSelection = { signature: string; index: number; dismissed: boolean }
-const selectionKey = new PluginKey<MenuSelection>('tolariaMobileSlash')
+const selectionKey = new PluginKey<MenuSelection>('memoriaMobileSlash')
 const emptySelection: MenuSelection = { signature: '', index: 0, dismissed: false }
 
 export const MobileSlashExtension = Extension.create({

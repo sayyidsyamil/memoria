@@ -12,7 +12,7 @@ afterEach(async () => {
 })
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-native-git-fs-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-native-git-fs-'))
   roots.push(root)
   const counts = { files: 0, lists: 0, directoryNames: 0 }
   const module = {

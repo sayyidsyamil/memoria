@@ -4,8 +4,8 @@ final class MobileSourceFocusTests: XCTestCase {
   func testCreatedSourceNoteFocusesBodyAndDoesNotRefocusAfterChangingMode() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=list&editorMode=source&qaRun=source-focus"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=list&editorMode=source&qaRun=source-focus"]
     app.launch()
     let create = element(app, "note-list-create-action")
     XCTAssertTrue(create.waitForExistence(timeout: 30))

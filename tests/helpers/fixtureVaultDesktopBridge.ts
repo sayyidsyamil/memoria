@@ -3,7 +3,7 @@ export function installFixtureVaultDesktopBridgeInBrowser(): void {
 		window.__laputaTest?.dispatchBrowserMenuCommand ??
 		(() => {
 			throw new Error(
-				"Tolaria test bridge is missing dispatchBrowserMenuCommand",
+				"Memoria test bridge is missing dispatchBrowserMenuCommand",
 			);
 		});
 
@@ -21,7 +21,7 @@ export function installFixtureVaultDesktopBridgeInBrowser(): void {
 		args: Uint8Array,
 		options?: { headers?: Record<string, string> },
 	): Record<string, unknown> => {
-		const encodedPath = options?.headers?.["x-tolaria-note-path"] ?? "";
+		const encodedPath = options?.headers?.["x-memoria-note-path"] ?? "";
 		const pathBytes = Uint8Array.from(atob(encodedPath), (character) =>
 			character.charCodeAt(0),
 		);

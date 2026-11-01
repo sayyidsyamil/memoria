@@ -50,7 +50,7 @@ it.each([{ localVaults: [] }, { localVaults: [starter] }])('preserves an existin
 it('migrates a legacy folder instead of creating the starter', async () => {
   state.legacy.mockResolvedValue({ vaultLabel: 'Legacy' })
   const result = await initializeLocalVaultCatalog()
-  expect(result.localVaults).toEqual([{ id: 'local-legacy', label: 'Legacy', directory: 'Tolaria Vault' }])
+  expect(result.localVaults).toEqual([{ id: 'local-legacy', label: 'Legacy', directory: 'Memoria Vault' }])
   expect(state.starter).not.toHaveBeenCalled()
 })
 

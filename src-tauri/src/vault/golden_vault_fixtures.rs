@@ -173,7 +173,7 @@ fn verify_against_golden(vault_path: &Path, golden_path: &Path) -> Result<(), St
              Expected {} entries, got {} entries.\n\
              \n\
              To update the golden fixture, run:\n\
-             REGENERATE_GOLDEN=1 cargo test --package tolaria --lib vault::golden_vault_fixtures\n\
+             REGENERATE_GOLDEN=1 cargo test --package memoria --lib vault::golden_vault_fixtures\n\
              \n\
              Current output:\n{}\n\
              \n\

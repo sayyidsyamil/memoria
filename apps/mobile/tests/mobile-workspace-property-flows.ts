@@ -61,10 +61,10 @@ async function editSelectedReleaseTags(page: PageLike) {
   await page.getByTestId('property-tags-edit').click()
   await expect(page.getByTestId('workspace-property-name-input')).toHaveValue('tags')
   await expect(page.getByTestId('workspace-property-kind-list')).toBeVisible()
-  await expect(page.getByTestId('workspace-property-value-input')).toHaveValue('Tolaria MVP')
-  await page.getByTestId('workspace-property-value-input').fill('Tolaria MVP, De')
+  await expect(page.getByTestId('workspace-property-value-input')).toHaveValue('Memoria MVP')
+  await page.getByTestId('workspace-property-value-input').fill('Memoria MVP, De')
   await page.getByTestId('workspace-property-value-suggestion-design').click()
-  await expect(page.getByTestId('workspace-property-value-input')).toHaveValue('Tolaria MVP, Design')
+  await expect(page.getByTestId('workspace-property-value-input')).toHaveValue('Memoria MVP, Design')
   await page.getByTestId('workspace-action-sheet-editProperty').getByRole('button', { name: 'Save' }).click()
   await expect(page.getByTestId('property-tags-wrap')).toContainText('Design')
 }
@@ -90,9 +90,9 @@ async function addTypedProperties(page: PageLike) {
   await page.getByTestId('workspace-property-name-input').fill('URL')
   await expect(page.getByTestId('workspace-property-kind-url')).toHaveAttribute('aria-selected', 'true')
   await expect(page.getByTestId('workspace-property-value-input')).toHaveAttribute('placeholder', 'https://')
-  await page.getByTestId('workspace-property-value-input').fill('https://tolaria.app')
+  await page.getByTestId('workspace-property-value-input').fill('https://memoria.app')
   await page.getByTestId('workspace-action-sheet-addProperty').getByRole('button', { name: 'Save' }).click()
-  await expect(page.getByTestId('property-row-url')).toContainText('https://tolaria.app')
+  await expect(page.getByTestId('property-row-url')).toContainText('https://memoria.app')
 
   await page.getByTestId('property-action-add-property').click()
   await page.getByTestId('workspace-property-name-input').fill('Brand color')
@@ -111,8 +111,8 @@ async function moveAndRenameSelectedRelease(page: PageLike) {
   await expect(page.getByTestId('workspace-move-folder-input')).toBeVisible()
   await page.getByTestId('workspace-move-folder-input').fill('Missing Folder')
   await expect(page.getByTestId('workspace-action-sheet-moveNoteToFolder').getByRole('button', { name: 'Save' })).toBeDisabled()
-  await page.getByTestId('workspace-move-folder-input').fill('Tolaria')
-  await page.getByTestId('workspace-move-folder-suggestion-tolaria-mobile-ui').click()
+  await page.getByTestId('workspace-move-folder-input').fill('Memoria')
+  await page.getByTestId('workspace-move-folder-suggestion-memoria-mobile-ui').click()
   const moveSaveButton = page.getByTestId('workspace-action-sheet-moveNoteToFolder').getByRole('button', { name: 'Save' })
   await expect(moveSaveButton).toBeEnabled()
   await moveSaveButton.click()
@@ -145,14 +145,14 @@ export async function renameSelectedFileToTitle(page: PageLike) {
   await page.getByTestId('editor-more-action').click()
   await page.getByTestId('workspace-action-group-file').click()
   await page.getByTestId('workspace-action-copy-deep-link').click()
-  await expect(latestClipboardAttempt(page)).resolves.toBe('tolaria://tv/Tolaria/Mobile%20UI/workflow-orchestration-essay.md')
+  await expect(latestClipboardAttempt(page)).resolves.toBe('memoria://tv/Memoria/Mobile%20UI/workflow-orchestration-essay.md')
 }
 
 async function assertSelectedReleaseDeepLink(page: PageLike) {
   await page.getByTestId('editor-more-action').click()
   await page.getByTestId('workspace-action-group-file').click()
   await page.getByTestId('workspace-action-copy-deep-link').click()
-  await expect(latestClipboardAttempt(page)).resolves.toBe('tolaria://tv/Tolaria/Mobile%20UI/release-cleanup.md')
+  await expect(latestClipboardAttempt(page)).resolves.toBe('memoria://tv/Memoria/Mobile%20UI/release-cleanup.md')
 }
 
 async function assertSelectedReleasePdfExport(page: PageLike) {

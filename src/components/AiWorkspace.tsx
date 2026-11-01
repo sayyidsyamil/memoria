@@ -26,6 +26,7 @@ import { AiTargetModelPicker } from './AiAgentModelPicker'
 import { ConversationSidebar } from './AiWorkspaceSidebar'
 import { ResizeHandle } from './ResizeHandle'
 import { SideWorkspaceHeader } from './AiWorkspaceSideHeader'
+import { MemoryAsk } from './MemoryAsk'
 import { useAiPanelController } from './useAiPanelController'
 import { buildAiWorkspaceTargetGroups, type AiWorkspaceTargetGroups } from './aiWorkspaceTargetGroups'
 import {
@@ -711,6 +712,7 @@ function SideAiWorkspaceLayout({
 }) {
   const [expanded, setExpanded] = useState(false)
   const [headerSeparated, setHeaderSeparated] = useState(false)
+  const [assistantMode, setAssistantMode] = useState<'knowledge' | 'chat'>('knowledge')
 
   return (
     <aside
@@ -738,11 +740,20 @@ function SideAiWorkspaceLayout({
           separated={headerSeparated}
           statuses={model.statuses}
         />
+        <div className="flex shrink-0 gap-2 border-b border-border px-3 py-2" role="group" aria-label="Assistant mode">
+          <Button className="min-h-[44px]" size="sm" variant={assistantMode === 'knowledge' ? 'secondary' : 'ghost'} aria-pressed={assistantMode === 'knowledge'} onClick={() => setAssistantMode('knowledge')}>Ask / Brief</Button>
+          <Button className="min-h-[44px]" size="sm" variant={assistantMode === 'chat' ? 'secondary' : 'ghost'} aria-pressed={assistantMode === 'chat'} onClick={() => setAssistantMode('chat')}>General chat</Button>
+        </div>
+        <div className={assistantMode === 'knowledge' ? 'flex min-h-0 flex-1 flex-col' : 'hidden'}>
+          <MemoryAsk key={workspace.vaultPath} vaultPath={workspace.vaultPath} />
+        </div>
+        <div className={assistantMode === 'chat' ? 'flex min-h-0 flex-1 flex-col' : 'hidden'}>
         <ConversationSessions
           model={model}
           workspace={workspace}
           onMessageHistoryScrollStateChange={setHeaderSeparated}
         />
+        </div>
       </div>
     </aside>
   )

@@ -11,7 +11,7 @@ const CONTRIBUTION_ACTIONS: ContributionAction[] = [
 	{
 		activation: "Enter",
 		label: "Check out Refactoring",
-		url: "https://refactoring.fm/?utm_source=tolaria&utm_medium=app&utm_campaign=refactoring",
+		url: "https://refactoring.fm/?utm_source=memoria&utm_medium=app&utm_campaign=refactoring",
 	},
 	{
 		activation: "Enter",
@@ -21,21 +21,21 @@ const CONTRIBUTION_ACTIONS: ContributionAction[] = [
 	{
 		activation: "Space",
 		label: "Open CodeScene",
-		url: "https://codescene.com/?utm_source=tolaria&utm_medium=app&utm_campaign=refactoring",
+		url: "https://codescene.com/?utm_source=memoria&utm_medium=app&utm_campaign=refactoring",
 	},
 	{
 		activation: "Enter",
 		label: "Open CircleCI",
-		url: "https://circleci.com/?utm_source=tolaria&utm_medium=app&utm_campaign=refactoring",
+		url: "https://circleci.com/?utm_source=memoria&utm_medium=app&utm_campaign=refactoring",
 	},
 	{
 		activation: "Space",
 		label: "Open Unblocked",
-		url: "https://getunblocked.com/?utm_source=tolaria&utm_medium=app&utm_campaign=refactoring",
+		url: "https://getunblocked.com/?utm_source=memoria&utm_medium=app&utm_campaign=refactoring",
 	},
 	{
 		activation: "Enter",
-		label: "how I develop Tolaria",
+		label: "how I develop Memoria",
 		url: "https://refactoring.fm/p/introducing-the-tolaria-alliance",
 	},
 	{
@@ -70,8 +70,8 @@ async function expectOpenedUrl(page: Page, url: string): Promise<void> {
 		.poll(async () =>
 			page.evaluate(
 				() =>
-					(window as typeof window & { __tolariaOpenedUrls: string[] })
-						.__tolariaOpenedUrls,
+					(window as typeof window & { __memoriaOpenedUrls: string[] })
+						.__memoriaOpenedUrls,
 			),
 		)
 		.toContain(url);
@@ -81,7 +81,7 @@ test.describe("Contribute modal", () => {
 	test.beforeEach(async ({ page }) => {
 		await page.addInitScript(() => {
 			const openedUrls: string[] = [];
-			Object.defineProperty(window, "__tolariaOpenedUrls", {
+			Object.defineProperty(window, "__memoriaOpenedUrls", {
 				configurable: true,
 				value: openedUrls,
 			});
@@ -91,7 +91,7 @@ test.describe("Contribute modal", () => {
 			}) as typeof window.open;
 
 			const copiedBundles: string[] = [];
-			Object.defineProperty(window, "__tolariaCopiedBundles", {
+			Object.defineProperty(window, "__memoriaCopiedBundles", {
 				configurable: true,
 				value: copiedBundles,
 			});
@@ -119,7 +119,7 @@ test.describe("Contribute modal", () => {
 
 		await expect(page.getByTestId("feedback-dialog")).toBeVisible();
 		await expect(
-			page.getByRole("heading", { name: "Contribute to Tolaria" }),
+			page.getByRole("heading", { name: "Contribute to Memoria" }),
 		).toBeVisible();
 		await expect(
 			page.getByRole("button", { name: "Check out Refactoring" }),
@@ -143,8 +143,8 @@ test.describe("Contribute modal", () => {
 			.poll(async () =>
 				page.evaluate(
 					() =>
-						(window as typeof window & { __tolariaCopiedBundles: string[] })
-							.__tolariaCopiedBundles.length,
+						(window as typeof window & { __memoriaCopiedBundles: string[] })
+							.__memoriaCopiedBundles.length,
 				),
 			)
 			.toBe(1);

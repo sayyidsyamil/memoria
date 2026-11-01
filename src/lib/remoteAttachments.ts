@@ -6,7 +6,7 @@ import { trackEvent } from './telemetry'
 import { createRemoteAttachmentClient } from './vaultBackend'
 
 /**
- * Images on a Tolaria remote (TOL-204), loaded only once an editor needs them: uploads and
+ * Images on a Memoria remote (TOL-204), loaded only once an editor needs them: uploads and
  * imports become files under `attachments/` on the server, and notes link them with the same
  * portable `attachments/...` path the desktop app writes. Display goes through an object URL
  * because the server only answers requests that carry the session's bearer token.
@@ -16,7 +16,7 @@ const objectUrls = new Map<string, Promise<string>>()
 
 function attachments(): RemoteAttachments {
   const client = createRemoteAttachmentClient()
-  if (!client) throw new Error('No Tolaria remote is configured')
+  if (!client) throw new Error('No Memoria remote is configured')
   return client
 }
 

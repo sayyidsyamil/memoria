@@ -47,8 +47,8 @@ vi.mock('expo-file-system', () => {
 })
 
 const revision = 'a'.repeat(40)
-const marker = '/documents/.tolaria-mobile-config/starter-vault.json'
-const staging = '/documents/.tolaria-mobile-config/starter-vault-staging'
+const marker = '/documents/.memoria-mobile-config/starter-vault.json'
+const staging = '/documents/.memoria-mobile-config/starter-vault-staging'
 const destination = '/documents/Local Vaults/getting-started'
 const record = JSON.stringify({ version: 1, revision, label: 'Getting Started' })
 const populate = async (directory: Directory) => { new File(directory, 'note.md').write('# Note') }
@@ -64,7 +64,7 @@ it('publishes a complete local-only copy before returning the catalog record', a
   expect(disk.files.has(marker)).toBe(true)
 })
 
-it.each(['Tolaria Vault', 'Local Vaults', 'Git Vaults'])('does not initialize over existing %s data', async path => {
+it.each(['Memoria Vault', 'Local Vaults', 'Git Vaults'])('does not initialize over existing %s data', async path => {
   disk.directories.add(`/documents/${path}`)
   disk.files.set(`/documents/${path}/user.md`, 'User content')
   const before = [...disk.files]
@@ -73,7 +73,7 @@ it.each(['Tolaria Vault', 'Local Vaults', 'Git Vaults'])('does not initialize ov
 })
 
 it.each(['', '.backup', '.pending'])('does not reinterpret a prior catalog%s as a first launch', async suffix => {
-  disk.files.set(`/documents/.tolaria-mobile-config/git-vaults.json${suffix}`, 'existing metadata')
+  disk.files.set(`/documents/.memoria-mobile-config/git-vaults.json${suffix}`, 'existing metadata')
   expect(await prepareStarterVault(template)).toBeNull()
   expect(disk.files.size).toBe(1)
 })
@@ -154,7 +154,7 @@ it('does not claim an orphan staging directory without its ownership marker', as
 
 it('does not promote a pending marker over a subsequently created catalog', async () => {
   disk.files.set(`${marker}.pending`, record)
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json', 'Existing catalog')
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json', 'Existing catalog')
   await expect(prepareStarterVault(template)).rejects.toThrow('starterVaultRecoveryRequired')
   expect(disk.files.has(marker)).toBe(false)
 })

@@ -7,8 +7,8 @@ import {
 } from './mobileDocumentContent'
 import type { MobileNote } from './mobileWorkspaceModel'
 
-export const MOBILE_PDF_EXPORT_ATTEMPTS_GLOBAL_KEY = '__TOLARIA_MOBILE_PDF_EXPORT_ATTEMPTS__'
-export const MOBILE_PDF_EXPORTS_GLOBAL_KEY = '__TOLARIA_MOBILE_PDF_EXPORTS__'
+export const MOBILE_PDF_EXPORT_ATTEMPTS_GLOBAL_KEY = '__MEMORIA_MOBILE_PDF_EXPORT_ATTEMPTS__'
+export const MOBILE_PDF_EXPORTS_GLOBAL_KEY = '__MEMORIA_MOBILE_PDF_EXPORTS__'
 
 export type MobilePdfExportPayload = {
   fileName: PdfFileName

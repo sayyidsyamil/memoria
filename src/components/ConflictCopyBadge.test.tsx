@@ -5,8 +5,8 @@ import { ConflictCopyBadge } from "./ConflictCopyBadge";
 const COPY = "notes/plan (conflict 2026-10-24 2210).md";
 
 function connectToRemote() {
-	vi.stubGlobal("TOLARIA_REMOTE_URL", "https://tolaria.example");
-	vi.stubGlobal("TOLARIA_REMOTE_TOKEN", "token-not-a-secret");
+	vi.stubGlobal("MEMORIA_REMOTE_URL", "https://memoria.example");
+	vi.stubGlobal("MEMORIA_REMOTE_TOKEN", "token-not-a-secret");
 }
 
 describe("ConflictCopyBadge", () => {

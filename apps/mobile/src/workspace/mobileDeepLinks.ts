@@ -1,6 +1,6 @@
 import type { MobileNote, MobileWorkspaceSource } from './mobileWorkspaceModel'
 
-export const TOLARIA_MOBILE_DEEP_LINK_SCHEME = 'tolaria'
+export const MEMORIA_MOBILE_DEEP_LINK_SCHEME = 'memoria'
 
 export type MobileDeepLinkBuildError = 'missing_note' | 'missing_vault' | 'unsafe_path'
 
@@ -29,7 +29,7 @@ export function buildMobileDeepLinkForNote({
 
   return {
     ok: true,
-    url: `${TOLARIA_MOBILE_DEEP_LINK_SCHEME}://${slug}/${encodeRelativePath(relativePath)}`,
+    url: `${MEMORIA_MOBILE_DEEP_LINK_SCHEME}://${slug}/${encodeRelativePath(relativePath)}`,
   }
 }
 

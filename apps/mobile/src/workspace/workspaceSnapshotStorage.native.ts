@@ -3,7 +3,7 @@ import { nativeApplicationVersion, nativeBuildVersion } from 'expo-application'
 import * as files from 'expo-file-system/legacy'
 import type { SnapshotCacheStorage } from './workspaceSnapshotCache'
 
-const root = files.cacheDirectory ? `${files.cacheDirectory}tolaria-workspace-snapshots/` : null
+const root = files.cacheDirectory ? `${files.cacheDirectory}memoria-workspace-snapshots/` : null
 const maxBytes = 32 * 1024 * 1024
 
 export const workspaceSnapshotStorage: SnapshotCacheStorage = {

@@ -117,7 +117,7 @@ vi.mock("@blocknote/mantine", () => ({
 
 vi.mock("@blocknote/mantine/style.css", () => ({}));
 
-vi.mock("./components/tolariaEditorFormatting", () => ({
-	TolariaFormattingToolbar: () => null,
-	TolariaFormattingToolbarController: () => null,
+vi.mock("./components/memoriaEditorFormatting", () => ({
+	MemoriaFormattingToolbar: () => null,
+	MemoriaFormattingToolbarController: () => null,
 }));

@@ -45,7 +45,7 @@ import {
 import { resolveEntry } from "../utils/wikilink";
 import { resolveWikilinkColor as resolveColor } from "../utils/wikilinkColors";
 import { CalloutBlockSpec } from "./CalloutBlock";
-import { createTolariaCodeBlockOptions } from "./codeBlockOptions";
+import { createMemoriaCodeBlockOptions } from "./codeBlockOptions";
 import { dispatchRichEditorExternalChange } from "./editorExternalChangeEvents";
 import {
 	readCodecPreElement,
@@ -60,7 +60,7 @@ import {
 } from "./richEditorTransformErrorRecoveryExtension";
 import { SafeHtmlSpan } from "./SafeMarkup";
 import { TldrawBlockView } from "./TldrawBlockView";
-import { tolariaFileBlock } from "./tolariaFileBlockSpec";
+import { memoriaFileBlock } from "./memoriaFileBlockSpec";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 
@@ -370,7 +370,7 @@ export function mediaBlockPropsForPreviewRuntime<
 	};
 }
 
-export function TolariaAudioBlock(props: AudioBlockProps) {
+export function MemoriaAudioBlock(props: AudioBlockProps) {
 	const externalMediaPreview = useExternalMediaPreview();
 	return (
 		<AudioBlock
@@ -379,7 +379,7 @@ export function TolariaAudioBlock(props: AudioBlockProps) {
 	);
 }
 
-export function TolariaVideoBlock(props: VideoBlockProps) {
+export function MemoriaVideoBlock(props: VideoBlockProps) {
 	const externalMediaPreview = useExternalMediaPreview();
 	return (
 		<VideoBlock
@@ -391,7 +391,7 @@ export function TolariaVideoBlock(props: VideoBlockProps) {
 const AudioBlockSpec = createReactBlockSpec(
 	createAudioBlockConfig,
 	(config) => ({
-		render: TolariaAudioBlock,
+		render: MemoriaAudioBlock,
 		parse: audioParse(config),
 		toExternalHTML: AudioToExternalHTML,
 		runsBefore: ["file"],
@@ -401,7 +401,7 @@ const AudioBlockSpec = createReactBlockSpec(
 const VideoBlockSpec = createReactBlockSpec(
 	createVideoBlockConfig,
 	(config) => ({
-		render: TolariaVideoBlock,
+		render: MemoriaVideoBlock,
 		parse: videoParse(config),
 		toExternalHTML: VideoToExternalHTML,
 		runsBefore: ["file"],
@@ -455,7 +455,7 @@ function languageControlMutation(mutation: ViewMutationRecord): boolean {
 	);
 }
 
-const codeBlock = createCodeBlockSpec(createTolariaCodeBlockOptions());
+const codeBlock = createCodeBlockSpec(createMemoriaCodeBlockOptions());
 const renderCodeBlock = codeBlock.implementation.render;
 codeBlock.implementation.render = function (block, editor) {
 	const view = renderCodeBlock.call(this, block, editor);
@@ -508,7 +508,7 @@ export const schema = BlockNoteSchema.create({
 	},
 	blockSpecs: {
 		audio: audioBlock,
-		file: tolariaFileBlock,
+		file: memoriaFileBlock,
 		calloutBlock,
 		[EMBEDDED_BLOCK_TYPE]: embeddedBlock,
 		mathBlock,

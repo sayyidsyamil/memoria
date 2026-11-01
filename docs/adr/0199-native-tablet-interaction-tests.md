@@ -23,7 +23,7 @@ Reinstall the disposable runner for every run: unsigned Xcode runner caching was
 observed to execute an older test binary after a successful rebuild.
 
 This is an additional scoped QA command, not part of every experimental commit.
-It never removes the Tolaria app or changes vault/account data. It does not unlock
+It never removes the Memoria app or changes vault/account data. It does not unlock
 the host or interact with unrelated Mac applications.
 
 ## Consequences

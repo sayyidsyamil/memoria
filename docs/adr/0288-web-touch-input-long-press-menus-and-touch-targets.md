@@ -8,7 +8,7 @@ date: 2026-10-24
 
 ## Context
 
-On phones and iPads the web build still behaved like the desktop under a mouse. Note, type, view and folder actions open from right-click menus, which a finger cannot reach: iOS Safari sends no `contextmenu` for a long press, and Android Chrome sends one but follows it with text selection. Icon buttons in the note list header and the sidebar measure 14 to 24 px, below the 44 px that Apple and Google ask for. The empty editor advertised keyboard chords. TOL-24 asks for long-press menus, 44 px targets and a touch-first empty state, reusing Tolaria's components and leaving the desktop app and a mouse-driven browser unchanged. The mobile product rules still apply: the shell opens at once from the cache, and nothing may delay the first paint.
+On phones and iPads the web build still behaved like the desktop under a mouse. Note, type, view and folder actions open from right-click menus, which a finger cannot reach: iOS Safari sends no `contextmenu` for a long press, and Android Chrome sends one but follows it with text selection. Icon buttons in the note list header and the sidebar measure 14 to 24 px, below the 44 px that Apple and Google ask for. The empty editor advertised keyboard chords. TOL-24 asks for long-press menus, 44 px targets and a touch-first empty state, reusing Memoria's components and leaving the desktop app and a mouse-driven browser unchanged. The mobile product rules still apply: the shell opens at once from the cache, and nothing may delay the first paint.
 
 ## Decision
 

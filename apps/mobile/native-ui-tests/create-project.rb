@@ -10,7 +10,7 @@ target.add_file_references(sources.map { |source| project.main_group.new_file(so
 target.build_configurations.each do |config|
   config.build_settings.merge!({
     'SWIFT_VERSION' => '5.0',
-    'PRODUCT_BUNDLE_IDENTIFIER' => 'com.tolaria.mobile.tablet-gesture-tests',
+    'PRODUCT_BUNDLE_IDENTIFIER' => 'com.memoria.mobile.tablet-gesture-tests',
     'GENERATE_INFOPLIST_FILE' => 'YES',
     'CODE_SIGNING_ALLOWED' => 'NO',
     'TARGETED_DEVICE_FAMILY' => '1,2',

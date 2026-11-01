@@ -24,7 +24,7 @@ vi.mock('expo-file-system', () => ({
   },
 }))
 
-const current = '/documents/.tolaria-mobile-config/sync-history.json'
+const current = '/documents/.memoria-mobile-config/sync-history.json'
 const saved = JSON.stringify({ alpha: emptySyncRecord })
 beforeEach(() => { disk.files.clear(); disk.failPublish = false })
 

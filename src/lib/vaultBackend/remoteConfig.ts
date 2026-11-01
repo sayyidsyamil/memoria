@@ -1,17 +1,17 @@
 import { currentVaultBasePath } from '../sharing/sharedVaultLocation'
 
-/** The Tolaria remote the web build talks to: where its `/v1` is, and the bearer credential. */
+/** The Memoria remote the web build talks to: where its `/v1` is, and the bearer credential. */
 export interface RemoteVaultConfig {
   baseUrl: string
   token: string
 }
 
-type RemoteWindow = { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
-/** The remote configured on window (`TOLARIA_REMOTE_URL`, `TOLARIA_REMOTE_TOKEN`), or null. */
+/** The remote configured on window (`MEMORIA_REMOTE_URL`, `MEMORIA_REMOTE_TOKEN`), or null. */
 export function remoteVaultConfig(): RemoteVaultConfig | null {
   if (typeof window === 'undefined') return null
-  const { TOLARIA_REMOTE_URL: baseUrl, TOLARIA_REMOTE_TOKEN: token } = window as RemoteWindow
+  const { MEMORIA_REMOTE_URL: baseUrl, MEMORIA_REMOTE_TOKEN: token } = window as RemoteWindow
   return baseUrl && token ? { baseUrl, token } : null
 }
 
@@ -22,7 +22,7 @@ export function remoteVaultConfig(): RemoteVaultConfig | null {
  */
 export function applySharedVaultBase(win: RemoteWindow = window as RemoteWindow): void {
   const base = currentVaultBasePath()
-  const serverUrl = win.TOLARIA_REMOTE_URL
+  const serverUrl = win.MEMORIA_REMOTE_URL
   if (!base || !serverUrl || serverUrl.endsWith(base)) return
-  win.TOLARIA_REMOTE_URL = `${serverUrl}${base}`
+  win.MEMORIA_REMOTE_URL = `${serverUrl}${base}`
 }

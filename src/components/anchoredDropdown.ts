@@ -49,7 +49,7 @@ function getViewport(): AnchoredDropdownViewport {
 
 function getRootZoom(): number {
   const style = getComputedStyle(document.documentElement)
-  const overlayZoom = parseZoomValue(style.getPropertyValue('--tolaria-overlay-zoom-factor').trim())
+  const overlayZoom = parseZoomValue(style.getPropertyValue('--memoria-overlay-zoom-factor').trim())
   if (overlayZoom !== null) return overlayZoom
   return (
     parseZoomValue(style.getPropertyValue('zoom')) ??

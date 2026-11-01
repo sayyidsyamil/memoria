@@ -32,14 +32,14 @@ describe('native workspace access', () => {
       importWorkspace: vi.fn(),
       pickAndImportWorkspace: vi.fn().mockResolvedValue({
         label: 'Laputa',
-        uri: 'file:///managed/Tolaria%20Vault/',
+        uri: 'file:///managed/Memoria%20Vault/',
       }),
       restoreWorkspace: vi.fn(),
     }
 
     await expect(pickAndImportNativeWorkspace(module)).resolves.toEqual({
       label: 'Laputa',
-      uri: 'file:///managed/Tolaria%20Vault/',
+      uri: 'file:///managed/Memoria%20Vault/',
     })
   })
 

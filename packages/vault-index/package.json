@@ -1,5 +1,5 @@
 {
-  "name": "@tolaria/vault-index",
+  "name": "@memoria/vault-index",
   "version": "0.1.0",
   "type": "module",
   "description": "TypeScript vault indexer: turns note files + frontmatter into VaultEntry objects",

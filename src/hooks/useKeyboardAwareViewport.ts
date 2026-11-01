@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 /** Read by the phone layout in App.css: the part of the page the keyboard leaves visible. */
-export const VISUAL_VIEWPORT_HEIGHT_VAR = '--tolaria-visual-viewport-height'
-export const VISUAL_VIEWPORT_TOP_VAR = '--tolaria-visual-viewport-top'
+export const VISUAL_VIEWPORT_HEIGHT_VAR = '--memoria-visual-viewport-height'
+export const VISUAL_VIEWPORT_TOP_VAR = '--memoria-visual-viewport-top'
 /** Room kept between the caret and the top of the keyboard. */
 const CARET_MARGIN_PX = 24
 const EDITABLE_SELECTOR = '[contenteditable]:not([contenteditable="false"])'

@@ -63,8 +63,8 @@ final class TabletNoteActionGroupTests: XCTestCase {
 
   private func launchFixture() -> XCUIApplication {
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=editor&editorMode=wysiwyg&qaRun=xctest"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=editor&editorMode=wysiwyg&qaRun=xctest"]
     app.launch()
     XCTAssertTrue(element(app, "editor-more-action").waitForExistence(timeout: 60))
     return app

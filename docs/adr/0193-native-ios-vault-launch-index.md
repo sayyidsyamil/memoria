@@ -13,7 +13,7 @@ pure snapshot builder could render the workspace.
 
 ## Decision
 
-The local `TolariaWorkspaceAccess` Expo module enumerates the managed vault on a
+The local `MemoriaWorkspaceAccess` Expo module enumerates the managed vault on a
 native asynchronous function and returns one JSON launch index containing folder
 paths and file metadata/content. The filesystem repository accepts that index as
 an optional input to its existing pure snapshot builder.

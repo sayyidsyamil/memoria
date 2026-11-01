@@ -4,11 +4,11 @@ import XCTest
 // Clones only; never commits, changes AutoGit, or pushes to the real repository.
 final class TabletAuthenticatedRepositoryTests: XCTestCase {
   func testAuthenticatedPickerAndLaputaClone() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_AUTHENTICATED_CLONE"] == "1", "Requires explicit read-only clone authorization and an existing GitHub session")
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_AUTHENTICATED_CLONE"] == "1", "Requires explicit read-only clone authorization and an existing GitHub session")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&qaRun=authenticated-repository"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&qaRun=authenticated-repository"]
     app.launch()
     let vaults = element(app, "open-mobile-settings")
     XCTAssertTrue(vaults.waitForExistence(timeout: 60))

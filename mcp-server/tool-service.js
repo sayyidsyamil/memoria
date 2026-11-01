@@ -41,7 +41,7 @@ export function createMcpToolService({
 			typeof args.vaultPath === "string" ? args.vaultPath.trim() : "";
 		if (!requested) return null;
 		if (!activeVaultPaths().includes(requested)) {
-			throw new Error(`Vault is not active in Tolaria: ${requested}`);
+			throw new Error(`Vault is not active in Memoria: ${requested}`);
 		}
 		return requested;
 	}

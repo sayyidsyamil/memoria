@@ -14,7 +14,7 @@ const roots: string[] = []
 afterEach(async () => { for (const dir of roots.splice(0)) await rm(dir, { recursive: true, force: true }) })
 
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-manual-git-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-manual-git-'))
   roots.push(dir)
   await git.init({ fs, dir, defaultBranch: 'main' })
   await git.setConfig({ fs, dir, path: 'remote.origin.url', value: 'https://github.com/team/vault.git' })
@@ -48,7 +48,7 @@ async function pendingCheckout() {
   await writeFile(join(context.dir, 'note.md'), '# Recovered note\n')
   const target = (await createGitVault(context).checkpoint(author)).oid
   await git.checkout({ ...context, ref: 'main' })
-  const journal = join(context.dir, '.git', 'tolaria-checkout.json')
+  const journal = join(context.dir, '.git', 'memoria-checkout.json')
   await writeFile(journal, JSON.stringify({ version: 1, branch: 'main', before, target }))
   return { context, target, journal }
 }

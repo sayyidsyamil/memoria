@@ -13,7 +13,7 @@
     "section": "start",
     "headings": [
       "What You Choose",
-      "What Tolaria Creates",
+      "What Memoria Creates",
       "First Commands To Try",
       "AI Setup Prompt"
     ]
@@ -31,7 +31,7 @@
     ]
   },
   {
-    "title": "Install Tolaria",
+    "title": "Install Memoria",
     "path": "pages/start/install.md",
     "url": "/start/install",
     "section": "start",
@@ -102,7 +102,7 @@
     "url": "/concepts/git",
     "section": "concepts",
     "headings": [
-      "What Tolaria Uses Git For",
+      "What Memoria Uses Git For",
       "History And Diffs",
       "Local Commits",
       "Remotes",
@@ -498,7 +498,7 @@
     "section": "reference",
     "headings": [
       "Basic Syntax",
-      "Tolaria Note References",
+      "Memoria Note References",
       "Autocomplete Functions",
       "Logical",
       "Math and trigonometry",

@@ -22,11 +22,11 @@ interface PersistedState {
 }
 
 const GETTING_STARTED_PATH = "/Users/mock/Documents/Getting Started";
-const STATE_KEY = "tolaria:test-vault-state";
+const STATE_KEY = "memoria:test-vault-state";
 
 async function installOnboardingVaultMocks(page: Page, config: MockConfig) {
 	await page.addInitScript((mockConfig) => {
-		const stateKey = "tolaria:test-vault-state";
+		const stateKey = "memoria:test-vault-state";
 		const defaultSettings = {
 			auto_pull_interval_minutes: null,
 			telemetry_consent: true,
@@ -82,11 +82,11 @@ async function installOnboardingVaultMocks(page: Page, config: MockConfig) {
 		};
 
 		if (!mockConfig.hangAgentProbe) {
-			localStorage.setItem("tolaria:ai-agents-onboarding-dismissed", "1");
-			localStorage.setItem("tolaria:claude-code-onboarding-dismissed", "1");
+			localStorage.setItem("memoria:ai-agents-onboarding-dismissed", "1");
+			localStorage.setItem("memoria:claude-code-onboarding-dismissed", "1");
 		} else {
-			localStorage.removeItem("tolaria:ai-agents-onboarding-dismissed");
-			localStorage.removeItem("tolaria:claude-code-onboarding-dismissed");
+			localStorage.removeItem("memoria:ai-agents-onboarding-dismissed");
+			localStorage.removeItem("memoria:claude-code-onboarding-dismissed");
 		}
 		if (!localStorage.getItem(stateKey)) {
 			writeState(defaultState);

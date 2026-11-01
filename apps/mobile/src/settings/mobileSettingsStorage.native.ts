@@ -1,7 +1,7 @@
 import { File, Paths } from 'expo-file-system'
 import { parseMobileSettings, type MobileSettings } from './mobileSettings'
 
-function settingsFile(suffix = '') { return new File(Paths.document, '.tolaria-mobile-config', `settings.json${suffix}`) }
+function settingsFile(suffix = '') { return new File(Paths.document, '.memoria-mobile-config', `settings.json${suffix}`) }
 
 export async function readMobileSettings(): Promise<MobileSettings> {
   const current = settingsFile()

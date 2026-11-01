@@ -8,8 +8,8 @@ final class TabletAppearanceTests: XCTestCase {
   }
 
   func testDesktopColorsReachNativePanelsAndRichEditorAndPersist() {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native&editorMode=wysiwyg&qaRun=appearance"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native&editorMode=wysiwyg&qaRun=appearance"]
     app.launch()
     let title = element(app, "editor-toolbar-title")
     XCTAssertTrue(title.waitForExistence(timeout: 30))
@@ -27,8 +27,8 @@ final class TabletAppearanceTests: XCTestCase {
   }
 
   func testDarkInspectorDialogsAndSourceEditor() {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&qaRun=dark-surfaces"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&qaRun=dark-surfaces"]
     app.launch()
     XCTAssertTrue(element(app, "editor-toolbar-title").waitForExistence(timeout: 30))
     selectTheme(app, "dark")

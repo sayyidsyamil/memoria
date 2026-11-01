@@ -4,13 +4,13 @@ import UIKit
 final class MobilePropertiesViewportTests: XCTestCase {
   func testPropertiesFitBelowHeaderAndKeepBottomActionsReachable() {
     continueAfterFailure = false
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     app.terminate()
     let phone = UIDevice.current.userInterfaceIdiom == .phone
     XCUIDevice.shared.orientation = phone ? .portrait : .landscapeLeft
     let search = "?source=fixture&phoneState=properties&forceDesktopPanels=1&qaRun=properties-viewport"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     defer { app.terminate() }
     let panel = element(app, "properties-panel")

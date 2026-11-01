@@ -72,10 +72,10 @@ describe('assertPublicEndpoint', () => {
 
   it('refuses a host that does not resolve, or resolves to nothing', async () => {
     await expect(assertPublicEndpoint('https://missing.example', resolving({}))).rejects.toThrowError(
-      'TOLARIA_R2_ENDPOINT host missing.example could not be resolved',
+      'MEMORIA_R2_ENDPOINT host missing.example could not be resolved',
     )
     await expect(assertPublicEndpoint('https://empty.example', resolving({ 'empty.example': [] }))).rejects.toThrowError(
-      'TOLARIA_R2_ENDPOINT host empty.example resolves to no address',
+      'MEMORIA_R2_ENDPOINT host empty.example resolves to no address',
     )
   })
 })

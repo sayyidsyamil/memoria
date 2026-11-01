@@ -58,7 +58,7 @@ function note(input: Partial<MobileNote> & Pick<MobileNote, 'id'>): MobileNote {
     title: input.id,
     type: 'Note',
     typeTone: 'gray',
-    workspace: 'Tolaria',
+    workspace: 'Memoria',
     ...input,
     id: input.id,
   }

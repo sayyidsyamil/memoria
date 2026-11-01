@@ -18,8 +18,8 @@ import {
 /** TOL-237: in a vault shared with the user, the live document follows what the share allows. */
 
 type RemoteWindow = Window & {
-	TOLARIA_REMOTE_URL?: string;
-	TOLARIA_REMOTE_TOKEN?: string;
+	MEMORIA_REMOTE_URL?: string;
+	MEMORIA_REMOTE_TOKEN?: string;
 };
 
 const web = resolvePlatformCapabilities("remote");
@@ -50,8 +50,8 @@ function createBackend() {
 function openSharedVault(role: "viewer" | "editor"): void {
 	window.history.replaceState(null, "", "/vaults/v_1/");
 	Object.assign(window as RemoteWindow, {
-		TOLARIA_REMOTE_URL: "https://front.test",
-		TOLARIA_REMOTE_TOKEN: "via-front",
+		MEMORIA_REMOTE_URL: "https://front.test",
+		MEMORIA_REMOTE_TOKEN: "via-front",
 	});
 	applySharedVaultBase();
 	const access = { subject: "u_1", grants: [{ scope: "*", role }] };
@@ -74,8 +74,8 @@ function renderBinding(backend: VaultBackend<RemoteBindings>) {
 
 afterEach(() => {
 	const remote = window as RemoteWindow;
-	delete remote.TOLARIA_REMOTE_URL;
-	delete remote.TOLARIA_REMOTE_TOKEN;
+	delete remote.MEMORIA_REMOTE_URL;
+	delete remote.MEMORIA_REMOTE_TOKEN;
 	window.history.replaceState(null, "", "/");
 	vi.unstubAllGlobals();
 	resetVaultAccessForTests();

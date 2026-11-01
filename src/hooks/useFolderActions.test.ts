@@ -146,7 +146,7 @@ describe('useFolderActions', () => {
     expect(result.current.activeTabPath).toBeNull()
     expect(setToastMessage).toHaveBeenCalledWith('Deleted folder "projects"')
   })
-  describe('on a Tolaria remote (TOL-233)', () => {
+  describe('on a Memoria remote (TOL-233)', () => {
     const remoteEntry = { ...folderEntry, path: 'projects/note.md' }
     let sent: Array<{ url: string; body: unknown }>
     let answer: () => Response
@@ -154,7 +154,7 @@ describe('useFolderActions', () => {
     beforeEach(() => {
       sent = []
       answer = () => Response.json({ path: 'projects', commit: 'c', pushed: true, deleted: ['projects/note.md'] })
-      Object.assign(window, { TOLARIA_REMOTE_URL: 'https://vault.test', TOLARIA_REMOTE_TOKEN: 'token' })
+      Object.assign(window, { MEMORIA_REMOTE_URL: 'https://vault.test', MEMORIA_REMOTE_TOKEN: 'token' })
       vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
         sent.push({ url, body: JSON.parse(String(init?.body)) })
         return answer()
@@ -163,7 +163,7 @@ describe('useFolderActions', () => {
 
     afterEach(() => {
       vi.unstubAllGlobals()
-      Object.assign(window, { TOLARIA_REMOTE_URL: undefined, TOLARIA_REMOTE_TOKEN: undefined })
+      Object.assign(window, { MEMORIA_REMOTE_URL: undefined, MEMORIA_REMOTE_TOKEN: undefined })
     })
 
     function renderRemote(initialSelection: SidebarSelection) {
@@ -177,7 +177,7 @@ describe('useFolderActions', () => {
     }
 
     it('deletes the folder on the server and closes its vault-relative notes', async () => {
-      const otherTab = new BroadcastChannel('tolaria:remote-folders:https://vault.test')
+      const otherTab = new BroadcastChannel('memoria:remote-folders:https://vault.test')
       const told = new Promise((resolve) => { otherTab.onmessage = ({ data }) => resolve(data) })
       const { result } = renderRemote({ kind: 'entity', entry: remoteEntry })
 
@@ -208,7 +208,7 @@ describe('useFolderActions', () => {
     })
 
     it('follows a folder another tab deleted or created, without a reload, and ignores anything else', async () => {
-      const otherTab = new BroadcastChannel('tolaria:remote-folders:https://vault.test')
+      const otherTab = new BroadcastChannel('memoria:remote-folders:https://vault.test')
       const { result } = renderRemote({ kind: 'folder', path: 'projects' })
 
       otherTab.postMessage({ kind: 'deleted', path: 'projects' })

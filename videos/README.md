@@ -1,10 +1,10 @@
-# Tolaria Promo Videos
+# Memoria Promo Videos
 
-A Remotion-based video generation system for creating polished, on-brand promo clips for Tolaria, integrated with the Refactoring brand kit.
+A Remotion-based video generation system for creating polished, on-brand promo clips for Memoria, integrated with the Refactoring brand kit.
 
 ## Overview
 
-This package uses [Remotion](https://www.remotion.dev/) to programmatically generate motion graphics that showcase Tolaria's features. Videos stay faithful to Tolaria's UI while using the Refactoring brand system for video overlays, titles, annotations, and styling.
+This package uses [Remotion](https://www.remotion.dev/) to programmatically generate motion graphics that showcase Memoria's features. Videos stay faithful to Memoria's UI while using the Refactoring brand system for video overlays, titles, annotations, and styling.
 
 ### Brand Kit Integration
 
@@ -21,15 +21,15 @@ Videos use the **Refactoring brand kit** from the private `refactoringhq/brand` 
 - **`src/components/`** - Reusable UI components (Stage, NoteCard, EditorView)
 - **`src/lib/`** - Utilities (timing/easing, FLIP transitions)
 - **`src/clips/`** - Individual video compositions
-- **`src/styles.css`** - Tolaria design tokens (synchronized with main app)
+- **`src/styles.css`** - Memoria design tokens (synchronized with main app)
 
 ### Design Approach
 
 **Two-Layer System:**
 
-1. **Tolaria UI Layer** (app authenticity)
+1. **Memoria UI Layer** (app authenticity)
    - Replicated components: `NoteCard`, `EditorView`, `Wikilink`
-   - Uses Tolaria's real CSS variables, typography, spacing from `src/index.css`
+   - Uses Memoria's real CSS variables, typography, spacing from `src/index.css`
    - Stays faithful to the actual app look
 
 2. **Brand Layer** (video polish)
@@ -183,7 +183,7 @@ pnpm preview wikilink-fan-out
 
 ## Design Tokens
 
-The package uses Tolaria's design system. Update `src/styles.css` if design tokens change in the main app.
+The package uses Memoria's design system. Update `src/styles.css` if design tokens change in the main app.
 
 Key tokens:
 - `--surface-app`, `--surface-card` - Background surfaces
@@ -212,7 +212,7 @@ This package is intentionally isolated from the main app build:
 
 ## Brand Assets Security
 
-**Critical:** Brand fonts and SVG assets from `refactoringhq/brand` are **private** and must **never** be committed to the public Tolaria repo.
+**Critical:** Brand fonts and SVG assets from `refactoringhq/brand` are **private** and must **never** be committed to the public Memoria repo.
 
 - Brand assets sync to `videos/brand/` (gitignored)
 - Only color tokens (hex values, CSS vars) are referenced directly in code

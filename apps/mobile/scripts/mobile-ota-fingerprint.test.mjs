@@ -5,7 +5,7 @@ import { test } from 'node:test'
 const { fileHookTransform, sourceSkips } = createRequire(import.meta.url)('../fingerprint.config.js')
 const source = { type: 'contents', id: 'expoConfig' }
 function configuration(channel) {
-  return { ios: { bundleIdentifier: 'md.tolaria.mobile', infoPlist: { UIFileSharingEnabled: true } },
+  return { ios: { bundleIdentifier: 'md.memoria.mobile', infoPlist: { UIFileSharingEnabled: true } },
     updates: { enabled: true, url: 'https://u.expo.dev/project', disableAntiBrickingMeasures: false,
       requestHeaders: { 'expo-channel-name': channel, 'another-header': 'kept' } },
     plugins: [['native-plugin', { nativeOption: true }]] }

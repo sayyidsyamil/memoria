@@ -1,14 +1,14 @@
 ---
 type: ADR
 id: "0280"
-title: "Debounced push and background fetch for Tolaria remote"
+title: "Debounced push and background fetch for Memoria remote"
 status: active
 date: 2026-10-23
 ---
 
 ## Context
 
-ADR 0186 established that the Tolaria remote commits every save to git and pushes to the upstream remote. The save flow was: fetch from remote, commit the change, push to remote, then respond to the client. This meant save latency included the full push round-trip — acceptable for a local bare repository (about 60 ms in benchmarks) but problematic with a real GitHub remote where each save would add hundreds of milliseconds or more for the network round trip and SSH/HTTPS handshake.
+ADR 0186 established that the Memoria remote commits every save to git and pushes to the upstream remote. The save flow was: fetch from remote, commit the change, push to remote, then respond to the client. This meant save latency included the full push round-trip — acceptable for a local bare repository (about 60 ms in benchmarks) but problematic with a real GitHub remote where each save would add hundreds of milliseconds or more for the network round trip and SSH/HTTPS handshake.
 
 The `s3-spike-report.md` (TOL-5) measured 145 ms per save locally, with push taking 58 ms on average. With a GitHub remote, that push would take 1–2 seconds or more. Background processing of git operations was identified as necessary before real use.
 
@@ -41,7 +41,7 @@ The change feed is implemented in `apps/server/src/changeEmitter.ts` as a Server
 
 There is a window (at most `pushDebounceMs`, default 2 seconds, but longer if the push fails) where a committed change exists on the server's working clone but not yet on the git remote. If the server's disk is lost in this window, the commit is lost.
 
-This is acceptable under the architectural rule that **no self-managed server may be the only copy of user data** (established in `s3-spike-report.md`, section "Recommendation for M1"). A durable copy must exist in a managed, replicated service. For the Tolaria remote:
+This is acceptable under the architectural rule that **no self-managed server may be the only copy of user data** (established in `s3-spike-report.md`, section "Recommendation for M1"). A durable copy must exist in a managed, replicated service. For the Memoria remote:
 
 1. The git remote (GitHub or equivalent) is the durable copy. Commits reach it within `pushDebounceMs` under normal operation.
 2. Before the service is opened to general users, the deployment must ensure that a vault whose server instance is lost can be restored from the git remote or an Object Storage backup.

@@ -16,13 +16,13 @@ function portFrom(value: string | undefined, fallback: string): string {
 }
 const baseURL = process.env.BASE_URL ?? 'http://127.0.0.1:41760'
 const port = new URL(baseURL).port || '41760'
-// Collaboration lane (TOL-8): a Tolaria server on loopback with a throwaway vault, seeded
+// Collaboration lane (TOL-8): a Memoria server on loopback with a throwaway vault, seeded
 // fresh for every run, reached through the preview server's `/v1` proxy.
-const remotePort = portFrom(process.env.TOLARIA_E2E_REMOTE_PORT, '41761')
-/** The Tolaria server of the run; offline.spec.ts serves the bundle from its own origin in front of it. */
+const remotePort = portFrom(process.env.MEMORIA_E2E_REMOTE_PORT, '41761')
+/** The Memoria server of the run; offline.spec.ts serves the bundle from its own origin in front of it. */
 export const REMOTE_URL = `http://127.0.0.1:${remotePort}`
 const remoteUrl = REMOTE_URL
-const remoteDir = join(tmpdir(), `tolaria-web-collab-e2e-${remotePort}`)
+const remoteDir = join(tmpdir(), `memoria-web-collab-e2e-${remotePort}`)
 export const COLLAB_TOKEN = 'e2e-token-not-a-secret-0123456789'
 /** The seeded git remote the server pushes to: what the desktop app pulls. */
 export const REMOTE_GIT_DIR = `${remoteDir}/remote.git`
@@ -34,7 +34,7 @@ const storageState = {
     {
       origin: baseURL,
       localStorage: [
-        { name: 'tolaria:claude-code-onboarding-dismissed', value: '1' },
+        { name: 'memoria:claude-code-onboarding-dismissed', value: '1' },
       ],
     },
   ],
@@ -71,14 +71,14 @@ export default defineConfig({
       stdout: 'pipe',
       stderr: 'pipe',
       env: {
-        TOLARIA_SERVER_TOKEN: COLLAB_TOKEN,
-        TOLARIA_SERVER_PORT: remotePort,
-        TOLARIA_SERVER_DATA_DIR: `${remoteDir}/data`,
-        TOLARIA_VAULT_REMOTE_URL: `${remoteDir}/remote.git`,
-        TOLARIA_COLLAB_IDLE_MS: '500',
+        MEMORIA_SERVER_TOKEN: COLLAB_TOKEN,
+        MEMORIA_SERVER_PORT: remotePort,
+        MEMORIA_SERVER_DATA_DIR: `${remoteDir}/data`,
+        MEMORIA_VAULT_REMOTE_URL: `${remoteDir}/remote.git`,
+        MEMORIA_COLLAB_IDLE_MS: '500',
         // No pull on a timer (TOL-234): remote-conflict-copy.spec.ts needs the server to see
         // a desktop push only when it writes the web edit, as a 30 s fetch could pull it first.
-        TOLARIA_VAULT_FETCH_INTERVAL_MS: '0',
+        MEMORIA_VAULT_FETCH_INTERVAL_MS: '0',
       },
     },
     {
@@ -89,7 +89,7 @@ export default defineConfig({
       timeout: 30_000,
       stdout: 'pipe',
       stderr: 'pipe',
-      env: { TOLARIA_REMOTE_URL: remoteUrl },
+      env: { MEMORIA_REMOTE_URL: remoteUrl },
     },
   ],
 })

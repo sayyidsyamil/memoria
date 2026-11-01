@@ -9,7 +9,7 @@ let cachedModule: NativeMobileKeyCommandsModule | null | undefined
 
 export function optionalNativeMobileKeyCommandsModule(): NativeMobileKeyCommandsModule | null {
   if (cachedModule !== undefined) return cachedModule
-  cachedModule = requireOptionalNativeModule<NativeMobileKeyCommandsModule>('TolariaKeyCommands')
+  cachedModule = requireOptionalNativeModule<NativeMobileKeyCommandsModule>('MemoriaKeyCommands')
   return cachedModule
 }
 

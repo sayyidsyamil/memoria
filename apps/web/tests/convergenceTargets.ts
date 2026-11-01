@@ -10,9 +10,9 @@ import { GRANTEE, OWNER, ShareFront, USER_COOKIE } from "./shareFront";
 /**
  * Where convergence.spec.ts runs (TOL-239), behind one interface:
  *
- * - local (the default, part of the web suite): the run's own Tolaria server behind the
+ * - local (the default, part of the web suite): the run's own Memoria server behind the
  *   share front of shareFront.ts, with its two fixed users;
- * - a deployment (`TOLARIA_CONVERGENCE_BASE_URL`, e.g. staging): two real beta accounts,
+ * - a deployment (`MEMORIA_CONVERGENCE_BASE_URL`, e.g. staging): two real beta accounts,
  *   each signed in by its session, through Cloudflare Access with a service token. Every
  *   credential comes from the environment, and the Access headers only go to that origin.
  */
@@ -37,7 +37,7 @@ export interface Target {
 	stop(): Promise<void>;
 }
 
-const ONBOARDING_DISMISSED = "tolaria:claude-code-onboarding-dismissed";
+const ONBOARDING_DISMISSED = "memoria:claude-code-onboarding-dismissed";
 
 interface LocalOptions {
 	previewUrl: string;
@@ -112,8 +112,8 @@ class LocalTarget implements Target {
 		await context.addInitScript(
 			([key, token]) => {
 				window.localStorage.setItem(key, "1");
-				window.TOLARIA_REMOTE_URL = window.location.origin;
-				window.TOLARIA_REMOTE_TOKEN = token;
+				window.MEMORIA_REMOTE_URL = window.location.origin;
+				window.MEMORIA_REMOTE_TOKEN = token;
 			},
 			[ONBOARDING_DISMISSED, credential],
 		);
@@ -142,9 +142,9 @@ export interface DeployedSettings {
 }
 
 const REQUIRED = {
-	ownerSession: "TOLARIA_CONVERGENCE_OWNER_SESSION",
-	editorSession: "TOLARIA_CONVERGENCE_EDITOR_SESSION",
-	editorInvitee: "TOLARIA_CONVERGENCE_EDITOR",
+	ownerSession: "MEMORIA_CONVERGENCE_OWNER_SESSION",
+	editorSession: "MEMORIA_CONVERGENCE_EDITOR_SESSION",
+	editorInvitee: "MEMORIA_CONVERGENCE_EDITOR",
 } as const;
 
 /** The variables a deployed run needs, by setting. */
@@ -161,8 +161,8 @@ function required(env: NodeJS.ProcessEnv, baseUrl: string) {
 
 /** The Access service token's headers, when both halves are set. */
 function accessHeaders(env: NodeJS.ProcessEnv): Record<string, string> {
-	const id = env.TOLARIA_CONVERGENCE_ACCESS_CLIENT_ID;
-	const secret = env.TOLARIA_CONVERGENCE_ACCESS_CLIENT_SECRET;
+	const id = env.MEMORIA_CONVERGENCE_ACCESS_CLIENT_ID;
+	const secret = env.MEMORIA_CONVERGENCE_ACCESS_CLIENT_SECRET;
 	if (!id || !secret) return {};
 	return { "CF-Access-Client-Id": id, "CF-Access-Client-Secret": secret };
 }
@@ -171,7 +171,7 @@ function accessHeaders(env: NodeJS.ProcessEnv): Record<string, string> {
 export function deployedSettings(
 	env: NodeJS.ProcessEnv = process.env,
 ): DeployedSettings | null {
-	const baseUrl = env.TOLARIA_CONVERGENCE_BASE_URL;
+	const baseUrl = env.MEMORIA_CONVERGENCE_BASE_URL;
 	if (!baseUrl) return null;
 	return { baseUrl, ...required(env, baseUrl), access: accessHeaders(env) };
 }

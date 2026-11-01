@@ -78,11 +78,11 @@ describe("Sidebar.favorites", () => {
 		});
 
 		it("preserves plain square brackets in favorite titles", () => {
-			const bracketedFavorite = { ...favEntry, title: "[26Q2] Tolaria MVP" };
+			const bracketedFavorite = { ...favEntry, title: "[26Q2] Memoria MVP" };
 
 			renderSidebar({ entries: [...mockEntries, bracketedFavorite] });
 
-			expect(screen.getByText("[26Q2] Tolaria MVP")).toBeInTheDocument();
+			expect(screen.getByText("[26Q2] Memoria MVP")).toBeInTheDocument();
 		});
 
 		it("hides FAVORITES section when no favorites", () => {

@@ -58,7 +58,7 @@ export class UnsupportedImageFormatError extends Error implements UnsupportedIma
   readonly kind = 'unsupported-heic'
 
   constructor(fileName: string) {
-    super('HEIC and HEIF images are not supported by Tolaria image import yet.')
+    super('HEIC and HEIF images are not supported by Memoria image import yet.')
     this.name = 'UnsupportedImageFormatError'
     this.fileName = fileName
   }
@@ -184,7 +184,7 @@ function readBrowserImageFile(file: File): Promise<string> {
   })
 }
 
-/** On a Tolaria remote the image becomes a file on the server; the note links its path (TOL-204). */
+/** On a Memoria remote the image becomes a file on the server; the note links its path (TOL-204). */
 async function uploadRemoteImageFile(file: File): Promise<string> {
   const { uploadRemoteImage } = await import('../lib/remoteAttachments')
   return uploadRemoteImage(file)
@@ -319,7 +319,7 @@ async function registerNativeDropListeners(
 
 interface UseImageDropOptions {
   containerRef: RefObject<HTMLDivElement | null>
-  /** Called when an image-like file is recognized but not supported by Tolaria. */
+  /** Called when an image-like file is recognized but not supported by Memoria. */
   onImageImportError?: ImageImportErrorHandler
   /** Called with an asset URL for each image dropped via Tauri native drag-drop. */
   onImageUrl?: (url: string) => void

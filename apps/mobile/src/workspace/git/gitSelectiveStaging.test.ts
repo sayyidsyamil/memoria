@@ -16,7 +16,7 @@ afterEach(async () => {
 })
 
 async function packedRepository() {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-git-staging-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-git-staging-'))
   roots.push(dir)
   await git.init({ fs, dir, defaultBranch: 'main' })
   await writeFile(join(dir, 'note.md'), '---\ncustom: original\n---\n# Original\n')

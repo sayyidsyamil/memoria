@@ -4,7 +4,7 @@ const disk = vi.hoisted(() => ({
   available: true, entries: new Map<string, { text: string; size: number; modified: number; directory?: boolean }>(),
   read: vi.fn(), write: vi.fn(), info: vi.fn(), list: vi.fn(), remove: vi.fn(), mkdir: vi.fn(), digest: vi.fn(),
 }))
-const root = 'file:///application/Cache/tolaria-workspace-snapshots/'
+const root = 'file:///application/Cache/memoria-workspace-snapshots/'
 const key = (index: number) => index.toString(16).padStart(64, '0')
 vi.mock('expo-crypto', () => ({ CryptoDigestAlgorithm: { SHA256: 'SHA-256' }, digestStringAsync: disk.digest }))
 vi.mock('expo-application', () => ({ nativeApplicationVersion: '1.0', nativeBuildVersion: '123' }))

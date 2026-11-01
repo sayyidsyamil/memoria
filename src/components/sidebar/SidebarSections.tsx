@@ -24,8 +24,8 @@ export { SidebarTopNav } from './SidebarTopNav'
 export { type SidebarSectionProps, TypesSection } from './SidebarTypesSection'
 
 const SIDEBAR_TITLE_BAR_ACTION_CLASSNAME =
-  '!h-auto !w-auto !min-w-0 !rounded-none !p-0 text-muted-foreground hover:!bg-transparent hover:text-foreground [&_svg]:!size-4'
-const SIDEBAR_TITLE_BAR_LEFT_PADDING = `var(--tolaria-macos-traffic-light-padding, ${MACOS_TRAFFIC_LIGHT_SAFE_PADDING}px)`
+  '!h-6 !w-6 !min-w-0 !rounded !p-0 text-muted-foreground hover:!bg-transparent hover:text-foreground [&_svg]:!size-4'
+const SIDEBAR_TITLE_BAR_LEFT_PADDING = `var(--memoria-macos-traffic-light-padding, ${MACOS_TRAFFIC_LIGHT_SAFE_PADDING}px)`
 
 const SIDEBAR_COLLAPSE_SHORTCUT = getAppCommandShortcutDisplay(APP_COMMAND_IDS.viewEditorList)
 const HISTORY_BACK_SHORTCUT = getAppCommandShortcutDisplay(APP_COMMAND_IDS.viewGoBack)
@@ -246,7 +246,7 @@ export const SidebarTitleBar = ({
         justifyContent: 'flex-start',
       }}
     >
-      <div className="flex items-center gap-5" style={{ WebkitAppRegion: 'no-drag' } as CSSProperties}>
+      <div className="flex items-center gap-2" style={{ WebkitAppRegion: 'no-drag' } as CSSProperties}>
         {onCollapse && (
           <SidebarTitleBarAction label={collapseLabel} shortcut={SIDEBAR_COLLAPSE_SHORTCUT} onClick={onCollapse}>
             <SidebarSimple size={16} weight="regular" />

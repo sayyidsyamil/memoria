@@ -24,7 +24,7 @@ without a desktop. Resolution must not discard newer edits or undecided files.
   app-private recovery storage. A journal precedes either side's publication.
   Resume only entries matching the original or intended result. A newer explicit
   review may supersede a blocked journal; its backups are retained.
-- UI actions reuse Tolaria/RNR controls, desktop conflict-resolution semantics,
+- UI actions reuse Memoria/RNR controls, desktop conflict-resolution semantics,
   existing localization, theme tokens, and opt-in sync analytics. No note content,
   path, credential or repository name is sent in resolution analytics.
 

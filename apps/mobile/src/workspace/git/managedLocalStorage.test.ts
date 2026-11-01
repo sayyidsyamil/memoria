@@ -14,7 +14,7 @@ vi.mock('./managedCatalogFile.native', () => ({
   writeManagedCatalogFile: async (catalog: ManagedGitVaultCatalog) => { disk.catalog = structuredClone(catalog) },
 }))
 vi.mock('../nativeWorkspacePicker', () => ({
-  restoreNativeWorkspaceDirectory: async () => disk.legacy ? { vaultLabel: 'Legacy', vaultRootUri: 'file:///documents/Tolaria%20Vault/' } : null,
+  restoreNativeWorkspaceDirectory: async () => disk.legacy ? { vaultLabel: 'Legacy', vaultRootUri: 'file:///documents/Memoria%20Vault/' } : null,
 }))
 vi.mock('expo-file-system', () => ({
   Paths: { document: { uri: 'file:///documents/' } },
@@ -31,7 +31,7 @@ vi.mock('expo-file-system', () => ({
 
 beforeEach(() => {
   disk.catalog = { vaults: [], activeId: null }
-  disk.directories = new Set(['file:///documents/Tolaria Vault'])
+  disk.directories = new Set(['file:///documents/Memoria Vault'])
   disk.copies = []; disk.counter = 0; disk.legacy = true
 })
 
@@ -41,7 +41,7 @@ it('registers the legacy import in place once and does not resurrect a forgotten
   expect(disk.copies).toEqual([])
   await forgetManagedVault('local-legacy')
   expect((await initializeLocalVaultCatalog()).localVaults).toEqual([])
-  expect(disk.directories.has('file:///documents/Tolaria Vault')).toBe(true)
+  expect(disk.directories.has('file:///documents/Memoria Vault')).toBe(true)
 })
 
 it('remembers independent local copies and switches without overwriting or deleting files', async () => {

@@ -24,7 +24,7 @@ vi.mock('expo-file-system', () => ({
   },
 }))
 
-const current = '/documents/.tolaria-mobile-config/settings.json'
+const current = '/documents/.memoria-mobile-config/settings.json'
 beforeEach(() => { disk.files.clear(); disk.failPublish = false })
 
 it('recovers the previous settings after an interrupted publication', async () => {

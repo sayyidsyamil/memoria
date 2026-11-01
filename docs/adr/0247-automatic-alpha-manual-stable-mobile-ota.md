@@ -35,9 +35,9 @@ environment variables during promotion.
 
 ## Operational Configuration
 
-The restricted `tolaria-release` context supplies publishing credentials plus
-`TOLARIA_ACCEPTED_ALPHA_RUNTIME`, `TOLARIA_ACCEPTED_ALPHA_BUILD_NUMBER` and
-`TOLARIA_ACCEPTED_STABLE_RUNTIME`. Set these only after the matching native binary
+The restricted `memoria-release` context supplies publishing credentials plus
+`MEMORIA_ACCEPTED_ALPHA_RUNTIME`, `MEMORIA_ACCEPTED_ALPHA_BUILD_NUMBER` and
+`MEMORIA_ACCEPTED_STABLE_RUNTIME`. Set these only after the matching native binary
 is accepted; never infer acceptance from a successful JavaScript export. Explicit
 manual pipeline runtime/build parameters remain available for isolated acceptance.
 Missing or incompatible targets fail closed on mobile changes. Android remains

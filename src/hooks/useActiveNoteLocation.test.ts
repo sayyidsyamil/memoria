@@ -54,7 +54,7 @@ function currentUrl(): string {
 describe('useActiveNoteLocation', () => {
   beforeEach(() => {
     localStorage.clear()
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', 'true')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', 'true')
   })
 
   afterEach(() => {
@@ -133,7 +133,7 @@ describe('useActiveNoteLocation', () => {
   })
 
   it('leaves the URL alone outside the web build', async () => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', '')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', '')
     localStorage.setItem(APP_STORAGE_KEYS.lastActiveNotePath, 'welcome.md')
     const { result } = renderAt('/?note=people/ada.md')
 

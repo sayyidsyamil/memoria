@@ -20,7 +20,7 @@ distribution choice for mobile only and retains ADR 0070's local-first policy.
 
 ## Decision
 
-Bundle a revision-pinned copy of `refactoringhq/tolaria-getting-started`, including
+Bundle a revision-pinned copy of `refactoringhq/memoria-getting-started`, including
 its attachments and saved views, without its Git metadata or a configured remote.
 Keep binary attachments as packaged assets rather than base64 JavaScript strings.
 An app update may change the bundled template, but never refreshes an existing

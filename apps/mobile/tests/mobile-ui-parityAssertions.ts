@@ -43,32 +43,32 @@ export async function assertTabletDesktopParity(page: Page) {
 
 export async function assertSidebarRuntimeLayoutProbe(page: Page) {
   await page.waitForFunction(() => {
-    const target = globalThis as { __TOLARIA_MOBILE_LAYOUT_METRICS__?: Record<string, unknown> }
-    return Boolean(target.__TOLARIA_MOBILE_LAYOUT_METRICS__?.['sidebar.item.inbox.row'])
+    const target = globalThis as { __MEMORIA_MOBILE_LAYOUT_METRICS__?: Record<string, unknown> }
+    return Boolean(target.__MEMORIA_MOBILE_LAYOUT_METRICS__?.['sidebar.item.inbox.row'])
   })
 
   const metrics = await page.evaluate(() => {
-    const target = globalThis as { __TOLARIA_MOBILE_LAYOUT_METRICS__?: Record<string, LayoutMetric> }
-    return target.__TOLARIA_MOBILE_LAYOUT_METRICS__ ?? {}
+    const target = globalThis as { __MEMORIA_MOBILE_LAYOUT_METRICS__?: Record<string, LayoutMetric> }
+    return target.__MEMORIA_MOBILE_LAYOUT_METRICS__ ?? {}
   })
 
   for (const id of ['sidebar.item.inbox', 'sidebar.item.all-notes', 'sidebar.item.archive', 'sidebar.item.view-active-procedures', 'sidebar.item.essays', 'sidebar.item.procedures', 'sidebar.item.responsibilities']) {
     assertSidebarItemLayout(metrics, id, desktopSidebarParity.itemPadding.withCount)
   }
 
-  for (const id of ['sidebar.item.personal-journal', 'sidebar.item.tolaria-mvp']) {
+  for (const id of ['sidebar.item.personal-journal', 'sidebar.item.memoria-mvp']) {
     assertSidebarItemLayout(metrics, id, desktopSidebarParity.itemPadding.regular)
   }
 
   assertSidebarRowsAreContiguous(metrics, ['sidebar.item.inbox', 'sidebar.item.all-notes', 'sidebar.item.archive'])
-  assertSidebarRowsAreContiguous(metrics, ['sidebar.item.personal-journal', 'sidebar.item.tolaria-mvp'])
+  assertSidebarRowsAreContiguous(metrics, ['sidebar.item.personal-journal', 'sidebar.item.memoria-mvp'])
   assertSidebarRowsAreContiguous(metrics, ['sidebar.item.essays', 'sidebar.item.procedures', 'sidebar.item.responsibilities'])
 
-  for (const id of ['sidebar.folder.writing', 'sidebar.folder.tolaria']) {
+  for (const id of ['sidebar.folder.writing', 'sidebar.folder.memoria']) {
     assertFolderLayout(metrics, id, desktopSidebarParity.folderRowContentInset)
   }
 
-  for (const id of ['sidebar.folder.writing-essays', 'sidebar.folder.writing-drafts', 'sidebar.folder.tolaria-mobile-ui', 'sidebar.folder.tolaria-releases']) {
+  for (const id of ['sidebar.folder.writing-essays', 'sidebar.folder.writing-drafts', 'sidebar.folder.memoria-mobile-ui', 'sidebar.folder.memoria-releases']) {
     assertFolderLayout(metrics, id, desktopSidebarParity.folderRowContentInset + desktopSidebarParity.folderRowIndent)
   }
 }

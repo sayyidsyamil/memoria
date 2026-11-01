@@ -172,9 +172,9 @@ describe('native workspace persistence probe', () => {
 
   it('ignores malformed and incomplete proof lines', () => {
     const logText = [
-      'TOLARIA_MOBILE_WORKSPACE_PERSISTENCE_PROBE not-json',
+      'MEMORIA_MOBILE_WORKSPACE_PERSISTENCE_PROBE not-json',
       nativeWorkspacePersistenceLogLine({ ...passingWorkspaceProof(), savedViewHydrated: false }),
-      'TOLARIA_MOBILE_WORKSPACE_PERSISTENCE_PROBE {"savedViewHydrated":true}',
+      'MEMORIA_MOBILE_WORKSPACE_PERSISTENCE_PROBE {"savedViewHydrated":true}',
     ].join('\n')
 
     expect(parseNativeWorkspacePersistenceProofs(logText)).toEqual([

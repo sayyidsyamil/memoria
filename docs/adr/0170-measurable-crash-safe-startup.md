@@ -14,7 +14,7 @@ Native profiling showed several independent costs: startup selected the legacy d
 
 ## Decision
 
-- Record ordered, path-free milestones from renderer initialization through settings, vault registry, snapshot hydration, app interactivity, optional editor readiness, and background reconciliation. Store native-process and renderer-relative elapsed time together, and expose structured stderr output behind `TOLARIA_STARTUP_TRACE=1`.
+- Record ordered, path-free milestones from renderer initialization through settings, vault registry, snapshot hydration, app interactivity, optional editor readiness, and background reconciliation. Store native-process and renderer-relative elapsed time together, and expose structured stderr output behind `MEMORIA_STARTUP_TRACE=1`.
 - Do not begin vault loading until the persisted vault registry has selected the active workspace.
 - Treat a valid snapshot as usable when Gitignored content is hidden; apply the visibility filter at the command boundary on the blocking pool.
 - Keep BlockNote and editor-only assets out of the initial shell chunk, then prewarm them after the shell commit; an active note bypasses that wait.

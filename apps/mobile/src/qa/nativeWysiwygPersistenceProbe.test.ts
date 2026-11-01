@@ -7,7 +7,7 @@ import {
   type NativeWysiwygPersistenceProof,
 } from './nativeWysiwygPersistenceProbe'
 
-const probePath = 'Tolaria/Mobile UI/WYSIWYG Persistence Probe.md'
+const probePath = 'Memoria/Mobile UI/WYSIWYG Persistence Probe.md'
 const passingMutationContent = [
   '---',
   'type: Essay',

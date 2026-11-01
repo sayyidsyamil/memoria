@@ -242,6 +242,8 @@ fn optional_mcp_runtime_resource_dir<E: std::fmt::Display>(
 }
 
 fn setup_app(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+    #[cfg(desktop)]
+    commands::model_manager::start_models(app.handle().clone());
     setup_common_plugins(app)?;
 
     #[cfg(desktop)]
@@ -272,6 +274,18 @@ macro_rules! app_invoke_handler {
     () => {
         tauri::generate_handler![
             commands::list_vault,
+            commands::wiki_memory,
+            commands::cancel_wiki_memory,
+            commands::open_meeting_hud,
+            commands::save_meeting_chunk,
+            commands::finish_meeting_hud,
+            commands::layout_meeting_hud,
+            commands::ai_model_status,
+            commands::start_live_speech,
+            commands::feed_live_speech,
+            commands::end_live_speech,
+            commands::meeting_capture_ready,
+            commands::show_meeting_workspace,
             commands::read_vault_snapshot,
             commands::get_startup_elapsed_ms,
             commands::record_startup_milestone,
@@ -402,7 +416,21 @@ fn handle_run_event(app_handle: &tauri::AppHandle, event: &tauri::RunEvent) {
 
     window_state::handle_run_event(app_handle, event);
 
+    if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { api, .. }, .. } = event {
+        if label == "main" && app_handle.get_webview_window("meeting-hud").is_some() {
+            api.prevent_close();
+            if let Some(main) = app_handle.get_webview_window("main") { let _ = main.hide(); }
+        }
+    }
+    #[cfg(target_os = "macos")]
+    if matches!(event, tauri::RunEvent::Reopen { .. }) {
+        if let Some(main) = app_handle.get_webview_window("main") {
+            let _ = main.show(); let _ = main.set_focus();
+        }
+    }
+
     if let tauri::RunEvent::Exit = event {
+        commands::model_manager::stop_models();
         let state: tauri::State<'_, desktop_runtime::WsBridgeChild> = app_handle.state();
         desktop_runtime::stop_ws_bridge_on_exit(&state);
     }
@@ -414,7 +442,7 @@ pub fn run() {
     linux_appimage::apply_startup_env_overrides();
 
     let builder = tauri::Builder::default()
-        .register_uri_scheme_protocol("tolaria-html-block", html_block_protocol::handle_request)
+        .register_uri_scheme_protocol("memoria-html-block", html_block_protocol::handle_request)
         .manage(commands::StartupTimingState::default());
 
     #[cfg(desktop)]

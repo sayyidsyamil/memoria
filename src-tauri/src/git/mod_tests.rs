@@ -499,7 +499,7 @@ fn test_init_repo_creates_initial_commit_when_signing_is_misconfigured() {
         .output()
         .unwrap();
     git_command()
-        .args(["config", "gpg.program", "/missing/tolaria-test-gpg"])
+        .args(["config", "gpg.program", "/missing/memoria-test-gpg"])
         .current_dir(&vault)
         .output()
         .unwrap();

@@ -39,9 +39,9 @@ describe('mobile property display', () => {
       kind: 'status',
       text: 'Active',
     })
-    expect(mobilePropertyDisplay('URL', 'https://tolaria.app')).toMatchObject({
+    expect(mobilePropertyDisplay('URL', 'https://memoria.app')).toMatchObject({
       kind: 'url',
-      text: 'https://tolaria.app',
+      text: 'https://memoria.app',
     })
     expect(mobilePropertyDisplay('Priority', 'High')).toMatchObject({
       kind: 'string',

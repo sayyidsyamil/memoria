@@ -63,18 +63,18 @@ describe('vault backend factories', () => {
 })
 
 describe('the remote attachment client (TOL-204)', () => {
-  const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+  const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
   afterEach(() => {
-    delete target.TOLARIA_REMOTE_URL
-    delete target.TOLARIA_REMOTE_TOKEN
+    delete target.MEMORIA_REMOTE_URL
+    delete target.MEMORIA_REMOTE_TOKEN
   })
 
   it('exists only when a remote serves the vault', () => {
     expect(createRemoteAttachmentClient()).toBeNull()
 
-    target.TOLARIA_REMOTE_URL = 'https://vault.example'
-    target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+    target.MEMORIA_REMOTE_URL = 'https://vault.example'
+    target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
     expect(createRemoteAttachmentClient()).toMatchObject({ save: expect.any(Function), read: expect.any(Function) })
 
     setTauriRuntime(true)

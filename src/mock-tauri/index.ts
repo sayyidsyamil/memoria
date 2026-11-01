@@ -57,7 +57,7 @@ const VAULT_WRITE_COMMANDS = new Set([
   'migrate_is_a_to_type', 'save_view_cmd', 'delete_view_cmd', 'repair_vault',
 ])
 
-/** On a Tolaria remote the stand-ins answer at once: a fake delay here held startup back (TOL-206). */
+/** On a Memoria remote the stand-ins answer at once: a fake delay here held startup back (TOL-206). */
 async function simulateIpcLatency(): Promise<void> {
   if (resolveBrowserBackendKind() === 'remote') return
   await new Promise((r) => setTimeout(r, MOCK_IPC_LATENCY_MS))

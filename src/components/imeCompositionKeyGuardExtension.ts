@@ -9,7 +9,7 @@ import {
 } from './richEditorKeyboard'
 
 const COMPOSITION_SETTLE_WINDOW_MS = 500
-const SAFARI_IME_DOM_PRESERVER_ATTRIBUTE = 'data-tolaria-ime-dom-preserver'
+const SAFARI_IME_DOM_PRESERVER_ATTRIBUTE = 'data-memoria-ime-dom-preserver'
 
 function isEnterKey(event: KeyboardEvent): boolean {
   return event.key === 'Enter'
@@ -77,7 +77,7 @@ function safariImeDomPreserverDecorations(
     return sentinel
   }, {
     ignoreSelection: true,
-    key: 'tolaria-safari-ime-dom-preserver',
+    key: 'memoria-safari-ime-dom-preserver',
   })
 
   return DecorationSet.create(state.doc, [decoration])
@@ -90,7 +90,7 @@ function safariImeDomPreserverDecorations(
 export function createSafariImeDomPreserverPlugin(
   enabled = isSafariRuntime(),
 ): Plugin {
-  const key = new PluginKey('tolariaSafariImeDomPreserver')
+  const key = new PluginKey('memoriaSafariImeDomPreserver')
   if (!enabled) return new Plugin({ key })
 
   let composing = false

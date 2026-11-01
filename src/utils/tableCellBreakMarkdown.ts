@@ -1,7 +1,7 @@
 import { advanceMarkdownFence, type MarkdownFence } from "./markdownFences";
 import { isTableBodyLine, isTableStart } from "./markdownTables";
 
-const CELL_BREAK_TOKEN = "\uE000TOLARIACELLBREAK\uE001";
+const CELL_BREAK_TOKEN = "\uE000MEMORIACELLBREAK\uE001";
 const INLINE_CODE_OR_BREAK = /(`+)[^`]*?\1|\\<|<br\s*\/?>/giu;
 
 function protectCellBreaks(line: string): string {

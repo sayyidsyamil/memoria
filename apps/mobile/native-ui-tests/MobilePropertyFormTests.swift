@@ -3,7 +3,7 @@ import UIKit
 
 final class MobilePropertyFormTests: XCTestCase {
   override func tearDown() {
-    XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").terminate()
+    XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").terminate()
     XCUIDevice.shared.orientation = .portrait
     super.tearDown()
   }
@@ -64,7 +64,7 @@ final class MobilePropertyFormTests: XCTestCase {
     XCTAssertEqual(name.value as? String, "Belongs to")
     tapVisible("workspace-relationship-save-action", in: app, scroll: "workspace-relationship-form-scroll")
     XCTAssertTrue(element(app, "workspace-action-sheet").waitForNonExistence(timeout: 5))
-    for id in ["llm-workflow", "tolaria-mvp", "how-i-run-an-open-source-project"] {
+    for id in ["llm-workflow", "memoria-mvp", "how-i-run-an-open-source-project"] {
       XCTAssertTrue(element(app, "relationship-row-\(id)-open").exists,
                     "Adding a relationship value must retain the existing values")
     }
@@ -74,10 +74,10 @@ final class MobilePropertyFormTests: XCTestCase {
   private func launch(_ orientation: UIDeviceOrientation) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = orientation
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&phoneState=properties&tabletPanels=all&forceDesktopPanels=1&qaRun=property-forms"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     rotate(app, to: orientation)
     XCTAssertTrue(element(app, "properties-panel").waitForExistence(timeout: 30))

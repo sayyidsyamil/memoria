@@ -3,8 +3,8 @@ layout: page
 sidebar: false
 aside: false
 title: Docs
-tolaria:
+memoria:
   kicker: Documentation
 ---
 
-<TolariaDocsHome />
+<MemoriaDocsHome />

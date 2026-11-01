@@ -30,7 +30,7 @@ function sentryOptions(
   filter: Parameters<MobileCrashDriver['start']>[0],
   transport: ReturnType<typeof createMobileSentryTransport>['transport'],
 ): Parameters<Sdk['init']>[0] {
-  const release = `tolaria-mobile@${metadata.app_version}+${metadata.build_number}`
+  const release = `memoria-mobile@${metadata.app_version}+${metadata.build_number}`
   return {
     dsn, release, dist: metadata.build_number, environment: metadata.distribution,
     // Native reports bypass JS redaction; they need a native filter before opt-in.

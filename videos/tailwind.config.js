@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Tolaria design tokens
+        // Memoria design tokens
         'surface-app': 'var(--surface-app)',
         'surface-sidebar': 'var(--surface-sidebar)',
         'surface-card': 'var(--surface-card)',

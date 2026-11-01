@@ -37,7 +37,7 @@ export async function installFixtureHostWorkspace(page: PageLike) {
 
 export async function hostWorkspaceWriteCount(page: PageLike): Promise<number> {
   return page.evaluate(() => {
-    const writes = (window as unknown as { __TOLARIA_MOBILE_WORKSPACE_WRITES__?: unknown[] }).__TOLARIA_MOBILE_WORKSPACE_WRITES__
+    const writes = (window as unknown as { __MEMORIA_MOBILE_WORKSPACE_WRITES__?: unknown[] }).__MEMORIA_MOBILE_WORKSPACE_WRITES__
     return writes?.length ?? 0
   })
 }
@@ -91,7 +91,7 @@ export async function assertHiddenNoteHydrationAndWrite(page: PageLike, state: L
   await page.waitForTimeout(300)
 
   const writes = await page.evaluate(() => {
-    const globalWrites = (window as unknown as { __TOLARIA_MOBILE_WORKSPACE_WRITES__?: unknown[] }).__TOLARIA_MOBILE_WORKSPACE_WRITES__
+    const globalWrites = (window as unknown as { __MEMORIA_MOBILE_WORKSPACE_WRITES__?: unknown[] }).__MEMORIA_MOBILE_WORKSPACE_WRITES__
     return globalWrites ?? []
   })
   expect(writes).toContainEqual(expect.objectContaining({

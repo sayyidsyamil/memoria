@@ -98,5 +98,5 @@ These tests run in CircleCI as part of the standard Rust test suite. Golden fixt
 ---
 
 Last updated: 2026-10-22
-Maintained by: Tolaria Web team (TOL project)
+Maintained by: Memoria Web team (TOL project)
 Related cards: TOL-147 (fixtures creation), TOL-B1-2 (TypeScript vault index)

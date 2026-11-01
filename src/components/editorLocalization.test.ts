@@ -43,11 +43,11 @@ describe("createBlockNoteDictionary", () => {
 			editor.domElement.style.getPropertyValue("--editor-title-placeholder"),
 		).toBe('"Заголовок"');
 		expect(
-			document.getElementById("tolaria-localized-editor-placeholders")
+			document.getElementById("memoria-localized-editor-placeholders")
 				?.textContent,
 		).toContain("--editor-title-placeholder");
 		expect(
-			document.getElementById("tolaria-localized-editor-placeholders")
+			document.getElementById("memoria-localized-editor-placeholders")
 				?.textContent,
 		).toContain('[data-content-type="heading"]:not([data-level])');
 	});

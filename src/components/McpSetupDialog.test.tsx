@@ -4,10 +4,10 @@ import { McpSetupDialog } from './McpSetupDialog'
 
 const MANUAL_CONFIG = JSON.stringify({
   mcpServers: {
-    tolaria: {
+    memoria: {
       type: 'stdio',
       command: 'node',
-      args: ['/Applications/Tolaria.app/Contents/Resources/mcp-server/index.js'],
+      args: ['/Applications/Memoria.app/Contents/Resources/mcp-server/index.js'],
       env: {
         WS_UI_PORT: '9711',
       },
@@ -18,9 +18,9 @@ const MANUAL_CONFIG = JSON.stringify({
 const OPENCODE_CONFIG = JSON.stringify({
   $schema: 'https://opencode.ai/config.json',
   mcp: {
-    tolaria: {
+    memoria: {
       type: 'local',
-      command: ['node', '/Applications/Tolaria.app/Contents/Resources/mcp-server/index.js'],
+      command: ['node', '/Applications/Memoria.app/Contents/Resources/mcp-server/index.js'],
       enabled: true,
       environment: {
         WS_UI_PORT: '9711',

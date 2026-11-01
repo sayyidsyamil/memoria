@@ -11,9 +11,9 @@ import {
   webPreviewProxy,
 } from './previewOptions'
 import { currentCommit, hiddenSourceMaps, webRelease, webSentryDefine } from './sentryWebBuild'
-import { tolariaServiceWorker } from './serviceWorkerPlugin'
+import { memoriaServiceWorker } from './serviceWorkerPlugin'
 
-// Tolaria Web: static build of the shared shell (no Tauri runtime).
+// Memoria Web: static build of the shared shell (no Tauri runtime).
 //
 // Additive target: `pnpm build` and the Tauri bundle keep using the root
 // vite.config.ts and dist/. This config reuses the repo-root index.html and
@@ -38,7 +38,7 @@ const WEB_PAGES = {
  */
 function staticWebApiGuard(): Plugin {
   return {
-    name: 'tolaria-web-no-api',
+    name: 'memoria-web-no-api',
     configurePreviewServer(server) {
       server.middlewares.use((req, res, next) => {
         if (!isApiRequestPath(req.url)) return next()
@@ -66,13 +66,13 @@ export default defineConfig(mergeConfig(sharedShellConfig(), {
   plugins: [
     staticWebApiGuard(),
     staticIcons.plugin,
-    tolariaServiceWorker(),
+    memoriaServiceWorker(),
     appShellPreload(),
     hiddenSourceMaps({ dir: WEB_SOURCEMAP_DIR, release: WEB_RELEASE }),
   ],
   define: {
     // Read by src/main.tsx: only this build ships service-worker.js (TOL-198).
-    'import.meta.env.VITE_TOLARIA_WEB_BUILD': JSON.stringify('true'),
+    'import.meta.env.VITE_MEMORIA_WEB_BUILD': JSON.stringify('true'),
     // The web build's own Sentry DSN and release (TOL-232), never the desktop ones.
     ...webSentryDefine(process.env, WEB_RELEASE),
   },

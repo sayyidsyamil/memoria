@@ -8,7 +8,7 @@ Accepted
 
 The mobile UI foundation now exercises real note creation, body/title edits, scalar properties, relationships, wikilinks, saved views, type sections, and folder navigation through an in-process reducer. The previous repository boundary emitted write plans but did not write to an on-device vault, so Expo/iPad testing could verify UI behavior without proving local markdown persistence.
 
-Tolaria still treats markdown files plus YAML frontmatter as the source of truth. The mobile app needs to preserve that rule while staying compatible with Expo SDK 54 and Expo Go during the tablet preview phase.
+Memoria still treats markdown files plus YAML frontmatter as the source of truth. The mobile app needs to preserve that rule while staying compatible with Expo SDK 54 and Expo Go during the tablet preview phase.
 
 ## Decision
 
@@ -21,7 +21,7 @@ The mobile app keeps filesystem access behind `ReadOnlyWorkspaceRepository`. Fix
 - persists reducer write plans (`createNote` / `saveNote`) back to relative markdown paths;
 - rejects absolute paths, URI paths, and parent traversal before writing.
 
-The Expo adapter defaults to a sandboxed `Tolaria Vault` directory under `Paths.document`, while `vaultUri` / `EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_URI` can point to another Expo-accessible directory for development.
+The Expo adapter defaults to a sandboxed `Memoria Vault` directory under `Paths.document`, while `vaultUri` / `EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_URI` can point to another Expo-accessible directory for development.
 
 ## Consequences
 

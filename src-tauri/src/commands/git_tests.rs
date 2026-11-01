@@ -93,7 +93,7 @@ fn init_git_repo_rejects_broad_personal_folders() {
 #[tokio::test]
 async fn init_git_repo_allows_named_vault_subfolder_under_documents() {
     let dir = TempDir::new().unwrap();
-    let vault = dir.path().join("Documents").join("Tolaria");
+    let vault = dir.path().join("Documents").join("Memoria");
     fs::create_dir_all(&vault).unwrap();
     fs::write(vault.join("note.md"), "# Note\n").unwrap();
     let vault = vault.to_string_lossy().into_owned();

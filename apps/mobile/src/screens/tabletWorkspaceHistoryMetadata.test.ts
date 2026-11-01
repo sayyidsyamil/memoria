@@ -134,7 +134,7 @@ describe('tablet workspace editing history', () => {
       edit,
       previousSnapshot: snapshotWithFolderPaths(folderPaths),
       redonePath,
-      undonePath: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      undonePath: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     })
   })
 
@@ -142,14 +142,14 @@ describe('tablet workspace editing history', () => {
     expectNotePathRoundTrip({
       edit: {
         filenameStem: 'workflow-manual',
-        noteId: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+        noteId: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
         type: 'renameNoteFile',
       },
-      noteId: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      noteId: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       previousSnapshot: snapshotWithPathBackedSelectedNote(),
-      redoneNoteId: 'Tolaria/Mobile UI/workflow-manual.md',
-      redonePath: 'Tolaria/Mobile UI/workflow-manual.md',
-      undonePath: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      redoneNoteId: 'Memoria/Mobile UI/workflow-manual.md',
+      redonePath: 'Memoria/Mobile UI/workflow-manual.md',
+      undonePath: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     })
   })
 
@@ -179,29 +179,29 @@ describe('tablet workspace editing history', () => {
     const redoneSource = noteById(redoneSnapshot, 'workflow-orchestration')
     const redoneRef = noteById(redoneSnapshot, 'open-source-project')
 
-    expect(undoneSource.path).toBe('Tolaria/Mobile UI/Workflow Orchestration Essay.md')
+    expect(undoneSource.path).toBe('Memoria/Mobile UI/Workflow Orchestration Essay.md')
     expect(undoneSource.rawContent).toContain('title: Workflow Orchestration Essay')
     expect(undoneRef.rawContent).toContain('[[Workflow Orchestration Essay]]')
-    expect(undoneRef.rawContent).toContain('[[Tolaria/Mobile UI/Workflow Orchestration Essay|Workflow]]')
+    expect(undoneRef.rawContent).toContain('[[Memoria/Mobile UI/Workflow Orchestration Essay|Workflow]]')
     expect(relationshipRefs(undoneRef)).toMatchObject({
       belongs_to: [
-        { ref: '[[Tolaria/Mobile UI/Workflow Orchestration Essay|Workflow]]', title: 'Workflow Orchestration Essay' },
+        { ref: '[[Memoria/Mobile UI/Workflow Orchestration Essay|Workflow]]', title: 'Workflow Orchestration Essay' },
       ],
       related_to: [{ ref: '[[Workflow Orchestration Essay]]', title: 'Workflow Orchestration Essay' }],
     })
-    expect(redoneSource.path).toBe('Tolaria/Mobile UI/renamed-workflow-essay.md')
+    expect(redoneSource.path).toBe('Memoria/Mobile UI/renamed-workflow-essay.md')
     expect(redoneSource.rawContent).toContain('title: Renamed Workflow Essay')
-    expect(redoneRef.rawContent).toContain('[[Tolaria/Mobile UI/renamed-workflow-essay]]')
-    expect(redoneRef.rawContent).toContain('[[Tolaria/Mobile UI/renamed-workflow-essay|Workflow]]')
+    expect(redoneRef.rawContent).toContain('[[Memoria/Mobile UI/renamed-workflow-essay]]')
+    expect(redoneRef.rawContent).toContain('[[Memoria/Mobile UI/renamed-workflow-essay|Workflow]]')
     expect(relationshipRefs(redoneRef)).toMatchObject({
-      belongs_to: [{ ref: '[[Tolaria/Mobile UI/renamed-workflow-essay|Workflow]]', title: 'Renamed Workflow Essay' }],
-      related_to: [{ ref: '[[Tolaria/Mobile UI/renamed-workflow-essay]]', title: 'Renamed Workflow Essay' }],
+      belongs_to: [{ ref: '[[Memoria/Mobile UI/renamed-workflow-essay|Workflow]]', title: 'Renamed Workflow Essay' }],
+      related_to: [{ ref: '[[Memoria/Mobile UI/renamed-workflow-essay]]', title: 'Renamed Workflow Essay' }],
     })
   })
 
   it('persists folder restoration write plans from history', () => {
     const { redoWrites, undoWrites } = historyRoundTripWithWrites(
-      snapshotWithFolderPaths(['Tolaria/Mobile UI', 'Tolaria/Releases']),
+      snapshotWithFolderPaths(['Memoria/Mobile UI', 'Memoria/Releases']),
       {
         name: 'Restored Folder',
         parentPath: 'Workspace QA',

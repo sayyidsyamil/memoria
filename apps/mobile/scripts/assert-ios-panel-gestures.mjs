@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { simulatorWindowTargetPoint } from '../src/qa/nativeSimulatorWindowGeometry.ts'
 
-const defaultBundleId = 'com.tolaria.mobile.dev'
+const defaultBundleId = 'com.memoria.mobile.dev'
 const editorPanel = 'editor-panel'
 const noteListPanel = 'note-list-panel'
 const propertiesAction = 'editor-properties-action'
@@ -140,7 +140,7 @@ function simulatorSurface(name) {
 }
 
 function dragBinaryPath() {
-  const directory = join(tmpdir(), 'tolaria-mobile-qa')
+  const directory = join(tmpdir(), 'memoria-mobile-qa')
   const sourcePath = join(directory, 'drag-simulator.swift')
   const binaryPath = join(directory, 'drag-simulator')
   if (existsSync(binaryPath)) return binaryPath

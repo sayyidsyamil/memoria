@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildLocalVaultWorkspaceSnapshot } from './localVaultSnapshot'
-import { vaultFile, realVaultRelationshipFiles, tolariaMobileContent } from './localVaultSnapshotTestFixtures'
+import { vaultFile, realVaultRelationshipFiles, memoriaMobileContent } from './localVaultSnapshotTestFixtures'
 
 describe('buildLocalVaultWorkspaceSnapshot', () => {
   it('maps real vault frontmatter into mobile notes, relationships, and type colors', () => {
@@ -15,8 +15,8 @@ describe('buildLocalVaultWorkspaceSnapshot', () => {
     expect(snapshot.notes[0]).toMatchObject({
       aliases: ['Mobile App'],
       outgoingLinks: ['workflow-orchestration'],
-      rawContent: tolariaMobileContent,
-      title: 'Tolaria Mobile',
+      rawContent: memoriaMobileContent,
+      title: 'Memoria Mobile',
       type: 'Project',
       noteWidth: 'wide',
       typeTone: 'red',

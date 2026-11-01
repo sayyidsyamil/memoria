@@ -83,9 +83,9 @@ function requestFixture(): ReadOnlyWorkspaceRequest {
   return {
     scenarioId: 'default',
     source: 'fixture',
-    vaultAlias: 'tolaria-vault',
-    vaultLabel: 'Tolaria Vault',
-    vaultRootUri: 'file:///tolaria-vault',
+    vaultAlias: 'memoria-vault',
+    vaultLabel: 'Memoria Vault',
+    vaultRootUri: 'file:///memoria-vault',
   }
 }
 

@@ -6,15 +6,15 @@ final class MobileEditorFocusTests: XCTestCase {
   }
 
   func testLinkedFolderSyncDoesNotDismissNewNoteKeyboard() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_LINKED_FOCUS"] == "1", "Requires an isolated linked focus fixture")
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_LINKED_FOCUS"] == "1", "Requires an isolated linked focus fixture")
     verifyFocus(sourceName: "native-vault")
   }
 
   private func verifyFocus(sourceName: String) {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=\(sourceName)&phoneState=list&editorMode=wysiwyg&qaRun=editor-focus"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=\(sourceName)&phoneState=list&editorMode=wysiwyg&qaRun=editor-focus"]
     app.launch()
     let create = element(app, "note-list-create-action")
     XCTAssertTrue(create.waitForExistence(timeout: 30))

@@ -16,7 +16,7 @@ import {
 } from "./remoteHttp.ts";
 
 /**
- * Attachments on a Tolaria remote (TOL-204): images are files under `attachments/`, named the
+ * Attachments on a Memoria remote (TOL-204): images are files under `attachments/`, named the
  * way the desktop app names them, so a note that links one shows it on every device after a
  * pull. Reads carry the bearer token like every other request; the shell turns the bytes into
  * an object URL because an `<img>` cannot send that header itself.

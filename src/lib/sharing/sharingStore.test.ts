@@ -10,7 +10,7 @@ import {
   subscribeSharing,
 } from './sharingStore'
 
-type RemoteWindow = { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 const SHARE: OutgoingShare = { id: 's_1', scope: '*', role: 'viewer', grantee: { userId: 'u_2', email: null, github: 'bo' } }
 const INCOMING = { id: 's_9', vaultId: 'v_9', scope: 'a.md', role: 'editor', owner: null }
@@ -21,14 +21,14 @@ function routes(outgoing: Response, incoming: Response) {
 
 beforeEach(() => {
   resetSharingForTests()
-  Object.assign(window as RemoteWindow, { TOLARIA_REMOTE_URL: 'https://front.test', TOLARIA_REMOTE_TOKEN: 'via-front' })
+  Object.assign(window as RemoteWindow, { MEMORIA_REMOTE_URL: 'https://front.test', MEMORIA_REMOTE_TOKEN: 'via-front' })
 })
 
 afterEach(() => {
   vi.useRealTimers()
   vi.unstubAllGlobals()
-  delete (window as RemoteWindow).TOLARIA_REMOTE_URL
-  delete (window as RemoteWindow).TOLARIA_REMOTE_TOKEN
+  delete (window as RemoteWindow).MEMORIA_REMOTE_URL
+  delete (window as RemoteWindow).MEMORIA_REMOTE_TOKEN
   resetSharingForTests()
 })
 
@@ -63,7 +63,7 @@ describe('the share records of the page', () => {
   })
 
   it('does nothing without a remote vault', async () => {
-    delete (window as RemoteWindow).TOLARIA_REMOTE_URL
+    delete (window as RemoteWindow).MEMORIA_REMOTE_URL
     const fetch = vi.fn()
     vi.stubGlobal('fetch', fetch)
 

@@ -342,7 +342,7 @@ export const mobileParityInventory = [
 {
     assertions: ['native 44-point target metrics', 'XCUITest menu selection and dismissal'],
     contracts: ['desktopToolbarActionParity', 'ADR 0202 explicit tablet touch adaptation'],
-    desktopSource: 'BlockNote formatting commands and Tolaria toolbar colors/icons; grouped for touch',
+    desktopSource: 'BlockNote formatting commands and Memoria toolbar colors/icons; grouped for touch',
     mobileFile: 'src/components/workspace/MobileCompactFormattingToolbar.tsx',
     surface: 'Contextual native formatting controls',
   }

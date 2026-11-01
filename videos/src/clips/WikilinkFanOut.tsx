@@ -11,7 +11,7 @@ import { easeOut } from '../lib/timing';
 import { burstOutTransform, transformToCSS } from '../lib/transitions';
 
 /**
- * WikilinkFanOut - Polished Tolaria promo clip
+ * WikilinkFanOut - Polished Memoria promo clip
  * Shows a realistic meeting note with wikilinks, then linked notes burst out
  * Duration: 8 seconds @ 60fps = 480 frames
  *

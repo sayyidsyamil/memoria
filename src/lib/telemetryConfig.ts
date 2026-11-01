@@ -1,6 +1,6 @@
 const DEFAULT_POSTHOG_HOST = 'https://us.i.posthog.com'
 // The web build's release (TOL-232): apps/web/sentryWebBuild.ts names it after the commit.
-const WEB_RELEASE_PREFIX = 'tolaria-web@'
+const WEB_RELEASE_PREFIX = 'memoria-web@'
 const HEX_DIGITS = /^[0-9a-f]+$/
 const MIN_COMMIT_LENGTH = 7
 const MAX_COMMIT_LENGTH = 40
@@ -15,7 +15,7 @@ const DISALLOWED_TELEMETRY_VALUES = new Set([
 ])
 
 type TelemetryEnv = {
-  VITE_TOLARIA_WEB_BUILD?: string
+  VITE_MEMORIA_WEB_BUILD?: string
   VITE_SENTRY_DSN?: string
   VITE_SENTRY_RELEASE?: string
   VITE_POSTHOG_KEY?: string
@@ -158,7 +158,7 @@ function normalizePostHogHost({ value }: TelemetryValueInput): string | null {
 export function resolveFrontendTelemetryConfig(
   env: TelemetryEnv = import.meta.env as TelemetryEnv,
 ): FrontendTelemetryConfig {
-  const platform: TelemetryPlatform = env.VITE_TOLARIA_WEB_BUILD === 'true' ? 'web' : 'desktop'
+  const platform: TelemetryPlatform = env.VITE_MEMORIA_WEB_BUILD === 'true' ? 'web' : 'desktop'
   const sentryDsn = normalizeSentryDsn({
     value: sanitizeTelemetryEnvValue(env.VITE_SENTRY_DSN),
   })

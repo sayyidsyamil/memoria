@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 import { OfflineBadge } from './StatusBarBadges'
 
-type RemoteWindow = Window & { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = Window & { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 afterEach(() => {
   const remote = window as RemoteWindow
-  delete remote.TOLARIA_REMOTE_URL
-  delete remote.TOLARIA_REMOTE_TOKEN
+  delete remote.MEMORIA_REMOTE_URL
+  delete remote.MEMORIA_REMOTE_TOKEN
 })
 
 describe('OfflineBadge', () => {
@@ -26,8 +26,8 @@ describe('OfflineBadge', () => {
 
   it('says the vault is read-only on the web (TOL-198)', () => {
     const remote = window as RemoteWindow
-    remote.TOLARIA_REMOTE_URL = 'https://server.test'
-    remote.TOLARIA_REMOTE_TOKEN = 'token'
+    remote.MEMORIA_REMOTE_URL = 'https://server.test'
+    remote.MEMORIA_REMOTE_TOKEN = 'token'
     render(<OfflineBadge isOffline />)
     const badge = screen.getByTestId('status-offline')
     expect(badge).toHaveTextContent('Offline · read-only')

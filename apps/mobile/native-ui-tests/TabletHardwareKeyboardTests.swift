@@ -67,9 +67,9 @@ final class TabletHardwareKeyboardTests: XCTestCase {
   }
 
   private func launchFixture() -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=hardware-keys"]
-    app.launchEnvironment["TOLARIA_MOBILE_KEYBOARD_SHORTCUT_PROBE"] = "1"
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=hardware-keys"]
+    app.launchEnvironment["MEMORIA_MOBILE_KEYBOARD_SHORTCUT_PROBE"] = "1"
     app.launch()
     XCTAssertTrue(element(app, "editor-toolbar-title").waitForExistence(timeout: 30))
     return app

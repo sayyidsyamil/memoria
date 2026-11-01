@@ -5,7 +5,7 @@ final class MobileInspectorContextTests: XCTestCase {
   private var phone: Bool { UIDevice.current.userInterfaceIdiom == .phone }
 
   override func tearDown() {
-    XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").terminate()
+    XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").terminate()
     XCUIDevice.shared.orientation = .portrait
     super.tearDown()
   }
@@ -55,13 +55,13 @@ final class MobileInspectorContextTests: XCTestCase {
   private func launch(source: Bool = false) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = phone ? .portrait : .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    let diagnostics = ProcessInfo.processInfo.environment["TOLARIA_QA_GESTURE_TRACE_URL"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    let diagnostics = ProcessInfo.processInfo.environment["MEMORIA_QA_GESTURE_TRACE_URL"]
       .map { "&layoutProbe=1&metricSink=\($0)" } ?? ""
     let mode = source ? "source" : "wysiwyg"
     let search = "?source=fixture&phoneState=editor&tabletPanels=all&forceDesktopPanels=1&qaRun=inspector-context&editorMode=\(mode)" + diagnostics
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     XCTAssertTrue(element(app, "editor-toolbar-title").waitForExistence(timeout: 30))
     if source { XCTAssertTrue(element(app, "editor-markdown-input").waitForExistence(timeout: 10)) }

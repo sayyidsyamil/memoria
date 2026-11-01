@@ -89,7 +89,7 @@ describe("BreadcrumbBar filename visibility", () => {
 			"body.mac-chrome .app:not(:has(.app__sidebar), :has(.app__note-list)) .breadcrumb-bar",
 		);
 		expect(editorCss).toContain(
-			"--breadcrumb-bar-left-padding: var(--tolaria-macos-traffic-light-padding, 90px);",
+			"--breadcrumb-bar-left-padding: var(--memoria-macos-traffic-light-padding, 90px);",
 		);
 	});
 
@@ -113,7 +113,7 @@ describe("BreadcrumbBar filename visibility", () => {
 
 		expect(sheetRule).toContain("overflow: hidden;");
 		expect(sheetRule).toContain("contain: layout paint;");
-		expect(sheetRule).not.toContain("--tolaria-overlay-zoom-inverse");
+		expect(sheetRule).not.toContain("--memoria-overlay-zoom-inverse");
 		expect(sheetRule).not.toContain("flex: 0 0");
 	});
 });

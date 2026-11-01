@@ -100,7 +100,7 @@ export function phosphorStaticIconChunk(): PhosphorStaticIconChunk {
   const importersByIcon = new Map<string, Set<string>>()
   let isStatic: ((id: string) => boolean) | null = null
   const plugin: Plugin = {
-    name: 'tolaria-web-phosphor-static-icons',
+    name: 'memoria-web-phosphor-static-icons',
     apply: 'build',
     buildStart() {
       importersByIcon.clear()

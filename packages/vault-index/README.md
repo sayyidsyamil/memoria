@@ -1,4 +1,4 @@
-# @tolaria/vault-index
+# @memoria/vault-index
 
 TypeScript vault indexer that turns note files + frontmatter into `VaultEntry` objects.
 
@@ -14,7 +14,7 @@ TypeScript vault indexer that turns note files + frontmatter into `VaultEntry` o
 ## Usage
 
 ```typescript
-import { buildVaultIndex, type VaultFile, type VaultEntry } from '@tolaria/vault-index'
+import { buildVaultIndex, type VaultFile, type VaultEntry } from '@memoria/vault-index'
 
 const files: VaultFile[] = [
   {

@@ -12,7 +12,7 @@ reproduced both premature HEAD advancement and this unintended follow-up commit.
 
 ## Decision
 
-- Persist a versioned intent in `.git/tolaria-checkout.json` before checkout.
+- Persist a versioned intent in `.git/memoria-checkout.json` before checkout.
   It identifies the existing branch, starting commit, and target commit.
 - Use the Git library's non-forced, `noUpdateHead` checkout. Advance the branch
   only after all file writes succeed; remove the intent last.

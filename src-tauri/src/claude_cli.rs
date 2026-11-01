@@ -30,7 +30,7 @@ const CLAUDE_PROVIDER_ENV_KEYS: &[EnvName<'static>] = &[
     EnvName::trusted("SSL_CERT_DIR"),
     EnvName::trusted("NODE_EXTRA_CA_CERTS"),
 ];
-const LOCALIZED_ERROR_PREFIX: &str = "tolaria:i18n-error:";
+const LOCALIZED_ERROR_PREFIX: &str = "memoria:i18n-error:";
 const CLAUDE_NOT_AUTHENTICATED_KEY: &str = "ai.error.claude.notAuthenticated";
 const CLAUDE_TOO_MANY_REDIRECTS_KEY: &str = "ai.error.claude.tooManyRedirects";
 
@@ -895,7 +895,7 @@ mod tests {
 
         assert_eq!(
             (
-                message.starts_with("tolaria:i18n-error:"),
+                message.starts_with("memoria:i18n-error:"),
                 message.contains(r#""key":"ai.error.claude.tooManyRedirects""#),
                 message.contains("https://example.invalid"),
                 message.contains("secret"),
@@ -988,7 +988,7 @@ mod tests {
         assert!(matches!(
             events.as_slice(),
             [ClaudeStreamEvent::Error { message }]
-                if message.starts_with("tolaria:i18n-error:")
+                if message.starts_with("memoria:i18n-error:")
                     && message.contains(r#""key":"ai.error.claude.notAuthenticated""#)
         ));
     }
@@ -1459,7 +1459,7 @@ mod tests {
             .arg("stdin_probe_parent_child")
             .arg("--ignored")
             .arg("--nocapture")
-            .env("TOLARIA_STDIN_PROBE_CHILD", "1")
+            .env("MEMORIA_STDIN_PROBE_CHILD", "1")
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
@@ -1498,7 +1498,7 @@ mod tests {
     #[ignore = "spawned by run_subprocess_closes_stdin_even_when_parent_stdin_pipe_is_open"]
     #[test]
     fn stdin_probe_parent_child() {
-        if std::env::var_os("TOLARIA_STDIN_PROBE_CHILD").is_none() {
+        if std::env::var_os("MEMORIA_STDIN_PROBE_CHILD").is_none() {
             return;
         }
 
@@ -1556,7 +1556,7 @@ mod tests {
         assert!(events.iter().any(|e| matches!(
             e,
             ClaudeStreamEvent::Error { message }
-                if message.starts_with("tolaria:i18n-error:")
+                if message.starts_with("memoria:i18n-error:")
                     && message.contains(r#""key":"ai.error.claude.notAuthenticated""#)
         )));
     }

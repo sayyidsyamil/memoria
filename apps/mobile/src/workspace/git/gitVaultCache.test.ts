@@ -9,7 +9,7 @@ import { createGitVault } from './gitVault'
 import { gitTestEnvironment } from './gitTestServer'
 
 it('reads an immutable pack once across checkpoint and integration in one operation', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-git-cache-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-git-cache-'))
   const author = { name: 'Test', email: 'qa@example.invalid' }
   try {
     await git.init({ fs, dir, defaultBranch: 'main' })

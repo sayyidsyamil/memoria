@@ -6,42 +6,42 @@
     "maxWidth": 820,
     "paddingHorizontal": 40,
     "paddingVertical": 20,
-    "paragraphSpacing": 8,
+    "paragraphSpacing": 6,
     "dividerFollowedByHeadingMarginTop": 8
   },
   "headings": {
     "h1": {
-      "fontSize": 32,
-      "fontWeight": 700,
-      "lineHeight": 1.2,
-      "marginTop": 32,
-      "marginBottom": 12,
-      "color": "var(--text-heading)",
-      "letterSpacing": -0.5
-    },
-    "h2": {
-      "fontSize": 27,
+      "fontSize": 26,
       "fontWeight": 600,
-      "lineHeight": 1.4,
-      "marginTop": 28,
+      "lineHeight": 1.2,
+      "marginTop": 20,
       "marginBottom": 10,
       "color": "var(--text-heading)",
       "letterSpacing": -0.5
     },
-    "h3": {
+    "h2": {
       "fontSize": 20,
       "fontWeight": 600,
       "lineHeight": 1.4,
-      "marginTop": 24,
+      "marginTop": 20,
+      "marginBottom": 8,
+      "color": "var(--text-heading)",
+      "letterSpacing": -0.5
+    },
+    "h3": {
+      "fontSize": 17,
+      "fontWeight": 600,
+      "lineHeight": 1.4,
+      "marginTop": 16,
       "marginBottom": 8,
       "color": "var(--text-heading)",
       "letterSpacing": -0.5
     },
     "h4": {
-      "fontSize": 17,
+      "fontSize": 16,
       "fontWeight": 600,
       "lineHeight": 1.4,
-      "marginTop": 20,
+      "marginTop": 14,
       "marginBottom": 6,
       "color": "var(--text-heading)",
       "letterSpacing": 0
@@ -114,7 +114,7 @@
   },
   "horizontalRule": {
     "color": "var(--border-primary)",
-    "marginVertical": 24,
+    "marginVertical": 16,
     "thickness": 1
   },
   "colors": {

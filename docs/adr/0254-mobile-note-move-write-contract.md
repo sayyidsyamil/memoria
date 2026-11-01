@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-The mobile workspace reducer already supported note folder moves and explicit filename renames while rewriting inbound wikilinks in the editable snapshot. The first persistence contract represented those note retargets as `deleteNote` plus `saveNote`, which was acceptable for deterministic fixture tests but did not match Tolaria's desktop model for file retargeting.
+The mobile workspace reducer already supported note folder moves and explicit filename renames while rewriting inbound wikilinks in the editable snapshot. The first persistence contract represented those note retargets as `deleteNote` plus `saveNote`, which was acceptable for deterministic fixture tests but did not match Memoria's desktop model for file retargeting.
 
 Desktop note retargeting treats folder moves and filename renames as file moves, with backlink rewrites as separate content saves. Keeping mobile on delete-plus-save would preserve a weaker end state and would make native-vault Expo testing less representative of desktop rename semantics.
 

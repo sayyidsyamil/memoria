@@ -1,26 +1,26 @@
 import type { MobileDiagramKind } from '../../workspace/mobileDiagramMarkdown'
 
 export type DiagramRequest = {
-  type: 'tolaria-diagram-render'
+  type: 'memoria-diagram-render'
   id: number
   kind: MobileDiagramKind
   content: string
   dark: boolean
 }
-export type DiagramResponse = { type: 'tolaria-diagram-result'; id: number; svg?: string; failed?: true }
+export type DiagramResponse = { type: 'memoria-diagram-result'; id: number; svg?: string; failed?: true }
 
 const maximumSourceBytes = 8 * 1024 * 1024
 const maximumSvgBytes = 16 * 1024 * 1024
 
 export function isDiagramRequest(value: unknown): value is DiagramRequest {
   if (!isRecord(value)) return false
-  return value.type === 'tolaria-diagram-render' && requestId(value.id)
+  return value.type === 'memoria-diagram-render' && requestId(value.id)
     && diagramKind(value.kind) && boundedString(value.content, maximumSourceBytes) && typeof value.dark === 'boolean'
 }
 
 export function isDiagramResponse(value: unknown): value is DiagramResponse {
   if (!isRecord(value)) return false
-  return value.type === 'tolaria-diagram-result' && requestId(value.id)
+  return value.type === 'memoria-diagram-result' && requestId(value.id)
     && (value.failed === true || boundedString(value.svg, maximumSvgBytes))
 }
 

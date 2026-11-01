@@ -3,7 +3,7 @@ import { buildMobileDeepLinkForNote } from './mobileDeepLinks'
 import type { MobileNote } from './mobileWorkspaceModel'
 
 describe('buildMobileDeepLinkForNote', () => {
-  it('builds desktop-shaped Tolaria URLs from the active mobile vault and relative note path', () => {
+  it('builds desktop-shaped Memoria URLs from the active mobile vault and relative note path', () => {
     expect(buildMobileDeepLinkForNote({
       note: note({ path: 'Writing/Sponsorships/Acme call #1.md' }),
       source: {
@@ -15,16 +15,16 @@ describe('buildMobileDeepLinkForNote', () => {
       },
     })).toEqual({
       ok: true,
-      url: 'tolaria://work-vault/Writing/Sponsorships/Acme%20call%20%231.md',
+      url: 'memoria://work-vault/Writing/Sponsorships/Acme%20call%20%231.md',
     })
   })
 
   it('falls back to the note workspace label before rejecting missing vault metadata', () => {
     expect(buildMobileDeepLinkForNote({
-      note: note({ path: 'Inbox.md', workspace: 'Tolaria Vault' }),
+      note: note({ path: 'Inbox.md', workspace: 'Memoria Vault' }),
     })).toEqual({
       ok: true,
-      url: 'tolaria://tolaria-vault/Inbox.md',
+      url: 'memoria://memoria-vault/Inbox.md',
     })
 
     expect(buildMobileDeepLinkForNote({
@@ -55,7 +55,7 @@ describe('buildMobileDeepLinkForNote', () => {
       },
     })).toEqual({
       ok: true,
-      url: 'tolaria://work-vault/Inbox.md',
+      url: 'memoria://work-vault/Inbox.md',
     })
     expect(buildMobileDeepLinkForNote({
       note: note({ path: 'Inbox.md' }),
@@ -68,7 +68,7 @@ describe('buildMobileDeepLinkForNote', () => {
       },
     })).toEqual({
       ok: true,
-      url: 'tolaria://laputa-personal/Inbox.md',
+      url: 'memoria://laputa-personal/Inbox.md',
     })
   })
 })

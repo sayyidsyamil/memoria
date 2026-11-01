@@ -46,11 +46,11 @@ describe('native WYSIWYG wikilink picker model', () => {
 
   it('builds the native insertion payload with the note title as label and canonical path target', () => {
     expect(mobileWysiwygWikilinkPayloadForNote(note({
-      path: 'Tolaria/Mobile UI/How I Run an Open Source Project.md',
+      path: 'Memoria/Mobile UI/How I Run an Open Source Project.md',
       title: 'How I Run an Open Source Project',
     }))).toEqual({
       label: 'How I Run an Open Source Project',
-      target: 'Tolaria/Mobile UI/How I Run an Open Source Project',
+      target: 'Memoria/Mobile UI/How I Run an Open Source Project',
     })
   })
 

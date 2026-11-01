@@ -55,11 +55,11 @@ final class MobileModalEscapeTests: XCTestCase {
   }
 
   private func launchFixture(_ extra: String = "") -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&phoneState=sidebar&qaRun=modal-escape\(extra)"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
-    app.launchEnvironment["TOLARIA_MOBILE_KEYBOARD_SHORTCUT_PROBE"] = "1"
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
+    app.launchEnvironment["MEMORIA_MOBILE_KEYBOARD_SHORTCUT_PROBE"] = "1"
     app.launch()
     return app
   }

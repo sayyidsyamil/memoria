@@ -2,8 +2,8 @@ import type { SharingOptions } from 'expo-sharing'
 import type { MobileNote } from './mobileWorkspaceModel'
 import { buildMobileFilePathForNote, buildMobileFilePathForRelativePath } from './mobileNoteFilePath'
 
-export const MOBILE_FILE_REVEAL_ATTEMPTS_GLOBAL_KEY = '__TOLARIA_MOBILE_FILE_REVEAL_ATTEMPTS__'
-export const MOBILE_FILE_REVEALS_GLOBAL_KEY = '__TOLARIA_MOBILE_FILE_REVEALS__'
+export const MOBILE_FILE_REVEAL_ATTEMPTS_GLOBAL_KEY = '__MEMORIA_MOBILE_FILE_REVEAL_ATTEMPTS__'
+export const MOBILE_FILE_REVEALS_GLOBAL_KEY = '__MEMORIA_MOBILE_FILE_REVEALS__'
 
 export type MobileFileRevealResult =
   | { ok: true; opened: boolean; path: string; shared: boolean }

@@ -2,23 +2,23 @@ import XCTest
 
 final class MobileStarterVaultTests: XCTestCase {
   func testFreshInstallOpensBundledGuideAndPreservesANewNoteAfterRelaunch() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_FRESH_STARTER"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_FRESH_STARTER"] == "1",
       "Requires a disposable fresh installation")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=native-vault&phoneState=list&commandPalette=1&qaRun=starter-first-launch"]
     app.launch()
     openAllNotes(app)
-    let guide = element(app, "note-row-get-familiar-with-tolaria.md")
+    let guide = element(app, "note-row-get-familiar-with-memoria.md")
     reveal(guide, in: app)
     guide.tap()
-    waitForEditor(app, filename: "get-familiar-with-tolaria.md")
+    waitForEditor(app, filename: "get-familiar-with-memoria.md")
     element(app, "editor-source-action").tap()
     let source = element(app, "editor-markdown-input")
     XCTAssertTrue(source.waitForExistence(timeout: 10))
-    XCTAssertTrue((source.value as? String ?? "").contains("# Get familiar with Tolaria"))
+    XCTAssertTrue((source.value as? String ?? "").contains("# Get familiar with Memoria"))
     attachScreenshot(app)
     app.terminate()
     app.launch()

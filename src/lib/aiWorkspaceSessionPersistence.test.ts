@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createCrossWindowPersistedStore } from "./crossWindowPersistedStore";
 
-const STORAGE_KEY = "tolaria:ai-workspace-sessions:v1";
+const STORAGE_KEY = "memoria:ai-workspace-sessions:v1";
 
 class BroadcastChannelTestDouble {
 	static channels: BroadcastChannelTestDouble[] = [];
@@ -55,7 +55,7 @@ function makeDebouncedSyncStore(
 			if (!value || typeof value !== "object") return { chatA: "", chatB: "" };
 			return value as { chatA: string; chatB: string };
 		},
-		storageKey: "tolaria:test-ai-session-sync",
+		storageKey: "memoria:test-ai-session-sync",
 	});
 }
 
@@ -279,10 +279,10 @@ describe("AI workspace transcript persistence", () => {
 		});
 		expect(BroadcastChannelTestDouble.sent).toHaveLength(2);
 		expect(
-			JSON.parse(values.get("tolaria:test-ai-session-sync") ?? "{}").chatA,
+			JSON.parse(values.get("memoria:test-ai-session-sync") ?? "{}").chatA,
 		).toBe("updated in first");
 		expect(
-			JSON.parse(values.get("tolaria:test-ai-session-sync") ?? "{}").chatB,
+			JSON.parse(values.get("memoria:test-ai-session-sync") ?? "{}").chatB,
 		).toBe("updated in second");
 	});
 

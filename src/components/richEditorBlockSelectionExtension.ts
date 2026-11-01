@@ -2,12 +2,12 @@ import { createExtension } from '@blocknote/core'
 import type { MarkType, Node as ProsemirrorNode } from '@tiptap/pm/model'
 import { Plugin, PluginKey, Selection, type EditorState, type Transaction } from '@tiptap/pm/state'
 import { Decoration, DecorationSet, type EditorView } from '@tiptap/pm/view'
-import { editorBlockElement, type TolariaBlockNoteEditor } from './tolariaBlockNoteDom'
+import { editorBlockElement, type MemoriaBlockNoteEditor } from './memoriaBlockNoteDom'
 import {
   type CollapsibleBlock,
   isCollapsibleSectionBlockForEditor,
   toggleCollapsedHeading,
-} from './tolariaCollapsedSections'
+} from './memoriaCollapsedSections'
 import {
   blockSelectionAfterArrow,
   blockSelectionAfterDelete,
@@ -33,8 +33,8 @@ import {
   type RichEditorBlockSelectionEditor,
 } from './richEditorBlockSelectionTypes'
 
-export const RICH_EDITOR_BLOCK_SELECTION_CLASS = 'tolaria-rich-editor-block-selected'
-const RICH_EDITOR_BLOCK_SELECTION_META = 'tolariaRichEditorBlockSelection'
+export const RICH_EDITOR_BLOCK_SELECTION_CLASS = 'memoria-rich-editor-block-selected'
+const RICH_EDITOR_BLOCK_SELECTION_META = 'memoriaRichEditorBlockSelection'
 
 export const richEditorBlockSelectionPluginKey = new PluginKey<BlockSelectionState | null>(
   RICH_EDITOR_BLOCK_SELECTION_META,
@@ -525,17 +525,17 @@ function handleActiveToggleCollapsedKey(
 ): boolean {
   if (!isToggleCollapsedBlockKey(event)) return false
 
-  const tolariaEditor = editor as unknown as TolariaBlockNoteEditor
+  const memoriaEditor = editor as unknown as MemoriaBlockNoteEditor
   const collapsibleBlockIds = selection.blockIds.filter((blockId) => {
     const block = findDocumentBlock(editor.document, blockId)
-    return isCollapsibleSectionBlockForEditor(tolariaEditor, collapsibleDocumentBlock(block))
+    return isCollapsibleSectionBlockForEditor(memoriaEditor, collapsibleDocumentBlock(block))
   })
   if (collapsibleBlockIds.length === 0) return false
 
   stopEditorKey(event)
-  const editorElement = editorBlockElement(tolariaEditor) ?? undefined
+  const editorElement = editorBlockElement(memoriaEditor) ?? undefined
   collapsibleBlockIds.forEach((blockId) => {
-    toggleCollapsedHeading(tolariaEditor, blockId, editorElement)
+    toggleCollapsedHeading(memoriaEditor, blockId, editorElement)
   })
   editor.focus?.()
   dispatchBlockSelection(view, selection.blockIds)
@@ -641,7 +641,7 @@ function blockSelectionDecorations(state: EditorState): DecorationSet {
 
     decorations.push(Decoration.node(pos, pos + node.nodeSize, {
       class: RICH_EDITOR_BLOCK_SELECTION_CLASS,
-      'data-tolaria-block-selection': mode,
+      'data-memoria-block-selection': mode,
     }))
     return true
   })

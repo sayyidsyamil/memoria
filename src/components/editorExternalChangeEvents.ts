@@ -1,4 +1,4 @@
-export const RICH_EDITOR_EXTERNAL_CHANGE_EVENT = 'tolaria:rich-editor-external-change'
+export const RICH_EDITOR_EXTERNAL_CHANGE_EVENT = 'memoria:rich-editor-external-change'
 
 export type RichEditorExternalChangeSource = object
 

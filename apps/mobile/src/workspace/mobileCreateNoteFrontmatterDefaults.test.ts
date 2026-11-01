@@ -49,7 +49,7 @@ describe('mobile create-note frontmatter defaults', () => {
     const defaults = mobileCreateNoteDefaultsForType('Project', {
       Project: {
         properties: { Priority: 'High' },
-        relationships: { belongs_to: ['[[Tolaria MVP]]'] },
+        relationships: { belongs_to: ['[[Memoria MVP]]'] },
       },
     })
     const result = applyMobileWorkspaceEditWithWrites(workspaceScenarioForId('default'), {
@@ -60,11 +60,11 @@ describe('mobile create-note frontmatter defaults', () => {
 
     expect(defaults).toEqual({
       properties: { Priority: 'High' },
-      relationships: { belongs_to: ['[[Tolaria MVP]]'] },
+      relationships: { belongs_to: ['[[Memoria MVP]]'] },
       type: 'Project',
     })
     expect(result.writes).toEqual([{
-      content: expect.stringContaining('belongs_to: "[[Tolaria MVP]]"'),
+      content: expect.stringContaining('belongs_to: "[[Memoria MVP]]"'),
       kind: 'createNote',
       path: 'launch-plan.md',
     }])

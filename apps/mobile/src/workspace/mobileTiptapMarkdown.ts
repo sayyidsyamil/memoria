@@ -8,7 +8,7 @@ import type { MarkdownBody, LinkLabel, MarkdownLine, MarkdownLines, CodeFenceSou
 import { readListSourceLines } from './mobileMarkdownHtmlBlocks'
 import { isIndentedListSourceLine, isOrderedParenListSourceLine, isIrregularOrderedDotListSource, isIndentedTextSourceLine, hasLeadingWhitespace, isMarkdownTableDivider, prefixLines, indentLines } from './mobileMarkdownSourceLines'
 
-export const WIKILINK_HREF_PREFIX = 'tolaria://wikilink/'
+export const WIKILINK_HREF_PREFIX = 'memoria://wikilink/'
 
 export function tiptapJsonToMobileMarkdown(
   node: unknown,
@@ -272,7 +272,7 @@ export function tableColumnAlignment(
 }
 
 export function tiptapTableCellAlignment(node: TiptapJsonNode): MobileMarkdownTableAlignment {
-  return mobileMarkdownTableAlignment(node.attrs?.tolariaAlignment)
+  return mobileMarkdownTableAlignment(node.attrs?.memoriaAlignment)
     ?? mobileMarkdownTableAlignment(node.attrs?.align)
     ?? mobileMarkdownTableAlignment(node.attrs?.textAlign)
     ?? 'default'

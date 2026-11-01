@@ -50,7 +50,7 @@ const dynamicCommandDefinitions = {
     outOfScope('restore-deleted-note', 'deleted-note restoration depends on Git history and is excluded'),
     implemented('reveal-active-file', 'reveal-active-file', 'mobile active-file commands reveal the selected note file'),
     implemented('copy-active-file-path', 'copy-active-file-path', 'mobile active-file commands copy the selected file path'),
-    implemented('copy-active-deep-link', 'copy-active-deep-link', 'mobile active-file commands copy a Tolaria deep link'),
+    implemented('copy-active-deep-link', 'copy-active-deep-link', 'mobile active-file commands copy a Memoria deep link'),
     implemented('export-note-pdf', 'note-export-pdf', 'mobile selected-note commands export Markdown notes as PDF'),
     implemented('open-active-file-external', 'open-active-file-external', 'mobile file commands open non-Markdown files in the default app'),
     implemented('remove-note-icon', 'remove-note-icon', 'mobile note commands remove an existing note icon'),

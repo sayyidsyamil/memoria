@@ -2,7 +2,7 @@ import { type Browser, type BrowserContext, chromium, devices, expect, type Page
 import { COLLAB_TOKEN } from '../playwright.config'
 
 // TOL-8: three clients (desktop Chromium, desktop WebKit, an iPhone viewport in WebKit) open
-// one note against a local Tolaria server, edit it at the same time, and must converge, see
+// one note against a local Memoria server, edit it at the same time, and must converge, see
 // each other's presence and cursors, and end up in one git-backed markdown file.
 
 // The server keeps what a test wrote, so each test has its own note and nothing is retried.
@@ -30,7 +30,7 @@ interface Seat {
 async function join(browser: Browser, { name, note, device, baseURL }: Seat): Promise<Client> {
   const context = await browser.newContext({ ...device, baseURL })
   await context.addInitScript(
-    ([token, userName, path]) => sessionStorage.setItem('tolaria:collab-session', JSON.stringify({ token, name: userName, note: path })),
+    ([token, userName, path]) => sessionStorage.setItem('memoria:collab-session', JSON.stringify({ token, name: userName, note: path })),
     [COLLAB_TOKEN, name, note],
   )
   const page = await context.newPage()

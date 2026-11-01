@@ -170,7 +170,7 @@ Visible: false
 type: Type
 Priority: High
 belongs_to:
-  - "[[Tolaria MVP]]"
+  - "[[Memoria MVP]]"
 ---
 # Project
 `,
@@ -181,7 +181,7 @@ belongs_to:
     })
 
     expect(propertyOnlyContent).toContain('Priority: Low')
-    expect(propertyOnlyContent).toContain('belongs_to:\n  - "[[Tolaria MVP]]"')
+    expect(propertyOnlyContent).toContain('belongs_to:\n  - "[[Memoria MVP]]"')
 
     const relationshipOnlyContent = mobileTypeDefinitionContent('Project', definition, {
       relationships: { related_to: ['[[Mobile UI]]'] },

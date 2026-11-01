@@ -32,7 +32,7 @@ export const oldViewName = 'Old Native Proof'
 
 export const propertyRelationshipNotePath = 'Properties/Relationship Proof.md'
 
-export const propertyRelationshipUrl = 'https://tolaria.local/mobile'
+export const propertyRelationshipUrl = 'https://memoria.local/mobile'
 
 export const removedIconNotePath = 'Metadata/Icon Removal.md'
 

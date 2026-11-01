@@ -7,19 +7,19 @@ import { mobileUiRequestedWorkspaceSource } from './mobileUiLabWorkspaceResoluti
 type PersistenceProbes = { workspacePersistenceProbe: boolean; wysiwygPersistenceProbe: boolean }
 
 export function mobileUiWorkspaceSourceRequest(searchParams: URLSearchParams, nativeWorkspace: NativeWorkspaceSelection | null) {
-  const devVaultUrl = searchParams.get('devVaultUrl') || envValue('EXPO_PUBLIC_TOLARIA_DEV_VAULT_URL')
+  const devVaultUrl = searchParams.get('devVaultUrl') || envValue('EXPO_PUBLIC_MEMORIA_DEV_VAULT_URL')
   const source = mobileUiRequestedWorkspaceSource({
     hasDevVaultUrl: devVaultUrl !== null,
     hasNativeWorkspace: nativeWorkspace !== null,
-    requestedSource: searchParams.get('source') ?? envValue('EXPO_PUBLIC_TOLARIA_WORKSPACE_SOURCE'),
+    requestedSource: searchParams.get('source') ?? envValue('EXPO_PUBLIC_MEMORIA_WORKSPACE_SOURCE'),
     searchParams,
   })
   const request = {
-    scenarioId: searchParams.get('scenario') || envValue('EXPO_PUBLIC_TOLARIA_SCENARIO'),
+    scenarioId: searchParams.get('scenario') || envValue('EXPO_PUBLIC_MEMORIA_SCENARIO'),
     source,
-    vaultAlias: nativeWorkspace ? nativeWorkspace.vaultAlias : queryOrEnv(searchParams, 'vaultAlias', 'EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_ALIAS'),
-    vaultLabel: nativeWorkspace ? nativeWorkspace.vaultLabel : queryOrEnv(searchParams, 'vaultLabel', 'EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_LABEL'),
-    vaultRootUri: nativeWorkspace ? nativeWorkspace.vaultRootUri : queryOrEnv(searchParams, 'vaultUri', 'EXPO_PUBLIC_TOLARIA_NATIVE_VAULT_URI'),
+    vaultAlias: nativeWorkspace ? nativeWorkspace.vaultAlias : queryOrEnv(searchParams, 'vaultAlias', 'EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_ALIAS'),
+    vaultLabel: nativeWorkspace ? nativeWorkspace.vaultLabel : queryOrEnv(searchParams, 'vaultLabel', 'EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_LABEL'),
+    vaultRootUri: nativeWorkspace ? nativeWorkspace.vaultRootUri : queryOrEnv(searchParams, 'vaultUri', 'EXPO_PUBLIC_MEMORIA_NATIVE_VAULT_URI'),
     workspaceIndex: nativeWorkspace?.index,
   }
   return { devVaultUrl, request }

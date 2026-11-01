@@ -1,4 +1,4 @@
-# Tolaria Web S1: Tauri inventory, VaultBackend, and what S3 must serve
+# Memoria Web S1: Tauri inventory, VaultBackend, and what S3 must serve
 
 Spike S1 (TOL-3, TOL-4), 12 Oct 2026. Measured on `origin/main` at `063149c7`.
 
@@ -162,7 +162,7 @@ Per the capability map in the vault-remote notes (system git, locally spawned MC
 | `@tauri-apps/plugin-dialog` | Folder picker for opening a vault (`vault-dialog.ts`); save dialog for PDF export (`notePdfExport.ts`) | Drop the picker (the vault comes from the account). PDF export becomes `window.print()` |
 | `@tauri-apps/plugin-opener` | Open external URLs | `window.open(url, '_blank', 'noopener')` |
 | `@tauri-apps/plugin-process` | Relaunch after update | Drop |
-| `@tauri-apps/plugin-deep-link` | `tolaria://` links | Replaced by real URLs (see web adaptations) |
+| `@tauri-apps/plugin-deep-link` | `memoria://` links | Replaced by real URLs (see web adaptations) |
 | `@tauri-apps/api/event` | `vault-changed` (watcher), `menu-event`, AI stream events, AI workspace window events | `vault-changed` becomes the server change stream. The rest drop |
 | `@tauri-apps/api/window`, `webview`, `dpi` | Fullscreen tracking, drag and drop of OS files, secondary note windows, zoom | Drop or replace with DOM drag-and-drop (already present for the browser path in `useImageDrop`) |
 
@@ -270,7 +270,7 @@ Rewiring touches the hottest files in the app (`useAppSave`, `useEditorSave`, `u
 | Presence | None | `awareness`: user name and colour, cursors and selections rendered by y-prosemirror, avatars in the breadcrumb bar |
 | Custom blocks and inline content | Round-trip through markdown | Must round-trip through the fragment **and** through server-side markdown serialisation with the same schema: wikilinks, callouts, math, highlights, sheets, whiteboards |
 
-The last row is the main risk. The markdown pipeline today has client-only pre- and post-processing around BlockNote's own converter. For the server to serialise a fragment to the same markdown the desktop app writes, that pipeline has to run in Node (`packages/markdown-yjs`, using `@blocknote/server-util` with the Tolaria schema). Anything in it that touches the DOM has to be made headless. A golden-file test over `demo-vault-v2/` (markdown to fragment to markdown must be byte-stable) is the gate before any real vault is connected.
+The last row is the main risk. The markdown pipeline today has client-only pre- and post-processing around BlockNote's own converter. For the server to serialise a fragment to the same markdown the desktop app writes, that pipeline has to run in Node (`packages/markdown-yjs`, using `@blocknote/server-util` with the Memoria schema). Anything in it that touches the DOM has to be made headless. A golden-file test over `demo-vault-v2/` (markdown to fragment to markdown must be byte-stable) is the gate before any real vault is connected.
 
 ### Document format
 
@@ -280,9 +280,9 @@ Versioned, so collaboration stays additive:
 |---|---|---|
 | `blocks` | `Y.XmlFragment` | The BlockNote document (what `collaboration.fragment` binds to) |
 | `frontmatter` | `Y.Map` (or `Y.Text` holding raw YAML) | Properties, so the inspector edits merge with body edits |
-| `meta` | `Y.Map` | `format` (for example `tolaria.blocknote/1`), `baseRevision` (ETag of the markdown the doc was last reconciled with) |
+| `meta` | `Y.Map` | `format` (for example `memoria.blocknote/1`), `baseRevision` (ETag of the markdown the doc was last reconciled with) |
 
-The S3 spike currently defines `DOC_FORMAT = "tolaria.markdown-text/0"`: one `Y.Text` holding the whole markdown file. That binds to a CodeMirror raw editor, not to BlockNote, which needs a `Y.XmlFragment`. It is a reasonable first format for proving the transport, and the format string already allows a second one. S4 should decide between two shapes:
+The S3 spike currently defines `DOC_FORMAT = "memoria.markdown-text/0"`: one `Y.Text` holding the whole markdown file. That binds to a CodeMirror raw editor, not to BlockNote, which needs a `Y.XmlFragment`. It is a reasonable first format for proving the transport, and the format string already allows a second one. S4 should decide between two shapes:
 
 - **Fragment-canonical** (recommended): the live doc is the fragment above; markdown is produced by the server. Rich editing, cursors and block-level merges work as BlockNote intends. Cost: the headless markdown pipeline.
 - **Text-canonical**: the live doc is markdown `Y.Text`; BlockNote would re-parse on every remote change. No server pipeline, but cursors, selections and block identity do not survive and typing collides. Only viable for the raw editor.
@@ -346,7 +346,7 @@ Recorded so nobody mistakes the static build for a finished web app. Deliberate 
 
 | Area | Today | Needed on the web |
 |---|---|---|
-| Navigation and URLs | App state only, plus `tolaria://` deep links (`docs/ABSTRACTIONS.md`) | Real URLs for vault, note and view, with working back and forward. The deep-link path encoding can be reused |
+| Navigation and URLs | App state only, plus `memoria://` deep links (`docs/ABSTRACTIONS.md`) | Real URLs for vault, note and view, with working back and forward. The deep-link path encoding can be reused |
 | Menus and shortcuts | Native menus and `trigger_menu_command`; shortcuts assume the app owns the keyboard | Command palette and in-app menus only. `Cmd/Ctrl+N`, `+P`, `+O`, `+W`, `+T` belong to the browser; the empty state currently advertises `⌘P / ⌘O / ⌘N` |
 | Layout | Fixed three panes: sidebar 250 px, note list 300 px, editor | Responsive: single-pane stack on phones, two panes on iPad portrait. Measured results below |
 | Touch | Hover-revealed controls, drag handles, right-click menus | Touch targets, long-press menus, no hover dependence, virtual keyboard and safe-area handling |

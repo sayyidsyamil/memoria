@@ -45,7 +45,7 @@ after(() => {
 })
 
 function buildOutput(release: string): { distDir: string; mapsDir: string } {
-  const root = mkdtempSync(join(tmpdir(), 'tolaria-upload-'))
+  const root = mkdtempSync(join(tmpdir(), 'memoria-upload-'))
   const distDir = join(root, 'dist')
   const mapsDir = join(root, 'sourcemaps')
   mkdirSync(join(distDir, 'assets'), { recursive: true })
@@ -58,7 +58,7 @@ function buildOutput(release: string): { distDir: string; mapsDir: string } {
 }
 
 function config(): SentryUploadConfig {
-  return { baseUrl, org: 'tolaria', project: 'tolaria-web', token: TOKEN }
+  return { baseUrl, org: 'memoria', project: 'memoria-web', token: TOKEN }
 }
 
 function resetServer(statuses: number[] = []): void {
@@ -88,16 +88,16 @@ describe('upload configuration', () => {
 describe('source map upload', () => {
   it('creates the release, then uploads each bundle file with its map', async () => {
     resetServer()
-    const result = await uploadSourceMaps({ config: config(), ...buildOutput('tolaria-web@abc1234') })
+    const result = await uploadSourceMaps({ config: config(), ...buildOutput('memoria-web@abc1234') })
 
-    assert.deepEqual(result, { release: 'tolaria-web@abc1234', files: 2 })
+    assert.deepEqual(result, { release: 'memoria-web@abc1234', files: 2 })
     assert.equal(requests.length, 3)
     assert.ok(requests.every((request) => request.authorization === `Bearer ${TOKEN}`))
-    assert.equal(requests[0].url, '/api/0/organizations/tolaria/releases/')
-    assert.deepEqual(JSON.parse(requests[0].body), { version: 'tolaria-web@abc1234', projects: ['tolaria-web'] })
+    assert.equal(requests[0].url, '/api/0/organizations/memoria/releases/')
+    assert.deepEqual(JSON.parse(requests[0].body), { version: 'memoria-web@abc1234', projects: ['memoria-web'] })
 
     const uploads = requests.slice(1)
-    assert.ok(uploads.every((request) => request.url === '/api/0/organizations/tolaria/releases/tolaria-web%40abc1234/files/'))
+    assert.ok(uploads.every((request) => request.url === '/api/0/organizations/memoria/releases/memoria-web%40abc1234/files/'))
     const bundleFile = uploads.find((request) => request.body.includes('~/assets/index-a.js\r\n'))
     assert.match(bundleFile?.body ?? '', /Sourcemap:index-a\.js\.map/)
     assert.ok(uploads.some((request) => request.body.includes('~/assets/index-a.js.map')))
@@ -105,7 +105,7 @@ describe('source map upload', () => {
 
   it('accepts files already uploaded to the release and retries busy responses', async () => {
     resetServer([208, 503, 409, 201])
-    const result = await uploadSourceMaps({ config: config(), retryDelayMs: 1, ...buildOutput('tolaria-web@abc1234') })
+    const result = await uploadSourceMaps({ config: config(), retryDelayMs: 1, ...buildOutput('memoria-web@abc1234') })
 
     assert.equal(result.files, 2)
     assert.equal(requests.length, 4)
@@ -114,7 +114,7 @@ describe('source map upload', () => {
   it('fails when Sentry rejects a file', async () => {
     resetServer([201, 403, 403])
     await assert.rejects(
-      uploadSourceMaps({ config: config(), ...buildOutput('tolaria-web@abc1234') }),
+      uploadSourceMaps({ config: config(), ...buildOutput('memoria-web@abc1234') }),
       /HTTP 403/,
     )
   })
@@ -122,8 +122,8 @@ describe('source map upload', () => {
   it('fails when the release cannot be created', async () => {
     resetServer([400])
     await assert.rejects(
-      uploadSourceMaps({ config: config(), ...buildOutput('tolaria-web@abc1234') }),
-      /creating release tolaria-web@abc1234 failed: HTTP 400/,
+      uploadSourceMaps({ config: config(), ...buildOutput('memoria-web@abc1234') }),
+      /creating release memoria-web@abc1234 failed: HTTP 400/,
     )
   })
 

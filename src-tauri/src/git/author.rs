@@ -4,9 +4,9 @@ use std::path::Path;
 use super::command::git_output_result;
 use super::run_git;
 
-pub(crate) const FALLBACK_AUTHOR_NAME: &str = "Tolaria";
-pub(crate) const FALLBACK_AUTHOR_EMAIL: &str = "vault@tolaria.default";
-pub(crate) const LEGACY_FALLBACK_EMAIL: &str = "vault@tolaria.md";
+pub(crate) const FALLBACK_AUTHOR_NAME: &str = "Memoria";
+pub(crate) const FALLBACK_AUTHOR_EMAIL: &str = "vault@memoria.default";
+pub(crate) const LEGACY_FALLBACK_EMAIL: &str = "vault@memoria.md";
 
 const SOURCE_FALLBACK: &str = "fallback";
 const SOURCE_GLOBAL: &str = "global";

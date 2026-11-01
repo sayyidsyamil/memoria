@@ -20,7 +20,7 @@ import {
 const defaultExpoGoBundleId = 'host.exp.Exponent'
 const defaultLogWindow = '90s'
 const defaultKeyDelivery = 'auto'
-const nativeKeyboardShortcutProbeEnvironmentName = 'TOLARIA_MOBILE_KEYBOARD_SHORTCUT_PROBE'
+const nativeKeyboardShortcutProbeEnvironmentName = 'MEMORIA_MOBILE_KEYBOARD_SHORTCUT_PROBE'
 const proofPollTimeoutMs = 18000
 const shortcutProofs = [
   { id: 'command-palette', keyCodes: [227, 14], sendAppleScript: () => pressCommandKey('k') },

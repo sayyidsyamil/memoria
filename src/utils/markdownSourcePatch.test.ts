@@ -131,7 +131,7 @@ describe("cached source alignment", () => {
 			durations.sort((left, right) => left - right);
 			// Coverage instrumentation and parallel workers distort wall-clock timings.
 			// Enforce the frame budget in the dedicated, uninstrumented perf run.
-			if (process.env.TOLARIA_PERF_TESTS === "1") {
+			if (process.env.MEMORIA_PERF_TESTS === "1") {
 				expect(durations[2]).toBeLessThanOrEqual(16);
 			}
 		}
@@ -186,7 +186,7 @@ describe("cached source alignment", () => {
 		expect(source).toBe(integrityMarkdown.replace(/\n/g, "\r\n"));
 	});
 
-	it.runIf(process.env.TOLARIA_PERF_TESTS === "1")(
+	it.runIf(process.env.MEMORIA_PERF_TESTS === "1")(
 		"keeps a 6000-line canonical flush below five milliseconds",
 		() => {
 			const baseline = "Canonical unchanged text.\n".repeat(6000);

@@ -9,7 +9,7 @@ import {
 import { installOfflineServiceWorker, reportedShellUrls, type OfflineServiceWorkerScope } from './serviceWorkerRuntime'
 import { FakeCache, FakeCacheStorage } from './fakeCacheStorage.testUtils'
 
-const ORIGIN = 'https://tolaria.test'
+const ORIGIN = 'https://memoria.test'
 const VERSION = 'build-1'
 const NOTE_URL = `${ORIGIN}/v1/files/notes/a.md`
 

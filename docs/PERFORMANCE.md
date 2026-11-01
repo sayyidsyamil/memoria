@@ -1,6 +1,6 @@
 # Performance Regression Harness
 
-Tolaria's core performance gate measures milestones a user can perceive in an isolated
+Memoria's core performance gate measures milestones a user can perceive in an isolated
 Chromium session. It uses deterministic in-memory vault fixtures, one discarded warmup,
 five measured samples, median budgets, and p90 diagnostics. The gate never reads or
 modifies a real vault.
@@ -12,11 +12,11 @@ modifies a real vault.
 | Renderer startup | `startupPerformance` phases plus native `record_startup_milestone` traces | User Timing marks for React shell, active-vault usability, and app interactivity |
 | Note open | `noteOpen` and editor block resolve/apply traces | Small and 130 KB note scenarios measure visible editor, first/full content, edit frame, and trace durations |
 | Note-list navigation | DEV-only keyboard-move trace | A 2,000-row Virtuoso fixture scrolls near the end and waits through the rendered paint |
-| Native process startup | `TOLARIA_STARTUP_TRACE=1` native trace | Release/native diagnostic tier; excluded from the per-commit browser gate because host startup varies materially |
+| Native process startup | `MEMORIA_STARTUP_TRACE=1` native trace | Release/native diagnostic tier; excluded from the per-commit browser gate because host startup varies materially |
 | Create-note focus and search | Local timing helpers and focused behavioral tests | Not yet budgeted: their mock/native boundaries dominate browser timing, so a threshold would currently protect test plumbing rather than user latency |
 
 The benchmark opts existing DEV-only note/editor trace logging into the production build
-only for pages that set `__TOLARIA_PERFORMANCE_HARNESS__`. Ordinary production sessions
+only for pages that set `__MEMORIA_PERFORMANCE_HARNESS__`. Ordinary production sessions
 do not emit these logs.
 
 ## Commands
@@ -71,7 +71,7 @@ to investigate variance and tighten the scenario before raising or adding a budg
 `pnpm bench:web` (after `pnpm build:web`) measures the web app against a generated
 6,000-note vault: `apps/server/scripts/seed-test-remote.ts` writes 5,996 filler notes plus
 its four hand-written notes into a throwaway git remote under the system temp directory,
-a Tolaria server serves it on loopback, and one headless Chromium session drives the static
+a Memoria server serves it on loopback, and one headless Chromium session drives the static
 bundle. It never reads a real vault. CircleCI runs it in the single-container `web-bench`
 job, in parallel with `web-gates`; the job fails when any measurement is over its budget.
 Every run prints the table in the job log and stores `big-vault.json` and `big-vault.md`
@@ -84,9 +84,9 @@ Each budget is a single sample except warm open (median of three) and typing (me
 
 | Metric | What is measured | Budget |
 |---|---|---|
-| Cold open | `tolaria:note_list_painted` mark, empty cache | 2,500 ms |
+| Cold open | `memoria:note_list_painted` mark, empty cache | 2,500 ms |
 | Cold open: longest task | Longest `longtask` from navigation until the snapshot is cached | 600 ms |
-| Warm open | `tolaria:note_list_painted` mark from the cache, median of 3 | 1,000 ms |
+| Warm open | `memoria:note_list_painted` mark from the cache, median of 3 | 1,000 ms |
 | Warm open: longest task | Longest `longtask` of the last warm open and its background reload | 400 ms |
 | Warm open: total blocking time | Sum of `longtask` time over 50 ms in the same window | 600 ms |
 | Note open | Click on a list row to the note body visible in the editor | 2,000 ms |

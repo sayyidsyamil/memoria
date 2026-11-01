@@ -82,18 +82,18 @@ function createDragEvent(type: string, files: File[], opts?: { relatedTarget?: E
 }
 
 describe('uploadImageFile', () => {
-  it('stores the image on the Tolaria remote and returns its attachment path (TOL-204)', async () => {
-    const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
-    target.TOLARIA_REMOTE_URL = 'https://vault.example'
-    target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+  it('stores the image on the Memoria remote and returns its attachment path (TOL-204)', async () => {
+    const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
+    target.MEMORIA_REMOTE_URL = 'https://vault.example'
+    target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
     uploadRemoteImage.mockResolvedValue('attachments/123-test.png')
     const file = new File([new Uint8Array([0x89])], 'test.png', { type: 'image/png' })
 
     try {
       await expect(uploadImageFile(file, '')).resolves.toBe('attachments/123-test.png')
     } finally {
-      delete target.TOLARIA_REMOTE_URL
-      delete target.TOLARIA_REMOTE_TOKEN
+      delete target.MEMORIA_REMOTE_URL
+      delete target.MEMORIA_REMOTE_TOKEN
     }
     expect(uploadRemoteImage).toHaveBeenCalledWith(file)
   })

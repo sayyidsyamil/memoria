@@ -25,20 +25,20 @@ describe('mobile note file open', () => {
     })).resolves.toEqual({
       ok: true,
       opened: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
       shared: true,
     })
 
-    expect(opener).toHaveBeenCalledWith('file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md')
+    expect(opener).toHaveBeenCalledWith('file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md')
     expect(globalValue(MOBILE_FILE_OPEN_ATTEMPTS_GLOBAL_KEY)).toEqual([{
       noteId: 'workflow-orchestration',
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
       title: 'Workflow Orchestration Essay',
     }])
     expect(globalValue(MOBILE_FILE_OPENS_GLOBAL_KEY)).toEqual([{
       ok: true,
       opened: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
       shared: true,
     }])
   })
@@ -54,14 +54,14 @@ describe('mobile note file open', () => {
     }))).resolves.toEqual({
       ok: true,
       opened: false,
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       shared: false,
     })
 
     expect(opener).not.toHaveBeenCalled()
     expect(globalValue(MOBILE_FILE_OPEN_ATTEMPTS_GLOBAL_KEY)).toEqual([{
       noteId: 'workflow-orchestration',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       title: 'Workflow Orchestration Essay',
     }])
     expect(globalValue(MOBILE_FILE_OPENS_GLOBAL_KEY)).toBeUndefined()

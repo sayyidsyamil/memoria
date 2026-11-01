@@ -258,7 +258,7 @@ function requireUpdateValue(value: FrontmatterValue | undefined): FrontmatterVal
   return value
 }
 
-/** The web with a Tolaria remote: the edit goes into the note's live document or its file. */
+/** The web with a Memoria remote: the edit goes into the note's live document or its file. */
 async function executeRemoteFrontmatterOp(files: VaultFileOps, { op, path, key, value }: FrontmatterOpRequest): Promise<MarkdownContent> {
   assertVaultWritable('editing properties')
   return editRemoteFrontmatter(files, { path, key, value: op === 'delete' ? undefined : requireUpdateValue(value) })

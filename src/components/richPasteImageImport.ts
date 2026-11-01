@@ -18,7 +18,7 @@ type RemoteImageImportOptions = {
   vaultPath?: string
 }
 
-/** On a Tolaria remote the server downloads the images and notes link their portable path (TOL-204). */
+/** On a Memoria remote the server downloads the images and notes link their portable path (TOL-204). */
 async function importImagesToRemoteVault(images: RemotePasteImage[]): Promise<RemoteImageImportResult> {
   const { importRemoteImagesToVault } = await import('../lib/remoteAttachments')
   return importRemoteImagesToVault(images)

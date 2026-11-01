@@ -14,7 +14,7 @@ afterEach(async () => {
 })
 
 it('recovers the real branch when a stale pseudoref shadows its short name', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-shadowed-branch-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-shadowed-branch-'))
   roots.push(dir)
   const context = { fs, dir }
   await git.init({ ...context, defaultBranch: 'main' })
@@ -31,12 +31,12 @@ it('recovers the real branch when a stale pseudoref shadows its short name', asy
   const shadow = (await createGitVault(context).checkpoint(author)).oid
   await git.checkout({ ...context, ref: 'refs/heads/main' })
   await writeFile(join(dir, '.git/main'), `${shadow}\n`)
-  await writeFile(join(dir, '.git/tolaria-checkout.json'), JSON.stringify({ version: 1, branch: 'main', before, target }))
+  await writeFile(join(dir, '.git/memoria-checkout.json'), JSON.stringify({ version: 1, branch: 'main', before, target }))
 
   await recoverGitCheckout(context)
 
   expect(await git.resolveRef({ ...context, ref: 'HEAD' })).toBe(target)
   expect(await readFile(join(dir, 'note.md'), 'utf8')).toBe('# Remote change\n')
   expect(await readFile(join(dir, '.git/main'), 'utf8')).toBe(`${shadow}\n`)
-  await expect(readFile(join(dir, '.git/tolaria-checkout.json'))).rejects.toMatchObject({ code: 'ENOENT' })
+  await expect(readFile(join(dir, '.git/memoria-checkout.json'))).rejects.toMatchObject({ code: 'ENOENT' })
 })

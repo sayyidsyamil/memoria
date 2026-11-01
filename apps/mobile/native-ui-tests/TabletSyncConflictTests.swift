@@ -2,11 +2,11 @@ import XCTest
 
 final class TabletSyncConflictTests: XCTestCase {
   func testReviewKeepBothAndHistorySurviveRelaunch() throws {
-    guard ProcessInfo.processInfo.environment["TOLARIA_QA_SYNC_CONFLICT"] == "1" else { throw XCTSkip("Requires isolated sync-conflict fixture") }
+    guard ProcessInfo.processInfo.environment["MEMORIA_QA_SYNC_CONFLICT"] == "1" else { throw XCTSkip("Requires isolated sync-conflict fixture") }
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&editorMode=wysiwyg"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&editorMode=wysiwyg"]
     app.launch()
     openManager(app)
     XCTAssertTrue(app.staticTexts["Sync Conflict QA"].firstMatch.waitForExistence(timeout: 10))

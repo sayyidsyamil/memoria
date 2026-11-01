@@ -4,7 +4,7 @@ import { createVaultBackend, hasRemoteVault } from './vaultBackend'
 import { assertVaultWritable } from './offline/offlineMode'
 
 /**
- * Note lifecycle on a Tolaria remote (the web build with a server): the vault lives on the
+ * Note lifecycle on a Memoria remote (the web build with a server): the vault lives on the
  * server, so notes are created, renamed and deleted through its file API, with
  * vault-relative paths. Desktop and the mock browser build never reach this module.
  */

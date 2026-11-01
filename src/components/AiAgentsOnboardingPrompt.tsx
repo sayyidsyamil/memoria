@@ -1,9 +1,6 @@
 import {
 	ArrowUpRight,
-	Robot as Bot,
 	CaretDown,
-	CheckCircle as CheckCircle2,
-	CircleNotch as Loader2,
 } from "@phosphor-icons/react";
 import {
 	AI_AGENT_DEFINITIONS,
@@ -49,28 +46,20 @@ interface InfoPanelProps {
 function getPromptCopy(statuses: AiAgentsStatus, locale: AppLocale) {
 	if (isAiAgentsStatusChecking(statuses)) {
 		return {
-			accentClassName: "bg-muted text-muted-foreground",
 			description: translate(locale, "onboarding.ai.checkingDescription"),
-			icon: <Loader2 className="size-7 animate-spin" />,
 			title: translate(locale, "onboarding.ai.checkingTitle"),
 		};
 	}
 
 	if (!hasAnyInstalledAiAgent(statuses)) {
 		return {
-			accentClassName:
-				"bg-[var(--feedback-warning-bg)] text-[var(--feedback-warning-text)]",
 			description: translate(locale, "onboarding.ai.missingDescription"),
-			icon: <Bot className="size-7" />,
 			title: translate(locale, "onboarding.ai.missingTitle"),
 		};
 	}
 
 	return {
-		accentClassName:
-			"bg-[var(--feedback-success-bg)] text-[var(--feedback-success-text)]",
 		description: translate(locale, "onboarding.ai.readyDescription"),
-		icon: <CheckCircle2 className="size-7" />,
 		title: translate(locale, "onboarding.ai.readyTitle"),
 	};
 }
@@ -94,11 +83,11 @@ function InfoPanel({
 	const textAlignClass = textAlign === "center" ? "text-center" : "text-left";
 	return (
 		<div
-			className={`rounded-lg border border-border bg-muted/20 px-4 py-4 ${textAlignClass}`}
+			className={`py-2 ${textAlignClass}`}
 			data-testid={testId}
 		>
 			<div className="text-sm font-medium text-foreground">{title}</div>
-			<p className="mt-1 text-xs leading-5 text-muted-foreground">
+			<p className="mt-1 text-pretty text-sm leading-6 text-foreground/80">
 				{description}
 			</p>
 		</div>
@@ -116,7 +105,7 @@ function DetectedAgentsList({
 }) {
 	return (
 		<div className="space-y-2" data-testid="ai-agents-onboarding-detected-list">
-			<div className="text-xs font-semibold uppercase text-muted-foreground">
+			<div className="text-sm font-medium text-foreground">
 				{translate(locale, "onboarding.ai.detectedHeader")}
 			</div>
 			{agents.map((definition) => {
@@ -124,7 +113,7 @@ function DetectedAgentsList({
 				return (
 					<div
 						key={definition.id}
-						className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted/20 px-4 py-3 text-sm"
+						className="flex items-center justify-between gap-3 py-3 text-sm"
 					>
 						<div className="flex min-w-0 items-center gap-3 text-left">
 							<AiAgentIcon agent={definition.id} size={18} />
@@ -132,7 +121,7 @@ function DetectedAgentsList({
 								<div className="font-medium text-foreground">
 									{definition.label}
 								</div>
-								<div className="text-xs text-muted-foreground">
+								<div className="text-sm text-foreground/80">
 									{status.version
 										? translate(locale, "onboarding.ai.installedVersion", {
 												version: status.version,
@@ -141,7 +130,7 @@ function DetectedAgentsList({
 								</div>
 							</div>
 						</div>
-						<span className="rounded-full bg-[var(--feedback-success-bg)] px-2 py-1 text-[11px] font-medium text-[var(--feedback-success-text)]">
+						<span className="text-sm text-foreground/80">
 							{translate(locale, "onboarding.ai.installedBadge")}
 						</span>
 					</div>
@@ -200,7 +189,7 @@ function CheckingAgents({ locale }: { locale: AppLocale }) {
 		<InfoPanel
 			title={translate(locale, "onboarding.ai.checkingLocalTitle")}
 			description={translate(locale, "onboarding.ai.checkingLocalDescription")}
-			textAlign="center"
+			textAlign="left"
 			testId="ai-agents-onboarding-checking"
 		/>
 	);
@@ -241,16 +230,11 @@ function AiAgentsOnboardingHeader({
 	copy: ReturnType<typeof getPromptCopy>;
 }) {
 	return (
-		<CardHeader className="shrink-0 items-center gap-5 text-center">
-			<div
-				className={`flex size-16 items-center justify-center rounded-2xl ${copy.accentClassName}`}
-			>
-				{copy.icon}
-			</div>
+		<CardHeader className="shrink-0 gap-3 text-left">
 			<div className="space-y-2">
-				<CardTitle className="text-3xl">{copy.title}</CardTitle>
+				<CardTitle className="text-2xl">{copy.title}</CardTitle>
 				<p
-					className="text-sm leading-6 text-muted-foreground"
+					className="text-pretty text-sm leading-6 text-foreground/80"
 					data-testid="ai-agents-onboarding-description"
 				>
 					{copy.description}
@@ -272,11 +256,11 @@ export function AiAgentsOnboardingPrompt({
 	return (
 		<OnboardingShell
 			className="bg-sidebar px-6 py-10"
-			contentClassName="w-full max-w-2xl"
+			contentClassName="w-full max-w-lg"
 			testId="ai-agents-onboarding-screen"
 		>
 			<Card
-				className="flex max-h-[calc(100dvh-2rem)] flex-col overflow-hidden border-border bg-background shadow-sm"
+				className="flex max-h-[calc(100dvh-2rem)] flex-col overflow-hidden border-0 bg-background shadow-none"
 				data-testid="ai-agents-onboarding-card"
 			>
 				<AiAgentsOnboardingHeader copy={copy} />
@@ -288,7 +272,7 @@ export function AiAgentsOnboardingPrompt({
 					statuses={statuses}
 				/>
 
-				<CardFooter className="shrink-0 flex-wrap justify-center gap-3">
+				<CardFooter className="shrink-0 flex-wrap justify-between gap-3">
 					<SupportedAgentsMenu locale={locale} />
 					<div data-testid="ai-agents-onboarding-continue">
 						<Button type="button" onClick={onContinue}>

@@ -68,7 +68,7 @@ export async function editPhoneMarkdownWithWikilink(page: PageLike) {
   await input.fill('# Workflow Orchestration Essay\n\nPhone editing links [[Proj')
   await expect(page.getByTestId('editor-wikilink-suggestions')).toBeVisible()
   await page.getByTestId('editor-wikilink-suggestion-open-source-project').click()
-  await expect(input).toHaveValue('# Workflow Orchestration Essay\n\nPhone editing links [[Tolaria/Mobile UI/How I Run an Open Source Project]]')
+  await expect(input).toHaveValue('# Workflow Orchestration Essay\n\nPhone editing links [[Memoria/Mobile UI/How I Run an Open Source Project]]')
 }
 
 export async function returnPhoneEditorToList(page: PageLike) {
@@ -178,7 +178,7 @@ export async function customizeCreatedSavedViewColumns(page: PageLike) {
   )
   const workflowRow = page.getByTestId('note-row-workflow-orchestration')
   await expect(workflowRow.getByText('LLM Workflow')).toBeVisible()
-  await expect(workflowRow.getByText('Tolaria MVP')).toBeVisible()
+  await expect(workflowRow.getByText('Memoria MVP')).toBeVisible()
 
   await longPress(page, 'sidebar-item-view-mobile-inbox-view')
   await expect(page.getByTestId('workspace-view-selected-icon')).toContainText('star')

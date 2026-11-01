@@ -9,13 +9,13 @@ amends: "0121"
 
 ## Context
 
-Tolaria previously embedded vault PDFs with an HTML `<object>` and delegated rendering to the desktop webview. CSP and cache-busting fixes made that path reliable where a native PDF plugin existed, but Linux WebKitGTK and some Windows WebView2 installations do not provide a usable embedded PDF renderer. Those runtimes display an empty white rectangle even though the Tauri asset request succeeds.
+Memoria previously embedded vault PDFs with an HTML `<object>` and delegated rendering to the desktop webview. CSP and cache-busting fixes made that path reliable where a native PDF plugin existed, but Linux WebKitGTK and some Windows WebView2 installations do not provide a usable embedded PDF renderer. Those runtimes display an empty white rectangle even though the Tauri asset request succeeds.
 
 The preview must behave consistently across supported desktop targets, keep large and multi-page documents responsive, preserve vault-scoped asset access, and retain the external-open fallback for corrupt or unsupported documents.
 
 ## Decision
 
-**Tolaria owns PDF rendering in the renderer with the bundled `pdfjs-dist` dependency instead of relying on a webview PDF plugin.**
+**Memoria owns PDF rendering in the renderer with the bundled `pdfjs-dist` dependency instead of relying on a webview PDF plugin.**
 
 - `PdfFilePreview` loads vault-scoped Tauri asset URLs through PDF.js and renders pages to canvas.
 - The first page renders eagerly. Later pages use intersection-based lazy rendering with a generous prefetch margin, so large documents do not allocate every canvas immediately.
@@ -27,7 +27,7 @@ The preview must behave consistently across supported desktop targets, keep larg
 
 ## Alternatives considered
 
-- **Keep the native `<object>` renderer**: smallest implementation, but cannot satisfy Linux and affected Windows installations because the required viewer is outside Tolaria's control.
+- **Keep the native `<object>` renderer**: smallest implementation, but cannot satisfy Linux and affected Windows installations because the required viewer is outside Memoria's control.
 - **Open PDFs only in the default application**: reliable but removes the in-context preview promised by the file-preview model.
 - **Render PDFs in Rust with a native PDF library**: could work, but adds platform-specific native binaries and release packaging complexity for behavior PDF.js already provides portably.
 

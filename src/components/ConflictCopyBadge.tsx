@@ -3,7 +3,7 @@ import { isConflictCopyPath } from "../lib/conflictCopyPaths";
 import { translate } from "../lib/i18n";
 import { isRemoteBrowserShell } from "./status-bar/syncPillState";
 
-/** Marks a conflict copy the Tolaria server kept, in the web build's note list. */
+/** Marks a conflict copy the Memoria server kept, in the web build's note list. */
 export function ConflictCopyBadge({ path }: { path: string }) {
 	const locale = useAppLocale();
 	if (!isConflictCopyPath(path) || !isRemoteBrowserShell()) return null;

@@ -139,7 +139,7 @@ describe('GET /v1/vault', () => {
     expect(meta.collab).toEqual({
       available: false,
       path: '/v1/collab/docs',
-      docFormat: 'tolaria.blocknote/1',
+      docFormat: 'memoria.blocknote/1',
       blocksFragment: 'blocks',
       frontmatterField: 'frontmatter',
       metaMap: 'meta',

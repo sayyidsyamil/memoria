@@ -35,7 +35,7 @@ type ProofFieldMap = {
   [Field in ProofFieldName]: NativeWysiwygMathEditProof[Field]
 }
 
-export const nativeWysiwygMathEditLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_MATH_EDIT_PROBE'
+export const nativeWysiwygMathEditLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_MATH_EDIT_PROBE'
 export const nativeWysiwygMathEditInlineLatex = 'x^2'
 export const nativeWysiwygMathEditBlockLatex = 'y = mx + b'
 

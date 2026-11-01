@@ -7,9 +7,9 @@ import {
 	createCrossWindowPersistedStore,
 } from "./crossWindowPersistedStore";
 
-const STORAGE_KEY = "tolaria:ai-workspace-sessions:v1";
+const STORAGE_KEY = "memoria:ai-workspace-sessions:v1";
 const LOCAL_SNAPSHOT_FLUSHED_KEY = `${STORAGE_KEY}:flushed-on-pagehide`;
-const BROADCAST_CHANNEL = "tolaria-ai-workspace-sessions";
+const BROADCAST_CHANNEL = "memoria-ai-workspace-sessions";
 const NATIVE_WRITE_DEBOUNCE_MS = 250;
 const LOCAL_STORAGE_WRITE_DEBOUNCE_MS = 1000;
 const locallyUpdatedSessionIds = new Set<SessionId>();

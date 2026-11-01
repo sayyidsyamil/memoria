@@ -60,7 +60,7 @@ describe('mobile type definition schema helpers', () => {
     })
 
     expect(properties).toEqual([{ key: 'Stage', value: ['Design', 'Build'] }])
-    expect(relationships).toEqual([{ key: 'belongs_to', refs: ['[[Tolaria/Mobile UI/How I Run an Open Source Project]]'] }])
+    expect(relationships).toEqual([{ key: 'belongs_to', refs: ['[[Memoria/Mobile UI/How I Run an Open Source Project]]'] }])
     expect(mobileTypeSchemaRelationshipValueText(relationships[0], notes)).toBe('How I Run an Open Source Project')
     expect(addTypeSchemaProperty([], 'Audience', '"AI, UX", Design')).toEqual([
       { key: 'Audience', value: ['AI, UX', 'Design'] },
@@ -76,11 +76,11 @@ describe('mobile type definition schema helpers', () => {
       targetTitle: 'How I Run an Open Source Project',
     })
 
-    expect(relationships).toEqual([{ key: 'Mentored by', refs: ['[[Tolaria/Mobile UI/How I Run an Open Source Project]]'] }])
+    expect(relationships).toEqual([{ key: 'Mentored by', refs: ['[[Memoria/Mobile UI/How I Run an Open Source Project]]'] }])
     expect(typeDefinitionSchemaPatch([], relationships)).toEqual({
       properties: {},
       relationships: {
-        'Mentored by': ['[[Tolaria/Mobile UI/How I Run an Open Source Project]]'],
+        'Mentored by': ['[[Memoria/Mobile UI/How I Run an Open Source Project]]'],
       },
     })
   })
@@ -93,12 +93,12 @@ describe('mobile type definition schema helpers', () => {
     const ossSuggestions = typeSchemaRelationshipTargetSuggestions(notes, 'oss')
     expect(ossSuggestions[0]).toEqual(expect.objectContaining({
       label: 'How I Run an Open Source Project',
-      value: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+      value: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
     }))
     expect(ossSuggestions).toContainEqual(expect.objectContaining({
       label: 'Workflow Orchestration Essay',
     }))
-    expect(typeSchemaRelationshipTargetSuggestions(notes, 'Tolaria/Mobile UI')).toContainEqual(expect.objectContaining({
+    expect(typeSchemaRelationshipTargetSuggestions(notes, 'Memoria/Mobile UI')).toContainEqual(expect.objectContaining({
       label: 'How I Run an Open Source Project',
     }))
     expect(addTypeSchemaRelationshipRef({
@@ -107,7 +107,7 @@ describe('mobile type definition schema helpers', () => {
       relationships: [],
       targetTitle: 'OSS Project',
     })).toEqual([
-      { key: 'related_to', refs: ['[[Tolaria/Mobile UI/How I Run an Open Source Project]]'] },
+      { key: 'related_to', refs: ['[[Memoria/Mobile UI/How I Run an Open Source Project]]'] },
     ])
   })
 

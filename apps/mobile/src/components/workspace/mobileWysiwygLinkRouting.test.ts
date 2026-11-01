@@ -6,7 +6,7 @@ describe('routeMobileWysiwygLink', () => {
     const onNavigateWikilink = vi.fn()
     const onOpenLink = vi.fn()
 
-    expect(routeMobileWysiwygLink('tolaria://wikilink/folder%2FNote%20Name', {
+    expect(routeMobileWysiwygLink('memoria://wikilink/folder%2FNote%20Name', {
       onNavigateWikilink,
       onOpenLink,
     })).toBe('wikilink')
@@ -26,7 +26,7 @@ describe('routeMobileWysiwygLink', () => {
     },
   )
 
-  it.each(['javascript:alert(1)', 'data:text/html,hello', 'file:///note.png', 'tolaria://wikilink/%E0%A4%A', '']) (
+  it.each(['javascript:alert(1)', 'data:text/html,hello', 'file:///note.png', 'memoria://wikilink/%E0%A4%A', '']) (
     'rejects unsupported or malformed href %s',
     (href) => {
       const onOpenLink = vi.fn()

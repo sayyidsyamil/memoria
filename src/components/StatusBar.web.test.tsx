@@ -14,8 +14,8 @@ describe('StatusBar on the web', () => {
 
   function renderStatusBar(props: { web?: boolean; isOffline?: boolean; isVaultReloading?: boolean } = {}) {
     if (props.web !== false) {
-      vi.stubGlobal('TOLARIA_REMOTE_URL', 'https://example.com')
-      vi.stubGlobal('TOLARIA_REMOTE_TOKEN', 'token')
+      vi.stubGlobal('MEMORIA_REMOTE_URL', 'https://example.com')
+      vi.stubGlobal('MEMORIA_REMOTE_TOKEN', 'token')
     }
     return render(
       <StatusBar

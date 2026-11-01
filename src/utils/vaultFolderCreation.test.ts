@@ -84,7 +84,7 @@ describe('createVaultFolder', () => {
   })
 })
 
-describe('createVaultFolder on a Tolaria remote', () => {
+describe('createVaultFolder on a Memoria remote', () => {
   const sent: Array<{ url: string; body: unknown }> = []
   let answer: () => Response
 
@@ -93,7 +93,7 @@ describe('createVaultFolder on a Tolaria remote', () => {
     vi.mocked(isTauri).mockReturnValue(false)
     sent.length = 0
     answer = () => Response.json({ path: 'notes/Projects', commit: 'c', pushed: true }, { status: 201 })
-    Object.assign(window, { TOLARIA_REMOTE_URL: 'https://vault.test', TOLARIA_REMOTE_TOKEN: 'token' })
+    Object.assign(window, { MEMORIA_REMOTE_URL: 'https://vault.test', MEMORIA_REMOTE_TOKEN: 'token' })
     vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
       sent.push({ url, body: JSON.parse(String(init?.body)) })
       return answer()
@@ -102,11 +102,11 @@ describe('createVaultFolder on a Tolaria remote', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals()
-    Object.assign(window, { TOLARIA_REMOTE_URL: undefined, TOLARIA_REMOTE_TOKEN: undefined })
+    Object.assign(window, { MEMORIA_REMOTE_URL: undefined, MEMORIA_REMOTE_TOKEN: undefined })
   })
 
   it('creates the folder on the server, not through the mock, and tells the other tabs', async () => {
-    const otherTab = new BroadcastChannel('tolaria:remote-folders:https://vault.test')
+    const otherTab = new BroadcastChannel('memoria:remote-folders:https://vault.test')
     const told = new Promise((resolve) => { otherTab.onmessage = ({ data }) => resolve(data) })
 
     await createVaultFolder({ name: 'Projects', parent: { path: 'notes', rootPath: '/vault' }, defaultVaultPath: '/vault' })

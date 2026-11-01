@@ -15,7 +15,7 @@ const hash = (text: string) => createHash('sha256').update(text).digest('hex')
 const timestamp = new Date(1792000000000)
 
 test('@smoke mobile cached presentation never replaces fresh vault sources', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-snapshot-preview-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-snapshot-preview-'))
   try {
     const fixture = await createFixture(root)
     const { index, storage, target } = fixture

@@ -51,8 +51,8 @@ export type NativeWorkspacePersistenceAssertionFailure = {
   message: string
 }
 
-export const nativeWorkspacePersistenceLogPrefix = 'TOLARIA_MOBILE_WORKSPACE_PERSISTENCE_PROBE'
-export const nativeWorkspacePersistenceProbeVaultLabel = 'Tolaria Workspace QA Vault'
+export const nativeWorkspacePersistenceLogPrefix = 'MEMORIA_MOBILE_WORKSPACE_PERSISTENCE_PROBE'
+export const nativeWorkspacePersistenceProbeVaultLabel = 'Memoria Workspace QA Vault'
 
 export function nativeWorkspacePersistenceProbeEnabled(searchParams: URLSearchParams): boolean {
   return searchParams.get('workspacePersistenceProbe') === '1'

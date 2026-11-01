@@ -89,7 +89,7 @@ export function syncPillDescription(
 	return stateLabel(state);
 }
 
-/** The browser build talking to a Tolaria server: the web status bar shows the sync pill. */
+/** The browser build talking to a Memoria server: the web status bar shows the sync pill. */
 export function isRemoteBrowserShell(): boolean {
 	return !isTauri() && resolveBrowserBackendKind() === "remote";
 }

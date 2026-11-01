@@ -84,7 +84,7 @@ test.describe('phone saved view configuration parity', () => {
     )
     const workflowRow = page.getByTestId('note-row-workflow-orchestration')
     await expect(workflowRow.getByText('LLM Workflow')).toBeVisible()
-    await expect(workflowRow.getByText('Tolaria MVP')).toBeVisible()
+    await expect(workflowRow.getByText('Memoria MVP')).toBeVisible()
 
     await openPhoneSidebar(page)
     await longPressTestId(page, 'sidebar-item-view-phone-sort-view')

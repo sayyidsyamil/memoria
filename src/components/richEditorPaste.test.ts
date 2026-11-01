@@ -314,12 +314,12 @@ describe('handleRichEditorPaste', () => {
   })
 })
 
-describe('rich paste of remote images on a Tolaria remote (TOL-204)', () => {
-  const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+describe('rich paste of remote images on a Memoria remote (TOL-204)', () => {
+  const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
   it('has the server import them and links their portable attachment paths', async () => {
-    target.TOLARIA_REMOTE_URL = 'https://vault.example'
-    target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+    target.MEMORIA_REMOTE_URL = 'https://vault.example'
+    target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
     importRemoteImagesToVault.mockResolvedValue({
       failedCount: 0,
       replacements: new Map([['https://example.com/photo.png', 'attachments/123-photo.png']]),
@@ -347,8 +347,8 @@ describe('rich paste of remote images on a Tolaria remote (TOL-204)', () => {
       handler(context)
       await vi.waitFor(() => expect(onImportResult).toHaveBeenCalledWith({ failedCount: 0, totalCount: 1 }))
     } finally {
-      delete target.TOLARIA_REMOTE_URL
-      delete target.TOLARIA_REMOTE_TOKEN
+      delete target.MEMORIA_REMOTE_URL
+      delete target.MEMORIA_REMOTE_TOKEN
     }
 
     expect(importRemoteImagesToVault).toHaveBeenCalledWith([{ alt: '', url: 'https://example.com/photo.png' }])

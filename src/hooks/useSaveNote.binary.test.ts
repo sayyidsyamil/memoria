@@ -21,7 +21,7 @@ describe("native note persistence", () => {
 		const encodedPath = new TextEncoder().encode(path);
 		expect(options).toEqual({
 			headers: {
-				"x-tolaria-note-path": btoa(
+				"x-memoria-note-path": btoa(
 					Array.from(encodedPath, (byte) => String.fromCharCode(byte)).join(""),
 				),
 			},

@@ -39,8 +39,8 @@ describe('mobileRelationshipValueMetricSegments', () => {
   it('keeps first relationship row metric ids stable for native layout gates', () => {
     expect(mobileRelationshipValueMetricSegments([
       relationshipValue('LLM Workflow'),
-      relationshipValue('Tolaria MVP'),
-    ])).toEqual(['llm-workflow', 'tolaria-mvp'])
+      relationshipValue('Memoria MVP'),
+    ])).toEqual(['llm-workflow', 'memoria-mvp'])
   })
 
   it('suffixes only duplicate relationship row ids', () => {

@@ -3,4 +3,4 @@
 Source: docs.md
 URL: /docs
 
-<TolariaDocsHome />
+<MemoriaDocsHome />

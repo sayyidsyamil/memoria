@@ -19,7 +19,7 @@ export interface RepoOptions {
   committer?: Committer
 }
 
-const DEFAULT_COMMITTER: Committer = { name: 'Tolaria Remote', email: 'remote@tolaria.invalid' }
+const DEFAULT_COMMITTER: Committer = { name: 'Memoria Remote', email: 'remote@memoria.invalid' }
 /** Name of the vault's git remote inside the server's clone. */
 export const REMOTE = 'upstream'
 const UNREADABLE_AS_FILE = new Set(['ENOENT', 'EISDIR', 'ENOTDIR'])
@@ -133,7 +133,7 @@ export class GitRepo {
 
   /** Readers never see a half-written file: write beside the index, then rename into place. */
   async writeAtomic(path: VaultPath, bytes: Uint8Array): Promise<void> {
-    const temp = join(this.dir, '.git', `tolaria-write-${this.tempFiles++}`)
+    const temp = join(this.dir, '.git', `memoria-write-${this.tempFiles++}`)
     await this.makeParent(path)
     await writeFile(temp, bytes)
     await rename(temp, this.abs(path))

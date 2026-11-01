@@ -1,7 +1,7 @@
 import type * as Sentry from '@sentry/react'
 
 // TOL-232: what the web build adds to the shared Sentry setup. In a browser the SDK records the
-// page URL and fetch/navigation breadcrumbs, and Tolaria Web URLs carry note paths
+// page URL and fetch/navigation breadcrumbs, and Memoria Web URLs carry note paths
 // (`/v1/files/<path>`, note routes) and collaboration tickets in query strings. Those are cut
 // down to the origin and the first path segment before anything is sent. Stack frame URLs
 // (the bundle's /assets files) are left alone: Sentry needs them to apply the source maps.

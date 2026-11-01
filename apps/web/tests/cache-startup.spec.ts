@@ -17,7 +17,7 @@ async function measurePaintTime(page: Page): Promise<number> {
 
 /**
  * When the cached note list painted, recorded by the page itself (TOL-206): the shell marks
- * `tolaria:note_list_painted` once its first rows are on screen, so the budget measures the
+ * `memoria:note_list_painted` once its first rows are on screen, so the budget measures the
  * paint rather than when a polling locator happened to look.
  */
 async function measureNoteListPaint(page: Page): Promise<number> {
@@ -26,7 +26,7 @@ async function measureNoteListPaint(page: Page): Promise<number> {
 			new Promise<number>((resolve) => {
 				const read = () => {
 					const entry = performance.getEntriesByName(
-						"tolaria:note_list_painted",
+						"memoria:note_list_painted",
 					)[0];
 					if (entry) resolve(entry.startTime);
 					else setTimeout(read, 50);
@@ -51,8 +51,8 @@ const TEST_TOKEN = "e2e-token-not-a-secret-0123456789";
 
 async function configureRemoteVault(page: Page): Promise<void> {
 	await page.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 	}, TEST_TOKEN);
 }
 
@@ -90,7 +90,7 @@ test("cache-first startup paints under 1s on 4G, no blocking screens", async ({
 	// Verify cache was written
 	const cacheWritten = await page.evaluate(async () => {
 		const db = await new Promise<IDBDatabase | null>((resolve) => {
-			const req = indexedDB.open("tolaria-entries", 1);
+			const req = indexedDB.open("memoria-entries", 1);
 			req.onsuccess = () => resolve(req.result);
 			req.onerror = () => resolve(null);
 		});
@@ -144,7 +144,7 @@ test("first-ever load fetches remote notes and stores a cache snapshot", async (
 	await page.goto("/");
 	await page.evaluate(() => {
 		return new Promise<void>((resolve) => {
-			const req = indexedDB.deleteDatabase("tolaria-entries");
+			const req = indexedDB.deleteDatabase("memoria-entries");
 			req.onsuccess = () => resolve();
 			req.onerror = () => resolve();
 		});
@@ -163,7 +163,7 @@ test("first-ever load fetches remote notes and stores a cache snapshot", async (
 		.poll(async () =>
 			newPage.evaluate(async () => {
 				const db = await new Promise<IDBDatabase | null>((resolve) => {
-					const request = indexedDB.open("tolaria-entries", 1);
+					const request = indexedDB.open("memoria-entries", 1);
 					request.onsuccess = () => resolve(request.result);
 					request.onerror = () => resolve(null);
 				});

@@ -8,7 +8,7 @@ it('sends standalone proof and layout events to the same local collector', () =>
   vi.stubGlobal('fetch', fetch)
   vi.spyOn(console, 'info').mockImplementation(() => undefined)
   setNativeQaSinkUrl('http://127.0.0.1:43210')
-  const proof = 'TOLARIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE {"persistedToNativeRepository":true}'
+  const proof = 'MEMORIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE {"persistedToNativeRepository":true}'
   logNativeQaProof(proof)
   postNativeQaEvent({ id: 'sidebar.panel', platform: 'ios', width: 260, height: 953, x: 0, y: 0 })
   expect(fetch).toHaveBeenCalledTimes(2)
@@ -30,5 +30,5 @@ it('ignores malformed or unrelated collector events', () => {
   expect(nativeQaSinkLogLine({ proofLog: 'unrelated' })).toBeNull()
   expect(nativeQaSinkLogLine({ id: 'sidebar.panel' })).toBeNull()
   const metric = { id: 'sidebar.panel', platform: 'ios', width: 260, height: 953, x: 0, y: 0 }
-  expect(nativeQaSinkLogLine(metric)).toBe(`TOLARIA_MOBILE_LAYOUT_METRIC ${JSON.stringify(metric)}`)
+  expect(nativeQaSinkLogLine(metric)).toBe(`MEMORIA_MOBILE_LAYOUT_METRIC ${JSON.stringify(metric)}`)
 })

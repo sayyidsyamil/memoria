@@ -66,7 +66,7 @@ function createNoteFallback({ defaults, id, now, pathTitle, rawContent, snapshot
     title: pathTitle,
     type,
     typeTone: 'gray',
-    workspace: snapshot.source?.label ?? 'Tolaria Vault',
+    workspace: snapshot.source?.label ?? 'Memoria Vault',
     workspaceAlias: workspaceAliasForNewNote(snapshot),
   }
 }

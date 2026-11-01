@@ -265,7 +265,7 @@ function workspaceLabel(rootUri: string, request?: ReadOnlyWorkspaceRequest) {
 	return (
 		request?.vaultLabel?.trim() ||
 		decodedDirectoryName(directoryName) ||
-		"Tolaria Vault"
+		"Memoria Vault"
 	);
 }
 
@@ -285,7 +285,7 @@ function emptyFileSystemSnapshot(
 	const snapshot = buildLocalVaultWorkspaceSnapshot({
 		files: [],
 		vaultAlias: request?.vaultAlias,
-		vaultLabel: request?.vaultLabel ?? "Tolaria Vault",
+		vaultLabel: request?.vaultLabel ?? "Memoria Vault",
 		vaultPath: request?.vaultRootUri ?? "",
 	});
 

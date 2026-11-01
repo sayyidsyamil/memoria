@@ -13,7 +13,7 @@ afterEach(async () => {
 })
 
 async function fixture(boundary?: string) {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-history-guard-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-history-guard-'))
   roots.push(dir)
   await mkdir(join(dir, '.git'))
   if (boundary) await writeFile(join(dir, '.git/shallow'), boundary)

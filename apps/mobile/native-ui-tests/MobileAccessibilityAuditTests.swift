@@ -37,7 +37,7 @@ final class MobileAccessibilityAuditTests: XCTestCase {
     remove.coordinate(withNormalizedOffset: CGVector(dx: 0.15, dy: 0.15)).tap()
     XCTAssertTrue(remove.waitForNonExistence(timeout: 5))
     XCTAssertTrue(element(app, "relationship-row-llm-workflow-open").exists)
-    XCTAssertTrue(element(app, "relationship-row-tolaria-mvp-open").exists)
+    XCTAssertTrue(element(app, "relationship-row-memoria-mvp-open").exists)
     XCTAssertTrue(element(app, "relationship-row-release-notes-open").exists)
   }
 
@@ -67,9 +67,9 @@ final class MobileAccessibilityAuditTests: XCTestCase {
   }
 
   private func launch(_ state: String, ready: String) -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    app.launchArguments = ["--tolaria-mobile-search",
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=\(state)&editorMode=wysiwyg&tabletPanels=all&qaRun=accessibility-audit"]
     app.launch()
     XCTAssertTrue(element(app, ready).waitForExistence(timeout: 30))

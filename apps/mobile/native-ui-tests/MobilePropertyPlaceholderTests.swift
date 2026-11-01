@@ -49,12 +49,12 @@ final class MobilePropertyPlaceholderTests: XCTestCase {
 
   private func launchProperties() -> XCUIApplication {
     continueAfterFailure = false
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     app.terminate()
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
     let search = "?source=fixture&phoneState=properties&forceDesktopPanels=1&qaRun=property-placeholder"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     XCTAssertTrue(element(app, "properties-panel").waitForExistence(timeout: 5)
       || element(app, "editor-panel").waitForExistence(timeout: 30))

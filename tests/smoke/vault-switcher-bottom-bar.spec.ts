@@ -112,7 +112,7 @@ async function installVaultSwitcherMocks(
 
   await page.addInitScript((data: VaultSwitcherInitData) => {
     localStorage.clear()
-    localStorage.setItem('tolaria:claude-code-onboarding-dismissed', '1')
+    localStorage.setItem('memoria:claude-code-onboarding-dismissed', '1')
     const openedVaultWindows: OpenedVaultWindow[] = []
     Object.assign(window, { __openedVaultWindows: openedVaultWindows })
 

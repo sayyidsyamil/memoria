@@ -422,9 +422,9 @@ vi.mock("./hooks/useUpdater", async () => {
 });
 
 export const AI_AGENTS_ONBOARDING_DISMISSED_STORAGE_NAME =
-	"tolaria:ai-agents-onboarding-dismissed";
+	"memoria:ai-agents-onboarding-dismissed";
 export const CLAUDE_CODE_ONBOARDING_DISMISSED_STORAGE_NAME =
-	"tolaria:claude-code-onboarding-dismissed";
+	"memoria:claude-code-onboarding-dismissed";
 export const SLOW_APP_READY_TIMEOUT_MS = 10_000;
 
 export function render(

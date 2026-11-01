@@ -79,7 +79,7 @@ const expectedDesktopBlocks = [
 ]
 
 describe('localVaultMarkdown', () => {
-  it('parses desktop markdown blocks used by Tolaria notes', () => {
+  it('parses desktop markdown blocks used by Memoria notes', () => {
     expect(localVaultEditorBlocks(desktopMarkdownFixture)).toMatchObject(expectedDesktopBlocks)
   })
 

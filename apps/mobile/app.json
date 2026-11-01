@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Tolaria",
-    "slug": "tolaria-mobile",
-    "scheme": "tolaria",
+    "name": "Memoria",
+    "slug": "memoria-mobile",
+    "scheme": "memoria",
     "version": "0.2.0",
     "icon": "./assets/icon-light.png",
     "orientation": "default",
@@ -13,14 +13,14 @@
         "light": "./assets/icon-light.png",
         "dark": "./assets/icon-dark.png"
       },
-      "bundleIdentifier": "com.tolaria.mobile.dev",
+      "bundleIdentifier": "com.memoria.mobile.dev",
       "infoPlist": {
         "LSSupportsOpeningDocumentsInPlace": true,
         "UIFileSharingEnabled": true
       }
     },
     "android": {
-      "package": "com.tolaria.mobile.dev"
+      "package": "com.memoria.mobile.dev"
     },
     "web": {
       "bundler": "metro"

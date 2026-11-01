@@ -40,15 +40,15 @@ export function logNativeQaProof(line: string) {
 }
 
 const proofPrefixes = [
-  'TOLARIA_MOBILE_WYSIWYG_MUTATION_PROBE ',
-  'TOLARIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE ',
+  'MEMORIA_MOBILE_WYSIWYG_MUTATION_PROBE ',
+  'MEMORIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE ',
 ]
 
 export function nativeQaSinkLogLine(event: unknown): string | null {
   if (!event || typeof event !== 'object') return null
   if ('proofLog' in event) return acceptedProofLine(event.proofLog)
   if (!validMetric(event)) return null
-  return `TOLARIA_MOBILE_LAYOUT_METRIC ${JSON.stringify(event)}`
+  return `MEMORIA_MOBILE_LAYOUT_METRIC ${JSON.stringify(event)}`
 }
 
 function acceptedProofLine(line: unknown): string | null {

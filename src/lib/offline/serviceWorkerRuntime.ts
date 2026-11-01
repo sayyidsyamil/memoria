@@ -3,7 +3,7 @@ import {
   CLEAR_OFFLINE_DATA_MESSAGE,
   accountKeyFor,
   CACHE_LOADED_URLS_MESSAGE,
-  deleteTolariaCaches,
+  deleteMemoriaCaches,
   isStaleShellCacheName,
   MAX_CACHED_ACCOUNT_RESPONSES,
   routeOfflineRequest,
@@ -12,7 +12,7 @@ import {
 } from './offlineCachePolicy'
 
 /**
- * The Tolaria web service worker (TOL-198), written against a minimal scope interface so it
+ * The Memoria web service worker (TOL-198), written against a minimal scope interface so it
  * runs unchanged in the browser and in unit tests. Hand-written on purpose: no Workbox.
  *
  * - Shell: navigations are network-first with the cached shell as the offline fallback;
@@ -204,7 +204,7 @@ function handleMessage(scope: OfflineServiceWorkerScope, shell: ShellStore, even
   const type = messageType(event.data)
   if (type === CLEAR_OFFLINE_DATA_MESSAGE) {
     shell.forget()
-    event.waitUntil(deleteTolariaCaches(scope.caches))
+    event.waitUntil(deleteMemoriaCaches(scope.caches))
   }
   if (type === CACHE_LOADED_URLS_MESSAGE) {
     const urls = reportedShellUrls(Reflect.get(event.data as object, 'urls'), scope.location.origin)

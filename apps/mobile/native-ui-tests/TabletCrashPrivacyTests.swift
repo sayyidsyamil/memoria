@@ -4,8 +4,8 @@ final class TabletCrashPrivacyTests: XCTestCase {
   func testCrashConsentIsIndependentAndPersists() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&qaRun=crash-privacy"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&qaRun=crash-privacy"]
     app.launch()
     openSettings(app)
     let crash = element(app, "settings-crash-reporting")

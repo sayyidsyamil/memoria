@@ -27,7 +27,7 @@ export type NativeMobileKeyboardShortcutAssertionFailure = {
   message: string
 }
 
-export const nativeMobileKeyboardShortcutLogPrefix = 'TOLARIA_MOBILE_KEYBOARD_SHORTCUT_PROBE'
+export const nativeMobileKeyboardShortcutLogPrefix = 'MEMORIA_MOBILE_KEYBOARD_SHORTCUT_PROBE'
 
 export function nativeMobileKeyboardShortcutProbeEnabled(searchParams: URLSearchParams): boolean {
   return searchParams.get('mobileKeyboardShortcutProbe') === '1'

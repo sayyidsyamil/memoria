@@ -74,7 +74,7 @@ pub struct GitCommit {
     pub date: i64,
 }
 
-const DEFAULT_GITIGNORE: &str = "# Tolaria app files (machine-specific, never commit)\n\
+const DEFAULT_GITIGNORE: &str = "# Memoria app files (machine-specific, never commit)\n\
 .laputa/settings.json\n\
 \n\
 # macOS\n\

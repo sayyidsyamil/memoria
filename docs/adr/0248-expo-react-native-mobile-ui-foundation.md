@@ -6,17 +6,17 @@ Accepted
 
 ## Context
 
-Tolaria needs a mobile app that can ship first on tablets and later on phones. The previous mobile prototype proved that pure mobile vault, markdown, and sync boundaries are viable, but its UI work drifted into hand-built screens that required too much product steering.
+Memoria needs a mobile app that can ship first on tablets and later on phones. The previous mobile prototype proved that pure mobile vault, markdown, and sync boundaries are viable, but its UI work drifted into hand-built screens that required too much product steering.
 
-Mobile development needs a deterministic visual feedback loop. Codex should be able to build and verify native UI surfaces from fixture states, screenshots, and Tolaria's existing desktop semantics instead of inventing each screen from scratch.
+Mobile development needs a deterministic visual feedback loop. Codex should be able to build and verify native UI surfaces from fixture states, screenshots, and Memoria's existing desktop semantics instead of inventing each screen from scratch.
 
 ## Decision
 
 Create a separate Expo React Native workspace app under `apps/mobile`.
 
-The mobile app starts with a fixture-driven UI lab and native Tolaria UI primitives rather than production business logic. The first primitives mirror desktop semantics: buttons, icon buttons, panels, toolbars, list rows, chips, and property rows. Screens compose those primitives instead of directly styling raw React Native controls.
+The mobile app starts with a fixture-driven UI lab and native Memoria UI primitives rather than production business logic. The first primitives mirror desktop semantics: buttons, icon buttons, panels, toolbars, list rows, chips, and property rows. Screens compose those primitives instead of directly styling raw React Native controls.
 
-The mobile visual language derives from Tolaria's desktop semantic colors, spacing, panel structure, and Phosphor icon usage, but it is implemented with native React Native surfaces. Desktop React DOM components are reference material, not reusable mobile components.
+The mobile visual language derives from Memoria's desktop semantic colors, spacing, panel structure, and Phosphor icon usage, but it is implemented with native React Native surfaces. Desktop React DOM components are reference material, not reusable mobile components.
 
 ## Consequences
 

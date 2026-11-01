@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 
 final class MobileMountedRefreshTests: XCTestCase {
-  private let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+  private let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
 
   override func tearDown() {
     app.terminate()
@@ -11,15 +11,15 @@ final class MobileMountedRefreshTests: XCTestCase {
   }
 
   func testSameVaultRefreshPreservesScopeSelectionAndSourceMode() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_MOUNTED_REFRESH"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_MOUNTED_REFRESH"] == "1",
                       "Requires a disposable local-qa-refresh vault and backed-up simulator catalog")
     continueAfterFailure = false
     let phone = UIDevice.current.userInterfaceIdiom == .phone
     XCUIDevice.shared.orientation = phone ? .portrait : .landscapeLeft
     app.terminate()
     let search = "?source=native&phoneState=list&editorMode=source&tabletPanels=all&qaRun=mounted-refresh"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     XCTAssertTrue(element("note-list-toolbar").waitForExistence(timeout: 40))
     if phone { MobilePanelNavigation.openSidebar(app) }

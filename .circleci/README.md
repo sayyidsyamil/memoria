@@ -1,4 +1,4 @@
-# Tolaria CircleCI
+# Memoria CircleCI
 
 `.circleci/config.yml` is the source of truth for validation, cross-platform release builds,
 GitHub Release publication, documentation deployment, and pull-request branch maintenance.
@@ -27,7 +27,7 @@ The migration from GitHub Actions is staged:
   provisioned and a full shadow release has produced every platform artifact.
 - Codecov uploads run in validation but do not fail the job while `codecov_required` is `false`.
   Codecov rejects tokenless uploads to the protected `main` branch, so add `CODECOV_TOKEN` to the
-  `tolaria-ci` context and set `codecov_required` to `true` before GitHub Actions `ci.yml` is
+  `memoria-ci` context and set `codecov_required` to `true` before GitHub Actions `ci.yml` is
   retired.
 - Disable a GitHub Actions workflow only after the matching CircleCI jobs are green on `main`.
 - Validation is split into independent jobs so the slowest job (`static-gates`, mostly the
@@ -60,14 +60,14 @@ The migration from GitHub Actions is staged:
 
 Create three restricted CircleCI contexts.
 
-### `tolaria-ci`
+### `memoria-ci`
 
 | Variable | Purpose |
 | --- | --- |
 | `CODESCENE_PAT` | Read the CodeScene project analysis. |
-| `CODESCENE_PROJECT_ID` | Select the Tolaria CodeScene project. |
+| `CODESCENE_PROJECT_ID` | Select the Memoria CodeScene project. |
 
-### `tolaria-release`
+### `memoria-release`
 
 | Variable | Purpose |
 | --- | --- |
@@ -84,7 +84,7 @@ Create three restricted CircleCI contexts.
 | `VITE_POSTHOG_KEY` | Configure packaged-build analytics. |
 | `VITE_POSTHOG_HOST` | Select the PostHog endpoint. |
 
-### `tolaria-github`
+### `memoria-github`
 
 | Variable | Purpose |
 | --- | --- |
@@ -96,7 +96,7 @@ Optional Windows Authenticode variables are
 `WINDOWS_CODE_SIGNING_TIMESTAMP_URL`. The legacy `WINDOWS_CERTIFICATE*` aliases remain supported.
 
 `GH_TOKEN` should be a fine-grained token or GitHub App installation token restricted to
-`refactoringhq/tolaria`. It needs repository contents and pull-request write access. Keeping it in
+`refactoringhq/memoria`. It needs repository contents and pull-request write access. Keeping it in
 its own context prevents build jobs from receiving GitHub write access and prevents publication
 jobs from receiving signing credentials.
 

@@ -15,8 +15,8 @@ describe('mobile wikilink resolution', () => {
     })
   })
 
-  it('builds the native TenTap href used for Tolaria wikilink marks', () => {
-    expect(mobileWikilinkHref('Tolaria/Mobile UI')).toBe('tolaria://wikilink/Tolaria%2FMobile%20UI')
+  it('builds the native TenTap href used for Memoria wikilink marks', () => {
+    expect(mobileWikilinkHref('Memoria/Mobile UI')).toBe('memoria://wikilink/Memoria%2FMobile%20UI')
   })
 
   it('resolves aliases using the same note identity candidates as desktop', () => {

@@ -1,7 +1,7 @@
 import { clearCache as clearEntriesSnapshot } from '../../../packages/collab-client/src/entriesCache'
 import { resolveBrowserBackendKind, resolvePlatformCapabilities } from '../platformCapabilities'
 import { assertSharedVaultWritable } from '../sharing/vaultAccess'
-import { CACHE_LOADED_URLS_MESSAGE, CLEAR_OFFLINE_DATA_MESSAGE, deleteTolariaCaches } from './offlineCachePolicy'
+import { CACHE_LOADED_URLS_MESSAGE, CLEAR_OFFLINE_DATA_MESSAGE, deleteMemoriaCaches } from './offlineCachePolicy'
 
 /**
  * Page side of offline read on the web (TOL-198): when the service worker registers, the
@@ -12,9 +12,9 @@ import { CACHE_LOADED_URLS_MESSAGE, CLEAR_OFFLINE_DATA_MESSAGE, deleteTolariaCac
 
 export const OFFLINE_SERVICE_WORKER_URL = '/service-worker.js'
 /** Dispatch on `window` when the user signs out: every offline copy of the vault is deleted. */
-export const ACCOUNT_SIGNED_OUT_EVENT = 'tolaria:account-signed-out'
+export const ACCOUNT_SIGNED_OUT_EVENT = 'memoria:account-signed-out'
 /** Dispatch on `window` when the account is deleted (TOL-199): nothing may stay behind. */
-export const ACCOUNT_DELETED_EVENT = 'tolaria:account-deleted'
+export const ACCOUNT_DELETED_EVENT = 'memoria:account-deleted'
 const REGISTRATION_DELAY_MS = 2000
 
 export class OfflineReadOnlyError extends Error {
@@ -24,7 +24,7 @@ export class OfflineReadOnlyError extends Error {
   }
 }
 
-/** True on the web build talking to a Tolaria server; false on desktop and on demo data. */
+/** True on the web build talking to a Memoria server; false on desktop and on demo data. */
 export function hasOfflineRead(): boolean {
   return resolvePlatformCapabilities(resolveBrowserBackendKind()).offlineRead
 }
@@ -94,7 +94,7 @@ export function scheduleOfflineServiceWorkerRegistration(env: OfflineRegistratio
 export async function clearOfflineData(win: Window = window): Promise<void> {
   win.navigator.serviceWorker?.controller?.postMessage({ type: CLEAR_OFFLINE_DATA_MESSAGE })
   const pending: Promise<void>[] = [clearEntriesSnapshot()]
-  if (win.caches) pending.push(deleteTolariaCaches(win.caches))
+  if (win.caches) pending.push(deleteMemoriaCaches(win.caches))
   await Promise.all(pending)
 }
 

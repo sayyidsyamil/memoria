@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { createTolariaCodeBlockOptions } from './codeBlockOptions'
+import { createMemoriaCodeBlockOptions } from './codeBlockOptions'
 
 describe('Bash code block highlighting', () => {
   it('offers one canonical Bash picker option for common shell aliases', () => {
-    const options = createTolariaCodeBlockOptions()
+    const options = createMemoriaCodeBlockOptions()
 
     expect(options.supportedLanguages?.bash).toMatchObject({
       name: 'Bash',
@@ -13,7 +13,7 @@ describe('Bash code block highlighting', () => {
   })
 
   it('loads and applies the Shiki shell grammar through the Bash alias', async () => {
-    const highlighter = await createTolariaCodeBlockOptions().createHighlighter?.()
+    const highlighter = await createMemoriaCodeBlockOptions().createHighlighter?.()
 
     await expect(highlighter?.loadLanguage('bash')).resolves.toBeUndefined()
     expect(highlighter?.getLoadedLanguages()).toContain('bash')

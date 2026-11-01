@@ -45,7 +45,7 @@ class MobileEditorDocumentRequests {
     return new Promise<unknown>((resolve, reject) => {
       if (!this.active) { reject(new Error('editorDisposed')); return }
       if (this.pending.size >= 32) { reject(new Error('editorReadLimitReached')); return }
-      const messageId = `tolaria-document-${++nextReadId}`
+      const messageId = `memoria-document-${++nextReadId}`
       const timer = setTimeout(() => this.take(messageId)?.reject(new Error('editorReadTimedOut')), 10_000)
       this.pending.set(messageId, { resolve, reject, timer, replyType: replyTypes[type] })
       try { send({ type, payload: { messageId } }) }

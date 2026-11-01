@@ -1,8 +1,8 @@
 # Getting Started Vault
 
-The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
+The Getting Started vault is a small public sample vault hosted at [refactoringhq/memoria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
 
-It exists to show Tolaria's conventions without requiring you to restructure your own notes first.
+It exists to show Memoria's conventions without requiring you to restructure your own notes first.
 
 ## What It Demonstrates
 
@@ -21,13 +21,13 @@ In the cloned vault, open **Editor Playground** for block editing, **Project Das
 
 ## Local-Only By Default
 
-When Tolaria clones the sample, it removes the remote from the local copy. This makes the sample vault disposable. You can edit it freely, commit locally, and delete it later.
+When Memoria clones the sample, it removes the remote from the local copy. This makes the sample vault disposable. You can edit it freely, commit locally, and delete it later.
 
 To connect a vault to your own remote, use the bottom status bar remote chip or run `Add Remote` from the command palette.
 
-Tolaria also repairs starter-vault guidance files when needed. `AGENTS.md` is the canonical guidance file, `CLAUDE.md` is kept as a compatibility shim, and `GEMINI.md` is only created when you explicitly restore Antigravity/Gemini guidance.
+Memoria also repairs starter-vault guidance files when needed. `AGENTS.md` is the canonical guidance file, `CLAUDE.md` is kept as a compatibility shim, and `GEMINI.md` is only created when you explicitly restore Antigravity/Gemini guidance.
 
-Start with the `Start here!` view and follow **Get familiar with Tolaria**. The checklist links to working examples, so you can try each feature without changing your own notes.
+Start with the `Start here!` view and follow **Get familiar with Memoria**. The checklist links to working examples, so you can try each feature without changing your own notes.
 
 ## Use It Alongside Your Own Vaults
 
@@ -37,4 +37,4 @@ This lets search, quick open, note lists, backlinks, and wikilink navigation spa
 
 ## When To Move On
 
-After you understand the sample, open your own vault. Tolaria does not require a special folder structure: a folder of Markdown files is enough to start. You can remove the sample from Tolaria's vault list later without deleting its files from disk.
+After you understand the sample, open your own vault. Memoria does not require a special folder structure: a folder of Markdown files is enough to start. You can remove the sample from Memoria's vault list later without deleting its files from disk.

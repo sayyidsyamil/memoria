@@ -24,10 +24,10 @@ final class MobilePersistenceIsolationTests: XCTestCase {
   private func launchProbe(_ parameters: String) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&tabletPanels=all&\(parameters)&qaRun=native-persistence-isolation"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     orientTablet(app)
     return app

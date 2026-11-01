@@ -26,13 +26,13 @@ function json(body: unknown, status = 200): Response {
 }
 
 function configureRemote(on: boolean) {
-  const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+  const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
   if (on) {
-    target.TOLARIA_REMOTE_URL = 'https://vault.example'
-    target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+    target.MEMORIA_REMOTE_URL = 'https://vault.example'
+    target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
   } else {
-    delete target.TOLARIA_REMOTE_URL
-    delete target.TOLARIA_REMOTE_TOKEN
+    delete target.MEMORIA_REMOTE_URL
+    delete target.MEMORIA_REMOTE_TOKEN
   }
 }
 

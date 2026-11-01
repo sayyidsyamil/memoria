@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-	TOLARIA_DISCORD_INVITE_URL,
-	TOLARIA_IOS_DOWNLOAD_URL,
+	MEMORIA_DISCORD_INVITE_URL,
+	MEMORIA_IOS_DOWNLOAD_URL,
 } from "../constants/feedback";
 import type { UpdateActions } from "../hooks/useUpdater";
 import { openExternalUrl } from "../utils/url";
@@ -86,11 +86,11 @@ describe("community banner", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Join Discord" }));
 		expect(openExternalUrl).toHaveBeenNthCalledWith(
 			1,
-			TOLARIA_IOS_DOWNLOAD_URL,
+			MEMORIA_IOS_DOWNLOAD_URL,
 		);
 		expect(openExternalUrl).toHaveBeenNthCalledWith(
 			2,
-			TOLARIA_DISCORD_INVITE_URL,
+			MEMORIA_DISCORD_INVITE_URL,
 		);
 	});
 });

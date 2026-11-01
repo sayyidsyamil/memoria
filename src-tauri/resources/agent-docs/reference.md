@@ -5,20 +5,20 @@ URL: /reference/contribute
 
 # Contribute
 
-Tolaria is free and open source, and any kind of help is useful. Pick the path that matches what you want to do.
+Memoria is free and open source, and any kind of help is useful. Pick the path that matches what you want to do.
 
 ## Newsletter
 
-[Refactoring](https://refactoring.fm/) is Luca's newsletter and community for engineers building better teams and software with AI. Subscribing is the best way to support Tolaria.
+[Refactoring](https://refactoring.fm/) is Luca's newsletter and community for engineers building better teams and software with AI. Subscribing is the best way to support Memoria.
 
 ## Sponsors
 
-Tolaria is supported by a panel of tools Luca uses every day to keep the project healthy, tested, and ready for AI-assisted development:
+Memoria is supported by a panel of tools Luca uses every day to keep the project healthy, tested, and ready for AI-assisted development:
 
 - [Codacy](https://codacy.com/tolaria?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
-- [CodeScene](https://codescene.com/?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
-- [CircleCI](https://circleci.com/?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
-- [Unblocked](https://getunblocked.com/?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
+- [CodeScene](https://codescene.com/?utm_source=memoria&utm_medium=website&utm_campaign=refactoring)
+- [CircleCI](https://circleci.com/?utm_source=memoria&utm_medium=website&utm_campaign=refactoring)
+- [Unblocked](https://getunblocked.com/?utm_source=memoria&utm_medium=website&utm_campaign=refactoring)
 
 ## Feature Requests
 
@@ -26,7 +26,7 @@ Use the [product board](https://tolaria.canny.io/) for feature ideas. Search fir
 
 ## Community
 
-Join the [Tolaria Discord server](https://discord.gg/tRBC2u428B) for questions, conversations, show and tell, tips, and development updates.
+Join the [Memoria Discord server](https://discord.gg/tRBC2u428B) for questions, conversations, show and tell, tips, and development updates.
 
 ## Contribute Code
 
@@ -34,7 +34,7 @@ Small, focused pull requests are welcome. Check the product board first so you b
 
 ## Report A Bug
 
-Use [GitHub Issues](https://github.com/refactoringhq/tolaria/issues) for bugs. Include what happened, what you expected, and clear reproduction steps. If you are reporting from inside Tolaria, use the Contribute panel to copy sanitized diagnostics and attach them to the issue.
+Use [GitHub Issues](https://github.com/refactoringhq/tolaria/issues) for bugs. Include what happened, what you expected, and clear reproduction steps. If you are reporting from inside Memoria, use the Contribute panel to copy sanitized diagnostics and attach them to the issue.
 
 ---
 
@@ -74,7 +74,7 @@ For each stable release:
 1. Use the public release history as the source of truth for what shipped.
 2. Map every user-facing highlight to a concept, guide, reference, or troubleshooting page.
 3. Add or refresh a Getting Started vault example when the feature is best learned by opening a real file.
-4. Review the landing page separately and promote only the capabilities that explain Tolaria's durable value.
+4. Review the landing page separately and promote only the capabilities that explain Memoria's durable value.
 5. Remove instructions for features that were withheld from the final release.
 
 ## Page Types
@@ -104,7 +104,7 @@ URL: /reference/file-layout
 
 # File Layout
 
-Tolaria is not opinionated about folder structure. It finds notes recursively across the whole vault, stores new notes in the root by default, and uses types and relationships for real organization.
+Memoria is not opinionated about folder structure. It finds notes recursively across the whole vault, stores new notes in the root by default, and uses types and relationships for real organization.
 
 ```txt
 my-vault/
@@ -123,9 +123,9 @@ my-vault/
 
 ## Root Notes
 
-Tolaria works well with a flat vault. Folders are optional and can be useful for compatibility with other tools, but they are not required for people, projects, topics, or any other note category.
+Memoria works well with a flat vault. Folders are optional and can be useful for compatibility with other tools, but they are not required for people, projects, topics, or any other note category.
 
-Type is not inferred from folder location. It comes from frontmatter, and relationships are expressed with wikilinks in fields. That is what Tolaria uses for the sidebar, Properties panel, search, custom views, and neighborhood navigation.
+Type is not inferred from folder location. It comes from frontmatter, and relationships are expressed with wikilinks in fields. That is what Memoria uses for the sidebar, Properties panel, search, custom views, and neighborhood navigation.
 
 ## Special Folders
 
@@ -144,7 +144,7 @@ Type definitions are Markdown notes with `type: Type` in frontmatter. New type d
 
 ## Git Files
 
-If the vault is a Git repository, `.git/` belongs to Git. Tolaria reads Git state but does not treat `.git/` as notes.
+If the vault is a Git repository, `.git/` belongs to Git. Memoria reads Git state but does not treat `.git/` as notes.
 
 ---
 
@@ -155,7 +155,7 @@ URL: /reference/frontmatter-fields
 
 # Frontmatter Fields
 
-Tolaria uses conventions instead of a required schema.
+Memoria uses conventions instead of a required schema.
 
 | Field | Meaning |
 | --- | --- |
@@ -177,7 +177,7 @@ Tolaria uses conventions instead of a required schema.
 
 ## Custom Fields
 
-You can add your own fields. If a field contains wikilinks, Tolaria can treat it as a relationship.
+You can add your own fields. If a field contains wikilinks, Memoria can treat it as a relationship.
 
 ## System Fields
 
@@ -251,7 +251,7 @@ URL: /reference/release-channels
 
 # Release Channels
 
-Tolaria publishes Stable and Alpha release metadata to GitHub Pages.
+Memoria publishes Stable and Alpha release metadata to GitHub Pages.
 
 ## Stable
 
@@ -342,7 +342,7 @@ The frontmatter stores note metadata. The body stores rows and cells. There is n
 
 ## Frontmatter
 
-All ordinary Tolaria fields remain available:
+All ordinary Memoria fields remain available:
 
 - `type`
 - `status`
@@ -353,7 +353,7 @@ All ordinary Tolaria fields remain available:
 
 The `_display: sheet` field is the display-as marker. Omit it for ordinary text notes.
 
-The `_sheet` key is reserved for spreadsheet presentation metadata. It follows the same system-field convention as other underscore-prefixed Tolaria fields: hidden from normal property editing, but visible and editable in raw source.
+The `_sheet` key is reserved for spreadsheet presentation metadata. It follows the same system-field convention as other underscore-prefixed Memoria fields: hidden from normal property editing, but visible and editable in raw source.
 
 ## Body
 
@@ -369,7 +369,7 @@ Any cell whose input starts with `=` is treated as a formula. Other cells are tr
 
 ## `_sheet` Metadata
 
-Tolaria stores spreadsheet presentation state in `_sheet` as plain YAML.
+Memoria stores spreadsheet presentation state in `_sheet` as plain YAML.
 
 | Field | Meaning |
 | --- | --- |
@@ -418,7 +418,7 @@ These formats affect presentation, not the underlying cell input in the CSV body
 
 ## Markdown Style Import
 
-When Tolaria imports a non-formula CSV cell, simple Markdown wrappers can seed initial styles:
+When Memoria imports a non-formula CSV cell, simple Markdown wrappers can seed initial styles:
 
 | Cell text | Stored value | Style |
 | --- | --- | --- |
@@ -431,7 +431,7 @@ After save, the style belongs in `_sheet` metadata and the body keeps the unwrap
 
 ## Wikilinks
 
-Non-formula cells can store normal Tolaria wikilinks:
+Non-formula cells can store normal Memoria wikilinks:
 
 ```csv
 Account,Source
@@ -439,7 +439,7 @@ Newsletter,[[newsletter-revenue]]
 Sponsors,[[sponsorship-pipeline]]
 ```
 
-Formula cells can reference another sheet note with Tolaria's cross-sheet syntax:
+Formula cells can reference another sheet note with Memoria's cross-sheet syntax:
 
 ```txt
 =[[newsletter-revenue]].B5
@@ -454,7 +454,7 @@ Cross-sheet cell references resolve another sheet note by wikilink target, then 
 
 When editing a sheet note programmatically:
 
-- preserve the YAML frontmatter delimiter and ordinary Tolaria fields
+- preserve the YAML frontmatter delimiter and ordinary Memoria fields
 - keep `_display: sheet` when the file should display as a spreadsheet
 - keep spreadsheet presentation state under `_sheet`
 - parse and serialize the body as CSV, not by splitting on every comma manually
@@ -475,9 +475,9 @@ URL: /reference/spreadsheet-functions
 
 # Spreadsheet Formulas
 
-Formula cells start with `=` and are evaluated by IronCalc through Tolaria's sheet editor.
+Formula cells start with `=` and are evaluated by IronCalc through Memoria's sheet editor.
 
-Tolaria adds vault-aware sheet references on top of the normal spreadsheet formula model. Everything else should be treated as IronCalc formula behavior. IronCalc aims for Excel-compatible formulas, but the upstream project is still evolving, so verify advanced formulas against the IronCalc docs when precision matters.
+Memoria adds vault-aware sheet references on top of the normal spreadsheet formula model. Everything else should be treated as IronCalc formula behavior. IronCalc aims for Excel-compatible formulas, but the upstream project is still evolving, so verify advanced formulas against the IronCalc docs when precision matters.
 
 The same `[[note]].field` target forms are also available to HTML block vault expressions. Use [Vault Expressions](/reference/vault-expressions) for `{{...}}` syntax and HTML formatting helpers.
 
@@ -501,9 +501,9 @@ Use parentheses when a model depends on precedence:
 =(B2+B3-B4)/B5
 ```
 
-## Tolaria Note References
+## Memoria Note References
 
-Tolaria supports wikilink cell references for values that live in another sheet note:
+Memoria supports wikilink cell references for values that live in another sheet note:
 
 ```txt
 =[[newsletter-revenue]].B5
@@ -512,7 +512,7 @@ Tolaria supports wikilink cell references for values that live in another sheet 
 =[[launch-brief]].2
 ```
 
-The target inside `[[...]]` resolves like a normal Tolaria wikilink. The cell address after the dot uses A1 notation.
+The target inside `[[...]]` resolves like a normal Memoria wikilink. The cell address after the dot uses A1 notation.
 
 Absolute markers follow spreadsheet copy behavior:
 
@@ -548,7 +548,7 @@ Line references exclude YAML frontmatter, are 1-based, and preserve commas as te
 
 ## Autocomplete Functions
 
-Tolaria's formula autocomplete exposes the implemented function catalog from the bundled IronCalc engine. The current catalog has 195 functions.
+Memoria's formula autocomplete exposes the implemented function catalog from the bundled IronCalc engine. The current catalog has 195 functions.
 
 The dropdown shows a small ranked set of matches while you type. Keep typing to narrow the result list. Function names with digits and dots, such as `BIN2DEC` and `ERFC.PRECISE`, are supported.
 
@@ -654,7 +654,7 @@ Format the result as a percentage with a cell `num_fmt` such as `0.00%`.
 
 ## IronCalc Function Families
 
-IronCalc documents formulas by category. Use these upstream pages for detailed syntax and examples. The upstream documentation may include newer functions that are not yet present in Tolaria's bundled IronCalc version.
+IronCalc documents formulas by category. Use these upstream pages for detailed syntax and examples. The upstream documentation may include newer functions that are not yet present in Memoria's bundled IronCalc version.
 
 | Family | Link |
 | --- | --- |
@@ -682,7 +682,7 @@ URL: /reference/supported-platforms
 
 # Supported Platforms
 
-Tolaria is available on desktop (built with Tauri) and mobile (React Native with Expo). Releases currently target macOS, Windows, Linux, iPhone, and iPad.
+Memoria is available on desktop (built with Tauri) and mobile (React Native with Expo). Releases currently target macOS, Windows, Linux, iPhone, and iPad.
 
 | Platform | Current support | Notes |
 | --- | --- | --- |
@@ -711,7 +711,7 @@ The mobile app shares the same vault format and git repository as the desktop ap
 
 Include:
 
-- Tolaria version.
+- Memoria version.
 - Operating system and version.
 - CPU architecture.
 - Whether the vault is local-only or connected to a remote.
@@ -726,7 +726,7 @@ URL: /reference/vault-expressions
 
 # Vault Expressions
 
-Vault expressions let rendered content read values from Tolaria notes. The `{{...}}` template form currently runs in HTML blocks. Sheet formulas use the same `[[note]].field` reference forms inside `=` formulas, but spreadsheet calculations still use IronCalc functions.
+Vault expressions let rendered content read values from Memoria notes. The `{{...}}` template form currently runs in HTML blocks. Sheet formulas use the same `[[note]].field` reference forms inside `=` formulas, but spreadsheet calculations still use IronCalc functions.
 
 ## Reference Syntax
 
@@ -741,7 +741,7 @@ Vault expressions let rendered content read values from Tolaria notes. The `{{..
 | `{{[[budget]].B5}}` | Single cell from a sheet note. |
 | `{{[[brief]].2}}` | Second raw body line from another note. |
 
-Wikilink targets resolve like normal Tolaria links, so they can use filenames, paths, or note titles when those targets are unambiguous.
+Wikilink targets resolve like normal Memoria links, so they can use filenames, paths, or note titles when those targets are unambiguous.
 
 Line references are 1-based and exclude YAML frontmatter. `[[note]].A1` means grid or cell access and may split comma-separated content. `[[note]].1` means the whole first body line, preserving commas as text.
 
@@ -801,7 +801,7 @@ For scalar values, `json(...)` returns the JSON representation of that value. Fo
   "path": "/vault/acceleration-whiplash.md",
   "status": "Evergreened",
   "raw": "[[acceleration-whiplash]]",
-  "deepLink": "tolaria://refactoring-vault/acceleration-whiplash.md"
+  "deepLink": "memoria://refactoring-vault/acceleration-whiplash.md"
 }
 ```
 

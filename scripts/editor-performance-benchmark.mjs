@@ -328,8 +328,8 @@ function stopDevServer() {
 
 async function installSyntheticVault(page, entries, contentByPath) {
   await page.addInitScript(({ syntheticContent, syntheticEntries }) => {
-    globalThis.__TOLARIA_PERFORMANCE_HARNESS__ = true
-    localStorage.setItem('tolaria:claude-code-onboarding-dismissed', '1')
+    globalThis.__MEMORIA_PERFORMANCE_HARNESS__ = true
+    localStorage.setItem('memoria:claude-code-onboarding-dismissed', '1')
     const jsonResponse = value => new Response(JSON.stringify(value), {
       headers: { 'Content-Type': 'application/json' },
       status: 200,
@@ -441,7 +441,7 @@ async function openFixturePage({ baseUrl, browser, contentByPath, entries }) {
 }
 
 async function startupMarkMs(page, phase) {
-  const markName = `tolaria:${phase}`
+  const markName = `memoria:${phase}`
   await page.waitForFunction(
     name => performance.getEntriesByName(name, 'mark').length > 0,
     markName,

@@ -28,7 +28,7 @@ test('@smoke mobile checkpoint recovery refreshes the editor even when remote he
     const target = await createGitVault({ fs: context.fs, dir: seed }).checkpoint(author)
     execFileSync('git', ['-C', seed, 'push', remote, 'main'], { env: gitTestEnvironment(), stdio: 'pipe' })
     execFileSync('git', ['-C', context.dir, 'fetch', remote, 'main'], { env: gitTestEnvironment(), stdio: 'pipe' })
-    const journalPath = join(context.dir, '.git', 'tolaria-checkout.json')
+    const journalPath = join(context.dir, '.git', 'memoria-checkout.json')
     await writeFile(journalPath, JSON.stringify({ version: 1, branch: 'main', before: base, target: target.oid }))
     const editors = createWorkspaceSyncEditors()
     editors.register(async () => () => {}, 'note-0.md')

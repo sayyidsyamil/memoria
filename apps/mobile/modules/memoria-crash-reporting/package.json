@@ -1,0 +1,7 @@
+{
+  "name": "memoria-crash-reporting",
+  "version": "0.1.0",
+  "description": "Consent-bound native crash reporting for Memoria",
+  "private": true,
+  "license": "AGPL-3.0-only"
+}

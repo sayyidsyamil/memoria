@@ -29,8 +29,8 @@ const occupiedNoteDestinations = [
       type: 'renameNoteFile' as const,
     },
     existing: {
-      id: 'Tolaria/Mobile UI/manual-name.md',
-      path: 'Tolaria/Mobile UI/manual-name.md',
+      id: 'Memoria/Mobile UI/manual-name.md',
+      path: 'Memoria/Mobile UI/manual-name.md',
       title: 'Existing Manual Name',
     },
     label: 'renaming note filenames',
@@ -60,7 +60,7 @@ describe('applyMobileWorkspaceEdit', () => {
     expect(result.writes).toEqual([
       {
         kind: 'moveNote',
-        path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+        path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
         toPath: 'Writing/Essays/Workflow Orchestration Essay.md',
       },
     ])
@@ -96,13 +96,13 @@ describe('applyMobileWorkspaceEdit', () => {
     const updatedRef = noteById(result.snapshot, referringNote.id)
 
     expect(renamed).toMatchObject({
-      path: 'Tolaria/Mobile UI/manual-name.md',
+      path: 'Memoria/Mobile UI/manual-name.md',
       rawContent: '# Workflow Orchestration Essay\n\nMove me.\n',
       title: 'Workflow Orchestration Essay',
     })
-    expectRetargetedWikilinks(updatedRef, movedSource.id, 'Tolaria/Mobile UI/manual-name')
+    expectRetargetedWikilinks(updatedRef, movedSource.id, 'Memoria/Mobile UI/manual-name')
     expectRetargetedWikilinkWrites(result.writes, {
-      destinationPath: 'Tolaria/Mobile UI/manual-name.md',
+      destinationPath: 'Memoria/Mobile UI/manual-name.md',
       refContent: updatedRef.rawContent ?? '',
     })
   })
@@ -134,21 +134,21 @@ describe('applyMobileWorkspaceEdit', () => {
     const updatedRef = noteById(result.snapshot, referringNote.id)
 
     expect(renamed).toMatchObject({
-      path: 'Tolaria/Mobile UI/renamed-workflow-essay.md',
+      path: 'Memoria/Mobile UI/renamed-workflow-essay.md',
       title: 'Renamed Workflow Essay',
     })
     expect(renamed.rawContent).toContain('title: Renamed Workflow Essay')
-    expectRetargetedWikilinks(updatedRef, movedSource.id, 'Tolaria/Mobile UI/renamed-workflow-essay', 'Renamed Workflow Essay')
+    expectRetargetedWikilinks(updatedRef, movedSource.id, 'Memoria/Mobile UI/renamed-workflow-essay', 'Renamed Workflow Essay')
     expect(result.writes).toEqual([
       {
         content: renamed.rawContent,
         kind: 'saveNote',
-        path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+        path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       },
       {
         kind: 'moveNote',
-        path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
-        toPath: 'Tolaria/Mobile UI/renamed-workflow-essay.md',
+        path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
+        toPath: 'Memoria/Mobile UI/renamed-workflow-essay.md',
       },
       {
         content: updatedRef.rawContent,
@@ -170,7 +170,7 @@ describe('applyMobileWorkspaceEdit', () => {
       notes: [base.notes[0], existingDestination],
     }, edit)
 
-    expect(result.snapshot.notes[0]?.path).toBe('Tolaria/Mobile UI/Workflow Orchestration Essay.md')
+    expect(result.snapshot.notes[0]?.path).toBe('Memoria/Mobile UI/Workflow Orchestration Essay.md')
     expect(result.writes).toEqual([])
   })
 
@@ -182,7 +182,7 @@ describe('applyMobileWorkspaceEdit', () => {
       type: 'renameNoteFile',
     })
 
-    expect(result.snapshot.notes[0]?.path).toBe('Tolaria/Mobile UI/Workflow Orchestration Essay.md')
+    expect(result.snapshot.notes[0]?.path).toBe('Memoria/Mobile UI/Workflow Orchestration Essay.md')
     expect(result.writes).toEqual([])
   })
 
@@ -206,8 +206,8 @@ describe('applyMobileWorkspaceEdit', () => {
         type: 'renameNoteFile' as const,
       }),
       expected: {
-        id: 'Tolaria/Mobile UI/manual-name.md',
-        path: 'Tolaria/Mobile UI/manual-name.md',
+        id: 'Memoria/Mobile UI/manual-name.md',
+        path: 'Memoria/Mobile UI/manual-name.md',
         title: 'Workflow Orchestration Essay',
       },
       label: 'changes filenames',
@@ -216,7 +216,7 @@ describe('applyMobileWorkspaceEdit', () => {
     const base = workspaceScenarioForId('default')
     const pathBackedNote = {
       ...base.notes[0],
-      id: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      id: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     }
     const result = applyMobileWorkspaceEditWithWrites({
       ...base,
@@ -248,9 +248,9 @@ describe('applyMobileWorkspaceEdit', () => {
     const { movedSource, referringNote, snapshot } = workspaceMoveLinkScenario()
     const result = applyMobileWorkspaceEditWithWrites({
       ...snapshot,
-      folderPaths: ['Tolaria', 'Tolaria/Mobile UI'],
+      folderPaths: ['Memoria', 'Memoria/Mobile UI'],
     }, {
-      folderPath: 'Tolaria',
+      folderPath: 'Memoria',
       name: 'Research',
       type: 'renameFolder',
     })
@@ -264,7 +264,7 @@ describe('applyMobileWorkspaceEdit', () => {
     )
     expectRetargetedWikilinks(updatedRef, movedSource.id, 'Research/Mobile UI/Workflow Orchestration Essay')
     expect(result.writes).toEqual([
-      { kind: 'renameFolder', path: 'Tolaria', toPath: 'Research' },
+      { kind: 'renameFolder', path: 'Memoria', toPath: 'Research' },
       {
         content: updatedRef.rawContent,
         kind: 'saveNote',
@@ -278,16 +278,16 @@ describe('applyMobileWorkspaceEdit', () => {
     const result = applyMobileWorkspaceEditWithWrites({
       ...base,
       allNotes: base.notes,
-      folderPaths: ['Tolaria', 'Tolaria/Mobile UI'],
+      folderPaths: ['Memoria', 'Memoria/Mobile UI'],
     }, {
-      folderPath: 'Tolaria',
+      folderPath: 'Memoria',
       type: 'deleteFolder',
     })
 
-    expect(result.snapshot.notes.some((note) => note.path?.startsWith('Tolaria/'))).toBe(false)
-    expect(result.snapshot.allNotes?.some((note) => note.path?.startsWith('Tolaria/'))).toBe(false)
-    expect(result.snapshot.folderPaths).not.toContain('Tolaria/Mobile UI')
-    expect(result.writes).toEqual([{ kind: 'deleteFolder', path: 'Tolaria' }])
+    expect(result.snapshot.notes.some((note) => note.path?.startsWith('Memoria/'))).toBe(false)
+    expect(result.snapshot.allNotes?.some((note) => note.path?.startsWith('Memoria/'))).toBe(false)
+    expect(result.snapshot.folderPaths).not.toContain('Memoria/Mobile UI')
+    expect(result.writes).toEqual([{ kind: 'deleteFolder', path: 'Memoria' }])
   })
 })
 
@@ -331,11 +331,11 @@ function movedReferenceContent(): MarkdownContent {
     'related_to:',
     '  - [[Workflow Orchestration Essay]]',
     'belongs_to:',
-    '  - [[Tolaria/Mobile UI/Workflow Orchestration Essay|Workflow]]',
+    '  - [[Memoria/Mobile UI/Workflow Orchestration Essay|Workflow]]',
     '---',
     '# Ref',
     '',
-    'See [[Tolaria/Mobile UI/Workflow Orchestration Essay|essay]] before launch.',
+    'See [[Memoria/Mobile UI/Workflow Orchestration Essay|essay]] before launch.',
     '',
   ].join('\n')
 }
@@ -357,7 +357,7 @@ function expectRetargetedWikilinks(
   expect(content).toContain(`[[${target}|Workflow]]`)
   expect(content).toContain(`[[${target}|essay]]`)
   expect(content).not.toContain('[[Workflow Orchestration Essay]]')
-  expect(content).not.toContain('[[Tolaria/Mobile UI/Workflow Orchestration Essay')
+  expect(content).not.toContain('[[Memoria/Mobile UI/Workflow Orchestration Essay')
   expect(note.relationships.find((relationship) => relationship.key === 'related_to')?.values[0]).toMatchObject({
     id: movedNoteId,
     ref: `[[${target}]]`,
@@ -383,7 +383,7 @@ function expectRetargetedWikilinkWrites(
   expect(writes).toEqual([
     {
       kind: 'moveNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       toPath: destinationPath,
     },
     {

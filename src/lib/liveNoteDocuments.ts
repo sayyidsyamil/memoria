@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import type * as Y from 'yjs'
 
 /**
- * The live documents open on this page (the web build with a Tolaria remote), so writes that
+ * The live documents open on this page (the web build with a Memoria remote), so writes that
  * do not come from the editor, like property edits, go into the document instead of the file.
  */
 export interface LiveNoteDocument {

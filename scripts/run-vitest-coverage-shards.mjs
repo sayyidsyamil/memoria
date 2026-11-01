@@ -27,7 +27,7 @@ const concurrency = positiveInteger(
 const runId = `${Date.now()}-${process.pid}`;
 const shardRoot = process.env.VITEST_COVERAGE_SHARD_ROOT
 	? resolve(rootDir, process.env.VITEST_COVERAGE_SHARD_ROOT)
-	: resolve(os.tmpdir(), "tolaria-vitest-coverage-shards", runId);
+	: resolve(os.tmpdir(), "memoria-vitest-coverage-shards", runId);
 const finalCoverageDir = resolve(rootDir, "coverage");
 const coverageRequire = createCoverageRequire();
 const { createCoverageMap } = coverageRequire("istanbul-lib-coverage");

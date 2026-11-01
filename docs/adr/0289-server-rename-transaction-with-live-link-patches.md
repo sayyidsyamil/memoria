@@ -8,7 +8,7 @@ date: 2026-10-24
 
 ## Context
 
-A note renamed on the desktop has its wikilinks rewritten across the vault by `src-tauri/src/vault/rename.rs`. On the web the Tolaria remote only moved the file (`POST /v1/rename`, protocol 1.0 to 1.3), so every link to a note renamed on the web broke, on the web and on the desktop after its next pull. TOL-22 (plan row B2-5) asks for a server rename that rewrites the links in one git commit, patches the live documents of affected notes so connected clients see the new links, and matches the desktop on its test cases. Other notes may be open as Yjs documents with edits that are not written yet (ADR 0187), and a rewrite must not drop or fork them.
+A note renamed on the desktop has its wikilinks rewritten across the vault by `src-tauri/src/vault/rename.rs`. On the web the Memoria remote only moved the file (`POST /v1/rename`, protocol 1.0 to 1.3), so every link to a note renamed on the web broke, on the web and on the desktop after its next pull. TOL-22 (plan row B2-5) asks for a server rename that rewrites the links in one git commit, patches the live documents of affected notes so connected clients see the new links, and matches the desktop on its test cases. Other notes may be open as Yjs documents with edits that are not written yet (ADR 0187), and a rewrite must not drop or fork them.
 
 ## Decision
 

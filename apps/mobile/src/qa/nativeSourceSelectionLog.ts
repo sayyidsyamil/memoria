@@ -24,7 +24,7 @@ export type NativeSourceSelectionAssertionFailure = {
   message: string
 }
 
-const sourceSelectionLogPrefix = 'TOLARIA_MOBILE_SOURCE_SELECTION_PROBE'
+const sourceSelectionLogPrefix = 'MEMORIA_MOBILE_SOURCE_SELECTION_PROBE'
 
 export function nativeSourceSelectionLogLine(proof: NativeSourceSelectionProof): SourceSelectionLine {
   return `${sourceSelectionLogPrefix} ${JSON.stringify(proof)}`

@@ -1,13 +1,13 @@
-// Wire-level constants and shapes of the Tolaria remote protocol (docs/web/protocol.md).
+// Wire-level constants and shapes of the Memoria remote protocol (docs/web/protocol.md).
 // No runtime dependencies and no Node or DOM APIs: the server and the web client import it as-is.
 
 /** `major.minor`. Minor versions only add; a different major is a different protocol. */
 export const PROTOCOL_VERSION = '1.10'
 export const PROTOCOL_MAJOR = 1
 /** Sent by the server on every response; clients may send it to assert the major they speak. */
-export const PROTOCOL_HEADER = 'tolaria-protocol-version'
+export const PROTOCOL_HEADER = 'memoria-protocol-version'
 /** Response header on note reads: the id of the note's collaborative document. */
-export const DOC_ID_HEADER = 'tolaria-doc-id'
+export const DOC_ID_HEADER = 'memoria-doc-id'
 /** Every route of this major lives under this prefix. */
 export const API_PREFIX = '/v1'
 
@@ -42,7 +42,7 @@ export const ROUTES = {
  * BlockNote's collaboration binding edits a `Y.XmlFragment`, so the note body is one,
  * not a `Y.Text` of raw markdown.
  */
-export const DOC_FORMAT = 'tolaria.blocknote/1'
+export const DOC_FORMAT = 'memoria.blocknote/1'
 /** Name of the `Y.XmlFragment` holding the note body: what BlockNote's `collaboration.fragment` binds to. */
 export const DOC_BLOCKS_FRAGMENT = 'blocks'
 /** Name of the shared type holding the frontmatter, which BlockNote does not model. */
@@ -109,7 +109,7 @@ export interface CollabTicketResponse {
  */
 export const ACCESS_TICKET_PREFIX = 'ta1.'
 export const ACCESS_TICKET_VERSION = 1
-export const ACCESS_TICKET_KEY_LABEL = 'tolaria access ticket v1'
+export const ACCESS_TICKET_KEY_LABEL = 'memoria access ticket v1'
 /** Longest a ticket may live (`exp - iat`). */
 export const ACCESS_TICKET_MAX_LIFETIME_MS = 10 * 60 * 1000
 export const ACCESS_TICKET_MAX_GRANTS = 100

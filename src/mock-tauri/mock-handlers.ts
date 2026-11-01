@@ -590,7 +590,7 @@ export const mockHandlers = {
       ],
     },
   ]),
-  get_agent_docs_path: () => '/mock/Tolaria/resources/agent-docs',
+  get_agent_docs_path: () => '/mock/Memoria/resources/agent-docs',
   get_vault_ai_guidance_status: () => ({ ...mockVaultAiGuidanceStatus }),
   restore_vault_ai_guidance: () => {
     mockVaultAiGuidanceStatus = {
@@ -725,10 +725,10 @@ export const mockHandlers = {
   check_mcp_status: () => 'installed',
   get_mcp_config_snippet: () => JSON.stringify({
     mcpServers: {
-      tolaria: {
+      memoria: {
         type: 'stdio',
         command: 'node',
-        args: ['/mock/Tolaria/mcp-server/index.js'],
+        args: ['/mock/Memoria/mcp-server/index.js'],
         env: {
           WS_UI_PORT: '9711',
         },
@@ -738,9 +738,9 @@ export const mockHandlers = {
   get_opencode_mcp_config_snippet: () => JSON.stringify({
     $schema: 'https://opencode.ai/config.json',
     mcp: {
-      tolaria: {
+      memoria: {
         type: 'local',
-        command: ['node', '/mock/Tolaria/mcp-server/index.js'],
+        command: ['node', '/mock/Memoria/mcp-server/index.js'],
         enabled: true,
         environment: {
           WS_UI_PORT: '9711',

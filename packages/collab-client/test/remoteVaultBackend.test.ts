@@ -99,7 +99,7 @@ describe('the remote vault backend', () => {
     const outcomes = await Promise.allSettled(refused)
 
     expect(outcomes.map((outcome) => outcome.status)).toEqual(['rejected'])
-    expect(String((outcomes[0] as PromiseRejectedResult).reason)).toMatch(/not available on the Tolaria remote yet/)
+    expect(String((outcomes[0] as PromiseRejectedResult).reason)).toMatch(/not available on the Memoria remote yet/)
   })
 
   it('opens a note as a live document that two clients share', async () => {

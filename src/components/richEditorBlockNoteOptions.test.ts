@@ -35,18 +35,18 @@ describe('rich editor BlockNote performance options', () => {
 })
 
 describe('rich editor file URLs (TOL-204)', () => {
-  const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+  const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
   afterEach(() => {
-    delete target.TOLARIA_REMOTE_URL
-    delete target.TOLARIA_REMOTE_TOKEN
+    delete target.MEMORIA_REMOTE_URL
+    delete target.MEMORIA_REMOTE_TOKEN
   })
 
   it('leaves BlockNote without a resolver unless a remote serves the vault', () => {
     expect({ ...RICH_EDITOR_BLOCKNOTE_PERFORMANCE_OPTIONS }.resolveFileUrl).toBeUndefined()
 
-    target.TOLARIA_REMOTE_URL = 'https://vault.example'
-    target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+    target.MEMORIA_REMOTE_URL = 'https://vault.example'
+    target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
     expect({ ...RICH_EDITOR_BLOCKNOTE_PERFORMANCE_OPTIONS }.resolveFileUrl).toEqual(expect.any(Function))
   })
 })

@@ -23,7 +23,7 @@ let running = false;
 export async function runNativeGitProbe(endpoint: string) {
 	if (running) return;
 	running = true;
-	const root = new Directory(Paths.cache, `tolaria-git-qa-${Date.now()}`);
+	const root = new Directory(Paths.cache, `memoria-git-qa-${Date.now()}`);
 	const started = Date.now();
 	try {
 		root.create();
@@ -102,7 +102,7 @@ async function verifyNativeDigest() {
 async function nativeFileAccessProof() {
 	const module = requireOptionalNativeModule<{
 		runFileAccessProbe?: () => Promise<Record<string, boolean>>;
-	}>("TolariaWorkspaceAccess");
+	}>("MemoriaWorkspaceAccess");
 	if (!module?.runFileAccessProbe) return null;
 	const checks = await module.runFileAccessProbe();
 	if (!Object.values(checks).every(Boolean))
@@ -293,7 +293,7 @@ async function verifyRoundTrip(
 }
 
 function publishProof(endpoint: string, proof: Record<string, unknown>) {
-	console.info("TOLARIA_NATIVE_GIT_PROOF", JSON.stringify(proof));
+	console.info("MEMORIA_NATIVE_GIT_PROOF", JSON.stringify(proof));
 	setNativeQaSinkUrl(new URL("/proof", endpoint).toString());
 	postNativeQaEvent(proof);
 }

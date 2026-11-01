@@ -12,7 +12,7 @@ type MarkdownBody = string
 
 let preparedShell: Promise<string> | null = null
 let cacheInitialized = false
-const previewCache = `${cacheDirectory}tolaria-editor-previews/`
+const previewCache = `${cacheDirectory}memoria-editor-previews/`
 
 export function mobileEditorPreviewHtml(markdown: MarkdownBody, vaultRootUri?: VaultRootUri | null): string {
   // Images stay portable in Tiptap JSON and resolve relative to the private shell.

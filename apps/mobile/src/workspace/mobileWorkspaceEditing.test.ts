@@ -43,7 +43,7 @@ describe('applyMobileWorkspaceEdit', () => {
     const belongsToRefs = note?.relationships.find((candidate) => candidate.key === 'belongs_to')?.values.map((value) => value.ref)
 
     expect(relatedToRefs ?? []).not.toContain('[[Release Notes]]')
-    expect(belongsToRefs).toEqual(['[[LLM Workflow]]', '[[Tolaria MVP]]'])
+    expect(belongsToRefs).toEqual(['[[LLM Workflow]]', '[[Memoria MVP]]'])
   })
 
   it('writes scalar properties into frontmatter and exposes them as properties', () => {
@@ -79,12 +79,12 @@ describe('applyMobileWorkspaceEdit', () => {
       key: 'tags',
       noteId: 'release-2026-05-02',
       type: 'updateProperty',
-      value: ['Tolaria MVP', 'Design'],
+      value: ['Memoria MVP', 'Design'],
     })
 
     const note = snapshot.notes.find((candidate) => candidate.id === 'release-2026-05-02')
-    expect(note?.rawContent).toContain('tags:\n  - Tolaria MVP\n  - Design')
-    expect(note?.tags).toEqual(['Tolaria MVP', 'Design'])
+    expect(note?.rawContent).toContain('tags:\n  - Memoria MVP\n  - Design')
+    expect(note?.tags).toEqual(['Memoria MVP', 'Design'])
   })
 
   it('adds and removes typed relationships using exact wikilink refs', () => {
@@ -99,7 +99,7 @@ describe('applyMobileWorkspaceEdit', () => {
     const relationship = note?.relationships.find((candidate) => candidate.key === 'belongs_to')
     const ref = relationship?.values.find((value) => value.title === 'How I Run an Open Source Project')?.ref
 
-    expect(ref).toBe('[[Tolaria/Mobile UI/How I Run an Open Source Project]]')
+    expect(ref).toBe('[[Memoria/Mobile UI/How I Run an Open Source Project]]')
     expect(relationship?.values.at(-1)).toMatchObject({
       title: 'How I Run an Open Source Project',
       type: 'Procedure',
@@ -140,7 +140,7 @@ describe('applyMobileWorkspaceEdit', () => {
     const withPathRelationship = applyMobileWorkspaceEdit(withAliasRelationship, {
       key: 'related_to',
       noteId: 'workflow-orchestration',
-      targetTitle: 'Tolaria/Mobile UI/How I Run an Open Source Project',
+      targetTitle: 'Memoria/Mobile UI/How I Run an Open Source Project',
       type: 'addRelationship',
     })
     const withFoldedTitleRelationship = applyMobileWorkspaceEdit(withPathRelationship, {
@@ -153,13 +153,13 @@ describe('applyMobileWorkspaceEdit', () => {
     const note = withFoldedTitleRelationship.notes.find((candidate) => candidate.id === 'workflow-orchestration')
     expect(note?.relationships.find((relationship) => relationship.key === 'belongs_to')?.values).toContainEqual(
       expect.objectContaining({
-        ref: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+        ref: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
         title: 'How I Run an Open Source Project',
       }),
     )
     expect(note?.relationships.find((relationship) => relationship.key === 'related_to')?.values).toContainEqual(
       expect.objectContaining({
-        ref: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+        ref: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
         title: 'How I Run an Open Source Project',
       }),
     )
@@ -311,7 +311,7 @@ describe('applyMobileWorkspaceEdit', () => {
     expect(result.snapshot.selectedNoteId).not.toBe('workflow-orchestration')
     expect(result.writes).toEqual([{
       kind: 'deleteNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     }])
   })
 
@@ -386,7 +386,7 @@ describe('mobile wikilink editing helpers', () => {
 
     expect(trailingWikilinkQuery(content)).toBe('open')
     expect(replaceTrailingWikilinkQuery(content, 'open', note)).toBe(
-      '# Draft\n\nSee [[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+      '# Draft\n\nSee [[Memoria/Mobile UI/How I Run an Open Source Project]]',
     )
   })
 })

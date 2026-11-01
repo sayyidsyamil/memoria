@@ -16,7 +16,7 @@ import {
 } from "./remoteHttp.ts";
 
 /**
- * Creating, renaming and following notes on the Tolaria remote. A note is created with
+ * Creating, renaming and following notes on the Memoria remote. A note is created with
  * `If-None-Match: *`, so a note created at the same path elsewhere first is kept and this
  * one becomes a conflict copy. Renames move the file on the server, which keeps the note's
  * document id, so a live document open in this page follows its file instead of reopening.

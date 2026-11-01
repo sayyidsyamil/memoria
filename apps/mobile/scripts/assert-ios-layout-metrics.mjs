@@ -27,7 +27,7 @@ import {
 
 const defaultLogWindow = '5m'
 const defaultExpoGoBundleId = 'host.exp.Exponent'
-const defaultTolariaBundleId = 'com.tolaria.mobile.dev'
+const defaultMemoriaBundleId = 'com.memoria.mobile.dev'
 const nativeQaPollIntervalMs = 1000
 const nativeQaPollTimeoutMs = 60000
 
@@ -159,12 +159,12 @@ function collectSimulatorLogs(device, { includeWysiwygMutation, includeWysiwygPe
 }
 
 function simulatorLogPredicate({ includeWysiwygMutation, includeWysiwygPersistence }) {
-  const predicates = ['eventMessage CONTAINS "TOLARIA_MOBILE_LAYOUT_METRIC"']
+  const predicates = ['eventMessage CONTAINS "MEMORIA_MOBILE_LAYOUT_METRIC"']
   if (includeWysiwygMutation) {
-    predicates.push('eventMessage CONTAINS "TOLARIA_MOBILE_WYSIWYG_MUTATION_PROBE"')
+    predicates.push('eventMessage CONTAINS "MEMORIA_MOBILE_WYSIWYG_MUTATION_PROBE"')
   }
   if (includeWysiwygPersistence) {
-    predicates.push('eventMessage CONTAINS "TOLARIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE"')
+    predicates.push('eventMessage CONTAINS "MEMORIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE"')
   }
 
   return predicates.join(' OR ')
@@ -180,7 +180,7 @@ async function openFreshProbeUrl(device, url, waitMs) {
     return
   }
 
-  terminateTolaria(device)
+  terminateMemoria(device)
   await sleep(500)
   const runId = Date.now().toString()
   run('xcrun', ['simctl', 'openurl', device, appendQueryParam(withLayoutProbe(url, true), 'qaRun', runId)])
@@ -197,8 +197,8 @@ function terminateExpoGo(device) {
   tryRun('xcrun', ['simctl', 'terminate', device, bundleId])
 }
 
-function terminateTolaria(device) {
-  const bundleId = process.env.MOBILE_QA_BUNDLE_ID ?? defaultTolariaBundleId
+function terminateMemoria(device) {
+  const bundleId = process.env.MOBILE_QA_BUNDLE_ID ?? defaultMemoriaBundleId
   tryRun('xcrun', ['simctl', 'terminate', device, bundleId])
 }
 

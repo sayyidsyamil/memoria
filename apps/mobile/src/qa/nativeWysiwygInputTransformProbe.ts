@@ -33,7 +33,7 @@ export type NativeWysiwygInputTransformAssertionFailure = {
   message: string
 }
 
-export const nativeWysiwygInputTransformLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_INPUT_TRANSFORM_PROBE'
+export const nativeWysiwygInputTransformLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_INPUT_TRANSFORM_PROBE'
 
 export function nativeWysiwygInputTransformProbeSteps(): NativeWysiwygInputTransformProbeStep[] {
   return [

@@ -3,7 +3,7 @@ import { DOC_BLOCKS_FRAGMENT, DOC_FRONTMATTER_FIELD, DOC_META_MAP } from '../../
 import type { HeadlessEditor } from './markdownBlocks.ts'
 
 /**
- * What a `tolaria.blocknote/1` document may be made of: the shared types of the format, the
+ * What a `memoria.blocknote/1` document may be made of: the shared types of the format, the
  * node types of the editor schema with their attributes, and its marks.
  *
  * This is deliberately a check of vocabulary, not of structure. Two edits that are each valid

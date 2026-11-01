@@ -176,7 +176,7 @@ async function runBenchmark(): Promise<BenchResult> {
 }
 
 async function main(): Promise<void> {
-  console.log('=== Tolaria Search Index Benchmark ===\n')
+  console.log('=== Memoria Search Index Benchmark ===\n')
   console.log(`Notes: ${NOTE_COUNT}`)
   console.log(`Queries: ${BENCH_QUERIES}`)
   

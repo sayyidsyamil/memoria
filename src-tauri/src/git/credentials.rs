@@ -111,12 +111,12 @@ mod tests {
 
         assert!(input.contains("protocol=https\n"));
         assert!(input.contains("host=github.com\n"));
-        assert!(input.contains("path=refactoringhq/tolaria.git\n"));
+        assert!(input.contains("path=refactoringhq/memoria.git\n"));
         assert!(input.ends_with("\n\n"));
     }
 
     #[test]
     fn credential_fill_input_ignores_ssh_remotes() {
-        assert!(credential_fill_input("git@github.com:refactoringhq/tolaria.git").is_none());
+        assert!(credential_fill_input("git@github.com:refactoringhq/memoria.git").is_none());
     }
 }

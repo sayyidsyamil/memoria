@@ -19,12 +19,12 @@ import { resetVaultAccessForTests, ViewOnlyAccessError } from '../sharing/vaultA
 
 vi.mock('../../../packages/collab-client/src/entriesCache', () => ({ clearCache: vi.fn(async () => {}) }))
 
-type RemoteWindow = Window & { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = Window & { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 function useRemoteServer(): void {
   const remote = window as RemoteWindow
-  remote.TOLARIA_REMOTE_URL = 'https://server.test'
-  remote.TOLARIA_REMOTE_TOKEN = 'token'
+  remote.MEMORIA_REMOTE_URL = 'https://server.test'
+  remote.MEMORIA_REMOTE_TOKEN = 'token'
 }
 
 function setOnline(onLine: boolean): void {
@@ -52,9 +52,9 @@ function createFakeWindow({ secure = true, serviceWorker = true, readyState = 'c
     isSecureContext: secure,
     navigator: serviceWorker ? { serviceWorker: container } : {},
     document: { readyState },
-    location: { origin: 'https://tolaria.test' },
+    location: { origin: 'https://memoria.test' },
     performance: {
-      getEntriesByType: () => [{ name: 'https://tolaria.test/assets/main.js' }, { name: 'https://cdn.test/font.woff2' }],
+      getEntriesByType: () => [{ name: 'https://memoria.test/assets/main.js' }, { name: 'https://cdn.test/font.woff2' }],
     },
     caches: caches.asCacheStorage(),
     requestIdleCallback: idle ? (task: () => void) => { task(); return 1 } : undefined,
@@ -77,8 +77,8 @@ beforeEach(() => {
 
 afterEach(() => {
   const remote = window as RemoteWindow
-  delete remote.TOLARIA_REMOTE_URL
-  delete remote.TOLARIA_REMOTE_TOKEN
+  delete remote.MEMORIA_REMOTE_URL
+  delete remote.MEMORIA_REMOTE_TOKEN
   vi.restoreAllMocks()
 })
 
@@ -140,7 +140,7 @@ describe('service worker registration', () => {
     expect(scheduleOfflineServiceWorkerRegistration({ isWebBuild: true, isTauri: false, window: win })).toBe(true)
     await settle()
     expect(container.register).toHaveBeenCalledWith(OFFLINE_SERVICE_WORKER_URL, { scope: '/' })
-    expect(postToActive).toHaveBeenCalledWith({ type: CACHE_LOADED_URLS_MESSAGE, urls: ['https://tolaria.test/assets/main.js'] })
+    expect(postToActive).toHaveBeenCalledWith({ type: CACHE_LOADED_URLS_MESSAGE, urls: ['https://memoria.test/assets/main.js'] })
   })
 
   it('waits for the load event before registering', async () => {

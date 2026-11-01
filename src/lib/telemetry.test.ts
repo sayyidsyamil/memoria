@@ -97,8 +97,8 @@ describe('initSentry', () => {
       release: sentryRelease,
     }))
     expect(sentryMocks.setUser).toHaveBeenCalledWith({ id: 'anonymous-user' })
-    expect(sentryMocks.setTag).toHaveBeenCalledWith('tolaria.build_version', buildVersion)
-    expect(sentryMocks.setTag).toHaveBeenCalledWith('tolaria.release_kind', releaseKind)
+    expect(sentryMocks.setTag).toHaveBeenCalledWith('memoria.build_version', buildVersion)
+    expect(sentryMocks.setTag).toHaveBeenCalledWith('memoria.release_kind', releaseKind)
   })
 
   it('keeps the desktop options free of the web additions', () => {

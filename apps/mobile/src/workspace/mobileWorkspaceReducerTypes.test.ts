@@ -9,7 +9,7 @@ const typeSchemaDefaultsPatch = {
     has: 'Milestone',
   },
   relationships: {
-    belongs_to: ['[[Tolaria MVP]]'],
+    belongs_to: ['[[Memoria MVP]]'],
     depends_on: ['[[Project Board]]'],
   },
 }
@@ -42,7 +42,7 @@ describe('applyMobileWorkspaceEdit', () => {
     expect(result.writes).toEqual([{
       content: expect.stringContaining('type: Procedure'),
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     }])
     expect(sidebarItems(result.snapshot, 'types')).toEqual(
       expect.arrayContaining([
@@ -199,6 +199,6 @@ function expectTypeSchemaDefaultWrite(
   expect(typeWrite?.path).toBe('procedure.md')
   expect(content).toContain('Priority: High')
   expect(content).toContain('has: Milestone')
-  expect(content).toContain('belongs_to:\n  - "[[Tolaria MVP]]"')
+  expect(content).toContain('belongs_to:\n  - "[[Memoria MVP]]"')
   expect(content).toContain('depends_on:\n  - "[[Project Board]]"')
 }

@@ -32,7 +32,7 @@ export class MobileDiagramRendererClient {
     const id = ++this.nextId
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => this.fail(id, 'Diagram renderer unavailable'), 30_000)
-      const request: DiagramRequest = { type: 'tolaria-diagram-render', id, ...input }
+      const request: DiagramRequest = { type: 'memoria-diagram-render', id, ...input }
       this.pending.set(id, { request, resolve, reject, timer })
       if (this.ready) this.send(request)
     })
@@ -62,7 +62,7 @@ export class MobileDiagramRendererClient {
     channel.port1.onmessage = this.receive
     // Only the port is transferred to this exact opaque-origin frame; no note data
     // travels over window messaging. Both endpoints use the private port afterward.
-    this.frame.contentWindow?.postMessage({ type: 'tolaria-diagram-connect' }, {
+    this.frame.contentWindow?.postMessage({ type: 'memoria-diagram-connect' }, {
       targetOrigin: '*', transfer: [channel.port2],
     })
   }
@@ -84,5 +84,5 @@ export class MobileDiagramRendererClient {
 }
 
 function isReady(value: unknown): boolean {
-  return typeof value === 'object' && value !== null && 'type' in value && value.type === 'tolaria-diagram-ready'
+  return typeof value === 'object' && value !== null && 'type' in value && value.type === 'memoria-diagram-ready'
 }

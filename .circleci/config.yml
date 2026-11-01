@@ -161,7 +161,7 @@ commands:
           name: Skip when << parameters.scope >> inputs are unchanged
           command: |
             set -euo pipefail
-            marker="$HOME/.tolaria-validated/<< parameters.scope >>"
+            marker="$HOME/.memoria-validated/<< parameters.scope >>"
             if [[ "<< pipeline.parameters.run_all_validation >>" == "true" || ! -s "$marker" ]]; then
               echo "No pass marker for << parameters.scope >> (or run_all_validation); running."
               exit 0
@@ -197,12 +197,12 @@ commands:
               echo "mark_validated must run in a single-container job" >&2
               exit 1
             fi
-            mkdir -p "$HOME/.tolaria-validated"
-            git rev-parse HEAD > "$HOME/.tolaria-validated/<< parameters.scope >>"
+            mkdir -p "$HOME/.memoria-validated"
+            git rev-parse HEAD > "$HOME/.memoria-validated/<< parameters.scope >>"
       - save_cache:
           key: validated-v1-<< parameters.scope >>-{{ .Branch }}-{{ .Revision }}
           paths:
-            - ~/.tolaria-validated/<< parameters.scope >>
+            - ~/.memoria-validated/<< parameters.scope >>
 
   upload_codecov:
     parameters:
@@ -226,7 +226,7 @@ commands:
                 --disable-search \
                 --fail-on-error \
                 --git-service github \
-                --slug refactoringhq/tolaria \
+                --slug refactoringhq/memoria \
                 --file "<< parameters.file >>" \
                 --flag "<< parameters.flag >>" \
                 --name "circleci-<< parameters.flag >>"
@@ -288,7 +288,7 @@ commands:
   attach_release_workspace:
     steps:
       - attach_workspace:
-          at: /tmp/tolaria-release
+          at: /tmp/memoria-release
 
   halt_if_release_skipped:
     steps:
@@ -296,9 +296,9 @@ commands:
           name: Check whether this release should run
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
+            source /tmp/memoria-release/release.env
             if [[ "${SKIP_RELEASE:-false}" == "true" ]]; then
-              echo "Release skipped because this push only changed CI, site, or Tolaria Web files."
+              echo "Release skipped because this push only changed CI, site, or Memoria Web files."
               circleci-agent step halt
             fi
 
@@ -308,7 +308,7 @@ commands:
           name: Set application version
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
+            source /tmp/memoria-release/release.env
             jq --arg version "$VERSION" '.version = $version' src-tauri/tauri.conf.json > /tmp/tauri.conf.json
             mv /tmp/tauri.conf.json src-tauri/tauri.conf.json
             if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -361,18 +361,18 @@ jobs:
         enum: [alpha, stable, ota-validation]
         default: alpha
     environment:
-      TOLARIA_OTA_CHANNEL: << parameters.channel >>
-      TOLARIA_OTA_RUNTIME: << pipeline.parameters.mobile-ota-runtime >>
-      TOLARIA_IOS_BUILD_NUMBER: << pipeline.parameters.mobile-ota-build-number >>
-      TOLARIA_OTA_BASE_REF: << pipeline.parameters.mobile-ota-base-ref >>
-      TOLARIA_OTA_GROUP: << pipeline.parameters.mobile-ota-group >>
-      TOLARIA_EAS_CLI: /tmp/tolaria-eas/node_modules/.bin/eas
+      MEMORIA_OTA_CHANNEL: << parameters.channel >>
+      MEMORIA_OTA_RUNTIME: << pipeline.parameters.mobile-ota-runtime >>
+      MEMORIA_IOS_BUILD_NUMBER: << pipeline.parameters.mobile-ota-build-number >>
+      MEMORIA_OTA_BASE_REF: << pipeline.parameters.mobile-ota-base-ref >>
+      MEMORIA_OTA_GROUP: << pipeline.parameters.mobile-ota-group >>
+      MEMORIA_EAS_CLI: /tmp/memoria-eas/node_modules/.bin/eas
     steps:
       - checkout
       - install_frontend_dependencies
       - run:
           name: Install pinned official publishing CLI
-          command: npm install --prefix /tmp/tolaria-eas --no-save eas-cli@25.2.0
+          command: npm install --prefix /tmp/memoria-eas --no-save eas-cli@25.2.0
       - when:
           condition:
             equal: [alpha, << parameters.channel >>]
@@ -384,19 +384,19 @@ jobs:
           name: Publish compatible iOS update after Sentry source-map upload
           command: |
             set -euo pipefail
-            if [[ "$TOLARIA_OTA_CHANNEL" == "stable" ]]; then
-              export TOLARIA_OTA_RUNTIME="${TOLARIA_OTA_RUNTIME:-${TOLARIA_ACCEPTED_STABLE_RUNTIME:-}}"
+            if [[ "$MEMORIA_OTA_CHANNEL" == "stable" ]]; then
+              export MEMORIA_OTA_RUNTIME="${MEMORIA_OTA_RUNTIME:-${MEMORIA_ACCEPTED_STABLE_RUNTIME:-}}"
               node apps/mobile/scripts/promote-mobile-update.mjs
             else
-              export TOLARIA_OTA_RUNTIME="${TOLARIA_OTA_RUNTIME:-${TOLARIA_ACCEPTED_ALPHA_RUNTIME:-}}"
-              export TOLARIA_IOS_BUILD_NUMBER="${TOLARIA_IOS_BUILD_NUMBER:-${TOLARIA_ACCEPTED_ALPHA_BUILD_NUMBER:-}}"
-              if [[ -z "$TOLARIA_OTA_BASE_REF" && "$TOLARIA_OTA_CHANNEL" == "alpha" && -r /tmp/tolaria-mobile-ota/alpha.sha ]]; then
-                export TOLARIA_OTA_BASE_REF="$(cat /tmp/tolaria-mobile-ota/alpha.sha)"
+              export MEMORIA_OTA_RUNTIME="${MEMORIA_OTA_RUNTIME:-${MEMORIA_ACCEPTED_ALPHA_RUNTIME:-}}"
+              export MEMORIA_IOS_BUILD_NUMBER="${MEMORIA_IOS_BUILD_NUMBER:-${MEMORIA_ACCEPTED_ALPHA_BUILD_NUMBER:-}}"
+              if [[ -z "$MEMORIA_OTA_BASE_REF" && "$MEMORIA_OTA_CHANNEL" == "alpha" && -r /tmp/memoria-mobile-ota/alpha.sha ]]; then
+                export MEMORIA_OTA_BASE_REF="$(cat /tmp/memoria-mobile-ota/alpha.sha)"
               fi
               node apps/mobile/scripts/publish-mobile-update.mjs
-              if [[ "$TOLARIA_OTA_CHANNEL" == "alpha" ]]; then
-                mkdir -p /tmp/tolaria-mobile-ota
-                git rev-parse HEAD > /tmp/tolaria-mobile-ota/alpha.sha
+              if [[ "$MEMORIA_OTA_CHANNEL" == "alpha" ]]; then
+                mkdir -p /tmp/memoria-mobile-ota
+                git rev-parse HEAD > /tmp/memoria-mobile-ota/alpha.sha
               fi
             fi
       - when:
@@ -406,7 +406,7 @@ jobs:
             - save_cache:
                 key: v1-mobile-ota-alpha-main-{{ .Revision }}
                 paths:
-                  - /tmp/tolaria-mobile-ota/alpha.sha
+                  - /tmp/memoria-mobile-ota/alpha.sha
 
   # Validation runs as independent jobs so the slowest one, not their sum, sets the wall clock.
   # Job inputs, for skip_unless_changed: frontend jobs ignore Rust sources and docs/; Rust jobs
@@ -711,7 +711,7 @@ jobs:
           name: Build server Docker image
           command: |
             set -euo pipefail
-            docker build -f apps/server/Dockerfile -t tolaria-server:test .
+            docker build -f apps/server/Dockerfile -t memoria-server:test .
       - run:
           name: Container smoke test
           command: |
@@ -737,11 +737,11 @@ jobs:
             # Start container
             container_id=$(docker run -d \
               -v "$test_remote:/test-remote.git" \
-              -e TOLARIA_SERVER_TOKEN=test-token-1234567890 \
-              -e TOLARIA_VAULT_REMOTE_URL=/test-remote.git \
-              -e TOLARIA_SERVER_ALLOW_NON_LOOPBACK=1 \
+              -e MEMORIA_SERVER_TOKEN=test-token-1234567890 \
+              -e MEMORIA_VAULT_REMOTE_URL=/test-remote.git \
+              -e MEMORIA_SERVER_ALLOW_NON_LOOPBACK=1 \
               -p 8787:8787 \
-              tolaria-server:test)
+              memoria-server:test)
             
             # Wait for readiness
             for i in {1..30}; do
@@ -990,13 +990,13 @@ jobs:
           name: Compute alpha version
           command: |
             set -euo pipefail
-            mkdir -p /tmp/tolaria-release
+            mkdir -p /tmp/memoria-release
             git fetch --tags --force
             node --test scripts/release-version.test.mjs
-            node scripts/release-version.mjs alpha > /tmp/tolaria-release/release.env
-            cat /tmp/tolaria-release/release.env
+            node scripts/release-version.mjs alpha > /tmp/memoria-release/release.env
+            cat /tmp/memoria-release/release.env
       - persist_to_workspace:
-          root: /tmp/tolaria-release
+          root: /tmp/memoria-release
           paths:
             - release.env
 
@@ -1010,12 +1010,12 @@ jobs:
           name: Compute stable version
           command: |
             set -euo pipefail
-            mkdir -p /tmp/tolaria-release
+            mkdir -p /tmp/memoria-release
             node --test scripts/release-version.test.mjs
-            CIRCLE_TAG_VALUE="$CIRCLE_TAG" node scripts/release-version.mjs stable > /tmp/tolaria-release/release.env
-            cat /tmp/tolaria-release/release.env
+            CIRCLE_TAG_VALUE="$CIRCLE_TAG" node scripts/release-version.mjs stable > /tmp/memoria-release/release.env
+            cat /tmp/memoria-release/release.env
       - persist_to_workspace:
-          root: /tmp/tolaria-release
+          root: /tmp/memoria-release
           paths:
             - release.env
 
@@ -1079,8 +1079,8 @@ jobs:
                 exit 1
               fi
             done
-            cert_path="$(mktemp /tmp/tolaria-cert.XXXXXX.p12)"
-            keychain_path="$HOME/Library/Keychains/tolaria-signing-${CIRCLE_WORKFLOW_JOB_ID}.keychain-db"
+            cert_path="$(mktemp /tmp/memoria-cert.XXXXXX.p12)"
+            keychain_path="$HOME/Library/Keychains/memoria-signing-${CIRCLE_WORKFLOW_JOB_ID}.keychain-db"
             keychain_password="$(uuidgen)"
             printf '%s' "$APPLE_CERTIFICATE" | base64 --decode > "$cert_path"
             security create-keychain -p "$keychain_password" "$keychain_path"
@@ -1094,7 +1094,7 @@ jobs:
           name: Build signed and notarized macOS bundle
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
+            source /tmp/memoria-release/release.env
             export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="$TAURI_KEY_PASSWORD"
             export VITE_SENTRY_RELEASE="$VERSION"
             if [[ "<< parameters.channel >>" == "alpha" ]]; then
@@ -1106,7 +1106,7 @@ jobs:
           name: Collect macOS artifacts
           command: |
             set -euo pipefail
-            artifact_root="/tmp/tolaria-release/artifacts"
+            artifact_root="/tmp/memoria-release/artifacts"
             updater_dir="${artifact_root}/updater-<< parameters.arch >>"
             dmg_dir="${artifact_root}/dmg-<< parameters.arch >>"
             mkdir -p "$updater_dir" "$dmg_dir"
@@ -1123,7 +1123,7 @@ jobs:
       - save_rust_cache:
           target: << parameters.target >>
       - persist_to_workspace:
-          root: /tmp/tolaria-release
+          root: /tmp/memoria-release
           paths:
             - artifacts/updater-<< parameters.arch >>
             - artifacts/dmg-<< parameters.arch >>
@@ -1196,7 +1196,7 @@ jobs:
           name: Build Linux bundles
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
+            source /tmp/memoria-release/release.env
             export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="$TAURI_KEY_PASSWORD"
             export VITE_SENTRY_RELEASE="$VERSION"
             export LINUXDEPLOY_EXCLUDED_LIBRARIES
@@ -1239,9 +1239,9 @@ jobs:
               done
             }
             for package in "$bundle_root"/deb/*.deb "$bundle_root"/rpm/*.rpm; do
-              validate_desktop_categories "$package" "/tmp/tolaria-package-validation"
+              validate_desktop_categories "$package" "/tmp/memoria-package-validation"
             done
-            artifact_dir="/tmp/tolaria-release/artifacts/linux-x86_64-bundles"
+            artifact_dir="/tmp/memoria-release/artifacts/linux-x86_64-bundles"
             mkdir -p "$artifact_dir"
             find "$bundle_root" -type f \
               \( -name '*.deb' -o -name '*.deb.sig' -o -name '*.rpm' -o -name '*.AppImage' \
@@ -1251,7 +1251,7 @@ jobs:
       - save_rust_cache:
           target: x86_64-unknown-linux-gnu
       - persist_to_workspace:
-          root: /tmp/tolaria-release
+          root: /tmp/memoria-release
           paths:
             - artifacts/linux-x86_64-bundles
 
@@ -1269,17 +1269,17 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: "C:\\tmp\\tolaria-release"
+          at: "C:\\tmp\\memoria-release"
       - run:
           name: Check whether this release should run
           command: |
             $release = @{}
-            Get-Content "C:\tmp\tolaria-release\release.env" | ForEach-Object {
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
               $name, $value = $_ -split "=", 2
               $release[$name] = $value
             }
             if ($release["SKIP_RELEASE"] -eq "true") {
-              Write-Host "Release skipped because this push only changed CI, site, or Tolaria Web files."
+              Write-Host "Release skipped because this push only changed CI, site, or Memoria Web files."
               circleci-agent step halt
             }
       - run:
@@ -1317,7 +1317,7 @@ jobs:
           name: Set application version
           command: |
             $release = @{}
-            Get-Content "C:\tmp\tolaria-release\release.env" | ForEach-Object {
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
               $name, $value = $_ -split "=", 2
               $release[$name] = $value
             }
@@ -1358,16 +1358,16 @@ jobs:
             }
             if ($certificate) {
               ./.github/scripts/configure-windows-authenticode.ps1
-              "true" | Set-Content "C:\tmp\tolaria-release\authenticode.txt"
+              "true" | Set-Content "C:\tmp\memoria-release\authenticode.txt"
             } else {
               Write-Warning "Authenticode certificate is not configured; updater signatures remain required."
-              "false" | Set-Content "C:\tmp\tolaria-release\authenticode.txt"
+              "false" | Set-Content "C:\tmp\memoria-release\authenticode.txt"
             }
       - run:
           name: Build Windows bundle
           command: |
             $release = @{}
-            Get-Content "C:\tmp\tolaria-release\release.env" | ForEach-Object {
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
               $name, $value = $_ -split "=", 2
               $release[$name] = $value
             }
@@ -1375,7 +1375,7 @@ jobs:
             $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD = $env:TAURI_KEY_PASSWORD
             $env:VITE_SENTRY_RELEASE = $release["VERSION"]
             corepack prepare pnpm@10.33.0 --activate
-            $authenticodeAvailable = (Get-Content "C:\tmp\tolaria-release\authenticode.txt").Trim()
+            $authenticodeAvailable = (Get-Content "C:\tmp\memoria-release\authenticode.txt").Trim()
             if ($authenticodeAvailable -eq "true") {
               pnpm tauri build --target x86_64-pc-windows-msvc --bundles nsis --config src-tauri/tauri.windows-signing.conf.json
             } else {
@@ -1385,7 +1385,7 @@ jobs:
           name: Validate and collect Windows bundles
           command: |
             $release = @{}
-            Get-Content "C:\tmp\tolaria-release\release.env" | ForEach-Object {
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
               $name, $value = $_ -split "=", 2
               $release[$name] = $value
             }
@@ -1401,7 +1401,7 @@ jobs:
             if ($installers.Count -eq 0 -or $signatures.Count -eq 0) {
               throw "Windows build did not produce installers and updater signatures."
             }
-            $authenticodeAvailable = (Get-Content "C:\tmp\tolaria-release\authenticode.txt").Trim()
+            $authenticodeAvailable = (Get-Content "C:\tmp\memoria-release\authenticode.txt").Trim()
             foreach ($installer in $installers) {
               if ($installer.Name -notlike "*$($release['VERSION'])*") {
                 throw "Installer has an unexpected version: $($installer.Name)"
@@ -1413,7 +1413,7 @@ jobs:
                 }
               }
             }
-            $artifactDir = "C:\tmp\tolaria-release\artifacts\windows-x86_64-bundles"
+            $artifactDir = "C:\tmp\memoria-release\artifacts\windows-x86_64-bundles"
             New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
             Get-ChildItem "$bundleRoot\nsis\*" -File -ErrorAction SilentlyContinue | Copy-Item -Destination $artifactDir
             Get-ChildItem "$bundleRoot\msi\*" -File -ErrorAction SilentlyContinue | Copy-Item -Destination $artifactDir
@@ -1432,7 +1432,7 @@ jobs:
           paths:
             - ~\AppData\Local\tauri
       - persist_to_workspace:
-          root: "C:\\tmp\\tolaria-release"
+          root: "C:\\tmp\\memoria-release"
           paths:
             - artifacts/windows-x86_64-bundles
 
@@ -1460,8 +1460,8 @@ jobs:
           name: Normalize release artifacts
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
-            cd /tmp/tolaria-release/artifacts
+            source /tmp/memoria-release/release.env
+            cd /tmp/memoria-release/artifacts
             normalize_updater() {
               local arch="$1"
               local output_name="$2"
@@ -1472,24 +1472,24 @@ jobs:
               mv "$updater_file" "${artifact_dir}/${output_name}"
               mv "${updater_file}.sig" "${artifact_dir}/${output_name}.sig"
             }
-            normalize_updater aarch64 "Tolaria_${VERSION}_macOS_Silicon.app.tar.gz"
-            normalize_updater x86_64 "Tolaria_${VERSION}_macOS_Intel.app.tar.gz"
+            normalize_updater aarch64 "Memoria_${VERSION}_macOS_Silicon.app.tar.gz"
+            normalize_updater x86_64 "Memoria_${VERSION}_macOS_Intel.app.tar.gz"
             if [[ "<< parameters.channel >>" == "stable" ]]; then
               arm_dmg="$(find dmg-aarch64 -maxdepth 1 -name '*.dmg' -print -quit)"
               intel_dmg="$(find dmg-x86_64 -maxdepth 1 -name '*.dmg' -print -quit)"
               [[ -n "$arm_dmg" && -n "$intel_dmg" ]]
-              mv "$arm_dmg" "dmg-aarch64/Tolaria_${VERSION}_macOS_Silicon.dmg"
-              mv "$intel_dmg" "dmg-x86_64/Tolaria_${VERSION}_macOS_Intel.dmg"
+              mv "$arm_dmg" "dmg-aarch64/Memoria_${VERSION}_macOS_Silicon.dmg"
+              mv "$intel_dmg" "dmg-x86_64/Memoria_${VERSION}_macOS_Intel.dmg"
             fi
       - run:
           name: Generate release notes and updater manifest
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
-            artifact_root="/tmp/tolaria-release/artifacts"
+            source /tmp/memoria-release/release.env
+            artifact_root="/tmp/memoria-release/artifacts"
             git fetch --tags --force
             if [[ "<< parameters.channel >>" == "stable" && -f "release-notes/${TAG}.md" ]]; then
-              cp "release-notes/${TAG}.md" /tmp/tolaria-release/release-notes.md
+              cp "release-notes/${TAG}.md" /tmp/memoria-release/release-notes.md
             else
               if [[ "<< parameters.channel >>" == "alpha" ]]; then
                 previous_tag="$(
@@ -1519,7 +1519,7 @@ jobs:
                 while IFS= read -r line; do
                   [[ -n "$line" ]] && printf -- '- %s\n' "$line"
                 done \<<<"$notes"
-              } > /tmp/tolaria-release/release-notes.md
+              } > /tmp/memoria-release/release-notes.md
             fi
             {
               echo
@@ -1533,7 +1533,7 @@ jobs:
               echo '**Includes macOS (Apple Silicon and Intel), Linux x64, and Windows x64 bundles**'
               echo
               echo "*Built from \`$(git rev-parse --short HEAD)\` on $(date -u +%Y-%m-%d)*"
-            } >> /tmp/tolaria-release/release-notes.md
+            } >> /tmp/memoria-release/release-notes.md
 
             find_required() {
               local pattern
@@ -1574,7 +1574,7 @@ jobs:
               'windows-x86_64-bundles/*.nsis.zip' \
               'windows-x86_64-bundles/*.msi.zip')"
 
-            repo="refactoringhq/tolaria"
+            repo="refactoringhq/memoria"
             base_url="https://github.com/${repo}/releases/download/${TAG}"
             common_args=(
               --arg version "$VERSION"
@@ -1607,7 +1607,7 @@ jobs:
                     "linux-x86_64": {signature: $linux_signature, url: $linux_updater, download_url: $linux_download},
                     "windows-x86_64": {signature: $windows_signature, url: $windows_updater, download_url: $windows_download}
                   }
-                }' > /tmp/tolaria-release/stable-latest.json
+                }' > /tmp/memoria-release/stable-latest.json
             else
               jq -n "${common_args[@]}" \
                 '{
@@ -1620,36 +1620,36 @@ jobs:
                     "linux-x86_64": {signature: $linux_signature, url: $linux_updater, download_url: $linux_download},
                     "windows-x86_64": {signature: $windows_signature, url: $windows_updater, download_url: $windows_download}
                   }
-                }' > /tmp/tolaria-release/alpha-latest.json
+                }' > /tmp/memoria-release/alpha-latest.json
             fi
       - run:
           name: Publish GitHub release
           command: |
             set -euo pipefail
-            source /tmp/tolaria-release/release.env
-            artifact_root="/tmp/tolaria-release/artifacts"
-            manifest="/tmp/tolaria-release/<< parameters.channel >>-latest.json"
-            title="Tolaria ${DISPLAY_VERSION}"
-            if gh release view "$TAG" --repo refactoringhq/tolaria >/dev/null 2>&1; then
+            source /tmp/memoria-release/release.env
+            artifact_root="/tmp/memoria-release/artifacts"
+            manifest="/tmp/memoria-release/<< parameters.channel >>-latest.json"
+            title="Memoria ${DISPLAY_VERSION}"
+            if gh release view "$TAG" --repo refactoringhq/memoria >/dev/null 2>&1; then
               if [[ "<< parameters.channel >>" == "alpha" ]]; then
                 gh release edit "$TAG" \
-                  --repo refactoringhq/tolaria \
+                  --repo refactoringhq/memoria \
                   --title "$title" \
-                  --notes-file /tmp/tolaria-release/release-notes.md \
+                  --notes-file /tmp/memoria-release/release-notes.md \
                   --prerelease
               else
                 gh release edit "$TAG" \
-                  --repo refactoringhq/tolaria \
+                  --repo refactoringhq/memoria \
                   --title "$title" \
-                  --notes-file /tmp/tolaria-release/release-notes.md
+                  --notes-file /tmp/memoria-release/release-notes.md
               fi
             else
               create_args=(
                 "$TAG"
-                --repo refactoringhq/tolaria
+                --repo refactoringhq/memoria
                 --target "$CIRCLE_SHA1"
                 --title "$title"
-                --notes-file /tmp/tolaria-release/release-notes.md
+                --notes-file /tmp/memoria-release/release-notes.md
               )
               if [[ "<< parameters.channel >>" == "alpha" ]]; then
                 create_args+=(--prerelease)
@@ -1659,7 +1659,7 @@ jobs:
             mapfile -d '' release_files < <(find "$artifact_root" -type f -print0)
             release_files+=("$manifest")
             gh release upload "$TAG" \
-              --repo refactoringhq/tolaria \
+              --repo refactoringhq/memoria \
               --clobber \
               "${release_files[@]}"
 
@@ -1680,7 +1680,7 @@ jobs:
           name: Build documentation and release pages
           command: |
             set -euo pipefail
-            GITHUB_REPOSITORY=refactoringhq/tolaria bash scripts/build-pages-site.sh site/.vitepress/dist
+            GITHUB_REPOSITORY=refactoringhq/memoria bash scripts/build-pages-site.sh site/.vitepress/dist
             touch site/.vitepress/dist/.nojekyll
       - run:
           name: Publish gh-pages branch
@@ -1700,8 +1700,8 @@ jobs:
               git -C "$deploy_dir" rm -rf . >/dev/null 2>&1 || true
             fi
             rsync -a --delete --exclude .git/ site/.vitepress/dist/ "$deploy_dir/"
-            git -C "$deploy_dir" config user.name "Tolaria CircleCI"
-            git -C "$deploy_dir" config user.email "ci@tolaria.md"
+            git -C "$deploy_dir" config user.name "Memoria CircleCI"
+            git -C "$deploy_dir" config user.email "ci@memoria.md"
             git -C "$deploy_dir" add --all
             if git -C "$deploy_dir" diff --cached --quiet; then
               echo "Documentation output is unchanged."
@@ -1724,13 +1724,13 @@ jobs:
               exit 1
             fi
             gh pr list \
-              --repo refactoringhq/tolaria \
+              --repo refactoringhq/memoria \
               --base main \
               --state open \
               --json number \
               --jq '.[].number' |
               while IFS= read -r number; do
-                if ! gh pr update-branch "$number" --repo refactoringhq/tolaria; then
+                if ! gh pr update-branch "$number" --repo refactoringhq/memoria; then
                   echo "PR #${number} is already current or has a merge conflict."
                 fi
               done
@@ -1740,7 +1740,7 @@ workflows:
     unless: << pipeline.parameters.publish-mobile-ota >>
     jobs:
       - static-gates:
-          context: tolaria-ci
+          context: memoria-ci
           filters:
             branches:
               ignore: gh-pages
@@ -1759,7 +1759,7 @@ workflows:
             tags:
               ignore: /.*/
       - frontend-coverage-report:
-          context: tolaria-ci
+          context: memoria-ci
           requires:
             - frontend-coverage
           filters:
@@ -1768,7 +1768,7 @@ workflows:
             tags:
               ignore: /.*/
       - rust-coverage:
-          context: tolaria-ci
+          context: memoria-ci
           filters:
             branches:
               ignore: gh-pages
@@ -1803,7 +1803,7 @@ workflows:
       - mobile-ota-publish:
           name: publish-mobile-alpha
           channel: alpha
-          context: tolaria-release
+          context: memoria-release
           serial-group: << pipeline.project.slug >>/mobile-ota-alpha
           requires:
             - static-gates
@@ -1895,7 +1895,7 @@ workflows:
           channel: alpha
           arch: aarch64
           target: aarch64-apple-darwin
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-alpha-version
           filters:
@@ -1908,7 +1908,7 @@ workflows:
           channel: alpha
           arch: x86_64
           target: x86_64-apple-darwin
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-alpha-version
           filters:
@@ -1919,7 +1919,7 @@ workflows:
       - build-linux-release:
           name: alpha-linux-x86_64
           channel: alpha
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-alpha-version
           filters:
@@ -1930,7 +1930,7 @@ workflows:
       - build-windows-release:
           name: alpha-windows-x86_64
           channel: alpha
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-alpha-version
           filters:
@@ -1941,7 +1941,7 @@ workflows:
       - publish-github-release:
           name: publish-alpha-release
           channel: alpha
-          context: tolaria-github
+          context: memoria-github
           requires:
             - alpha-macos-aarch64
             - alpha-macos-x86_64
@@ -1954,7 +1954,7 @@ workflows:
               ignore: /.*/
       - publish-docs:
           name: publish-main-docs
-          context: tolaria-github
+          context: memoria-github
           requires:
             - publish-alpha-release
           filters:
@@ -1963,7 +1963,7 @@ workflows:
             tags:
               ignore: /.*/
       - update-pr-branches:
-          context: tolaria-github
+          context: memoria-github
           filters:
             branches:
               only: main
@@ -1987,7 +1987,7 @@ workflows:
           channel: stable
           arch: aarch64
           target: aarch64-apple-darwin
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-stable-version
           filters:
@@ -2000,7 +2000,7 @@ workflows:
           channel: stable
           arch: x86_64
           target: x86_64-apple-darwin
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-stable-version
           filters:
@@ -2011,7 +2011,7 @@ workflows:
       - build-linux-release:
           name: stable-linux-x86_64
           channel: stable
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-stable-version
           filters:
@@ -2022,7 +2022,7 @@ workflows:
       - build-windows-release:
           name: stable-windows-x86_64
           channel: stable
-          context: tolaria-release
+          context: memoria-release
           requires:
             - compute-stable-version
           filters:
@@ -2033,7 +2033,7 @@ workflows:
       - publish-github-release:
           name: publish-stable-release
           channel: stable
-          context: tolaria-github
+          context: memoria-github
           requires:
             - stable-macos-aarch64
             - stable-macos-x86_64
@@ -2046,7 +2046,7 @@ workflows:
               only: /^(v20.*|stable-v.*)$/
       - publish-docs:
           name: publish-stable-docs
-          context: tolaria-github
+          context: memoria-github
           requires:
             - publish-stable-release
           filters:
@@ -2059,15 +2059,15 @@ workflows:
     when: << pipeline.parameters.publish-mobile-ota >>
     jobs:
       - static-gates:
-          context: tolaria-ci
+          context: memoria-ci
       - frontend-lint-build
       - frontend-coverage
       - frontend-coverage-report:
-          context: tolaria-ci
+          context: memoria-ci
           requires:
             - frontend-coverage
       - rust-coverage:
-          context: tolaria-ci
+          context: memoria-ci
       - rust-lint
       - playwright-smoke
       - playwright-smoke-report:
@@ -2086,7 +2086,7 @@ workflows:
             - mobile-ota-quality
       - mobile-ota-publish:
           channel: << pipeline.parameters.mobile-ota-channel >>
-          context: tolaria-release
+          context: memoria-release
           serial-group: << pipeline.project.slug >>/mobile-ota-<< pipeline.parameters.mobile-ota-channel >>
           requires:
             - approve-mobile-ota

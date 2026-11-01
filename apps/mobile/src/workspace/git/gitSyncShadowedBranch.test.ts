@@ -28,7 +28,7 @@ it('pushes the real branch, not a stale file shadowing its short name', async ()
 })
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-shadowed-sync-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-shadowed-sync-'))
   cleanup.push(() => rm(root, { recursive: true, force: true }))
   const remote = join(root, 'team', 'vault.git')
   await mkdir(remote, { recursive: true })

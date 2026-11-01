@@ -22,7 +22,7 @@ async function holdCompletedAutoRenameResponse(page: Page): Promise<void> {
 
       document.documentElement.dataset.autoRenameResponseHeld = 'true'
       await new Promise<void>((resolve) => {
-        document.addEventListener('tolaria:test:release-auto-rename', () => resolve(), { once: true })
+        document.addEventListener('memoria:test:release-auto-rename', () => resolve(), { once: true })
       })
       return result
     }
@@ -35,7 +35,7 @@ async function waitForCompletedAutoRename(page: Page): Promise<void> {
 
 async function releaseCompletedAutoRenameResponse(page: Page): Promise<void> {
   await page.evaluate(() => {
-    document.dispatchEvent(new Event('tolaria:test:release-auto-rename'))
+    document.dispatchEvent(new Event('memoria:test:release-auto-rename'))
   })
 }
 

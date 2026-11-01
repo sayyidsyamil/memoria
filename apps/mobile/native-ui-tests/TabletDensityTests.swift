@@ -7,8 +7,8 @@ final class TabletDensityTests: XCTestCase {
   }
 
   func testFixedDensityPreservesDocumentAndScalesNativeSidebarGeometry() {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&layoutProbe=1&qaRun=density"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&layoutProbe=1&qaRun=density"]
     app.launch()
     let title = element(app, "editor-toolbar-title")
     XCTAssertTrue(title.waitForExistence(timeout: 30))
@@ -31,9 +31,9 @@ final class TabletDensityTests: XCTestCase {
 
   func testPhoneFixedDensityUsesTheSameNativeInsets() {
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=sidebar&layoutProbe=1&qaRun=density"]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = "?source=fixture&phoneState=sidebar&layoutProbe=1&qaRun=density"
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=sidebar&layoutProbe=1&qaRun=density"]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = "?source=fixture&phoneState=sidebar&layoutProbe=1&qaRun=density"
     app.launch()
     XCTAssertTrue(element(app, "sidebar-item-inbox").waitForExistence(timeout: 30))
     assertSidebar(app, rowHeight: 38.4)

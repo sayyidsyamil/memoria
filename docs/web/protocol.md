@@ -1,6 +1,6 @@
-# Tolaria remote protocol, version 1.9
+# Memoria remote protocol, version 1.9
 
-The HTTP protocol between a Tolaria client and a server that hosts one vault as a git repository. It is written so that anyone can implement a compatible server (self-hosting) or client. The reference implementation is `apps/server`; the wire types are in `packages/protocol/src/index.ts` and are the source of truth when this document and the code disagree.
+The HTTP protocol between a Memoria client and a server that hosts one vault as a git repository. It is written so that anyone can implement a compatible server (self-hosting) or client. The reference implementation is `apps/server`; the wire types are in `packages/protocol/src/index.ts` and are the source of truth when this document and the code disagree.
 
 Status: spikes S3 (TOL-5) and S4 (TOL-8). The file API and the collaboration channel below are implemented and tested. Version 1.1 added the collaboration channel; it changed nothing in the file API of 1.0. Version 1.2 added the change feed (`GET /v1/changes`); it changed nothing in 1.1's file or collaboration API. Version 1.3 added remote image import (`POST /v1/attachments/imports`) and the `remote_unavailable` error code; it changed nothing else. Version 1.4 added the wikilink rewrite of `POST /v1/rename` (`rewriteLinks`, `title`, `oldTitle`); a rename without them works as in 1.0. Version 1.5 changed which side of a collaboration fork becomes the conflict copy: the live document keeps its edits and `meta.conflictCopy` names the copy of the incoming file (see "What the server does with a document"); nothing else changed. Version 1.6 added rate limits and websocket limits: the `rate_limited` error code with `Retry-After`, the `429` refusal of a websocket upgrade, and the `4408` close code of an idle connection (see "Limits"); a client within the limits sees no change. Version 1.7 added folder renames (`POST /v1/folders/rename`, capability `folders.rename`); nothing else changed. Version 1.8 added creating and deleting folders (`POST /v1/folders`, capability `folders.create`; `POST /v1/folders/delete`, capability `folders.delete`); nothing else changed. Version 1.9 added access tickets (capability `access.tickets`, see "Access tickets"): a front end that holds the token gives other users a role on the vault or on single notes, the `forbidden` error code, `POST /v1/access/revocations`, the `4403` close code, and `access` in `GET /v1/vault`; a client with the token sees no change. Version 1.10 added the optional `author` of an access ticket (capability `access.authors`): the commits a subject's changes cause name it in a `Co-authored-by` trailer; a ticket without it, and the token, see no change.
 
@@ -17,8 +17,8 @@ Status: spikes S3 (TOL-5) and S4 (TOL-8). The file API and the collaboration cha
 | Mechanism | Rule |
 |---|---|
 | Route prefix | `/v1`. A different major is a different prefix and a different protocol. |
-| `Tolaria-Protocol-Version` response header | Sent on every response, for example `1.1`. |
-| `Tolaria-Protocol-Version` request header | Optional. If present and its major is not the server's, the server answers `400 unsupported_protocol_version`. |
+| `Memoria-Protocol-Version` response header | Sent on every response, for example `1.1`. |
+| `Memoria-Protocol-Version` request header | Optional. If present and its major is not the server's, the server answers `400 unsupported_protocol_version`. |
 | Minor versions | Only add: new routes, new optional fields, new capabilities, new error codes. Clients must ignore fields and capabilities they do not know. |
 | Capabilities | `GET /v1/vault` lists what this server does. Clients check a capability before using a feature. |
 
@@ -47,7 +47,7 @@ Capabilities:
 ## Authentication and transport
 
 - Every route except `GET /healthz` requires `Authorization: Bearer <token>`. A missing or wrong token gets `401 unauthorized` with `WWW-Authenticate: Bearer`.
-- The reference server reads the token from `TOLARIA_SERVER_TOKEN` and does not start without it. It speaks plain HTTP and binds `127.0.0.1`; anything else needs an explicit opt-in and a TLS-terminating proxy in front.
+- The reference server reads the token from `MEMORIA_SERVER_TOKEN` and does not start without it. It speaks plain HTTP and binds `127.0.0.1`; anything else needs an explicit opt-in and a TLS-terminating proxy in front.
 - One token gives full access to the one vault: it is the owner's credential. Accounts and their records are outside this protocol; since 1.9 a front end that holds the token can give other users limited access with access tickets (below).
 - `GET /healthz` answers `200 {"status":"ok"}` and reveals nothing about the vault.
 
@@ -55,7 +55,7 @@ Capabilities:
 
 An access ticket is sent instead of the token, as `Authorization: Bearer <ticket>`. A front end that authenticates its users (the hosted service, or a self-hosted proxy) mints one per request for the user making it; the server only verifies. A server older than 1.9 answers a ticket with `401`, so a front end that sends them fails closed against it.
 
-Format: `ta1.<payload>.<signature>`. `<payload>` is the base64url (no padding) of a JSON object, `<signature>` the base64url of HMAC-SHA256 over the text `ta1.<payload>`, keyed with HMAC-SHA256(key = the server token, message = `tolaria access ticket v1`). The prefix and `v` carry the ticket version; a new version gets a new prefix, and a server keeps accepting the versions it knows. At most 16 KiB.
+Format: `ta1.<payload>.<signature>`. `<payload>` is the base64url (no padding) of a JSON object, `<signature>` the base64url of HMAC-SHA256 over the text `ta1.<payload>`, keyed with HMAC-SHA256(key = the server token, message = `memoria access ticket v1`). The prefix and `v` carry the ticket version; a new version gets a new prefix, and a server keeps accepting the versions it knows. At most 16 KiB.
 
 ```json
 { "v": 1, "sub": "u_8f3…", "grants": [{ "scope": "*", "role": "viewer" }, { "scope": "projects/alpha.md", "role": "editor" }], "iat": 1761400000000, "exp": 1761400060000 }
@@ -168,7 +168,7 @@ A write that ends in a conflict copy is not an error body: see `PUT` below.
   "protocolVersion": "1.9",
   "capabilities": ["files.read", "files.write", "files.rename", "files.delete", "files.conflict-copy", "search.text", "sync.git", "docs.ids", "entries.index", "entries.delta", "changes.feed", "attachments.import", "files.rename.links", "folders.rename", "folders.create", "folders.delete", "access.tickets", "collab.yjs", "collab.awareness", "collab.tickets"],
   "vault": { "name": "my-vault", "branch": "main", "head": "eea2db93a391d110c4707fa1f6c6078c2f39c1ca" },
-  "collab": { "available": true, "path": "/v1/collab/docs", "docFormat": "tolaria.blocknote/1", "blocksFragment": "blocks", "frontmatterField": "frontmatter", "metaMap": "meta" },
+  "collab": { "available": true, "path": "/v1/collab/docs", "docFormat": "memoria.blocknote/1", "blocksFragment": "blocks", "frontmatterField": "frontmatter", "metaMap": "meta" },
   "access": { "subject": null, "grants": [{ "scope": "*", "role": "owner" }] }
 }
 ```
@@ -197,7 +197,7 @@ Returns the bytes of the file.
 |---|---|
 | `ETag` | `"<etag>"` |
 | `Content-Type` | `text/markdown; charset=utf-8` for notes, `application/octet-stream` otherwise |
-| `Tolaria-Doc-Id` | The note's `docId` (notes only) |
+| `Memoria-Doc-Id` | The note's `docId` (notes only) |
 
 `If-None-Match: "<etag>"` gets `304` with no body when the client's copy is current.
 
@@ -412,7 +412,7 @@ A `docId` is a random UUID the server assigns to each note. It identifies the no
 
 A note can be opened as a live document that several clients edit at once. The markdown file stays the canonical form: the document is loaded from it, written back to it, and can always be rebuilt from it.
 
-### Document format `tolaria.blocknote/1`
+### Document format `memoria.blocknote/1`
 
 One Y.Doc per note, with three shared types:
 
@@ -420,7 +420,7 @@ One Y.Doc per note, with three shared types:
 |---|---|---|
 | `blocks` | `Y.XmlFragment` | The note body, in the shape BlockNote's `collaboration.fragment` binds to (y-prosemirror). |
 | `frontmatter` | `Y.Text` | The frontmatter block exactly as in the file, delimiters and final newline included; empty when the note has none. |
-| `meta` | `Y.Map` | `format` (`tolaria.blocknote/1`); `baseRevision`, the `etag` of the file the document is in step with; `conflictCopy`, the path of the conflict copy holding a version that could not be merged with the document (since 1.5, the incoming file's version; the document kept its edits). Written by the server only: a client's change to this map is reverted. |
+| `meta` | `Y.Map` | `format` (`memoria.blocknote/1`); `baseRevision`, the `etag` of the file the document is in step with; `conflictCopy`, the path of the conflict copy holding a version that could not be merged with the document (since 1.5, the incoming file's version; the document kept its edits). Written by the server only: a client's change to this map is reverted. |
 
 `Y.Text` holding raw markdown is deliberately not the body format: BlockNote's binding needs a `Y.XmlFragment`, and a text document would lose cursors and block identity. The format string leaves room for other formats.
 

@@ -67,8 +67,8 @@ async function moveAndRenamePhoneNote(page: Page) {
   await page.getByTestId('workspace-action-group-file').click()
   await page.getByTestId('workspace-action-move-note-folder').click()
   await expect(page.getByTestId('workspace-move-folder-input')).toBeVisible()
-  await page.getByTestId('workspace-move-folder-input').fill('Tolaria')
-  await page.getByTestId('workspace-move-folder-suggestion-tolaria-mobile-ui').click()
+  await page.getByTestId('workspace-move-folder-input').fill('Memoria')
+  await page.getByTestId('workspace-move-folder-suggestion-memoria-mobile-ui').click()
   await page.getByTestId('workspace-action-sheet-moveNoteToFolder').getByRole('button', { name: 'Save' }).click()
   await expect(page.getByTestId('workspace-action-sheet')).toBeHidden()
 

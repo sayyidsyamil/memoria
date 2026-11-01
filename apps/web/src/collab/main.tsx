@@ -9,7 +9,7 @@ import '../../../../src/components/EditorTheme.css'
 import './collab.css'
 import { CollabApp } from './CollabApp'
 
-// Tolaria Web, spike S4 (TOL-8): one note opened as a live document. This entry exists only
+// Memoria Web, spike S4 (TOL-8): one note opened as a live document. This entry exists only
 // in the web build; the desktop bundle is built from the repository's index.html.
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

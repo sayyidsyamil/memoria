@@ -223,7 +223,7 @@ function workspaceDirectory(module: ExpoFileSystemModule, rootUri: RootUri, rela
 
 function vaultConfigFile(module: ExpoFileSystemModule, rootUri: RootUri): File {
   assertGitCheckoutComplete(module, rootUri)
-  const directory = new module.Directory(module.Paths.document, '.tolaria-mobile-config')
+  const directory = new module.Directory(module.Paths.document, '.memoria-mobile-config')
   recoverNativeWorkspaceText(directory.uri)
   return new module.File(directory.uri, `${stableVaultConfigName(rootUri)}.json`)
 }

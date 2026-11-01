@@ -6,13 +6,13 @@ Accepted
 
 ## Context
 
-Desktop Tolaria converts completed inline math Markdown such as `$x^2$` into a rich editor math node. The mobile TenTap editor already mirrored desktop arrow ligature and highlight input transforms, but inline math was still plain Markdown source because TenTap's StarterKit does not include Tolaria's custom math node.
+Desktop Memoria converts completed inline math Markdown such as `$x^2$` into a rich editor math node. The mobile TenTap editor already mirrored desktop arrow ligature and highlight input transforms, but inline math was still plain Markdown source because TenTap's StarterKit does not include Memoria's custom math node.
 
 The mobile foundation needs to keep copy-first editor semantics: mobile should preserve the same durable Markdown source while introducing native editor nodes only when the editor schema can carry them safely. Pushing unsupported JSON into TenTap would make simulator/device behavior fragile.
 
 ## Decision
 
-Add an explicit mobile dependency on `@tiptap/core` and define a Tolaria-owned `mathInline` TenTap bridge under the mobile editor wrapper.
+Add an explicit mobile dependency on `@tiptap/core` and define a Memoria-owned `mathInline` TenTap bridge under the mobile editor wrapper.
 
 The bridge is registered by `MobileWysiwygMarkdownEditor` with TenTap's StarterKit, while `mobileInlineMath.ts`, `mobileDocumentContent.ts`, and `mobileWysiwygInputTransforms.ts` own the pure parsing, hydration, transform, and serialization contracts. Mobile inline math keeps the desktop Markdown source (`$latex$`) as the durable save format.
 

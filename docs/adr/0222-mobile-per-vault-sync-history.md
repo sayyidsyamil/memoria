@@ -6,7 +6,7 @@ Status: Accepted for the mobile foundation branch
 ## Decision
 
 Persist installation-local sync history keyed by managed vault ID, outside user
-content, in `.tolaria-mobile-config/sync-history.json`. Keep status, last successful
+content, in `.memoria-mobile-config/sync-history.json`. Keep status, last successful
 sync time, last local commit ID, operation phase, and a bounded error category.
 Never store tokens, repository URLs, provider bookmarks, paths or note content.
 

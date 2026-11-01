@@ -4,8 +4,8 @@ final class TabletFormattingToolbarTests: XCTestCase {
   func testTabletFormattingStripKeepsTouchTargetsAndAppliesHeading() throws {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=toolbar"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=toolbar"]
     app.launch()
     let toolbar = element(app, "editor-formatting-toolbar")
     XCTAssertTrue(toolbar.waitForExistence(timeout: 60))

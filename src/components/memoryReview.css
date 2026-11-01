@@ -1,0 +1,36 @@
+.knowledge-review-dialog[data-slot='dialog-content'] { display: flex; flex-direction: column; gap: 0; padding: 0; width: min(720px, calc(100vw - 40px)); max-width: min(720px, calc(100vw - 40px)); max-height: calc(100dvh - 64px); overflow: hidden; border-radius: 14px; }
+.knowledge-review-header { padding: 24px 56px 20px 24px; flex-shrink: 0; text-align: left; }
+.knowledge-review-header [data-slot='dialog-title'] { font-size: 17px; line-height: 24px; }
+.knowledge-review-header [data-slot='dialog-description'] { font-size: 13px; line-height: 20px; }
+.knowledge-review-inline { display: flex; flex-direction: column; min-height: 0; height: 100%; }
+.knowledge-review-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 12px; flex-shrink: 0; }
+.knowledge-review-inline .knowledge-review-toolbar { border-top: 0; }
+.knowledge-review-toolbar button { color: var(--muted-foreground); cursor: pointer; }
+.knowledge-review-toolbar select { min-width: 0; max-width: 240px; background: var(--background); color: var(--foreground); font-size: 12px; border: 1px solid var(--border); border-radius: 5px; padding: 5px 8px; }
+@media (max-width: 550px) { .knowledge-review-toolbar { flex-wrap: wrap; } .knowledge-review-footer { flex-wrap: wrap; } }
+.knowledge-review-message { margin: 14px 24px 0; flex-shrink: 0; overflow-wrap: anywhere; }
+.knowledge-review-body { flex: 1; min-height: 100px; overflow-y: auto; padding: 20px 24px; scrollbar-width: thin; }
+.knowledge-review-proposal { display: flex; flex-direction: column; gap: 12px; }
+.knowledge-review-proposal + .knowledge-review-proposal { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 24px; }
+.knowledge-review-source { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.knowledge-review-source h3 { flex-basis: 100%; margin: 0; font-size: 15px; font-weight: 600; line-height: 22px; }
+.knowledge-review-source p { margin: 0; font-size: 12px; color: var(--muted-foreground); }
+
+/* One suggestion: type, destination, statement, then its quote. */
+.knowledge-claim { display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--background); transition: opacity 150ms; }
+.knowledge-claim[data-included='false'] { opacity: .55; }
+.knowledge-claim-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.knowledge-claim-include { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; min-height: 28px; font-size: 12px; color: var(--muted-foreground); cursor: pointer; }
+.knowledge-claim h4 { margin: 0; font-size: 14px; font-weight: 600; line-height: 20px; }
+.knowledge-claim textarea { min-height: 72px; line-height: 1.6; font-size: 14px; box-shadow: none; }
+.knowledge-claim-statement { margin: 0; font-size: 14px; line-height: 1.6; }
+.knowledge-claim-destination { margin: 0; font-size: 12px; color: var(--muted-foreground); overflow-wrap: anywhere; }
+.knowledge-review-evidence { padding: 10px 12px; border-radius: 8px; background: var(--muted); }
+.knowledge-review-evidence summary { cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-foreground); }
+.knowledge-review-evidence blockquote { margin: 8px 0 4px; padding-left: 12px; border-left: 2px solid var(--accent-blue); font-size: 13px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+.knowledge-review-evidence button { margin-left: -8px; color: var(--muted-foreground); }
+.knowledge-review-details { font-size: 12px; color: var(--muted-foreground); }
+.knowledge-review-details summary { cursor: pointer; }
+.knowledge-review-details p { margin: 8px 0 0; }
+.knowledge-review-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; border-top: 1px solid var(--border); flex-shrink: 0; }
+.knowledge-review-footer span { color: var(--muted-foreground); font-size: 11px; line-height: 17px; }

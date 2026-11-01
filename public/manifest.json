@@ -1,6 +1,6 @@
 {
-  "name": "Tolaria",
-  "short_name": "Tolaria",
+  "name": "Memoria",
+  "short_name": "Memoria",
   "description": "A note-taking app for developers",
   "start_url": "/",
   "display": "standalone",

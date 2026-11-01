@@ -9,7 +9,7 @@ import { vaultApiPlugin } from "./scripts/vault-api-plugin";
 
 const vitestCoverageDirectory =
 	process.env.VITEST_COVERAGE_DIR ??
-	path.join(os.tmpdir(), "tolaria-vitest-coverage", String(process.pid));
+	path.join(os.tmpdir(), "memoria-vitest-coverage", String(process.pid));
 
 const devServerWatchIgnored = [
 	"**/coverage/**",
@@ -41,7 +41,7 @@ function mcpBridgeInfoPlugin(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react(), tailwindcss(), vaultApiPlugin(), mcpBridgeInfoPlugin()],
-	cacheDir: process.env.TOLARIA_VITE_CACHE_DIR,
+	cacheDir: process.env.MEMORIA_VITE_CACHE_DIR,
 
 	resolve: {
 		alias: {

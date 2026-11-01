@@ -15,7 +15,7 @@ describe('DocIndex', () => {
   let docs: DocIndex
 
   beforeEach(async () => {
-    root = await mkdtemp(join(tmpdir(), 'tolaria-docs-test-'))
+    root = await mkdtemp(join(tmpdir(), 'memoria-docs-test-'))
     store = new LocalDiskStore(root)
     docs = await DocIndex.open(store)
     await docs.reconcile([at('a.md'), at('b.md')])

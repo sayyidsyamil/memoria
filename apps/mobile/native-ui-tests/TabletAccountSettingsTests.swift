@@ -4,8 +4,8 @@ final class TabletAccountSettingsTests: XCTestCase {
   func testSettingsIncludesGitHubAndVaultManagement() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&qaRun=account-settings"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&qaRun=account-settings"]
     app.launch()
     let settings = element(app, "open-mobile-settings")
     XCTAssertTrue(settings.waitForExistence(timeout: 30))

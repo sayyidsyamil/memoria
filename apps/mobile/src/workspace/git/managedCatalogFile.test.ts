@@ -37,7 +37,7 @@ it('recovers the last complete catalog if publication is interrupted', async () 
 })
 
 it('never silently resets a corrupt catalog that has no valid backup', async () => {
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json', 'broken')
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json', 'broken')
   await expect(readManagedCatalogFile()).rejects.toThrow('vaultCatalogInvalid')
 })
 
@@ -53,7 +53,7 @@ it('recovers the first catalog when the process stopped before its first rename'
 })
 
 it('does not treat a corrupt first pending catalog as a fresh installation', async () => {
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json.pending', 'incomplete')
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json.pending', 'incomplete')
   const before = [...disk.files]
   await expect(readManagedCatalogFile()).rejects.toThrow('vaultCatalogInvalid')
   expect([...disk.files]).toEqual(before)
@@ -61,7 +61,7 @@ it('does not treat a corrupt first pending catalog as a fresh installation', asy
 
 it('prefers a published catalog over an uncommitted pending replacement', async () => {
   await writeManagedCatalogFile(catalog)
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json.pending', JSON.stringify({ vaults: [], activeId: null }))
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json.pending', JSON.stringify({ vaults: [], activeId: null }))
   expect(await readManagedCatalogFile()).toEqual(catalog)
 })
 
@@ -70,23 +70,23 @@ it('returns an empty catalog only when no saved copy exists', async () => {
 })
 
 it('recovers a valid backup when the published catalog is corrupt', async () => {
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json', 'broken')
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json.backup', JSON.stringify(catalog))
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json', 'broken')
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json.backup', JSON.stringify(catalog))
   expect(await readManagedCatalogFile()).toEqual(catalog)
   await writeManagedCatalogFile({ ...catalog, activeId: null })
   expect((await readManagedCatalogFile()).activeId).toBeNull()
-  expect(JSON.parse(disk.files.get('/documents/.tolaria-mobile-config/git-vaults.json.backup') ?? '')).toEqual(catalog)
+  expect(JSON.parse(disk.files.get('/documents/.memoria-mobile-config/git-vaults.json.backup') ?? '')).toEqual(catalog)
 })
 
 it('refuses a replacement when the prior catalog has no valid recovery copy', async () => {
-  disk.files.set('/documents/.tolaria-mobile-config/git-vaults.json', 'broken')
+  disk.files.set('/documents/.memoria-mobile-config/git-vaults.json', 'broken')
   await expect(writeManagedCatalogFile(catalog)).rejects.toThrow('vaultCatalogInvalid')
-  expect(disk.files.get('/documents/.tolaria-mobile-config/git-vaults.json')).toBe('broken')
+  expect(disk.files.get('/documents/.memoria-mobile-config/git-vaults.json')).toBe('broken')
 })
 
 it('retains the most recent valid catalog when rotating an older backup', async () => {
   await writeManagedCatalogFile(catalog)
   await writeManagedCatalogFile({ ...catalog, activeId: null })
   await writeManagedCatalogFile(catalog)
-  expect(JSON.parse(disk.files.get('/documents/.tolaria-mobile-config/git-vaults.json.backup') ?? '').activeId).toBeNull()
+  expect(JSON.parse(disk.files.get('/documents/.memoria-mobile-config/git-vaults.json.backup') ?? '').activeId).toBeNull()
 })

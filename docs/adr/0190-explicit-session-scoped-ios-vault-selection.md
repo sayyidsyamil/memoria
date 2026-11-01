@@ -7,8 +7,8 @@ Accepted; supersedes the implicit sandbox-root decision in ADR-0251.
 ## Context
 
 ADR-0251 introduced the Expo FileSystem repository and defaulted native launches to
-an app-private `Tolaria Vault` directory. That directory is not a user-selected
-Tolaria vault, but its stale test files made a fresh install appear synced and
+an app-private `Memoria Vault` directory. That directory is not a user-selected
+Memoria vault, but its stale test files made a fresh install appear synced and
 writable. Expo FileSystem also documents that an iOS directory selected through
 `Directory.pickDirectoryAsync()` grants read/write access only for the current app
 session. Persisting only its URI cannot restore the permission after restart.
@@ -25,7 +25,7 @@ actions open the native directory picker. All workspace mutations are ignored
 until a writable native vault has been selected.
 
 The selected directory is retained in React state for the current app session.
-Tolaria does not persist the URI as if it were a durable permission. A later native
+Memoria does not persist the URI as if it were a durable permission. A later native
 storage integration may replace this decision only if it can retain and restore an
 iOS security-scoped bookmark.
 

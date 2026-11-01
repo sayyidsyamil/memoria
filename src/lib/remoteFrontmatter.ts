@@ -7,7 +7,7 @@ import { type LiveNoteDocument, liveNoteDocument } from './liveNoteDocuments'
 import type { VaultFileOps } from './vaultBackend/types'
 
 /**
- * Property edits on the web with a Tolaria remote. A note open as a live document gets the
+ * Property edits on the web with a Memoria remote. A note open as a live document gets the
  * edit as one transaction on its `frontmatter` text, so it merges with concurrent edits and
  * the server writes it to the file with the body; any other note is rewritten through the
  * files API, only if it is still at the revision the edit was made on. Either way the
@@ -25,7 +25,7 @@ export interface RemoteFrontmatterEdit {
 }
 
 /** Transaction origin of a property edit, for observers that tell edits apart. */
-export const FRONTMATTER_EDIT_ORIGIN = 'tolaria:frontmatter-edit'
+export const FRONTMATTER_EDIT_ORIGIN = 'memoria:frontmatter-edit'
 
 export class RemoteFrontmatterConflictError extends Error {
   constructor(path: NotePath) {

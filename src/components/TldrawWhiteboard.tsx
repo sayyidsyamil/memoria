@@ -24,7 +24,7 @@ import { installWhiteboardRuntimeGuards } from './tldrawRuntimeGuards'
 import { useTldrawBoardStore } from './useTldrawBoardStore'
 
 const EMPTY_TLDRAW_TRANSLATION_URL = 'data:application/json;base64,e30K'
-const TOLARIA_TLDRAW_USER_ID = 'tolaria-whiteboard'
+const MEMORIA_TLDRAW_USER_ID = 'memoria-whiteboard'
 const WHITEBOARD_FULLSCREEN_BODY_CLASS = 'tldraw-whiteboard-fullscreen-open'
 
 function resolveTldrawAssetUrl(assetUrl: string | undefined): string {
@@ -100,7 +100,7 @@ function cssSize({ height, width }: PixelSize): CSSProperties {
 function tldrawUserPreferences(themeMode: ResolvedThemeMode): TLUserPreferences {
   return {
     ...defaultUserPreferences,
-    id: TOLARIA_TLDRAW_USER_ID,
+    id: MEMORIA_TLDRAW_USER_ID,
     colorScheme: themeMode,
   }
 }
@@ -181,13 +181,13 @@ function WhiteboardRuntimeAlerts({
   )
 }
 
-interface TolariaTldrawDialogProps {
+interface MemoriaTldrawDialogProps {
   dialog: TLUiDialog
   onClose: (id: string) => void
 }
 
 const DIALOG_OPEN_DISMISS_GRACE_MS = 250
-let retainedTolariaTldrawDialogs: TLUiDialog[] = []
+let retainedMemoriaTldrawDialogs: TLUiDialog[] = []
 
 function useDeferredDialogOpen() {
   const openedAtRef = useRef(0)
@@ -220,17 +220,17 @@ function shouldCloseFromOverlayClick(
   return isOverlayEvent(event) && !dialog.preventBackgroundClose && !mouseDownInsideContent
 }
 
-interface TolariaTldrawDialogContentProps {
+interface MemoriaTldrawDialogContentProps {
   dialog: TLUiDialog
   mouseDownInsideContentRef: MutableRefObject<boolean>
   onClose: () => void
 }
 
-function TolariaTldrawDialogContent({
+function MemoriaTldrawDialogContent({
   dialog,
   mouseDownInsideContentRef,
   onClose,
-}: TolariaTldrawDialogContentProps) {
+}: MemoriaTldrawDialogContentProps) {
   const ModalContent = dialog.component
   const handleClose = () => {
     mouseDownInsideContentRef.current = false
@@ -257,7 +257,7 @@ function TolariaTldrawDialogContent({
   )
 }
 
-const TolariaTldrawDialog = memo(function TolariaTldrawDialog({ dialog, onClose }: TolariaTldrawDialogProps) {
+const MemoriaTldrawDialog = memo(function MemoriaTldrawDialog({ dialog, onClose }: MemoriaTldrawDialogProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const mouseDownInsideContentRef = useRef(false)
   const { openedAtRef, readyToOpen } = useDeferredDialogOpen()
@@ -300,7 +300,7 @@ const TolariaTldrawDialog = memo(function TolariaTldrawDialog({ dialog, onClose 
         dir="ltr"
         className="tlui-dialog__overlay"
       >
-        <TolariaTldrawDialogContent
+        <MemoriaTldrawDialogContent
           dialog={dialog}
           mouseDownInsideContentRef={mouseDownInsideContentRef}
           onClose={closeDialogNow}
@@ -310,16 +310,16 @@ const TolariaTldrawDialog = memo(function TolariaTldrawDialog({ dialog, onClose 
   )
 })
 
-function TolariaTldrawDialogs() {
+function MemoriaTldrawDialogs() {
   const { dialogs, removeDialog } = useDialogs()
-  const requestedDialogs = useValue('tolaria tldraw dialogs', () => dialogs.get(), [dialogs])
+  const requestedDialogs = useValue('memoria tldraw dialogs', () => dialogs.get(), [dialogs])
   const [visibleDialogs, setVisibleDialogs] = useState<TLUiDialog[]>(() =>
-    retainedTolariaTldrawDialogs.length > 0 ? retainedTolariaTldrawDialogs : dialogs.get()
+    retainedMemoriaTldrawDialogs.length > 0 ? retainedMemoriaTldrawDialogs : dialogs.get()
   )
 
   const closeVisibleDialog = useCallback((id: string) => {
-    const nextDialogs = retainedTolariaTldrawDialogs.filter((dialog) => dialog.id !== id)
-    retainedTolariaTldrawDialogs = nextDialogs
+    const nextDialogs = retainedMemoriaTldrawDialogs.filter((dialog) => dialog.id !== id)
+    retainedMemoriaTldrawDialogs = nextDialogs
     setVisibleDialogs(nextDialogs)
     removeDialog(id)
   }, [removeDialog])
@@ -327,14 +327,14 @@ function TolariaTldrawDialogs() {
   useEffect(() => {
     if (requestedDialogs.length === 0) return
     // tldraw clears the dialog atom while Radix closes the menu; keep the last requested dialog mounted locally.
-    retainedTolariaTldrawDialogs = requestedDialogs
+    retainedMemoriaTldrawDialogs = requestedDialogs
     queueMicrotask(() => {
       setVisibleDialogs(requestedDialogs)
     })
   }, [requestedDialogs])
 
   return visibleDialogs.map((dialog) => (
-    <TolariaTldrawDialog
+    <MemoriaTldrawDialog
       key={dialog.id}
       dialog={dialog}
       onClose={closeVisibleDialog}
@@ -485,7 +485,7 @@ function useWhiteboardRuntime({
     setUserPreferences: ignoreTldrawUserPreferencesUpdate,
     userPreferences,
   })
-  const whiteboardUi = useWhiteboardUi({ locale, Dialogs: TolariaTldrawDialogs })
+  const whiteboardUi = useWhiteboardUi({ locale, Dialogs: MemoriaTldrawDialogs })
   const handleTldrawMount = useCallback((editor: Editor) =>
     installWhiteboardRuntimeGuards(editor, {
       onIncompatiblePaste: () => {

@@ -313,18 +313,18 @@ describe("useFolderRename", () => {
 	});
 });
 
-describe("useFolderRename on a Tolaria remote (TOL-227)", () => {
-	type RemoteWindow = { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string };
+describe("useFolderRename on a Memoria remote (TOL-227)", () => {
+	type RemoteWindow = { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string };
 
 	beforeEach(() => {
 		vi.mocked(mockInvoke).mockReset();
 		Object.assign(window as RemoteWindow, {
-			TOLARIA_REMOTE_URL: "https://remote.test",
-			TOLARIA_REMOTE_TOKEN: "web-token-0123456789",
+			MEMORIA_REMOTE_URL: "https://remote.test",
+			MEMORIA_REMOTE_TOKEN: "web-token-0123456789",
 		});
 		return () => {
-			delete (window as RemoteWindow).TOLARIA_REMOTE_URL;
-			delete (window as RemoteWindow).TOLARIA_REMOTE_TOKEN;
+			delete (window as RemoteWindow).MEMORIA_REMOTE_URL;
+			delete (window as RemoteWindow).MEMORIA_REMOTE_TOKEN;
 			vi.unstubAllGlobals();
 		};
 	});

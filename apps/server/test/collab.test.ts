@@ -21,13 +21,13 @@ afterEach(async () => {
 })
 
 describe('a room', () => {
-  it('gives a client the note as a tolaria.blocknote/1 document', async () => {
+  it('gives a client the note as a memoria.blocknote/1 document', async () => {
     const { doc } = await harness.client('welcome.md')
 
     expect(doc.getText('frontmatter').toString()).toBe('---\ntype: Note\n---\n')
     expect(doc.getXmlFragment('blocks').toString()).toContain('A throwaway vault for tests.')
     expect(doc.getMap('meta').toJSON()).toEqual({
-      format: 'tolaria.blocknote/1',
+      format: 'memoria.blocknote/1',
       baseRevision: (await harness.vault.read('welcome.md' as VaultPath)).etag,
     })
   })
@@ -121,7 +121,7 @@ describe('a room', () => {
     ada.doc.getMap<string>('meta').set('conflictCopy', 'somewhere-else.md')
     await settle()
 
-    expect(luca.doc.getMap('meta').toJSON()).toEqual({ format: 'tolaria.blocknote/1', baseRevision: revision })
+    expect(luca.doc.getMap('meta').toJSON()).toEqual({ format: 'memoria.blocknote/1', baseRevision: revision })
     expect(ada.doc.getMap('meta').toJSON()).toEqual(luca.doc.getMap('meta').toJSON())
   })
 

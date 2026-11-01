@@ -15,7 +15,7 @@ function log(message: string): void {
   process.stdout.write(`${new Date().toISOString()} ${message}\n`)
 }
 
-/** A development MinIO may be private (`TOLARIA_R2_ALLOW_PRIVATE_ENDPOINT`); otherwise every R2 connection must be public. */
+/** A development MinIO may be private (`MEMORIA_R2_ALLOW_PRIVATE_ENDPOINT`); otherwise every R2 connection must be public. */
 function r2Options(config: ReturnType<typeof loadConfig>): R2Options {
   return { isAllowedAddress: config.allowPrivateR2Endpoint ? () => true : isPublicAddress }
 }
@@ -82,7 +82,7 @@ async function main(): Promise<void> {
   }
   process.once('SIGINT', stop)
   process.once('SIGTERM', stop)
-  server.listen(config.port, config.host, () => log(`tolaria server listening on http://${config.host}:${config.port}`))
+  server.listen(config.port, config.host, () => log(`memoria server listening on http://${config.host}:${config.port}`))
 }
 
 main().catch((error: unknown) => {

@@ -42,9 +42,9 @@ test.afterAll(async () => {
 async function configurePage(page: Page, online: boolean): Promise<void> {
 	await page.addInitScript(
 		({ token, startOnline }) => {
-			window.TOLARIA_REMOTE_URL = window.location.origin;
-			window.TOLARIA_REMOTE_TOKEN = token;
-			window.localStorage.setItem("tolaria:claude-code-onboarding-dismissed", "1");
+			window.MEMORIA_REMOTE_URL = window.location.origin;
+			window.MEMORIA_REMOTE_TOKEN = token;
+			window.localStorage.setItem("memoria:claude-code-onboarding-dismissed", "1");
 			let onLine = startOnline;
 			Object.defineProperty(Navigator.prototype, "onLine", {
 				configurable: true,

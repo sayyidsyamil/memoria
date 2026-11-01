@@ -17,7 +17,7 @@ describe('tablet workspace navigation', () => {
   it('records desktop-style back and forward history for logical mobile selections', () => {
     const inbox = navigationEntry(primarySelection('inbox', 'Inbox'), 'workflow')
     const allNotes = navigationEntry(primarySelection('all-notes', 'All Notes'), 'open-source-project')
-    const folder = navigationEntry({ id: 'Tolaria/Mobile UI', kind: 'folder', label: 'Mobile UI' }, 'workflow')
+    const folder = navigationEntry({ id: 'Memoria/Mobile UI', kind: 'folder', label: 'Mobile UI' }, 'workflow')
     let history = emptyTabletNavigationHistory()
 
     history = pushTabletNavigationHistory(history, inbox, allNotes)

@@ -8,7 +8,7 @@ date: 2026-10-25
 
 ## Context
 
-TOL-233 moves folder creation and deletion on the web from the browser mock to the Tolaria remote, after TOL-227 did the same for folder renames (protocol 1.7). The desktop creates a folder as an empty directory and deletes one with everything in it after a confirmation. The server's vault is a git repository, and git keeps no empty folder: a folder exists on the server, and in every clone the desktop pulls, only while a tracked file is in it. The web derives its folder tree from the tracked files (`packages/collab-client/src/remoteFolders.ts`). Other tabs of the same remote must see the change without a reload.
+TOL-233 moves folder creation and deletion on the web from the browser mock to the Memoria remote, after TOL-227 did the same for folder renames (protocol 1.7). The desktop creates a folder as an empty directory and deletes one with everything in it after a confirmation. The server's vault is a git repository, and git keeps no empty folder: a folder exists on the server, and in every clone the desktop pulls, only while a tracked file is in it. The web derives its folder tree from the tracked files (`packages/collab-client/src/remoteFolders.ts`). Other tabs of the same remote must see the change without a reload.
 
 ## Decision
 

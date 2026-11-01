@@ -28,4 +28,4 @@ The integration is wrapped by `apps/mobile/src/workspace/mobilePdfExport.ts`. Th
 - The mobile command is now a real native action on iOS/Android while the web UI lab remains deterministic.
 - The PDF output is generated from mobile Markdown HTML, not the live native rich-editor WebView. That is acceptable for this foundation slice but lower fidelity than desktop's rendered-DOM export for advanced blocks.
 - Future table, attachment, Mermaid, math, and custom TenTap node support should improve the shared mobile Markdown-to-HTML renderer instead of adding PDF-only rendering paths.
-- Exported PDFs are temporary share artifacts; Tolaria does not add generated PDFs back into the vault unless a future explicit save-to-vault flow is designed.
+- Exported PDFs are temporary share artifacts; Memoria does not add generated PDFs back into the vault unless a future explicit save-to-vault flow is designed.

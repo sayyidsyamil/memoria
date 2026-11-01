@@ -44,14 +44,14 @@ describe('the editor empty state', () => {
   })
 
   it('is touch-first when a finger drives the web build', () => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', 'true')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', 'true')
     renderEditor()
     expect(screen.getByTestId('touch-empty-state')).toBeInTheDocument()
     expect(screen.queryByText('Select a note to start editing')).not.toBeInTheDocument()
   })
 
   it('keeps the keyboard hints on the desktop app, touch screen or not', () => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', '')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', '')
     renderEditor()
     expect(screen.queryByTestId('touch-empty-state')).not.toBeInTheDocument()
     expect(screen.getByText('Select a note to start editing')).toBeInTheDocument()

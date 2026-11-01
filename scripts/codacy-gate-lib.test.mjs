@@ -156,7 +156,7 @@ test('reads exclude_paths from .codacy.yaml', () => {
 test('matches Codacy globs on repository-relative paths', () => {
   assert.ok(matchesCodacyGlob('site/landing/**', 'site/landing/src/App.tsx'))
   assert.ok(!matchesCodacyGlob('site/landing/**', 'site/landingx/App.tsx'))
-  assert.ok(!matchesCodacyGlob('site/landing/**', 'site/.vitepress/theme/tolaria/Layout.vue'))
+  assert.ok(!matchesCodacyGlob('site/landing/**', 'site/.vitepress/theme/memoria/Layout.vue'))
   assert.ok(matchesCodacyGlob('**/package-lock.json', 'package-lock.json'))
   assert.ok(matchesCodacyGlob('**/package-lock.json', 'apps/web/package-lock.json'))
   assert.ok(!matchesCodacyGlob('dist/**', 'apps/web/dist/index.js'))
@@ -168,9 +168,9 @@ test('drops excluded files before findings are matched to added lines', () => {
   const root = '/repo'
   const additions = addedLinesFromDiff([
     '+++ b/site/landing/src/App.tsx', '@@ -0,0 +1 @@', '+Math.random()',
-    '+++ b/site/.vitepress/theme/tolaria/Layout.vue', '@@ -0,0 +1 @@', '+x',
+    '+++ b/site/.vitepress/theme/memoria/Layout.vue', '@@ -0,0 +1 @@', '+x',
   ].join('\n'), root)
-  assert.deepEqual([...withoutExcludedPaths(additions, ['site/landing/**'], root).keys()], ['/repo/site/.vitepress/theme/tolaria/Layout.vue'])
+  assert.deepEqual([...withoutExcludedPaths(additions, ['site/landing/**'], root).keys()], ['/repo/site/.vitepress/theme/memoria/Layout.vue'])
 })
 
 // The local gate skips exactly what hosted Codacy skips. Pin the list so widening it is a reviewed change:
@@ -192,7 +192,7 @@ test('findings outside the excluded paths still fail the gate', () => {
   const root = '/repo'
   const files = [
     'site/landing/src/App.tsx',
-    'site/.vitepress/theme/tolaria/Layout.vue',
+    'site/.vitepress/theme/memoria/Layout.vue',
     'site/landing.md',
     'scripts/codacy-gate.mjs',
     'src/App.tsx',

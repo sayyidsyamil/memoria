@@ -13,7 +13,7 @@ export interface ActiveNoteLocationOptions extends Omit<WebRoutingOptions, 'enab
 
 /** Only the web build routes; desktop, including its browser dev build, keeps its URL. */
 function isWebBuild(): boolean {
-  return import.meta.env.VITE_TOLARIA_WEB_BUILD === 'true'
+  return import.meta.env.VITE_MEMORIA_WEB_BUILD === 'true'
 }
 
 type RouteEntryResolver = (entries: VaultEntry[]) => VaultEntry | undefined

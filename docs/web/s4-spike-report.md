@@ -6,7 +6,7 @@
 
 **Go.** BlockNote's Yjs collaboration works against a small room server in `apps/server`, with the markdown file in git still the canonical form. The two things that could have sunk it did not:
 
-- The Tolaria markdown pipeline runs headless in Node, unchanged, on an unmounted BlockNote editor. The server builds and reads documents with the same code the desktop app opens and saves notes with.
+- The Memoria markdown pipeline runs headless in Node, unchanged, on an unmounted BlockNote editor. The server builds and reads documents with the same code the desktop app opens and saves notes with.
 - Opening a note does not produce a git diff, and an edit changes only the lines that were edited, even though the serializer is not byte-stable (see "Round trip").
 
 | Acceptance criterion | State |
@@ -23,14 +23,14 @@ What is not done is listed under "Not built" and "Risks". The largest gap: the c
 
 | Piece | Where | What it does |
 |---|---|---|
-| Markdown and Yjs serialisation | `packages/markdown-yjs` | `NoteCodec`: markdown to a `tolaria.blocknote/1` Y.Doc and back, headless. Source-preserving write-back, three-way line merge, block-level patching of a live document |
+| Markdown and Yjs serialisation | `packages/markdown-yjs` | `NoteCodec`: markdown to a `memoria.blocknote/1` Y.Doc and back, headless. Source-preserving write-back, three-way line merge, block-level patching of a live document |
 | Wire framing | `packages/protocol/src/collabWire.ts` | y-protocols sync and awareness in y-websocket's framing, shared by server and client |
 | Room server | `apps/server/src/collab` | One room per `docId` on `GET /v1/collab/docs/<docId>`; snapshots; flush on a cadence; reconciliation; tickets; read-only access; changes checked against the editor's vocabulary before they are applied |
 | Vault write path | `Vault.update` in `apps/server/src/vault.ts` | Computes the new file content under the vault lock, after the pull |
 | Client | `packages/collab-client` | `CollabProvider` (websocket, reconnect, status), `createRemoteVaultBackend` (the `VaultBackend` seam), presence helpers |
-| Web UI | `apps/web/src/collab`, `apps/web/collab.html` | The Tolaria editor bound to a live document, presence avatars, live cursors and selections, sync status, conflict notice |
+| Web UI | `apps/web/src/collab`, `apps/web/collab.html` | The Memoria editor bound to a live document, presence avatars, live cursors and selections, sync status, conflict notice |
 
-### Document format `tolaria.blocknote/1`
+### Document format `memoria.blocknote/1`
 
 | Shared type | Content |
 |---|---|
@@ -70,7 +70,7 @@ Consequences: a raw HTML block stays in the file and is not shown in the collabo
 
 ## Convergence, presence, cursors (criterion 1)
 
-`apps/web/tests/collab.spec.ts`, project `collab` of `pnpm playwright:web`. It starts a Tolaria server on loopback with a throwaway vault seeded fresh for the run, and launches desktop Chromium, desktop WebKit and WebKit with the iPhone 15 viewport on one note:
+`apps/web/tests/collab.spec.ts`, project `collab` of `pnpm playwright:web`. It starts a Memoria server on loopback with a throwaway vault seeded fresh for the run, and launches desktop Chromium, desktop WebKit and WebKit with the iPhone 15 viewport on one note:
 
 - each client shows three presence avatars, its own marked "(you)";
 - all three type at the same time, two of them in the same paragraph;
@@ -89,7 +89,7 @@ A document is flushed to its file, as one commit, when either holds:
 - **5 s after the last edit** (someone stopped typing), or
 - **60 s after the first edit that is not in the file yet** (someone never stops),
 
-and also when the last client has left (after a 30 s linger) and when the server stops. A flush whose result is byte-identical to the file is skipped. Configurable with `TOLARIA_COLLAB_IDLE_MS`, `TOLARIA_COLLAB_MAX_WAIT_MS`, `TOLARIA_COLLAB_LINGER_MS`.
+and also when the last client has left (after a 30 s linger) and when the server stops. A flush whose result is byte-identical to the file is skipped. Configurable with `MEMORIA_COLLAB_IDLE_MS`, `MEMORIA_COLLAB_MAX_WAIT_MS`, `MEMORIA_COLLAB_LINGER_MS`.
 
 Measured with `pnpm run server:collab-bench <remote> 30` on agent-claude (8 vCPU, local disk, bare remote on the same disk, 205-file vault). Commits per minute over a 10-minute editing session, per policy:
 
@@ -148,9 +148,9 @@ To try it by hand:
 
 ```bash
 pnpm server:seed ~/work/web/s4-test-remote.git
-TOLARIA_SERVER_TOKEN=local-dev-token-0123456789 TOLARIA_VAULT_REMOTE_URL=~/work/web/s4-test-remote.git \
-  TOLARIA_SERVER_DATA_DIR=/tmp/tolaria-s4 pnpm run server            # 127.0.0.1:8787
-pnpm build:web && TOLARIA_REMOTE_URL=http://127.0.0.1:8787 pnpm preview:web
+MEMORIA_SERVER_TOKEN=local-dev-token-0123456789 MEMORIA_VAULT_REMOTE_URL=~/work/web/s4-test-remote.git \
+  MEMORIA_SERVER_DATA_DIR=/tmp/memoria-s4 pnpm run server            # 127.0.0.1:8787
+pnpm build:web && MEMORIA_REMOTE_URL=http://127.0.0.1:8787 pnpm preview:web
 # open http://127.0.0.1:4173/apps/web/collab.html?note=welcome.md in two browsers
 ```
 

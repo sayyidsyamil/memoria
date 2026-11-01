@@ -5,7 +5,7 @@ import type { VaultEntry } from '../types'
 const loadWorkspaceEntries = vi.hoisted(() => vi.fn(async (): Promise<VaultEntry[]> => []))
 vi.mock('./vaultLoaderCommands', () => ({ loadWorkspaceEntries }))
 
-const remoteGlobals = window as Window & { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+const remoteGlobals = window as Window & { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 const ACTIVE: VaultOption = { label: 'Active', path: '/vault', mounted: true, available: true }
 const OTHER: VaultOption = { label: 'Other', path: '/other', mounted: true, available: true }
 
@@ -31,17 +31,17 @@ describe('progressive workspace loads', () => {
   })
 
   afterEach(() => {
-    delete remoteGlobals.TOLARIA_REMOTE_URL
-    delete remoteGlobals.TOLARIA_REMOTE_TOKEN
+    delete remoteGlobals.MEMORIA_REMOTE_URL
+    delete remoteGlobals.MEMORIA_REMOTE_TOKEN
   })
 
   it('loads every desired workspace, the active vault included, on demo data', async () => {
     expect(await runProgressiveLoads()).toEqual(['/vault', '/other'])
   })
 
-  it('does not list the active vault a second time on a Tolaria remote (TOL-206)', async () => {
-    remoteGlobals.TOLARIA_REMOTE_URL = 'https://tolaria.example'
-    remoteGlobals.TOLARIA_REMOTE_TOKEN = 'token-not-a-secret'
+  it('does not list the active vault a second time on a Memoria remote (TOL-206)', async () => {
+    remoteGlobals.MEMORIA_REMOTE_URL = 'https://memoria.example'
+    remoteGlobals.MEMORIA_REMOTE_TOKEN = 'token-not-a-secret'
 
     expect(await runProgressiveLoads()).toEqual(['/other'])
   })

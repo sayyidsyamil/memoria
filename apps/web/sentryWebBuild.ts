@@ -4,15 +4,15 @@ import { dirname, join } from 'node:path'
 import type { Plugin, Rollup } from 'vite'
 
 // TOL-232: error telemetry of the web build. The web bundle gets its own Sentry DSN from the
-// build environment (unset = telemetry off) and a `tolaria-web@<commit>` release. Source maps
+// build environment (unset = telemetry off) and a `memoria-web@<commit>` release. Source maps
 // are generated hidden and written next to apps/web/dist, never into it, so the deploy can
 // upload them to Sentry without serving them. See docs/web/telemetry.md.
 
 /** Build environment names; the deploy pipeline sets them (docs/web/telemetry.md). */
-export const WEB_SENTRY_DSN_ENV = 'TOLARIA_WEB_SENTRY_DSN'
-export const WEB_RELEASE_ENV = 'TOLARIA_WEB_RELEASE'
+export const WEB_SENTRY_DSN_ENV = 'MEMORIA_WEB_SENTRY_DSN'
+export const WEB_RELEASE_ENV = 'MEMORIA_WEB_RELEASE'
 export const SOURCEMAP_MANIFEST_FILE = 'manifest.json'
-const RELEASE_PREFIX = 'tolaria-web@'
+const RELEASE_PREFIX = 'memoria-web@'
 
 type BuildEnv = Record<string, string | undefined>
 type EnvName = string
@@ -106,7 +106,7 @@ function writeSourceMaps({ dir, release }: SourceMapOutput, maps: SourceMaps): v
  */
 export function hiddenSourceMaps(output: SourceMapOutput): Plugin {
   return {
-    name: 'tolaria-web-hidden-sourcemaps',
+    name: 'memoria-web-hidden-sourcemaps',
     apply: 'build',
     writeBundle(options, bundle) {
       const maps = sourceMapsOf(bundle)

@@ -1,8 +1,8 @@
 import type { FolderNode, SearchResult, VaultEntry, ViewFile } from '../../types'
 
 /**
- * VaultBackend: the storage seam between the Tolaria shell and wherever a vault
- * lives (local disk through Tauri, mock data in the browser, or the Tolaria
+ * VaultBackend: the storage seam between the Memoria shell and wherever a vault
+ * lives (local disk through Tauri, mock data in the browser, or the Memoria
  * remote). See docs/web/s1-tauri-inventory.md.
  *
  * Two paths, on purpose:
@@ -42,7 +42,7 @@ export type VaultWriteResult =
   /**
    * `current` is the stored file that won, or `null` when it could not be read.
    * `copyPath` is where the store kept this write's content instead, when it keeps
-   * conflicting writes as conflict copies (the Tolaria remote does).
+   * conflicting writes as conflict copies (the Memoria remote does).
    */
   | { status: 'conflict'; current: VaultFile | null; copyPath?: string }
 

@@ -23,7 +23,7 @@ function folderPathForRelativePath(relativePath: string): string {
   return lastSlashIndex >= 0 ? normalizedPath.slice(0, lastSlashIndex) : ''
 }
 
-/** The desktop lists notes by absolute path; a Tolaria remote by vault-relative path. */
+/** The desktop lists notes by absolute path; a Memoria remote by vault-relative path. */
 const ABSOLUTE_PATH = /^(?:\/|[A-Za-z]:\/)/
 
 /** The note's path inside the vault; its bare file name when it lives outside it. */

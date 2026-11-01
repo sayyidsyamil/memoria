@@ -3,11 +3,11 @@ import XCTest
 // Public read-only clones in a disposable simulator; never pushes to a remote.
 final class MobileCloneProgressTests: XCTestCase {
   func testPublicCloneShowsProgressAndCanBeCancelled() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_PUBLIC_CLONE"] == "1", "Requires a disposable simulator")
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_PUBLIC_CLONE"] == "1", "Requires a disposable simulator")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=sidebar&qaRun=clone-progress"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=sidebar&qaRun=clone-progress"]
     app.launch()
     let open = element(app, "open-mobile-settings")
     if !open.exists { element(app, "note-list-toolbar").swipeRight() }

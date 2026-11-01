@@ -1,5 +1,5 @@
 /**
- * Vault operations — read-only helpers for Tolaria markdown vault.
+ * Vault operations — read-only helpers for Memoria markdown vault.
  * Most write operations are handled by the app-managed agent's active
  * permission profile and native file-edit tools; createNote is intentionally
  * narrow so read-only agents can create a new Markdown file without overwrite.

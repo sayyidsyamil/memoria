@@ -1,4 +1,4 @@
-import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+import pdfWorkerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url'
 import type { PDFPageProxy, PageViewport, RenderTask } from 'pdfjs-dist/types/src/pdf'
 
 export type PdfViewport = PageViewport
@@ -17,7 +17,7 @@ export function pdfCanvasContext(canvas: HTMLCanvasElement): CanvasRenderingCont
 }
 
 export async function loadPdfDocument(source: string): Promise<PdfDocument> {
-  const pdfjs = await import('pdfjs-dist')
+  const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs')
   pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerUrl
   const loadingTask = pdfjs.getDocument({ url: source })
   const document = await loadingTask.promise

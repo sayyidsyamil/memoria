@@ -11,7 +11,7 @@ interface NoteCardProps {
 }
 
 /**
- * NoteCard - High-fidelity Tolaria note card
+ * NoteCard - High-fidelity Memoria note card
  * Matches NoteItem.tsx styling from the real app
  */
 export const NoteCard: React.FC<NoteCardProps> = ({

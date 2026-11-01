@@ -27,13 +27,13 @@ describe("App platform capabilities", () => {
 
 	afterEach(() => {
 		vi.unstubAllGlobals();
-		window.localStorage.removeItem("tolaria:ai-agents-onboarding-dismissed");
+		window.localStorage.removeItem("memoria:ai-agents-onboarding-dismissed");
 	});
 
 	test("detects remote backend configuration", () => {
 		// Stub window properties for remote backend
-		vi.stubGlobal("TOLARIA_REMOTE_URL", "https://example.com");
-		vi.stubGlobal("TOLARIA_REMOTE_TOKEN", "test-token");
+		vi.stubGlobal("MEMORIA_REMOTE_URL", "https://example.com");
+		vi.stubGlobal("MEMORIA_REMOTE_TOKEN", "test-token");
 
 		const { container } = render(<App />);
 
@@ -42,8 +42,8 @@ describe("App platform capabilities", () => {
 	});
 
 	test("handles missing remote URL", () => {
-		// Stub only TOLARIA_REMOTE_TOKEN
-		vi.stubGlobal("TOLARIA_REMOTE_TOKEN", "test-token");
+		// Stub only MEMORIA_REMOTE_TOKEN
+		vi.stubGlobal("MEMORIA_REMOTE_TOKEN", "test-token");
 
 		const { container } = render(<App />);
 
@@ -52,8 +52,8 @@ describe("App platform capabilities", () => {
 	});
 
 	test("handles missing remote token", () => {
-		// Stub only TOLARIA_REMOTE_URL
-		vi.stubGlobal("TOLARIA_REMOTE_URL", "https://example.com");
+		// Stub only MEMORIA_REMOTE_URL
+		vi.stubGlobal("MEMORIA_REMOTE_URL", "https://example.com");
 
 		const { container } = render(<App />);
 
@@ -62,9 +62,9 @@ describe("App platform capabilities", () => {
 	});
 
 	test("handles empty remote URL", () => {
-		// Stub empty TOLARIA_REMOTE_URL
-		vi.stubGlobal("TOLARIA_REMOTE_URL", "");
-		vi.stubGlobal("TOLARIA_REMOTE_TOKEN", "test-token");
+		// Stub empty MEMORIA_REMOTE_URL
+		vi.stubGlobal("MEMORIA_REMOTE_URL", "");
+		vi.stubGlobal("MEMORIA_REMOTE_TOKEN", "test-token");
 
 		const { container } = render(<App />);
 
@@ -73,9 +73,9 @@ describe("App platform capabilities", () => {
 	});
 
 	test("handles empty remote token", () => {
-		// Stub empty TOLARIA_REMOTE_TOKEN
-		vi.stubGlobal("TOLARIA_REMOTE_URL", "https://example.com");
-		vi.stubGlobal("TOLARIA_REMOTE_TOKEN", "");
+		// Stub empty MEMORIA_REMOTE_TOKEN
+		vi.stubGlobal("MEMORIA_REMOTE_URL", "https://example.com");
+		vi.stubGlobal("MEMORIA_REMOTE_TOKEN", "");
 
 		const { container } = render(<App />);
 
@@ -92,11 +92,11 @@ describe("App platform capabilities", () => {
 	});
 
 	test("shows the sync pill instead of the git status when a remote server is configured", async () => {
-		vi.stubGlobal("TOLARIA_REMOTE_URL", "https://example.com");
-		vi.stubGlobal("TOLARIA_REMOTE_TOKEN", "test-token");
+		vi.stubGlobal("MEMORIA_REMOTE_URL", "https://example.com");
+		vi.stubGlobal("MEMORIA_REMOTE_TOKEN", "test-token");
 		// A returning user: the remote's stand-ins answer at once (TOL-206), so the AI agents
 		// card would otherwise cover the shell before the status bar is read.
-		window.localStorage.setItem("tolaria:ai-agents-onboarding-dismissed", "1");
+		window.localStorage.setItem("memoria:ai-agents-onboarding-dismissed", "1");
 
 		render(<App />);
 

@@ -168,7 +168,7 @@ type TestTableCell = {
 function tableRowNode(cellType: 'tableCell' | 'tableHeader', cells: TestTableCell[]): TiptapJsonNode {
   return {
     content: cells.map((cell) => ({
-      ...(cell.alignment ? { attrs: { tolariaAlignment: cell.alignment } } : {}),
+      ...(cell.alignment ? { attrs: { memoriaAlignment: cell.alignment } } : {}),
       content: cell.text ? [{ content: [{ text: cell.text, type: 'text' }], type: 'paragraph' }] : [{ type: 'paragraph' }],
       type: cellType,
     })),
@@ -179,7 +179,7 @@ function tableRowNode(cellType: 'tableCell' | 'tableHeader', cells: TestTableCel
 function tableRowWithCells(cellType: 'tableCell' | 'tableHeader', cells: TestTableCell[]) {
   return {
     content: cells.map((cell) => ({
-      attrs: { tolariaAlignment: cell.alignment },
+      attrs: { memoriaAlignment: cell.alignment },
       type: cellType,
     })),
     type: 'tableRow',

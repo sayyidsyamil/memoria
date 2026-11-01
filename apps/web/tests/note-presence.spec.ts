@@ -58,8 +58,8 @@ async function remoteContext(
 ): Promise<BrowserContext> {
 	const context = await browser.newContext(testInfo.project.use);
 	await context.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 	}, COLLAB_TOKEN);
 	return context;
 }

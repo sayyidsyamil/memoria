@@ -27,12 +27,12 @@ export const fixtureReadOnlyWorkspaceRepository: ReadOnlyWorkspaceRepository = {
   readSnapshot: (request) => workspaceScenarioForId(request?.scenarioId),
 }
 
-export const HOST_WORKSPACE_SNAPSHOT_STORAGE_KEY = 'tolaria:mobile-workspace-snapshot'
-export const HOST_WORKSPACE_SNAPSHOT_GLOBAL_KEY = '__TOLARIA_MOBILE_WORKSPACE_SNAPSHOT__'
-export const HOST_WORKSPACE_NOTE_CONTENTS_GLOBAL_KEY = '__TOLARIA_MOBILE_WORKSPACE_NOTE_CONTENTS__'
-export const HOST_WORKSPACE_VAULT_CONFIG_GLOBAL_KEY = '__TOLARIA_MOBILE_WORKSPACE_VAULT_CONFIG__'
-export const HOST_WORKSPACE_WRITES_GLOBAL_KEY = '__TOLARIA_MOBILE_WORKSPACE_WRITES__'
-export const HOST_WORKSPACE_WRITE_FAILURE_GLOBAL_KEY = '__TOLARIA_MOBILE_WORKSPACE_WRITE_FAILURE__'
+export const HOST_WORKSPACE_SNAPSHOT_STORAGE_KEY = 'memoria:mobile-workspace-snapshot'
+export const HOST_WORKSPACE_SNAPSHOT_GLOBAL_KEY = '__MEMORIA_MOBILE_WORKSPACE_SNAPSHOT__'
+export const HOST_WORKSPACE_NOTE_CONTENTS_GLOBAL_KEY = '__MEMORIA_MOBILE_WORKSPACE_NOTE_CONTENTS__'
+export const HOST_WORKSPACE_VAULT_CONFIG_GLOBAL_KEY = '__MEMORIA_MOBILE_WORKSPACE_VAULT_CONFIG__'
+export const HOST_WORKSPACE_WRITES_GLOBAL_KEY = '__MEMORIA_MOBILE_WORKSPACE_WRITES__'
+export const HOST_WORKSPACE_WRITE_FAILURE_GLOBAL_KEY = '__MEMORIA_MOBILE_WORKSPACE_WRITE_FAILURE__'
 
 const nativeWorkspaceRepository = createFileSystemWorkspaceRepository(expoWorkspaceFileSystem)
 const hostTextWriteKinds = new Set<MobileWorkspaceWrite['kind']>(['createNote', 'saveNote', 'saveView'])

@@ -74,11 +74,11 @@ final class MobilePanelNavigationTests: XCTestCase {
   func testNoteLongPressSelectsWithoutOpeningEditor() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     app.terminate()
     let search = "?source=fixture&phoneState=list&qaRun=long-press-selection"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     defer { app.terminate() }
     let row = MobilePanelNavigation.element(app, "note-row-workflow-orchestration")
@@ -95,11 +95,11 @@ final class MobilePanelNavigationTests: XCTestCase {
     continueAfterFailure = false
     let phone = UIDevice.current.userInterfaceIdiom == .phone
     XCUIDevice.shared.orientation = phone ? .portrait : .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     app.terminate()
     let search = "?source=fixture&phoneState=list&editorMode=wysiwyg&tabletPanels=all&qaRun=gesture-only-chrome"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     defer { app.terminate() }
     XCTAssertTrue(MobilePanelNavigation.element(app, "note-list-toolbar").waitForExistence(timeout: 30))

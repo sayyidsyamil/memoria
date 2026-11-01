@@ -18,7 +18,7 @@ const gitProcessOptions = { env: gitTestEnvironment(), stdio: 'pipe' as const }
 afterEach(async () => { for (const action of cleanup.splice(0).reverse()) await action() })
 
 async function fixture({ includeSymlink = false }: { includeSymlink?: boolean } = {}) {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-sync-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-sync-'))
   cleanup.push(() => rm(root, { recursive: true, force: true }))
   const remote = join(root, 'team', 'vault.git')
   await mkdir(remote, { recursive: true })
@@ -233,7 +233,7 @@ it.each(['initial', 'after-fetch'])('refreshes editors after successful %s check
   const target = await git.resolveRef({ ...first, ref: 'HEAD' })
   await git.fetch({ ...second, ref: 'main', singleBranch: true, tags: false })
   const journal = JSON.stringify({ version: 1, branch: 'main', before, target })
-  const journalPath = join(second.dir, '.git', 'tolaria-checkout.json')
+  const journalPath = join(second.dir, '.git', 'memoria-checkout.json')
   if (boundary === 'initial') await writeFile(journalPath, journal)
   const editors = createWorkspaceSyncEditors()
   editors.register(async () => () => {}, 'note.md')

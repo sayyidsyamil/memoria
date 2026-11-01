@@ -1,0 +1,8 @@
+{
+  "name": "memoria-workspace-access",
+  "version": "0.1.0",
+  "description": "Memoria iOS managed workspace import bridge.",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
+  "main": "index.js"
+}

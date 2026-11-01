@@ -17,7 +17,7 @@ export async function persistContent(
 			).join(""),
 		);
 		await invoke("save_note_content_bytes", encoder.encode(content), {
-			headers: { "x-tolaria-note-path": encodedPath },
+			headers: { "x-memoria-note-path": encodedPath },
 		});
 	} else if (isTauri()) {
 		await invoke("save_note_content", { path, content });

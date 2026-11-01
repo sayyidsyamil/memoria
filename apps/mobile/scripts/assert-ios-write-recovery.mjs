@@ -11,7 +11,7 @@ import { startGitTestServer } from "../src/workspace/git/gitTestServer.ts";
 const device =
 	process.argv.slice(2).find((argument) => !argument.startsWith("--")) ??
 	"booted";
-const bundleId = "com.tolaria.mobile.dev";
+const bundleId = "com.memoria.mobile.dev";
 let awaitingProof;
 let timer;
 
@@ -53,7 +53,7 @@ async function runPhase(phase, collectorUrl) {
 		"--terminate-running-process",
 		device,
 		bundleId,
-		"--tolaria-mobile-search",
+		"--memoria-mobile-search",
 		`?${query}`,
 	]);
 	const result = await proof;
@@ -85,7 +85,7 @@ function recoveryPhases() {
 }
 
 async function runProbe() {
-	const root = await mkdtemp(join(tmpdir(), "tolaria-write-recovery-"));
+	const root = await mkdtemp(join(tmpdir(), "memoria-write-recovery-"));
 	let server;
 	try {
 		server = await startCollector(root);

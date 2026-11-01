@@ -35,7 +35,7 @@ Effect replay can reactivate the owner without reusing request identifiers.
 
 - **Public native CoreBridge adapter (chosen):** isolates request lifetimes without
   changing document serialization, vault data, dependencies or WebView code.
-- **Delete SDK-private subscription entries:** couples Tolaria to private global
+- **Delete SDK-private subscription entries:** couples Memoria to private global
   SDK state and can interfere with other editors' requests.
 - **Fork or replace TenTap:** disproportionate to this request-lifetime defect.
 

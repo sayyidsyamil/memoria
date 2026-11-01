@@ -13,13 +13,13 @@ export const folderMovementHistoryCases = [
   {
     title: 'undoes and redoes note folder moves through path edits',
     edit: { folderPath: 'Writing/Essays', noteId: 'workflow-orchestration', type: 'moveNoteToFolder' },
-    folderPaths: ['Tolaria/Mobile UI', 'Writing/Essays'],
+    folderPaths: ['Memoria/Mobile UI', 'Writing/Essays'],
     redonePath: 'Writing/Essays/Workflow Orchestration Essay.md',
   },
   {
     title: 'undoes and redoes folder subtree renames through folder edits',
-    edit: { folderPath: 'Tolaria', name: 'Research', type: 'renameFolder' },
-    folderPaths: ['Tolaria', 'Tolaria/Mobile UI'],
+    edit: { folderPath: 'Memoria', name: 'Research', type: 'renameFolder' },
+    folderPaths: ['Memoria', 'Memoria/Mobile UI'],
     redonePath: 'Research/Mobile UI/Workflow Orchestration Essay.md',
   },
 ] satisfies Array<{ title: string; edit: MobileWorkspaceEdit; folderPaths: string[]; redonePath: string }>
@@ -99,8 +99,8 @@ export const historyCases3 = [
       type: 'renameNoteFile' as const,
     },
     label: 'filename renames',
-    redonePath: 'Tolaria/Mobile UI/manual-name.md',
-    redoneTargets: ['[[Tolaria/Mobile UI/manual-name]]', '[[Tolaria/Mobile UI/manual-name|Workflow]]'],
+    redonePath: 'Memoria/Mobile UI/manual-name.md',
+    redoneTargets: ['[[Memoria/Mobile UI/manual-name]]', '[[Memoria/Mobile UI/manual-name|Workflow]]'],
   },
   {
     edit: {
@@ -109,7 +109,7 @@ export const historyCases3 = [
       type: 'moveNoteToFolder' as const,
     },
     label: 'folder moves',
-    previousSnapshot: { ...titleRenameHistorySnapshot(), folderPaths: ['Tolaria/Mobile UI', 'Writing/Essays'] },
+    previousSnapshot: { ...titleRenameHistorySnapshot(), folderPaths: ['Memoria/Mobile UI', 'Writing/Essays'] },
     redonePath: 'Writing/Essays/Workflow Orchestration Essay.md',
     redoneTargets: [
       '[[Writing/Essays/Workflow Orchestration Essay]]',
@@ -133,7 +133,7 @@ export function expectExactWikilinkPathRoundTrip({
     edit,
     previousSnapshot,
     redonePath,
-    undonePath: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+    undonePath: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
   })
 
   expect(noteById(undoneSnapshot, 'open-source-project').rawContent).toBe(pathHistoryRefContent())
@@ -259,7 +259,7 @@ export function snapshotWithPathBackedSelectedNote(): MobileWorkspaceSnapshot {
   const base = workspaceScenarioForId('default')
   const pathBackedNote = {
     ...base.notes[0],
-    id: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+    id: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
   }
   return {
     ...base,
@@ -324,7 +324,7 @@ export function titleRenameHistorySnapshot(): MobileWorkspaceSnapshot {
 }
 
 export function pathHistoryRefContent(): string {
-  return '---\nrelated_to:\n  - [[Workflow Orchestration Essay]]\nbelongs_to:\n  - [[Tolaria/Mobile UI/Workflow Orchestration Essay|Workflow]]\n---\n# Ref\n\n[[Workflow Orchestration Essay]] and [[Tolaria/Mobile UI/Workflow Orchestration Essay|Workflow]]\n'
+  return '---\nrelated_to:\n  - [[Workflow Orchestration Essay]]\nbelongs_to:\n  - [[Memoria/Mobile UI/Workflow Orchestration Essay|Workflow]]\n---\n# Ref\n\n[[Workflow Orchestration Essay]] and [[Memoria/Mobile UI/Workflow Orchestration Essay|Workflow]]\n'
 }
 
 export function relationshipRefs(note: MobileNote) {

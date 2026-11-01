@@ -9,14 +9,14 @@ describe('mobile relationship target creation parity', () => {
   it('creates relationship targets beside the source note and links the exact created path', () => {
     const { result, target, updatedSource } = createRelationshipTargetResult()
 
-    expect(result.snapshot.selectedNoteId).toBe('Tolaria/Mobile UI/new-dependency.md')
+    expect(result.snapshot.selectedNoteId).toBe('Memoria/Mobile UI/new-dependency.md')
     expect(target).toMatchObject({
-      id: 'Tolaria/Mobile UI/new-dependency.md',
-      path: 'Tolaria/Mobile UI/new-dependency.md',
+      id: 'Memoria/Mobile UI/new-dependency.md',
+      path: 'Memoria/Mobile UI/new-dependency.md',
       title: 'New Dependency',
       type: 'Note',
     })
-    expect(updatedSource?.rawContent).toContain('Related to:\n  - "[[Tolaria/Mobile UI/new-dependency]]"')
+    expect(updatedSource?.rawContent).toContain('Related to:\n  - "[[Memoria/Mobile UI/new-dependency]]"')
     expect(updatedSource?.rawContent).not.toContain('related_to:')
     expect(updatedSource?.relationships.find((relationship) => relationship.key === 'Related to')?.values).toContainEqual(
       expect.objectContaining({
@@ -28,12 +28,12 @@ describe('mobile relationship target creation parity', () => {
       {
         content: '---\ntitle: New Dependency\ntype: Note\n---\n',
         kind: 'createNote',
-        path: 'Tolaria/Mobile UI/new-dependency.md',
+        path: 'Memoria/Mobile UI/new-dependency.md',
       },
       {
         content: updatedSource?.rawContent,
         kind: 'saveNote',
-        path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+        path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
       },
     ])
   })
@@ -52,8 +52,8 @@ describe('mobile relationship target creation parity', () => {
           '',
         ].join('\n')),
       ],
-      vaultLabel: 'Tolaria Vault',
-      vaultPath: '/tmp/tolaria-vault',
+      vaultLabel: 'Memoria Vault',
+      vaultPath: '/tmp/memoria-vault',
     })
     const result = applyMobileWorkspaceEditWithWrites(snapshot, {
       key: 'related_to',
@@ -93,12 +93,12 @@ describe('mobile relationship target creation parity', () => {
       targetTitle: 'New Dependency',
       type: 'createRelationshipTarget',
     })
-    const target = result.snapshot.allNotes?.find((note) => note.path === 'Tolaria/Mobile UI/new-dependency.md')
+    const target = result.snapshot.allNotes?.find((note) => note.path === 'Memoria/Mobile UI/new-dependency.md')
     const updatedSource = result.snapshot.allNotes?.find((note) => note.id === sourceNote.id)
 
     expect(target).toMatchObject({ workspaceAlias: 'laputa' })
-    expect(updatedSource?.rawContent).toContain('Related to:\n  - "[[Tolaria/Mobile UI/new-dependency]]"')
-    expect(updatedSource?.rawContent).not.toContain('[[laputa/Tolaria/Mobile UI/new-dependency]]')
+    expect(updatedSource?.rawContent).toContain('Related to:\n  - "[[Memoria/Mobile UI/new-dependency]]"')
+    expect(updatedSource?.rawContent).not.toContain('[[laputa/Memoria/Mobile UI/new-dependency]]')
   })
 
   it('creates relationship targets with the source Type relationship schema defaults', () => {
@@ -206,14 +206,14 @@ function createRelationshipTargetResult() {
 
   return {
     result,
-    target: result.snapshot.allNotes?.find((note) => note.path === 'Tolaria/Mobile UI/new-dependency.md'),
+    target: result.snapshot.allNotes?.find((note) => note.path === 'Memoria/Mobile UI/new-dependency.md'),
     updatedSource: result.snapshot.allNotes?.find((note) => note.id === sourceNote.id),
   }
 }
 
 function localVaultFile(relativePath: string, content: string) {
   return {
-    absolutePath: `/tmp/tolaria-vault/${relativePath}`,
+    absolutePath: `/tmp/memoria-vault/${relativePath}`,
     content,
     createdAt: null,
     modifiedAt: null,
@@ -265,7 +265,7 @@ function expectSchemaBackedRelationshipTarget(result: MobileWorkspaceEditResult)
 }
 
 function schemaTargetNote(result: MobileWorkspaceEditResult): MobileNote {
-  const note = result.snapshot.allNotes?.find((candidate) => candidate.path === 'Tolaria/Mobile UI/launch-beta.md')
+  const note = result.snapshot.allNotes?.find((candidate) => candidate.path === 'Memoria/Mobile UI/launch-beta.md')
   expect(note).toBeDefined()
   return requiredFixture(note)
 }
@@ -290,7 +290,7 @@ function expectSchemaTargetNote(target: MobileNote) {
 }
 
 function expectSchemaSourceNote(updatedSource: MobileNote) {
-  expect(updatedSource.rawContent).toContain('has:\n  - "[[Tolaria/Mobile UI/launch-beta]]"')
+  expect(updatedSource.rawContent).toContain('has:\n  - "[[Memoria/Mobile UI/launch-beta]]"')
 }
 
 function expectSchemaTargetWrites(
@@ -302,12 +302,12 @@ function expectSchemaTargetWrites(
     {
       content: target.rawContent,
       kind: 'createNote',
-      path: 'Tolaria/Mobile UI/launch-beta.md',
+      path: 'Memoria/Mobile UI/launch-beta.md',
     },
     {
       content: updatedSource.rawContent,
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     },
   ])
 }

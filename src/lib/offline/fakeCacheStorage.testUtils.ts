@@ -1,7 +1,7 @@
 /** In-memory Cache Storage for the offline unit tests: keys keep insertion order, like browsers. */
 
 function keyOf(request: RequestInfo | URL): string {
-  if (typeof request === 'string') return new URL(request, 'https://tolaria.test').href
+  if (typeof request === 'string') return new URL(request, 'https://memoria.test').href
   if (request instanceof URL) return request.href
   return request.url
 }

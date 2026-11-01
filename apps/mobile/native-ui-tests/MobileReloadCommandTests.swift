@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 
 final class MobileReloadCommandTests: XCTestCase {
-  private let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+  private let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
 
   override func tearDown() {
     app.terminate()
@@ -11,15 +11,15 @@ final class MobileReloadCommandTests: XCTestCase {
   }
 
   func testReloadCommandUsesPreparedVaultAndKeepsCurrentScope() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_MOUNTED_REFRESH"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_MOUNTED_REFRESH"] == "1",
                       "Requires a disposable local-qa-refresh vault and backed-up simulator catalog")
     continueAfterFailure = false
     let phone = UIDevice.current.userInterfaceIdiom == .phone
     XCUIDevice.shared.orientation = phone ? .portrait : .landscapeLeft
     app.terminate()
     let search = "?source=native&phoneState=list&editorMode=source&tabletPanels=all&qaRun=reload-command"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     XCTAssertTrue(element("note-list-toolbar").waitForExistence(timeout: 40))
     if phone { MobilePanelNavigation.openSidebar(app) }
@@ -29,7 +29,7 @@ final class MobileReloadCommandTests: XCTestCase {
     row.tap()
     XCTAssertTrue(element("editor-markdown-input").waitForExistence(timeout: 10))
     // The host adds a file to this disposable vault after the original index loads.
-    print("TOLARIA_QA_RELOAD_READY")
+    print("MEMORIA_QA_RELOAD_READY")
     if phone {
       MobilePanelNavigation.back(app)
       XCTAssertTrue(row.buttons.firstMatch.isSelected)

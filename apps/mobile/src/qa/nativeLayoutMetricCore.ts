@@ -30,7 +30,7 @@ type MetricExpectation = {
   metric: NativeLayoutMetric | undefined
 }
 
-const metricPrefix = 'TOLARIA_MOBILE_LAYOUT_METRIC'
+const metricPrefix = 'MEMORIA_MOBILE_LAYOUT_METRIC'
 
 const layoutTolerance = 1.5
 

@@ -1,13 +1,13 @@
 import process from "node:process";
 import { defineConfig } from "vitepress";
-import { tolariaThemeConfig } from "./theme/tolaria/config";
+import { memoriaThemeConfig } from "./theme/memoria/config";
 
 const base = process.env.VITEPRESS_BASE ?? "/";
 
 export default defineConfig({
-  title: "Tolaria",
+  title: "Memoria",
   description:
-    "Tolaria is a local-first Markdown knowledge base with native relationships, Git history, and AI workflows.",
+    "Memoria is a local-first Markdown knowledge base with native relationships, Git history, and AI workflows.",
   base,
   vite: {
     build: {
@@ -21,7 +21,7 @@ export default defineConfig({
   cleanUrls: true,
   head: [
     ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
-    ["meta", { property: "og:title", content: "Tolaria" }],
+    ["meta", { property: "og:title", content: "Memoria" }],
     [
       "meta",
       {
@@ -41,7 +41,7 @@ gtag('config', 'G-0NJ6E1GH9D');`,
     ],
   ],
   themeConfig: {
-    ...tolariaThemeConfig,
+    ...memoriaThemeConfig,
     search: {
       provider: "local",
     },
@@ -49,7 +49,7 @@ gtag('config', 'G-0NJ6E1GH9D');`,
       {
         text: "Start Here",
         items: [
-          { text: "Install Tolaria", link: "/start/install" },
+          { text: "Install Memoria", link: "/start/install" },
           { text: "First Launch", link: "/start/first-launch" },
           { text: "Getting Started Vault", link: "/start/getting-started-vault" },
           { text: "Open Or Create A Vault", link: "/start/open-or-create-vault" },
@@ -128,7 +128,7 @@ gtag('config', 'G-0NJ6E1GH9D');`,
     footer: {
       message: "Free and open source. Local-first, Git-first, and Markdown-based.",
       copyright:
-        "Tolaria is AGPL-3.0-or-later. The Tolaria name and logo remain covered by the project trademark policy.",
+        "Memoria is AGPL-3.0-or-later. The Memoria name and logo remain covered by the project trademark policy.",
     },
   },
 });

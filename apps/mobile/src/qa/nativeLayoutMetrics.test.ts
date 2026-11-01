@@ -65,7 +65,7 @@ describe('native layout metrics', () => {
   it('parses simulator log metrics and keeps the latest metric per id', () => {
     const metrics = latestNativeLayoutMetrics(
       parseNativeLayoutMetrics(
-        ['noise before metric', 'TOLARIA_MOBILE_LAYOUT_METRIC {"height":12,"id":"sidebar.item.inbox.row","platform":"ios","width":10,"x":1,"y":2}', 'TOLARIA_MOBILE_LAYOUT_METRIC {"height":32,"id":"sidebar.item.inbox.row","platform":"ios","width":247.5,"x":6,"y":4}', 'TOLARIA_MOBILE_LAYOUT_METRIC not-json'].join('\n'),
+        ['noise before metric', 'MEMORIA_MOBILE_LAYOUT_METRIC {"height":12,"id":"sidebar.item.inbox.row","platform":"ios","width":10,"x":1,"y":2}', 'MEMORIA_MOBILE_LAYOUT_METRIC {"height":32,"id":"sidebar.item.inbox.row","platform":"ios","width":247.5,"x":6,"y":4}', 'MEMORIA_MOBILE_LAYOUT_METRIC not-json'].join('\n'),
       ),
     )
 
@@ -91,7 +91,7 @@ describe('native layout metrics', () => {
 
   it('accepts native phone list metrics from real-vault note ids', () => {
     const metrics = nativePhoneListMetrics({
-      firstId: 'noteList.item.tolaria-release-v2026-06-23.md',
+      firstId: 'noteList.item.memoria-release-v2026-06-23.md',
       secondId: 'noteList.item.refactoring-newsletter-36-month-business-plan.md',
       width: 402,
     })
@@ -238,7 +238,7 @@ const validNativeDesktopMetrics = [
   containerMetric({ height: 90, id: 'sidebar.section.favorites.container', width: 259.5, y: 104 }),
   sectionMetric('favorites'),
   itemMetric('sidebar.item.personal-journal', { hasCount: false, y: 30 }),
-  itemMetric('sidebar.item.tolaria-mvp', { hasCount: false, y: 60 }),
+  itemMetric('sidebar.item.memoria-mvp', { hasCount: false, y: 60 }),
   containerMetric({ height: 72, id: 'sidebar.section.views.container', width: 259.5, y: 194 }),
   sectionMetric('views', 40),
   itemMetric('sidebar.item.view-active-procedures', { hasCount: true, y: 40 }),
@@ -259,12 +259,12 @@ const validNativeDesktopMetrics = [
   folderMetric('sidebar.folder.writing-essays', 37),
   containerMetric({ height: 30, id: 'sidebar.folder.writing-drafts.container', y: 30 }),
   folderMetric('sidebar.folder.writing-drafts', 37),
-  containerMetric({ height: 90, id: 'sidebar.folder.tolaria.container', y: 90 }),
-  folderMetric('sidebar.folder.tolaria', 12),
-  containerMetric({ height: 30, id: 'sidebar.folder.tolaria-mobile-ui.container' }),
-  folderMetric('sidebar.folder.tolaria-mobile-ui', 37),
-  containerMetric({ height: 30, id: 'sidebar.folder.tolaria-releases.container', y: 30 }),
-  folderMetric('sidebar.folder.tolaria-releases', 37),
+  containerMetric({ height: 90, id: 'sidebar.folder.memoria.container', y: 90 }),
+  folderMetric('sidebar.folder.memoria', 12),
+  containerMetric({ height: 30, id: 'sidebar.folder.memoria-mobile-ui.container' }),
+  folderMetric('sidebar.folder.memoria-mobile-ui', 37),
+  containerMetric({ height: 30, id: 'sidebar.folder.memoria-releases.container', y: 30 }),
+  folderMetric('sidebar.folder.memoria-releases', 37),
   noteListPanelMetric(),
   noteListItemMetric('noteList.item.workflow-orchestration', { selected: true, y: 0 }),
   noteListItemMetric('noteList.item.open-source-project', { y: 118 }),
@@ -289,7 +289,7 @@ const invalidNativeDesktopSpacingMetrics = [
   containerMetric({ height: 76, id: 'sidebar.section.favorites.container', width: 259.5, y: 80 }),
   sectionMetric('favorites', 18),
   itemMetric('sidebar.item.personal-journal', { hasCount: false, y: 16 }),
-  itemMetric('sidebar.item.tolaria-mvp', { hasCount: false, y: 46 }),
+  itemMetric('sidebar.item.memoria-mvp', { hasCount: false, y: 46 }),
   containerMetric({ height: 72, id: 'sidebar.section.views.container', width: 259.5, y: 156 }),
   sectionMetric('views', 40),
   itemMetric('sidebar.item.view-active-procedures', { hasCount: true, y: 40 }),
@@ -311,12 +311,12 @@ const invalidNativeDesktopSpacingMetrics = [
   folderMetric('sidebar.folder.writing-essays', 37),
   containerMetric({ height: 30, id: 'sidebar.folder.writing-drafts.container' }),
   folderMetric('sidebar.folder.writing-drafts', 37),
-  containerMetric({ height: 40, id: 'sidebar.folder.tolaria.container', y: 40 }),
-  folderMetric('sidebar.folder.tolaria', 12),
-  containerMetric({ height: 30, id: 'sidebar.folder.tolaria-mobile-ui.container' }),
-  folderMetric('sidebar.folder.tolaria-mobile-ui', 37),
-  containerMetric({ height: 30, id: 'sidebar.folder.tolaria-releases.container' }),
-  folderMetric('sidebar.folder.tolaria-releases', 37),
+  containerMetric({ height: 40, id: 'sidebar.folder.memoria.container', y: 40 }),
+  folderMetric('sidebar.folder.memoria', 12),
+  containerMetric({ height: 30, id: 'sidebar.folder.memoria-mobile-ui.container' }),
+  folderMetric('sidebar.folder.memoria-mobile-ui', 37),
+  containerMetric({ height: 30, id: 'sidebar.folder.memoria-releases.container' }),
+  folderMetric('sidebar.folder.memoria-releases', 37),
   noteListPanelMetric({ width: 284 }),
   noteListItemMetric('noteList.item.workflow-orchestration', {
     frameWidth: 284,

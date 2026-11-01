@@ -4,22 +4,22 @@ import { richEditorFileUrlResolver } from './richEditorFileUrl'
 const resolveRemoteAttachmentUrl = vi.hoisted(() => vi.fn(async (url: string) => `blob:${url}`))
 vi.mock('../lib/remoteAttachments', () => ({ resolveRemoteAttachmentUrl }))
 
-const target = window as { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+const target = window as { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 beforeEach(() => {
-  target.TOLARIA_REMOTE_URL = 'https://vault.example'
-  target.TOLARIA_REMOTE_TOKEN = 'token-for-tests'
+  target.MEMORIA_REMOTE_URL = 'https://vault.example'
+  target.MEMORIA_REMOTE_TOKEN = 'token-for-tests'
 })
 
 afterEach(() => {
-  delete target.TOLARIA_REMOTE_URL
-  delete target.TOLARIA_REMOTE_TOKEN
+  delete target.MEMORIA_REMOTE_URL
+  delete target.MEMORIA_REMOTE_TOKEN
   resolveRemoteAttachmentUrl.mockClear()
 })
 
 describe('the rich editor file URL resolver', () => {
   it('is absent without a remote, so desktop URLs are shown directly', () => {
-    delete target.TOLARIA_REMOTE_URL
+    delete target.MEMORIA_REMOTE_URL
     expect(richEditorFileUrlResolver()).toBeUndefined()
   })
 

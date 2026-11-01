@@ -10,7 +10,7 @@ runtime compatibility and release/security gates remain unchanged.
 
 ## Decision
 
-Distribute one native binary through the external Tolaria Beta TestFlight group.
+Distribute one native binary through the external Memoria Beta TestFlight group.
 Settings selects Stable or Alpha; fresh and legacy preferences default to Stable.
 The selected preference is distinct from the channel/update currently running.
 Existing Alpha-native binaries receive this selector through a compatible OTA;

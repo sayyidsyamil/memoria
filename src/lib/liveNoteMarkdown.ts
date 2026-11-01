@@ -14,7 +14,7 @@ import { splitFrontmatter } from '../utils/wikilinks'
  */
 
 /** Transaction origin of a raw-mode edit, for observers that tell edits apart. */
-export const RAW_EDIT_ORIGIN = 'tolaria:raw-edit'
+export const RAW_EDIT_ORIGIN = 'memoria:raw-edit'
 
 /** Resolves with the blocks written, or null when a later write replaced this one first. */
 export type LiveMarkdownWrite<TBlock> = (markdown: string) => Promise<TBlock[] | null>

@@ -12,7 +12,7 @@
     ],
     "status": "Done",
     "fileSize": 443,
-    "snippet": "The original spike that proved Tolaria could read a markdown vault, render note metadata, and support keyboard-first navigation. Set the initial four-panel layo...",
+    "snippet": "The original spike that proved Memoria could read a markdown vault, render note metadata, and support keyboard-first navigation. Set the initial four-panel layo...",
     "relationships": {
       "owner": [
         "[[person-luca-rossi]]"
@@ -527,9 +527,9 @@
     "fileKind": "markdown"
   },
   {
-    "path": "tolaria-sheet-prototype-sample.md",
-    "filename": "tolaria-sheet-prototype-sample.md",
-    "title": "Tolaria Sheet Prototype Sample",
+    "path": "memoria-sheet-prototype-sample.md",
+    "filename": "memoria-sheet-prototype-sample.md",
+    "title": "Memoria Sheet Prototype Sample",
     "isA": "Note",
     "fileSize": 507,
     "snippet": "Metric,January,February,March,Quarter Subscriptions,1200,1350,1500,=SUM(B2:D2) Services,800,900,700,=SUM(B3:D3) Expenses,650,700,760,=SUM(B4:D4) Net,=B2+B3-B4,=...",

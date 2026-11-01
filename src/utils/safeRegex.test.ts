@@ -4,13 +4,13 @@ import { compileSafeUserRegex } from './safeRegex'
 
 describe('compileSafeUserRegex', () => {
   it('compiles valid patterns with the requested flags', () => {
-    const result = compileSafeUserRegex('^tolaria$', 'i')
+    const result = compileSafeUserRegex('^memoria$', 'i')
 
     expect(result.ok).toBe(true)
     if (!result.ok) return
 
     expect(result.pattern.flags).toContain('i')
-    expect(result.pattern.test('Tolaria')).toBe(true)
+    expect(result.pattern.test('Memoria')).toBe(true)
     expect(result.pattern.test('Laputa')).toBe(false)
   })
 

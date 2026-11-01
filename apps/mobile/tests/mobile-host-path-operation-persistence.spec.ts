@@ -37,17 +37,17 @@ test.describe('mobile host path operation persistence', () => {
       path: 'Host Ops Renamed/host-path-draft.md',
     }))
 
-    await moveHostNoteToTolariaFolder(page)
+    await moveHostNoteToMemoriaFolder(page)
     await expect.poll(() => hostWorkspaceWrites(page)).toContainEqual({
       kind: 'moveNote',
       path: 'Host Ops Renamed/host-path-draft.md',
-      toPath: 'Tolaria/Mobile UI/host-path-draft.md',
+      toPath: 'Memoria/Mobile UI/host-path-draft.md',
     })
 
     await deleteMovedHostNote(page)
     await expect.poll(() => hostWorkspaceWrites(page)).toContainEqual({
       kind: 'deleteNote',
-      path: 'Tolaria/Mobile UI/host-path-draft.md',
+      path: 'Memoria/Mobile UI/host-path-draft.md',
     })
 
     await deleteHostFolder(page)
@@ -79,12 +79,12 @@ async function createHostNoteInFolder(page: Page) {
   await createTitledNoteFromQuickOpen(page, 'Host Path Draft', 'note-row-Host Ops Renamed/host-path-draft.md')
 }
 
-async function moveHostNoteToTolariaFolder(page: Page) {
+async function moveHostNoteToMemoriaFolder(page: Page) {
   await page.getByTestId('editor-more-action').click()
   await page.getByTestId('workspace-action-group-file').click()
   await page.getByTestId('workspace-action-move-note-folder').click()
-  await page.getByTestId('workspace-move-folder-input').fill('Tolaria')
-  await page.getByTestId('workspace-move-folder-suggestion-tolaria-mobile-ui').click()
+  await page.getByTestId('workspace-move-folder-input').fill('Memoria')
+  await page.getByTestId('workspace-move-folder-suggestion-memoria-mobile-ui').click()
   await page.getByTestId('workspace-action-sheet-moveNoteToFolder').getByRole('button', { name: 'Save' }).click()
   await expect(page.getByTestId('workspace-action-sheet')).toBeHidden()
 }

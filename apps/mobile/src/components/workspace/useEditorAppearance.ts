@@ -15,7 +15,7 @@ export function injectMobileEditorAppearance(editor: CssEditor | null, css: stri
     editor?.injectJS?.(revealEditorRoot)
     return false
   }
-  editor.injectCSS(css, 'tolaria-editor')
+  editor.injectCSS(css, 'memoria-editor')
   return true
 }
 

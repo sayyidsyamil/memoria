@@ -22,7 +22,7 @@ test.describe('mobile command palette actions', () => {
 
     await expect(page.getByTestId('mobile-command-palette')).toBeHidden()
     await expect.poll(() => latestClipboardAttempt(page)).toBe(
-      'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     )
 
     await openCommandPalette(page)
@@ -167,15 +167,15 @@ test.describe('mobile command palette actions', () => {
 
     await expect(page.getByTestId('mobile-command-palette')).toBeHidden()
     await expect.poll(async () => (await fileRevealAttempts(page)).at(-1)).toEqual({
-      folderPath: 'Tolaria/Mobile UI',
-      path: 'Tolaria/Mobile UI',
+      folderPath: 'Memoria/Mobile UI',
+      path: 'Memoria/Mobile UI',
     })
 
     await openCommandPalette(page)
     await runCommand(page, 'copy folder path', 'copy-selected-folder-path')
 
     await expect(page.getByTestId('mobile-command-palette')).toBeHidden()
-    await expect.poll(() => latestClipboardAttempt(page)).toBe('Tolaria/Mobile UI')
+    await expect.poll(() => latestClipboardAttempt(page)).toBe('Memoria/Mobile UI')
 
     await openCommandPalette(page)
     await runCommand(page, 'rename folder', 'rename-folder')

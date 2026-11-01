@@ -62,6 +62,6 @@ it('generates a marked 6000-note fixture and yields between write batches', asyn
   expect(generated.noteCount).toBe(6000)
   expect(files.size).toBe(6001)
   expect(files.get(`${uri}/note-0001.md`)).toContain('# Generated note 1')
-  expect(JSON.parse(files.get(generated.markerPath) ?? '{}')).toMatchObject({ fixture: 'tolaria-mobile-large-vault', noteCount: 6000 })
+  expect(JSON.parse(files.get(generated.markerPath) ?? '{}')).toMatchObject({ fixture: 'memoria-mobile-large-vault', noteCount: 6000 })
   expect(yieldToInput).toHaveBeenCalled()
 })

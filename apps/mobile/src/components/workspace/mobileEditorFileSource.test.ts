@@ -26,7 +26,7 @@ it('stages only referenced images beside the editor shell, without writing into 
   expect(disk.copy).toHaveBeenCalledWith({ from: 'file:///vault/attachments/nested/b%20c.png', to: `${preview.rootUri}attachments/nested/b%20c.png` })
   expect(disk.copy).toHaveBeenCalledTimes(3)
   expect(disk.write).toHaveBeenCalledExactlyOnceWith(
-    'file:///application/Cache/tolaria-editor-previews/editor.html',
+    'file:///application/Cache/memoria-editor-previews/editor.html',
     '<html><head><style>#root { visibility: hidden; }</style></head><body><div id="root"></div></body></html>',
   )
   await preview.prepare('![one](attachments/a.png)')
@@ -95,6 +95,6 @@ it('cleans previews abandoned by a previous process only once, before staging an
   const second = createMobileEditorPreview('file:///other-vault/')
   await first.prepare('')
   await second.prepare('')
-  expect(disk.remove).toHaveBeenCalledExactlyOnceWith('file:///application/Cache/tolaria-editor-previews/', { idempotent: true })
+  expect(disk.remove).toHaveBeenCalledExactlyOnceWith('file:///application/Cache/memoria-editor-previews/', { idempotent: true })
   expect(disk.remove.mock.invocationCallOrder[0]).toBeLessThan(disk.copy.mock.invocationCallOrder[0])
 })

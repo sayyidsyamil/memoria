@@ -45,8 +45,8 @@ function markdown({ id }: ConflictNote, second = SECOND): string {
 
 async function configureRemoteVault(page: Page): Promise<void> {
 	await page.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 	}, COLLAB_TOKEN);
 }
 
@@ -69,7 +69,7 @@ function remoteHas(path: string): boolean {
 
 /** A desktop clone of the vault with the note's paragraph rewritten and committed, not pushed. */
 function desktopCommit(note: ConflictNote): string {
-	const clone = mkdtempSync(join(tmpdir(), "tolaria-desktop-"));
+	const clone = mkdtempSync(join(tmpdir(), "memoria-desktop-"));
 	git(tmpdir(), ["clone", "-q", REMOTE_GIT_DIR, clone]);
 	git(clone, ["config", "user.email", "desktop@example.com"]);
 	git(clone, ["config", "user.name", "Desktop"]);

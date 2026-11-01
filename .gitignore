@@ -50,6 +50,7 @@ src-tauri/target
 src-tauri/resources/mcp-server/
 
 # Python cache
+.speech-runtime/
 __pycache__/
 *.py[cod]
 
@@ -117,3 +118,15 @@ videos/.remotion/
 
 # Hidden source maps of the web build, uploaded to Sentry by the deploy (TOL-232)
 apps/web/sourcemaps/
+
+# Machine-local meeting data and inference environments
+**/.memoria-memory/
+**/.memoria-recordings/
+.runtime/
+.venv/
+*.sqlite-wal
+*.sqlite-shm
+
+# Local UI verification harness
+/harness.html
+/harness/

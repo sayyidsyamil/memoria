@@ -17,7 +17,7 @@ export function requestText(exchange: Exchange) {
 }
 
 export async function createGitFetchFixture(branch = 'main') {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-fetch-base-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-fetch-base-'))
   let server: Awaited<ReturnType<typeof startGitTestServer>> | undefined
   const close = async () => {
     try { await server?.close() } finally { await rm(root, { recursive: true, force: true }) }

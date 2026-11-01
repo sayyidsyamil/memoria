@@ -83,15 +83,15 @@ describe('native WYSIWYG document serialization', () => {
         content: [
           {
             content: [
-              { attrs: { tolariaAlignment: 'left' }, content: [{ text: 'Surface', type: 'text' }], type: 'tableHeader' },
-              { attrs: { tolariaAlignment: 'right' }, content: [{ text: 'Target', type: 'text' }], type: 'tableHeader' },
+              { attrs: { memoriaAlignment: 'left' }, content: [{ text: 'Surface', type: 'text' }], type: 'tableHeader' },
+              { attrs: { memoriaAlignment: 'right' }, content: [{ text: 'Target', type: 'text' }], type: 'tableHeader' },
             ],
             type: 'tableRow',
           },
           {
             content: [
-              { attrs: { tolariaAlignment: 'left' }, content: [{ text: 'Editor', type: 'text' }], type: 'tableCell' },
-              { attrs: { tolariaAlignment: 'right' }, content: [{ text: 'WYSIWYG', type: 'text' }], type: 'tableCell' },
+              { attrs: { memoriaAlignment: 'left' }, content: [{ text: 'Editor', type: 'text' }], type: 'tableCell' },
+              { attrs: { memoriaAlignment: 'right' }, content: [{ text: 'WYSIWYG', type: 'text' }], type: 'tableCell' },
             ],
             type: 'tableRow',
           },

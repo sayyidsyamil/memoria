@@ -41,18 +41,18 @@ describe('createFileSystemWorkspaceRepository', () => {
 type: Essay
 status: Active
 belongs_to:
-  - "[[Projects/Tolaria MVP]]"
+  - "[[Projects/Memoria MVP]]"
 tags:
   - Design
 ---
 # Workflow
 
-Body with [[Projects/Tolaria MVP]].
+Body with [[Projects/Memoria MVP]].
 `,
-      'Projects/Tolaria MVP.md': `---
+      'Projects/Memoria MVP.md': `---
 type: Project
 ---
-# Tolaria MVP
+# Memoria MVP
 `,
     })
     const repository = createFileSystemWorkspaceRepository(fileSystem)
@@ -160,7 +160,7 @@ type: Project
     const fileSystem = fakeWorkspaceFileSystem({
       'Assets/logo.png': '',
       'Docs/brief.pdf': '',
-      'Docs/config.yml': 'name: Tolaria\n',
+      'Docs/config.yml': 'name: Memoria\n',
       'Writing/Workflow.md': '# Workflow\n\n',
     })
     const repository = createFileSystemWorkspaceRepository(fileSystem)

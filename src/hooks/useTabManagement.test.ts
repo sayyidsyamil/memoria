@@ -459,8 +459,8 @@ describe('useTabManagement (single-note model)', () => {
 
       const { result } = renderHook(() => useTabManagement())
       await selectNote(result, {
-        path: '/team/tolaria-app.md',
-        title: 'Tolaria',
+        path: '/team/memoria-app.md',
+        title: 'Memoria',
         workspace: {
           id: 'team',
           label: 'Team',
@@ -476,7 +476,7 @@ describe('useTabManagement (single-note model)', () => {
       })
 
       expect(vi.mocked(invoke)).toHaveBeenCalledWith('get_note_content', {
-        path: '/team/tolaria-app.md',
+        path: '/team/memoria-app.md',
         vaultPath: '/team',
       })
       expect(result.current.tabs[0].content).toBe('# Workspace content')

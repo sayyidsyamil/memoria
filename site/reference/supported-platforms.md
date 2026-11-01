@@ -1,6 +1,6 @@
 # Supported Platforms
 
-Tolaria is available on desktop (built with Tauri) and mobile (React Native with Expo). Releases currently target macOS, Windows, Linux, iPhone, and iPad.
+Memoria is available on desktop (built with Tauri) and mobile (React Native with Expo). Releases currently target macOS, Windows, Linux, iPhone, and iPad.
 
 | Platform | Current support | Notes |
 | --- | --- | --- |
@@ -29,7 +29,7 @@ The mobile app shares the same vault format and git repository as the desktop ap
 
 Include:
 
-- Tolaria version.
+- Memoria version.
 - Operating system and version.
 - CPU architecture.
 - Whether the vault is local-only or connected to a remote.

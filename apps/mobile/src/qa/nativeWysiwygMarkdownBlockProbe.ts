@@ -37,7 +37,7 @@ export type NativeWysiwygMarkdownBlockAssertionFailure = {
   message: string
 }
 
-export const nativeWysiwygMarkdownBlockLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_MARKDOWN_BLOCK_PROBE'
+export const nativeWysiwygMarkdownBlockLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_MARKDOWN_BLOCK_PROBE'
 
 type ProofFieldName = keyof NativeWysiwygMarkdownBlockProof
 type ProofFieldType = 'boolean' | 'number' | 'string'

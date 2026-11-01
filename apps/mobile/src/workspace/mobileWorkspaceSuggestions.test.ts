@@ -204,15 +204,15 @@ describe('mobile workspace suggestions', () => {
     expect(shouldShowMobileRelationshipCreateTarget(notes, '')).toBe(false)
     expect(shouldShowMobileRelationshipCreateTarget(notes, 'Open Source')).toBe(true)
     expect(shouldShowMobileRelationshipCreateTarget(notes, 'How I Run an Open Source Project')).toBe(false)
-    expect(shouldShowMobileRelationshipCreateTarget(notes, 'Tolaria/Mobile UI/How I Run an Open Source Project')).toBe(false)
-    expect(shouldShowMobileRelationshipCreateTarget(notes, '[[Tolaria/Mobile UI/How I Run an Open Source Project]]')).toBe(false)
+    expect(shouldShowMobileRelationshipCreateTarget(notes, 'Memoria/Mobile UI/How I Run an Open Source Project')).toBe(false)
+    expect(shouldShowMobileRelationshipCreateTarget(notes, '[[Memoria/Mobile UI/How I Run an Open Source Project]]')).toBe(false)
   })
 
   it('suggests active relationship targets before typing and excludes existing targets', () => {
     const scenario = applyMobileWorkspaceEdit(workspaceScenarioForId('default'), {
       key: 'related_to',
       noteId: 'workflow-orchestration',
-      targetRef: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+      targetRef: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
       targetTitle: 'How I Run an Open Source Project',
       type: 'addRelationship',
     })
@@ -233,8 +233,8 @@ describe('mobile workspace suggestions', () => {
     const selectedNote = notes[2] ?? null
 
     expect(mobileTypeSuggestions(notes, selectedNote, '')).toEqual(['Essay', 'Procedure'])
-    expect(mobileFolderSuggestions(notes, selectedNote, '')).toEqual(['Tolaria/Mobile UI'])
-    expect(mobileFolderSuggestions(notes, selectedNote, 'mobile')).toEqual(['Tolaria/Mobile UI'])
+    expect(mobileFolderSuggestions(notes, selectedNote, '')).toEqual(['Memoria/Mobile UI'])
+    expect(mobileFolderSuggestions(notes, selectedNote, 'mobile')).toEqual(['Memoria/Mobile UI'])
   })
 
   it('suggests explicit empty folder paths when moving notes', () => {
@@ -277,7 +277,7 @@ describe('mobile workspace suggestions', () => {
     expect(mobileViewValueSuggestions(notes, 'filename', 'workflow')).toEqual(['Workflow Orchestration Essay.md'])
     expect(mobileViewValueSuggestions(notes, 'archived', 'fal')).toEqual(['false'])
     expect(mobileViewValueSuggestions(notes, 'tags', 'design')).toEqual(['Design'])
-    expect(mobileViewValueSuggestions(notes, 'belongs_to', 'mvp')).toContain('Tolaria MVP')
+    expect(mobileViewValueSuggestions(notes, 'belongs_to', 'mvp')).toContain('Memoria MVP')
   })
 
   it('suggests Type-defined saved-view fields before they exist on note instances', () => {
@@ -321,7 +321,7 @@ describe('mobile workspace suggestions', () => {
           Priority: 'High',
         },
         relationships: {
-          depends_on: ['[[Tolaria/Mobile UI/How I Run an Open Source Project]]'],
+          depends_on: ['[[Memoria/Mobile UI/How I Run an Open Source Project]]'],
         },
       },
     }
@@ -330,8 +330,8 @@ describe('mobile workspace suggestions', () => {
     expect(mobileViewValueSuggestionItems(notes, 'depends_on', 'open', typeDefinitions)).toEqual([
       expect.objectContaining({
         label: 'How I Run an Open Source Project',
-        meta: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
-        value: '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+        meta: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
+        value: '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
       }),
     ])
   })
@@ -372,14 +372,14 @@ describe('mobile workspace suggestions', () => {
             kind: 'belongsTo' as const,
             values: [
               {
-                ref: '[[Projects/Tolaria MVP]]',
-                title: 'Tolaria MVP',
+                ref: '[[Projects/Memoria MVP]]',
+                title: 'Memoria MVP',
                 type: 'Project',
                 typeTone: 'purple' as const,
               },
               {
-                ref: '[[Archive/Tolaria MVP]]',
-                title: 'Tolaria MVP',
+                ref: '[[Archive/Memoria MVP]]',
+                title: 'Memoria MVP',
                 type: 'Project',
                 typeTone: 'purple' as const,
               },
@@ -391,14 +391,14 @@ describe('mobile workspace suggestions', () => {
     expect(mobileViewValueSuggestionItems(notes, 'belongs_to', 'mvp')).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          label: 'Tolaria MVP',
-          meta: '[[Projects/Tolaria MVP]]',
-          value: '[[Projects/Tolaria MVP]]',
+          label: 'Memoria MVP',
+          meta: '[[Projects/Memoria MVP]]',
+          value: '[[Projects/Memoria MVP]]',
         }),
         expect.objectContaining({
-          label: 'Tolaria MVP',
-          meta: '[[Archive/Tolaria MVP]]',
-          value: '[[Archive/Tolaria MVP]]',
+          label: 'Memoria MVP',
+          meta: '[[Archive/Memoria MVP]]',
+          value: '[[Archive/Memoria MVP]]',
         }),
       ]),
     )

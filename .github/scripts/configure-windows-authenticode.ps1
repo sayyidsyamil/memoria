@@ -60,9 +60,9 @@ $ConfiguredThumbprint = Read-OptionalEnv @("WINDOWS_CODE_SIGNING_CERTIFICATE_THU
 $DigestAlgorithm = Read-OptionalEnv @("WINDOWS_CODE_SIGNING_DIGEST_ALGORITHM") "sha256"
 $TimestampUrl = Read-OptionalEnv @("WINDOWS_CODE_SIGNING_TIMESTAMP_URL", "WINDOWS_TIMESTAMP_URL") "http://timestamp.digicert.com"
 
-$TempRoot = Join-Path ([IO.Path]::GetTempPath()) "tolaria-windows-signing"
+$TempRoot = Join-Path ([IO.Path]::GetTempPath()) "memoria-windows-signing"
 if (-not [string]::IsNullOrWhiteSpace($env:RUNNER_TEMP)) {
-  $TempRoot = Join-Path $env:RUNNER_TEMP "tolaria-windows-signing"
+  $TempRoot = Join-Path $env:RUNNER_TEMP "memoria-windows-signing"
 }
 New-Item -ItemType Directory -Force -Path $TempRoot | Out-Null
 

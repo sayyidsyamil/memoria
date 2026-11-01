@@ -7,7 +7,7 @@ test('opens and reloads a host vault without native snapshot-cache services @smo
   const content = '---\ntype: Essay\ncustom: preserved\n---\n# Host startup source\n\nFresh host source.\n'
   await page.addInitScript(({ snapshotKey, contentKey, snapshot, content }) => {
     Reflect.set(window, snapshotKey, snapshot)
-    Reflect.set(window, contentKey, { 'Tolaria/Mobile UI/Workflow Orchestration Essay.md': content })
+    Reflect.set(window, contentKey, { 'Memoria/Mobile UI/Workflow Orchestration Essay.md': content })
   }, { snapshotKey: HOST_WORKSPACE_SNAPSHOT_GLOBAL_KEY, contentKey: HOST_WORKSPACE_NOTE_CONTENTS_GLOBAL_KEY, snapshot, content })
   await page.goto('/?source=host-vault&phoneState=list&editorMode=source')
   await page.getByTestId('note-row-workflow-orchestration').click()

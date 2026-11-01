@@ -64,7 +64,7 @@ async function insertPhoneWikilink(page: Page) {
   await expect(page.getByTestId('editor-wikilink-suggestions')).toBeVisible()
   await page.getByTestId('editor-wikilink-suggestion-open-source-project').click()
   await expect(page.getByTestId('editor-markdown-input')).toHaveValue(
-    '# Phone Editor Commands\n\nReference [[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+    '# Phone Editor Commands\n\nReference [[Memoria/Mobile UI/How I Run an Open Source Project]]',
   )
 }
 
@@ -151,7 +151,7 @@ async function assertRenderedPhoneMarkdown(page: Page) {
   await input.fill([
     '# Phone Editor Commands',
     '',
-    'Follow up with [[phone-person-target]] and [[Tolaria/Mobile UI/How I Run an Open Source Project]].',
+    'Follow up with [[phone-person-target]] and [[Memoria/Mobile UI/How I Run an Open Source Project]].',
     '',
     '## Section title',
     '',
@@ -163,7 +163,7 @@ async function assertRenderedPhoneMarkdown(page: Page) {
   ].join('\n'))
   await expect(page.getByTestId('editor-toolbar-title')).toHaveText('phone-editor-commands.md')
   await expect(input).toHaveValue(/\[\[phone-person-target\]\]/u)
-  await expect(input).toHaveValue(/\[\[Tolaria\/Mobile UI\/How I Run an Open Source Project\]\]/u)
+  await expect(input).toHaveValue(/\[\[Memoria\/Mobile UI\/How I Run an Open Source Project\]\]/u)
   await expect(input).toHaveValue(/## Section title/u)
   await expect(input).toHaveValue(/- \[ \] Follow up/u)
   await expect(input).toHaveValue(/\| Phone \| Parity \|/u)

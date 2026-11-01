@@ -4,8 +4,8 @@ final class TabletPanelGestureTests: XCTestCase {
   func testRealContinuousPanelDrag() throws {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=xctest"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&tabletPanels=all&qaRun=xctest"]
     app.launch()
     let list = app.descendants(matching: .any).matching(identifier: "note-list-panel").firstMatch
     XCTAssertTrue(list.waitForExistence(timeout: 60))

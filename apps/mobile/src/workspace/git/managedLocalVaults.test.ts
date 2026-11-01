@@ -8,12 +8,12 @@ it('restores multiple local copies independently of Git vaults', () => {
   expect(parseManagedGitVaultCatalog(JSON.stringify(catalog))).toEqual(catalog)
 })
 
-it.each(['../private', '/private', 'Local Vaults/../../private', 'file:///private', '.tolaria-mobile-config'])('rejects local directories outside imported copies: %s', (directory) => {
+it.each(['../private', '/private', 'Local Vaults/../../private', 'file:///private', '.memoria-mobile-config'])('rejects local directories outside imported copies: %s', (directory) => {
   expect(() => parseManagedGitVaultCatalog(JSON.stringify({ vaults: [], localVaults: [{ ...local, directory }] }))).toThrow('vaultCatalogInvalid')
 })
 
 it('migrates the original imported folder without relocating or deleting it', () => {
-  const catalog = { vaults: [], activeId: null, localVaults: [{ ...local, directory: 'Tolaria Vault' }], activeLocalId: local.id }
+  const catalog = { vaults: [], activeId: null, localVaults: [{ ...local, directory: 'Memoria Vault' }], activeLocalId: local.id }
   expect(parseManagedGitVaultCatalog(JSON.stringify(catalog))).toEqual(catalog)
 })
 

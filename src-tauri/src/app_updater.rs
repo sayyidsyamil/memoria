@@ -12,7 +12,7 @@ const GITHUB_RELEASES_API_URL: &str =
 const RELEASES_BASE_URL: &str = "https://refactoringhq.github.io/tolaria";
 const POISONED_STABLE_RECOVERY_FLOOR: &str = "2026.8.19";
 const UPDATER_HTTP_TIMEOUT: Duration = Duration::from_secs(5);
-const UPDATER_USER_AGENT: &str = concat!("Tolaria/", env!("CARGO_PKG_VERSION"));
+const UPDATER_USER_AGENT: &str = concat!("Memoria/", env!("CARGO_PKG_VERSION"));
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -198,6 +198,9 @@ async fn alpha_release_metadata_endpoint() -> Result<Url, String> {
 }
 
 async fn updater_endpoint(release_channel: ReleaseChannel) -> Result<Url, String> {
+    if option_env!("MEMORIA_ENABLE_UPSTREAM_UPDATER") != Some("1") {
+        return Err("Automatic updates are not configured for this Memoria fork".to_string());
+    }
     match release_channel {
         ReleaseChannel::Stable => release_channel.updater_endpoint(),
         ReleaseChannel::Alpha => alpha_release_metadata_endpoint()

@@ -22,7 +22,7 @@ import {
 import { followMoves, type Move, rewrittenCount } from "./remoteNoteLifecycle.ts";
 
 /**
- * Folders on the Tolaria remote. Git keeps no empty folder, so the folder tree is the
+ * Folders on the Memoria remote. Git keeps no empty folder, so the folder tree is the
  * folders of the vault's tracked files, hidden as the desktop's tree hides them (dot
  * folders and `type/`). A folder rename is one commit on the server (protocol 1.7) that
  * moves every file in it and rewrites the links that reach a moved note by its path. Creating

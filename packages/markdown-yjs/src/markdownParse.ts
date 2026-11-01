@@ -4,7 +4,7 @@ import { inferCodeBlockLanguages } from '../../../src/utils/codeBlockLanguage'
 import { injectRichEditorMarkdownBlocks, preProcessRichEditorMarkdown } from '../../../src/utils/richEditorMarkdown'
 
 /**
- * Markdown body to BlockNote blocks, through the same steps the Tolaria editor runs when it
+ * Markdown body to BlockNote blocks, through the same steps the Memoria editor runs when it
  * opens a note (`src/hooks/editorBlockResolution.ts`). It needs no DOM of its own, so the web
  * editor parses with its live editor exactly as the server parses with its headless one.
  */

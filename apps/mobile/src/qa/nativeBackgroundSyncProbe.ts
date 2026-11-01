@@ -22,7 +22,7 @@ export async function runNativeBackgroundSyncProbe(
 ): Promise<object> {
 	const root = new Directory(
 		Paths.cache,
-		`tolaria-background-qa-${Date.now()}`,
+		`memoria-background-qa-${Date.now()}`,
 	);
 	root.create();
 	let proof: object;
@@ -86,7 +86,7 @@ async function backgroundRoundTrip(
 ) {
 	const native = requireNativeModule<{
 		runLinkedBackgroundProbe: () => Promise<boolean>;
-	}>("TolariaWorkspaceAccess");
+	}>("MemoriaWorkspaceAccess");
 	const editors = createWorkspaceSyncEditors();
 	let prepared = false;
 	const evidence: Record<string, unknown> = {

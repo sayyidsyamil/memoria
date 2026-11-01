@@ -12,7 +12,7 @@ export function useNativeGitProbe() {
 			void runProbeUrl(url);
 		});
 		const search = nativeMobileLaunchSearch();
-		if (search) void runProbeUrl(`tolaria:///${search}`);
+		if (search) void runProbeUrl(`memoria:///${search}`);
 		else
 			void Linking.getInitialURL()
 				.then(runProbeUrl)
@@ -82,7 +82,7 @@ async function runGitProbe(url: string, endpoint: string) {
 function storageProbeAvailable() {
 	const module = requireOptionalNativeModule<{
 		nativeStorageQAEnabled?: boolean;
-	}>("TolariaWorkspaceAccess");
+	}>("MemoriaWorkspaceAccess");
 	return nativeStorageQaEnabled(__DEV__, module?.nativeStorageQAEnabled);
 }
 

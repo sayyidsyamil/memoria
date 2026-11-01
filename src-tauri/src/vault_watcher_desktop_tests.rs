@@ -66,7 +66,7 @@ fn changed_paths_filters_editor_temporary_files() {
             EventKind::Create(CreateKind::File),
             &[
                 ".DS_Store",
-                ".tolaria-rename-txn",
+                ".memoria-rename-txn",
                 ".#draft.md",
                 "draft.md~",
                 "draft.tmp",

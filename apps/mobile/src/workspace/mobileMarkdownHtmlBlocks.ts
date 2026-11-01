@@ -476,5 +476,5 @@ export function tableCellHtml(cell: MarkdownLine, alignment: MobileMarkdownTable
 export function tableCellAlignmentHtmlAttrs(alignment: MobileMarkdownTableAlignment): string {
   if (alignment === 'default') return ''
 
-  return ` data-tolaria-alignment="${alignment}" style="text-align: ${alignment}"`
+  return ` data-memoria-alignment="${alignment}" style="text-align: ${alignment}"`
 }

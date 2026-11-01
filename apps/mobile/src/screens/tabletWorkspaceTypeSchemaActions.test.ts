@@ -95,7 +95,7 @@ describe('tablet workspace Type schema form actions', () => {
         key: 'typeSchemaRelationships',
         value: [{
           key: 'belongs_to',
-          refs: ['[[Tolaria/Mobile UI/How I Run an Open Source Project]]'],
+          refs: ['[[Memoria/Mobile UI/How I Run an Open Source Project]]'],
         }],
       },
       { key: 'typeSchemaRelationshipName', value: '' },

@@ -16,7 +16,7 @@ afterEach(async () => {
 })
 
 async function fixture(count = 1) {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-type-walk-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-type-walk-'))
   roots.push(dir)
   const context = { fs, dir }
   await git.init({ ...context, defaultBranch: 'main' })

@@ -13,7 +13,7 @@ type ScreenshotRecord = {
   viewport: { height: number; width: number } | null
 }
 
-const screenshotDir = process.env.MOBILE_QA_SCREENSHOT_DIR ?? '/tmp/tolaria-mobile-ui-screenshots'
+const screenshotDir = process.env.MOBILE_QA_SCREENSHOT_DIR ?? '/tmp/memoria-mobile-ui-screenshots'
 
 const tabletScenarioStates = [
   {
@@ -42,7 +42,7 @@ const tabletScenarioStates = [
 const phoneStates = [
   {
     description: 'sidebar-open',
-    expectedText: 'Tolaria',
+    expectedText: 'Memoria',
     query: '?phoneState=sidebar',
   },
   {

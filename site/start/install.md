@@ -1,6 +1,6 @@
-# Install Tolaria
+# Install Memoria
 
-Tolaria is available on desktop (macOS, Windows, Linux) and mobile (iPhone, iPad).
+Memoria is available on desktop (macOS, Windows, Linux) and mobile (iPhone, iPad).
 
 Desktop builds are published through GitHub Releases and Homebrew. macOS is the primary day-to-day development target, with Windows and Linux builds supported through the release pipeline and fixed as platform issues are found.
 
@@ -19,12 +19,12 @@ Use the latest stable release unless you are intentionally testing pre-release b
 On macOS you can install the cask:
 
 ```bash
-brew install --cask tolaria
+brew install --cask memoria
 ```
 
 ## Mobile (iPhone and iPad)
 
-Tolaria for iOS is in **beta**. The mobile app brings Tolaria's core features to iPhone and iPad:
+Memoria for iOS is in **beta**. The mobile app brings Memoria's core features to iPhone and iPad:
 
 - **WYSIWYG Markdown editor** — Fast, native rich-text editing
 - **Real git integration** — Auto-commit on save, with merge support for multi-device workflows  
@@ -45,11 +45,11 @@ See [Supported Platforms](/reference/supported-platforms) for the current suppor
 
 ## Managed Windows Devices
 
-Do not disable SmartScreen or Windows Security to install Tolaria. On a managed Windows device, install Tolaria through your normal software approval path if policy blocks unsigned or unknown-publisher installers. After Authenticode provisioning is complete, validate that the downloaded installer has a valid Tolaria publisher signature before installing.
+Do not disable SmartScreen or Windows Security to install Memoria. On a managed Windows device, install Memoria through your normal software approval path if policy blocks unsigned or unknown-publisher installers. After Authenticode provisioning is complete, validate that the downloaded installer has a valid Memoria publisher signature before installing.
 
 ## After Installing
 
-1. Open Tolaria.
+1. Open Memoria.
 2. Choose the Getting Started vault if you want a guided sample.
 3. Or open an existing folder of Markdown files as a vault.
 4. Use the command palette with `Cmd+K` on macOS or `Ctrl+K` on Linux and Windows.

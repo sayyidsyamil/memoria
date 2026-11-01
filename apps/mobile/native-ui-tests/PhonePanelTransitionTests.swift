@@ -4,10 +4,10 @@ final class PhonePanelTransitionTests: XCTestCase {
   func testRepeatedPanelDragsSettleAtTheDestination() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&phoneState=list&editorMode=wysiwyg&qaRun=phone-panel-settle"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     let list = element(app, "phone-note-list-screen")
     XCTAssertTrue(list.waitForExistence(timeout: 30))

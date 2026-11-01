@@ -3,7 +3,7 @@ import UIKit
 
 final class MobileEditorResumeTests: XCTestCase {
   func testEditorRecoversAfterBackgroundWebContentTermination() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_EDITOR_PROCESS"] == "1", "Requires an owned process-loss fixture")
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_EDITOR_PROCESS"] == "1", "Requires an owned process-loss fixture")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .landscapeLeft
     let app = openFixture()
@@ -14,7 +14,7 @@ final class MobileEditorResumeTests: XCTestCase {
     let background = XCTNSPredicateExpectation(
       predicate: NSPredicate { _, _ in [.runningBackground, .runningBackgroundSuspended].contains(app.state) }, object: nil)
     wait(for: [background], timeout: 10)
-    print("TOLARIA_EDITOR_WEBVIEW_BACKGROUND_READY")
+    print("MEMORIA_EDITOR_WEBVIEW_BACKGROUND_READY")
     let resumed = XCTNSPredicateExpectation(
       predicate: NSPredicate { _, _ in app.state == .runningForeground }, object: nil)
     wait(for: [resumed], timeout: 30)
@@ -39,11 +39,11 @@ final class MobileEditorResumeTests: XCTestCase {
   }
 
   private func openFixture() -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     app.terminate()
     let search = "?source=native&phoneState=list&editorMode=wysiwyg&tabletPanels=all&qaRun=editor-resume"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     XCTAssertTrue(element(app, "note-list-toolbar").waitForExistence(timeout: 40))
     if UIDevice.current.userInterfaceIdiom == .phone { MobilePanelNavigation.openSidebar(app) }

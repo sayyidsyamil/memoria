@@ -6,7 +6,7 @@ import { createServer } from 'node:http'
 import { extname, join, resolve, sep } from 'node:path'
 
 const port = Number(process.argv[2] ?? process.env.PORT ?? '42131')
-const root = resolve(process.argv[3] ?? process.env.MOBILE_QA_EXPORT_DIR ?? '/tmp/tolaria-mobile-ui-web')
+const root = resolve(process.argv[3] ?? process.env.MOBILE_QA_EXPORT_DIR ?? '/tmp/memoria-mobile-ui-web')
 
 const contentTypes = new Map([
   ['.css', 'text/css'],

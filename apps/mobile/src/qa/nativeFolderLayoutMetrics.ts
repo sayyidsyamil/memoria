@@ -12,9 +12,9 @@ import {
 
 type FolderTreeMetrics = {
   root: NativeLayoutMetric | undefined
-  tolaria: NativeLayoutMetric | undefined
-  tolariaMobile: NativeLayoutMetric | undefined
-  tolariaReleases: NativeLayoutMetric | undefined
+  memoria: NativeLayoutMetric | undefined
+  memoriaMobile: NativeLayoutMetric | undefined
+  memoriaReleases: NativeLayoutMetric | undefined
   writing: NativeLayoutMetric | undefined
   writingDrafts: NativeLayoutMetric | undefined
   writingEssays: NativeLayoutMetric | undefined
@@ -24,9 +24,9 @@ const folderMetricSpecs = [
   { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset, id: 'sidebar.folder.writing' },
   { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset + nativeSidebarMetricContract.folderRowIndent, id: 'sidebar.folder.writing-essays' },
   { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset + nativeSidebarMetricContract.folderRowIndent, id: 'sidebar.folder.writing-drafts' },
-  { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset, id: 'sidebar.folder.tolaria' },
-  { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset + nativeSidebarMetricContract.folderRowIndent, id: 'sidebar.folder.tolaria-mobile-ui' },
-  { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset + nativeSidebarMetricContract.folderRowIndent, id: 'sidebar.folder.tolaria-releases' },
+  { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset, id: 'sidebar.folder.memoria' },
+  { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset + nativeSidebarMetricContract.folderRowIndent, id: 'sidebar.folder.memoria-mobile-ui' },
+  { expectedLeftInset: nativeSidebarMetricContract.folderRowContentInset + nativeSidebarMetricContract.folderRowIndent, id: 'sidebar.folder.memoria-releases' },
 ] as const
 
 const sidebarFolderPrefix = 'sidebar.folder.'
@@ -77,9 +77,9 @@ export function assertFolderTreeLayout(metrics: NativeLayoutMetricMap): NativeLa
 
 function hasFixtureFolderStackingMetrics(tree: FolderTreeMetrics): boolean {
   return Boolean(
-    tree.tolaria
-      && tree.tolariaMobile
-      && tree.tolariaReleases
+    tree.memoria
+      && tree.memoriaMobile
+      && tree.memoriaReleases
       && tree.writing
       && tree.writingDrafts
       && tree.writingEssays,
@@ -89,8 +89,8 @@ function hasFixtureFolderStackingMetrics(tree: FolderTreeMetrics): boolean {
 function assertFixtureFolderStacking(tree: FolderTreeMetrics): NativeLayoutAssertionFailure[] {
   return [
     ...assertStackedMetricPair({
-      current: tree.tolaria,
-      currentId: 'sidebar.folder.tolaria',
+      current: tree.memoria,
+      currentId: 'sidebar.folder.memoria',
       previous: tree.writing,
       previousId: 'sidebar.folder.writing',
     }),
@@ -101,10 +101,10 @@ function assertFixtureFolderStacking(tree: FolderTreeMetrics): NativeLayoutAsser
       previousId: 'sidebar.folder.writing-essays',
     }),
     ...assertStackedMetricPair({
-      current: tree.tolariaReleases,
-      currentId: 'sidebar.folder.tolaria-releases',
-      previous: tree.tolariaMobile,
-      previousId: 'sidebar.folder.tolaria-mobile-ui',
+      current: tree.memoriaReleases,
+      currentId: 'sidebar.folder.memoria-releases',
+      previous: tree.memoriaMobile,
+      previousId: 'sidebar.folder.memoria-mobile-ui',
     }),
   ]
 }
@@ -121,9 +121,9 @@ function sidebarFolderContainerMetrics(metrics: NativeLayoutMetricMap): Array<{ 
 function folderTreeMetrics(metrics: NativeLayoutMetricMap): FolderTreeMetrics {
   return {
     root: metrics['sidebar.folderTree.root'],
-    tolaria: metrics['sidebar.folder.tolaria.container'],
-    tolariaMobile: metrics['sidebar.folder.tolaria-mobile-ui.container'],
-    tolariaReleases: metrics['sidebar.folder.tolaria-releases.container'],
+    memoria: metrics['sidebar.folder.memoria.container'],
+    memoriaMobile: metrics['sidebar.folder.memoria-mobile-ui.container'],
+    memoriaReleases: metrics['sidebar.folder.memoria-releases.container'],
     writing: metrics['sidebar.folder.writing.container'],
     writingDrafts: metrics['sidebar.folder.writing-drafts.container'],
     writingEssays: metrics['sidebar.folder.writing-essays.container'],
@@ -134,7 +134,7 @@ function assertFolderTreeRootLayout(
   tree: FolderTreeMetrics,
   lastFolder: { id: string; metric: NativeLayoutMetric } | undefined,
 ): NativeLayoutAssertionFailure[] {
-  const bottomReference = lastFolder?.metric ?? tree.tolaria
+  const bottomReference = lastFolder?.metric ?? tree.memoria
 
   return [
     ...expectMetric({

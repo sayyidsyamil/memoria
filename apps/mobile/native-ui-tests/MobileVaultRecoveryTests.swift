@@ -43,15 +43,15 @@ final class MobileVaultRecoveryTests: XCTestCase {
   }
 
   private func requireFixture(_ value: String) throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_RECOVERY"] == value,
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_RECOVERY"] == value,
       "Requires a disposable native recovery fixture")
     continueAfterFailure = false
   }
 
   private func launchWorkspace() -> XCUIApplication {
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&phoneState=list&qaRun=vault-recovery"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&phoneState=list&qaRun=vault-recovery"]
     app.launch()
     return app
   }

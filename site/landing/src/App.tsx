@@ -14,11 +14,11 @@ import { AiDemo, EditorDemo, GitDemo, RelationsDemo, ThemeDemo } from "@/compone
 import { DOCS, DOWNLOADS, LINKS, TESTFLIGHT_URL, NEWSLETTER_SUBSCRIBERS, QUOTES, RELEASE, SPONSORS, STARS } from "./content"
 import { startMotion } from "./motion"
 
-// Tolaria landing page on the Refactoring brand. Polish rules adapted from elayadesign/ai-design-skills (MIT).
+// Memoria landing page on the Refactoring brand. Polish rules adapted from elayadesign/ai-design-skills (MIT).
 // Facts and links: ./content.ts.
 const focusRing = "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
 const ext = { target: "_blank", rel: "noopener" } as const
-// new tab only for other sites: on tolaria.md the docs, download and releases links are same-site paths
+// new tab only for other sites: on memoria.md the docs, download and releases links are same-site paths
 const extIf = (href: string) => (/^https?:/.test(href) ? ext : {})
 
 export default function App() {
@@ -46,22 +46,22 @@ export default function App() {
 }
 
 function Logo({ className = "h-6" }: { className?: string }) {
-  return <img src="/media/tolaria-drop.svg" alt="" width={14} height={19} className={`w-auto ${className}`} />
+  return <img src="/media/memoria-drop.svg" alt="" width={14} height={19} className={`w-auto ${className}`} />
 }
 
 // Floating pill nav: fixed over the full-bleed blue hero, always frosted glass
 // (translucent white fill + backdrop blur), so it reads the same on blue and on the white sections below.
 function TopBar() {
   return (
-    <nav aria-label="Tolaria" className="fixed inset-x-0 top-[calc(env(safe-area-inset-top)+0.75rem)] z-40 mx-auto flex w-fit max-w-[calc(100%-24px)] items-center gap-1 rounded-2xl border border-white/40 bg-background/80 p-2 shadow-[0_8px_30px_-12px_rgba(10,30,80,0.35)] backdrop-blur-xl backdrop-saturate-150">
+    <nav aria-label="Memoria" className="fixed inset-x-0 top-[calc(env(safe-area-inset-top)+0.75rem)] z-40 mx-auto flex w-fit max-w-[calc(100%-24px)] items-center gap-1 rounded-2xl border border-white/40 bg-background/80 p-2 shadow-[0_8px_30px_-12px_rgba(10,30,80,0.35)] backdrop-blur-xl backdrop-saturate-150">
       <a href="#top" aria-current="page" className={`flex items-center gap-2 rounded-xl py-1.5 pr-3 pl-2 transition-colors duration-300 ease-out-weighted hover:bg-muted ${focusRing}`}>
-        <Logo /><span className="font-display text-lg leading-none">Tolaria</span>
+        <Logo /><span className="font-display text-lg leading-none">Memoria</span>
       </a>
       <span className="hidden h-6 w-px bg-border sm:block" aria-hidden />
-      {[["Features", "#features"], ["Download", "#download"], ["Docs", __TOLARIA_MD__ ? "/docs" : "#docs"]].map(([l, h]) => (
+      {[["Features", "#features"], ["Download", "#download"], ["Docs", __MEMORIA_MD__ ? "/docs" : "#docs"]].map(([l, h]) => (
         <a key={h} href={h} className={`hidden rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors duration-300 ease-out-weighted hover:bg-muted hover:text-foreground sm:block ${focusRing}`}>{l}</a>
       ))}
-      <a href={LINKS.github} {...ext} aria-label={`Tolaria on GitHub, ${STARS} stars`} className={`flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors duration-300 ease-out-weighted hover:bg-muted hover:text-foreground ${focusRing}`}>
+      <a href={LINKS.github} {...ext} aria-label={`Memoria on GitHub, ${STARS} stars`} className={`flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors duration-300 ease-out-weighted hover:bg-muted hover:text-foreground ${focusRing}`}>
         <GithubLogoIcon weight="fill" className="size-4" /><span className="hidden min-[400px]:inline">{STARS}</span>
       </a>
       <a href={LINKS.download} className={`press flex items-center gap-1 rounded-xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition-[transform,opacity] duration-300 ease-out-weighted hover:opacity-90 ${focusRing}`}>
@@ -104,7 +104,7 @@ function Hero() {
           <div className="rise mt-6 flex flex-wrap items-center gap-2 sm:gap-3" style={{ ["--i" as string]: 3 }}>
             <a href={os ? LINKS.download : "#download"} className={`press inline-flex items-center gap-2 rounded-xl bg-primary-foreground px-4 py-3 text-base font-semibold text-app-ink transition-transform duration-500 ease-out-weighted hover:-translate-y-0.5 ${focusRing}`}>
               {os ? <OsIcon weight="fill" className="size-5" /> : <DownloadSimpleIcon weight="bold" className="size-5" />}
-              {os ? `Download for ${os}` : "Get Tolaria"}
+              {os ? `Download for ${os}` : "Get Memoria"}
             </a>
             <a href={TESTFLIGHT_URL} {...ext} className={`press inline-flex items-center gap-2 rounded-xl bg-primary-foreground/20 px-4 py-3 text-base font-semibold backdrop-blur-md transition-[transform,background-color] duration-500 ease-out-weighted hover:-translate-y-0.5 hover:bg-primary-foreground/30 ${focusRing}`}>
               <DeviceMobileIcon weight="fill" className="size-5" /><span className="sm:hidden">iPhone beta</span><span className="hidden sm:inline">iPhone and iPad beta</span>
@@ -125,7 +125,7 @@ function Hero() {
 // sits slightly left of centre and the iPhone overlaps its bottom-right corner, so the pair reads as one composition.
 function Showcase() {
   return (
-    <section aria-label="Illustrations of Tolaria on a MacBook and an iPhone, with the colour-coded note types" className="hero-overlap relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+    <section aria-label="Illustrations of Memoria on a MacBook and an iPhone, with the colour-coded note types" className="hero-overlap relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
       <div className="relative pb-10 sm:pb-12">
         <div className="rise relative mx-auto max-w-[1000px]" style={{ ["--i" as string]: 5 }}>
           <MacBook className="relative z-10 w-[92%] sm:w-[86%] lg:w-[84%]" />
@@ -200,9 +200,9 @@ const tile = "flex size-10 items-center justify-center rounded-xl"
 
 const PRINCIPLES: { icon: typeof FileTextIcon; tone: Tone; title: string; body: string }[] = [
   { icon: FileTextIcon, tone: "blue", title: "Files-first", body: "Your notes are plain Markdown files. Portable, readable by any editor, no export step." },
-  { icon: GitBranchIcon, tone: "orange", title: "Git-first", body: "Every vault is a Git repository: full history, any remote, no dependency on Tolaria servers." },
+  { icon: GitBranchIcon, tone: "orange", title: "Git-first", body: "Every vault is a Git repository: full history, any remote, no dependency on Memoria servers." },
   { icon: CloudSlashIcon, tone: "green", title: "Offline-first, zero lock-in", body: "No accounts, no subscriptions, no cloud dependencies. Your vault works offline and always will." },
-  { icon: CodeIcon, tone: "purple", title: "Open source", body: "Tolaria is free and open source, licensed AGPL-3.0-or-later." },
+  { icon: CodeIcon, tone: "purple", title: "Open source", body: "Memoria is free and open source, licensed AGPL-3.0-or-later." },
   { icon: KeyboardIcon, tone: "blue", title: "Keyboard-first", body: "Built for power users: the editor and the command palette are designed around the keyboard." },
   { icon: HeartIcon, tone: "red", title: "Built from real use", body: "Made to run Luca's own vault of 10,000+ notes, every day. Every feature solved a real problem." },
 ]
@@ -238,10 +238,10 @@ function detectOs(): OsId {
 }
 type Link = { label: string; href: string; ext?: boolean }
 const PLATFORMS: { id: OsId; tab: string; icon: typeof AppleLogoIcon; title: string; note: string; badge?: string; primary: Link; secondary: Link[]; detail: React.ReactNode }[] = [
-  { id: "mac", tab: "macOS", icon: AppleLogoIcon, title: "Tolaria for macOS", note: "Apple Silicon and Intel", primary: { label: "Download for Apple Silicon", href: DOWNLOADS.macSilicon }, secondary: [{ label: "Intel", href: DOWNLOADS.macIntel }], detail: <Brew /> },
-  { id: "windows", tab: "Windows", icon: WindowsLogoIcon, title: "Tolaria for Windows", note: "x64 installer", badge: "Early support", primary: { label: "Download for Windows", href: DOWNLOADS.windows }, secondary: [], detail: <>Windows support is new, so expect rough edges. Tell us what breaks on <a href={LINKS.discord} {...ext} className="font-semibold text-primary underline-offset-4 hover:underline">Discord</a>.</> },
-  { id: "linux", tab: "Linux", icon: LinuxLogoIcon, title: "Tolaria for Linux", note: "x64 builds", badge: "Early support", primary: { label: "Download AppImage", href: DOWNLOADS.appImage }, secondary: [{ label: ".deb", href: DOWNLOADS.deb }, { label: ".rpm", href: DOWNLOADS.rpm }], detail: <>The AppImage runs on most distributions. Pick .deb for Debian and Ubuntu, .rpm for Fedora.</> },
-  { id: "ios", tab: "iPhone", icon: DeviceMobileIcon, title: "Tolaria for iPhone and iPad", note: "Public TestFlight beta", badge: "Beta", primary: { label: "Join the TestFlight beta", href: TESTFLIGHT_URL, ext: true }, secondary: [], detail: <>Install Apple's TestFlight app, then open the invite on your iPhone or iPad.</> },
+  { id: "mac", tab: "macOS", icon: AppleLogoIcon, title: "Memoria for macOS", note: "Apple Silicon and Intel", primary: { label: "Download for Apple Silicon", href: DOWNLOADS.macSilicon }, secondary: [{ label: "Intel", href: DOWNLOADS.macIntel }], detail: <Brew /> },
+  { id: "windows", tab: "Windows", icon: WindowsLogoIcon, title: "Memoria for Windows", note: "x64 installer", badge: "Early support", primary: { label: "Download for Windows", href: DOWNLOADS.windows }, secondary: [], detail: <>Windows support is new, so expect rough edges. Tell us what breaks on <a href={LINKS.discord} {...ext} className="font-semibold text-primary underline-offset-4 hover:underline">Discord</a>.</> },
+  { id: "linux", tab: "Linux", icon: LinuxLogoIcon, title: "Memoria for Linux", note: "x64 builds", badge: "Early support", primary: { label: "Download AppImage", href: DOWNLOADS.appImage }, secondary: [{ label: ".deb", href: DOWNLOADS.deb }, { label: ".rpm", href: DOWNLOADS.rpm }], detail: <>The AppImage runs on most distributions. Pick .deb for Debian and Ubuntu, .rpm for Fedora.</> },
+  { id: "ios", tab: "iPhone", icon: DeviceMobileIcon, title: "Memoria for iPhone and iPad", note: "Public TestFlight beta", badge: "Beta", primary: { label: "Join the TestFlight beta", href: TESTFLIGHT_URL, ext: true }, secondary: [], detail: <>Install Apple's TestFlight app, then open the invite on your iPhone or iPad.</> },
 ]
 
 function Download() {
@@ -250,7 +250,7 @@ function Download() {
   const idx = PLATFORMS.findIndex((p) => p.id === os)
   return (
     <section id="download" aria-labelledby="download-h" className="mx-auto max-w-6xl px-4 pt-24 sm:px-6 sm:pt-32">
-      <SectionHead id="download-h" k={`Tolaria ${RELEASE.tag}, released ${RELEASE.date}`} title="Download Tolaria" />
+      <SectionHead id="download-h" k={`Memoria ${RELEASE.tag}, released ${RELEASE.date}`} title="Download Memoria" />
       <Tabs value={os} onValueChange={(v) => setOs(v as OsId)} className="reveal mx-auto mt-12 max-w-[880px] gap-0 rounded-3xl border bg-card p-2">
         <TabsList aria-label="Platform" className="relative grid w-full grid-cols-4 rounded-2xl bg-muted p-1 group-data-horizontal/tabs:h-auto">
           <span aria-hidden className="absolute inset-y-1 left-1 w-[calc((100%-8px)/4)] rounded-xl bg-background shadow-sm transition-transform duration-500 ease-out-weighted motion-reduce:transition-none" style={{ transform: `translateX(${idx * 100}%)` }} />
@@ -298,7 +298,7 @@ function Btn({ label, href, primary, ext: e }: Link & { primary?: boolean }) {
   )
 }
 function Brew() {
-  const cmd = "brew install --cask tolaria"
+  const cmd = "brew install --cask memoria"
   const [state, setState] = useState<"idle" | "copied" | "error">("idle")
   const copy = async () => {
     try { await navigator.clipboard.writeText(cmd); setState("copied"); setTimeout(() => setState("idle"), 2000) }
@@ -329,7 +329,7 @@ function Author() {
           <p className="text-sm font-semibold text-app-ink">Made with love</p>
           <h2 id="author-h" className="mt-1 font-display text-4xl text-balance">Built by Luca, for Luca</h2>
           <p className="mt-4 text-base text-pretty text-muted-foreground">
-            Tolaria is born from 5 years of full-time writing at <a href={LINKS.refactoring} {...ext} className="font-semibold text-primary underline-offset-4 hover:underline">Refactoring</a>, with 300+ articles about software engineering and developer productivity. None of the existing tools matched what I wanted, so I built one myself. Today it runs my life: a vault of 10,000+ notes.
+            Memoria is born from 5 years of full-time writing at <a href={LINKS.refactoring} {...ext} className="font-semibold text-primary underline-offset-4 hover:underline">Refactoring</a>, with 300+ articles about software engineering and developer productivity. None of the existing tools matched what I wanted, so I built one myself. Today it runs my life: a vault of 10,000+ notes.
           </p>
           <dl className="mt-6 grid grid-cols-2 gap-3 xl:grid-cols-4">
             {[["5 years", "full-time writing"], ["300+", "articles published"], [NEWSLETTER_SUBSCRIBERS, "newsletter subscribers"], ["10,000+", "notes in my vault"]].map(([v, l]) => (
@@ -385,11 +385,11 @@ function FinalCta() {
         <span className="flex size-12 items-center justify-center rounded-xl bg-app-light"><Logo className="h-7" /></span>
         <h2 id="cta-h" className="mt-6 max-w-[680px] font-display text-4xl text-balance sm:text-5xl">Free and open source.<br className="hidden sm:block" /> Local-first, Git-first, Markdown.</h2>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={LINKS.download} className={`press inline-flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-base font-semibold text-app-ink transition-transform duration-500 ease-out-weighted hover:-translate-y-0.5 ${focusRing}`}><DownloadSimpleIcon weight="bold" className="size-5" />Download Tolaria</a>
+          <a href={LINKS.download} className={`press inline-flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-base font-semibold text-app-ink transition-transform duration-500 ease-out-weighted hover:-translate-y-0.5 ${focusRing}`}><DownloadSimpleIcon weight="bold" className="size-5" />Download Memoria</a>
           <a href={LINKS.docs} {...extIf(LINKS.docs)} className={`press inline-flex items-center gap-2 rounded-xl border border-white/30 px-4 py-3 text-base font-semibold text-white transition-[transform,background-color] duration-500 ease-out-weighted hover:-translate-y-0.5 hover:bg-white/10 ${focusRing}`}>Read the docs</a>
         </div>
         <p className="mt-8 max-w-[680px] text-sm text-pretty text-white/80">
-          Updates on Tolaria, new features, and the behind the scenes of building in public go out in the <a href={LINKS.refactoring} {...ext} className="font-semibold text-white underline underline-offset-4">Refactoring newsletter</a>, read by {NEWSLETTER_SUBSCRIBERS} subscribers.
+          Updates on Memoria, new features, and the behind the scenes of building in public go out in the <a href={LINKS.refactoring} {...ext} className="font-semibold text-white underline underline-offset-4">Refactoring newsletter</a>, read by {NEWSLETTER_SUBSCRIBERS} subscribers.
         </p>
       </div>
     </section>
@@ -401,7 +401,7 @@ function Footer() {
   return (
     <footer className="mx-auto mt-16 max-w-6xl px-4 pb-12 sm:px-6">
       <div className="flex flex-col gap-4 rounded-2xl border bg-card p-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-3"><Logo /><span>Tolaria is AGPL-3.0-or-later. The name and logo are covered by the trademark policy.</span></div>
+        <div className="flex items-center gap-3"><Logo /><span>Memoria is AGPL-3.0-or-later. The name and logo are covered by the trademark policy.</span></div>
         <ul className="flex flex-wrap gap-x-4 gap-y-2">
           {links.map(([l, h]) => <li key={l}><a href={h} {...extIf(h)} className={`rounded font-semibold hover:text-foreground ${focusRing}`}>{l}</a></li>)}
         </ul>
@@ -428,7 +428,7 @@ function NotFound() {
       <h1 className="font-display text-5xl">Page not found</h1>
       <p className="max-w-[480px] text-lg text-pretty text-muted-foreground">There's no page at {location.pathname}. It may have moved to the docs.</p>
       <div className="flex gap-3">
-        <a href="/" className={`press rounded-xl bg-primary px-4 py-3 text-base font-semibold text-primary-foreground ${focusRing}`}>Back to Tolaria</a>
+        <a href="/" className={`press rounded-xl bg-primary px-4 py-3 text-base font-semibold text-primary-foreground ${focusRing}`}>Back to Memoria</a>
         <a href={LINKS.docs} className={`press rounded-xl border px-4 py-3 text-base font-semibold ${focusRing}`}>Open the docs</a>
       </div>
     </main>

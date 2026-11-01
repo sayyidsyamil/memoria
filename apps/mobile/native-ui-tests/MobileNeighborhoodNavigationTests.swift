@@ -2,7 +2,7 @@ import UIKit
 import XCTest
 
 final class MobileNeighborhoodNavigationTests: XCTestCase {
-  private let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+  private let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
 
   override func tearDown() {
     app.terminate()
@@ -14,8 +14,8 @@ final class MobileNeighborhoodNavigationTests: XCTestCase {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
     let search = "?source=fixture&scenario=markdown-heavy&selectedNoteId=workflow-orchestration&phoneState=editor&qaRun=neighborhood-navigation"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     let more = element("editor-more-action")
     XCTAssertTrue(more.waitForExistence(timeout: 30))

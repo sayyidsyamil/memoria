@@ -13,7 +13,7 @@ import type { SocketLike } from '../src/collabProvider.ts'
 import { createFolder, deleteFolder, folderTree, listFolders, renameFolder } from '../src/remoteFolders.ts'
 import { createRemoteVaultBackend, type RemoteBindings } from '../src/remoteVaultBackend.ts'
 
-/** TOL-227 and TOL-233: the folder tree, folder renames, creates and deletes on the Tolaria remote. */
+/** TOL-227 and TOL-233: the folder tree, folder renames, creates and deletes on the Memoria remote. */
 
 const TOKEN = 'test-token-0123456789'
 

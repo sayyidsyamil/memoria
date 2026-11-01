@@ -55,7 +55,7 @@ pub(super) fn workbook_name_from_path(path: SheetText<'_>) -> String {
     let path = path.0;
     path.rsplit(['/', '\\'])
         .next()
-        .unwrap_or("Tolaria Sheet")
+        .unwrap_or("Memoria Sheet")
         .trim_end_matches(".md")
         .to_string()
 }

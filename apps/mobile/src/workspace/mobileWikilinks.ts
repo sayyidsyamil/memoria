@@ -11,7 +11,7 @@ type MobileWikilinkResolutionKey = {
   workspaceAlias: string | null
 }
 
-const mobileWikilinkHrefPrefix = 'tolaria://wikilink/'
+const mobileWikilinkHrefPrefix = 'memoria://wikilink/'
 
 export type MobileParsedWikilink = {
   display: string

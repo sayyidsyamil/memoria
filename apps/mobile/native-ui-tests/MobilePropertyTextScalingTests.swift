@@ -37,8 +37,8 @@ final class MobilePropertyTextScalingTests: XCTestCase {
   private func launchProperties(category: UIContentSizeCategory = .accessibilityLarge) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["-UIPreferredContentSizeCategoryName", category.rawValue, "--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["-UIPreferredContentSizeCategoryName", category.rawValue, "--memoria-mobile-search",
       "?source=fixture&phoneState=properties&tabletPanels=all&qaRun=property-text-scaling"]
     app.launch()
     XCTAssertTrue(element(app, "property-row-type-label").waitForExistence(timeout: 30))

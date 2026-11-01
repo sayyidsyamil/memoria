@@ -10,7 +10,7 @@ type StarterTemplate = {
 type Preparation = { version: 1; label: string; revision: string }
 
 const directoryName = 'Local Vaults/getting-started'
-const configDirectory = '.tolaria-mobile-config'
+const configDirectory = '.memoria-mobile-config'
 const stagingDirectory = () => new Directory(Paths.document, configDirectory, 'starter-vault-staging')
 const markerFile = (suffix = '') => new File(Paths.document, configDirectory, `starter-vault.json${suffix}`)
 
@@ -66,7 +66,7 @@ async function recoverPendingMarker(pending: File, marker: File) {
 }
 
 function hasVaultDirectories() {
-  return ['Tolaria Vault', 'Local Vaults', 'Git Vaults']
+  return ['Memoria Vault', 'Local Vaults', 'Git Vaults']
     .some(path => new Directory(Paths.document, path).exists)
 }
 
@@ -76,7 +76,7 @@ function hasPriorCatalog() {
 }
 
 function assertNoOtherVaults(destination: Directory) {
-  const otherRootExists = ['Tolaria Vault', 'Git Vaults'].some(path => new Directory(Paths.document, path).exists)
+  const otherRootExists = ['Memoria Vault', 'Git Vaults'].some(path => new Directory(Paths.document, path).exists)
   if (otherRootExists) throw new Error('starterVaultRecoveryRequired')
   const local = destination.parentDirectory
   if (!local.exists) return

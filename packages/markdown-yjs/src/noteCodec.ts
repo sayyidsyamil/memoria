@@ -14,7 +14,7 @@ import { preserveSource, type SourceVersions } from './sourcePreserve.ts'
 import { blocksToMarkdown, createHeadlessEditor, type HeadlessEditor, markdownToBlocks, type NoteBlock } from './markdownBlocks.ts'
 
 /**
- * A note as a `tolaria.blocknote/1` document:
+ * A note as a `memoria.blocknote/1` document:
  *  - `blocks`: a `Y.XmlFragment` with the body, in the shape BlockNote's collaboration binds to;
  *  - `frontmatter`: a `Y.Text` with the frontmatter block exactly as it is in the file,
  *    delimiters included, or empty;

@@ -14,7 +14,7 @@ Markdown alignment metadata still needs explicit round-trip support. If mobile h
 
 ## Decision
 
-Declare `@tiptap/extension-table` as a direct `@tolaria/mobile` dependency and register `Table`, `TableRow`, `TableHeader`, and `TableCell` through a Tolaria-owned `MobileTableBridge`.
+Declare `@tiptap/extension-table` as a direct `@memoria/mobile` dependency and register `Table`, `TableRow`, `TableHeader`, and `TableCell` through a Memoria-owned `MobileTableBridge`.
 
 Simple Markdown tables with default divider alignment hydrate as native TenTap/Tiptap table nodes and serialize back to desktop Markdown tables. Tables with explicit alignment stay source-backed until mobile can represent and persist alignment without loss.
 

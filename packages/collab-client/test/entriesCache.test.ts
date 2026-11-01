@@ -140,14 +140,14 @@ describe('web entries cache', () => {
 
   it('keeps the own vault under its old key and each shared vault under one of its own', () => {
     expect(entriesCacheKey('')).toBe('snapshot')
-    expect(entriesCacheKey('https://tolaria.example')).toBe('snapshot')
-    expect(entriesCacheKey('https://tolaria.example/vaults/v_1')).toBe('snapshot:/vaults/v_1')
+    expect(entriesCacheKey('https://memoria.example')).toBe('snapshot')
+    expect(entriesCacheKey('https://memoria.example/vaults/v_1')).toBe('snapshot:/vaults/v_1')
   })
 
   it('keeps the snapshots of two vaults apart, and clears them all', async () => {
     const indexedDb = fakeIndexedDb()
     vi.stubGlobal('indexedDB', indexedDb.factory)
-    const shared = entriesCacheKey('https://tolaria.example/vaults/v_1')
+    const shared = entriesCacheKey('https://memoria.example/vaults/v_1')
 
     await writeCache('own-head', [entry('own.md')])
     await writeCache('shared-head', [entry('shared.md')], shared)
@@ -162,7 +162,7 @@ describe('web entries cache', () => {
   it('hands a prefetched read only to the vault it was started for', async () => {
     const indexedDb = fakeIndexedDb()
     vi.stubGlobal('indexedDB', indexedDb.factory)
-    const shared = entriesCacheKey('https://tolaria.example/vaults/v_1')
+    const shared = entriesCacheKey('https://memoria.example/vaults/v_1')
     await writeCache('own-head', [entry('own.md')])
     await writeCache('shared-head', [entry('shared.md')], shared)
 

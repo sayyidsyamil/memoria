@@ -63,19 +63,19 @@ test('vault guidance restore command recovers missing managed guidance', async (
   await expect(page.getByTestId('note-list-container')).toBeVisible({ timeout: 5_000 })
 
   const aiBadge = page.getByTestId('status-ai-agents')
-  await expect(aiBadge).toHaveAttribute('title', /Tolaria guidance missing or broken/)
+  await expect(aiBadge).toHaveAttribute('title', /Memoria guidance missing or broken/)
 
   await openCommandPalette(page)
-  expect(await findCommand(page, 'Restore Tolaria AI Guidance')).toBe(true)
+  expect(await findCommand(page, 'Restore Memoria AI Guidance')).toBe(true)
   await page.keyboard.press('Enter')
 
-  await expect(page.getByText('Tolaria AI guidance restored')).toBeVisible()
+  await expect(page.getByText('Memoria AI guidance restored')).toBeVisible()
 
   await aiBadge.click()
-  await expect(page.getByTestId('status-ai-guidance-summary')).toHaveText('Tolaria guidance ready')
+  await expect(page.getByTestId('status-ai-guidance-summary')).toHaveText('Memoria guidance ready')
   await expect(page.getByTestId('status-ai-guidance-restore')).toHaveCount(0)
   await page.keyboard.press('Escape')
 
   await openCommandPalette(page)
-  expect(await findCommand(page, 'Restore Tolaria AI Guidance')).toBe(false)
+  expect(await findCommand(page, 'Restore Memoria AI Guidance')).toBe(false)
 })

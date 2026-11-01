@@ -77,7 +77,7 @@ const EMPTY_CHECKLIST_ITEM_FILLER = "\u200B";
 const EMPTY_CHECKLIST_ITEM_LINE_RE = /^([ \t]*[-*+][ \t]+\[[ xX]\])[ \t]*$/u;
 const BLANK_PARAGRAPH_PLACEHOLDER = "\u200B";
 const BACKSLASH_BEFORE_BRACE_PLACEHOLDER =
-	"\uE000TOLARIA_BACKSLASH_LBRACE\uE001";
+	"\uE000MEMORIA_BACKSLASH_LBRACE\uE001";
 
 interface ParsedBlockquoteSourceLine {
 	content: string;
@@ -102,7 +102,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 function readDirectMarkdownMetrics(
 	editor: DirectMarkdownCapableSerializer,
 ): BlockNoteDirectMarkdownMetrics | undefined {
-	return editor.__tolariaLastDirectMarkdownMetrics;
+	return editor.__memoriaLastDirectMarkdownMetrics;
 }
 
 export function installRichEditorMarkdownSerializer(editor: unknown): void {
@@ -237,7 +237,7 @@ function serializeRichEditorBodyToMarkdownWithTrace(
 ): string {
 	const startedAt = now();
 	const directEditor = editor as DirectMarkdownCapableSerializer;
-	delete directEditor.__tolariaLastDirectMarkdownMetrics;
+	delete directEditor.__memoriaLastDirectMarkdownMetrics;
 	const document = blocks;
 	const serialized = serializeDurableEditorBlocks(editor, document, vaultPath);
 	const body = compactMarkdown(restoreBlankBlockquoteParagraphs(serialized), {
@@ -510,7 +510,7 @@ export function captureRichEditorMarkdownSource(
 ): void {
 	if (
 		!isDirectMarkdownCapableSerializer(options.editor) ||
-		!options.editor.__tolariaDirectMarkdownCache
+		!options.editor.__memoriaDirectMarkdownCache
 	)
 		return;
 	if (

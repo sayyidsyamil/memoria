@@ -5,8 +5,8 @@ final class TabletPreparedNoteActionTests: XCTestCase {
   func testUnopenedNoteDeleteUndoSurvivesRestart() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&editorMode=wysiwyg"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&editorMode=wysiwyg"]
     app.launch()
     let allNotes = app.buttons.matching(identifier: "sidebar-item-all-notes").firstMatch
     XCTAssertTrue(allNotes.waitForExistence(timeout: 60))

@@ -7,10 +7,10 @@ import { gitTestEnvironment } from '../src/workspace/git/gitTestServer.ts'
 
 const [action, device, evidence] = process.argv.slice(2)
 if (!['prepare', 'verify', 'restore'].includes(action) || !device || !evidence) throw new Error('Usage: prepare-native-sync-review.mjs prepare|verify|restore DEVICE EVIDENCE')
-const app = 'com.tolaria.mobile.dev'
+const app = 'com.memoria.mobile.dev'
 const home = execFileSync('xcrun', ['simctl', 'get_app_container', device, app, 'data'], { encoding: 'utf8' }).trim()
 const documents = join(home, 'Documents')
-const config = join(documents, '.tolaria-mobile-config')
+const config = join(documents, '.memoria-mobile-config')
 const fixture = join(documents, 'Git Vaults', 'vault-qa-sync-review')
 const backup = join(evidence, 'sync-review-backup')
 const git = args => execFileSync('git', ['-C', fixture, ...args], { env: gitTestEnvironment(), encoding: 'utf8' }).trim()
@@ -34,7 +34,7 @@ async function prepare() {
   await stop()
   await mkdir(backup)
   await cp(config, join(backup, 'config'), { recursive: true, errorOnExist: true, force: false })
-  await writeFile(join(backup, 'laputa.json'), JSON.stringify(await treeHashes(join(documents, 'Tolaria Vault'))))
+  await writeFile(join(backup, 'laputa.json'), JSON.stringify(await treeHashes(join(documents, 'Memoria Vault'))))
   await mkdir(fixture)
   git(['init', '--initial-branch=main'])
   await checkpoint('Base conflict body')
@@ -74,7 +74,7 @@ async function verify() {
 async function restore() {
   await stop()
   const before = JSON.parse(await readFile(join(backup, 'laputa.json'), 'utf8'))
-  const after = await treeHashes(join(documents, 'Tolaria Vault'))
+  const after = await treeHashes(join(documents, 'Memoria Vault'))
   const unchanged = Object.keys(before).length === Object.keys(after).length && Object.keys(before).every(path => before[path] === after[path])
   const previous = join(backup, 'config')
   const currentNames = await readdir(config)

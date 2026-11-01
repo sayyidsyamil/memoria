@@ -36,7 +36,7 @@ async function requireClean(context: GitVaultContext) {
   return { changedFiles: 0, oid: await git.resolveRef({ ...context, ref: 'HEAD' }), workspaceChanged }
 }
 
-async function checkpoint(context: GitVaultContext, author: GitAuthor, message = 'Update vault from Tolaria mobile') {
+async function checkpoint(context: GitVaultContext, author: GitAuthor, message = 'Update vault from Memoria mobile') {
   if (!message.trim()) throw new Error('emptyCommitMessage')
   const { changed, workspaceChanged } = await refreshedChanges(context)
   for (const { filepath, deleted } of changed) {

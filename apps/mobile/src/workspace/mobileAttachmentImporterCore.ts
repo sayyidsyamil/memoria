@@ -33,7 +33,7 @@ export type MobileDocumentPickerResult = {
   canceled: boolean
 }
 
-export const MOBILE_ATTACHMENT_IMPORTS_GLOBAL_KEY = '__TOLARIA_MOBILE_ATTACHMENT_IMPORTS__'
+export const MOBILE_ATTACHMENT_IMPORTS_GLOBAL_KEY = '__MEMORIA_MOBILE_ATTACHMENT_IMPORTS__'
 
 export async function importMobileAttachment({
   fileSystem,

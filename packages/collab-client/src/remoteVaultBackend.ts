@@ -67,7 +67,7 @@ import {
 export { RemoteError };
 
 /**
- * The Tolaria remote behind the `VaultBackend` seam: files over the HTTP protocol, and notes
+ * The Memoria remote behind the `VaultBackend` seam: files over the HTTP protocol, and notes
  * as live documents over the collaboration channel. Notes are listed, read, created, written,
  * renamed and deleted; the operations the server does not offer yet are refused by name.
  */
@@ -99,7 +99,7 @@ function precondition({
 function unsupported(operation: string): () => Promise<never> {
 	return () =>
 		Promise.reject(
-			new Error(`${operation} is not available on the Tolaria remote yet`),
+			new Error(`${operation} is not available on the Memoria remote yet`),
 		);
 }
 

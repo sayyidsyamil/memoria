@@ -22,7 +22,7 @@ Use one keyboard subscription while any dialog is registered. Deduplicate a
 bubbling browser event and ignore modified/repeated Escape events. Keep native
 modal eligibility separate from command-palette arrow navigation, so a form does
 not make the note list consume cursor keys. Native Escape dispatch uses the
-existing TolariaKeyCommands bridge, not a synthetic editor command.
+existing MemoriaKeyCommands bridge, not a synthetic editor command.
 
 ## Consequences
 

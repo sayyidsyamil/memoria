@@ -64,7 +64,7 @@ export function needsRenameOnSave(title: string, filename: string): boolean {
   return `${slugify(title)}.md` !== filename
 }
 
-/** Renames through the vault's backend: Tauri on desktop, the server on a Tolaria remote, mock data otherwise. */
+/** Renames through the vault's backend: Tauri on desktop, the server on a Memoria remote, mock data otherwise. */
 async function renameThroughBackend(vaultPath: string, request: VaultRenameRequest): Promise<RenameResult> {
   const { newPath, updatedFiles, failedUpdates } = await createVaultBackend(vaultPath).files.rename(request)
   return { new_path: newPath, updated_files: updatedFiles, failed_updates: failedUpdates }

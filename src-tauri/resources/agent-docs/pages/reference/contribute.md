@@ -5,20 +5,20 @@ URL: /reference/contribute
 
 # Contribute
 
-Tolaria is free and open source, and any kind of help is useful. Pick the path that matches what you want to do.
+Memoria is free and open source, and any kind of help is useful. Pick the path that matches what you want to do.
 
 ## Newsletter
 
-[Refactoring](https://refactoring.fm/) is Luca's newsletter and community for engineers building better teams and software with AI. Subscribing is the best way to support Tolaria.
+[Refactoring](https://refactoring.fm/) is Luca's newsletter and community for engineers building better teams and software with AI. Subscribing is the best way to support Memoria.
 
 ## Sponsors
 
-Tolaria is supported by a panel of tools Luca uses every day to keep the project healthy, tested, and ready for AI-assisted development:
+Memoria is supported by a panel of tools Luca uses every day to keep the project healthy, tested, and ready for AI-assisted development:
 
 - [Codacy](https://codacy.com/tolaria?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
-- [CodeScene](https://codescene.com/?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
-- [CircleCI](https://circleci.com/?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
-- [Unblocked](https://getunblocked.com/?utm_source=tolaria&utm_medium=website&utm_campaign=refactoring)
+- [CodeScene](https://codescene.com/?utm_source=memoria&utm_medium=website&utm_campaign=refactoring)
+- [CircleCI](https://circleci.com/?utm_source=memoria&utm_medium=website&utm_campaign=refactoring)
+- [Unblocked](https://getunblocked.com/?utm_source=memoria&utm_medium=website&utm_campaign=refactoring)
 
 ## Feature Requests
 
@@ -26,7 +26,7 @@ Use the [product board](https://tolaria.canny.io/) for feature ideas. Search fir
 
 ## Community
 
-Join the [Tolaria Discord server](https://discord.gg/tRBC2u428B) for questions, conversations, show and tell, tips, and development updates.
+Join the [Memoria Discord server](https://discord.gg/tRBC2u428B) for questions, conversations, show and tell, tips, and development updates.
 
 ## Contribute Code
 
@@ -34,4 +34,4 @@ Small, focused pull requests are welcome. Check the product board first so you b
 
 ## Report A Bug
 
-Use [GitHub Issues](https://github.com/refactoringhq/tolaria/issues) for bugs. Include what happened, what you expected, and clear reproduction steps. If you are reporting from inside Tolaria, use the Contribute panel to copy sanitized diagnostics and attach them to the issue.
+Use [GitHub Issues](https://github.com/refactoringhq/tolaria/issues) for bugs. Include what happened, what you expected, and clear reproduction steps. If you are reporting from inside Memoria, use the Contribute panel to copy sanitized diagnostics and attach them to the issue.

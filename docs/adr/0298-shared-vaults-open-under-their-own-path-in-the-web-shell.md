@@ -15,7 +15,7 @@ TOL-237 (B5-3) builds the sharing UI on the TOL-18 model (ADR 0296):
 - A viewer must see a clear read-only state.
 - A revoke has to reach a note that is already open.
 
-The hosted front end serves a shared vault at `/vaults/<vaultId>/v1/*` and mints the user's access ticket per request. The share records and their API (`/api/shares*`) stay in the private front end (licensing boundary D2). Until now the shell had one remote vault per page, at `window.TOLARIA_REMOTE_URL`. It kept one entries snapshot, and its live documents retried forever when the server refused them.
+The hosted front end serves a shared vault at `/vaults/<vaultId>/v1/*` and mints the user's access ticket per request. The share records and their API (`/api/shares*`) stay in the private front end (licensing boundary D2). Until now the shell had one remote vault per page, at `window.MEMORIA_REMOTE_URL`. It kept one entries snapshot, and its live documents retried forever when the server refused them.
 
 ## Decision
 

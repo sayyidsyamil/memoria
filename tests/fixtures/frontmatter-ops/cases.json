@@ -40,11 +40,11 @@
     },
     {
       "name": "keeps CRLF line endings",
-      "content": "---\r\ntype: Note\r\nrelated_to:\r\n  - \"[[tolaria]]\"\r\n---\r\n# Properties Panel\r\n",
+      "content": "---\r\ntype: Note\r\nrelated_to:\r\n  - \"[[memoria]]\"\r\n---\r\n# Properties Panel\r\n",
       "key": "_organized",
       "op": "update",
       "value": true,
-      "expected": "---\r\ntype: Note\r\nrelated_to:\r\n  - \"[[tolaria]]\"\r\n_organized: true\r\n---\r\n# Properties Panel\r\n"
+      "expected": "---\r\ntype: Note\r\nrelated_to:\r\n  - \"[[memoria]]\"\r\n_organized: true\r\n---\r\n# Properties Panel\r\n"
     },
     {
       "name": "replaces a list in a CRLF file",

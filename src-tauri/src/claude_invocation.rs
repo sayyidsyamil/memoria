@@ -226,7 +226,7 @@ fn mcp_config(vault_path: &str, vault_paths: &[String]) -> Result<String, String
     let mcp_server_path = crate::cli_agent_runtime::mcp_server_path_string()?;
     let config = serde_json::json!({
         "mcpServers": {
-            "tolaria": crate::cli_agent_runtime::tolaria_node_mcp_server(
+            "memoria": crate::cli_agent_runtime::memoria_node_mcp_server(
                 &mcp_server_path,
                 vault_path,
                 vault_paths,

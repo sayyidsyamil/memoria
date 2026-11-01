@@ -12,16 +12,16 @@ function callbacks(): FrontmatterApplyCallbacks {
   return { updateTab: vi.fn(), updateEntry: vi.fn(), toast: vi.fn() }
 }
 
-describe('runFrontmatterAndApply with a Tolaria remote', () => {
+describe('runFrontmatterAndApply with a Memoria remote', () => {
   beforeEach(() => {
-    window.TOLARIA_REMOTE_URL = 'http://127.0.0.1:9'
-    window.TOLARIA_REMOTE_TOKEN = 'test-token'
+    window.MEMORIA_REMOTE_URL = 'http://127.0.0.1:9'
+    window.MEMORIA_REMOTE_TOKEN = 'test-token'
     editRemoteFrontmatter.mockResolvedValue(EDITED)
   })
 
   afterEach(() => {
-    Reflect.deleteProperty(window, 'TOLARIA_REMOTE_URL')
-    Reflect.deleteProperty(window, 'TOLARIA_REMOTE_TOKEN')
+    Reflect.deleteProperty(window, 'MEMORIA_REMOTE_URL')
+    Reflect.deleteProperty(window, 'MEMORIA_REMOTE_TOKEN')
     editRemoteFrontmatter.mockReset()
   })
 

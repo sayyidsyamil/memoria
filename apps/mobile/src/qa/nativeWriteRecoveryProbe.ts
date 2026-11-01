@@ -38,7 +38,7 @@ export async function runNativeWriteRecoveryProbe(endpoint: string, phase: strin
 }
 
 function recoveryProbeModule() {
-  const module = requireOptionalNativeModule<ProbeModule>('TolariaWorkspaceAccess')
+  const module = requireOptionalNativeModule<ProbeModule>('MemoriaWorkspaceAccess')
   const development = typeof __DEV__ !== 'undefined' && __DEV__
   if (!nativeStorageQaEnabled(development, module?.nativeStorageQAEnabled)
     || !module?.runTextRecoveryProbe) throw new Error('nativeTextRecoveryUnavailable')

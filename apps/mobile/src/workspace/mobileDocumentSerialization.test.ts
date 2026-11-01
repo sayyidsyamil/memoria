@@ -4,7 +4,7 @@ import { mobileMarkdownBodyToTentapHtml, tiptapJsonToMobileMarkdown, type Tiptap
 describe('mobile document content', () => {
 
 
-  it('serializes TenTap JSON back to Tolaria markdown', () => {
+  it('serializes TenTap JSON back to Memoria markdown', () => {
     const document: TiptapJsonNode = {
       type: 'doc',
       content: [
@@ -22,7 +22,7 @@ describe('mobile document content', () => {
             { marks: [{ type: 'highlight' }], text: 'highlighted context', type: 'text' },
             { text: ' and ', type: 'text' },
             {
-              marks: [{ attrs: { href: 'tolaria://wikilink/Tolaria%2FMobile%20UI' }, type: 'link' }],
+              marks: [{ attrs: { href: 'memoria://wikilink/Memoria%2FMobile%20UI' }, type: 'link' }],
               text: 'Mobile UI',
               type: 'text',
             },
@@ -41,7 +41,7 @@ describe('mobile document content', () => {
     expect(tiptapJsonToMobileMarkdown(document)).toBe([
       '# Workflow Orchestration Essay',
       '',
-      'Keep **relationships** visible with ==highlighted context== and [[Tolaria/Mobile UI|Mobile UI]].',
+      'Keep **relationships** visible with ==highlighted context== and [[Memoria/Mobile UI|Mobile UI]].',
       '',
       '- Copy desktop first',
     ].join('\n'))
@@ -101,16 +101,16 @@ describe('mobile document content', () => {
               type: 'tableRow',
               content: [
                 { attrs: { align: 'left' }, type: 'tableHeader', content: [{ text: 'Surface', type: 'text' }] },
-                { attrs: { tolariaAlignment: 'center' }, type: 'tableHeader', content: [{ text: 'Desktop', type: 'text' }] },
+                { attrs: { memoriaAlignment: 'center' }, type: 'tableHeader', content: [{ text: 'Desktop', type: 'text' }] },
                 { attrs: { align: 'right' }, type: 'tableHeader', content: [{ text: 'Mobile', type: 'text' }] },
               ],
             },
             {
               type: 'tableRow',
               content: [
-                { attrs: { tolariaAlignment: 'left' }, type: 'tableCell', content: [{ text: 'Editor', type: 'text' }] },
-                { attrs: { tolariaAlignment: 'center' }, type: 'tableCell', content: [{ text: 'BlockNote', type: 'text' }] },
-                { attrs: { tolariaAlignment: 'right' }, type: 'tableCell', content: [{ text: 'TenTap', type: 'text' }] },
+                { attrs: { memoriaAlignment: 'left' }, type: 'tableCell', content: [{ text: 'Editor', type: 'text' }] },
+                { attrs: { memoriaAlignment: 'center' }, type: 'tableCell', content: [{ text: 'BlockNote', type: 'text' }] },
+                { attrs: { memoriaAlignment: 'right' }, type: 'tableCell', content: [{ text: 'TenTap', type: 'text' }] },
               ],
             },
           ],
@@ -173,13 +173,13 @@ describe('mobile document content', () => {
           content: [
             { text: 'See ', type: 'text' },
             {
-              marks: [{ attrs: { href: 'tolaria://wikilink/Project%20Alpha' }, type: 'link' }],
+              marks: [{ attrs: { href: 'memoria://wikilink/Project%20Alpha' }, type: 'link' }],
               text: 'Project Alpha',
               type: 'text',
             },
             { text: ' and ', type: 'text' },
             {
-              marks: [{ attrs: { href: 'tolaria://wikilink/Tolaria%2FMobile%20UI' }, type: 'link' }],
+              marks: [{ attrs: { href: 'memoria://wikilink/Memoria%2FMobile%20UI' }, type: 'link' }],
               text: 'Mobile UI',
               type: 'text',
             },
@@ -189,7 +189,7 @@ describe('mobile document content', () => {
       ],
     }
 
-    expect(tiptapJsonToMobileMarkdown(document)).toBe('See [[Project Alpha]] and [[Tolaria/Mobile UI|Mobile UI]].')
+    expect(tiptapJsonToMobileMarkdown(document)).toBe('See [[Project Alpha]] and [[Memoria/Mobile UI|Mobile UI]].')
   })
 
   it('serializes link destinations with spaces using desktop angle syntax', () => {

@@ -27,7 +27,7 @@ function writeBundle(dir: string, release: string, outDir: string, bundle: Rollu
 }
 
 function tempDir(name: string): string {
-  return join(mkdtempSync(join(tmpdir(), 'tolaria-maps-')), name)
+  return join(mkdtempSync(join(tmpdir(), 'memoria-maps-')), name)
 }
 
 function fakeBundle(): Rollup.OutputBundle {
@@ -42,8 +42,8 @@ function fakeBundle(): Rollup.OutputBundle {
 
 describe('web Sentry build settings', () => {
   it('names the release after the commit unless one is given', () => {
-    assert.equal(webRelease({}, COMMIT), `tolaria-web@${COMMIT}`)
-    assert.equal(webRelease({ TOLARIA_WEB_RELEASE: ' tolaria-web@abc1234 ' }, COMMIT), 'tolaria-web@abc1234')
+    assert.equal(webRelease({}, COMMIT), `memoria-web@${COMMIT}`)
+    assert.equal(webRelease({ MEMORIA_WEB_RELEASE: ' memoria-web@abc1234 ' }, COMMIT), 'memoria-web@abc1234')
     assert.equal(webRelease({}, ''), '')
   })
 
@@ -52,9 +52,9 @@ describe('web Sentry build settings', () => {
       'import.meta.env.VITE_SENTRY_DSN': '""',
       'import.meta.env.VITE_SENTRY_RELEASE': '""',
     })
-    const define = webSentryDefine({ TOLARIA_WEB_SENTRY_DSN: ' http://key@127.0.0.1:9/1 ' }, 'tolaria-web@abc1234')
+    const define = webSentryDefine({ MEMORIA_WEB_SENTRY_DSN: ' http://key@127.0.0.1:9/1 ' }, 'memoria-web@abc1234')
     assert.equal(define['import.meta.env.VITE_SENTRY_DSN'], '"http://key@127.0.0.1:9/1"')
-    assert.equal(define['import.meta.env.VITE_SENTRY_RELEASE'], '"tolaria-web@abc1234"')
+    assert.equal(define['import.meta.env.VITE_SENTRY_RELEASE'], '"memoria-web@abc1234"')
   })
 
   it('never takes the desktop DSN', () => {
@@ -64,7 +64,7 @@ describe('web Sentry build settings', () => {
 
   it('reads the checked-out commit, or nothing outside a checkout', () => {
     assert.match(currentCommit(process.cwd()), /^[0-9a-f]{40}$/)
-    assert.equal(currentCommit(mkdtempSync(join(tmpdir(), 'tolaria-no-git-'))), '')
+    assert.equal(currentCommit(mkdtempSync(join(tmpdir(), 'memoria-no-git-'))), '')
   })
 })
 
@@ -73,7 +73,7 @@ describe('hidden source maps plugin', () => {
     const dir = tempDir('sourcemaps')
     const outDir = tempDir('dist')
 
-    writeBundle(dir, 'tolaria-web@abc1234', outDir, fakeBundle())
+    writeBundle(dir, 'memoria-web@abc1234', outDir, fakeBundle())
 
     assert.equal(existsSync(join(outDir, 'assets/index-a.js.map')), false)
     assert.equal(existsSync(join(outDir, 'assets/app-b.js.map')), false)
@@ -81,7 +81,7 @@ describe('hidden source maps plugin', () => {
     assert.equal(existsSync(join(outDir, 'assets/index-c.css')), true)
     assert.equal(readFileSync(join(dir, 'assets/app-b.js.map'), 'utf8'), '{"version":3,"file":"b"}')
     assert.deepEqual(JSON.parse(readFileSync(join(dir, SOURCEMAP_MANIFEST_FILE), 'utf8')), {
-      release: 'tolaria-web@abc1234',
+      release: 'memoria-web@abc1234',
       files: [
         { file: 'assets/app-b.js', map: 'assets/app-b.js.map' },
         { file: 'assets/index-a.js', map: 'assets/index-a.js.map' },
@@ -91,12 +91,12 @@ describe('hidden source maps plugin', () => {
 
   it('replaces the maps of a previous build', () => {
     const dir = tempDir('sourcemaps')
-    writeBundle(dir, 'tolaria-web@abc1234', tempDir('dist'), fakeBundle())
-    writeBundle(dir, 'tolaria-web@def5678', tempDir('dist'), {})
+    writeBundle(dir, 'memoria-web@abc1234', tempDir('dist'), fakeBundle())
+    writeBundle(dir, 'memoria-web@def5678', tempDir('dist'), {})
 
     assert.equal(existsSync(join(dir, 'assets/app-b.js.map')), false)
     assert.deepEqual(JSON.parse(readFileSync(join(dir, SOURCEMAP_MANIFEST_FILE), 'utf8')), {
-      release: 'tolaria-web@def5678',
+      release: 'memoria-web@def5678',
       files: [],
     })
   })

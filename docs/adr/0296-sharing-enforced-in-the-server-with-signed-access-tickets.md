@@ -8,13 +8,13 @@ date: 2026-10-25
 
 ## Context
 
-TOL-18 (B5-2) lets a Tolaria Web user share a note or a whole vault with another user as `editor` or `viewer`, and revoke it with immediate effect, open websockets included. The licensing boundary (`docs/web/licensing-boundary.md`, decided by Luca on 25 Oct 2026) puts enforcement in the open `apps/server` (AGPL), so self-hosted multiplayer has access control, and keeps share and account records and their API in the private `tolaria-cloud` front Worker, which must not import the open packages and talks to the server only over the protocol. Until now the server had one credential, the bearer token, with full access. The hosted front end and the server are deployed separately, in either order.
+TOL-18 (B5-2) lets a Memoria Web user share a note or a whole vault with another user as `editor` or `viewer`, and revoke it with immediate effect, open websockets included. The licensing boundary (`docs/web/licensing-boundary.md`, decided by Luca on 25 Oct 2026) puts enforcement in the open `apps/server` (AGPL), so self-hosted multiplayer has access control, and keeps share and account records and their API in the private `memoria-cloud` front Worker, which must not import the open packages and talks to the server only over the protocol. Until now the server had one credential, the bearer token, with full access. The hosted front end and the server are deployed separately, in either order.
 
 ## Decision
 
 **The front end mints, per request, a signed access ticket for the user making it and sends it as the bearer credential instead of the token (protocol 1.9). The server verifies and enforces it on every route and on the websocket, and `POST /v1/access/revocations` refuses a user's older tickets and closes the connections the user's remaining grants no longer cover.**
 
-- Format `ta1.<base64url JSON>.<base64url HMAC-SHA256>`, payload `{ v: 1, sub, grants: [{ scope: "*" | <path>, role }], iat, exp }`, at most 10 minutes of life. The HMAC key is HMAC-SHA256(server token, `tolaria access ticket v1`): whoever holds the token can mint, so no new secret is configured and the token never leaves the front end.
+- Format `ta1.<base64url JSON>.<base64url HMAC-SHA256>`, payload `{ v: 1, sub, grants: [{ scope: "*" | <path>, role }], iat, exp }`, at most 10 minutes of life. The HMAC key is HMAC-SHA256(server token, `memoria access ticket v1`): whoever holds the token can mint, so no new secret is configured and the token never leaves the front end.
 - Roles: `viewer` reads, `editor` also changes file content in its scope, and adding, moving or deleting files needs `editor` on the whole vault; `owner` (vault scope only, or the token) can also revoke. Paths outside every grant are answered as missing and filtered out of listings, the index, search and the change feed.
 - A collab ticket keeps the access ticket it was asked with; its websocket is tracked per subject and closed with `4403` when a revocation leaves it uncovered.
 - The bearer token keeps meaning the owner with full access: the single-user path is unchanged.

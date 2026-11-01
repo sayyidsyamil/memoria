@@ -2,12 +2,12 @@ import XCTest
 
 final class TabletSourceFindTests: XCTestCase {
   func testFindScrollsLongSourceAndPreservesFrontmatter() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_SOURCE_FIND"] == "1", "Requires an isolated host-prepared source vault")
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_SOURCE_FIND"] == "1", "Requires an isolated host-prepared source vault")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     // The host prepares an isolated long-source vault and restores the catalog afterward.
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native&editorMode=source&qaRun=source-find-long"]
+    app.launchArguments = ["--memoria-mobile-search", "?source=native&editorMode=source&qaRun=source-find-long"]
     app.launch()
     let input = element(app, "editor-markdown-input")
     XCTAssertTrue(input.waitForExistence(timeout: 30))

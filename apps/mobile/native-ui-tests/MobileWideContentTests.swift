@@ -52,8 +52,8 @@ final class MobileWideContentTests: XCTestCase {
   private func launchFixture() -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=editor&editorMode=source&tabletPanels=all&qaRun=wide-content"]
     app.launch()
     XCTAssertTrue(element(app, "editor-markdown-input").waitForExistence(timeout: 30))

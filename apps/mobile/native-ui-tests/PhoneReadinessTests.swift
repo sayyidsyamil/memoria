@@ -7,7 +7,7 @@ final class PhoneReadinessTests: XCTestCase {
       image.name = "phone-readiness-failure"
       image.lifetime = .keepAlways
       add(image)
-      let tree = XCTAttachment(string: XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").debugDescription)
+      let tree = XCTAttachment(string: XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").debugDescription)
       tree.lifetime = .keepAlways
       add(tree)
     }
@@ -55,8 +55,8 @@ final class PhoneReadinessTests: XCTestCase {
   private func launch(_ mode: String) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=editor&editorMode=\(mode)&qaRun=phone-readiness"]
     app.launch()
     XCTAssertTrue(element(app, "editor-toolbar").waitForExistence(timeout: 30))

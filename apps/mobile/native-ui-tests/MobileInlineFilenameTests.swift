@@ -30,10 +30,10 @@ final class MobileInlineFilenameTests: XCTestCase {
   private func launchWorkspace() -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&phoneState=editor&editorMode=source&qaRun=inline-filename"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     app.launch()
     XCTAssertTrue(element(app, "editor-toolbar-title").waitForExistence(timeout: 30))
     let title = element(app, "editor-toolbar-title").frame

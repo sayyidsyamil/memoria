@@ -17,13 +17,13 @@ async function main() {
   if (!device) throw new Error('Usage: node test-ios-panel-gestures.mjs SIMULATOR_UDID [ARTIFACT_DIRECTORY]')
   const status = await fetch('http://127.0.0.1:8081/status', { signal: AbortSignal.timeout(3000), credentials: 'omit', redirect: 'error' })
   if (!status.ok || !(await status.text()).includes('packager-status:running')) throw new Error('Start the mobile Metro server on port 8081 first')
-  run('xcrun', ['simctl', 'get_app_container', device, 'com.tolaria.mobile.dev', 'app'])
-  const output = resolve(artifactDirectory ?? join(tmpdir(), 'tolaria-native-panel-tests'))
+  run('xcrun', ['simctl', 'get_app_container', device, 'com.memoria.mobile.dev', 'app'])
+  const output = resolve(artifactDirectory ?? join(tmpdir(), 'memoria-native-panel-tests'))
   const projectDirectory = join(output, 'project')
   mkdirSync(output, { recursive: true })
   run('ruby', [fileURLToPath(new URL('../native-ui-tests/create-project.rb', import.meta.url)), projectDirectory])
   // Unsigned runner installs can be cached by Xcode even after the test code changes.
-  run('xcrun', ['simctl', 'uninstall', device, 'com.tolaria.mobile.tablet-gesture-tests.xctrunner'])
+  run('xcrun', ['simctl', 'uninstall', device, 'com.memoria.mobile.tablet-gesture-tests.xctrunner'])
   run('xcodebuild', [
     '-project', join(projectDirectory, 'TabletPanelGestureTests.xcodeproj'),
     '-scheme', 'TabletPanelGestureTests', '-destination', `id=${device}`,

@@ -19,8 +19,8 @@ final class TabletCommandPaletteKeyboardTests: XCTestCase {
 
   private func verifyPalette(orientation: UIDeviceOrientation) {
     XCUIDevice.shared.orientation = orientation
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&commandPalette=1&qaRun=palette-keyboard"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&commandPalette=1&qaRun=palette-keyboard"]
     app.launch()
     let input = app.textFields.matching(identifier: "mobile-command-palette-input").firstMatch
     XCTAssertTrue(input.waitForExistence(timeout: 30))

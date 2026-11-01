@@ -58,19 +58,19 @@ const TooltipContent = React.forwardRef<
 			>
 				<div
 					className={cn(
-						"bg-foreground text-background w-fit max-w-[min(calc(var(--radix-tooltip-content-available-width,22rem)/var(--tolaria-overlay-zoom-factor,1)),22rem)] rounded-md px-3 py-1.5 text-xs text-balance",
+						"bg-foreground text-background w-fit max-w-[min(calc(var(--radix-tooltip-content-available-width,22rem)/var(--memoria-overlay-zoom-factor,1)),22rem)] rounded-md px-3 py-1.5 text-xs text-balance",
 						className,
 					)}
 					// Apply zoom to inner content for correct visual size
-					style={{ zoom: "var(--tolaria-overlay-zoom-factor, 1)", ...style }}
+					style={{ zoom: "var(--memoria-overlay-zoom-factor, 1)", ...style }}
 				>
 					{children}
 				</div>
 				<TooltipPrimitive.Arrow
 					className="bg-foreground fill-foreground z-50 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]"
 					style={{
-						width: "calc(0.625rem * var(--tolaria-overlay-zoom-factor, 1))",
-						height: "calc(0.625rem * var(--tolaria-overlay-zoom-factor, 1))",
+						width: "calc(0.625rem * var(--memoria-overlay-zoom-factor, 1))",
+						height: "calc(0.625rem * var(--memoria-overlay-zoom-factor, 1))",
 					}}
 				/>
 			</TooltipPrimitive.Content>

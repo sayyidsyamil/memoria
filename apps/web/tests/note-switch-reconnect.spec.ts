@@ -105,8 +105,8 @@ test("switching between live notes reconnects every time", async ({
 	await Promise.all(notes.map((note) => createNote(request, note)));
 	try {
 		await page.addInitScript((token) => {
-			window.TOLARIA_REMOTE_URL = window.location.origin;
-			window.TOLARIA_REMOTE_TOKEN = token;
+			window.MEMORIA_REMOTE_URL = window.location.origin;
+			window.MEMORIA_REMOTE_TOKEN = token;
 		}, COLLAB_TOKEN);
 		await page.goto(`/?note=${encodeURIComponent(notes[0].path)}`);
 		await expectConnected(page, notes[0]);

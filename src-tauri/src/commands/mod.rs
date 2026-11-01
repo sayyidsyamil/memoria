@@ -14,6 +14,10 @@ mod sheet;
 mod system;
 mod vault;
 mod version;
+mod wiki_memory;
+mod meeting_hud;
+mod live_speech;
+pub(crate) mod model_manager;
 
 use std::borrow::Cow;
 
@@ -31,6 +35,10 @@ pub use sheet::*;
 pub use system::*;
 pub use vault::*;
 pub use version::*;
+pub use wiki_memory::*;
+pub use meeting_hud::*;
+pub use live_speech::*;
+pub use model_manager::*;
 
 /// Expand a leading `~` or `~/` in a path string to the user's home directory.
 /// Returns the original string unchanged if it doesn't start with `~` or if the

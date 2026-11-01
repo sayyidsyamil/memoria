@@ -8,7 +8,7 @@ date: 2026-10-25
 
 ## Context
 
-TOL-238 (B5-4). Since TOL-18 (ADR 0296) other users can edit a shared vault or note through Tolaria Web, but the server commits every change as the vault's single git identity, so the history does not say who changed a file. The server knows a collaborator only by the opaque `sub` of their access ticket; user records (identities, emails) stay in the private front end (`tolaria-cloud`), which talks to the open server only over the protocol (`docs/web/licensing-boundary.md`). The front end and the server deploy separately, in either order, and the owner's commits are read by the desktop app, which must see no change.
+TOL-238 (B5-4). Since TOL-18 (ADR 0296) other users can edit a shared vault or note through Memoria Web, but the server commits every change as the vault's single git identity, so the history does not say who changed a file. The server knows a collaborator only by the opaque `sub` of their access ticket; user records (identities, emails) stay in the private front end (`memoria-cloud`), which talks to the open server only over the protocol (`docs/web/licensing-boundary.md`). The front end and the server deploy separately, in either order, and the owner's commits are read by the desktop app, which must see no change.
 
 ## Decision
 

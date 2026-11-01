@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Single entry point for every GitHub Pages publisher (deploy-docs.yml,
-# release.yml, CircleCI publish-docs). It builds the tolaria.md landing and
+# release.yml, CircleCI publish-docs). It builds the memoria.md landing and
 # the VitePress docs, lays the landing over the docs root, then lets
 # assemble-pages-site.sh write the updater manifests (latest.json,
 # latest-canary.json, alpha/, stable/) and the download/release pages LAST so
@@ -21,7 +21,7 @@ docs_dist="site/.vitepress/dist"
 landing_dist="site/landing/dist"
 
 if [[ "${PAGES_SKIP_BUILD:-}" != "1" ]]; then
-  pnpm --filter @tolaria/landing build:tolaria-md
+  pnpm --filter @memoria/landing build:memoria-md
   VITEPRESS_BASE="${VITEPRESS_BASE:-/}" pnpm docs:build
 fi
 

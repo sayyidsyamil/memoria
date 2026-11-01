@@ -11,7 +11,7 @@ type EntryInspection = {
 type ProbeModule = { runEntryRecoveryProbe: (phase: NativePhase) => Promise<EntryInspection> }
 
 export async function nativeEntryRecoveryChecks(phase: string): Promise<Record<string, boolean>> {
-  const module = requireOptionalNativeModule<ProbeModule>('TolariaWorkspaceAccess')
+  const module = requireOptionalNativeModule<ProbeModule>('MemoriaWorkspaceAccess')
   if (!module?.runEntryRecoveryProbe) throw new Error('nativeEntryRecoveryUnavailable')
   return runEntryPhase(module, phase)
 }

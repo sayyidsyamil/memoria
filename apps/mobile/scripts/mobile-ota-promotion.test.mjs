@@ -5,8 +5,8 @@ import { promoteMobileUpdate } from './promote-mobile-update.mjs'
 const group = 'd85cbbce-01aa-4bfe-a7fb-a70b2e64d536'
 const runtime = 'a'.repeat(40)
 function environment(overrides = {}) {
-  return { CIRCLE_BRANCH: 'main', TOLARIA_OTA_CHANNEL: 'stable', TOLARIA_OTA_GROUP: group,
-    TOLARIA_OTA_RUNTIME: runtime, EXPO_TOKEN: 'test-only', ...overrides }
+  return { CIRCLE_BRANCH: 'main', MEMORIA_OTA_CHANNEL: 'stable', MEMORIA_OTA_GROUP: group,
+    MEMORIA_OTA_RUNTIME: runtime, EXPO_TOKEN: 'test-only', ...overrides }
 }
 function executor(overrides = {}) {
   const calls = []
@@ -30,8 +30,8 @@ test('promotion republishes the exact tested alpha group without exporting or ch
   assert(!publish.args.includes('test-only'))
 })
 
-for (const overrides of [{ CIRCLE_BRANCH: 'feature' }, { TOLARIA_OTA_CHANNEL: 'alpha' },
-  { TOLARIA_OTA_GROUP: '' }, { TOLARIA_OTA_GROUP: '--bad-option' }, { TOLARIA_OTA_RUNTIME: '' },
+for (const overrides of [{ CIRCLE_BRANCH: 'feature' }, { MEMORIA_OTA_CHANNEL: 'alpha' },
+  { MEMORIA_OTA_GROUP: '' }, { MEMORIA_OTA_GROUP: '--bad-option' }, { MEMORIA_OTA_RUNTIME: '' },
   { EXPO_TOKEN: '' }]) {
   test(`refuses invalid promotion target ${JSON.stringify(overrides)}`, () => {
     const run = executor()

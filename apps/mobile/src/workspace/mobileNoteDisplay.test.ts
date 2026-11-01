@@ -7,7 +7,7 @@ describe('mobile note display', () => {
     const candidate = note({
       properties: [
         { key: 'Due Date', label: 'Due Date', value: '2026-06-14' },
-        { key: 'URL', label: 'URL', value: 'https://tolaria.app/docs' },
+        { key: 'URL', label: 'URL', value: 'https://memoria.app/docs' },
         { key: 'Published', label: 'Published', value: false },
         { key: 'Areas', label: 'Areas', value: ['Design', 'AI'] },
       ],
@@ -15,13 +15,13 @@ describe('mobile note display', () => {
 
     expect(mobileNoteDisplayLabels(candidate, ['Due Date', 'URL', 'Published', 'Areas'])).toEqual([
       'June 14, 2026',
-      'tolaria.app',
+      'memoria.app',
       'false',
       'Design',
       'AI',
     ])
     expect(mobileNoteRowChips(candidate, ['URL'])[0]).toMatchObject({
-      label: 'tolaria.app',
+      label: 'memoria.app',
       tone: 'blue',
     })
   })
@@ -29,7 +29,7 @@ describe('mobile note display', () => {
   it('honors persisted desktop display modes for note-list chips', () => {
     const candidate = note({
       properties: [
-        { key: 'Website', label: 'Website', value: 'tolaria.app/docs' },
+        { key: 'Website', label: 'Website', value: 'memoria.app/docs' },
         { key: 'Priority', label: 'Priority', value: 'High' },
       ],
     })
@@ -38,7 +38,7 @@ describe('mobile note display', () => {
       Priority: 'status',
       Website: 'url',
     })).toEqual([
-      { label: 'tolaria.app', tone: 'blue' },
+      { label: 'memoria.app', tone: 'blue' },
       { label: 'High', tone: 'orange' },
     ])
   })

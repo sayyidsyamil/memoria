@@ -5,7 +5,7 @@ import { dirname, join } from 'node:path'
 import { URL, fileURLToPath, pathToFileURL } from 'node:url'
 
 const scriptPath = fileURLToPath(new URL('./serve-local-vault.ts', import.meta.url))
-const outputPath = join(tmpdir(), 'tolaria-mobile', 'serve-local-vault.cjs')
+const outputPath = join(tmpdir(), 'memoria-mobile', 'serve-local-vault.cjs')
 
 await mkdir(dirname(outputPath), { recursive: true })
 await build({

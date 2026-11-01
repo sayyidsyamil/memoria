@@ -142,7 +142,7 @@ describe('mobile note creation parity', () => {
     }])
   })
 
-  it('keeps fixture-created scratch notes on the default Tolaria vault label', () => {
+  it('keeps fixture-created scratch notes on the default Memoria vault label', () => {
     const result = applyMobileWorkspaceEditWithWrites(workspaceScenarioForId('default'), {
       title: 'Mobile QA Draft',
       type: 'createNote',
@@ -151,12 +151,12 @@ describe('mobile note creation parity', () => {
 
     expect(note).toMatchObject({
       path: 'mobile-qa-draft.md',
-      workspace: 'Tolaria Vault',
+      workspace: 'Memoria Vault',
       workspaceAlias: null,
     })
     expect(buildMobileDeepLinkForNote({ note, source: result.snapshot.source })).toEqual({
       ok: true,
-      url: 'tolaria://tolaria-vault/mobile-qa-draft.md',
+      url: 'memoria://memoria-vault/mobile-qa-draft.md',
     })
   })
 
@@ -166,7 +166,7 @@ describe('mobile note creation parity', () => {
         folderPath: 'Writing/Launch',
         organized: false,
         properties: { priority: 'High' },
-        relationships: { belongs_to: ['[[Tolaria MVP]]'] },
+        relationships: { belongs_to: ['[[Memoria MVP]]'] },
         status: 'Active',
         tags: ['Design', 'Mobile'],
         type: 'Procedure',
@@ -186,14 +186,14 @@ describe('mobile note creation parity', () => {
       typeTone: 'purple',
     })
     expect(note.relationships.find((relationship) => relationship.key === 'belongs_to')?.values).toContainEqual(
-      expect.objectContaining({ title: 'Tolaria MVP', type: 'Note' }),
+      expect.objectContaining({ title: 'Memoria MVP', type: 'Note' }),
     )
     expect(note.rawContent).toContain('type: Procedure')
     expect(note.rawContent).toContain('status: Active')
     expect(note.rawContent).toContain('title: Launch Checklist')
     expect(note.rawContent).toContain('tags:\n  - Design\n  - Mobile')
     expect(note.rawContent).toContain('priority: High')
-    expect(note.rawContent).toContain('belongs_to: "[[Tolaria MVP]]"')
+    expect(note.rawContent).toContain('belongs_to: "[[Memoria MVP]]"')
     expect(result.writes).toEqual([{
       content: note.rawContent,
       kind: 'createNote',
@@ -204,7 +204,7 @@ describe('mobile note creation parity', () => {
   it('preserves desktop relationship key spelling from create-note defaults', () => {
     const result = applyMobileWorkspaceEditWithWrites(workspaceScenarioForId('default'), {
       defaults: {
-        relationships: { 'Belongs to': ['[[Tolaria MVP]]'] },
+        relationships: { 'Belongs to': ['[[Memoria MVP]]'] },
         type: 'Project',
       },
       title: 'Relationship Key Contract',
@@ -213,9 +213,9 @@ describe('mobile note creation parity', () => {
     const note = result.snapshot.notes[0]
 
     expect(note.relationships.find((relationship) => relationship.key === 'Belongs to')?.values).toContainEqual(
-      expect.objectContaining({ title: 'Tolaria MVP' }),
+      expect.objectContaining({ title: 'Memoria MVP' }),
     )
-    expect(note.rawContent).toContain('Belongs to: "[[Tolaria MVP]]"')
+    expect(note.rawContent).toContain('Belongs to: "[[Memoria MVP]]"')
     expect(note.rawContent).not.toContain('belongs_to:')
     expect(result.writes).toEqual([{
       content: note.rawContent,

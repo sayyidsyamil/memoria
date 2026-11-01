@@ -62,7 +62,7 @@ const sidebarItemMetricSpecs: SidebarItemMetricSpec[] = [
   { contentHeight: nativeSidebarMetricContract.itemContentHeight.withCount, id: 'sidebar.item.all-notes', padding: nativeSidebarMetricContract.itemPadding.withCount },
   { contentHeight: nativeSidebarMetricContract.itemContentHeight.withCount, id: 'sidebar.item.archive', padding: nativeSidebarMetricContract.itemPadding.withCount },
   { contentHeight: nativeSidebarMetricContract.itemContentHeight.regular, id: 'sidebar.item.personal-journal', padding: nativeSidebarMetricContract.itemPadding.regular },
-  { contentHeight: nativeSidebarMetricContract.itemContentHeight.regular, id: 'sidebar.item.tolaria-mvp', padding: nativeSidebarMetricContract.itemPadding.regular },
+  { contentHeight: nativeSidebarMetricContract.itemContentHeight.regular, id: 'sidebar.item.memoria-mvp', padding: nativeSidebarMetricContract.itemPadding.regular },
   { contentHeight: nativeSidebarMetricContract.itemContentHeight.withCount, id: 'sidebar.item.view-active-procedures', padding: nativeSidebarMetricContract.itemPadding.withCount },
   { contentHeight: nativeSidebarMetricContract.itemContentHeight.withCount, id: 'sidebar.item.essays', padding: nativeSidebarMetricContract.itemPadding.withCount },
   { contentHeight: nativeSidebarMetricContract.itemContentHeight.withCount, id: 'sidebar.item.procedures', padding: nativeSidebarMetricContract.itemPadding.withCount },
@@ -81,7 +81,7 @@ const sidebarCountContainerSuffix = '.count.container'
 
 const sidebarItemRowOrder = [
   ['sidebar.item.inbox', 'sidebar.item.all-notes', 'sidebar.item.archive'],
-  ['sidebar.item.personal-journal', 'sidebar.item.tolaria-mvp'],
+  ['sidebar.item.personal-journal', 'sidebar.item.memoria-mvp'],
   ['sidebar.item.essays', 'sidebar.item.procedures', 'sidebar.item.responsibilities'],
 ] as const
 

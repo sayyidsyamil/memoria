@@ -439,7 +439,7 @@ index 0f97dc48ddedfb9661b81c7469ce504dc974e284..e1af7dbc1e590a4cc7cdd4ec921b7b68
    })
  );
 -let fe = !1;
-+const bnLinkifyProtocolFlag = "__tolariaBlockNoteLinkifyProtocolsRegistered";
++const bnLinkifyProtocolFlag = "__memoriaBlockNoteLinkifyProtocolsRegistered";
 +const bnGlobalObject = typeof globalThis > "u" ? void 0 : globalThis;
 +let fe = Boolean(bnGlobalObject && bnGlobalObject[bnLinkifyProtocolFlag]);
  function mn(o, e) {
@@ -450,9 +450,9 @@ index 0f97dc48ddedfb9661b81c7469ce504dc974e284..e1af7dbc1e590a4cc7cdd4ec921b7b68
        defaultProtocol: Ct,
        // only call this once if we have multiple editors installed. Or fix https://github.com/ueberdosis/tiptap/issues/5450
 -      protocols: fe ? [] : Bt
-+      // Tolaria routes editor link clicks through its guarded native opener.
++      // Memoria routes editor link clicks through its guarded native opener.
 +      openOnClick: !1,
-+      // Tolaria pre-registers BlockNote's non-native protocols before linkify initializes.
++      // Memoria pre-registers BlockNote's non-native protocols before linkify initializes.
 +      protocols: []
      }),
      ...Object.values(o.schema.styleSpecs).map((n) => n.implementation.mark.configure({
@@ -677,9 +677,9 @@ index 45f0acf8e5d869eb13a3c3d70e6f67059f86c598..2a4d15c8e8465181cc009ed9912cd284
        defaultProtocol: DEFAULT_LINK_PROTOCOL,
        // only call this once if we have multiple editors installed. Or fix https://github.com/ueberdosis/tiptap/issues/5450
 -      protocols: LINKIFY_INITIALIZED ? [] : VALID_LINK_PROTOCOLS,
-+      // Tolaria routes editor link clicks through its guarded native opener.
++      // Memoria routes editor link clicks through its guarded native opener.
 +      openOnClick: false,
-+      // Tolaria pre-registers BlockNote's non-native protocols before linkify initializes.
++      // Memoria pre-registers BlockNote's non-native protocols before linkify initializes.
 +      protocols: [],
      }),
      ...(Object.values(editor.schema.styleSpecs).map((styleSpec) => {

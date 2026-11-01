@@ -90,13 +90,13 @@ test.describe('Type-derived instance properties', () => {
     await expect(genresRow.getByTitle('Add genres')).toBeVisible()
 
     await projectsRow.getByTitle('Add projects').click()
-    await projectsRow.getByPlaceholder('Projects...').fill('Tolaria')
+    await projectsRow.getByPlaceholder('Projects...').fill('Memoria')
     await projectsRow.getByPlaceholder('Projects...').press('Enter')
     await expect.poll(async () => page.evaluate(async ({ notePath }) => {
       const getContent = window.__mockHandlers?.get_note_content
       if (typeof getContent !== 'function') throw new Error('Fixture vault is missing get_note_content')
       return getContent({ path: notePath })
-    }, { notePath: `${tempVaultDir}/dune.md` })).toContain('Projects:\n  - "Tolaria"')
+    }, { notePath: `${tempVaultDir}/dune.md` })).toContain('Projects:\n  - "Memoria"')
 
     await startDatePlaceholder.click()
     const startDateRow = page.getByTestId('editable-property').filter({ hasText: 'Start date' })

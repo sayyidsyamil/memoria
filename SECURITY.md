@@ -1,55 +1,34 @@
-# Security Policy
+# Security policy
 
-Thanks for helping keep Tolaria safe.
+## Supported scope
 
-If you believe you have found a security vulnerability, **please do not open a public GitHub issue**. Report it privately instead.
-
-## Supported versions
-
-We currently support security fixes for:
-
-| Version | Supported |
-| --- | --- |
-| Latest stable release | ✅ |
-| `main` branch | Best effort |
-| Older releases / prereleases | ❌ |
+Memoria is a research prototype. Security fixes on the current `main` branch are
+best effort; there is no supported stable binary release yet. Historical branches
+and inherited release artifacts are not maintained Memoria distributions.
 
 ## Reporting a vulnerability
 
-Please use GitHub's private vulnerability reporting flow for this repository.
+Use [GitHub private vulnerability reporting](https://github.com/sayyidsyamil/memoria/security/advisories/new).
+Do not post working exploits, credentials, private recordings, or sensitive meeting
+content in public issues.
 
-Include as much of the following as you can:
+Include:
 
-- a short description of the issue
-- reproduction steps or a proof of concept
-- affected version / commit, if known
-- impact assessment
-- any suggested mitigation
+- The affected commit and operating system.
+- A concise impact description and reproducible steps using fictional data.
+- The relevant entry point: imported file, vault path, model output, local command,
+  or inherited remote integration.
+- Suggested mitigation, if known.
 
-If the issue involves sensitive user data, credentials, or a working exploit, keep the report private and do not post details publicly.
+Reports are assessed on a best-effort basis. Please coordinate disclosure before
+publishing details; this project does not promise an enterprise support SLA.
 
-## What to expect
+## Data and trust boundaries
 
-We will try to:
+Meeting inference is designed to use local processes and cached models. Vaults can
+contain microphone audio, speaker templates, quotes, and publication journals.
+Imported documents and model outputs must be treated as untrusted input. A valid
+quote proves provenance, not factual truth or safe instructions.
 
-- acknowledge receipt within a few business days
-- reproduce and assess the report
-- work on a fix or mitigation if the issue is valid
-- coordinate public disclosure after users have had a reasonable chance to update
-
-## Disclosure guidelines
-
-Please give us a reasonable amount of time to investigate and ship a fix before publishing details.
-
-We appreciate responsible disclosure and good-faith research.
-
-## Out of scope
-
-The following are generally out of scope unless they demonstrate a real security impact:
-
-- missing best-practice headers or hardening with no practical exploit
-- self-XSS or editor behavior that requires unrealistic user actions
-- reports that only affect unsupported old builds
-- purely theoretical issues with no plausible attack path
-
-If you are unsure whether something qualifies, please still report it privately.
+The inherited workspace includes optional network-facing integrations; local
+meeting inference is not a claim that every application feature is offline.

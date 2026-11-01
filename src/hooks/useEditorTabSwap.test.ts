@@ -979,7 +979,7 @@ describe('useEditorTabSwap raw mode sync', () => {
       initialProps: { tabs: [makeTab('a.md', 'Formula')], activeTabPath: 'a.md', rawMode: false },
       setupEditor: (editor) => {
         editor.tryParseMarkdownToBlocks.mockImplementation((markdown: string) => {
-          if (markdown.includes('@@TOLARIA_MATH_BLOCK:')) throw parseError
+          if (markdown.includes('@@MEMORIA_MATH_BLOCK:')) throw parseError
           return blocksA
         })
       },

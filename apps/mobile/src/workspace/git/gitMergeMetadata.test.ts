@@ -11,7 +11,7 @@ const roots: string[] = []
 afterEach(async () => { for (const root of roots.splice(0)) await rm(root, { recursive: true, force: true }) })
 
 async function divergent(path: string, base: string, local: string, remote: string) {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-metadata-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-metadata-'))
   roots.push(dir)
   const context = { fs, dir }
   const vault = createGitVault(context)

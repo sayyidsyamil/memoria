@@ -1,0 +1,15 @@
+.player { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+.player-toggle { display: grid; flex-shrink: 0; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--foreground); color: var(--background); cursor: pointer; transition: transform 120ms, opacity 120ms; }
+.player-toggle:hover { opacity: .88; }
+.player-toggle:active { transform: scale(.94); }
+.player-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.player-time { flex-shrink: 0; min-width: 34px; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--muted-foreground); }
+.player-track { position: relative; flex: 1; min-width: 60px; height: 20px; display: flex; align-items: center; }
+.player-track input[type='range'] { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; appearance: none; background: transparent; cursor: pointer; }
+.player-track::before { content: ''; position: absolute; left: 0; right: 0; height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--foreground) var(--progress), var(--muted) var(--progress)); pointer-events: none; }
+.player-track input[type='range']::-webkit-slider-runnable-track { height: 20px; background: transparent; }
+.player-track input[type='range']::-webkit-slider-thumb { appearance: none; width: 12px; height: 12px; margin-top: 4px; border-radius: 50%; background: var(--foreground); box-shadow: 0 0 0 3px var(--background); transition: transform 120ms; }
+.player-track input[type='range']:hover::-webkit-slider-thumb { transform: scale(1.15); }
+.player-track input[type='range']:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 4px; }
+.player-mark { position: absolute; top: 2px; width: 2px; height: 5px; margin-left: -1px; border-radius: 1px; background: var(--accent-orange); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .player-toggle, .player-track input[type='range']::-webkit-slider-thumb { transition: none; } }

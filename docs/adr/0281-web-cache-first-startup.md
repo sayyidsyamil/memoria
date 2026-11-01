@@ -8,9 +8,9 @@ date: 2026-10-23
 
 ## Context
 
-The Tolaria web app (apps/web) fetches the full vault index (`GET /v1/entries`) on every startup before rendering the note list. With a large vault (6,000+ notes), this blocks the UI for 1–2 seconds on a fast connection and longer on slower networks. Users see a blank screen or loading skeleton until the fetch completes.
+The Memoria web app (apps/web) fetches the full vault index (`GET /v1/entries`) on every startup before rendering the note list. With a large vault (6,000+ notes), this blocks the UI for 1–2 seconds on a fast connection and longer on slower networks. Users see a blank screen or loading skeleton until the fetch completes.
 
-ADR 0185 established the web build as a first-class target using the VaultBackend abstraction. ADR 0280 added background fetch and debounced push to the Tolaria remote server, plus `GET /v1/entries?since=<head>` for delta updates (`EntriesDeltaResponse` with `changed[]` and `deleted[]`).
+ADR 0185 established the web build as a first-class target using the VaultBackend abstraction. ADR 0280 added background fetch and debounced push to the Memoria remote server, plus `GET /v1/entries?since=<head>` for delta updates (`EntriesDeltaResponse` with `changed[]` and `deleted[]`).
 
 The product requirement is that the web app renders the note list instantly on repeat visits, the same way the desktop app does from its local git clone. The technical requirement is that startup feels instant (paint within 1 second) without long-running main-thread tasks that block interaction.
 
@@ -20,7 +20,7 @@ The product requirement is that the web app renders the note list instantly on r
 
 Implementation:
 
-- **IndexedDB cache module** (`packages/collab-client/src/entriesCache.ts`): stores the vault index snapshot (`head`, `entries[]`, `cachedAt`) under the key `"snapshot"` in the `"tolaria-entries"` database. Exports `readCache()`, `writeCache(head, entries)`, and `clearCache()`. All operations are safe when IndexedDB is unavailable (private browsing, blocked by policy) — they return `null` or resolve silently without throwing.
+- **IndexedDB cache module** (`packages/collab-client/src/entriesCache.ts`): stores the vault index snapshot (`head`, `entries[]`, `cachedAt`) under the key `"snapshot"` in the `"memoria-entries"` database. Exports `readCache()`, `writeCache(head, entries)`, and `clearCache()`. All operations are safe when IndexedDB is unavailable (private browsing, blocked by policy) — they return `null` or resolve silently without throwing.
   
 - **Cache-first loading in RemoteVaultBackend**: on the first call to `list()`, if a cache exists, return the cached entries immediately and start background revalidation with `GET /v1/entries?since=<cachedHead>`. The server responds with `EntriesDeltaResponse` containing only changed and deleted entries since that HEAD. Apply the delta in chunks (50 entries per chunk, yielding to the main thread between chunks via `setTimeout(0)`) to avoid blocking tasks over 200ms. Write the updated snapshot back to IndexedDB.
 

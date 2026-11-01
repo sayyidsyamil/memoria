@@ -86,7 +86,7 @@ function snapshotKeySegments(input: MobileWorkspaceKeyInput) {
   return [
     sourceInfo?.kind ?? 'fixture',
     sourceInfo?.alias ?? 'no-workspace-alias',
-    sourceInfo?.label ?? 'Tolaria Vault',
+    sourceInfo?.label ?? 'Memoria Vault',
     sourceInfo?.totalNotes ?? input.snapshot.notes.length,
     input.snapshot.notes[0]?.id ?? 'empty',
     input.snapshot.selectedNoteId ?? 'no-selected-note',

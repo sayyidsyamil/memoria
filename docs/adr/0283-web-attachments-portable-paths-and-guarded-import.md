@@ -13,13 +13,13 @@ TOL-204 asks for images on the web: paste or upload them, see them, and see the 
 Constraints:
 
 - **Notes must stay portable.** Desktop writes `![name](attachments/<millis>-<name>)` and resolves that path against the vault root. The web must write the same thing.
-- **Every request to a Tolaria server carries a bearer token.** An `<img src>` cannot send an `Authorization` header, and the token must not go into URLs, where it ends up in logs, history and caches.
+- **Every request to a Memoria server carries a bearer token.** An `<img src>` cannot send an `Authorization` header, and the token must not go into URLs, where it ends up in logs, history and caches.
 - **Browsers cannot fetch most remote images across origins**, so a web client cannot download pasted images itself. A server that downloads a URL a client gives it is an SSRF risk.
 - **Desktop behavior stays unchanged**, and nothing may join the web's pre-paint path (`apps/web/tests/cache-startup.spec.ts`).
 
 ## Decision
 
-**On a Tolaria remote, attachments are ordinary vault files under `attachments/`, uploaded and read through the existing file routes with the bearer token. Images are shown through object URLs. Remote images are downloaded by the server through a new route that only reaches public internet hosts.**
+**On a Memoria remote, attachments are ordinary vault files under `attachments/`, uploaded and read through the existing file routes with the bearer token. Images are shown through object URLs. Remote images are downloaded by the server through a new route that only reaches public internet hosts.**
 
 - **Upload.** `files.saveAttachment` on the remote backend stores the bytes with a create-only `PUT /v1/files/attachments/<millis>-<sanitized name>` (`packages/collab-client/src/remoteAttachments.ts`). The name follows desktop's `prepare_attachment_path`. The editor's `uploadFile` resolves with that portable path, so the live document and the markdown the server writes link it the way desktop does.
 - **Display.** BlockNote's `resolveFileUrl` is set only when a remote serves the vault (`src/components/richEditorFileUrl.ts`). It maps `attachments/...` URLs (`webAttachmentPath` and `resolveWebAttachmentUrl` in `src/utils/vaultAttachments.ts`) to object URLs of blobs fetched with the token, cached per path, with a failed read retried. Desktop and the mock browser get no resolver, so BlockNote behaves exactly as before. The attachment code is a lazily loaded chunk (`src/lib/remoteAttachments.ts`).

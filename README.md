@@ -1,165 +1,161 @@
-![Latest stable](https://img.shields.io/github/v/release/refactoringhq/tolaria?display_name=tag) [![Codecov](https://codecov.io/gh/refactoringhq/tolaria/graph/badge.svg?branch=main)](https://codecov.io/gh/refactoringhq/tolaria) [![CodeScene Hotspot Code Health](https://codescene.io/projects/76865/status-badges/hotspot-code-health)](https://codescene.io/projects/76865) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fa3cdc28aefa460591c74aa262530708)](https://app.codacy.com/gh/refactoringhq/tolaria/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+<div align="center">
+  <img src="src/assets/memoria-icon.svg" alt="Memoria" width="64" />
+  <h1>Memoria</h1>
+  <p><strong>Meeting intelligence. Inspectable evidence. Durable memory.</strong></p>
+  <p>A local-first desktop workspace that turns meetings into reviewed knowledge<br />and uses that knowledge to prepare the next conversation.</p>
 
-# 💧 Tolaria
+  [![Memoria checks](https://github.com/sayyidsyamil/memoria/actions/workflows/memoria-checks.yml/badge.svg?branch=main)](https://github.com/sayyidsyamil/memoria/actions/workflows/memoria-checks.yml)
+  [![License: AGPL v3+](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue)](LICENSE)
+  ![Stage: research prototype](https://img.shields.io/badge/stage-research%20prototype-orange)
+  ![Native evaluation: Apple Silicon](https://img.shields.io/badge/native%20evaluation-Apple%20Silicon-555555)
 
-Tolaria is an app for managing **markdown knowledge bases**, available on desktop (macOS, Windows, Linux) and mobile (iPhone, iPad). People use it for a variety of use cases:
+  [Getting started](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+</div>
 
-* Operate second brains and personal knowledge
-* Organize company docs as context for AI
-* Store OpenClaw/assistants memory and procedures
+---
 
-Personally, I use it to **run my life** (hey 👋 [Luca here](http://x.com/lucaronin)). I have a massive workspace of 10,000+ notes, which are the result of my [Refactoring](https://refactoring.fm/) work + a ton of personal journaling and *second braining*.
+## From conversation to context
 
-<img width="1000" height="656" alt="1776506856823-CleanShot_2026-04-18_at_12 06 57_2x" src="https://github.com/user-attachments/assets/8aeafb0a-b236-43c2-a083-ec111f903c38" />
+Meeting notes are useful only if you can find them again, trust their sources, and
+carry decisions forward. Memoria connects those steps in a file-based workspace:
 
-## Sponsors
+**Capture → Review transcript → Approve outcomes → Search / Ask → Prepare a cited brief**
 
-Tolaria is supported by a small panel of tools that help keep the project healthy, tested, and ready for AI-assisted development. I use these tools every day.
+The language model proposes knowledge; **you decide what becomes durable**.
+Approved statements retain their supporting quotes and source locations. Notes,
+meeting records, and saved briefs remain portable Markdown.
 
-<table>
-  <tr>
-    <td align="center" width="25%">
-      <a href="https://codacy.com/tolaria?utm_source=tolaria&utm_medium=github&utm_campaign=refactoring">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/codacy-light.svg">
-          <img src="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/codacy-dark.svg" alt="Codacy" height="32">
-        </picture>
-      </a>
-    </td>
-    <td align="center" width="25%">
-      <a href="https://codescene.com/?utm_source=tolaria&utm_medium=github&utm_campaign=refactoring">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/codescene-light.svg">
-          <img src="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/codescene-dark.svg" alt="CodeScene" height="32">
-        </picture>
-      </a>
-    </td>
-    <td align="center" width="25%">
-      <a href="https://circleci.com/?utm_source=tolaria&utm_medium=github&utm_campaign=refactoring">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/circleci-light.svg">
-          <img src="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/circleci-dark.svg" alt="CircleCI" height="32">
-        </picture>
-      </a>
-    </td>
-    <td align="center" width="25%">
-      <a href="https://getunblocked.com/?utm_source=tolaria&utm_medium=github&utm_campaign=refactoring">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/unblocked-light.svg">
-          <img src="https://raw.githubusercontent.com/refactoringhq/tolaria/main/site/public/landing/sponsors/unblocked-dark.svg" alt="Unblocked" height="32">
-        </picture>
-      </a>
-    </td>
-  </tr>
-</table>
+## What you can do
 
-## Walkthroughs
+| Surface | Purpose |
+| --- | --- |
+| **Record** | Capture microphone audio with a floating HUD, live draft captions, pause/resume, and marked moments. |
+| **Transcript** | Review editable turns, correct provisional speaker names, and navigate the original audio. |
+| **Summary** | Inspect approved decisions, commitments, projects, and topics with quotes and approximate timestamps. |
+| **Search** | Find saved transcript lines and approved claims using transparent keyword/prefix matching. |
+| **Ask** | Query approved knowledge and inspect the exact evidence behind citations. |
+| **Briefs** | Prepare, save, and reopen a cited document for the next meeting. |
 
-You can find some Loom walkthroughs below — they are short and to the point:
-- [How I Organize My Own Tolaria Workspace](https://www.loom.com/share/bb3aaffa238b4be0bd62e4464bca2528)
-- [My Inbox Workflow](https://www.loom.com/share/dffda263317b4fa8b47b59cdf9330571)
-- [How I Save Web Resources to Tolaria](https://www.loom.com/share/8a3c1776f801402ebbf4d7b0f31e9882)
+Files can also be imported as evidence. Proposed additions go through an explicit
+review workflow, with a durable journal, stale-source checks, and conflict-aware undo.
 
-## Principles
+## Design principles
 
-- 📑 **Files-first** — Your notes are plain markdown files. They're portable, work with any editor, and require no export step. Your data belongs to you, not to any app.
-- 🔌 **Git-first** — Every vault is a git repository. You get full version history, the ability to use any git remote, and zero dependency on Tolaria servers.
-- 🛜 **Offline-first, zero lock-in** — No accounts, no subscriptions, no cloud dependencies. Your vault works completely offline and always will. If you stop using Tolaria, you lose nothing.
-- 🔬 **Open source** — Tolaria is free and open source. I built this for [myself](https://x.com/lucaronin) and for sharing it with others.
-- 📋 **Standards-based** — Notes are markdown files with YAML frontmatter. No proprietary formats, no locked-in data. Everything works with standard tools if you decide to move away from Tolaria.
-- 🔍 **Types as lenses, not schemas** — Types in Tolaria are navigation aids, not enforcement mechanisms. There's no required fields, no validation, just helpful categories for finding notes.
-- 🪄**AI-first but not AI-only** — A vault of files works very well with AI agents, but you are free to use whatever you want. We support Claude Code, Codex CLI, and Gemini CLI setup paths, but you can edit the vault with any AI you want. We provide an AGENTS file for your agents to figure out.
-- ⌨️ **Keyboard-first** — Tolaria is designed for power-users who want to use keyboard as much as possible. A lot of how we designed the Editor and the Command Palette is based on this.
-- 💪 **Built from real use** — Tolaria was created for manage my personal vault of 10,000+ notes, and I use it every day. Every feature exists because it solved a real problem.
+- **Evidence before assertion.** Quotes and source links are inspectable; a matching
+  quote establishes provenance, not truth or semantic correctness.
+- **Human approval before publication.** Model suggestions do not directly rewrite
+  your knowledge. Reviewed additions preserve existing text.
+- **Files first.** Markdown carries durable knowledge; a vault-local SQLite journal
+  records proposals and publication receipts.
+- **Local meeting inference.** Speech, generation, and embedding workers run on the
+  development machine using pre-cached models. This does not mean every inherited
+  integration in the wider workspace is offline.
+- **Honest interface state.** The waveform reflects microphone levels, the timer
+  excludes pauses, and speaker statistics are labelled “share of words”.
 
-## Installation
+See [UI patterns](docs/UI-PATTERNS.md) for the component and interaction rules.
 
-### Homebrew
+## Project status
 
-Install via Homebrew on macOS:
+Memoria is an **FYP2 research prototype**, under active development. The meeting
+runtime has been exercised on Apple Silicon macOS. The inherited desktop, web, and
+mobile foundations do not establish cross-platform support for the new meeting AI.
 
-```batch
-brew install --cask tolaria
-```
+There is no standalone, signed Memoria installer yet. Native inference currently
+requires separately configured Python environments and cached model weights.
+Transcription accuracy, long sessions, crash recovery, and final native acceptance
+are still being evaluated. The recording-transcription path currently rejects
+audio longer than ten minutes.
 
-### Download from releases
+### Verification snapshot
 
-Download the [latest release here](https://refactoringhq.github.io/tolaria/download/) for macOS, Windows, or Linux. Windows installers are Authenticode-signed; company-managed devices may still require IT approval of the Tolaria publisher before first install.
+| Check | Latest recorded result |
+| --- | --- |
+| Focused frontend suite | 66 tests passing across 14 files |
+| Python engine/product suite | 30 tests passing |
+| TypeScript and scoped lint | Passing |
+| Native debug bundle | Built locally |
+| Full frontend suite | 6,326 passing, 97 failing, 1 skipped; outstanding rebrand/integration cases |
 
-## Mobile (iPhone and iPad)
+These are the 1 November 2026 development results, not live coverage metrics or a
+claim of release readiness. The CI badge covers the scoped Memoria checks only.
+Detailed observations and outstanding native checks are in
+[Workspace product verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md).
 
-Tolaria for iOS is currently in **beta** via TestFlight. The mobile app brings Tolaria's core features to iPhone and iPad:
+## Get started
 
-- **WYSIWYG Markdown editor** — Fast, native rich-text editing powered by TenTap/Tiptap
-- **Real git integration** — Auto-commit on save, with merge support for multi-device workflows
-- **Sync with desktop** — Your vaults sync seamlessly through iCloud or Files, and share the same git repository as the desktop app
+Use **Node.js 22+, pnpm 10, and Rust stable**. Native development also needs the
+[Tauri platform prerequisites](https://v2.tauri.app/start/prerequisites/).
 
-The mobile app is still early and under active development. To join the beta, open the [public TestFlight invite](https://testflight.apple.com/join/7aPD4GAB) on your iPhone or iPad, and join the [Tolaria Discord community](https://discord.gg/tRBC2u428B) to stay updated on mobile development.
-
-## Getting started
-
-When you open Tolaria for the first time you get the chance of cloning the [getting started vault](https://github.com/refactoringhq/tolaria-getting-started) — which gives you a walkthrough of the whole app.
-
-The public user docs live in [`site/`](site/) and are published to GitHub Pages. Start with [Install Tolaria](site/start/install.md), then [First Launch](site/start/first-launch.md).
-
-## Open source and local setup
-
-Tolaria is open source and built with Tauri, React, and TypeScript. If you want to run or contribute to the app locally, here is [how to get started](https://github.com/refactoringhq/tolaria/blob/main/docs/GETTING-STARTED.md). You can also find the gist below 👇
-
-### Prerequisites
-
-- Node.js 20+
-- pnpm 8+
-- Rust stable
-- macOS or Linux for development
-
-#### Linux system dependencies
-
-Tauri 2 on Linux requires WebKit2GTK 4.1 and GTK 3:
-
-- Arch / Manjaro:
-  ```bash
-  sudo pacman -S --needed webkit2gtk-4.1 base-devel curl wget file openssl \
-    appmenu-gtk-module libappindicator-gtk3 librsvg
-  ```
-- Debian / Ubuntu (22.04+):
-  ```bash
-  sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file \
-    libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev \
-    libsoup-3.0-dev patchelf
-  ```
-- Fedora 38+:
-  ```bash
-  sudo dnf install webkit2gtk4.1-devel openssl-devel curl wget file \
-    libappindicator-gtk3-devel librsvg2-devel
-  ```
-
-The bundled MCP server still spawns the system `node` binary at runtime on Linux, so install Node from your distro package manager if you want the external AI tooling flow.
-
-### Quick start
-
-```bash
-pnpm install
+```sh
+git clone https://github.com/sayyidsyamil/memoria.git
+cd memoria
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open `http://localhost:5173` for the browser-based mock mode, or run the native desktop app with:
+The browser development view uses a mock bridge; it is useful for UI work but does
+not exercise native recording or the local model workers.
 
-```bash
+For the desktop app, configure the runtime paths described in
+[Development setup](docs/DEVELOPMENT.md), then run:
+
+```sh
 pnpm tauri dev
 ```
 
-## Tech Docs
+### Checks
 
-- 📐 [ARCHITECTURE.md](docs/ARCHITECTURE.md) — System design, tech stack, data flow
-- 🧩 [ABSTRACTIONS.md](docs/ABSTRACTIONS.md) — Core abstractions and models
-- 🚀 [GETTING-STARTED.md](docs/GETTING-STARTED.md) — How to navigate the codebase
-- 📚 [ADRs](docs/adr) — Architecture Decision Records
+```sh
+pnpm build
+pnpm test:memoria
+python3 -m unittest discover -s src-tauri/resources/memory -p 'test_workspace_product.py'
+python3 -m unittest discover -s src-tauri/resources/memory -p 'test_engine.py'
+```
 
-## Security
+## Repository map
 
-If you believe you have found a security issue, please report it privately as described in [SECURITY.md](./SECURITY.md).
+| Path | Contents |
+| --- | --- |
+| `src/` | React/TypeScript workspace and meeting interfaces |
+| `src-tauri/src/` | Rust commands, capture integration, and model lifecycle |
+| `src-tauri/resources/memory/` | Local speech, retrieval, proposal journal, and generation adapters |
+| `memoria-demo/` | Fictional Markdown meeting scenario; copy before experimenting |
+| `docs/` | Architecture, setup, design decisions, and verification records |
+| `apps/`, `packages/`, `site/` | Inherited and rebranded workspace foundations |
+| `reference/upstream-workflows/` | Archived upstream CI/release definitions, not active Memoria automation |
 
-## License
+## Roadmap
 
-Tolaria is licensed under AGPL-3.0-or-later. The Tolaria name and logo remain covered by the project’s trademark policy.
+1. Complete native acceptance of recording, marks, saved review, and cited briefs.
+2. Make model setup reproducible and package the inference runtime.
+3. Evaluate speaker/ASR quality, retrieval, and evidence-grounded answers.
+4. Improve recovery, long-session handling, and model memory management.
+5. Reconcile outstanding full-suite failures before a supported release.
+
+See the [roadmap](docs/ROADMAP.md) for acceptance criteria.
+
+## Contributing and security
+
+Issues and focused pull requests are welcome. Please read
+[CONTRIBUTING.md](CONTRIBUTING.md), use fictional fixtures, and include relevant
+verification. Report vulnerabilities privately through the process in
+[SECURITY.md](SECURITY.md).
+
+## Attribution and license
+
+Memoria is developed by [Sayyid Syamil](https://github.com/sayyidsyamil) as an FYP2
+project, **derived from [Tolaria](https://github.com/refactoringhq/tolaria)** by Luca
+Rossi / Refactoring and contributors. Tolaria provides the inherited Markdown
+workspace; Memoria adds the meeting-oriented capture, reviewed memory, and briefing
+workflow. Inherited capabilities are not claimed as original Memoria contributions.
+
+The project retains **AGPL-3.0-or-later** licensing, upstream history, and third-party
+notices. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). Model weights have their
+own terms and are not included. Memoria is not an official Tolaria release and is
+not affiliated with upstream sponsorships or hosted services.
+
+### Earlier versions
+
+`main` contains the desktop workspace. `legacy` preserves the previous Next.js
+default branch; the existing `fyp2` and `master` branches retain their earlier work.

@@ -4,13 +4,13 @@ import { fileURLToPath } from 'node:url'
 
 export function promoteMobileUpdate(environment, execute = executeCommand) {
   assert.equal(environment.CIRCLE_BRANCH, 'main', 'Stable promotion requires main')
-  assert.equal(environment.TOLARIA_OTA_CHANNEL, 'stable', 'Promotion targets stable only')
-  const group = environment.TOLARIA_OTA_GROUP
-  const runtime = environment.TOLARIA_OTA_RUNTIME
+  assert.equal(environment.MEMORIA_OTA_CHANNEL, 'stable', 'Promotion targets stable only')
+  const group = environment.MEMORIA_OTA_GROUP
+  const runtime = environment.MEMORIA_OTA_RUNTIME
   assert.match(group ?? '', /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/, 'Select an explicit alpha update group')
   assert.match(runtime ?? '', /^[a-f0-9]{40,64}$/, 'Accepted stable native runtime is required')
   assert(environment.EXPO_TOKEN?.trim(), 'EXPO_TOKEN is required for promotion')
-  const command = environment.TOLARIA_EAS_CLI || 'eas'
+  const command = environment.MEMORIA_EAS_CLI || 'eas'
   const options = { cwd: fileURLToPath(new URL('../', import.meta.url)), env: environment }
   const updates = JSON.parse(execute(command, ['update:view', group, '--json'], options))
   validateArtifact(updates, group, runtime)

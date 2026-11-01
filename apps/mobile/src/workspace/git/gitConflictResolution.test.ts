@@ -13,7 +13,7 @@ afterEach(async () => { for (const root of roots.splice(0)) await rm(root, { rec
 type Files = Record<string, string | Uint8Array>
 
 async function divergent(base: Files, local: Files, remote: Files) {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-conflict-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-conflict-'))
   roots.push(dir)
   const context = { fs, dir }
   const vault = createGitVault(context)

@@ -103,7 +103,7 @@ function collectSimulatorLogs(device, { last, start }) {
     '--style',
     'compact',
     '--predicate',
-    'eventMessage CONTAINS "TOLARIA_MOBILE_SOURCE_SELECTION_PROBE"',
+    'eventMessage CONTAINS "MEMORIA_MOBILE_SOURCE_SELECTION_PROBE"',
   ])
 }
 

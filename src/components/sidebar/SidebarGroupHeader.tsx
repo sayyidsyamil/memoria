@@ -29,7 +29,7 @@ export function SidebarGroupHeader({
         onClick={onToggle}
       >
         {collapsed ? <CaretRight size={12} /> : <CaretDown size={12} />}
-        <span className="text-[10px] font-semibold" style={{ letterSpacing: 0.5 }}>{label}</span>
+        <span className="text-[12px] font-medium">{label.toLocaleLowerCase().replace(/^./, first => first.toLocaleUpperCase())}</span>
       </button>
       {children ?? (count != null && (
         <SidebarCountPill count={count} className="text-muted-foreground" compact style={{ background: 'var(--muted)' }} />

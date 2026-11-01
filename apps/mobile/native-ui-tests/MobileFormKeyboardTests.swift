@@ -2,7 +2,7 @@ import XCTest
 
 final class MobileFormKeyboardTests: XCTestCase {
   override func tearDown() {
-    XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").terminate()
+    XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").terminate()
     XCUIDevice.shared.orientation = .portrait
     super.tearDown()
   }
@@ -23,8 +23,8 @@ final class MobileFormKeyboardTests: XCTestCase {
     action: String = "createView") {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = orientation
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=list&actionSheet=\(action)&qaRun=modal-keyboard"]
     app.launch()
     XCUIDevice.shared.orientation = orientation

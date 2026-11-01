@@ -2,7 +2,7 @@ import { clientColor } from "../../packages/collab-client/src/presence";
 import type { VaultCollabUser } from "./vaultBackend/types";
 
 /**
- * Who this window is to the others in a note. The Tolaria server has one token and no
+ * Who this window is to the others in a note. The Memoria server has one token and no
  * accounts, so the people in a note are mostly the owner's own devices: each one is named
  * by its browser and device ("Safari · iPhone"), product names that need no translation.
  */
@@ -34,7 +34,7 @@ const DEVICES: readonly Pattern[] = [
 ];
 
 /** Said when neither the browser nor the device is recognised. */
-const FALLBACK_NAME = "Tolaria";
+const FALLBACK_NAME = "Memoria";
 
 function firstMatch(patterns: readonly Pattern[], text: string): string | null {
 	return patterns.find(([pattern]) => pattern.test(text))?.[1] ?? null;

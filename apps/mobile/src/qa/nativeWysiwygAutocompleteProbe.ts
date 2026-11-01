@@ -24,7 +24,7 @@ export type NativeWysiwygAutocompleteAssertionFailure = {
 type NativeWysiwygAutocompleteExpectedProof = NativeWysiwygAutocompleteAssertionFailure
   & NativeWysiwygAutocompleteProof
 
-export const nativeWysiwygAutocompleteLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_AUTOCOMPLETE_PROBE'
+export const nativeWysiwygAutocompleteLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_AUTOCOMPLETE_PROBE'
 const expectedNativeWysiwygAutocompleteProofs: NativeWysiwygAutocompleteExpectedProof[] = [
   {
     id: 'editor.wysiwyg.autocomplete.wikilink',

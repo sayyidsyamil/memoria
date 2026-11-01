@@ -8,7 +8,7 @@ import {
 } from '../src/workspace/readOnlyWorkspaceRepository'
 import type { MobileWorkspaceWrite } from '../src/workspace/mobileWorkspaceEditing'
 
-const selectedNotePath = 'Tolaria/Mobile UI/Workflow Orchestration Essay.md'
+const selectedNotePath = 'Memoria/Mobile UI/Workflow Orchestration Essay.md'
 
 test.describe('mobile host persistence actions', () => {
   test('persists hydrated host property and relationship edits as save-note writes', async ({ page }, testInfo) => {
@@ -32,7 +32,7 @@ test.describe('mobile host persistence actions', () => {
       path: selectedNotePath,
     }))
     await expect.poll(() => latestHostWorkspaceWriteContent(page)).toContain(
-      '[[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+      '[[Memoria/Mobile UI/How I Run an Open Source Project]]',
     )
   })
 })

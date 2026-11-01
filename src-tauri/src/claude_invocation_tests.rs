@@ -304,13 +304,13 @@ fn mcp_config_is_valid_json() {
     let extra_vaults = vec!["/tmp/secondary-vault".to_string()];
     if let Ok(config_str) = mcp_config("/tmp/test-vault", &extra_vaults) {
         let parsed: serde_json::Value = serde_json::from_str(&config_str).unwrap();
-        assert!(parsed["mcpServers"]["tolaria"]["command"].is_string());
+        assert!(parsed["mcpServers"]["memoria"]["command"].is_string());
         assert_eq!(
-            parsed["mcpServers"]["tolaria"]["env"]["VAULT_PATH"],
+            parsed["mcpServers"]["memoria"]["env"]["VAULT_PATH"],
             "/tmp/test-vault"
         );
         assert_eq!(
-            parsed["mcpServers"]["tolaria"]["env"]["VAULT_PATHS"],
+            parsed["mcpServers"]["memoria"]["env"]["VAULT_PATHS"],
             "[\"/tmp/test-vault\",\"/tmp/secondary-vault\"]"
         );
     }

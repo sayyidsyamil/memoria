@@ -21,7 +21,7 @@ export async function cloneVault(args = {}, options = {}) {
   await mkdir(path.dirname(destinationPath), { recursive: true })
   const temporaryPath = await mkdtemp(path.join(
     path.dirname(destinationPath),
-    `.${path.basename(destinationPath)}.tolaria-clone-`,
+    `.${path.basename(destinationPath)}.memoria-clone-`,
   ))
   try {
     await cloneRepository(remoteUrl, temporaryPath)
@@ -67,7 +67,7 @@ async function readRegistry(configPath) {
     }
   } catch (error) {
     if (error.code === 'ENOENT') return { vaults: [], active_vault: null, hidden_defaults: [] }
-    throw new Error(`Could not read Tolaria vault registry: ${error.message}`)
+    throw new Error(`Could not read Memoria vault registry: ${error.message}`)
   }
 }
 

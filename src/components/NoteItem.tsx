@@ -88,7 +88,7 @@ const NOTE_STATUS_DOT: Record<VisibleNoteStatus, { color: string; testId: string
 }
 
 function hasStatusDot(noteStatus: NoteStatus): noteStatus is VisibleNoteStatus {
-  return noteStatus !== 'clean'
+  return noteStatus === 'pendingSave' || noteStatus === 'unsaved'
 }
 
 function StatusDot({ noteStatus }: { noteStatus: VisibleNoteStatus }) {
@@ -169,7 +169,7 @@ const BINARY_NOTE_STYLE: CSSProperties = { padding: '14px 16px' }
 const NOTE_ITEM_ROW_CLASS_NAMES: Record<NoteItemRowState, string> = {
   binary: 'cursor-default opacity-50',
   multiSelected: 'cursor-pointer',
-  selected: 'cursor-pointer border-l-[3px]',
+  selected: 'cursor-pointer',
   highlighted: 'cursor-pointer bg-muted hover:bg-muted',
   default: 'cursor-pointer hover:bg-muted',
 }
@@ -193,7 +193,6 @@ function noteItemClassName(state: NoteItemVisualState) {
 
 function NoteTypeIndicator({
   TypeIcon,
-  typeColor,
   filePreviewKind,
 }: {
   TypeIcon: ComponentType<SVGAttributes<SVGSVGElement>>
@@ -205,7 +204,7 @@ function NoteTypeIndicator({
       width={14}
       height={14}
       className="absolute right-3 top-2.5"
-      style={{ color: typeColor }}
+      style={{ color: 'var(--muted-foreground)' }}
       data-testid="type-icon"
       data-file-preview-kind={filePreviewKind}
     />
@@ -385,11 +384,7 @@ function NoteTitleRow({
 function NoteDateRow({ entry, allEntries }: { entry: VaultEntry; allEntries: VaultEntry[] }) {
   const dateDisplayFormat = useDateDisplayFormat()
   const modifiedLabel = formatTimestampForDateDisplay(getDisplayDate(entry), dateDisplayFormat)
-  const createdLabel = entry.createdAt
-    ? `Created ${formatTimestampForDateDisplay(entry.createdAt, dateDisplayFormat)}`
-    : null
-
-  if (!modifiedLabel && !createdLabel) return null
+  if (!modifiedLabel) return null
 
   return (
     <div
@@ -398,7 +393,6 @@ function NoteDateRow({ entry, allEntries }: { entry: VaultEntry; allEntries: Vau
     >
       <span>{modifiedLabel}</span>
       <span className="flex min-w-0 items-center justify-end gap-1.5 text-right">
-        {createdLabel && <span>{createdLabel}</span>}
         <WorkspaceBadge entry={entry} allEntries={allEntries} />
       </span>
     </div>
@@ -408,17 +402,11 @@ function NoteDateRow({ entry, allEntries }: { entry: VaultEntry; allEntries: Vau
 function noteItemStyle(
   isSelected: boolean,
   isMultiSelected: boolean,
-  typeColor: string,
-  typeLightColor: string,
 ): CSSProperties {
   const base: CSSProperties = {
-    padding: isSelected && !isMultiSelected ? '14px 16px 14px 13px' : '14px 16px',
+    padding: '10px 16px',
   }
-  if (isMultiSelected) base.backgroundColor = 'color-mix(in srgb, var(--accent-blue) 10%, transparent)'
-  else if (isSelected) {
-    base.borderLeftColor = typeColor
-    base.backgroundColor = typeLightColor
-  }
+  if (isSelected || isMultiSelected) base.backgroundColor = 'var(--muted)'
   return base
 }
 
@@ -477,14 +465,12 @@ function resolveNoteItemSurfaceStyle({
   isUnavailableBinary,
   isSelected,
   isMultiSelected,
-  typeColor,
-  typeLightColor,
 }: Pick<NoteItemVisualState, 'isUnavailableBinary' | 'isSelected' | 'isMultiSelected'> & {
   typeColor: string
   typeLightColor: string
 }) {
   if (isUnavailableBinary) return BINARY_NOTE_STYLE
-  return noteItemStyle(isSelected, isMultiSelected, typeColor, typeLightColor)
+  return noteItemStyle(isSelected, isMultiSelected)
 }
 
 function resolveNoteItemTestId({

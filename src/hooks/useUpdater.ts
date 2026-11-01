@@ -17,6 +17,8 @@ import { formatCalendarVersionForDisplay } from "../utils/calendarVersion";
 import { openExternalUrl } from "../utils/url";
 
 const RELEASE_NOTES_URL = "https://tolaria.md/releases/";
+// This fork has no signed Memoria release feed yet.
+const UPDATES_CONFIGURED = false;
 const UPDATER_CHECK_TIMEOUT_MS = 10_000;
 
 function withTimeout<T>(operation: Promise<T>, timeoutMs: number): Promise<T> {
@@ -146,7 +148,7 @@ function useAutomaticUpdateCheck(
 	checkForUpdates: () => Promise<UpdateCheckResult>,
 ): void {
 	useEffect(() => {
-		if (!automaticChecksEnabled || !isTauri()) return;
+		if (!UPDATES_CONFIGURED || !automaticChecksEnabled || !isTauri()) return;
 		const timer = setTimeout(() => checkForUpdates(), 3000);
 		return () => clearTimeout(timer);
 	}, [automaticChecksEnabled, checkForUpdates]);
@@ -161,7 +163,7 @@ export function useUpdater(
 	const checkSequence = useRef(0);
 
 	const checkForUpdates = useCallback(async (): Promise<UpdateCheckResult> => {
-		if (!isTauri()) return { kind: "up-to-date" };
+		if (!UPDATES_CONFIGURED || !isTauri()) return { kind: "up-to-date" };
 
 		const checkId = ++checkSequence.current;
 		setStatus({ state: "checking" });

@@ -14,9 +14,9 @@ import { MERMAID_BLOCK_TYPE } from '../../../src/utils/mermaidMarkdown'
 import { TLDRAW_BLOCK_TYPE, TLDRAW_DEFAULT_HEIGHT } from '../../../src/utils/tldrawMarkdown'
 
 /**
- * The Tolaria BlockNote schema without its React renderers: the same block, inline and style
+ * The Memoria BlockNote schema without its React renderers: the same block, inline and style
  * names, props and content models as `src/components/editorSchema.tsx`, which is what decides
- * the shape of a `tolaria.blocknote/1` document. Rendering never happens here.
+ * the shape of a `memoria.blocknote/1` document. Rendering never happens here.
  */
 
 function placeholder(): { dom: HTMLElement } {

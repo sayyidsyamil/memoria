@@ -64,7 +64,7 @@ function evaluate(code: string, load: (name: string) => object) {
 }
 
 function compileFixture(source: string) {
-  const folder = mkdtempSync(join(tmpdir(), 'tolaria-capture-order-'))
+  const folder = mkdtempSync(join(tmpdir(), 'memoria-capture-order-'))
   const file = join(folder, 'capture-order.ts')
   try {
     writeFileSync(file, source)

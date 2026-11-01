@@ -4,7 +4,7 @@ final class MobileSnapshotCacheTests: XCTestCase {
   func testFreshOrCachedStartupReadsTheExpectedSource() throws {
     let app = try launchOwnedVault(mode: "source")
     defer { app.terminate() }
-    let expected = try XCTUnwrap(ProcessInfo.processInfo.environment["TOLARIA_QA_SNAPSHOT_TITLE"])
+    let expected = try XCTUnwrap(ProcessInfo.processInfo.environment["MEMORIA_QA_SNAPSHOT_TITLE"])
     let row = element(app, "note-row-target.md")
     XCTAssertTrue(row.waitForExistence(timeout: 30))
     let button = row.buttons.matching(NSPredicate(format: "label CONTAINS %@", expected)).firstMatch
@@ -47,20 +47,20 @@ final class MobileSnapshotCacheTests: XCTestCase {
   }
 
   private func launchOwnedVault(mode: String) throws -> XCUIApplication {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_SNAPSHOT_CACHE"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_SNAPSHOT_CACHE"] == "1",
       "Requires a host-owned disposable vault and catalog restoration")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
     dismissOldProbePrompt()
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&phoneState=list&editorMode=\(mode)&qaRun=snapshot-cache"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&phoneState=list&editorMode=\(mode)&qaRun=snapshot-cache"]
     app.launch()
     return app
   }
 
   private func dismissOldProbePrompt() {
     let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-    let alert = springboard.alerts.matching(NSPredicate(format: "label CONTAINS %@", "Tolaria")).firstMatch
+    let alert = springboard.alerts.matching(NSPredicate(format: "label CONTAINS %@", "Memoria")).firstMatch
     guard alert.exists else { return }
     guard ["Open", "Cancel"].allSatisfy({ alert.buttons[$0].exists }) else { return }
     alert.buttons["Cancel"].tap()

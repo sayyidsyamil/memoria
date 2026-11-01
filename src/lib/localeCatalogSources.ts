@@ -3,7 +3,7 @@ import type EN_TRANSLATIONS from './locales/en.json'
 type CatalogModules = Record<string, typeof EN_TRANSLATIONS>
 type LazyCatalogModules = Record<string, () => Promise<typeof EN_TRANSLATIONS>>
 
-const IS_WEB_BUILD = import.meta.env.VITE_TOLARIA_WEB_BUILD === 'true'
+const IS_WEB_BUILD = import.meta.env.VITE_MEMORIA_WEB_BUILD === 'true'
 
 /**
  * Where the translation catalogs come from. The desktop bundles all of them; the web build

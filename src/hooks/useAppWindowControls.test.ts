@@ -25,7 +25,7 @@ function renderControls() {
 
 describe('useAppWindowControls on a tablet (TOL-194)', () => {
   beforeEach(() => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', 'true')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', 'true')
     stubMediaQueries({ [TABLET_LAYOUT_QUERY]: true })
   })
 
@@ -48,7 +48,7 @@ describe('useAppWindowControls on a tablet (TOL-194)', () => {
   })
 
   it('collapses the sidebar through the view mode off the tablet', () => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', '')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', '')
     const { result } = renderControls()
     expect(result.current.sidebarVisible).toBe(true)
 

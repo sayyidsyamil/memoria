@@ -1182,7 +1182,7 @@ def generate_all(output_path: Path | None = None):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Generate the large synthetic Tolaria fixture.")
+    parser = argparse.ArgumentParser(description="Generate the large synthetic Memoria fixture.")
     parser.add_argument(
         "--output",
         type=Path,

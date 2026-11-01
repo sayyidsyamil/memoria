@@ -3,7 +3,7 @@ import {
   SparkleIcon, SunIcon, TagIcon, WrenchIcon,
 } from "@phosphor-icons/react"
 
-// One small looping story per feature card (8s, motion.css .fx-*). HTML/CSS recreations of the relevant bit of Tolaria's UI.
+// One small looping story per feature card (8s, motion.css .fx-*). HTML/CSS recreations of the relevant bit of Memoria's UI.
 // Each demo is decorative (aria-hidden); the card's heading and text carry the meaning.
 const Frame = ({ className = "", children }: { className?: string; children: React.ReactNode }) => (
   <div aria-hidden className={`fx loop relative h-60 overflow-hidden rounded-xl bg-app-tint p-4 text-[13px] leading-5 text-neutral-700 ${className}`}>{children}</div>
@@ -52,12 +52,12 @@ export function EditorDemo() {
 }
 
 export function RelationsDemo() {
-  const chips = ["Tolaria Principles", "Sidebar", "Note List"]
+  const chips = ["Memoria Principles", "Sidebar", "Note List"]
   return (
     <Frame className="fx-rel">
       <Win className="p-4 pt-3">
         <div className="mb-2 flex items-center gap-2 border-b border-neutral-100 pb-2">
-          <WrenchIcon weight="fill" className="size-4 text-red-400" /><span className="truncate font-heading font-bold text-neutral-900">Get familiar with Tolaria</span>
+          <WrenchIcon weight="fill" className="size-4 text-red-400" /><span className="truncate font-heading font-bold text-neutral-900">Get familiar with Memoria</span>
           <span className="ml-auto rounded bg-red-50 px-1.5 text-[11px] text-red-700">Project</span>
         </div>
         <div className="flex items-center justify-between">
@@ -72,7 +72,7 @@ export function RelationsDemo() {
           ))}
         </div>
         <div className="backlink mt-3 flex w-fit items-center gap-2 rounded-lg border border-dashed border-primary/40 px-2 py-1 text-[12px] text-app-ink">
-          <TagIcon weight="fill" className="size-4" />Topic <b className="font-semibold">Tolaria</b>
+          <TagIcon weight="fill" className="size-4" />Topic <b className="font-semibold">Memoria</b>
         </div>
       </Win>
     </Frame>
@@ -80,7 +80,7 @@ export function RelationsDemo() {
 }
 
 export function GitDemo() {
-  const rows = ["get-familiar-with-tolaria.md", "tolaria-editor.md", "tolaria-ai.md"]
+  const rows = ["get-familiar-with-memoria.md", "memoria-editor.md", "memoria-ai.md"]
   const hist: [string, string, string, string][] = [["Updated 3 notes", "just now", "+4", "-2"], ["docs: refresh getting started", "Oct 13", "+1", "-11"], ["fix: use supported call", "Oct 9", "+0", "-1"], ["docs: refresh getting started", "Jul 23", "+2", "-8"]]
   return (
     <Frame className="fx-git">
@@ -161,7 +161,7 @@ export function ThemeDemo() {
   const Note = ({ dark }: { dark?: boolean }) => (
     <div className={`absolute inset-y-0 right-0 left-[38%] p-4 ${dark ? "main-dark bg-[#1f1e1b]" : "bg-white"}`}>
       <div className={`text-base font-bold ${dark ? "text-[#f1ece3]" : "text-[#37352f]"}`}>Make It Yours</div>
-      <p className={`mt-1 text-[12px] ${dark ? "text-[#b8b1a6]" : "text-[#787774]"}`}>A few settings change how Tolaria looks and feels: theme, language, note width, and layout.</p>
+      <p className={`mt-1 text-[12px] ${dark ? "text-[#b8b1a6]" : "text-[#787774]"}`}>A few settings change how Memoria looks and feels: theme, language, note width, and layout.</p>
     </div>
   )
   return (

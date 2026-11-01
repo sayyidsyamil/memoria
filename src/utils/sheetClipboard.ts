@@ -12,12 +12,12 @@ import type { SheetExternalFormulaInput } from './sheetExternalFormulaWorker'
 import { selectedRangeArea } from './sheetSelection'
 import { MAX_SHEET_COLUMNS, MAX_SHEET_ROWS, SHEET_INDEX } from './sheetWorkbook'
 
-export const TOLARIA_SHEET_CLIPBOARD_MIME = 'application/x-tolaria-sheet-clipboard'
+export const MEMORIA_SHEET_CLIPBOARD_MIME = 'application/x-memoria-sheet-clipboard'
 
-const TOLARIA_SHEET_CLIPBOARD_VERSION = 1
+const MEMORIA_SHEET_CLIPBOARD_VERSION = 1
 const LOCAL_CELL_REFERENCE_PATTERN = /(^|[^A-Za-z0-9_.\][$])(\$?)([A-Za-z]{1,3})(\$?)([1-9]\d*)(?![A-Za-z0-9_]|\s*\()/g
 
-export interface TolariaSheetClipboardPayload {
+export interface MemoriaSheetClipboardPayload {
   action: 'copy' | 'cut'
   cells: string[][]
   source: {
@@ -27,7 +27,7 @@ export interface TolariaSheetClipboardPayload {
     row: number
     width: number
   }
-  type: 'tolaria-sheet-clipboard'
+  type: 'memoria-sheet-clipboard'
   version: number
 }
 
@@ -35,7 +35,7 @@ interface ShiftedClipboardCellInputOptions {
   columnOffset: number
   destinationColumn: number
   destinationRow: number
-  payload: TolariaSheetClipboardPayload
+  payload: MemoriaSheetClipboardPayload
   rowOffset: number
 }
 
@@ -79,23 +79,23 @@ interface LocalFormulaShiftInput {
   value: string
 }
 
-function isClipboardAction(value: unknown): value is TolariaSheetClipboardPayload['action'] {
+function isClipboardAction(value: unknown): value is MemoriaSheetClipboardPayload['action'] {
   return value === 'copy' || value === 'cut'
 }
 
-function isClipboardSource(value: unknown): value is TolariaSheetClipboardPayload['source'] {
+function isClipboardSource(value: unknown): value is MemoriaSheetClipboardPayload['source'] {
   if (!value || typeof value !== 'object') return false
-  const source = value as Partial<TolariaSheetClipboardPayload['source']>
+  const source = value as Partial<MemoriaSheetClipboardPayload['source']>
   return typeof source.row === 'number'
     && typeof source.column === 'number'
     && typeof source.path === 'string'
 }
 
-function isClipboardPayload(value: unknown): value is TolariaSheetClipboardPayload {
+function isClipboardPayload(value: unknown): value is MemoriaSheetClipboardPayload {
   if (!value || typeof value !== 'object') return false
-  const payload = value as Partial<TolariaSheetClipboardPayload>
-  return payload.type === 'tolaria-sheet-clipboard'
-    && payload.version === TOLARIA_SHEET_CLIPBOARD_VERSION
+  const payload = value as Partial<MemoriaSheetClipboardPayload>
+  return payload.type === 'memoria-sheet-clipboard'
+    && payload.version === MEMORIA_SHEET_CLIPBOARD_VERSION
     && isClipboardAction(payload.action)
     && Array.isArray(payload.cells)
     && isClipboardSource(payload.source)
@@ -215,12 +215,12 @@ function shiftLocalFormulaReferences({ shift, value }: LocalFormulaShiftInput): 
   })
 }
 
-export function buildTolariaSheetClipboardPayload(
+export function buildMemoriaSheetClipboardPayload(
   model: Model,
   path: string,
-  action: TolariaSheetClipboardPayload['action'],
+  action: MemoriaSheetClipboardPayload['action'],
   externalFormulaInputs: Map<string, SheetExternalFormulaInput>,
-): TolariaSheetClipboardPayload | null {
+): MemoriaSheetClipboardPayload | null {
   const area = selectedRangeArea(model)
   if (!selectedRangeHasFormulaInputs(model, area, externalFormulaInputs)) return null
 
@@ -250,12 +250,12 @@ export function buildTolariaSheetClipboardPayload(
       row: area.row,
       width: area.width,
     },
-    type: 'tolaria-sheet-clipboard',
-    version: TOLARIA_SHEET_CLIPBOARD_VERSION,
+    type: 'memoria-sheet-clipboard',
+    version: MEMORIA_SHEET_CLIPBOARD_VERSION,
   }
 }
 
-export function parseTolariaSheetClipboardPayload(value: string): TolariaSheetClipboardPayload | null {
+export function parseMemoriaSheetClipboardPayload(value: string): MemoriaSheetClipboardPayload | null {
   if (!value) return null
 
   try {
@@ -266,9 +266,9 @@ export function parseTolariaSheetClipboardPayload(value: string): TolariaSheetCl
   }
 }
 
-export function writeTolariaSheetClipboard(dataTransfer: DataTransfer, payload: TolariaSheetClipboardPayload): void {
+export function writeMemoriaSheetClipboard(dataTransfer: DataTransfer, payload: MemoriaSheetClipboardPayload): void {
   const text = serializeCsvRows(payload.cells)
-  dataTransfer.setData(TOLARIA_SHEET_CLIPBOARD_MIME, JSON.stringify(payload))
+  dataTransfer.setData(MEMORIA_SHEET_CLIPBOARD_MIME, JSON.stringify(payload))
   dataTransfer.setData('text/plain', text)
   dataTransfer.setData('text/csv', text)
 }

@@ -14,7 +14,7 @@ development builds, preventing the same fixtures from measuring optimized code.
 
 ## Decision
 
-Allow those storage probes in an explicitly compiled `TOLARIA_QA` binary as well
+Allow those storage probes in an explicitly compiled `MEMORIA_QA` binary as well
 as Debug. The native workspace module exposes a read-only capability only under
 those compilation conditions. The JavaScript entry point accepts either a
 development runtime or that exact native boolean. URL parameters, strings, and

@@ -59,7 +59,7 @@ async function createFolder(request: VaultFolderCreationRequest): Promise<void> 
 /**
  * Creates a folder in the vault through `createVaultBackend`: the native command on the
  * desktop, which re-validates the name and keeps the path inside the vault boundary; one
- * commit on a Tolaria remote, whose refusals read like the desktop's; the browser mock
+ * commit on a Memoria remote, whose refusals read like the desktop's; the browser mock
  * otherwise.
  */
 export async function createVaultFolder(request: VaultFolderCreationRequest) {

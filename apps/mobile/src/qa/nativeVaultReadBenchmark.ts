@@ -5,7 +5,7 @@ import type { MobileWorkspaceSnapshot } from '../workspace/mobileWorkspaceModel'
 import { preloadNativeWorkspace } from '../workspace/preloadNativeWorkspace'
 import { readWorkspaceSnapshotPreview, type WorkspaceSnapshotPreview } from '../workspace/workspaceSnapshotPreview'
 
-const fixtureMarkerName = '.tolaria-mobile-qa-fixture.json'
+const fixtureMarkerName = '.memoria-mobile-qa-fixture.json'
 
 type LargeVaultFixtureWriter = {
   createDirectory: (path: string) => void
@@ -27,7 +27,7 @@ export async function createNativeLargeVaultFixture(rootUri: string, writer: Lar
     if ((index + 1) % batchSize === 0) await yieldToInput()
   }
   const markerPath = `${root}/${fixtureMarkerName}`
-  const marker = { fixture: 'tolaria-mobile-large-vault', schemaVersion: 1, noteCount }
+  const marker = { fixture: 'memoria-mobile-large-vault', schemaVersion: 1, noteCount }
   await writer.writeText(markerPath, JSON.stringify(marker))
   return { marker, markerPath, noteCount }
 }

@@ -135,10 +135,10 @@ test('tldraw whiteboard fences render as embedded canvases and remain Markdown-d
 
   expect(rawAfterRichMode).toContain('```tldraw id="planning-map" height="520"')
   expect(rawAfterRichMode).toContain('{}')
-  expect(rawAfterRichMode).not.toContain('@@TOLARIA_TLDRAW')
+  expect(rawAfterRichMode).not.toContain('@@MEMORIA_TLDRAW')
 })
 
-test('embedded tldraw whiteboards follow Tolaria theme changes', async ({ page }) => {
+test('embedded tldraw whiteboards follow Memoria theme changes', async ({ page }) => {
   await openNote(page, 'Whiteboard Embed')
 
   const tldrawContainer = page.locator('.tldraw-whiteboard .tl-container').first()

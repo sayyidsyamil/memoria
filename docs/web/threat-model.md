@@ -3,18 +3,18 @@ type: Note
 _organized: true
 ---
 
-# Tolaria Web Security Threat Model
+# Memoria Web Security Threat Model
 
-**Scope:** This document covers the open-source components in the `refactoringhq/tolaria` repository:
+**Scope:** This document covers the open-source components in the `refactoringhq/memoria` repository:
 - `apps/server` - AGPL vault/sync server (file API, Yjs collaboration websocket, blob storage)
 - `apps/web` - Web client build
 - Shared VaultBackend/remote client code
 
-**Out of scope:** Private components in `refactoringhq/tolaria-cloud` (front Worker, accounts/auth, sessions, GitHub App, routing) are covered in a separate security review.
+**Out of scope:** Private components in `refactoringhq/memoria-cloud` (front Worker, accounts/auth, sessions, GitHub App, routing) are covered in a separate security review.
 
 ## Architecture Overview
 
-The Tolaria web architecture consists of:
+The Memoria web architecture consists of:
 
 1. **Server** (`apps/server`): Node.js HTTP server that manages:
    - File API (REST-style vault operations)
@@ -25,7 +25,7 @@ The Tolaria web architecture consists of:
 
 2. **Web Client** (`apps/web`): Browser-based interface for real-time collaboration
 
-3. **Deployment**: Each vault runs in its own Container behind a Cloudflare Worker (from `tolaria-cloud`), fronted by Cloudflare Access at `tolaria.lucaron.in`
+3. **Deployment**: Each vault runs in its own Container behind a Cloudflare Worker (from `memoria-cloud`), fronted by Cloudflare Access at `memoria.lucaron.in`
 
 ## Assets
 
@@ -41,7 +41,7 @@ The Tolaria web architecture consists of:
 1. **Client → Server**: All requests cross this boundary; bearer token or ticket required
 2. **Server → Git remote**: Server syncs to authenticated remote
 3. **Server → Blob store**: Server persists doc index/snapshots to local disk or R2
-4. **Cloudflare Worker → Container**: Worker validates auth and routes to container (out of scope: in `tolaria-cloud`)
+4. **Cloudflare Worker → Container**: Worker validates auth and routes to container (out of scope: in `memoria-cloud`)
 
 ## Attacker Models
 
@@ -131,7 +131,7 @@ The `vaultPath()` function validates all client-supplied paths with strict rules
 **Risk assessment:** **MEDIUM**
 - Good authentication and size limits
 - Document validation protects integrity
-- **Since TOL-208 (ADR 0292):** at most 128 open websockets per account and 32 per document, refused at the upgrade with `429`; upgrades are charged to the account's request bucket; a socket that answers no ping for 60 s is closed with `4408`; the message limit is configurable (`TOLARIA_COLLAB_MAX_MESSAGE_BYTES`)
+- **Since TOL-208 (ADR 0292):** at most 128 open websockets per account and 32 per document, refused at the upgrade with `429`; upgrades are charged to the account's request bucket; a socket that answers no ping for 60 s is closed with `4408`; the message limit is configurable (`MEMORIA_COLLAB_MAX_MESSAGE_BYTES`)
 - **Missing:** Per-client rate limiting on message frequency
 
 **Recommendations:**
@@ -170,7 +170,7 @@ The desktop Tauri app has extensive CSP configured in `src-tauri/tauri.conf.json
 **Implementation:** `apps/server/src/config.ts`, `apps/server/src/httpIo.ts`, `apps/server/src/server.ts`
 
 **Protections in place:**
-- ✅ Max body size enforced (default 25MB, configurable via `TOLARIA_SERVER_MAX_BODY_BYTES`)
+- ✅ Max body size enforced (default 25MB, configurable via `MEMORIA_SERVER_MAX_BODY_BYTES`)
 - ✅ Body size checked before reading and during streaming
 - ✅ WebSocket max payload enforced
 - ✅ Collaboration messages buffered during document open with size limit
@@ -222,7 +222,7 @@ async get(key: string): Promise<Uint8Array | null> {
 
 **Current protections:**
 - ✅ Endpoint URL validated at config load time (must be HTTP or HTTPS)
-- ✅ Endpoint host checked at startup (TOL-207, `apps/server/src/storeEndpoint.ts`): an IP literal, or every address the name resolves to, must be public per `isPublicAddress` (`apps/server/src/publicAddress.ts`, shared with the remote image import). Loopback, RFC 1918, CGNAT, link-local/metadata, ULA and IPv4-mapped addresses are refused, and the server does not start. `TOLARIA_R2_ALLOW_PRIVATE_ENDPOINT=1` lifts this for a local MinIO and is itself refused unless `NODE_ENV=development`
+- ✅ Endpoint host checked at startup (TOL-207, `apps/server/src/storeEndpoint.ts`): an IP literal, or every address the name resolves to, must be public per `isPublicAddress` (`apps/server/src/publicAddress.ts`, shared with the remote image import). Loopback, RFC 1918, CGNAT, link-local/metadata, ULA and IPv4-mapped addresses are refused, and the server does not start. `MEMORIA_R2_ALLOW_PRIVATE_ENDPOINT=1` lifts this for a local MinIO and is itself refused unless `NODE_ENV=development`
 - ✅ Every store connection is checked too (TOL-207): `R2BlobStore` sends its requests with the shared `guardedLookup`, which resolves the host, refuses it when any address fails the policy and pins the socket to the checked address, so a later DNS answer cannot rebind the endpoint to an internal host
 - ✅ Endpoint is operator configuration, not user input
 - ✅ Keys are validated with the `SAFE_KEY` alphabet before use, for `R2BlobStore` as well as `LocalDiskStore` since TOL-207, so a key cannot leave the bucket path
@@ -265,7 +265,7 @@ function validateR2Endpoint(endpoint: string): void {
   const isAllowed = allowedPatterns.some(pattern => pattern.test(endpointUrl.hostname))
   if (!isAllowed) {
     throw new Error(
-      `TOLARIA_R2_ENDPOINT domain '${endpointUrl.hostname}' is not in the allowlist. ` +
+      `MEMORIA_R2_ENDPOINT domain '${endpointUrl.hostname}' is not in the allowlist. ` +
       `Configure allowed domains in config.ts validateR2Endpoint().`
     )
   }
@@ -280,12 +280,12 @@ function validateR2Endpoint(endpoint: string): void {
           (parts[0] === '172' && parseInt(parts[1]) >= 16 && parseInt(parts[1]) <= 31) ||
           (parts[0] === '192' && parts[1] === '168') ||
           parts[0] === '127') {
-        throw new Error(`TOLARIA_R2_ENDPOINT cannot point to private IP range: ${endpointUrl.hostname}`)
+        throw new Error(`MEMORIA_R2_ENDPOINT cannot point to private IP range: ${endpointUrl.hostname}`)
       }
     }
     // Block link-local, etc.
     if (ip === 6 && (endpointUrl.hostname.startsWith('fe80:') || endpointUrl.hostname === '::1')) {
-      throw new Error(`TOLARIA_R2_ENDPOINT cannot point to private IPv6 range: ${endpointUrl.hostname}`)
+      throw new Error(`MEMORIA_R2_ENDPOINT cannot point to private IPv6 range: ${endpointUrl.hostname}`)
     }
   }
 }
@@ -350,9 +350,9 @@ Residual risk: **LOW**. The server can still be made to send GET requests to arb
 **Recommendations:**
 - None; implementation is sound
 
-## Cross-Boundary Issues for tolaria-cloud
+## Cross-Boundary Issues for memoria-cloud
 
-These security concerns span the boundary between the open-source server (this repo) and the private Worker (tolaria-cloud repo):
+These security concerns span the boundary between the open-source server (this repo) and the private Worker (memoria-cloud repo):
 
 1. **Bearer token distribution**: Worker must securely provision and rotate tokens for each container
 2. **Rate limiting**: Worker should enforce per-user and per-vault rate limits before reaching container

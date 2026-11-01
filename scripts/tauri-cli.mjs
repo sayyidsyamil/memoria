@@ -3,7 +3,7 @@ import console from 'node:console'
 import path from 'node:path'
 import process from 'node:process'
 
-export const DEV_APP_CONFIG_NAMESPACE = 'com.tolaria.app.dev'
+export const DEV_APP_CONFIG_NAMESPACE = 'com.memoria.app.dev'
 export const DEV_TAURI_CONFIG_PATH = path.join('src-tauri', 'tauri.dev.conf.json')
 
 const repoRoot = path.resolve(import.meta.dirname, '..')
@@ -38,7 +38,7 @@ export function tauriEnv(args, env = process.env) {
   if (!isTauriDevCommand(args)) return env
   return {
     ...env,
-    TOLARIA_APP_CONFIG_NAMESPACE: DEV_APP_CONFIG_NAMESPACE,
+    MEMORIA_APP_CONFIG_NAMESPACE: DEV_APP_CONFIG_NAMESPACE,
   }
 }
 

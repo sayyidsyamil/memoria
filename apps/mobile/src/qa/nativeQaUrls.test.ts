@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { assertNativeQaOpenUrl } from './nativeQaUrls'
 
 describe('native QA URLs', () => {
-  it('accepts Expo Go and Tolaria native deep links', () => {
+  it('accepts Expo Go and Memoria native deep links', () => {
     expect(() => assertNativeQaOpenUrl('exp://127.0.0.1:8081/--/?layoutProbe=1', 'QA')).not.toThrow()
     expect(() => assertNativeQaOpenUrl('exps://192.168.1.10:8081/--/?layoutProbe=1', 'QA')).not.toThrow()
-    expect(() => assertNativeQaOpenUrl('tolaria://mobile-ui-lab?layoutProbe=1', 'QA')).not.toThrow()
+    expect(() => assertNativeQaOpenUrl('memoria://mobile-ui-lab?layoutProbe=1', 'QA')).not.toThrow()
   })
 
   it('rejects browser URLs because they open Mobile Safari', () => {

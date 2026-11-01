@@ -12,7 +12,7 @@ describe('native workspace picker', () => {
     index: {
       directories: ['Writing'],
       files: [{
-        absolutePath: 'file:///managed/Tolaria%20Vault/Writing/Launch%20note.md',
+        absolutePath: 'file:///managed/Memoria%20Vault/Writing/Launch%20note.md',
         content: '# Launch note\n',
         createdAt: null,
         modifiedAt: 2,
@@ -21,7 +21,7 @@ describe('native workspace picker', () => {
       }],
     },
     label: 'Laputa',
-    uri: 'file:///managed/Tolaria%20Vault/',
+    uri: 'file:///managed/Memoria%20Vault/',
   }
   const managedLaputaSelection = {
     index: managedLaputaRecord.index,
@@ -119,7 +119,7 @@ describe('native workspace picker', () => {
       restoreWorkspace: vi.fn().mockResolvedValue({
         index: managedLaputaRecord.index,
         label: 'Work Vault',
-        uri: 'file:///managed/Tolaria%20Vault/',
+        uri: 'file:///managed/Memoria%20Vault/',
       }),
     })
 
@@ -127,7 +127,7 @@ describe('native workspace picker', () => {
       index: managedLaputaRecord.index,
       vaultAlias: 'work-vault',
       vaultLabel: 'Work Vault',
-      vaultRootUri: 'file:///managed/Tolaria%20Vault/',
+      vaultRootUri: 'file:///managed/Memoria%20Vault/',
     })
   })
 })

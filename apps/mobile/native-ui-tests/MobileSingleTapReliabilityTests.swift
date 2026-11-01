@@ -2,12 +2,12 @@ import XCTest
 
 final class MobileSingleTapReliabilityTests: XCTestCase {
   func testColdLaunchCommandsAndEditorModeRespondToEverySingleTap() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_QA_FRESH_STARTER"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_QA_FRESH_STARTER"] == "1",
       "Requires a disposable fresh installation")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=native-vault&phoneState=list&commandPalette=1&qaRun=single-tap-reliability"]
 
     for _ in 0..<4 {
@@ -18,10 +18,10 @@ final class MobileSingleTapReliabilityTests: XCTestCase {
       command.tap()
       expect(element(app, "mobile-command-palette"), "exists == false")
       expect(element(app, "note-list-toolbar-title"), "label == 'All Notes'")
-      let guide = element(app, "note-row-get-familiar-with-tolaria.md")
+      let guide = element(app, "note-row-get-familiar-with-memoria.md")
       reveal(guide, in: app)
       guide.tap()
-      expect(element(app, "editor-toolbar-title"), "label == 'get-familiar-with-tolaria.md'")
+      expect(element(app, "editor-toolbar-title"), "label == 'get-familiar-with-memoria.md'")
       let stage = element(app, "phone-transition-stage")
       if stage.exists {
         let editor = element(app, "editor-panel")
@@ -31,7 +31,7 @@ final class MobileSingleTapReliabilityTests: XCTestCase {
       toggle.tap()
       let source = element(app, "editor-markdown-input")
       XCTAssertTrue(source.waitForExistence(timeout: 10))
-      XCTAssertTrue((source.value as? String ?? "").contains("# Get familiar with Tolaria"))
+      XCTAssertTrue((source.value as? String ?? "").contains("# Get familiar with Memoria"))
       toggle.tap()
       expect(source, "exists == false")
       XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))

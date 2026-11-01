@@ -9,7 +9,7 @@ const WEB_IDLE_LIMIT_MS = 500
 const USER_INTENT_EVENTS = ['pointerdown', 'keydown'] as const
 
 function isWebBuild(): boolean {
-  return import.meta.env.VITE_TOLARIA_WEB_BUILD === 'true'
+  return import.meta.env.VITE_MEMORIA_WEB_BUILD === 'true'
 }
 
 function delay(ms: number): Promise<void> {

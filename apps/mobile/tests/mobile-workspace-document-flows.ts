@@ -74,7 +74,7 @@ export async function editMarkdownWithWikilink(page: PageLike) {
   await page.getByTestId('editor-markdown-input').fill('# Mobile QA Draft Revised\n\nDraft body referencing [[open')
   await expect(page.getByTestId('editor-wikilink-suggestion-open-source-project')).toBeVisible()
   await page.getByTestId('editor-wikilink-suggestion-open-source-project').click()
-  await expect(page.getByTestId('editor-markdown-input')).toHaveValue('# Mobile QA Draft Revised\n\nDraft body referencing [[Tolaria/Mobile UI/How I Run an Open Source Project]]')
+  await expect(page.getByTestId('editor-markdown-input')).toHaveValue('# Mobile QA Draft Revised\n\nDraft body referencing [[Memoria/Mobile UI/How I Run an Open Source Project]]')
   await page.getByTestId('editor-format-table').click()
   await expect(page.getByTestId('editor-markdown-input')).toHaveValue(/Column/)
   const formattedMarkdown = await page.getByTestId('editor-markdown-input').inputValue()
@@ -97,7 +97,7 @@ export async function editMarkdownWithWikilink(page: PageLike) {
   ].join('\n'))
   await expect(page.getByTestId('editor-toolbar-title')).toHaveText('mobile-qa-draft.md')
   await expect(page.getByTestId('note-row-mobile-qa-draft.md')).toContainText('Mobile QA Draft Revised')
-  await expect(page.getByTestId('editor-markdown-input')).toHaveValue(/Draft body referencing \[\[Tolaria\/Mobile UI\/How I Run an Open Source Project\]\]/u)
+  await expect(page.getByTestId('editor-markdown-input')).toHaveValue(/Draft body referencing \[\[Memoria\/Mobile UI\/How I Run an Open Source Project\]\]/u)
   await expect(page.getByTestId('editor-markdown-input')).toHaveValue(/#### Deep detail/u)
   await expect(page.getByTestId('editor-markdown-input')).toHaveValue(/const renderer = "native"/u)
 }
@@ -146,7 +146,7 @@ export async function editRawFrontmatterContract(page: PageLike) {
     '  - Parity',
     'Priority: High',
     'related_to:',
-    '  - [[Tolaria/Mobile UI/How I Run an Open Source Project]]',
+    '  - [[Memoria/Mobile UI/How I Run an Open Source Project]]',
     '---',
     '# Raw Frontmatter Contract',
     '',
@@ -171,7 +171,7 @@ export async function archiveAndUnarchiveSelectedNote(page: PageLike) {
   await expect(page.getByText('Copy deep link to current item')).toBeVisible()
   await page.getByTestId('workspace-action-copy-deep-link').click()
   await expect(page.getByTestId('workspace-action-sheet')).toBeHidden()
-  await expect(latestClipboardAttempt(page)).resolves.toBe('tolaria://tolaria-vault/mobile-qa-draft.md')
+  await expect(latestClipboardAttempt(page)).resolves.toBe('memoria://memoria-vault/mobile-qa-draft.md')
 
   await page.getByTestId('editor-more-action').click()
   await expect(page.getByText('Archive Note')).toBeVisible()

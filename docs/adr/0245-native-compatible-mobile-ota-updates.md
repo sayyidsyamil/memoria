@@ -14,7 +14,7 @@ survive update, rollback and a failed download.
 ## Decision
 
 Use the SDK-compatible `expo-updates` client and the existing EAS Update project
-`refactoring/tolaria-mobile`. Keep CircleCI as the publishing orchestrator. Desktop
+`refactoring/memoria-mobile`. Keep CircleCI as the publishing orchestrator. Desktop
 changes do not implicitly publish mobile updates.
 
 Use alpha for TestFlight, stable for the store profile, and an isolated

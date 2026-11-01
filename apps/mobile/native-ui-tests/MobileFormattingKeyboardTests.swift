@@ -7,8 +7,8 @@ final class MobileFormattingKeyboardTests: XCTestCase {
 
   func testTabletKeepsWideFormattingActions() throws {
     try XCTSkipUnless(UIDevice.current.userInterfaceIdiom == .pad, "Tablet-only wide toolbar")
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=source&qaRun=tablet-format-toolbar"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=source&qaRun=tablet-format-toolbar"]
     app.launch()
     defer { app.terminate() }
     let create = element(app, "note-list-create-action")
@@ -30,8 +30,8 @@ final class MobileFormattingKeyboardTests: XCTestCase {
     try XCTSkipIf(UIDevice.current.userInterfaceIdiom == .pad, "Phone-specific compact toolbar")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=list&editorMode=\(mode)&qaRun=phone-format-keyboard"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=list&editorMode=\(mode)&qaRun=phone-format-keyboard"]
     app.launch()
     defer { app.terminate() }
     let create = element(app, "note-list-create-action")

@@ -9,7 +9,7 @@ function keyEvent(init: KeyboardEventInit): KeyboardEvent {
 
 describe('appCommandCatalog on the web build (TOL-194)', () => {
   beforeEach(() => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', 'true')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', 'true')
     vi.spyOn(navigator, 'userAgent', 'get').mockReturnValue(MAC_USER_AGENT)
   })
 
@@ -39,7 +39,7 @@ describe('appCommandCatalog on the web build (TOL-194)', () => {
   })
 
   it('keeps the desktop shortcuts outside the web build', () => {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', '')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', '')
     expect(findShortcutCommandIdForEvent(keyEvent({ key: 'n', code: 'KeyN', metaKey: true })))
       .toBe(APP_COMMAND_IDS.fileNewNote)
     expect(getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileNewNote)).toBe('⌘N')

@@ -7,8 +7,8 @@ final class TabletSourceScrollTests: XCTestCase {
   }
 
   func testSourceFormattingStaysAboveKeyboardAfterRotation() {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=source&qaRun=source-keyboard"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=source&qaRun=source-keyboard"]
     app.launch()
     let input = app.textViews.matching(identifier: "editor-markdown-input").firstMatch
     XCTAssertTrue(input.waitForExistence(timeout: 30))
@@ -28,8 +28,8 @@ final class TabletSourceScrollTests: XCTestCase {
   }
 
   func testSourceInputFillsEditorAndSyntaxFollowsNativeScrolling() {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=source&qaRun=source-scroll"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=source&qaRun=source-scroll"]
     app.launch()
     let input = app.textViews.matching(identifier: "editor-markdown-input").firstMatch
     XCTAssertTrue(input.waitForExistence(timeout: 30))

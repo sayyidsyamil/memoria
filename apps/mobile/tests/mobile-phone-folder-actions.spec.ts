@@ -53,7 +53,7 @@ async function deletePhoneFolder(page: Page, folderName: string) {
 
 async function latestClipboardAttempt(page: Page) {
   return page.evaluate(() => {
-    const attempts = (window as unknown as Record<string, unknown>).__TOLARIA_MOBILE_CLIPBOARD_ATTEMPTS__
+    const attempts = (window as unknown as Record<string, unknown>).__MEMORIA_MOBILE_CLIPBOARD_ATTEMPTS__
     return Array.isArray(attempts) ? attempts.at(-1) : null
   })
 }

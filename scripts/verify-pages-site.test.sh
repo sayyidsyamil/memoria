@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regression guard for the tolaria.md 404 (Release Alpha republished Pages
+# Regression guard for the memoria.md 404 (Release Alpha republished Pages
 # without the landing). Checks the site verifier and that every Pages
 # publisher goes through scripts/build-pages-site.sh.
 set -euo pipefail
@@ -13,7 +13,7 @@ trap 'rm -rf "$work"' EXIT
 pass() { echo "ok - $1"; }
 fail() { echo "not ok - $1" >&2; failures=$((failures + 1)); }
 
-landing='<!doctype html><title>Tolaria: a second brain for the AI era</title><div id="root"></div>'
+landing='<!doctype html><title>Memoria: a second brain for the AI era</title><div id="root"></div>'
 printf '%s\n' "$landing" > "$work/landing-index.html"
 
 make_site() {
@@ -45,10 +45,10 @@ expect_failure() {
 expect_ok "accepts landing at root plus docs, release pages and updater manifests" "$(make_site good)"
 
 site=$(make_site no-root); rm "$site/index.html"
-expect_failure "fails when root index.html is missing (the tolaria.md 404)" "$site" "missing index.html"
+expect_failure "fails when root index.html is missing (the memoria.md 404)" "$site" "missing index.html"
 
 site=$(make_site vitepress-root)
-printf '<title>404 | Tolaria</title><script>window.__VP_HASH_MAP__={}</script>\n' > "$site/index.html"
+printf '<title>404 | Memoria</title><script>window.__VP_HASH_MAP__={}</script>\n' > "$site/index.html"
 expect_failure "fails when root is the VitePress 404" "$site" "root index.html is a 404 page"
 expect_failure "fails when root is a VitePress page" "$site" "VitePress page, not the landing"
 

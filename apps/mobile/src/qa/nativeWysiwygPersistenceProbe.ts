@@ -15,9 +15,9 @@ export type NativeWysiwygPersistenceAssertionFailure = {
   message: string
 }
 
-const persistenceLogPrefix = 'TOLARIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE'
-export const nativeWysiwygPersistenceProbeVaultLabel = 'Tolaria WYSIWYG QA Vault'
-export const nativeWysiwygPersistenceProbeNotePath = 'Tolaria/Mobile UI/WYSIWYG Persistence Probe.md'
+const persistenceLogPrefix = 'MEMORIA_MOBILE_WYSIWYG_PERSISTENCE_PROBE'
+export const nativeWysiwygPersistenceProbeVaultLabel = 'Memoria WYSIWYG QA Vault'
+export const nativeWysiwygPersistenceProbeNotePath = 'Memoria/Mobile UI/WYSIWYG Persistence Probe.md'
 
 export function nativeWysiwygPersistenceProbeEnabled(searchParams: URLSearchParams): boolean {
   return searchParams.get('wysiwygPersistenceProbe') === '1'
@@ -127,7 +127,7 @@ function mutationProofFailures(
     proofFailure(proof.titleSaved, 'editor.wysiwyg.persistence.mutation.title', 'Optional H1 title is saved as document content'),
     proofFailure(proof.mutationTextSaved, 'editor.wysiwyg.persistence.mutation.body', 'TenTap body mutation reaches the markdown save pipeline'),
     proofFailure(proof.inlineMarksSaved, 'editor.wysiwyg.persistence.mutation.inline', 'Native WYSIWYG inline marks serialize to desktop markdown syntax'),
-    proofFailure(proof.wikilinkSaved, 'editor.wysiwyg.persistence.mutation.wikilink', 'Native WYSIWYG links can preserve Tolaria wikilink markdown'),
+    proofFailure(proof.wikilinkSaved, 'editor.wysiwyg.persistence.mutation.wikilink', 'Native WYSIWYG links can preserve Memoria wikilink markdown'),
     proofFailure(proof.listBlocksSaved, 'editor.wysiwyg.persistence.mutation.lists', 'Native WYSIWYG list blocks serialize to desktop markdown syntax'),
     proofFailure(proof.quoteSaved, 'editor.wysiwyg.persistence.mutation.quote', 'Native WYSIWYG quote blocks serialize to desktop markdown syntax'),
     proofFailure(proof.codeBlockSaved, 'editor.wysiwyg.persistence.mutation.codeBlock', 'Native WYSIWYG structured codeBlock serializes to desktop fenced-code markdown'),

@@ -5,7 +5,7 @@ import { findEditorMatches, nextEditorFindIndex, replacementForEditorFindMatch, 
 import type { MobileFindRequest, MobileFindSnapshot } from './MobileWysiwygFindBridge'
 
 type FindState = MobileFindSnapshot & { query: string; options: EditorFindOptions; matches: EditorFindMatch[] }
-const findKey = new PluginKey<FindState>('tolariaMobileFind')
+const findKey = new PluginKey<FindState>('memoriaMobileFind')
 const emptyFind: FindState = {
   query: '', options: { caseSensitive: false, regex: false }, activeIndex: 0, matchCount: 0, matches: [], error: null,
 }
@@ -48,8 +48,8 @@ function calculateMatches(document: Node, state: FindState): FindState {
 
 function findDecorations(document: Node, state: FindState) {
   const decorations = state.matches.map((match, index) => Decoration.inline(match.from, match.to, {
-    class: 'tolaria-find-match',
-    ...(index === state.activeIndex ? { 'data-tolaria-find-active': 'true' } : {}),
+    class: 'memoria-find-match',
+    ...(index === state.activeIndex ? { 'data-memoria-find-active': 'true' } : {}),
   }))
   return DecorationSet.create(document, decorations)
 }
@@ -62,7 +62,7 @@ export function readMobileFind(editor: Editor): MobileFindSnapshot {
 export function applyMobileFindRequest(editor: Editor, request: MobileFindRequest): void {
   if (request.kind === 'replace') replaceMatches(editor, request)
   else editor.view.dispatch(editor.state.tr.setMeta(findKey, request))
-  editor.view.dom.querySelector<HTMLElement>('[data-tolaria-find-active]')?.scrollIntoView?.({ block: 'center' })
+  editor.view.dom.querySelector<HTMLElement>('[data-memoria-find-active]')?.scrollIntoView?.({ block: 'center' })
 }
 
 function replaceMatches(editor: Editor, request: Extract<MobileFindRequest, { kind: 'replace' }>) {

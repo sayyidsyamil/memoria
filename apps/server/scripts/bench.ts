@@ -78,7 +78,7 @@ async function measure(base: URL, saves: number): Promise<Sample[]> {
 }
 
 async function bench(remoteUrl: string, saves: number): Promise<void> {
-  const data = await mkdtemp(join(tmpdir(), 'tolaria-bench-'))
+  const data = await mkdtemp(join(tmpdir(), 'memoria-bench-'))
   const vault = await Vault.open({ dir: join(data, 'vault'), remoteUrl })
   const store = new LocalDiskStore(join(data, 'state'))
   const server = await createVaultServer({ vault, store, token: TOKEN, maxBodyBytes: 1024 * 1024, changes: new ChangeEmitter() })

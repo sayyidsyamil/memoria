@@ -70,7 +70,7 @@ describe("App.integrations", () => {
 			const bottomStack = screen.getByTestId("app-bottom-banner-stack");
 			expect(bottomStack).toContainElement(screen.getByTestId("update-banner"));
 			expect(screen.getByTestId("update-banner")).toHaveTextContent(
-				"Tolaria 2026.4.25 is available",
+				"Memoria 2026.4.25 is available",
 			);
 		});
 	});

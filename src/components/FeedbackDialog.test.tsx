@@ -10,12 +10,12 @@ import {
 	CODACY_HOME_URL,
 	CODESCENE_HOME_URL,
 	REFACTORING_HOME_URL,
-	TOLARIA_DEVELOPMENT_ARTICLE_URL,
-	TOLARIA_DISCORD_INVITE_URL,
-	TOLARIA_GITHUB_CONTRIBUTING_URL,
-	TOLARIA_GITHUB_ISSUES_URL,
-	TOLARIA_GITHUB_PULL_REQUESTS_URL,
-	TOLARIA_PRODUCT_BOARD_URL,
+	MEMORIA_DEVELOPMENT_ARTICLE_URL,
+	MEMORIA_DISCORD_INVITE_URL,
+	MEMORIA_GITHUB_CONTRIBUTING_URL,
+	MEMORIA_GITHUB_ISSUES_URL,
+	MEMORIA_GITHUB_PULL_REQUESTS_URL,
+	MEMORIA_PRODUCT_BOARD_URL,
 	UNBLOCKED_HOME_URL,
 } from "../constants/feedback";
 import {
@@ -75,34 +75,34 @@ const CONTRIBUTION_BUTTON_ACTIONS = [
 		url: UNBLOCKED_HOME_URL,
 	},
 	{
-		buttonLabel: "how I develop Tolaria",
+		buttonLabel: "how I develop Memoria",
 		action: "sponsors_development_article",
-		url: TOLARIA_DEVELOPMENT_ARTICLE_URL,
+		url: MEMORIA_DEVELOPMENT_ARTICLE_URL,
 	},
 	{
 		buttonLabel: "Open Product Board",
 		action: "feature_requests",
-		url: TOLARIA_PRODUCT_BOARD_URL,
+		url: MEMORIA_PRODUCT_BOARD_URL,
 	},
 	{
 		buttonLabel: "Join Discord",
 		action: "discord",
-		url: TOLARIA_DISCORD_INVITE_URL,
+		url: MEMORIA_DISCORD_INVITE_URL,
 	},
 	{
 		buttonLabel: "Open PRs",
 		action: "pull_requests",
-		url: TOLARIA_GITHUB_PULL_REQUESTS_URL,
+		url: MEMORIA_GITHUB_PULL_REQUESTS_URL,
 	},
 	{
 		buttonLabel: "Open Guide",
 		action: "contributing_guide",
-		url: TOLARIA_GITHUB_CONTRIBUTING_URL,
+		url: MEMORIA_GITHUB_CONTRIBUTING_URL,
 	},
 	{
 		buttonLabel: "Open Issues",
 		action: "issues",
-		url: TOLARIA_GITHUB_ISSUES_URL,
+		url: MEMORIA_GITHUB_ISSUES_URL,
 	},
 ] as const;
 
@@ -152,7 +152,7 @@ describe("FeedbackDialog", () => {
 			/>,
 		);
 		expect(screen.getByTestId("feedback-dialog")).toBeInTheDocument();
-		expect(screen.getByText("Contribute to Tolaria")).toBeInTheDocument();
+		expect(screen.getByText("Contribute to Memoria")).toBeInTheDocument();
 		expect(
 			screen.getByText(
 				"Pick the path that fits what you want to do! Any type of help is appreciated",
@@ -161,17 +161,17 @@ describe("FeedbackDialog", () => {
 		expect(screen.getByText("Join Refactoring")).toBeInTheDocument();
 		expect(screen.getByText("Sponsors")).toBeInTheDocument();
 		expect(screen.getByText("Feature requests")).toBeInTheDocument();
-		expect(screen.getByText("Join the Tolaria Discord")).toBeInTheDocument();
+		expect(screen.getByText("Join the Memoria Discord")).toBeInTheDocument();
 		expect(screen.getByText("Contribute code")).toBeInTheDocument();
 		expect(screen.getByText("Report a bug")).toBeInTheDocument();
 		expect(
 			screen.getByText(/Refactoring is my newsletter and community/i),
 		).toBeInTheDocument();
 		expect(
-			screen.getByText(/Tolaria is supported by a panel of tools/i),
+			screen.getByText(/Memoria is supported by a panel of tools/i),
 		).toBeInTheDocument();
 		expect(
-			screen.getByRole("button", { name: "how I develop Tolaria" }),
+			screen.getByRole("button", { name: "how I develop Memoria" }),
 		).toBeInTheDocument();
 		expect(
 			screen.getByRole("button", { name: "Open Codacy" }),
@@ -227,7 +227,7 @@ describe("FeedbackDialog", () => {
 			/>,
 		);
 
-		expect(screen.getByText("参与 Tolaria 贡献")).toBeInTheDocument();
+		expect(screen.getByText("参与 Memoria 贡献")).toBeInTheDocument();
 		expect(screen.getByText("功能请求")).toBeInTheDocument();
 		expect(
 			screen.getByRole("button", { name: "打开产品看板" }),
@@ -235,7 +235,7 @@ describe("FeedbackDialog", () => {
 		expect(
 			screen.getByRole("button", { name: "复制诊断" }),
 		).toBeInTheDocument();
-		expect(screen.queryByText("Contribute to Tolaria")).not.toBeInTheDocument();
+		expect(screen.queryByText("Contribute to Memoria")).not.toBeInTheDocument();
 		expect(screen.queryByText("Feature requests")).not.toBeInTheDocument();
 	});
 
@@ -299,7 +299,7 @@ describe("FeedbackDialog", () => {
 		});
 		await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
 		expect(writeText.mock.calls[0]?.[0]).toContain(
-			"Tolaria sanitized diagnostics",
+			"Memoria sanitized diagnostics",
 		);
 		expect(writeText.mock.calls[0]?.[0]).toContain("Build: b281");
 		expect(writeText.mock.calls[0]?.[0]).toContain("Release channel: alpha");
@@ -322,7 +322,7 @@ describe("FeedbackDialog", () => {
 		expect(
 			await screen.findByText(/couldn’t open Product Board automatically/i),
 		).toBeInTheDocument();
-		expect(screen.getByText(TOLARIA_PRODUCT_BOARD_URL)).toBeInTheDocument();
+		expect(screen.getByText(MEMORIA_PRODUCT_BOARD_URL)).toBeInTheDocument();
 	});
 
 	it("closes with Escape and the top-right Close control", () => {

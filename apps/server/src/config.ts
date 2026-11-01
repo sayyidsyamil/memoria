@@ -29,7 +29,7 @@ export interface ServerConfig {
   /** Blob store configuration */
   blobStore: { type: 'local'; stateDir: string } | { type: 'r2'; config: R2Config }
   /**
-   * Where index snapshots are kept for a server on a fresh disk (`TOLARIA_INDEX_SNAPSHOTS=r2`),
+   * Where index snapshots are kept for a server on a fresh disk (`MEMORIA_INDEX_SNAPSHOTS=r2`),
    * under `prefix` (one per vault). Null: indexes are only kept in the blob store.
    */
   indexSnapshots: { r2: R2Config; prefix: string } | null
@@ -64,10 +64,10 @@ function positiveInteger(env: Env, name: string, fallback: number, max: number):
 }
 
 function requiredToken(env: Env): string {
-  const token = setting(env, 'TOLARIA_SERVER_TOKEN')
-  if (!token) throw new Error('TOLARIA_SERVER_TOKEN is required: the server does not start without a bearer token')
+  const token = setting(env, 'MEMORIA_SERVER_TOKEN')
+  if (!token) throw new Error('MEMORIA_SERVER_TOKEN is required: the server does not start without a bearer token')
   if (token.length < MIN_TOKEN_LENGTH) {
-    throw new Error(`TOLARIA_SERVER_TOKEN must be at least ${MIN_TOKEN_LENGTH} characters`)
+    throw new Error(`MEMORIA_SERVER_TOKEN must be at least ${MIN_TOKEN_LENGTH} characters`)
   }
   return token
 }
@@ -79,52 +79,52 @@ export function isLoopbackHost(host: string): boolean {
 
 /** The service speaks plain HTTP, so leaving loopback takes an explicit opt-in. */
 function bindHost(env: Env): string {
-  const host = setting(env, 'TOLARIA_SERVER_HOST') ?? DEFAULT_HOST
-  if (isLoopbackHost(host) || setting(env, 'TOLARIA_SERVER_ALLOW_NON_LOOPBACK') === '1') return host
+  const host = setting(env, 'MEMORIA_SERVER_HOST') ?? DEFAULT_HOST
+  if (isLoopbackHost(host) || setting(env, 'MEMORIA_SERVER_ALLOW_NON_LOOPBACK') === '1') return host
   throw new Error(
-    `refusing to bind ${host}: set TOLARIA_SERVER_ALLOW_NON_LOOPBACK=1 only behind a TLS-terminating proxy`,
+    `refusing to bind ${host}: set MEMORIA_SERVER_ALLOW_NON_LOOPBACK=1 only behind a TLS-terminating proxy`,
   )
 }
 
 function rateLimitSettings(env: Env): RateLimit {
   const { perSecond, burst } = DEFAULT_RATE_LIMIT
   return {
-    perSecond: positiveInteger(env, 'TOLARIA_RATE_LIMIT_PER_SECOND', perSecond, MAX_RATE),
-    burst: positiveInteger(env, 'TOLARIA_RATE_LIMIT_BURST', burst, MAX_RATE),
+    perSecond: positiveInteger(env, 'MEMORIA_RATE_LIMIT_PER_SECOND', perSecond, MAX_RATE),
+    burst: positiveInteger(env, 'MEMORIA_RATE_LIMIT_BURST', burst, MAX_RATE),
   }
 }
 
 function connectionLimits(env: Env): ConnectionLimits {
   const { perAccount, perDoc, idleTimeoutMs } = DEFAULT_CONNECTION_LIMITS
   return {
-    perAccount: positiveInteger(env, 'TOLARIA_COLLAB_MAX_CONNECTIONS', perAccount, MAX_CONNECTIONS),
-    perDoc: positiveInteger(env, 'TOLARIA_COLLAB_MAX_CONNECTIONS_PER_DOC', perDoc, MAX_CONNECTIONS),
-    idleTimeoutMs: positiveInteger(env, 'TOLARIA_COLLAB_SOCKET_IDLE_TIMEOUT_MS', idleTimeoutMs, MAX_DELAY_MS),
+    perAccount: positiveInteger(env, 'MEMORIA_COLLAB_MAX_CONNECTIONS', perAccount, MAX_CONNECTIONS),
+    perDoc: positiveInteger(env, 'MEMORIA_COLLAB_MAX_CONNECTIONS_PER_DOC', perDoc, MAX_CONNECTIONS),
+    idleTimeoutMs: positiveInteger(env, 'MEMORIA_COLLAB_SOCKET_IDLE_TIMEOUT_MS', idleTimeoutMs, MAX_DELAY_MS),
   }
 }
 
 /** Unset leaves the websocket message limit at the body limit. */
 function maxMessageBytes(env: Env): { maxMessageBytes?: number } {
-  if (setting(env, 'TOLARIA_COLLAB_MAX_MESSAGE_BYTES') === undefined) return {}
-  return { maxMessageBytes: positiveInteger(env, 'TOLARIA_COLLAB_MAX_MESSAGE_BYTES', 1, COLLAB_MAX_MESSAGE_BYTES) }
+  if (setting(env, 'MEMORIA_COLLAB_MAX_MESSAGE_BYTES') === undefined) return {}
+  return { maxMessageBytes: positiveInteger(env, 'MEMORIA_COLLAB_MAX_MESSAGE_BYTES', 1, COLLAB_MAX_MESSAGE_BYTES) }
 }
 
-/** `TOLARIA_VAULT_FETCH_INTERVAL_MS=0` leaves pulls to writes and syncs. */
+/** `MEMORIA_VAULT_FETCH_INTERVAL_MS=0` leaves pulls to writes and syncs. */
 function fetchIntervalMs(env: Env): number | undefined {
-  const name = 'TOLARIA_VAULT_FETCH_INTERVAL_MS'
+  const name = 'MEMORIA_VAULT_FETCH_INTERVAL_MS'
   if (setting(env, name) === '0') return 0
   return setting(env, name) === undefined ? undefined : positiveInteger(env, name, 0, MAX_DELAY_MS)
 }
 
 function collabSettings(env: Env): ServerConfig['collab'] {
-  if (setting(env, 'TOLARIA_COLLAB') === '0') return null
+  if (setting(env, 'MEMORIA_COLLAB') === '0') return null
   const { idleMs, maxWaitMs } = DEFAULT_FLUSH_POLICY
   return {
     policy: {
-      idleMs: positiveInteger(env, 'TOLARIA_COLLAB_IDLE_MS', idleMs, MAX_DELAY_MS),
-      maxWaitMs: positiveInteger(env, 'TOLARIA_COLLAB_MAX_WAIT_MS', maxWaitMs, MAX_DELAY_MS),
+      idleMs: positiveInteger(env, 'MEMORIA_COLLAB_IDLE_MS', idleMs, MAX_DELAY_MS),
+      maxWaitMs: positiveInteger(env, 'MEMORIA_COLLAB_MAX_WAIT_MS', maxWaitMs, MAX_DELAY_MS),
     },
-    lingerMs: positiveInteger(env, 'TOLARIA_COLLAB_LINGER_MS', DEFAULT_LINGER_MS, MAX_DELAY_MS),
+    lingerMs: positiveInteger(env, 'MEMORIA_COLLAB_LINGER_MS', DEFAULT_LINGER_MS, MAX_DELAY_MS),
     limits: connectionLimits(env),
     ...maxMessageBytes(env),
   }
@@ -137,73 +137,73 @@ function required(env: Env, name: string, purpose: string): string {
 }
 
 function endpointSetting(env: Env, purpose: string): string {
-  const endpoint = required(env, 'TOLARIA_R2_ENDPOINT', purpose)
-  if (!URL.canParse(endpoint)) throw new Error('TOLARIA_R2_ENDPOINT must be a valid URL')
+  const endpoint = required(env, 'MEMORIA_R2_ENDPOINT', purpose)
+  if (!URL.canParse(endpoint)) throw new Error('MEMORIA_R2_ENDPOINT must be a valid URL')
   if (!['http:', 'https:'].includes(new URL(endpoint).protocol)) {
-    throw new Error('TOLARIA_R2_ENDPOINT must be an HTTP or HTTPS URL')
+    throw new Error('MEMORIA_R2_ENDPOINT must be an HTTP or HTTPS URL')
   }
   return endpoint
 }
 
 function r2Settings(env: Env, purpose: string): R2Config {
-  const bucket = required(env, 'TOLARIA_R2_BUCKET', purpose)
+  const bucket = required(env, 'MEMORIA_R2_BUCKET', purpose)
   const endpoint = endpointSetting(env, purpose)
-  const region = required(env, 'TOLARIA_R2_REGION', purpose)
-  const accessKeyId = required(env, 'TOLARIA_R2_ACCESS_KEY_ID', purpose)
-  const secretAccessKey = required(env, 'TOLARIA_R2_SECRET_ACCESS_KEY', purpose)
+  const region = required(env, 'MEMORIA_R2_REGION', purpose)
+  const accessKeyId = required(env, 'MEMORIA_R2_ACCESS_KEY_ID', purpose)
+  const secretAccessKey = required(env, 'MEMORIA_R2_SECRET_ACCESS_KEY', purpose)
   return { bucket, endpoint, region, accessKeyId, secretAccessKey }
 }
 
 /** A local MinIO or podman S3 lives on a private address, which only a development server may reach (TOL-207). */
 function allowPrivateR2Endpoint(env: Env): boolean {
-  if (setting(env, 'TOLARIA_R2_ALLOW_PRIVATE_ENDPOINT') !== '1') return false
+  if (setting(env, 'MEMORIA_R2_ALLOW_PRIVATE_ENDPOINT') !== '1') return false
   if (setting(env, 'NODE_ENV') === 'development') return true
-  throw new Error('TOLARIA_R2_ALLOW_PRIVATE_ENDPOINT is for development only: it also needs NODE_ENV=development')
+  throw new Error('MEMORIA_R2_ALLOW_PRIVATE_ENDPOINT is for development only: it also needs NODE_ENV=development')
 }
 
 function blobStoreSettings(env: Env, stateDir: string): ServerConfig['blobStore'] {
-  const blobStoreType = setting(env, 'TOLARIA_BLOBSTORE') ?? 'local'
+  const blobStoreType = setting(env, 'MEMORIA_BLOBSTORE') ?? 'local'
   
   if (blobStoreType === 'local') {
     return { type: 'local', stateDir }
   }
   
   if (blobStoreType === 'r2') {
-    return { type: 'r2', config: r2Settings(env, 'TOLARIA_BLOBSTORE=r2') }
+    return { type: 'r2', config: r2Settings(env, 'MEMORIA_BLOBSTORE=r2') }
   }
   
-  throw new Error(`invalid TOLARIA_BLOBSTORE value: ${blobStoreType} (must be 'local' or 'r2')`)
+  throw new Error(`invalid MEMORIA_BLOBSTORE value: ${blobStoreType} (must be 'local' or 'r2')`)
 }
 
 const SNAPSHOT_PREFIX = /^[A-Za-z0-9_-][A-Za-z0-9._-]*(\/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$/
 
 function indexSnapshotSettings(env: Env): ServerConfig['indexSnapshots'] {
-  const type = setting(env, 'TOLARIA_INDEX_SNAPSHOTS')
+  const type = setting(env, 'MEMORIA_INDEX_SNAPSHOTS')
   if (type === undefined) return null
-  if (type !== 'r2') throw new Error(`invalid TOLARIA_INDEX_SNAPSHOTS value: ${type} (must be 'r2' or unset)`)
-  const prefix = setting(env, 'TOLARIA_INDEX_SNAPSHOT_PREFIX')
-  if (!prefix) throw new Error('TOLARIA_INDEX_SNAPSHOT_PREFIX is required when TOLARIA_INDEX_SNAPSHOTS=r2')
+  if (type !== 'r2') throw new Error(`invalid MEMORIA_INDEX_SNAPSHOTS value: ${type} (must be 'r2' or unset)`)
+  const prefix = setting(env, 'MEMORIA_INDEX_SNAPSHOT_PREFIX')
+  if (!prefix) throw new Error('MEMORIA_INDEX_SNAPSHOT_PREFIX is required when MEMORIA_INDEX_SNAPSHOTS=r2')
   if (!SNAPSHOT_PREFIX.test(prefix)) {
-    throw new Error('TOLARIA_INDEX_SNAPSHOT_PREFIX must be /-separated letters, digits, ".", "_" and "-"')
+    throw new Error('MEMORIA_INDEX_SNAPSHOT_PREFIX must be /-separated letters, digits, ".", "_" and "-"')
   }
-  return { r2: r2Settings(env, 'TOLARIA_INDEX_SNAPSHOTS=r2'), prefix }
+  return { r2: r2Settings(env, 'MEMORIA_INDEX_SNAPSHOTS=r2'), prefix }
 }
 
 /** Reads the configuration from the environment. Throws with a message fit for the operator. */
 export function loadConfig(env: Env): ServerConfig {
   const token = requiredToken(env)
-  const dataDir = resolve(setting(env, 'TOLARIA_SERVER_DATA_DIR') ?? 'data')
+  const dataDir = resolve(setting(env, 'MEMORIA_SERVER_DATA_DIR') ?? 'data')
   const stateDir = join(dataDir, 'state')
   return {
     token,
     host: bindHost(env),
-    port: positiveInteger(env, 'TOLARIA_SERVER_PORT', DEFAULT_PORT, 65_535),
-    remoteUrl: setting(env, 'TOLARIA_VAULT_REMOTE_URL'),
-    branch: setting(env, 'TOLARIA_VAULT_BRANCH'),
+    port: positiveInteger(env, 'MEMORIA_SERVER_PORT', DEFAULT_PORT, 65_535),
+    remoteUrl: setting(env, 'MEMORIA_VAULT_REMOTE_URL'),
+    branch: setting(env, 'MEMORIA_VAULT_BRANCH'),
     fetchIntervalMs: fetchIntervalMs(env),
     vaultDir: join(dataDir, 'vault'),
     stateDir,
-    maxBodyBytes: positiveInteger(env, 'TOLARIA_SERVER_MAX_BODY_BYTES', DEFAULT_MAX_BODY_BYTES, 2 ** 31),
+    maxBodyBytes: positiveInteger(env, 'MEMORIA_SERVER_MAX_BODY_BYTES', DEFAULT_MAX_BODY_BYTES, 2 ** 31),
     rateLimit: rateLimitSettings(env),
     collab: collabSettings(env),
     blobStore: blobStoreSettings(env, stateDir),

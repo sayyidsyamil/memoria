@@ -14294,7 +14294,7 @@
           "id": "gitignored_visibility_description",
           "name": "sectionDescription",
           "fill": "$--muted-foreground",
-          "content": "Control whether files matched by the vault .gitignore appear in Tolaria.",
+          "content": "Control whether files matched by the vault .gitignore appear in Memoria.",
           "fontFamily": "Inter",
           "fontSize": 12,
           "fontWeight": "normal",

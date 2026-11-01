@@ -298,12 +298,12 @@ function useMobileUiWorkspaceSource({
 }
 
 function layoutProbeEnabled(searchParams: URLSearchParams) {
-  return searchParams.get('layoutProbe') === '1' || envFlagEnabled('EXPO_PUBLIC_TOLARIA_LAYOUT_PROBE')
+  return searchParams.get('layoutProbe') === '1' || envFlagEnabled('EXPO_PUBLIC_MEMORIA_LAYOUT_PROBE')
 }
 
 function tabletTransitionProbeEnabled(searchParams: URLSearchParams): TabletTransitionProbeMode {
   return tabletTransitionProbeMode({
-    envProbe: envValue('EXPO_PUBLIC_TOLARIA_TABLET_TRANSITION_PROBE'),
+    envProbe: envValue('EXPO_PUBLIC_MEMORIA_TABLET_TRANSITION_PROBE'),
     queryProbe: searchParams.get('tabletTransitionProbe'),
   })
 }

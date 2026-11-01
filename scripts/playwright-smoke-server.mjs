@@ -6,8 +6,8 @@ import { createServer } from "vite";
 
 const port = process.argv[2] ?? process.env.PORT ?? "41741";
 const viteCacheDir =
-	process.env.TOLARIA_VITE_CACHE_DIR ??
-	join(tmpdir(), `tolaria-vite-smoke-${port}`);
+	process.env.MEMORIA_VITE_CACHE_DIR ??
+	join(tmpdir(), `memoria-vite-smoke-${port}`);
 
 const server = await createServer({
 	cacheDir: viteCacheDir,

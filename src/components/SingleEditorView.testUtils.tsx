@@ -208,21 +208,21 @@ vi.mock('./blockNoteSideMenuHoverGuard', () => ({
   useBlockNoteSideMenuHoverGuard: (containerRef: unknown) => state.hoverGuardMock(containerRef),
 }))
 
-vi.mock('./tolariaEditorFormattingConfig', () => ({
-  getTolariaSlashMenuItems: vi.fn(async () => []),
+vi.mock('./memoriaEditorFormattingConfig', () => ({
+  getMemoriaSlashMenuItems: vi.fn(async () => []),
 }))
 
-vi.mock('./tolariaEditorFormatting', () => ({
-  TolariaFormattingToolbar: () => <div data-testid="tolaria-formatting-toolbar" />,
-  TolariaFormattingToolbarController: (props: Record<string, unknown>) => {
+vi.mock('./memoriaEditorFormatting', () => ({
+  MemoriaFormattingToolbar: () => <div data-testid="memoria-formatting-toolbar" />,
+  MemoriaFormattingToolbarController: (props: Record<string, unknown>) => {
     state.capturedToolbarProps = props
-    return <div data-testid="tolaria-formatting-toolbar-controller" />
+    return <div data-testid="memoria-formatting-toolbar-controller" />
   },
 }))
 
-vi.mock('./tolariaBlockNoteSideMenu', () => ({
-  TolariaCollapsedHeadingsController: () => <div data-testid="tolaria-collapsed-headings-controller" />,
-  TolariaSideMenu: () => <div data-testid="tolaria-side-menu" />,
+vi.mock('./memoriaBlockNoteSideMenu', () => ({
+  MemoriaCollapsedHeadingsController: () => <div data-testid="memoria-collapsed-headings-controller" />,
+  MemoriaSideMenu: () => <div data-testid="memoria-side-menu" />,
 }))
 
 vi.mock('./useEditorLinkActivation', () => ({

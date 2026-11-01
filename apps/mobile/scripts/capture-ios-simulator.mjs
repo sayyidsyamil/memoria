@@ -8,7 +8,7 @@ import { dirname, join, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { assertNativeQaOpenUrl } from '../src/qa/nativeQaUrls.ts'
 
-const defaultOutputDir = '/tmp/tolaria-mobile-ui-simulator'
+const defaultOutputDir = '/tmp/memoria-mobile-ui-simulator'
 const defaultExpoGoBundleId = 'host.exp.Exponent'
 
 function printHelp() {
@@ -164,7 +164,7 @@ function captureSimulatorWindow(deviceName, outputPath) {
 }
 
 function captureSimulatorFramebuffer(device, outputPath) {
-  const staging = mkdtempSync(join(tmpdir(), 'tolaria-simulator-capture-'))
+  const staging = mkdtempSync(join(tmpdir(), 'memoria-simulator-capture-'))
   try {
     const image = join(staging, 'screen.png')
     run('xcrun', ['simctl', 'io', device, 'screenshot', image])

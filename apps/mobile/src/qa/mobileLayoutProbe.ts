@@ -15,7 +15,7 @@ export type MobileLayoutMetrics = Record<string, MobileLayoutMetric>
 export type MobileLayoutProbe = (id: string) => { onLayout: (event: LayoutChangeEvent) => void } | Record<string, never>
 
 type LayoutProbeGlobal = typeof globalThis & {
-  __TOLARIA_MOBILE_LAYOUT_METRICS__?: MobileLayoutMetrics
+  __MEMORIA_MOBILE_LAYOUT_METRICS__?: MobileLayoutMetrics
 }
 
 const emptyProbeProps = {}
@@ -79,13 +79,13 @@ function metricFromLayout(id: string, event: LayoutChangeEvent): MobileLayoutMet
 
 function publishMetric(metric: MobileLayoutMetric) {
   const target = globalThis as LayoutProbeGlobal
-  target.__TOLARIA_MOBILE_LAYOUT_METRICS__ = {
-    ...target.__TOLARIA_MOBILE_LAYOUT_METRICS__,
+  target.__MEMORIA_MOBILE_LAYOUT_METRICS__ = {
+    ...target.__MEMORIA_MOBILE_LAYOUT_METRICS__,
     [metric.id]: metric,
   }
 
   if (Platform.OS !== 'web') {
-    console.info(`TOLARIA_MOBILE_LAYOUT_METRIC ${JSON.stringify(metric)}`)
+    console.info(`MEMORIA_MOBILE_LAYOUT_METRIC ${JSON.stringify(metric)}`)
     postNativeQaEvent(metric)
   }
 }

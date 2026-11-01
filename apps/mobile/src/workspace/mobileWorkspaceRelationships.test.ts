@@ -71,7 +71,7 @@ describe('mobile workspace relationship editing', () => {
     expect(result.writes).toEqual([{
       content: source?.rawContent,
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     }])
   })
 
@@ -202,7 +202,7 @@ function expectDesktopSourceWrite(
   expect(result.writes).toEqual([{
     content: updatedSource?.rawContent,
     kind: 'saveNote',
-    path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+    path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
   }])
   return updatedSource
 }

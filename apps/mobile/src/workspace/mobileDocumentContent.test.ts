@@ -101,7 +101,7 @@ Updated body.
     const html = mobileMarkdownBodyToTentapHtml('Paragraph with **bold** and [[Project Alpha|project]].\n')
 
     expect(html).toContain('<p>Paragraph with <strong>bold</strong>')
-    expect(html).toContain('href="tolaria://wikilink/Project%20Alpha"')
+    expect(html).toContain('href="memoria://wikilink/Project%20Alpha"')
     expect(html).not.toContain('<h1>')
   })
 
@@ -177,8 +177,8 @@ Updated body.
     const html = mobileMarkdownBodyToTentapHtml('| Surface | Target |\n| :--- | ---: |\n| Editor | WYSIWYG |\n')
 
     expect(html).toBe(
-      '<table><thead><tr><th data-tolaria-alignment="left" style="text-align: left"><p>Surface</p></th><th data-tolaria-alignment="right" style="text-align: right"><p>Target</p></th></tr></thead>'
-      + '<tbody><tr><td data-tolaria-alignment="left" style="text-align: left"><p>Editor</p></td><td data-tolaria-alignment="right" style="text-align: right"><p>WYSIWYG</p></td></tr></tbody></table>',
+      '<table><thead><tr><th data-memoria-alignment="left" style="text-align: left"><p>Surface</p></th><th data-memoria-alignment="right" style="text-align: right"><p>Target</p></th></tr></thead>'
+      + '<tbody><tr><td data-memoria-alignment="left" style="text-align: left"><p>Editor</p></td><td data-memoria-alignment="right" style="text-align: right"><p>WYSIWYG</p></td></tr></tbody></table>',
     )
   })
 

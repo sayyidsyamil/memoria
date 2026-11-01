@@ -1,7 +1,7 @@
 import { File, Paths } from 'expo-file-system'
 import { parseManagedGitVaultCatalog, type ManagedGitVaultCatalog } from './managedGitVaults'
 
-function catalogFile(suffix = '') { return new File(Paths.document, '.tolaria-mobile-config', `git-vaults.json${suffix}`) }
+function catalogFile(suffix = '') { return new File(Paths.document, '.memoria-mobile-config', `git-vaults.json${suffix}`) }
 
 export async function readManagedCatalogFile(): Promise<ManagedGitVaultCatalog> {
   const current = catalogFile()

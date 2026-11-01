@@ -75,7 +75,7 @@ async function installMacosFullscreenChromeTracking(): Promise<void> {
   }
 }
 
-const IS_WEB_BUILD = import.meta.env.VITE_TOLARIA_WEB_BUILD === 'true'
+const IS_WEB_BUILD = import.meta.env.VITE_MEMORIA_WEB_BUILD === 'true'
 
 async function loadAppModule() {
   markStartupPhase('app_module_requested')
@@ -85,6 +85,7 @@ async function loadAppModule() {
 }
 
 const RootApp = lazy(loadAppModule)
+const MeetingHud = lazy(() => import('./components/MeetingHud').then(module => ({ default: module.MeetingHud })))
 
 function dataTransferHasFiles(dataTransfer: DataTransfer | null): boolean {
   if (!dataTransfer) return false
@@ -162,7 +163,7 @@ window.__laputaTest = {
     }
 
     if (!window.__laputaTest?.dispatchBrowserMenuCommand) {
-      throw new Error('Tolaria test bridge is missing dispatchBrowserMenuCommand')
+      throw new Error('Memoria test bridge is missing dispatchBrowserMenuCommand')
     }
 
     window.__laputaTest.dispatchBrowserMenuCommand(id)
@@ -201,9 +202,9 @@ function isStartupDefaultExportImportError(error: unknown): boolean {
 }
 
 function fatalRenderOverlay(): HTMLElement {
-  const existing = document.getElementById('tolaria-fatal-render-error')
+  const existing = document.getElementById('memoria-fatal-render-error')
   const overlay = existing ?? document.createElement('pre')
-  overlay.id = 'tolaria-fatal-render-error'
+  overlay.id = 'memoria-fatal-render-error'
   overlay.style.cssText = [
     'position:fixed',
     'inset:24px',
@@ -226,7 +227,7 @@ function showFatalRenderError(
 ): void {
   const overlay = fatalRenderOverlay()
   overlay.textContent = [
-    'Tolaria render error',
+    'Memoria render error',
     '',
     errorText(error),
     '',
@@ -275,7 +276,7 @@ function captureRecoverableReactRootError(
 
 function getRequiredRootElement(): HTMLElement {
   const root = document.getElementById('root')
-  if (!root) throw new Error('Tolaria root element is missing')
+  if (!root) throw new Error('Memoria root element is missing')
   return root
 }
 
@@ -290,7 +291,7 @@ function renderRoot(content: ReactNode): void {
     <StrictMode>
       <TooltipProvider>
         <LinuxTitlebar />
-        <Suspense fallback={<StartupShellFallback />}>
+        <Suspense fallback={new URLSearchParams(location.search).has('meetingHud') ? <div style={{ height: '100vh', background: '#1c1c1e', color: '#d4d4d8', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>Preparing meeting…</div> : <StartupShellFallback />}>
           {content}
         </Suspense>
       </TooltipProvider>
@@ -299,7 +300,7 @@ function renderRoot(content: ReactNode): void {
 }
 
 function renderLazyRoot(): void {
-  renderRoot(<><RootApp /><FrontendReadyMarker /></>)
+  renderRoot(new URLSearchParams(location.search).has('meetingHud') ? <MeetingHud /> : <><RootApp /><FrontendReadyMarker /></>)
 }
 
 /**

@@ -13,7 +13,7 @@ window.addEventListener('message', event => {
 })
 
 function isConnectionRequest(event: MessageEvent): boolean {
-  return event.data?.type === 'tolaria-diagram-connect' && event.ports.length === 1
+  return event.data?.type === 'memoria-diagram-connect' && event.ports.length === 1
 }
 
 function connectPort(port: MessagePort) {
@@ -22,7 +22,7 @@ function connectPort(port: MessagePort) {
     const request = message.data
     pending = pending.then(() => renderRequest(request, port)).catch(() => undefined)
   }
-  port.postMessage({ type: 'tolaria-diagram-ready' })
+  port.postMessage({ type: 'memoria-diagram-ready' })
 }
 
 async function renderRequest(request: DiagramRequest, port: MessagePort) {
@@ -30,9 +30,9 @@ async function renderRequest(request: DiagramRequest, port: MessagePort) {
   try {
     if (request.kind !== 'mermaid') throw new Error('Whiteboard preview unavailable')
     const svg = await renderMermaid(request)
-    response = { type: 'tolaria-diagram-result', id: request.id, svg }
+    response = { type: 'memoria-diagram-result', id: request.id, svg }
   } catch {
-    response = { type: 'tolaria-diagram-result', id: request.id, failed: true }
+    response = { type: 'memoria-diagram-result', id: request.id, failed: true }
   }
   port.postMessage(response)
 }

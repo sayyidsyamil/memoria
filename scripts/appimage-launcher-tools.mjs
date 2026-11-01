@@ -21,7 +21,7 @@ export const FIXED_LINUXDEPLOY_APPRUN_DIR_LINE =
   'this_dir="$(dirname "$(readlink -f "$0")")"'
 export const APPIMAGE_PLUGIN_WRAPPER_NAME = 'linuxdeploy-plugin-appimage.AppImage'
 export const REAL_APPIMAGE_PLUGIN_NAME =
-  'tolaria-real-linuxdeploy-plugin-appimage/linuxdeploy-plugin-appimage.AppImage'
+  'memoria-real-linuxdeploy-plugin-appimage/linuxdeploy-plugin-appimage.AppImage'
 export const APPIMAGE_FCITX_GTK3_IM_MODULE_PATH =
   'usr/lib/x86_64-linux-gnu/gtk-3.0/3.0.0/immodules/im-fcitx5.so'
 export const APPIMAGE_FCITX_GCLIENT_LIBRARY_PATH =
@@ -38,8 +38,8 @@ export const APPIMAGE_HOST_LIBRARY_GLOBS = Object.freeze([
 ])
 export const LINUXDEPLOY_EXCLUDED_LIBRARIES = APPIMAGE_HOST_LIBRARY_GLOBS.join(';')
 
-const WRAPPER_MARKER = 'Tolaria AppImage symlink launcher shim'
-const APPIMAGE_PLUGIN_URL_TOKEN = '__TOLARIA_APPIMAGE_PLUGIN_URL__'
+const WRAPPER_MARKER = 'Memoria AppImage symlink launcher shim'
+const APPIMAGE_PLUGIN_URL_TOKEN = '__MEMORIA_APPIMAGE_PLUGIN_URL__'
 const APPIMAGE_HOST_LIBRARY_PREFIXES = APPIMAGE_HOST_LIBRARY_GLOBS.map((pattern) =>
   pattern.replace(/\*.*$/, ''),
 )
@@ -50,8 +50,8 @@ const REQUIRED_APPIMAGE_PATHS = [
 ]
 
 export function tauriToolsCacheDir(env = process.env) {
-  if (env.TOLARIA_TAURI_TOOLS_DIR) {
-    return resolve(env.TOLARIA_TAURI_TOOLS_DIR)
+  if (env.MEMORIA_TAURI_TOOLS_DIR) {
+    return resolve(env.MEMORIA_TAURI_TOOLS_DIR)
   }
 
   if (env.XDG_CACHE_HOME) {
@@ -108,11 +108,11 @@ const APPIMAGE_PLUGIN_WRAPPER_SOURCE = `#!/usr/bin/env bash
 set -euo pipefail
 
 # ${WRAPPER_MARKER}
-PLUGIN_URL="\${TOLARIA_APPIMAGE_PLUGIN_URL:-${APPIMAGE_PLUGIN_URL_TOKEN}}"
+PLUGIN_URL="\${MEMORIA_APPIMAGE_PLUGIN_URL:-${APPIMAGE_PLUGIN_URL_TOKEN}}"
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-REAL_PLUGIN="\${TOLARIA_APPIMAGE_REAL_PLUGIN:-"$SCRIPT_DIR/${REAL_APPIMAGE_PLUGIN_NAME}"}"
-FCITX_GTK3_IM_MODULE="\${TOLARIA_FCITX_GTK3_IM_MODULE:-/usr/lib/x86_64-linux-gnu/gtk-3.0/3.0.0/immodules/im-fcitx5.so}"
-FCITX_LIBRARY_DIR="\${TOLARIA_FCITX_LIBRARY_DIR:-/usr/lib/x86_64-linux-gnu}"
+REAL_PLUGIN="\${MEMORIA_APPIMAGE_REAL_PLUGIN:-"$SCRIPT_DIR/${REAL_APPIMAGE_PLUGIN_NAME}"}"
+FCITX_GTK3_IM_MODULE="\${MEMORIA_FCITX_GTK3_IM_MODULE:-/usr/lib/x86_64-linux-gnu/gtk-3.0/3.0.0/immodules/im-fcitx5.so}"
+FCITX_LIBRARY_DIR="\${MEMORIA_FCITX_LIBRARY_DIR:-/usr/lib/x86_64-linux-gnu}"
 
 appdir_from_args() {
   local previous=""
@@ -322,7 +322,7 @@ async function validateEachAppImage(paths, validate) {
   }
 
   for (const appImage of paths.map((path) => resolve(path))) {
-    const tempDir = await mkdtemp(join(tmpdir(), 'tolaria-appimage-'))
+    const tempDir = await mkdtemp(join(tmpdir(), 'memoria-appimage-'))
     try {
       await validate(appImage, tempDir)
     } finally {

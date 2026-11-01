@@ -2,7 +2,7 @@ import git from 'isomorphic-git'
 import type { GitVaultContext } from './gitVault'
 import { prepareGitTypeChanges } from './gitCheckoutTypeChanges'
 
-export const gitCheckoutJournalName = 'tolaria-checkout.json'
+export const gitCheckoutJournalName = 'memoria-checkout.json'
 type CheckoutJournal = { version: 1; branch: string; before: string; target: string }
 
 export async function checkoutGitFastForward(context: GitVaultContext, branch: string, target: string) {

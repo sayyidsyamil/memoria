@@ -19,7 +19,7 @@ export {
   richEditorTransformRecoveryErrorReason,
 } from './richEditorTransformRecoveryReporting'
 
-const DISPATCH_RECOVERY_STATE_KEY = '__tolariaRichEditorTransformErrorRecovery'
+const DISPATCH_RECOVERY_STATE_KEY = '__memoriaRichEditorTransformErrorRecovery'
 const RECOVERABLE_EDITOR_HANDLER_PROPS = new Set([
   'handleDOMEvents',
   'handleDrop',

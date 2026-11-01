@@ -7,9 +7,9 @@ const require = createRequire(import.meta.url)
 const configure: (context: { config: typeof manifest.expo }) => ExpoConfig = require('../../app.config.js')
 
 beforeEach(() => {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', undefined)
-  vi.stubEnv('TOLARIA_IOS_BUILD_NUMBER', undefined)
-  vi.stubEnv('TOLARIA_UPDATE_CHANNEL', undefined)
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', undefined)
+  vi.stubEnv('MEMORIA_IOS_BUILD_NUMBER', undefined)
+  vi.stubEnv('MEMORIA_UPDATE_CHANNEL', undefined)
   vi.stubEnv('EXPO_PUBLIC_POSTHOG_HOST', undefined)
   vi.stubEnv('VITE_POSTHOG_HOST', undefined)
   vi.stubEnv('EXPO_PUBLIC_DISTRIBUTION', 'testflight')
@@ -23,8 +23,8 @@ function configuredApp() {
 }
 
 function testFlight(build = '1') {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', 'testflight')
-  vi.stubEnv('TOLARIA_IOS_BUILD_NUMBER', build)
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', 'testflight')
+  vi.stubEnv('MEMORIA_IOS_BUILD_NUMBER', build)
   return configuredApp()
 }
 
@@ -55,8 +55,8 @@ it('prefers the explicit Expo host and falls back to the Vite host', () => {
 })
 
 it.each([undefined, 'development'])('preserves the development sandbox for profile %s', (profile) => {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', profile)
-  vi.stubEnv('TOLARIA_IOS_BUILD_NUMBER', '99')
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', profile)
+  vi.stubEnv('MEMORIA_IOS_BUILD_NUMBER', '99')
   const app = configuredApp()
   expect(app.ios).toEqual(manifest.expo.ios)
   expect(app.android).toEqual(manifest.expo.android)
@@ -66,24 +66,24 @@ it('uses the approved production identity without losing native settings', () =>
   const app = testFlight('42')
   expect(app.ios).toEqual({
     ...manifest.expo.ios,
-    bundleIdentifier: 'md.tolaria.mobile',
+    bundleIdentifier: 'md.memoria.mobile',
     appleTeamId: 'D84V3C272P',
     buildNumber: '42',
   })
-  expect(app.name).toBe('Tolaria')
+  expect(app.name).toBe('Memoria')
   expect(app.android).toEqual(manifest.expo.android)
-  expect(manifest.expo.ios.bundleIdentifier).toBe('com.tolaria.mobile.dev')
+  expect(manifest.expo.ios.bundleIdentifier).toBe('com.memoria.mobile.dev')
 })
 
 it.each([undefined, '', '0', '-1', '01', '1.2', '1e2', ' 1 ', '10000'])('rejects invalid TestFlight build number %s', (build) => {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', 'testflight')
-  vi.stubEnv('TOLARIA_IOS_BUILD_NUMBER', build)
-  expect(configuredApp).toThrow('TOLARIA_IOS_BUILD_NUMBER')
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', 'testflight')
+  vi.stubEnv('MEMORIA_IOS_BUILD_NUMBER', build)
+  expect(configuredApp).toThrow('MEMORIA_IOS_BUILD_NUMBER')
 })
 
 it('refuses unknown profiles instead of silently building the development app', () => {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', 'testfligth')
-  expect(configuredApp).toThrow('TOLARIA_BUILD_PROFILE')
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', 'testfligth')
+  expect(configuredApp).toThrow('MEMORIA_BUILD_PROFILE')
 })
 
 it.each(['EXPO_PUBLIC_DISTRIBUTION', 'EXPO_PUBLIC_RELEASE_CHANNEL'])('refuses incorrect TestFlight attribution in %s', (key) => {
@@ -120,21 +120,21 @@ it('downloads alpha updates without blocking launch or disabling embedded recove
 })
 
 it('isolates OTA acceptance from every existing development and release vault container', () => {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', 'ota-validation')
-  vi.stubEnv('TOLARIA_UPDATE_CHANNEL', 'ota-validation')
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', 'ota-validation')
+  vi.stubEnv('MEMORIA_UPDATE_CHANNEL', 'ota-validation')
   const app = configuredApp()
-  expect(app.ios?.bundleIdentifier).toBe('md.tolaria.mobile.ota-validation')
-  expect(app.android?.package).toBe('md.tolaria.mobile.ota_validation')
+  expect(app.ios?.bundleIdentifier).toBe('md.memoria.mobile.ota-validation')
+  expect(app.android?.package).toBe('md.memoria.mobile.ota_validation')
   expect(app.updates?.requestHeaders).toEqual({ 'expo-channel-name': 'ota-validation' })
 })
 
 it('rejects accidental cross-channel publishing from a TestFlight build profile', () => {
-  vi.stubEnv('TOLARIA_UPDATE_CHANNEL', 'stable')
-  expect(() => testFlight()).toThrow('TOLARIA_UPDATE_CHANNEL')
+  vi.stubEnv('MEMORIA_UPDATE_CHANNEL', 'stable')
+  expect(() => testFlight()).toThrow('MEMORIA_UPDATE_CHANNEL')
 })
 
 it('keeps JavaScript-only validation markers out of the native fingerprint configuration', () => {
-  vi.stubEnv('TOLARIA_BUILD_PROFILE', 'ota-validation')
+  vi.stubEnv('MEMORIA_BUILD_PROFILE', 'ota-validation')
   const embedded = configuredApp()
   vi.stubEnv('EXPO_PUBLIC_OTA_VALIDATION_MARKER', 'update-b')
   expect(JSON.stringify(configuredApp())).toBe(JSON.stringify(embedded))

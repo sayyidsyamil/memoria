@@ -4,7 +4,7 @@ import UIKit
 // The host adds this note only to disposable simulator vaults.
 final class MobileOfflineImageTests: XCTestCase {
   override func tearDown() {
-    XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").terminate()
+    XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").terminate()
     XCUIDevice.shared.orientation = .portrait
     super.tearDown()
   }
@@ -12,8 +12,8 @@ final class MobileOfflineImageTests: XCTestCase {
   func testLocalImageLoadsAndKeepsItsPortableReference() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=native-vault&phoneState=list&commandPalette=1&qaRun=offline-image"]
     app.launch()
     let allNotes = element(app, "mobile-command-palette-command-go-all-notes")

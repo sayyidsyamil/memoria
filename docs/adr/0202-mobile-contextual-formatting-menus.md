@@ -19,7 +19,7 @@ only while the editor selection is in a table. Derive active state from TenTap's
 bridge rather than maintaining an independent selection model.
 
 Use the RNR dropdown composition with `@rn-primitives/dropdown-menu` and
-`@rn-primitives/portal`, pinned to 1.4.0. Thin local wrappers apply Tolaria tokens
+`@rn-primitives/portal`, pinned to 1.4.0. Thin local wrappers apply Memoria tokens
 and explicit native layout styles. The primitive owns anchoring, dismissal, and
 interaction; do not implement a separate menu positioning engine. A root portal
 host keeps menus above the workspace without changing native modal ownership.

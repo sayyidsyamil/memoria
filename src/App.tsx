@@ -98,7 +98,7 @@ import { resolveAiTargetReadiness, type AiTarget } from './lib/aiTargets'
 import { isAiAgentInstalled } from './lib/aiAgents'
 import { areGitFeaturesEnabled } from './lib/gitSettings'
 import { useAppCommandAiActions } from './hooks/useAppCommandAiActions'
-import { TOLARIA_DOCS_URL } from './constants/feedback'
+import { MEMORIA_DOCS_URL } from './constants/feedback'
 import { openExternalUrl } from './utils/url'
 import { createVaultFolder } from './utils/vaultFolderCreation'
 import {
@@ -175,9 +175,9 @@ function App() {
 /** The remote server the web build talks to, when one is configured on window. */
 function remoteVaultConfig(): { baseUrl: string; token: string } | null {
   if (typeof window === 'undefined') return null
-  const { TOLARIA_REMOTE_URL: baseUrl, TOLARIA_REMOTE_TOKEN: token } = window as {
-    TOLARIA_REMOTE_URL?: string
-    TOLARIA_REMOTE_TOKEN?: string
+  const { MEMORIA_REMOTE_URL: baseUrl, MEMORIA_REMOTE_TOKEN: token } = window as {
+    MEMORIA_REMOTE_URL?: string
+    MEMORIA_REMOTE_TOKEN?: string
   }
   return baseUrl && token ? { baseUrl, token } : null
 }
@@ -216,7 +216,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     selectionRef,
     setSelection: handleSetSelection,
   })
-  const layout = useLayoutPanels(noteWindowParams || aiWorkspaceWindow ? { initialInspectorCollapsed: true } : undefined)
+  const layout = useLayoutPanels({ initialInspectorCollapsed: true })
   const { setInspectorCollapsed } = layout
   const visibleNotesRef = useRef<VaultEntry[]>([])
   const multiSelectionCommandRef = useRef<NoteListMultiSelectionCommands | null>(null)
@@ -228,7 +228,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   const openFeedback = useCallback(() => setShowFeedback(true), [])
   const closeFeedback = useCallback(() => setShowFeedback(false), [])
   const openDocs = useCallback(() => {
-    void openExternalUrl(TOLARIA_DOCS_URL)
+    void openExternalUrl(MEMORIA_DOCS_URL)
   }, [])
   const networkStatus = useNetworkStatus()
   const { settings, loaded: settingsLoaded, saveSettings } = useSettings()
@@ -1216,7 +1216,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     }
   }, [refreshVaultAiGuidance, resolvedPath, vault])
 
-  const restoreVaultAiGuidance = useCallback(async (successToast: string | null = 'Tolaria AI guidance restored') => {
+  const restoreVaultAiGuidance = useCallback(async (successToast: string | null = 'Memoria AI guidance restored') => {
     if (!resolvedPath) return
     try {
       const tauriInvoke = isTauri() ? invoke : mockInvoke
@@ -1225,7 +1225,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
       await refreshVaultAiGuidance()
       if (successToast) setToastMessage(successToast)
     } catch (err) {
-      setToastMessage(`Failed to restore Tolaria AI guidance: ${err}`)
+      setToastMessage(`Failed to restore Memoria AI guidance: ${err}`)
     }
   }, [refreshVaultAiGuidance, resolvedPath, vault])
 

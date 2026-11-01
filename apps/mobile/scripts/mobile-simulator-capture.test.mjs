@@ -46,7 +46,7 @@ test('a failed native capture preserves the existing destination and removes sta
 test('places a native QA query before the deep-link fragment without losing other parameters', t => {
   const fixture = captureFixture(t)
   const result = fixture.run({ target: join(fixture.nativeTemp, 'screen.png'),
-    args: ['--open-url', 'tolaria://qa?source=native-vault#editor'] })
+    args: ['--open-url', 'memoria://qa?source=native-vault#editor'] })
   assert.equal(result.status, 0, result.stderr)
   const urls = fixture.calls().filter(call => call.url).map(call => new URL(call.url))
   assert.equal(urls.length, 2)
@@ -58,7 +58,7 @@ test('places a native QA query before the deep-link fragment without losing othe
 })
 
 function captureFixture(t) {
-  const root = mkdtempSync(join(tmpdir(), 'tolaria-capture-test-'))
+  const root = mkdtempSync(join(tmpdir(), 'memoria-capture-test-'))
   t.after(() => rmSync(root, { recursive: true, force: true }))
   const bin = join(root, 'bin'), nativeTemp = join(root, 'native-temp'), destination = join(root, 'destination')
   for (const directory of [bin, nativeTemp, destination]) mkdirSync(directory)

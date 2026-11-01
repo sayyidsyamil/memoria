@@ -135,11 +135,13 @@ export function SidebarCountPill({
   return (
     <span
       data-testid={testId}
-      className={cn('flex items-center justify-center', className)}
+      className={cn('flex items-center justify-center tabular-nums', className)}
       style={{
         height: compact ? 18 : 20,
         ...SIDEBAR_COUNT_PILL_STYLE,
         ...style,
+        background: 'transparent',
+        borderRadius: 0,
       }}
     >
       {count}
@@ -446,8 +448,9 @@ function getSectionHeaderIconWeight(isActive: boolean): IconProps['weight'] {
 }
 
 function getSectionHeaderTitleColor(isActive: boolean, sectionColor: string) {
+  void sectionColor
   if (!isActive) return undefined
-  return sectionColor
+  return 'var(--foreground)'
 }
 
 function getSectionSelectHandler(isRenaming: boolean | undefined, onSelect: () => void) {
@@ -546,11 +549,12 @@ function SectionHeaderCountPill({
   sectionColor: string
 }) {
   if (itemCount <= 0) return null
+  void sectionColor
   return (
     <SidebarCountPill
       count={itemCount}
       className={!isActive ? 'text-muted-foreground' : undefined}
-      style={isActive ? { background: sectionColor, color: 'var(--text-inverse)' } : { background: 'var(--muted)' }}
+      style={{ background: 'var(--muted)', color: 'var(--muted-foreground)' }}
     />
   )
 }
@@ -632,7 +636,7 @@ function SectionHeader(options: {
       {...dragHandleProps}
     >
       <div className="flex min-w-0 flex-1 items-center" style={{ gap: 4 }}>
-        <Icon size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: sectionColor, flexShrink: 0 }} />
+        <Icon size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: 'var(--muted-foreground)', flexShrink: 0 }} />
         <SectionHeaderLabel
           type={type}
           label={label}
@@ -664,8 +668,7 @@ function VisibilityPopoverItem({
   onToggle: VisibilityToggleHandler
   locale?: AppLocale
 }) {
-  const { label, type, Icon, customColor } = group
-  const { sectionColor } = resolveSectionColors(type, customColor)
+  const { label, type, Icon } = group
 
   return (
     <Button
@@ -677,7 +680,7 @@ function VisibilityPopoverItem({
       onClick={() => onToggle(type)}
       aria-label={translate(locale, 'sidebar.section.toggle', { label })}
     >
-      <Icon size={14} style={{ color: sectionColor }} />
+      <Icon size={14} style={{ color: 'var(--muted-foreground)' }} />
       <span className="flex-1 text-left text-[13px] text-foreground">{label}</span>
       <ToggleSwitch on={isVisible} />
     </Button>
@@ -744,8 +747,7 @@ function VisibilityMatrixRow({
   onToggle: VisibilityToggleHandler
   workspaces: WorkspaceIdentity[]
 }) {
-  const { label, type, Icon, customColor } = group
-  const { sectionColor } = resolveSectionColors(type, customColor)
+  const { label, type, Icon } = group
 
   return (
     <div
@@ -755,7 +757,7 @@ function VisibilityMatrixRow({
       }}
     >
       <div className="flex min-w-0 items-center gap-2">
-        <Icon size={14} style={{ color: sectionColor }} />
+        <Icon size={14} style={{ color: 'var(--muted-foreground)' }} />
         <span className="min-w-0 truncate text-left text-[13px] text-foreground">{label}</span>
       </div>
       {workspaces.map((workspace) => (

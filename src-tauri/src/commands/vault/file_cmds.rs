@@ -7,7 +7,7 @@ use super::boundary::{
     with_boundary, with_existing_paths, with_requested_root, with_validated_path, ValidatedPathMode,
 };
 
-const LOCALIZED_ERROR_PREFIX: &str = "tolaria:i18n-error:";
+const LOCALIZED_ERROR_PREFIX: &str = "memoria:i18n-error:";
 const FILE_ACTION_INSPECT_PATH_ERROR_KEY: &str = "fileActions.error.inspectPath";
 const FILE_ACTION_PATH_MISSING_ERROR_KEY: &str = "fileActions.error.pathMissing";
 
@@ -250,7 +250,7 @@ fn decode_note_bytes_request(
     use base64::Engine;
 
     let encoded_path = headers
-        .get("x-tolaria-note-path")
+        .get("x-memoria-note-path")
         .ok_or("Missing note path")?
         .to_str()
         .map_err(|e| e.to_string())?;
@@ -484,7 +484,7 @@ mod byte_save_tests {
     fn path_headers(path: &str) -> HeaderMap {
         let mut headers = HeaderMap::new();
         let encoded = base64::engine::general_purpose::STANDARD.encode(path);
-        headers.insert("x-tolaria-note-path", encoded.parse().unwrap());
+        headers.insert("x-memoria-note-path", encoded.parse().unwrap());
         headers
     }
 
@@ -510,7 +510,7 @@ mod byte_save_tests {
         let json = InvokeBody::Json(serde_json::json!({"content": "draft"}));
         assert!(decode_note_bytes_request(&json, &path_headers("/vault/note.md")).is_err());
         let mut invalid_headers = HeaderMap::new();
-        invalid_headers.insert("x-tolaria-note-path", "%%%".parse().unwrap());
+        invalid_headers.insert("x-memoria-note-path", "%%%".parse().unwrap());
         assert!(decode_note_bytes_request(&body, &invalid_headers).is_err());
     }
 }

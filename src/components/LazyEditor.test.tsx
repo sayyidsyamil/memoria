@@ -79,7 +79,7 @@ describe('LazyEditor', () => {
   })
 
   async function renderWebEditorAfterShell() {
-    vi.stubEnv('VITE_TOLARIA_WEB_BUILD', 'true')
+    vi.stubEnv('VITE_MEMORIA_WEB_BUILD', 'true')
     vi.useFakeTimers()
     await renderLazyEditor(null)
     await act(async () => { startup.reach('react_shell') })

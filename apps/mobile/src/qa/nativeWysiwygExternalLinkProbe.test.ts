@@ -15,22 +15,22 @@ describe('native WYSIWYG external link probe', () => {
   it('uses a deterministic external link target and selected text range', () => {
     expect(nativeWysiwygExternalLinkProbeContent()).toMatchObject({
       content: [{
-        content: [{ text: 'Tolaria', type: 'text' }],
+        content: [{ text: 'Memoria', type: 'text' }],
         type: 'paragraph',
       }],
       type: 'doc',
     })
     expect(nativeWysiwygExternalLinkProbeSelection()).toEqual({ from: 1, to: 8 })
-    expect(nativeWysiwygExternalLinkProbeNormalizedUrl()).toBe('https://tolaria.app/docs')
+    expect(nativeWysiwygExternalLinkProbeNormalizedUrl()).toBe('https://memoria.app/docs')
   })
 
   it('builds passing proofs for link save and unlink save stages', () => {
     const saveProof = nativeWysiwygExternalLinkProof({
-      content: '[Tolaria](https://tolaria.app/docs)',
+      content: '[Memoria](https://memoria.app/docs)',
       noteId: 'note.md',
     })
     const removeProof = nativeWysiwygExternalLinkProof({
-      content: 'Tolaria',
+      content: 'Memoria',
       noteId: 'note.md',
     })
 
@@ -51,7 +51,7 @@ describe('native WYSIWYG external link probe', () => {
 
   it('parses simulator log proofs', () => {
     const proof = nativeWysiwygExternalLinkProof({
-      content: '[Tolaria](https://tolaria.app/docs)',
+      content: '[Memoria](https://memoria.app/docs)',
       noteId: 'note.md',
     })
 
@@ -63,14 +63,14 @@ describe('native WYSIWYG external link probe', () => {
       assertNativeWysiwygExternalLinkProofs([]),
     )).toContain('editor.wysiwyg.externalLink')
     expect(assertNativeWysiwygExternalLinkProofs([
-      nativeWysiwygExternalLinkProof({ content: 'Tolaria', noteId: 'note.md' }),
+      nativeWysiwygExternalLinkProof({ content: 'Memoria', noteId: 'note.md' }),
     ])).toEqual([{
       id: 'editor.wysiwyg.externalLink.saved',
       message: 'Native WYSIWYG external-link action saves a normalized desktop Markdown link',
     }])
     expect(assertNativeWysiwygExternalLinkProofs([
       nativeWysiwygExternalLinkProof({
-        content: '[Tolaria](https://tolaria.app/docs)',
+        content: '[Memoria](https://memoria.app/docs)',
         noteId: 'note.md',
       }),
     ])).toEqual([{

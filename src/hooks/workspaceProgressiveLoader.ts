@@ -44,7 +44,7 @@ function reuseLoadedAncestor(options: ProgressiveWorkspaceLoadOptions, vault: Va
 }
 
 /**
- * On a Tolaria remote, listing the active vault again only repeats the initial load (there is
+ * On a Memoria remote, listing the active vault again only repeats the initial load (there is
  * no rescan to force), and its full fetch and re-render held the first list paint back (TOL-206).
  */
 function repeatsInitialRemoteLoad(options: ProgressiveWorkspaceLoadOptions, vault: VaultOption): boolean {

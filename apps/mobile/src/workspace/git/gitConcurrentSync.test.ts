@@ -15,7 +15,7 @@ const cleanup: (() => Promise<void>)[] = []
 afterEach(async () => { for (const action of cleanup.splice(0).reverse()) await action() })
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'tolaria-concurrent-'))
+  const root = await mkdtemp(join(tmpdir(), 'memoria-concurrent-'))
   cleanup.push(() => rm(root, { recursive: true, force: true }))
   const remote = join(root, 'team', 'vault.git')
   await mkdir(remote, { recursive: true })

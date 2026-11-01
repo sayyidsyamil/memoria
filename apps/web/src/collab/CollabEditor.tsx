@@ -11,7 +11,7 @@ interface CollabEditorProps {
 }
 
 /**
- * The Tolaria editor bound to a live document instead of a markdown string: BlockNote's
+ * The Memoria editor bound to a live document instead of a markdown string: BlockNote's
  * collaboration edits the shared fragment and draws the other cursors and selections.
  */
 export function CollabEditor({ document, user }: CollabEditorProps) {

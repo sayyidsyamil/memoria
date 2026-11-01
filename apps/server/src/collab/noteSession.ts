@@ -12,7 +12,7 @@ import { type Peer, Room } from './room.ts'
 import type { SnapshotStore } from './snapshots.ts'
 
 /** Origin of the changes the server itself makes to a document; they are not user edits. */
-const SERVER_ORIGIN = { name: 'tolaria-server' }
+const SERVER_ORIGIN = { name: 'memoria-server' }
 
 export interface SessionServices {
   vault: Vault

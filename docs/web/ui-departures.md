@@ -1,6 +1,6 @@
-# Tolaria Web: deliberate UI departures
+# Memoria Web: deliberate UI departures
 
-Standing rule (Luca, 10 Oct 2026): Tolaria Web reuses the desktop shell, BlockNote editor, components, tokens, typography, icons and dark mode. Where the web demands something different, the change is made deliberately and recorded here: what, why, where. Karn copies this list into the vault note `tolaria-vault-remote-v1`.
+Standing rule (Luca, 10 Oct 2026): Memoria Web reuses the desktop shell, BlockNote editor, components, tokens, typography, icons and dark mode. Where the web demands something different, the change is made deliberately and recorded here: what, why, where. Karn copies this list into the vault note `memoria-vault-remote-v1`.
 
 ## Departures made
 

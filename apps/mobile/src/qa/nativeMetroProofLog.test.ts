@@ -7,7 +7,7 @@ import { captureNativeMetroLog } from './nativeMetroProofLog'
 const directories: string[] = []
 
 function createLog() {
-  const directory = mkdtempSync(join(tmpdir(), 'tolaria-metro-proof-'))
+  const directory = mkdtempSync(join(tmpdir(), 'memoria-metro-proof-'))
   directories.push(directory)
   const path = join(directory, 'metro.log')
   writeFileSync(path, 'previous proof\n')

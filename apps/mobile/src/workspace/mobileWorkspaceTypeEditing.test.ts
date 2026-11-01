@@ -135,7 +135,7 @@ describe('mobile Type document editing', () => {
       {
         content: expect.stringContaining('type: Playbook'),
         kind: 'saveNote',
-        path: 'Tolaria/Mobile UI/How I Run an Open Source Project.md',
+        path: 'Memoria/Mobile UI/How I Run an Open Source Project.md',
       },
     ])
   })
@@ -161,7 +161,7 @@ describe('mobile Type document editing', () => {
       {
         content: expect.stringContaining('type: Playbook'),
         kind: 'saveNote',
-        path: 'Tolaria/Mobile UI/How I Run an Open Source Project.md',
+        path: 'Memoria/Mobile UI/How I Run an Open Source Project.md',
       },
       {
         content: expect.stringContaining('[[playbook]]'),
@@ -187,7 +187,7 @@ describe('mobile Type document editing', () => {
     expect(result.writes).toContainEqual({
       content: expect.stringContaining('type: Playbook'),
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/How I Run an Open Source Project.md',
+      path: 'Memoria/Mobile UI/How I Run an Open Source Project.md',
     })
   })
 

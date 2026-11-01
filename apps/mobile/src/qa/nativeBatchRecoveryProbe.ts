@@ -14,7 +14,7 @@ const recoveredSecond = '---\ncustom: second\n---\n# Second recovered\n'
 
 /** The native fixture intentionally stops after the first member is replaced. */
 export async function nativeBatchRecoveryChecks(phase: string): Promise<Record<string, boolean>> {
-  const module = requireOptionalNativeModule<ProbeModule>('TolariaWorkspaceAccess')
+  const module = requireOptionalNativeModule<ProbeModule>('MemoriaWorkspaceAccess')
   if (!module?.runTextRecoveryProbe) throw new Error('nativeTextRecoveryUnavailable')
   return runBatchPhase(module, phase)
 }

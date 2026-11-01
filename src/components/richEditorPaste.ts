@@ -1,7 +1,7 @@
 import { trackEvent } from '../lib/telemetry'
 import { injectLinkedCodeInBlocks, preProcessLinkedCodeMarkdown } from '../utils/linkedCodeMarkdown'
 import { clipboardRemoteImages, type RemoteImageImportResult } from '../utils/remoteImagePaste'
-import { createTolariaCodeBlockOptions } from './codeBlockOptions'
+import { createMemoriaCodeBlockOptions } from './codeBlockOptions'
 import {
   type ImportRemoteImages,
   type RemoteImageImportTarget,
@@ -210,7 +210,7 @@ function resolveCodeBlockLanguage(language: string): string {
   const normalized = normalizedCodeBlockLanguageToken(language)
   if (!normalized) return ''
 
-  const supportedLanguages = createTolariaCodeBlockOptions().supportedLanguages ?? {}
+  const supportedLanguages = createMemoriaCodeBlockOptions().supportedLanguages ?? {}
   return Object.entries(supportedLanguages)
     .find(([id, option]) => id === normalized || option.aliases?.includes(normalized))
     ?.[0] ?? normalized

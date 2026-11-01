@@ -4,7 +4,7 @@ import { mockInvoke } from '../../mock-tauri'
 import { MOCK_CONTENT } from '../../mock-tauri/mock-content'
 import { autoRenameRemoteNote, createRemoteNote, deleteRemoteNotes } from '../remoteNotes'
 
-type RemoteWindow = Window & { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = Window & { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 const NOTE = Object.keys(MOCK_CONTENT)[0]
 
@@ -14,8 +14,8 @@ function mockNote(): string | undefined {
 
 function goOfflineOnTheWeb(): void {
   const remote = window as RemoteWindow
-  remote.TOLARIA_REMOTE_URL = 'https://server.test'
-  remote.TOLARIA_REMOTE_TOKEN = 'token'
+  remote.MEMORIA_REMOTE_URL = 'https://server.test'
+  remote.MEMORIA_REMOTE_TOKEN = 'token'
   vi.spyOn(window.navigator, 'onLine', 'get').mockReturnValue(false)
 }
 
@@ -25,8 +25,8 @@ function frontmatterCallbacks() {
 
 afterEach(() => {
   const remote = window as RemoteWindow
-  delete remote.TOLARIA_REMOTE_URL
-  delete remote.TOLARIA_REMOTE_TOKEN
+  delete remote.MEMORIA_REMOTE_URL
+  delete remote.MEMORIA_REMOTE_TOKEN
   vi.restoreAllMocks()
 })
 

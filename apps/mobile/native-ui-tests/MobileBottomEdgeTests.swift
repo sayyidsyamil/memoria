@@ -1,7 +1,7 @@
 import XCTest
 
 final class MobileBottomEdgeTests: XCTestCase {
-  private let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+  private let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
 
   override func tearDown() {
     app.terminate()
@@ -12,7 +12,7 @@ final class MobileBottomEdgeTests: XCTestCase {
   func testPanelsAndFormattingSurfaceReachBottomEdge() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    app.launchArguments = ["--tolaria-mobile-search",
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=list&editorMode=source&qaRun=bottom-edge"]
     app.launch()
     let row = element("note-row-workflow-orchestration")
@@ -40,7 +40,7 @@ final class MobileBottomEdgeTests: XCTestCase {
   func testFormattingToolbarMeetsSoftwareKeyboard() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    app.launchArguments = ["--tolaria-mobile-search",
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=editor&editorMode=source&qaRun=bottom-edge-keyboard"]
     app.launch()
     let input = element("editor-markdown-input")

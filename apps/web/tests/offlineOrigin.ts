@@ -19,7 +19,7 @@ import { REMOTE_URL } from "../playwright.config";
 
 const REPO_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
 const LOOPBACK = "127.0.0.1";
-const OFFLINE_ORIGIN_PORT = Number(process.env.TOLARIA_E2E_OFFLINE_PORT ?? "41762");
+const OFFLINE_ORIGIN_PORT = Number(process.env.MEMORIA_E2E_OFFLINE_PORT ?? "41762");
 export const OFFLINE_ORIGIN = `http://${LOOPBACK}:${OFFLINE_ORIGIN_PORT}`;
 // Inside the 45 s test timeout, so a server that never answers fails with its own output.
 const PREVIEW_START_TIMEOUT_MS = 30_000;
@@ -73,7 +73,7 @@ class PreviewServer {
 			cwd: REPO_ROOT,
 			detached: true,
 			stdio: ["ignore", "pipe", "pipe"],
-			env: { ...process.env, TOLARIA_REMOTE_URL: REMOTE_URL },
+			env: { ...process.env, MEMORIA_REMOTE_URL: REMOTE_URL },
 		});
 		this.process = child;
 		const record = (chunk: Buffer) => {

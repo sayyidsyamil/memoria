@@ -3,9 +3,9 @@ import { redactWebUrl, scrubWebBreadcrumb } from './webSentry'
 
 describe('redactWebUrl', () => {
   it.each([
-    ['https://tolaria.example/v1/files/Projects/Plan.md', 'https://tolaria.example/v1'],
-    ['https://tolaria.example/collab?ticket=secret#x', 'https://tolaria.example/collab'],
-    ['https://tolaria.example/', 'https://tolaria.example'],
+    ['https://memoria.example/v1/files/Projects/Plan.md', 'https://memoria.example/v1'],
+    ['https://memoria.example/collab?ticket=secret#x', 'https://memoria.example/collab'],
+    ['https://memoria.example/', 'https://memoria.example'],
     ['/v1/entries?since=1', `${window.location.origin}/v1`],
   ])('cuts %s down to %s', (input, expected) => {
     expect(redactWebUrl(input)).toBe(expected)

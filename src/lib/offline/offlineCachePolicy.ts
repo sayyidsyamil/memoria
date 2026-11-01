@@ -1,5 +1,5 @@
 /**
- * Cache naming and request routing for the Tolaria web service worker (TOL-198).
+ * Cache naming and request routing for the Memoria web service worker (TOL-198).
  *
  * Shell assets live in one versioned cache shared by every visitor of the origin: they are
  * the public static bundle. Vault data (`/v1/entries`, `/v1/files/*`) lives in one cache per
@@ -7,11 +7,11 @@
  * response cached for one account can never be served to another.
  */
 
-export const OFFLINE_CACHE_PREFIX = 'tolaria-web-'
+export const OFFLINE_CACHE_PREFIX = 'memoria-web-'
 /** Posted to the service worker to delete every cache it keeps. */
-export const CLEAR_OFFLINE_DATA_MESSAGE = 'tolaria:clear-offline-data'
+export const CLEAR_OFFLINE_DATA_MESSAGE = 'memoria:clear-offline-data'
 /** Posted by the page with the same-origin files it loaded before the worker took over. */
-export const CACHE_LOADED_URLS_MESSAGE = 'tolaria:cache-loaded-urls'
+export const CACHE_LOADED_URLS_MESSAGE = 'memoria:cache-loaded-urls'
 const SHELL_CACHE_PREFIX = `${OFFLINE_CACHE_PREFIX}shell-`
 const ACCOUNT_CACHE_PREFIX = `${OFFLINE_CACHE_PREFIX}account-`
 const ENTRIES_PATH = '/v1/entries'
@@ -34,7 +34,7 @@ export function accountCacheName(accountKey: string): string {
   return `${ACCOUNT_CACHE_PREFIX}${accountKey}`
 }
 
-export function isTolariaCacheName(name: string): boolean {
+export function isMemoriaCacheName(name: string): boolean {
   return name.startsWith(OFFLINE_CACHE_PREFIX)
 }
 
@@ -92,7 +92,7 @@ export async function trimCache(cache: Cache, limit: number): Promise<void> {
 }
 
 /** Deletes every cache this app created: the shell and all account caches. */
-export async function deleteTolariaCaches(cacheStorage: CacheStorage): Promise<void> {
+export async function deleteMemoriaCaches(cacheStorage: CacheStorage): Promise<void> {
   const names = await cacheStorage.keys()
-  await Promise.all(names.filter(isTolariaCacheName).map((name) => cacheStorage.delete(name)))
+  await Promise.all(names.filter(isMemoriaCacheName).map((name) => cacheStorage.delete(name)))
 }

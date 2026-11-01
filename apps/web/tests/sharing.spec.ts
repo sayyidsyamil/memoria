@@ -128,11 +128,11 @@ async function windowOf(
 	const token = userId === OWNER.userId ? COLLAB_TOKEN : PLACEHOLDER_TOKEN;
 	await context.addInitScript((credential) => {
 		window.localStorage.setItem(
-			"tolaria:claude-code-onboarding-dismissed",
+			"memoria:claude-code-onboarding-dismissed",
 			"1",
 		);
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = credential;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = credential;
 	}, token);
 	return context;
 }

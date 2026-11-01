@@ -13,8 +13,8 @@ for (const zoom of [80, 90, 100, 110, 125, 150]) {
 			await page.evaluate((level) => {
 				const root = document.documentElement.style;
 				root.setProperty("zoom", `${level}%`);
-				root.setProperty("--tolaria-overlay-zoom-factor", String(level / 100));
-				root.setProperty("--tolaria-overlay-zoom-inverse", String(100 / level));
+				root.setProperty("--memoria-overlay-zoom-factor", String(level / 100));
+				root.setProperty("--memoria-overlay-zoom-inverse", String(100 / level));
 				window.dispatchEvent(new Event("laputa-zoom-change"));
 			}, zoom);
 			await page

@@ -28,7 +28,7 @@ it('disables automatic collection and stamps sanitized reports with mobile build
   const options = sdk.init.mock.calls[0]?.[0]
   const hint = { attachments: [{ filename: 'private.md', data: 'private note' }] }
   const clean = await options?.beforeSend?.({ type: undefined, exception: { values: [{ type: 'Error', value: 'private note' }] } }, hint)
-  expect(clean).toMatchObject({ release: 'tolaria-mobile@1.0.0+42', tags: { app_surface: 'mobile', device_family: 'phone' } })
+  expect(clean).toMatchObject({ release: 'memoria-mobile@1.0.0+42', tags: { app_surface: 'mobile', device_family: 'phone' } })
   expect(JSON.stringify(clean)).not.toContain('private note')
   expect(hint.attachments).toEqual([])
   driver.abort()

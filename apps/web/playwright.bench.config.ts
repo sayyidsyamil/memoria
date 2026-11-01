@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig, devices } from "@playwright/test";
 
 // Big-vault performance bench (TOL-225): the static web bundle (`pnpm build:web` first) in
-// front of a Tolaria server whose throwaway remote is seeded with 6,000 generated notes.
+// front of a Memoria server whose throwaway remote is seeded with 6,000 generated notes.
 // Budgets live in bigVaultBudgets.ts and docs/PERFORMANCE.md.
 
 /** A TCP port from the environment, in decimal: the ports end up in a shell command. */
@@ -21,8 +21,8 @@ const port = tcpPort(
 	41780,
 );
 const baseURL = `http://127.0.0.1:${port}`;
-const remotePort = tcpPort(process.env.TOLARIA_E2E_REMOTE_PORT, 41781);
-const remoteDir = join(tmpdir(), `tolaria-web-bench-${remotePort}`);
+const remotePort = tcpPort(process.env.MEMORIA_E2E_REMOTE_PORT, 41781);
+const remoteDir = join(tmpdir(), `memoria-web-bench-${remotePort}`);
 export const BENCH_TOKEN = "bench-token-not-a-secret-0123456789";
 /** The seed script adds four hand-written notes to its filler notes. */
 export const BENCH_NOTE_COUNT = 6000;
@@ -50,10 +50,10 @@ export default defineConfig({
 			stdout: "pipe",
 			stderr: "pipe",
 			env: {
-				TOLARIA_SERVER_TOKEN: BENCH_TOKEN,
-				TOLARIA_SERVER_PORT: remotePort,
-				TOLARIA_SERVER_DATA_DIR: `${remoteDir}/data`,
-				TOLARIA_VAULT_REMOTE_URL: `${remoteDir}/remote.git`,
+				MEMORIA_SERVER_TOKEN: BENCH_TOKEN,
+				MEMORIA_SERVER_PORT: remotePort,
+				MEMORIA_SERVER_DATA_DIR: `${remoteDir}/data`,
+				MEMORIA_VAULT_REMOTE_URL: `${remoteDir}/remote.git`,
 			},
 		},
 		{
@@ -64,7 +64,7 @@ export default defineConfig({
 			timeout: 30_000,
 			stdout: "pipe",
 			stderr: "pipe",
-			env: { TOLARIA_REMOTE_URL: `http://127.0.0.1:${remotePort}` },
+			env: { MEMORIA_REMOTE_URL: `http://127.0.0.1:${remotePort}` },
 		},
 	],
 });

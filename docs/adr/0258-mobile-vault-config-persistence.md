@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Desktop Tolaria stores some per-vault UI configuration locally by vault path. Primary note-list display properties for All Notes and Inbox are part of that contract: changing them should survive reloads without becoming markdown files in the vault.
+Desktop Memoria stores some per-vault UI configuration locally by vault path. Primary note-list display properties for All Notes and Inbox are part of that contract: changing them should survive reloads without becoming markdown files in the vault.
 
 The mobile foundation already had reducer state for primary note-list property overrides, but the edit produced no repository writes. That was acceptable for the static UI phase and wrong for real editing parity, because native snapshots rebuilt from the Expo filesystem lost the setting.
 

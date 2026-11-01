@@ -108,7 +108,7 @@ describe("UpdateBanner", () => {
 		);
 
 		expect(screen.getByTestId("update-banner")).toBeTruthy();
-		expect(screen.getByText(/Tolaria Alpha 2026\.4\.16\.3/)).toBeTruthy();
+		expect(screen.getByText(/Memoria Alpha 2026\.4\.16\.3/)).toBeTruthy();
 		expect(screen.getByText(/is available/)).toBeTruthy();
 		expect(screen.getByTestId("update-now-btn")).toBeTruthy();
 		expect(screen.getByTestId("update-release-notes")).toBeTruthy();
@@ -125,7 +125,7 @@ describe("UpdateBanner", () => {
 			"zh-CN",
 		);
 
-		expect(screen.getByText(/Tolaria Alpha 2026\.4\.16\.3/)).toBeTruthy();
+		expect(screen.getByText(/Memoria Alpha 2026\.4\.16\.3/)).toBeTruthy();
 		expect(screen.getByText(/可用/)).toBeTruthy();
 		expect(screen.getByTestId("update-release-notes")).toHaveTextContent(
 			"发行说明",
@@ -162,7 +162,7 @@ describe("UpdateBanner", () => {
 		renderBanner(makeStatus("downloading"));
 
 		expect(
-			screen.getByText(/Downloading Tolaria Alpha 2026\.4\.16\.3/),
+			screen.getByText(/Downloading Memoria Alpha 2026\.4\.16\.3/),
 		).toBeTruthy();
 		expect(screen.getByText("65%")).toBeTruthy();
 
@@ -187,7 +187,7 @@ describe("UpdateBanner", () => {
 	it("shows restart button when update is ready", () => {
 		renderBanner(makeStatus("ready"));
 
-		expect(screen.getByText(/Tolaria 2026\.4\.16/)).toBeTruthy();
+		expect(screen.getByText(/Memoria 2026\.4\.16/)).toBeTruthy();
 		expect(screen.getByText(/restart to apply/)).toBeTruthy();
 		expect(screen.getByTestId("update-restart-btn")).toBeTruthy();
 	});

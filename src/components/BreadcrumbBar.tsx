@@ -941,7 +941,6 @@ function BreadcrumbActions(options: Omit<BreadcrumbBarProps, 'wordCount' | 'barR
     onUnarchive,
     onEnterNeighborhood,
     actionsRef,
-    overflowCollapsed,
     locale = 'en',
 } = options
   let favoriteAction = onToggleFavorite, organizedAction = onToggleOrganized, neighborhoodAction = onEnterNeighborhood,
@@ -952,16 +951,16 @@ function BreadcrumbActions(options: Omit<BreadcrumbBarProps, 'wordCount' | 'barR
     <div
       ref={actionsRef}
       className="breadcrumb-bar__actions ml-auto flex shrink-0 items-center"
-      data-overflow-collapsed={overflowCollapsed}
+      data-overflow-collapsed={true}
       style={{ gap: 8 }}
     >
       <NotePresence locale={locale} />
       <FavoriteAction favorite={entry.favorite} locale={locale} onToggleFavorite={favoriteAction} />
-      <OrganizedAction organized={entry.organized} locale={locale} onToggleOrganized={organizedAction} />
+      <OverflowToolbarAction><OrganizedAction organized={entry.organized} locale={locale} onToggleOrganized={organizedAction} /></OverflowToolbarAction>
       <OverflowToolbarAction>
         <NeighborhoodAction entry={entry} locale={locale} onEnterNeighborhood={neighborhoodAction} />
       </OverflowToolbarAction>
-      {!forceRawMode && <RawToggleButton rawMode={rawMode} locale={locale} onToggleRaw={onToggleRaw} />}
+      <OverflowToolbarAction>{!forceRawMode && <RawToggleButton rawMode={rawMode} locale={locale} onToggleRaw={onToggleRaw} />}</OverflowToolbarAction>
       <OverflowToolbarAction>
         <NoteWidthAction noteWidth={noteWidth} locale={locale} onToggleNoteWidth={noteWidthAction} />
       </OverflowToolbarAction>
@@ -976,6 +975,9 @@ function BreadcrumbActions(options: Omit<BreadcrumbBarProps, 'wordCount' | 'barR
         <FilePathActions entry={entry} locale={locale} onRevealFile={onRevealFile} onCopyFilePath={onCopyFilePath} />
       </OverflowToolbarAction>
       <BreadcrumbOverflowMenu
+        rawMode={rawMode}
+        onToggleRaw={forceRawMode ? undefined : onToggleRaw}
+        onToggleOrganized={organizedAction}
         entry={entry}
         showDiffToggle={showDiffToggle}
         onToggleDiff={onToggleDiff}
@@ -992,7 +994,7 @@ function BreadcrumbActions(options: Omit<BreadcrumbBarProps, 'wordCount' | 'barR
         onUnarchive={onUnarchive}
         onDelete={onDelete}
         onEnterNeighborhood={onEnterNeighborhood}
-        showResponsiveActions={overflowCollapsed}
+        showResponsiveActions={true}
         locale={locale}
       />
       <InspectorAction inspectorCollapsed={inspectorCollapsed} locale={locale} onToggleInspector={onToggleInspector} />
@@ -1003,6 +1005,9 @@ function BreadcrumbActions(options: Omit<BreadcrumbBarProps, 'wordCount' | 'barR
 function BreadcrumbOverflowMenu(options: Pick<
   BreadcrumbBarProps,
   | 'entry'
+  | 'rawMode'
+  | 'onToggleRaw'
+  | 'onToggleOrganized'
   | 'showDiffToggle'
   | 'onToggleDiff'
   | 'noteWidth'
@@ -1024,6 +1029,9 @@ function BreadcrumbOverflowMenu(options: Pick<
 }) {
   const {
     entry,
+    rawMode,
+    onToggleRaw,
+    onToggleOrganized,
     showDiffToggle,
     onToggleDiff,
     noteWidth,
@@ -1064,6 +1072,14 @@ function BreadcrumbOverflowMenu(options: Pick<
     <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
       <BreadcrumbOverflowMenuTrigger label={moreActionsLabel} setMenuOpen={setMenuOpen} tooltipControl={tooltipControl} />
       <DropdownMenuContent align="end" className="min-w-44">
+        {showMarkdownActions && onToggleOrganized && <DropdownMenuItem onSelect={onToggleOrganized}>
+          <CheckCircle size={16} />
+          {translate(locale, entry.organized ? 'editor.toolbar.markUnorganized' : 'editor.toolbar.markOrganized')}
+        </DropdownMenuItem>}
+        {onToggleRaw && <DropdownMenuItem onSelect={onToggleRaw}>
+          <Code size={16} />
+          {translate(locale, rawMode ? 'editor.toolbar.rawReturn' : 'editor.toolbar.rawOpen')}
+        </DropdownMenuItem>}
         <DropdownMenuItem disabled={!runDiffAction} onSelect={runDiffAction}>
           <GitBranch size={16} />
           {diffLabel}

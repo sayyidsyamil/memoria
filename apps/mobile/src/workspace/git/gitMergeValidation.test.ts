@@ -20,7 +20,7 @@ it.each([
   ['note.md', '---\n# empty header\n---\n'],
   ['views/test.yaml', 'name: Test\nfilters:\n  all:\n    - field: type\n      op: equals\n      value: Essay\n'],
   ['config/settings.json', '{"custom":true}'],
-  ['ordinary.json', 'not a Tolaria config'],
+  ['ordinary.json', 'not a Memoria config'],
 ])('accepts supported metadata without normalizing %s', (path, content) => {
   expect(validSyncMetadata(path, content)).toBe(true)
 })

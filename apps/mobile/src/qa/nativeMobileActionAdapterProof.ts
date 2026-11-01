@@ -19,7 +19,7 @@ export type NativeMobileActionAdapterAssertionFailure = {
   message: string
 }
 
-export const nativeMobileActionAdapterLogPrefix = 'TOLARIA_MOBILE_ACTION_ADAPTER_PROBE'
+export const nativeMobileActionAdapterLogPrefix = 'MEMORIA_MOBILE_ACTION_ADAPTER_PROBE'
 
 export function nativeMobileActionAdapterLogLine(
   proof: NativeMobileActionAdapterProof,
@@ -50,7 +50,7 @@ export function assertNativeMobileActionAdapterProofs(
   return [
     proofFailure(latest.selectedNoteId.length > 0, 'mobile.actionAdapters.selectedNote', 'Native action-adapter probe resolves the active note'),
     proofFailure(latest.filePathBuilt, 'mobile.actionAdapters.filePath', 'Native action-adapter probe builds a safe selected-note file path'),
-    proofFailure(latest.deepLinkBuilt, 'mobile.actionAdapters.deepLink', 'Native action-adapter probe builds a desktop-shaped Tolaria deep link'),
+    proofFailure(latest.deepLinkBuilt, 'mobile.actionAdapters.deepLink', 'Native action-adapter probe builds a desktop-shaped Memoria deep link'),
     proofFailure(latest.clipboardFilePathRoundTrip, 'mobile.actionAdapters.copyFilePath', 'Native action-adapter probe copies and reads back the selected-note file path'),
     proofFailure(latest.clipboardDeepLinkRoundTrip, 'mobile.actionAdapters.copyDeepLink', 'Native action-adapter probe copies and reads back the selected-note deep link'),
     proofFailure(latest.noteOpenOpened, 'mobile.actionAdapters.openFile', 'Native action-adapter probe routes selected-note open through the file opener boundary'),

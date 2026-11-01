@@ -309,17 +309,17 @@ fn validate_git_init_target(vault_path: &str) -> Result<(), String> {
         return Err("Choose a folder before initializing Git".to_string());
     }
 
-    if is_broad_personal_folder(path) && !has_tolaria_vault_marker(path) {
+    if is_broad_personal_folder(path) && !has_memoria_vault_marker(path) {
         return Err(format!(
             "Choose a dedicated vault folder before initializing Git. '{}' looks like a broad personal folder; create or select a subfolder such as '{}' instead.",
             path.display(),
-            path.join("Tolaria").display()
+            path.join("Memoria").display()
         ));
     }
 
     if crate::git::is_inside_work_tree(path) && !crate::git::has_direct_git_metadata(path) {
         return Err(
-            "This vault is already inside a Git work tree. Tolaria will use the parent repository instead of creating an embedded repository."
+            "This vault is already inside a Git work tree. Memoria will use the parent repository instead of creating an embedded repository."
                 .to_string(),
         );
     }
@@ -348,7 +348,7 @@ fn is_broad_personal_folder(path: &std::path::Path) -> bool {
 }
 
 #[cfg(desktop)]
-fn has_tolaria_vault_marker(path: &std::path::Path) -> bool {
+fn has_memoria_vault_marker(path: &std::path::Path) -> bool {
     ["AGENTS.md", "CLAUDE.md", "type.md", "note.md"]
         .iter()
         .any(|file| path.join(file).is_file())

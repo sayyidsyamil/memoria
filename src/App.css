@@ -16,11 +16,11 @@
 }
 
 body.mac-chrome {
-  --tolaria-macos-traffic-light-padding: 90px;
+  --memoria-macos-traffic-light-padding: 90px;
 }
 
 body.mac-chrome.mac-chrome-fullscreen {
-  --tolaria-macos-traffic-light-padding: 16px;
+  --memoria-macos-traffic-light-padding: 16px;
 }
 
 .app__sidebar {
@@ -71,9 +71,9 @@ body.mac-chrome.mac-chrome-fullscreen {
 /* Phone web layout (TOL-193): one pane at a time, inside the safe area and above the keyboard. */
 html[data-phone-pane] .app-shell {
   position: fixed;
-  top: var(--tolaria-visual-viewport-top, 0);
+  top: var(--memoria-visual-viewport-top, 0);
   left: 0;
-  height: var(--tolaria-visual-viewport-height, 100%);
+  height: var(--memoria-visual-viewport-height, 100%);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   box-shadow: none;
 }
@@ -118,7 +118,7 @@ html[data-phone-pane] .app-shell .app__editor > .app__phone-back-bar {
 
 /* Tablet web layout (TOL-194): the note list and the note, the sidebar collapsed until asked for. */
 html[data-tablet-layout] {
-  --tolaria-macos-traffic-light-padding: 16px;
+  --memoria-macos-traffic-light-padding: 16px;
 }
 
 html[data-tablet-layout] .app-shell .app {
@@ -183,7 +183,7 @@ html[data-touch-input] .app-shell .app__note-list :has(> [data-slot="button"]) {
 
 /* A browser has no window buttons to clear: the macOS traffic-light inset shrinks to the edge margin. */
 html[data-touch-input] body.mac-chrome {
-  --tolaria-macos-traffic-light-padding: 16px;
+  --memoria-macos-traffic-light-padding: 16px;
 }
 
 /* A long press opens the context menu (src/lib/touchInput.ts), not text selection or a callout. */

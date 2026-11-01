@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-The mobile WYSIWYG editor needs to copy desktop editor semantics before adapting interaction details. Simple fenced code blocks are part of that baseline: desktop Tolaria treats them as rich editor code blocks and saves them back to durable Markdown fences.
+The mobile WYSIWYG editor needs to copy desktop editor semantics before adapting interaction details. Simple fenced code blocks are part of that baseline: desktop Memoria treats them as rich editor code blocks and saves them back to durable Markdown fences.
 
 TenTap's mobile StarterKit includes the inline `code` mark, but it does not register Tiptap's block-level `codeBlock` node. Sending a `codeBlock` JSON node into the native editor without registering that schema node can invalidate the document in the WebView, which breaks simulator/device QA and makes the editor fallback less predictable.
 
@@ -14,7 +14,7 @@ Complex Markdown fence metadata, such as tilde fences or info strings with space
 
 ## Decision
 
-Declare `@tiptap/extension-code-block` as a direct `@tolaria/mobile` dependency and register it through a Tolaria-owned `MobileCodeBlockBridge`.
+Declare `@tiptap/extension-code-block` as a direct `@memoria/mobile` dependency and register it through a Memoria-owned `MobileCodeBlockBridge`.
 
 The bridge is registered in both `MobileWysiwygMarkdownEditor.native.tsx` and the generated TenTap WebView entrypoint. Simple backtick fences with simple language identifiers hydrate as native `codeBlock` nodes and serialize back to Markdown. Complex fence metadata remains source-backed so mobile does not silently lose desktop-compatible source information.
 

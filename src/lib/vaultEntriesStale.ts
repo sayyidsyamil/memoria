@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 /** Something outside the vault loader added files (a conflict copy from the server): list them again. */
-export const VAULT_ENTRIES_STALE_EVENT = "tolaria:vault-entries-stale";
+export const VAULT_ENTRIES_STALE_EVENT = "memoria:vault-entries-stale";
 
 export function requestVaultEntriesReload(): void {
 	if (typeof window === "undefined") return;

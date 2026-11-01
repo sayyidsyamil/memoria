@@ -13,10 +13,10 @@ import { nativeWysiwygDocumentWithInsertedWikilink } from "./MobileWysiwygWikili
 
 const disposals: Array<() => void> = [];
 const gettingStartedNotes = [
-	`---\ntype: Note\nrelated_to: "[[tolaria]]"\n---\n# Note List\n\nYou can also create a new note anywhere with \`Cmd+N\` (\`Ctrl+N\` on Windows and Linux) or from the [[command-palette]]`,
-	`---\ntype: Note\nrelated_to: "[[tolaria]]"\n---\n# Editor\n\nOpen [[editor-playground]] for examples you can manipulate directly.\n\n- List **item** 1\n  - Nested *italic item*\n\n1. **Numbered item** in bold\n2. Numbered second item\n\n- [ ] Task 1\n\nUse the export button, or run Export from the [[command-palette]], to turn the current note into a PDF.`,
-	`---\ntype: Project\nstatus: In progress\nrelated_to:\n  - "[[tolaria]]"\n_organized: true\n---\n# Get familiar with Tolaria\n\n- [ ] **Read the** [[tolaria-principles|Tolaria Principles]] — understand the core philosophy\n- [ ] **Explore the** [[tolaria-sidebar]] — learn Inbox, All Notes, Archive, Favorites, Types, Folders\n- [ ] **Try the** [[tolaria-editor|Editor]] and [[editor-playground]] — rich vs raw mode\n- [ ] **Open the** [[the-properties-panel|Properties Panel]] — add a property, create a relationship`,
-	`---\ntype: Note\nrelated_to: "[[tolaria]]"\n---\n# Principles\n\nTolaria is free and [open source](https://github.com/refactoringhq/tolaria). I built this for myself ([[luca-rossi]]) and for sharing it with others.\n\nA lot of how we designed [[tolaria-editor]] and [[command-palette]] is based on this.`,
+	`---\ntype: Note\nrelated_to: "[[memoria]]"\n---\n# Note List\n\nYou can also create a new note anywhere with \`Cmd+N\` (\`Ctrl+N\` on Windows and Linux) or from the [[command-palette]]`,
+	`---\ntype: Note\nrelated_to: "[[memoria]]"\n---\n# Editor\n\nOpen [[editor-playground]] for examples you can manipulate directly.\n\n- List **item** 1\n  - Nested *italic item*\n\n1. **Numbered item** in bold\n2. Numbered second item\n\n- [ ] Task 1\n\nUse the export button, or run Export from the [[command-palette]], to turn the current note into a PDF.`,
+	`---\ntype: Project\nstatus: In progress\nrelated_to:\n  - "[[memoria]]"\n_organized: true\n---\n# Get familiar with Memoria\n\n- [ ] **Read the** [[memoria-principles|Memoria Principles]] — understand the core philosophy\n- [ ] **Explore the** [[memoria-sidebar]] — learn Inbox, All Notes, Archive, Favorites, Types, Folders\n- [ ] **Try the** [[memoria-editor|Editor]] and [[editor-playground]] — rich vs raw mode\n- [ ] **Open the** [[the-properties-panel|Properties Panel]] — add a property, create a relationship`,
+	`---\ntype: Note\nrelated_to: "[[memoria]]"\n---\n# Principles\n\nMemoria is free and [open source](https://github.com/refactoringhq/tolaria). I built this for myself ([[luca-rossi]]) and for sharing it with others.\n\nA lot of how we designed [[memoria-editor]] and [[command-palette]] is based on this.`,
 ];
 
 function wikilinks(content: string) {
@@ -106,7 +106,7 @@ describe("native wikilink persistence", () => {
 	it.each([
 		"javascript:alert(1)",
 		"data:text/html,unsafe",
-		"tolaria://settings",
+		"memoria://settings",
 	])("still rejects unsafe %s links", async (href) => {
 		const { editor, dispose } = await createTestTentapEditor(
 			`<p><a href="${href}">Unsafe</a></p>`,

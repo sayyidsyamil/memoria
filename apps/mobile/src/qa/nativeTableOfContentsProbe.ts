@@ -24,7 +24,7 @@ type NativeTableOfContentsProofFields = Pick<
   'afterY' | 'beforeY' | 'expectedY' | 'targetId'
 >
 
-export const nativeTableOfContentsLogPrefix = 'TOLARIA_MOBILE_TABLE_OF_CONTENTS_PROBE'
+export const nativeTableOfContentsLogPrefix = 'MEMORIA_MOBILE_TABLE_OF_CONTENTS_PROBE'
 
 const minimumScrollDelta = 80
 const probeTitle = 'Table of Contents Probe'

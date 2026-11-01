@@ -27,12 +27,12 @@ describe('HTML block sandbox', () => {
     expect(sanitized).toContain('rel="noreferrer noopener"')
   })
 
-  it('keeps Tolaria deep links as inert external anchors', () => {
+  it('keeps Memoria deep links as inert external anchors', () => {
     const sanitized = sanitizeHtmlBlockMarkup(
-      '<a href="tolaria://refactoring-vault/acceleration-whiplash.md">Acceleration whiplash</a>',
+      '<a href="memoria://refactoring-vault/acceleration-whiplash.md">Acceleration whiplash</a>',
     )
 
-    expect(sanitized).toContain('href="tolaria://refactoring-vault/acceleration-whiplash.md"')
+    expect(sanitized).toContain('href="memoria://refactoring-vault/acceleration-whiplash.md"')
     expect(sanitized).toContain('target="_blank"')
     expect(sanitized).toContain('rel="noreferrer noopener"')
   })

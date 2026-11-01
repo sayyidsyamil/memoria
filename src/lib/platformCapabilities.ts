@@ -47,11 +47,11 @@ export function resolvePlatformCapabilities(backendKind: VaultBackendKind): Plat
 }
 
 interface RemoteVaultGlobals {
-  TOLARIA_REMOTE_URL?: unknown
-  TOLARIA_REMOTE_TOKEN?: unknown
+  MEMORIA_REMOTE_URL?: unknown
+  MEMORIA_REMOTE_TOKEN?: unknown
 }
 
 /** Outside Tauri: the remote backend when a server and token are configured, else mock data. */
 export function resolveBrowserBackendKind(scope: RemoteVaultGlobals | undefined = globalThis as RemoteVaultGlobals): 'remote' | 'mock' {
-  return scope?.TOLARIA_REMOTE_URL && scope.TOLARIA_REMOTE_TOKEN ? 'remote' : 'mock'
+  return scope?.MEMORIA_REMOTE_URL && scope.MEMORIA_REMOTE_TOKEN ? 'remote' : 'mock'
 }

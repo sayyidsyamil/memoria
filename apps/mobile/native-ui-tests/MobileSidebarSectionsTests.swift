@@ -65,10 +65,10 @@ final class MobileSidebarSectionsTests: XCTestCase {
   private func launchFixture() -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
     let search = "?source=fixture&scenario=folder-tree&phoneState=sidebar&qaRun=sidebar-sections-\(UUID().uuidString)"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     addTeardownBlock { app.terminate() }
     app.launch()
     XCTAssertTrue(element(app, "workspace-sidebar-panel").waitForExistence(timeout: 30))

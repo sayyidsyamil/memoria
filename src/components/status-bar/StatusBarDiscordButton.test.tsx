@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { TOLARIA_DISCORD_INVITE_URL } from "../../constants/feedback";
+import { MEMORIA_DISCORD_INVITE_URL } from "../../constants/feedback";
 import { StatusBar } from "../StatusBar";
 
 const { openExternalUrl, trackEvent } = vi.hoisted(() => ({
@@ -28,17 +28,17 @@ describe("StatusBar Discord button", () => {
 		);
 
 		const button = screen.getByRole("button", {
-			name: "Join the Tolaria Discord",
+			name: "Join the Memoria Discord",
 		});
 		expect(button).toBeInTheDocument();
 		fireEvent.focus(button);
 		expect(await screen.findByRole("tooltip")).toHaveTextContent(
-			"Join the Tolaria Discord",
+			"Join the Memoria Discord",
 		);
 
 		fireEvent.click(button);
 
-		expect(openExternalUrl).toHaveBeenCalledWith(TOLARIA_DISCORD_INVITE_URL);
+		expect(openExternalUrl).toHaveBeenCalledWith(MEMORIA_DISCORD_INVITE_URL);
 		expect(trackEvent).toHaveBeenCalledWith("contribution_action_clicked", {
 			action: "discord",
 			surface: "status_bar",

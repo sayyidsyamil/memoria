@@ -1,7 +1,7 @@
 import XCTest
 
 final class MobileNavigationStateTests: XCTestCase {
-  private let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
+  private let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
 
   override func tearDown() {
     app.terminate()
@@ -69,7 +69,7 @@ final class MobileNavigationStateTests: XCTestCase {
     continueAfterFailure = false
     app.terminate()
     XCUIDevice.shared.orientation = .portrait
-    app.launchArguments = ["--tolaria-mobile-search",
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=fixture&phoneState=list&editorMode=source&qaRun=navigation-state"]
     app.launch()
     XCTAssertTrue(element("note-list-create-action").waitForExistence(timeout: 30))

@@ -8,7 +8,7 @@ const LEGACY_STABLE_PATTERN = /^stable-v(\d{4})\.(\d{1,2})\.(\d{1,2})$/
 const STABLE_BRIDGE_TAG = 'v2027-08-28'
 const STABLE_BRIDGE_OPERATOR_DATE = '2026-08-28'
 // Paths that never ship in the desktop app. A push that only touches these
-// skips the alpha build: CI/site plumbing, and the Tolaria Web lane
+// skips the alpha build: CI/site plumbing, and the Memoria Web lane
 // (apps/, packages/, docs/web/), which has its own deploy path.
 const NON_DESKTOP_PATH_PREFIXES = ['site/', '.circleci/', 'apps/', 'packages/', 'docs/web/']
 const NON_DESKTOP_PATHS = new Set(['.github/workflows/README.md'])

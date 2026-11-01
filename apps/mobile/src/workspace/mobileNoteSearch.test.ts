@@ -99,12 +99,12 @@ describe('mobile note search', () => {
   it('uses display-mode overrides when matching configured property chips', () => {
     const candidate = note({
       properties: [
-        { key: 'Website', label: 'Website', value: 'tolaria.app/docs' },
+        { key: 'Website', label: 'Website', value: 'memoria.app/docs' },
       ],
     })
 
-    expect(mobileNoteDisplayLabels(candidate, ['Website'], undefined, { Website: 'url' })).toEqual(['tolaria.app'])
-    expect(mobileNoteListMatchesQuery(candidate, 'tolaria.app', {
+    expect(mobileNoteDisplayLabels(candidate, ['Website'], undefined, { Website: 'url' })).toEqual(['memoria.app'])
+    expect(mobileNoteListMatchesQuery(candidate, 'memoria.app', {
       displayModes: { Website: 'url' },
       displayPropertyKeys: ['Website'],
     })).toBe(true)

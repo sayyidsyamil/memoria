@@ -10,7 +10,7 @@ Every newly imported folder gets a unique app-owned directory beneath
 `Documents/Local Vaults`. The existing recoverable catalog records both Git
 working copies and local copies, with exactly one active entry. Local entries
 store validated Documents-relative paths, never container UUIDs or credentials.
-The original `Documents/Tolaria Vault` is registered in place on first migration;
+The original `Documents/Memoria Vault` is registered in place on first migration;
 it is not moved, overwritten, or deleted. Initialized empty catalogs do not
 resurrect forgotten legacy imports.
 

@@ -485,7 +485,7 @@ describe('requireVaultPath', () => {
   })
 
   it('rejects missing vault paths instead of falling back to ~/Laputa', async () => {
-    const configDir = await mkdtemp(path.join(os.tmpdir(), 'tolaria-mcp-empty-config-'))
+    const configDir = await mkdtemp(path.join(os.tmpdir(), 'memoria-mcp-empty-config-'))
     assert.throws(
       () => requireVaultPaths({}, { configDir }),
       /VAULT_PATH is required/,
@@ -503,12 +503,12 @@ describe('requireVaultPath', () => {
     )
   })
 
-  it('loads active mounted vault paths from Tolaria config when env is vault-neutral', async () => {
-    const configDir = await mkdtemp(path.join(os.tmpdir(), 'tolaria-mcp-config-'))
+  it('loads active mounted vault paths from Memoria config when env is vault-neutral', async () => {
+    const configDir = await mkdtemp(path.join(os.tmpdir(), 'memoria-mcp-config-'))
     const primaryVault = path.join(configDir, 'Primary Vault')
     const secondaryVault = path.join(configDir, 'Secondary Vault')
     const hiddenVault = path.join(configDir, 'Hidden Vault')
-    const configPath = path.join(configDir, 'com.tolaria.app', 'vaults.json')
+    const configPath = path.join(configDir, 'com.memoria.app', 'vaults.json')
 
     await mkdir(path.dirname(configPath), { recursive: true })
     await writeFile(configPath, JSON.stringify({
@@ -531,7 +531,7 @@ describe('requireVaultPath', () => {
   })
 
   it('uses one app config resolver for settings and vault registry files', async () => {
-    const configDir = await mkdtemp(path.join(os.tmpdir(), 'tolaria-mcp-shared-config-'))
+    const configDir = await mkdtemp(path.join(os.tmpdir(), 'memoria-mcp-shared-config-'))
     const files = ['settings.json', 'vaults.json']
 
     for (const fileName of files) {
@@ -552,16 +552,16 @@ describe('requireVaultPath', () => {
     }
   })
 
-  it('loads macOS vault registry from the XDG-backed Tolaria config before Application Support', async () => {
-    const homeDir = await mkdtemp(path.join(os.tmpdir(), 'tolaria-mcp-macos-home-'))
+  it('loads macOS vault registry from the XDG-backed Memoria config before Application Support', async () => {
+    const homeDir = await mkdtemp(path.join(os.tmpdir(), 'memoria-mcp-macos-home-'))
     const primaryVault = path.join(homeDir, 'Primary Vault')
     const legacyPlatformVault = path.join(homeDir, 'Legacy Platform Vault')
-    const xdgConfigPath = path.join(homeDir, '.config', 'com.tolaria.app', 'vaults.json')
+    const xdgConfigPath = path.join(homeDir, '.config', 'com.memoria.app', 'vaults.json')
     const platformConfigPath = path.join(
       homeDir,
       'Library',
       'Application Support',
-      'com.tolaria.app',
+      'com.memoria.app',
       'vaults.json',
     )
 
@@ -738,7 +738,7 @@ async function connectMcpClient() {
   })
   const stderr = collectTransportStderr(transport)
   const client = new Client(
-    { name: 'tolaria-mcp-test-client', version: '0.0.0' },
+    { name: 'memoria-mcp-test-client', version: '0.0.0' },
     { capabilities: {} },
   )
 

@@ -18,10 +18,10 @@ describe('native WYSIWYG wikilink bridge', () => {
   it('builds TenTap inline content that serializes as a desktop wikilink', () => {
     expect(nativeWysiwygWikilinkContent({
       label: 'Mobile UI',
-      target: 'Tolaria/Mobile UI',
+      target: 'Memoria/Mobile UI',
     })).toEqual([
       {
-        marks: [{ attrs: { href: 'tolaria://wikilink/Tolaria%2FMobile%20UI' }, type: 'link' }],
+        marks: [{ attrs: { href: 'memoria://wikilink/Memoria%2FMobile%20UI' }, type: 'link' }],
         text: 'Mobile UI',
         type: 'text',
       },
@@ -157,10 +157,10 @@ describe('native WYSIWYG wikilink bridge', () => {
       text: 'Read  today.',
       payload: {
         label: 'Mobile UI',
-        target: 'Tolaria/Mobile UI',
+        target: 'Memoria/Mobile UI',
       },
       selection: { from: 6, to: 6 },
-    })).toBe('Read [[Tolaria/Mobile UI|Mobile UI]] today.')
+    })).toBe('Read [[Memoria/Mobile UI|Mobile UI]] today.')
   })
 
   it.each([

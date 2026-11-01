@@ -12,7 +12,7 @@ describe('mobile note file paths', () => {
       vaultRootUri: 'file:///vault/root',
     })).toEqual({
       ok: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
+      path: 'file:///vault/root/Memoria/Mobile%20UI/Workflow%20Orchestration%20Essay.md',
     })
   })
 
@@ -21,7 +21,7 @@ describe('mobile note file paths', () => {
 
     expect(buildMobileFilePathForNote({ note, vaultRootUri: null })).toEqual({
       ok: true,
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     })
   })
 
@@ -34,16 +34,16 @@ describe('mobile note file paths', () => {
 
   it('copies folder paths through the same mobile vault path rules', () => {
     expect(buildMobileFilePathForRelativePath({
-      path: 'Tolaria/Mobile UI',
+      path: 'Memoria/Mobile UI',
       vaultRootUri: 'file:///vault/root',
     })).toEqual({
       ok: true,
-      path: 'file:///vault/root/Tolaria/Mobile%20UI',
+      path: 'file:///vault/root/Memoria/Mobile%20UI',
     })
 
-    expect(buildMobileFilePathForRelativePath({ path: 'Tolaria/Mobile UI' })).toEqual({
+    expect(buildMobileFilePathForRelativePath({ path: 'Memoria/Mobile UI' })).toEqual({
       ok: true,
-      path: 'Tolaria/Mobile UI',
+      path: 'Memoria/Mobile UI',
     })
   })
 

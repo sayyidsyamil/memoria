@@ -79,8 +79,8 @@ final class TabletKeyboardTests: XCTestCase {
   }
 
   private func launchFixture() -> XCUIApplication {
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&qaRun=keyboard-regression"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&qaRun=keyboard-regression"]
     app.launch()
     return app
   }
@@ -99,8 +99,8 @@ final class TabletKeyboardTests: XCTestCase {
 
   private func verifyLongForm(orientation: UIDeviceOrientation) {
     XCUIDevice.shared.orientation = orientation
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&editorMode=wysiwyg&actionSheet=createView&qaRun=keyboard-regression"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&editorMode=wysiwyg&actionSheet=createView&qaRun=keyboard-regression"]
     app.launch()
     let field = app.textFields.matching(identifier: "workspace-create-view-name-input").firstMatch
     XCTAssertTrue(field.waitForExistence(timeout: 30))

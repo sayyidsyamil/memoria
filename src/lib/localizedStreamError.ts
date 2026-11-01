@@ -6,7 +6,7 @@ import {
   type TranslationValues,
 } from './i18n'
 
-const LOCALIZED_ERROR_PREFIX = 'tolaria:i18n-error:'
+const LOCALIZED_ERROR_PREFIX = 'memoria:i18n-error:'
 const LEGACY_CLAUDE_AUTH_ERROR = 'Claude CLI is not authenticated. Run `claude auth login` in your terminal.'
 
 interface LocalizedStreamErrorRequest {

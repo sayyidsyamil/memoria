@@ -86,7 +86,7 @@ it("starts an optimized native probe from explicit simulator launch arguments", 
 
 it("retains deep-link startup when no explicit launch search is present", async () => {
 	probe.initialUrl.mockResolvedValue(
-		"tolaria:///?gitProbe=http%3A%2F%2F127.0.0.1%3A43210",
+		"memoria:///?gitProbe=http%3A%2F%2F127.0.0.1%3A43210",
 	);
 	useNativeGitProbe();
 	await vi.waitFor(() =>

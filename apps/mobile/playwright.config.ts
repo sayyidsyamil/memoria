@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test'
 
 const baseURL = process.env.MOBILE_QA_BASE_URL ?? 'http://127.0.0.1:42131'
 const port = new URL(baseURL).port || '42131'
-const exportDir = process.env.MOBILE_QA_EXPORT_DIR ?? '/tmp/tolaria-mobile-ui-web'
+const exportDir = process.env.MOBILE_QA_EXPORT_DIR ?? '/tmp/memoria-mobile-ui-web'
 
 export default defineConfig({
   testDir: './tests',

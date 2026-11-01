@@ -25,7 +25,7 @@ export async function resolveGitConflicts(context: GitVaultContext, review: GitC
   const signature = { ...author, timestamp: Math.floor(Date.now() / 1000), timezoneOffset: 0 }
   const oid = await git.writeCommit({ ...context, commit: {
     tree: result.oid, parent: [review.local, review.remote], author: signature, committer: signature,
-    message: 'Resolve vault conflicts from Tolaria mobile',
+    message: 'Resolve vault conflicts from Memoria mobile',
   } })
   await requireCurrentReview(context, review)
   await checkoutGitFastForward(context, review.branch, oid)

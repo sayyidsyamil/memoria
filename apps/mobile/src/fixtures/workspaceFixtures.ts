@@ -58,7 +58,7 @@ export type WorkspaceScenarioId =
 export const fixtureNotes: FixtureNote[] = [
   {
     id: 'workflow-orchestration',
-    path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+    path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     title: 'Workflow Orchestration Essay',
     snippet: 'The current narrative and temptation: everything routed through an LLM.',
     type: 'Essay',
@@ -75,7 +75,7 @@ export const fixtureNotes: FixtureNote[] = [
         kind: 'belongsTo',
         values: [
           { title: 'LLM Workflow', type: 'Essay', typeTone: 'green' },
-          { title: 'Tolaria MVP', type: 'Project', typeTone: 'purple' },
+          { title: 'Memoria MVP', type: 'Project', typeTone: 'purple' },
         ],
       },
       {
@@ -96,9 +96,9 @@ export const fixtureNotes: FixtureNote[] = [
   },
   {
     id: 'open-source-project',
-    path: 'Tolaria/Mobile UI/How I Run an Open Source Project.md',
+    path: 'Memoria/Mobile UI/How I Run an Open Source Project.md',
     title: 'How I Run an Open Source Project',
-    snippet: 'Tolaria unexpected success: various sources of input, requests, and bugs.',
+    snippet: 'Memoria unexpected success: various sources of input, requests, and bugs.',
     type: 'Procedure',
     typeTone: 'purple',
     tags: ['Process', 'Public'],
@@ -127,12 +127,12 @@ export const fixtureNotes: FixtureNote[] = [
   },
   {
     id: 'release-2026-05-02',
-    path: 'Tolaria/Releases/v2026-05-02.md',
+    path: 'Memoria/Releases/v2026-05-02.md',
     title: 'v2026-05-02',
     snippet: 'Release cleanup date, bug fixes, and mobile planning notes.',
     type: 'Release',
     typeTone: 'orange',
-    tags: ['Tolaria MVP'],
+    tags: ['Memoria MVP'],
     status: 'Shipped',
     date: 'May 2, 2026',
     modified: '12h ago',
@@ -187,7 +187,7 @@ const longTitleNote: FixtureNote = {
 
 const propertyHeavyNote: FixtureNote = {
   id: 'mobile-ui-property-heavy',
-  path: 'Tolaria/Mobile UI/Mobile UI Parity Review.md',
+  path: 'Memoria/Mobile UI/Mobile UI Parity Review.md',
   title: 'Mobile UI Parity Review',
   snippet: 'A dense fixture for multi-value properties, relationship groups, and long metadata sets.',
   type: 'Procedure',
@@ -203,7 +203,7 @@ const propertyHeavyNote: FixtureNote = {
     {
       kind: 'belongsTo',
       values: [
-        { title: 'Tolaria Mobile', type: 'Project', typeTone: 'purple' },
+        { title: 'Memoria Mobile', type: 'Project', typeTone: 'purple' },
         { title: 'Tablet Workspace', type: 'Essay', typeTone: 'green' },
       ],
     },
@@ -239,7 +239,7 @@ const propertyHeavyNote: FixtureNote = {
 
 const markdownHeavyNote: FixtureNote = {
   id: 'markdown-heavy-renderer',
-  path: 'Tolaria/Mobile UI/Markdown Renderer Parity.md',
+  path: 'Memoria/Mobile UI/Markdown Renderer Parity.md',
   title: 'Markdown Renderer Parity',
   snippet: 'Renderer fixture for H4, ordered lists, tasks, code fences, links, and dividers.',
   type: 'Essay',
@@ -276,7 +276,7 @@ const defaultSidebarSections: FixtureSidebarSection[] = [
     label: 'Favorites',
     items: [
       { id: 'personal-journal', icon: 'star', label: 'Personal Journal' },
-      { id: 'tolaria-mvp', icon: 'folder', label: 'Tolaria MVP' },
+      { id: 'memoria-mvp', icon: 'folder', label: 'Memoria MVP' },
     ],
   },
   {
@@ -310,13 +310,13 @@ const defaultSidebarSections: FixtureSidebarSection[] = [
         ],
       },
       {
-        id: 'Tolaria',
-        name: 'Tolaria',
+        id: 'Memoria',
+        name: 'Memoria',
         expanded: true,
         active: true,
         children: [
-          { id: 'Tolaria/Mobile UI', name: 'Mobile UI', children: [] },
-          { id: 'Tolaria/Releases', name: 'Releases', children: [] },
+          { id: 'Memoria/Mobile UI', name: 'Mobile UI', children: [] },
+          { id: 'Memoria/Releases', name: 'Releases', children: [] },
         ],
       },
     ],
@@ -384,21 +384,21 @@ const folderTreePressureSections: FixtureSidebarSection[] = [
         ],
       },
       {
-        id: 'Tolaria',
-        name: 'Tolaria',
+        id: 'Memoria',
+        name: 'Memoria',
         expanded: true,
         active: true,
         children: [
           {
-            id: 'Tolaria/Mobile UI',
+            id: 'Memoria/Mobile UI',
             name: 'Mobile UI',
             expanded: true,
             children: [
-              { id: 'Tolaria/Mobile UI/Tablet Shell', name: 'Tablet Shell', children: [] },
-              { id: 'Tolaria/Mobile UI/Properties Panel', name: 'Properties Panel', children: [] },
+              { id: 'Memoria/Mobile UI/Tablet Shell', name: 'Tablet Shell', children: [] },
+              { id: 'Memoria/Mobile UI/Properties Panel', name: 'Properties Panel', children: [] },
             ],
           },
-          { id: 'Tolaria/Releases', name: 'Releases', children: [] },
+          { id: 'Memoria/Releases', name: 'Releases', children: [] },
         ],
       },
       {

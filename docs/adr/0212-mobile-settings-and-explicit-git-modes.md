@@ -8,12 +8,12 @@ Supersedes: ADR 0194's manual-only sync policy; ADR 0196's unconditional post-Gi
 
 The physical iPad review found Git undiscoverable and requested both automatic
 sync and user-authored manual commits. Installation preferences must not modify
-vault files. Native controls must retain Tolaria's desktop language and work
+vault files. Native controls must retain Memoria's desktop language and work
 without depending on browser CSS.
 
 ## Decision
 
-- Add installation settings in the app-owned `.tolaria-mobile-config/settings.json`.
+- Add installation settings in the app-owned `.memoria-mobile-config/settings.json`.
   Validate reads and writes, publish through a pending-file rename, and retain a
   valid backup. Corrupt or unreadable settings never silently enable automation.
   Web previews use localStorage behind the same asynchronous storage boundary.

@@ -2,7 +2,7 @@ import XCTest
 
 final class MobileSidebarTextScalingTests: XCTestCase {
   override func tearDown() {
-    XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").terminate()
+    XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").terminate()
     super.tearDown()
   }
 
@@ -58,8 +58,8 @@ final class MobileSidebarTextScalingTests: XCTestCase {
   private func launchSidebar(category: UIContentSizeCategory) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["-UIPreferredContentSizeCategoryName", category.rawValue, "--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["-UIPreferredContentSizeCategoryName", category.rawValue, "--memoria-mobile-search",
       "?source=fixture&phoneState=sidebar&tabletPanels=all&qaRun=sidebar-text-scaling"]
     app.launch()
     XCTAssertTrue(element(app, "sidebar-item-inbox").waitForExistence(timeout: 30))

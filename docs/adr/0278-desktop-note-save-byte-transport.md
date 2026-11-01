@@ -14,7 +14,7 @@ large, requiring another escaped JavaScript string during each save.
 ## Decision
 
 Send desktop note content exceeding 256 Ki characters as a raw UTF-8 byte body to `save_note_content_bytes`.
-Send only the small note path in the `x-tolaria-note-path` header, encoded as
+Send only the small note path in the `x-memoria-note-path` header, encoded as
 base64 UTF-8 so Unicode filenames remain valid HTTP header values. Reject JSON
 bodies, invalid UTF-8 and malformed path headers before writing. Delegate to the
 existing save command and its active-vault validation, off-thread writer and

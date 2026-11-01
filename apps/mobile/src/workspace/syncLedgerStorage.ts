@@ -1,6 +1,6 @@
 import { parseSyncLedger } from './syncLedgerModel'
 
-const key = 'tolaria-mobile-sync-history'
+const key = 'memoria-mobile-sync-history'
 export async function readSyncLedger() {
   return typeof localStorage === 'undefined' ? null : localStorage.getItem(key)
 }

@@ -77,7 +77,7 @@ async function actionAdapterLinkProof(
   return {
     clipboardDeepLinkRoundTrip,
     clipboardFilePathRoundTrip,
-    deepLinkBuilt: deepLink.ok && deepLink.url.startsWith('tolaria://'),
+    deepLinkBuilt: deepLink.ok && deepLink.url.startsWith('memoria://'),
     filePathBuilt: filePath.ok && filePath.path.length > 0,
     pdfHtmlRendered: Boolean(pdfPayload?.html.includes('<main>') && pdfPayload.html.includes('</html>')),
   }
@@ -171,6 +171,6 @@ async function proofFileRevealer() {
 async function proofPdfExporter(payload: Parameters<MobilePdfExporter>[0]) {
   return {
     shared: false,
-    uri: `file:///tolaria-mobile-qa/${encodeURIComponent(payload.fileName)}`,
+    uri: `file:///memoria-mobile-qa/${encodeURIComponent(payload.fileName)}`,
   }
 }

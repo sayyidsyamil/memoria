@@ -4,7 +4,7 @@ import UIKit
 // The host stages these binaries only in disposable simulator vaults.
 final class MobileFilePreviewTests: XCTestCase {
   override func tearDown() {
-    XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev").terminate()
+    XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev").terminate()
     XCUIDevice.shared.orientation = .portrait
     super.tearDown()
   }
@@ -60,8 +60,8 @@ final class MobileFilePreviewTests: XCTestCase {
   private func openFile(_ filename: String) -> XCUIApplication {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search",
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search",
       "?source=native-vault&phoneState=list&commandPalette=1&qaRun=file-preview"]
     app.launch()
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait

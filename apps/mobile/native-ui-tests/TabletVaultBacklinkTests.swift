@@ -5,8 +5,8 @@ final class TabletVaultBacklinkTests: XCTestCase {
   func testOnDiskBacklinkIsAlignedAndNavigates() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .landscapeLeft
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=native-vault&editorMode=wysiwyg&qaRun=vault-backlink"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=native-vault&editorMode=wysiwyg&qaRun=vault-backlink"]
     app.launch()
     let allNotes = element(app, "sidebar-item-all-notes")
     XCTAssertTrue(allNotes.waitForExistence(timeout: 60))

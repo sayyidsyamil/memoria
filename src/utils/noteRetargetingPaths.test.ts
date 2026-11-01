@@ -17,7 +17,7 @@ describe('folderPathForRetargetEntry', () => {
     expect(folderPathForRetargetEntry({ entry: entry('D:/elsewhere/plan.md'), vaultPath: '/vault' })).toBe('')
   })
 
-  it('reads the folder from the vault-relative path a Tolaria remote lists', () => {
+  it('reads the folder from the vault-relative path a Memoria remote lists', () => {
     expect(folderPathForRetargetEntry({ entry: entry('projects/deep/plan.md'), vaultPath: '' })).toBe('projects/deep')
     expect(folderPathForRetargetEntry({ entry: entry('plan.md'), vaultPath: '/remote' })).toBe('')
   })

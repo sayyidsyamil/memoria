@@ -5,13 +5,13 @@ import { performFilenameRename, performMoveNoteToFolder, performRename } from '.
 /**
  * Title and filename renames pick their backend through createVaultBackend (TOL-22). Native
  * desktop QA is not possible on the Linux agent boxes, so these pin the Tauri payloads, which
- * must stay what the desktop sent before, and the request the web sends to a Tolaria remote.
+ * must stay what the desktop sent before, and the request the web sends to a Memoria remote.
  */
 
 const { tauriInvoke } = vi.hoisted(() => ({ tauriInvoke: vi.fn() }))
 vi.mock('@tauri-apps/api/core', () => ({ invoke: tauriInvoke }))
 
-type RemoteWindow = { TOLARIA_REMOTE_URL?: string; TOLARIA_REMOTE_TOKEN?: string }
+type RemoteWindow = { MEMORIA_REMOTE_URL?: string; MEMORIA_REMOTE_TOKEN?: string }
 
 function setTauriRuntime(value: boolean | undefined) {
   ;(globalThis as { isTauri?: boolean }).isTauri = value
@@ -25,8 +25,8 @@ function sentArgs(callIndex = 0): unknown {
 afterEach(() => {
   setTauriRuntime(undefined)
   tauriInvoke.mockReset()
-  delete (window as RemoteWindow).TOLARIA_REMOTE_URL
-  delete (window as RemoteWindow).TOLARIA_REMOTE_TOKEN
+  delete (window as RemoteWindow).MEMORIA_REMOTE_URL
+  delete (window as RemoteWindow).MEMORIA_REMOTE_TOKEN
   vi.unstubAllGlobals()
 })
 
@@ -90,9 +90,9 @@ describe('moves and folder renames on the desktop (TOL-227)', () => {
   })
 })
 
-describe('moves and folder renames on the web with a Tolaria remote (TOL-227)', () => {
+describe('moves and folder renames on the web with a Memoria remote (TOL-227)', () => {
   function serveRemote(answer: unknown) {
-    Object.assign(window as RemoteWindow, { TOLARIA_REMOTE_URL: 'https://remote.test', TOLARIA_REMOTE_TOKEN: 'web-token-0123456789' })
+    Object.assign(window as RemoteWindow, { MEMORIA_REMOTE_URL: 'https://remote.test', MEMORIA_REMOTE_TOKEN: 'web-token-0123456789' })
     const fetchMock = vi.fn(async () => Response.json(answer))
     vi.stubGlobal('fetch', fetchMock)
     return () => {
@@ -121,9 +121,9 @@ describe('moves and folder renames on the web with a Tolaria remote (TOL-227)', 
   })
 })
 
-describe('renames on the web with a Tolaria remote', () => {
+describe('renames on the web with a Memoria remote', () => {
   it('asks the server to rewrite the links and reports the notes it rewrote', async () => {
-    Object.assign(window as RemoteWindow, { TOLARIA_REMOTE_URL: 'https://remote.test', TOLARIA_REMOTE_TOKEN: 'web-token-0123456789' })
+    Object.assign(window as RemoteWindow, { MEMORIA_REMOTE_URL: 'https://remote.test', MEMORIA_REMOTE_TOKEN: 'web-token-0123456789' })
     const fetchMock = vi.fn(async () => Response.json({ from: 'welcome.md', path: 'hello.md', rewritten: ['projects/alpha.md'] }))
     vi.stubGlobal('fetch', fetchMock)
 

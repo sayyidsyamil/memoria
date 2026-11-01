@@ -1,4 +1,4 @@
-/** `notes/a (conflict 2026-10-10 1903).md`, or `… 1903 2).md`: the name the Tolaria server gives a conflict copy. */
+/** `notes/a (conflict 2026-10-10 1903).md`, or `… 1903 2).md`: the name the Memoria server gives a conflict copy. */
 const MARKER = " (conflict ";
 const DATE = /^\d{4}-\d{2}-\d{2}$/u;
 const TIME = /^\d{4}$/u;

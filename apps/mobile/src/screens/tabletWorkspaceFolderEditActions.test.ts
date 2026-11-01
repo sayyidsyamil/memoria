@@ -27,16 +27,16 @@ describe('tablet workspace folder edit actions', () => {
   })
 
   it('builds delete folder edits only for selected vault-relative folder paths', () => {
-    expect(deleteFolderEdit('Tolaria/Mobile UI')).toEqual({
-      folderPath: 'Tolaria/Mobile UI',
+    expect(deleteFolderEdit('Memoria/Mobile UI')).toEqual({
+      folderPath: 'Memoria/Mobile UI',
       type: 'deleteFolder',
     })
     expect(deleteFolderEdit('')).toBeNull()
   })
 
   it('creates folder notes directly without opening a title form', () => {
-    expect(createWorkspaceNoteInFolderEdit('Tolaria/Mobile UI')).toEqual({
-      defaults: { folderPath: 'Tolaria/Mobile UI' },
+    expect(createWorkspaceNoteInFolderEdit('Memoria/Mobile UI')).toEqual({
+      defaults: { folderPath: 'Memoria/Mobile UI' },
       title: '',
       type: 'createNote',
     })

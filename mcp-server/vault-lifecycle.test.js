@@ -7,7 +7,7 @@ import { attachVault, cloneVault } from './vault-lifecycle.js'
 
 describe('vault lifecycle', () => {
   it('attaches an existing folder without changing the active vault', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'tolaria-vault-attach-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'memoria-vault-attach-'))
     const configPath = path.join(root, 'config', 'vaults.json')
     const activePath = path.join(root, 'Active')
     const attachedPath = path.join(root, 'Attached')
@@ -37,7 +37,7 @@ describe('vault lifecycle', () => {
   })
 
   it('rejects attaching a path nested inside a registered vault', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'tolaria-vault-nested-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'memoria-vault-nested-'))
     const configPath = path.join(root, 'vaults.json')
     const activePath = path.join(root, 'Active')
     const nestedPath = path.join(activePath, 'nested')
@@ -55,7 +55,7 @@ describe('vault lifecycle', () => {
   })
 
   it('registers a cloned repository only after clone succeeds', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'tolaria-vault-clone-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'memoria-vault-clone-'))
     const configPath = path.join(root, 'config', 'vaults.json')
     const destinationPath = path.join(root, 'Cloned')
     const cloneRepository = async (_remoteUrl, targetPath) => {

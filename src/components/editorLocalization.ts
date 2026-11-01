@@ -37,7 +37,7 @@ const BLOCKNOTE_DICTIONARIES: Partial<Record<AppLocale, Dictionary>> = {
 	"zh-TW": zhTW,
 };
 
-const PLACEHOLDER_STYLE_ID = "tolaria-localized-editor-placeholders";
+const PLACEHOLDER_STYLE_ID = "memoria-localized-editor-placeholders";
 
 function blockNoteDictionaryForLocale(locale: AppLocale): Dictionary {
 	return (

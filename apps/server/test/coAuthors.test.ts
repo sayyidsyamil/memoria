@@ -197,7 +197,7 @@ describe('REST edits of a shared note', () => {
     expect(anaCommit).toBe(`Update ${NOTE}\n\n${TRAILER_ANA}`)
     expect(benCommit).toBe(`Update ${NOTE}\n\n${TRAILER_BEN}`)
     // The owner still makes the commit: only the trailer names the collaborator.
-    expect((await signatures())[0]).toBe('Tolaria Remote <remote@tolaria.invalid> / Tolaria Remote <remote@tolaria.invalid>')
+    expect((await signatures())[0]).toBe('Memoria Remote <remote@memoria.invalid> / Memoria Remote <remote@memoria.invalid>')
   })
 
   it('keep the owner’s commits exactly as they were', async () => {

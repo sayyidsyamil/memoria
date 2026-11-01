@@ -1,7 +1,7 @@
 export type ManagedLocalVault = { id: string; label: string; directory: string }
 
 export function isManagedLocalDirectory(value: string) {
-  return value === 'Tolaria Vault' || /^Local Vaults\/[a-z0-9-]{1,80}$/u.test(value)
+  return value === 'Memoria Vault' || /^Local Vaults\/[a-z0-9-]{1,80}$/u.test(value)
 }
 
 export function parseManagedLocalVaults(value: unknown): ManagedLocalVault[] {

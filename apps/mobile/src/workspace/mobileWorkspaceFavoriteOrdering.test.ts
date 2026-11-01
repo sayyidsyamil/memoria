@@ -46,7 +46,7 @@ describe('mobile favorite ordering', () => {
     expect(favoriteResult.writes).toEqual([{
       content: favorited.rawContent,
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/How I Run an Open Source Project.md',
+      path: 'Memoria/Mobile UI/How I Run an Open Source Project.md',
     }])
 
     const unfavoriteResult = applyMobileWorkspaceEditWithWrites(favoriteResult.snapshot, {

@@ -153,7 +153,7 @@ where
         return false;
     }
 
-    spawn_background_task("tolaria-startup-tasks", move || task(vault_path));
+    spawn_background_task("memoria-startup-tasks", move || task(vault_path));
     true
 }
 
@@ -185,7 +185,7 @@ fn sync_ws_bridge_for_selected_vault(app_handle: &tauri::AppHandle) {
 
 pub(crate) fn spawn_initial_ws_bridge_sync(app: &tauri::App) {
     let app_handle = app.handle().clone();
-    spawn_background_task("tolaria-ws-bridge-startup", move || {
+    spawn_background_task("memoria-ws-bridge-startup", move || {
         #[cfg(target_os = "linux")]
         if crate::linux_appimage::is_running() {
             let app_version = app_handle.package_info().version.to_string();

@@ -25,7 +25,7 @@ describe('applyMobileWorkspaceEdit frontmatter issue handling', () => {
     expect(result.writes).toEqual([{
       content: expect.stringContaining('# Broken edit still in progress'),
       kind: 'saveNote',
-      path: 'Tolaria/Mobile UI/Workflow Orchestration Essay.md',
+      path: 'Memoria/Mobile UI/Workflow Orchestration Essay.md',
     }])
   })
 })

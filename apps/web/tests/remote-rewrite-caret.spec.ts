@@ -55,7 +55,7 @@ function remoteHas(path: string): boolean {
 
 /** Pushes the desktop's rewrite of the second paragraph from a fresh clone of the vault. */
 function pushDesktopRewrite(note: RewriteNote): void {
-	const clone = mkdtempSync(join(tmpdir(), "tolaria-desktop-"));
+	const clone = mkdtempSync(join(tmpdir(), "memoria-desktop-"));
 	try {
 		git(tmpdir(), ["clone", "-q", REMOTE_GIT_DIR, clone]);
 		git(clone, ["config", "user.email", "desktop@example.com"]);
@@ -112,8 +112,8 @@ function paragraph(page: Page, text: string) {
 /** Opens the note with the caret at the end of the second paragraph. */
 async function placeCaretInSecond(page: Page, note: RewriteNote): Promise<void> {
 	await page.addInitScript((token) => {
-		window.TOLARIA_REMOTE_URL = window.location.origin;
-		window.TOLARIA_REMOTE_TOKEN = token;
+		window.MEMORIA_REMOTE_URL = window.location.origin;
+		window.MEMORIA_REMOTE_TOKEN = token;
 	}, COLLAB_TOKEN);
 	await page.goto(`/?note=${note.path}`, { waitUntil: "networkidle" });
 	const second = paragraph(page, SECOND);

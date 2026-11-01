@@ -7,8 +7,8 @@ describe('native WYSIWYG external link bridge model', () => {
       json: {
         content: [{
           content: [{
-            marks: [{ attrs: { href: 'https://tolaria.app/docs' }, type: 'link' }],
-            text: 'Tolaria',
+            marks: [{ attrs: { href: 'https://memoria.app/docs' }, type: 'link' }],
+            text: 'Memoria',
             type: 'text',
           }, {
             marks: [{ attrs: { href: 'https://example.com' }, type: 'link' }],
@@ -23,7 +23,7 @@ describe('native WYSIWYG external link bridge model', () => {
     })).toEqual({
       content: [{
         content: [{
-          text: 'Tolaria',
+          text: 'Memoria',
           type: 'text',
         }, {
           marks: [{ attrs: { href: 'https://example.com' }, type: 'link' }],
@@ -40,7 +40,7 @@ describe('native WYSIWYG external link bridge model', () => {
     expect(nativeWysiwygDocumentWithoutExternalLink({
       json: {
         content: [{
-          content: [{ text: 'Tolaria', type: 'text' }],
+          content: [{ text: 'Memoria', type: 'text' }],
           type: 'paragraph',
         }],
         type: 'doc',
@@ -54,8 +54,8 @@ describe('native WYSIWYG external link bridge model', () => {
       json: {
         content: [{
           content: [{
-            marks: [{ attrs: { href: 'https://tolaria.app/docs' }, type: 'link' }],
-            text: 'Tolaria',
+            marks: [{ attrs: { href: 'https://memoria.app/docs' }, type: 'link' }],
+            text: 'Memoria',
             type: 'text',
           }],
           type: 'paragraph',
@@ -65,7 +65,7 @@ describe('native WYSIWYG external link bridge model', () => {
     })).toEqual({
       content: [{
         content: [{
-          text: 'Tolaria',
+          text: 'Memoria',
           type: 'text',
         }],
         type: 'paragraph',

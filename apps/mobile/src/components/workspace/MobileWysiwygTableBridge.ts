@@ -11,7 +11,7 @@ const MobileTableCell = TableCell.extend({
   addAttributes() {
     return {
       ...this.parent?.(),
-      tolariaAlignment: mobileTableAlignmentAttribute(),
+      memoriaAlignment: mobileTableAlignmentAttribute(),
     }
   },
 })
@@ -19,7 +19,7 @@ const MobileTableHeader = TableHeader.extend({
   addAttributes() {
     return {
       ...this.parent?.(),
-      tolariaAlignment: mobileTableAlignmentAttribute(),
+      memoriaAlignment: mobileTableAlignmentAttribute(),
     }
   },
 })
@@ -88,14 +88,14 @@ function mobileTableAlignmentAttribute() {
   return {
     default: null,
     parseHTML: (element: HTMLElement) => (
-      mobileTableAlignment(element.getAttribute('data-tolaria-alignment'))
+      mobileTableAlignment(element.getAttribute('data-memoria-alignment'))
       ?? mobileTableAlignment(element.style.textAlign)
     ),
-    renderHTML: (attrs: { tolariaAlignment?: unknown }) => {
-      const alignment = mobileTableAlignment(attrs.tolariaAlignment)
+    renderHTML: (attrs: { memoriaAlignment?: unknown }) => {
+      const alignment = mobileTableAlignment(attrs.memoriaAlignment)
       return alignment && alignment !== 'default'
         ? {
-          'data-tolaria-alignment': alignment,
+          'data-memoria-alignment': alignment,
           style: `text-align: ${alignment}`,
         }
         : {}

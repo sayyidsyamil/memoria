@@ -37,8 +37,8 @@ fn test_vault_path_hash_is_deterministic() {
 fn test_to_relative_path_normalizes_aliases_and_separators() {
     assert_eq!(
         to_relative_path(
-            "/tmp/tolaria-vault/projects\\active.md",
-            Path::new("/private/tmp/tolaria-vault")
+            "/tmp/memoria-vault/projects\\active.md",
+            Path::new("/private/tmp/memoria-vault")
         ),
         "projects/active.md"
     );

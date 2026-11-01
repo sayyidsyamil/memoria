@@ -11,20 +11,20 @@ describe("tooltip positioning at non-100% zoom", () => {
 	beforeEach(() => {
 		document.documentElement.style.removeProperty("zoom");
 		document.documentElement.style.removeProperty(
-			"--tolaria-overlay-zoom-factor",
+			"--memoria-overlay-zoom-factor",
 		);
 		document.documentElement.style.removeProperty(
-			"--tolaria-overlay-zoom-inverse",
+			"--memoria-overlay-zoom-inverse",
 		);
 	});
 
 	afterEach(() => {
 		document.documentElement.style.removeProperty("zoom");
 		document.documentElement.style.removeProperty(
-			"--tolaria-overlay-zoom-factor",
+			"--memoria-overlay-zoom-factor",
 		);
 		document.documentElement.style.removeProperty(
-			"--tolaria-overlay-zoom-inverse",
+			"--memoria-overlay-zoom-inverse",
 		);
 	});
 
@@ -32,11 +32,11 @@ describe("tooltip positioning at non-100% zoom", () => {
 		it(`renders tooltip with zoom factor ${zoom}%`, () => {
 			document.documentElement.style.setProperty("zoom", `${zoom}%`);
 			document.documentElement.style.setProperty(
-				"--tolaria-overlay-zoom-factor",
+				"--memoria-overlay-zoom-factor",
 				String(zoom / 100),
 			);
 			document.documentElement.style.setProperty(
-				"--tolaria-overlay-zoom-inverse",
+				"--memoria-overlay-zoom-inverse",
 				String(100 / zoom),
 			);
 
@@ -61,11 +61,11 @@ describe("tooltip positioning at non-100% zoom", () => {
 	it("renders tooltip at 100% zoom", () => {
 		document.documentElement.style.setProperty("zoom", "100%");
 		document.documentElement.style.setProperty(
-			"--tolaria-overlay-zoom-factor",
+			"--memoria-overlay-zoom-factor",
 			"1",
 		);
 		document.documentElement.style.setProperty(
-			"--tolaria-overlay-zoom-inverse",
+			"--memoria-overlay-zoom-inverse",
 			"1",
 		);
 

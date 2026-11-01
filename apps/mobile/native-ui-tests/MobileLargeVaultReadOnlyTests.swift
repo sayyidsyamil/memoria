@@ -3,14 +3,14 @@ import XCTest
 
 final class MobileLargeVaultReadOnlyTests: XCTestCase {
   func testLargeLocalVaultOpensTypesAndNotesWithoutEditing() throws {
-    try XCTSkipUnless(ProcessInfo.processInfo.environment["TOLARIA_LARGE_VAULT_QA"] == "1",
+    try XCTSkipUnless(ProcessInfo.processInfo.environment["MEMORIA_LARGE_VAULT_QA"] == "1",
       "Requires a disposable copy and host-side catalog restoration")
     continueAfterFailure = false
     XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
-    let app = XCUIApplication(bundleIdentifier: "md.tolaria.mobile.ota-validation")
+    let app = XCUIApplication(bundleIdentifier: "md.memoria.mobile.ota-validation")
     let search = "?source=native-vault&phoneState=sidebar&editorMode=source&qaRun=large-vault-readonly"
-    app.launchArguments = ["--tolaria-mobile-search", search]
-    app.launchEnvironment["TOLARIA_MOBILE_SEARCH"] = search
+    app.launchArguments = ["--memoria-mobile-search", search]
+    app.launchEnvironment["MEMORIA_MOBILE_SEARCH"] = search
     addTeardownBlock { app.terminate() }
     let started = Date()
     app.launch()

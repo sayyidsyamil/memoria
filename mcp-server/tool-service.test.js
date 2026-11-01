@@ -10,7 +10,7 @@ let firstVault
 let secondVault
 
 beforeEach(async () => {
-  tmpDir = await mkdtemp(path.join(os.tmpdir(), 'tolaria-mcp-service-'))
+  tmpDir = await mkdtemp(path.join(os.tmpdir(), 'memoria-mcp-service-'))
   firstVault = path.join(tmpDir, 'First Vault')
   secondVault = path.join(tmpDir, 'Second Vault')
 

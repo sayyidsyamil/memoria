@@ -13,7 +13,7 @@ afterEach(async () => {
 })
 
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), 'tolaria-checkout-recovery-'))
+  const dir = await mkdtemp(join(tmpdir(), 'memoria-checkout-recovery-'))
   roots.push(dir)
   const context = { fs, dir }
   await git.init({ ...context, defaultBranch: 'main' })
@@ -76,7 +76,7 @@ it('preserves an unexpected edit made after interrupted checkout', async () => {
 
 it('recovers when the files and HEAD were updated but clearing the journal failed', async () => {
   const { context, remote } = await fixture()
-  const journalPath = join(context.dir, '.git', 'tolaria-checkout.json')
+  const journalPath = join(context.dir, '.git', 'memoria-checkout.json')
   const interrupted = {
     ...context,
     fs: { promises: { ...fs.promises, unlink: async (path: fs.PathLike) => {
@@ -92,7 +92,7 @@ it('recovers when the files and HEAD were updated but clearing the journal faile
 
 it('does not change files if the recovery intent cannot be persisted', async () => {
   const { context, original, remote } = await fixture()
-  const interrupted = { ...context, fs: interruptedFileSystem(join(context.dir, '.git', 'tolaria-checkout.json')) }
+  const interrupted = { ...context, fs: interruptedFileSystem(join(context.dir, '.git', 'memoria-checkout.json')) }
   await expect(createGitVault(interrupted).integrate(remote)).rejects.toThrow()
   expect(await git.resolveRef({ ...context, ref: 'HEAD' })).toBe(original)
   expect(await readFile(join(context.dir, 'a.md'), 'utf8')).toBe('# Before A\n')
@@ -100,7 +100,7 @@ it('does not change files if the recovery intent cannot be persisted', async () 
 
 it.each(['{', '{}', '{"version":2}'])('fails closed on an invalid journal: %s', async (journal) => {
   const { context, original } = await fixture()
-  await writeFile(join(context.dir, '.git', 'tolaria-checkout.json'), journal)
+  await writeFile(join(context.dir, '.git', 'memoria-checkout.json'), journal)
   await expect(createGitVault(context).checkpoint(author)).rejects.toThrow()
   expect(await git.resolveRef({ ...context, ref: 'HEAD' })).toBe(original)
   expect(await readFile(join(context.dir, 'a.md'), 'utf8')).toBe('# Before A\n')

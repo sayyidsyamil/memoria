@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fails when an assembled GitHub Pages site would break tolaria.md: the root
+# Fails when an assembled GitHub Pages site would break memoria.md: the root
 # must be the landing page (not a VitePress page or a 404), and the docs,
 # release pages and updater manifests must all be present.
 # Usage: verify-pages-site.sh <site-dir> [landing-index.html]

@@ -201,7 +201,7 @@ describe('mobile command palette', () => {
   })
 
   it('exposes desktop-style selected folder commands', () => {
-    const handlers = commandHandlers({ activeFolderId: 'Tolaria/Mobile UI' })
+    const handlers = commandHandlers({ activeFolderId: 'Memoria/Mobile UI' })
     const reveal = enabledCommand(handlers, 'reveal-selected-folder')
     const copyPath = enabledCommand(handlers, 'copy-selected-folder-path')
     const rename = enabledCommand(handlers, 'rename-folder')
@@ -226,7 +226,7 @@ describe('mobile command palette', () => {
     expect(handlers.onRevealSelectedFolder).toHaveBeenCalledOnce()
     expect(handlers.onCopySelectedFolderPath).toHaveBeenCalledOnce()
     expect(handlers.onOpenFolderActions).toHaveBeenCalledWith({
-      id: 'Tolaria/Mobile UI',
+      id: 'Memoria/Mobile UI',
       name: 'Mobile UI',
     })
     expect(handlers.onDeleteSelectedFolder).toHaveBeenCalledOnce()

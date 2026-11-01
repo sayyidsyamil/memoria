@@ -15,7 +15,7 @@ afterEach(() => {
 })
 
 function fixture() {
-  const root = mkdtempSync(join(tmpdir(), 'tolaria-starter-bundle-'))
+  const root = mkdtempSync(join(tmpdir(), 'memoria-starter-bundle-'))
   roots.push(root)
   const repository = join(root, 'source')
   const outputDirectory = join(root, 'bundle')

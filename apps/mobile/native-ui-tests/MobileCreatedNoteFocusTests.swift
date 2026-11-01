@@ -4,8 +4,8 @@ final class MobileCreatedNoteFocusTests: XCTestCase {
   func testExistingNoteDoesNotTakeKeyboardFocus() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=list&qaRun=existing-focus"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=list&qaRun=existing-focus"]
     app.launch()
     let row = element(app, "note-row-workflow-orchestration")
     XCTAssertTrue(row.waitForExistence(timeout: 30))
@@ -20,8 +20,8 @@ final class MobileCreatedNoteFocusTests: XCTestCase {
   func testCreateFocusesEmptyHeadingWithoutAnEditorTap() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=list&qaRun=create-focus"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=list&qaRun=create-focus"]
     app.launch()
     let create = element(app, "note-list-create-action")
     XCTAssertTrue(create.waitForExistence(timeout: 30))

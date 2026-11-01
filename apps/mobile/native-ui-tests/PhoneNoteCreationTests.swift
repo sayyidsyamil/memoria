@@ -4,8 +4,8 @@ final class PhoneNoteCreationTests: XCTestCase {
   func testCreateOpensUntitledNoteWithoutTitleDialog() {
     continueAfterFailure = false
     XCUIDevice.shared.orientation = .portrait
-    let app = XCUIApplication(bundleIdentifier: "com.tolaria.mobile.dev")
-    app.launchArguments = ["--tolaria-mobile-search", "?source=fixture&phoneState=list&editorMode=source&qaRun=phone-create"]
+    let app = XCUIApplication(bundleIdentifier: "com.memoria.mobile.dev")
+    app.launchArguments = ["--memoria-mobile-search", "?source=fixture&phoneState=list&editorMode=source&qaRun=phone-create"]
     app.launch()
     let create = element(app, "note-list-create-action")
     XCTAssertTrue(create.waitForExistence(timeout: 30))

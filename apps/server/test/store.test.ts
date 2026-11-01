@@ -101,7 +101,7 @@ describe('LocalDiskStore', () => {
   let store: LocalDiskStore
 
   beforeEach(async () => {
-    root = await mkdtemp(join(tmpdir(), 'tolaria-store-test-'))
+    root = await mkdtemp(join(tmpdir(), 'memoria-store-test-'))
     store = new LocalDiskStore(root)
   })
 
@@ -228,7 +228,7 @@ describe('R2BlobStore request signing', () => {
   // credentials, date and signed headers (host, x-amz-content-sha256, x-amz-date).
   const signer = new R2BlobStore(
     {
-      bucket: 'tolaria-proto',
+      bucket: 'memoria-proto',
       endpoint: 'https://acct.r2.cloudflarestorage.com',
       region: 'auto',
       accessKeyId: 'AKIDEXAMPLE',
@@ -236,7 +236,7 @@ describe('R2BlobStore request signing', () => {
     },
     { now: () => new Date('2026-10-23T12:34:56.789Z') },
   )
-  const base = 'https://acct.r2.cloudflarestorage.com/tolaria-proto'
+  const base = 'https://acct.r2.cloudflarestorage.com/memoria-proto'
 
   it.each([
     ['GET', `${base}/vaults/prototype/vault-index.json`, undefined, '770c3ace401f3b74cd6ba1cc857c003beaf32f1fed8e9ed531ca2bee07ee6293'],

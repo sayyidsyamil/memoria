@@ -8,7 +8,7 @@ date: 2026-10-12
 
 ## Context
 
-Tolaria Web ships multiplayer in its first beta: co-editing, presence and live cursors (decision of 10 Oct 2026). ADR 0185 put a collaborative document channel next to the file path in `VaultBackend`; ADR 0186 reserved a websocket route, a stable `docId` per note and the document format `tolaria.blocknote/1` in the remote protocol. Spike S4 (TOL-8) had to show that a Yjs document can sit on top of markdown files in git without the files ceasing to be the source of truth for the desktop app, for export and for history, and without a note changing in git because someone opened it.
+Memoria Web ships multiplayer in its first beta: co-editing, presence and live cursors (decision of 10 Oct 2026). ADR 0185 put a collaborative document channel next to the file path in `VaultBackend`; ADR 0186 reserved a websocket route, a stable `docId` per note and the document format `memoria.blocknote/1` in the remote protocol. Spike S4 (TOL-8) had to show that a Yjs document can sit on top of markdown files in git without the files ceasing to be the source of truth for the desktop app, for export and for history, and without a note changing in git because someone opened it.
 
 The app's markdown serializer is not byte-stable: on the demo vault, parsing and serializing an unedited note reproduces its bytes for 1 note in 33.
 
