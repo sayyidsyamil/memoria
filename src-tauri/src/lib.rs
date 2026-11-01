@@ -275,6 +275,7 @@ macro_rules! app_invoke_handler {
         tauri::generate_handler![
             commands::list_vault,
             commands::wiki_memory,
+            commands::meetings_api,
             commands::cancel_wiki_memory,
             commands::open_meeting_hud,
             commands::save_meeting_chunk,

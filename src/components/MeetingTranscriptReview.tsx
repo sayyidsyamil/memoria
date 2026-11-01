@@ -12,15 +12,10 @@ import { MeetingPlayer, type PlayerHandle } from './MeetingPlayer'
 import { MeetingSummary, type Mark } from './MeetingSummary'
 import { MemoryAsk } from './MemoryAsk'
 import './meetingReview.css'
+import { meetingService } from '../features/meetings/meetingService'
+import type { TranscriptDraft, TranscriptTurn as Turn } from '../features/meetings/meetingTypes'
+export type { TranscriptDraft } from '../features/meetings/meetingTypes'
 
-interface Turn { start: number; end: number; speaker: string; text: string }
-interface Profile { id: string; name: string }
-export interface TranscriptDraft {
-  gaps?: { start: number; end: number; reason: string }[]
-  segments: Turn[]; duration: number; warnings: string[]; text: string
-  profiles?: Profile[]
-  speakerMatches?: Record<string, Profile>
-}
 export type MeetingTab = 'transcript' | 'summary' | 'ask'
 
 /** Collapsible metadata block: open when it needs attention, folded away when it does not. */
@@ -70,13 +65,13 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   useEffect(() => { if (initialSeek !== undefined) player.current?.seek(initialSeek, false) }, [initialSeek])
 
   async function persistReview(reviewedPath = outcomeSource) {
-    return invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record: {
+    return meetingService.save(vaultPath, {
       id: sessionId, title: meetingTitle, status: reviewedPath ? 'transcript-reviewed' : 'needs-review',
       audioPath: originalPath.slice(vaultPath.replace(/\/$/, '').length + 1), turns, names,
       draft: draft ? { ...draft, segments: turns } : null, profileIds,
       marks: marks.map(mark => ({ ...(mark.id ? { id: mark.id } : {}), at: mark.at, label: mark.label })),
       transcriptPath: reviewedPath,
-    } } })
+    })
   }
   async function closeReview() {
     setBusy(true); setError('')

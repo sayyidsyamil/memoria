@@ -5,6 +5,9 @@ import { MeetingTranscriptReview } from './MeetingTranscriptReview'
 import { applySource } from '../lib/sourceImport'
 import { webcrypto } from 'node:crypto'
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn(), convertFileSrc: (path: string) => path }))
+vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
+  save: (vaultPath: string, record: unknown) => invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record } }),
+} }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async () => () => undefined) }))
 vi.mock('../lib/sourceImport', () => ({ applySource: vi.fn(async () => 'reviewed.md') }))
 vi.mock('../utils/openNoteWindow', () => ({ openNoteInNewWindow: vi.fn(async () => undefined) }))

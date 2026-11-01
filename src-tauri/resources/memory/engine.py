@@ -725,15 +725,15 @@ def workspace_product(engine, request):
     engine.db.execute('CREATE TABLE IF NOT EXISTS meetings (id TEXT PRIMARY KEY, record TEXT NOT NULL)')
     engine.db.execute('CREATE TABLE IF NOT EXISTS briefs (id TEXT PRIMARY KEY, record TEXT NOT NULL)')
     action = request['action']
-    if action in ['meetings', 'briefs']:
-        table = 'meetings' if action == 'meetings' else 'briefs'
-        records = [json.loads(row[0]) for row in engine.db.execute(f'SELECT record FROM {table} ORDER BY rowid DESC')]
-        if action == 'meetings':
-            proposals = engine.list()
-            for record in records:
-                record['status'] = 'transcript-reviewed' if record.get('transcriptPath') else 'needs-review'
-                record['outcomesStatus'] = outcome_status(proposals, record)
-        return records
+    if action in ('meetings', 'meeting_record', 'save_meeting', 'delete_meeting'):
+        # Compatibility boundary for older callers; CRUD is owned by the meeting service.
+        from meetings_service import MeetingService, MeetingRepository
+        operation = {'meetings': 'list', 'meeting_record': 'get', 'save_meeting': 'save', 'delete_meeting': 'delete'}[action]
+        if action == 'save_meeting' and 'status' not in request['record']:
+            request = {**request, 'record': {**request['record'], 'status': 'transcript-reviewed' if request['record'].get('transcriptPath') else 'needs-review'}}
+        return MeetingService(MeetingRepository(engine)).execute({**request, 'operation': operation})
+    if action == 'briefs':
+        return [json.loads(row[0]) for row in engine.db.execute('SELECT record FROM briefs ORDER BY rowid DESC')]
     if action == 'summary':
         claims = approved_claims(engine)
         proposals = engine.list()
@@ -741,13 +741,6 @@ def workspace_product(engine, request):
                 'briefs': engine.db.execute('SELECT COUNT(*) FROM briefs').fetchone()[0],
                 'approved': len(claims), 'sourceChanged': sum(1 for claim in claims if claim['status'] == 'needs-review'),
                 'pendingReviews': sum(1 for proposal in proposals if proposal['status'] == 'pending')}
-    if action == 'meeting_record':
-        row = engine.db.execute('SELECT record FROM meetings WHERE id=?', (str(uuid.UUID(request['id'])),)).fetchone()
-        if not row: raise ValueError('Meeting not found')
-        record = json.loads(row[0])
-        record['status'] = 'transcript-reviewed' if record.get('transcriptPath') else 'needs-review'
-        record['outcomesStatus'] = outcome_status(engine.list(), record)
-        return record
     if action == 'search':
         started = time.perf_counter()
         query = str(request.get('query', '')).strip()
@@ -784,74 +777,6 @@ def workspace_product(engine, request):
                 'speakers': sorted(speakers), 'seconds': round(time.perf_counter() - started, 3)}
     if action == 'approved':
         return approved_claims(engine)
-    if action == 'delete_meeting':
-        identifier = str(uuid.UUID(request['id']))
-        row = engine.db.execute('SELECT record FROM meetings WHERE id=?', (identifier,)).fetchone()
-        if not row: return {'deleted': False, 'id': identifier}
-        record = json.loads(row[0])
-        path = f'meetings/meeting-{identifier}.md'
-        if record.get('pagePath') != path: raise ValueError('Meeting document path is invalid')
-        target = safe_path(engine.root, path)
-        content = target.read_text() if target.exists() else None
-        if content is not None and digest(content) != record.get('pageHash'):
-            raise ValueError('Meeting page was edited externally. Preserve those edits before deleting the meeting.')
-        # Original audio, reviewed evidence and approved knowledge remain intact.
-        try:
-            if content is not None: target.unlink()
-            engine.db.execute('DELETE FROM meetings WHERE id=?', (identifier,))
-            engine.db.commit()
-        except Exception:
-            engine.db.rollback()
-            if content is not None and not target.exists(): atomic(target, content)
-            raise
-        return {'deleted': True, 'id': identifier}
-    if action == 'save_meeting':
-        record = request['record']
-        identifier = str(uuid.UUID(record['id']))
-        existing = engine.db.execute('SELECT record FROM meetings WHERE id=?', (identifier,)).fetchone()
-        previous = json.loads(existing[0]) if existing else {}
-        record = {**previous, **record, 'id': identifier}
-        if record.get('status') == 'transcript-reviewed' and not record.get('transcriptPath'):
-            raise ValueError('Reviewed meeting requires a reviewed transcript')
-        if record.get('status') not in ['needs-review', 'transcript-reviewed']: raise ValueError('Invalid meeting state')
-        title = str(record.get('title', 'Meeting')).strip()
-        if not title or len(title) > 200: raise ValueError('Invalid meeting title')
-        for key in ['audioPath', 'sourcePath', 'transcriptPath']:
-            if record.get(key) and not safe_path(engine.root, record[key]).is_file(): raise ValueError(f'Meeting {key} does not exist')
-        for turn in record.get('turns', []):
-            if not isinstance(turn.get('text'), str) or not isinstance(turn.get('speaker'), str) or not 0 <= turn['start'] <= turn['end']:
-                raise ValueError('Invalid meeting transcript turn')
-        marks = record.get('marks') or []
-        if not isinstance(marks, list) or len(marks) > 200: raise ValueError('Invalid marked moments')
-        clean = []
-        for mark in marks:
-            moment, label = mark.get('at') if isinstance(mark, dict) else None, str(mark.get('label', '')).strip() if isinstance(mark, dict) else ''
-            if isinstance(moment, bool) or not isinstance(moment, (int, float)) or not math.isfinite(moment) or moment < 0 or len(label) > 120:
-                raise ValueError('Invalid marked moment')
-            clean.append({'id': str(mark.get('id') or uuid.uuid4()), 'at': float(moment), 'label': label})
-        record['marks'] = sorted(clean, key=lambda item: item['at'])
-        record['status'] = 'transcript-reviewed' if record.get('transcriptPath') else 'needs-review'
-        if len(json.dumps(record)) > 1000000: raise ValueError('Meeting record exceeds size limit')
-        path = f'meetings/meeting-{identifier}.md'
-        target = safe_path(engine.root, path)
-        if target.exists() and previous.get('pageHash') != digest(target.read_text()):
-            raise ValueError('Meeting page was edited externally. Open the existing page; it was not overwritten.')
-        reviewed = record['status'] == 'transcript-reviewed'
-        when = f" · Recorded {human_date(record['created'])}" if record.get('created') else ''
-        content = f"---\ntype: Meeting\n_organized: true\ntitle: {json.dumps(title)}\nmeeting_status: {record['status']}\n---\n# {title}\n\n{'Transcript reviewed' if reviewed else 'Needs transcript review'}{when}\n"
-        for key, label in [('audioPath', 'Recording'), ('sourcePath', 'Source'), ('transcriptPath', 'Reviewed transcript')]:
-            if record.get(key): content += f"\n- [{label}](<{os.path.relpath(safe_path(engine.root, record[key]), target.parent)}>)"
-        if record['marks']:
-            content += '\n\n## Marked moments\n\n' + '\n'.join(f"- {clock(mark['at'])} — {mark['label'] or 'Marked moment'}" for mark in record['marks'])
-        if record.get('turns'):
-            order = []
-            content += '\n\n## Transcript\n\n' + '\n\n'.join(f"[{clock(turn['start'])}] {speaker_label(turn['speaker'], record.get('names'), order)}: {turn['text']}" for turn in record['turns'])
-        atomic(target, content)
-        record['pagePath'] = path; record['pageHash'] = digest(content)
-        record['updatedAt'] = now()
-        engine.db.execute('INSERT OR REPLACE INTO meetings VALUES (?,?)', (identifier, json.dumps(record)))
-        engine.db.commit()
-        return record
     if action == 'save_brief':
         identifier = str(uuid.UUID(request['id']))
         result = request['result']; topic = str(request['topic']).strip()
@@ -912,7 +837,10 @@ def main():
     engine = Engine(request['vaultPath'])
     with engine.locked():
         action = request['action']
-        if action in ['meetings', 'summary', 'save_meeting', 'delete_meeting', 'meeting_record', 'approved', 'search', 'save_brief', 'briefs']:
+        if action == 'meeting_api':
+            from meetings_service import meeting_api
+            result = meeting_api(engine, request)
+        elif action in ['meetings', 'summary', 'save_meeting', 'delete_meeting', 'meeting_record', 'approved', 'search', 'save_brief', 'briefs']:
             result = workspace_product(engine, request)
         elif action == 'compile':
             result = engine.compile(request['sourcePath'])

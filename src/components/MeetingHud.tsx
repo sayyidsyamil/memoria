@@ -6,6 +6,7 @@ import { MeetingTranscriptReview, type TranscriptDraft } from './MeetingTranscri
 import { startMeetingLiveSpeech } from '../lib/meetingLiveSpeech'
 import { MeetingHudView, type HudState } from './MeetingHudView'
 import { clockText } from '../lib/hud'
+import { meetingService } from '../features/meetings/meetingService'
 
 const METER_BARS = 56
 
@@ -194,11 +195,11 @@ export function MeetingHud() {
         savedSource.current ??= { id, title, filename: `meeting-${id}.${blob.type.includes('webm') ? 'webm' : 'm4a'}`, bytes, sha256,
           pages: [`Meeting audio captured over ${Math.floor((Date.now() - startTime.current) / 1000)} seconds, including pauses. Microphone only. Create and review a transcript after the meeting before compiling knowledge.`] }
         const sourcePath = await applySource(savedSource.current, vaultPath)
-        await invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record: {
+        await meetingService.save(vaultPath, {
           id, title, status: 'needs-review', audioPath: savedSource.current.originalPath?.slice(vaultPath.replace(/\/$/, '').length + 1),
           sourcePath, created: new Date(startTime.current).toISOString(), draft: finalDraft.current,
           turns: finalDraft.current?.segments ?? [], names: {}, marks,
-        } } })
+        })
         await invoke('show_meeting_workspace')
         ended.current = true
         setReview(true)

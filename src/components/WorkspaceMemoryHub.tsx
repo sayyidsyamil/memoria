@@ -7,21 +7,17 @@ import { MeetingTranscriptReview, type MeetingTab, type TranscriptDraft } from '
 import { MemoryAsk, type AskMode } from './MemoryAsk'
 import { MemorySearch } from './MemorySearch'
 import { Avatar, Chip, EmptyState, LifecycleRail, PillTabList, PillTabPanel, PillTabsRoot, SectionLabel, type RailState } from './memoriaUi'
-import type { Mark } from './MeetingSummary'
 import { openNoteInNewWindow } from '../utils/openNoteWindow'
 import { kindTone } from '../lib/knowledgeKinds'
 import { dayLabel, plural, whenLabel } from '../lib/format'
 import { clock, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
 import type { WorkspaceSummary } from '../hooks/useWorkspaceSummary'
 import './workspaceMemoryHub.css'
+import { meetingService } from '../features/meetings/meetingService'
+import type { MeetingRecord } from '../features/meetings/meetingTypes'
 
 export type HubView = 'meetings' | 'search' | 'ask' | 'approved' | 'briefs'
-interface Meeting {
-  outcomesStatus?: 'approved' | 'needs-review' | 'not-built'
-  id: string; title: string; status: string; pagePath: string; audioPath: string
-  transcriptPath?: string | null; created?: string; updatedAt?: string; draft?: TranscriptDraft
-  turns?: TranscriptDraft['segments']; names?: Record<string, string>; profileIds?: Record<string, string>; marks?: Mark[]
-}
+type Meeting = MeetingRecord
 interface Approved {
   id: string; title: string; kind: string; statement: string; quote: string; sourcePath: string
   sourceTitle: string; page: number; knowledgePath: string; pageTitle?: string; status: string; approvedAt?: string
@@ -86,7 +82,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
     const version = ++loadVersion.current
     setBusy(true); setError('')
     try {
-      const result = await invoke('wiki_memory', { request: { action: next, vaultPath } })
+      const result = next === 'meetings' ? await meetingService.list(vaultPath) : await invoke('wiki_memory', { request: { action: next, vaultPath } })
       if (version !== loadVersion.current) return
       if (!Array.isArray(result)) throw new Error('This view could not be loaded. Close it and try again.')
       if (next === 'meetings') setMeetings([...(result as Meeting[])].sort((a, b) => (b.created ?? '').localeCompare(a.created ?? '') || a.id.localeCompare(b.id)))
@@ -100,7 +96,8 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
   async function resume(id: string, tab: MeetingTab, at?: number) {
     setResuming(id); setError('')
     try {
-      const current = await invoke<Meeting>('wiki_memory', { request: { action: 'meeting_record', vaultPath, id } })
+      const current = await meetingService.get(vaultPath, id)
+      if (!current.audioPath) throw new Error('This meeting has no recording to open. Use its document instead.')
       if (!current.draft) current.draft = await invoke<TranscriptDraft | undefined>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId: id } })
       if (current.draft && current.turns) current.draft.segments = current.turns
       if (current.draft) current.draft.speakerMatches = Object.fromEntries(Object.entries(current.names ?? {}).map(([speaker, name]) => [speaker, { id: current.profileIds?.[speaker] ?? '', name }]))
@@ -113,7 +110,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
     if (!deleteTarget || deleting) return
     setDeleting(true); setDeleteError('')
     try {
-      await invoke('wiki_memory', { request: { action: 'delete_meeting', vaultPath, id: deleteTarget.id } })
+      await meetingService.delete(vaultPath, deleteTarget.id)
       setMeetings(previous => previous.filter(item => item.id !== deleteTarget.id))
       setDeleteTarget(null)
       await load('meetings'); onChanged?.()

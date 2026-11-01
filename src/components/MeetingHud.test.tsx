@@ -9,6 +9,9 @@ import { applySource } from '../lib/sourceImport'
 import { startMeetingLiveSpeech } from '../lib/meetingLiveSpeech'
 
 const close = vi.fn(async () => undefined)
+vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
+  save: (vaultPath: string, record: unknown) => invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record } }),
+} }))
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn(async () => undefined), convertFileSrc: (path: string) => path }))
 vi.mock('@tauri-apps/api/window', () => ({ LogicalSize: class {}, getCurrentWindow: () => ({ close, center: vi.fn(async () => undefined), setSize: vi.fn(async () => undefined), startDragging: vi.fn(), onCloseRequested: vi.fn(async () => () => undefined) }) }))
 vi.mock('../lib/sourceImport', () => ({ applySource: vi.fn(async (source: {originalPath?: string}) => { source.originalPath = '/vault/audio.webm'; return 'meeting.md' }) }))

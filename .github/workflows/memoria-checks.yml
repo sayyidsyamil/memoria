@@ -33,6 +33,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: pnpm test:memoria
+      - run: pnpm exec vitest run src/features/meetings/meetingService.test.ts
 
   engine:
     name: Deterministic engine and product tests
@@ -45,4 +46,4 @@ jobs:
           python-version: '3.11'
       - name: Test journal and workspace behaviour (no model downloads)
         working-directory: src-tauri/resources/memory
-        run: python -m unittest test_workspace_product test_engine
+        run: python -m unittest test_meetings_service test_workspace_product test_engine

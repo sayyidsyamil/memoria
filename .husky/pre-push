@@ -4,6 +4,8 @@
 set -eu
 pnpm build
 pnpm test:memoria
+pnpm exec vitest run src/features/meetings/meetingService.test.ts
 PYTHON="${MEMORIA_TEST_PYTHON:-python3}"
 "$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_workspace_product.py
 "$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_engine.py
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_meetings_service.py

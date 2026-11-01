@@ -1,5 +1,17 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Meeting API migration — 2 November 2026
+
+Meeting list/get/save/delete now use a typed frontend service and dedicated Tauri
+command, with Python application-service/repository ownership and structured error
+codes. Existing action names delegate to the same backend implementation for
+compatibility. Contract tests cover malformed responses, coded conflicts, restart
+persistence, and restoring a generated document when database publication fails.
+See [MEETINGS-API.md](MEETINGS-API.md) for the precise boundary and remaining scope.
+Transcription, knowledge, search, briefs, and crash-atomic recovery are not claimed
+as migrated. The debug bundle builds; native UI acceptance of this API migration
+has not yet been performed.
+
 ## Meeting deletion — 2 November 2026
 
 Each Meetings row now offers Delete meeting with a confirmation describing the

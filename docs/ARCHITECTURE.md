@@ -1,5 +1,12 @@
 # Architecture
 
+## Explicit meeting API
+
+Meeting CRUD now crosses a dedicated frontend client and Tauri `meetings_api`
+contract, with backend application service/repository ownership and coded errors.
+See [MEETINGS-API.md](MEETINGS-API.md) for operations, persistence semantics,
+compatibility, and the remaining migration scope.
+
 ## Meeting lifecycle deletion
 
 `workspace_product.delete_meeting` validates the meeting UUID and generated page

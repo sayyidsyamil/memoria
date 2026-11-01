@@ -3,6 +3,15 @@ import { beforeEach, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
 import { WorkspaceMemoryHub } from './WorkspaceMemoryHub'
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn(), convertFileSrc: (path:string) => path }))
+// Component tests isolate the frontend service; its real IPC contract has separate tests.
+vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
+  list: async (vaultPath: string) => {
+    const result = await invoke('wiki_memory', { request: { action: 'meetings', vaultPath } })
+    return (result as { created?: string }[]).sort((a, b) => (b.created ?? '').localeCompare(a.created ?? ''))
+  },
+  get: (vaultPath: string, id: string) => invoke('wiki_memory', { request: { action: 'meeting_record', vaultPath, id } }),
+  delete: (vaultPath: string, id: string) => invoke('wiki_memory', { request: { action: 'delete_meeting', vaultPath, id } }),
+} }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async () => () => undefined) }))
 vi.mock('../utils/openNoteWindow', () => ({ openNoteInNewWindow: vi.fn(async () => undefined) }))
 beforeEach(() => { vi.mocked(invoke).mockReset() })
