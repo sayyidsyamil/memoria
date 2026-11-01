@@ -1,102 +1,84 @@
 <div align="center">
-  <img src="src/assets/memoria-icon.svg" alt="Memoria" width="64" />
+  <img src="src/assets/memoria-icon.svg" alt="Memoria" width="56" />
   <h1>Memoria</h1>
-  <p><strong>Meeting intelligence. Inspectable evidence. Durable memory.</strong></p>
-  <p>A local-first desktop workspace that turns meetings into reviewed knowledge<br />and uses that knowledge to prepare the next conversation.</p>
-
-  [![Memoria checks](https://github.com/sayyidsyamil/memoria/actions/workflows/memoria-checks.yml/badge.svg?branch=main)](https://github.com/sayyidsyamil/memoria/actions/workflows/memoria-checks.yml)
-  [![License: AGPL v3+](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue)](LICENSE)
-  ![Stage: research prototype](https://img.shields.io/badge/stage-research%20prototype-orange)
-  ![Native evaluation: Apple Silicon](https://img.shields.io/badge/native%20evaluation-Apple%20Silicon-555555)
-
-  [Getting started](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+  <p><strong>Turn meetings into knowledge you can use again.</strong></p>
+  <p>A local-first workspace for reviewed transcripts, evidence-linked outcomes,<br />and a better-prepared next meeting.</p>
+  <p>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0--or--later-37352f?style=flat-square" alt="AGPL-3.0-or-later license" /></a>
+    <img src="https://img.shields.io/badge/status-research%20prototype-c47732?style=flat-square" alt="Research prototype" />
+    <img src="https://img.shields.io/badge/native%20evaluation-Apple%20Silicon-555555?style=flat-square" alt="Native evaluation on Apple Silicon" />
+  </p>
+  <p>
+    <a href="#a-closer-look">Product tour</a> ·
+    <a href="docs/DEVELOPMENT.md">Developer setup</a> ·
+    <a href="docs/ROADMAP.md">Roadmap</a> ·
+    <a href="https://github.com/sayyidsyamil/memoria/discussions">Discussions</a>
+  </p>
 </div>
 
----
+<p align="center">
+  <a href="docs/media/hero.webp"><img src="docs/media/hero.webp" alt="Memoria native meeting Summary: approved outcomes, timestamp links, key moments, and share of words" width="100%" /></a>
+  <br /><sub>Native macOS interface · fictional Cedar review fixture · not an ASR-accuracy demonstration</sub>
+</p>
 
-## From conversation to context
+## One meeting. Useful memory.
 
-Meeting notes are useful only if you can find them again, trust their sources, and
-carry decisions forward. Memoria connects those steps in a file-based workspace:
+**Capture → Review → Approve → Ask → Prepare**
 
-**Capture → Review transcript → Approve outcomes → Search / Ask → Prepare a cited brief**
+Memoria connects the conversation to what comes next. Review the transcript,
+approve what matters, and return to the original evidence whenever you need it.
 
-The language model proposes knowledge; **you decide what becomes durable**.
-Approved statements retain their supporting quotes and source locations. Notes,
-meeting records, and saved briefs remain portable Markdown.
+<table>
+  <tr>
+    <td width="33%"><strong>You decide what lasts.</strong><br />AI proposes outcomes. Human approval makes them durable.</td>
+    <td width="33%"><strong>Evidence stays close.</strong><br />Inspect quotes and follow approximate timestamps back to the recording.</td>
+    <td width="33%"><strong>Your files stay yours.</strong><br />Meeting records, knowledge, and saved briefs are portable Markdown.</td>
+  </tr>
+</table>
 
-```mermaid
-flowchart LR
-  A[Meeting audio / imported files] --> B[Reviewed source]
-  B --> C[Proposed outcomes]
-  C --> D{Human approval}
-  D -->|Approve| E[Durable knowledge]
-  D -->|Reject| F[Journal record]
-  E --> G[Search and cited answers]
-  E --> H[Next-meeting brief]
-```
+## A closer look
 
-## What you can do
+<table>
+  <tr>
+    <td width="50%">
+      <h3>01 / Review the conversation</h3>
+      <p>Editable transcript turns, provisional speaker labels, and an always-available recording player.</p>
+      <a href="docs/media/transcript.webp"><img src="docs/media/transcript.webp" alt="Native Transcript view with speaker controls, reviewed text, and recording player" width="100%" /></a>
+    </td>
+    <td width="50%">
+      <h3>02 / Find the original moment</h3>
+      <p>Keyword search brings together transcript matches and approved knowledge, with source-time links.</p>
+      <a href="docs/media/search.webp"><img src="docs/media/search.webp" alt="Native Search results for Cedar, with highlighted transcript text and an approved claim" width="100%" /></a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>03 / Ask your approved knowledge</h3>
+      <p>A focused Answer / Brief composer. Answers are grounded in approved claims and inspectable quotes.</p>
+      <a href="docs/media/ask.webp"><img src="docs/media/ask.webp" alt="Native Ask interface with Answer and Brief modes" width="100%" /></a>
+    </td>
+    <td width="50%">
+      <h3>04 / Prepare the next meeting</h3>
+      <p>Reopen a saved brief with context, open commitments, relevant people, and evidence references.</p>
+      <a href="docs/media/brief.webp"><img src="docs/media/brief.webp" alt="Saved Cedar meeting brief rendered as Markdown with R1, R2, and R3 citations" width="100%" /></a>
+    </td>
+  </tr>
+</table>
 
-| Surface | Purpose |
-| --- | --- |
-| **Record** | Capture microphone audio with a floating HUD, live draft captions, pause/resume, and marked moments. |
-| **Transcript** | Review editable turns, correct provisional speaker names, and navigate the original audio. |
-| **Summary** | Inspect approved decisions, commitments, projects, and topics with quotes and approximate timestamps. |
-| **Search** | Find saved transcript lines and approved claims using transparent keyword/prefix matching. |
-| **Ask** | Query approved knowledge and inspect the exact evidence behind citations. |
-| **Briefs** | Prepare, save, and reopen a cited document for the next meeting. |
+<p align="center"><sub>Captured with agent-desktop from the native debug app. Images are cropped and resized; UI content is unchanged. <a href="docs/media/README.md">Image provenance</a></sub></p>
 
-Files can also be imported as evidence. Proposed additions go through an explicit
-review workflow, with a durable journal, stale-source checks, and conflict-aware undo.
+### Built around the work
 
-## Design principles
+- **Floating recording HUD** — live draft captions, pause/resume, and marked moments.
+- **Reviewed outcomes** — approve proposed knowledge with exact supporting quotes.
+- **Meeting memory** — one hub for Meetings, Search, Ask, Approved, and Briefs.
+- **Local inference** — speech, generation, and retrieval use development-machine workers and cached models.
 
-- **Evidence before assertion.** Quotes and source links are inspectable; a matching
-  quote establishes provenance, not truth or semantic correctness.
-- **Human approval before publication.** Model suggestions do not directly rewrite
-  your knowledge. Reviewed additions preserve existing text.
-- **Files first.** Markdown carries durable knowledge; a vault-local SQLite journal
-  records proposals and publication receipts.
-- **Local meeting inference.** Speech, generation, and embedding workers run on the
-  development machine using pre-cached models. This does not mean every inherited
-  integration in the wider workspace is offline.
-- **Honest interface state.** The waveform reflects microphone levels, the timer
-  excludes pauses, and speaker statistics are labelled “share of words”.
+<p><strong>Under the hood:</strong> React + TypeScript · Tauri + Rust · Python + MLX · Markdown + SQLite</p>
 
-See [UI patterns](docs/UI-PATTERNS.md) for the component and interaction rules.
+## Try the workspace
 
-## Project status
-
-Memoria is an **FYP2 research prototype**, under active development. The meeting
-runtime has been exercised on Apple Silicon macOS. The inherited desktop, web, and
-mobile foundations do not establish cross-platform support for the new meeting AI.
-
-There is no standalone, signed Memoria installer yet. Native inference currently
-requires separately configured Python environments and cached model weights.
-Transcription accuracy, long sessions, crash recovery, and final native acceptance
-are still being evaluated. The recording-transcription path currently rejects
-audio longer than ten minutes.
-
-### Verification snapshot
-
-| Check | Latest recorded result |
-| --- | --- |
-| Focused frontend suite | 66 tests passing across 14 files |
-| Python engine/product suite | 30 tests passing |
-| TypeScript and scoped lint | Passing |
-| Native debug bundle | Built locally |
-| Full frontend suite | 6,326 passing, 97 failing, 1 skipped; outstanding rebrand/integration cases |
-
-These are the 1 November 2026 development results, not live coverage metrics or a
-claim of release readiness. The CI badge covers the scoped Memoria checks only.
-Detailed observations and outstanding native checks are in
-[Workspace product verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md).
-
-## Get started
-
-Use **Node.js 22+, pnpm 10, and Rust stable**. Native development also needs the
-[Tauri platform prerequisites](https://v2.tauri.app/start/prerequisites/).
+Requires **Node.js 22+, pnpm 10, and Rust stable** for native development.
 
 ```sh
 git clone https://github.com/sayyidsyamil/memoria.git
@@ -105,68 +87,38 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The browser development view uses a mock bridge; it is useful for UI work but does
-not exercise native recording or the local model workers.
+Browser mode uses a mock bridge. For real recording and local models, follow
+[native runtime setup](docs/DEVELOPMENT.md), then run `pnpm tauri dev`.
 
-For the desktop app, configure the runtime paths described in
-[Development setup](docs/DEVELOPMENT.md), then run:
+## Currently in development
 
-```sh
-pnpm tauri dev
-```
+**FYP2 research prototype.** Evaluated on Apple Silicon macOS; standalone model
+setup, signed installers, long-session recovery, and speech quality remain in progress.
+Local meeting inference does not make every inherited integration offline.
+Exact quote matching establishes provenance, not factual truth.
 
-### Checks
+<details>
+  <summary><strong>Verification and current limitations</strong></summary>
 
-```sh
-pnpm build
-pnpm test:memoria
-python3 -m unittest discover -s src-tauri/resources/memory -p 'test_workspace_product.py'
-python3 -m unittest discover -s src-tauri/resources/memory -p 'test_engine.py'
-```
+  <p>Recorded development checks: <strong>66 focused frontend tests</strong> and <strong>30 Python engine/product tests</strong> pass; TypeScript, scoped lint, and native debug builds pass.</p>
+  <p>The full frontend suite still has 97 failures (6,326 passing, 1 skipped). The scoped checks do not establish full regression stability or release readiness. The recording-transcription path currently rejects audio longer than ten minutes.</p>
+  <p>See <a href="docs/WORKSPACE-PRODUCT-VERIFICATION.md">verification evidence</a> and <a href="docs/ROADMAP.md">acceptance roadmap</a> for the remaining native checks and evaluation work.</p>
+</details>
 
-## Repository map
+## Explore the project
 
-| Path | Contents |
-| --- | --- |
-| `src/` | React/TypeScript workspace and meeting interfaces |
-| `src-tauri/src/` | Rust commands, capture integration, and model lifecycle |
-| `src-tauri/resources/memory/` | Local speech, retrieval, proposal journal, and generation adapters |
-| `memoria-demo/` | Fictional Markdown meeting scenario; copy before experimenting |
-| `docs/` | Architecture, setup, design decisions, and verification records |
-| `apps/`, `packages/`, `site/` | Inherited and rebranded workspace foundations |
-| `reference/upstream-workflows/` | Archived upstream CI/release definitions, not active Memoria automation |
+| Build | Understand | Contribute |
+| :--- | :--- | :--- |
+| [Development setup](docs/DEVELOPMENT.md) | [Architecture](docs/ARCHITECTURE.md) | [Contribution guide](CONTRIBUTING.md) |
+| [Fictional demo vault](memoria-demo/) | [UI / UX patterns](docs/UI-PATTERNS.md) | [Issues](https://github.com/sayyidsyamil/memoria/issues) |
+| [Scoped CI definition](.github/workflows/memoria-checks.yml) | [Model lifecycle](docs/MODEL-LIFECYCLE.md) | [Security reporting](SECURITY.md) |
 
-## Roadmap
+---
 
-1. Complete native acceptance of recording, marks, saved review, and cited briefs.
-2. Make model setup reproducible and package the inference runtime.
-3. Evaluate speaker/ASR quality, retrieval, and evidence-grounded answers.
-4. Improve recovery, long-session handling, and model memory management.
-5. Reconcile outstanding full-suite failures before a supported release.
+<p align="center">
+  Built by <a href="https://github.com/sayyidsyamil">Sayyid Syamil</a> for FYP2.<br />
+  Derived from <a href="https://github.com/refactoringhq/tolaria">Tolaria</a> by Luca Rossi / Refactoring and contributors.<br />
+  <sub>The inherited Markdown workspace remains attributed upstream. Memoria adds the meeting-oriented workflow.<br />AGPL-3.0-or-later · <a href="NOTICE.md">Attribution and third-party notices</a> · Model weights are not included.</sub>
+</p>
 
-See the [roadmap](docs/ROADMAP.md) for acceptance criteria.
-
-## Contributing and security
-
-Issues and focused pull requests are welcome. Please read
-[CONTRIBUTING.md](CONTRIBUTING.md), use fictional fixtures, and include relevant
-verification. Report vulnerabilities privately through the process in
-[SECURITY.md](SECURITY.md).
-
-## Attribution and license
-
-Memoria is developed by [Sayyid Syamil](https://github.com/sayyidsyamil) as an FYP2
-project, **derived from [Tolaria](https://github.com/refactoringhq/tolaria)** by Luca
-Rossi / Refactoring and contributors. Tolaria provides the inherited Markdown
-workspace; Memoria adds the meeting-oriented capture, reviewed memory, and briefing
-workflow. Inherited capabilities are not claimed as original Memoria contributions.
-
-The project retains **AGPL-3.0-or-later** licensing, upstream history, and third-party
-notices. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). Model weights have their
-own terms and are not included. Memoria is not an official Tolaria release and is
-not affiliated with upstream sponsorships or hosted services.
-
-### Earlier versions
-
-`main` contains the desktop workspace. `legacy` preserves the previous Next.js
-default branch; the existing `fyp2` and `master` branches retain their earlier work.
+<p align="center"><sub><code>main</code> — desktop workspace · <code>legacy</code> — previous Next.js default · <code>fyp2</code> / <code>master</code> — earlier work</sub></p>
