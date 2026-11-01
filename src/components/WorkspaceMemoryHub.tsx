@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Waveform } from '@phosphor-icons/react'
 import { Button } from './ui/button'
@@ -77,19 +77,23 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
   const [error, setError] = useState('')
   const [askMode, setAskMode] = useState<AskMode>('ask')
   const [seed, setSeed] = useState<{ text: string; nonce: number } | undefined>()
+  const loadVersion = useRef(0)
   const load = useCallback(async (next: HubView) => {
     if (next !== 'meetings' && next !== 'approved' && next !== 'briefs') return
+    const version = ++loadVersion.current
     setBusy(true); setError('')
     try {
       const result = await invoke('wiki_memory', { request: { action: next, vaultPath } })
-      if (next === 'meetings') setMeetings(result as Meeting[])
+      if (version !== loadVersion.current) return
+      if (!Array.isArray(result)) throw new Error('This view could not be loaded. Close it and try again.')
+      if (next === 'meetings') setMeetings([...(result as Meeting[])].sort((a, b) => (b.created ?? '').localeCompare(a.created ?? '') || a.id.localeCompare(b.id)))
       if (next === 'approved') setApproved(result as Approved[])
-      if (next === 'briefs') setBriefs(result as Brief[])
+      if (next === 'briefs') setBriefs([...(result as Brief[])].sort((a, b) => b.created.localeCompare(a.created) || a.id.localeCompare(b.id)))
       setLoaded(previous => ({ ...previous, [next]: true }))
-    } catch (failure) { setError(String(failure)) }
-    finally { setBusy(false) }
+    } catch (failure) { if (version === loadVersion.current) setError(String(failure)) }
+    finally { if (version === loadVersion.current) setBusy(false) }
   }, [vaultPath])
-  function open(next: HubView) { if (next === view) return; setView(next); setSearch(''); setKind('all'); void load(next) }
+  function open(next: HubView) { if (next === view) return; ++loadVersion.current; setBusy(false); setError(''); setView(next); setSearch(''); setKind('all'); void load(next) }
   async function resume(id: string, tab: MeetingTab, at?: number) {
     setResuming(id); setError('')
     try {
@@ -158,6 +162,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
             {current === 'meetings' && meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
           </div>
           <div className="hub-body" data-view={current}>
+            {busy && !loaded[current] && <p role="status" className="hub-loading">Loading {current === 'approved' ? 'approved knowledge' : current}…</p>}
             <PillTabPanel value="meetings">
               {shownMeetings.map(item => {
                 const next = nextAction(item)

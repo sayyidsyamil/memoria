@@ -35,4 +35,5 @@
 .summary-review-bar { flex-shrink: 0; padding: 6px 20px 0; }
 .summary-review .knowledge-review-inline { flex: 1; }
 @media (max-width: 760px) { .summary { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .summary-overview { flex-wrap: wrap; gap: 12px; } .summary-bar p { min-width: 0; flex-basis: 100%; } }
 @media (prefers-reduced-motion: reduce) { .summary-time, .summary-moment { transition: none; } }

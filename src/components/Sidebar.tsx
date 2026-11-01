@@ -704,7 +704,10 @@ export const Sidebar = memo(function Sidebar(props: SidebarProps) {
         canGoForward={props.canGoForward}
       />
       {props.vaultRootPath && <WorkspaceActions vaultPath={props.vaultRootPath} />}
-      <SidebarRuntimeNavigation props={props} runtime={runtime} />
+      <details className="workspace-library" open>
+        <summary>Document library<span>Browse files and collections</span></summary>
+        <SidebarRuntimeNavigation props={props} runtime={runtime} />
+      </details>
       <SidebarInteractionOverlays locale={locale} runtime={runtime} />
     </aside>
   )

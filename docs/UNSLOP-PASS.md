@@ -7,6 +7,23 @@ This document adapts that method; application code retains its existing licence.
 
 ## Direction
 
+### Navigation and interaction follow-up
+
+The document library is now an explicit collapsible sidebar section beneath meeting
+tools, rather than an unlabeled competing navigation stack. The library starts open
+to preserve access to existing files, types, folders, and views. Recordings and briefs
+sort newest-first. Loading messages appear in the current list, and request versions
+prevent a delayed response from an old tab overwriting the active tab's error/loading
+state. Regression coverage exercises out-of-order responses and list ordering.
+Narrow meeting headers, summary actions, and player footers wrap instead of squeezing.
+
+Verification: desktop TypeScript, scoped ESLint, all 69 scoped frontend tests, and
+12 targeted sidebar type/view interaction tests pass. The native debug bundle was
+built and installed; agent-desktop window captures confirmed that the Document
+library expands and collapses while meeting navigation remains accessible. Native
+dark mode, minimum-width layouts, and the live recording journey still require
+their own acceptance pass. No new recording was started during this check.
+
 ### Experience refinement — 2 November 2026
 
 The next pass corrects hierarchy rather than adding decoration. The memory hub now

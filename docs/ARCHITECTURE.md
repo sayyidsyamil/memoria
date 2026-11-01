@@ -2,6 +2,11 @@
 
 ## Product-wide visual consistency
 
+The desktop sidebar separates meeting tools from a collapsible Document library;
+the underlying file/type/view navigation remains available. Memory-hub list loads
+use request versions so stale responses cannot overwrite the active tab's loading
+or error state. Meetings and briefs are sorted newest-first at the UI boundary.
+
 The Unslop follow-up uses `src/index.css` as the desktop surface/text contract;
 mobile palettes are regenerated from those tokens. Meeting components share
 typography, sentence-case labels, neutral chrome, and restrained control geometry.

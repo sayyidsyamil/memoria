@@ -17,6 +17,7 @@
 .hub-ask[hidden], .hub-body [hidden] { display: none; }
 .hub-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; padding: 12px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted-foreground); }
 .hub-muted { margin: 16px 0; font-size: 13px; color: var(--muted-foreground); }
+.hub-loading { margin: 16px 0; font-size: 13px; color: var(--muted-foreground); }
 .hub-meta { margin: 0; font-size: 12px; color: var(--muted-foreground); }
 
 /* Meetings: one calm row each, a single next action */
@@ -74,4 +75,8 @@
   .hub-header { flex-wrap: wrap; padding-right: 56px; }
   .hub-search { width: 100%; }
   .hub-meeting { flex-direction: column; align-items: flex-start; }
+  .hub-meeting-actions { align-self: stretch; justify-content: flex-end; }
+  .hub-page-heading { flex-wrap: wrap; }
+  .hub-brief { flex-wrap: wrap; }
+  .hub-footer > span { min-width: 0; overflow-wrap: anywhere; }
 }

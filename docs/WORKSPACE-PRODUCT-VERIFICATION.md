@@ -1,5 +1,15 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Navigation consistency follow-up
+
+The installed desktop build now separates meeting navigation from an expandable
+Document library. Both expanded and collapsed states were inspected natively with
+agent-desktop. Existing type and saved-view actions pass their targeted tests.
+Meetings/briefs sort newest-first in the frontend, malformed list responses fail
+visibly, and stale list responses cannot replace a newer tab's loading/error state.
+The scoped frontend suite now passes 69 tests. Live recording, native dark mode,
+and minimum-width interaction checks were not performed in this follow-up.
+
 ## Experience refinement — 2 November 2026
 
 Visible memory-page headings, a concise outcomes overview, a single brief action,

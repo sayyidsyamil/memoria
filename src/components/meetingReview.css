@@ -86,4 +86,5 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
 .review-footer { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 28px; border-top: 1px solid var(--border); background: var(--background); }
 .review-footer[hidden] { display: none; }
 @media (max-width: 600px) { .review-body { padding: 8px 20px 20px; } .review-header, .review-tabbar, .review-footer { padding-inline: 20px; } .review-share-bar { display: none; } }
+@media (max-width: 600px) { .review-header { gap: 12px; } .review-title { font-size: 20px; line-height: 28px; } .review-tabbar { flex-wrap: wrap; gap: 12px; } .review-footer { flex-wrap: wrap; gap: 12px; } .review-global-error { padding-inline: 20px; } }
 @media (prefers-reduced-motion: reduce) { .review-turn, .review-share-bar i { transition: none; } }

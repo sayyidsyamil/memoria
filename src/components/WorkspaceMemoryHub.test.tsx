@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { beforeEach, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
 import { WorkspaceMemoryHub } from './WorkspaceMemoryHub'
@@ -94,4 +94,30 @@ it('opens the meeting at the moment an approved claim was said', async () => {
   fireEvent.click(await screen.findByRole('button', { name: 'Open Pilot review at 0:20' }))
   expect(await screen.findByRole('textbox', { name: 'Transcript turn 1' })).toHaveValue('Saved edit')
   expect(screen.getByLabelText('Elapsed time')).toHaveTextContent('0:20')
+})
+it('keeps recordings newest first regardless of bridge order', async () => {
+  vi.mocked(invoke).mockResolvedValue([
+    meeting({ id: 'old', title: 'Older meeting', created: '2026-10-01T10:00:00Z' }),
+    meeting({ id: 'new', title: 'Latest meeting', created: '2026-11-01T10:00:00Z' }),
+  ])
+  render(<WorkspaceMemoryHub vaultPath="/vault" />)
+  fireEvent.click(screen.getByText('Meetings'))
+  await screen.findByText('Latest meeting')
+  expect(screen.getAllByRole('article').map(item => item.querySelector('h3')?.textContent)).toEqual(['Latest meeting', 'Older meeting'])
+})
+it('does not let a stale request overwrite the current view or its error', async () => {
+  let rejectMeetings!: (error: Error) => void
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    const action = (args as { request: { action: string } }).request.action
+    if (action === 'meetings') return new Promise((_resolve, reject) => { rejectMeetings = reject })
+    return []
+  })
+  render(<WorkspaceMemoryHub vaultPath="/vault" />)
+  fireEvent.click(screen.getByText('Meetings'))
+  expect(screen.getByText('Loading meetings…')).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('tab', { name: /Briefs/ }))
+  await screen.findByText('No saved briefs yet')
+  await act(async () => { rejectMeetings(new Error('Old request failed')) })
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /Briefs/ })).toHaveAttribute('aria-selected', 'true')
 })
