@@ -25,6 +25,17 @@ The language model proposes knowledge; **you decide what becomes durable**.
 Approved statements retain their supporting quotes and source locations. Notes,
 meeting records, and saved briefs remain portable Markdown.
 
+```mermaid
+flowchart LR
+  A[Meeting audio / imported files] --> B[Reviewed source]
+  B --> C[Proposed outcomes]
+  C --> D{Human approval}
+  D -->|Approve| E[Durable knowledge]
+  D -->|Reject| F[Journal record]
+  E --> G[Search and cited answers]
+  E --> H[Next-meeting brief]
+```
+
 ## What you can do
 
 | Surface | Purpose |
