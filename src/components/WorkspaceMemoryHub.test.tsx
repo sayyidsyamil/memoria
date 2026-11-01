@@ -105,6 +105,35 @@ it('keeps recordings newest first regardless of bridge order', async () => {
   await screen.findByText('Latest meeting')
   expect(screen.getAllByRole('article').map(item => item.querySelector('h3')?.textContent)).toEqual(['Latest meeting', 'Older meeting'])
 })
+it('requires confirmation to delete a meeting and refreshes the list after success', async () => {
+  let deleted = false
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    const action = (args as { request: { action: string } }).request.action
+    if (action === 'delete_meeting') { deleted = true; return { deleted: true } }
+    return deleted ? [] : [meeting()]
+  })
+  render(<WorkspaceMemoryHub vaultPath="/vault" />)
+  fireEvent.click(screen.getByText('Meetings'))
+  fireEvent.click(await screen.findByRole('button', { name: 'Delete meeting Pilot review' }))
+  expect(deleted).toBe(false)
+  expect(screen.getByText(/Original audio, sources, and approved knowledge are kept/)).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Delete meeting' }))
+  await screen.findByText('No meetings yet')
+  expect(deleted).toBe(true)
+})
+it('keeps a meeting visible when deletion fails and allows cancellation', async () => {
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    if ((args as { request: { action: string } }).request.action === 'delete_meeting') throw new Error('Meeting page was edited externally')
+    return [meeting()]
+  })
+  render(<WorkspaceMemoryHub vaultPath="/vault" />)
+  fireEvent.click(screen.getByText('Meetings'))
+  fireEvent.click(await screen.findByRole('button', { name: 'Delete meeting Pilot review' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Delete meeting' }))
+  expect(await screen.findByRole('alert')).toHaveTextContent('edited externally')
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+  expect(screen.getByText('Pilot review')).toBeInTheDocument()
+})
 it('does not let a stale request overwrite the current view or its error', async () => {
   let rejectMeetings!: (error: Error) => void
   vi.mocked(invoke).mockImplementation(async (_command, args) => {

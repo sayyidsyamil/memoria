@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
 import { invoke } from '@tauri-apps/api/core'
-import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Waveform } from '@phosphor-icons/react'
+import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Trash, Waveform } from '@phosphor-icons/react'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from './ui/dialog'
 import { MeetingTranscriptReview, type MeetingTab, type TranscriptDraft } from './MeetingTranscriptReview'
@@ -77,6 +77,9 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
   const [error, setError] = useState('')
   const [askMode, setAskMode] = useState<AskMode>('ask')
   const [seed, setSeed] = useState<{ text: string; nonce: number } | undefined>()
+  const [deleteTarget, setDeleteTarget] = useState<Meeting | null>(null)
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
   const loadVersion = useRef(0)
   const load = useCallback(async (next: HubView) => {
     if (next !== 'meetings' && next !== 'approved' && next !== 'briefs') return
@@ -106,6 +109,17 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
     finally { setResuming(null) }
   }
   const text = search.trim().toLowerCase()
+  async function deleteMeeting() {
+    if (!deleteTarget || deleting) return
+    setDeleting(true); setDeleteError('')
+    try {
+      await invoke('wiki_memory', { request: { action: 'delete_meeting', vaultPath, id: deleteTarget.id } })
+      setMeetings(previous => previous.filter(item => item.id !== deleteTarget.id))
+      setDeleteTarget(null)
+      await load('meetings'); onChanged?.()
+    } catch (failure) { setDeleteError(String(failure)) }
+    finally { setDeleting(false) }
+  }
   const matches = (value: string) => value.toLowerCase().includes(text)
   const shownMeetings = meetings.filter(item => matches(`${item.title} ${participants(item)}`))
   const kinds = useMemo(() => {
@@ -176,6 +190,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
                   <div className="hub-meeting-actions">
                     <Button size="sm" variant={next.label === 'Open meeting' ? 'outline' : 'default'} disabled={resuming === item.id} onClick={() => { void resume(item.id, next.tab) }}>{resuming === item.id ? 'Opening…' : next.label}</Button>
                     <Button size="icon-sm" variant="ghost" aria-label={`Open document for ${item.title}`} title="Open meeting document" onClick={() => openPage(item.pagePath, item.title)}><ArrowSquareOut size={15} /></Button>
+                    <Button size="icon-sm" variant="ghost" aria-label={`Delete meeting ${item.title}`} title="Delete meeting" onClick={() => { setDeleteError(''); setDeleteTarget(item) }}><Trash size={16} /></Button>
                   </div>
                 </article>
               })}
@@ -244,5 +259,16 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
     <Dialog open={!!meeting} onOpenChange={value => { if (!value) setMeeting(null) }}><DialogContent className="memory-hub-meeting" showCloseButton={false} onOpenAutoFocus={event => event.preventDefault()} onInteractOutside={event => event.preventDefault()} onEscapeKeyDown={event => event.preventDefault()}><DialogTitle className="sr-only">Meeting record</DialogTitle><DialogDescription className="sr-only">Transcript, summary and questions for one meeting.</DialogDescription>{meeting && <MeetingTranscriptReview key={`${meeting.id}-${meeting.initialSeek ?? ''}`} vaultPath={vaultPath} sessionId={meeting.id} originalPath={`${vaultPath}/${meeting.audioPath}`} title={meeting.title} created={meeting.created} draggable={false} initialDraft={meeting.draft} initialMarks={meeting.marks} transcriptPath={meeting.transcriptPath ?? undefined} outcomesStatus={meeting.outcomesStatus} initialTab={meeting.initialTab} initialSeek={meeting.initialSeek}
       onBrief={topic => { setMeeting(null); setAskMode('brief'); setSeed({ text: topic, nonce: Date.now() }); setView('ask') }}
       onClose={async () => { setMeeting(null); await load('meetings'); onChanged?.() }} />}</DialogContent></Dialog>
+    <Dialog open={!!deleteTarget} onOpenChange={value => { if (!value && !deleting) setDeleteTarget(null) }}>
+      <DialogContent className="sm:max-w-md" showCloseButton={!deleting}>
+        <DialogTitle>Delete meeting?</DialogTitle>
+        <DialogDescription>Remove “{deleteTarget?.title}” from Meetings and delete its generated meeting document. Original audio, sources, and approved knowledge are kept.</DialogDescription>
+        {deleteError && <p role="alert" className="hub-error">{deleteError}</p>}
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" disabled={deleting} onClick={() => setDeleteTarget(null)}>Cancel</Button>
+          <Button variant="destructive" disabled={deleting} onClick={() => { void deleteMeeting() }}>{deleting ? 'Deleting…' : 'Delete meeting'}</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   </>
 }

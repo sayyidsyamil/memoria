@@ -784,6 +784,27 @@ def workspace_product(engine, request):
                 'speakers': sorted(speakers), 'seconds': round(time.perf_counter() - started, 3)}
     if action == 'approved':
         return approved_claims(engine)
+    if action == 'delete_meeting':
+        identifier = str(uuid.UUID(request['id']))
+        row = engine.db.execute('SELECT record FROM meetings WHERE id=?', (identifier,)).fetchone()
+        if not row: return {'deleted': False, 'id': identifier}
+        record = json.loads(row[0])
+        path = f'meetings/meeting-{identifier}.md'
+        if record.get('pagePath') != path: raise ValueError('Meeting document path is invalid')
+        target = safe_path(engine.root, path)
+        content = target.read_text() if target.exists() else None
+        if content is not None and digest(content) != record.get('pageHash'):
+            raise ValueError('Meeting page was edited externally. Preserve those edits before deleting the meeting.')
+        # Original audio, reviewed evidence and approved knowledge remain intact.
+        try:
+            if content is not None: target.unlink()
+            engine.db.execute('DELETE FROM meetings WHERE id=?', (identifier,))
+            engine.db.commit()
+        except Exception:
+            engine.db.rollback()
+            if content is not None and not target.exists(): atomic(target, content)
+            raise
+        return {'deleted': True, 'id': identifier}
     if action == 'save_meeting':
         record = request['record']
         identifier = str(uuid.UUID(record['id']))
@@ -891,7 +912,7 @@ def main():
     engine = Engine(request['vaultPath'])
     with engine.locked():
         action = request['action']
-        if action in ['meetings', 'summary', 'save_meeting', 'meeting_record', 'approved', 'search', 'save_brief', 'briefs']:
+        if action in ['meetings', 'summary', 'save_meeting', 'delete_meeting', 'meeting_record', 'approved', 'search', 'save_brief', 'briefs']:
             result = workspace_product(engine, request)
         elif action == 'compile':
             result = engine.compile(request['sourcePath'])

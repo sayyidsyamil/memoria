@@ -29,6 +29,28 @@ class WorkspaceProductTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'edited externally'):
             self.run_action('save_meeting',record={'id':identifier,'title':'Changed','status':'needs-review'})
         self.assertIn('Personal note',path.read_text())
+    def test_delete_meeting_removes_record_and_document_but_preserves_evidence(self):
+        (self.root/'audio.wav').write_bytes(b'audio')
+        (self.root/'source.md').write_text('Evidence')
+        identifier = str(uuid.uuid4())
+        saved = self.run_action('save_meeting', record={'id':identifier,'title':'Delete fixture','status':'needs-review','audioPath':'audio.wav','sourcePath':'source.md'})
+        self.assertTrue(self.run_action('delete_meeting', id=identifier)['deleted'])
+        self.assertFalse((self.root/saved['pagePath']).exists())
+        self.assertTrue((self.root/'audio.wav').exists())
+        self.assertTrue((self.root/'source.md').exists())
+        self.assertEqual(self.run_action('meetings'), [])
+        self.assertFalse(self.run_action('delete_meeting', id=identifier)['deleted'])
+        self.engine.db.close(); self.engine = Engine(self.root)
+        self.assertEqual(self.run_action('summary')['meetings'], 0)
+    def test_delete_meeting_refuses_external_document_edits(self):
+        identifier = str(uuid.uuid4())
+        saved = self.run_action('save_meeting', record={'id':identifier,'title':'Preserve edits','status':'needs-review'})
+        path = self.root/saved['pagePath']
+        path.write_text(path.read_text()+'\nPersonal annotation\n')
+        with self.assertRaisesRegex(ValueError, 'edited externally'):
+            self.run_action('delete_meeting', id=identifier)
+        self.assertIn('Personal annotation', path.read_text())
+        self.assertEqual(len(self.run_action('meetings')), 1)
     def test_approved_includes_accepted_claims_and_flags_changed_source(self):
         (self.root/'source.md').write_text('---\ntype: Source\ntitle: Evidence\n---\n# Evidence\n## Page 1\n\nLaunch Thursday confirmed by Maya.\n')
         claim={'title':'Launch','kind':'Decision','statement':'Launch Thursday.','evidenceId':'E1','quote':'Launch Thursday confirmed by Maya.','targetPath':None}

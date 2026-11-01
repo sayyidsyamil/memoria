@@ -1,5 +1,13 @@
 # Architecture
 
+## Meeting lifecycle deletion
+
+`workspace_product.delete_meeting` validates the meeting UUID and generated page
+identity/hash before removing its Markdown document and database row. Evidence
+assets and approved proposal history are retained. The Meetings hub confirms the
+scope before invoking deletion and preserves the row on failure. This provides
+record deletion, not an evidence purge or general CRUD for every memory surface.
+
 ## Product-wide visual consistency
 
 Local model readiness is owned by `status-bar/ModelRuntimeStatus.tsx`, mounted in

@@ -1,5 +1,16 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Meeting deletion — 2 November 2026
+
+Each Meetings row now offers Delete meeting with a confirmation describing the
+scope. The action removes the database record and generated Meeting Markdown;
+original audio, reviewed sources, approved knowledge, and voice profiles remain.
+Externally edited meeting documents block deletion. Repeating a successful delete
+is harmless. List/count refresh follows deletion. Engine tests verify persistence,
+evidence preservation, and external-edit conflicts; UI tests cover confirmation,
+success and failure. The debug build was installed and row actions were inspected;
+native deletion itself was not performed on the existing test records.
+
 ## Bottom runtime status — 2 November 2026
 
 The small sidebar AI readiness label was removed. The native footer now displays
