@@ -1,5 +1,15 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Bottom runtime status — 2 November 2026
+
+The small sidebar AI readiness label was removed. The native footer now displays
+Speech, Knowledge, and Search runtime states separately, with error details on
+hover. A window-scoped agent-desktop screenshot of the installed build confirmed
+Speech: Ready, Knowledge: Ready, and Search: Preparing. Three focused status tests
+cover mixed readiness, unavailable responses, and malformed individual workers.
+TypeScript, scoped lint, and the native debug build pass. The narrow-width wrapping
+rule is implemented but was not inspected in the native window during this check.
+
 ## Navigation consistency follow-up
 
 The installed desktop build now separates meeting navigation from an expandable

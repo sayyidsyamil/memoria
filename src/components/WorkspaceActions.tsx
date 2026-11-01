@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { Microphone, ArrowRight, ListChecks } from '@phosphor-icons/react'
 import { SourceIntake } from './SourceIntake'
@@ -13,18 +13,7 @@ export function WorkspaceActions({ vaultPath }: { vaultPath: string }) {
   const [meetingOpen, setMeetingOpen] = useState(false)
   const [starting, setStarting] = useState(false)
   const [error, setError] = useState('')
-  const [models, setModels] = useState<Record<string, { state: string; message?: string }>>({})
   const { summary, refresh } = useWorkspaceSummary(vaultPath)
-  useEffect(() => {
-    let active = true
-    const refreshModels = () => { void invoke<typeof models>('ai_model_status').then(value => { if (active) setModels(value && typeof value === 'object' ? value : {}) }).catch(() => undefined) }
-    refreshModels()
-    const timer = setInterval(refreshModels, 3000)
-    return () => { active = false; clearInterval(timer) }
-  }, [])
-  const statuses = Object.values(models)
-  const failed = statuses.some(model => model.state === 'failed')
-  const allReady = statuses.length === 3 && statuses.every(model => model.state === 'ready')
   async function start() {
     setStarting(true); setError('')
     try { await invoke('open_meeting_hud', { vaultPath }) }
@@ -39,7 +28,6 @@ export function WorkspaceActions({ vaultPath }: { vaultPath: string }) {
         <MemoryReview key={`memory-${vaultPath}`} vaultPath={vaultPath} triggerIcon={<ListChecks size={16} />} badge={summary?.pendingReviews} />
       </div>
       <WorkspaceMemoryHub key={`hub-${vaultPath}`} vaultPath={vaultPath} summary={summary} onChanged={() => { void refresh() }} onStartMeeting={() => { void start() }} />
-      <p role="status" className="workspace-ai-status" title={Object.entries(models).map(([name, model]) => `${name}: ${model.state}${model.message ? ` — ${model.message}` : ''}`).join('\n')}><span className={`h-1.5 w-1.5 rounded-full ${allReady ? 'bg-emerald-600' : failed ? 'bg-amber-600' : 'bg-muted-foreground/50'}`} />{allReady ? 'AI ready' : failed ? 'AI needs attention' : 'Preparing AI…'}</p>
       <Dialog open={meetingOpen} onOpenChange={setMeetingOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

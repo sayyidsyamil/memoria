@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { isTauri } from '@tauri-apps/api/core'
+import { ModelRuntimeStatus } from './status-bar/ModelRuntimeStatus'
 import type { McpStatus } from '../hooks/useMcpStatus'
 import type { ThemeMode } from '../lib/themeMode'
 import { type AppLocale } from '../lib/i18n'
@@ -171,9 +173,10 @@ function StatusBarFooter(props: StatusBarFooterProps) {
   return (
     <footer
       data-testid="status-bar"
+      className="app-status-bar"
       style={{
         minHeight: 30,
-        height: stacked ? 'auto' : 30,
+        height: 'auto',
         flexShrink: 0,
         display: 'flex',
         flexWrap: stacked ? 'wrap' : 'nowrap',
@@ -191,6 +194,7 @@ function StatusBarFooter(props: StatusBarFooterProps) {
       }}
     >
       <StatusBarPrimaryFromFooter {...props} />
+      {isTauri() && props.aiFeaturesEnabled !== false && <ModelRuntimeStatus />}
       <StatusBarSecondaryFromFooter {...props} />
     </footer>
   )

@@ -2,6 +2,12 @@
 
 ## Product-wide visual consistency
 
+Local model readiness is owned by `status-bar/ModelRuntimeStatus.tsx`, mounted in
+the native app footer rather than the sidebar. It polls `ai_model_status` every
+three seconds and displays Speech (`speech`), Knowledge (`qwen`), and Search
+(`embed`) independently. Missing runtimes are queued; invalid bridge data reports
+unavailability. The footer wraps the full status onto a separate row below 640px.
+
 The desktop sidebar separates meeting tools from a collapsible Document library;
 the underlying file/type/view navigation remains available. Memory-hub list loads
 use request versions so stale responses cannot overwrite the active tab's loading
