@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { invoke } from '@tauri-apps/api/core'
-import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, SealCheck, Sparkle, Waveform } from '@phosphor-icons/react'
+import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Waveform } from '@phosphor-icons/react'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from './ui/dialog'
 import { MeetingTranscriptReview, type MeetingTab, type TranscriptDraft } from './MeetingTranscriptReview'
@@ -137,7 +137,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
       <p className="workspace-group-label">Memory</p>
       {row(<Waveform size={16} />, 'Meetings', 'meetings', summary?.meetings)}
       {row(<MagnifyingGlass size={16} />, 'Search', 'search')}
-      {row(<Sparkle size={16} />, 'Ask', 'ask')}
+      {row(<Quotes size={16} />, 'Ask', 'ask')}
       {row(<SealCheck size={16} />, 'All approved', 'approved', summary?.approved, (summary?.sourceChanged ?? 0) > 0)}
       {row(<FileText size={16} />, 'Briefs', 'briefs', summary?.briefs)}
     </nav>
@@ -152,6 +152,11 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
               <input aria-label={view === 'approved' ? 'Search approved knowledge' : 'Search meetings'} placeholder={view === 'approved' ? 'Filter claims and sources' : 'Filter meetings and people'} value={search} onChange={event => setSearch(event.target.value)} /></label>}
           </header>
           {error && <p role="alert" className="hub-error">{error}</p>}
+          <div className="hub-page-heading">
+            <div><h1>{tabs.find(item => item.value === current)?.label}</h1>
+              <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Answers from knowledge you have approved' : current === 'approved' ? 'Accepted claims with their original evidence' : 'Context for your next conversation'}</p></div>
+            {current === 'meetings' && meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
+          </div>
           <div className="hub-body" data-view={current}>
             <PillTabPanel value="meetings">
               {shownMeetings.map(item => {

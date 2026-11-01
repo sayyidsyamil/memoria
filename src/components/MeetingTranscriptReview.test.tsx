@@ -20,7 +20,7 @@ it('keeps the machine draft separate and saves only after explicit review', asyn
   const done = vi.fn(async () => undefined)
   render(<MeetingTranscriptReview vaultPath="/vault" sessionId="session" originalPath="/vault/audio.webm" title="Test meeting" onClose={done} />)
   expect(invoke).not.toHaveBeenCalled()
-  fireEvent.click(screen.getByText('Create accurate transcript'))
+  fireEvent.click(screen.getByRole('button', { name: 'Create transcript' }))
   const editor = await screen.findByRole('textbox', { name: 'Transcript turn 1' })
   expect(applySource).not.toHaveBeenCalled()
   fireEvent.change(editor, { target: { value: 'Thursday launch' } })
@@ -40,6 +40,18 @@ it('opens the existing live transcript without launching a second transcription'
   expect(screen.getByRole('textbox', { name: 'Transcript turn 1' })).toHaveValue('Existing live words')
   expect(invoke).not.toHaveBeenCalled()
   expect(screen.getByText('Refine transcript and speakers')).toBeInTheDocument()
+})
+it('shows a failed save while Summary remains selected', async () => {
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    const action = (args as { request?: { action: string } })?.request?.action
+    if (action === 'save_meeting') throw new Error('Disk unavailable')
+    return []
+  })
+  render(<MeetingTranscriptReview vaultPath="/vault" sessionId="session" originalPath="/vault/audio.webm" title="Test" initialDraft={draft} transcriptPath="reviewed.md" initialTab="summary" onClose={async () => undefined} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Save & close' }))
+  expect(await screen.findByRole('alert')).toHaveTextContent('Disk unavailable')
+  expect(screen.getByRole('tab', { name: 'Summary' })).toHaveAttribute('aria-selected', 'true')
+  expect(screen.getByRole('button', { name: 'Save & close' })).toBeEnabled()
 })
 it('reuses the completed MOSS session with speaker review and no full-recording ASR pass', () => {
   render(<MeetingTranscriptReview vaultPath="/vault" sessionId="session" originalPath="/vault/audio.webm" title="Test" initialDraft={{ ...draft, segments: [{ start: 1, end: 2, speaker: 'S01', text: 'Meeting words' }] }} onClose={async () => undefined} />)

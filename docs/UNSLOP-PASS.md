@@ -7,6 +7,25 @@ This document adapts that method; application code retains its existing licence.
 
 ## Direction
 
+### Experience refinement — 2 November 2026
+
+The next pass corrects hierarchy rather than adding decoration. The memory hub now
+has a visible page title and a short purpose line. Meeting outcomes have their own
+heading, a compact approval count, and one Create brief action. Key moments are a
+plain timeline rather than stacked cards. Single-speaker meetings do not show a
+meaningless 100% participation chart. Ask uses an evidence icon and a clear question
+heading; transcript creation no longer claims guaranteed accuracy.
+
+Save errors now appear outside individual tab panels, so a failed Save & close
+remains visible from Summary and Ask. A regression test covers the Summary case.
+
+Verification: 67 focused frontend tests, TypeScript, scoped ESLint, and native debug
+build pass. The exact build was installed and Meetings, Summary, and Ask were
+inspected using agent-desktop window captures. Summary/Ask publication images were
+refreshed from that build. Recording, native dark mode, and narrow native layouts
+were not re-tested during this refinement. Perfection is not an acceptance claim;
+the larger inherited workspace still needs further interaction-level evaluation.
+
 ### Product-wide follow-up
 
 The 1 November follow-up applies to the desktop workspace, shared meeting

@@ -15,7 +15,7 @@ beforeEach(() => { vi.mocked(invoke).mockReset(); props.onSeek.mockReset(); prop
 it('shows approved outcomes grouped by type, linked to the moment they were said', async () => {
   respond([claim(), claim({ id: 'a:1', kind: 'Commitment', title: 'Checklist', statement: 'Maya sends the checklist.', moment: { meetingId: 'm', meetingTitle: 'Kickoff', at: 65 } }), claim({ id: 'other', sourcePath: 'elsewhere.md' })], [])
   render(<MeetingSummary {...props} />)
-  expect(await screen.findByText(/2 approved outcomes: 1 commitment, 1 project\./)).toBeInTheDocument()
+  expect(await screen.findByText(/2 approved outcomes · Linked to the recording/)).toBeInTheDocument()
   expect(screen.getByRole('region', { name: 'Commitments' })).toHaveTextContent('Maya sends the checklist.')
   fireEvent.click(screen.getByRole('button', { name: 'Play from 1:05' }))
   expect(props.onSeek).toHaveBeenCalledWith(65)
@@ -37,7 +37,7 @@ it('asks for approval while suggestions are pending, then shows the summary', as
   expect(invoke).not.toHaveBeenCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'compile' }) })
   respond([claim()], [])
   window.dispatchEvent(new Event('memoria-memory-changed'))
-  expect(await screen.findByText(/1 approved outcome: 1 project\./)).toBeInTheDocument()
+  expect(await screen.findByText(/1 approved outcome · Linked to the recording/)).toBeInTheDocument()
 })
 it('offers to build knowledge when nothing is approved and flags changed sources', async () => {
   respond([], [])

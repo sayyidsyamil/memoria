@@ -129,7 +129,8 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
   return <section className="chat" aria-label="Reviewed knowledge assistant">
     <div className="chat-thread" aria-live="polite">
       {thread.length === 0 && <div className="chat-intro"><span className="chat-mark" aria-hidden="true"><Quotes size={16} /></span>
-        <p>{scope ? 'Ask about this meeting.' : 'Ask about your meetings.'} Answers use only approved knowledge, and every claim links to the exact quote. Each question is answered fresh.</p></div>}
+        <h2>{scope ? 'What do you need from this meeting?' : 'What do you need to know?'}</h2>
+        <p>Ask a question or prepare a brief. Answers cite approved knowledge; each question is answered independently.</p></div>}
       {thread.map(entry => <div key={entry.id} className="chat-turn">
         <div className="chat-question"><p>{entry.question}</p></div>
         <div className="chat-answer"><span className="chat-mark" aria-hidden="true"><Quotes size={16} /></span>

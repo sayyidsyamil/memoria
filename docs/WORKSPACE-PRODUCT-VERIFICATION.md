@@ -1,5 +1,16 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Experience refinement — 2 November 2026
+
+Visible memory-page headings, a concise outcomes overview, a single brief action,
+and a quieter timestamp timeline replace repeated explanatory chrome. Ask has a
+clear question heading. One-speaker summaries omit the redundant word-share chart.
+Save errors remain visible from every meeting tab, with a regression test covering
+a failed close from Summary. Native Meetings, Summary, and Ask were inspected in
+the freshly installed debug build using agent-desktop. The scoped suite now passes
+67 frontend tests. Earlier broader-suite counts below are historical, not a fresh
+full-regression result.
+
 ## Delivered surfaces
 
 - **Meetings** lists ended captures, recording links, portable Meeting Markdown,

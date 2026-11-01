@@ -50,7 +50,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [marks, setMarks] = useState<Mark[]>(() => initialMarks ?? [])
   const [remember, setRemember] = useState(true)
   const [name, setName] = useState(title)
-  const [notice, setNotice] = useState(() => initialDraft ? '' : liveText.trim() ? 'Your live transcript is ready to review. Refinement is optional.' : 'Recording saved. Create an accurate transcript when you are ready.')
+  const [notice, setNotice] = useState(() => initialDraft ? '' : liveText.trim() ? 'Your live transcript is ready to review. Refinement is optional.' : 'Recording saved. Create a transcript when you are ready.')
   const [stage, setStage] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -167,9 +167,10 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
         <Chip tone={reviewed ? 'green' : 'orange'} dot>{reviewed ? 'Transcript reviewed' : 'Draft — check before saving'}</Chip>
       </div>
 
+      {error && <p role="alert" className="review-global-error">{error}</p>}
+
       <PillTabPanel value="transcript" className="review-body">
         {notice && !busy && <p role="status" className="review-status">{notice}</p>}
-        {error && <p role="alert" className="review-error">{error}</p>}
         {busy && cancel.current && <div className="review-processing"><p role="status">{stage}</p><Button variant="outline" size="sm" onClick={() => { void cancel.current?.() }}>Cancel processing</Button></div>}
         {marks.length > 0 && <section className="review-marks" aria-label="Marked moments"><Fold title="Marked moments" count={marks.length} defaultOpen={false}>
           {marks.map((mark, index) => <div key={mark.id ?? `${mark.at}-${index}`} className="review-mark">
@@ -180,7 +181,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
           </div>)}
         </Fold></section>}
         {!draft && <EmptyState icon={<ListChecks size={20} />} title={busy ? 'Preparing your transcript' : 'Your recording is saved'}>{busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
-        {!busy && !refined && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>{draft ? 'Refine transcript and speakers' : 'Create accurate transcript'}</Button></div>}
+        {!busy && !refined && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>{draft ? 'Refine transcript and speakers' : 'Create transcript'}</Button></div>}
         {draft && <>
           {!!draft.gaps?.length && <div role="alert" className="review-notice" data-tone="warn"><Warning size={16} aria-hidden="true" /><div><p><strong>{draft.gaps.length} passage needs audio review</strong></p>{draft.gaps.map(gap => <p key={gap.start}>{clock(gap.start)}–{clock(gap.end)} · No transcript was accepted for this interval.</p>)}</div></div>}
           {refined && speakers.length > 0 && <section className="review-speakers" aria-label="Meeting speakers">

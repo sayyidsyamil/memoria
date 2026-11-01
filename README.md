@@ -53,7 +53,7 @@ FYP2 research prototype, evaluated on Apple Silicon macOS. Model environments an
 cached weights require separate setup; there is no supported standalone installer
 yet. Speech quality, long-session recovery, and native acceptance remain in progress.
 
-The focused suites pass 66 frontend and 30 engine/product tests. The broader suite
+The focused suites pass 67 frontend and 30 engine/product tests. The broader suite
 has 97 outstanding failures. See [verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)
 for results and limitations. Quote matching proves provenance, not factual truth;
 local meeting inference does not make every inherited integration offline.

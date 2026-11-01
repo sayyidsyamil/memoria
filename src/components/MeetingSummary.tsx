@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
-import { FileText, ListChecks } from '@phosphor-icons/react'
+import { ListChecks } from '@phosphor-icons/react'
 import { Avatar, Chip, EmptyState, SectionLabel } from './memoriaUi'
 import { MemoryReview } from './MemoryReview'
 import { Button } from './ui/button'
@@ -95,8 +95,10 @@ export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, mar
   const topic = claims.find(claim => claim.kind === 'Project' || claim.kind === 'Topic')?.pageTitle || title
   return <div className="summary">
     <div className="summary-main">
-      <p className="summary-lead">{claims.length} approved outcome{claims.length === 1 ? '' : 's'}: {counts.map(item => `${item.total} ${item.total === 1 ? item.section.one : item.section.many}`).join(', ')}.
-        {located ? ' Each one links to the moment it was said.' : ' Each one cites its source quote.'}</p>
+      <header className="summary-overview"><div><h2>Meeting outcomes</h2>
+        <p className="summary-lead">{claims.length} approved outcome{claims.length === 1 ? '' : 's'} · {located ? 'Linked to the recording' : 'Source quotes attached'}</p></div>
+        {onBrief && <Button size="sm" onClick={() => onBrief(topic)}>Create brief</Button>}
+      </header>
       {changed > 0 && <Chip tone="orange" dot title="A source file changed after approval. Re-review before relying on it.">{changed} source{changed === 1 ? '' : 's'} changed — needs review</Chip>}
       {counts.map(({ section }) => <section key={section.kind} className="summary-section" aria-label={section.heading}>
         <SectionLabel>{section.heading}</SectionLabel>
@@ -112,9 +114,7 @@ export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, mar
         </li>)}</ul>
       </section>)}
       <div className="summary-bar">
-        <FileText size={18} aria-hidden="true" />
-        <p>{onBrief ? 'Preparing the next meeting? Create a cited brief from approved knowledge.' : 'Every outcome above was approved by you and cites its source.'}</p>
-        {onBrief && <Button variant="outline" size="sm" onClick={() => onBrief(topic)}>Create brief</Button>}
+        <p>Approved by you. Original evidence preserved.</p>
         <Button variant="ghost" size="sm" onClick={() => setForced('history')}>Review or undo</Button>
       </div>
     </div>
@@ -122,10 +122,10 @@ export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, mar
       <section><SectionLabel>Key moments</SectionLabel>
         {moments.length ? moments.map((moment, index) => <button key={index} type="button" className="summary-moment" data-tone={moment.tone} onClick={() => onSeek(moment.at)}><b>{clock(moment.at)}</b><span>{moment.label}</span></button>)
           : <p className="summary-muted">Press Mark moment while recording to save moments here.</p>}</section>
-      <section><SectionLabel>Share of words</SectionLabel>
+      {share.length > 1 && <section><SectionLabel>Share of words</SectionLabel>
         {share.map(item => <div key={item.speaker} className="summary-share" data-tone={speakerTone(item.speaker, order)}>
           <Avatar label={item.label} tone={speakerTone(item.speaker, order)} size={24} /><span className="summary-share-name">{item.label}</span>
-          <span className="summary-share-bar" aria-hidden="true"><i style={{ width: `${item.percent}%` }} /></span><span className="summary-share-percent">{item.percent}%</span></div>)}</section>
+          <span className="summary-share-bar" aria-hidden="true"><i style={{ width: `${item.percent}%` }} /></span><span className="summary-share-percent">{item.percent}%</span></div>)}</section>}
     </aside>
   </div>
 }
