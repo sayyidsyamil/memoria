@@ -14,7 +14,7 @@ fn python(kind: &str) -> String {
     let variable = match kind { "speech" => "MEMORIA_SPEECH_PYTHON", "embed" => "MEMORIA_EMBED_PYTHON", _ => "MEMORIA_MEMORY_PYTHON" };
     std::env::var(variable).unwrap_or_else(|_| match kind {
         "speech" => std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.speech-runtime/bin/python").to_string_lossy().into_owned(),
-        "embed" => dirs::home_dir().unwrap_or_default().join("Documents/memoria/.runtime/bin/python").to_string_lossy().into_owned(),
+        "embed" => std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.embed-runtime/bin/python").to_string_lossy().into_owned(),
         _ => "/opt/homebrew/bin/python3.11".into(),
     })
 }

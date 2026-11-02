@@ -75,10 +75,8 @@ pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Re
             #[cfg(unix)]
             { use std::os::unix::process::CommandExt; command.process_group(0); }
             if std::env::var_os("MEMORIA_EMBED_PYTHON").is_none() {
-                if let Some(home) = dirs::home_dir() {
-                    let local = home.join("Documents/memoria/.runtime/bin/python");
-                    if local.exists() { command.env("MEMORIA_EMBED_PYTHON", local); }
-                }
+                let local = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.embed-runtime/bin/python");
+                if local.exists() { command.env("MEMORIA_EMBED_PYTHON", local); }
             }
             let mut child = command.spawn().map_err(|_| "Local memory runtime unavailable. Check model setup.")?;
             if let Err(error) = child.stdin.take().ok_or("Missing memory input")?.write_all(request.to_string().as_bytes()) {

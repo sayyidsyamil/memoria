@@ -63,8 +63,10 @@ export MEMORIA_FFMPEG="$(command -v ffmpeg)"
 pnpm tauri dev
 ```
 
-These commands select existing environments; they do not create them. The model
-adapters expect the following models to have been cached separately:
+These commands select existing environments; they do not create them. Without the
+variables, development builds fall back to the unversioned repository-local
+`.speech-runtime/` and `.embed-runtime/` environments and Homebrew `python3.11`.
+The model adapters expect the following models to have been cached separately:
 
 - Speech: `OpenMOSS-Team/MOSS-Transcribe-Diarize`, revision
   `704aa4a9c304e8520be88901e0d1960158ef5b15`.

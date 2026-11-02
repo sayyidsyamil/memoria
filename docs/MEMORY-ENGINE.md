@@ -49,8 +49,8 @@ and cached mlx-community/Qwen3.5-4B-MLX-4bit weights. No model downloads occur.
 
 Related-page discovery combines BM25 and EmbeddingGemma 2 through RRF when the
 isolated embedding environment is available. MEMORIA_EMBED_PYTHON overrides its
-location; this machine's existing ~/Documents/memoria/.runtime/bin/python is
-detected as a development fallback. Semantic retrieval failure is shown explicitly
+location; the unversioned repository-local .embed-runtime/bin/python is the
+development fallback. Semantic retrieval failure is shown explicitly
 and compilation uses BM25. Models load per compilation; this is not a packaged,
 standalone inference runtime or a warm low-latency live service.
 

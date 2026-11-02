@@ -51,6 +51,7 @@ src-tauri/resources/mcp-server/
 
 # Python cache
 .speech-runtime/
+.embed-runtime/
 __pycache__/
 *.py[cod]
 
@@ -130,3 +131,7 @@ apps/web/sourcemaps/
 # Local UI verification harness
 /harness.html
 /harness/
+
+# Research evidence keeps its frozen run logs (see research/README.md)
+!research/**/logs/
+!research/**/*.log
