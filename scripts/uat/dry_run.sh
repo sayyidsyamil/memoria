@@ -2,7 +2,7 @@
 # UAT dry run of T1 (take the three meetings in) through the running app's own engine requests and
 # resident models, then print what T2-T4 would show. Usage: dry_run.sh <vault>
 vault=${1:A}
-pid=$(pgrep -f "Memoria Workspace.app/Contents/MacOS/memoria" | head -1)
+pid=$(pgrep -f "Memoria( Workspace)?\.app/Contents/MacOS/memoria" | head -1)
 # An explicit MEMORIA_QWEN_SOCKET (an evaluation worker) wins over the running app's.
 export MEMORIA_QWEN_SOCKET=${MEMORIA_QWEN_SOCKET:-$(print -r -- $TMPDIR/mm-$pid-*-qwen.sock(N))}
 export MEMORIA_EMBED_SOCKET=${MEMORIA_EMBED_SOCKET:-$(print -r -- $TMPDIR/mm-$pid-*-embed.sock(N))}
