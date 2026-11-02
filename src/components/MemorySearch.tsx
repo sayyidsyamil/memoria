@@ -4,7 +4,7 @@ import { ArrowSquareOut, MagnifyingGlass } from '@phosphor-icons/react'
 import { Avatar, Chip, EmptyState, SectionLabel } from './memoriaUi'
 import { Button } from './ui/button'
 import { kindTone } from '../lib/knowledgeKinds'
-import { dayLabel, highlightParts } from '../lib/format'
+import { dayLabel, highlightParts, plural } from '../lib/format'
 import { clock, speakerTone } from '../lib/speakers'
 import './memorySearch.css'
 
@@ -26,7 +26,6 @@ export function MemorySearch({ vaultPath, active = true, onOpenMoment, onOpenPag
   const [outcome, setOutcome] = useState<Outcome | null>(null)
   const [speakers, setSpeakers] = useState<string[]>([])
   const [busy, setBusy] = useState(false)
-  const [seconds, setSeconds] = useState(0)
   const [error, setError] = useState('')
   const latest = useRef(0)
   const field = useRef<HTMLInputElement>(null)
@@ -37,15 +36,14 @@ export function MemorySearch({ vaultPath, active = true, onOpenMoment, onOpenPag
     const id = ++latest.current
     const timer = setTimeout(async () => {
       setBusy(true); setError('')
-      const started = performance.now()
       const days = RANGES.find(item => item.id === range)?.days ?? 0
       try {
         const result = await invoke<Outcome>('wiki_memory', { request: { action: 'search', vaultPath, query: text, ...(speaker ? { speaker } : {}),
           ...(days ? { since: new Date(Date.now() - days * 86400000).toISOString() } : {}) } })
         if (id !== latest.current) return
-        setOutcome(result); setSeconds((performance.now() - started) / 1000)
+        setOutcome(result)
         if (!speaker && Array.isArray(result.speakers)) setSpeakers(result.speakers.filter(name => !/^unknown/i.test(name)).slice(0, 6))
-      } catch (failure) { if (id === latest.current) setError(String(failure)) }
+      } catch (failure) { if (id === latest.current) setError(failure instanceof Error ? failure.message : String(failure)) }
       finally { if (id === latest.current) setBusy(false) }
     }, 250)
     return () => clearTimeout(timer)
@@ -61,7 +59,7 @@ export function MemorySearch({ vaultPath, active = true, onOpenMoment, onOpenPag
       {RANGES.map(item => <button key={item.id} type="button" className="search-chip" aria-pressed={range === item.id} onClick={() => setRange(item.id)}>{item.label}</button>)}
     </div>
     {error && <p role="alert" className="search-error">{error}</p>}
-    {outcome && <p className="search-meta" role="status">{busy ? 'Searching…' : `${lines.length} line${lines.length === 1 ? '' : 's'} · ${claims.length} approved claim${claims.length === 1 ? '' : 's'} · ${outcome.meetings} meeting${outcome.meetings === 1 ? '' : 's'} · ${seconds.toFixed(1)} s`}</p>}
+    {outcome && <p className="search-meta" role="status">{busy ? 'Searching…' : `${plural(lines.length, 'line')} · ${plural(outcome.meetings, 'meeting')} searched${claims.length ? ` · ${plural(claims.length, 'approved claim')}` : ''}`}</p>}
     <div className="search-results">
       {lines.map((line, index) => <button key={`${line.meetingId}-${line.at}-${index}`} type="button" className="search-line" onClick={() => onOpenMoment(line.meetingId, line.at)}>
         <Avatar label={line.label} tone={speakerTone(line.speaker, [])} size={34} />
@@ -82,7 +80,7 @@ export function MemorySearch({ vaultPath, active = true, onOpenMoment, onOpenPag
         </div>)}
       </div>}
       {outcome && !busy && !lines.length && !claims.length && <EmptyState icon={<MagnifyingGlass size={20} />} title="No matches">Nothing in your transcripts or approved knowledge matches “{query.trim()}”. Search covers saved transcript text, including drafts.</EmptyState>}
-      {!outcome && !busy && !error && <EmptyState icon={<MagnifyingGlass size={20} />} title="Search every meeting">Find a line by what was said, or by who said it. Results open the meeting at that moment. Matching is by keyword, not meaning.</EmptyState>}
+      {!outcome && !busy && !error && <EmptyState icon={<MagnifyingGlass size={20} />} title="Search every meeting">Search by what was said or by who said it. A result opens the meeting at that moment.</EmptyState>}
     </div>
   </section>
 }

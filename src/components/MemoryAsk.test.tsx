@@ -24,7 +24,7 @@ it('answers and briefs inline as a conversation, without another dialog', async 
   await waitFor(() => expect(screen.getAllByText('No reviewed evidence yet')).toHaveLength(2))
   expect(invoke).toHaveBeenLastCalledWith('wiki_memory', { request: { action: 'brief', question: 'Harbour launch', vaultPath: '/vault', jobId: expect.any(String) } })
 })
-it('labels answers that come from tracked facts', async () => {
+it('labels answers that come from the decision board', async () => {
   vi.mocked(invoke).mockResolvedValue({ sections: [{ heading: 'Answer', items: [{ text: 'The current supplier for Pilot is Beta (decided 20 Oct 2026, 13:42).', citations: ['R1'] }] }],
     citations: [{ id: 'R1', sourcePath: 'review.md', sourceTitle: 'Supplier review — reviewed transcript', page: 1, quote: 'We decided to use Beta as supplier.',
       moment: { meetingId: 'm2', meetingTitle: 'Supplier review', at: 17.29 } }],
@@ -32,7 +32,7 @@ it('labels answers that come from tracked facts', async () => {
   render(<MemoryAsk vaultPath="/vault" />)
   type('Which supplier do we use now?'); fireEvent.click(screen.getByRole('button', { name: 'Ask' }))
   expect(await screen.findByText(/The current supplier for Pilot is Beta/)).toBeInTheDocument()
-  expect(screen.getByText('From tracked facts · Pilot — supplier · current value')).toBeInTheDocument()
+  expect(screen.getByText('From the decision board · Pilot — supplier · current value')).toBeInTheDocument()
 })
 it('keeps earlier questions in the thread and scopes answers to one meeting', async () => {
   vi.mocked(invoke).mockResolvedValue({ sections: [{ heading: 'Answer', items: [{ text: 'Thursday.', citations: [] }] }], citations: [], warnings: [] })
@@ -59,9 +59,9 @@ it('saves a generated brief with its original topic even after the input changes
   render(<MemoryAsk vaultPath="/vault" briefOnly />)
   type('Pilot')
   fireEvent.click(screen.getByText('Create brief'))
-  await screen.findByText('Save cited brief')
+  await screen.findByText('Save brief')
   type('Different topic')
-  fireEvent.click(screen.getByText('Save cited brief'))
+  fireEvent.click(screen.getByText('Save brief'))
   await screen.findByText('Open saved brief')
   expect(invoke).toHaveBeenLastCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'save_brief', topic: 'Pilot', vaultPath: '/vault', prepared: expect.any(String) }) })
 })
@@ -76,10 +76,13 @@ it('hides empty brief sections and reveals the exact quote behind a citation chi
   expect(screen.queryByRole('heading', { name: 'Recent updates' })).not.toBeInTheDocument()
   expect(screen.getByText(/Nothing recorded in approved knowledge for: Recent updates, Risks and open questions/)).toBeInTheDocument()
   expect(screen.queryByText('Maya confirmed Thursday.')).not.toBeInTheDocument()
-  const chip = screen.getByRole('button', { name: 'Evidence R1: Meeting A, page 2' })
+  const chip = screen.getByRole('button', { name: 'Quote from Pilot kickoff at 0:20' })
   expect(chip).toHaveTextContent('Pilot kickoff0:20')
   fireEvent.click(chip)
   expect(screen.getByText('Maya confirmed Thursday.')).toBeInTheDocument()
+  // A quote with a recording time needs no page number: a transcript has none.
+  expect(screen.getByText('Meeting A')).toBeInTheDocument()
+  expect(screen.queryByText(/page 2/)).not.toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'Go to 0:20 in the transcript' }))
   expect(open).toHaveBeenCalledWith('m1', 20)
 })
@@ -88,4 +91,14 @@ it('prefills the composer from a seed', () => {
   expect(screen.getByRole('textbox', { name: 'Question or meeting topic' })).toHaveValue('Project Cedar')
   rerender(<MemoryAsk vaultPath="/vault" briefOnly seed={{ text: 'Harbour', nonce: 2 }} />)
   expect(screen.getByRole('textbox', { name: 'Question or meeting topic' })).toHaveValue('Harbour')
+})
+it('names a document citation by its page, and keeps a long meeting title readable', async () => {
+  vi.mocked(invoke).mockResolvedValueOnce({ sections: [{ heading: 'Answer', items: [{ text: 'Thursday.', citations: ['D1', 'M1'] }] }],
+    citations: [{ id: 'D1', sourcePath: 'plan.md', sourceTitle: 'Launch plan', page: 3, quote: 'Launch on Thursday.' },
+      { id: 'M1', sourcePath: 't.md', sourceTitle: 'Transcript', page: 1, quote: 'Thursday it is.', moment: { meetingId: 'm', meetingTitle: 'Procurement pilot pre-launch review', at: 45 } }], warnings: [] })
+  render(<MemoryAsk vaultPath="/vault" />)
+  expect(screen.getByText('Answers cite their sources. Each question is answered on its own.')).toBeInTheDocument()
+  type('When?'); fireEvent.click(screen.getByRole('button', { name: 'Ask' }))
+  expect(await screen.findByRole('button', { name: 'Quote from Launch plan, page 3' })).toHaveTextContent('Launch planp.3')
+  expect(screen.getByRole('button', { name: 'Quote from Procurement pilot pre-launch review at 0:45' })).toHaveTextContent('Procurement pilot pre-launch review0:45')
 })
