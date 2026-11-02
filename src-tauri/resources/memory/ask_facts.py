@@ -69,19 +69,136 @@ def _times(count):
     return 'once' if count == 1 else 'twice' if count == 2 else f'{count} times'
 
 
+def shown(value):
+    """A tracked value as people read it: calendar dates spelled out, amounts with thousands separators."""
+    if isinstance(value, bool) or value is None:
+        return str(value)
+    if isinstance(value, (int, float)):
+        return f'{value:,.0f}' if float(value).is_integer() else f'{value:,}'
+    text = str(value)
+    if re.fullmatch(r'\d{4}-\d{2}-\d{2}', text):
+        try:
+            day = date.fromisoformat(text)
+            return f'{day.day} {day:%b %Y}'
+        except ValueError:
+            pass
+    return text
+
+
+def _citer(engine, records, citations, prefix='R'):
+    """cite(evidence) -> citation ids: ledger evidence as citations into the meetings' reviewed transcripts."""
+    from engine import safe_path, title_of
+
+    def cite(evidence, fact=None):
+        ids = []
+        for item in evidence[:2]:
+            record = records.get(item.get('meeting'))
+            if not record or not record.get('transcriptPath') or not isinstance(item.get('quote'), str):
+                continue
+            path = record['transcriptPath']
+            try:
+                source = safe_path(engine.root, path)
+                title = title_of(source, source.read_text())
+            except (OSError, ValueError):
+                continue
+            identifier = f'{prefix}{len(citations) + 1}'
+            citation = {'id': identifier, 'quote': item['quote'], 'sourcePath': path, 'sourceTitle': title, 'page': 1,
+                        'moment': {'meetingId': record['id'], 'meetingTitle': record.get('title', 'Meeting'), 'at': item.get('audio_start')}}
+            if fact is not None:
+                citation.update(kind='tracked-fact', factId=fact['fact_id'], objectId=fact['object_id'], attribute=fact['attribute'])
+            citations.append(citation)
+            ids.append(identifier)
+        return ids
+    return cite
+
+
+def _registry(engine):
+    """(registry, ledger home) of a vault that tracks at least one item, else (None, home)."""
+    from memoria_engine.service import registry_from_json
+    from temporal_support import temporal_home
+    home = temporal_home(engine.root)
+    if not (home / 'registry.json').is_file() or not (home / 'ledger.sqlite').is_file():
+        return None, home
+    data = json.loads((home / 'registry.json').read_text())
+    return (registry_from_json(data) if data.get('objects') else None), home
+
+
+CLOSED = {'done', 'complete', 'completed', 'cancelled', 'canceled', 'closed'}
+
+
+def brief_items(engine, most=8):
+    """Brief sections from approved tracked facts: open commitments (current owner, deadline and status of
+    each commitment not marked done or cancelled) and recent updates (slots whose value changed, newest
+    first). Fixed sentences, no model; each statement cites the quoted evidence of the facts it states.
+    Returns ({heading: items}, citations) or None when nothing is tracked."""
+    from engine import human_date, meeting_records
+    from temporal_support import valid_current, supporting_evidence
+    registry, home = _registry(engine)
+    if registry is None:
+        return None
+    service = _snapshot(home, registry)
+    try:
+        records = {record['id']: record for record in meeting_records(engine)}
+        citations = []
+        cite = _citer(engine, records, citations, prefix='T')
+        current = valid_current(service)
+        by_item = {}
+        for fact in current:
+            by_item.setdefault(fact['object_id'], {})[fact['attribute']] = fact
+        commitments = []
+        for object_id, spec in registry.objects.items():
+            facts = by_item.get(object_id) or {}
+            if spec.kind != 'commitment' or not facts or str((facts.get('status') or {}).get('value', '')).casefold() in CLOSED:
+                continue
+            parts, ids = [], []
+            for attribute in [a.name for a in spec.attributes if a.name in facts]:
+                fact = facts[attribute]
+                word = 'due' if attribute in ('deadline', 'due', 'date') else attribute
+                parts.append(f"{word} {shown(fact['value'])}")
+                ids += cite(supporting_evidence(fact), fact)
+            if ids:
+                commitments.append({'text': f"{spec.label}: {'; '.join(parts)}.", 'citations': ids})
+        changes = []
+        for object_id, spec in registry.objects.items():
+            for attribute in spec.attributes:
+                history = [fact for fact in service.facts_history(object_id, attribute.name) if not fact.get('retracted')]
+                values = [fact['value'] for fact in history]
+                if len(history) < 2 or values[-1] == values[-2]:
+                    continue
+                latest, earlier = history[-1], history[-2]
+                ids = cite(earlier.get('evidence') or [], earlier) + cite(supporting_evidence(latest) or latest.get('evidence') or [], latest)
+                if ids:
+                    changes.append((latest['decided_at'], {'text': f"{spec.label} — {attribute.name} changed from {shown(earlier['value'])} "
+                                                           f"to {shown(latest['value'])} (decided {human_date(latest['decided_at'])}).", 'citations': ids}))
+        updates = [item for _, item in sorted(changes, key=lambda pair: pair[0], reverse=True)]
+        if not commitments and not updates:
+            return None
+        return {'Open commitments': commitments[:most], 'Recent updates': updates[:most]}, citations
+    finally:
+        service.pipe.ledger._db.close()
+
+
+def tracked_citation_holds(engine, citation):
+    """A saved brief may cite a tracked fact only while that fact is approved and not retracted."""
+    registry, home = _registry(engine)
+    if registry is None or citation.get('objectId') not in registry.objects:
+        return False
+    service = _snapshot(home, registry)
+    try:
+        return any(fact['fact_id'] == citation.get('factId') and not fact.get('retracted')
+                   for fact in service.facts_history(citation['objectId'], citation.get('attribute')))
+    finally:
+        service.pipe.ledger._db.close()
+
+
 def tracked_answer(engine, question, today=None):
     """An Ask result (same shape as wiki answers) when the question is about a tracked value with
     approved facts, else None."""
-    from engine import human_date, meeting_records, safe_path, title_of
-    from memoria_engine.service import registry_from_json
-    from temporal_support import temporal_home, valid_current, supporting_evidence
-    home = temporal_home(engine.root)
-    if not (home / 'registry.json').is_file() or not (home / 'ledger.sqlite').is_file():
+    from engine import human_date, meeting_records
+    from temporal_support import valid_current, supporting_evidence
+    registry, home = _registry(engine)
+    if registry is None:
         return None
-    data = json.loads((home / 'registry.json').read_text())
-    if not data.get('objects'):
-        return None
-    registry = registry_from_json(data)
     route = route_question(registry, question, today or date.today())
     if route is None:
         return None
@@ -95,25 +212,7 @@ def tracked_answer(engine, question, today=None):
         attribute = route['attribute']
         records = {record['id']: record for record in meeting_records(engine)}
         citations = []
-
-        def cite(evidence):
-            """Ledger evidence as an Ask citation into the meeting's reviewed transcript."""
-            ids = []
-            for item in evidence[:2]:
-                record = records.get(item.get('meeting'))
-                if not record or not record.get('transcriptPath') or not isinstance(item.get('quote'), str):
-                    continue
-                path = record['transcriptPath']
-                try:
-                    source = safe_path(engine.root, path)
-                    title = title_of(source, source.read_text())
-                except (OSError, ValueError):
-                    continue
-                identifier = f'R{len(citations) + 1}'
-                citations.append({'id': identifier, 'quote': item['quote'], 'sourcePath': path, 'sourceTitle': title, 'page': 1,
-                                  'moment': {'meetingId': record['id'], 'meetingTitle': record.get('title', 'Meeting'), 'at': item.get('audio_start')}})
-                ids.append(identifier)
-            return ids
+        cite = _citer(engine, records, citations)
 
         items = []
         if route['type'] == 'current':
@@ -121,25 +220,25 @@ def tracked_answer(engine, question, today=None):
             if fact is None:
                 items.append({'text': f'No {attribute} for {label} is in force now.', 'citations': [], 'noEvidence': True})
             else:
-                items.append({'text': f"The current {attribute} for {label} is {fact['value']} (decided {human_date(fact['decided_at'])}).",
+                items.append({'text': f"The current {attribute} for {label} is {shown(fact['value'])} (decided {human_date(fact['decided_at'])}).",
                               'citations': cite(supporting_evidence(fact))})
         elif route['type'] in ('as_of_valid', 'as_of_tx'):
             found = service.query(route['type'], *slot, valid_at=route['valid_at'], tx_at=route['tx_at'])
             on = route['valid_at']
             if found['answer'] is None:
-                items.append({'text': f'No {attribute} for {label} was recorded for {on}.', 'citations': [], 'noEvidence': True})
+                items.append({'text': f'No {attribute} for {label} was recorded for {shown(on)}.', 'citations': [], 'noEvidence': True})
             else:
                 known = f", as recorded by {route['tx_at']}" if route['type'] == 'as_of_tx' and route['tx_at'] else ''
-                items.append({'text': f"On {on}{known}, the {attribute} for {label} was {found['answer']} (decided {human_date(found['decided_at'])}).",
+                items.append({'text': f"On {shown(on)}{known}, the {attribute} for {label} was {shown(found['answer'])} (decided {human_date(found['decided_at'])}).",
                               'citations': cite(found['evidence'])})
         else:  # n_changes and history: the recorded values in order, each with its own evidence
             changes = service.query('n_changes', *slot)['answer']
-            values = ' → '.join(str(fact['value']) for fact in history)
+            values = ' → '.join(shown(fact['value']) for fact in history)
             steps = []
             for fact in history:
                 ids = cite(fact.get('evidence') or [])
                 if ids:
-                    steps.append({'text': f"{fact['value']} — decided {human_date(fact['decided_at'])}.", 'citations': ids})
+                    steps.append({'text': f"{shown(fact['value'])} — decided {human_date(fact['decided_at'])}.", 'citations': ids})
             summary = f'The {attribute} for {label} has not changed: {values}.' if not changes else \
                 f'The {attribute} for {label} changed {_times(changes)}: {values}.'
             items.append({'text': summary, 'citations': [ref for step in steps for ref in step['citations']]})

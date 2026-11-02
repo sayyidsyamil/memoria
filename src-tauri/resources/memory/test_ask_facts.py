@@ -8,7 +8,7 @@ from engine import Engine, workspace_product
 from temporal_service import temporal_api
 from memoria_engine.pipeline import Candidate
 from memoria_engine.service import registry_from_json
-from ask_facts import route_question, tracked_answer
+from ask_facts import brief_items, route_question, tracked_answer
 
 
 def forbidden(prompt):
@@ -82,9 +82,9 @@ class AskTrackedFactsTests(unittest.TestCase):
         self.two_meetings()
         self.assertTrue(self.ask('How many times did the pilot supplier change?')['sections'][0]['items'][0]['text'].endswith('changed once: Acme → Beta.'))
         past = self.ask('What was the pilot supplier on 10 October 2026?')['sections'][0]['items'][0]
-        self.assertTrue(past['text'].startswith('On 2026-10-10, the supplier for Pilot was Acme'), past['text'])
+        self.assertTrue(past['text'].startswith('On 10 Oct 2026, the supplier for Pilot was Acme'), past['text'])
         before = self.ask('What was the pilot supplier on 20 September 2026?')['sections'][0]['items'][0]
-        self.assertEqual((before['text'], before['citations'], before['noEvidence']), ('No supplier for Pilot was recorded for 2026-09-20.', [], True))
+        self.assertEqual((before['text'], before['citations'], before['noEvidence']), ('No supplier for Pilot was recorded for 20 Sep 2026.', [], True))
 
     def test_other_questions_stay_with_the_wiki(self):
         self.two_meetings()
@@ -107,6 +107,68 @@ class AskTrackedFactsTests(unittest.TestCase):
         (self.root / '.memoria-memory' / 'temporal' / 'registry.json').write_text('{broken')
         result = self.ask('Which supplier do we use now?')
         self.assertIn('Tracked facts were not consulted', ' '.join(result['warnings']))
+
+
+class BriefTrackedFactsTests(AskTrackedFactsTests):
+    """Open commitments and recent changes in a meeting brief come from approved tracked facts."""
+    def setUp(self):
+        super().setUp()
+        self.call('registry.set', {'objects': [
+            {'object_id': 'pilot', 'label': 'Pilot', 'kind': 'decision', 'attributes': [{'name': 'supplier', 'type': 'text'}]},
+            {'object_id': 'launch', 'label': 'Launch', 'kind': 'decision', 'attributes': [{'name': 'date', 'type': 'text'}]},
+            {'object_id': 'training', 'label': 'Staff training', 'kind': 'commitment', 'attributes': [
+                {'name': 'owner', 'type': 'text'}, {'name': 'deadline', 'type': 'date'}, {'name': 'status', 'type': 'enum', 'values': ['done', 'cancelled']}]},
+            {'object_id': 'security', 'label': 'Security review', 'kind': 'commitment', 'attributes': [
+                {'name': 'owner', 'type': 'text'}, {'name': 'status', 'type': 'enum', 'values': ['done', 'cancelled']}]}]})
+
+    def facts_meeting(self, title, occurred, facts):
+        identifier = str(uuid.uuid4())
+        source = f'source-{identifier}.md'
+        turns = [{'start': 5.0 * index, 'end': 5.0 * index + 4, 'speaker': 'S01', 'text': sentence} for index, (_, _, _, sentence) in enumerate(facts)]
+        body = '\n\n'.join(f"[0:{5 * index:02d}] Aisha: {turn['text']}" for index, turn in enumerate(turns))
+        (self.root / source).write_text(f'---\ntype: Source\ntitle: "{title} — reviewed transcript"\n---\n# {title} — reviewed transcript\n\n{body}\n')
+        workspace_product(self.engine, {'action': 'save_meeting', 'record': {'id': identifier, 'title': title, 'created': occurred,
+            'status': 'transcript-reviewed', 'transcriptPath': source, 'names': {'S01': 'Aisha'}, 'turns': turns}})
+        class Extractor:
+            name = 'fixture'
+            def extract(self, context):
+                return [Candidate(obj, attribute, value, sentence, index, None, 1.0) for index, (obj, attribute, value, sentence) in enumerate(facts)]
+        self.call('ingest_reviewed_meeting', {'meetingId': identifier}, Extractor())
+        for proposal in self.call('overview')['proposals']:
+            self.call('proposals.accept', {'proposal_id': proposal['proposal_id']})
+
+    def test_a_brief_lists_open_commitments_and_recent_changes_with_their_quotes(self):
+        self.two_meetings()
+        self.facts_meeting('Training plan', '2026-10-21T02:00:00Z', [
+            ('training', 'owner', 'Aisha', 'I will coordinate training myself.'),
+            ('training', 'deadline', '2026-11-03', 'Training is finished by 3 November.'),
+            ('security', 'owner', 'Wei Ling', 'Wei Ling owns the security review.'),
+            ('security', 'status', 'done', 'The security review is done.')])
+        with self.engine.locked():
+            brief = self.engine.answer('Next steering committee', brief=True, generator=forbidden)
+        sections = {section['heading']: section['items'] for section in brief['sections']}
+        self.assertEqual([item['text'] for item in sections['Open commitments']], ['Staff training: owner Aisha; due 3 Nov 2026.'])
+        self.assertEqual([item['text'].split(' (decided')[0] for item in sections['Recent updates']], ['Pilot — supplier changed from Acme to Beta'])
+        cited = {citation['id']: citation for citation in brief['citations']}
+        quotes = [cited[ref]['quote'] for ref in sections['Recent updates'][0]['citations']]
+        self.assertEqual(quotes, ['We decided to use Acme as supplier.', 'We decided to use Beta as supplier.'])
+        self.assertTrue(all(cited[ref]['kind'] == 'tracked-fact' for item in sections['Open commitments'] for ref in item['citations']))
+
+    def test_a_saved_brief_keeps_tracked_quotes_and_refuses_a_retracted_fact(self):
+        self.two_meetings()
+        with self.engine.locked():
+            brief = self.engine.answer('Pilot', brief=True, generator=forbidden)
+            saved = workspace_product(self.engine, {'action': 'save_brief', 'id': str(uuid.uuid4()), 'topic': 'Pilot', 'result': brief})
+        page = (self.root / saved['pagePath']).read_text()
+        self.assertIn('Pilot — supplier changed from Acme to Beta', page)
+        self.assertIn('> We decided to use Beta as supplier.', page)
+        beta = next(fact for fact in self.call('facts.history', {'object_id': 'pilot', 'attribute': 'supplier'}) if fact['value'] == 'Beta')
+        self.call('facts.retract', {'fact_id': beta['fact_id'], 'reason': 'Recorded in error'})
+        with self.engine.locked(), self.assertRaisesRegex(ValueError, 'no longer approved'):
+            workspace_product(self.engine, {'action': 'save_brief', 'id': str(uuid.uuid4()), 'topic': 'Pilot', 'result': brief})
+
+    def test_nothing_tracked_means_no_tracked_sections(self):
+        self.assertIsNone(brief_items(self.engine))
 
 
 if __name__ == '__main__':

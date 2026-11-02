@@ -474,6 +474,22 @@ class Engine:
                 routed, tracked_warning = None, f'Tracked facts were not consulted: {str(error)[:200]}'
             if routed:
                 return routed
+        tracked_brief = None
+        if brief and scope is None:
+            # Open commitments and recent changes of tracked items come from the approved ledger as fixed,
+            # cited sentences; the model drafts the rest of the brief from approved knowledge claims.
+            try:
+                from ask_facts import brief_items
+                tracked_brief = brief_items(self)
+            except Exception as error:
+                tracked_warning = f'Tracked facts were not consulted: {str(error)[:200]}'
+
+        def with_tracked(sections, citations):
+            items, cited = tracked_brief
+            by_heading = {section['heading']: section for section in sections}
+            merged = [{'heading': heading, 'items': items.get(heading, []) + by_heading.get(heading, {'items': []})['items']}
+                      for heading in ['Context', 'Open commitments', 'Recent updates', 'Relevant people', 'Risks and open questions', 'Suggested questions']]
+            return merged, citations + cited
         # Reviewed claims provide the reusable synthesis; raw source text remains
         # the evidence, and changed source versions are excluded explicitly.
         candidates, warnings, stale = [], [], []
@@ -497,6 +513,9 @@ class Engine:
                         'text': claim['statement'] + '\n' + claim['quote'], 'claim': claim, 'sourceTitle': proposal['sourceTitle'],
                         'sourceHash': proposal['sourceHash'], 'proposalId': proposal['id']})
         if not candidates:
+            if tracked_brief:
+                sections, citations = with_tracked([], [])
+                return {'sections': sections, 'citations': citations, 'retrieval': 'Tracked facts', 'warnings': warnings, 'message': None}
             return {'sections': [], 'message': 'No reviewed evidence yet. Build knowledge from a source and save its changes first.', 'citations': [], 'warnings': warnings}
         # Explicit project topics should not retrieve a different project merely
         # because both use words such as "pilot". Include other claims from the
@@ -530,6 +549,9 @@ class Engine:
             return {'sections': [], 'citations': [], 'warnings': warnings, 'needsReview': affected,
                 'message': 'Relevant reviewed evidence has changed or is missing. Rebuild and review it before using this answer or brief; older knowledge may be superseded.'}
         if not related:
+            if tracked_brief:
+                sections, citations = with_tracked([], [])
+                return {'sections': sections, 'citations': citations, 'retrieval': 'Tracked facts', 'warnings': warnings, 'message': None}
             return {'sections': [], 'message': 'No matching reviewed evidence found. Try the project name or a more specific question.', 'citations': [], 'warnings': warnings}
         records = meeting_records(self)
         evidence = [{'id': f'R{index+1}', 'statement': page['claim']['statement'], 'quote': page['claim']['quote'],
@@ -582,6 +604,8 @@ class Engine:
                     continue
                 if not isinstance(item.get('text'), str) or len(item['text']) > 2500 or not isinstance(refs, list) or not refs or any(ref not in valid for ref in refs):
                     raise ValueError('Answer contains missing or unknown source citations')
+        if tracked_brief:
+            sections, evidence = with_tracked(sections, evidence)
         return {'sections': sections, 'citations': evidence, 'retrieval': retrieval,
             'warnings': warnings + ([warning] if warning else []), 'message': None}
 
@@ -917,6 +941,12 @@ def workspace_product(engine, request):
         if result.get('needsReview'): raise ValueError('Rebuild changed evidence before saving a brief')
         citations = {item['id']: item for item in result.get('citations', [])}
         for evidence in citations.values():
+            if evidence.get('kind') == 'tracked-fact':
+                # Quoted text is checked against its transcript below; the fact must still be approved.
+                from ask_facts import tracked_citation_holds
+                if not tracked_citation_holds(engine, evidence):
+                    raise ValueError('Brief evidence changed or is no longer approved. Generate it again.')
+                continue
             source = safe_path(engine.root, evidence['sourcePath'])
             row = engine.db.execute('SELECT status,payload FROM proposals WHERE id=?', (evidence.get('proposalId'),)).fetchone()
             proposal = json.loads(row[1]) if row else {}
