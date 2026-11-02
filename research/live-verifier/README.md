@@ -29,6 +29,26 @@ speech it raised no alert.
     split unchanged. On test it costs 2 of the 100 catches; 4 alerts differ in all.
   - In a live meeting every question competes with the captions for the GPU, which is why it ships.
 
+## Spoken: the same probes through speech recognition
+
+`spoken.py` speaks each test-split statement with one of six macOS voices in turn (US, British, Australian, Irish,
+Indian and South African English; `say`, 16 kHz, never played aloud), recognises it with the app's Parakeet Ultra and
+checks the recognised text as above.
+
+| Shipped live check, test split | Conflicts caught | False alarms | Check p50 / p95 |
+|---|---|---|---|
+| Written statements | 98 / 112 | 2 / 224 | 0.26 / 1.28 s |
+| **Spoken and recognised** (WER 2.1%: 67 errors in 3,152 words) | **97 / 112** (86.6%, CI 80.4–92.9) | **2 / 224** | 0.33 / 1.53 s |
+
+- Speech recognition cost one catch: "So the remote will sell for 35 Euro." came out as "… for €35." and was not
+  confirmed. No other probe changed.
+- Recognition took 0.08 s per statement (p50; 2.9 s of audio).
+- WER by voice: Moira 0.6%, Karen 1.2%, Daniel 2.3%, Rishi 2.4%, Samantha 2.6%, Tessa 3.2%. Voices were assigned in
+  turn, and the probe order put all 112 conflicts on four of the six voices: Karen 23/28, Moira 22/28, Rishi 27/28,
+  Tessa 25/28.
+- Synthetic voices are cleaner than people in a room; this measures the recogniser's errors on clear speech, not
+  far-field audio or overlap.
+
 ## Method
 
 `live_assistance.py`, `MEMORIA_LIVE_CHECK=guard` (now the default):

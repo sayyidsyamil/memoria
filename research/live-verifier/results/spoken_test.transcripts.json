@@ -1,0 +1,2018 @@
+{
+ "ES2002-S-01": {
+  "voice": "Samantha",
+  "text": "The remote will only control televisions.",
+  "seconds": 2.118,
+  "audioSeconds": 2.26
+ },
+ "ES2002-S-02": {
+  "voice": "Daniel",
+  "text": "Well, we are targeting an international market.",
+  "seconds": 0.1,
+  "audioSeconds": 2.85
+ },
+ "ES2002-O-01": {
+  "voice": "Karen",
+  "text": "We will include teletext in the design.",
+  "seconds": 0.071,
+  "audioSeconds": 2.19
+ },
+ "ES2002-O-02": {
+  "voice": "Moira",
+  "text": "Well, we will make the case out of wood.",
+  "seconds": 0.071,
+  "audioSeconds": 2.36
+ },
+ "ES2002-C-01": {
+  "voice": "Rishi",
+  "text": "We will use a kinetic battery in the remote.",
+  "seconds": 0.078,
+  "audioSeconds": 2.46
+ },
+ "ES2002-C-02": {
+  "voice": "Tessa",
+  "text": "I think we are pricing the remote at €45.",
+  "seconds": 0.084,
+  "audioSeconds": 3.49
+ },
+ "ES2002-U-01": {
+  "voice": "Samantha",
+  "text": "What about adding a button to jump back to the previous channel?",
+  "seconds": 0.083,
+  "audioSeconds": 3.13
+ },
+ "ES2002-U-02": {
+  "voice": "Daniel",
+  "text": "We should add a built-in stand so it can stand up on the table.",
+  "seconds": 0.081,
+  "audioSeconds": 3.33
+ },
+ "ES2002-I-01": {
+  "voice": "Karen",
+  "text": "I think that coffee machine is on its last legs.",
+  "seconds": 0.074,
+  "audioSeconds": 2.57
+ },
+ "ES2002-I-02": {
+  "voice": "Moira",
+  "text": "The weather is lovely today, isn't it?",
+  "seconds": 0.073,
+  "audioSeconds": 2.16
+ },
+ "ES2002-E-01": {
+  "voice": "Rishi",
+  "text": "I think the final sample sheet from the printer was not what we ordered.",
+  "seconds": 0.082,
+  "audioSeconds": 4.07
+ },
+ "ES2002-E-02": {
+  "voice": "Tessa",
+  "text": "I think our trademark application is still waiting for a decision.",
+  "seconds": 0.09,
+  "audioSeconds": 4.12
+ },
+ "ES2004-S-01": {
+  "voice": "Samantha",
+  "text": "The remote will come with a recharging dock.",
+  "seconds": 0.072,
+  "audioSeconds": 2.09
+ },
+ "ES2004-S-02": {
+  "voice": "Daniel",
+  "text": "The remote will feature Video Plus capabilities.",
+  "seconds": 0.079,
+  "audioSeconds": 2.93
+ },
+ "ES2004-O-01": {
+  "voice": "Karen",
+  "text": "Well, the remote will not have an LCD screen.",
+  "seconds": 0.078,
+  "audioSeconds": 2.88
+ },
+ "ES2004-O-02": {
+  "voice": "Moira",
+  "text": "I think there will be no changeable covers.",
+  "seconds": 0.217,
+  "audioSeconds": 2.49
+ },
+ "ES2004-C-01": {
+  "voice": "Rishi",
+  "text": "The remote will not feature video plus capabilities.",
+  "seconds": 0.081,
+  "audioSeconds": 3.03
+ },
+ "ES2004-C-02": {
+  "voice": "Tessa",
+  "text": "I think we are targeting people over 60 with this remote.",
+  "seconds": 0.082,
+  "audioSeconds": 3.67
+ },
+ "ES2004-U-01": {
+  "voice": "Samantha",
+  "text": "Right, why don't we add a one-button movie mode?",
+  "seconds": 0.081,
+  "audioSeconds": 2.69
+ },
+ "ES2004-U-02": {
+  "voice": "Daniel",
+  "text": "So can we add a dedicated mute button?",
+  "seconds": 0.071,
+  "audioSeconds": 2.35
+ },
+ "ES2004-I-01": {
+  "voice": "Karen",
+  "text": "Could someone close the door? There's a draft.",
+  "seconds": 0.074,
+  "audioSeconds": 2.53
+ },
+ "ES2004-I-02": {
+  "voice": "Moira",
+  "text": "I think that was a fantastic goal on Saturday.",
+  "seconds": 0.077,
+  "audioSeconds": 2.83
+ },
+ "ES2004-E-01": {
+  "voice": "Rishi",
+  "text": "So the usability test showed that people find it easy to learn.",
+  "seconds": 0.086,
+  "audioSeconds": 3.88
+ },
+ "ES2004-E-02": {
+  "voice": "Tessa",
+  "text": "I think the factory already has capacity booked for our first run.",
+  "seconds": 0.084,
+  "audioSeconds": 4.29
+ },
+ "ES2005-S-01": {
+  "voice": "Samantha",
+  "text": "The remote will include speech recognition.",
+  "seconds": 0.073,
+  "audioSeconds": 2.21
+ },
+ "ES2005-S-02": {
+  "voice": "Daniel",
+  "text": "The remote will be yellow or partially yellow and have an organic shape.",
+  "seconds": 0.088,
+  "audioSeconds": 3.42
+ },
+ "ES2005-O-01": {
+  "voice": "Karen",
+  "text": "Well, the remote will run on solar power.",
+  "seconds": 0.086,
+  "audioSeconds": 2.45
+ },
+ "ES2005-O-02": {
+  "voice": "Moira",
+  "text": "There will be no voice recognition in the remote.",
+  "seconds": 0.09,
+  "audioSeconds": 2.59
+ },
+ "ES2005-C-01": {
+  "voice": "Rishi",
+  "text": "The number of button functions will not be limited to make the remote user friendly.",
+  "seconds": 0.106,
+  "audioSeconds": 4.68
+ },
+ "ES2005-C-02": {
+  "voice": "Tessa",
+  "text": "Well, we will not include a recharging dock.",
+  "seconds": 0.079,
+  "audioSeconds": 2.86
+ },
+ "ES2005-U-01": {
+  "voice": "Samantha",
+  "text": "Right, we should add an emergency call button for elderly users.",
+  "seconds": 0.084,
+  "audioSeconds": 3.56
+ },
+ "ES2005-U-02": {
+  "voice": "Daniel",
+  "text": "We could include a quick start card in the box.",
+  "seconds": 0.075,
+  "audioSeconds": 2.59
+ },
+ "ES2005-I-01": {
+  "voice": "Karen",
+  "text": "I think the pastries in the lobby smell amazing.",
+  "seconds": 0.075,
+  "audioSeconds": 2.59
+ },
+ "ES2005-I-02": {
+  "voice": "Moira",
+  "text": "My daughter starts school on Monday.",
+  "seconds": 0.069,
+  "audioSeconds": 2.1
+ },
+ "ES2005-E-01": {
+  "voice": "Rishi",
+  "text": "Well, only two units out of 500 came back from the pilot customers.",
+  "seconds": 0.089,
+  "audioSeconds": 4.82
+ },
+ "ES2005-E-02": {
+  "voice": "Tessa",
+  "text": "So the test group found the prototype comfortable to hold.",
+  "seconds": 0.081,
+  "audioSeconds": 3.97
+ },
+ "ES2006-S-01": {
+  "voice": "Samantha",
+  "text": "Well, the remote will sell for €25.",
+  "seconds": 0.076,
+  "audioSeconds": 2.7
+ },
+ "ES2006-S-02": {
+  "voice": "Daniel",
+  "text": "Okay, the remote will have an LCD screen.",
+  "seconds": 0.075,
+  "audioSeconds": 2.84
+ },
+ "ES2006-O-01": {
+  "voice": "Karen",
+  "text": "Okay, the remote will use a simple chip.",
+  "seconds": 0.073,
+  "audioSeconds": 2.57
+ },
+ "ES2006-O-02": {
+  "voice": "Moira",
+  "text": "The case will be made of wood.",
+  "seconds": 0.067,
+  "audioSeconds": 1.64
+ },
+ "ES2006-C-01": {
+  "voice": "Rishi",
+  "text": "So the remote will only be sold in our home market.",
+  "seconds": 0.075,
+  "audioSeconds": 3.22
+ },
+ "ES2006-C-02": {
+  "voice": "Tessa",
+  "text": "So we are aiming for a profit of €20 million.",
+  "seconds": 0.078,
+  "audioSeconds": 3.36
+ },
+ "ES2006-U-01": {
+  "voice": "Samantha",
+  "text": "I'd like us to include a magnetic bag so it sticks to the fridge.",
+  "seconds": 0.085,
+  "audioSeconds": 3.44
+ },
+ "ES2006-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, what about adding a recess for the thumb?",
+  "seconds": 0.073,
+  "audioSeconds": 2.81
+ },
+ "ES2006-I-01": {
+  "voice": "Karen",
+  "text": "What is everyone having for lunch?",
+  "seconds": 0.069,
+  "audioSeconds": 1.89
+ },
+ "ES2006-I-02": {
+  "voice": "Moira",
+  "text": "Well, my bike got a flat tire on the way in.",
+  "seconds": 0.076,
+  "audioSeconds": 2.77
+ },
+ "ES2006-E-01": {
+  "voice": "Rishi",
+  "text": "Legal has not cleared the slogan yet.",
+  "seconds": 0.073,
+  "audioSeconds": 2.24
+ },
+ "ES2006-E-02": {
+  "voice": "Tessa",
+  "text": "I think the software team says the demo build is almost ready.",
+  "seconds": 0.082,
+  "audioSeconds": 3.81
+ },
+ "ES2007-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, the case will be double curved.",
+  "seconds": 0.072,
+  "audioSeconds": 2.28
+ },
+ "ES2007-S-02": {
+  "voice": "Daniel",
+  "text": "Well, we are aiming for a profit of 50 million euros.",
+  "seconds": 0.084,
+  "audioSeconds": 3.49
+ },
+ "ES2007-O-01": {
+  "voice": "Karen",
+  "text": "The remote will run on regular batteries.",
+  "seconds": 0.072,
+  "audioSeconds": 2.12
+ },
+ "ES2007-O-02": {
+  "voice": "Moira",
+  "text": "The corporate image will not be shown on the remote.",
+  "seconds": 0.083,
+  "audioSeconds": 2.81
+ },
+ "ES2007-C-01": {
+  "voice": "Rishi",
+  "text": "Okay, the case will be made of wood.",
+  "seconds": 0.074,
+  "audioSeconds": 2.27
+ },
+ "ES2007-C-02": {
+  "voice": "Tessa",
+  "text": "So production will cost us 20 euros per remote.",
+  "seconds": 0.078,
+  "audioSeconds": 3.43
+ },
+ "ES2007-U-01": {
+  "voice": "Samantha",
+  "text": "We should add a picture and picture button.",
+  "seconds": 0.074,
+  "audioSeconds": 1.96
+ },
+ "ES2007-U-02": {
+  "voice": "Daniel",
+  "text": "Well, what about adding a wrist strap?",
+  "seconds": 0.073,
+  "audioSeconds": 2.32
+ },
+ "ES2007-I-01": {
+  "voice": "Karen",
+  "text": "The air conditioning is far too loud.",
+  "seconds": 0.075,
+  "audioSeconds": 2.0
+ },
+ "ES2007-I-02": {
+  "voice": "Moira",
+  "text": "Right, my bus was packed this morning.",
+  "seconds": 0.098,
+  "audioSeconds": 2.45
+ },
+ "ES2007-E-01": {
+  "voice": "Rishi",
+  "text": "I think the design team finished the first colour mock-ups on Tuesday.",
+  "seconds": 0.11,
+  "audioSeconds": 4.08
+ },
+ "ES2007-E-02": {
+  "voice": "Tessa",
+  "text": "So last month's survey says 9 in 10 users lose their remote every week.",
+  "seconds": 0.099,
+  "audioSeconds": 4.87
+ },
+ "ES2008-S-01": {
+  "voice": "Samantha",
+  "text": "The production cost cannot exceed €12.50.",
+  "seconds": 0.097,
+  "audioSeconds": 3.4
+ },
+ "ES2008-S-02": {
+  "voice": "Daniel",
+  "text": "So a simple chip is enough for the remote.",
+  "seconds": 0.092,
+  "audioSeconds": 2.29
+ },
+ "ES2008-O-01": {
+  "voice": "Karen",
+  "text": "So the remote will not have a locator function.",
+  "seconds": 0.11,
+  "audioSeconds": 2.58
+ },
+ "ES2008-O-02": {
+  "voice": "Moira",
+  "text": "I think we will not include a recharging dock.",
+  "seconds": 0.104,
+  "audioSeconds": 2.78
+ },
+ "ES2008-C-01": {
+  "voice": "Rishi",
+  "text": "Well, we will include teletext in the design.",
+  "seconds": 0.098,
+  "audioSeconds": 2.88
+ },
+ "ES2008-C-02": {
+  "voice": "Tessa",
+  "text": "We will leave the corporate image off the remote.",
+  "seconds": 0.088,
+  "audioSeconds": 2.52
+ },
+ "ES2008-U-01": {
+  "voice": "Samantha",
+  "text": "Right, how about a sleep mode button?",
+  "seconds": 0.083,
+  "audioSeconds": 2.14
+ },
+ "ES2008-U-02": {
+  "voice": "Daniel",
+  "text": "Right, can we add a tiny flashlight at the tip?",
+  "seconds": 0.083,
+  "audioSeconds": 2.88
+ },
+ "ES2008-I-01": {
+  "voice": "Karen",
+  "text": "Okay, we're out of tea bags in the kitchen.",
+  "seconds": 0.079,
+  "audioSeconds": 2.68
+ },
+ "ES2008-I-02": {
+  "voice": "Moira",
+  "text": "Okay, the lift is out of order again.",
+  "seconds": 0.071,
+  "audioSeconds": 2.38
+ },
+ "ES2008-E-01": {
+  "voice": "Rishi",
+  "text": "The photographer is booked for the product shoot on Thursday.",
+  "seconds": 0.088,
+  "audioSeconds": 3.35
+ },
+ "ES2008-E-02": {
+  "voice": "Tessa",
+  "text": "So the first user interviews ran longer than expected.",
+  "seconds": 0.079,
+  "audioSeconds": 3.46
+ },
+ "ES2009-S-01": {
+  "voice": "Samantha",
+  "text": "Right, the remote will run on solar power.",
+  "seconds": 0.072,
+  "audioSeconds": 2.4
+ },
+ "ES2009-S-02": {
+  "voice": "Daniel",
+  "text": "Okay, we are targeting young people with this remote.",
+  "seconds": 0.078,
+  "audioSeconds": 3.17
+ },
+ "ES2009-O-01": {
+  "voice": "Karen",
+  "text": "Well, we are keeping the touchscreen interface.",
+  "seconds": 0.079,
+  "audioSeconds": 2.76
+ },
+ "ES2009-O-02": {
+  "voice": "Moira",
+  "text": "Well, the remote casing will be made of plastic.",
+  "seconds": 0.079,
+  "audioSeconds": 2.99
+ },
+ "ES2009-C-01": {
+  "voice": "Rishi",
+  "text": "Right, the remote will not have changeable covers.",
+  "seconds": 0.08,
+  "audioSeconds": 3.06
+ },
+ "ES2009-C-02": {
+  "voice": "Tessa",
+  "text": "There will be no locator function on the remote.",
+  "seconds": 0.094,
+  "audioSeconds": 2.78
+ },
+ "ES2009-U-01": {
+  "voice": "Samantha",
+  "text": "Okay, we should add a motion sensor that wakes the remote when it is picked up.",
+  "seconds": 0.111,
+  "audioSeconds": 4.11
+ },
+ "ES2009-U-02": {
+  "voice": "Daniel",
+  "text": "Why don't we add a one-touch button for the program guide?",
+  "seconds": 0.087,
+  "audioSeconds": 3.18
+ },
+ "ES2009-I-01": {
+  "voice": "Karen",
+  "text": "Anyone fancy a quick walk after this meeting?",
+  "seconds": 0.082,
+  "audioSeconds": 2.62
+ },
+ "ES2009-I-02": {
+  "voice": "Moira",
+  "text": "So is it lunch yet?",
+  "seconds": 0.212,
+  "audioSeconds": 1.27
+ },
+ "ES2009-E-01": {
+  "voice": "Rishi",
+  "text": "Right, the Sound Lab says the click of the buttons is quite loud.",
+  "seconds": 0.092,
+  "audioSeconds": 3.92
+ },
+ "ES2009-E-02": {
+  "voice": "Tessa",
+  "text": "Sales expect strong demand over the holiday season.",
+  "seconds": 0.088,
+  "audioSeconds": 3.47
+ },
+ "ES2010-S-01": {
+  "voice": "Samantha",
+  "text": "The corporate image will be shown on the remote.",
+  "seconds": 0.087,
+  "audioSeconds": 2.17
+ },
+ "ES2010-S-02": {
+  "voice": "Daniel",
+  "text": "Right, the remote will have a locator function so it can be found when lost.",
+  "seconds": 0.106,
+  "audioSeconds": 4.46
+ },
+ "ES2010-O-01": {
+  "voice": "Karen",
+  "text": "I think we will leave the corporate image off the remote.",
+  "seconds": 0.094,
+  "audioSeconds": 2.59
+ },
+ "ES2010-O-02": {
+  "voice": "Moira",
+  "text": "Well, the remote will not have a locator function.",
+  "seconds": 0.102,
+  "audioSeconds": 2.96
+ },
+ "ES2010-C-01": {
+  "voice": "Rishi",
+  "text": "The remote will use a simple chip.",
+  "seconds": 0.081,
+  "audioSeconds": 1.87
+ },
+ "ES2010-C-02": {
+  "voice": "Tessa",
+  "text": "The interface will not contain larger buttons.",
+  "seconds": 0.086,
+  "audioSeconds": 2.86
+ },
+ "ES2010-U-01": {
+  "voice": "Samantha",
+  "text": "Right, we could include a built-in thermometer.",
+  "seconds": 0.095,
+  "audioSeconds": 2.41
+ },
+ "ES2010-U-02": {
+  "voice": "Daniel",
+  "text": "Right, can we add a hidden compartment for spare batteries?",
+  "seconds": 0.098,
+  "audioSeconds": 3.57
+ },
+ "ES2010-I-01": {
+  "voice": "Karen",
+  "text": "Okay, I'm hopeless at parallel parking.",
+  "seconds": 0.098,
+  "audioSeconds": 2.75
+ },
+ "ES2010-I-02": {
+  "voice": "Moira",
+  "text": "I'm so tired, I barely slept last night.",
+  "seconds": 0.1,
+  "audioSeconds": 3.11
+ },
+ "ES2010-E-01": {
+  "voice": "Rishi",
+  "text": "The pilot users reported no problems with the first batch.",
+  "seconds": 0.095,
+  "audioSeconds": 3.49
+ },
+ "ES2010-E-02": {
+  "voice": "Tessa",
+  "text": "I think the prototype box was crushed during the courier test.",
+  "seconds": 0.107,
+  "audioSeconds": 3.98
+ },
+ "ES2012-S-01": {
+  "voice": "Samantha",
+  "text": "So the corporate image will be shown on the remote.",
+  "seconds": 0.1,
+  "audioSeconds": 2.44
+ },
+ "ES2012-S-02": {
+  "voice": "Daniel",
+  "text": "So our profit aim is 50 million euros.",
+  "seconds": 0.095,
+  "audioSeconds": 2.64
+ },
+ "ES2012-O-01": {
+  "voice": "Karen",
+  "text": "The remote will work with several devices.",
+  "seconds": 0.085,
+  "audioSeconds": 2.13
+ },
+ "ES2012-O-02": {
+  "voice": "Moira",
+  "text": "So we will include teletext in the design.",
+  "seconds": 0.082,
+  "audioSeconds": 2.6
+ },
+ "ES2012-C-01": {
+  "voice": "Rishi",
+  "text": "We will put an LCD screen on the remote.",
+  "seconds": 0.084,
+  "audioSeconds": 2.68
+ },
+ "ES2012-C-02": {
+  "voice": "Tessa",
+  "text": "So the remote will sell for €35.",
+  "seconds": 0.097,
+  "audioSeconds": 2.98
+ },
+ "ES2012-U-01": {
+  "voice": "Samantha",
+  "text": "What about adding a layout that works for left-handed users?",
+  "seconds": 0.115,
+  "audioSeconds": 2.96
+ },
+ "ES2012-U-02": {
+  "voice": "Daniel",
+  "text": "Let's add a profile switch for different family members.",
+  "seconds": 0.084,
+  "audioSeconds": 3.29
+ },
+ "ES2012-I-01": {
+  "voice": "Karen",
+  "text": "The room is a bit dim, can someone switch on the other light?",
+  "seconds": 0.083,
+  "audioSeconds": 3.25
+ },
+ "ES2012-I-02": {
+  "voice": "Moira",
+  "text": "Well, the carpet in this room is really loud.",
+  "seconds": 0.076,
+  "audioSeconds": 2.63
+ },
+ "ES2012-E-01": {
+  "voice": "Rishi",
+  "text": "Well, the safety lab has not signed off on the casing yet.",
+  "seconds": 0.084,
+  "audioSeconds": 3.7
+ },
+ "ES2012-E-02": {
+  "voice": "Tessa",
+  "text": "So the data from the second field trial has been uploaded.",
+  "seconds": 0.08,
+  "audioSeconds": 3.64
+ },
+ "ES2013-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, the team will not work with teledext.",
+  "seconds": 0.076,
+  "audioSeconds": 2.79
+ },
+ "ES2013-S-02": {
+  "voice": "Daniel",
+  "text": "Well, the production cost cannot exceed 12 euros and fifty cents.",
+  "seconds": 0.103,
+  "audioSeconds": 4.39
+ },
+ "ES2013-O-01": {
+  "voice": "Karen",
+  "text": "Okay, the remote is aimed at people over 60.",
+  "seconds": 0.101,
+  "audioSeconds": 2.93
+ },
+ "ES2013-O-02": {
+  "voice": "Moira",
+  "text": "We will power the remote with regular batteries.",
+  "seconds": 0.085,
+  "audioSeconds": 2.62
+ },
+ "ES2013-C-01": {
+  "voice": "Rishi",
+  "text": "The remote will control multiple devices, not just the television.",
+  "seconds": 0.083,
+  "audioSeconds": 4.14
+ },
+ "ES2013-C-02": {
+  "voice": "Tessa",
+  "text": "The corporate image will not be shown on the remote.",
+  "seconds": 0.079,
+  "audioSeconds": 2.77
+ },
+ "ES2013-U-01": {
+  "voice": "Samantha",
+  "text": "How about Bluetooth pairing with a phone app?",
+  "seconds": 0.077,
+  "audioSeconds": 2.23
+ },
+ "ES2013-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, let's add favorite channel shortcut buttons.",
+  "seconds": 0.084,
+  "audioSeconds": 3.56
+ },
+ "ES2013-I-01": {
+  "voice": "Karen",
+  "text": "Okay, my phone battery died on the way here.",
+  "seconds": 0.079,
+  "audioSeconds": 2.86
+ },
+ "ES2013-I-02": {
+  "voice": "Moira",
+  "text": "Right, I think the heating just came on.",
+  "seconds": 0.072,
+  "audioSeconds": 2.54
+ },
+ "ES2013-E-01": {
+  "voice": "Rishi",
+  "text": "Right, the first prototype passed the 1 meter drop test yesterday.",
+  "seconds": 0.088,
+  "audioSeconds": 4.46
+ },
+ "ES2013-E-02": {
+  "voice": "Tessa",
+  "text": "Right, the board has approved extra budget for tooling.",
+  "seconds": 0.082,
+  "audioSeconds": 3.33
+ },
+ "ES2014-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, the remote will feature a panel that hides complicated functions on the back of the device.",
+  "seconds": 0.134,
+  "audioSeconds": 5.37
+ },
+ "ES2014-S-02": {
+  "voice": "Daniel",
+  "text": "Right, the corporate image will be shown on the remote.",
+  "seconds": 0.079,
+  "audioSeconds": 2.93
+ },
+ "ES2014-O-01": {
+  "voice": "Karen",
+  "text": "Well, the case will be double curved.",
+  "seconds": 0.075,
+  "audioSeconds": 2.13
+ },
+ "ES2014-O-02": {
+  "voice": "Moira",
+  "text": "Well, we need an advanced chip in the remote.",
+  "seconds": 0.079,
+  "audioSeconds": 2.71
+ },
+ "ES2014-C-01": {
+  "voice": "Rishi",
+  "text": "Right, the remote will use regular batteries.",
+  "seconds": 0.079,
+  "audioSeconds": 2.96
+ },
+ "ES2014-C-02": {
+  "voice": "Tessa",
+  "text": "There will be no locator function on the remote.",
+  "seconds": 0.073,
+  "audioSeconds": 2.78
+ },
+ "ES2014-U-01": {
+  "voice": "Samantha",
+  "text": "Let's add a subtitles button.",
+  "seconds": 0.069,
+  "audioSeconds": 1.7
+ },
+ "ES2014-U-02": {
+  "voice": "Daniel",
+  "text": "So we could include a fingerprint sensor for personal profiles.",
+  "seconds": 0.08,
+  "audioSeconds": 3.84
+ },
+ "ES2014-I-01": {
+  "voice": "Karen",
+  "text": "Is anyone watching that new series everyone is talking about?",
+  "seconds": 0.081,
+  "audioSeconds": 3.38
+ },
+ "ES2014-I-02": {
+  "voice": "Moira",
+  "text": "It's freezing in here. Can someone turn the heating up?",
+  "seconds": 0.08,
+  "audioSeconds": 3.16
+ },
+ "ES2014-E-01": {
+  "voice": "Rishi",
+  "text": "I think finance has already signed off on the second phase.",
+  "seconds": 0.08,
+  "audioSeconds": 3.69
+ },
+ "ES2014-E-02": {
+  "voice": "Tessa",
+  "text": "The delivery truck for the samples broke down on the way.",
+  "seconds": 0.078,
+  "audioSeconds": 3.2
+ },
+ "ES2015-S-01": {
+  "voice": "Samantha",
+  "text": "Right, the case will be made of plastic and rubber.",
+  "seconds": 0.078,
+  "audioSeconds": 2.71
+ },
+ "ES2015-S-02": {
+  "voice": "Daniel",
+  "text": "I think the remote will be powered by a kinetic battery.",
+  "seconds": 0.081,
+  "audioSeconds": 2.87
+ },
+ "ES2015-O-01": {
+  "voice": "Karen",
+  "text": "The remote will work with several devices.",
+  "seconds": 0.071,
+  "audioSeconds": 2.13
+ },
+ "ES2015-O-02": {
+  "voice": "Moira",
+  "text": "So the remote will include speech recognition.",
+  "seconds": 0.076,
+  "audioSeconds": 2.69
+ },
+ "ES2015-C-01": {
+  "voice": "Rishi",
+  "text": "Right, each remote will cost about 20 euro to produce.",
+  "seconds": 0.185,
+  "audioSeconds": 3.84
+ },
+ "ES2015-C-02": {
+  "voice": "Tessa",
+  "text": "We are aiming for a profit of €20 million.",
+  "seconds": 0.079,
+  "audioSeconds": 3.03
+ },
+ "ES2015-U-01": {
+  "voice": "Samantha",
+  "text": "Why don't we add an auto off after 10 minutes of no use?",
+  "seconds": 0.083,
+  "audioSeconds": 3.15
+ },
+ "ES2015-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, we should add a pocket-sized travel pouch.",
+  "seconds": 0.078,
+  "audioSeconds": 3.04
+ },
+ "ES2015-I-01": {
+  "voice": "Karen",
+  "text": "Did you see that crazy sunset last night?",
+  "seconds": 0.074,
+  "audioSeconds": 2.46
+ },
+ "ES2015-I-02": {
+  "voice": "Moira",
+  "text": "Right, did your team win the quiz last night?",
+  "seconds": 0.075,
+  "audioSeconds": 2.74
+ },
+ "ES2015-E-01": {
+  "voice": "Rishi",
+  "text": "So our proposal for the trade stand was accepted.",
+  "seconds": 0.075,
+  "audioSeconds": 3.27
+ },
+ "ES2015-E-02": {
+  "voice": "Tessa",
+  "text": "Right, our main competitor is launching a similar product next spring.",
+  "seconds": 0.089,
+  "audioSeconds": 4.56
+ },
+ "ES2016-S-01": {
+  "voice": "Samantha",
+  "text": "We are pricing the remote at €25.",
+  "seconds": 0.076,
+  "audioSeconds": 2.39
+ },
+ "ES2016-S-02": {
+  "voice": "Daniel",
+  "text": "The remote will use regular batteries.",
+  "seconds": 0.071,
+  "audioSeconds": 2.08
+ },
+ "ES2016-O-01": {
+  "voice": "Karen",
+  "text": "Right, the team will create a ball-shaped remote.",
+  "seconds": 0.082,
+  "audioSeconds": 2.84
+ },
+ "ES2016-O-02": {
+  "voice": "Moira",
+  "text": "Okay, the remote will control multiple devices, not just the television.",
+  "seconds": 0.089,
+  "audioSeconds": 4.9
+ },
+ "ES2016-C-01": {
+  "voice": "Rishi",
+  "text": "I think we will make the case out of wood.",
+  "seconds": 0.071,
+  "audioSeconds": 2.44
+ },
+ "ES2016-C-02": {
+  "voice": "Tessa",
+  "text": "The remote will have a teletext button.",
+  "seconds": 0.072,
+  "audioSeconds": 2.19
+ },
+ "ES2016-U-01": {
+  "voice": "Samantha",
+  "text": "Let's add voice feedback that reads out the channel.",
+  "seconds": 0.079,
+  "audioSeconds": 2.51
+ },
+ "ES2016-U-02": {
+  "voice": "Daniel",
+  "text": "I'd like us to include a tilt sensor that rotates the on-screen menu.",
+  "seconds": 0.096,
+  "audioSeconds": 3.97
+ },
+ "ES2016-I-01": {
+  "voice": "Karen",
+  "text": "Well, let's grab a sandwich from the corner shop afterwards.",
+  "seconds": 0.088,
+  "audioSeconds": 3.48
+ },
+ "ES2016-I-02": {
+  "voice": "Moira",
+  "text": "Well, who has a charger I can borrow for my laptop?",
+  "seconds": 0.082,
+  "audioSeconds": 3.24
+ },
+ "ES2016-E-01": {
+  "voice": "Rishi",
+  "text": "So a customer wrote to say her old remote still works after 10 years.",
+  "seconds": 0.093,
+  "audioSeconds": 4.27
+ },
+ "ES2016-E-02": {
+  "voice": "Tessa",
+  "text": "Well, the regulator in Germany has asked for an extra safety document.",
+  "seconds": 0.096,
+  "audioSeconds": 4.68
+ },
+ "IS1000-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, we will produce each remote for €12.50 euro.",
+  "seconds": 0.091,
+  "audioSeconds": 3.95
+ },
+ "IS1000-S-02": {
+  "voice": "Daniel",
+  "text": "The remote should be trendy.",
+  "seconds": 0.068,
+  "audioSeconds": 1.38
+ },
+ "IS1000-O-01": {
+  "voice": "Karen",
+  "text": "We are targeting people over 60 with this remote.",
+  "seconds": 0.075,
+  "audioSeconds": 2.77
+ },
+ "IS1000-O-02": {
+  "voice": "Moira",
+  "text": "So the remote will have a teletext button.",
+  "seconds": 0.072,
+  "audioSeconds": 2.39
+ },
+ "IS1000-C-01": {
+  "voice": "Rishi",
+  "text": "Right, the remote will only be sold in Europe.",
+  "seconds": 0.074,
+  "audioSeconds": 3.09
+ },
+ "IS1000-C-02": {
+  "voice": "Tessa",
+  "text": "The remote will sell for €30.",
+  "seconds": 0.073,
+  "audioSeconds": 2.41
+ },
+ "IS1000-U-01": {
+  "voice": "Samantha",
+  "text": "What about adding recycled plastic for the case?",
+  "seconds": 0.076,
+  "audioSeconds": 2.7
+ },
+ "IS1000-U-02": {
+  "voice": "Daniel",
+  "text": "How about a battery cover that opens without tools?",
+  "seconds": 0.081,
+  "audioSeconds": 2.9
+ },
+ "IS1000-I-01": {
+  "voice": "Karen",
+  "text": "Okay, I just saw the biggest rainbow outside.",
+  "seconds": 0.079,
+  "audioSeconds": 3.03
+ },
+ "IS1000-I-02": {
+  "voice": "Moira",
+  "text": "Did anyone catch the match last night?",
+  "seconds": 0.069,
+  "audioSeconds": 2.39
+ },
+ "IS1000-E-01": {
+  "voice": "Rishi",
+  "text": "Well, the way our Harus can hold the first 2000 units.",
+  "seconds": 0.09,
+  "audioSeconds": 3.89
+ },
+ "IS1000-E-02": {
+  "voice": "Tessa",
+  "text": "So a large retailer has asked us for an exclusive colour.",
+  "seconds": 0.084,
+  "audioSeconds": 3.66
+ },
+ "IS1001-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, we will keep the wheel sensor despite the added cost.",
+  "seconds": 0.082,
+  "audioSeconds": 3.56
+ },
+ "IS1001-S-02": {
+  "voice": "Daniel",
+  "text": "Right, the remote will not have an LCD screen.",
+  "seconds": 0.077,
+  "audioSeconds": 2.95
+ },
+ "IS1001-O-01": {
+  "voice": "Karen",
+  "text": "Okay, the remote will have an LCD screen.",
+  "seconds": 0.076,
+  "audioSeconds": 2.92
+ },
+ "IS1001-O-02": {
+  "voice": "Moira",
+  "text": "Okay, we will use solar cells to power the remote.",
+  "seconds": 0.079,
+  "audioSeconds": 3.31
+ },
+ "IS1001-C-01": {
+  "voice": "Rishi",
+  "text": "We will add voice recognition to the remote.",
+  "seconds": 0.071,
+  "audioSeconds": 2.49
+ },
+ "IS1001-C-02": {
+  "voice": "Tessa",
+  "text": "The remote will be powered by a kinetic battery.",
+  "seconds": 0.079,
+  "audioSeconds": 2.77
+ },
+ "IS1001-U-01": {
+  "voice": "Samantha",
+  "text": "Why don't we add a night mode with dimmer colours?",
+  "seconds": 0.076,
+  "audioSeconds": 2.48
+ },
+ "IS1001-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, what about adding a firmware update through a cable?",
+  "seconds": 0.083,
+  "audioSeconds": 3.43
+ },
+ "IS1001-I-01": {
+  "voice": "Karen",
+  "text": "Right, does anyone know where the whiteboard markers are?",
+  "seconds": 0.077,
+  "audioSeconds": 3.08
+ },
+ "IS1001-I-02": {
+  "voice": "Moira",
+  "text": "Right, my neighbour's dog barked all night.",
+  "seconds": 0.072,
+  "audioSeconds": 2.56
+ },
+ "IS1001-E-01": {
+  "voice": "Rishi",
+  "text": "The usability lab has no free slot before the end of the month.",
+  "seconds": 0.081,
+  "audioSeconds": 3.81
+ },
+ "IS1001-E-02": {
+  "voice": "Tessa",
+  "text": "I think the focus group loved the first sketches.",
+  "seconds": 0.076,
+  "audioSeconds": 2.96
+ },
+ "IS1003-S-01": {
+  "voice": "Samantha",
+  "text": "Teledext will not be part of the design.",
+  "seconds": 0.071,
+  "audioSeconds": 2.19
+ },
+ "IS1003-S-02": {
+  "voice": "Daniel",
+  "text": "Right, the remote will only control televisions.",
+  "seconds": 0.073,
+  "audioSeconds": 3.04
+ },
+ "IS1003-O-01": {
+  "voice": "Karen",
+  "text": "So we will make the case out of titanium.",
+  "seconds": 0.072,
+  "audioSeconds": 2.36
+ },
+ "IS1003-O-02": {
+  "voice": "Moira",
+  "text": "Well, we need an advanced chip in the remote.",
+  "seconds": 0.081,
+  "audioSeconds": 2.71
+ },
+ "IS1003-C-01": {
+  "voice": "Rishi",
+  "text": "I think the team will use the intelligent controller proposed by the user interface designer.",
+  "seconds": 0.105,
+  "audioSeconds": 5.42
+ },
+ "IS1003-C-02": {
+  "voice": "Tessa",
+  "text": "The remote will not include speech recognition.",
+  "seconds": 0.077,
+  "audioSeconds": 2.7
+ },
+ "IS1003-U-01": {
+  "voice": "Samantha",
+  "text": "So why don't we add a rotating volume knob?",
+  "seconds": 0.079,
+  "audioSeconds": 2.52
+ },
+ "IS1003-U-02": {
+  "voice": "Daniel",
+  "text": "Right, why don't we add a scratch resistant coating?",
+  "seconds": 0.085,
+  "audioSeconds": 3.2
+ },
+ "IS1003-I-01": {
+  "voice": "Karen",
+  "text": "I think it's going to rain this afternoon.",
+  "seconds": 0.076,
+  "audioSeconds": 2.19
+ },
+ "IS1003-I-02": {
+  "voice": "Moira",
+  "text": "Well, the football on the radio this morning was terrible.",
+  "seconds": 0.088,
+  "audioSeconds": 3.23
+ },
+ "IS1003-E-01": {
+  "voice": "Rishi",
+  "text": "The cost estimate for the tooling came in last Friday.",
+  "seconds": 0.085,
+  "audioSeconds": 3.21
+ },
+ "IS1003-E-02": {
+  "voice": "Tessa",
+  "text": "I think the accounting team found a small error in last quarter's cost sheet.",
+  "seconds": 0.097,
+  "audioSeconds": 4.8
+ },
+ "IS1004-S-01": {
+  "voice": "Samantha",
+  "text": "We are pricing the remote at €25.",
+  "seconds": 0.075,
+  "audioSeconds": 2.39
+ },
+ "IS1004-S-02": {
+  "voice": "Daniel",
+  "text": "Okay, we are targeting an international market.",
+  "seconds": 0.072,
+  "audioSeconds": 2.99
+ },
+ "IS1004-O-01": {
+  "voice": "Karen",
+  "text": "The remote will include speech recognition.",
+  "seconds": 0.072,
+  "audioSeconds": 2.31
+ },
+ "IS1004-O-02": {
+  "voice": "Moira",
+  "text": "Okay, the corporate image will not be shown on the remote.",
+  "seconds": 0.08,
+  "audioSeconds": 3.61
+ },
+ "IS1004-C-01": {
+  "voice": "Rishi",
+  "text": "The remote will work with several devices.",
+  "seconds": 0.071,
+  "audioSeconds": 2.35
+ },
+ "IS1004-C-02": {
+  "voice": "Tessa",
+  "text": "Right, the remote will only be sold in Europe.",
+  "seconds": 0.074,
+  "audioSeconds": 3.08
+ },
+ "IS1004-U-01": {
+  "voice": "Samantha",
+  "text": "Okay, let's add a high contrast color scheme for the buttons.",
+  "seconds": 0.084,
+  "audioSeconds": 3.56
+ },
+ "IS1004-U-02": {
+  "voice": "Daniel",
+  "text": "Let's add a shake to wake gesture.",
+  "seconds": 0.071,
+  "audioSeconds": 1.84
+ },
+ "IS1004-I-01": {
+  "voice": "Karen",
+  "text": "I can't believe how busy the roads were today.",
+  "seconds": 0.076,
+  "audioSeconds": 2.27
+ },
+ "IS1004-I-02": {
+  "voice": "Moira",
+  "text": "I'm trying to cut down on sugar this month.",
+  "seconds": 0.076,
+  "audioSeconds": 2.57
+ },
+ "IS1004-E-01": {
+  "voice": "Rishi",
+  "text": "So the project manager from the other team has asked for a progress report.",
+  "seconds": 0.085,
+  "audioSeconds": 4.63
+ },
+ "IS1004-E-02": {
+  "voice": "Tessa",
+  "text": "Right, the retailer wants a first order of 50,000 units.",
+  "seconds": 0.087,
+  "audioSeconds": 4.34
+ },
+ "IS1006-S-01": {
+  "voice": "Samantha",
+  "text": "The remote will include speech recognition.",
+  "seconds": 0.072,
+  "audioSeconds": 2.21
+ },
+ "IS1006-S-02": {
+  "voice": "Daniel",
+  "text": "So the remote will sell for €25.",
+  "seconds": 0.076,
+  "audioSeconds": 2.86
+ },
+ "IS1006-O-01": {
+  "voice": "Karen",
+  "text": "I think the remote will not have changeable covers.",
+  "seconds": 0.109,
+  "audioSeconds": 2.59
+ },
+ "IS1006-O-02": {
+  "voice": "Moira",
+  "text": "Well, the remote will not have an LCD screen.",
+  "seconds": 0.098,
+  "audioSeconds": 3.1
+ },
+ "IS1006-C-01": {
+  "voice": "Rishi",
+  "text": "Each remote will cost about 15 euro to produce.",
+  "seconds": 0.087,
+  "audioSeconds": 3.25
+ },
+ "IS1006-C-02": {
+  "voice": "Tessa",
+  "text": "We will include teletext in the design.",
+  "seconds": 0.075,
+  "audioSeconds": 2.37
+ },
+ "IS1006-U-01": {
+  "voice": "Samantha",
+  "text": "Right, can we add a vibration alert for low battery?",
+  "seconds": 0.08,
+  "audioSeconds": 2.91
+ },
+ "IS1006-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, we should add large print labels.",
+  "seconds": 0.073,
+  "audioSeconds": 2.61
+ },
+ "IS1006-I-01": {
+  "voice": "Karen",
+  "text": "I left my lunch in the fridge, please don't touch it.",
+  "seconds": 0.083,
+  "audioSeconds": 3.13
+ },
+ "IS1006-I-02": {
+  "voice": "Moira",
+  "text": "How was your weekend?",
+  "seconds": 0.279,
+  "audioSeconds": 1.25
+ },
+ "IS1006-E-01": {
+  "voice": "Rishi",
+  "text": "The new intern has finished cataloging all the competitor remotes.",
+  "seconds": 0.085,
+  "audioSeconds": 3.75
+ },
+ "IS1006-E-02": {
+  "voice": "Tessa",
+  "text": "Quality control rejected one box out of every hundred last week.",
+  "seconds": 0.087,
+  "audioSeconds": 4.34
+ },
+ "IS1007-S-01": {
+  "voice": "Samantha",
+  "text": "Well, the remote will come with a recharging dock.",
+  "seconds": 0.079,
+  "audioSeconds": 2.67
+ },
+ "IS1007-S-02": {
+  "voice": "Daniel",
+  "text": "We will not include a help button on the device.",
+  "seconds": 0.075,
+  "audioSeconds": 2.67
+ },
+ "IS1007-O-01": {
+  "voice": "Karen",
+  "text": "Well, the remote will not come with a recharging dock.",
+  "seconds": 0.082,
+  "audioSeconds": 2.9
+ },
+ "IS1007-O-02": {
+  "voice": "Moira",
+  "text": "We will include a help button on the device.",
+  "seconds": 0.075,
+  "audioSeconds": 2.44
+ },
+ "IS1007-C-01": {
+  "voice": "Rishi",
+  "text": "We will include a lighting adaptation system.",
+  "seconds": 0.08,
+  "audioSeconds": 2.74
+ },
+ "IS1007-C-02": {
+  "voice": "Tessa",
+  "text": "Well, we will not include an option for the user to choose what to watch by channel or by content or program type.",
+  "seconds": 0.121,
+  "audioSeconds": 7.12
+ },
+ "IS1007-U-01": {
+  "voice": "Samantha",
+  "text": "Can we add a child lock?",
+  "seconds": 0.064,
+  "audioSeconds": 1.4
+ },
+ "IS1007-U-02": {
+  "voice": "Daniel",
+  "text": "I think we could include a record button.",
+  "seconds": 0.068,
+  "audioSeconds": 2.21
+ },
+ "IS1007-I-01": {
+  "voice": "Karen",
+  "text": "Parking was a nightmare this morning.",
+  "seconds": 0.07,
+  "audioSeconds": 1.78
+ },
+ "IS1007-I-02": {
+  "voice": "Moira",
+  "text": "I'm still jet lagged from last week.",
+  "seconds": 0.074,
+  "audioSeconds": 2.17
+ },
+ "IS1007-E-01": {
+  "voice": "Rishi",
+  "text": "Well, two of the product photos still need to be retouched.",
+  "seconds": 0.084,
+  "audioSeconds": 3.53
+ },
+ "IS1007-E-02": {
+  "voice": "Tessa",
+  "text": "I think the distributor in Asia has asked for a sample next week.",
+  "seconds": 0.085,
+  "audioSeconds": 4.15
+ },
+ "IS1009-S-01": {
+  "voice": "Samantha",
+  "text": "The remote will sell for €25.",
+  "seconds": 0.07,
+  "audioSeconds": 2.11
+ },
+ "IS1009-S-02": {
+  "voice": "Daniel",
+  "text": "We will add a locator function to the remote.",
+  "seconds": 0.071,
+  "audioSeconds": 2.34
+ },
+ "IS1009-O-01": {
+  "voice": "Karen",
+  "text": "Okay, the remote will not have a locator function.",
+  "seconds": 0.076,
+  "audioSeconds": 3.08
+ },
+ "IS1009-O-02": {
+  "voice": "Moira",
+  "text": "So we will include teletext in the design.",
+  "seconds": 0.072,
+  "audioSeconds": 2.6
+ },
+ "IS1009-C-01": {
+  "voice": "Rishi",
+  "text": "Our profit aim is €20 million.",
+  "seconds": 0.073,
+  "audioSeconds": 2.54
+ },
+ "IS1009-C-02": {
+  "voice": "Tessa",
+  "text": "Right, we will leave the corporate image off the remote.",
+  "seconds": 0.078,
+  "audioSeconds": 3.17
+ },
+ "IS1009-U-01": {
+  "voice": "Samantha",
+  "text": "Okay, let's add a sliding cover that hides the less used buttons.",
+  "seconds": 0.087,
+  "audioSeconds": 3.78
+ },
+ "IS1009-U-02": {
+  "voice": "Daniel",
+  "text": "How about splash-proof seals?",
+  "seconds": 0.07,
+  "audioSeconds": 2.04
+ },
+ "IS1009-I-01": {
+  "voice": "Karen",
+  "text": "Well, where did you go on holiday in the end?",
+  "seconds": 0.072,
+  "audioSeconds": 2.49
+ },
+ "IS1009-I-02": {
+  "voice": "Moira",
+  "text": "Okay, I forgot my umbrella again.",
+  "seconds": 0.069,
+  "audioSeconds": 2.54
+ },
+ "IS1009-E-01": {
+  "voice": "Rishi",
+  "text": "The pilot customers in Spain asked for a bigger instruction sheet.",
+  "seconds": 0.086,
+  "audioSeconds": 3.91
+ },
+ "IS1009-E-02": {
+  "voice": "Tessa",
+  "text": "The tooling vendor has not replied to our email since Monday.",
+  "seconds": 0.082,
+  "audioSeconds": 3.76
+ },
+ "TS3003-S-01": {
+  "voice": "Samantha",
+  "text": "We are targeting people over 60 with this remote.",
+  "seconds": 0.075,
+  "audioSeconds": 2.8
+ },
+ "TS3003-S-02": {
+  "voice": "Daniel",
+  "text": "I think the remote will come with a recharging dock.",
+  "seconds": 0.075,
+  "audioSeconds": 2.58
+ },
+ "TS3003-O-01": {
+  "voice": "Karen",
+  "text": "The remote will be able to control multiple devices.",
+  "seconds": 0.077,
+  "audioSeconds": 3.07
+ },
+ "TS3003-O-02": {
+  "voice": "Moira",
+  "text": "We will use a double curved case.",
+  "seconds": 0.068,
+  "audioSeconds": 1.9
+ },
+ "TS3003-C-01": {
+  "voice": "Rishi",
+  "text": "Right, the remote will not come with a recharging dock.",
+  "seconds": 0.08,
+  "audioSeconds": 3.2
+ },
+ "TS3003-C-02": {
+  "voice": "Tessa",
+  "text": "The remote will use a simple chip.",
+  "seconds": 0.068,
+  "audioSeconds": 1.92
+ },
+ "TS3003-U-01": {
+  "voice": "Samantha",
+  "text": "Right, why don't we add a macro button that runs several commands?",
+  "seconds": 0.087,
+  "audioSeconds": 3.76
+ },
+ "TS3003-U-02": {
+  "voice": "Daniel",
+  "text": "Can we add a countdown timer?",
+  "seconds": 0.068,
+  "audioSeconds": 1.7
+ },
+ "TS3003-I-01": {
+  "voice": "Karen",
+  "text": "Well, do you know if the printer is working again?",
+  "seconds": 0.075,
+  "audioSeconds": 2.77
+ },
+ "TS3003-I-02": {
+  "voice": "Moira",
+  "text": "Okay, the meeting room next door is far too small.",
+  "seconds": 0.082,
+  "audioSeconds": 3.41
+ },
+ "TS3003-E-01": {
+  "voice": "Rishi",
+  "text": "The industrial designer has sent over the second batch of drawings.",
+  "seconds": 0.085,
+  "audioSeconds": 4.1
+ },
+ "TS3003-E-02": {
+  "voice": "Tessa",
+  "text": "So someone in procurement says the foam inserts are on back order.",
+  "seconds": 0.086,
+  "audioSeconds": 3.97
+ },
+ "TS3005-S-01": {
+  "voice": "Samantha",
+  "text": "Well, we will make the case out of rubber.",
+  "seconds": 0.074,
+  "audioSeconds": 2.28
+ },
+ "TS3005-S-02": {
+  "voice": "Daniel",
+  "text": "The remote will have an LCD screen.",
+  "seconds": 0.074,
+  "audioSeconds": 2.1
+ },
+ "TS3005-O-01": {
+  "voice": "Karen",
+  "text": "Okay, we will use a double curved case.",
+  "seconds": 0.077,
+  "audioSeconds": 2.6
+ },
+ "TS3005-O-02": {
+  "voice": "Moira",
+  "text": "We are targeting people over 60 with this remote.",
+  "seconds": 0.091,
+  "audioSeconds": 2.93
+ },
+ "TS3005-C-01": {
+  "voice": "Rishi",
+  "text": "I think the remote will not have an LCD screen.",
+  "seconds": 0.085,
+  "audioSeconds": 3.1
+ },
+ "TS3005-C-02": {
+  "voice": "Tessa",
+  "text": "Right, we will not include a recharging dock.",
+  "seconds": 0.075,
+  "audioSeconds": 2.88
+ },
+ "TS3005-U-01": {
+  "voice": "Samantha",
+  "text": "So I'd like us to include a laser engraved owner name.",
+  "seconds": 0.083,
+  "audioSeconds": 2.99
+ },
+ "TS3005-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, how about a language switch for international users?",
+  "seconds": 0.078,
+  "audioSeconds": 3.83
+ },
+ "TS3005-I-01": {
+  "voice": "Karen",
+  "text": "Well, I heard the new cafe on the corner is excellent.",
+  "seconds": 0.08,
+  "audioSeconds": 3.2
+ },
+ "TS3005-I-02": {
+  "voice": "Moira",
+  "text": "Is there any coffee left?",
+  "seconds": 0.064,
+  "audioSeconds": 1.65
+ },
+ "TS3005-E-01": {
+  "voice": "Rishi",
+  "text": "So the graphic designer is still waiting for the logo files.",
+  "seconds": 0.083,
+  "audioSeconds": 3.61
+ },
+ "TS3005-E-02": {
+  "voice": "Tessa",
+  "text": "The packaging supplier is two weeks behind schedule.",
+  "seconds": 0.079,
+  "audioSeconds": 3.31
+ },
+ "TS3007-S-01": {
+  "voice": "Samantha",
+  "text": "Well, we will offer changeable covers for the remote.",
+  "seconds": 0.078,
+  "audioSeconds": 2.93
+ },
+ "TS3007-S-02": {
+  "voice": "Daniel",
+  "text": "I think the remote will not include speech recognition.",
+  "seconds": 0.078,
+  "audioSeconds": 2.96
+ },
+ "TS3007-O-01": {
+  "voice": "Karen",
+  "text": "There will be no changeable covers.",
+  "seconds": 0.068,
+  "audioSeconds": 1.69
+ },
+ "TS3007-O-02": {
+  "voice": "Moira",
+  "text": "Okay, the remote will include speech recognition.",
+  "seconds": 0.076,
+  "audioSeconds": 3.22
+ },
+ "TS3007-C-01": {
+  "voice": "Rishi",
+  "text": "So the remote will not include games.",
+  "seconds": 0.068,
+  "audioSeconds": 2.27
+ },
+ "TS3007-C-02": {
+  "voice": "Tessa",
+  "text": "We will use a single curved case.",
+  "seconds": 0.068,
+  "audioSeconds": 2.1
+ },
+ "TS3007-U-01": {
+  "voice": "Samantha",
+  "text": "Right, I'd like us to include a small speaker that beeps when you press a button.",
+  "seconds": 0.091,
+  "audioSeconds": 4.22
+ },
+ "TS3007-U-02": {
+  "voice": "Daniel",
+  "text": "Why don't we add haptic feedback when a button is pressed?",
+  "seconds": 0.085,
+  "audioSeconds": 3.26
+ },
+ "TS3007-I-01": {
+  "voice": "Karen",
+  "text": "Okay, my train pass runs out next week.",
+  "seconds": 0.075,
+  "audioSeconds": 2.99
+ },
+ "TS3007-I-02": {
+  "voice": "Moira",
+  "text": "Did you manage to get tickets for the concert?",
+  "seconds": 0.071,
+  "audioSeconds": 2.53
+ },
+ "TS3007-E-01": {
+  "voice": "Rishi",
+  "text": "So a journalist from a trade magazine called to ask about the launch.",
+  "seconds": 0.087,
+  "audioSeconds": 4.07
+ },
+ "TS3007-E-02": {
+  "voice": "Tessa",
+  "text": "Right, the pre-order page got 200 visits on its first day.",
+  "seconds": 0.086,
+  "audioSeconds": 4.26
+ },
+ "TS3008-S-01": {
+  "voice": "Samantha",
+  "text": "So the remote will be sold on the international market.",
+  "seconds": 0.075,
+  "audioSeconds": 2.93
+ },
+ "TS3008-S-02": {
+  "voice": "Daniel",
+  "text": "I think our profit aim is 15 million euros.",
+  "seconds": 0.079,
+  "audioSeconds": 2.92
+ },
+ "TS3008-O-01": {
+  "voice": "Karen",
+  "text": "We will offer changeable covers for the remote.",
+  "seconds": 0.075,
+  "audioSeconds": 2.33
+ },
+ "TS3008-O-02": {
+  "voice": "Moira",
+  "text": "We will make the case out of metal.",
+  "seconds": 0.073,
+  "audioSeconds": 1.94
+ },
+ "TS3008-C-01": {
+  "voice": "Rishi",
+  "text": "Well, we will put an LCD screen on the remote.",
+  "seconds": 0.079,
+  "audioSeconds": 3.22
+ },
+ "TS3008-C-02": {
+  "voice": "Tessa",
+  "text": "I think the remote will sell for 50 euros.",
+  "seconds": 0.076,
+  "audioSeconds": 2.82
+ },
+ "TS3008-U-01": {
+  "voice": "Samantha",
+  "text": "We should add a pairing button for a second television.",
+  "seconds": 0.08,
+  "audioSeconds": 2.7
+ },
+ "TS3008-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, I'd like us to include glow in the dark numbers.",
+  "seconds": 0.09,
+  "audioSeconds": 3.35
+ },
+ "TS3008-I-01": {
+  "voice": "Karen",
+  "text": "Let's keep an eye on the time, I have a call at four.",
+  "seconds": 0.084,
+  "audioSeconds": 2.99
+ },
+ "TS3008-I-02": {
+  "voice": "Moira",
+  "text": "Sorry I'm late, the train was delayed again.",
+  "seconds": 0.082,
+  "audioSeconds": 2.7
+ },
+ "TS3008-E-01": {
+  "voice": "Rishi",
+  "text": "I think the quote from the chip manufacturer came back this morning.",
+  "seconds": 0.082,
+  "audioSeconds": 3.82
+ },
+ "TS3008-E-02": {
+  "voice": "Tessa",
+  "text": "I think the pilot survey has just closed with 300 answers.",
+  "seconds": 0.087,
+  "audioSeconds": 4.28
+ },
+ "TS3009-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, the corporate image will be shown on the remote.",
+  "seconds": 0.087,
+  "audioSeconds": 2.94
+ },
+ "TS3009-S-02": {
+  "voice": "Daniel",
+  "text": "Okay, the remote will have an LCD screen.",
+  "seconds": 0.081,
+  "audioSeconds": 2.84
+ },
+ "TS3009-O-01": {
+  "voice": "Karen",
+  "text": "The remote needs an advanced chip to work with the LCD screen.",
+  "seconds": 0.085,
+  "audioSeconds": 3.46
+ },
+ "TS3009-O-02": {
+  "voice": "Moira",
+  "text": "I think the remote will not have an LCD screen.",
+  "seconds": 0.077,
+  "audioSeconds": 3.02
+ },
+ "TS3009-C-01": {
+  "voice": "Rishi",
+  "text": "I think there will be no voice recognition in the remote.",
+  "seconds": 0.078,
+  "audioSeconds": 3.24
+ },
+ "TS3009-C-02": {
+  "voice": "Tessa",
+  "text": "Right, the less frequently used buttons will be hidden under a flip.",
+  "seconds": 0.087,
+  "audioSeconds": 4.16
+ },
+ "TS3009-U-01": {
+  "voice": "Samantha",
+  "text": "Right, why don't we add a built-in bottle opener?",
+  "seconds": 0.082,
+  "audioSeconds": 2.71
+ },
+ "TS3009-U-02": {
+  "voice": "Daniel",
+  "text": "So we could include a screen lock so buttons are not pressed by accident.",
+  "seconds": 0.087,
+  "audioSeconds": 4.1
+ },
+ "TS3009-I-01": {
+  "voice": "Karen",
+  "text": "Okay, is it just me or is it really stuffy in here?",
+  "seconds": 0.078,
+  "audioSeconds": 3.11
+ },
+ "TS3009-I-02": {
+  "voice": "Moira",
+  "text": "Right, what time does the canteen close today?",
+  "seconds": 0.074,
+  "audioSeconds": 2.92
+ },
+ "TS3009-E-01": {
+  "voice": "Rishi",
+  "text": "The mold maker believes the first samples will be perfect.",
+  "seconds": 0.08,
+  "audioSeconds": 3.48
+ },
+ "TS3009-E-02": {
+  "voice": "Tessa",
+  "text": "I think the pilot run finished two days earlier than planned.",
+  "seconds": 0.083,
+  "audioSeconds": 3.68
+ },
+ "TS3010-S-01": {
+  "voice": "Samantha",
+  "text": "Well, we will make the case from plastic and rubber.",
+  "seconds": 0.078,
+  "audioSeconds": 2.77
+ },
+ "TS3010-S-02": {
+  "voice": "Daniel",
+  "text": "Well, we will power the remote with regular batteries.",
+  "seconds": 0.081,
+  "audioSeconds": 3.07
+ },
+ "TS3010-O-01": {
+  "voice": "Karen",
+  "text": "The remote will run on solar power.",
+  "seconds": 0.068,
+  "audioSeconds": 1.86
+ },
+ "TS3010-O-02": {
+  "voice": "Moira",
+  "text": "We will make the case out of titanium.",
+  "seconds": 0.07,
+  "audioSeconds": 2.27
+ },
+ "TS3010-C-01": {
+  "voice": "Rishi",
+  "text": "We will make the case out of metal.",
+  "seconds": 0.067,
+  "audioSeconds": 2.08
+ },
+ "TS3010-C-02": {
+  "voice": "Tessa",
+  "text": "I think the remote will be powered by a kinetic battery.",
+  "seconds": 0.083,
+  "audioSeconds": 3.26
+ },
+ "TS3010-U-01": {
+  "voice": "Samantha",
+  "text": "We could include a colored ring around the main buttons.",
+  "seconds": 0.078,
+  "audioSeconds": 2.6
+ },
+ "TS3010-U-02": {
+  "voice": "Daniel",
+  "text": "Okay, let's add an eco mode that dims the display.",
+  "seconds": 0.082,
+  "audioSeconds": 3.33
+ },
+ "TS3010-I-01": {
+  "voice": "Karen",
+  "text": "Okay, who is bringing the biscuits next week?",
+  "seconds": 0.076,
+  "audioSeconds": 2.92
+ },
+ "TS3010-I-02": {
+  "voice": "Moira",
+  "text": "I loved the film we saw on Sunday.",
+  "seconds": 0.071,
+  "audioSeconds": 2.07
+ },
+ "TS3010-E-01": {
+  "voice": "Rishi",
+  "text": "The tooling deposit has already been paid.",
+  "seconds": 0.073,
+  "audioSeconds": 2.42
+ },
+ "TS3010-E-02": {
+  "voice": "Tessa",
+  "text": "The humidity test results are expected on Wednesday.",
+  "seconds": 0.078,
+  "audioSeconds": 3.18
+ },
+ "TS3011-S-01": {
+  "voice": "Samantha",
+  "text": "Okay, we are aiming for a profit of 50 million euro.",
+  "seconds": 0.082,
+  "audioSeconds": 3.38
+ },
+ "TS3011-S-02": {
+  "voice": "Daniel",
+  "text": "We will add voice recognition to the remote.",
+  "seconds": 0.072,
+  "audioSeconds": 2.32
+ },
+ "TS3011-O-01": {
+  "voice": "Karen",
+  "text": "Okay, this remote is for televisions only.",
+  "seconds": 0.074,
+  "audioSeconds": 2.79
+ },
+ "TS3011-O-02": {
+  "voice": "Moira",
+  "text": "Well, we will put an LCD screen on the remote.",
+  "seconds": 0.08,
+  "audioSeconds": 3.17
+ },
+ "TS3011-C-01": {
+  "voice": "Rishi",
+  "text": "The remote will only be sold in euro.",
+  "seconds": 0.073,
+  "audioSeconds": 2.4
+ },
+ "TS3011-C-02": {
+  "voice": "Tessa",
+  "text": "Okay, each remote will cost about 20 euros to produce.",
+  "seconds": 0.086,
+  "audioSeconds": 4.2
+ },
+ "TS3011-U-01": {
+  "voice": "Samantha",
+  "text": "Okay, why don't we add a button that opens the television settings menu?",
+  "seconds": 0.094,
+  "audioSeconds": 4.34
+ },
+ "TS3011-U-02": {
+  "voice": "Daniel",
+  "text": "What about adding a simple games menu?",
+  "seconds": 0.074,
+  "audioSeconds": 2.21
+ },
+ "TS3011-I-01": {
+  "voice": "Karen",
+  "text": "Okay, I'm completely out of milk at home.",
+  "seconds": 0.078,
+  "audioSeconds": 2.72
+ },
+ "TS3011-I-02": {
+  "voice": "Moira",
+  "text": "Right, the projector keeps flickering.",
+  "seconds": 0.078,
+  "audioSeconds": 2.36
+ },
+ "TS3011-E-01": {
+  "voice": "Rishi",
+  "text": "So the reviewers at the trade fair gave the mock up four stars.",
+  "seconds": 0.096,
+  "audioSeconds": 3.57
+ },
+ "TS3011-E-02": {
+  "voice": "Tessa",
+  "text": "Well, customer service has already received complaints about the old model.",
+  "seconds": 0.101,
+  "audioSeconds": 4.94
+ },
+ "TS3012-S-01": {
+  "voice": "Samantha",
+  "text": "Right, the design should generally be intuitive without changes that would render it an unfamiliar object to customers.",
+  "seconds": 0.114,
+  "audioSeconds": 6.4
+ },
+ "TS3012-S-02": {
+  "voice": "Daniel",
+  "text": "Okay, we are targeting young people with this remote.",
+  "seconds": 0.076,
+  "audioSeconds": 3.17
+ },
+ "TS3012-O-01": {
+  "voice": "Karen",
+  "text": "Okay, we are targeting people over 60 with this remote.",
+  "seconds": 0.08,
+  "audioSeconds": 3.57
+ },
+ "TS3012-O-02": {
+  "voice": "Moira",
+  "text": "We will leave the corporate image off the remote.",
+  "seconds": 0.075,
+  "audioSeconds": 2.66
+ },
+ "TS3012-C-01": {
+  "voice": "Rishi",
+  "text": "The team will not take into account possible usability issues concerning disabled people.",
+  "seconds": 0.094,
+  "audioSeconds": 5.34
+ },
+ "TS3012-C-02": {
+  "voice": "Tessa",
+  "text": "Okay, the important buttons will not be on top.",
+  "seconds": 0.073,
+  "audioSeconds": 3.18
+ },
+ "TS3012-U-01": {
+  "voice": "Samantha",
+  "text": "How about a one-touch weather channel?",
+  "seconds": 0.072,
+  "audioSeconds": 1.81
+ },
+ "TS3012-U-02": {
+  "voice": "Daniel",
+  "text": "Can we add a text size setting for the on-screen menu?",
+  "seconds": 0.082,
+  "audioSeconds": 3.11
+ },
+ "TS3012-I-01": {
+  "voice": "Karen",
+  "text": "So has anyone seen my pen?",
+  "seconds": 0.066,
+  "audioSeconds": 1.86
+ },
+ "TS3012-I-02": {
+  "voice": "Moira",
+  "text": "Right, that clock on the wall is 10 minutes slow.",
+  "seconds": 0.08,
+  "audioSeconds": 3.02
+ },
+ "TS3012-E-01": {
+  "voice": "Rishi",
+  "text": "Well, the supplier has confirmed it can deliver the casings within six weeks.",
+  "seconds": 0.091,
+  "audioSeconds": 4.81
+ },
+ "TS3012-E-02": {
+  "voice": "Tessa",
+  "text": "The design review has been moved to the end of the month.",
+  "seconds": 0.078,
+  "audioSeconds": 3.08
+ }
+}
