@@ -332,3 +332,13 @@ it('remembers voices only when asked, and can forget every remembered voice', as
   expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: { action: 'forget_voice_profiles', vaultPath: '/vault' } })
   expect(screen.queryByRole('button', { name: 'Forget remembered voices' })).not.toBeInTheDocument()
 })
+
+it('drops the draft voice embeddings once the review is saved', async () => {
+  vi.mocked(invoke).mockReset().mockImplementation(async () => [])
+  vi.mocked(applySource).mockClear()
+  render(reviewing())
+  fireEvent.click(screen.getByText('Save reviewed transcript'))
+  await screen.findByRole('region', { name: 'Review knowledge' })
+  expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: { action: 'drop_voice_embeddings', vaultPath: '/vault', sessionId: 'session' } })
+  expect(invoke).not.toHaveBeenCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'save_voice_profiles' }) })
+})

@@ -42,3 +42,18 @@ class ForgetVoicesTests(unittest.TestCase):
             self.assertEqual(list_profiles(folder), [])
             data = (Path(folder) / '.memoria-memory' / 'voices.sqlite').read_bytes()
             self.assertNotIn(b'Maya', data)  # vacuumed, not only unlinked rows
+
+
+class DropDraftEmbeddingsTests(unittest.TestCase):
+    def test_a_saved_review_keeps_no_voice_embeddings_in_its_draft(self):
+        from voice_profiles import drop_draft_embeddings
+        with tempfile.TemporaryDirectory() as folder:
+            session = str(uuid.uuid4())
+            directory = Path(folder) / '.memoria-recordings' / session
+            directory.mkdir(parents=True)
+            (directory / 'transcript-draft.json').write_text(json.dumps({'segments': [{'text': 'Hi'}], 'speakerEmbeddings': {'S01': [0.1, 0.2]}}))
+            self.assertEqual(drop_draft_embeddings(folder, session), {'dropped': True})
+            self.assertEqual(json.loads((directory / 'transcript-draft.json').read_text()), {'segments': [{'text': 'Hi'}]})
+            self.assertEqual(drop_draft_embeddings(folder, session), {'dropped': False})
+            with self.assertRaises(ValueError):
+                drop_draft_embeddings(folder, '../outside')

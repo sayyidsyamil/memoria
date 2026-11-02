@@ -132,6 +132,10 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
           setError(`Voice memory could not be saved: ${String(failure)}. Transcript saving can continue.`)
         }
       }
+      if (refined) {
+        // Voice embeddings are biometric data: once the review is saved they live on only in profiles the user chose to remember.
+        await invoke('wiki_memory', { request: { action: 'drop_voice_embeddings', vaultPath, sessionId } })
+      }
       const order = speakerOrder(turns.map(turn => turn.speaker))
       const text = turns.map(turn => refined ? `[${clock(turn.start)}${turn.contextTrimmed ? ' · original interval; text timing unresolved' : ''}] ${speakerLabel(turn.speaker, names, order)}: ${turn.text}` : turn.text).join('\n\n')
       const bytes = new TextEncoder().encode(text)

@@ -21,6 +21,26 @@ def list_profiles(root):
     with database(root) as connection:
         return [{'id': row[0], 'name': row[1]} for row in connection.execute('SELECT id, name FROM voices ORDER BY name')]
 
+def drop_draft_embeddings(root, session_id):
+    """Remove the voice embeddings a transcription left in a meeting's draft. Once the review is saved they
+    are no longer needed: a voice is kept only as a remembered profile, and only when the user opted in."""
+    import os
+    import tempfile
+    directory = Path(root) / '.memoria-recordings' / str(uuid.UUID(session_id))
+    directory.resolve().relative_to(Path(root).resolve())
+    path = directory / 'transcript-draft.json'
+    if not path.is_file():
+        return {'dropped': False}
+    draft = json.loads(path.read_text())
+    if 'speakerEmbeddings' not in draft:
+        return {'dropped': False}
+    del draft['speakerEmbeddings']
+    with tempfile.NamedTemporaryFile('w', dir=directory, delete=False, suffix='.tmp') as file:
+        json.dump(draft, file, ensure_ascii=False, indent=2)
+        file.flush(); os.fsync(file.fileno())
+    os.replace(file.name, path)
+    return {'dropped': True}
+
 def forget_profiles(root):
     """Delete every remembered voice of this workspace (opt-in biometric data); transcripts keep their names."""
     with database(root) as connection:
