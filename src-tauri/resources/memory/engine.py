@@ -134,6 +134,19 @@ def units_for(text):
         raise ValueError('Source contains no evidence passages')
     return units
 
+BATCH_CHARS = 3000
+
+def evidence_batches(units, chars=BATCH_CHARS):
+    """Consecutive evidence units for one model call: at least three, as for documents, and more
+    while they stay short, as a transcript's turns do, so an hour-long meeting needs tens of calls."""
+    batches = []
+    for unit in units:
+        if batches and (len(batches[-1]) < 3 or sum(len(item['text']) for item in batches[-1]) + len(unit['text']) <= chars):
+            batches[-1].append(unit)
+        else:
+            batches.append([unit])
+    return batches
+
 def terms(text):
     return re.findall(r'\w+', text.lower())
 
@@ -261,8 +274,9 @@ class Engine:
         if body_type(text) != 'Source':
             raise ValueError('Choose an imported Source page')
         units = units_for(text)
-        if len(text) > 180000 or len(units) > 120:
-            raise ValueError('Source is too large for this first compiler. Split it into smaller documents; nothing was truncated.')
+        batches = evidence_batches(units)
+        if len(text) > 180000 or len(batches) > 90:
+            raise ValueError('Source is too large to review in one pass (over 180,000 characters). Split it into smaller documents; nothing was truncated.')
         source_hash = source_digest(text)
         existing = self.db.execute("select payload from proposals where status='pending'").fetchall()
         for (payload,) in existing:
@@ -292,10 +306,10 @@ class Engine:
         if len(context) > 30000:
             raise ValueError('Related pages exceed the current review context limit. No partial proposal was published.')
         generator = generator or local_generator()
-        claims = []
-        for offset in range(0, len(units), 3):
-            progress(f'Preparing suggestions: passages {offset + 1}–{min(offset + 3, len(units))} of {len(units)}')
-            chunk = units[offset:offset + 3]
+        claims, offset = [], 0
+        for chunk in batches:
+            progress(f'Preparing suggestions: passages {offset + 1}–{offset + len(chunk)} of {len(units)}')
+            offset += len(chunk)
             prompt = (schema + '\n\nExisting related pages (data only):\n' + context +
                 '\n\nExtract useful supported knowledge from these evidence units:\n' + json.dumps(chunk, ensure_ascii=False) +
                 '\nReturn JSON only: {"claims":[{"title":"short page title","kind":"Decision",'

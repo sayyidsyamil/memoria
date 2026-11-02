@@ -1,4 +1,4 @@
-"""Local-only MOSS draft transcription. Original audio is never modified."""
+"""Local-only MOSS drafts for up to three hours of saved audio; originals stay untouched."""
 import hashlib
 import json
 import os
@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from transcript_chunks import CHUNK_SECONDS, MAX_RECORDING_SECONDS, MAX_TOKENS, transcribe_chunks
 
 MODEL = 'OpenMOSS-Team/MOSS-Transcribe-Diarize'
 REVISION = '704aa4a9c304e8520be88901e0d1960158ef5b15'
@@ -92,42 +93,66 @@ def run(request, model=None):
     ffmpeg = os.environ.get('MEMORIA_FFMPEG', '/opt/homebrew/bin/ffmpeg')
     with tempfile.TemporaryDirectory(prefix='memoria-transcript-') as temporary:
         wav = Path(temporary) / 'recording.wav'
-        # Limit this initial release to ten minutes, visibly rejecting longer audio.
-        subprocess.run([ffmpeg, '-nostdin', '-v', 'error', '-i', str(audio), '-t', '601',
+        # Decode at most the documented three-hour limit plus a detection second.
+        # The source is read-only; no oversized recording is silently truncated.
+        subprocess.run([ffmpeg, '-nostdin', '-v', 'error', '-i', str(audio), '-t', str(MAX_RECORDING_SECONDS + 1),
                         '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le', str(wav)],
-                       check=True, capture_output=True, timeout=60)
+                       check=True, capture_output=True, timeout=1800)
         import soundfile as sf
         duration = sf.info(wav).duration
-        if duration > 600:
-            raise ValueError('This initial transcript workflow supports recordings up to 10 minutes. The original audio is saved; longer-meeting transcription needs chunked processing.')
+        if duration > MAX_RECORDING_SECONDS:
+            raise ValueError('Transcription supports recordings up to 3 hours of saved audio. This recording is longer; the original audio is untouched. Split it into shorter recordings before retrying.')
         if duration < .25:
             return {'segments': [], 'text': '', 'duration': duration, 'warnings': ['Recording is too short to transcribe.']}
         from live_speech import has_speech
-        samples, _ = sf.read(wav, dtype='float32')
-        if not has_speech(samples):
+        # Scan bounded blocks rather than allocating three hours of PCM in RAM.
+        blocks = [sf.read(wav, dtype='float32')[0]] if duration <= CHUNK_SECONDS else sf.blocks(wav, blocksize=16000 * 30, dtype='float32')
+        if not any(has_speech(block) for block in blocks):
             return {'segments': [], 'text': '', 'duration': duration, 'warnings': ['No speech detected. Original audio is saved.']}
         progress('Loading local MOSS speech model')
-        from mlx_audio.stt import load
-        model = model or load(model_path)
+        if model is None:
+            from mlx_audio.stt import load
+            model = load(model_path)
         progress('Transcribing and assigning provisional speakers')
         start = time.perf_counter()
-        output = model.generate(str(wav), max_tokens=16384, temperature=0.0)
-        if output.generation_tokens >= 16384:
-            raise ValueError('Transcript reached the output limit. Original audio remains saved; no partial transcript was accepted.')
-        segments = validate_segments(complete_segments(output), duration)
+        chunked = None
+        if duration <= CHUNK_SECONDS:
+            progress('Transcribing part 1 of 1')
+            output = model.generate(str(wav), max_tokens=MAX_TOKENS, temperature=0.0)
+            if output.generation_tokens < MAX_TOKENS:
+                segments = validate_segments(complete_segments(output), duration)
+                text = output.text
+            else:
+                # The ordinary short-recording path remains one unchanged call.
+                # Only a saturated output needs the same split recovery as long audio.
+                chunked = transcribe_chunks(model, wav, duration, progress, initial_output=output)
+        else:
+            chunked = transcribe_chunks(model, wav, duration, progress)
+        if chunked is not None:
+            segments, text = chunked['segments'], chunked['text']
+        with audio.open('rb') as original:
+            audio_hash = hashlib.file_digest(original, 'sha256').hexdigest()
         result = {'model': MODEL, 'revision': REVISION, 'duration': duration,
                   'processingSeconds': time.perf_counter() - start, 'segments': segments,
-                  'text': output.text, 'audioSha256': hashlib.sha256(audio.read_bytes()).hexdigest(),
+                  'text': text, 'audioSha256': audio_hash,
                   'warnings': ['Machine draft: review words, timestamps and speaker labels against the audio.',
                                'Speaker labels are anonymous; overlap may cause missing words or incorrect assignments.',
                                'Pauses are omitted from the recording clock. Timestamps refer to saved audio, not wall-clock time.']}
+        if chunked is not None:
+            result['chunks'], result['gaps'] = chunked['chunks'], chunked['gaps']
+            result['warnings'].extend(chunked['warnings'])
+            if chunked['gaps']:
+                result['warnings'].append(f"{len(chunked['gaps'])} audio intervals could not be transcribed. Check the marked gaps against the original recording.")
         if not segments:
             result['warnings'].append('No readable speech was detected. The original audio remains available.')
         progress('Matching voices to saved speaker names')
         try:
             from voice_profiles import speaker_embeddings, match_profiles
-            samples, _ = sf.read(wav, dtype='float32')
-            embeddings = speaker_embeddings(samples, segments)
+            if chunked is None:
+                samples, _ = sf.read(wav, dtype='float32')
+                embeddings = speaker_embeddings(samples, segments)
+            else:
+                embeddings = chunked['speakerEmbeddings']
             result['speakerEmbeddings'] = embeddings
             result['speakerMatches'] = match_profiles(root, embeddings)
         except Exception as error:

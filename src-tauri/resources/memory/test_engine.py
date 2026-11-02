@@ -35,6 +35,25 @@ class MemoryTests(unittest.TestCase):
             self.assertTrue((self.root / 'index.md').exists())
             self.assertEqual(self.engine.apply(proposal['id'])['status'], 'applied')
 
+    def test_an_hour_long_reviewed_transcript_is_read_whole_in_passage_batches(self):
+        # About 60 minutes of short turns: the former three-turn calls refused this (over 120 passages).
+        turns = [f'[{minute}:{second:02d}] Speaker {1 + turn % 3}: Point {minute}-{second} about the pilot schedule and owners.'
+                 for turn, (minute, second) in enumerate((index // 6, index % 6 * 10) for index in range(360))]
+        (self.root / 'meeting.md').write_text('---\ntype: Source\n---\n# Pilot review — reviewed transcript\n\n' + '\n\n'.join(turns) + '\n')
+        seen = []
+        def reader(prompt):
+            chunk = json.loads(prompt.split('evidence units:\n', 1)[1].split('\nReturn JSON only', 1)[0])
+            seen.extend(unit['id'] for unit in chunk)
+            self.assertLessEqual(sum(len(unit['text']) for unit in chunk), 3000)
+            last = chunk[-1]
+            return json.dumps({'claims': [{'title': f'Pilot point {last["id"]}', 'kind': 'Topic', 'statement': last['text'],
+                                           'evidenceId': last['id'], 'quote': last['text'], 'targetPath': None}]})
+        with self.engine.locked():
+            proposal = self.engine.compile('meeting.md', reader)
+        self.assertEqual(seen, [f'E{index + 1}' for index in range(360)])  # every passage once, in order
+        self.assertLess(len(proposal['claims']), 30)  # tens of model calls, not 120
+        self.assertEqual(proposal['claims'][-1]['quote'], turns[-1])
+
     def test_stale_destination_rejected(self):
         proposal = self.engine.compile('source.md', model)
         (self.root / 'launch.md').write_text('User edited this while reviewing.')

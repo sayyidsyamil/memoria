@@ -99,8 +99,10 @@ This is microphone capture with local post-meeting MOSS transcription and an
 editable review screen. System audio and live PCM transcription remain unconnected.
 End now expands the HUD into review rather than opening the recording note;
 Create transcript starts cancellable local inference, and Save reviewed transcript
-publishes the reviewed evidence. See `SPEECH-BAKEOFF.md` for measured checks, model
-pins, ten-minute input limit and remaining evaluation gaps.
+publishes the reviewed evidence. See `SPEECH-BAKEOFF.md` for measured checks and
+model pins. Recordings up to three hours are transcribed in overlapping five-minute
+parts (`transcript_chunks.py`); a part that cannot be decoded is reported as a gap,
+never dropped silently.
 Do not treat the recording metadata as transcribed meeting evidence.
 
 Verification: three focused frontend lifecycle tests and one native disk-write

@@ -106,7 +106,8 @@ def temporal_api(engine, request, extractor=None):
                 if f"[{clock(start)}] {label}: {turn['text']}" not in source:
                     raise ValueError('Reviewed source no longer matches the saved transcript. Re-review it first.')
                 turns.append({'speaker': label, 'start': start, 'text': turn['text']})
-            shared = extractor or SharedExtractor()
+            from memoria_engine.windowed import WindowedExtractor
+            shared = WindowedExtractor(extractor or SharedExtractor())
             # Extract before the preserved pipeline commits a source. A generation
             # timeout must not consume the meeting identifier and prevent a retry.
             from memoria_engine.pipeline import Meeting, MeetingContext, Turn

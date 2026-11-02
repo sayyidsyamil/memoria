@@ -1,7 +1,10 @@
 import tempfile
+import json
+import re
 import unittest
 import uuid
 from pathlib import Path
+from unittest.mock import patch
 from engine import Engine, workspace_product
 from temporal_service import temporal_api
 from memoria_engine.pipeline import Candidate
@@ -70,6 +73,82 @@ class TemporalIntegrationTests(unittest.TestCase):
             def extract(self, _context): return [Candidate('supplier','value','Beta',text,0,None,1)]
         self.call('ingest_reviewed_meeting', {'meetingId':identifier}, Good())
         self.assertEqual(len(self.call('overview')['proposals']), 1)
+
+    def test_long_reviewed_meeting_windows_merge_and_preserve_grounded_quotes(self):
+        from engine import clock
+        self.call('registry.set', {'objects': [
+            {'object_id': name, 'label': name.replace('_', ' ').capitalize(), 'kind': 'decision', 'attributes': [{'name': 'value', 'type': 'text'}]}
+            for name in ('supplier', 'backup_supplier')]})
+        identifier = str(uuid.uuid4())
+        decisions = {12: ('Beta', 'We decided to use Beta as supplier.'),
+                     38: ('Acme', 'We decided to use Acme as supplier.')}
+        turns = []
+        for index in range(40):
+            text = decisions[index][1] if index in decisions else f'Agenda item {index}: ' + 'Background discussion without a decision. ' * 10
+            turns.append({'speaker': 'S01', 'start': index * 90, 'end': index * 90 + 60, 'text': text})
+        (self.root/'long.md').write_text('\n'.join(f"[{clock(t['start'])}] Maya: {t['text']}" for t in turns))
+        workspace_product(self.engine, {'action': 'save_meeting', 'record': {
+            'id': identifier, 'title': 'An hour of discussion', 'created': '2026-10-01T10:00:00Z',
+            'status': 'transcript-reviewed', 'transcriptPath': 'long.md', 'names': {'S01': 'Maya'}, 'turns': turns}})
+        requested = []
+        emitted = []
+        def generate(prompt):
+            transcript = prompt.rsplit('Transcript:\n', 1)[1]
+            indices = [int(i) for i in re.findall(r'^\[(\d+)\]', transcript, re.M)]
+            requested.append(indices)
+            self.assertLessEqual(len(transcript), 7100)
+            events = []
+            for index in indices:
+                if index not in decisions: continue
+                value, quote = decisions[index]
+                events.append({'turn': index, 'quote': quote, 'object_id': 'supplier' if index == 12 else 'backup_supplier',
+                               'attribute': 'value', 'value': value, 'confidence': 1.0})
+                emitted.append(index)
+            return json.dumps({'events': events})
+        with patch('engine.local_generator', return_value=generate):
+            self.call('ingest_reviewed_meeting', {'meetingId': identifier})
+        self.assertGreater(len(requested), 1)
+        self.assertEqual(set().union(*map(set, requested)), set(range(40)))
+        self.assertTrue(all(len(set(left) & set(right)) == 6 for left, right in zip(requested, requested[1:])))
+        self.assertGreater(emitted.count(12), 1)  # Candidate repeated in the shared context.
+        overview = self.call('overview')
+        self.assertEqual(len(overview['proposals']), 2)  # Window overlap was deduplicated.
+        self.assertEqual(overview['facts'], [])
+        for proposal in overview['proposals']:
+            self.call('proposals.accept', {'proposal_id': proposal['proposal_id']})
+        history = [fact for name in ('supplier', 'backup_supplier')
+                   for fact in self.call('facts.history', {'object_id': name, 'attribute': 'value'})]
+        self.assertEqual({fact['value'] for fact in history}, {'Beta', 'Acme'})
+        evidence = [item for fact in history for item in fact['evidence']]
+        self.assertEqual({item['audio_start'] for item in evidence}, {1080, 3420})
+        self.assertEqual({item['quote'] for item in evidence}, {quote for _, quote in decisions.values()})
+        self.assertTrue(all(item['meeting'] == identifier for item in evidence))
+        self.assertTrue(self.call('overview')['check']['ok'])
+
+    def test_later_window_failure_leaves_source_retryable(self):
+        identifier = str(uuid.uuid4())
+        text = 'Background words. ' * 100
+        turns = [{'speaker': 'S01', 'start': i * 60, 'end': i * 60 + 50, 'text': text} for i in range(10)]
+        from engine import clock
+        (self.root/'retry-long.md').write_text('\n'.join(f"[{clock(t['start'])}] Maya: {t['text']}" for t in turns))
+        workspace_product(self.engine, {'action': 'save_meeting', 'record': {
+            'id': identifier, 'title': 'Retry long extraction', 'created': '2026-10-01T10:00:00Z',
+            'status': 'transcript-reviewed', 'transcriptPath': 'retry-long.md', 'names': {'S01': 'Maya'}, 'turns': turns}})
+        with patch('engine.local_generator', return_value=lambda _: '{"events":[]}') as factory:
+            calls = 0
+            def failing(_):
+                nonlocal calls
+                calls += 1
+                if calls > 1: raise TimeoutError('Later window timed out')
+                return '{"events":[]}'
+            factory.return_value = failing
+            result = temporal_api(self.engine, {'method': 'ingest_reviewed_meeting', 'params': {'meetingId': identifier}})
+        self.assertFalse(result['ok'])
+        self.assertGreater(calls, 1)
+        self.assertEqual(self.call('meetings.list'), [])
+        with patch('engine.local_generator', return_value=lambda _: '{"events":[]}'):
+            self.call('ingest_reviewed_meeting', {'meetingId': identifier})
+        self.assertEqual(len(self.call('meetings.list')), 1)
 
     def test_strict_ids_queries_and_reasons(self):
         for method, params in [('facts.correct', {'fact_id':True,'value':'Beta','reason':'Fix'}), ('query',{'object_id':'supplier','attribute':'value','type':'unknown'}), ('facts.retract', {'fact_id':1,'reason':''})]:

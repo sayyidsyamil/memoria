@@ -13,9 +13,10 @@ def relay(address, operation):
             connection.connect(address); break
         except (FileNotFoundError, ConnectionRefusedError): time.sleep(.1)
     else: raise ValueError('AI model is still preparing or unavailable. Check AI readiness.')
-    # Live sessions may be silent for minutes. Liveness belongs to the app's
-    # process manager, not a timeout waiting for transcript text.
-    if operation == 'live': connection.settimeout(None)
+    # Live sessions may be silent for minutes, and a long recording reports once per
+    # five-minute part. Liveness belongs to the app's process manager, not a timeout
+    # waiting for transcript text.
+    if operation in ('live', 'transcribe'): connection.settimeout(None)
     connection.sendall((json.dumps({'operation': operation}) + '\n').encode())
     def send():
         try:

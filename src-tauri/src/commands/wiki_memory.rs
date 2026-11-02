@@ -2,7 +2,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader, Read, Write};
 use std::process::{Child, Stdio};
-use std::sync::{Arc, Mutex, OnceLock, atomic::{AtomicBool, Ordering}};
+use std::sync::{Arc, Mutex, OnceLock, atomic::{AtomicBool, AtomicU64, Ordering}};
 use std::time::{Duration, Instant};
 use tauri::{Emitter, Manager};
 
@@ -35,6 +35,24 @@ fn stop(child: &mut Child) {
     let _ = child.wait();
 }
 
+/// Overall limit and, where it applies, the longest wait between reported stages. Long
+/// recordings and long meetings are processed in parts that each report progress (five-minute
+/// audio parts, transcript passages, extraction windows), so their deadline follows progress
+/// rather than the meeting's length.
+fn limits(action: &str, method: &str, speech: bool, cancellable: bool) -> (Duration, Option<Duration>) {
+    match (action, method) {
+        ("transcribe", _) => (Duration::from_secs(3 * 60 * 60), Some(Duration::from_secs(300))),
+        ("compile", _) | ("temporal_api", "ingest_reviewed_meeting") => (Duration::from_secs(60 * 60), Some(Duration::from_secs(120))),
+        _ if speech => (Duration::from_secs(300), None),
+        _ if cancellable => (Duration::from_secs(120), None),
+        _ => (Duration::from_secs(60), None),
+    }
+}
+
+fn timed_out((overall, idle): (Duration, Option<Duration>), elapsed: Duration, quiet: Duration) -> bool {
+    elapsed > overall || idle.is_some_and(|idle| quiet > idle)
+}
+
 #[tauri::command]
 pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Result<Value, String> {
     let vault = request["vaultPath"].as_str().ok_or("Missing workspace path")?;
@@ -52,6 +70,7 @@ pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Re
         uuid::Uuid::parse_str(request["sessionId"].as_str().ok_or("Missing session identifier")?).map_err(|_| "Invalid session identifier")?;
     }
     let cancellable = matches!(action.as_str(), "compile" | "ask" | "brief" | "transcribe" | "live_ask" | "live_check") || (action == "temporal_api" && request["method"] == "ingest_reviewed_meeting");
+    let method = request["method"].as_str().unwrap_or("").to_string();
     let job_id = request["jobId"].as_str().map(str::to_string).unwrap_or_else(|| uuid::Uuid::new_v4().to_string());
     let job_key = key(&window, &job_id)?;
     let cancelled = Arc::new(AtomicBool::new(false));
@@ -84,11 +103,15 @@ pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Re
             }
             let stdout = child.stdout.take().ok_or("Missing memory output")?;
             let stderr = child.stderr.take().ok_or("Missing memory diagnostics")?;
+            let started = Instant::now();
+            let heard = Arc::new(AtomicU64::new(0));
+            let last_stage = heard.clone();
             let output = std::thread::spawn(move || {
                 let mut reply = None;
                 for line in BufReader::new(stdout).lines().map_while(Result::ok) {
                     if let Ok(value) = serde_json::from_str::<Value>(&line) {
                         if let Some(stage) = value["progress"].as_str() {
+                            last_stage.store(started.elapsed().as_millis() as u64, Ordering::SeqCst);
                             let _ = window.emit("wiki-memory-progress", serde_json::json!({"jobId":job_id,"stage":stage}));
                         } else { reply = Some(value); }
                     }
@@ -96,11 +119,11 @@ pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Re
                 reply
             });
             let diagnostics = std::thread::spawn(move || { let _ = std::io::copy(&mut stderr.take(65536), &mut std::io::sink()); });
-            let started = Instant::now();
-            let limit = if speech { Duration::from_secs(300) } else if cancellable { Duration::from_secs(120) } else { Duration::from_secs(60) };
+            let limit = limits(&action, &method, speech, cancellable);
             let failure = loop {
                 if cancellable && cancelled.load(Ordering::SeqCst) { stop(&mut child); break Some("Memory request cancelled. No proposed changes were applied."); }
-                if started.elapsed() > limit { stop(&mut child); break Some("Memory request timed out. Check file permissions and local model setup, then retry."); }
+                let quiet = started.elapsed().saturating_sub(Duration::from_millis(heard.load(Ordering::SeqCst)));
+                if timed_out(limit, started.elapsed(), quiet) { stop(&mut child); break Some("Memory request timed out. Check file permissions and local model setup, then retry."); }
                 match child.try_wait() {
                     Ok(Some(_)) => break None,
                     Ok(None) => std::thread::sleep(Duration::from_millis(100)),
@@ -133,5 +156,21 @@ mod tests {
         stop(&mut child);
         assert!(started.elapsed() < Duration::from_secs(3));
         assert!(child.try_wait().unwrap().is_some());
+    }
+    #[test]
+    fn long_meeting_deadlines_follow_reported_parts() {
+        let minutes = |count: u64| Duration::from_secs(count * 60);
+        let transcribe = limits("transcribe", "", true, true);
+        assert!(!timed_out(transcribe, minutes(40), minutes(1)));
+        assert!(timed_out(transcribe, minutes(40), minutes(6)));
+        assert!(timed_out(transcribe, minutes(181), Duration::ZERO));
+        for (action, method) in [("compile", ""), ("temporal_api", "ingest_reviewed_meeting")] {
+            let parts = limits(action, method, false, true);
+            assert!(!timed_out(parts, minutes(20), minutes(1)));
+            assert!(timed_out(parts, minutes(20), minutes(3)));
+        }
+        assert!(timed_out(limits("speaker_profiles", "", true, false), minutes(6), Duration::ZERO));
+        assert!(timed_out(limits("ask", "", false, true), minutes(3), Duration::ZERO));
+        assert!(timed_out(limits("temporal_api", "overview", false, false), minutes(2), Duration::ZERO));
     }
 }
