@@ -13,6 +13,7 @@ export const APP_STORAGE_KEYS = {
   lastActiveNotePath: 'memoria:last-active-note-path',
   layoutPanels: 'memoria:layout-panels',
   welcomeDismissed: 'memoria_welcome_dismissed',
+  liveCheck: 'memoria:live-check',
 } as const
 
 export const LEGACY_APP_STORAGE_KEYS = {

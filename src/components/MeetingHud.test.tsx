@@ -9,6 +9,7 @@ import { applySource } from '../lib/sourceImport'
 import { startMeetingLiveSpeech, type LiveSpeechEvent } from '../lib/meetingLiveSpeech'
 import type { RecordingMetadata } from '../features/meetings/recordingService'
 import type { LiveCue } from '../features/temporal/liveAssistanceService'
+import { APP_STORAGE_KEYS } from '../constants/appStorage'
 
 const close = vi.fn(async () => undefined)
 // The real queue, with its update callback kept so that a test can publish cues as the queue would.
@@ -54,6 +55,7 @@ class FakeRecorder {
 }
 beforeEach(() => {
   vi.clearAllMocks()
+  localStorage.removeItem(APP_STORAGE_KEYS.liveCheck)
   FakeRecorder.instances.length = 0
   window.history.replaceState({}, '', '/?meetingHud=1&vault=%2Fvault')
   vi.stubGlobal('MediaRecorder', FakeRecorder)
@@ -312,11 +314,28 @@ async function compactWithLiveCheck() {
   vi.useFakeTimers({ toFake: ['Date', 'setInterval', 'clearInterval', 'setTimeout', 'clearTimeout'] })
   render(<MeetingHud />)
   await wait(50)
+  // The live check is on by default.
+  expect(screen.queryByRole('checkbox')).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
-  fireEvent.click(screen.getByRole('checkbox', { name: 'Flag statements that contradict a decision' }))
+  expect(screen.getByRole('checkbox', { name: 'Flag statements that contradict a decision' })).toBeChecked()
   fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
   await wait(0)
 }
+
+it('keeps the live check on by default and remembers turning it off', async () => {
+  const first = render(<MeetingHud />)
+  await screen.findByText('Recording')
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  const toggle = screen.getByRole('checkbox', { name: 'Flag statements that contradict a decision' })
+  expect(toggle).toBeChecked()
+  fireEvent.click(toggle)
+  expect(localStorage.getItem(APP_STORAGE_KEYS.liveCheck)).toBe('off')
+  first.unmount()
+  render(<MeetingHud />)
+  await screen.findByText('Recording')
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  expect(screen.getByRole('checkbox', { name: 'Flag statements that contradict a decision' })).not.toBeChecked()
+})
 
 it('shows a new cue under the compact notch for eight seconds, growing the window while it shows', async () => {
   try {

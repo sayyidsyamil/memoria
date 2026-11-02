@@ -8,6 +8,7 @@ import { prepareMeetingReplay } from '../lib/meetingReplay'
 import { withTimeout } from '../lib/asyncTimeout'
 import { MeetingHudView, type CueToast, type CueToastHold, type HudState } from './MeetingHudView'
 import { clockText } from '../lib/hud'
+import { APP_STORAGE_KEYS } from '../constants/appStorage'
 import { meetingService } from '../features/meetings/meetingService'
 import { recordingService, recordingSource } from '../features/meetings/recordingService'
 import type { LiveCue } from '../features/temporal/liveAssistanceService'
@@ -121,7 +122,12 @@ export function MeetingHud() {
   const captureStarted = useRef(false)
   const transcriptView = useRef<HTMLDivElement | null>(null)
   const followTranscript = useRef(true)
-  const [assistanceEnabled, setAssistanceEnabled] = useState(false)
+  // On unless the user turned it off: a sentence about no decision costs nothing, and a relevant one under a second.
+  const [assistanceEnabled, setAssistanceEnabled] = useState(() => { try { return localStorage.getItem(APP_STORAGE_KEYS.liveCheck) !== 'off' } catch { return true } })
+  const toggleAssistance = (on: boolean) => {
+    setAssistanceEnabled(on)
+    try { localStorage.setItem(APP_STORAGE_KEYS.liveCheck, on ? 'on' : 'off') } catch { /* the choice lasts for this meeting only */ }
+  }
   const [liveCues, setLiveCues] = useState<LiveCue[]>([])
   const { titles: cueMeetingTitles } = useMeetingTitles(vaultPath)
   const [assistanceNotice, setAssistanceNotice] = useState('')
@@ -391,7 +397,7 @@ export function MeetingHud() {
     vaultPath={vaultPath}
     sourceKind={replayMode ? 'replay' : 'microphone'} replayNotice={replayNotice}
     progressText={audioProgress ? `${(audioProgress.queuedSamples / audioProgress.sampleRate).toFixed(1)}s queued · ${(audioProgress.processedSamples / audioProgress.sampleRate).toFixed(1)}s acknowledged${audioProgress.refusedSamples || audioProgress.unacknowledgedSamples ? ` · ${((audioProgress.refusedSamples + audioProgress.unacknowledgedSamples) / audioProgress.sampleRate).toFixed(1)}s not captioned` : ''}${speechProgress ? ` · ${speechProgress}` : ''}` : speechProgress}
-    assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={shownCues} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
+    assistanceEnabled={assistanceEnabled} onToggleAssistance={toggleAssistance} liveCues={shownCues} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
     cueToast={cueToast.toast} onHoldCueToast={cueToast.hold} onDismissCueToast={cueToast.dismiss}
     liveTurns={liveTurns} partial={partial} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}
     transcriptRef={transcriptView} onTranscriptScroll={event => { const view = event.currentTarget; followTranscript.current = view.scrollHeight - view.scrollTop - view.clientHeight < 40 }}
