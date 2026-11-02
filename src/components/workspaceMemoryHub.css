@@ -48,6 +48,9 @@
 .hub-page { padding: 16px 0 18px; border-top: 1px solid var(--border); }
 .hub-page > header { display: flex; align-items: center; gap: 8px; }
 .hub-page h3 { margin: 0; font-size: 14px; font-weight: 600; line-height: 20px; }
+.hub-recovery > h2 { margin: 0; font-size: 14px; font-weight: 600; line-height: 20px; }
+.hub-recovery > .hub-muted { margin: 4px 0 0; }
+.hub-recovery > .hub-error { margin: 8px 0; }
 .hub-page-open { margin-left: auto; color: var(--muted-foreground); }
 .hub-claims { display: flex; flex-direction: column; gap: 14px; margin: 12px 0 0; padding: 0; list-style: none; }
 .hub-claim { padding-left: 14px; border-left: 2px solid var(--border); }
