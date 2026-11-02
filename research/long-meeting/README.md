@@ -30,3 +30,24 @@ audio and annotations are not committed.
   C shipped plus elimination).
 - `results/extraction-eval.json`: knowledge suggestions per ten minutes for the rejected and the
   final build, and the tracked-fact proposals with their evidence times.
+
+## False alerts on unrelated speech
+
+`unrelated_speech.py` checks every turn of the reviewed 60-minute transcript (run 2, 852 turns
+of a design team discussing a TV remote) with the app's live check, guard on, against the six
+tracked items of the UAT engine dry run with all 17 of its proposals accepted (18 facts; the
+fictional procurement pilot: vendor, budget, go-live date, staff training, data migration,
+security review; `scripts/uat/build_demo_vault.py`, then `scripts/uat/dry_run.sh`). The meeting is about
+something else, so every alert would be false. Result (2 November 2026, Qwen3.5-4B worker,
+`results/unrelated-speech.jsonl`):
+
+| Turns | Shared a word with a tracked item, so checked by the model | Alerts | Uncertain | Errors | Time |
+|---|---|---|---|---|---|
+| 852 | 29 (3.4%) | **0** | 0 | 0 | 1.5 min |
+
+The 29 model-checked turns include "We do have a budget limitation that we can't control
+ourselves" and "it would the chip would convert it into some form of IR data". The other 823
+turns never reach the model, because the live check only asks it about facts whose item name
+or attribute shares a word with the sentence. This is one recording and one set of facts; the
+guarded false-alarm rate on MemoriaBench's must-not-alert probes is in
+[research/memoriabench/APP_LIVE_CHECK.md](../memoriabench/APP_LIVE_CHECK.md).
