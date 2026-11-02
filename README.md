@@ -1,6 +1,6 @@
 # Memoria
 
-Your meetings decide things. Memoria remembers what was decided, shows the words that prove it, and never leaves your Mac.
+Your meetings decide things. Memoria remembers what was decided, shows the words that prove it, and keeps your meetings on your Mac.
 
 [Download the UAT build](https://github.com/sayyidsyamil/memoria/releases/tag/v0.2.0-uat) · [Developer setup](docs/DEVELOPMENT.md) · [Roadmap](docs/ROADMAP.md) · [Research](research/)
 
@@ -33,6 +33,8 @@ Measured on real meetings (AMI corpus: 20 test meetings in series, 96 questions)
 | Time per question | **3.0 s** | 84.2 s | 3.4 s |
 
 - With perfect proposals the ledger answers **96/96**. Its errors come from the model's proposals, which is the step a person reviews. With review: **89%**.
+- Not a small-model artefact: with a strong hosted model (DeepSeek V4.1 Flash, public AMI data only) the ledger scores **82/96**, level with that model reading every transcript (81), at 818 instead of 31,337 input tokens per question ([strong-model](research/strong-model/README.md)). Asking the small model "is this really decided?" did not help more than dropping proposals at random ([firmness gate](research/firmness-gate/README.md)): the bottleneck is the extractor, not the ledger.
+- The app's Ask answers like the evaluated pipeline: 96/96 on gold facts, 58 of October's 59 on extracted facts ([app parity](research/app-parity/README.md)).
 - Live contradiction check on [MemoriaBench](research/memoriabench/): catches **81.3%** of conflicts with **1.3%** false alarms. On an hour of unrelated real speech (852 turns) it raised **no** alert.
 - Speech: a 60-minute AMI recording transcribed in 11.6 minutes, WER 13.2% (fillers removed), four speakers kept apart.
 
