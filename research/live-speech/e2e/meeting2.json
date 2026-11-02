@@ -1,0 +1,72 @@
+[
+ {
+  "turn": 1,
+  "voice": "Samantha",
+  "start": 2.0,
+  "end": 6.01,
+  "text": "Good morning everyone. This is the go-live check for the procurement pilot."
+ },
+ {
+  "turn": 2,
+  "voice": "Daniel",
+  "start": 7.51,
+  "end": 10.85,
+  "text": "Thanks. Training is on track and the materials are ready."
+ },
+ {
+  "turn": 3,
+  "voice": "Karen",
+  "start": 12.35,
+  "end": 16.92,
+  "text": "Data migration is almost done. We finished the supplier records yesterday."
+ },
+ {
+  "turn": 4,
+  "voice": "Samantha",
+  "start": 18.42,
+  "end": 21.89,
+  "text": "Good. Before we close the plan, one thing about the vendor."
+ },
+ {
+  "turn": 5,
+  "voice": "Daniel",
+  "start": 23.39,
+  "end": 25.49,
+  "text": "Gamma Solutions is our vendor now."
+ },
+ {
+  "turn": 6,
+  "voice": "Karen",
+  "start": 26.99,
+  "end": 29.45,
+  "text": "I thought we moved to Beta Cloud in September."
+ },
+ {
+  "turn": 7,
+  "voice": "Samantha",
+  "start": 30.95,
+  "end": 33.26,
+  "text": "The go-live date is still the ninth of November."
+ },
+ {
+  "turn": 8,
+  "voice": "Daniel",
+  "start": 34.76,
+  "end": 37.79,
+  "text": "And the pilot budget is now three hundred thousand ringgit."
+ },
+ {
+  "turn": 9,
+  "voice": "Karen",
+  "start": 39.29,
+  "end": 42.09,
+  "text": "That is more than we agreed. Let us check the record."
+ },
+ {
+  "turn": 10,
+  "voice": "Samantha",
+  "start": 43.59,
+  "end": 47.07,
+  "text": "Okay. Let us meet again next week. Thank you all."
+ }
+]

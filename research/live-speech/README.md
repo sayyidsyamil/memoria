@@ -64,7 +64,18 @@ audio had arrived after a sentence ended when it was committed, so it does not d
 - On the two scripted test meetings (`livetest/meeting.wav`, `meeting2.wav`, file fed as fast as possible) every
   sentence was committed 0.4–2.1 s after it ended (median 0.75 s).
 - One sentence of `meeting.wav` ("Data migration is almost done.", the macOS voice Aman) is recognised as nonsense
-  by v3 and Ultra alike, whole or live, so that voice's recording is at fault, not the cutting.
+  by v3 and Ultra alike, whole or live: the voice rendered it as 7.4 s of unintelligible speech. Rendered again
+  later it spoke that sentence correctly and garbled another, so that voice is unreliable, not the cutting.
+
+**Through the installed app** (`e2e/e2e_live.py`: a WAV fed in real time to the running app's speech worker, nothing
+played aloud, and a live check on every committed turn, as the meeting window does; `e2e/make_meetings.py` makes the
+test meetings with `say`):
+
+| Build `v0.3.0-uat` | Sentences committed after they ended | Contradiction cues after the statement | False alarms |
+|---|---|---|---|
+| `meeting2` (Samantha, Daniel, Karen) | 0.45–2.1 s | vendor 1.01 s, budget 1.15 s | 0 |
+| `meeting` (Daniel, Flo, Aman) | 0.5–2.0 s | budget 0.46 s; vendor line misheard ("… is of internet now") | 0 |
+| `meeting` played through the MacBook speakers and recorded by the app through its microphone (−49 dBFS), fed back in | 0.44–1.73 s, three voices on three labels | budget 0.80 s; vendor line misheard | 0 |
 
 Rejected on the way:
 
@@ -81,6 +92,8 @@ Rejected on the way:
 ## Files
 
 - `bakeoff.py`: runs a pipeline over the hour and scores it with `../long-meeting/evaluate_transcript.py`.
+- `e2e/`: the end-to-end harness and the test meetings' scripts (`meeting.json`, `meeting2.json`: times of the
+  files used on 3 November; `farfield.json`: the same meeting inside the microphone recording, trimmed to 20–85 s).
 - `results/ami-hour-offline.*`: the whole-recording run above.
 - `results/ami-hour-live.*` (shipped), `results/ami-hour-live-word-labels.*`, `results/ami-hour-live-fresh-vad.*`: live
   captions over the hour, as shipped, before one speaker per sentence, and before the detector fix.
