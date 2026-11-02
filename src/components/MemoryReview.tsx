@@ -10,6 +10,7 @@ import { Chip, EmptyState, StateButton } from './memoriaUi'
 import { startMemoryJob } from '../lib/memoryJob'
 import { kindTone } from '../lib/knowledgeKinds'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
+import { plural } from '../lib/format'
 import './memoryReview.css'
 
 interface Claim { title: string; kind: string; statement: string; quote: string; evidenceId: string; page: number; targetPath: string | null; accepted?: boolean }
@@ -131,7 +132,7 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
       {visible.map(proposal => <section key={proposal.id} className="knowledge-review-proposal">
         <div className="knowledge-review-source">
           <h3 className="break-words">{proposal.sourceTitle}</h3>
-          <p>{proposal.claims.length} suggestions · {proposal.claims.filter(claim => !claim.targetPath).length} new pages · {proposal.claims.filter(claim => claim.targetPath).length} updates</p>
+          <p>{plural(proposal.claims.length, 'suggestion')} · {plural(proposal.claims.filter(claim => !claim.targetPath).length, 'new page')} · {plural(proposal.claims.filter(claim => claim.targetPath).length, 'update')}</p>
           {proposal.status !== 'pending' && STATUS_CHIPS[proposal.status ?? ''] && <Chip tone={STATUS_CHIPS[proposal.status ?? ''].tone} dot>{STATUS_CHIPS[proposal.status ?? ''].label}</Chip>}
         </div>
         {proposal.claims.length === 0 && <p className="text-sm">No supported additions were found in this source.</p>}

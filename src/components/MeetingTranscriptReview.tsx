@@ -6,7 +6,7 @@ import { Button } from './ui/button'
 import { startMemoryJob } from '../lib/memoryJob'
 import { applySource, type PreparedSource } from '../lib/sourceImport'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
-import { clock, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
+import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
 import { Avatar, Chip, EmptyState, PillTabList, PillTabPanel, PillTabsRoot, SectionLabel, StateButton } from './memoriaUi'
 import { MeetingPlayer, type PlayerHandle } from './MeetingPlayer'
 import { MeetingSummary, type Mark } from './MeetingSummary'
@@ -140,7 +140,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   }, [turns, time, playing, refined])
   useEffect(() => { if (playing && active >= 0) rows.current[active]?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' }) }, [active, playing])
   const startedAt = created && !Number.isNaN(new Date(created).getTime()) ? longDate.format(new Date(created)) : ''
-  const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? `${order.length || 'No'} identified speaker${order.length === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ')
+  const identified = identifiedSpeakers(speakers, names).length
+  const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? `${identified || 'No'} identified speaker${identified === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ')
   const fallbackLength = Math.max(draft?.duration ?? 0, turns.length ? turns[turns.length - 1].end : 0)
 
   return <PillTabsRoot value={tab} onValueChange={value => setTab(value as MeetingTab)} className="meeting-review" asChild>

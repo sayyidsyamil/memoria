@@ -10,7 +10,7 @@ import { Avatar, Chip, EmptyState, LifecycleRail, PillTabList, PillTabPanel, Pil
 import { openNoteInNewWindow } from '../utils/openNoteWindow'
 import { kindTone } from '../lib/knowledgeKinds'
 import { dayLabel, plural, whenLabel } from '../lib/format'
-import { clock, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
+import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
 import type { WorkspaceSummary } from '../hooks/useWorkspaceSummary'
 import './workspaceMemoryHub.css'
 import { meetingService } from '../features/meetings/meetingService'
@@ -31,10 +31,11 @@ function participants(meeting: Meeting) {
   const turns = meeting.turns ?? []
   if (!turns.length) return 'No transcript'
   const order = speakerOrder(turns.map(turn => turn.speaker))
-  if (!order.length) return 'Speaker not identified'
-  const named = order.filter(speaker => meeting.names?.[speaker]?.trim()).map(speaker => speakerLabel(speaker, meeting.names, order))
+  const identified = identifiedSpeakers(turns.map(turn => turn.speaker), meeting.names)
+  if (!identified.length) return 'Speaker not identified'
+  const named = identified.filter(speaker => meeting.names?.[speaker]?.trim()).map(speaker => speakerLabel(speaker, meeting.names, order))
   if (named.length) return named.slice(0, 3).join(', ') + (named.length > 3 ? ` +${named.length - 3}` : '')
-  return `${order.length} speaker${order.length === 1 ? '' : 's'}`
+  return `${identified.length} speaker${identified.length === 1 ? '' : 's'}`
 }
 function progress(meeting: Meeting): { label: string; state: RailState }[] {
   // A saved reviewed transcript is the source of truth; the status text can lag behind it.
@@ -53,10 +54,12 @@ function nextAction(meeting: Meeting): { label: string; tab: MeetingTab } {
 }
 /** One avatar per meeting (first identified speaker), with a count when more people spoke. Keeps titles aligned. */
 function LeadAvatar({ meeting }: { meeting: Meeting }) {
-  const order = speakerOrder((meeting.turns ?? []).map(turn => turn.speaker))
-  const first = order[0]
+  const speakers = (meeting.turns ?? []).map(turn => turn.speaker)
+  const order = speakerOrder(speakers)
+  const identified = identifiedSpeakers(speakers, meeting.names)
+  const first = identified[0]
   return <span className="hub-lead"><Avatar label={first ? speakerLabel(first, meeting.names, order) : 'Unknown speaker'} tone={first ? speakerTone(first, order) : 'neutral'} size={34} />
-    {order.length > 1 && <span className="hub-lead-count" aria-hidden="true">{order.length}</span>}</span>
+    {identified.length > 1 && <span className="hub-lead-count" aria-hidden="true">{identified.length}</span>}</span>
 }
 
 export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeting, onReplayMeeting }: {

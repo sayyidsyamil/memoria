@@ -1,5 +1,12 @@
 import { expect, it } from 'vitest'
-import { clock, speakerLabel, speakerOrder, speakerTone } from './speakers'
+import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } from './speakers'
+
+it('counts the unknown voice as identified only once a reviewer names it', () => {
+  expect(identifiedSpeakers(['unassigned', 'unassigned'], {})).toEqual([])
+  expect(identifiedSpeakers(['unassigned', 'unassigned'], { unassigned: 'Alex Tan' })).toEqual(['unassigned'])
+  expect(identifiedSpeakers(['S01', 'unassigned', 'S01'], { unassigned: '  ' })).toEqual(['S01'])
+  expect(identifiedSpeakers(['S01', 'unassigned'], undefined)).toEqual(['S01'])
+})
 
 it('uses one label rule for named, numbered and unknown voices', () => {
   const order = speakerOrder(['unassigned', 'S02', 'S01', 'S02', 'host'])

@@ -7,6 +7,11 @@ export function speakerOrder(speakers: Iterable<string>): string[] {
   return [...new Set(speakers)].filter(speaker => speaker !== 'unassigned')
 }
 
+/** Speakers a reviewer has identified: diarized voices, plus the unknown voice once it has a name. */
+export function identifiedSpeakers(speakers: Iterable<string>, names: Record<string, string> | undefined): string[] {
+  return [...new Set(speakers)].filter(speaker => speaker !== 'unassigned' || !!names?.[speaker]?.trim())
+}
+
 export function speakerNumber(speaker: string, order: string[]): number {
   const digits = /^S?0*(\d+)$/i.exec(speaker)
   if (digits) return Number(digits[1])
