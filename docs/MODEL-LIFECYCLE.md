@@ -20,11 +20,12 @@ a meeting still requires speech/model/worklet readiness. Inference is serialized
 within each worker, not continuously running. Workers are killed and reaped on
 native app exit. Separate app processes do not share workers.
 
-Measured simultaneous worker smoke: speech active MLX 1.817GB, Qwen 2.368GB,
-embedding 1.132GB: total 5.317GB excluding CPU allocations, retained allocator
-caches and workspace memory. Two empty speech sessions became ready in <1ms on
-the private socket; this measures session reuse only, not mic or live-word latency.
-Warm embedding output was 768 dimensions. All three processes remained alive.
+Memory. MLX keeps every freed GPU buffer for reuse, without limit by default. Decoding speech windows of changing
+lengths, the speech worker once grew to a 9.2 GB footprint (models 1.5 GB) and the Mac went into swap, so a 0.2 s live
+check took 15 s. Each resident worker now caps the cache at 256 MB (`worker_lifetime.limit_gpu_cache`), a finished
+meeting clears it, and the embedding worker drops EmbeddingGemma's audio and vision towers, which Memoria never uses
+(1.13 GB of weights becomes 0.19 GB, embeddings bit-identical). Measured footprints after a test meeting, before the
+tower change: speech 1.9 GB, Qwen 3.0 GB, embedding 1.7 GB.
 
 Python runtimes and HF snapshots can be provisioned for a clean account under
 `/Users/Shared/Memoria`; see [the AC7 install steps](GETTING-STARTED.md#install-for-another-macos-account-ac7).
