@@ -9,7 +9,9 @@ setopt pipefail
 repo=${0:A:h}/..
 cd $repo
 
-[[ -z "$(git status --porcelain)" ]] || { print "Refusing: the working tree is not clean."; git status --short | head; exit 1; }
+# No uncommitted change anywhere, and no untracked file among the build inputs (research notes may be in progress).
+dirty="$(git status --porcelain --untracked-files=no; git status --porcelain -- src src-tauri public index.html package.json pnpm-lock.yaml vite.config.ts scripts)"
+[[ -z $dirty ]] || { print "Refusing: the working tree is not clean."; print -r -- $dirty | head; exit 1; }
 for key in VITE_SENTRY_DSN SENTRY_DSN VITE_POSTHOG_KEY POSTHOG_KEY; do
   [[ -z ${(P)key:-} ]] || { print "Refusing: $key is set; release builds carry no telemetry keys."; exit 1; }
 done
@@ -32,7 +34,7 @@ dmg=$(print -r -- $bundle/dmg/Memoria_${version}_*.dmg(N[1]))
 [[ -d $app && -f $dmg ]] || { print "Build output missing: $app / $dmg"; exit 1; }
 
 resources=$app/Contents/Resources
-for required in memory/engine.py memory/live_assistance.py memory/memoria_engine; do
+for required in memory/engine.py memory/live_assistance.py memory/ask_facts.py memory/private_storage.py memory/memoria_engine/ledger.py memory/memoria_engine/schema.sql memory/memoria_engine/evaluation/router.py; do
   [[ -e $resources/$required ]] || { print "Bundle check failed: $required missing"; exit 1; }
 done
 [[ -z "$(find $resources -name __pycache__ -print -quit)" ]] || { print "Bundle check failed: __pycache__ in the bundle"; exit 1; }
@@ -60,7 +62,7 @@ cat > docs/RELEASE_RECORD.md <<EOF
 | pnpm | $(pnpm --version) |
 | tauri-cli | $(pnpm -s tauri --version 2>/dev/null | tail -1) |
 | Telemetry keys | none in the environment or .env files; \`dist/\` scan clean |
-| Bundle check | memory/engine.py, memory/live_assistance.py, memory/memoria_engine present; no __pycache__ |
+| Bundle check | memory/*.py, memoria_engine (with schema.sql and evaluation/router.py) present; no __pycache__ |
 
 App binary SHA-256 (\`Memoria.app/Contents/MacOS\`):
 
