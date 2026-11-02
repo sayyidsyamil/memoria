@@ -20,6 +20,7 @@ mod temporal;
 mod meeting_hud;
 mod recording_recovery;
 mod live_speech;
+mod call_audio;
 pub(crate) mod model_manager;
 mod model_runtime;
 
@@ -45,6 +46,7 @@ pub use temporal::*;
 pub use meeting_hud::*;
 pub use recording_recovery::*;
 pub use live_speech::*;
+pub use call_audio::*;
 pub use model_manager::*;
 
 /// Expand a leading `~` or `~/` in a path string to the user's home directory.
