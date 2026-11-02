@@ -40,6 +40,7 @@ it('groups approved claims by page, filters by type and flags changed sources', 
   fireEvent.click(within(screen.getByRole('group',{name:'Knowledge type'})).getByRole('button',{name:/^Commitment/}))
   expect(screen.queryByText('Thursday launch')).not.toBeInTheDocument()
   expect(screen.getByText('Source changed — needs review')).toBeInTheDocument()
+  expect(screen.getByText('Source · Meeting A · page 1')).toBeInTheDocument()
   expect(screen.getByText(/3 approved claims across 2 pages · 1 needs review/)).toBeInTheDocument()
 })
 it('lists durable meetings and reopens saved transcript edits', async () => {
@@ -166,6 +167,8 @@ it('opens the meeting at the moment an approved claim was said', async () => {
     return []
   })
   renderOpen('approved')
+  // A quote with a recording time needs no page number: a transcript has none.
+  expect(await screen.findByText('Source · Meeting A')).toBeInTheDocument()
   fireEvent.click(await screen.findByRole('button', { name: 'Open Pilot review at 0:20' }))
   expect(await screen.findByRole('textbox', { name: 'Transcript turn 1' })).toHaveValue('Saved edit')
   expect(screen.getByLabelText('Elapsed time')).toHaveTextContent('0:20')

@@ -264,7 +264,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
                       {item.status === 'needs-review' && <Chip tone="orange" dot title="The source file changed after approval. Re-review before relying on this claim.">Source changed — needs review</Chip>}
                       {item.approvedAt && <span>Approved {whenLabel(item.approvedAt)}</span>}
                     </div>
-                    <details><summary>Source · {item.sourceTitle} · page {item.page}</summary>
+                    <details><summary>Source · {item.sourceTitle}{item.moment?.at != null ? '' : ` · page ${item.page}`}</summary>
                       <blockquote>{item.quote}</blockquote>
                       <Button size="sm" variant="ghost" onClick={() => openPage(item.sourcePath, item.sourceTitle)}><ArrowSquareOut size={13} />Open source</Button>
                     </details>
