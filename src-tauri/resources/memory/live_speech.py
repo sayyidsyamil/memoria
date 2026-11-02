@@ -92,11 +92,11 @@ def assign_voice(voices, vector):
     return speaker
 
 def decode_window(model, window):
-    from transcribe import validate_segments
+    from transcribe import complete_segments, validate_segments
     output = model.generate(window, max_tokens=384, temperature=0.0)
     if output.generation_tokens >= 384:
         raise ValueError('Window exceeded output limit')
-    return validate_segments(output.segments, len(window) / RATE)
+    return validate_segments(complete_segments(output), len(window) / RATE)
 
 class WindowTranscript:
     def __init__(self, model):

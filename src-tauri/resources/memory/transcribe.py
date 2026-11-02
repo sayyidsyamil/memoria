@@ -15,6 +15,39 @@ REVISION = '704aa4a9c304e8520be88901e0d1960158ef5b15'
 def progress(stage):
     print(json.dumps({'progress': stage}), flush=True)
 
+STAMP = re.compile(r'\[(S\d+|\d+(?:\.\d+)?)\]')
+
+def text_segments(text):
+    """MOSS timestamped text ("[0.00]words[3.96][9.86][S01] words[12.42]") as segments,
+    including passages that carry no speaker tag."""
+    parts = STAMP.split(text or '')
+    result, start, speaker, content = [], None, None, ''
+    for index, part in enumerate(parts):
+        if index % 2 == 0:
+            if start is not None: content += part
+        elif part.startswith('S'):
+            if start is not None: speaker = part
+        elif start is None:
+            start, speaker, content = float(part), None, ''
+        elif content.strip():
+            result.append({'start': start, 'end': float(part), 'speaker_id': speaker or 'unassigned', 'text': content.strip()})
+            start = None
+        else:
+            start = float(part)  # consecutive timestamps: the later one opens the passage
+    return result
+
+def complete_segments(output):
+    """The model's parsed segments, plus timestamped passages its parser dropped for lacking a
+    speaker tag (observed: the opening sentence of a recording)."""
+    segments = list(getattr(output, 'segments', None) or [])
+    key = lambda text: re.sub(r'\W+', ' ', re.sub(r'\[(?:S\d+|\d+(?:\.\d+)?)\]', ' ', str(text))).strip().lower()
+    known = [key(segment.get('text', '')) for segment in segments]
+    for passage in text_segments(getattr(output, 'text', '')):
+        candidate = key(passage['text'])
+        if candidate and not any(candidate in existing or existing in candidate for existing in known if existing):
+            segments.append(passage); known.append(candidate)
+    return sorted(segments, key=lambda segment: float(segment['start']))
+
 def validate_segments(segments, duration):
     result = []
     for segment in segments or []:
@@ -76,7 +109,7 @@ def run(request, model=None):
         output = model.generate(str(wav), max_tokens=16384, temperature=0.0)
         if output.generation_tokens >= 16384:
             raise ValueError('Transcript reached the output limit. Original audio remains saved; no partial transcript was accepted.')
-        segments = validate_segments(output.segments, duration)
+        segments = validate_segments(complete_segments(output), duration)
         result = {'model': MODEL, 'revision': REVISION, 'duration': duration,
                   'processingSeconds': time.perf_counter() - start, 'segments': segments,
                   'text': output.text, 'audioSha256': hashlib.sha256(audio.read_bytes()).hexdigest(),
