@@ -5,6 +5,7 @@ offsets. Temporal proposals always require human approval. No UI or model loads 
 """
 import json
 import math
+import re
 from datetime import datetime
 from memoria_engine.service import Service, METHODS
 from temporal_support import temporal_home, valid_current
@@ -58,6 +59,46 @@ def validate_params(method, params):
                     raise ValueError('Enum attributes require allowed values.')
 
 
+NUMBER = re.compile(r'(?<![\d.,])(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)\s*(million|thousand|k|m)?\b', re.I)
+SCALE = {'million': 1_000_000, 'm': 1_000_000, 'thousand': 1_000, 'k': 1_000}
+
+
+def quoted_numbers(quote):
+    """The amounts a quote states: '250,000 ringgit' -> 250000, 'RM2.5 million' -> 2500000."""
+    found = set()
+    for digits, scale in NUMBER.findall(quote or ''):
+        value = float(digits.replace(',', '')) * SCALE.get(scale.casefold(), 1)
+        found.add(int(value) if value.is_integer() else value)
+    return found
+
+
+def repaired(candidate, registry):
+    """Two deterministic repairs of a small model's draft, both grounded in the registry or the quote:
+    a generic attribute name ("value") on an item with exactly one attribute is that attribute, and
+    a number that the quote does not state is replaced by the quote's only number (a 4B model wrote
+    "250,000 ringgit" as 2500000). An amount whose quote states no number at all is dropped (None):
+    nothing grounds it. Anything else ambiguous is left for validation to judge."""
+    from dataclasses import replace
+    spec = registry.objects.get(candidate.object_id) if candidate.object_id else None
+    if spec is None:
+        return candidate
+    names = [attribute.name for attribute in spec.attributes]
+    if candidate.attribute not in names and len(names) == 1:
+        candidate = replace(candidate, attribute=names[0])
+    attribute = next((a for a in spec.attributes if a.name == candidate.attribute), None)
+    if attribute is not None and attribute.type == 'number':
+        stated = quoted_numbers(candidate.quote)
+        try:
+            value = float(re.sub(r'[^\d.\-]', '', str(candidate.value)))
+        except ValueError:
+            value = None
+        if not stated:
+            return None
+        if len(stated) == 1 and value not in stated:
+            candidate = replace(candidate, value=next(iter(stated)))
+    return candidate
+
+
 class SharedExtractor:
     name = 'workspace-qwen'
     last_stats = {}
@@ -68,7 +109,7 @@ class SharedExtractor:
         raw = local_generator()(build_prompt(context))
         candidates, clean = parse_events(raw)
         self.last_stats = {'parsed_cleanly': clean, 'raw': raw}
-        return candidates
+        return [fixed for candidate in candidates if (fixed := repaired(candidate, context.registry)) is not None]
 
 
 def temporal_api(engine, request, extractor=None):

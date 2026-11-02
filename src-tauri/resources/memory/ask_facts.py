@@ -233,7 +233,9 @@ def tracked_answer(engine, question, today=None):
                               'citations': cite(found['evidence'])})
         else:  # n_changes and history: the recorded values in order, each with its own evidence
             changes = service.query('n_changes', *slot)['answer']
-            values = ' → '.join(shown(fact['value']) for fact in history)
+            # A confirmation repeats the value; the summary lists each value once per run.
+            values = ' → '.join(shown(fact['value']) for index, fact in enumerate(history)
+                                if index == 0 or fact['value'] != history[index - 1]['value'])
             steps = []
             for fact in history:
                 ids = cite(fact.get('evidence') or [])

@@ -167,3 +167,30 @@ class TemporalIntegrationTests(unittest.TestCase):
         self.assertIn('no aligned audio start', result['error']['message'])
         self.assertEqual(self.call('meetings.list'), [])
         self.assertIn('text timing unresolved', (self.root/f'meetings/meeting-{identifier}.md').read_text())
+
+
+class DraftRepairTests(unittest.TestCase):
+    """Deterministic repairs of a small model's extraction draft (UAT demo dry run, 2 November)."""
+    def setUp(self):
+        from memoria_engine.service import registry_from_json
+        self.registry = registry_from_json({'objects': [
+            {'object_id': 'budget', 'label': 'Pilot budget (RM)', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]},
+            {'object_id': 'golive', 'label': 'Go-live date', 'kind': 'decision', 'attributes': [{'name': 'date', 'type': 'date'}]},
+            {'object_id': 'training', 'label': 'Staff training', 'kind': 'commitment', 'attributes': [{'name': 'owner', 'type': 'text'}, {'name': 'deadline', 'type': 'date'}]}]})
+
+    def test_quoted_amounts(self):
+        from temporal_service import quoted_numbers
+        self.assertEqual(quoted_numbers('Okay, the pilot budget is 250,000 ringgit.'), {250000})
+        self.assertEqual(quoted_numbers('RM2.5 million, not 3m'), {2500000, 3000000})
+        self.assertEqual(quoted_numbers('no change to the budget'), set())
+
+    def test_repairs_are_grounded_and_leave_ambiguity_alone(self):
+        from temporal_service import repaired
+        from memoria_engine.pipeline import Candidate
+        fix = lambda *args: repaired(Candidate(*args), self.registry)
+        self.assertEqual(fix('budget', 'amount', 2500000, 'Okay, the pilot budget is 250,000 ringgit.').value, 250000)
+        self.assertEqual(fix('golive', 'value', '2026-11-09', 'The go-live date is now 9 November 2026.').attribute, 'date')
+        self.assertIsNone(fix('budget', 'value', '2800000', 'Good, so no change to the budget.'))
+        self.assertEqual(fix('budget', 'amount', 300000, 'Not 300,000 but 280,000.').value, 300000)  # two amounts: validation decides
+        self.assertEqual(fix('training', 'value', 'Raj', 'Raj will do it.').attribute, 'value')  # two attributes: not guessed
+        self.assertEqual(fix('unknown', 'value', 1, 'x').object_id, 'unknown')
