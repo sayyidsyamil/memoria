@@ -2,11 +2,11 @@ import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
 import numpy as np
-from live_speech import WindowTranscript, has_speech, RATE, trim_context_repeat, trim_overlapping_context, assign_voice
+from live_speech import WindowTranscript, has_speech, RATE, trim_context_repeat, trim_overlapping_context, assign_voice, voiced_span
 
 class LiveSpeechTests(unittest.TestCase):
     def test_trimmed_context_preserves_raw_interval_and_marks_alignment_unresolved(self):
-        with patch('live_speech.has_speech', return_value=True), patch('live_speech.emit') as emit, patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=[{'start': 0, 'end': 6, 'speaker': 'S01', 'text': 'my role is the interface'}]):
+        with patch('live_speech.has_speech', return_value=True), patch('live_speech.voiced_span', return_value=None), patch('live_speech.emit') as emit, patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=[{'start': 0, 'end': 6, 'speaker': 'S01', 'text': 'my role is the interface'}]):
             session = WindowTranscript(None)
             session.turns = [{'start': 0, 'end': 2, 'speaker': 'unassigned', 'text': 'my role is'}]
             session.feed(np.ones(RATE * 6, dtype='float32'))
@@ -77,5 +77,45 @@ class LiveSpeechTests(unittest.TestCase):
             self.assertEqual(session.committed,RATE*7)
             self.assertEqual(len(session.turns),1)
             self.assertLessEqual(len(session.buffer),RATE*2)
+
+    def test_whole_window_segment_is_narrowed_to_its_voiced_audio(self):
+        window_segment = [{'start': 0, 'end': 6, 'speaker': 'S01', 'text': 'This is a fictional project meeting.'}]
+        with patch('live_speech.has_speech', return_value=True), patch('live_speech.voiced_span', return_value=(.5, 3.9)), patch('live_speech.emit'), patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=window_segment):
+            session = WindowTranscript(None)
+            session.feed(np.ones(RATE * 6, dtype='float32'))
+            turn = session.turns[-1]
+            self.assertEqual((turn['start'], turn['end']), (.5, 3.9))
+            self.assertEqual((turn['modelStart'], turn['modelEnd']), (0, 6))
+            self.assertEqual(turn['timingSource'], 'voice-activity')
+            self.assertNotIn('timingStatus', turn)
+
+    def test_whole_window_repeat_of_left_context_is_not_owned_again(self):
+        # Observed natively: the window 18-26 s (core 20-24 s) returned one 0-8 s segment repeating
+        # the 18.3-20.7 s sentence with different number formatting. Its speech lies before the core.
+        repeat = [{'start': 0, 'end': 8, 'speaker': 'S01', 'text': 'the pilot budget is one hundred dollars'}]
+        with patch('live_speech.has_speech', return_value=True), patch('live_speech.voiced_span', return_value=(.33, 2.77)), patch('live_speech.emit') as emit, patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=repeat):
+            session = WindowTranscript(None)
+            session.buffer = np.ones(RATE * 8, dtype='float32'); session.offset = RATE * 18
+            session.committed = RATE * 20; session.total = RATE * 26
+            session.turns = [{'start': 18.33, 'end': 20.77, 'speaker': 'unassigned', 'text': 'The pilot budget is $100.'}]
+            session.feed(np.zeros(0, dtype='float32'))
+            self.assertEqual([turn['text'] for turn in session.turns], ['The pilot budget is $100.'])
+            self.assertEqual(session.committed, RATE * 24)
+            emit.assert_not_called()
+
+    def test_speech_inside_the_core_keeps_a_whole_window_segment(self):
+        later = [{'start': 0, 'end': 8, 'speaker': 'S01', 'text': 'Maya owns the pilot'}]
+        with patch('live_speech.has_speech', return_value=True), patch('live_speech.voiced_span', return_value=(4.7, 6.1)), patch('live_speech.emit'), patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=later):
+            session = WindowTranscript(None)
+            session.buffer = np.ones(RATE * 8, dtype='float32'); session.offset = RATE * 22
+            session.committed = RATE * 24; session.total = RATE * 30
+            session.feed(np.zeros(0, dtype='float32'))
+            turn = session.turns[-1]
+            self.assertAlmostEqual(turn['start'], 26.7); self.assertAlmostEqual(turn['end'], 28.1)
+            self.assertEqual((turn['modelStart'], turn['modelEnd']), (22, 30))
+
+    def test_voiced_span_is_none_for_silence(self):
+        self.assertIsNone(voiced_span(np.zeros(RATE * 2, dtype='float32')))
+        self.assertIsNone(voiced_span(np.zeros(0, dtype='float32')))
 
 if __name__=='__main__':unittest.main()

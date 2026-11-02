@@ -26,6 +26,32 @@ def has_speech(samples):
     return sum(vad.is_speech(pcm[offset:offset+960], RATE)
                for offset in range(0, len(pcm)-959, 960)) >= 3
 
+def voiced_span(samples):
+    """Seconds from the first to the last voiced 30 ms frame; None without speech."""
+    import numpy as np
+    import webrtcvad
+    if not len(samples) or np.sqrt(np.mean(samples ** 2)) < .0005:
+        return None
+    pcm = (np.clip(samples, -1, 1) * 32767).astype('<i2').tobytes()
+    vad = webrtcvad.Vad(2)
+    voiced = [offset for offset in range(0, len(pcm)-959, 960) if vad.is_speech(pcm[offset:offset+960], RATE)]
+    if len(voiced) < 3:
+        return None
+    return voiced[0] / 2 / RATE, (voiced[-1] + 960) / 2 / RATE
+
+def narrow_window_segments(segments, audio):
+    """MOSS sometimes times a passage as the whole decoded window. Narrow such a span to the
+    window's voiced audio, so ownership and replay follow the speech, and keep the model span."""
+    duration = len(audio) / RATE
+    for segment in segments:
+        if segment['start'] <= .05 and segment['end'] >= duration - .05:
+            span = voiced_span(audio)
+            if span and span[1] - span[0] < duration - .1:
+                segment['modelStart'], segment['modelEnd'] = segment['start'], segment['end']
+                segment['start'], segment['end'] = round(span[0], 2), round(span[1], 2)
+                segment['timingSource'] = 'voice-activity'
+    return segments
+
 def trim_context_repeat(previous, incoming):
     """Remove identical suffix/prefix context words, never fuzzy paraphrases."""
     old = previous.split()
@@ -119,6 +145,7 @@ class WindowTranscript:
                     continue
                 decode_start = self.committed if recovery else window_start
                 decode_audio = core if recovery else window
+                narrow_window_segments(segments, decode_audio)
                 owned = [segment for segment in segments if
                          self.committed / RATE <= decode_start / RATE + (segment['start'] + segment['end']) / 2 < end / RATE]
                 # Voice matching reconciles window-local MOSS IDs. Short/overlap
@@ -131,6 +158,9 @@ class WindowTranscript:
                 for segment in owned:
                     segment['start'] += decode_start / RATE
                     segment['end'] += decode_start / RATE
+                    if 'modelStart' in segment:
+                        segment['modelStart'] += decode_start / RATE
+                        segment['modelEnd'] += decode_start / RATE
                     segment['speaker'] = names.get(segment['speaker'], 'unassigned')
                     if self.turns and segment['start'] < self.turns[-1]['end'] and (segment['speaker'] == self.turns[-1]['speaker'] or 'unassigned' in (segment['speaker'], self.turns[-1]['speaker'])):
                         original_text = segment['text']
