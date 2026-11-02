@@ -158,25 +158,34 @@ class SpeakerTrack:
         return f'S{best + 1:02d}'
 
 
-def turns_of(words, label, merge_gap=None):
-    """Turns from attributed words: a new turn at each speaker change and, live, at each sentence end.
+def sentences_of(words):
+    """Words grouped into sentences; the last word of every decoded stretch ends one, so none crosses a stretch."""
+    sentences, current = [], []
+    for word in words:
+        current.append(word)
+        if word[3]:
+            sentences.append(current)
+            current = []
+    return sentences + ([current] if current else [])
 
+
+def turns_of(words, label, merge_gap=None):
+    """Turns from attributed words, one speaker per sentence: the one most active over the whole sentence.
+
+    Labelled word by word, the diarizer's flicker between similar voices split single sentences into fragments with
+    alternating speakers (61 of 336 spoken benchmark statements), and the live check then saw only fragments.
     merge_gap=None keeps one sentence per turn (live captions, so each statement is checked on its own);
     a number joins a speaker's consecutive sentences unless they are that many seconds apart (review)."""
     turns = []
-    for start, end, text, ends in words:
-        speaker = label(start, end)
+    for sentence in sentences_of(words):
+        start, end = sentence[0][0], sentence[-1][1]
+        speaker, text = label(start, end), ' '.join(word[2] for word in sentence)
         last = turns[-1] if turns else None
-        joins = last is not None and last['speaker'] == speaker and (
-            not last['closed'] or (merge_gap is not None and start - last['end'] <= merge_gap))
-        if joins:
+        if last is not None and merge_gap is not None and last['speaker'] == speaker and start - last['end'] <= merge_gap:
             last['text'] += ' ' + text
             last['end'] = round(end, 2)
         else:
-            turns.append({'start': round(start, 2), 'end': round(end, 2), 'speaker': speaker, 'text': text, 'closed': False})
-        turns[-1]['closed'] = ends
-    for turn in turns:
-        del turn['closed']
+            turns.append({'start': round(start, 2), 'end': round(end, 2), 'speaker': speaker, 'text': text})
     return turns
 
 

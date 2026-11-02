@@ -100,6 +100,15 @@ class StreamingSpeechTest(unittest.TestCase):
         merged = S.turns_of(words, label, merge_gap=1.5)
         self.assertEqual([(t['speaker'], t['text']) for t in merged], [('S01', 'Yes. We agree.'), ('S02', 'No.')])
 
+    def test_a_sentence_keeps_one_speaker_when_the_diarizer_flickers(self):
+        words = [[0, .4, 'Right,', False], [.4, .8, 'we', False], [.8, 1.6, 'should', False], [1.6, 2.0, 'add', False],
+                 [2.0, 2.3, 'a', False], [2.3, 2.9, 'button.', True]]
+        flicker = lambda start, end: 'S02' if end - start < 1 and int(start * 10) % 4 == 0 else 'S03'
+        self.assertEqual({flicker(w[0], w[1]) for w in words}, {'S02', 'S03'})   # word by word it alternates
+        whole = lambda start, end: 'S03' if end - start > 2 else flicker(start, end)
+        turns = S.turns_of(words, whole)
+        self.assertEqual([(t['speaker'], t['text']) for t in turns], [('S03', 'Right, we should add a button.')])
+
     def test_speaker_is_the_most_active_over_the_word_or_nearby(self):
         track = S.SpeakerTrack.__new__(S.SpeakerTrack)
         track.probs = np.zeros((300, 4), dtype='float32')
