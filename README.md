@@ -35,8 +35,9 @@ Measured on real meetings (AMI corpus: 20 test meetings in series, 96 questions)
 - With perfect proposals the ledger answers **96/96**. Its errors come from the model's proposals, which is the step a person reviews. With review: **89%**.
 - Not a small-model artefact: with a strong hosted model (DeepSeek V4.1 Flash, public AMI data only) the ledger scores **82/96**, level with that model reading every transcript (81), at 818 instead of 31,337 input tokens per question ([strong-model](research/strong-model/README.md)). Asking the small model "is this really decided?" did not help more than dropping proposals at random ([firmness gate](research/firmness-gate/README.md)): the bottleneck is the extractor, not the ledger.
 - The app's Ask answers like the evaluated pipeline: 96/96 on gold facts, 58 of October's 59 on extracted facts ([app parity](research/app-parity/README.md)).
-- Live contradiction check on [MemoriaBench](research/memoriabench/): catches **81.3%** of conflicts with **1.3%** false alarms. On an hour of unrelated real speech (852 turns) it raised **no** alert.
-- Speech: a 60-minute AMI recording transcribed in 11.6 minutes, WER 13.2% (fillers removed), four speakers kept apart.
+- Live contradiction check on [MemoriaBench](research/memoriabench/): catches **87.5%** of conflicts (98/112) with **0.9%** false alarms, in **0.26 s** (median). Spoken by six synthetic accents and recognised first: 97/112, same false alarms. On an hour of unrelated real speech it raised **no** alert ([live verifier](research/live-verifier/README.md)).
+- In the app (test meeting fed in real time through its own workers), captions committed each sentence 0.5–2 s after it ended and the budget clash was flagged 0.4 s after it was said.
+- Speech: Parakeet Ultra with Nemotron 3 Diarization transcribes a 60-minute AMI recording in 113 s, WER 14.4% (fillers removed), 96.8% of words on the right speaker ([live speech](research/live-speech/README.md)).
 
 Evidence and scripts: [research/](research/), [docs/research/](docs/research/), [model choice](research/model-bakeoff/README.md).
 
