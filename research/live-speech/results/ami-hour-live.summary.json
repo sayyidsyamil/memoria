@@ -2,23 +2,23 @@
  "mode": "live",
  "model": "Parakeet Ultra 0.6B + Nemotron 3 Diarization",
  "audioSeconds": 3600.0,
- "loadSeconds": 4.4,
- "processingSeconds": 762.9,
+ "loadSeconds": 8.5,
+ "processingSeconds": 764.4,
  "commitLagSeconds": {
-  "p50": 1.338,
-  "p90": 3.869,
-  "p99": 7.528,
-  "max": 9.89,
-  "n": 1118
+  "p50": 1.164,
+  "p90": 2.183,
+  "p99": 4.692,
+  "max": 6.49,
+  "n": 898
  },
  "decodeSeconds": {
-  "p50": 0.092,
+  "p50": 0.091,
   "p95": 0.177,
-  "max": 0.608,
-  "n": 7999
+  "max": 0.343,
+  "n": 8137
  },
  "peakMlxGB": 2.28,
- "maxRssGB": 1.97,
+ "maxRssGB": 2.19,
  "score": {
   "werFillersRemoved": {
    "refTokens": 9808,
@@ -37,14 +37,14 @@
    "insertions": 96
   },
   "speakers": {
-   "S01": 4,
-   "S02": 364,
-   "S05": 270,
-   "S03": 345,
-   "S04": 134,
+   "S01": 2,
+   "S02": 292,
+   "S05": 216,
+   "S03": 279,
+   "S04": 108,
    "unassigned": 2
   },
-  "labelledWordsOnTopPerson": 0.6646,
+  "labelledWordsOnTopPerson": 0.6728,
   "unassignedWords": 2,
   "perSpeaker": {
    "S01": {
@@ -52,63 +52,59 @@
     "top": [
      [
       "ES2004b.B",
-      6
-     ],
-     [
-      "ES2004b.A",
-      1
+      7
      ]
     ]
    },
    "S02": {
-    "words": 2327,
+    "words": 2352,
     "top": [
      [
       "ES2004b.B",
-      1632
+      1664
      ],
      [
       "ES2004c.B",
-      604
+      596
      ]
     ]
    },
    "S03": {
-    "words": 2963,
+    "words": 2939,
     "top": [
      [
       "ES2004c.C",
-      1536
+      1543
      ],
      [
       "ES2004b.C",
-      1337
+      1334
      ]
     ]
    },
    "S04": {
-    "words": 1125,
+    "words": 1123,
     "top": [
      [
       "ES2004b.A",
-      908
+      921
      ],
      [
       "ES2004c.A",
-      174
+      175
      ]
     ]
    },
    "S05": {
-    "words": 2432,
+    "words": 2433,
     "top": [
      [
       "ES2004b.D",
-      1802
+      1822
      ],
      [
       "ES2004c.D",
-      580
+      594
      ]
     ]
    },
