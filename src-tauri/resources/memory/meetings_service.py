@@ -165,7 +165,8 @@ class MeetingService:
             clean.append({'id': str(mark.get('id') or uuid.uuid4()), 'at': float(moment), 'label': label})
         record['marks'] = sorted(clean, key=lambda item: item['at'])
         record['status'] = 'transcript-reviewed' if record.get('transcriptPath') else 'needs-review'
-        if len(json.dumps(record)) > 1000000: raise MeetingError('INVALID_REQUEST', 'Meeting record exceeds size limit')
+        # A three-hour meeting keeps its turns and draft (about 2-3 MB); the cap only bounds the request.
+        if len(json.dumps(record)) > 8_000_000: raise MeetingError('INVALID_REQUEST', 'Meeting record exceeds size limit')
         path = f"meetings/meeting-{record['id']}.md"
         target = safe_path(root, path)
         before = target.read_text() if target.exists() else None

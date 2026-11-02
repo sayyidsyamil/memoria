@@ -116,6 +116,17 @@ class MeetingApiTests(unittest.TestCase):
         self.assertEqual([item['title'] for item in self.call('list')['data']], ['Fresh'])
         self.assertEqual(self.intents(), [])
 
+    def test_a_three_hour_meeting_record_is_saved_whole(self):
+        identifier = str(uuid.uuid4())
+        turns = [{'start': index * 3.6, 'end': index * 3.6 + 3.4, 'speaker': f'S0{1 + index % 4}',
+                  'text': f'Turn {index}: we compared the remote case options again and agreed who sends the revised costs to the team.'} for index in range(3000)]
+        draft = {'segments': turns, 'duration': 10800, 'warnings': [], 'text': ' '.join(turn['text'] for turn in turns)}
+        self.assertGreater(len(json.dumps({'turns': turns, 'draft': draft})), 1_000_000)  # the former cap
+        saved = self.call('save', identifier, title='Long review', turns=turns, draft=draft)
+        self.assertTrue(saved['ok'], saved)
+        self.assertEqual(len(self.call('get', identifier)['data']['turns']), 3000)
+        self.assertIn('Turn 2999:', self.page(identifier).read_text())
+
     def test_search_and_ask_record_reads_settle_an_interrupted_save(self):
         from engine import meeting_records
         identifier = str(uuid.uuid4())
