@@ -38,11 +38,16 @@ def text_segments(text):
 
 def complete_segments(output):
     """The model's parsed segments, plus timestamped passages its parser dropped for lacking a
-    speaker tag (observed: the opening sentence of a recording)."""
+    speaker tag (observed: the opening sentence of a recording). When the passages hold exactly
+    the parsed words, they are used instead: same words, the model's own passage timing (observed:
+    an untagged output parsed as one 15 s segment that glued two sentences together)."""
     segments = list(getattr(output, 'segments', None) or [])
     key = lambda text: re.sub(r'\W+', ' ', re.sub(r'\[(?:S\d+|\d+(?:\.\d+)?)\]', ' ', str(text))).strip().lower()
+    passages = text_segments(getattr(output, 'text', ''))
+    if passages and key(' '.join(passage['text'] for passage in passages)) == key(' '.join(str(segment.get('text', '')) for segment in segments)):
+        return passages
     known = [key(segment.get('text', '')) for segment in segments]
-    for passage in text_segments(getattr(output, 'text', '')):
+    for passage in passages:
         candidate = key(passage['text'])
         if candidate and not any(candidate in existing or existing in candidate for existing in known if existing):
             segments.append(passage); known.append(candidate)

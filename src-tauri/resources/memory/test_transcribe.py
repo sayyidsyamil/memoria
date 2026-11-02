@@ -16,6 +16,13 @@ class TranscriptTests(unittest.TestCase):
         tagged = [{'start': 0.0, 'end': 3.96, 'speaker_id': 'S01', 'text': '[S01] This is a fictional project meeting for a recording test.'},
                   {'start': 9.86, 'end': 12.42, 'speaker_id': 'S01', 'text': 'We decided to use Acme as supplier.'}]
         self.assertEqual(len(complete_segments(SimpleNamespace(text=OBSERVED, segments=tagged))), 2)
+    def test_one_glued_segment_is_split_into_the_models_timed_passages(self):
+        # Observed natively: untagged output parsed as one 0-14.97 s segment reading "...test.We decided...".
+        text = '[0.00]This is a fictional project meeting for a recording test.[3.96][9.86]We decided to use Acme as supplier.[12.40]'
+        glued = [{'start': 0.0, 'end': 14.97, 'text': 'This is a fictional project meeting for a recording test.We decided to use Acme as supplier.'}]
+        result = validate_segments(complete_segments(SimpleNamespace(text=text, segments=glued)), 14.97)
+        self.assertEqual([(turn['start'], turn['end'], turn['text']) for turn in result],
+                         [(0.0, 3.96, 'This is a fictional project meeting for a recording test.'), (9.86, 12.4, 'We decided to use Acme as supplier.')])
     def test_timestamped_text_parsing(self):
         self.assertEqual(text_segments('[0.00][S01][0.72]'), [])
         self.assertEqual(text_segments('[0.00][1.20][S02] late start [2.50]'), [{'start': 1.2, 'end': 2.5, 'speaker_id': 'S02', 'text': 'late start'}])
