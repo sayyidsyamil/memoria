@@ -1,5 +1,17 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Suites before the `v0.3.0-uat` build — 3 November 2026
+
+The frontend and Rust suites ran at `da77c8a` (the interface pass merged), the Python suite at `431b6d4`. The release
+build (`6222dbe`) has no frontend or Rust change after them.
+
+| Suite | Result |
+|---|---|
+| Frontend, `pnpm exec vitest run` | 6,769 passed in 708 files; the opt-in performance test skipped |
+| `pnpm exec tsc -b`; `pnpm lint` (whole repository, `--max-warnings=0`) | Clean |
+| App Python, `python3.11 -m unittest discover` in `src-tauri/resources/memory` | 214 passed |
+| Rust, `cargo test --release --features tauri/custom-protocol --lib` | 1,234 passed, 2 ignored |
+
 ## Full regression reconciliation (M3) — 2 November 2026
 
 Fresh baseline: **133 failed / 6,539 passed / 1 existing skip**, with 26 failed
