@@ -27,6 +27,8 @@ speech it raised no alert.
   (575 turns of a design meeting that has nothing to do with the procurement pilot, recognised by the app's own
   Parakeet Ultra pipeline, `../long-meeting/results/unrelated-speech-guard-*.jsonl`):
   - Without the lift, 284 turns reached the model; with it, 49. Neither raised an alert.
+  - Sentence by sentence, as the meeting window checks it (the hour's 899 live-caption turns,
+    `unrelated-speech-live-captions.jsonl`): 74 reached the model, no alert.
   - The lift was chosen on remarks such as "Thanks." and "Thank you all." (no candidate after it) and left the dev
     split unchanged. On test it costs 2 of the 100 catches; 4 alerts differ in all.
   - In a live meeting every question competes with the captions for the GPU, which is why it ships.
