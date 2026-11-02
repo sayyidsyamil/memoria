@@ -14,7 +14,7 @@ import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } fr
 import type { WorkspaceSummary } from '../hooks/useWorkspaceSummary'
 import './workspaceMemoryHub.css'
 import { meetingService } from '../features/meetings/meetingService'
-import type { MeetingRecord } from '../features/meetings/meetingTypes'
+import type { MeetingRecord, TranscriptTurn } from '../features/meetings/meetingTypes'
 import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
 import { RecordingRecovery } from '../features/meetings/RecordingRecovery'
 
@@ -48,6 +48,10 @@ function progress(meeting: Meeting): { label: string; state: RailState }[] {
     { label: 'Transcript reviewed', state: reviewed ? 'done' : 'current' },
     { label: 'Outcomes approved', state: approved ? 'done' : reviewed ? 'current' : 'todo' },
   ]
+}
+/** The saved review as a draft, for a meeting that has no draft file (seeded or imported): its turns are the transcript. */
+function draftFromTurns(turns: TranscriptTurn[]): TranscriptDraft {
+  return { segments: turns, duration: Math.max(0, ...turns.map(turn => turn.end)), warnings: [], text: turns.map(turn => turn.text).join('\n') }
 }
 function nextAction(meeting: Meeting): { label: string; tab: MeetingTab } {
   if (!meeting.transcriptPath) return { label: 'Review transcript', tab: 'transcript' }
@@ -111,6 +115,8 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
       const current = await meetingService.get(vaultPath, id)
       if (!current.audioPath) throw new Error('This meeting has no recording to open. Use its document instead.')
       if (!current.draft) current.draft = await invoke<TranscriptDraft | undefined>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId: id } })
+      // Without a draft the review would open empty, and Save & close would then save no turns over the reviewed ones.
+      if (!current.draft && current.turns?.length) current.draft = draftFromTurns(current.turns)
       // Saved reviewed turns take precedence; an unreviewed (e.g. recovered) meeting keeps its draft's own segments.
       if (current.draft && current.turns?.length) current.draft.segments = current.turns
       if (current.draft) current.draft.speakerMatches = Object.fromEntries(Object.entries(current.names ?? {}).map(([speaker, name]) => [speaker, { id: current.profileIds?.[speaker] ?? '', name }]))

@@ -11,6 +11,7 @@ vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
     return (result as { created?: string }[]).sort((a, b) => (b.created ?? '').localeCompare(a.created ?? ''))
   },
   get: (vaultPath: string, id: string) => invoke('wiki_memory', { request: { action: 'meeting_record', vaultPath, id } }),
+  save: (vaultPath: string, record: unknown) => invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record } }),
   delete: (vaultPath: string, id: string) => invoke('wiki_memory', { request: { action: 'delete_meeting', vaultPath, id } }),
 } }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async () => () => undefined) }))
@@ -62,6 +63,30 @@ it('reopens an unreviewed recovered meeting with its created transcript', async 
   fireEvent.click(await screen.findByRole('button',{name:'Review transcript'}))
   expect(await screen.findByRole('textbox',{name:'Transcript turn 1'})).toHaveValue('We decided to use Acme as supplier.')
   expect(screen.queryByText(/No readable speech was detected/)).not.toBeInTheDocument()
+})
+it('opens a reviewed meeting that has no draft on its reviewed turns, and Save & close keeps them', async () => {
+  // Observed on the demo vault: the review opened on "Create transcript", and Save & close then saved no turns.
+  const reviewed = meeting({ id:'seeded', status:'transcript-reviewed', transcriptPath:'t.md', outcomesStatus:'not-built', draft:undefined,
+    turns:[{start:1,end:4,speaker:'S01',text:'We go with Beta Cloud.'},{start:5,end:9,speaker:'S02',text:'Agreed.'}], names:{S01:'Aisha',S02:'Raj'} })
+  const saved: unknown[] = []
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    const request = (args as { request: { action: string; record?: unknown } }).request
+    if (request.action === 'meetings') return [reviewed]
+    if (request.action === 'meeting_record') return structuredClone(reviewed)
+    if (request.action === 'meeting_draft') return null
+    if (request.action === 'save_meeting') { saved.push(request.record); return request.record }
+    return []
+  })
+  renderOpen('meetings')
+  fireEvent.click(await screen.findByRole('button', { name: 'Review outcomes' }))
+  fireEvent.click(await screen.findByRole('tab', { name: 'Transcript' }))
+  expect(await screen.findByRole('textbox', { name: 'Transcript turn 1' })).toHaveValue('We go with Beta Cloud.')
+  expect(screen.getByRole('combobox', { name: 'Speaker for turn 2' })).toHaveDisplayValue('Raj')
+  expect(screen.queryByRole('button', { name: 'Create transcript' })).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Save & close' }))
+  await waitFor(() => expect(saved).toHaveLength(1))
+  expect(saved[0]).toMatchObject({ id: 'seeded', transcriptPath: 't.md', names: { S01: 'Aisha', S02: 'Raj' },
+    turns: [expect.objectContaining({ text: 'We go with Beta Cloud.' }), expect.objectContaining({ text: 'Agreed.' })] })
 })
 it('offers one next action per meeting and shows real progress', async () => {
   vi.mocked(invoke).mockResolvedValueOnce([
