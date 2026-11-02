@@ -161,3 +161,12 @@ class MeetingLiveAskTests(unittest.TestCase):
         self.assertTrue(kept.startswith('['))
         self.assertTrue(text.endswith(kept))
         self.assertEqual(window(text[:1000]), text[:1000])
+
+
+class WarmTests(unittest.TestCase):
+    def test_warming_reads_the_transcript_and_answers_nothing(self):
+        from live_ask import WARM, live_ask
+        with patch.dict(os.environ, {'MEMORIA_QWEN_SOCKET': '/nowhere'}), patch('qwen_scoring.meeting_reply', return_value='') as reply:
+            result = live_ask(None, {'question': WARM, 'sessionText': '[00:01] Speaker 1: Hello.'})
+        reply.assert_called_once_with('[00:01] Speaker 1: Hello.', '')
+        self.assertEqual(result['sections'], [])

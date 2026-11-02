@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
-import { askLiveMeeting, type LiveAskResult } from './liveAskService'
+import { askLiveMeeting, warmLiveMeeting, type LiveAskResult } from './liveAskService'
 import './liveAsk.css'
 
 export interface LiveAskPanelProps { vaultPath: string; sessionText: string; enabled?: boolean }
@@ -20,6 +20,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
   const [error, setError] = useState<string | null>(null)
   const [citation, setCitation] = useState<string | null>(null)
   const working = useRef(false)
+  const warmed = useRef(0)
   const mounted = useRef(false)
   const job = useRef<string | null>(null)
   async function cancel() {
@@ -42,6 +43,13 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
     setBusy(false)
     if (id) void invoke('cancel_wiki_memory', { jobId: id }).catch(failure => setError(`Cancellation failed: ${String(failure)}`))
   }, [enabled])
+
+  // While a question is typed, the model reads the turns added since the last question, so the answer starts sooner.
+  function warm() {
+    if (!enabled || !sessionText.trim() || Date.now() - warmed.current < 15000) return
+    warmed.current = Date.now()
+    void warmLiveMeeting(vaultPath, sessionText).catch(() => undefined)
+  }
 
   async function submit() {
     const nextQuestion = draft.trim()
@@ -102,7 +110,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
       </div>
       <form className="live-ask-composer" aria-label="Ask this meeting" onSubmit={event => { event.preventDefault(); void submit() }}>
         <input aria-label="Meeting question" aria-describedby={`${id}-notice`} value={draft} maxLength={2000} disabled={busy || !enabled}
-          onChange={event => setDraft(event.target.value)} placeholder="Ask about this meeting…" />
+          onChange={event => setDraft(event.target.value)} onFocus={warm} placeholder="Ask about this meeting…" />
         <button type="submit" disabled={busy || !enabled || !draft.trim()}>{busy ? 'Asking…' : 'Ask'}</button>
         {busy && <button type="button" onClick={() => { void cancel().catch(failure => setError(`Cancellation failed: ${String(failure)}`)) }}>Cancel asking</button>}
       </form>

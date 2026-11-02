@@ -41,6 +41,7 @@ def _ground_answer(result):
 
 
 MEETING_HEADING = 'In this meeting'
+WARM = '\u0000warm'  # not a question: bring the cached transcript up to date while the user types
 MEETING_WARNING = 'From the live transcript: not reviewed and not approved. Check it against the recording.'
 WINDOW = 60000  # characters of the live transcript the model reads; the oldest part drops off in large steps
 
@@ -88,6 +89,11 @@ def live_ask(engine, request, generator=None):
         raise ValueError('A short meeting question is required.')
     if not isinstance(session, str): raise ValueError('Session context must be text.')
     import os
+    if question == WARM:
+        if session.strip() and os.environ.get('MEMORIA_QWEN_SOCKET'):
+            from qwen_scoring import meeting_reply
+            meeting_reply(window(session), '')
+        return {'sections': [], 'citations': [], 'warnings': [], 'message': ''}
     if generator is None and os.environ.get('MEMORIA_QWEN_SOCKET'):
         answered = meeting_live_ask(engine, request)
         if answered is not None:

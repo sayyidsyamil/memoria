@@ -26,3 +26,8 @@ export function meetingTranscript(turns: { start: number; speaker: string; text:
   const order = speakerOrder(turns.map(turn => turn.speaker))
   return turns.map(turn => `[${clockText(Math.floor(turn.start))}] ${speakerLabel(turn.speaker, undefined, order)}: ${turn.text}`).join('\n')
 }
+
+/** Brings the model's cached transcript up to date while a question is being typed, so the answer starts sooner. */
+export function warmLiveMeeting(vaultPath: string, sessionText: string): Promise<unknown> {
+  return invoke('live_ask', { vaultPath, question: '\u0000warm', sessionText: sessionText.slice(-120000), jobId: crypto.randomUUID() })
+}
