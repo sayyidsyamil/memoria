@@ -1,5 +1,5 @@
 import type { ReactNode, Ref, UIEvent } from 'react'
-import { ArrowsOutSimple, CaretUp, Check, Flag, Microphone, Pause, Play, SpinnerGap, Stop, WarningCircle, X } from '@phosphor-icons/react'
+import { ArrowsOutSimple, CaretUp, Check, Flag, Headset, Microphone, Pause, Play, SpinnerGap, Stop, WarningCircle, X } from '@phosphor-icons/react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import type { TranscriptDraft } from './MeetingTranscriptReview'
 import { speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
@@ -18,6 +18,8 @@ export type CueToastHold = 'pointer' | 'focus'
 export interface HudViewProps {
   sourceKind?: 'microphone' | 'replay'; replayNotice?: string; progressText?: string
   vaultPath?: string
+  /** Whether audio playing on this Mac is included; without `onToggleCallAudio` the toggle is not offered. */
+  callAudio?: boolean; onToggleCallAudio?: (on: boolean) => void; callAudioStatus?: string; callAudioNotice?: string
   assistanceEnabled?: boolean; onToggleAssistance?: (enabled: boolean) => void; liveCues?: LiveCue[]; assistanceNotice?: string; cueMeetingTitles?: MeetingTitles
   cueToast?: CueToast | null; onHoldCueToast?: (by: CueToastHold, held: boolean) => void; onDismissCueToast?: () => void
   state: HudState; saveStage: string; seconds: number; levels: number[]; prep: number; captionsOpen: boolean
@@ -73,6 +75,7 @@ function CueToastCard({ toast, titles, onShow, onDismiss, onHold }: { toast: Cue
 /** Presentation only: the notch, its preparation steps and the expanded Record view. */
 export function MeetingHudView({ state, saveStage, seconds, levels, prep, captionsOpen, liveTurns, partial, caption, captionError, marks, markNotice, error, micWait,
   assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, cueMeetingTitles, cueToast, onHoldCueToast, onDismissCueToast, vaultPath, sourceKind, replayNotice, progressText,
+  callAudio, onToggleCallAudio, callAudioStatus, callAudioNotice,
   transcriptRef, onTranscriptScroll, onToggleCaptions, onOpenWorkspace, onPause, onEnd, onMark }: HudViewProps): ReactNode {
   const liveOrder = speakerOrder(liveTurns.map(turn => turn.speaker))
   const flagged = new Set(liveCues?.map(cue => cue.heardAt))
@@ -86,6 +89,9 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
   const speaking = partial?.trim()
   const statusText = state === 'starting' ? 'Preparing' : state === 'recording' ? 'Recording' : state === 'paused' ? 'Paused' : state === 'saving' ? saveStage : 'Needs attention'
   const capturing = state === 'recording' || state === 'paused'
+  const callAudioToggle = onToggleCallAudio && <button className="meeting-hud-control meeting-hud-call-audio" aria-label="Call audio" aria-pressed={!!callAudio}
+    title="Also record audio playing on this Mac, such as the other side of a call" disabled={!capturing} onClick={() => onToggleCallAudio(!callAudio)}>
+    <Headset size={17} weight={callAudio ? 'fill' : 'regular'} aria-hidden="true" /></button>
   const transcript = <div ref={transcriptRef} className="meeting-hud-transcript" aria-label="Live transcript" aria-live="polite" onScroll={onTranscriptScroll}>
     {runs.map(({ speaker, turns }) => <div className="meeting-hud-live-run" key={`${turns[0].turn.start}-${turns[0].index}`} data-tone={speakerTone(speaker, liveOrder)}>
       <Avatar label={speakerLabel(speaker, undefined, liveOrder)} tone={speakerTone(speaker, liveOrder)} size={28} />
@@ -101,6 +107,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
       <div className="meeting-hud-bar" onMouseDown={event => { if (event.button === 0 && !(event.target as HTMLElement).closest('button')) void getCurrentWindow().startDragging() }}>
         <span className="meeting-hud-bar-title"><Microphone size={15} aria-hidden="true" />Memoria</span>
         <div className="meeting-hud-controls">
+          {callAudioToggle}
           <button className="meeting-hud-control" aria-label="Open workspace" title="Open workspace" onClick={onOpenWorkspace}><ArrowsOutSimple size={17} /></button>
           <button className="meeting-hud-captions-toggle" aria-label="Toggle live captions" aria-expanded={captionsOpen} title="Collapse to the notch" onClick={() => onToggleCaptions(false)}><CaretUp size={15} /></button>
         </div>
@@ -110,6 +117,8 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         <div className="meeting-hud-bigtime" aria-label="Meeting duration">{clockText(seconds)}</div>
         <LevelMeter className="meeting-hud-wave" levels={levels} paused={state === 'paused'} />
         {sourceKind === 'replay' && <p className="meeting-hud-hint">Prerecorded audio test · no microphone capture</p>}
+        {callAudioStatus && <p role="status" className="meeting-hud-hint">{callAudioStatus}</p>}
+        {callAudioNotice && <p role="status" className="meeting-hud-caption-warning">{callAudioNotice}</p>}
         {replayNotice && <p role="status" className="meeting-hud-hint">{replayNotice}</p>}
         {progressText && <p role="status" className="meeting-hud-hint" aria-label="Caption audio progress">{progressText}</p>}
         {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Flag statements that contradict a decision</label>}
@@ -139,7 +148,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
       <button className="meeting-hud-captions-toggle" aria-label="Toggle live captions" aria-expanded={captionsOpen} title="Show transcript" onClick={() => onToggleCaptions(true)}>CC</button>
       {!!liveCues?.length && <button className="meeting-hud-cue-badge" aria-label={`${liveCues.length} earlier ${liveCues.length === 1 ? 'decision' : 'decisions'} to check`} title="Something said contradicts an earlier decision" onClick={() => onToggleCaptions(true)}><WarningCircle size={14} weight="fill" aria-hidden="true" />{liveCues.length}</button>}</>}
       <div className="meeting-hud-controls">
-        {state !== 'starting' && <><button className="meeting-hud-control" aria-label="Open workspace" title="Open workspace" onClick={onOpenWorkspace}><ArrowsOutSimple size={17} /></button>
+        {state !== 'starting' && <>{callAudioToggle}<button className="meeting-hud-control" aria-label="Open workspace" title="Open workspace" onClick={onOpenWorkspace}><ArrowsOutSimple size={17} /></button>
         <button className="meeting-hud-control" aria-label={state === 'paused' ? 'Resume' : 'Pause'} title={state === 'paused' ? 'Resume recording' : 'Pause recording'} disabled={!capturing} onClick={onPause}>{state === 'paused' ? <Play size={17} weight="fill" /> : <Pause size={17} weight="fill" />}</button></>}
         <button className="meeting-hud-control meeting-hud-end" aria-label={state === 'starting' ? 'Cancel preparation' : 'End'} title={state === 'starting' ? 'Cancel preparation' : 'End and save meeting'} disabled={state === 'saving'} onClick={onEnd}><Stop size={13} weight="fill" /></button>
       </div>

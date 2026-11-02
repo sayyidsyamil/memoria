@@ -31,7 +31,7 @@ vi.mock('../lib/meetingLiveSpeech', () => ({ startMeetingLiveSpeech: vi.fn(async
 function fakeSession() {
   return {
     recordingStream: new MediaStream(), activate: vi.fn(async () => undefined), pause: vi.fn(async () => undefined),
-    finishCapture: vi.fn(async () => undefined), stop: vi.fn(async () => undefined),
+    finishCapture: vi.fn(async () => undefined), stop: vi.fn(async () => undefined), setCallAudio: vi.fn(async () => undefined),
     audioProgress: () => ({ acceptedSamples: 0, processedSamples: 0, queuedSamples: 0, refusedSamples: 0, unacknowledgedSamples: 0, sampleRate: 16000 }),
   }
 }
@@ -56,6 +56,7 @@ class FakeRecorder {
 beforeEach(() => {
   vi.clearAllMocks()
   localStorage.removeItem(APP_STORAGE_KEYS.liveCheck)
+  localStorage.removeItem(APP_STORAGE_KEYS.callAudio)
   FakeRecorder.instances.length = 0
   window.history.replaceState({}, '', '/?meetingHud=1&vault=%2Fvault')
   vi.stubGlobal('MediaRecorder', FakeRecorder)
@@ -353,17 +354,17 @@ it('keeps the live check on by default and remembers turning it off', async () =
 it('shows a new cue under the compact notch for eight seconds, growing the window while it shows', async () => {
   try {
     await compactWithLiveCheck()
-    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+    expect(layouts().at(-1)).toEqual({ width: 392, height: 68, review: false })
     await publish([vendorCue])
     expect(toastRegion()).toHaveTextContent('Vendor is Beta Cloud')
-    expect(layouts().at(-1)).toEqual({ width: 360, height: 170, review: false })
+    expect(layouts().at(-1)).toEqual({ width: 392, height: 170, review: false })
     await wait(7999)
     expect(toastRegion()).toBeInTheDocument()
     await wait(1)
     expect(toastRegion()).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '1 earlier decision to check' })).toBeInTheDocument()
     await wait(0)
-    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+    expect(layouts().at(-1)).toEqual({ width: 392, height: 68, review: false })
     await publish([vendorCue])
     expect(toastRegion()).not.toBeInTheDocument()
   } finally { vi.useRealTimers() }
@@ -401,7 +402,7 @@ it('shows the newest of several cues, opens the cards on click, and stays quiet 
     await wait(0)
     expect(toastRegion()).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '3 earlier decisions to check' })).toBeInTheDocument()
-    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+    expect(layouts().at(-1)).toEqual({ width: 392, height: 68, review: false })
   } finally { vi.useRealTimers() }
 })
 
@@ -413,6 +414,104 @@ it('dismisses the toast and keeps the badge', async () => {
     await wait(0)
     expect(toastRegion()).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '1 earlier decision to check' })).toBeInTheDocument()
-    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+    expect(layouts().at(-1)).toEqual({ width: 392, height: 68, review: false })
   } finally { vi.useRealTimers() }
+})
+
+const RECORDING_CALL_AUDIO = 'Recording the microphone and audio playing on this Mac'
+async function meetingWithCallAudio(remembered: 'on' | 'off' | null) {
+  if (remembered) localStorage.setItem(APP_STORAGE_KEYS.callAudio, remembered)
+  let emit!: (event: LiveSpeechEvent) => void
+  const session = fakeSession()
+  vi.mocked(startMeetingLiveSpeech).mockImplementationOnce(async (_stream, _vault, _id, update) => { emit = update; return session })
+  render(<MeetingHud />)
+  return { session, emit: (event: Partial<LiveSpeechEvent>) => act(() => emit({ sessionId: 's', ...event })) }
+}
+
+it('keeps call audio off by default, remembers turning it on, and switches it during the meeting', async () => {
+  const { session } = await meetingWithCallAudio(null)
+  await screen.findByText('Recording')
+  const toggle = screen.getByRole('button', { name: 'Call audio' })
+  expect(toggle).toHaveAttribute('aria-pressed', 'false')
+  expect(toggle).toHaveAttribute('title', 'Also record audio playing on this Mac, such as the other side of a call')
+  expect(session.setCallAudio).not.toHaveBeenCalled()
+  fireEvent.click(toggle)
+  expect(toggle).toHaveAttribute('aria-pressed', 'true')
+  expect(session.setCallAudio).toHaveBeenLastCalledWith(true)
+  expect(localStorage.getItem(APP_STORAGE_KEYS.callAudio)).toBe('on')
+  fireEvent.click(toggle)
+  expect(toggle).toHaveAttribute('aria-pressed', 'false')
+  expect(session.setCallAudio).toHaveBeenLastCalledWith(false)
+  expect(localStorage.getItem(APP_STORAGE_KEYS.callAudio)).toBe('off')
+  expect(capture.state).toBe('recording')
+})
+
+it('applies remembered call audio once recording runs, and says what is recorded only when it arrives', async () => {
+  const { session, emit } = await meetingWithCallAudio('on')
+  await screen.findByText('Recording')
+  expect(session.setCallAudio).toHaveBeenCalledWith(true)
+  expect(session.activate.mock.invocationCallOrder[0]).toBeLessThan(session.setCallAudio.mock.invocationCallOrder[0])
+  expect(screen.getByRole('button', { name: 'Call audio' })).toHaveAttribute('aria-pressed', 'true')
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  expect(screen.queryByText(RECORDING_CALL_AUDIO)).not.toBeInTheDocument()
+  emit({ callAudioStarted: true })
+  expect(screen.getByText(RECORDING_CALL_AUDIO)).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Call audio' }))
+  expect(screen.queryByText(RECORDING_CALL_AUDIO)).not.toBeInTheDocument()
+})
+
+it('turns a call audio failure into a notice and keeps recording the microphone', async () => {
+  const { emit } = await meetingWithCallAudio('on')
+  await screen.findByText('Recording')
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  emit({ callAudioError: 'Call audio stopped: could not create the system audio tap. Recording continues with the microphone.' })
+  expect(screen.getByText('Call audio stopped: could not create the system audio tap. Recording continues with the microphone.')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Call audio' })).toHaveAttribute('aria-pressed', 'false')
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(screen.getByRole('region', { name: 'Recording' })).toHaveTextContent('Recording')
+  expect(capture.state).toBe('recording')
+  // The choice stays for the next meeting; turning it on again here retries.
+  expect(localStorage.getItem(APP_STORAGE_KEYS.callAudio)).toBe('on')
+})
+
+it('says when macOS has not let call audio start, and when nothing has been heard from this Mac', async () => {
+  vi.useFakeTimers({ toFake: ['Date', 'setInterval', 'clearInterval', 'setTimeout', 'clearTimeout'] })
+  try {
+    const { emit } = await meetingWithCallAudio('on')
+    await wait(50)
+    fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+    await wait(2900)
+    expect(screen.queryByText(/waiting for macOS/)).not.toBeInTheDocument()
+    await wait(200)
+    expect(screen.getByText(/Call audio is waiting for macOS/)).toBeInTheDocument()
+    emit({ callAudioStarted: true })
+    expect(screen.queryByText(/waiting for macOS/)).not.toBeInTheDocument()
+    expect(screen.getByText(RECORDING_CALL_AUDIO)).toBeInTheDocument()
+    await wait(20000)
+    expect(screen.getByText(/Nothing heard from this Mac yet/)).toHaveTextContent('System Settings › Privacy & Security › Screen & System Audio Recording › System Audio Recording Only')
+    emit({ callAudioHeard: true })
+    expect(screen.queryByText(/Nothing heard/)).not.toBeInTheDocument()
+    expect(screen.getByText(RECORDING_CALL_AUDIO)).toBeInTheDocument()
+  } finally { vi.useRealTimers() }
+})
+
+it('describes the saved recording as including this Mac’s audio only when call audio was heard', async () => {
+  const { emit } = await meetingWithCallAudio('on')
+  await screen.findByText('Recording')
+  emit({ callAudioStarted: true })
+  emit({ callAudioHeard: true })
+  await act(async () => { capture.ondataavailable?.({ data: new Blob([new Uint8Array([1, 2, 3])]) }) })
+  fireEvent.click(screen.getByRole('button', { name: 'End' }))
+  await screen.findByText('Review transcript')
+  expect(vi.mocked(applySource).mock.calls[0][0].pages[0]).toContain('audio played on this Mac while Call audio was on')
+})
+
+it('describes a recording without heard call audio as the microphone recording', async () => {
+  const { emit } = await meetingWithCallAudio('on')
+  await screen.findByText('Recording')
+  emit({ callAudioStarted: true })
+  await act(async () => { capture.ondataavailable?.({ data: new Blob([new Uint8Array([1, 2, 3])]) }) })
+  fireEvent.click(screen.getByRole('button', { name: 'End' }))
+  await screen.findByText('Review transcript')
+  expect(vi.mocked(applySource).mock.calls[0][0].pages[0]).toMatch(/^Original microphone recording\./)
 })

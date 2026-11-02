@@ -40,6 +40,7 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-control:hover, .meeting-hud-captions-toggle:hover { background: #ffffff0c; color: white; }
 .meeting-hud-control:focus-visible, .meeting-hud-captions-toggle:focus-visible { outline: 1px solid #d4d4d8; outline-offset: -2px; }
 .meeting-hud-captions-toggle[aria-expanded='true'] { background: #ffffff0d; color: white; }
+.meeting-hud-control[aria-pressed='true'] { background: #ffffff14; color: white; }
 .meeting-hud-control:disabled, .meeting-hud-captions-toggle:disabled { opacity: .3; cursor: default; }
 .meeting-hud-end { color: #ee9691; background: #e8746c12; margin-left: 3px; }
 .meeting-hud-end:hover { background: #e8746c22; color: #ffb5b0; }

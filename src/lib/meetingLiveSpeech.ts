@@ -16,7 +16,10 @@ export interface LiveSpeechEvent {
   turns?: TranscriptDraft['segments']; error?: string; done?: boolean; draft?: TranscriptDraft
   audioProgress?: CaptionAudioProgress
   progress?: { phase: string; receivedChunks: number; receivedSamples: number; processedSamples: number }
+  /** Call audio: its first frame arrived (capture runs), its first frame with sound, or why it stopped. */
+  callAudioStarted?: boolean; callAudioHeard?: boolean; callAudioError?: string
 }
+interface CallAudioEvent { sessionId: string; data?: string; error?: string }
 const RATE = 16000
 const MAX_QUEUED_SAMPLES = RATE * 30
 
@@ -24,6 +27,14 @@ function blockLevel(samples: Float32Array) {
   let sum = 0
   for (const sample of samples) sum += sample * sample
   return Math.min(1, Math.max(0, (20 * Math.log10(Math.sqrt(sum / (samples.length || 1)) + 1e-6) + 60) / 50))
+}
+
+/** A helper frame: base64 of little-endian float32 samples. */
+function callAudioSamples(data: string) {
+  const binary = atob(data)
+  const bytes = new Uint8Array(binary.length)
+  for (let index = 0; index < binary.length; index++) bytes[index] = binary.charCodeAt(index)
+  return new Float32Array(bytes.buffer, 0, bytes.length >> 2)
 }
 
 export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: string, sessionId: string, update: (event: LiveSpeechEvent) => void, signal?: AbortSignal, onLevel?: (level: number) => void) {
@@ -78,6 +89,9 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
     const recording = context.createMediaStreamDestination()
     const mute = context.createGain(); mute.gain.value = 0
     source.connect(tap); tap.connect(recording); tap.connect(mute); mute.connect(context.destination)
+    // Audio playing on this Mac joins the microphone at the tap, so both the recording and the captions have it.
+    const callAudio = new AudioWorkletNode(context, 'meeting-call-audio', { numberOfInputs: 0, outputChannelCount: [1] })
+    callAudio.connect(tap)
     function send(samples: Float32Array) {
       if (!accepting || progress.queuedSamples + samples.length > MAX_QUEUED_SAMPLES) {
         progress.refusedSamples += samples.length
@@ -129,11 +143,56 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
       }), 5000, 'AudioWorklet did not flush its final PCM. The original recording is preserved; caption tail completion is unverified.'))
       return controls
     }
+    // Each start of call audio is a run; events and failures from an earlier run are ignored, and each run reports
+    // at most one failure.
+    let callRun = 0
+    let callReported = 0
+    let callUnlisten: (() => void) | undefined
+    let callSwitch = Promise.resolve()
+    function callAudioStopped(run: number, reason: string) {
+      if (run !== callRun || callReported === run) return false
+      callReported = run
+      update({ sessionId, callAudioError: `Call audio stopped: ${reason.replace(/\.$/, '')}. Recording continues with the microphone.` })
+      return true
+    }
+    async function callAudioOff() {
+      if (!callUnlisten) return
+      callRun++
+      callUnlisten(); callUnlisten = undefined
+      callAudio.port.postMessage('clear')
+      await invoke<void>('stop_call_audio', { sessionId }).catch(() => undefined)
+    }
+    async function callAudioOn() {
+      if (callUnlisten || closed) return
+      const run = ++callRun
+      let started = false
+      let heard = false
+      callUnlisten = await listen<CallAudioEvent>('meeting-call-audio', event => {
+        if (event.payload.sessionId !== sessionId || run !== callRun) return
+        if (event.payload.error) {
+          if (callAudioStopped(run, event.payload.error)) void setCallAudio(false)
+          return
+        }
+        if (!event.payload.data) return
+        const samples = callAudioSamples(event.payload.data)
+        if (!started) { started = true; update({ sessionId, callAudioStarted: true }) }
+        if (!heard && samples.some(sample => sample !== 0)) { heard = true; update({ sessionId, callAudioHeard: true }) }
+        callAudio.port.postMessage(samples, [samples.buffer])
+      })
+      try { await invoke<void>('start_call_audio', { sessionId }) }
+      catch (error) { if (callAudioStopped(run, error instanceof Error ? error.message : String(error))) await callAudioOff() }
+    }
+    /** Turns call audio on or off. A failure becomes a notice; it never stops the meeting. */
+    function setCallAudio(on: boolean) {
+      callSwitch = callSwitch.then(on ? callAudioOn : callAudioOff).catch(error => { callAudioStopped(callRun, String(error)) })
+      return callSwitch
+    }
     await withTimeout(readiness, 60000, 'Speech models took too long to prepare. Recording has not started.')
     signal?.removeEventListener('abort', abort)
     if (signal?.aborted) throw new Error('Meeting preparation cancelled')
     function finishCapture() {
-      captureFinish ??= activated ? command('stop') : Promise.resolve()
+      // Nothing reaches the recording after the tap's stop fence, so the call audio helper can go too.
+      captureFinish ??= (activated ? command('stop') : Promise.resolve()).finally(() => { void setCallAudio(false) })
       return captureFinish
     }
     return {
@@ -141,6 +200,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
       async activate() { await context.resume(); activated = true },
       async pause(value: boolean) { await command(value ? 'pause' : 'resume') },
       finishCapture,
+      setCallAudio,
       stop(): Promise<void> {
         if (stopping) return stopping
         stopping = (async () => {
@@ -151,7 +211,8 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
               update({ sessionId, error: failure.message })
             }
             accepting = false; closed = true
-            source.disconnect(); tap.disconnect(); mute.disconnect()
+            await setCallAudio(false)
+            source.disconnect(); tap.disconnect(); mute.disconnect(); callAudio.disconnect()
             recording.disconnect()
             try { await withTimeout(context.close(), 5000, 'Audio context did not close. Keep the original recording for review.') }
             catch (error) { failure = error instanceof Error ? error : new Error(String(error)); update({ sessionId, error: failure.message }) }
