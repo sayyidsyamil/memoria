@@ -96,7 +96,8 @@ background/sleep behaviour require further testing. Explicit app Quit stops
 capture; only workspace window close/reopen is protected.
 
 This is microphone capture with live local captions (Parakeet Ultra over stretches of speech cut at pauses, speakers
-from Nemotron 3 Diarization; `streaming_speech.py`) and an editable review screen. System audio is not captured.
+from Nemotron 3 Diarization; `streaming_speech.py`) and an editable review screen. Audio playing on this Mac (system
+audio) is captured only while Call audio is on; see "Call audio" below.
 End now expands the HUD into review rather than opening the recording note;
 Create transcript starts cancellable local inference, and Save reviewed transcript
 publishes the reviewed evidence. See `SPEECH-BAKEOFF.md` for measured checks and
@@ -112,6 +113,75 @@ workspace reopen with recording continuing, End publication, and HUD shutdown.
 Native screenshot: temporary `meeting-hud-native.png`. A native test recording
 was saved in the existing disposable `Memoria-Native-Test/vault-p3` vault.
 First-time permission denial and crash recovery remain native acceptance gaps.
+
+### Call audio (3 November 2026)
+
+On a call with headphones the microphone never hears the other side, so the meeting window can also record the audio
+this Mac plays. **Call audio** is a toggle in the meeting window (headset icon, in the notch and in the expanded bar),
+off by default, remembered in `memoria:call-audio`, applied when recording starts and switchable during the meeting. A
+prerecorded (replay) test never offers it.
+
+What it captures: a mono mix of everything this Mac plays, from every app, whatever the output device, except
+Memoria's own process. Audio from Memoria's web view is not excluded, because WebKit plays it from its own media process;
+the meeting window itself plays nothing audible (its audio graph reaches the output at zero gain). The capture does not
+mute anything: you keep hearing the call. With speakers instead of headphones the microphone hears the call as well, so
+it is recorded twice, a little apart; Call audio is meant for headphones.
+
+The path:
+
+- `memoria-call-audio`, a Swift helper (`src-tauri/native/call-audio/main.swift`), creates a private Core Audio process
+  tap (`CATapDescription(monoGlobalTapButExcludeProcesses:)`, macOS 14.2 or later, unmuted) and a private aggregate
+  device whose main sub-device is the default output device and whose tap list holds the tap, with drift compensation.
+  Its IOProc copies the tap's samples into a ring; a writer thread converts them to 16 kHz mono float32 with
+  `AVAudioConverter` and writes 1,600-sample (100 ms) frames to stdout. A new default output device (headphones plugged
+  in or removed), a device that disappears, a format change, IO that stops after it had run, or a restart of the audio
+  service rebuilds the tap and the aggregate device. It stops (IO stopped, aggregate device and tap destroyed) when
+  stdin closes or on SIGTERM/SIGINT, and reports a failure as one JSON line, `{"error": "..."}`, on stderr. When the
+  output device has inputs of its own (a USB headset), the aggregate device lists them before the tap; the helper reads
+  the last input buffer and marks the others unused for its IOProc, so that the headset's microphone is not opened.
+- `src-tauri/build.rs` compiles it with `swiftc -O` into `src-tauri/binaries/memoria-call-audio-<target triple>`
+  (gitignored), and `bundle.externalBin` in `src-tauri/tauri.macos.conf.json` puts it in `Memoria.app/Contents/MacOS/`,
+  signed with the app. tauri-build also copies it next to the development binary.
+- `start_call_audio` and `stop_call_audio` (`src-tauri/src/commands/call_audio.rs`) belong to the meeting window and its
+  session, like live speech. Start spawns the helper with stdin kept open and emits each frame as a
+  `meeting-call-audio` event (`{ sessionId, data }`, base64 float32) and the helper's error as `{ sessionId, error }`.
+  Stop, the meeting window closing, or two hours close stdin; a helper still running 1.5 s later is killed, and it is
+  reaped either way.
+- In the meeting window (`src/lib/meetingLiveSpeech.ts`, `meetingPcm.worklet.js`), a second worklet,
+  `meeting-call-audio`, plays the frames from a jitter buffer (playback starts once more than 0.1 s is buffered, plays
+  zeros when it runs dry, drops the oldest beyond 0.5 s) into the `meeting-pcm` tap. Web Audio sums the tap's input, so
+  the call is mixed with the microphone in both the saved recording and the live captions. A failure becomes the notice
+  "Call audio stopped: …. Recording continues with the microphone." and never stops the meeting. The Source note of a
+  recording in which call audio was heard says so; a recording recovered after a crash does not know and is still
+  described as a microphone recording. The notch is 392 px wide instead of 360, so that the toggle fits beside the cue
+  badge without cutting the status short.
+
+Permission: the first capture makes macOS ask whether the app may record system audio
+(`NSAudioCaptureUsageDescription` in `src-tauri/Info.plist`). The grant is under System Settings › Privacy & Security ›
+Screen & System Audio Recording › System Audio Recording Only. macOS attributes the request to the app that started the
+helper (the responsible process): Memoria in the bundled app, the terminal in `pnpm tauri dev`. While the prompt is
+unanswered, capture does not start at all: `AudioDeviceStart` does not return, so no frame arrives, and the meeting
+window says after 3 s that call audio is waiting for macOS. Frames that arrive but are all silent for 20 s bring a hint
+to check the permission, because macOS is reported to deliver silence to an app without it. Builds are ad-hoc signed, so
+macOS may ask again after a rebuild.
+
+Verified on 3 November 2026 (macOS 26.7.1, MacBook Air, screen locked, nothing played): `cargo build` builds the
+helper; it creates the tap (48 kHz, mono float32) and the aggregate device on the built-in speakers. The permission
+request was attributed to the shell's responsible process and its prompt could not be answered, so `AudioDeviceStart`
+never returned and no tap audio was captured; the helper still exited within 20 ms of stdin closing or SIGTERM. With a
+synthetic 48 kHz tone in place of the tap (`--test-tone`), the converter and framing gave whole 6,400-byte frames at
+10 per second with the tone's level and pitch, and the helper exited within 10 ms of stdin closing or SIGTERM and
+about 0.2 s after its stdout closed. An unknown option gives one JSON error line and exit status 1. With "Microsoft
+Teams Audio" as the sub-device (one input stream), the aggregate
+device listed that input first and the tap last (inspected without IO). `system_profiler SPAudioDataType` listed the
+same devices before, during and after a run, but a private aggregate device is not visible to other processes even
+while it exists, so that check cannot show a leak. Frontend and Rust unit tests cover the toggle, the jitter buffer,
+mixing, notices, framing and session ownership; the notch and expanded layouts were checked in the development preview.
+
+Not verified: capture of real audio, the prompt's wording and its attribution to Memoria, what a denied permission
+delivers, captions and the saved recording containing the call, rebuilding after an output change, Bluetooth and USB
+headsets (including the unused-stream setting), the two-hour limit, CPU use over a long meeting, and dev mode under
+`pnpm tauri dev`. The morning acceptance test is in `CALL-AUDIO-TEST.md`.
 
 ## Memoria source intake
 

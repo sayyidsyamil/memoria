@@ -40,6 +40,15 @@ The resulting bundle is under `src-tauri/target/debug/bundle/`. A debug bundle i
 not a signed, supported distribution. macOS may ask again for microphone permission
 after the application is rebuilt and re-signed.
 
+On macOS, every Cargo build (`cargo build`, `cargo test`, `pnpm tauri dev|build`) also
+compiles the call audio helper, `src-tauri/native/call-audio/main.swift`, with `swiftc`
+from the Xcode Command Line Tools (`xcode-select --install`), into the gitignored
+`src-tauri/binaries/`; the build fails with that hint when `swiftc` is missing. Other
+platforms skip it. macOS asks for System Audio Recording the first time call audio
+starts, and attributes the request to the app that started the helper: Memoria for a
+bundle, the terminal for `pnpm tauri dev`. `memoria-call-audio --test-tone --verbose`
+runs the helper's conversion and framing on a synthetic tone, with no permission.
+
 ## Inference prerequisites
 
 The Python runtime is **not yet packaged or reproducibly pinned**. Bring separate
