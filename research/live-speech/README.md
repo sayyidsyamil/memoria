@@ -10,8 +10,8 @@ running them make captions appear while people speak, without losing accuracy on
 |---|---|---|---|---|
 | WER, fillers removed | 13.2% | 16.7% | 17.0% | **14.4%** (446 sub., 870 del., 91 ins. over 9,808) |
 | WER, fillers kept | 14.7% | 18.3% | 18.5% | **16.3%** |
-| Labelled words on their participant | 96.6% | 96.5% | | |
-| Words on "Unknown speaker" | 9% | 0 | 25 labels' worth (0.3%) | 6 words |
+| Labelled words on their participant | 96.6% | 96.5% (8,704 words) | 97.0% (8,714) | **96.8%** (8,933) |
+| Words on "Unknown speaker" | 9% | 0 | 20 | **5** |
 | Time for the hour | 11 min 34 s | 63 s | 89 s | **113 s** |
 | Recogniser memory (MLX, active) | 1.8 GB | 2.55 GB (float32) | 2.55 GB | **1.3 GB** (bfloat16) |
 
