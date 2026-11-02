@@ -85,18 +85,12 @@ pub async fn wiki_memory(window: tauri::WebviewWindow, mut request: Value) -> Re
     let script = if resource.exists() { resource } else { source };
     let result = super::blocking::run_blocking(move || {
         let run = || -> Result<Value, String> {
-            let python = if speech {
-                std::env::var("MEMORIA_SPEECH_PYTHON").unwrap_or_else(|_| std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.speech-runtime/bin/python").to_string_lossy().into_owned())
-            } else { std::env::var("MEMORIA_MEMORY_PYTHON").unwrap_or_else(|_| "/opt/homebrew/bin/python3.11".into()) };
+            let python = super::model_runtime::python(if speech { "speech" } else { "memory" });
             let mut command = crate::hidden_command(python);
             super::model_manager::configure_models(&mut command);
             command.arg("-u").arg(script).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped());
             #[cfg(unix)]
             { use std::os::unix::process::CommandExt; command.process_group(0); }
-            if std::env::var_os("MEMORIA_EMBED_PYTHON").is_none() {
-                let local = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.embed-runtime/bin/python");
-                if local.exists() { command.env("MEMORIA_EMBED_PYTHON", local); }
-            }
             let mut child = command.spawn().map_err(|_| "Local memory runtime unavailable. Check model setup.")?;
             if let Err(error) = child.stdin.take().ok_or("Missing memory input")?.write_all(request.to_string().as_bytes()) {
                 stop(&mut child); return Err(error.to_string());

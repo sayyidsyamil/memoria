@@ -11,14 +11,6 @@ static ADDRESSES: OnceLock<HashMap<String, String>> = OnceLock::new();
 const PREPARE_SECONDS: u64 = 300;
 static STOPPED: AtomicBool = AtomicBool::new(false);
 fn workers() -> &'static Mutex<HashMap<String, Worker>> { WORKERS.get_or_init(|| Mutex::new(HashMap::new())) }
-fn python(kind: &str) -> String {
-    let variable = match kind { "speech" => "MEMORIA_SPEECH_PYTHON", "embed" => "MEMORIA_EMBED_PYTHON", _ => "MEMORIA_MEMORY_PYTHON" };
-    std::env::var(variable).unwrap_or_else(|_| match kind {
-        "speech" => std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.speech-runtime/bin/python").to_string_lossy().into_owned(),
-        "embed" => std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.embed-runtime/bin/python").to_string_lossy().into_owned(),
-        _ => "/opt/homebrew/bin/python3.11".into(),
-    })
-}
 
 pub fn start_models(app: tauri::AppHandle) {
     std::thread::spawn(move || {
@@ -42,12 +34,13 @@ pub fn start_models(app: tauri::AppHandle) {
             let address = addresses[kind].clone();
             let base = app.path().resource_dir().unwrap_or_default().join("memory");
             let base = if base.join("resident_server.py").exists() { base } else { std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("resources/memory") };
-            let mut command = crate::hidden_command(python(kind));
+            let mut command = crate::hidden_command(super::model_runtime::python(kind));
+            super::model_runtime::configure(&mut command);
             let started=std::time::Instant::now();
             command.arg("-u");
             if kind == "qwen" { command.arg(base.join("model_server.py")).arg(&address).arg("--resident"); }
             else { command.arg(base.join("resident_server.py")).arg(kind).arg(&address); }
-            command.stdin(Stdio::null()).stdout(Stdio::piped()).stderr(Stdio::null()).env("HF_HUB_OFFLINE", "1").env("TRANSFORMERS_OFFLINE", "1");
+            command.stdin(Stdio::null()).stdout(Stdio::piped()).stderr(Stdio::null());
             match command.spawn() {
                 Ok(mut child) => {
                     let stdout = child.stdout.take().unwrap();
@@ -88,6 +81,7 @@ pub fn start_models(app: tauri::AppHandle) {
 }
 
 pub fn configure_models(command: &mut Command) {
+    super::model_runtime::configure(command);
     if let Some(addresses)=ADDRESSES.get() {
         for (kind, address) in addresses.iter() {
             let variable=match kind.as_str(){"speech"=>"MEMORIA_SPEECH_SOCKET","embed"=>"MEMORIA_EMBED_SOCKET",_=>"MEMORIA_QWEN_SOCKET"};

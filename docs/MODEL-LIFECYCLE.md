@@ -24,7 +24,12 @@ caches and workspace memory. Two empty speech sessions became ready in <1ms on
 the private socket; this measures session reuse only, not mic or live-word latency.
 Warm embedding output was 768 dimensions. All three processes remained alive.
 
-Limits: development Python environments are still machine-local. Worker crashes
+Python runtimes and HF snapshots can be provisioned for a clean account under
+`/Users/Shared/Memoria`; see [the AC7 install steps](GETTING-STARTED.md#install-for-another-macos-account-ac7).
+Explicit environment overrides win, then a completed shared install, then the
+existing developer environment. This is same-Mac provisioning, not bundled Python.
+
+Limits: worker crashes
 are surfaced by readiness polling; automatic restart and memory-pressure eviction
 are not implemented yet. Requests queued behind an active meeting can time out;
 cross-worker GPU scheduling is not coordinated. Readiness means models warmed,

@@ -21,6 +21,7 @@ mod meeting_hud;
 mod recording_recovery;
 mod live_speech;
 pub(crate) mod model_manager;
+mod model_runtime;
 
 use std::borrow::Cow;
 

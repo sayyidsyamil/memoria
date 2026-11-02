@@ -33,7 +33,7 @@ pub fn start_live_speech(window: tauri::WebviewWindow, vault_path: String, sessi
     let boundary = super::vault::VaultBoundary::from_request(Some(&vault_path))?;
     let resource = window.app_handle().path().resource_dir().map_err(|e|e.to_string())?.join("memory/live_speech.py");
     let script = if resource.exists() {resource} else {std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("resources/memory/live_speech.py")};
-    let python = std::env::var("MEMORIA_SPEECH_PYTHON").unwrap_or_else(|_|std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.speech-runtime/bin/python").to_string_lossy().into_owned());
+    let python = super::model_runtime::python("speech");
     let mut registry = sessions().lock().map_err(|_|"Speech registry unavailable")?;
     if registry.contains_key(&key) {return Err("Speech session already running".into());}
     let mut command = crate::hidden_command(python);

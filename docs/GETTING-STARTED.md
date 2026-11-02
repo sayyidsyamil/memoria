@@ -83,6 +83,80 @@ pnpm playwright:smoke       # Curated Playwright core smoke lane (~5 min)
 pnpm playwright:regression  # Full Playwright regression suite
 ```
 
+## Install for another macOS account (AC7)
+
+AC7 needs a **second, clean macOS account**, not another vault in the developer's
+account. This Apple Silicon, same-Mac procedure provisions a shared offline model
+install; it is not a self-contained installer for arbitrary Macs. Use a tagged
+release containing the shared-runtime resolver. Homebrew Python 3.11 and ffmpeg
+under `/opt/homebrew` must remain installed and readable by all users.
+
+1. As the developer, from this checkout, inspect then provision:
+
+   ```bash
+   cd /Users/sayyid/Documents/memoria-workspace
+   scripts/install-shared-runtime.sh --dry-run
+   scripts/install-shared-runtime.sh
+   ```
+
+   The default is offline-only: it uses the developer's pip wheel cache plus
+   `~/Library/Caches/Memoria/wheels`. Pip's HTTP download cache is not an offline
+   wheel index. If wheels are missing, explicitly allow the one-time online step:
+
+   ```bash
+   scripts/install-shared-runtime.sh --allow-downloads
+   ```
+
+   Alternatively supply all pinned wheels with `--wheelhouse /path/to/wheels`.
+   No sudo is used. If a previous shared install belongs to someone else, stop
+   and have its owner/admin resolve ownership rather than running this script as
+   root. The script creates fresh speech/embed virtualenvs from committed
+   `scripts/runtime/*-requirements.txt` (`pip freeze`, including speech's inherited
+   system packages), copies only the three revisions in `models.json`, verifies
+   file sizes and package imports **without loading weights**, then writes ready
+   markers. Re-running skips unchanged model files and matching runtime installs.
+   Pip uses `--no-deps` with the full freezes to preserve the working versions:
+   speech's pinned `mlx-audio` declares newer MLX/Transformers than those currently
+   installed, so a fresh dependency solve would change or reject this environment.
+   HF symlinks are dereferenced: no model points into the developer's home.
+   Resemblyzer's voice encoder is supplied by its package, not a fourth HF cache.
+   Allow about 5.64 GiB for model copies, plus Python packages and cached wheels.
+   Shared files are developer-owned, world-readable and not group/world-writable;
+   directories and executable files are executable by other accounts.
+
+2. In **System Settings → Users & Groups → Add User**, authenticate and create a
+   new **Standard** account (for example `memoria-ac7`). Do not copy the developer's
+   home, environment overrides, caches or vault settings into it. Manually quit
+   the developer's Memoria before switching accounts, so two ~5 GB model sets do
+   not compete on the 16 GB Mac.
+3. Log in to that account. Open the **tagged release DMG**, install
+   `Memoria Workspace.app` in `/Applications` (authenticate if asked), and open
+   `/Applications/Memoria Workspace.app`. Do not use the developer-only app in
+   `~/Applications`. Follow first-run macOS permissions normally; note any
+   Gatekeeper/signing failure rather than treating provisioning as acceptance.
+4. Choose a new writable workspace under the test account's home, wait for Speech,
+   Knowledge and Search readiness, and **complete UAT task 1** from the UAT runbook
+   (private `Memoria-FYP/report/uat/` materials). Record the tag/app version,
+   installer checksum, clean account, task outcome, permissions and screen
+   recording in the AC7 receipt. Provisioning/tests alone do **not** satisfy AC7.
+
+Resolution is `MEMORIA_SPEECH_PYTHON` / `MEMORIA_EMBED_PYTHON` /
+`MEMORIA_MEMORY_PYTHON` → complete `/Users/Shared/Memoria/runtime/{speech,embed}`
+→ existing developer paths. Memory/Qwen uses the shared **speech** interpreter
+(its lock includes `mlx-lm`); without it, memory retains Homebrew Python 3.11.
+Cache resolution is `MEMORIA_HF_HOME` (or standard `HF_HOME`) → complete
+`/Users/Shared/Memoria/hf` → the current user's existing HF default. An explicit
+`HF_HUB_CACHE` / `HUGGINGFACE_HUB_CACHE` is also preserved. Every app-launched
+worker and descendant receives the resolved cache and offline flags; scripts
+come from bundled Tauri resources before the development-source fallback.
+Generated Transformers code, HF asset and Xet caches stay under each account's
+own `~/.cache/huggingface` when shared snapshots are used (unless explicitly
+overridden), so a clean account never needs write access to shared model files.
+Incomplete installs (no completion marker, missing interpreter/config or missing
+snapshot files) are ignored. A failed provision can be rerun; do not edit the
+shared install while an account is using it. Re-provision after changing locks,
+model revisions or Homebrew's Python installation.
+
 ## React Native Mobile Development
 
 The tablet/phone app lives in `apps/mobile`, separate from the Tauri desktop app.

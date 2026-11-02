@@ -1,0 +1,66 @@
+[
+  {
+    "repo": "OpenMOSS-Team/MOSS-Transcribe-Diarize",
+    "revision": "704aa4a9c304e8520be88901e0d1960158ef5b15",
+    "files": {
+      ".eval_results/open_asr_leaderboard.yaml": 1917,
+      ".gitattributes": 226,
+      "Model_Architecture.png": 59860,
+      "README.md": 13985,
+      "added_tokens.json": 707,
+      "chat_template.jinja": 4762,
+      "config.json": 2335,
+      "configuration_moss_transcribe_diarize.py": 2663,
+      "generation_config.json": 107,
+      "merges.txt": 1671853,
+      "model-00000-of-00001.safetensors": 1817113576,
+      "model.safetensors.index.json": 65401,
+      "modeling_moss_transcribe_diarize.py": 15101,
+      "preprocessor_config.json": 315,
+      "processing_moss_transcribe_diarize.py": 10975,
+      "processor_config.json": 292,
+      "special_tokens_map.json": 613,
+      "tokenizer.json": 11423222,
+      "tokenizer_config.json": 503,
+      "vocab.json": 2776833
+    }
+  },
+  {
+    "repo": "mlx-community/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "files": {
+      ".gitattributes": 1570,
+      "README.md": 2273,
+      "chat_template.jinja": 7756,
+      "config.json": 3366,
+      "model.safetensors": 3034300695,
+      "model.safetensors.index.json": 101944,
+      "preprocessor_config.json": 390,
+      "processor_config.json": 1300,
+      "tokenizer.json": 19989343,
+      "tokenizer_config.json": 1139,
+      "video_preprocessor_config.json": 385,
+      "vocab.json": 6722759
+    }
+  },
+  {
+    "repo": "mlx-community/embeddinggemma-2-5bit",
+    "revision": "261866f6805342b010554507220e02199a579c74",
+    "files": {
+      "1_Pooling/config.json": 90,
+      "2_Normalize/config.json": 97,
+      "chat_template.jinja": 1016,
+      "config.json": 5463,
+      "config_sentence_transformers.json": 1565,
+      "model.safetensors": 1132345990,
+      "model.safetensors.index.json": 153721,
+      "modules.json": 413,
+      "preprocessor_config.json": 511,
+      "processor_config.json": 1788,
+      "sentence_bert_config.json": 747,
+      "tokenizer.json": 32170510,
+      "tokenizer_config.json": 1599,
+      "validation.json": 2414
+    }
+  }
+]
