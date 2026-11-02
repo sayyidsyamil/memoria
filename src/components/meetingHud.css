@@ -73,11 +73,13 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-record { display: flex; flex: 1; flex-direction: column; align-items: center; min-height: 0; padding: 4px 28px 0; }
 .meeting-hud-assistance-toggle { display: flex; align-items: center; gap: 8px; align-self: stretch; padding: 8px 0; font-size: 12px; color: var(--hud-muted); }
 /* Cues shrink and scroll before the captions do: the room's words stay in view while a cue is up. */
-.meeting-hud-evidence { display: flex; flex-direction: column; gap: 8px; width: 100%; flex: 0 1 auto; min-height: 104px; max-height: 196px; overflow-y: auto; }
+.meeting-hud-evidence { display: flex; flex-direction: column; gap: 8px; width: 100%; flex: 0 0 auto; max-height: 196px; overflow-y: auto; }
 .meeting-hud-cue { flex-shrink: 0; padding: 8px 12px; border: 1px solid #f5b94a55; border-left: 3px solid #f5b94a; border-radius: 8px; background: #f5b94a14; font-size: 13px; line-height: 1.4; }
 .meeting-hud-cue-kicker { display: flex; align-items: center; gap: 6px; margin: 0 0 2px; color: #f5b94a; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 .meeting-hud-cue-value { margin: 0; color: var(--hud-text); font-size: 15px; }
 .meeting-hud-cue blockquote { display: -webkit-box; margin: 4px 0 2px; overflow: hidden; color: var(--hud-text); font-style: normal; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+/* Earlier cues keep their value and who set it; the newest keeps its quote too, so two fit without scrolling. */
+.meeting-hud-cue:not([data-newest]) :is(.meeting-hud-cue-kicker, blockquote) { display: none; }
 .meeting-hud-cue-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 12px; }
 .meeting-hud-cue small { color: var(--hud-muted); }
 .meeting-hud-cue details { color: var(--hud-muted); }
