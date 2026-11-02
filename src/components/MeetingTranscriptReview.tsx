@@ -143,7 +143,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
       const relative = originalPath.slice(vaultPath.replace(/\/$/, '').length + 1)
       publication.current ??= { id: crypto.randomUUID(), title: `${meetingTitle} — reviewed transcript`, filename: `transcript-${sessionId}.txt`, bytes,
         sha256: Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join(''),
-        pages: [`[Listen to meeting audio](<${relative}>)\n\nReviewed by the user. ${refined ? 'Draft generated with MOSS-Transcribe-Diarize and edited in review; speaker labels and audio-clock timestamps remain approximate.' : 'Live draft edited in review; no verified speaker labels or timestamps.'}\n\n${text}`] }
+        pages: [`[Listen to meeting audio](<${relative}>)\n\nReviewed by the user. ${refined ? `Draft generated with ${draft?.model || 'the local speech models'} and edited in review; speaker labels and audio-clock timestamps remain approximate.` : 'Live draft edited in review; no verified speaker labels or timestamps.'}\n\n${text}`] }
       const path = await applySource(publication.current, vaultPath)
       await persistReview(path)
       announceMemoryChanged()

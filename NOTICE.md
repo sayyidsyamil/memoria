@@ -51,3 +51,20 @@ under AGPL-3.0-or-later. All components are original implementations on the exis
 Radix, Phosphor and project CSS foundations, and no dependency was added for them.
 See [docs/UI-PATTERNS.md](docs/UI-PATTERNS.md). The earlier
 [Unslop](docs/UNSLOP-PASS.md) pass credits its method separately (CC BY 4.0).
+
+## Local models
+
+Memoria runs these models on the user's Mac. Their weights are downloaded once per Mac (`scripts/install-shared-runtime.sh`)
+and are not part of this repository or the app bundle.
+
+| Model | Used for | Licence |
+|---|---|---|
+| [NVIDIA Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3), MLX conversion [`mlx-community/parakeet-tdt-0.6b-v3`](https://huggingface.co/mlx-community/parakeet-tdt-0.6b-v3) | Live captions and transcripts | CC BY 4.0 |
+| [NVIDIA Nemotron 3 Diarization](https://huggingface.co/nvidia/Nemotron-3-Diarization), MLX conversion [`mlx-community/Nemotron-3-Diarization`](https://huggingface.co/mlx-community/Nemotron-3-Diarization) | Who spoke when | OpenMDW 1.1 |
+| [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B), MLX 4-bit [`mlx-community/Qwen3.5-4B-MLX-4bit`](https://huggingface.co/mlx-community/Qwen3.5-4B-MLX-4bit) | Suggestions, the live check, Ask | Apache-2.0 |
+| [EmbeddingGemma 2](https://huggingface.co/google/embeddinggemma-2), [`mlx-community/embeddinggemma-2-5bit`](https://huggingface.co/mlx-community/embeddinggemma-2-5bit) | Search | Apache-2.0 |
+| [Resemblyzer](https://github.com/resemble-ai/Resemblyzer) 0.1.4 voice encoder | Remembered voices (opt-in) | Apache-2.0 |
+
+Optional engines kept for evaluation only: [MOSS-Transcribe-Diarize](https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize)
+(Apache-2.0, `MEMORIA_SPEECH_ENGINE=moss`) and [Nemotron Speech Streaming EN 0.6B](https://huggingface.co/nvidia/nemotron-speech-streaming-en-0.6b)
+(NVIDIA Open Model License, `MEMORIA_LIVE_ASR=stream`).

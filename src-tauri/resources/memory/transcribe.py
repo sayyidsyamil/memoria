@@ -89,8 +89,11 @@ def run(request, model=None):
     if audio.suffix.lower() not in {'.wav', '.webm', '.m4a', '.mp3', '.flac'}:
         raise ValueError('Unsupported recording format')
     progress('Checking recording and local speech model')
-    from huggingface_hub import snapshot_download
-    model_path = snapshot_download(MODEL, revision=REVISION, local_files_only=True)
+    from live_speech import engine
+    parakeet = isinstance(model, tuple) or (model is None and engine() == 'parakeet')
+    if not parakeet:
+        from huggingface_hub import snapshot_download
+        model_path = snapshot_download(MODEL, revision=REVISION, local_files_only=True)
     ffmpeg = os.environ.get('MEMORIA_FFMPEG', '/opt/homebrew/bin/ffmpeg')
     with tempfile.TemporaryDirectory(prefix='memoria-transcript-') as temporary:
         wav = Path(temporary) / 'recording.wav'
@@ -110,30 +113,40 @@ def run(request, model=None):
         blocks = [sf.read(wav, dtype='float32')[0]] if duration <= CHUNK_SECONDS else sf.blocks(wav, blocksize=16000 * 30, dtype='float32')
         if not any(has_speech(block) for block in blocks):
             return {'segments': [], 'text': '', 'duration': duration, 'warnings': ['No speech detected. Original audio is saved.']}
-        progress('Loading local MOSS speech model')
-        if model is None:
-            from mlx_audio.stt import load
-            model = load(model_path)
-        progress('Transcribing and assigning provisional speakers')
-        start = time.perf_counter()
         chunked = None
-        if duration <= CHUNK_SECONDS:
-            progress('Transcribing part 1 of 1')
-            output = model.generate(str(wav), max_tokens=MAX_TOKENS, temperature=0.0)
-            if output.generation_tokens < MAX_TOKENS:
-                segments = validate_segments(complete_segments(output), duration)
-                text = output.text
-            else:
-                # The ordinary short-recording path remains one unchanged call.
-                # Only a saturated output needs the same split recovery as long audio.
-                chunked = transcribe_chunks(model, wav, duration, progress, initial_output=output)
+        name, revision = MODEL, REVISION
+        if parakeet:
+            import streaming_speech
+            progress('Loading local speech models')
+            models = model if isinstance(model, tuple) else streaming_speech.load()
+            start = time.perf_counter()
+            segments, _ = streaming_speech.transcribe_audio(models, sf.read(wav, dtype='float32')[0], progress)
+            text = ' '.join(segment['text'] for segment in segments)
+            name, revision = streaming_speech.label(models), streaming_speech.revision(models)
         else:
-            chunked = transcribe_chunks(model, wav, duration, progress)
-        if chunked is not None:
-            segments, text = chunked['segments'], chunked['text']
+            progress('Loading local MOSS speech model')
+            if model is None:
+                from mlx_audio.stt import load
+                model = load(model_path)
+            progress('Transcribing and assigning provisional speakers')
+            start = time.perf_counter()
+            if duration <= CHUNK_SECONDS:
+                progress('Transcribing part 1 of 1')
+                output = model.generate(str(wav), max_tokens=MAX_TOKENS, temperature=0.0)
+                if output.generation_tokens < MAX_TOKENS:
+                    segments = validate_segments(complete_segments(output), duration)
+                    text = output.text
+                else:
+                    # The ordinary short-recording path remains one unchanged call.
+                    # Only a saturated output needs the same split recovery as long audio.
+                    chunked = transcribe_chunks(model, wav, duration, progress, initial_output=output)
+            else:
+                chunked = transcribe_chunks(model, wav, duration, progress)
+            if chunked is not None:
+                segments, text = chunked['segments'], chunked['text']
         with audio.open('rb') as original:
             audio_hash = hashlib.file_digest(original, 'sha256').hexdigest()
-        result = {'model': MODEL, 'revision': REVISION, 'duration': duration,
+        result = {'model': name, 'revision': revision, 'duration': duration,
                   'processingSeconds': time.perf_counter() - start, 'segments': segments,
                   'text': text, 'audioSha256': audio_hash,
                   'warnings': ['Machine draft: review words, timestamps and speaker labels against the audio.',

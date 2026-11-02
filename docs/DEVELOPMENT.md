@@ -68,8 +68,9 @@ variables, development builds fall back to the unversioned repository-local
 `.speech-runtime/` and `.embed-runtime/` environments and Homebrew `python3.11`.
 The model adapters expect the following models to have been cached separately:
 
-- Speech: `OpenMOSS-Team/MOSS-Transcribe-Diarize`, revision
-  `704aa4a9c304e8520be88901e0d1960158ef5b15`.
+- Speech: `mlx-community/parakeet-tdt-0.6b-v3` (revision `ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15`) and
+  `mlx-community/Nemotron-3-Diarization` (revision `59ed2dbfc1346dcea9d423c71306a3a2499c568f`). The earlier
+  `OpenMOSS-Team/MOSS-Transcribe-Diarize` engine stays available with `MEMORIA_SPEECH_ENGINE=moss`.
 - Generation: `mlx-community/Qwen3.5-4B-MLX-4bit`.
 - Embedding: `mlx-community/embeddinggemma-2-5bit`.
 

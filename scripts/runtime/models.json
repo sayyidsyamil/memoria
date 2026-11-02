@@ -1,28 +1,25 @@
 [
   {
-    "repo": "OpenMOSS-Team/MOSS-Transcribe-Diarize",
-    "revision": "704aa4a9c304e8520be88901e0d1960158ef5b15",
+    "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+    "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
     "files": {
-      ".eval_results/open_asr_leaderboard.yaml": 1917,
-      ".gitattributes": 226,
-      "Model_Architecture.png": 59860,
-      "README.md": 13985,
-      "added_tokens.json": 707,
-      "chat_template.jinja": 4762,
-      "config.json": 2335,
-      "configuration_moss_transcribe_diarize.py": 2663,
-      "generation_config.json": 107,
-      "merges.txt": 1671853,
-      "model-00000-of-00001.safetensors": 1817113576,
-      "model.safetensors.index.json": 65401,
-      "modeling_moss_transcribe_diarize.py": 15101,
-      "preprocessor_config.json": 315,
-      "processing_moss_transcribe_diarize.py": 10975,
-      "processor_config.json": 292,
-      "special_tokens_map.json": 613,
-      "tokenizer.json": 11423222,
-      "tokenizer_config.json": 503,
-      "vocab.json": 2776833
+      ".gitattributes": 1519,
+      "README.md": 1081,
+      "config.json": 244093,
+      "model.safetensors": 2508288736,
+      "tokenizer.model": 360916,
+      "tokenizer.vocab": 101024,
+      "vocab.txt": 46772
+    }
+  },
+  {
+    "repo": "mlx-community/Nemotron-3-Diarization",
+    "revision": "59ed2dbfc1346dcea9d423c71306a3a2499c568f",
+    "files": {
+      ".gitattributes": 1519,
+      "README.md": 1402,
+      "config.json": 1521,
+      "model.safetensors": 198632220
     }
   },
   {

@@ -134,14 +134,17 @@ class InstallerTests(unittest.TestCase):
             self.assertEqual(executable.stat().st_mode & 0o777, 0o755)
             self.assertEqual(outside.stat().st_mode & 0o777, 0o600)
 
-    def test_model_manifest_pins_three_revisions_and_packaged_voice_weights(self):
+    def test_model_manifest_pins_four_revisions_and_packaged_voice_weights(self):
         models = json.loads((installer.HERE / 'models.json').read_text())
-        self.assertEqual(len(models), 3)
+        self.assertEqual([model['repo'] for model in models], ['mlx-community/parakeet-tdt-0.6b-v3', 'mlx-community/Nemotron-3-Diarization',
+                                                               'mlx-community/Qwen3.5-4B-MLX-4bit', 'mlx-community/embeddinggemma-2-5bit'])
         for model in models:
             self.assertRegex(model['revision'], r'^[0-9a-f]{40}$')
             self.assertIn('config.json', model['files'])
-            self.assertIn('tokenizer.json', model['files'])
             self.assertTrue(any(name.endswith('.safetensors') for name in model['files']))
+        # The speech recogniser carries a SentencePiece tokenizer; the language and embedding models a JSON one.
+        self.assertIn('tokenizer.model', models[0]['files'])
+        self.assertTrue(all('tokenizer.json' in model['files'] for model in models[2:]))
         # Resemblyzer's encoder.pt is installed with its wheel, not an HF repo.
         speech = (installer.HERE / 'speech-requirements.txt').read_text()
         self.assertIn('Resemblyzer==0.1.4', speech)

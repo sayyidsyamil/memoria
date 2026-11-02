@@ -7,6 +7,8 @@ export interface TranscriptTurn {
 }
 export interface SpeakerProfile { id: string; name: string }
 export interface TranscriptDraft {
+  /** The speech models that produced the draft, as the worker names them. */
+  model?: string
   gaps?: { start: number; end: number; reason: string }[]
   segments: TranscriptTurn[]; duration: number; warnings: string[]; text: string
   profiles?: SpeakerProfile[]

@@ -13,13 +13,19 @@ def serve(kind, address):
     if kind == 'speech':
         import numpy as np
         import live_speech, transcribe, voice_profiles
-        from mlx_audio.stt import load
         from resemblyzer import VoiceEncoder
-        model = load(snapshot_download(transcribe.MODEL, revision=transcribe.REVISION, local_files_only=True))
-        model.generate(np.zeros(16000, dtype='float32'), max_tokens=32, temperature=0.0)
-        model._memoria_warmed = True
+        if live_speech.engine() == 'moss':
+            from mlx_audio.stt import load
+            model = load(snapshot_download(transcribe.MODEL, revision=transcribe.REVISION, local_files_only=True))
+            model.generate(np.zeros(16000, dtype='float32'), max_tokens=32, temperature=0.0)
+            model._memoria_warmed = True
+            loaded = model
+        else:
+            import streaming_speech
+            loaded = streaming_speech.load()
+            streaming_speech.warm(loaded)
+            loaded[0]._memoria_warmed = True
         voice_profiles._encoder = VoiceEncoder(device='cpu', verbose=False)
-        loaded = model
     else:
         from mlx_vlm.embedding_loader import load_embedding_model
         from transformers import AutoTokenizer

@@ -1,4 +1,9 @@
-"""Speech-gated MOSS windows, one evolving transcript and a reusable final draft."""
+"""Live captions and a reusable final draft for one meeting.
+
+The default engine is Parakeet TDT v3 with Nemotron 3 Diarization (streaming_speech.py): words appear while they
+are spoken and each sentence is committed about a second after it ends. MEMORIA_SPEECH_ENGINE=moss keeps the
+earlier speech-gated MOSS windows (4 s cores with 2 s of context), which the report's MOSS figures were measured on.
+"""
 import base64
 import json
 import os
@@ -13,6 +18,10 @@ os.environ['TRANSFORMERS_OFFLINE'] = '1'
 RATE = 16000
 HOP = int(os.environ.get('MEMORIA_SPEECH_HOP_SECONDS', '4')) * RATE
 CONTEXT = int(os.environ.get('MEMORIA_SPEECH_CONTEXT_SECONDS', '2')) * RATE
+
+
+def engine():
+    return 'moss' if os.environ.get('MEMORIA_SPEECH_ENGINE', '').lower() == 'moss' else 'parakeet'
 
 def emit(value):
     print(json.dumps(value, ensure_ascii=False), flush=True)
@@ -187,7 +196,105 @@ class WindowTranscript:
     def text(self):
         return ' '.join(turn['text'] for turn in self.turns)
 
+def session_directory(request):
+    root = Path(request['vaultPath']).resolve(strict=True)
+    identifier = str(uuid.UUID(request['sessionId']))
+    directory = root / '.memoria-recordings' / identifier
+    directory.resolve().relative_to(root)
+    mark_private(directory.parent)
+    directory.mkdir(parents=True, exist_ok=True)
+    return root, directory
+
+
+def save_draft(directory, result):
+    temporary = directory / f'.transcript-{uuid.uuid4()}.tmp'
+    with temporary.open('x') as file:
+        json.dump(result, file, ensure_ascii=False); file.flush(); os.fsync(file.fileno())
+    os.replace(temporary, directory / 'transcript-draft.json')
+
+
+def read_pcm(message, expected):
+    import numpy as np
+    if type(message.get('index')) is not int or message['index'] != expected:
+        raise ValueError('PCM sequence gap; captioning stopped')
+    pcm = np.frombuffer(base64.b64decode(message['data'], validate=True), dtype='<f4').copy()
+    if not 0 < len(pcm) <= 16384 or not np.isfinite(pcm).all(): raise ValueError('Invalid PCM segment')
+    return pcm
+
+
+def check_drain(message, expected, samples):
+    if message.get('expectedChunks') is not None and message['expectedChunks'] != expected:
+        raise ValueError(f'Caption chunk drain mismatch: received {expected}, expected {message["expectedChunks"]}')
+    if message.get('expectedSamples') is not None and message['expectedSamples'] != samples:
+        raise ValueError(f'Caption sample drain mismatch: received {samples}, expected {message["expectedSamples"]}')
+
+
 def run(model=None):
+    # A loaded model decides (the Parakeet pair is a tuple); otherwise the configured engine does.
+    if isinstance(model, tuple) or (model is None and engine() == 'parakeet'):
+        return run_parakeet(model)
+    return run_moss(model)
+
+
+def run_parakeet(models=None):
+    """One meeting: PCM lines in; partial words, committed sentence turns and finally the draft out."""
+    import numpy as np
+    import streaming_speech
+    request = json.loads(sys.stdin.readline())
+    root, directory = session_directory(request)
+    emit({'stage': 'Preparing live captions'})
+    models = models or streaming_speech.load()
+    emit({'stage': 'Warming speech models · not recording'})
+    if not getattr(models[0], '_memoria_warmed', False):
+        streaming_speech.warm(models)
+        models[0]._memoria_warmed = True
+    import voice_profiles
+    if voice_profiles._encoder is None:
+        from resemblyzer import VoiceEncoder
+        voice_profiles._encoder = VoiceEncoder(device='cpu', verbose=False)
+    session = (streaming_speech.StreamCaptions if streaming_speech.streaming(models) else streaming_speech.LiveTranscript)(models)
+    emit({'stage': 'Live captions ready'})
+    expected, shown = 0, 0
+    for line in sys.stdin:
+        message = json.loads(line)
+        if message.get('end'):
+            check_drain(message, expected, session.total)
+            emit({'progress': {'phase': 'finalizing', 'receivedChunks': expected,
+                               'receivedSamples': session.total, 'processedSamples': session.total}})
+            session.feed(np.zeros(0, dtype='float32'), final=True)
+            from voice_profiles import match_profiles, list_profiles
+            voices = streaming_speech.voice_vectors(session.voice_audio)
+            result = {'model': streaming_speech.label(models), 'revision': streaming_speech.revision(models),
+                      'segments': session.turns, 'duration': session.total / RATE, 'text': session.text(),
+                      'speakerEmbeddings': voices, 'speakerMatches': match_profiles(root, voices), 'profiles': list_profiles(root),
+                      'warnings': ['Live draft. Review words and speaker assignments.',
+                                   'Overlapping speech can lose the quieter speaker\'s words.',
+                                   'Timestamps use caption PCM time; pauses and startup may differ from the original recording clock.'],
+                      'nearLive': True, 'gaps': [],
+                      'audioAccounting': {'receivedChunks': expected, 'receivedSamples': session.total,
+                                          'processedSamples': session.total, 'sampleRate': RATE}}
+            save_draft(directory, result)
+            result.pop('speakerEmbeddings')
+            emit({'stage': 'Transcript ready for review', 'done': True, 'draft': result,
+                  'turns': session.turns, 'transcript': session.text(), 'partial': '', 'provisional': False})
+            return
+        pcm = read_pcm(message, expected)
+        expected += 1
+        emit({'progress': {'phase': 'processing', 'receivedChunks': expected,
+                           'receivedSamples': session.total + len(pcm), 'processedSamples': session.total}})
+        changed = session.feed(pcm)
+        emit({'ack': message['index']})
+        if changed and len(session.turns) != shown:
+            shown = len(session.turns)
+            emit({'transcript': session.text(), 'turns': session.turns, 'partial': session.partial,
+                  'stage': 'Live transcript', 'provisional': True})
+        elif changed:
+            emit({'partial': session.partial})
+        emit({'progress': {'phase': 'waiting', 'receivedChunks': expected,
+                           'receivedSamples': session.total, 'processedSamples': session.total}})
+
+
+def run_moss(model=None):
     import numpy as np
     request = json.loads(sys.stdin.readline())
     root = Path(request['vaultPath']).resolve(strict=True)
