@@ -11,8 +11,8 @@ could answer it. These steps check what remains. About 20 minutes. Use headphone
   Memoria's own prompt may be queued behind it. An entry for either in the System Audio Recording Only list (below)
   can be removed.
 - **Sound.** The Mac's output was muted at volume 0 last night (the tests did not change it). Unmute it.
-- **Prebuilt.** A debug bundle of this branch (merged with `main` at `ff0b318`, so it has everything in
-  `v0.3.0-uat` plus call audio) is at
+- **Prebuilt.** A debug bundle of this branch (merged with `main` at `173e987`, so it has everything in
+  `v0.3.0-uat`, the noise fix of `main` and call audio) is at
   `/Users/sayyid/Documents/memoria-workspace/src-tauri/target/debug/bundle/macos/Memoria.app`. Quit the installed
   Memoria first (two copies would load the models twice), then `open` that path; skip the build below.
 - **Build the bundle from this branch** (`call-audio`, not merged). Do not use `pnpm tauri dev` for this test: macOS
