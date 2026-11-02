@@ -12,7 +12,7 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 | Milestone | Target | Outcome |
 |---|---|---|
 | M0 Consolidated | Done, 2 November | One repository, research evidence, backup, private report folder |
-| M1 Native meeting loop | Week 5–6 | Record → review → approve → reuse works in the installed app with real audio |
+| M1 Native meeting loop | Week 5–6 (mostly done 2 Nov) | Record → review → approve → reuse works in the installed app with real audio |
 | M2 Meeting intelligence | Week 6–7 | Measured live check, long meetings, safer tracked facts |
 | M3 Reliability | Week 7 | Recovers from failures; full test suite green |
 | M4 UAT build | End of week 7 | Tagged build that installs from the guide |
@@ -42,6 +42,14 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 Acceptance: recording stops cleanly; marks align with recorded time; reviewed state survives
 restart; an interrupted recording is recovered; a saved brief cites only approved evidence.
 
+Status (2 November): verified natively with the replay path and fictional fixtures — see
+[M1-NATIVE-LOOP.md](research/M1-NATIVE-LOOP.md). Capture, captions, marks, pause/resume, End,
+review, refine, speaker naming, knowledge review and apply, Ask, Brief, Search, tracked facts,
+restart persistence and crash recovery all work; 14 defects found on the way were fixed with
+tests. Remaining: microphone capture with real speech (permission prompt), visual checks of
+themes, narrow layouts and the HUD's first click (no Screen Recording permission was
+available), and a playable duration for recovered recordings (D13).
+
 ## M2 Meeting intelligence
 
 - Bring the evaluated guard (relevance → confirmation → attribution, `research/memoriabench/guard.py`)
@@ -50,6 +58,11 @@ restart; an interrupted recording is recovered; a saved brief cites only approve
   tracked-fact extraction (reuse `memoria_engine.windowed`).
 - Tracked facts: stop offering registry edits that the ledger refuses.
 - Make saving across SQLite and Markdown recoverable after a crash (meetings API).
+- Route current-value and change questions in Ask to the tracked-fact ledger: the M1 check
+  answered "Which supplier do we use now?" with "does not answer" although tracked facts held
+  the current value.
+- Offer existing People and previously named voices in the speaker picker; label history
+  headings with the item label rather than its ID.
 
 Acceptance: a 60-minute recording is transcribed and extracted with no silent truncation; the
 live check has a reported MemoriaBench score with intervals and failure cases.
@@ -57,7 +70,8 @@ live check has a reported MemoriaBench score with intervals and failure cases.
 ## M3 Reliability
 
 - Restart crashed model workers automatically; handle memory pressure; coordinate model use
-  across the three workers.
+  across the three workers. (Workers no longer outlive a crashed app — done in M1.)
+- Write a playable duration for recovered recordings without altering the original evidence.
 - Sleep and wake, microphone disconnection, queue pressure and low disk space.
 - Resolve the 97 full-suite failures recorded on 1 November: fix them, or remove tests for
   inherited features that Memoria hides.
