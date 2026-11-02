@@ -402,9 +402,22 @@ class Engine:
         progress('Checking reviewed source versions')
         if not isinstance(question, str) or not question.strip() or len(question) > 2000:
             raise ValueError('Enter a question or meeting topic (up to 2000 characters)')
+        tracked_warning = None
+        if not brief and scope is None:
+            # A tracked value's current state, past value or changes come from the reviewed ledger
+            # across meetings; saved briefs and one-meeting questions cite approved knowledge claims only.
+            try:
+                from ask_facts import tracked_answer
+                routed = tracked_answer(self, question)
+            except Exception as error:
+                routed, tracked_warning = None, f'Tracked facts were not consulted: {str(error)[:200]}'
+            if routed:
+                return routed
         # Reviewed claims provide the reusable synthesis; raw source text remains
         # the evidence, and changed source versions are excluded explicitly.
         candidates, warnings, stale = [], [], []
+        if tracked_warning:
+            warnings.append(tracked_warning)
         for proposal in self.list():
             if proposal['status'] != 'applied':
                 continue

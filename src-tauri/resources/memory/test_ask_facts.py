@@ -1,0 +1,113 @@
+import tempfile
+import unittest
+import uuid
+from datetime import date
+from pathlib import Path
+
+from engine import Engine, workspace_product
+from temporal_service import temporal_api
+from memoria_engine.pipeline import Candidate
+from memoria_engine.service import registry_from_json
+from ask_facts import route_question, tracked_answer
+
+
+def forbidden(prompt):
+    raise AssertionError('Tracked-fact answers must not call the language model')
+
+
+class AskTrackedFactsTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name)
+        self.engine = Engine(self.root)
+        self.call('registry.set', {'objects': [
+            {'object_id': 'pilot', 'label': 'Pilot', 'kind': 'decision', 'attributes': [{'name': 'supplier', 'type': 'text'}]},
+            {'object_id': 'launch', 'label': 'Launch', 'kind': 'decision', 'attributes': [{'name': 'date', 'type': 'text'}]}]})
+
+    def tearDown(self):
+        self.engine.db.close()
+        self.temp.cleanup()
+
+    def call(self, method, params=None, extractor=None):
+        with self.engine.locked():
+            result = temporal_api(self.engine, {'method': method, 'params': params or {}}, extractor)
+        self.assertTrue(result['ok'], result)
+        return result['data']
+
+    def meeting(self, value, occurred, title):
+        identifier = str(uuid.uuid4())
+        text = f'We decided to use {value} as supplier.'
+        source = f'source-{identifier}.md'
+        (self.root / source).write_text(f'---\ntype: Source\ntitle: "{title} — reviewed transcript"\n---\n# {title} — reviewed transcript\n\n[0:17] Alex Tan: {text}\n')
+        workspace_product(self.engine, {'action': 'save_meeting', 'record': {'id': identifier, 'title': title, 'created': occurred,
+            'status': 'transcript-reviewed', 'transcriptPath': source, 'names': {'S01': 'Alex Tan'},
+            'turns': [{'start': 17.29, 'end': 19.77, 'speaker': 'S01', 'text': text}]}})
+        class Extractor:
+            name = 'fixture'
+            def extract(self, context):
+                return [Candidate('pilot', 'supplier', value, text, 0, None, 1.0)]
+        self.call('ingest_reviewed_meeting', {'meetingId': identifier}, Extractor())
+        self.call('proposals.accept', {'proposal_id': self.call('overview')['proposals'][0]['proposal_id']})
+        return identifier
+
+    def two_meetings(self):
+        first = self.meeting('Acme', '2026-10-01T05:15:00Z', 'Pilot kickoff')
+        second = self.meeting('Beta', '2026-10-20T05:42:00Z', 'Supplier review')
+        return first, second
+
+    def ask(self, question):
+        with self.engine.locked():
+            return self.engine.answer(question, generator=forbidden)
+
+    def test_now_question_without_the_item_name_is_answered_from_the_ledger(self):
+        # Observed natively: the wiki answer said "does not answer" although tracked facts held Beta.
+        _, second = self.two_meetings()
+        result = self.ask('Which supplier do we use now?')
+        self.assertEqual(result['source'], 'tracked-facts')
+        item = result['sections'][0]['items'][0]
+        self.assertTrue(item['text'].startswith('The current supplier for Pilot is Beta (decided '), item['text'])
+        evidence = {citation['id']: citation for citation in result['citations']}[item['citations'][0]]
+        self.assertEqual(evidence['quote'], 'We decided to use Beta as supplier.')
+        self.assertEqual((evidence['moment']['meetingId'], evidence['moment']['meetingTitle']), (second, 'Supplier review'))
+        self.assertEqual(evidence['sourceTitle'], 'Supplier review — reviewed transcript')
+
+    def test_change_question_lists_each_value_with_its_evidence(self):
+        self.two_meetings()
+        items = self.ask('What changed about the supplier?')['sections'][0]['items']
+        self.assertEqual(items[0]['text'], 'The supplier for Pilot changed once: Acme → Beta.')
+        self.assertEqual(len(items[0]['citations']), 2)
+        self.assertEqual([item['text'].split(' — ')[0] for item in items[1:]], ['Acme', 'Beta'])
+
+    def test_count_and_past_date_questions_use_the_evaluated_router(self):
+        self.two_meetings()
+        self.assertTrue(self.ask('How many times did the pilot supplier change?')['sections'][0]['items'][0]['text'].endswith('changed once: Acme → Beta.'))
+        past = self.ask('What was the pilot supplier on 10 October 2026?')['sections'][0]['items'][0]
+        self.assertTrue(past['text'].startswith('On 2026-10-10, the supplier for Pilot was Acme'), past['text'])
+        before = self.ask('What was the pilot supplier on 20 September 2026?')['sections'][0]['items'][0]
+        self.assertEqual((before['text'], before['citations'], before['noEvidence']), ('No supplier for Pilot was recorded for 2026-09-20.', [], True))
+
+    def test_other_questions_stay_with_the_wiki(self):
+        self.two_meetings()
+        registry = registry_from_json({'objects': [{'object_id': 'pilot', 'label': 'Pilot', 'kind': 'decision', 'attributes': [{'name': 'supplier', 'type': 'text'}]}]})
+        today = date(2026, 11, 2)
+        self.assertIsNone(route_question(registry, 'Which supplier did we decide to use?', today))  # attribute only, no time
+        self.assertIsNone(route_question(registry, 'What did we discuss about the pilot?', today))  # topic question
+        self.assertEqual(route_question(registry, 'What is the pilot supplier?', today)['type'], 'current')
+        self.assertIsNone(route_question(registry, 'What is the weather now?', today))
+        self.assertIsNone(tracked_answer(self.engine, 'When is the launch date now?'))  # tracked slot without approved facts
+        self.assertEqual(self.ask('Which supplier did we decide to use?')['message'],
+                         'No reviewed evidence yet. Build knowledge from a source and save its changes first.')
+        with self.engine.locked():  # one meeting's questions and saved briefs cite its approved claims only
+            scoped = self.engine.answer('Which supplier do we use now?', generator=forbidden, scope=['source.md'])
+            brief = self.engine.answer('Which supplier do we use now?', brief=True, generator=forbidden)
+        self.assertNotEqual(scoped.get('source'), 'tracked-facts')
+        self.assertNotEqual(brief.get('source'), 'tracked-facts')
+
+    def test_unreadable_tracked_facts_fall_back_with_a_warning(self):
+        (self.root / '.memoria-memory' / 'temporal' / 'registry.json').write_text('{broken')
+        result = self.ask('Which supplier do we use now?')
+        self.assertIn('Tracked facts were not consulted', ' '.join(result['warnings']))
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -18,6 +18,9 @@ interface Result {
   message?: string
   warnings: string[]
   needsReview?: { sourcePath: string; sourceTitle: string }[]
+  /** "tracked-facts" when the answer came from the reviewed decision ledger, with the lookup in `retrieval`. */
+  source?: string
+  retrieval?: string
 }
 export type AskMode = 'ask' | 'brief'
 interface Entry {
@@ -90,6 +93,7 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
     const canSave = isBrief && !result.needsReview?.length && filled.length > 0
     return <>
       {result.message && <p className="chat-note">{result.message}</p>}
+      {result.source === 'tracked-facts' && <p className="chat-note">From tracked facts{result.retrieval ? ` · ${result.retrieval.replace(/^Tracked facts · /, '')}` : ''}</p>}
       {result.needsReview?.map(source => <div key={source.sourcePath} className="chat-stale"><p>{source.sourceTitle} needs review</p><MemoryReview vaultPath={vaultPath} sourcePath={source.sourcePath} /></div>)}
       {canSave && <div className="chat-brief-head"><SectionLabel>Brief preview</SectionLabel>
         {entry.savedPath

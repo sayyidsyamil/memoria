@@ -24,6 +24,16 @@ it('answers and briefs inline as a conversation, without another dialog', async 
   await waitFor(() => expect(screen.getAllByText('No reviewed evidence yet')).toHaveLength(2))
   expect(invoke).toHaveBeenLastCalledWith('wiki_memory', { request: { action: 'brief', question: 'Harbour launch', vaultPath: '/vault', jobId: expect.any(String) } })
 })
+it('labels answers that come from tracked facts', async () => {
+  vi.mocked(invoke).mockResolvedValue({ sections: [{ heading: 'Answer', items: [{ text: 'The current supplier for Pilot is Beta (decided 20 Oct 2026, 13:42).', citations: ['R1'] }] }],
+    citations: [{ id: 'R1', sourcePath: 'review.md', sourceTitle: 'Supplier review — reviewed transcript', page: 1, quote: 'We decided to use Beta as supplier.',
+      moment: { meetingId: 'm2', meetingTitle: 'Supplier review', at: 17.29 } }],
+    warnings: [], source: 'tracked-facts', retrieval: 'Tracked facts · Pilot — supplier · current value' })
+  render(<MemoryAsk vaultPath="/vault" />)
+  type('Which supplier do we use now?'); fireEvent.click(screen.getByRole('button', { name: 'Ask' }))
+  expect(await screen.findByText(/The current supplier for Pilot is Beta/)).toBeInTheDocument()
+  expect(screen.getByText('From tracked facts · Pilot — supplier · current value')).toBeInTheDocument()
+})
 it('keeps earlier questions in the thread and scopes answers to one meeting', async () => {
   vi.mocked(invoke).mockResolvedValue({ sections: [{ heading: 'Answer', items: [{ text: 'Thursday.', citations: [] }] }], citations: [], warnings: [] })
   render(<MemoryAsk vaultPath="/vault" scope={['reviewed.md']} placeholder="Ask about this meeting…" />)
