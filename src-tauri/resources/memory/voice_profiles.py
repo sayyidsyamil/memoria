@@ -21,6 +21,15 @@ def list_profiles(root):
     with database(root) as connection:
         return [{'id': row[0], 'name': row[1]} for row in connection.execute('SELECT id, name FROM voices ORDER BY name')]
 
+def forget_profiles(root):
+    """Delete every remembered voice of this workspace (opt-in biometric data); transcripts keep their names."""
+    with database(root) as connection:
+        forgotten = connection.execute('SELECT COUNT(*) FROM voices').fetchone()[0]
+        connection.execute('DELETE FROM voices')
+    with database(root) as connection:
+        connection.execute('VACUUM')  # do not leave deleted templates in free pages
+    return {'forgotten': forgotten}
+
 def speaker_embeddings(samples, segments):
     global _encoder
     import numpy as np

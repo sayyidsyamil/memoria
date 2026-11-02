@@ -186,6 +186,8 @@ async function nameAndSave(assign: (picker: HTMLElement) => Promise<void> | void
   vi.mocked(invoke).mockReset().mockImplementation(async (_command, args) => (args as { request: { action: string } }).request.action === 'save_voice_profiles' ? { skipped: [] } : [])
   vi.mocked(applySource).mockClear()
   const view = render(reviewing())
+  // Remembering voices is opt-in; both paths opt in so their voice-memory requests can be compared.
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Remember named voices in this workspace' }))
   await assign(screen.getByRole('combobox', { name: 'Name S01' }))
   fireEvent.click(screen.getByText('Save reviewed transcript'))
   await screen.findByRole('region', { name: 'Review knowledge' })
@@ -314,4 +316,19 @@ it('forgets a chosen name when the transcript is refined again', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Refine transcript and speakers' }))
   await waitFor(() => expect(screen.getByRole('combobox', { name: 'Name S01' })).toHaveDisplayValue('Speaker 1 · not named yet'))
   expect(screen.queryByRole('textbox', { name: 'New name for S01' })).not.toBeInTheDocument()
+})
+
+it('remembers voices only when asked, and can forget every remembered voice', async () => {
+  vi.mocked(invoke).mockReset().mockImplementation(async (_command, args) => {
+    const action = (args as { request: { action: string } }).request.action
+    return action === 'forget_voice_profiles' ? { forgotten: 2 } : action === 'save_voice_profiles' ? { skipped: [] } : []
+  })
+  vi.spyOn(window, 'confirm').mockReturnValue(true)
+  render(reviewing({ initialDraft: { segments: [{ start: 1, end: 2, speaker: 'S01', text: 'Launch Thursday' }], duration: 3, warnings: [], text: '',
+    profiles: [{ id: 'p1', name: 'Maya' }, { id: 'p2', name: 'Raj' }] } }))
+  expect(screen.getByRole('checkbox', { name: 'Remember named voices in this workspace' })).not.toBeChecked()
+  fireEvent.click(screen.getByRole('button', { name: 'Forget remembered voices' }))
+  expect(await screen.findByText(/Forgot 2 remembered voices/)).toBeInTheDocument()
+  expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: { action: 'forget_voice_profiles', vaultPath: '/vault' } })
+  expect(screen.queryByRole('button', { name: 'Forget remembered voices' })).not.toBeInTheDocument()
 })

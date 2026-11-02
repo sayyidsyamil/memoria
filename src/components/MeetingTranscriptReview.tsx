@@ -51,7 +51,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [knownNames, setKnownNames] = useState<string[]>([])
   const [pickedNames, setPickedNames] = useState<Record<string, string>>({})
   const [marks, setMarks] = useState<Mark[]>(() => initialMarks ?? [])
-  const [remember, setRemember] = useState(true)
+  // Voice templates are biometric data: remembering them is opt-in (UAT acceptance criterion AC8).
+  const [remember, setRemember] = useState(false)
   const [name, setName] = useState(title)
   const [notice, setNotice] = useState(() => initialDraft ? '' : liveText.trim() ? 'Your live transcript is ready to review. Refinement is optional.' : 'Recording saved. Create a transcript when you are ready.')
   const [stage, setStage] = useState('')
@@ -103,6 +104,18 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
       setNotice(result.segments.length ? 'Your transcript is ready. Name speakers once; all their lines update.' : 'No readable speech detected.')
     } catch (failure) { setError(String(failure)); setNotice('Your original recording is saved.') }
     finally { setBusy(false); cancel.current = null }
+  }
+
+  async function forgetVoices() {
+    if (!window.confirm('Forget every remembered voice in this workspace? Names already saved in transcripts stay.')) return
+    setBusy(true); setError(''); setNotice('')
+    try {
+      const result = await invoke<{ forgotten: number }>('wiki_memory', { request: { action: 'forget_voice_profiles', vaultPath } })
+      setDraft(previous => previous ? { ...previous, profiles: [], speakerMatches: {} } : previous)
+      setProfileIds({}); profilesSaved.current = false
+      setNotice(`Forgot ${result.forgotten} remembered voice${result.forgotten === 1 ? '' : 's'}. Names already saved in transcripts stay.`)
+    } catch (failure) { setError(String(failure)) }
+    finally { setBusy(false) }
   }
 
   async function save() {
@@ -207,7 +220,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             <Fold title="Speakers" count={speakers.length} defaultOpen={speakers.some(speaker => !names[speaker]?.trim())}
               aside={<span className="review-fold-avatars">{speakers.map(speaker => <Avatar key={speaker} label={speakerLabel(speaker, names, order)} tone={speakerTone(speaker, order)} size={22} />)}</span>}>
             <div className="review-section-head"><span />
-              <label className="review-remember"><input type="checkbox" checked={remember} disabled={busy} onChange={event => setRemember(event.target.checked)} />Remember named voices in this workspace</label></div>
+              <label className="review-remember"><input type="checkbox" checked={remember} disabled={busy} onChange={event => setRemember(event.target.checked)} />Remember named voices in this workspace</label>
+              {!!draft.profiles?.length && <Button variant="ghost" size="sm" disabled={busy} onClick={() => { void forgetVoices() }}>Forget remembered voices</Button>}</div>
             {speakers.map(speaker => {
               const share = Math.round(words(speaker) / totalWords * 100)
               return <div key={speaker} className="review-speaker" data-tone={speakerTone(speaker, order)}>

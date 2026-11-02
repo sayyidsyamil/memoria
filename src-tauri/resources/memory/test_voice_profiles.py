@@ -27,3 +27,18 @@ class VoiceProfileTests(unittest.TestCase):
             self.assertEqual(match_profiles(root, {'S01': [1.0,0.0]}), {})
 
 if __name__ == '__main__': unittest.main()
+
+
+class ForgetVoicesTests(unittest.TestCase):
+    def test_forgetting_removes_every_template(self):
+        import json, sqlite3, tempfile
+        from pathlib import Path
+        from voice_profiles import database, forget_profiles, list_profiles
+        with tempfile.TemporaryDirectory() as folder:
+            with database(folder) as connection:
+                connection.execute('INSERT INTO voices VALUES (?,?,?,?)', ('a', 'Maya', 'enc', json.dumps([0.1, 0.2])))
+                connection.execute('INSERT INTO voices VALUES (?,?,?,?)', ('b', 'Raj', 'enc', json.dumps([0.3, 0.4])))
+            self.assertEqual(forget_profiles(folder), {'forgotten': 2})
+            self.assertEqual(list_profiles(folder), [])
+            data = (Path(folder) / '.memoria-memory' / 'voices.sqlite').read_bytes()
+            self.assertNotIn(b'Maya', data)  # vacuumed, not only unlinked rows

@@ -1011,6 +1011,9 @@ def main():
         elif action == 'meeting_api':
             from meetings_service import meeting_api
             result = meeting_api(engine, request)
+        elif action == 'forget_voice_profiles':
+            from voice_profiles import forget_profiles
+            result = forget_profiles(engine.root)
         elif action in ['meetings', 'summary', 'save_meeting', 'delete_meeting', 'meeting_record', 'approved', 'search', 'save_brief', 'briefs']:
             result = workspace_product(engine, request)
         elif action == 'compile':
