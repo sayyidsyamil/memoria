@@ -58,6 +58,10 @@
     "active": true,
     "targets": "all",
     "createUpdaterArtifacts": false,
+    "macOS": {
+      "signingIdentity": "-",
+      "hardenedRuntime": false
+    },
     "category": "Utility",
     "windows": {
       "webviewInstallMode": {

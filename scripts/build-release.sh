@@ -42,7 +42,7 @@ fi
 
 dmg_sha=$(shasum -a 256 $dmg | cut -d' ' -f1)
 bin_sha=$(shasum -a 256 $app/Contents/MacOS/memoria | cut -d' ' -f1)
-dmg_size=$(du -h $dmg | cut -f1)
+dmg_size=$(du -h $dmg | cut -f1 | tr -d " ")
 cat > docs/RELEASE_RECORD.md <<EOF
 # Release record
 
