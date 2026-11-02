@@ -148,7 +148,7 @@ class BriefTrackedFactsTests(AskTrackedFactsTests):
             brief = self.engine.answer('Next steering committee', brief=True, generator=forbidden)
         sections = {section['heading']: section['items'] for section in brief['sections']}
         self.assertEqual([item['text'] for item in sections['Open commitments']], ['Staff training: owner Aisha; due 3 Nov 2026.'])
-        self.assertEqual([item['text'].split(' (decided')[0] for item in sections['Recent updates']], ['Pilot — supplier changed from Acme to Beta'])
+        self.assertEqual([item['text'].split(' (decided')[0] for item in sections['Recent updates']], ['Pilot supplier changed from Acme to Beta'])
         cited = {citation['id']: citation for citation in brief['citations']}
         quotes = [cited[ref]['quote'] for ref in sections['Recent updates'][0]['citations']]
         self.assertEqual(quotes, ['We decided to use Acme as supplier.', 'We decided to use Beta as supplier.'])
@@ -160,7 +160,7 @@ class BriefTrackedFactsTests(AskTrackedFactsTests):
             brief = self.engine.answer('Pilot', brief=True, generator=forbidden)
             saved = workspace_product(self.engine, {'action': 'save_brief', 'id': str(uuid.uuid4()), 'topic': 'Pilot', 'result': brief})
         page = (self.root / saved['pagePath']).read_text()
-        self.assertIn('Pilot — supplier changed from Acme to Beta', page)
+        self.assertIn('Pilot supplier changed from Acme to Beta', page)
         self.assertIn('> We decided to use Beta as supplier.', page)
         beta = next(fact for fact in self.call('facts.history', {'object_id': 'pilot', 'attribute': 'supplier'}) if fact['value'] == 'Beta')
         self.call('facts.retract', {'fact_id': beta['fact_id'], 'reason': 'Recorded in error'})

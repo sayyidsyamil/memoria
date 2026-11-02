@@ -58,6 +58,18 @@ class TemporalIntegrationTests(unittest.TestCase):
         self.assertTrue(count['evidence'])
         self.assertTrue(self.call('overview')['check']['ok'])
 
+    def test_meetings_taken_in_together_can_be_approved_oldest_first(self):
+        self.ingest('Beta', '2026-10-01T10:00:00Z')
+        self.ingest('Acme', '2026-10-20T10:00:00Z')
+        older, newer = sorted(self.call('overview')['proposals'], key=lambda proposal: proposal['proposal_id'])
+        self.call('proposals.accept', {'proposal_id': older['proposal_id']})
+        accepted = self.call('proposals.accept', {'proposal_id': newer['proposal_id']})
+        self.assertIn('reproposed_as', accepted)
+        self.assertEqual(self.call('query', {'type': 'current', 'object_id': 'supplier', 'attribute': 'value'})['answer'], 'Acme')
+        self.assertEqual(self.call('query', {'type': 'n_changes', 'object_id': 'supplier', 'attribute': 'value'})['answer'], 1)
+        self.assertEqual(self.call('overview')['proposals'], [])
+        self.assertTrue(self.call('overview')['check']['ok'])
+
     def test_failed_extraction_does_not_consume_meeting_identifier(self):
         identifier = str(uuid.uuid4())
         text = 'We decided to use Beta as supplier.'

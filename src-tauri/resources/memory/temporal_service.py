@@ -112,6 +112,26 @@ class SharedExtractor:
         return [fixed for candidate in candidates if (fixed := repaired(candidate, context.registry)) is not None]
 
 
+def accept_with_rebase(service, params):
+    """Accept a suggestion. The engine refuses one whose belief has changed since it was proposed (stale). When
+    several meetings are taken in before any review, approving an older meeting's value changes the belief
+    that a later meeting's suggestion was made against, although its value, quote and dates have not changed:
+    the suggestion is then proposed again, unchanged, against today's belief and that one is accepted, with
+    the stale one rejected and both steps kept in the ledger's log. The reviewer sees the current value next to
+    every suggestion, so accepting it means the same as before."""
+    from memoria_engine.ledger import StaleProposal
+    try:
+        return service.proposals_accept(**params)
+    except StaleProposal:
+        ledger = service.pipe.ledger
+        row = ledger._db.execute('SELECT payload_json, confidence, reason FROM proposals WHERE proposal_id = ?',
+                                 (params['proposal_id'],)).fetchone()
+        fresh = ledger._write('propose', {'assert': json.loads(row['payload_json']), 'confidence': row['confidence'], 'reason': row['reason']})
+        reviewer = params.get('reviewer', 'user')
+        ledger.reject(params['proposal_id'], reviewer, note=f'Proposed again as {fresh}: an earlier meeting was approved since.')
+        return {**service.proposals_accept(**{**params, 'proposal_id': fresh}), 'reproposed_as': fresh}
+
+
 def temporal_api(engine, request, extractor=None):
     service = None
     try:
@@ -170,7 +190,10 @@ def temporal_api(engine, request, extractor=None):
             params = {**params, 'valid_at': datetime.now().astimezone().isoformat()}
         if method in ('facts.correct', 'facts.retract') and not str(params.get('reason') or '').strip():
             raise ValueError('A reason is required for a correction or retraction.')
-        result = valid_current(service) if method == 'facts.current' else getattr(service, METHODS[method])(**params)
+        if method == 'proposals.accept':
+            result = accept_with_rebase(service, params)
+        else:
+            result = valid_current(service) if method == 'facts.current' else getattr(service, METHODS[method])(**params)
         if method == 'query' and params.get('type') == 'n_changes':
             result['history'] = service.facts_history(params['object_id'], params['attribute'])
             result['evidence'] = [item for fact in result['history'] for item in fact.get('evidence', [])]

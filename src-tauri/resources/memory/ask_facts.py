@@ -241,7 +241,7 @@ def brief_items(engine, most=8):
             for attribute in [a.name for a in spec.attributes if a.name in facts]:
                 fact = facts[attribute]
                 word = 'due' if attribute in ('deadline', 'due', 'date') else attribute
-                parts.append(f"{word} {shown(fact['value'])}")
+                parts.append(f"{word} {shown_in(fact['value'], spec.label)}")
                 ids += cite(supporting_evidence(fact), fact)
             if ids:
                 commitments.append({'text': f"{spec.label}: {'; '.join(parts)}.", 'citations': ids})
@@ -255,8 +255,8 @@ def brief_items(engine, most=8):
                 latest, earlier = history[-1], history[-2]
                 ids = cite(earlier.get('evidence') or [], earlier) + cite(supporting_evidence(latest) or latest.get('evidence') or [], latest)
                 if ids:
-                    changes.append((latest['decided_at'], {'text': f"{spec.label} — {attribute.name} changed from {shown(earlier['value'])} "
-                                                           f"to {shown(latest['value'])} (decided {human_date(latest['decided_at'])}).", 'citations': ids}))
+                    changes.append((latest['decided_at'], {'text': f"{subject(spec.label, attribute.name)} changed from {shown_in(earlier['value'], spec.label)} "
+                                                           f"to {shown_in(latest['value'], spec.label)} (decided {human_date(latest['decided_at'])}).", 'citations': ids}))
         updates = [item for _, item in sorted(changes, key=lambda pair: pair[0], reverse=True)]
         if not commitments and not updates:
             return None
