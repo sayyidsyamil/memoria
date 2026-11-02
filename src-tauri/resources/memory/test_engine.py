@@ -79,6 +79,21 @@ class MemoryTests(unittest.TestCase):
         self.assertEqual(len(proposal['claims']), len(set(calls)) - 1)  # every other group still contributes
         self.assertTrue(proposal['claims'][-1]['quote'].startswith('[119:00]'))
 
+    def test_a_group_keeps_its_valid_claims_and_recites_a_quote_from_its_neighbour(self):
+        (self.root / 'meeting.md').write_text('---\ntype: Source\n---\n# Review\n\n[0:01] Maya: We chose kinetic batteries for the remote.\n\n'
+                                              '[0:09] Alex: The case will be rubber.\n\n[0:15] Maya: Next meeting is Friday.\n')
+        def reader(prompt):
+            return json.dumps({'claims': [
+                {'title': 'Battery', 'kind': 'Decision', 'statement': 'Kinetic batteries.', 'evidenceId': 'E2',  # quote is in E1
+                 'quote': 'We chose kinetic batteries for the remote.', 'targetPath': None},
+                {'title': 'Case', 'kind': 'Decision', 'statement': 'Rubber case.', 'evidenceId': 'E2', 'quote': 'The case will be rubber.', 'targetPath': None},
+                {'title': 'Date', 'kind': 'Decision', 'statement': 'Friday.', 'evidenceId': 'E3', 'quote': 'The next meeting is on Friday.', 'targetPath': None}]})
+        with self.engine.locked():
+            proposal = self.engine.compile('meeting.md', reader)
+        self.assertEqual([(claim['title'], claim['evidenceId']) for claim in proposal['claims']], [('Battery', 'E1'), ('Case', 'E2')])
+        self.assertIn('1 suggestion did not quote the source exactly and was left out', proposal['warning'])
+        self.assertEqual(proposal['skipped'], [])
+
     def test_stale_destination_rejected(self):
         proposal = self.engine.compile('source.md', model)
         (self.root / 'launch.md').write_text('User edited this while reviewing.')
