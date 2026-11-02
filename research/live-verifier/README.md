@@ -75,6 +75,25 @@ window does. A statement is alerted when a turn overlapping it raised a cue.
 - No turn fell outside the statements and no statement went unheard.
 - The audio is clean and the voices take turns with one-second gaps; real meetings have overlap, noise and distance.
 
+**In a simulated room** (`--room SNR,RT60,DRR`: a synthetic impulse response and pink noise, seeded per series):
+
+| Shipped pipeline, test split | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Statements sharing a turn |
+|---|---|---|---|---|---|
+| Clean | 1.9% | 98 (87.5%) | 2 | 1.26 / 2.19 s | 0 |
+| SNR 10 dB, RT60 0.5 s, DRR 3 dB | 4.1% | 93 (83.0%, CI 75.0–90.2) | 6 (CI 0.9–4.9%) | 2.66 / 3.65 s | 22 |
+| SNR 5 dB, RT60 0.8 s, DRR 0 dB | 9.6% | 82 (73.2%, CI 64.3–81.2) | 5 | 2.99 / 3.92 s | 18 |
+| SNR 0 dB, RT60 0.8 s, DRR −3 dB | 29% | 51 (45.5%, CI 34.8–55.4) | 7 | 3.16 / 3.86 s | 45 |
+
+\* on the statements that kept a turn of their own.
+
+- Misses follow the recogniser's errors ("recharging dock" heard as "… bar").
+- Most false alarms are statements that shared a turn with a neighbouring conflict ("The remote will work with several
+  devices, so the corporate image will be shown …"); the cue was right for the turn and is counted against both.
+- Steady noise defeats the voice detector: at SNR 10 dB WebRTC's detector marks every frame of the gaps as speech
+  (mode 2; mode 3 still 30%), so stretches close only at sentence ends or after 10 s. Turns are committed 2.0 s after
+  the statement instead of 0.7 s, and statements that the recogniser does not split with a full stop share a turn.
+  The diarizer is not fooled (5% of gap frames active at 10 dB, 13% at 0 dB, against all of every statement).
+
 ## Method
 
 `live_assistance.py`, `MEMORIA_LIVE_CHECK=guard` (now the default):
