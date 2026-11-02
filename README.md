@@ -1,82 +1,69 @@
 # Memoria
 
-Reviewed meeting knowledge, with the evidence attached
+Your meetings decide things. Memoria remembers what was decided, shows the words that prove it, and never leaves your Mac.
 
-Memoria records a meeting, lets you review its transcript, and turns approved
-outcomes into knowledge you can search and use in the next meeting.
-
-[Developer setup](docs/DEVELOPMENT.md) · [Roadmap](docs/ROADMAP.md)
+[Download the UAT build](https://github.com/sayyidsyamil/memoria/releases/tag/v0.2.0-uat) · [Developer setup](docs/DEVELOPMENT.md) · [Roadmap](docs/ROADMAP.md) · [Research](research/)
 
 ![Native meeting summary with approved outcomes and source timestamps](docs/media/summary.webp)
 
-Native macOS interface, shown with a fictional Cedar review fixture
+Native macOS interface, shown with a fictional review fixture.
 
-## Meeting workflow
+## The idea: verify once, answer exactly
 
-1. **Capture** microphone audio, pause when needed, and mark moments.
-2. **Review** the draft transcript and provisional speaker labels.
-3. **Approve** proposed outcomes with their supporting quotes.
-4. **Reuse** approved knowledge through Search, Ask, or a saved meeting brief.
+Meeting tools keep transcripts and summaries. To answer "who is our vendor now?" or "what was the budget on 27 September?", an assistant has to re-read every meeting and work the state out again, at every question. It often gets dates and changes wrong.
 
-The model proposes additions; human approval makes them durable. Meeting records,
-knowledge, and briefs remain Markdown files. The vault-local journal records
-publication and supports conflict-aware undo.
+Memoria does that work once, when a meeting ends:
 
-## Find the source
+1. **Record.** Audio is transcribed on the Mac with speaker labels.
+2. **Review.** A local model proposes each decision or commitment with its exact quote. You approve, correct or reject it.
+3. **Recall.** Approved values go into a ledger with their history. Questions about now, a past date or the number of changes are answered by lookup, with the quote and the second in the recording.
 
-Keyword search returns transcript matches and approved claims. Timestamp links
-lead back to the recording; quote disclosures make the evidence inspectable.
+Because the ledger knows what is decided, it can also flag a contradiction while a meeting is running.
 
-![Cedar search results with transcript matches, an approved claim, and timestamps](docs/media/search.webp)
+## Does it work?
 
-[Transcript view](docs/media/transcript.webp) · [Ask view](docs/media/ask.webp) · [Saved brief](docs/media/brief.webp)
+Measured on real meetings (AMI corpus: 20 test meetings in series, 96 questions), with the same local model (Qwen3.5-4B) for every method:
 
-## Development
+| | Memoria | Full transcripts in the prompt | Transcript search (BM25) |
+|---|---|---|---|
+| All questions | **61%** (59/96) | 43% | 39% |
+| Value on a past date | **100%** (29/29) | 21% | 48% |
+| Number of changes | 36% | 33% | 3% |
+| Current value | 53% | **71%** | 65% |
+| Time per question | **3.0 s** | 84.2 s | 3.4 s |
 
-Requires Node.js 22+, pnpm 10, and Rust stable for the native app.
+- With perfect proposals the ledger answers **96/96**. Its errors come from the model's proposals, which is the step a person reviews. With review: **89%**.
+- Live contradiction check on [MemoriaBench](research/memoriabench/): catches **81.3%** of conflicts with **1.3%** false alarms. On an hour of unrelated real speech (852 turns) it raised **no** alert.
+- Speech: a 60-minute AMI recording transcribed in 11.6 minutes, WER 13.2% (fillers removed), four speakers kept apart.
+
+Evidence and scripts: [research/](research/), [docs/research/](docs/research/), [model choice](research/model-bakeoff/README.md).
+
+## Install (UAT build, Apple silicon, 16 GB)
+
+The [`v0.2.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.2.0-uat) disk image is ad-hoc signed (right-click > Open the first time). It does not yet bundle its Python runtimes and models: on the test Mac they are installed once for every account with `scripts/install-shared-runtime.sh`, and `scripts/uat/memoria-doctor.sh` prints READY when an account can run it. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record](docs/RELEASE_RECORD.md).
+
+## Develop
+
+Node.js 22+, pnpm 10, Rust stable; Homebrew Python 3.11 for the local models.
 
 ```sh
 git clone https://github.com/sayyidsyamil/memoria.git
 cd memoria
 pnpm install --frozen-lockfile
-pnpm dev
+pnpm dev                     # browser build with a mock bridge
+pnpm tauri dev               # native app; model setup in docs/DEVELOPMENT.md
 ```
 
-Browser mode uses a mock bridge. For microphone capture and local models, follow
-[native runtime setup](docs/DEVELOPMENT.md), then run `pnpm tauri dev`.
+To see Memoria's own screens in the browser build against a real vault: `MEMORIA_DEV_VAULT=<vault> VITE_MEMORIA_DEV_BRIDGE=1 pnpm exec vite`.
+
+Tests: Rust 1,233, frontend 6,648, app Python 175 and ledger engine 291, all passing (2 November 2026; [verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)).
 
 React / TypeScript · Tauri / Rust · Python / MLX · Markdown / SQLite
 
-## Current status
+## What is original
 
-FYP2 research prototype, evaluated on Apple Silicon macOS. Model environments and
-cached weights require separate setup; there is no supported standalone installer
-yet. Speech quality, long-session recovery, and native acceptance remain in progress.
+Memoria is an FYP2 project by [Sayyid Syamil](https://github.com/sayyidsyamil) (Universiti Malaya), built on [Tolaria](https://github.com/refactoringhq/tolaria) by Luca Rossi / Refactoring and contributors. The editor, vault, notes and app shell are Tolaria's work. Memoria adds the meeting pipeline, review, the ledger engine and its evaluation, Ask and briefs from tracked facts, the live check and MemoriaBench.
 
-The focused suites pass 69 frontend and 30 engine/product tests. The broader suite
-has 97 outstanding failures. See [verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)
-for results and limitations. Quote matching proves provenance, not factual truth;
-local meeting inference does not make every inherited integration offline.
+[AGPL-3.0-or-later](LICENSE) · [Third-party notices](NOTICE.md) · Design refinement follows [Unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky, CC BY 4.0.
 
-## Project documentation
-
-- [Architecture](docs/ARCHITECTURE.md) and [model lifecycle](docs/MODEL-LIFECYCLE.md)
-- [Research evidence](research/) behind the FYP evaluation: ledger engine and MemoriaBench
-- [UI conventions](docs/UI-PATTERNS.md) and [Unslop audit](docs/UNSLOP-PASS.md)
-- [Fictional demo vault](memoria-demo/)
-- [Contributing](CONTRIBUTING.md), [issues](https://github.com/sayyidsyamil/memoria/issues), and [security](SECURITY.md)
-
-## Attribution
-
-Developed by [Sayyid Syamil](https://github.com/sayyidsyamil) for FYP2, derived from
-[Tolaria](https://github.com/refactoringhq/tolaria) by Luca Rossi / Refactoring and
-contributors. The inherited Markdown workspace remains attributed upstream;
-Memoria adds the meeting-oriented workflow.
-
-[AGPL-3.0-or-later](LICENSE) · [Third-party notices](NOTICE.md)
-
-Design refinement follows [Unslop](https://github.com/heydamir/unslop) by Damir
-Sokolovsky ([@heydamir](https://x.com/heydamir)), CC BY 4.0.
-
-`main` is the desktop workspace. `legacy` preserves the previous Next.js default;
-`fyp2` (tag `v0.1.0-uat`, the app evaluated in the FYP2 report) and `master` retain earlier work.
+Branches: `main` is the current app. `fyp2` (tag `v0.1.0-uat`) is the build evaluated in October; `legacy` and `master` keep earlier work.
