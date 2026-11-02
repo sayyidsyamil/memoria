@@ -1,0 +1,1081 @@
+{
+ "dev": {
+  "models": [
+   "qwen4b",
+   "qwen9b"
+  ],
+  "qa": {
+   "qwen4b": {
+    "immediate": {
+     "overall": {
+      "correct": 35,
+      "n": 45,
+      "accuracy": 0.7777777777777778,
+      "ci_95": [
+       0.637,
+       0.875
+      ]
+     },
+     "as_of_valid": {
+      "correct": 13,
+      "n": 13,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.772,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 16,
+      "accuracy": 0.75,
+      "ci_95": [
+       0.505,
+       0.898
+      ]
+     },
+     "n_changes": {
+      "correct": 10,
+      "n": 16,
+      "accuracy": 0.625,
+      "ci_95": [
+       0.386,
+       0.815
+      ]
+     }
+    },
+    "gold_facts": {
+     "overall": {
+      "correct": 45,
+      "n": 45,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.921,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 13,
+      "n": 13,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.772,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     }
+    }
+   },
+   "qwen9b": {
+    "immediate": {
+     "overall": {
+      "correct": 22,
+      "n": 45,
+      "accuracy": 0.4888888888888889,
+      "ci_95": [
+       0.35,
+       0.63
+      ]
+     },
+     "as_of_valid": {
+      "correct": 5,
+      "n": 13,
+      "accuracy": 0.38461538461538464,
+      "ci_95": [
+       0.177,
+       0.645
+      ]
+     },
+     "current": {
+      "correct": 11,
+      "n": 16,
+      "accuracy": 0.6875,
+      "ci_95": [
+       0.444,
+       0.858
+      ]
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 16,
+      "accuracy": 0.375,
+      "ci_95": [
+       0.185,
+       0.614
+      ]
+     }
+    },
+    "gold_facts": {
+     "overall": {
+      "correct": 37,
+      "n": 45,
+      "accuracy": 0.8222222222222222,
+      "ci_95": [
+       0.687,
+       0.907
+      ]
+     },
+     "as_of_valid": {
+      "correct": 5,
+      "n": 13,
+      "accuracy": 0.38461538461538464,
+      "ci_95": [
+       0.177,
+       0.645
+      ]
+     },
+     "current": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  "sign_tests": [
+   {
+    "a": "qwen9b",
+    "b": "qwen4b",
+    "type": "overall",
+    "a_only": 4,
+    "b_only": 17,
+    "both": 18,
+    "neither": 6,
+    "p_two_sided": 0.007197380065917969,
+    "p": "0.007"
+   },
+   {
+    "a": "qwen9b",
+    "b": "qwen4b",
+    "type": "current",
+    "a_only": 3,
+    "b_only": 4,
+    "both": 8,
+    "neither": 1,
+    "p_two_sided": 1.0,
+    "p": "1.000"
+   },
+   {
+    "a": "qwen9b",
+    "b": "qwen4b",
+    "type": "as_of_valid",
+    "a_only": 0,
+    "b_only": 8,
+    "both": 5,
+    "neither": 0,
+    "p_two_sided": 0.0078125,
+    "p": "0.008"
+   },
+   {
+    "a": "qwen9b",
+    "b": "qwen4b",
+    "type": "n_changes",
+    "a_only": 1,
+    "b_only": 5,
+    "both": 5,
+    "neither": 5,
+    "p_two_sided": 0.21875,
+    "p": "0.219"
+   },
+   {
+    "a": "qwen9b+confirm_conflicts",
+    "b": "qwen4b+confirm_conflicts",
+    "type": "overall",
+    "a_only": 3,
+    "b_only": 11,
+    "both": 25,
+    "neither": 6,
+    "p_two_sided": 0.057373046875,
+    "p": "0.057"
+   },
+   {
+    "a": "qwen9b+confirm_all",
+    "b": "qwen4b+confirm_all",
+    "type": "overall",
+    "a_only": 2,
+    "b_only": 10,
+    "both": 28,
+    "neither": 5,
+    "p_two_sided": 0.03857421875,
+    "p": "0.039"
+   }
+  ],
+  "extraction": {
+   "qwen4b": {
+    "tp": 15,
+    "fn": 8,
+    "fp": 58,
+    "precision": 0.2054794520547945,
+    "recall": 0.6521739130434783,
+    "f1": 0.3125,
+    "ci_95": {
+     "precision": [
+      0.125,
+      0.333
+     ],
+     "recall": [
+      0.348,
+      0.885
+     ],
+     "f1": [
+      0.2,
+      0.463
+     ]
+    },
+    "miss_reasons": {
+     "missed": 6,
+     "wrong_evidence": 2
+    },
+    "fp_reasons": {
+     "spurious": 58
+    }
+   },
+   "qwen9b": {
+    "tp": 16,
+    "fn": 7,
+    "fp": 47,
+    "precision": 0.25396825396825395,
+    "recall": 0.6956521739130435,
+    "f1": 0.3720930232558139,
+    "ci_95": {
+     "precision": [
+      0.154,
+      0.375
+     ],
+     "recall": [
+      0.391,
+      0.923
+     ],
+     "f1": [
+      0.225,
+      0.519
+     ]
+    },
+    "miss_reasons": {
+     "wrong_evidence": 4,
+     "missed": 3
+    },
+    "fp_reasons": {
+     "spurious": 47
+    }
+   }
+  },
+  "inbox": {
+   "qwen4b": {
+    "open_loop": {
+     "confirm_conflicts": {
+      "qa": {
+       "overall": {
+        "correct": 36,
+        "n": 45,
+        "accuracy": 0.8,
+        "ci_95": [
+         0.662,
+         0.891
+        ]
+       },
+       "as_of_valid": {
+        "correct": 13,
+        "n": 13,
+        "accuracy": 1.0,
+        "ci_95": [
+         0.772,
+         1.0
+        ]
+       },
+       "current": {
+        "correct": 12,
+        "n": 16,
+        "accuracy": 0.75,
+        "ci_95": [
+         0.505,
+         0.898
+        ]
+       },
+       "n_changes": {
+        "correct": 11,
+        "n": 16,
+        "accuracy": 0.6875,
+        "ci_95": [
+         0.444,
+         0.858
+        ]
+       }
+      },
+      "total": 17,
+      "per_meeting": 2.12,
+      "max": 5,
+      "meetings": 8,
+      "reviewer": {
+       "rejected": 9,
+       "accepted": 6,
+       "accepted_edited": 2
+      },
+      "drift_meetings": [
+       "TS3004c",
+       "TS3004d"
+      ]
+     },
+     "confirm_all": {
+      "qa": {
+       "overall": {
+        "correct": 38,
+        "n": 45,
+        "accuracy": 0.8444444444444444,
+        "ci_95": [
+         0.712,
+         0.923
+        ]
+       },
+       "as_of_valid": {
+        "correct": 13,
+        "n": 13,
+        "accuracy": 1.0,
+        "ci_95": [
+         0.772,
+         1.0
+        ]
+       },
+       "current": {
+        "correct": 11,
+        "n": 16,
+        "accuracy": 0.6875,
+        "ci_95": [
+         0.444,
+         0.858
+        ]
+       },
+       "n_changes": {
+        "correct": 14,
+        "n": 16,
+        "accuracy": 0.875,
+        "ci_95": [
+         0.64,
+         0.965
+        ]
+       }
+      },
+      "total": 41,
+      "per_meeting": 5.12,
+      "max": 9,
+      "meetings": 8,
+      "reviewer": {
+       "rejected": 24,
+       "accepted": 13,
+       "accepted_edited": 4
+      },
+      "drift_meetings": [
+       "ES2003c",
+       "ES2003d",
+       "TS3004c",
+       "TS3004d"
+      ]
+     }
+    },
+    "closed": {}
+   },
+   "qwen9b": {
+    "open_loop": {
+     "confirm_conflicts": {
+      "qa": {
+       "overall": {
+        "correct": 28,
+        "n": 45,
+        "accuracy": 0.6222222222222222,
+        "ci_95": [
+         0.476,
+         0.749
+        ]
+       },
+       "as_of_valid": {
+        "correct": 5,
+        "n": 13,
+        "accuracy": 0.38461538461538464,
+        "ci_95": [
+         0.177,
+         0.645
+        ]
+       },
+       "current": {
+        "correct": 14,
+        "n": 16,
+        "accuracy": 0.875,
+        "ci_95": [
+         0.64,
+         0.965
+        ]
+       },
+       "n_changes": {
+        "correct": 9,
+        "n": 16,
+        "accuracy": 0.5625,
+        "ci_95": [
+         0.332,
+         0.769
+        ]
+       }
+      },
+      "total": 21,
+      "per_meeting": 2.62,
+      "max": 6,
+      "meetings": 8,
+      "reviewer": {
+       "rejected": 11,
+       "accepted": 8,
+       "accepted_edited": 2
+      },
+      "drift_meetings": [
+       "ES2003c",
+       "TS3004c",
+       "TS3004d"
+      ]
+     },
+     "confirm_all": {
+      "qa": {
+       "overall": {
+        "correct": 30,
+        "n": 45,
+        "accuracy": 0.6666666666666666,
+        "ci_95": [
+         0.521,
+         0.786
+        ]
+       },
+       "as_of_valid": {
+        "correct": 5,
+        "n": 13,
+        "accuracy": 0.38461538461538464,
+        "ci_95": [
+         0.177,
+         0.645
+        ]
+       },
+       "current": {
+        "correct": 11,
+        "n": 16,
+        "accuracy": 0.6875,
+        "ci_95": [
+         0.444,
+         0.858
+        ]
+       },
+       "n_changes": {
+        "correct": 14,
+        "n": 16,
+        "accuracy": 0.875,
+        "ci_95": [
+         0.64,
+         0.965
+        ]
+       }
+      },
+      "total": 42,
+      "per_meeting": 5.25,
+      "max": 9,
+      "meetings": 8,
+      "reviewer": {
+       "accepted": 13,
+       "rejected": 25,
+       "accepted_edited": 4
+      },
+      "drift_meetings": [
+       "ES2003b",
+       "ES2003c",
+       "ES2003d",
+       "TS3004c",
+       "TS3004d"
+      ]
+     }
+    },
+    "closed": {}
+   }
+  },
+  "cost": {
+   "extract_s_per_meeting_9b": {
+    "ES2003a": 50.3,
+    "ES2003b": 95.2,
+    "ES2003c": 109.9,
+    "ES2003d": 206.8,
+    "TS3004a": 26.8,
+    "TS3004b": 112.0,
+    "TS3004c": 196.0,
+    "TS3004d": 126.8
+   },
+   "extract_s_per_meeting_4b": {
+    "ES2003a": 6.8,
+    "ES2003b": 26.1,
+    "ES2003c": 58.7,
+    "ES2003d": 139.5,
+    "TS3004a": 22.8,
+    "TS3004b": 59.1,
+    "TS3004c": 96.4,
+    "TS3004d": 81.6
+   },
+   "router_s_9b": [
+    9.24,
+    7.12,
+    9.85,
+    7.38,
+    5.9,
+    7.2,
+    6.38,
+    5.69,
+    6.42,
+    5.17,
+    5.03,
+    5.77,
+    5.38,
+    4.94,
+    6.56,
+    4.9,
+    5.25,
+    5.94,
+    5.15,
+    5.08,
+    6.65,
+    4.87,
+    4.97,
+    6.0,
+    4.62,
+    5.57,
+    4.98,
+    6.0,
+    8.7,
+    5.53,
+    5.27,
+    6.92,
+    5.94,
+    8.96,
+    10.84,
+    9.13,
+    7.72,
+    6.44,
+    6.03,
+    6.03,
+    8.04,
+    5.04,
+    5.6,
+    6.29,
+    4.76
+   ],
+   "router_s_4b": [
+    2.51,
+    2.69,
+    2.63,
+    2.84,
+    3.18,
+    3.92,
+    3.33,
+    3.32,
+    4.01,
+    3.4,
+    2.83,
+    4.7,
+    3.62,
+    3.35,
+    4.72,
+    3.86,
+    3.84,
+    5.47,
+    4.15,
+    4.51,
+    5.0,
+    4.34,
+    4.27,
+    5.03,
+    4.19,
+    2.34,
+    2.67,
+    2.48,
+    3.37,
+    2.59,
+    2.56,
+    3.07,
+    2.68,
+    2.72,
+    3.54,
+    2.93,
+    2.58,
+    3.09,
+    3.08,
+    2.69,
+    2.91,
+    3.26,
+    2.91,
+    2.89,
+    3.74
+   ],
+   "memory": {
+    "4b": {
+     "weights_gb": 2.368,
+     "mlx_peak_gb": 3.989,
+     "max_rss_gb": 1.259536384,
+     "peak_footprint_gb": 5.235117056,
+     "real_s": 429.48
+    },
+    "9b": {
+     "weights_gb": 5.038,
+     "mlx_peak_gb": 6.584,
+     "max_rss_gb": 1.361625088,
+     "peak_footprint_gb": 7.855657904,
+     "real_s": 1228.7
+    },
+    "app_workers_gb": {
+     "speech": 1.817,
+     "embedding": 1.132
+    }
+   }
+  },
+  "failures": {
+   "causes": {
+    "routing": 6,
+    "spurious change (extra value written)": 9,
+    "wrong value in force": 4,
+    "decision recorded before it was made": 2,
+    "extraction miss (no value in the ledger)": 1,
+    "missed change": 1
+   },
+   "fixed_vs_4b": [
+    [
+     "ES2003",
+     "q1"
+    ],
+    [
+     "ES2003",
+     "q3"
+    ],
+    [
+     "TS3004",
+     "q2"
+    ],
+    [
+     "TS3004",
+     "q9"
+    ]
+   ],
+   "new_vs_4b": [
+    [
+     "ES2003",
+     "q12"
+    ],
+    [
+     "ES2003",
+     "q15"
+    ],
+    [
+     "ES2003",
+     "q17"
+    ],
+    [
+     "ES2003",
+     "q18"
+    ],
+    [
+     "ES2003",
+     "q21"
+    ],
+    [
+     "ES2003",
+     "q23"
+    ],
+    [
+     "ES2003",
+     "q25"
+    ],
+    [
+     "ES2003",
+     "q9"
+    ],
+    [
+     "TS3004",
+     "q11"
+    ],
+    [
+     "TS3004",
+     "q12"
+    ],
+    [
+     "TS3004",
+     "q13"
+    ],
+    [
+     "TS3004",
+     "q14"
+    ],
+    [
+     "TS3004",
+     "q15"
+    ],
+    [
+     "TS3004",
+     "q16"
+    ],
+    [
+     "TS3004",
+     "q17"
+    ],
+    [
+     "TS3004",
+     "q5"
+    ],
+    [
+     "TS3004",
+     "q7"
+    ]
+   ],
+   "rows": [
+    [
+     "ES2003",
+     "q9",
+     "past date",
+     null,
+     "<route failed>",
+     "routing",
+     "**right**",
+     "router chose as_of_tx teletext.outcome valid=2026-02-05 tx=None",
+     "",
+     ""
+    ],
+    [
+     "ES2003",
+     "q12",
+     "past date",
+     null,
+     "<route failed>",
+     "routing",
+     "**right**",
+     "router chose as_of_tx lcd.outcome valid=2026-02-05 tx=None",
+     "",
+     ""
+    ],
+    [
+     "ES2003",
+     "q13",
+     "changes",
+     0,
+     1,
+     "spurious change (extra value written)",
+     "wrong",
+     "d:excluded \u2192 d:included",
+     "b:included, d:included",
+     "ES2003d: excluded \u201cditch the a L_C_D_\u201d"
+    ],
+    [
+     "ES2003",
+     "q15",
+     "past date",
+     null,
+     "<route failed>",
+     "routing",
+     "**right**",
+     "router chose as_of_tx battery.outcome valid=2026-02-05 tx=None",
+     "",
+     ""
+    ],
+    [
+     "ES2003",
+     "q16",
+     "changes",
+     0,
+     1,
+     "spurious change (extra value written)",
+     "wrong",
+     "c:conventional \u2192 c:lithium",
+     "c:lithium",
+     "ES2003c: conventional \u201cWe should probably just use conventional batteries.\u201d"
+    ],
+    [
+     "ES2003",
+     "q17",
+     "current",
+     "single curved",
+     "double curved",
+     "wrong value in force",
+     "**right**",
+     "a:single curved \u2192 b:double curved \u2192 d:single curved \u2192 d:double curved",
+     "c:double curved, d:single curved",
+     "ES2003d: double curved \u201cI'd say we go two, 'cause like f the fanciest would be the double curved.\u201d"
+    ],
+    [
+     "ES2003",
+     "q18",
+     "past date",
+     null,
+     "<route failed>",
+     "decision recorded before it was made",
+     "**right**",
+     "a:single curved \u2192 b:double curved \u2192 d:single curved \u2192 d:double curved",
+     "c:double curved, d:single curved",
+     "ES2003a: single curved \u201cmake something you know fairly sort of ergonomic, something that just fits fits \u201d"
+    ],
+    [
+     "ES2003",
+     "q19",
+     "changes",
+     1,
+     3,
+     "spurious change (extra value written)",
+     "wrong",
+     "a:single curved \u2192 b:double curved \u2192 d:single curved \u2192 d:double curved",
+     "c:double curved, d:single curved",
+     "ES2003a: single curved \u201cmake something you know fairly sort of ergonomic, something that just fits fits \u201d; ES2003b: double curved \u201cI thought the uh the d the double arc could perhaps uh be the uh the enter butto\u201d; ES2003d: double curved \u201cI'd say we go two, 'cause like f the fanciest would be the double curved.\u201d"
+    ],
+    [
+     "ES2003",
+     "q21",
+     "past date",
+     null,
+     "<route failed>",
+     "decision recorded before it was made",
+     "**right**",
+     "a:rubber \u2192 d:plastic",
+     "c:rubber, d:plastic",
+     "ES2003a: rubber \u201cmake something you know fairly sort of ergonomic, something that just fits fits \u201d"
+    ],
+    [
+     "ES2003",
+     "q23",
+     "current",
+     "special colour",
+     "yellow",
+     "wrong value in force",
+     "**right**",
+     "c:yellow \u2192 d:special colour \u2192 d:yellow",
+     "c:yellow, d:special colour",
+     "ES2003d: yellow \u201cWell, it's kind of curved and we can make it yellow, and that's pretty much bana\u201d"
+    ],
+    [
+     "ES2003",
+     "q25",
+     "changes",
+     1,
+     2,
+     "spurious change (extra value written)",
+     "**right**",
+     "c:yellow \u2192 d:special colour \u2192 d:yellow",
+     "c:yellow, d:special colour",
+     "ES2003d: yellow \u201cWell, it's kind of curved and we can make it yellow, and that's pretty much bana\u201d"
+    ],
+    [
+     "TS3004",
+     "q1",
+     "current",
+     "universal",
+     null,
+     "extraction miss (no value in the ledger)",
+     "wrong",
+     "(empty)",
+     "a:universal",
+     "(the gold decision was not extracted)"
+    ],
+    [
+     "TS3004",
+     "q5",
+     "changes",
+     1,
+     3,
+     "spurious change (extra value written)",
+     "**right**",
+     "b:excluded \u2192 c:included \u2192 c:excluded \u2192 c:included",
+     "b:excluded, d:included",
+     "TS3004c: included \u201cSo they recommended using it.\u201d; TS3004c: excluded \u201cOkay, only the colour and the flashy light and the We just we just skip the the \u201d; TS3004c: included \u201cOkay, we just put it in, because it's a good feature. We have to stop now. Okay,\u201d"
+    ],
+    [
+     "TS3004",
+     "q7",
+     "past date",
+     null,
+     "<route failed>",
+     "routing",
+     "**right**",
+     "router chose as_of_tx lcd.outcome valid=2026-02-05 tx=None",
+     "",
+     ""
+    ],
+    [
+     "TS3004",
+     "q8",
+     "changes",
+     0,
+     4,
+     "spurious change (extra value written)",
+     "wrong",
+     "b:excluded \u2192 b:included \u2192 c:excluded \u2192 c:included \u2192 c:excluded",
+     "b:excluded",
+     "TS3004b: included \u201cThat still stays\u201d; TS3004c: excluded \u201cI searched the web, uh and uh I searched uh on this d document, recent investiga\u201d; TS3004c: included \u201cif we implement uh speech recognition, I think it would be better to implement L\u201d"
+    ],
+    [
+     "TS3004",
+     "q11",
+     "changes",
+     0,
+     1,
+     "spurious change (extra value written)",
+     "**right**",
+     "b:excluded \u2192 b:included",
+     "b:included",
+     "TS3004b: excluded \u201ca teletext option, maybe we have to skip that one\u201d"
+    ],
+    [
+     "TS3004",
+     "q12",
+     "current",
+     "rechargeable",
+     "conventional",
+     "wrong value in force",
+     "**right**",
+     "b:rechargeable \u2192 d:conventional",
+     "c:rechargeable",
+     "TS3004d: conventional \u201cWe don't recharge.\u201d"
+    ],
+    [
+     "TS3004",
+     "q13",
+     "past date",
+     null,
+     "<route failed>",
+     "routing",
+     "**right**",
+     "router chose as_of_tx battery.outcome valid=2026-02-05 tx=None",
+     "",
+     ""
+    ],
+    [
+     "TS3004",
+     "q14",
+     "changes",
+     0,
+     1,
+     "spurious change (extra value written)",
+     "**right**",
+     "b:rechargeable \u2192 d:conventional",
+     "c:rechargeable",
+     "TS3004b: rechargeable \u201cNo, we have a recharger in it, so\u201d; TS3004d: conventional \u201cWe don't recharge.\u201d"
+    ],
+    [
+     "TS3004",
+     "q15",
+     "current",
+     "plastic",
+     "rubber",
+     "wrong value in force",
+     "**right**",
+     "c:rubber \u2192 c:plastic \u2192 d:rubber",
+     "c:plastic, d:plastic",
+     "TS3004d: rubber \u201cThe most time Yeah, with rubber buttons. Yeah, okay. Okay. Fine.\u201d"
+    ],
+    [
+     "TS3004",
+     "q16",
+     "past date",
+     null,
+     "<route failed>",
+     "routing",
+     "**right**",
+     "router chose as_of_tx case_material.outcome valid=2026-02-05 tx=None",
+     "",
+     ""
+    ],
+    [
+     "TS3004",
+     "q17",
+     "changes",
+     0,
+     2,
+     "spurious change (extra value written)",
+     "**right**",
+     "c:rubber \u2192 c:plastic \u2192 d:rubber",
+     "c:plastic, d:plastic",
+     "TS3004c: rubber \u201cSo rubber, kind of.\u201d; TS3004d: rubber \u201cThe most time Yeah, with rubber buttons. Yeah, okay. Okay. Fine.\u201d"
+    ],
+    [
+     "TS3004",
+     "q20",
+     "changes",
+     1,
+     0,
+     "missed change",
+     "wrong",
+     "b:various colours",
+     "c:yellow, d:various colours",
+     "TS3004b: various colours \u201cThe new product should reach a new market with customers are the younger than fo\u201d"
+    ]
+   ],
+   "fixed_rows": [
+    [
+     "ES2003",
+     "q1",
+     "current",
+     12.5,
+     null,
+     "extraction miss (no value in the ledger)",
+     "(empty)",
+     "(the gold decision was not extracted)"
+    ],
+    [
+     "ES2003",
+     "q3",
+     "current",
+     25,
+     1.5,
+     "wrong value in force",
+     "d:1.5",
+     "ES2003d: 1.5 \u201cUnfortunately we require the advanced chip if we're gonna do what we're needing \u201d"
+    ],
+    [
+     "TS3004",
+     "q2",
+     "changes",
+     0,
+     1,
+     "spurious change (extra value written)",
+     "a:universal \u2192 b:single device",
+     "TS3004b: single device \u201cSo so we have uh forty minutes for this uh for this second meeting, and we have \u201d"
+    ],
+    [
+     "TS3004",
+     "q9",
+     "current",
+     "included",
+     "excluded",
+     "wrong value in force",
+     "b:excluded",
+     "TS3004b: excluded \u201cSo a teletext option, maybe we have to skip that one.\u201d"
+    ]
+   ]
+  }
+ },
+ "test": {
+  "run": false
+ }
+}

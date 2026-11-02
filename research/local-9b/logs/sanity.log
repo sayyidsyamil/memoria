@@ -1,0 +1,23 @@
+[sanity] mlx-community/Qwen3.5-9B-MLX-4bit@938d891 loaded in 3.26 s, weights 5.038 GB
+[sanity] extraction ES2003a turns 0-50: parsed cleanly = True, 0 candidates, 13.56 s, 2922 in / 9 out; gold here: [(45, 'prod_cost', 12.5), (45, 'price', 25)]
+[sanity] route for q6 'What had been decided about which devices the remote controls as of February 5, 2026?': {'type': 'as_of_tx', 'object_id': 'devices', 'attribute': 'outcome', 'valid_at': '2026-02-05', 'tx_at': '2026-02-05', 'ok': True, 'reason': ''} exact = False, 7.21 s
+[sanity] MLX peak 6.584 GB
+[sanity] 34 s
+       35.37 real         5.37 user         4.04 sys
+          1566588928  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              508405  page reclaims
+                7528  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7350  voluntary context switches
+               58573  involuntary context switches
+         62220567658  instructions retired
+         28062566461  cycles elapsed
+          7574000512  peak memory footprint

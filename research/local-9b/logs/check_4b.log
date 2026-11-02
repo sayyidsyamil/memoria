@@ -1,0 +1,131 @@
+[check-4b] mlx-community/Qwen3.5-4B-MLX-4bit@32f3e8e loaded in 2.05 s, 2.368 GB; 110 October calls
+[check-4b] ES2004a: identical=True 4.294 s (October 7.039 s) 3063 in / 9 out, peak 3.989 GB
+[check-4b] ES2004a: identical=True 4.109 s (October 8.046 s) 2929 in / 9 out, peak 3.989 GB
+[check-4b] ES2004a: identical=True 2.473 s (October 5.512 s) 1681 in / 9 out, peak 3.779 GB
+[check-4b] route: identical=True 1.694 s (October 3.191 s) 819 in / 24 out, peak 3.383 GB
+[check-4b] route: identical=True 2.008 s (October 3.593 s) 828 in / 35 out, peak 3.393 GB
+[check-4b] route: identical=True 1.757 s (October 3.209 s) 830 in / 25 out, peak 3.396 GB
+[check-4b] route: identical=True 2.217 s (October 3.27 s) 819 in / 25 out, peak 3.383 GB
+[check-4b] route: identical=True 2.053 s (October 3.563 s) 828 in / 36 out, peak 3.393 GB
+[check-4b] route: identical=True 2.23 s (October 3.614 s) 830 in / 26 out, peak 3.396 GB
+[check-4b] route: identical=True 1.846 s (October 2.996 s) 821 in / 25 out, peak 3.385 GB
+[check-4b] route: identical=True 2.492 s (October 4.34 s) 830 in / 45 out, peak 3.396 GB
+[check-4b] route: identical=True 1.779 s (October 3.643 s) 832 in / 26 out, peak 3.398 GB
+[check-4b] route: identical=True 1.84 s (October 3.226 s) 819 in / 25 out, peak 3.383 GB
+[check-4b] route: identical=True 2.141 s (October 3.964 s) 828 in / 36 out, peak 3.393 GB
+[check-4b] route: identical=True 1.945 s (October 3.369 s) 830 in / 26 out, peak 3.396 GB
+[check-4b] route: identical=True 1.996 s (October 3.579 s) 819 in / 24 out, peak 3.383 GB
+[check-4b] route: identical=True 2.35 s (October 4.237 s) 828 in / 44 out, peak 3.393 GB
+[check-4b] ES2014a: identical=True 5.016 s (October 7.702 s) 2892 in / 9 out, peak 3.989 GB
+[check-4b] ES2014a: identical=True 4.703 s (October 7.113 s) 2788 in / 4 out, peak 3.989 GB
+[check-4b] ES2014a: identical=True 10.953 s (October 14.26 s) 1363 in / 298 out, peak 3.677 GB
+[check-4b] route: identical=True 2.465 s (October 3.652 s) 864 in / 24 out, peak 3.436 GB
+[check-4b] route: identical=True 2.636 s (October 3.466 s) 875 in / 25 out, peak 3.449 GB
+[check-4b] route: identical=True 2.947 s (October 3.448 s) 869 in / 24 out, peak 3.442 GB
+[check-4b] route: identical=True 3.248 s (October 4.482 s) 878 in / 44 out, peak 3.466 GB
+[check-4b] route: identical=True 2.862 s (October 3.256 s) 880 in / 25 out, peak 3.468 GB
+[check-4b] route: identical=True 2.485 s (October 3.009 s) 865 in / 24 out, peak 3.436 GB
+[check-4b] route: identical=True 3.303 s (October 3.756 s) 874 in / 44 out, peak 3.447 GB
+[check-4b] route: identical=True 2.884 s (October 3.168 s) 876 in / 25 out, peak 3.45 GB
+[check-4b] route: identical=True 2.685 s (October 3.254 s) 865 in / 24 out, peak 3.436 GB
+[check-4b] route: identical=True 3.756 s (October 3.9 s) 874 in / 44 out, peak 3.448 GB
+[check-4b] route: identical=True 3.188 s (October 3.112 s) 876 in / 25 out, peak 3.45 GB
+[check-4b] route: identical=True 2.604 s (October 3.059 s) 864 in / 24 out, peak 3.436 GB
+[check-4b] route: identical=True 3.56 s (October 3.811 s) 873 in / 44 out, peak 3.446 GB
+[check-4b] route: identical=True 2.767 s (October 3.159 s) 875 in / 25 out, peak 3.449 GB
+[check-4b] route: identical=True 2.833 s (October 3.078 s) 866 in / 25 out, peak 3.438 GB
+[check-4b] route: identical=True 3.772 s (October 2.836 s) 875 in / 36 out, peak 3.449 GB
+[check-4b] route: identical=True 3.006 s (October 2.32 s) 877 in / 26 out, peak 3.451 GB
+[check-4b] route: identical=True 3.83 s (October 2.279 s) 866 in / 25 out, peak 3.438 GB
+[check-4b] route: identical=True 4.45 s (October 3.311 s) 875 in / 45 out, peak 3.449 GB
+[check-4b] route: identical=True 3.826 s (October 2.285 s) 877 in / 26 out, peak 3.451 GB
+[check-4b] route: identical=True 3.174 s (October 2.096 s) 866 in / 24 out, peak 3.438 GB
+[check-4b] route: identical=True 4.638 s (October 2.596 s) 875 in / 44 out, peak 3.448 GB
+[check-4b] route: identical=True 3.18 s (October 2.467 s) 877 in / 25 out, peak 3.426 GB
+[check-4b] IS1009a: identical=True 6.711 s (October 8.217 s) 2951 in / 9 out, peak 3.922 GB
+[check-4b] IS1009a: identical=True 7.897 s (October 7.326 s) 2707 in / 9 out, peak 3.922 GB
+[check-4b] route: identical=True 3.677 s (October 3.404 s) 865 in / 24 out, peak 3.411 GB
+[check-4b] route: identical=True 3.707 s (October 3.286 s) 876 in / 25 out, peak 3.449 GB
+[check-4b] route: identical=True 3.161 s (October 3.739 s) 863 in / 26 out, peak 3.435 GB
+[check-4b] route: identical=True 3.826 s (October 4.79 s) 872 in / 46 out, peak 3.446 GB
+[check-4b] route: identical=True 3.357 s (October 3.745 s) 874 in / 27 out, peak 3.341 GB
+[check-4b] route: identical=True 2.977 s (October 3.993 s) 862 in / 24 out, peak 3.434 GB
+[check-4b] route: identical=True 3.552 s (October 4.689 s) 871 in / 44 out, peak 3.444 GB
+[check-4b] route: identical=True 3.251 s (October 3.563 s) 873 in / 25 out, peak 3.446 GB
+[check-4b] route: identical=True 2.575 s (October 3.419 s) 863 in / 25 out, peak 3.435 GB
+[check-4b] route: identical=True 3.012 s (October 3.587 s) 872 in / 36 out, peak 3.446 GB
+[check-4b] route: identical=True 3.158 s (October 2.559 s) 874 in / 26 out, peak 3.448 GB
+[check-4b] route: identical=True 2.997 s (October 2.177 s) 863 in / 25 out, peak 3.435 GB
+[check-4b] route: identical=True 3.061 s (October 2.554 s) 872 in / 36 out, peak 3.446 GB
+[check-4b] route: identical=True 2.927 s (October 2.33 s) 874 in / 26 out, peak 3.448 GB
+[check-4b] route: identical=True 2.778 s (October 2.453 s) 861 in / 24 out, peak 3.432 GB
+[check-4b] route: identical=True 3.277 s (October 3.196 s) 870 in / 35 out, peak 3.443 GB
+[check-4b] route: identical=True 2.923 s (October 2.88 s) 872 in / 25 out, peak 3.446 GB
+[check-4b] route: identical=True 3.034 s (October 2.723 s) 866 in / 25 out, peak 3.438 GB
+[check-4b] route: identical=True 3.212 s (October 3.053 s) 875 in / 36 out, peak 3.449 GB
+[check-4b] route: identical=True 2.784 s (October 2.849 s) 877 in / 26 out, peak 3.451 GB
+[check-4b] TS3003a: identical=True 6.376 s (October 7.614 s) 2789 in / 9 out, peak 3.922 GB
+[check-4b] TS3003a: identical=True 12.098 s (October 19.15 s) 3167 in / 113 out, peak 3.972 GB
+[check-4b] TS3003a: identical=True 3.644 s (October 4.861 s) 1370 in / 9 out, peak 3.683 GB
+[check-4b] route: identical=True 3.872 s (October 2.589 s) 875 in / 24 out, peak 3.449 GB
+[check-4b] route: identical=True 4.388 s (October 2.519 s) 886 in / 25 out, peak 3.436 GB
+[check-4b] route: identical=True 5.506 s (October 2.339 s) 876 in / 25 out, peak 3.45 GB
+[check-4b] route: identical=True 3.973 s (October 2.101 s) 887 in / 26 out, peak 3.405 GB
+[check-4b] route: identical=True 3.547 s (October 2.275 s) 871 in / 24 out, peak 3.444 GB
+[check-4b] route: identical=True 3.385 s (October 2.653 s) 882 in / 25 out, peak 3.47 GB
+[check-4b] route: identical=True 3.431 s (October 2.55 s) 873 in / 24 out, peak 3.446 GB
+[check-4b] route: identical=True 4.585 s (October 2.878 s) 882 in / 35 out, peak 3.47 GB
+[check-4b] route: identical=True 3.8 s (October 2.641 s) 884 in / 25 out, peak 3.44 GB
+[check-4b] route: identical=True 3.133 s (October 2.627 s) 873 in / 25 out, peak 3.446 GB
+[check-4b] route: identical=True 3.856 s (October 3.171 s) 882 in / 45 out, peak 3.458 GB
+[check-4b] route: identical=True 3.594 s (October 2.696 s) 884 in / 26 out, peak 3.443 GB
+[check-4b] route: identical=True 4.41 s (October 2.542 s) 871 in / 24 out, peak 3.444 GB
+[check-4b] route: identical=True 5.052 s (October 3.103 s) 880 in / 44 out, peak 3.468 GB
+[check-4b] route: identical=True 3.463 s (October 2.625 s) 882 in / 25 out, peak 3.47 GB
+[check-4b] route: identical=True 3.267 s (October 2.556 s) 873 in / 25 out, peak 3.446 GB
+[check-4b] route: identical=True 5.925 s (October 2.83 s) 882 in / 36 out, peak 3.423 GB
+[check-4b] route: identical=True 3.28 s (October 2.643 s) 884 in / 26 out, peak 3.456 GB
+[check-4b] route: identical=True 3.253 s (October 2.57 s) 873 in / 25 out, peak 3.446 GB
+[check-4b] route: identical=True 4.007 s (October 3.094 s) 882 in / 45 out, peak 3.47 GB
+[check-4b] route: identical=True 4.376 s (October 2.631 s) 884 in / 26 out, peak 3.456 GB
+[check-4b] TS3007a: identical=True 7.512 s (October 5.827 s) 3013 in / 9 out, peak 3.922 GB
+[check-4b] TS3007a: identical=True 10.35 s (October 6.622 s) 3297 in / 9 out, peak 3.989 GB
+[check-4b] TS3007a: identical=True 6.577 s (October 5.325 s) 2785 in / 9 out, peak 3.922 GB
+[check-4b] route: identical=True 3.389 s (October 2.051 s) 829 in / 24 out, peak 3.394 GB
+[check-4b] route: identical=True 4.48 s (October 2.34 s) 838 in / 35 out, peak 3.405 GB
+[check-4b] route: identical=True 4.435 s (October 2.067 s) 840 in / 25 out, peak 3.407 GB
+[check-4b] route: identical=True 3.855 s (October 2.126 s) 830 in / 25 out, peak 3.396 GB
+[check-4b] route: identical=True 5.641 s (October 2.748 s) 839 in / 36 out, peak 3.404 GB
+[check-4b] route: identical=True 3.954 s (October 2.617 s) 841 in / 26 out, peak 3.408 GB
+[check-4b] route: identical=True 5.532 s (October 2.484 s) 830 in / 25 out, peak 3.396 GB
+[check-4b] route: identical=True 6.984 s (October 2.818 s) 839 in / 36 out, peak 3.287 GB
+[check-4b] route: identical=True 3.831 s (October 2.439 s) 841 in / 26 out, peak 3.408 GB
+[check-4b] route: identical=True 3.539 s (October 2.04 s) 830 in / 25 out, peak 3.396 GB
+[check-4b] route: identical=True 4.543 s (October 2.273 s) 839 in / 36 out, peak 3.406 GB
+[check-4b] route: identical=True 3.965 s (October 2.689 s) 841 in / 26 out, peak 3.408 GB
+[check-4b] route: identical=True 3.234 s (October 2.481 s) 829 in / 24 out, peak 3.394 GB
+[check-4b] route: identical=True 3.835 s (October 3.137 s) 838 in / 44 out, peak 3.405 GB
+[check-4b] route: identical=True 2.959 s (October 2.625 s) 840 in / 25 out, peak 3.407 GB
+[check-4b] route: identical=True 2.807 s (October 2.421 s) 828 in / 24 out, peak 3.393 GB
+[check-4b] route: identical=True 4.012 s (October 3.166 s) 837 in / 44 out, peak 3.404 GB
+[check-4b] route: identical=True 2.967 s (October 2.995 s) 839 in / 25 out, peak 3.406 GB
+[check-4b] identical 110/110; MLX peak 3.989 GB
+[check-4b] 426 s
+      429.48 real        94.67 user        33.83 sys
+          1259536384  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             1002200  page reclaims
+                8904  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               13588  voluntary context switches
+              928351  involuntary context switches
+        429264888377  instructions retired
+        252985058869  cycles elapsed
+          5235117056  peak memory footprint
