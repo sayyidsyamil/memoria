@@ -112,9 +112,9 @@ export function attributeLabel(name: string): string {
   return words ? words[0].toUpperCase() + words.slice(1) : name
 }
 
-/** "changed 1×" for a value that changed; empty when it never changed or the count is unusable. */
+/** "Changed once", "Changed twice", "Changed 3 times" for a value that changed; empty when it never changed or the count is unusable. */
 export function changedTimes(count: number): string {
-  return Number.isInteger(count) && count > 0 ? `changed ${count}×` : ''
+  return Number.isInteger(count) && count > 0 ? changeSummary(count) : ''
 }
 
 /** The ledger's refusals in plain words; anything else is shown as the ledger said it. */

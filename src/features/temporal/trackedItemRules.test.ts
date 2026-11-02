@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
 import type { TemporalAttribute, TemporalFact, TemporalProposal } from './temporalService'
-import { DEFAULT_ITEM_KIND, ITEM_KINDS, attributeEditProblem, isCalendarDate, isItemKind, kindLabel, recordedValues, type RecordedValue } from './trackedItemRules'
+import { DEFAULT_ITEM_KIND, ITEM_KINDS, attributeEditProblem, isCalendarDate, isItemKind, kindLabel, recordedValues, typeLabel, type RecordedValue } from './trackedItemRules'
 
 const recorded = (...values: unknown[]): RecordedValue[] => values.map(value => ({ value: value as RecordedValue['value'], pending: false }))
 const suggested = (...values: unknown[]): RecordedValue[] => values.map(value => ({ value: value as RecordedValue['value'], pending: true }))
@@ -17,6 +17,11 @@ it('lists exactly the kinds the ledger accepts for a new item, and starts on one
   expect(['object', 'project', 'Decision', ' decision', ''].some(isItemKind)).toBe(false)
   expect(kindLabel('commitment')).toBe('Commitment')
   expect(kindLabel('project')).toBe('project')
+})
+
+it('names a list of allowed values a list, and other types as they are', () => {
+  expect(typeLabel('enum')).toBe('list')
+  expect(['text', 'number', 'date'].map(typeLabel)).toEqual(['text', 'number', 'date'])
 })
 
 it.each([
@@ -46,7 +51,7 @@ it.each([
 
 it('requires an enum to keep every recorded value on its list, in the spelling the ledger writes', () => {
   expect(attributeEditProblem(text, status('Maya', 'Sam'), recorded('Maya'))).toBeNull()
-  expect(attributeEditProblem(text, status('Sam'), recorded('Maya'))).toMatch(/not fit the type "enum": "Maya" \(recorded\)/)
+  expect(attributeEditProblem(text, status('Sam'), recorded('Maya'))).toMatch(/not fit the type "list": "Maya" \(recorded\)/)
   // The ledger would write "Active" for a new "active", so a stored "active" no longer reads as the same value.
   expect(attributeEditProblem(status('active'), status('Active', 'planned'), recorded('active'))).toMatch(/outside the allowed list: "active"/)
   expect(attributeEditProblem(status('planned', 'active'), status('planned', 'active', 'done'), recorded('active'))).toBeNull()
