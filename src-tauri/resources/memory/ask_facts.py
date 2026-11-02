@@ -33,6 +33,11 @@ def _named_in_full(registry, question):
     return full[0] if len(tied) > 1 and len(full) == 1 else None
 
 
+# Questions about what was said rather than what holds ("What did we discuss about the vendor?") belong to
+# the knowledge answer, whichever router recognises the item.
+TOPIC = re.compile(r'\b(discuss(?:ed|ion)?|talk(?:ed)?|said|say|mention(?:ed)?|summari[sz]e|summary|tell me about|overview|argu(?:e|ed|ments?)|opinions?|views?)\b', re.I)
+
+
 def _complete_attribute(raw, registry, question):
     """A reply that names an item but leaves out its attribute is completed when only one attribute fits:
     the item's only attribute, its owner for a "who" question, or its only date for a "when" question."""
@@ -77,6 +82,9 @@ def route_question(registry, question, today, generate=None):
     the evaluated rule router does. With rules, a named item counts when the question also names the attribute
     or asks about time; an attribute named without its item counts only when it is the only such slot and
     the question asks about time."""
+    from memoria_engine.fallback_router import parse_dates
+    if TOPIC.search(question) and not (CURRENT.search(question) or CHANGES.search(question) or parse_dates(question, today)):
+        return None
     if generate is not None:
         routed = llm_route(registry, question, today, generate)
         if routed is not None:

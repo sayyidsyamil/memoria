@@ -216,6 +216,13 @@ class ModelRouterTests(unittest.TestCase):
         route = route_question(self.registry(), 'Who owns staff training now?', today, lambda prompt: 'no json here')
         self.assertEqual((route['object_id'], route['attribute']), ('training', 'owner'))
 
+    def test_questions_about_what_was_said_go_to_knowledge_even_if_an_item_is_named(self):
+        from datetime import date
+        reply = '{"type":"current","object_id":"budget","attribute":"amount","valid_at":null,"tx_at":null}'
+        today = date(2026, 11, 2)
+        self.assertIsNone(route_question(self.registry(), 'What did we discuss about the pilot budget?', today, lambda prompt: reply))
+        self.assertEqual(route_question(self.registry(), 'What is the pilot budget now?', today, lambda prompt: reply)['type'], 'current')
+
     def test_an_item_with_one_attribute_needs_no_attribute_in_the_reply(self):
         from datetime import date
         reply = '{"type":"n_changes","object_id":"budget","attribute":null,"valid_at":null,"tx_at":null}'
