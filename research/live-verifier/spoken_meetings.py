@@ -10,6 +10,10 @@ approved decisions, as the meeting window does. A statement counts as alerted wh
 Latency: `commitLag` is how much audio had arrived after the statement ended when its turn was committed (independent
 of how fast this script runs); `checkSeconds` is the check's own time. In the app the two add up, because checks start
 as soon as a turn is committed.
+
+`--room SNR[,RT60[,DRR]]` plays each meeting into a simulated room first: a synthetic impulse response (reverberation
+time RT60 s, default 0.5; direct-to-reverberant ratio DRR dB, default 3) and pink noise SNR dB below the speech, both
+seeded by the series.
 """
 import json
 import random
@@ -43,6 +47,26 @@ def meeting_audio(probes, clips):
     return np.concatenate(parts + [np.zeros(RATE, dtype='float32')]), spans
 
 
+def room(audio, spans, snr, seed, rt60=.5, drr=3.0):
+    """Reverberation from an exponentially decaying noise tail behind the direct sound, then pink noise `snr` dB below
+    the mean power of the statements."""
+    rng = np.random.default_rng(seed)
+    t = np.arange(int(1.2 * rt60 * RATE)) / RATE
+    tail = rng.standard_normal(len(t)) * np.exp(-6.9 * t / rt60)
+    tail[:int(.002 * RATE)] = 0
+    tail *= np.sqrt(10 ** (-drr / 10) / np.sum(tail ** 2))
+    response = tail
+    response[0] = 1.0
+    size = 1 << int(np.ceil(np.log2(len(audio) + len(response))))
+    wet = np.fft.irfft(np.fft.rfft(audio, size) * np.fft.rfft(response, size), size)[:len(audio)]
+    white = np.fft.rfft(rng.standard_normal(len(audio)))
+    pink = np.fft.irfft(white / np.sqrt(np.maximum(np.arange(len(white)), 1)), len(audio))
+    speech = np.concatenate([wet[int(a * RATE):int(b * RATE)] for a, b in spans.values()])
+    pink *= np.sqrt(np.mean(speech ** 2) / np.mean(pink ** 2) * 10 ** (-snr / 10))
+    mixed = wet + pink
+    return (mixed / max(1.0, np.abs(mixed).max() / .99)).astype('float32')
+
+
 def caption_and_check(models, audio, root):
     import streaming_speech as S
     session, checked, seen = S.LiveTranscript(models), [], 0
@@ -65,7 +89,7 @@ def caption_and_check(models, audio, root):
     return checked
 
 
-def main(split, output):
+def main(split, output, condition=None):
     import streaming_speech as S
     from worker_lifetime import limit_gpu_cache
     limit_gpu_cache()
@@ -78,6 +102,8 @@ def main(split, output):
         order = [p for p in probes if p['series_id'] == series]
         random.Random(series).shuffle(order)
         audio, spans = meeting_audio(order, clips)
+        if condition is not None:
+            audio = room(audio, spans, *condition[:1], seed=int(''.join(ch for ch in series if ch.isdigit()) or 0), **dict(zip(('rt60', 'drr'), condition[1:])))
         with tempfile.TemporaryDirectory(prefix='memoria-spoken-meeting-') as folder:
             root = Path(folder)
             citation_of = bench.build_workspace(root, memories[series], provenance)
@@ -121,4 +147,6 @@ def main(split, output):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    args = sys.argv[1:]
+    condition = [float(x) for x in args[args.index('--room') + 1].split(',')] if '--room' in args else None
+    main(args[0], args[1], condition)
