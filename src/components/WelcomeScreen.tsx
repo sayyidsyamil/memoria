@@ -363,8 +363,8 @@ function WelcomeActions(
       }}
     >
       <OptionButton
-        icon={<FolderOpen size={18} style={{ color: 'var(--accent-green)' }} />}
-        iconBg="var(--accent-green-light)"
+        icon={<FolderOpen size={18} style={{ color: 'var(--muted-foreground)' }} />}
+        iconBg="var(--muted)"
         label={translate(locale, 'onboarding.welcome.openExisting')}
         description={translate(locale, 'onboarding.welcome.openExistingDescription')}
         onClick={onOpenFolder}
@@ -375,8 +375,8 @@ function WelcomeActions(
       />
 
       <OptionButton
-        icon={<Plus size={18} style={{ color: 'var(--accent-blue)' }} />}
-        iconBg="var(--accent-blue-light)"
+        icon={<Plus size={18} style={{ color: 'var(--muted-foreground)' }} />}
+        iconBg="var(--muted)"
         label={translate(locale, 'onboarding.welcome.createEmpty')}
         description={translate(locale, 'onboarding.welcome.createEmptyDescription')}
         loadingLabel={translate(locale, 'onboarding.welcome.createEmptyLoading')}
