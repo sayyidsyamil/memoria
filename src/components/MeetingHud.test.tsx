@@ -68,6 +68,7 @@ it('starts once in StrictMode, hides only after capture succeeds, and preserves 
   render(<StrictMode><MeetingHud /></StrictMode>)
   await screen.findByText('Recording')
   expect(navigator.mediaDevices.getUserMedia).toHaveBeenCalledTimes(1)
+  expect(navigator.mediaDevices.getUserMedia).toHaveBeenCalledWith({ audio: expect.objectContaining({ echoCancellation: false, noiseSuppression: false }) })
   expect(invoke).toHaveBeenCalledWith('meeting_capture_ready')
   fireEvent.click(screen.getByRole('button', { name: 'Open workspace' }))
   expect(capture.state).toBe('recording')

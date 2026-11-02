@@ -24,7 +24,7 @@ export function WorkspaceActions({ vaultPath, hasMeetingNotes = false }: { vault
   const openDecisions = useCallback(() => hub.current?.open('facts'), [])
   const holdsMemory = hasMeetingNotes || (summary?.meetings ?? 0) > 0 || (tracked?.items ?? 0) > 0 || (tracked?.facts ?? 0) > 0 ? true
     : summary && tracked ? false : undefined
-  useStartupMemoryHub(holdsMemory, openDecisions)
+  useStartupMemoryHub(holdsMemory, openDecisions, vaultPath)
   async function start(replay = false) {
     setStarting(true); setError('')
     try { await invoke('open_meeting_hud', { vaultPath, ...(replay ? { replay: true } : {}) }) }

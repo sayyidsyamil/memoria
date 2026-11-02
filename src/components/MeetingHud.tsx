@@ -26,6 +26,13 @@ async function persistChunk(vaultPath: string, sessionId: string, index: number,
   await invoke('save_meeting_chunk', { vaultPath, sessionId, index, data: btoa(binary) })
 }
 
+/**
+ * A meeting recorder must hear everyone in the room, including a speakerphone or the remote side of a call played by this
+ * Mac. Echo cancellation subtracts the Mac's own output and noise suppression can clip quiet speakers, so both are off;
+ * automatic gain keeps distant voices audible.
+ */
+export const MEETING_AUDIO: MediaTrackConstraints = { echoCancellation: false, noiseSuppression: false, autoGainControl: true, channelCount: 1 }
+
 export function MeetingHud() {
   const vaultPath = new URLSearchParams(location.search).get('vault') ?? ''
   const replayMode = new URLSearchParams(location.search).get('replay') === '1'
@@ -120,7 +127,7 @@ export function MeetingHud() {
             setReplayNotice('Test audio finished. End the meeting to drain captions and open review.')
             void pauseRef.current().catch(failure => { setError(String(failure)); setState('error') })
           }).then(input => { replayInput.current = input; return input.stream })
-          : navigator.mediaDevices.getUserMedia({ audio: true })).then(audio => {
+          : navigator.mediaDevices.getUserMedia({ audio: MEETING_AUDIO })).then(audio => {
           if (aborted.current) { audio.getTracks().forEach(track => track.stop()); throw new Error('Meeting start cancelled') }
           return audio
         })

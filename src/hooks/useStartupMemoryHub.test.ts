@@ -34,6 +34,20 @@ it('leaves a note that is being reopened in front', () => {
   expect(open).not.toHaveBeenCalled()
 })
 
+it('opens the board when the remembered note belongs to another workspace', () => {
+  localStorage.setItem(APP_STORAGE_KEYS.lastActiveNotePath, '/vault/plan.md')
+  const open = vi.fn()
+  renderHook(() => useStartupMemoryHub(true, open, '/vault-two'))
+  expect(open).toHaveBeenCalledTimes(1)
+})
+
+it('leaves a note of this workspace in front', () => {
+  localStorage.setItem(APP_STORAGE_KEYS.lastActiveNotePath, '/vault/plan.md')
+  const open = vi.fn()
+  renderHook(() => useStartupMemoryHub(true, open, '/vault/'))
+  expect(open).not.toHaveBeenCalled()
+})
+
 it('does not open once the app has long finished starting', () => {
   vi.useFakeTimers({ toFake: ['Date'] })
   resetStartupMemoryHub()
