@@ -165,9 +165,11 @@ Failure cases of the final design:
   by the guard.
 - 6 of the 91 caught conflicts cite a different decision than the reference.
 
-Not measured here: false alerts on real, unrelated speech for the app's own verifier
-(the research pipeline's 0.21% does not transfer), speech-recognition errors, and
-user-written tracked items instead of the one-slot-per-decision mapping.
+Not measured here: speech-recognition errors and user-written tracked items instead of the
+one-slot-per-decision mapping. False alerts on real, unrelated speech were measured separately:
+0 alerts on the 852 turns of a 60-minute AMI meeting checked against the UAT procurement facts,
+of which 29 reached the model ([../long-meeting/README.md](../long-meeting/README.md)). That is
+one recording, not a rate per hour.
 
 ## Model-free checks
 

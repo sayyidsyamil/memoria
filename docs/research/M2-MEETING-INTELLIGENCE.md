@@ -56,8 +56,9 @@ guard itself removed 4 of the 6 false alarms the app's verifier raised.
 Remaining gap to the research auditor: recall −17.0 points (−24.1 to −10.7). Most of the 21
 misses never reached the guard: the five-fact lexical selection left out the decision (many
 items share "remote") or the app's verifier judged no conflict. The 3 false alarms are model
-errors on paraphrases of the current decision and one wrong attribution. False alerts on
-real, unrelated speech have not been measured for the app's verifier (planned for M5).
+errors on paraphrases of the current decision and one wrong attribution. On real, unrelated
+speech (all 852 turns of the hour below, checked against the UAT procurement facts) the app
+raised no alert; 29 turns reached the model ([research/long-meeting](../../research/long-meeting/README.md)).
 
 ## A 60-minute recording, end to end
 
