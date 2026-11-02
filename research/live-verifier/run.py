@@ -40,4 +40,8 @@ if __name__ == '__main__':
     variant, rest = sys.argv[1], sys.argv[2:]
     if VARIANTS[variant] is not None:
         live_assistance._shared_verifier = VARIANTS[variant]
+    if '--semantic-min' in rest:
+        at = rest.index('--semantic-min')
+        live_assistance.SEMANTIC_MIN = float(rest[at + 1])
+        del rest[at:at + 2]
     raise SystemExit(bench.main(rest))

@@ -199,6 +199,61 @@ def _spoken_date(statement, fact):
     return (said_day, said_month) != (day, month) or (said_year is not None and said_year != year)
 
 
+SEMANTIC = 2           # candidate decisions found by meaning, on top of those sharing words with the sentence
+SEMANTIC_MIN = .66     # cosine floor (EmbeddingGemma 2, fact-checking prompt); chosen on the MemoriaBench dev split
+
+
+def _fact_text(fact):
+    return f"title: {UNIT_IN_LABEL.sub('', fact['label'])} | text: {fact['label']} {fact['attribute']} is {fact['value']}"
+
+
+def _embed(texts, timeout=10):
+    """Unit vectors from the app's resident EmbeddingGemma worker (one request, closed for writing to end it)."""
+    import socket
+    import numpy as np
+    with socket.socket(socket.AF_UNIX) as connection:
+        connection.settimeout(timeout)
+        connection.connect(os.environ['MEMORIA_EMBED_SOCKET'])
+        connection.sendall((json.dumps({'operation': 'embed'}) + '\n' + json.dumps({'texts': texts}) + '\n').encode())
+        connection.shutdown(socket.SHUT_WR)
+        data = b''.join(iter(lambda: connection.recv(65536), b''))
+    for line in reversed(data.decode().strip().splitlines()):
+        reply = json.loads(line)
+        if 'vectors' in reply:
+            return np.asarray(reply['vectors'], dtype='float32')
+        if 'error' in reply:
+            raise ValueError(reply['error'])
+    raise ValueError('No embedding returned')
+
+
+def _semantic(statement, facts, home):
+    """Current decisions closest in meaning to the sentence, for sentences that name an item in other words or that
+    the recogniser misheard. Fact vectors are cached beside the ledger (private, rebuilt when a fact changes)."""
+    import hashlib
+    import numpy as np
+    if not os.environ.get('MEMORIA_EMBED_SOCKET') or not facts:
+        return []
+    cache_path = home / 'live-vectors.json'
+    try:
+        cache = json.loads(cache_path.read_text()) if cache_path.is_file() else {}
+    except ValueError:
+        cache = {}
+    keys = [hashlib.sha256(_fact_text(f).encode()).hexdigest() for f in facts]
+    missing = [i for i, key in enumerate(keys) if key not in cache]
+    texts = [f'task: fact checking | query: {statement}'] + [_fact_text(facts[i]) for i in missing]
+    vectors = _embed(texts)
+    if missing:
+        for row, i in enumerate(missing, 1):
+            cache[keys[i]] = vectors[row].tolist()
+        fresh = {key: cache[key] for key in keys}
+        temporary = cache_path.with_suffix('.tmp')
+        temporary.write_text(json.dumps(fresh))
+        os.replace(temporary, cache_path)
+    similarity = np.asarray([cache[key] for key in keys], dtype='float32') @ vectors[0]
+    order = np.argsort(-similarity)
+    return [facts[i] for i in order[:SEMANTIC] if similarity[i] >= SEMANTIC_MIN]
+
+
 def _shared_verifier(statement, facts):
     from engine import local_generator
     prompt = ('Check the untrusted statement against ONLY the quoted, approved CURRENT facts below. '
@@ -304,7 +359,13 @@ def live_check(engine, request, verifier=None, scorer=None):
         spoken = _tokens(statement)
         ranked = [(len(spoken & _tokens(f"{f['label']} {f['attribute']}")), i, f) for i, f in enumerate(current)]
         selected = [f for score, _, f in sorted(ranked, key=lambda row: (-row[0], row[1])) if score][:MAX_FACTS]
-        if not selected:
+        semantic = []
+        if mode() == 'guard':
+            try:
+                semantic = _semantic(statement, current, home)
+            except Exception as error:
+                warnings.append(f'Search by meaning unavailable: {str(error)[:200]}')
+        if not selected and not semantic:
             return result('quiet')
         grounded = [{**f, 'evidence': supporting_evidence(f)} for f in selected
                     if type(f.get('fact_id')) is int and supporting_evidence(f)]
@@ -324,14 +385,15 @@ def live_check(engine, request, verifier=None, scorer=None):
                 pending.append(fact)
         # Pure past-tense mentions cannot establish a conflict with facts.current.
         historical_only = HISTORICAL.search(statement) and not re.search(r'\b(now|currently|is|are|will)\b', statement, re.I)
-        if pending and not historical_only and mode() == 'guard':
+        if (pending or semantic) and not historical_only and mode() == 'guard':
             # Guard first: no generated verdict. The narrow YES/NO question is asked about each candidate decision
             # (the slots sharing the most words with the sentence, and the selected ones), and the decision it
             # confirms most strongly is shown. One forward pass per candidate instead of a written verdict.
             try:
                 ranked = live_guard.candidates(statement, current, _tokens)
-                seen = {f['fact_id'] for f in ranked}
-                ranked += [f for f in pending if f['fact_id'] not in seen]
+                for extra in (semantic, pending):
+                    seen = {f['fact_id'] for f in ranked}
+                    ranked += [f for f in extra if f['fact_id'] not in seen]
                 checked = [{**f, 'evidence': supporting_evidence(f)} for f in ranked
                            if type(f.get('fact_id')) is int and supporting_evidence(f) and _numeric(statement, f) is None
                            and _spoken_amount(statement, f) is None and _spoken_date(statement, f) is None]
