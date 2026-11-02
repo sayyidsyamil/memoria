@@ -1,0 +1,38 @@
+{
+ "proposals": 10,
+ "matchGold": 10,
+ "wrong": [],
+ "goldFound": 9,
+ "goldMissing": [
+  [
+   "vendor",
+   "outcome",
+   "Alpha Systems"
+  ],
+  [
+   "migration",
+   "owner",
+   "Wei Ling"
+  ],
+  [
+   "migration",
+   "deadline",
+   "2026-10-09"
+  ],
+  [
+   "training",
+   "owner",
+   "Aisha"
+  ],
+  [
+   "training",
+   "deadline",
+   "2026-10-16"
+  ],
+  [
+   "security",
+   "owner",
+   "Wei Ling"
+  ]
+ ]
+}

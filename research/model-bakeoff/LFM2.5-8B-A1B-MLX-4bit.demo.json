@@ -1,0 +1,83 @@
+{
+ "proposals": 0,
+ "matchGold": 0,
+ "wrong": [],
+ "goldFound": 0,
+ "goldMissing": [
+  [
+   "vendor",
+   "outcome",
+   "Alpha Systems"
+  ],
+  [
+   "budget",
+   "amount",
+   250000
+  ],
+  [
+   "golive",
+   "date",
+   "2026-10-26"
+  ],
+  [
+   "migration",
+   "owner",
+   "Wei Ling"
+  ],
+  [
+   "migration",
+   "deadline",
+   "2026-10-09"
+  ],
+  [
+   "training",
+   "owner",
+   "Aisha"
+  ],
+  [
+   "training",
+   "deadline",
+   "2026-10-16"
+  ],
+  [
+   "vendor",
+   "outcome",
+   "Beta Cloud"
+  ],
+  [
+   "budget",
+   "amount",
+   280000
+  ],
+  [
+   "security",
+   "owner",
+   "Wei Ling"
+  ],
+  [
+   "security",
+   "deadline",
+   "2026-10-05"
+  ],
+  [
+   "migration",
+   "deadline",
+   "2026-10-23"
+  ],
+  [
+   "golive",
+   "date",
+   "2026-11-09"
+  ],
+  [
+   "training",
+   "deadline",
+   "2026-11-03"
+  ],
+  [
+   "security",
+   "status",
+   "done"
+  ]
+ ]
+}
