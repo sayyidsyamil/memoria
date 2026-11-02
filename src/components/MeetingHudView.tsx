@@ -33,9 +33,11 @@ function LiveCueCard({ cue, titles }: { cue: LiveCue; titles?: MeetingTitles }):
   return <article className="meeting-hud-cue">
     <p className="meeting-hud-cue-kicker"><WarningCircle size={14} weight="fill" aria-hidden="true" />Earlier decision</p>
     <p className="meeting-hud-cue-value">{name} is <strong>{value}</strong></p>
-    <blockquote>“{cue.quote}”</blockquote>
-    <small>{source.filter(Boolean).join(' · ')}</small>
-    <details><summary>Why this was flagged</summary><p>{cue.reason}</p></details>
+    <blockquote title={cue.quote}>“{cue.quote}”</blockquote>
+    <div className="meeting-hud-cue-meta">
+      <small>{source.filter(Boolean).join(' · ')}</small>
+      <details><summary>Why this was flagged</summary><p>{cue.reason}</p></details>
+    </div>
   </article>
 }
 
@@ -44,12 +46,13 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
   assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, cueMeetingTitles, vaultPath, sourceKind, replayNotice, progressText,
   transcriptRef, onTranscriptScroll, onToggleCaptions, onOpenWorkspace, onPause, onEnd, onMark }: HudViewProps): ReactNode {
   const liveOrder = speakerOrder(liveTurns.map(turn => turn.speaker))
+  const flagged = new Set(liveCues?.map(cue => cue.heardAt))
   const statusText = state === 'starting' ? 'Preparing' : state === 'recording' ? 'Recording' : state === 'paused' ? 'Paused' : state === 'saving' ? saveStage : 'Needs attention'
   const capturing = state === 'recording' || state === 'paused'
-  const transcript = <div ref={transcriptRef} className="meeting-hud-transcript" aria-label="Live transcript" aria-live="polite" onScroll={onTranscriptScroll}>{liveTurns.length ? liveTurns.map((turn, index) => <div className="meeting-hud-live-turn" key={`${turn.start}-${index}`} data-latest={index === liveTurns.length - 1 || undefined} data-tone={speakerTone(turn.speaker, liveOrder)}>
+  const transcript = <div ref={transcriptRef} className="meeting-hud-transcript" aria-label="Live transcript" aria-live="polite" onScroll={onTranscriptScroll}>{liveTurns.length ? liveTurns.map((turn, index) => <div className="meeting-hud-live-turn" key={`${turn.start}-${index}`} data-latest={index === liveTurns.length - 1 || undefined} data-flagged={flagged.has(turn.start) || undefined} data-tone={speakerTone(turn.speaker, liveOrder)}>
     <Avatar label={speakerLabel(turn.speaker, undefined, liveOrder)} tone={speakerTone(turn.speaker, liveOrder)} size={28} /><p><span className="sr-only">{speakerLabel(turn.speaker, undefined, liveOrder)}: </span>{turn.text}</p></div>)
     : <p className="meeting-hud-empty">{caption || (state === 'saving' ? 'Finishing the remaining audio…' : captionError ? 'No live transcript available.' : 'Listening for speech…')}</p>}</div>
-  return <main className="meeting-hud" data-state={state} data-open={captionsOpen || undefined}>
+  return <main className="meeting-hud" data-state={state} data-open={captionsOpen || undefined} data-cues={liveCues?.length ? true : undefined}>
     {captionsOpen ? <>
       <div className="meeting-hud-bar" onMouseDown={event => { if (event.button === 0 && !(event.target as HTMLElement).closest('button')) void getCurrentWindow().startDragging() }}>
         <span className="meeting-hud-bar-title"><Microphone size={15} aria-hidden="true" />Memoria</span>

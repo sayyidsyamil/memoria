@@ -117,6 +117,34 @@ class ScoringTests(unittest.TestCase):
         score.assert_called_once_with('model', tokenizer, scoring.request)
         self.assertEqual(stream.call_args.kwargs['max_tokens'], 1800)
 
+    def test_worker_honours_a_smaller_generation_budget_only(self):
+        class Connection:
+            def __init__(self, request):
+                self.request, self.sent = request, []
+            def __enter__(self): return self
+            def __exit__(self, *exc): pass
+            def settimeout(self, value): pass
+            def makefile(self, mode): return io.StringIO(json.dumps(self.request) + '\n')
+            def sendall(self, value): self.sent.append(json.loads(value))
+
+        requests = [Connection({'prompt': 'short', 'maxTokens': 320}), Connection({'prompt': 'huge', 'maxTokens': 99999}),
+                    Connection({'prompt': 'odd', 'maxTokens': '320'}), Connection({'prompt': 'zero', 'maxTokens': 0})]
+        listener = Mock()
+        listener.accept.side_effect = [(request, None) for request in requests] + [socket.timeout()]
+        tokenizer = Mock()
+        tokenizer.apply_chat_template.return_value = 'rendered'
+        stream = Mock(side_effect=lambda *a, **k: iter([SimpleNamespace(text='{}')]))
+        modules = {'huggingface_hub': SimpleNamespace(snapshot_download=lambda *a, **k: 'path'),
+                   'mlx_lm': SimpleNamespace(load=Mock(return_value=('model', tokenizer)), stream_generate=stream),
+                   'mlx_lm.sample_utils': SimpleNamespace(make_sampler=lambda **kw: 'greedy')}
+        with tempfile.TemporaryDirectory() as folder, patch.dict('sys.modules', modules), \
+                patch('model_server.socket.socket', return_value=listener), \
+                patch('model_server.select.select', return_value=([], [], [])), \
+                patch.object(Path, 'chmod'):
+            model_server.serve(str(Path(folder) / 'fake.sock'))
+        self.assertEqual([call.kwargs['max_tokens'] for call in stream.call_args_list], [320, 1800, 1800, 1800])
+        self.assertTrue(all(request.sent[-1] == {'text': '{}'} for request in requests))
+
 
 if __name__ == '__main__':
     unittest.main()

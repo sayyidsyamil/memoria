@@ -31,7 +31,7 @@ async function persistChunk(vaultPath: string, sessionId: string, index: number,
  * Mac. Echo cancellation subtracts the Mac's own output and noise suppression can clip quiet speakers, so both are off;
  * automatic gain keeps distant voices audible.
  */
-export const MEETING_AUDIO: MediaTrackConstraints = { echoCancellation: false, noiseSuppression: false, autoGainControl: true, channelCount: 1 }
+const MEETING_AUDIO: MediaTrackConstraints = { echoCancellation: false, noiseSuppression: false, autoGainControl: true, channelCount: 1 }
 
 export function MeetingHud() {
   const vaultPath = new URLSearchParams(location.search).get('vault') ?? ''
@@ -92,7 +92,7 @@ export function MeetingHud() {
   useEffect(() => { assistance.current?.setEnabled(assistanceEnabled) }, [assistanceEnabled])
   useEffect(() => {
     if (!assistanceEnabled || state !== 'recording') return
-    const timer = window.setInterval(() => { void assistance.current?.inspectEarlier(assistanceTurns.current) }, 1500)
+    const timer = window.setInterval(() => { void assistance.current?.inspect(assistanceTurns.current) }, 1500)
     return () => {
       window.clearInterval(timer)
       void assistance.current?.cancel().catch(failure => setAssistanceNotice(`Live check cancellation failed: ${String(failure)}`))

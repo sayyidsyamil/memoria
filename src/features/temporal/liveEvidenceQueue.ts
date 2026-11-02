@@ -5,7 +5,10 @@ import { checkLiveStatement, type LiveCue } from './liveAssistanceService'
 
 const key = (turn: TranscriptTurn) => `${turn.start}:${turn.end}:${turn.text}`
 
-/** Caller-owned serial checks. Only explicit finalization releases the last turn. */
+/**
+ * Caller-owned serial checks, oldest unchecked turn first. The speech worker only appends turns and never rewrites
+ * one, so a turn is checked as soon as it is published: waiting for the next turn only delayed the cue.
+ */
 export class LiveEvidenceQueue {
   private enabled = false
   private generation = 0
@@ -43,7 +46,7 @@ export class LiveEvidenceQueue {
     const promise = checkLiveStatement(this.vaultPath, turn.text, id).then(result => {
       if (generation !== this.generation || !this.enabled) return
       this.checked.add(turnKey)
-      this.cues = [...result.cues, ...this.cues].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3)
+      this.cues = [...result.cues.map(cue => ({ ...cue, heardAt: turn.start })), ...this.cues].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3)
       const notice = result.warnings.includes('No approved tracked facts')
         ? 'No approved tracked facts. Add and approve tracked items before using live checks.'
         : result.status === 'uncertain' ? 'A statement could not be verified. Inspect the transcript.' : ''
@@ -58,9 +61,9 @@ export class LiveEvidenceQueue {
     this.job = { id, promise }
     await promise
   }
-  async inspectEarlier(turns: TranscriptTurn[]) {
+  async inspect(turns: TranscriptTurn[]) {
     if (this.job || !this.enabled) return
-    const turn = turns.slice(0, -1).find(item => this.eligible(item))
+    const turn = turns.find(item => this.eligible(item))
     if (turn) await this.check(turn)
   }
   async finish(turns: TranscriptTurn[]): Promise<NonNullable<TranscriptDraft['liveChecks']>> {

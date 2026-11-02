@@ -748,7 +748,7 @@ def local_generator():
     identity = digest(script.read_text() + sys.executable)[:12]
     managed_address = os.environ.get('MEMORIA_QWEN_SOCKET')
     address = managed_address or str(Path(tempfile.gettempdir()) / f'memoria-{os.getuid()}-{identity}.sock')
-    def call(prompt):
+    def call(prompt, max_tokens=None):
         progress('Connecting to local model; first request may need loading')
         connection = socket.socket(socket.AF_UNIX)
         connection.settimeout(110)
@@ -770,7 +770,8 @@ def local_generator():
             connection.close()
             raise ValueError('Local model worker did not start. Check runtime permissions.')
         with connection:
-            connection.sendall((json.dumps({'prompt': prompt}) + '\n').encode())
+            request = {'prompt': prompt} if max_tokens is None else {'prompt': prompt, 'maxTokens': max_tokens}
+            connection.sendall((json.dumps(request) + '\n').encode())
             for line in connection.makefile('r'):
                 reply = json.loads(line)
                 if 'progress' in reply:
