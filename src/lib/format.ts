@@ -54,14 +54,25 @@ export function highlightParts(text: string, words: string[]): { text: string; h
     const word = token.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').toLowerCase()
     return !!word && words.some(candidate => word.startsWith(candidate))
   })
-  // Whitespace between two matched words belongs to the match, so a phrase highlights as one run.
-  const flags = tokens.map((token, index) => /^\s+$/.test(token) ? !!hits[index - 1] && !!hits[index + 1] : hits[index])
-  const parts: { text: string; hit: boolean }[] = []
+  const runs: { text: string; hit: boolean }[] = []
   tokens.forEach((token, index) => {
-    const last = parts[parts.length - 1]
-    if (last && last.hit === flags[index]) last.text += token
-    else parts.push({ text: token, hit: flags[index] })
+    if (/^\s+$/.test(token)) {
+      // Whitespace between two matched words belongs to the match, so a phrase highlights as one run; punctuation between them ends it.
+      const joined = !!hits[index - 1] && !!hits[index + 1] && !/[^\p{L}\p{N}]$/u.test(tokens[index - 1]) && !/^[^\p{L}\p{N}]/u.test(tokens[index + 1])
+      runs.push({ text: token, hit: joined })
+    } else if (hits[index]) {
+      // Only the word is marked: "budget," marks "budget".
+      const [, lead, word, trail] = /^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u.exec(token) ?? ['', '', token, '']
+      runs.push({ text: lead, hit: false }, { text: word, hit: true }, { text: trail, hit: false })
+    } else runs.push({ text: token, hit: false })
   })
+  const parts: { text: string; hit: boolean }[] = []
+  for (const run of runs) {
+    if (!run.text) continue
+    const last = parts[parts.length - 1]
+    if (last && last.hit === run.hit) last.text += run.text
+    else parts.push({ ...run })
+  }
   return parts
 }
 

@@ -135,7 +135,7 @@ describe('values', () => {
     expect(attributeLabel('outcome')).toBe('Outcome')
   })
 
-  it.each([[0, ''], [1, 'changed 1×'], [3, 'changed 3×'], [Number.NaN, ''], [-1, ''], [1.5, '']])('writes %s changes as %j', (count, text) => {
+  it.each([[0, ''], [1, 'Changed once'], [2, 'Changed twice'], [3, 'Changed 3 times'], [Number.NaN, ''], [-1, ''], [1.5, '']])('writes %s changes as %j', (count, text) => {
     expect(changedTimes(count)).toBe(text)
   })
 })

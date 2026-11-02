@@ -7,6 +7,7 @@ import { Button } from './ui/button'
 import { MEMORY_CHANGED_EVENT } from '../hooks/useWorkspaceSummary'
 import { kindTone } from '../lib/knowledgeKinds'
 import { clock, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
+import { plural } from '../lib/format'
 import { openNoteInNewWindow } from '../utils/openNoteWindow'
 import './meetingSummary.css'
 
@@ -90,13 +91,12 @@ export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, mar
     action={<Button onClick={() => setForced('build')}>Build knowledge</Button>}>Memoria reads the reviewed transcript and suggests decisions, commitments and people. Nothing is saved until you approve it.</EmptyState>
 
   const counts = SECTIONS.map(section => ({ section, total: claims.filter(claim => claim.kind === section.kind).length })).filter(item => item.total)
-  const located = claims.filter(claim => claim.moment?.at != null).length
   const changed = claims.filter(claim => claim.status === 'needs-review').length
   const topic = claims.find(claim => claim.kind === 'Project' || claim.kind === 'Topic')?.pageTitle || title
   return <div className="summary">
     <div className="summary-main">
       <header className="summary-overview"><div><h2>Meeting outcomes</h2>
-        <p className="summary-lead">{claims.length} approved outcome{claims.length === 1 ? '' : 's'} · {located ? 'Linked to the recording' : 'Source quotes attached'}</p></div>
+        <p className="summary-lead">{plural(claims.length, 'approved outcome')}</p></div>
         {onBrief && <Button size="sm" onClick={() => onBrief(topic)}>Create brief</Button>}
       </header>
       {changed > 0 && <Chip tone="orange" dot title="A source file changed after approval. Re-review before relying on it.">{changed} source{changed === 1 ? '' : 's'} changed — needs review</Chip>}
@@ -114,7 +114,7 @@ export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, mar
         </li>)}</ul>
       </section>)}
       <div className="summary-bar">
-        <p>Approved by you. Original evidence preserved.</p>
+        <p>Approved by you.</p>
         <Button variant="ghost" size="sm" onClick={() => setForced('history')}>Review or undo</Button>
       </div>
     </div>

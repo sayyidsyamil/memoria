@@ -19,8 +19,8 @@ function ItemName({ id, objects }: { id: string; objects: readonly TemporalObjec
 
 function LookupHeading({ query, objects }: { query: LookupResult; objects: readonly TemporalObject[] }) {
   const { type, at } = query
-  return <h4><ItemName id={query.objectId} objects={objects} /> — {attributeLabel(query.attribute)} · {type === 'current' ? 'Current' : type === 'n_changes' ? 'Number of changes'
-    : <>{type === 'as_of_valid' ? 'Valid at' : 'Value valid now, as known on'} <TemporalDate value={at} time /></>}</h4>
+  return <h4><ItemName id={query.objectId} objects={objects} /> — {attributeLabel(query.attribute)} · {type === 'current' ? 'Now' : type === 'n_changes' ? 'Number of changes'
+    : <>{type === 'as_of_valid' ? 'On' : 'As recorded on'} <TemporalDate value={at} time /></>}</h4>
 }
 
 /** The answer as the value, its source quotes and when it was decided; a count as a sentence. Unfamiliar shapes stay inspectable. */
@@ -38,7 +38,8 @@ function LookupAnswer({ query, valueType, unit, titles, onOpenMoment }: { query:
 }
 
 /**
- * Looks a tracked value up at another time. Valid time is when a value applied; recorded time is when the ledger knew it.
+ * Looks a tracked value up at another time. "On a date" is the value that applied then, by today's record (valid time);
+ * "As recorded on a date" is what the board held on that date, before any later correction (recorded time).
  */
 export function TrackedValueLookup({ objects, disabled, titles, onOpenMoment, onLookup }: {
   objects: readonly TemporalObject[]
@@ -58,7 +59,7 @@ export function TrackedValueLookup({ objects, disabled, titles, onOpenMoment, on
   const resultType = resultObject?.attributes.find(item => item.name === queryResult?.attribute)?.type
 
   return <>
-    <p>Valid time is when a value applied. Recorded time is when the ledger knew it. A recorded-time lookup returns the value valid now, as known on the selected date.</p>
+    <p>“On a date” gives the value that applied then, with any later correction. “As recorded on a date” gives what the board said on that date.</p>
     <form onSubmit={event => {
       event.preventDefault()
       if (!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt)) return
@@ -68,11 +69,11 @@ export function TrackedValueLookup({ objects, disabled, titles, onOpenMoment, on
           : { type: queryType, object_id: queryObject, attribute: queryAttribute }
       onLookup(params, setQueryResult)
     }}><fieldset disabled={disabled} className="temporal-fields">
-      <label>Query item<select required value={queryObject} onChange={event => { setQueryObject(event.target.value); setQueryAttribute(''); setQueryResult(null) }}><option value="">Choose an item</option>{objects.map(item => <option key={item.object_id} value={item.object_id}>{item.label}</option>)}</select></label>
-      <label>Query attribute<select required value={queryAttribute} onChange={event => { setQueryAttribute(event.target.value); setQueryResult(null) }}><option value="">Choose an attribute</option>{queryAttributes.map(item => <option key={item.name} value={item.name}>{attributeLabel(item.name)}</option>)}</select></label>
-      <label>Time perspective<select value={queryType} onChange={event => { setQueryType(event.target.value as TemporalQuery['type']); setQueryResult(null) }}><option value="current">Current value</option><option value="as_of_valid">Past value (valid time)</option><option value="as_of_tx">Value valid now, as known on date</option><option value="n_changes">Number of changes</option></select></label>
-      {queryType.startsWith('as_of') && <label>As of (ISO date or timestamp)<Input required value={queryAt} placeholder="2026-11-02 or 2026-11-02T10:00:00Z" onChange={event => { setQueryAt(event.target.value); setQueryResult(null) }} /></label>}
-      <Button type="submit" variant="outline" disabled={!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt.trim())}>Look up value</Button>
+      <label>Item<select required value={queryObject} onChange={event => { setQueryObject(event.target.value); setQueryAttribute(''); setQueryResult(null) }}><option value="">Choose an item</option>{objects.map(item => <option key={item.object_id} value={item.object_id}>{item.label}</option>)}</select></label>
+      <label>Field<select required value={queryAttribute} onChange={event => { setQueryAttribute(event.target.value); setQueryResult(null) }}><option value="">Choose a field</option>{queryAttributes.map(item => <option key={item.name} value={item.name}>{attributeLabel(item.name)}</option>)}</select></label>
+      <label>When<select value={queryType} onChange={event => { setQueryType(event.target.value as TemporalQuery['type']); setQueryResult(null) }}><option value="current">Now</option><option value="as_of_valid">On a date</option><option value="as_of_tx">As recorded on a date</option><option value="n_changes">Number of changes</option></select></label>
+      {queryType.startsWith('as_of') && <label>Date<Input required value={queryAt} placeholder="YYYY-MM-DD" onChange={event => { setQueryAt(event.target.value); setQueryResult(null) }} /></label>}
+      <Button type="submit" variant="outline" disabled={!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt.trim())}>Look up</Button>
     </fieldset></form>
     {queryResult && <div className="temporal-query-result" role="status"><LookupHeading query={queryResult} objects={objects} />
       <LookupAnswer query={queryResult} valueType={resultType} unit={resultObject ? labelUnit(resultObject.label, resultType === 'number').unit : null} titles={titles} onOpenMoment={onOpenMoment} /></div>}

@@ -138,7 +138,7 @@ export function SourceIntake({ vaultPath }: { vaultPath: string }) {
           <div><p className="source-intake-drop-title">Drop documents here</p><p className="source-intake-format">PDF, TXT, Markdown, VTT or SRT · up to 20 MB each</p></div>
           <Button variant="outline" disabled={!ready} onClick={() => input.current?.click()}>Choose files</Button>
         </div>
-        <div className="source-intake-list-header"><span>{showCompleted ? 'All imports' : 'Pending files'} <span className="text-muted-foreground">{visible.length}</span></span>{completed.length > 0 && <button onClick={() => setShowCompleted(value => !value)}>{showCompleted ? 'Hide completed' : `Show completed (${completed.length})`}</button>}</div>
+        {(visible.length > 0 || completed.length > 0) && <div className="source-intake-list-header"><span>{showCompleted ? 'All imports' : 'Pending files'} <span className="text-muted-foreground">{visible.length}</span></span>{completed.length > 0 && <button onClick={() => setShowCompleted(value => !value)}>{showCompleted ? 'Hide completed' : `Show completed (${completed.length})`}</button>}</div>}
         <ul className="source-intake-list" aria-label="Import queue" aria-live="polite">
           {visible.map(candidate => <li className="source-intake-file" key={candidate.id}>
             <div className="source-intake-file-top">

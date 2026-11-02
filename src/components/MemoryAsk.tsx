@@ -28,9 +28,12 @@ interface Entry {
   result?: Result; error?: string; briefId: string; prepared: string; savedPath?: string; saving?: boolean
 }
 
+/** A citation chip: the meeting (or document) and where in it. Long titles are shortened; the chip keeps the full title on hover. */
 function citeLabel(evidence: Evidence) {
   const title = evidence.moment?.meetingTitle ?? evidence.sourceTitle
-  return { title: title.length > 28 ? `${title.slice(0, 27)}…` : title, where: evidence.moment?.at != null ? clock(evidence.moment.at) : `p.${evidence.page}` }
+  const where = evidence.moment?.at != null ? clock(evidence.moment.at) : `p.${evidence.page}`
+  return { title: title.length > 40 ? `${title.slice(0, 39)}…` : title, where,
+    name: `Quote from ${title}${evidence.moment?.at != null ? ` at ${where}` : `, page ${evidence.page}`}`, full: `${title} · ${where}` }
 }
 
 export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope, placeholder, mode: controlledMode, onModeChange, seed, onSaved, onOpenMoment }: {
@@ -66,7 +69,7 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
     const question = draft.trim()
     if (busy || !question) return
     const id = crypto.randomUUID()
-    setThread(previous => [...previous, { id, question, mode, status: 'working', stage: 'Starting local memory request…', briefId: crypto.randomUUID(), prepared: new Date().toISOString() }])
+    setThread(previous => [...previous, { id, question, mode, status: 'working', stage: 'Starting…', briefId: crypto.randomUUID(), prepared: new Date().toISOString() }])
     setDraft(''); setError(null); setOpenCitation(null)
     const job = startMemoryJob<Result>({ action: mode, question, vaultPath, ...(scope ? { scope } : {}) }, stage => patch(id, { stage }))
     cancel.current = job.cancel
@@ -93,12 +96,12 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
     const canSave = isBrief && !result.needsReview?.length && filled.length > 0
     return <>
       {result.message && <p className="chat-note">{result.message}</p>}
-      {result.source === 'tracked-facts' && <p className="chat-note">From tracked facts{result.retrieval ? ` · ${result.retrieval.replace(/^Tracked facts · /, '')}` : ''}</p>}
+      {result.source === 'tracked-facts' && <p className="chat-note">From the decision board{result.retrieval ? ` · ${result.retrieval.replace(/^Tracked facts · /, '')}` : ''}</p>}
       {result.needsReview?.map(source => <div key={source.sourcePath} className="chat-stale"><p>{source.sourceTitle} needs review</p><MemoryReview vaultPath={vaultPath} sourcePath={source.sourcePath} /></div>)}
       {canSave && <div className="chat-brief-head"><SectionLabel>Brief preview</SectionLabel>
         {entry.savedPath
           ? <Button variant="outline" size="sm" onClick={() => openPage(entry.savedPath!, `Brief — ${entry.question}`)}><Check size={14} weight="bold" />Open saved brief</Button>
-          : <StateButton size="sm" variant="outline" status={entry.saving ? 'working' : 'idle'} labels={{ idle: 'Save cited brief', working: 'Saving…', done: 'Saved' }} onClick={() => { void saveBrief(entry) }} />}
+          : <StateButton size="sm" variant="outline" status={entry.saving ? 'working' : 'idle'} labels={{ idle: 'Save brief', working: 'Saving…', done: 'Saved' }} onClick={() => { void saveBrief(entry) }} />}
       </div>}
       {result.sections.length > 0 && <div className="chat-document">
         {(isBrief ? filled : result.sections).map((section, sectionIndex) => <section key={section.heading} className="chat-section">
@@ -113,12 +116,12 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
               {cites.length > 0 && <div className="chat-cites">{cites.map(evidence => {
                 const label = citeLabel(evidence)
                 return <button key={evidence.id} type="button" className="chat-cite" aria-expanded={shown?.id === evidence.id}
-                  aria-label={`Evidence ${evidence.id}: ${evidence.sourceTitle}, page ${evidence.page}`} title={`${evidence.sourceTitle} · page ${evidence.page}`}
+                  aria-label={label.name} title={label.full}
                   onClick={() => setOpenCitation(current => current === `${key}-${evidence.id}` ? null : `${key}-${evidence.id}`)}>
                   <span>{label.title}</span><b>{label.where}</b></button>
               })}</div>}
               {shown && <blockquote className="chat-evidence"><p>{shown.quote}</p>
-                <footer><span>{shown.sourceTitle} · page {shown.page}</span><span className="chat-evidence-actions">
+                <footer><span>{shown.sourceTitle}{shown.moment?.at != null ? '' : ` · page ${shown.page}`}</span><span className="chat-evidence-actions">
                   {shown.moment?.at != null && onOpenMoment && <Button type="button" variant="ghost" size="sm" onClick={() => onOpenMoment(shown.moment!.meetingId, shown.moment!.at!)}>Go to {clock(shown.moment.at)} in the transcript</Button>}
                   <Button type="button" variant="ghost" size="sm" onClick={() => openPage(shown.sourcePath, shown.sourceTitle)}><ArrowSquareOut size={13} />Open source</Button></span></footer></blockquote>}
             </div>
@@ -132,9 +135,9 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
 
   return <section className="chat" aria-label="Reviewed knowledge assistant">
     <div className="chat-thread" aria-live="polite">
-      {thread.length === 0 && <div className="chat-intro"><span className="chat-mark" aria-hidden="true"><Quotes size={16} /></span>
+      {thread.length === 0 && <div className="chat-intro"><span className="chat-mark" aria-hidden="true"><Quotes size={20} /></span>
         <h2>{scope ? 'What do you need from this meeting?' : 'What do you need to know?'}</h2>
-        <p>Ask a question or prepare a brief. Answers cite approved knowledge; each question is answered independently.</p></div>}
+        <p>Answers cite their sources. Each question is answered on its own.</p></div>}
       {thread.map(entry => <div key={entry.id} className="chat-turn">
         <div className="chat-question"><p>{entry.question}</p></div>
         <div className="chat-answer"><span className="chat-mark" aria-hidden="true"><Quotes size={16} /></span>

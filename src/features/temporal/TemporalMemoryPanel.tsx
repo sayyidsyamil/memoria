@@ -242,14 +242,14 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
   function editForm(fact: AnyFact, title: string, unit: string | null): ReactNode {
     if (edit?.fact.fact_id !== fact.fact_id) return null
     const correcting = edit.mode === 'correct'
-    return <section className="board-edit" aria-label={correcting ? 'Correct fact' : 'Retract fact'}>
-      <p className="board-edit-title">{correcting ? 'Correct' : 'Retract'} {title}. Recorded value: <strong>{show(fact, unit)}</strong>.</p>
+    return <section className="board-edit" aria-label={`${correcting ? 'Correct' : 'Retract'} ${title}`}>
+      <p className="board-edit-title">{correcting ? 'Correct' : 'Retract'} {title}: <strong>{show(fact, unit)}</strong></p>
       <form onSubmit={event => { event.preventDefault(); submitEdit() }}><fieldset disabled={!!busy} className="board-edit-fields">
         {correcting && <ValueInput autoFocus label="Corrected value" definition={definitionOf(fact.object_id, fact.attribute)} value={edit.value} onChange={value => setEdit({ ...edit, value })} />}
-        <label>Reason (required)<Input autoFocus={!correcting} required value={edit.reason} placeholder={correcting ? 'e.g. The chair changed the owner' : 'e.g. This was never agreed'} onChange={event => setEdit({ ...edit, reason: event.target.value })} /></label>
+        <label>Reason<Input autoFocus={!correcting} required value={edit.reason} placeholder={correcting ? 'e.g. Confirmed by email' : 'e.g. This was never agreed'} onChange={event => setEdit({ ...edit, reason: event.target.value })} /></label>
         <Problem text={errorAt('edit')} />
         <div className="board-edit-actions">
-          <Button type="submit" size="sm" disabled={!edit.reason.trim() || (correcting && !edit.value.trim())}>{correcting ? 'Save correction' : 'Confirm retraction'}</Button>
+          <Button type="submit" size="sm" disabled={!edit.reason.trim() || (correcting && !edit.value.trim())}>{correcting ? 'Save correction' : 'Retract value'}</Button>
           <Button type="button" size="sm" variant="ghost" onClick={() => { setEdit(null); setError(null) }}>Cancel</Button>
           <Button type="button" size="sm" variant="ghost" className="board-edit-switch" onClick={() => { setError(null); setEdit({ ...edit, mode: correcting ? 'retract' : 'correct' }) }}>{correcting ? 'Retract instead' : 'Correct instead'}</Button>
         </div>
@@ -305,7 +305,7 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
           <span className="board-value">{show(fact, item.unit)}</span>
           <span className="board-row-actions">
             {(changed || corrected) && <Button size="xs" variant="ghost" className="board-link" aria-expanded={historyOpen} aria-controls={historyOpen ? historyId : undefined}
-              aria-label={`${changed ? `C${changed.slice(1)}` : 'History'}: history of ${title}`} disabled={!!busy} onClick={() => toggleHistory(fact)}>
+              aria-label={`History of ${title}${changed ? `, ${changed.toLowerCase()}` : ''}`} disabled={!!busy} onClick={() => toggleHistory(fact)}>
               {changed || 'History'}<CaretDown size={11} aria-hidden="true" data-open={historyOpen || undefined} />
             </Button>}
             <Button size="xs" variant="ghost" aria-label={`Correct ${title}`} disabled={!!busy || !!fact.retracted} onClick={() => startEdit(fact)}>Correct</Button>
@@ -397,12 +397,13 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
   return <section className="temporal-memory" aria-label={meetingId ? 'Decisions from this meeting' : 'Decision board'} aria-busy={!!busy}>
     <header className="temporal-header"><div>
       <h2>{meetingId ? 'Decisions from this meeting' : 'Decisions and commitments'}</h2>
-      <p>{meetingId ? 'Each suggestion waits for your approval before it joins the board.' : 'What was decided and who owes what, each with the words that set it.'}</p>
+      <p>{meetingId ? 'What this meeting decided and who owes what, each with the words that set it.' : 'What was decided and who owes what, each with the words that set it.'}</p>
     </div><div className="temporal-status">
-      {/* One quiet line for progress and results, so that the list never jumps while you work through it. */}
-      <p role="status">{busy ?? message ?? ''}</p>
+      {/* One quiet line for progress and results, so that the list never jumps while you work through it. The first load says so in the body. */}
+      <p role="status">{overview ? busy ?? message ?? '' : ''}</p>
       <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { reloadTitles(); void run('Loading decisions…', refresh) }}>Refresh</Button>
     </div></header>
+    {!overview && busy && <p role="status" className="board-muted board-empty-line">{busy}</p>}
     {error?.place === 'top' && <p role="alert" className="temporal-error">{error.text}</p>}
     {meetingId && <section className="temporal-section board-ingest">
       <p>Read the reviewed transcript for decisions and commitments.</p>
@@ -422,7 +423,7 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
       <ul>{overview.check.problems.map((problem, index) => <li key={index}>{typeof problem === 'object' ? JSON.stringify(problem) : String(problem)}</li>)}</ul>
     </section>}
     {proposals.length > 0 && <section className="board-section board-review" aria-labelledby={`${ids}-review`}>
-      <h3 id={`${ids}-review`}>Needs review <span className="board-count">({proposals.length})</span></h3>
+      <h3 id={`${ids}-review`}>Needs review <span className="board-count">{proposals.length}</span></h3>
       <p className="board-muted">Nothing joins the board until you accept it.</p>
       <ul className="board-list">{proposals.map(proposalCard)}</ul>
     </section>}
@@ -433,7 +434,7 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
     {overview && !sections.length && (meetingId
       ? <p className="board-muted board-empty-line">{proposals.length ? 'Nothing from this meeting is approved yet.' : 'Nothing from this meeting is on the board yet.'}</p>
       : <EmptyState icon={<Quotes size={20} />} title={proposals.length ? 'Nothing approved yet' : 'No decisions yet'}>
-        {proposals.length ? 'Accept a suggestion above and it appears here with the words that prove it.' : 'Open a meeting, then Decisions › Find decisions and commitments. What you approve appears here.'}
+        {proposals.length ? 'Accept a suggestion above and it appears here with the words that set it.' : 'Open a reviewed meeting and choose Find decisions and commitments on its Decisions tab. What you accept appears here.'}
       </EmptyState>)}
     {!meetingId && objects.length > 0 && fold('lookup', 'Look up a past value', <TrackedValueLookup objects={objects} disabled={!!busy} titles={titles} onOpenMoment={onOpenMoment}
       onLookup={(params, showResult) => { void run('Looking up value…', async () => {

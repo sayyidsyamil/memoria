@@ -58,7 +58,7 @@ it('retains recoverable evidence and refuses a completion marker after publicati
   vi.mocked(meetingService.save).mockRejectedValue(new Error('write failed'))
   render(<RecordingRecovery vaultPath="/vault" active onRecovered={vi.fn()} />)
   fireEvent.click(await screen.findByRole('button', { name: 'Recover recording' }))
-  expect(await screen.findByRole('alert')).toHaveTextContent('write failed')
+  expect(await screen.findByRole('alert')).toHaveTextContent('This recording could not be recovered: write failed. Its saved audio is kept, so you can try again.')
   expect(screen.getByRole('button', { name: 'Recover recording' })).toBeEnabled()
   expect(recordingService.complete).not.toHaveBeenCalled()
 })
@@ -66,13 +66,21 @@ it('retains recoverable evidence and refuses a completion marker after publicati
 it('surfaces recovery-list failures instead of showing successful empty state', async () => {
   vi.mocked(recordingService.list).mockRejectedValue(new Error('journal unreadable'))
   render(<RecordingRecovery vaultPath="/vault" active onRecovered={vi.fn()} />)
-  expect(await screen.findByRole('alert')).toHaveTextContent('journal unreadable')
-  expect(screen.getByRole('button', { name: 'Retry recovery list' })).toBeInTheDocument()
+  expect(await screen.findByRole('alert')).toHaveTextContent(/^Interrupted recordings could not be listed: journal unreadable$/)
+  expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
 })
 
 it('will not offer recovery while the current HUD exists', async () => {
   vi.mocked(recordingService.list).mockResolvedValue({ recordings: [], activeRecording: true })
   render(<RecordingRecovery vaultPath="/vault" active onRecovered={vi.fn()} />)
-  expect(await screen.findByText(/End or close the current meeting HUD/)).toBeInTheDocument()
+  expect(await screen.findByText('Finish the meeting in progress before recovering another recording.')).toBeInTheDocument()
   expect(screen.queryByRole('button', { name: 'Recover recording' })).not.toBeInTheDocument()
+})
+
+it('describes an interrupted recording in plain words: when, and how much audio', async () => {
+  vi.mocked(recordingService.list).mockResolvedValue({ recordings: [{ ...original, byteLength: 1_843_200 }], activeRecording: false })
+  render(<RecordingRecovery vaultPath="/vault" active onRecovered={vi.fn()} />)
+  const section = await screen.findByRole('region', { name: 'Interrupted recordings' })
+  expect(section).toHaveTextContent('· 1.8 MB')
+  expect(section).not.toHaveTextContent(/checkpoint|KiB|HUD|container tail may/)
 })

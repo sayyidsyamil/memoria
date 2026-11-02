@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { CaretUpDown, ListChecks, Warning, X } from '@phosphor-icons/react'
+import { CaretDown, CaretUpDown, ListChecks, Warning, X } from '@phosphor-icons/react'
 import { Button } from './ui/button'
 import { startMemoryJob } from '../lib/memoryJob'
 import { applySource, type PreparedSource } from '../lib/sourceImport'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
 import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
-import { whenLabel } from '../lib/format'
+import { plural, whenLabel } from '../lib/format'
 import { Avatar, Chip, EmptyState, PillTabList, PillTabPanel, PillTabsRoot, SectionLabel, StateButton } from './memoriaUi'
 import { MeetingPlayer, type PlayerHandle } from './MeetingPlayer'
 import { MeetingSummary, type Mark } from './MeetingSummary'
@@ -28,7 +28,7 @@ const KNOWN_NAME = 'name:'
 function Fold({ title, count, defaultOpen, aside, children }: { title: string; count: number; defaultOpen: boolean; aside?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(defaultOpen)
   return <details className="review-fold" open={open} onToggle={event => setOpen(event.currentTarget.open)}>
-    <summary><span className="mui-label">{title} · {count}</span>{!open && aside}</summary>{children}
+    <summary><CaretDown size={12} className="review-fold-caret" aria-hidden="true" /><span className="mui-label">{title} · {count}</span>{!open && aside}</summary>{children}
   </details>
 }
 
@@ -49,12 +49,13 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [profileIds, setProfileIds] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.id])))
   // Names already used elsewhere (People notes, other meetings); they only add picker options. `pickedNames` marks the ones chosen from that list rather than typed.
   const [knownNames, setKnownNames] = useState<string[]>([])
-  const [pickedNames, setPickedNames] = useState<Record<string, string>>({})
+  // A reopened meeting's typed names count as picked, so a name that is also known shows in the picker rather than as "Add a name…" beside it.
+  const [pickedNames, setPickedNames] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).filter(([, profile]) => !profile.id).map(([speaker, profile]) => [speaker, profile.name])))
   const [marks, setMarks] = useState<Mark[]>(() => initialMarks ?? [])
   // Voice templates are biometric data: remembering them is opt-in (UAT acceptance criterion AC8).
   const [remember, setRemember] = useState(false)
   const [name, setName] = useState(title)
-  const [notice, setNotice] = useState(() => initialDraft ? '' : liveText.trim() ? 'Your live transcript is ready to review. Refinement is optional.' : 'Recording saved. Create a transcript when you are ready.')
+  const [notice, setNotice] = useState(() => initialDraft || !liveText.trim() ? '' : 'Your live transcript is ready to review. Refinement is optional.')
   const [stage, setStage] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -179,14 +180,13 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   useEffect(() => { if (playing && active >= 0) rows.current[active]?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' }) }, [active, playing])
   const startedAt = whenLabel(created)
   const identified = identifiedSpeakers(speakers, names).length
-  const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? `${identified || 'No'} identified speaker${identified === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ')
+  const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? identified ? plural(identified, 'speaker') : 'Speaker not identified' : ''].filter(Boolean).join(' · ')
   const fallbackLength = Math.max(draft?.duration ?? 0, turns.length ? turns[turns.length - 1].end : 0)
 
   return <PillTabsRoot value={tab} onValueChange={value => setTab(value as MeetingTab)} className="meeting-review" asChild>
     <main>
       <header className="review-header" onMouseDown={event => { if (draggable && event.button === 0 && !(event.target as HTMLElement).closest('input, button, select, textarea')) void getCurrentWindow().startDragging() }}>
         <div className="review-heading">
-          <p className="review-eyebrow">{reviewed ? 'Reviewed meeting' : 'Meeting ended'}</p>
           <h1 className="sr-only">Review transcript</h1>
           <input className="review-title" aria-label="Meeting title" value={name} maxLength={200} disabled={busy} onChange={event => setName(event.target.value)} onBlur={() => { if (!name.trim()) setName(title) }} />
           {meta && <p className="review-meta">{meta}</p>}
@@ -216,8 +216,10 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             <Button variant="ghost" size="icon-sm" aria-label={`Remove moment at ${clock(mark.at)}`} onClick={() => setMarks(previous => previous.filter((_, position) => position !== index))}><X size={14} /></Button>
           </div>)}
         </Fold></section>}
-        {!draft && <EmptyState icon={<ListChecks size={20} />} title={busy ? 'Preparing your transcript' : 'Your recording is saved'}>{busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
-         {!busy && (!refined || turns.some(turn => turn.contextTrimmed)) && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>{draft ? 'Refine transcript and speakers' : 'Create transcript'}</Button></div>}
+        {!draft && <EmptyState icon={<ListChecks size={20} />} title={busy ? 'Preparing your transcript' : 'Your recording is saved'}
+          action={!busy && <Button variant="outline" onClick={() => { void transcribe() }}>Create transcript</Button>}>
+          {busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
+        {!busy && draft && (!refined || turns.some(turn => turn.contextTrimmed)) && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>Refine transcript and speakers</Button></div>}
         {draft && <>
           {!!draft.gaps?.length && <div role="alert" className="review-notice" data-tone="warn"><Warning size={16} aria-hidden="true" /><div><p><strong>{draft.gaps.length} passage needs audio review</strong></p>{draft.gaps.map(gap => <p key={gap.start}>{clock(gap.start)}–{clock(gap.end)} · No transcript was accepted for this interval.</p>)}</div></div>}
           {refined && speakers.length > 0 && <section className="review-speakers" aria-label="Meeting speakers">

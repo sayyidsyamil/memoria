@@ -17,6 +17,13 @@ it('highlights query words by prefix and joins phrases into one run', () => {
   expect(highlightParts('Churning customers', ['churn'])[0]).toEqual({ text: 'Churning', hit: true })
   expect(highlightParts('Nothing here', [])).toEqual([{ text: 'Nothing here', hit: false }])
 })
+it('marks the matched word and leaves the punctuation around it unmarked', () => {
+  const parts = highlightParts('On the budget, I checked again. Good, so no change to the budget.', ['budget'])
+  expect(parts.filter(part => part.hit).map(part => part.text)).toEqual(['budget', 'budget'])
+  expect(parts.map(part => part.text).join('')).toBe('On the budget, I checked again. Good, so no change to the budget.')
+  expect(highlightParts('the "pilot budget" stays', ['pilot', 'budget']).filter(part => part.hit).map(part => part.text)).toEqual(['pilot budget'])
+  expect(highlightParts('budget, pilot', ['budget', 'pilot']).filter(part => part.hit).map(part => part.text)).toEqual(['budget', 'pilot'])
+})
 it('writes counts in singular and plural', () => {
   expect(plural(0, 'meeting')).toBe('0 meetings')
   expect(plural(1, 'meeting')).toBe('1 meeting')

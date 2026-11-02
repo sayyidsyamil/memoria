@@ -26,6 +26,11 @@ export function kindLabel(kind: string): string {
   return isItemKind(kind) ? KIND_LABELS[kind] : kind
 }
 
+/** An attribute type as the form words it: an `enum` is a list of allowed values. */
+export function typeLabel(type: string): string {
+  return type === 'enum' ? 'list' : type
+}
+
 /** A real calendar day written YYYY-MM-DD, the only form in which the ledger writes a date value. */
 export function isCalendarDate(text: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return false
@@ -86,6 +91,6 @@ export function attributeEditProblem(current: TemporalAttribute | undefined, nex
   const list = misfits.length > MOST_SHOWN ? `${shown} and ${misfits.length - MOST_SHOWN} more` : shown
   const remedy = misfits.every(item => item.pending) ? 'reject the suggestions' : misfits.some(item => item.pending) ? 'retract the recorded values and reject the suggestions' : 'retract the recorded values'
   return retyped
-    ? `"${next.name}" has values that would not fit the type "${next.type}": ${list}. First ${remedy}, or keep the type "${current.type}".`
+    ? `"${next.name}" has values that would not fit the type "${typeLabel(next.type)}": ${list}. First ${remedy}, or keep the type "${typeLabel(current.type)}".`
     : `"${next.name}" still has values outside the allowed list: ${list}. Keep them in the list, or first ${remedy}.`
 }
