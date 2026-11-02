@@ -190,8 +190,6 @@ class RouteQuestionTests(unittest.TestCase):
         self.assertEqual(route_question(registry, 'Which vendor contract do we use now?', today)['object_id'], 'vendor_contract')
 
 
-if __name__ == '__main__':
-    unittest.main()
 
 
 class ModelRouterTests(unittest.TestCase):
@@ -240,3 +238,7 @@ class ModelRouterTests(unittest.TestCase):
         self.assertEqual(subject('Staff training', 'owner'), 'Staff training owner')
         self.assertEqual(shown_in(280000, 'Pilot budget (RM)'), 'RM 280,000')
         self.assertEqual(shown_in('Beta Cloud', 'Vendor'), 'Beta Cloud')
+        self.assertEqual((subject('Selling price (euro)', 'value'), shown_in(25, 'Selling price (euro)')), ('Selling price', 'euro 25'))
+
+if __name__ == '__main__':
+    unittest.main()

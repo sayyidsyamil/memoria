@@ -1,10 +1,10 @@
 """Questions about a tracked value — what it is now, what it was on a date, how it changed —
 answered from the reviewed decision ledger instead of wiki claims.
 
-Read-only ledger snapshot, as for live checks. No model is called: answers are fixed sentences
-over approved ledger values, and every statement cites the quoted evidence of the facts it states.
-Questions that name no tracked item, or name only an attribute without asking about time, are
-left to the wiki answer.
+Read-only ledger snapshot, as for live checks. With the resident language model available, the question
+is routed to one ledger lookup by the evaluated model router (rules otherwise); the answer itself is a
+fixed sentence over approved ledger values, and every statement cites the quoted evidence of the facts it
+states. Questions about no tracked item, or about a slot with no approved fact, are left to the wiki answer.
 """
 import json
 import os
@@ -127,7 +127,7 @@ def _snapshot(home, registry):
 
 
 GENERIC_ATTRIBUTES = {'outcome', 'value', 'amount', 'date'}
-UNIT = re.compile(r'\s*\(([A-Z]{1,4}|[$€£¥])\)\s*$')
+UNIT = re.compile(r'\s*\(([A-Z]{1,4}|[$€£¥]|euros?|ringgit|dollars?|pounds?|yen)\)\s*$')
 
 
 def subject(label, attribute):
