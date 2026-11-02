@@ -7,7 +7,8 @@ Nothing in this folder is bundled into the app.
 | Folder | What it is | Moved from |
 |---|---|---|
 | [`ledger-engine/`](ledger-engine/) | Evaluation of the bitemporal decision ledger (FYP2 report, Chapter 6): tests, AMI-derived data, scripts, results and frozen run logs | `~/Desktop/FYP/engine` |
-| [`memoriabench/`](memoriabench/) | MemoriaBench and the live contradiction auditor and guard, as evaluated | research files of `~/Documents/memoria` |
+| [`memoriabench/`](memoriabench/) | MemoriaBench and the live contradiction auditor and guard, as evaluated; `results/app_live_check/` scores the app's own live check (M2) | research files of `~/Documents/memoria` |
+| [`long-meeting/`](long-meeting/) | The 60-minute AMI end-to-end check of the installed app: transcription, joining, knowledge and tracked facts (M2) | new, 2 November 2026 |
 
 The evidence inventory is [`docs/research/RESEARCH-EVIDENCE.md`](../docs/research/RESEARCH-EVIDENCE.md).
 The report sources themselves are kept privately, outside this repository.

@@ -13,7 +13,7 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 |---|---|---|
 | M0 Consolidated | Done, 2 November | One repository, research evidence, backup, private report folder |
 | M1 Native meeting loop | Week 5–6 (mostly done 2 Nov) | Record → review → approve → reuse works in the installed app with real audio |
-| M2 Meeting intelligence | Week 6–7 | Measured live check, long meetings, safer tracked facts |
+| M2 Meeting intelligence | Week 6–7 (verified 2 Nov) | Measured live check, long meetings, safer tracked facts |
 | M3 Reliability | Week 7 | Recovers from failures; full test suite green |
 | M4 UAT build | End of week 7 | Tagged build that installs from the guide |
 | M5 Evaluation and UAT | Weeks 8–10 | Participant results and current-app measurements |
@@ -67,10 +67,31 @@ available), and a playable duration for recovered recordings (D13).
 Acceptance: a 60-minute recording is transcribed and extracted with no silent truncation; the
 live check has a reported MemoriaBench score with intervals and failure cases.
 
+Status (2 November): accepted — see [M2-MEETING-INTELLIGENCE.md](research/M2-MEETING-INTELLIGENCE.md).
+The app's live check with the guard, scored on MemoriaBench through its own Qwen worker, catches
+81.3% of conflicts (75.0–87.5) with 1.3% false alarms (0–3.1); the research auditor still
+catches more (98.2%). A 60-minute AMI recording was transcribed in 11.6 minutes with no gaps
+(WER 13.2%, four participants on four labels); knowledge was built from every part of the hour
+(77 suggestions, none skipped) and tracked facts were extracted in windows (three decisions,
+from 32:07 and 41:30). Ask answers current-value and change questions from tracked facts; meeting
+saves recover from a killed process; tracked-item setup offers only edits the ledger accepts;
+the speaker picker offers known names. Found on the way and fixed: worker deadlines, the
+knowledge-review passage limit and one-invalid-group failure, the meeting record cap, merged
+speakers and repeated passages at part boundaries, and model loading under memory pressure.
+Remaining: false alerts on real unrelated speech for the app's verifier (M5); 6–9% of words
+left on "Unknown speaker"; live captions wait while a long recording is transcribed (M3).
+
 ## M3 Reliability
 
 - Restart crashed model workers automatically; handle memory pressure; coordinate model use
-  across the three workers. (Workers no longer outlive a crashed app — done in M1.)
+  across the three workers. (Workers no longer outlive a crashed app — done in M1. Model loading
+  now allows five minutes, after the M2 check saw all three 60-second attempts fail with other
+  apps holding memory.)
+- Live captions in a new meeting wait while a long recording is being transcribed (one resident
+  speech worker); let capture captions take priority or say so in the HUD.
+- Fewer turns on "Unknown speaker" after long transcriptions (6–9% of words in the M2 hour).
+- The workspace window intermittently vanished from the accessibility tree after launch during
+  the M2 check; confirm whether it is a real window-visibility bug.
 - Write a playable duration for recovered recordings without altering the original evidence.
 - Sleep and wake, microphone disconnection, queue pressure and low disk space.
 - Resolve the 97 full-suite failures recorded on 1 November: fix them, or remove tests for
