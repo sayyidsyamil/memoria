@@ -54,7 +54,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   // Voice templates are biometric data: remembering them is opt-in (UAT acceptance criterion AC8).
   const [remember, setRemember] = useState(false)
   const [name, setName] = useState(title)
-  const [notice, setNotice] = useState(() => initialDraft ? '' : liveText.trim() ? 'Your live transcript is ready to review. Refinement is optional.' : 'Recording saved. Create a transcript when you are ready.')
+  const [notice, setNotice] = useState(() => initialDraft || !liveText.trim() ? '' : 'Your live transcript is ready to review. Refinement is optional.')
   const [stage, setStage] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -216,8 +216,10 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             <Button variant="ghost" size="icon-sm" aria-label={`Remove moment at ${clock(mark.at)}`} onClick={() => setMarks(previous => previous.filter((_, position) => position !== index))}><X size={14} /></Button>
           </div>)}
         </Fold></section>}
-        {!draft && <EmptyState icon={<ListChecks size={20} />} title={busy ? 'Preparing your transcript' : 'Your recording is saved'}>{busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
-         {!busy && (!refined || turns.some(turn => turn.contextTrimmed)) && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>{draft ? 'Refine transcript and speakers' : 'Create transcript'}</Button></div>}
+        {!draft && <EmptyState icon={<ListChecks size={20} />} title={busy ? 'Preparing your transcript' : 'Your recording is saved'}
+          action={!busy && <Button variant="outline" onClick={() => { void transcribe() }}>Create transcript</Button>}>
+          {busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
+        {!busy && draft && (!refined || turns.some(turn => turn.contextTrimmed)) && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>Refine transcript and speakers</Button></div>}
         {draft && <>
           {!!draft.gaps?.length && <div role="alert" className="review-notice" data-tone="warn"><Warning size={16} aria-hidden="true" /><div><p><strong>{draft.gaps.length} passage needs audio review</strong></p>{draft.gaps.map(gap => <p key={gap.start}>{clock(gap.start)}–{clock(gap.end)} · No transcript was accepted for this interval.</p>)}</div></div>}
           {refined && speakers.length > 0 && <section className="review-speakers" aria-label="Meeting speakers">
