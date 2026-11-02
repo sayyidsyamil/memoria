@@ -8,6 +8,7 @@ use tauri::Manager;
 struct Worker { child: Child, address: String, status: Value }
 static WORKERS: OnceLock<Mutex<HashMap<String, Worker>>> = OnceLock::new();
 static ADDRESSES: OnceLock<HashMap<String, String>> = OnceLock::new();
+const PREPARE_SECONDS: u64 = 300;
 static STOPPED: AtomicBool = AtomicBool::new(false);
 fn workers() -> &'static Mutex<HashMap<String, Worker>> { WORKERS.get_or_init(|| Mutex::new(HashMap::new())) }
 fn python(kind: &str) -> String {
@@ -64,11 +65,14 @@ pub fn start_models(app: tauri::AppHandle) {
                             }
                         }
                     });
-                    match receiver.recv_timeout(std::time::Duration::from_secs(60)) {
+                    // Loading weights takes about 30 s on an idle 16 GB Mac but well over a minute while other
+                    // apps hold memory (observed: speech failed all three 60 s attempts with Teams, Edge and
+                    // Chrome open, then loaded in under 100 s by hand). A slow load is progress, not a fault.
+                    match receiver.recv_timeout(std::time::Duration::from_secs(PREPARE_SECONDS)) {
                         Ok(value) => {
                             if value.get("ready").is_some() { outcome=json!({"state":"ready","mlxBytes":value["mlxBytes"],"pid":value["pid"],"loadSeconds":started.elapsed().as_secs_f64(),"attempt":attempts[kind]}); }
                             if value.get("error").is_some() { outcome=json!({"state":"failed","message":value["error"]}); }
-                        }, Err(_) => { outcome=json!({"state":"failed","message":"Preparation timed out. Check macOS file-access permissions, then restart Memoria."}); }
+                        }, Err(_) => { outcome=json!({"state":"failed","message":"Preparation took over five minutes. Close memory-heavy apps or check macOS file-access permissions, then restart Memoria."}); }
                     }
                     if let Some(worker)=workers().lock().unwrap().get_mut(kind) {
                         if outcome["state"]=="failed" {let _=worker.child.kill();let _=worker.child.wait();}
