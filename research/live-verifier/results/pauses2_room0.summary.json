@@ -1,0 +1,43 @@
+{
+ "n": 336,
+ "tp": 57,
+ "fp": 3,
+ "fn": 55,
+ "tn": 221,
+ "alert_precision": 0.95,
+ "alert_recall": 0.5089285714285714,
+ "false_alarm": 0.013392857142857142,
+ "errors": 0,
+ "uncertain": 0,
+ "p50_ms": 416.0,
+ "p95_ms": 1322.25,
+ "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+ "ci": {
+  "alert_precision": [
+   0.8985445836403831,
+   1.0
+  ],
+  "alert_recall": [
+   0.4107142857142857,
+   0.5982142857142857
+  ],
+  "false_alarm": [
+   0.0,
+   0.03125
+  ]
+ },
+ "statementEndToCue": {
+  "p50": 2.32,
+  "p95": 3.81,
+  "max": 6.13,
+  "n": 57
+ },
+ "commitLag": {
+  "p50": 1.23,
+  "p95": 3.04
+ },
+ "unheard": 0,
+ "sharedTurns": 17,
+ "strayTurns": 0,
+ "strayCues": 0
+}

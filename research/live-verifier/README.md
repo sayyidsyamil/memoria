@@ -94,6 +94,21 @@ window does. A statement is alerted when a turn overlapping it raised a cue.
   the statement instead of 0.7 s, and statements that the recogniser does not split with a full stop share a turn.
   The diarizer is not fooled (5% of gap frames active at 10 dB, 13% at 0 dB, against all of every statement).
 
+**Since `v0.3.0-uat`, a stretch also ends when the diarizer has heard nobody for 0.5 s** (`streaming_speech.LiveTranscript._speakers_quiet`;
+the next stretch starts where the last ended, so no audio is skipped):
+
+| Same runs, with the diarizer pause | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Turn committed p50 | Sharing a turn |
+|---|---|---|---|---|---|---|
+| Clean | 1.9% | 98, the same verdicts | 2 | 1.22 / 2.14 s | 0.68 s (unchanged) | 0 |
+| SNR 10 dB, RT60 0.5 s, DRR 3 dB | 3.9% | 94 (CI 75.0–91.1) | 4 | 1.91 / 2.87 s | 1.10 s (was 2.00) | 2 (was 22) |
+| SNR 0 dB, RT60 0.8 s, DRR −3 dB | 30% | 57 | 3 | 2.32 / 3.81 s | 1.23 s (was 2.18) | 17 (was 45) |
+
+- Paired verdicts against the shipped pipeline (exact McNemar): 5 against 2 at 10 dB (p = 0.45), 21 against 11 at
+  0 dB (p = 0.11). The gain is in timing and in keeping statements apart, not yet in significant catches.
+- On real speech the change costs a little: live WER on the AMI hour 15.4% instead of 15.2% (insertions 134 against
+  111, deletions 943 against 952), 97.6% of words on their participant (97.8%), commit lag p50 / p90 1.04 / 1.99 s
+  (1.16 / 2.18 s). The far-field laptop recording is unchanged (recall 0.822).
+
 ## Method
 
 `live_assistance.py`, `MEMORIA_LIVE_CHECK=guard` (now the default):
