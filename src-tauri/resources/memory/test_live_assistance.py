@@ -418,7 +418,7 @@ class GuardFirstTests(LiveFixture):
         data, asked = self.guard('The vendor choice is now Gamma Solutions.', {'Vendor': 7.0, 'Pilot': -3.0})
         self.assertEqual(data['status'], 'attention')
         self.assertEqual([cue['label'] for cue in data['cues']], ['Vendor'])
-        self.assertIn('log-odds 7.0', data['cues'][0]['reason'])
+        self.assertEqual(data['cues'][0]['reason'], 'What was said goes against this approved decision.')
         self.assertTrue(asked)
 
     def test_a_weak_yes_is_not_enough_on_its_own(self):

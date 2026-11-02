@@ -393,7 +393,7 @@ def live_check(engine, request, verifier=None, scorer=None):
             if numeric is None:
                 numeric = _spoken_date(statement, fact)
             if numeric is True:
-                cues.append(cue(fact, 'The sentence states another figure or date than the approved one.'))
+                cues.append(cue(fact, 'A different figure or date from the approved one.'))
             elif numeric is None:
                 pending.append(fact)
         # Pure past-tense mentions cannot establish a conflict with facts.current.
@@ -414,7 +414,8 @@ def live_check(engine, request, verifier=None, scorer=None):
                 fact, strength = live_guard.strongest(statement, checked[:GUARD_CANDIDATES], score, GUARD_FIRST_MIN)
                 mark('guard')
                 if fact is not None:
-                    cues.append(cue(fact, f'The statement goes against this approved decision (YES/NO check, log-odds {strength:.1f}).'))
+                    cues.append(cue(fact, 'What was said goes against this approved decision.'))
+                mark(f'strength:{strength:.1f}')
             except Exception as error:
                 warnings.append(f'Verification unavailable or invalid: {str(error)[:300]}')
                 uncertain = True
