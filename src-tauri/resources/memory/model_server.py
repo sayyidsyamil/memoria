@@ -149,8 +149,9 @@ def serve(address, resident=False):
         model = tokenizer = None
         if resident:
             # App-managed only: a standalone worker outlives its short-lived caller on purpose.
-            from worker_lifetime import exit_with_parent
+            from worker_lifetime import exit_with_parent, limit_gpu_cache
             exit_with_parent(address)
+            limit_gpu_cache()
             from huggingface_hub import snapshot_download
             from mlx_lm import load, generate
             model, tokenizer = load(snapshot_download(LLM, local_files_only=True))

@@ -10,6 +10,8 @@ def serve(kind, address):
     os.environ['TRANSFORMERS_OFFLINE'] = '1'
     from huggingface_hub import snapshot_download
     import mlx.core as mx
+    from worker_lifetime import limit_gpu_cache
+    limit_gpu_cache()
     if kind == 'speech':
         import numpy as np
         import live_speech, transcribe, voice_profiles

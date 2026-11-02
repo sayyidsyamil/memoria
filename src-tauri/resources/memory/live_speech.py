@@ -277,6 +277,8 @@ def run_parakeet(models=None):
             result.pop('speakerEmbeddings')
             emit({'stage': 'Transcript ready for review', 'done': True, 'draft': result,
                   'turns': session.turns, 'transcript': session.text(), 'partial': '', 'provisional': False})
+            import mlx.core as mx
+            mx.clear_cache()  # the next meeting starts from the models alone
             return
         pcm = read_pcm(message, expected)
         expected += 1

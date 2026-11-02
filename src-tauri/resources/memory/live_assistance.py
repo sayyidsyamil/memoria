@@ -8,6 +8,7 @@ import json
 import os
 import re
 import sqlite3
+import sys
 import time
 from decimal import Decimal
 from pathlib import Path
@@ -321,7 +322,14 @@ def live_check(engine, request, verifier=None, scorer=None):
         time_left()
         return value
 
+    marks = []  # (step, seconds since start), written to stderr for diagnosis; never part of the result
+
+    def mark(step):
+        marks.append((step, round(time.perf_counter() - started, 3)))
+
     def result(status, cues=None):
+        mark('done')
+        print(json.dumps({'liveCheckTiming': marks}), file=sys.stderr, flush=True)
         return {'ok': True, 'data': {'status': status, 'statement': statement,
                 'cues': cues or [], 'warnings': warnings,
                 'seconds': round(time.perf_counter() - started, 4)}}
@@ -352,6 +360,7 @@ def live_check(engine, request, verifier=None, scorer=None):
         current = valid_current(service)
         service.pipe.ledger.close()
         service = None
+        mark('ledger')
         if not current:
             warnings.append('No approved tracked facts')
             return result('quiet')
@@ -365,6 +374,7 @@ def live_check(engine, request, verifier=None, scorer=None):
                 semantic = _semantic(statement, current, home)
             except Exception as error:
                 warnings.append(f'Search by meaning unavailable: {str(error)[:200]}')
+            mark(f'meaning:{len(semantic)}')
         if not selected and not semantic:
             return result('quiet')
         grounded = [{**f, 'evidence': supporting_evidence(f)} for f in selected
@@ -397,7 +407,9 @@ def live_check(engine, request, verifier=None, scorer=None):
                 checked = [{**f, 'evidence': supporting_evidence(f)} for f in ranked
                            if type(f.get('fact_id')) is int and supporting_evidence(f) and _numeric(statement, f) is None
                            and _spoken_amount(statement, f) is None and _spoken_date(statement, f) is None]
+                mark(f'candidates:{min(len(checked), GUARD_CANDIDATES)}')
                 fact, strength = live_guard.strongest(statement, checked[:GUARD_CANDIDATES], score, GUARD_FIRST_MIN)
+                mark('guard')
                 if fact is not None:
                     cues.append(cue(fact, f'The statement goes against this approved decision (YES/NO check, log-odds {strength:.1f}).'))
             except Exception as error:
