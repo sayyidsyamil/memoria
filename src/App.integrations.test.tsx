@@ -148,7 +148,7 @@ describe("App.integrations", () => {
 		});
 	});
 
-	it("shows the external AI setup dialog from the menu when AI onboarding is active", async () => {
+	it("shows the external AI setup dialog from the menu, without a coding-agent prompt at first run", async () => {
 		localStorage.removeItem(AI_AGENTS_ONBOARDING_DISMISSED_STORAGE_NAME);
 		localStorage.removeItem(CLAUDE_CODE_ONBOARDING_DISMISSED_STORAGE_NAME);
 		mockCommandResults.get_ai_agents_status = {
@@ -162,12 +162,17 @@ describe("App.integrations", () => {
 
 		render(<App />);
 
+		// Memoria's own AI runs inside the app, so the inherited first-run question about coding agents is not asked.
 		await waitFor(
 			() => {
-				expect(screen.getByText("AI is ready")).toBeInTheDocument();
+				expect(screen.getByTestId("status-settings")).toBeInTheDocument();
 			},
 			{ timeout: SLOW_APP_READY_TIMEOUT_MS },
 		);
+		expect(screen.queryByText("AI is ready")).not.toBeInTheDocument();
+		expect(
+			screen.queryByTestId("ai-agents-onboarding-screen"),
+		).not.toBeInTheDocument();
 
 		await waitFor(() => {
 			expect(typeof window.__laputaTest?.dispatchBrowserMenuCommand).toBe(

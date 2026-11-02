@@ -7,6 +7,7 @@ import { startMemoryJob } from '../lib/memoryJob'
 import { applySource, type PreparedSource } from '../lib/sourceImport'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
 import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
+import { whenLabel } from '../lib/format'
 import { Avatar, Chip, EmptyState, PillTabList, PillTabPanel, PillTabsRoot, SectionLabel, StateButton } from './memoriaUi'
 import { MeetingPlayer, type PlayerHandle } from './MeetingPlayer'
 import { MeetingSummary, type Mark } from './MeetingSummary'
@@ -31,7 +32,6 @@ function Fold({ title, count, defaultOpen, aside, children }: { title: string; c
   </details>
 }
 
-const longDate = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
 
 export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, title, created, liveText = '', initialDraft = null, transcriptPath, outcomesStatus, initialTab = 'transcript', initialSeek, initialMarks, draggable = true, onBrief, onClose }: {
   vaultPath: string; sessionId: string; originalPath: string; title: string; created?: string; liveText?: string; initialDraft?: TranscriptDraft | null; transcriptPath?: string
@@ -177,7 +177,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
     return index
   }, [turns, time, playing, refined])
   useEffect(() => { if (playing && active >= 0) rows.current[active]?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' }) }, [active, playing])
-  const startedAt = created && !Number.isNaN(new Date(created).getTime()) ? longDate.format(new Date(created)) : ''
+  const startedAt = whenLabel(created)
   const identified = identifiedSpeakers(speakers, names).length
   const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? `${identified || 'No'} identified speaker${identified === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ')
   const fallbackLength = Math.max(draft?.duration ?? 0, turns.length ? turns[turns.length - 1].end : 0)
@@ -198,7 +198,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
           { value: 'transcript', label: 'Transcript' },
           { value: 'summary', label: 'Summary', disabled: !reviewed, attention: reviewed && outcomesStatus === 'needs-review' },
           { value: 'ask', label: 'Ask', disabled: !reviewed },
-          { value: 'facts', label: 'Tracked facts', disabled: !reviewed },
+          { value: 'facts', label: 'Decisions', disabled: !reviewed },
         ]} />
         <Chip tone={reviewed ? 'green' : 'orange'} dot>{reviewed ? 'Transcript reviewed' : 'Draft — check before saving'}</Chip>
       </div>
@@ -285,7 +285,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
       <PillTabPanel value="summary" className="review-body review-summary">
         <MeetingSummary vaultPath={vaultPath} sourcePath={outcomeSource} title={meetingTitle} turns={turns} names={names} marks={marks} buildNow={buildNow} onSeek={seekTo} onBrief={onBrief} />
       </PillTabPanel>
-      <PillTabPanel value="facts" className="review-body"><TemporalMemoryPanel vaultPath={vaultPath} meetingId={sessionId} /></PillTabPanel>
+      <PillTabPanel value="facts" className="review-body"><TemporalMemoryPanel vaultPath={vaultPath} meetingId={sessionId} onOpenMoment={(_, at) => seekTo(at)} /></PillTabPanel>
       <PillTabPanel value="ask" forceMount hidden={tab !== 'ask'} className="review-ask">
         {reviewed
           ? <MemoryAsk vaultPath={vaultPath} scope={outcomeSource ? [outcomeSource] : undefined} placeholder="Ask about this meeting…" onOpenMoment={(_, at) => seekTo(at)} />

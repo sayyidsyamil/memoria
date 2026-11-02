@@ -1,5 +1,5 @@
-import { plural } from '../../lib/format'
-import type { TemporalEvidence, TemporalQuery, TemporalValue } from './temporalService'
+import { formatDay, formatDayTime, plural } from '../../lib/format'
+import type { TemporalAttributeType, TemporalEvidence, TemporalQuery, TemporalValue } from './temporalService'
 
 /** Meeting id → title, as far as it could be looked up. */
 export type MeetingTitles = ReadonlyMap<string, string>
@@ -7,8 +7,6 @@ export type MeetingTitles = ReadonlyMap<string, string>
 export interface DateOptions {
   /** Also show the time of day. Calendar dates (YYYY-MM-DD) have none, so they never gain one. */
   time?: boolean
-  /** BCP 47 tag; defaults to the viewer's locale. */
-  locale?: string
   /** IANA zone for timestamps; defaults to the viewer's zone. Calendar dates ignore it. */
   timeZone?: string
 }
@@ -41,19 +39,104 @@ function parseDate(text: string): { date: Date; calendar: boolean } | null {
 }
 
 /**
- * A date for people: "10 Oct 2026" or "Oct 10, 2026" depending on the locale. `dateTime` is the exact original value
- * for a `<time>` element. Returns null for anything that is not a real ISO date or timestamp, so callers can show it as written.
- * A calendar date (YYYY-MM-DD) is a day, not an instant; timestamps are shown in the viewer's zone, like the meeting list.
+ * A date for people, in Memoria's one style: "10 Oct 2026", or "10 Oct 2026, 09:30" with the time. `dateTime` is the exact
+ * original value for a `<time>` element. Returns null for anything that is not a real ISO date or timestamp, so callers can
+ * show it as written. A calendar date (YYYY-MM-DD) is a day, not an instant; timestamps are shown in the viewer's zone.
  */
-export function readableDate(value: string, { time = false, locale, timeZone }: DateOptions = {}): { label: string; dateTime: string } | null {
+export function readableDate(value: string, { time = false, timeZone }: DateOptions = {}): { label: string; dateTime: string } | null {
   if (typeof value !== 'string') return null
   const text = value.trim()
   const parsed = parseDate(text)
   if (!parsed) return null
-  const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' }
-  if (time && !parsed.calendar) { options.hour = '2-digit'; options.minute = '2-digit' }
-  options.timeZone = parsed.calendar ? 'UTC' : timeZone
-  return { label: new Intl.DateTimeFormat(locale, options).format(parsed.date), dateTime: text }
+  if (parsed.calendar) return { label: formatDay(parsed.date, 'UTC'), dateTime: text }
+  return { label: time ? formatDayTime(parsed.date, timeZone) : formatDay(parsed.date, timeZone), dateTime: text }
+}
+
+/** Today's calendar day in the viewer's zone, as YYYY-MM-DD: what a deadline is compared with. */
+export function localDay(now: Date = new Date()): string {
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+}
+
+/** A calendar date value (YYYY-MM-DD) that names a real day. */
+export function isCalendarDay(value: TemporalValue | undefined): value is string {
+  if (typeof value !== 'string') return false
+  const day = CALENDAR_DATE.exec(value.trim())
+  return !!day && !!calendarDay(Number(day[1]), Number(day[2]), Number(day[3]))
+}
+
+// Currencies are written before the amount ("RM 280,000", "$2,500"); other units after it ("12 days", "40%").
+const CURRENCIES = new Set(['RM', 'MYR', 'USD', 'US$', '$', 'EUR', '€', 'GBP', '£', 'SGD', 'S$', 'AUD', 'A$', 'NZD', 'CAD', 'HKD', 'JPY', '¥',
+  'CNY', 'RMB', 'IDR', 'RP', 'INR', '₹', 'THB', '฿', 'PHP', '₱', 'KRW', '₩', 'CHF', 'VND', '₫', 'TWD', 'NT$', 'BND', 'AED', 'SAR'])
+const LABEL_UNIT = /^(.*\S)\s*\(([^()\d]{1,8})\)$/u
+
+/**
+ * An item label whose last words name a unit in brackets, "Pilot budget (RM)", is shown as its title "Pilot budget" and the
+ * unit is written with the amount instead. Only items that hold a number have a unit; "Vendor (final)" stays as it is.
+ */
+export function labelUnit(label: string, holdsNumber: boolean): { title: string; unit: string | null } {
+  const text = typeof label === 'string' ? label.trim() : ''
+  const match = holdsNumber ? LABEL_UNIT.exec(text) : null
+  return match ? { title: match[1], unit: match[2].trim() } : { title: text, unit: null }
+}
+
+const NUMBER = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 2 })
+
+/** "RM 280,000", "$2,500", "12 days", "40%", or "280,000" without a unit. */
+export function formatAmount(value: number, unit: string | null = null): string {
+  const amount = NUMBER.format(value)
+  if (!unit) return amount
+  if (CURRENCIES.has(unit.toUpperCase())) return [...unit].length === 1 ? `${unit}${amount}` : `${unit} ${amount}`
+  return unit === '%' ? `${amount}%` : `${amount} ${unit}`
+}
+
+/** A lower-case word from an allowed-values list ("done", "planned") reads as a word in a sentence: "Done". */
+function capitalized(text: string): string {
+  return /^[a-z][a-z -]*$/.test(text) ? text[0].toUpperCase() + text.slice(1) : text
+}
+
+/** A recorded value as people read it: dates in the one date style, numbers with separators and their unit, words as written. */
+export function formatValue(value: TemporalValue | undefined, type?: TemporalAttributeType, unit: string | null = null): string {
+  if (value == null) return 'Not recorded'
+  if (typeof value === 'number' && Number.isFinite(value) && (type === 'number' || type === undefined)) return formatAmount(value, type === 'number' ? unit : null)
+  if (type === 'date' && isCalendarDay(value)) return readableDate(value)?.label ?? value
+  if (type === 'enum' && typeof value === 'string') return capitalized(value)
+  return typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)
+}
+
+const ATTRIBUTE_LABELS: Record<string, string> = { deadline: 'Due', due: 'Due', due_date: 'Due', duedate: 'Due' }
+
+/** An attribute name as a row label: "deadline" is "Due", "go_live" is "Go live". */
+export function attributeLabel(name: string): string {
+  if (ATTRIBUTE_LABELS[name.toLowerCase()]) return ATTRIBUTE_LABELS[name.toLowerCase()]
+  const words = name.replace(/[_-]+/g, ' ').trim()
+  return words ? words[0].toUpperCase() + words.slice(1) : name
+}
+
+/** "changed 1×" for a value that changed; empty when it never changed or the count is unusable. */
+export function changedTimes(count: number): string {
+  return Number.isInteger(count) && count > 0 ? `changed ${count}×` : ''
+}
+
+/** The ledger's refusals in plain words; anything else is shown as the ledger said it. */
+export function plainLedgerError(message: string): string {
+  if (/made against a belief that has since changed/i.test(message)) {
+    return 'This suggestion is out of date: the value changed after it was made, so it cannot be accepted. Reject it, then correct the value on the board if needed.'
+  }
+  if (/has already been reviewed/i.test(message)) return 'This suggestion was already reviewed. Refresh to see the board as it is.'
+  return message
+}
+
+const SKIPPED: Record<string, string> = {
+  ungrounded: 'quote not found in the transcript', unresolved: 'unclear which item', invalid: 'not a value the item allows',
+}
+
+/** What reading a meeting found, in words: "6 suggestions to review · 1 skipped: quote not found in the transcript." */
+export function ingestSummary(counts: { [key: string]: number } | undefined): string {
+  const entries = Object.entries(counts ?? {}).filter(([, count]) => Number.isInteger(count) && count > 0)
+  if (!entries.length) return 'No suggestions found in this meeting.'
+  const parts = entries.map(([status, count]) => status === 'proposed' ? `${plural(count, 'suggestion')} to review`
+    : status === 'applied' ? `${count} added to the board` : `${count} skipped: ${SKIPPED[status] ?? status.replaceAll('_', ' ')}`)
+  return `${parts.join(' · ')}.`
 }
 
 /** "2 changes" for a fact line; empty when the count is unusable so that no "NaN changes" is ever shown. */

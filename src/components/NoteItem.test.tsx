@@ -224,6 +224,26 @@ describe('NoteItem', () => {
     expect(screen.queryByTestId('change-status-icon')).not.toBeInTheDocument()
   })
 
+  it('previews a note in words, without link syntax or file addresses', () => {
+    const entry = makeEntry({
+      title: 'Procurement pilot kick-off — reviewed transcript',
+      snippet: '[Open original](<attachments/transcript-974c0b51-61b4-53d4-9324-a24c194be887.txt>) [Listen to meeting audio](<.memoria-recordings/974c0b51/original.wav>) Reviewed by the fa...',
+    })
+
+    render(<NoteItem entry={entry} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />)
+
+    expect(screen.getByTestId('note-snippet')).toHaveTextContent('Open original Listen to meeting audio Reviewed by the fa...')
+    expect(screen.getByTestId('note-snippet')).not.toHaveTextContent(/[[\]()<>]|attachments\/|\.wav|974c0b51/)
+  })
+
+  it('shows no preview when a snippet holds nothing but a link address', () => {
+    const entry = makeEntry({ title: 'Only a link', snippet: '[](<attachments/file.txt>)' })
+
+    render(<NoteItem entry={entry} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />)
+
+    expect(screen.queryByTestId('note-snippet')).not.toBeInTheDocument()
+  })
+
   it('adds more breathing room between note sections', () => {
     const entry = makeEntry({
       title: 'Spaced note',

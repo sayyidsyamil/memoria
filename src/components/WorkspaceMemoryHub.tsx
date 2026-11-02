@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useImperativeHandle, useMemo, useRef, useState, type ReactNode, type Ref } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Trash, Waveform } from '@phosphor-icons/react'
 import { Button } from './ui/button'
@@ -18,7 +18,9 @@ import type { MeetingRecord } from '../features/meetings/meetingTypes'
 import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
 import { RecordingRecovery } from '../features/meetings/RecordingRecovery'
 
-export type HubView = 'meetings' | 'search' | 'ask' | 'approved' | 'briefs' | 'facts'
+export type HubView = 'facts' | 'meetings' | 'ask' | 'briefs' | 'search' | 'approved'
+/** Lets the sidebar open the memory window on a section, e.g. Decisions when the app starts. */
+export interface MemoryHubHandle { open: (view: HubView) => void }
 type Meeting = MeetingRecord
 interface Approved {
   id: string; title: string; kind: string; statement: string; quote: string; sourcePath: string
@@ -62,8 +64,13 @@ function LeadAvatar({ meeting }: { meeting: Meeting }) {
     {identified.length > 1 && <span className="hub-lead-count" aria-hidden="true">{identified.length}</span>}</span>
 }
 
-export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeting, onReplayMeeting }: {
+export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, onChanged, onStartMeeting, onReplayMeeting, children }: {
+  ref?: Ref<MemoryHubHandle>
   vaultPath: string; summary?: WorkspaceSummary | null; onChanged?: () => void; onStartMeeting?: () => void; onReplayMeeting?: () => void
+  /** Decision and commitment suggestions waiting for approval. */
+  decisionsWaiting?: number
+  /** Further sidebar rows that belong to the same list, e.g. Review. */
+  children?: ReactNode
 }) {
   const [view, setView] = useState<HubView | null>(null)
   const [meetings, setMeetings] = useState<Meeting[]>([])
@@ -140,34 +147,36 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
   }, [approved, kind, text])
   const changed = approved.filter(item => item.status === 'needs-review').length
   const count = (known: number | undefined, fallback: number, ready?: boolean) => known ?? (ready ? fallback : undefined)
+  const waiting = decisionsWaiting ?? 0
   const tabs = [
+    { value: 'facts', label: 'Decisions', attention: waiting > 0 },
     { value: 'meetings', label: 'Meetings', count: count(summary?.meetings, meetings.length, loaded.meetings) },
-    { value: 'search', label: 'Search' },
     { value: 'ask', label: 'Ask' },
-    { value: 'approved', label: 'Approved', count: count(summary?.approved, approved.length, loaded.approved), attention: (summary?.sourceChanged ?? changed) > 0 },
     { value: 'briefs', label: 'Briefs', count: count(summary?.briefs, briefs.length, loaded.briefs) },
-    { value: 'facts', label: 'Tracked facts' },
+    { value: 'search', label: 'Search' },
+    { value: 'approved', label: 'Approved', count: count(summary?.approved, approved.length, loaded.approved), attention: (summary?.sourceChanged ?? changed) > 0 },
   ]
-  const row = (icon: ReactNode, label: string, target: HubView, value?: number, attention = false) => <Button variant="ghost" className="workspace-row" onClick={() => open(target)}>
+  // A count reads as part of the row's name: "Decisions, 3 suggestions to review", not "Decisions3".
+  const row = (icon: ReactNode, label: string, target: HubView, value?: number, attention = false, hint?: string) => <Button variant="ghost" className="workspace-row" aria-label={value ? `${label}, ${value}${hint ? ` ${hint}` : ''}` : undefined} onClick={() => open(target)}>
     {icon}<span>{label}</span>{!!value && <span className="workspace-row-count" data-attention={attention || undefined}>{value}</span>}
   </Button>
   const openPage = (path: string, title: string) => { void openNoteInNewWindow(`${vaultPath}/${path}`, vaultPath, title).catch(failure => setError(String(failure))) }
   const openMoment = (id: string, at: number) => { void resume(id, 'transcript', at) }
-  const current = view ?? 'meetings'
+  const current = view ?? 'facts'
+  useImperativeHandle(ref, () => ({ open }))
   return <>
     <nav className="memory-hub-navigation" aria-label="Meeting memory">
-      <p className="workspace-group-label">Memory</p>
+      {row(<SealCheck size={16} />, 'Decisions', 'facts', waiting, true, waiting === 1 ? 'suggestion to review' : 'suggestions to review')}
       {row(<Waveform size={16} />, 'Meetings', 'meetings', summary?.meetings)}
-      {row(<MagnifyingGlass size={16} />, 'Search', 'search')}
       {row(<Quotes size={16} />, 'Ask', 'ask')}
-      {row(<SealCheck size={16} />, 'All approved', 'approved', summary?.approved, (summary?.sourceChanged ?? 0) > 0)}
       {row(<FileText size={16} />, 'Briefs', 'briefs', summary?.briefs)}
-      {row(<SealCheck size={16} />, 'Tracked facts', 'facts')}
+      {row(<MagnifyingGlass size={16} />, 'Search', 'search')}
+      {children}
     </nav>
     <Dialog open={!!view && !meeting} onOpenChange={value => { if (!value) setView(null) }}>
       <DialogContent className="hub-dialog" onOpenAutoFocus={event => event.preventDefault()}>
         <DialogTitle className="sr-only">Meeting memory</DialogTitle>
-        <DialogDescription className="sr-only">Meetings, search, questions, approved knowledge and saved briefs.</DialogDescription>
+        <DialogDescription className="sr-only">Decisions, meetings, questions, briefs, search and approved knowledge.</DialogDescription>
         <PillTabsRoot value={current} onValueChange={value => open(value as HubView)} className="hub-root">
           <header className="hub-header">
             <PillTabList label="Memory sections" value={current} tabs={tabs} onSelect={value => open(value as HubView)} />
@@ -206,7 +215,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
               {!busy && loaded.meetings && !meetings.length && <EmptyState icon={<Microphone size={20} />} title="No meetings yet" action={onStartMeeting && <Button onClick={() => { setView(null); onStartMeeting() }}>Start meeting</Button>}>Recordings, reviewed transcripts and approved outcomes appear here after you end a meeting.</EmptyState>}
               {!busy && !!meetings.length && !shownMeetings.length && <p className="hub-muted">No meetings match “{search}”.</p>}
             </PillTabPanel>
-            <PillTabPanel value="facts"><TemporalMemoryPanel vaultPath={vaultPath} /></PillTabPanel>
+            <PillTabPanel value="facts"><TemporalMemoryPanel vaultPath={vaultPath} onOpenMoment={openMoment} /></PillTabPanel>
             <PillTabPanel value="search" forceMount hidden={view !== 'search'}>
               <MemorySearch vaultPath={vaultPath} active={view === 'search'} onOpenMoment={openMoment} onOpenPage={openPage} />
             </PillTabPanel>
@@ -260,7 +269,7 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
           <footer className="hub-footer">
             <span>{busy && !loaded[current] ? 'Loading…' : view === 'approved'
               ? `${plural(approved.length, 'approved claim')} across ${plural(new Set(approved.map(item => item.knowledgePath)).size, 'page')}${changed ? ` · ${changed} ${changed === 1 ? 'needs' : 'need'} review` : ''}`
-               : view === 'facts' ? 'Tracked values and their evidence history' : view === 'briefs' ? plural(briefs.length, 'saved brief') : view === 'search' ? 'Keyword search over saved transcripts and approved claims' : view === 'ask' ? 'Answers use approved knowledge only' : plural(meetings.length, 'meeting')}</span>
+               : view === 'facts' ? 'Nothing here changes without your approval' : view === 'briefs' ? plural(briefs.length, 'saved brief') : view === 'search' ? 'Keyword search over saved transcripts and approved claims' : view === 'ask' ? 'Answers use approved knowledge only' : plural(meetings.length, 'meeting')}</span>
             <Button variant="ghost" onClick={() => setView(null)}>Done</Button>
           </footer>
         </PillTabsRoot>

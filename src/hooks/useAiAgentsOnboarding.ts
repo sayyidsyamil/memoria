@@ -2,6 +2,9 @@ import { useCallback, useState } from 'react'
 
 const AI_AGENTS_ONBOARDING_DISMISSED_STORAGE_NAME = 'memoria:ai-agents-onboarding-dismissed'
 const LEGACY_CLAUDE_ONBOARDING_DISMISSED_STORAGE_NAME = 'memoria:claude-code-onboarding-dismissed'
+// Memoria's own AI runs inside the app, so the first-run question about coding agents (inherited from Tolaria) is not asked.
+// The agents stay available in Settings; set this to true to bring the first-run prompt back.
+const ASK_ABOUT_CODING_AGENTS_AT_FIRST_RUN = false
 
 function wasDismissed(): boolean {
   try {
@@ -33,6 +36,6 @@ export function useAiAgentsOnboarding(enabled: boolean) {
 
   return {
     dismissPrompt,
-    showPrompt: enabled && !dismissed,
+    showPrompt: ASK_ABOUT_CODING_AGENTS_AT_FIRST_RUN && enabled && !dismissed,
   }
 }

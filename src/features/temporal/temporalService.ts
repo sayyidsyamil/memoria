@@ -31,6 +31,13 @@ export interface TemporalCorrection {
   replaced_fact_id: TemporalId
 }
 
+/** How the ledger records a withdrawn fact: a correction leaves the reason "corrected: …". Older answers sent a flag. */
+export interface TemporalRetraction {
+  tx?: number
+  by?: string | null
+  reason?: string | null
+}
+
 export interface TemporalFact {
   fact_id: TemporalId
   object_id: string
@@ -40,19 +47,24 @@ export interface TemporalFact {
   evidence: TemporalEvidence[]
   valid_from: string | null
   n_changes: number
+  /** The tracked item's kind (decision, commitment or issue). */
+  kind?: string
+  decided_at?: string | null
+  /** INITIAL, CORRECT, COMPLETE, …: how the fact entered the ledger. */
+  change_type?: string | null
   valid_to?: string | null
   tx_from?: string | null
   tx_to?: string | null
-  retracted?: boolean
+  retracted?: boolean | TemporalRetraction | null
   corrects?: TemporalId | null
   correction?: TemporalCorrection | null
 }
 
-export interface TemporalHistoryFact extends Omit<TemporalFact, 'valid_from' | 'valid_to' | 'n_changes'> {
+export interface TemporalHistoryFact extends Omit<TemporalFact, 'valid_from' | 'valid_to' | 'n_changes' | 'retracted' | 'decided_at'> {
   claim_from: string | null
   claim_to: string | null
   decided_at: string | null
-  retracted: boolean
+  retracted: boolean | TemporalRetraction | null
   corrects: TemporalId | null
 }
 
@@ -67,6 +79,8 @@ export interface TemporalProposal {
   quote: string
   speaker: string | null
   meeting: string | null
+  confidence?: number
+  reason?: string | null
 }
 
 export interface TemporalOverview {
@@ -91,7 +105,7 @@ export interface TemporalIngestResult {
 interface TemporalMethods {
   overview: { params: Record<string, never>; result: TemporalOverview }
   'registry.set': { params: { objects: TemporalObject[] }; result: TemporalValue }
-  'proposals.accept': { params: { proposal_id: TemporalId }; result: TemporalValue }
+  'proposals.accept': { params: { proposal_id: TemporalId; edits?: { value: TemporalValue } }; result: TemporalValue }
   'proposals.reject': { params: { proposal_id: TemporalId }; result: TemporalValue }
   'facts.history': { params: { object_id: string; attribute: string }; result: TemporalHistoryFact[] }
   'facts.correct': { params: { fact_id: TemporalId; value: TemporalValue; reason: string }; result: TemporalValue }
@@ -118,7 +132,9 @@ async function request<M extends keyof TemporalMethods>(
 export const temporalService = {
   overview: (vaultPath: string) => request(vaultPath, 'overview', {}),
   setRegistry: (vaultPath: string, objects: TemporalObject[]) => request(vaultPath, 'registry.set', { objects }),
-  acceptProposal: (vaultPath: string, proposal_id: TemporalId) => request(vaultPath, 'proposals.accept', { proposal_id }),
+  /** Approves a suggestion; with an edited value the ledger stores that value instead and records the edit. */
+  acceptProposal: (vaultPath: string, proposal_id: TemporalId, edits?: { value: TemporalValue }) =>
+    request(vaultPath, 'proposals.accept', edits ? { proposal_id, edits } : { proposal_id }),
   rejectProposal: (vaultPath: string, proposal_id: TemporalId) => request(vaultPath, 'proposals.reject', { proposal_id }),
   history: (vaultPath: string, object_id: string, attribute: string) => request(vaultPath, 'facts.history', { object_id, attribute }),
   correctFact: (vaultPath: string, fact_id: TemporalId, value: TemporalValue, reason: string) => request(vaultPath, 'facts.correct', { fact_id, value, reason }),

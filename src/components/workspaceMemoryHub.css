@@ -12,6 +12,7 @@
 .hub-search input::placeholder { color: var(--muted-foreground); }
 .hub-error { flex-shrink: 0; margin: 0 20px 8px; font-size: 13px; color: var(--destructive); overflow-wrap: anywhere; }
 .hub-body { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 32px 24px; scrollbar-width: thin; }
+.hub-body[data-view='facts'] .temporal-memory { max-width: none; }
 .hub-body[data-view='ask'] { display: flex; flex-direction: column; overflow: hidden; padding: 0 4px 0; }
 .hub-ask { flex: 1; min-height: 0; display: flex; flex-direction: column; }
 .hub-ask[hidden], .hub-body [hidden] { display: none; }

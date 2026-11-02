@@ -31,6 +31,7 @@ import { resolveIcon } from '../utils/iconRegistry'
 import { getDisplayDate } from '../utils/noteListHelpers'
 import { formatTimestampForDateDisplay } from '../utils/dateDisplay'
 import { filePreviewKind, type FilePreviewKind } from '../utils/filePreview'
+import { readableSnippet } from '../utils/inlineMarkdown'
 import { NoteTitleIcon } from './NoteTitleIcon'
 import { PropertyChips } from './note-item/PropertyChips'
 import { ChangeNoteContent } from './note-item/ChangeNoteContent'
@@ -212,7 +213,8 @@ function NoteTypeIndicator({
 }
 
 function NoteSnippet({ snippet }: { snippet?: string | null }) {
-  if (!snippet) return null
+  const text = snippet ? readableSnippet(snippet) : ''
+  if (!text) return null
 
   return (
     <div
@@ -225,7 +227,7 @@ function NoteSnippet({ snippet }: { snippet?: string | null }) {
         overflow: 'hidden',
       }}
     >
-      {snippet}
+      {text}
     </div>
   )
 }

@@ -1,7 +1,8 @@
+import { createRef } from 'react'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { beforeEach, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
-import { WorkspaceMemoryHub } from './WorkspaceMemoryHub'
+import { WorkspaceMemoryHub, type HubView, type MemoryHubHandle } from './WorkspaceMemoryHub'
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn(), convertFileSrc: (path:string) => path }))
 // Component tests isolate the frontend service; its real IPC contract has separate tests.
 vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
@@ -17,6 +18,13 @@ vi.mock('../features/meetings/recordingService', () => ({ recordingService: { li
 vi.mock('../utils/openNoteWindow', () => ({ openNoteInNewWindow: vi.fn(async () => undefined) }))
 beforeEach(() => { vi.mocked(invoke).mockReset() })
 const draft = {segments:[],duration:58,text:'original',warnings:[]}
+/** Opens the memory window on a section, as the sidebar does at startup. */
+function renderOpen(view: HubView, props: Partial<Parameters<typeof WorkspaceMemoryHub>[0]> = {}) {
+  const hub = createRef<MemoryHubHandle>()
+  const result = render(<WorkspaceMemoryHub ref={hub} vaultPath="/vault" {...props} />)
+  act(() => hub.current!.open(view))
+  return { ...result, hub }
+}
 const meeting = (patch = {}) => ({id:'one',title:'Pilot review',status:'needs-review',pagePath:'meeting.md',audioPath:'audio.wav',created:'2026-11-01T03:05:00.000Z',
   turns:[{start:1,end:2,speaker:'S01',text:'Saved edit'}],names:{S01:'Maya'},draft,...patch})
 it('groups approved claims by page, filters by type and flags changed sources', async () => {
@@ -24,8 +32,7 @@ it('groups approved claims by page, filters by type and flags changed sources', 
     {id:'1',title:'Launch',pageTitle:'Pilot launch',kind:'Decision',statement:'Thursday launch',sourceTitle:'Meeting A',sourcePath:'a.md',page:1,quote:'Thursday',knowledgePath:'launch.md',status:'source-unchanged'},
     {id:'3',title:'Scope',pageTitle:'Pilot launch',kind:'Decision',statement:'Operations only',sourceTitle:'Meeting B',sourcePath:'b.md',page:2,quote:'Operations',knowledgePath:'launch.md',status:'source-unchanged'},
     {id:'2',title:'Send report',pageTitle:'Weekly report',kind:'Commitment',statement:'Maya sends report',sourceTitle:'Meeting A',sourcePath:'a.md',page:1,quote:'Report',knowledgePath:'report.md',status:'needs-review'}])
-  render(<WorkspaceMemoryHub vaultPath="/vault" />)
-  fireEvent.click(screen.getByText('All approved'))
+  renderOpen('approved')
   await screen.findByText('Thursday launch')
   expect(screen.getAllByRole('heading',{level:3}).map(item => item.textContent)).toEqual(['Pilot launch','Weekly report'])
   expect(screen.getByText('Operations only')).toBeInTheDocument()
@@ -79,20 +86,43 @@ it('shows an empty state that starts a meeting', async () => {
   fireEvent.click(await screen.findByRole('button',{name:'Start meeting'}))
   expect(start).toHaveBeenCalled()
 })
-it('shows live counts in the sidebar rows and flags changed sources', () => {
-  render(<WorkspaceMemoryHub vaultPath="/vault" summary={{meetings:2,approved:12,briefs:1,pendingReviews:0,sourceChanged:1}} />)
-  expect(screen.getByRole('button',{name:/Meetings/})).toHaveTextContent('2')
-  const approved = screen.getByRole('button',{name:/All approved/})
-  expect(approved).toHaveTextContent('12')
-  expect(approved.querySelector('[data-attention]')).not.toBeNull()
-  expect(screen.getByRole('button',{name:/Briefs/})).toHaveTextContent('1')
+it('shows live counts in the sidebar rows, flags waiting suggestions and changed sources', async () => {
+  vi.mocked(invoke).mockResolvedValue([])
+  render(<WorkspaceMemoryHub vaultPath="/vault" decisionsWaiting={3} summary={{meetings:2,approved:12,briefs:1,pendingReviews:0,sourceChanged:1}} />)
+  const decisions = screen.getByRole('button',{name:'Decisions, 3 suggestions to review'})
+  expect(decisions.querySelector('[data-attention]')).toHaveTextContent('3')
+  expect(screen.getByRole('button',{name:'Meetings, 2'})).toHaveTextContent('2')
+  expect(screen.getByRole('button',{name:'Briefs, 1'})).toHaveTextContent('1')
+  expect(screen.queryByRole('button',{name:/approved/i})).not.toBeInTheDocument()
+  fireEvent.click(decisions)
+  expect(within(await screen.findByRole('tab',{name:/Decisions/})).getByLabelText('needs attention')).toBeInTheDocument()
+  expect(within(screen.getByRole('tab',{name:/Approved/})).getByLabelText('needs attention')).toBeInTheDocument()
 })
-it('switches between all five sections without closing the dialog', async () => {
+it('lists the Memoria places in one sidebar list, with further rows such as Review at its end', () => {
+  render(<WorkspaceMemoryHub vaultPath="/vault"><button type="button">Review</button></WorkspaceMemoryHub>)
+  const list = screen.getByRole('navigation',{name:'Meeting memory'})
+  expect(within(list).getAllByRole('button').map(button => button.textContent)).toEqual(['Decisions','Meetings','Ask','Briefs','Search','Review'])
+})
+it('opens on Decisions, the decision board, by default', async () => {
+  vi.mocked(invoke).mockResolvedValue([])
+  render(<WorkspaceMemoryHub vaultPath="/vault" />)
+  fireEvent.click(screen.getByRole('button',{name:'Decisions'}))
+  expect(await screen.findByRole('tab',{name:'Decisions'})).toHaveAttribute('aria-selected','true')
+  expect(screen.getByRole('region',{name:'Decision board'})).toBeInTheDocument()
+  expect(screen.getByText('Nothing here changes without your approval')).toBeInTheDocument()
+})
+it('opens a section on request, as the app does at startup', async () => {
+  vi.mocked(invoke).mockResolvedValue([])
+  renderOpen('facts')
+  expect(await screen.findByRole('dialog')).toBeInTheDocument()
+  expect(screen.getByRole('tab',{name:'Decisions'})).toHaveAttribute('aria-selected','true')
+})
+it('switches between all six sections without closing the dialog', async () => {
   vi.mocked(invoke).mockResolvedValue([])
   render(<WorkspaceMemoryHub vaultPath="/vault" />)
   fireEvent.click(screen.getByText('Meetings'))
   expect(await screen.findAllByRole('tab')).toHaveLength(6)
-  expect(screen.getAllByRole('tab').map(tab => tab.textContent?.replace(/\d+$/, ''))).toEqual(['Meetings', 'Search', 'Ask', 'Approved', 'Briefs', 'Tracked facts'])
+  expect(screen.getAllByRole('tab').map(tab => tab.textContent?.replace(/\d+$/, ''))).toEqual(['Decisions', 'Meetings', 'Ask', 'Briefs', 'Search', 'Approved'])
   fireEvent.click(screen.getByRole('tab', { name: /Ask/ }))
   expect(await screen.findByRole('textbox', { name: 'Question or meeting topic' })).toBeInTheDocument()
   fireEvent.click(screen.getByRole('tab', { name: /Search/ }))
@@ -110,8 +140,7 @@ it('opens the meeting at the moment an approved claim was said', async () => {
     if (action === 'meeting_record') return meeting()
     return []
   })
-  render(<WorkspaceMemoryHub vaultPath="/vault" />)
-  fireEvent.click(screen.getByText('All approved'))
+  renderOpen('approved')
   fireEvent.click(await screen.findByRole('button', { name: 'Open Pilot review at 0:20' }))
   expect(await screen.findByRole('textbox', { name: 'Transcript turn 1' })).toHaveValue('Saved edit')
   expect(screen.getByLabelText('Elapsed time')).toHaveTextContent('0:20')

@@ -1,4 +1,4 @@
-import { useCallback, memo } from 'react'
+import { useCallback, useMemo, memo } from 'react'
 import type { FolderCreationParent, FolderNode, SidebarSelection, VaultEntry, ViewDefinition, ViewFile } from '../types'
 import { KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
@@ -688,10 +688,12 @@ function SidebarInteractionOverlays({
 }
 
 import { WorkspaceActions } from './WorkspaceActions'
+import { SidebarFilesSection } from './sidebar/SidebarFilesSection'
 
 export const Sidebar = memo(function Sidebar(props: SidebarProps) {
   const locale = props.locale ?? 'en'
   const runtime = useSidebarRuntime(props)
+  const hasMeetingNotes = useMemo(() => props.entries.some(entry => entry.isA === 'Meeting'), [props.entries])
 
   return (
     <aside className="flex h-full flex-col overflow-hidden border-r border-[var(--sidebar-border)] bg-sidebar text-sidebar-foreground">
@@ -703,11 +705,10 @@ export const Sidebar = memo(function Sidebar(props: SidebarProps) {
         canGoBack={props.canGoBack}
         canGoForward={props.canGoForward}
       />
-      {props.vaultRootPath && <WorkspaceActions vaultPath={props.vaultRootPath} />}
-      <details className="workspace-library" open>
-        <summary>Document library<span>Browse files and collections</span></summary>
+      {props.vaultRootPath && <WorkspaceActions vaultPath={props.vaultRootPath} hasMeetingNotes={hasMeetingNotes} />}
+      <SidebarFilesSection vaultPath={props.vaultRootPath}>
         <SidebarRuntimeNavigation props={props} runtime={runtime} />
-      </details>
+      </SidebarFilesSection>
       <SidebarInteractionOverlays locale={locale} runtime={runtime} />
     </aside>
   )

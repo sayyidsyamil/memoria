@@ -27,7 +27,7 @@ const STATUS_CHIPS: Record<string, { label: string; tone: 'green' | 'orange' | '
   stale: { label: 'Outdated — source or knowledge changed', tone: 'orange' }, rejected: { label: 'Rejected', tone: 'neutral' },
 }
 
-export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrigger = false, inline = false, buildOnOpen = true, initialHistory = false, triggerIcon, badge }: {
+export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrigger = false, inline = false, buildOnOpen = true, initialHistory = false, triggerIcon, triggerLabel = 'Review knowledge', badge }: {
   vaultPath: string; sourcePath?: string; autoOpen?: boolean; hideTrigger?: boolean
   /** Render the review in place instead of in a dialog. */
   inline?: boolean
@@ -35,6 +35,8 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
   buildOnOpen?: boolean
   initialHistory?: boolean
   triggerIcon?: ReactNode
+  /** The sidebar row's words; the dialog keeps its full title. */
+  triggerLabel?: string
   badge?: number
 }) {
   const [open, setOpen] = useState(false)
@@ -111,9 +113,9 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
     ? <Button className="min-h-[44px] w-full whitespace-normal" size="sm" variant="outline" onClick={() => {
       setOpen(true); if (!working.current) void run('compile')
     }}>{operation === 'compile' ? 'Preparing knowledge…' : 'Build knowledge'}</Button>
-    : <Button className="workspace-row" variant="ghost" onClick={() => {
+    : <Button className="workspace-row" variant="ghost" aria-label={badge ? `${triggerLabel}, ${badge} waiting` : undefined} onClick={() => {
       setOpen(true); if (!working.current) void run('list')
-    }}>{triggerIcon ?? <ListChecks size={16} />}<span>Review knowledge</span>{!!badge && <span className="workspace-row-count" data-attention="true">{badge}</span>}</Button>)
+    }}>{triggerIcon ?? <ListChecks size={16} />}<span>{triggerLabel}</span>{!!badge && <span className="workspace-row-count" data-attention="true">{badge}</span>}</Button>)
 
   const content = <>
     {(!inline || available.length > 1 || hasHistory) && <div className="knowledge-review-toolbar"><span>{showHistory ? 'Completed & pending' : 'Waiting for review'} <span className="text-muted-foreground">{available.length}</span></span>{available.length > 1 && <select aria-label="Choose source to review" value={current?.id ?? ''} onChange={event => setSelectedReview(event.target.value)}>{available.map(proposal => <option value={proposal.id} key={proposal.id}>{proposal.sourceTitle}</option>)}</select>}{hasHistory && <button onClick={() => setShowHistory(value => !value)}>{showHistory ? 'Hide completed reviews' : 'Show completed reviews'}</button>}</div>}
@@ -129,7 +131,7 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
         ? <EmptyState icon={<ListChecks size={20} />} title="No outcomes proposed yet" action={<Button disabled={Boolean(operation)} onClick={() => { void run('compile') }}>Build knowledge</Button>}>Memoria reads this reviewed transcript and suggests decisions, commitments and people. Nothing is saved until you approve it.</EmptyState>
         : <div className="space-y-2 py-4">
           <p className="font-medium">No changes waiting for review</p>
-          <p className="text-sm text-muted-foreground">Choose Import files, then Import & build knowledge.</p>
+          <p className="text-sm text-muted-foreground">Suggestions from meeting outcomes and imported files appear here.</p>
         </div>)}
       {visible.map(proposal => <section key={proposal.id} className="knowledge-review-proposal">
         <div className="knowledge-review-source">

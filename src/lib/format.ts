@@ -1,5 +1,29 @@
-const dayFormat = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short' })
-const timeFormat = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' })
+// One date style everywhere in Memoria: "9 Nov 2026", and with a time "12 Oct 2026, 09:30" (24-hour clock).
+// Month names are written out here rather than by Intl, whose short months differ between engines ("Sep" or "Sept").
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+interface DayParts { year: number; month: number; day: number; hour: number; minute: number }
+
+/** The calendar parts of an instant: in the viewer's zone by default, or in the IANA zone given (e.g. 'UTC'). */
+function dayParts(date: Date, timeZone?: string): DayParts {
+  if (!timeZone) return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate(), hour: date.getHours(), minute: date.getMinutes() }
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone, year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23',
+  }).formatToParts(date).map(part => [part.type, part.value]))
+  return { year: Number(parts.year), month: Number(parts.month), day: Number(parts.day), hour: Number(parts.hour) % 24, minute: Number(parts.minute) }
+}
+
+/** "9 Nov 2026". */
+export function formatDay(date: Date, timeZone?: string): string {
+  const { year, month, day } = dayParts(date, timeZone)
+  return `${day} ${MONTHS[month - 1]} ${year}`
+}
+
+/** "12 Oct 2026, 09:30". */
+export function formatDayTime(date: Date, timeZone?: string): string {
+  const parts = dayParts(date, timeZone)
+  return `${formatDay(date, timeZone)}, ${String(parts.hour).padStart(2, '0')}:${String(parts.minute).padStart(2, '0')}`
+}
 
 function parse(iso?: string | null) {
   const date = iso ? new Date(iso) : null
@@ -7,11 +31,11 @@ function parse(iso?: string | null) {
 }
 export function dayLabel(iso?: string | null) {
   const date = parse(iso)
-  return date ? dayFormat.format(date) : ''
+  return date ? formatDay(date) : ''
 }
 export function whenLabel(iso?: string | null) {
   const date = parse(iso)
-  return date ? `${dayFormat.format(date)}, ${timeFormat.format(date)}` : ''
+  return date ? formatDayTime(date) : ''
 }
 
 /** Two-letter initials for a person, the digit for "Speaker 2", and "?" for an unknown voice. */

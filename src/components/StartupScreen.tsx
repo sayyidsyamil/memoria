@@ -77,7 +77,7 @@ function shouldShowAiAgentsOnboarding(params: StartupScreenParams): boolean {
     && !params.showMcpSetupDialog
 }
 
-function WelcomeView({ onboarding, isOffline, locale }: { onboarding: OnboardingState; isOffline: boolean; locale?: AppLocale }) {
+function WelcomeView({ onboarding, locale }: { onboarding: OnboardingState; locale?: AppLocale }) {
   const state = onboarding.state as { status: 'welcome' | 'vault-missing'; defaultPath: string; vaultPath?: string }
   return (
     <div className="app-shell">
@@ -86,14 +86,10 @@ function WelcomeView({ onboarding, isOffline, locale }: { onboarding: Onboarding
         missingPath={state.status === 'vault-missing' ? state.vaultPath : undefined}
         locale={locale}
         defaultVaultPath={state.defaultPath}
-        onCreateVault={onboarding.handleCreateVault}
-        onRetryCreateVault={onboarding.retryCreateVault}
         onCreateEmptyVault={onboarding.handleCreateEmptyVault}
         onOpenFolder={onboarding.handleOpenFolder}
-        isOffline={isOffline}
         creatingAction={onboarding.creatingAction}
         error={onboarding.error}
-        canRetryTemplate={onboarding.canRetryTemplate}
       />
     </div>
   )
@@ -147,7 +143,6 @@ export function StartupScreen(params: StartupScreenParams) {
     return (
       <WelcomeView
         onboarding={welcomeOnboardingState(params)}
-        isOffline={params.isOffline}
         locale={params.locale}
       />
     )

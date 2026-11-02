@@ -1,35 +1,40 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { changeCount, changeSummary, describeQueryResult, itemLabel, meetingLabel, readableDate } from './temporalFormat'
+import {
+  attributeLabel, changeCount, changeSummary, changedTimes, describeQueryResult, formatAmount, formatValue, ingestSummary, isCalendarDay,
+  itemLabel, labelUnit, localDay, meetingLabel, plainLedgerError, readableDate,
+} from './temporalFormat'
 
 describe('readableDate', () => {
-  it('writes dates the way the locale does and keeps the exact value for the time element', () => {
-    expect(readableDate('2026-10-10', { locale: 'en-GB' })).toEqual({ label: '10 Oct 2026', dateTime: '2026-10-10' })
-    expect(readableDate('2026-10-10', { locale: 'en-US' })?.label).toBe('Oct 10, 2026')
-    expect(readableDate('2026-10-10', { locale: 'de-DE' })?.label).toMatch(/^10\. Okt\.? 2026$/)
-    expect(readableDate('2026-10-10T10:05:00Z', { locale: 'en-GB', timeZone: 'UTC' })).toEqual({ label: '10 Oct 2026', dateTime: '2026-10-10T10:05:00Z' })
+  it('writes every date in the one Memoria style and keeps the exact value for the time element', () => {
+    expect(readableDate('2026-10-10')).toEqual({ label: '10 Oct 2026', dateTime: '2026-10-10' })
+    expect(readableDate('2026-11-09')?.label).toBe('9 Nov 2026')
+    // Some engines write September as "Sept"; Memoria never does.
+    expect(readableDate('2026-09-28')?.label).toBe('28 Sep 2026')
+    expect(readableDate('2026-10-10T10:05:00Z', { timeZone: 'UTC' })).toEqual({ label: '10 Oct 2026', dateTime: '2026-10-10T10:05:00Z' })
   })
 
-  it('adds the time of day only when asked and only to timestamps', () => {
-    expect(readableDate('2026-10-10T15:05:00Z', { locale: 'en-GB', timeZone: 'UTC', time: true })?.label).toBe('10 Oct 2026, 15:05')
-    expect(readableDate('2026-10-10T15:05:00Z', { locale: 'en-US', timeZone: 'UTC', time: true })?.label).toBe('Oct 10, 2026, 03:05 PM')
-    expect(readableDate('2026-10-10', { locale: 'en-GB', time: true })?.label).toBe('10 Oct 2026')
+  it('adds the time of day only when asked and only to timestamps, on a 24-hour clock', () => {
+    expect(readableDate('2026-10-10T15:05:00Z', { timeZone: 'UTC', time: true })?.label).toBe('10 Oct 2026, 15:05')
+    expect(readableDate('2026-10-12T01:30:45Z', { timeZone: 'Asia/Kuala_Lumpur', time: true })?.label).toBe('12 Oct 2026, 09:30')
+    expect(readableDate('2026-10-10T00:05:00Z', { timeZone: 'UTC', time: true })?.label).toBe('10 Oct 2026, 00:05')
+    expect(readableDate('2026-10-10', { time: true })?.label).toBe('10 Oct 2026')
   })
 
   it('shows an instant in the requested zone, so the day can differ from its UTC date', () => {
-    expect(readableDate('2026-10-10T23:30:00Z', { locale: 'en-GB', timeZone: 'UTC' })?.label).toBe('10 Oct 2026')
-    expect(readableDate('2026-10-10T23:30:00Z', { locale: 'en-GB', timeZone: 'Asia/Kuala_Lumpur' })?.label).toBe('11 Oct 2026')
-    expect(readableDate('2026-10-10T23:30:00Z', { locale: 'en-GB', timeZone: 'Pacific/Pago_Pago', time: true })?.label).toBe('10 Oct 2026, 12:30')
+    expect(readableDate('2026-10-10T23:30:00Z', { timeZone: 'UTC' })?.label).toBe('10 Oct 2026')
+    expect(readableDate('2026-10-10T23:30:00Z', { timeZone: 'Asia/Kuala_Lumpur' })?.label).toBe('11 Oct 2026')
+    expect(readableDate('2026-10-10T23:30:00Z', { timeZone: 'Pacific/Pago_Pago', time: true })?.label).toBe('10 Oct 2026, 12:30')
   })
 
   it.each([
     ['2026-10-10T10:00:00+08:00'], ['2026-10-10T10:00:00+0800'], ['2026-10-10T10:00:00+08'], ['2026-10-10 10:00:00+08:00'],
     ['2026-10-10T10:00:00.123456+08:00'], ['2026-10-10t10:00+08:00'],
   ])('understands the zone designators and separators of %s', value => {
-    expect(readableDate(value, { locale: 'en-GB', timeZone: 'UTC', time: true })).toEqual({ label: '10 Oct 2026, 02:00', dateTime: value })
+    expect(readableDate(value, { timeZone: 'UTC', time: true })).toEqual({ label: '10 Oct 2026, 02:00', dateTime: value })
   })
 
   it('accepts real calendar days only, including leap days', () => {
-    expect(readableDate('2028-02-29', { locale: 'en-GB' })?.label).toBe('29 Feb 2028')
+    expect(readableDate('2028-02-29')?.label).toBe('29 Feb 2028')
     for (const value of ['2026-02-29', '2026-02-30', '2026-04-31', '2026-13-01', '2026-00-10', '2026-10-00', '2026-02-30T10:00:00Z']) {
       expect(readableDate(value)).toBeNull()
     }
@@ -43,7 +48,7 @@ describe('readableDate', () => {
   })
 
   it('ignores surrounding whitespace and values that are not text', () => {
-    expect(readableDate(' 2026-10-10 ', { locale: 'en-GB' })).toEqual({ label: '10 Oct 2026', dateTime: '2026-10-10' })
+    expect(readableDate(' 2026-10-10 ')).toEqual({ label: '10 Oct 2026', dateTime: '2026-10-10' })
     expect(readableDate(20261010 as unknown as string)).toBeNull()
     expect(readableDate(null as unknown as string)).toBeNull()
   })
@@ -65,17 +70,92 @@ describe('readableDate', () => {
       expect(new Date(2026, 9, 10).getTimezoneOffset()).toBe(offset)
       if (offset > 0) expect(new Date('2026-10-10').getDate()).toBe(9)
       for (const [value, label] of [['2026-10-10', '10 Oct 2026'], ['2026-01-01', '1 Jan 2026'], ['2026-12-31', '31 Dec 2026'], ['2026-03-01', '1 Mar 2026']]) {
-        expect(readableDate(value, { locale: 'en-GB' })?.label).toBe(label)
+        expect(readableDate(value)?.label).toBe(label)
       }
     })
 
     it("shows an instant on the day it falls in the viewer's zone", () => {
-      expect(readableDate('2026-10-10T23:30:00Z', { locale: 'en-GB', time: true })?.label).toBe(instant)
+      expect(readableDate('2026-10-10T23:30:00Z', { time: true })?.label).toBe(instant)
     })
 
     it('reads a timestamp without a zone as local time', () => {
-      expect(readableDate('2026-10-10T10:00:00', { locale: 'en-GB', time: true })?.label).toBe('10 Oct 2026, 10:00')
+      expect(readableDate('2026-10-10T10:00:00', { time: true })?.label).toBe('10 Oct 2026, 10:00')
     })
+  })
+})
+
+describe('localDay and isCalendarDay', () => {
+  it("names today's calendar day in the viewer's zone", () => {
+    expect(localDay(new Date(2026, 10, 2, 23, 59))).toBe('2026-11-02')
+    expect(localDay(new Date(2026, 0, 5, 0, 1))).toBe('2026-01-05')
+  })
+
+  it('recognises real calendar days only', () => {
+    expect(isCalendarDay('2026-11-03')).toBe(true)
+    expect(isCalendarDay(' 2026-11-03 ')).toBe(true)
+    for (const value of ['2026-02-30', '3 Nov 2026', '2026-11-03T10:00:00Z', 20261103, null, undefined]) expect(isCalendarDay(value as string)).toBe(false)
+  })
+})
+
+describe('values', () => {
+  it('takes a unit in brackets off the label of an item that holds a number', () => {
+    expect(labelUnit('Pilot budget (RM)', true)).toEqual({ title: 'Pilot budget', unit: 'RM' })
+    expect(labelUnit('Headcount (people)', true)).toEqual({ title: 'Headcount', unit: 'people' })
+    expect(labelUnit('Vendor (final)', false)).toEqual({ title: 'Vendor (final)', unit: null })
+    expect(labelUnit('Phase (2)', true)).toEqual({ title: 'Phase (2)', unit: null })
+    expect(labelUnit('  Go-live date ', true)).toEqual({ title: 'Go-live date', unit: null })
+  })
+
+  it.each([
+    [280000, 'RM', 'RM 280,000'], [2500, '$', '$2,500'], [1250000, 'USD', 'USD 1,250,000'], [12, 'days', '12 days'],
+    [40, '%', '40%'], [1234.5, null, '1,234.5'], [280000, null, '280,000'],
+  ] as const)('writes %s with the unit %s as %s', (value, unit, text) => {
+    expect(formatAmount(value, unit)).toBe(text)
+  })
+
+  it('writes each kind of value as people read it', () => {
+    expect(formatValue(280000, 'number', 'RM')).toBe('RM 280,000')
+    expect(formatValue(280000, undefined)).toBe('280,000')
+    expect(formatValue(100, 'text')).toBe('100')
+    expect(formatValue('2026-11-09', 'date')).toBe('9 Nov 2026')
+    expect(formatValue('next spring', 'date')).toBe('next spring')
+    expect(formatValue('2026-11-09', 'text')).toBe('2026-11-09')
+    expect(formatValue('done', 'enum')).toBe('Done')
+    expect(formatValue('Beta Cloud', 'enum')).toBe('Beta Cloud')
+    expect(formatValue('raj', 'text')).toBe('raj')
+    expect(formatValue(null, 'text')).toBe('Not recorded')
+    expect(formatValue({ a: 1 })).toBe('{\n  "a": 1\n}')
+  })
+
+  it('names attributes in plain words', () => {
+    expect(attributeLabel('deadline')).toBe('Due')
+    expect(attributeLabel('due_date')).toBe('Due')
+    expect(attributeLabel('owner')).toBe('Owner')
+    expect(attributeLabel('go_live')).toBe('Go live')
+    expect(attributeLabel('outcome')).toBe('Outcome')
+  })
+
+  it.each([[0, ''], [1, 'changed 1×'], [3, 'changed 3×'], [Number.NaN, ''], [-1, ''], [1.5, '']])('writes %s changes as %j', (count, text) => {
+    expect(changedTimes(count)).toBe(text)
+  })
+})
+
+describe('ledger messages', () => {
+  it('says what reading a meeting found, in words', () => {
+    expect(ingestSummary({ proposed: 7 })).toBe('7 suggestions to review.')
+    expect(ingestSummary({ proposed: 1 })).toBe('1 suggestion to review.')
+    expect(ingestSummary({ proposed: 4, invalid: 1 })).toBe('4 suggestions to review · 1 skipped: not a value the item allows.')
+    expect(ingestSummary({ ungrounded: 2, proposed: 0 })).toBe('2 skipped: quote not found in the transcript.')
+    expect(ingestSummary({ some_status: 1 })).toBe('1 skipped: some status.')
+    expect(ingestSummary({})).toBe('No suggestions found in this meeting.')
+    expect(ingestSummary(undefined)).toBe('No suggestions found in this meeting.')
+  })
+
+  it('puts refusals in plain words, without the ledger’s ids', () => {
+    expect(plainLedgerError('proposal 8 was made against a belief that has since changed')).toMatch(/^This suggestion is out of date/)
+    expect(plainLedgerError('proposal 8 was made against a belief that has since changed')).not.toMatch(/\d/)
+    expect(plainLedgerError('proposal 3 has already been reviewed')).toBe('This suggestion was already reviewed. Refresh to see the board as it is.')
+    expect(plainLedgerError('Ledger unavailable')).toBe('Ledger unavailable')
   })
 })
 

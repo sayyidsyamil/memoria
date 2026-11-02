@@ -12,6 +12,17 @@ const ENGINE = path.resolve(
 	import.meta.dirname,
 	"../src-tauri/resources/memory/engine.py",
 );
+// As in src-tauri/src/commands/wiki_memory.rs, speech actions run transcribe.py, everything else engine.py.
+const TRANSCRIBE = path.resolve(
+	import.meta.dirname,
+	"../src-tauri/resources/memory/transcribe.py",
+);
+const SPEECH_ACTIONS = new Set([
+	"transcribe",
+	"speaker_profiles",
+	"save_voice_profiles",
+	"meeting_draft",
+]);
 const PYTHON =
 	process.env.MEMORIA_MEMORY_PYTHON ?? "/opt/homebrew/bin/python3.11";
 
@@ -19,7 +30,10 @@ type Reply = { ok: true; value: unknown } | { ok: false; error: unknown };
 
 function runEngine(request: Record<string, unknown>): Promise<Reply> {
 	return new Promise((resolve) => {
-		const child = spawn(PYTHON, ["-u", ENGINE], {
+		const script = SPEECH_ACTIONS.has(String(request.action))
+			? TRANSCRIBE
+			: ENGINE;
+		const child = spawn(PYTHON, ["-u", script], {
 			env: {
 				...process.env,
 				PYTHONDONTWRITEBYTECODE: "1",

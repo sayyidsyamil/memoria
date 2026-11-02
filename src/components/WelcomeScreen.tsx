@@ -1,34 +1,28 @@
-import { ArrowUpRight, CircleNotch as Loader2, FolderOpen, Plus, Rocket } from '@phosphor-icons/react'
+import { CircleNotch as Loader2, FolderOpen, Plus } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { OnboardingShell } from './OnboardingShell'
 import { Button } from '@/components/ui/button'
 import memoriaIcon from '@/assets/memoria-icon.svg'
-import { MEMORIA_FIRST_LAUNCH_DOCS_URL } from '@/constants/feedback'
 import { translate, type AppLocale } from '@/lib/i18n'
-import { openExternalUrl } from '@/utils/url'
 
+// Memoria starts from a workspace folder on this Mac: open one or create one. Nothing is downloaded at first run; the
+// inherited Getting Started template stays available from the workspace menu.
 interface WelcomeScreenProps {
   mode: 'welcome' | 'vault-missing'
   missingPath?: string
   locale?: AppLocale
   defaultVaultPath: string
-  onCreateVault: () => void
-  onRetryCreateVault: () => void
   onCreateEmptyVault: () => void
   onOpenFolder: () => void
-  isOffline: boolean
   creatingAction: 'template' | 'empty' | null
   error: string | null
-  canRetryTemplate: boolean
 }
 
 interface WelcomeScreenPresentation {
   heroBackground: string
   heroIcon: ReactNode
-  openFolderLabel: string
   subtitle: string
-  templateDescription: string
   title: string
 }
 
@@ -182,41 +176,12 @@ const ERROR_STYLE: React.CSSProperties = {
   margin: 0,
 }
 
-const STATUS_STYLE: React.CSSProperties = {
-  fontSize: 13,
-  color: 'var(--muted-foreground)',
-  textAlign: 'center',
-  margin: 0,
-}
-
-const DOCS_PROMPT_STYLE: React.CSSProperties = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: 6,
-  fontSize: 12,
-  color: 'var(--muted-foreground)',
-  textAlign: 'center',
-}
-
 const ERROR_BLOCK_STYLE: React.CSSProperties = {
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 10,
-}
-
-const RETRY_BUTTON_STYLE: React.CSSProperties = {
-  borderRadius: 8,
-  border: '1px solid var(--border)',
-  background: 'var(--background)',
-  color: 'var(--foreground)',
-  cursor: 'pointer',
-  padding: '8px 12px',
-  fontSize: 13,
-  fontWeight: 600,
 }
 
 interface OptionButtonProps {
@@ -283,35 +248,12 @@ function OptionButton(options: OptionButtonProps) {
 
 function getWelcomeScreenPresentation(
   mode: WelcomeScreenProps['mode'],
-  defaultVaultPath: string,
-  isOffline: boolean,
   locale: AppLocale,
 ): WelcomeScreenPresentation {
-  if (mode === 'welcome') {
-    return {
-      heroBackground: 'transparent',
-      heroIcon: <img src={memoriaIcon} alt="Memoria icon" style={BRAND_ICON_STYLE} />,
-      openFolderLabel: translate(locale, 'onboarding.welcome.openExisting'),
-      subtitle: translate(locale, 'onboarding.welcome.subtitle'),
-      templateDescription: isOffline
-        ? translate(locale, 'onboarding.welcome.templateOffline', {
-            path: defaultVaultPath,
-          })
-        : translate(locale, 'onboarding.welcome.templateDescription'),
-      title: translate(locale, 'onboarding.welcome.title'),
-    }
-  }
-
   return {
     heroBackground: 'transparent',
     heroIcon: <img src={memoriaIcon} alt="Memoria icon" style={BRAND_ICON_STYLE} />,
-    openFolderLabel: translate(locale, 'onboarding.welcome.openExisting'),
-    subtitle: translate(locale, 'onboarding.welcome.missingSubtitle'),
-    templateDescription: isOffline
-      ? translate(locale, 'onboarding.welcome.templateOffline', {
-          path: defaultVaultPath,
-        })
-      : translate(locale, 'onboarding.welcome.templateDescription'),
+    subtitle: translate(locale, mode === 'welcome' ? 'onboarding.welcome.subtitle' : 'onboarding.welcome.missingSubtitle'),
     title: translate(locale, 'onboarding.welcome.title'),
   }
 }
@@ -319,24 +261,20 @@ function getWelcomeScreenPresentation(
 function useWelcomeActionButtons({
   mode,
   busy,
-  isOffline,
   onCreateEmptyVault,
   onOpenFolder,
-  onCreateVault,
-}: Pick<WelcomeScreenProps, 'mode' | 'isOffline' | 'onCreateEmptyVault' | 'onOpenFolder' | 'onCreateVault'> & {
+}: Pick<WelcomeScreenProps, 'mode' | 'onCreateEmptyVault' | 'onOpenFolder'> & {
   busy: boolean
 }) {
-  const templateActionRef = useRef<HTMLButtonElement>(null)
-  const createEmptyActionRef = useRef<HTMLButtonElement>(null)
   const openFolderActionRef = useRef<HTMLButtonElement>(null)
-  const actionButtonRefs = useMemo(() => [templateActionRef, createEmptyActionRef, openFolderActionRef], [])
+  const createEmptyActionRef = useRef<HTMLButtonElement>(null)
+  const actionButtonRefs = useMemo(() => [openFolderActionRef, createEmptyActionRef], [])
   const actions = useMemo<WelcomeAction[]>(
     () => [
-      { disabled: isOffline, run: onCreateVault },
-      { disabled: false, run: onCreateEmptyVault },
       { disabled: false, run: onOpenFolder },
+      { disabled: false, run: onCreateEmptyVault },
     ],
-    [isOffline, onCreateEmptyVault, onCreateVault, onOpenFolder],
+    [onCreateEmptyVault, onOpenFolder],
   )
 
   useEffect(() => {
@@ -344,7 +282,7 @@ function useWelcomeActionButtons({
     if (busy) return
 
     // WKWebView can ignore `autoFocus`; move focus explicitly so keyboard-only
-    // onboarding always starts on the guided template flow.
+    // onboarding always starts on the first action.
     focusWelcomeAction(actionButtonRefs, 0)
   }, [actionButtonRefs, busy, mode])
 
@@ -373,7 +311,6 @@ function useWelcomeActionButtons({
   }, [actionButtonRefs, actions, busy])
 
   return {
-    templateActionRef,
     createEmptyActionRef,
     openFolderActionRef,
   }
@@ -400,30 +337,21 @@ function WelcomeHeader({ presentation }: { presentation: WelcomeScreenPresentati
 }
 
 function WelcomeActions(
-  options: Pick<
-    WelcomeScreenProps,
-    'creatingAction' | 'isOffline' | 'onCreateEmptyVault' | 'onCreateVault' | 'onOpenFolder'
-  > & {
+  options: Pick<WelcomeScreenProps, 'creatingAction' | 'onCreateEmptyVault' | 'onOpenFolder'> & {
     busy: boolean
     createEmptyActionRef: WelcomeActionButtonRef
     locale: AppLocale
     openFolderActionRef: WelcomeActionButtonRef
-    presentation: WelcomeScreenPresentation
-    templateActionRef: WelcomeActionButtonRef
   },
 ) {
   const {
     busy,
     createEmptyActionRef,
     creatingAction,
-    isOffline,
     locale,
     onCreateEmptyVault,
-    onCreateVault,
     onOpenFolder,
     openFolderActionRef,
-    presentation,
-    templateActionRef,
   } = options
   return (
     <div
@@ -435,18 +363,15 @@ function WelcomeActions(
       }}
     >
       <OptionButton
-        icon={<Rocket size={18} style={{ color: 'var(--accent-purple)' }} />}
-        iconBg="var(--accent-purple-light)"
-        label={translate(locale, 'onboarding.welcome.templateTitle')}
-        description={presentation.templateDescription}
-        loadingLabel={translate(locale, 'onboarding.welcome.templateLoading')}
-        loadingDescription={translate(locale, 'onboarding.welcome.templateLoadingDescription')}
-        onClick={onCreateVault}
-        disabled={busy || isOffline}
-        loading={creatingAction === 'template'}
-        testId="welcome-create-vault"
+        icon={<FolderOpen size={18} style={{ color: 'var(--accent-green)' }} />}
+        iconBg="var(--accent-green-light)"
+        label={translate(locale, 'onboarding.welcome.openExisting')}
+        description={translate(locale, 'onboarding.welcome.openExistingDescription')}
+        onClick={onOpenFolder}
+        disabled={busy}
+        testId="welcome-open-folder"
         autoFocus
-        buttonRef={templateActionRef}
+        buttonRef={openFolderActionRef}
       />
 
       <OptionButton
@@ -462,42 +387,11 @@ function WelcomeActions(
         testId="welcome-create-new"
         buttonRef={createEmptyActionRef}
       />
-
-      <OptionButton
-        icon={<FolderOpen size={18} style={{ color: 'var(--accent-green)' }} />}
-        iconBg="var(--accent-green-light)"
-        label={presentation.openFolderLabel}
-        description={translate(locale, 'onboarding.welcome.openExistingDescription')}
-        onClick={onOpenFolder}
-        disabled={busy}
-        testId="welcome-open-folder"
-        buttonRef={openFolderActionRef}
-      />
     </div>
   )
 }
 
-function WelcomeTemplateStatus({
-  creatingAction,
-  locale,
-}: Pick<WelcomeScreenProps, 'creatingAction'> & { locale: AppLocale }) {
-  if (creatingAction !== 'template') return null
-
-  return (
-    <p style={STATUS_STYLE} data-testid="welcome-status" role="status" aria-live="polite">
-      {translate(locale, 'onboarding.welcome.templateStatus')}
-    </p>
-  )
-}
-
-function WelcomeError({
-  canRetryTemplate,
-  error,
-  locale,
-  onRetryCreateVault,
-}: Pick<WelcomeScreenProps, 'canRetryTemplate' | 'error' | 'onRetryCreateVault'> & {
-  locale: AppLocale
-}) {
+function WelcomeError({ error }: Pick<WelcomeScreenProps, 'error'>) {
   if (!error) return null
 
   return (
@@ -505,37 +399,6 @@ function WelcomeError({
       <p style={ERROR_STYLE} data-testid="welcome-error" role="alert" aria-live="assertive">
         {error}
       </p>
-      {canRetryTemplate && (
-        <Button
-          type="button"
-          variant="outline"
-          style={RETRY_BUTTON_STYLE}
-          onClick={onRetryCreateVault}
-          data-testid="welcome-retry-template"
-          className="shadow-none"
-        >
-          {translate(locale, 'onboarding.welcome.retryDownload')}
-        </Button>
-      )}
-    </div>
-  )
-}
-
-function WelcomeDocsLink({ locale }: { locale: AppLocale }) {
-  return (
-    <div style={DOCS_PROMPT_STYLE}>
-      <span>{translate(locale, 'onboarding.welcome.docsPrompt')}</span>
-      <Button
-        type="button"
-        variant="link"
-        size="sm"
-        className="h-auto gap-1 px-0 py-0 text-xs"
-        onClick={() => void openExternalUrl(MEMORIA_FIRST_LAUNCH_DOCS_URL)}
-        data-testid="welcome-docs-link"
-      >
-        {translate(locale, 'onboarding.welcome.docsLink')}
-        <ArrowUpRight className="size-3" />
-      </Button>
     </div>
   )
 }
@@ -544,25 +407,18 @@ export function WelcomeScreen(options: WelcomeScreenProps) {
   const {
     mode,
     locale = 'en',
-    defaultVaultPath,
-    onCreateVault,
-    onRetryCreateVault,
     onCreateEmptyVault,
     onOpenFolder,
-    isOffline,
     creatingAction,
     error,
-    canRetryTemplate,
   } = options
   const busy = creatingAction !== null
-  const presentation = getWelcomeScreenPresentation(mode, defaultVaultPath, isOffline, locale)
-  const { templateActionRef, createEmptyActionRef, openFolderActionRef } = useWelcomeActionButtons({
+  const presentation = getWelcomeScreenPresentation(mode, locale)
+  const { createEmptyActionRef, openFolderActionRef } = useWelcomeActionButtons({
     mode,
     busy,
-    isOffline,
     onCreateEmptyVault,
     onOpenFolder,
-    onCreateVault,
   })
 
   return (
@@ -573,23 +429,12 @@ export function WelcomeScreen(options: WelcomeScreenProps) {
           busy={busy}
           createEmptyActionRef={createEmptyActionRef}
           creatingAction={creatingAction}
-          isOffline={isOffline}
           locale={locale}
           onCreateEmptyVault={onCreateEmptyVault}
-          onCreateVault={onCreateVault}
           onOpenFolder={onOpenFolder}
           openFolderActionRef={openFolderActionRef}
-          presentation={presentation}
-          templateActionRef={templateActionRef}
         />
-        <WelcomeTemplateStatus creatingAction={creatingAction} locale={locale} />
-        <WelcomeError
-          canRetryTemplate={canRetryTemplate}
-          error={error}
-          locale={locale}
-          onRetryCreateVault={onRetryCreateVault}
-        />
-        <WelcomeDocsLink locale={locale} />
+        <WelcomeError error={error} />
     </OnboardingShell>
   )
 }

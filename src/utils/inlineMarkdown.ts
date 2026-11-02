@@ -61,3 +61,17 @@ export function stripInlineMarkdown(text: string): string {
   )
   return stripInlineMarkers(withoutLinks).trim()
 }
+
+// A link or image: [text](address), [text](<address with spaces>), optionally with a title, and also a link that a
+// shortened snippet cut off before its closing bracket: "[Open original](<attachments/transcript-…".
+const SNIPPET_LINK_PATTERN = /!?\[([^\]\n]*)\]\((?:<[^>\n]*>?|[^)\s]*)(?:\s+"[^"\n]*")?\)?/gu
+const SNIPPET_WIKILINK_PATTERNS = [/\[\[[^|\]\n]+\|([^\]\n]+)\]\]/gu, /\[\[([^\]\n]+)\]\]/gu]
+
+/**
+ * A note preview as people read it: the words of a link, never its syntax or file address. The vault index already strips
+ * links it can see whole; this also covers previews from other sources and links cut off by shortening.
+ */
+export function readableSnippet(text: string): string {
+  const withoutWikilinks = SNIPPET_WIKILINK_PATTERNS.reduce((result, pattern) => result.replace(pattern, '$1'), text)
+  return withoutWikilinks.replace(SNIPPET_LINK_PATTERN, '$1').replace(/[ \t]{2,}/g, ' ').trim()
+}

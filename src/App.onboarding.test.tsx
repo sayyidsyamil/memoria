@@ -45,7 +45,7 @@ describe("App.onboarding", () => {
 			{ timeout: SLOW_APP_READY_TIMEOUT_MS },
 		);
 		expect(screen.getByTestId("welcome-open-folder")).toHaveTextContent(
-			"Open existing vault",
+			"Open a workspace",
 		);
 	});
 
@@ -87,7 +87,7 @@ describe("App.onboarding", () => {
 				{ timeout: SLOW_APP_READY_TIMEOUT_MS },
 			);
 			expect(screen.getByTestId("welcome-open-folder")).toHaveTextContent(
-				"Open existing vault",
+				"Open a workspace",
 			);
 		},
 	);
@@ -154,13 +154,13 @@ describe("App.onboarding", () => {
 		await waitFor(
 			() => {
 				expect(
-					screen.getByText(/folder may have moved or been deleted/),
+					screen.getByText(/folder you used before may have moved or been deleted/),
 				).toBeInTheDocument();
 			},
 			{ timeout: SLOW_APP_READY_TIMEOUT_MS },
 		);
 		expect(screen.getByTestId("welcome-open-folder")).toHaveTextContent(
-			"Open existing vault",
+			"Open a workspace",
 		);
 	});
 
@@ -177,14 +177,16 @@ describe("App.onboarding", () => {
 		render(<App />);
 
 		await waitFor(() => {
-			expect(screen.getByText("Welcome to Memoria")).toBeInTheDocument();
+			expect(
+				screen.getByRole("heading", { level: 1, name: "Memoria" }),
+			).toBeInTheDocument();
 		});
 		expect(screen.getByTestId("welcome-open-folder")).toHaveTextContent(
-			"Open existing vault",
+			"Open a workspace",
 		);
 	});
 
-	it("persists an existing vault and shows AI onboarding after first-run open", async () => {
+	it("persists an existing vault and opens it without asking about coding agents", async () => {
 		const selectedVaultPath = "/Users/mock/Documents/Work Vault";
 		const saveVaultList = vi.fn();
 		const promptSpy = vi
@@ -192,6 +194,7 @@ describe("App.onboarding", () => {
 			.mockReturnValue("file:///Users/mock/Documents/Work%20Vault");
 
 		localStorage.removeItem(CLAUDE_CODE_ONBOARDING_DISMISSED_STORAGE_NAME);
+		localStorage.removeItem("memoria:ai-agents-onboarding-dismissed");
 		mockCommandResults.load_vault_list = {
 			vaults: [],
 			active_vault: null,
@@ -242,49 +245,44 @@ describe("App.onboarding", () => {
 		});
 		expect(saveVaultList).toHaveBeenCalledTimes(1);
 
+		// Memoria's AI runs inside the app: the inherited question about coding agents is not asked.
 		await waitFor(
 			() => {
-				expect(
-					screen.getByTestId("ai-agents-onboarding-screen"),
-				).toBeInTheDocument();
+				expect(screen.getByTestId("status-settings")).toBeInTheDocument();
 			},
 			{ timeout: SLOW_APP_READY_TIMEOUT_MS },
 		);
-		expect(screen.getByText("Checking AI setup")).toBeInTheDocument();
-		fireEvent.click(screen.getByRole("button", { name: "Set up later" }));
-
-		await waitFor(() => {
-			expect(screen.getByTestId("status-settings")).toBeInTheDocument();
-		});
+		expect(
+			screen.queryByTestId("ai-agents-onboarding-screen"),
+		).not.toBeInTheDocument();
+		expect(screen.queryByText("AI setup is optional")).not.toBeInTheDocument();
 		fireEvent.click(screen.getByTestId("status-settings"));
 		expect(screen.getByTestId("settings-panel")).toBeInTheDocument();
 
 		promptSpy.mockRestore();
 	});
 
-	it("persists and opens the onboarding template vault after cloning", async () => {
-		let templateExists = false;
+	it("creates a workspace from the welcome screen without downloading anything", async () => {
+		const createdPath = "/Users/mock/Documents/Pilot";
 		const saveVaultList = vi.fn();
+		const cloneTemplate = vi.fn(() => expectedDefaultVaultPath);
 		const promptSpy = vi
 			.spyOn(window, "prompt")
-			.mockReturnValue("file:///Users/mock/Documents");
-		const expectedLabel = "Getting Started";
+			.mockReturnValue("file:///Users/mock/Documents/Pilot");
+		let created = false;
 
 		mockCommandResults.load_vault_list = {
 			vaults: [],
 			active_vault: null,
 			hidden_defaults: [],
 		};
-		mockCommandResults.check_vault_exists = (args?: { path?: string }) => {
-			if (args?.path === expectedDefaultVaultPath) {
-				return templateExists;
-			}
-			return false;
+		mockCommandResults.check_vault_exists = (args?: { path?: string }) =>
+			created && args?.path === createdPath;
+		mockCommandResults.create_empty_vault = (args?: { targetPath?: string }) => {
+			created = true;
+			return args?.targetPath ?? createdPath;
 		};
-		mockCommandResults.create_getting_started_vault = () => {
-			templateExists = true;
-			return expectedDefaultVaultPath;
-		};
+		mockCommandResults.create_getting_started_vault = cloneTemplate;
 		mockCommandResults.save_vault_list = (args?: {
 			list?: {
 				vaults?: Array<{ label: string; path: string }>;
@@ -300,24 +298,24 @@ describe("App.onboarding", () => {
 		await waitFor(() => {
 			expect(screen.getByTestId("welcome-screen")).toBeInTheDocument();
 		});
+		expect(screen.queryByTestId("welcome-create-vault")).not.toBeInTheDocument();
+		expect(screen.getByTestId("welcome-create-new")).toHaveTextContent(
+			"Create a workspace",
+		);
 
-		fireEvent.click(screen.getByTestId("welcome-create-vault"));
+		fireEvent.click(screen.getByTestId("welcome-create-new"));
 
 		await waitFor(() => {
-			expect(saveVaultList).toHaveBeenCalledWith({
-				list: {
-					vaults: [],
-					active_vault: expectedDefaultVaultPath,
-					default_workspace_path: expectedDefaultVaultPath,
-					hidden_defaults: [],
-				},
-			});
+			expect(saveVaultList).toHaveBeenCalled();
 		});
-		expect(saveVaultList).toHaveBeenCalledTimes(1);
+		expect(saveVaultList.mock.calls[0][0]).toMatchObject({
+			list: { active_vault: createdPath },
+		});
+		expect(cloneTemplate).not.toHaveBeenCalled();
 
 		await waitFor(() => {
 			expect(screen.getByTestId("status-vault-trigger")).toHaveTextContent(
-				expectedLabel,
+				"Pilot",
 			);
 		});
 

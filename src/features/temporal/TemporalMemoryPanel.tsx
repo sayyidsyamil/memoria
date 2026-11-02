@@ -1,82 +1,110 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { CaretDown, CheckCircle, Quotes } from '@phosphor-icons/react'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
+import { Chip, EmptyState, type Tone } from '../../components/memoriaUi'
+import { announceMemoryChanged } from '../../hooks/useWorkspaceSummary'
 import {
   temporalService,
   type TemporalAttribute,
-  type TemporalAttributeType,
+  type TemporalCorrection,
   type TemporalEvidence,
   type TemporalFact,
   type TemporalHistoryFact,
-  type TemporalObject,
   type TemporalOverview,
-  type TemporalQuery,
+  type TemporalProposal,
   type TemporalValue,
 } from './temporalService'
-import { changeCount, changeSummary, describeQueryResult, itemLabel, meetingLabel, readableDate, type MeetingTitles } from './temporalFormat'
-import { DEFAULT_ITEM_KIND, ITEM_KINDS, attributeEditProblem, isCalendarDate, isItemKind, kindLabel, recordedValues } from './trackedItemRules'
+import { attributeLabel, changedTimes, formatValue, ingestSummary, isCalendarDay, labelUnit, localDay, plainLedgerError } from './temporalFormat'
+import { buildBoard, isCorrection, retractionOf, reviewerName, type BoardItem, type BoardRow, type CommitmentTone } from './temporalBoard'
+import { Quote, TemporalDate, type OpenMoment } from './TemporalEvidence'
+import { TrackedItemsSetup } from './TrackedItemsSetup'
+import { TrackedValueLookup } from './TrackedValueLookup'
+import { isCalendarDate } from './trackedItemRules'
 import { useMeetingTitles } from './useMeetingTitles'
 import './temporalMemory.css'
 
 export interface TemporalMemoryPanelProps {
   vaultPath: string
   meetingId?: string
+  /** Opens a meeting's recording at the moment a quote was said. */
+  onOpenMoment?: OpenMoment
 }
 
-function displayValue(value: TemporalValue | undefined): string {
-  if (value == null) return 'Not recorded'
-  return typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)
-}
+type AnyFact = TemporalFact | TemporalHistoryFact
+type EditMode = 'correct' | 'retract'
+type Place = 'top' | 'edit' | 'lookup' | 'setup' | `proposal-${number}`
+const STATE_TONES: Record<CommitmentTone, Tone> = { overdue: 'red', 'due-today': 'orange', 'due-soon': 'orange', open: 'neutral', done: 'green', cancelled: 'neutral' }
 
-/** A date for people, with the exact value kept in the `datetime` attribute. Text that is not a date is shown as written. */
-function TemporalDate({ value, time }: { value: string; time?: boolean }) {
-  const date = readableDate(value, { time })
-  return date ? <time dateTime={date.dateTime}>{date.label}</time> : <>{value}</>
-}
+const slotKey = (objectId: string, attribute: string) => `${objectId}\u0000${attribute}`
+const quoteKey = (fact: TemporalFact) => isCorrection(fact) || !fact.evidence.length ? null
+  : JSON.stringify([fact.evidence[0].quote, fact.evidence[0].speaker, fact.evidence[0].meeting, fact.evidence[0].audio_start ?? null])
 
-/** Date attributes hold ISO calendar dates; everything else is shown as recorded. */
-function Value({ value, type }: { value: TemporalValue | undefined; type?: TemporalAttributeType }) {
-  return type === 'date' && typeof value === 'string' ? <TemporalDate value={value} /> : <>{displayValue(value)}</>
-}
+/** A write that succeeded but whose reload failed: reported at the top, because the row it came from may be gone. */
+class ReloadError extends Error {}
 
-/** The meeting's title; the exact id stays available on hover for citations whose title is unknown. */
-function MeetingName({ id, titles }: { id: string | null; titles: MeetingTitles }) {
-  return typeof id === 'string' && id.trim() ? <span title={`Meeting ID: ${id}`}>{meetingLabel(id, titles)}</span> : <>{meetingLabel(id, titles)}</>
-}
-
-/** The tracked item's label; its exact id stays available on hover, as meeting ids do in citations. */
-function ItemName({ id, objects }: { id: string; objects: readonly TemporalObject[] | undefined }) {
-  return <span className="temporal-item" title={`Item ID: ${id}`}>{itemLabel(id, objects)}</span>
-}
-
-function Evidence({ evidence, titles }: { evidence: TemporalEvidence[]; titles: MeetingTitles }) {
-  return <div className="temporal-evidence">{evidence.map((source, index) => <figure key={index}>
-    <blockquote>{source.quote || 'No source quote recorded.'}</blockquote>
-    <figcaption>{source.speaker || 'Speaker not recorded'} · <MeetingName id={source.meeting} titles={titles} />
-      {source.audio_start != null && Number.isFinite(source.audio_start) && ` · Audio ${Math.floor(source.audio_start / 60)}:${String(Math.floor(source.audio_start % 60)).padStart(2, '0')}`}
-    </figcaption>
-  </figure>)}</div>
-}
-
-type QueryResult = { result: TemporalValue; type: TemporalQuery['type']; objectId: string; attribute: string; at: string }
-
-function QueryHeading({ query, objects }: { query: QueryResult; objects: readonly TemporalObject[] | undefined }) {
-  const { type, at } = query
-  return <h4><ItemName id={query.objectId} objects={objects} /> — {query.attribute} · {type === 'current' ? 'Current' : type === 'n_changes' ? 'Number of changes'
-    : <>{type === 'as_of_valid' ? 'Valid at' : 'Value valid now, as known on'} <TemporalDate value={at} time /></>}</h4>
-}
-
-/** The answer as the value, its source quotes and when it was decided; a count as a sentence. Unfamiliar shapes stay inspectable. */
-function QueryAnswer({ result, type, valueType, titles }: { result: TemporalValue; type: TemporalQuery['type']; valueType?: TemporalAttributeType; titles: MeetingTitles }) {
-  const view = describeQueryResult(result, type)
-  if (view.kind === 'unknown') {
-    return typeof view.raw === 'object' && view.raw !== null ? <pre>{displayValue(view.raw)}</pre> : <p className="temporal-value">{displayValue(view.raw)}</p>
+/** The ledger's overview, or a plain error when it answered in a shape the board cannot read. */
+function checkedOverview(value: TemporalOverview | null | undefined): TemporalOverview {
+  if (!value || !Array.isArray(value.registry?.objects) || !Array.isArray(value.facts) || !Array.isArray(value.proposals)) {
+    throw new Error('The decision ledger answered in a form this version cannot read. Refresh to try again.')
   }
-  return <>
-    <p className="temporal-value">{view.kind === 'changes' ? changeSummary(view.count) : view.value == null ? 'No value recorded' : <Value value={view.value} type={valueType} />}</p>
-    {view.kind === 'value' && view.decidedAt && <p className="temporal-meta">Decided <TemporalDate value={view.decidedAt} time /></p>}
-    {view.evidence.length > 0 && <Evidence evidence={view.evidence} titles={titles} />}
-  </>
+  return { ...value, check: value.check ?? { ok: true, problems: [] } }
+}
+
+/** The reasons behind corrected values. The overview names the fact a correction replaced; only its history says why. */
+async function correctionReasons(vaultPath: string, facts: readonly TemporalFact[]): Promise<Map<number, TemporalCorrection>> {
+  const found = new Map<number, TemporalCorrection>()
+  for (const fact of facts) if (fact.correction) found.set(fact.fact_id, fact.correction)
+  const slots = new Map(facts.filter(fact => isCorrection(fact) && !fact.correction).map(fact => [slotKey(fact.object_id, fact.attribute), fact]))
+  const histories = await Promise.allSettled([...slots.values()].map(fact => temporalService.history(vaultPath, fact.object_id, fact.attribute)))
+  for (const history of histories) {
+    if (history.status !== 'fulfilled' || !Array.isArray(history.value)) continue
+    for (const entry of history.value) if (entry?.correction) found.set(entry.fact_id, entry.correction)
+  }
+  return found
+}
+
+/** The value a person typed, in the form the ledger stores for the attribute, or the reason it cannot be stored. */
+function typedValue(text: string, definition: TemporalAttribute | undefined, previous: TemporalValue): { value: TemporalValue } | { problem: string } {
+  const value = text.trim()
+  if (!value) return { problem: 'Enter a value.' }
+  const type = definition?.type ?? (typeof previous === 'number' ? 'number' : 'text')
+  if (type === 'number') {
+    // Separators and a unit may be typed as they are shown ("RM 280,000"); the ledger keeps the number.
+    const digits = value.replace(/[^\d.-]/g, '')
+    const amount = digits ? Number(digits) : Number.NaN
+    return Number.isFinite(amount) ? { value: amount } : { problem: 'Enter a number, for example 280,000.' }
+  }
+  if (type === 'date' && !isCalendarDate(value)) return { problem: 'Enter a valid date in YYYY-MM-DD format.' }
+  if (type === 'enum' && definition?.values?.length && !definition.values.includes(value)) return { problem: `Choose one of: ${definition.values.join(', ')}.` }
+  return { value }
+}
+
+function editableText(value: TemporalValue): string {
+  if (value == null) return ''
+  return typeof value === 'object' ? JSON.stringify(value) : String(value)
+}
+
+/** A text box for most values; a list when the attribute allows only certain values. */
+function ValueInput({ label, definition, value, onChange, autoFocus = false }: { label: string; definition?: TemporalAttribute; value: string; onChange: (value: string) => void; autoFocus?: boolean }) {
+  const allowed = definition?.type === 'enum' ? definition.values ?? [] : []
+  const choices = allowed.length ? [...allowed, ...(value && !allowed.includes(value) ? [value] : [])] : null
+  return <label>{label}{choices
+    ? <select autoFocus={autoFocus} value={value} onChange={event => onChange(event.target.value)}>{choices.map(choice => <option key={choice} value={choice}>{choice}</option>)}</select>
+    : <Input autoFocus={autoFocus} required value={value} inputMode={definition?.type === 'number' ? 'decimal' : undefined} placeholder={definition?.type === 'date' ? 'YYYY-MM-DD' : undefined} onChange={event => onChange(event.target.value)} />}
+  </label>
+}
+
+function Problem({ text }: { text: string | null }) {
+  return text ? <p role="alert" className="board-problem">{text}</p> : null
+}
+
+/** "Corrected by you: …": a corrected value is proved by the person's reason, not by the quote it replaced. */
+function CorrectionNote({ correction }: { correction?: TemporalCorrection }) {
+  return <p className="board-evidence board-corrected">
+    <CheckCircle size={14} weight="fill" aria-hidden="true" />
+    <span>Corrected by {reviewerName(correction?.reviewer)}{correction?.reason ? <>: <span className="board-reason">{correction.reason}</span></> : null}</span>
+  </p>
 }
 
 // A new scope remounts the ledger so late responses cannot leak across vaults or meetings.
@@ -84,266 +112,335 @@ export function TemporalMemoryPanel(props: TemporalMemoryPanelProps) {
   return <TemporalLedger key={JSON.stringify([props.vaultPath, props.meetingId])} {...props} />
 }
 
-function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
-  const notes = useId()
+function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPanelProps) {
+  const ids = useId()
   const [overview, setOverview] = useState<TemporalOverview | null>(null)
-  const [busy, setBusy] = useState<string | null>('Loading tracked facts…')
-  const [error, setError] = useState<string | null>(null)
+  const [corrections, setCorrections] = useState<ReadonlyMap<number, TemporalCorrection>>(() => new Map())
+  const [busy, setBusy] = useState<string | null>('Loading decisions…')
+  const [error, setError] = useState<{ text: string; place: Place } | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+  const [history, setHistory] = useState<{ key: string; facts: TemporalHistoryFact[] } | null>(null)
+  const [edit, setEdit] = useState<{ fact: AnyFact; mode: EditMode; value: string; reason: string } | null>(null)
+  const [proposalEdit, setProposalEdit] = useState<{ id: number; value: string } | null>(null)
+  const [folds, setFolds] = useState({ lookup: false, setup: false })
   const working = useRef(false)
   const mounted = useRef(false)
-  const [objectId, setObjectId] = useState('')
-  const [label, setLabel] = useState('')
-  const [kind, setKind] = useState<string>(DEFAULT_ITEM_KIND)
-  const [attribute, setAttribute] = useState('')
-  const [attributeType, setAttributeType] = useState<TemporalAttributeType>('text')
-  const [enumValues, setEnumValues] = useState('')
-  const [history, setHistory] = useState<{ objectId: string; attribute: string; facts: TemporalHistoryFact[] } | null>(null)
-  const [edit, setEdit] = useState<{ fact: TemporalFact | TemporalHistoryFact; action: 'correct' | 'retract' } | null>(null)
-  const [newValue, setNewValue] = useState('')
-  const [reason, setReason] = useState('')
-  const [queryObject, setQueryObject] = useState('')
-  const [queryAttribute, setQueryAttribute] = useState('')
-  const [queryType, setQueryType] = useState<TemporalQuery['type']>('current')
-  const [queryAt, setQueryAt] = useState('')
-  const [queryResult, setQueryResult] = useState<QueryResult | null>(null)
+  const version = useRef(0)
 
   useEffect(() => {
     mounted.current = true
     let canceled = false
     working.current = true
-    temporalService.overview(vaultPath).then(result => {
-      if (!canceled) setOverview(result)
-    }).catch(error => {
-      if (!canceled) setError(String(error instanceof Error ? error.message : error))
+    const loading = ++version.current
+    temporalService.overview(vaultPath).then(checkedOverview).then(result => {
+      if (canceled) return
+      setOverview(result)
+      void correctionReasons(vaultPath, result.facts).then(found => { if (!canceled && loading === version.current) setCorrections(found) })
+    }).catch(failure => {
+      if (!canceled) setError({ text: String(failure instanceof Error ? failure.message : failure), place: 'top' })
     }).finally(() => {
       if (!canceled) { working.current = false; setBusy(null) }
     })
     return () => { canceled = true; mounted.current = false }
   }, [vaultPath])
   // Declared after the ledger load so the ledger is requested first; titles only label the citations and never gate them.
-  const { titles, reload: reloadTitles } = useMeetingTitles(vaultPath)
+  const { titles, dates, reload: reloadTitles } = useMeetingTitles(vaultPath)
 
-  async function run(status: string, action: () => Promise<void>) {
+  async function run(status: string, action: () => Promise<void>, place: Place = 'top') {
     if (working.current || !mounted.current) return
     working.current = true
     setBusy(status); setError(null); setMessage(null)
     try { await action() }
-    catch (error) { if (mounted.current) setError(error instanceof Error ? error.message : String(error)) }
+    catch (failure) {
+      if (mounted.current) setError({ text: plainLedgerError(failure instanceof Error ? failure.message : String(failure)), place: failure instanceof ReloadError ? 'top' : place })
+    }
     finally { if (mounted.current) { working.current = false; setBusy(null) } }
   }
 
   async function refresh() {
-    const result = await temporalService.overview(vaultPath)
-    if (mounted.current) setOverview(result)
+    const loading = ++version.current
+    const result = checkedOverview(await temporalService.overview(vaultPath))
+    if (!mounted.current || loading !== version.current) return
+    setOverview(result)
+    void correctionReasons(vaultPath, result.facts).then(found => { if (mounted.current && loading === version.current) setCorrections(found) })
   }
 
-  async function mutate(action: () => Promise<unknown>, success: string) {
+  /** Writes, then reloads. If the reload fails, what was acted on is dropped so that the same action is not offered again. */
+  async function mutate(action: () => Promise<unknown>, success: string, forget: (current: TemporalOverview) => TemporalOverview) {
     await action()
     if (!mounted.current) return
-    setEdit(null); setHistory(null); setQueryResult(null); setMessage(success)
-    // Clear acted-on rows before reloading; a failed reload must not offer the same action again.
-    setOverview(null)
+    setEdit(null); setHistory(null); setProposalEdit(null); setMessage(success)
+    announceMemoryChanged()
     try { await refresh() }
-    catch (error) { throw new Error(`${success} The updated ledger could not be loaded: ${error instanceof Error ? error.message : String(error)}`) }
+    catch (failure) {
+      setOverview(current => current && forget(current))
+      throw new ReloadError(`${success} The updated ledger could not be loaded: ${failure instanceof Error ? failure.message : String(failure)}`)
+    }
   }
 
-  function saveTrackedItem() {
-    if (!overview || !objectId.trim() || !attribute.trim()) return
-    const objects = overview.registry.objects
-    const existing = objects.find(item => item.object_id === objectId.trim())
-    // The ledger refuses a new item without a label or with a kind outside its list, and an edit that strands recorded values is held back here.
-    if ((!existing && (!label.trim() || !isItemKind(kind))) || (attributeType === 'enum' && !allowedValues.length) || attributeProblem) return
-    const nextAttribute: TemporalAttribute = { name: attribute.trim(), type: attributeType,
-      ...(attributeType === 'enum' && allowedValues.length ? { values: allowedValues } : {}) }
-    const attributes = existing?.attributes ?? []
-    const nextObject = { ...existing, object_id: objectId.trim(), label: existing?.label ?? label.trim(), kind: existing?.kind ?? kind,
-      attributes: attributes.some(item => item.name === nextAttribute.name)
-        ? attributes.map(item => item.name === nextAttribute.name ? nextAttribute : item)
-        : [...attributes, nextAttribute] }
-    const nextObjects = existing ? objects.map(item => item.object_id === nextObject.object_id ? nextObject : item) : [...objects, nextObject]
-    void run('Saving tracked item…', () => mutate(() => temporalService.setRegistry(vaultPath, nextObjects), 'Tracked item saved.'))
+  const objects = overview?.registry.objects ?? []
+  const definitionOf = (objectId: string | undefined, name: string) => objects.find(item => item.object_id === objectId)?.attributes.find(item => item.name === name)
+  const itemOf = (objectId: string | undefined, fallback: string) => {
+    const attributes = objects.find(item => item.object_id === objectId)?.attributes ?? []
+    return { ...labelUnit(objects.find(item => item.object_id === objectId)?.label ?? fallback, attributes.some(item => item.type === 'number')), multi: attributes.length > 1 }
+  }
+  const withoutProposal = (id: number) => (current: TemporalOverview) => ({ ...current, proposals: current.proposals.filter(item => item.proposal_id !== id) })
+  const withoutFact = (id: number) => (current: TemporalOverview) => ({ ...current, facts: current.facts.filter(item => item.fact_id !== id) })
+  /** In a meeting, only its own quotes can be played; elsewhere any quote opens its meeting. */
+  const momentFor = (source: TemporalEvidence): OpenMoment | undefined => onOpenMoment && (!meetingId || source.meeting === meetingId) ? onOpenMoment : undefined
+  const errorAt = (place: Place) => error?.place === place ? error.text : null
+  const show = (fact: Pick<AnyFact, 'object_id' | 'attribute' | 'value'>, unit: string | null) => {
+    const type = definitionOf(fact.object_id, fact.attribute)?.type
+    return type === 'date' && isCalendarDay(fact.value) ? <TemporalDate value={fact.value} /> : formatValue(fact.value, type, unit)
   }
 
-  function startEdit(fact: TemporalFact | TemporalHistoryFact, action: 'correct' | 'retract') {
+  function review(proposal: TemporalProposal, decision: 'accept' | 'reject' | 'edit') {
+    const place: Place = `proposal-${proposal.proposal_id}`
+    const forget = withoutProposal(proposal.proposal_id)
+    if (decision === 'reject') {
+      void run('Rejecting suggestion…', () => mutate(() => temporalService.rejectProposal(vaultPath, proposal.proposal_id), 'Suggestion rejected.', forget), place)
+      return
+    }
+    if (decision === 'accept') {
+      void run('Accepting suggestion…', () => mutate(() => temporalService.acceptProposal(vaultPath, proposal.proposal_id), 'Suggestion accepted.', forget), place)
+      return
+    }
+    if (proposalEdit?.id !== proposal.proposal_id) return
+    const typed = typedValue(proposalEdit.value, definitionOf(proposal.object_id, proposal.attribute), proposal.value)
+    if ('problem' in typed) { setError({ text: typed.problem, place }); return }
+    void run('Accepting suggestion…', () => mutate(() => temporalService.acceptProposal(vaultPath, proposal.proposal_id, { value: typed.value }), 'Suggestion accepted with your edit.', forget), place)
+  }
+
+  function startEdit(fact: AnyFact) {
     if (fact.retracted) return
-    setEdit({ fact, action }); setReason(''); setNewValue(fact.value == null ? '' : displayValue(fact.value))
+    setError(null)
+    setEdit({ fact, mode: 'correct', value: editableText(fact.value), reason: '' })
   }
 
   function submitEdit() {
-    if (!edit || edit.fact.retracted || !reason.trim()) return
-    const { fact, action } = edit
-    void run(action === 'correct' ? 'Saving correction…' : 'Retracting fact…', async () => {
-      if (action === 'retract') {
-        await mutate(() => temporalService.retractFact(vaultPath, fact.fact_id, reason.trim()), 'Fact retracted.')
-        return
-      }
-      const definition = overview?.registry.objects.find(item => item.object_id === fact.object_id)?.attributes.find(item => item.name === fact.attribute)
-      const value = newValue.trim()
-      if (!value) throw new Error('Enter a corrected value.')
-      const type = definition?.type ?? (typeof fact.value === 'number' ? 'number' : 'text')
-      if (type === 'number' && !Number.isFinite(Number(value))) throw new Error('Enter a finite number for the corrected value.')
-      if (type === 'date' && !isCalendarDate(value)) {
-        throw new Error('Enter a valid date in YYYY-MM-DD format.')
-      }
-      if (type === 'enum' && definition?.values?.length && !definition.values.includes(value)) {
-        throw new Error(`Choose one of: ${definition.values.join(', ')}.`)
-      }
-      await mutate(() => temporalService.correctFact(vaultPath, fact.fact_id, type === 'number' ? Number(value) : value, reason.trim()), 'Correction saved.')
+    if (!edit || edit.fact.retracted || !edit.reason.trim()) return
+    const { fact, mode } = edit
+    const reason = edit.reason.trim()
+    if (mode === 'retract') {
+      void run('Retracting value…', () => mutate(() => temporalService.retractFact(vaultPath, fact.fact_id, reason), 'Value retracted.', withoutFact(fact.fact_id)), 'edit')
+      return
+    }
+    const typed = typedValue(edit.value, definitionOf(fact.object_id, fact.attribute), fact.value)
+    if ('problem' in typed) { setError({ text: typed.problem, place: 'edit' }); return }
+    void run('Saving correction…', () => mutate(() => temporalService.correctFact(vaultPath, fact.fact_id, typed.value, reason), 'Correction saved.', withoutFact(fact.fact_id)), 'edit')
+  }
+
+  function toggleHistory(fact: TemporalFact) {
+    const key = slotKey(fact.object_id, fact.attribute)
+    if (history?.key === key) { setHistory(null); return }
+    void run('Loading history…', async () => {
+      const facts = await temporalService.history(vaultPath, fact.object_id, fact.attribute)
+      if (mounted.current) { setHistory({ key, facts: Array.isArray(facts) ? facts : [] }); setEdit(null) }
     })
   }
 
-  function typeOfAttribute(objectId: string | undefined, name: string): TemporalAttributeType | undefined {
-    return overview?.registry.objects.find(item => item.object_id === objectId)?.attributes.find(item => item.name === name)?.type
+  function editForm(fact: AnyFact, title: string, unit: string | null): ReactNode {
+    if (edit?.fact.fact_id !== fact.fact_id) return null
+    const correcting = edit.mode === 'correct'
+    return <section className="board-edit" aria-label={correcting ? 'Correct fact' : 'Retract fact'}>
+      <p className="board-edit-title">{correcting ? 'Correct' : 'Retract'} {title}. Recorded value: <strong>{show(fact, unit)}</strong>.</p>
+      <form onSubmit={event => { event.preventDefault(); submitEdit() }}><fieldset disabled={!!busy} className="board-edit-fields">
+        {correcting && <ValueInput autoFocus label="Corrected value" definition={definitionOf(fact.object_id, fact.attribute)} value={edit.value} onChange={value => setEdit({ ...edit, value })} />}
+        <label>Reason (required)<Input autoFocus={!correcting} required value={edit.reason} placeholder={correcting ? 'e.g. The chair changed the owner' : 'e.g. This was never agreed'} onChange={event => setEdit({ ...edit, reason: event.target.value })} /></label>
+        <Problem text={errorAt('edit')} />
+        <div className="board-edit-actions">
+          <Button type="submit" size="sm" disabled={!edit.reason.trim() || (correcting && !edit.value.trim())}>{correcting ? 'Save correction' : 'Confirm retraction'}</Button>
+          <Button type="button" size="sm" variant="ghost" onClick={() => { setEdit(null); setError(null) }}>Cancel</Button>
+          <Button type="button" size="sm" variant="ghost" className="board-edit-switch" onClick={() => { setError(null); setEdit({ ...edit, mode: correcting ? 'retract' : 'correct' }) }}>{correcting ? 'Retract instead' : 'Correct instead'}</Button>
+        </div>
+      </fieldset></form>
+    </section>
   }
 
-  function factCard(fact: TemporalFact | TemporalHistoryFact, historical = false) {
-    const validFrom = 'claim_from' in fact ? fact.claim_from : fact.valid_from
-    const validTo = 'claim_to' in fact ? fact.claim_to : fact.valid_to
-    const replaces = fact.correction?.replaced_fact_id ?? fact.corrects
-    const changes = 'n_changes' in fact ? changeCount(fact.n_changes) : ''
-    return <article className="temporal-card" key={fact.fact_id} aria-label={`${historical ? 'Historical fact' : 'Fact'}: ${fact.label} — ${fact.attribute}`}>
-      <h4>{fact.label} <span>— {fact.attribute}</span></h4>
-      <p className="temporal-value"><Value value={fact.value} type={typeOfAttribute(fact.object_id, fact.attribute)} /></p>
-      <p className="temporal-meta">Valid from {validFrom ? <TemporalDate value={validFrom} /> : 'date not recorded'}{validTo && <> until <TemporalDate value={validTo} /></>}{changes && ` · ${changes}`}</p>
-      {'decided_at' in fact && <p className="temporal-meta">Decided {fact.decided_at ? <TemporalDate value={fact.decided_at} time /> : 'date not recorded'}</p>}
-      {historical && fact.tx_from && <p className="temporal-meta">Recorded <TemporalDate value={fact.tx_from} time />{fact.tx_to && <> until <TemporalDate value={fact.tx_to} time /></>}</p>}
-      {fact.retracted && <p className="temporal-meta">Retracted</p>}
-      {replaces != null && <p className="temporal-meta">Corrects fact #{replaces}</p>}
-      {fact.correction && <p className="temporal-meta">Correction by {fact.correction.reviewer || 'reviewer not recorded'}: {fact.correction.reason}</p>}
-      {fact.evidence.length ? <Evidence evidence={fact.evidence} titles={titles} /> : <p className="temporal-meta">No source evidence recorded.</p>}
-      <div className="temporal-actions">
-        {!historical && <Button variant="outline" disabled={!!busy} onClick={() => {
-          void run('Loading fact history…', async () => {
-            const facts = await temporalService.history(vaultPath, fact.object_id, fact.attribute)
-            if (mounted.current) { setHistory({ objectId: fact.object_id, attribute: fact.attribute, facts }); setEdit(null) }
-          })
-        }}>History</Button>}
-        <Button variant="outline" disabled={!!busy || fact.retracted} onClick={() => startEdit(fact, 'correct')}>Correct</Button>
-        <Button variant="ghost" disabled={!!busy || fact.retracted} onClick={() => startEdit(fact, 'retract')}>Retract</Button>
+  function historyList(row: BoardRow, item: BoardItem, title: string, id: string): ReactNode {
+    if (history?.key !== slotKey(row.fact.object_id, row.fact.attribute)) return null
+    const entries = history.facts.map((entry, index) => ({ entry, index }))
+      .sort((a, b) => (b.entry.decided_at ?? b.entry.claim_from ?? '').localeCompare(a.entry.decided_at ?? a.entry.claim_from ?? '') || b.index - a.index)
+      .map(({ entry }) => entry)
+    return <section id={id} className="board-history" aria-label={`History: ${title}`}>
+      <div className="board-history-head"><h5>History</h5><Button size="xs" variant="ghost" disabled={!!busy} onClick={() => setHistory(null)}>Close history</Button></div>
+      {!entries.length && <p className="board-muted">No history recorded.</p>}
+      <ol>{entries.map(entry => {
+        const withdrawn = retractionOf(entry)
+        const current = entry.fact_id === row.fact.fact_id
+        const corrected = isCorrection(entry)
+        // A correction takes over the replaced value's dates, so a date here would claim the person decided it then.
+        const decided = corrected ? null : entry.decided_at ?? entry.claim_from
+        return <li key={entry.fact_id} data-current={current || undefined} data-withdrawn={withdrawn ? true : undefined}>
+          <div className="board-history-line">
+            <span className="board-history-value">{show(entry, item.unit)}</span>
+            <span className="board-history-meta">
+              {current ? 'Now' : withdrawn ? (withdrawn.corrected ? 'Replaced by a correction' : 'Retracted') : 'Earlier'}
+              {decided && <> · decided <TemporalDate value={decided} time /></>}
+              {entry.claim_to && <> · until <TemporalDate value={entry.claim_to} /></>}
+            </span>
+            {!withdrawn && !current && <Button size="xs" variant="ghost" disabled={!!busy} aria-label={`Correct this earlier value of ${title}`} onClick={() => startEdit(entry)}>Correct</Button>}
+          </div>
+          {withdrawn && !withdrawn.corrected && withdrawn.reason && <p className="board-muted">Reason: {withdrawn.reason}</p>}
+          {corrected ? <CorrectionNote correction={entry.correction ?? corrections.get(entry.fact_id)} />
+            : entry.evidence.length ? entry.evidence.map((source, index) => <Quote key={index} source={source} titles={titles} onOpenMoment={momentFor(source)} />)
+              : <p className="board-muted">No source quote recorded.</p>}
+          {editForm(entry, title, item.unit)}
+        </li>
+      })}</ol>
+    </section>
+  }
+
+  function rowView(item: BoardItem, row: BoardRow, single: boolean, quoted: boolean) {
+    const { fact, attribute } = row
+    const title = single ? item.title : `${item.title} ${attributeLabel(attribute.name).toLowerCase()}`
+    const corrected = isCorrection(fact)
+    const changed = changedTimes(fact.n_changes)
+    const historyOpen = history?.key === slotKey(fact.object_id, fact.attribute)
+    const historyId = `${ids}-history-${fact.fact_id}`
+    return <div className="board-row" key={fact.fact_id}>
+      {single ? <h4 className="board-row-label">{item.title}</h4> : <span className="board-row-label">{attributeLabel(attribute.name)}</span>}
+      <div className="board-row-body">
+        <div className="board-value-line">
+          <span className="board-value">{show(fact, item.unit)}</span>
+          <span className="board-row-actions">
+            {(changed || corrected) && <Button size="xs" variant="ghost" className="board-link" aria-expanded={historyOpen} aria-controls={historyOpen ? historyId : undefined}
+              aria-label={`${changed ? `C${changed.slice(1)}` : 'History'}: history of ${title}`} disabled={!!busy} onClick={() => toggleHistory(fact)}>
+              {changed || 'History'}<CaretDown size={11} aria-hidden="true" data-open={historyOpen || undefined} />
+            </Button>}
+            <Button size="xs" variant="ghost" aria-label={`Correct ${title}`} disabled={!!busy || !!fact.retracted} onClick={() => startEdit(fact)}>Correct</Button>
+          </span>
+        </div>
+        {corrected ? <CorrectionNote correction={fact.correction ?? corrections.get(fact.fact_id)} />
+          : !quoted ? null
+            : fact.evidence.length ? <Quote source={fact.evidence[0]} titles={titles} onOpenMoment={momentFor(fact.evidence[0])} line />
+              : <p className="board-muted">No source quote recorded.</p>}
+        {editForm(fact, title, item.unit)}
+        {historyOpen && historyList(row, item, title, historyId)}
       </div>
-    </article>
+    </div>
   }
 
-  const queryAttributes = overview?.registry.objects.find(item => item.object_id === queryObject)?.attributes ?? []
-  const existingItem = overview?.registry.objects.find(item => item.object_id === objectId.trim())
-  const allowedValues = [...new Set(enumValues.split(',').map(value => value.trim()).filter(Boolean))]
-  const attributeName = attribute.trim()
-  // An edit to an attribute that already has values is checked against them before it can be sent; the ledger stays the authority.
-  const attributeProblem = overview && existingItem ? attributeEditProblem(existingItem.attributes.find(item => item.name === attributeName),
-    { name: attributeName, type: attributeType, ...(attributeType === 'enum' ? { values: allowedValues } : {}) }, recordedValues(overview, existingItem.object_id, attributeName)) : null
-  // A new item can only take a kind the ledger accepts; an existing item shows the kind it has, whatever that is.
-  const kindOptions: string[] = existingItem && !isItemKind(existingItem.kind) ? [existingItem.kind, ...ITEM_KINDS] : [...ITEM_KINDS]
-  const proposals = overview?.proposals.filter(proposal => !meetingId || proposal.meeting === meetingId) ?? []
-  const facts = overview?.facts.filter(fact => !meetingId || fact.evidence.some(source => source.meeting === meetingId)) ?? []
+  function card(item: BoardItem) {
+    const single = item.kind !== 'commitment' && item.rows.length === 1
+    // Values set by the same sentence ("I will own it and finish by 5 October") share one quote, under the last of them.
+    const quoted = item.rows.map((row, index) => {
+      const next = item.rows[index + 1]
+      return !next || quoteKey(row.fact) === null || quoteKey(row.fact) !== quoteKey(next.fact)
+    })
+    return <li key={item.objectId}>
+      <article className="board-card" data-tone={item.state?.tone} data-single={single || undefined} aria-label={item.title}>
+        {!single && <header className="board-card-head"><h4>{item.title}</h4>{item.state?.label && <Chip tone={STATE_TONES[item.state.tone]} dot={item.state.tone === 'overdue'}>{item.state.label}</Chip>}</header>}
+        <div className="board-rows">{item.rows.map((row, index) => rowView(item, row, single, quoted[index]))}</div>
+      </article>
+    </li>
+  }
 
-  return <section className="temporal-memory" aria-label={meetingId ? 'Review tracked facts' : 'Tracked facts'} aria-busy={!!busy}>
+  function proposalCard(proposal: TemporalProposal) {
+    const { title, unit, multi } = itemOf(proposal.object_id, proposal.label)
+    const definition = definitionOf(proposal.object_id, proposal.attribute)
+    const heading = multi ? `${title} · ${attributeLabel(proposal.attribute)}` : title
+    const editing = proposalEdit?.id === proposal.proposal_id ? proposalEdit : null
+    const same = proposal.current_value != null && JSON.stringify(proposal.current_value) === JSON.stringify(proposal.value)
+    const source: TemporalEvidence = { quote: proposal.quote, speaker: proposal.speaker, meeting: proposal.meeting }
+    const slot = { object_id: proposal.object_id ?? '', attribute: proposal.attribute }
+    return <li key={proposal.proposal_id}>
+      <article className="board-card board-proposal" aria-label={`Suggestion: ${heading}`}>
+        <div className="board-proposal-main">
+          <div className="board-proposal-text">
+            <h4>{heading}</h4>
+            {!editing && <p className="board-value">{show({ ...slot, value: proposal.value }, unit)}
+              {proposal.current_value != null && <span className="board-was">{same ? 'same as now' : <>now {show({ ...slot, value: proposal.current_value }, unit)}</>}</span>}</p>}
+          </div>
+          {!editing && <div className="board-proposal-actions">
+            <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { setError(null); setProposalEdit({ id: proposal.proposal_id, value: editableText(proposal.value) }) }}>Edit</Button>
+            <Button size="sm" variant="outline" disabled={!!busy} onClick={() => review(proposal, 'reject')}>Reject</Button>
+            <Button size="sm" disabled={!!busy} onClick={() => review(proposal, 'accept')}>Accept</Button>
+          </div>}
+        </div>
+        {editing && <form className="board-edit" aria-label={`Edit suggestion: ${heading}`} onSubmit={event => { event.preventDefault(); review(proposal, 'edit') }}>
+          <fieldset disabled={!!busy} className="board-edit-fields">
+            <ValueInput autoFocus label="Value" definition={definition} value={editing.value} onChange={value => setProposalEdit({ ...editing, value })} />
+            <div className="board-edit-actions">
+              <Button type="submit" size="sm" disabled={!editing.value.trim()}>Save and accept</Button>
+              <Button type="button" size="sm" variant="ghost" onClick={() => { setProposalEdit(null); setError(null) }}>Cancel</Button>
+            </div>
+          </fieldset>
+        </form>}
+        <Quote source={source} titles={titles} onOpenMoment={momentFor(source)} />
+        <Problem text={errorAt(`proposal-${proposal.proposal_id}`)} />
+      </article>
+    </li>
+  }
+
+  function fold(name: 'lookup' | 'setup', title: string, children: ReactNode) {
+    const id = `${ids}-${name}`
+    const open = folds[name]
+    return <section className="board-fold" aria-labelledby={`${id}-toggle`}>
+      <h3><button type="button" id={`${id}-toggle`} className="board-fold-toggle" aria-expanded={open} aria-controls={id} onClick={() => setFolds(current => ({ ...current, [name]: !current[name] }))}>
+        <CaretDown size={13} aria-hidden="true" data-open={open || undefined} />{title}
+      </button></h3>
+      <div id={id} className="board-fold-body" hidden={!open}>{children}<Problem text={errorAt(name)} /></div>
+    </section>
+  }
+
+  // In the order the meetings were held, so the changes read as they happened; within a meeting, the order it was read
+  // in. Any order can be accepted: the service re-proposes a suggestion that an earlier meeting's approval made stale.
+  const meetingDate = (proposal: TemporalProposal) => (proposal.meeting && dates.get(proposal.meeting)) || ''
+  const proposals = (overview?.proposals.filter(proposal => !meetingId || proposal.meeting === meetingId) ?? [])
+    .map((proposal, index) => ({ proposal, index }))
+    .sort((a, b) => meetingDate(a.proposal).localeCompare(meetingDate(b.proposal)) || a.index - b.index)
+    .map(({ proposal }) => proposal)
+  const facts = overview?.facts.filter(fact => !meetingId || fact.evidence.some(source => source.meeting === meetingId)) ?? []
+  const sections = overview ? buildBoard(objects, facts, localDay()) : []
+
+  return <section className="temporal-memory" aria-label={meetingId ? 'Decisions from this meeting' : 'Decision board'} aria-busy={!!busy}>
     <header className="temporal-header"><div>
-      <h2>{meetingId ? 'Review tracked facts' : 'Tracked facts'}</h2>
-      <p>Follow specific values over time, with their source evidence and recorded changes.</p>
-    </div><Button variant="outline" disabled={!!busy} onClick={() => { reloadTitles(); void run('Loading tracked facts…', refresh) }}>Refresh</Button></header>
-    {busy && <p role="status" className="temporal-notice">{busy}</p>}
-    {error && <p role="alert" className="temporal-error">{error}</p>}
-    {message && <p role="status" className="temporal-notice">{message}</p>}
-    {meetingId && <section className="temporal-section">
-      <p>Extract suggestions from this reviewed meeting. Each suggestion needs your approval before it becomes a tracked fact.</p>
+      <h2>{meetingId ? 'Decisions from this meeting' : 'Decisions and commitments'}</h2>
+      <p>{meetingId ? 'Each suggestion waits for your approval before it joins the board.' : 'What was decided and who owes what, each with the words that set it.'}</p>
+    </div><div className="temporal-status">
+      {/* One quiet line for progress and results, so that the list never jumps while you work through it. */}
+      <p role="status">{busy ?? message ?? ''}</p>
+      <Button size="sm" variant="ghost" disabled={!!busy} onClick={() => { reloadTitles(); void run('Loading decisions…', refresh) }}>Refresh</Button>
+    </div></header>
+    {error?.place === 'top' && <p role="alert" className="temporal-error">{error.text}</p>}
+    {meetingId && <section className="temporal-section board-ingest">
+      <p>Read the reviewed transcript for decisions and commitments.</p>
       <Button variant="outline" disabled={!!busy || !overview} onClick={() => {
         void run('Reading reviewed meeting…', async () => {
           const result = await temporalService.ingestReviewedMeeting(vaultPath, meetingId)
           if (!mounted.current) return
-          setHistory(null); setQueryResult(null); setOverview(null)
-          setMessage(`Meeting reviewed. ${Object.entries(result.counts).map(([name, count]) => `${name.replaceAll('_', ' ')}: ${count}`).join(' · ') || 'Suggestions are ready for review.'}`)
+          setHistory(null); setEdit(null); setProposalEdit(null)
+          setMessage(ingestSummary(result.counts))
+          announceMemoryChanged()
           await refresh()
         })
-      }}>Find tracked fact suggestions</Button>
-    </section>}
-    {!meetingId && overview && <section className="temporal-section" aria-label="Tracked items setup">
-      <h3>Tracked items setup</h3>
-      <p>Name an item and an attribute to follow. Once an item is tracked, its label and kind are fixed. You can still add attributes to it, or change an attribute's type or allowed values while the values already recorded still fit.</p>
-      {overview.registry.objects.length > 0 && <ul className="temporal-registry">{overview.registry.objects.map(item => <li key={item.object_id}>
-        <strong>{item.label}</strong> <span className="temporal-meta">{item.object_id} · {item.kind}</span>
-        <div className="temporal-actions">{item.attributes.map(definition => <Button key={definition.name} variant="ghost" disabled={!!busy} onClick={() => {
-          setObjectId(item.object_id); setLabel(item.label); setKind(isItemKind(item.kind) ? item.kind : DEFAULT_ITEM_KIND); setAttribute(definition.name); setAttributeType(definition.type); setEnumValues(definition.values?.join(', ') ?? '')
-        }}>Edit {definition.name} ({definition.type})</Button>)}</div>
-      </li>)}</ul>}
-      <form onSubmit={event => { event.preventDefault(); saveTrackedItem() }}>
-        <fieldset disabled={!!busy} className="temporal-fields">
-          <label>Object ID<Input required value={objectId} onChange={event => setObjectId(event.target.value)} placeholder="e.g. launch-project" /></label>
-          <label>Item label<Input required disabled={!!existingItem} aria-describedby={existingItem ? `${notes}-fixed` : undefined} value={existingItem?.label ?? label} onChange={event => setLabel(event.target.value)} placeholder="e.g. Launch project" /></label>
-          <label>Item kind<select disabled={!!existingItem} aria-describedby={existingItem ? `${notes}-fixed` : undefined} value={existingItem?.kind ?? kind} onChange={event => setKind(event.target.value)}>
-            {kindOptions.map(option => <option key={option} value={option}>{kindLabel(option)}</option>)}
-          </select></label>
-          {existingItem && <p id={`${notes}-fixed`} className="temporal-hint">{`"${existingItem.label}" is already tracked, so its label and kind can't be changed here. Add an attribute, or edit one of its attributes.`}</p>}
-          <label>Attribute name<Input required value={attribute} onChange={event => setAttribute(event.target.value)} placeholder="e.g. launch_date" /></label>
-          <label>Attribute type<select value={attributeType} aria-invalid={!!attributeProblem} aria-describedby={attributeProblem ? `${notes}-problem` : undefined} onChange={event => setAttributeType(event.target.value as TemporalAttributeType)}>
-            <option value="text">Text</option><option value="number">Number</option><option value="date">Date</option><option value="enum">Enum</option>
-          </select></label>
-          {attributeType === 'enum' && <label>Allowed values (required, comma-separated)<Input required aria-invalid={!!attributeProblem} aria-describedby={attributeProblem ? `${notes}-problem` : undefined} value={enumValues} onChange={event => setEnumValues(event.target.value)} placeholder="e.g. planned, active, complete" /></label>}
-          {attributeProblem && <p id={`${notes}-problem`} role="status" className="temporal-hint" data-tone="warn">{attributeProblem}</p>}
-          <Button type="submit" variant="outline" disabled={!objectId.trim() || (!existingItem && (!label.trim() || !isItemKind(kind))) || !attribute.trim() || (attributeType === 'enum' && !allowedValues.length) || !!attributeProblem}>Save tracked item</Button>
-        </fieldset>
-      </form>
+      }}>Find decisions and commitments</Button>
     </section>}
     {overview && !overview.check.ok && <section className="temporal-error" role="alert">
       <h3>Ledger checks need attention</h3>
-      <ul>{overview.check.problems.map((problem, index) => <li key={index}>{displayValue(problem)}</li>)}</ul>
+      <ul>{overview.check.problems.map((problem, index) => <li key={index}>{typeof problem === 'object' ? JSON.stringify(problem) : String(problem)}</li>)}</ul>
     </section>}
-    {overview && <>
-      <section className="temporal-section" aria-label="Fact proposals"><h3>Waiting for approval <span>({proposals.length})</span></h3>
-        {!proposals.length && <p>No tracked fact suggestions waiting for review.</p>}
-        {proposals.map(proposal => <article key={proposal.proposal_id} className="temporal-card" aria-label={`Proposal: ${proposal.label} — ${proposal.attribute}`}>
-          <h4>{proposal.label} <span>— {proposal.attribute}</span></h4>
-          <dl className="temporal-comparison"><div><dt>Current value</dt><dd><Value value={proposal.current_value} type={typeOfAttribute(proposal.object_id, proposal.attribute)} /></dd></div><div><dt>Proposed value</dt><dd><Value value={proposal.value} type={typeOfAttribute(proposal.object_id, proposal.attribute)} /></dd></div></dl>
-          <Evidence evidence={[{ quote: proposal.quote, speaker: proposal.speaker, meeting: proposal.meeting }]} titles={titles} />
-          <div className="temporal-actions">
-            <Button variant="outline" disabled={!!busy} onClick={() => { void run('Accepting suggestion…', () => mutate(() => temporalService.acceptProposal(vaultPath, proposal.proposal_id), 'Suggestion accepted.')) }}>Accept suggestion</Button>
-            <Button variant="ghost" disabled={!!busy} onClick={() => { void run('Rejecting suggestion…', () => mutate(() => temporalService.rejectProposal(vaultPath, proposal.proposal_id), 'Suggestion rejected.')) }}>Reject suggestion</Button>
-          </div>
-        </article>)}
-      </section>
-      <section className="temporal-section" aria-label="Current tracked facts"><h3>Current facts</h3>
-        {!facts.length && <p>No approved tracked facts{meetingId ? ' supported by this meeting' : ''} yet.</p>}
-        {facts.map(fact => factCard(fact))}
-      </section>
-    </>}
-    {history && <section className="temporal-section" aria-label="Fact history">
-      <div className="temporal-header"><h3>History: <ItemName id={history.objectId} objects={overview?.registry.objects} /> — {history.attribute}</h3><Button variant="ghost" disabled={!!busy} onClick={() => setHistory(null)}>Close history</Button></div>
-      {!history.facts.length && <p>No fact history recorded.</p>}
-      {history.facts.map(fact => factCard(fact, true))}
+    {proposals.length > 0 && <section className="board-section board-review" aria-labelledby={`${ids}-review`}>
+      <h3 id={`${ids}-review`}>Needs review <span className="board-count">({proposals.length})</span></h3>
+      <p className="board-muted">Nothing joins the board until you accept it.</p>
+      <ul className="board-list">{proposals.map(proposalCard)}</ul>
     </section>}
-    {edit && <section className="temporal-section" aria-label={edit.action === 'correct' ? 'Correct fact' : 'Retract fact'}>
-      <h3>{edit.action === 'correct' ? 'Correct' : 'Retract'} {edit.fact.label} — {edit.fact.attribute}</h3>
-      <p>Recorded value: <Value value={edit.fact.value} type={typeOfAttribute(edit.fact.object_id, edit.fact.attribute)} />. A reason is required for this ledger change.</p>
-      <form onSubmit={event => { event.preventDefault(); submitEdit() }}><fieldset disabled={!!busy} className="temporal-fields">
-        {edit.action === 'correct' && <label>Corrected value<Input required value={newValue} onChange={event => setNewValue(event.target.value)} /></label>}
-        <label>Reason (required)<Input required value={reason} onChange={event => setReason(event.target.value)} /></label>
-        <div className="temporal-actions"><Button type="submit" variant="outline" disabled={!reason.trim() || (edit.action === 'correct' && !newValue.trim())}>{edit.action === 'correct' ? 'Save correction' : 'Confirm retraction'}</Button>
-          <Button type="button" variant="ghost" onClick={() => setEdit(null)}>Cancel</Button></div>
-      </fieldset></form>
-    </section>}
-    {!meetingId && overview && <section className="temporal-section" aria-label="Query tracked facts">
-      <h3>Look up a tracked value</h3>
-      <p>Valid time is when a fact applied. Recorded time is when the ledger knew it. A recorded-time lookup returns the value valid now, as known on the selected date.</p>
-      <form onSubmit={event => {
-        event.preventDefault()
-        if (!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt)) return
-        void run('Looking up tracked value…', async () => {
-          setQueryResult(null)
-          const params: TemporalQuery = queryType === 'as_of_valid' ? { type: queryType, object_id: queryObject, attribute: queryAttribute, valid_at: queryAt }
-            : queryType === 'as_of_tx' ? { type: queryType, object_id: queryObject, attribute: queryAttribute, tx_at: queryAt }
-              : { type: queryType, object_id: queryObject, attribute: queryAttribute }
-          const result = await temporalService.query(vaultPath, params)
-          if (mounted.current) setQueryResult({ result, type: queryType, objectId: queryObject, attribute: queryAttribute, at: queryAt })
-        })
-      }}><fieldset disabled={!!busy} className="temporal-fields">
-        <label>Query item<select required value={queryObject} onChange={event => { setQueryObject(event.target.value); setQueryAttribute(''); setQueryResult(null) }}><option value="">Choose an item</option>{overview.registry.objects.map(item => <option key={item.object_id} value={item.object_id}>{item.label}</option>)}</select></label>
-        <label>Query attribute<select required value={queryAttribute} onChange={event => { setQueryAttribute(event.target.value); setQueryResult(null) }}><option value="">Choose an attribute</option>{queryAttributes.map(item => <option key={item.name} value={item.name}>{item.name}</option>)}</select></label>
-        <label>Time perspective<select value={queryType} onChange={event => { setQueryType(event.target.value as TemporalQuery['type']); setQueryResult(null) }}><option value="current">Current value</option><option value="as_of_valid">Past value (valid time)</option><option value="as_of_tx">Value valid now, as known on date</option><option value="n_changes">Number of changes</option></select></label>
-        {queryType.startsWith('as_of') && <label>As of (ISO date or timestamp)<Input required value={queryAt} placeholder="2026-11-02 or 2026-11-02T10:00:00Z" onChange={event => { setQueryAt(event.target.value); setQueryResult(null) }} /></label>}
-        <Button type="submit" variant="outline" disabled={!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt.trim())}>Look up value</Button>
-      </fieldset></form>
-      {queryResult && <div className="temporal-query-result" role="status"><QueryHeading query={queryResult} objects={overview.registry.objects} />
-        <QueryAnswer result={queryResult.result} type={queryResult.type} valueType={typeOfAttribute(queryResult.objectId, queryResult.attribute)} titles={titles} /></div>}
-    </section>}
+    {sections.map(section => <section key={section.kind} className="board-section" aria-labelledby={`${ids}-${section.kind}`}>
+      <h3 id={`${ids}-${section.kind}`}>{section.title} <span className="board-count">{section.items.length}</span></h3>
+      <ul className="board-list">{section.items.map(card)}</ul>
+    </section>)}
+    {overview && !sections.length && (meetingId
+      ? <p className="board-muted board-empty-line">{proposals.length ? 'Nothing from this meeting is approved yet.' : 'Nothing from this meeting is on the board yet.'}</p>
+      : <EmptyState icon={<Quotes size={20} />} title={proposals.length ? 'Nothing approved yet' : 'No decisions yet'}>
+        {proposals.length ? 'Accept a suggestion above and it appears here with the words that prove it.' : 'Open a meeting, then Decisions › Find decisions and commitments. What you approve appears here.'}
+      </EmptyState>)}
+    {!meetingId && objects.length > 0 && fold('lookup', 'Look up a past value', <TrackedValueLookup objects={objects} disabled={!!busy} titles={titles} onOpenMoment={onOpenMoment}
+      onLookup={(params, showResult) => { void run('Looking up value…', async () => {
+        const result = await temporalService.query(vaultPath, params)
+        if (mounted.current) showResult({ result, type: params.type, objectId: params.object_id, attribute: params.attribute, at: params.type === 'as_of_valid' ? params.valid_at : params.type === 'as_of_tx' ? params.tx_at : '' })
+      }, 'lookup') }} />)}
+    {!meetingId && overview && fold('setup', 'Tracked items', <TrackedItemsSetup overview={overview} disabled={!!busy}
+      onSave={next => { void run('Saving tracked item…', () => mutate(() => temporalService.setRegistry(vaultPath, next), 'Tracked item saved.', current => current), 'setup') }} />)}
   </section>
 }

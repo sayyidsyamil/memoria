@@ -80,3 +80,13 @@ it('offers a build action for a reviewed transcript that has no proposals yet', 
   expect(screen.getByText('No outcomes proposed yet')).toBeInTheDocument()
   expect(invoke).not.toHaveBeenCalled()
 })
+
+it('can be named Review in the sidebar, with its waiting count in the name, and says where suggestions come from', async () => {
+  vi.mocked(invoke).mockReset()
+  vi.mocked(invoke).mockResolvedValueOnce([])
+  render(<MemoryReview vaultPath="/vault" triggerLabel="Review" badge={2} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Review, 2 waiting' }))
+  expect(await screen.findByText('No changes waiting for review')).toBeInTheDocument()
+  expect(screen.getByText('Suggestions from meeting outcomes and imported files appear here.')).toBeInTheDocument()
+  expect(screen.getByRole('dialog', { name: 'Review knowledge' })).toBeInTheDocument()
+})

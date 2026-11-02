@@ -19,6 +19,13 @@ it('looks titles up in the meeting list of the vault', async () => {
   expect(list).toHaveBeenCalledWith('/vault')
 })
 
+it('knows when each meeting took place, for ordering what it suggested', async () => {
+  list.mockResolvedValue([{ ...record('one', 'Kick-off'), created: '2026-09-14T01:30:00Z' }, record('two', 'Undated')])
+  const { result } = renderHook(() => useMeetingTitles('/vault'))
+  await waitFor(() => expect(result.current.dates.size).toBe(1))
+  expect(result.current.dates.get('one')).toBe('2026-09-14T01:30:00Z')
+})
+
 it.each([
   ['rejects', () => list.mockRejectedValue(new Error('The meeting runtime is unavailable'))],
   ['throws at once', () => list.mockImplementation(() => { throw new Error('Not available') })],

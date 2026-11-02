@@ -3,6 +3,7 @@ import { runInNewContext } from 'node:vm'
 import { describe, expect, it } from 'vitest'
 import inlineMarkdownContract from '../shared/inlineMarkdownContract.json'
 import { extractSnippet } from './wikilinks'
+import { readableSnippet } from './inlineMarkdown'
 
 describe('inline markdown contract', () => {
   it.each(inlineMarkdownContract.fixtures)('matches snippet behavior: $name', ({ input, expected }) => {
@@ -42,5 +43,22 @@ describe('inline markdown contract', () => {
     }) as { stripInlineMarkdown: (value: string) => string }
 
     expect(() => inlineMarkdown.stripInlineMarkdown('Escaped \\*star\\* and foo_bar')).not.toThrow()
+  })
+})
+
+describe('readableSnippet', () => {
+  it.each([
+    ['a link with an address in angle brackets', 'Transcript reviewed - [Recording](<../.memoria-recordings/006296a4/original.wav>) - [Reviewed transcript](<../source-pilot.md>)', 'Transcript reviewed - Recording - Reviewed transcript'],
+    ['a link cut off by shortening', '[Open original](<attachments/transcript-006296a4-1afe-5a9f-b6b3-...', 'Open original'],
+    ['a plain link and a titled one', 'Read [the guide](https://example.com/guide) and [notes](notes.md "Notes")', 'Read the guide and notes'],
+    ['an image', 'Chart ![Budget by month](attachments/chart.png) above', 'Chart Budget by month above'],
+    ['wikilinks', 'See [[meetings/kick-off|Kick-off]] and [[Budget]]', 'See Kick-off and Budget'],
+    ['an address with spaces and brackets', '[Notes](<Meeting notes (final).md>) follow', 'Notes follow'],
+  ])('shows only the words of %s', (_name, input, expected) => {
+    expect(readableSnippet(input)).toBe(expected)
+  })
+
+  it.each([['[26Q2] roadmap'], ['Plain words only.'], ['Costs (RM) rose']])('leaves %j as written', input => {
+    expect(readableSnippet(input)).toBe(input)
   })
 })
