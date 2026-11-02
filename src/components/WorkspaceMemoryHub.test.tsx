@@ -13,6 +13,7 @@ vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
   delete: (vaultPath: string, id: string) => invoke('wiki_memory', { request: { action: 'delete_meeting', vaultPath, id } }),
 } }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async () => () => undefined) }))
+vi.mock('../features/meetings/recordingService', () => ({ recordingService: { list: vi.fn(async () => ({ recordings: [], activeRecording: false })) } }))
 vi.mock('../utils/openNoteWindow', () => ({ openNoteInNewWindow: vi.fn(async () => undefined) }))
 beforeEach(() => { vi.mocked(invoke).mockReset() })
 const draft = {segments:[],duration:58,text:'original',warnings:[]}

@@ -29,6 +29,7 @@ chrono = { version = "0.4", features = ["serde"] }
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 futures-util = "0.3"
 base64 = "0.22"
+sha2 = "0.10"
 regex = "1"
 ironcalc_base = "0.7.1"
 csv = "1.4"

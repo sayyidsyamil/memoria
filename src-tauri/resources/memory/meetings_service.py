@@ -134,7 +134,7 @@ class MeetingService:
             content += '\n\n## Marked moments\n\n' + '\n'.join(f"- {clock(mark['at'])} — {mark['label'] or 'Marked moment'}" for mark in record['marks'])
         if record.get('turns'):
             order = []
-            content += '\n\n## Transcript\n\n' + '\n\n'.join(f"[{clock(turn['start'])}] {speaker_label(turn['speaker'], record.get('names'), order)}: {turn['text']}" for turn in record['turns'])
+            content += '\n\n## Transcript\n\n' + '\n\n'.join(f"[{clock(turn['start'])}{' · original interval; text timing unresolved' if turn.get('contextTrimmed') else ''}] {speaker_label(turn['speaker'], record.get('names'), order)}: {turn['text']}" for turn in record['turns'])
         record.update(pagePath=path, pageHash=digest(content), updatedAt=now())
         try:
             atomic(target, content)

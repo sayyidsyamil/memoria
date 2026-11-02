@@ -1,15 +1,16 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import { invoke } from '@tauri-apps/api/core'
 import { askLiveMeeting, type LiveAskResult } from './liveAskService'
 import './liveAsk.css'
 
-export interface LiveAskPanelProps { vaultPath: string; sessionText: string }
+export interface LiveAskPanelProps { vaultPath: string; sessionText: string; enabled?: boolean }
 
 // Changing vaults discards answers and prevents a late response entering another scope.
 export function LiveAskPanel(props: LiveAskPanelProps) {
   return <LiveAskComposer key={props.vaultPath} {...props} />
 }
 
-function LiveAskComposer({ vaultPath, sessionText }: LiveAskPanelProps) {
+function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPanelProps) {
   const id = useId()
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState('')
@@ -20,25 +21,43 @@ function LiveAskComposer({ vaultPath, sessionText }: LiveAskPanelProps) {
   const [citation, setCitation] = useState<string | null>(null)
   const working = useRef(false)
   const mounted = useRef(false)
+  const job = useRef<string | null>(null)
+  async function cancel() {
+    const id = job.current
+    job.current = null; working.current = false
+    if (mounted.current) setBusy(false)
+    if (id) await invoke('cancel_wiki_memory', { jobId: id })
+  }
   useEffect(() => {
     mounted.current = true
-    return () => { mounted.current = false }
+    return () => {
+      mounted.current = false
+      const id = job.current; job.current = null
+      if (id) void invoke('cancel_wiki_memory', { jobId: id }).catch(failure => console.error('Live Ask cancellation failed', failure))
+    }
   }, [])
+  useEffect(() => {
+    if (enabled) return
+    const id = job.current; job.current = null; working.current = false
+    setBusy(false)
+    if (id) void invoke('cancel_wiki_memory', { jobId: id }).catch(failure => setError(`Cancellation failed: ${String(failure)}`))
+  }, [enabled])
 
   async function submit() {
     const nextQuestion = draft.trim()
-    if (working.current || !mounted.current || !nextQuestion) return
+    if (working.current || !mounted.current || !enabled || !nextQuestion) return
     // State alone cannot guard two submissions in the same React update batch.
     working.current = true
+    const jobId = crypto.randomUUID()
+    job.current = jobId
     setBusy(true); setError(null); setResult(null); setCitation(null); setQuestion(nextQuestion)
     try {
-      const answer = await askLiveMeeting(vaultPath, nextQuestion, sessionText)
-      if (mounted.current) setResult(answer)
+      const answer = await askLiveMeeting(vaultPath, nextQuestion, sessionText, jobId)
+      if (mounted.current && job.current === jobId) setResult(answer)
     } catch (failure) {
-      if (mounted.current) setError(failure instanceof Error ? failure.message : String(failure))
+      if (mounted.current && job.current === jobId) setError(failure instanceof Error ? failure.message : String(failure))
     } finally {
-      working.current = false
-      if (mounted.current) setBusy(false)
+      if (job.current === jobId) { job.current = null; working.current = false; if (mounted.current) setBusy(false) }
     }
   }
 
@@ -48,8 +67,8 @@ function LiveAskComposer({ vaultPath, sessionText }: LiveAskPanelProps) {
     </button>
     {open && <div id={`${id}-body`} className="live-ask-body">
       <div className="live-ask-scroll" tabIndex={0} role="region" aria-label="Meeting answer and evidence">
-        <p id={`${id}-notice`} className="live-ask-note">Answers use approved knowledge plus the provisional transcript. This session is not durable approved evidence.</p>
-        <p className="live-ask-note">Provisional transcript: {sessionText.trim() ? 'only the latest 5,000 characters are included.' : 'not available yet; ask approved knowledge.'}</p>
+        <p id={`${id}-notice`} className="live-ask-note">Answers use approved knowledge only. This session is not durable approved evidence and is not used to generate factual answers.</p>
+        <p className="live-ask-note">Provisional transcript: {sessionText.trim() ? 'available for display, not factual answer generation.' : 'not available yet; ask approved knowledge.'}</p>
         {question && <p className="live-ask-question">{question}</p>}
         {busy && <p role="status" className="live-ask-note">Asking this meeting…</p>}
         {error && <p role="alert" className="live-ask-error">Could not answer: {error}</p>}
@@ -83,9 +102,10 @@ function LiveAskComposer({ vaultPath, sessionText }: LiveAskPanelProps) {
         </div>}
       </div>
       <form className="live-ask-composer" aria-label="Ask this meeting" onSubmit={event => { event.preventDefault(); void submit() }}>
-        <input aria-label="Meeting question" aria-describedby={`${id}-notice`} value={draft} maxLength={2000} disabled={busy}
+        <input aria-label="Meeting question" aria-describedby={`${id}-notice`} value={draft} maxLength={2000} disabled={busy || !enabled}
           onChange={event => setDraft(event.target.value)} placeholder="Ask about this meeting…" />
-        <button type="submit" disabled={busy || !draft.trim()}>{busy ? 'Asking…' : 'Ask'}</button>
+        <button type="submit" disabled={busy || !enabled || !draft.trim()}>{busy ? 'Asking…' : 'Ask'}</button>
+        {busy && <button type="button" onClick={() => { void cancel().catch(failure => setError(`Cancellation failed: ${String(failure)}`)) }}>Cancel asking</button>}
       </form>
     </div>}
   </section>

@@ -96,3 +96,39 @@ No historical benchmark score is attributed to a new integration without evaluat
 - Approximately 74 minutes of work completed at this checkpoint; not eight hours.
   Remaining: native hardened install/flows, live latency/queue tests, reproducible
   runtime setup, wider report reconciliation and end-to-end evaluation.
+
+## 2026-11-01T19:00Z — Streaming diagnosis and timing contract
+
+- Reviewed the preserved model-only streaming smoke: 240/240 sequential ACKs,
+  15 final segments, no errors/gaps. Six initial empty windows explain part of the
+  +31.451s first-readable-caption time; it is not solely processing latency.
+- Fixed trimmed-text/source-interval ambiguity with preserved raw interval and
+  explicit unresolved timing metadata, visible review/export labels, and temporal
+  ingestion refusal before inference. Refinement remains available for these drafts.
+- Removed empty caption events while preserving ACKs and error/gap reporting.
+- Sequential same-fixture experiments: 2s core first caption +28.926s, maximum ACK
+  2.111s, End drain 1.899s; patched 4s +31.424s, ACK 1.422s, drain 1.037s.
+  Retained the 4s default because the single 2s experiment increased backpressure.
+  Both completed 240/240 ACKs with no errors/gaps; original data/scratch unchanged.
+- Checks: 77 backend adapter/product tests; 20 speech/temporal/meeting focused tests
+  (overlapping coverage); 68 frontend tests. TypeScript and scoped lint passed.
+  Initial Python invocation from repo root failed module discovery; corrected with
+  explicit backend PYTHONPATH. This was a command error, not passing test evidence.
+- Evidence: research/PUBLIC-STREAMING-SMOKE.md and PUBLIC-STREAMING-CADENCE.md.
+  Native capture/queue/final-turn behaviour and latest installed build remain to verify.
+- Follow-up build: TypeScript, Vite production build, scoped lint and diff whitespace
+  check passed. Tauri debug app bundle built (103.81 MiB); packaged live adapter
+  equals source byte-for-byte and nested engine/temporal imports passed. Not reinstalled
+  at that checkpoint; installed during the native check below.
+
+## 2026-11-02T00:23:55Z — Installed native temporal acceptance check
+
+- Installed latest verified bundle with graceful quit/relaunch; native footer runtimes
+  Ready. Used disposable fictional reviewed evidence and a labelled silent audio fixture.
+- Native setup, Qwen suggestions, explicit Beta/Acme approvals, current Acme, past Beta
+  on October 10, one change, Maya/UUID/12.5s evidence and restart persistence passed.
+- Original no-audio fixture could not open meeting review; added silent attachment
+  using packaged service. Fixture words are manually prepared, not speech output.
+- Observed UX follow-ups: raw JSON query results, “1 changes”, machine dates/UUID labels.
+- Native Live Ask, recording/End/final-turn, queue/crash recovery still unverified.
+  Detailed scope/evidence in research/NATIVE-INTEGRATED-CHECK.md.

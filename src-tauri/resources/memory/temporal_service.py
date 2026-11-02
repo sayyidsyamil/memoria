@@ -96,6 +96,10 @@ def temporal_api(engine, request, extractor=None):
             turns = []
             order = []
             for turn in record.get('turns') or []:
+                if turn.get('contextTrimmed') or turn.get('timingStatus') == 'unresolved-context-trim':
+                    raise ValueError('Context-trimmed text has no aligned audio start. Refine and save the transcript before adding tracked facts.')
+                if turn.get('timingStatus') == 'unresolved-live-text':
+                    raise ValueError('Live text has no aligned audio start. Refine and save the transcript before adding tracked facts.')
                 start = turn.get('start')
                 if not isinstance(start, (int, float)) or not math.isfinite(start): raise ValueError('Meeting timestamps are invalid.')
                 label = speaker_label(turn['speaker'], record.get('names'), order)

@@ -39,6 +39,7 @@ it('submits the trimmed question with the latest bounded session text and vault'
   expect(invoke).toHaveBeenCalledExactlyOnceWith('live_ask', {
     vaultPath: '/vault', question: 'When is the pilot?',
     sessionText: ('older context'.repeat(600) + 'Maya: Thursday.').slice(-5000),
+    jobId: expect.any(String),
   })
 })
 
@@ -105,13 +106,13 @@ it('uses the current transcript on each explicit question and keeps disclosure c
   fireEvent.click(screen.getByRole('button', { name: 'Ask this meeting' }))
   expect(invoke).toHaveBeenCalledTimes(1)
   type('Now?'); fireEvent.submit(screen.getByRole('form', { name: 'Ask this meeting' }))
-  await waitFor(() => expect(invoke).toHaveBeenLastCalledWith('live_ask', { vaultPath: '/vault', question: 'Now?', sessionText: 'New turn' }))
+  await waitFor(() => expect(invoke).toHaveBeenLastCalledWith('live_ask', { vaultPath: '/vault', question: 'Now?', sessionText: 'New turn', jobId: expect.any(String) }))
   await screen.findByText('No supporting evidence found.')
 })
 
 it('discards late answers after the vault changes', async () => {
   let resolve!: (answer: LiveAskResult) => void
-  vi.mocked(invoke).mockImplementation(() => new Promise<LiveAskResult>(done => { resolve = done }))
+  vi.mocked(invoke).mockImplementation(command => command === 'cancel_wiki_memory' ? Promise.resolve() : new Promise<LiveAskResult>(done => { resolve = done }))
   const { rerender } = open(); type('Old vault?')
   fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
   rerender(<LiveAskPanel vaultPath="/other" sessionText="Other meeting" />)
@@ -119,4 +120,26 @@ it('discards late answers after the vault changes', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Ask this meeting' }))
   expect(screen.queryByText('Old vault answer')).not.toBeInTheDocument()
   expect(screen.getByRole('textbox')).toHaveValue('')
+})
+
+it('End disables and cancels the owned request, ignoring a late answer', async () => {
+  let resolve!: (answer: LiveAskResult) => void
+  vi.mocked(invoke).mockImplementation(command => command === 'cancel_wiki_memory' ? Promise.resolve() : new Promise<LiveAskResult>(done => { resolve = done }))
+  const { rerender } = open()
+  type('Supplier?'); fireEvent.submit(screen.getByRole('form', { name: 'Ask this meeting' }))
+  const request = vi.mocked(invoke).mock.calls[0][1] as { jobId: string }
+  rerender(<LiveAskPanel vaultPath="/vault" sessionText="Final turn" enabled={false} />)
+  expect(invoke).toHaveBeenCalledWith('cancel_wiki_memory', { jobId: request.jobId })
+  await act(async () => resolve({ ...empty, message: 'Late answer' }))
+  expect(screen.queryByText('Late answer')).not.toBeInTheDocument()
+  expect(screen.getByRole('textbox')).toBeDisabled()
+})
+
+it('unmount cancels the request using the same caller-owned job ID', () => {
+  vi.mocked(invoke).mockImplementation(command => command === 'cancel_wiki_memory' ? Promise.resolve() : new Promise(() => undefined))
+  const { unmount } = open(); type('Owner?')
+  fireEvent.submit(screen.getByRole('form', { name: 'Ask this meeting' }))
+  const request = vi.mocked(invoke).mock.calls[0][1] as { jobId: string }
+  unmount()
+  expect(invoke).toHaveBeenCalledWith('cancel_wiki_memory', { jobId: request.jobId })
 })

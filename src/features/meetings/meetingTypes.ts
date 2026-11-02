@@ -1,11 +1,19 @@
 /** Public meeting DTOs. No component or transport imports. */
-export interface TranscriptTurn { start: number; end: number; speaker: string; text: string }
+export interface TranscriptTurn {
+  start: number; end: number; speaker: string; text: string
+  /** Original decoder interval is a replay anchor, not aligned retained-word timing. */
+  contextTrimmed?: boolean; rawWindowText?: string; rawWindowStart?: number; rawWindowEnd?: number
+  timingStatus?: 'unresolved-context-trim' | 'unresolved-live-text'
+}
 export interface SpeakerProfile { id: string; name: string }
 export interface TranscriptDraft {
   gaps?: { start: number; end: number; reason: string }[]
   segments: TranscriptTurn[]; duration: number; warnings: string[]; text: string
   profiles?: SpeakerProfile[]
   speakerMatches?: Record<string, SpeakerProfile>
+  audioAccounting?: { receivedChunks: number; receivedSamples: number; processedSamples: number; sampleRate: number }
+  captionAudio?: { acceptedSamples: number; processedSamples: number; queuedSamples: number; refusedSamples: number; unacknowledgedSamples: number; sampleRate: number }
+  liveChecks?: { checkedTurns: number; uncheckedTurns: number; warnings: string[] }
 }
 export interface MeetingMark { id?: string; at: number; label: string }
 export type MeetingStatus = 'needs-review' | 'transcript-reviewed'

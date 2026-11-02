@@ -11,6 +11,7 @@ import { LiveAskPanel } from '../features/temporal/LiveAskPanel'
 
 export type HudState = 'starting' | 'recording' | 'paused' | 'saving' | 'error'
 export interface HudViewProps {
+  sourceKind?: 'microphone' | 'replay'; replayNotice?: string; progressText?: string
   vaultPath?: string
   assistanceEnabled?: boolean; onToggleAssistance?: (enabled: boolean) => void; liveCues?: LiveCue[]; assistanceNotice?: string
   state: HudState; saveStage: string; seconds: number; levels: number[]; prep: number; captionsOpen: boolean
@@ -21,7 +22,7 @@ export interface HudViewProps {
 
 /** Presentation only: the notch, its preparation steps and the expanded Record view. */
 export function MeetingHudView({ state, saveStage, seconds, levels, prep, captionsOpen, liveTurns, caption, captionError, marks, markNotice, error, micWait,
-  assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, vaultPath,
+  assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, vaultPath, sourceKind, replayNotice, progressText,
   transcriptRef, onTranscriptScroll, onToggleCaptions, onOpenWorkspace, onPause, onEnd, onMark }: HudViewProps): ReactNode {
   const liveOrder = speakerOrder(liveTurns.map(turn => turn.speaker))
   const statusText = state === 'starting' ? 'Preparing' : state === 'recording' ? 'Recording' : state === 'paused' ? 'Paused' : state === 'saving' ? saveStage : 'Needs attention'
@@ -42,12 +43,15 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         <span className="meeting-hud-pill" role="status"><i />{statusText}</span>
         <div className="meeting-hud-bigtime" aria-label="Meeting duration">{clockText(seconds)}</div>
         <LevelMeter className="meeting-hud-wave" levels={levels} paused={state === 'paused'} />
+        {sourceKind === 'replay' && <p className="meeting-hud-hint">Prerecorded audio test · no microphone capture</p>}
+        {replayNotice && <p role="status" className="meeting-hud-hint">{replayNotice}</p>}
+        {progressText && <p role="status" className="meeting-hud-hint" aria-label="Caption audio progress">{progressText}</p>}
         {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Check against approved tracked facts</label>}
         {assistanceNotice && <p className="meeting-hud-caption-warning" role="status">{assistanceNotice}</p>}
         {!!liveCues?.length && <section className="meeting-hud-evidence" aria-label="Evidence to review">{liveCues.map(cue => <details key={`${cue.factId}:${cue.reason}`}><summary>{cue.label}: {String(cue.currentValue)}</summary><p>{cue.reason}</p><blockquote>{cue.quote}</blockquote><small>{cue.speaker || 'Unknown speaker'} · {cue.meeting || 'Approved memory'}</small></details>)}</section>}
         {captionError && <p role="alert" className="meeting-hud-caption-warning">Live transcript paused. Your recording is preserved.</p>}
         {transcript}
-        {vaultPath && <LiveAskPanel vaultPath={vaultPath} sessionText={caption} />}
+        {vaultPath && <LiveAskPanel vaultPath={vaultPath} sessionText={caption} enabled={capturing} />}
         <small className="meeting-hud-hint">{captionError ? <details><summary>Show details</summary>{captionError}</details> : 'Speaker labels are provisional. Add names in review.'}</small>
       </section>
       <footer className="meeting-hud-actions">
@@ -74,7 +78,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
       </div>
     </div>}
     {state === 'starting' && <div className="meeting-hud-preparation"><ol aria-label="Preparation steps">{PREPARATION_STEPS.map((label, index) => <li key={label} data-state={prep > index ? 'done' : prep === index ? 'active' : 'todo'}>
-      <span className="meeting-hud-step-mark" aria-hidden="true">{prep > index ? <Check size={9} weight="bold" /> : prep === index ? <SpinnerGap className="mui-spin" size={12} /> : null}</span>{label}</li>)}</ol>
+      <span className="meeting-hud-step-mark" aria-hidden="true">{prep > index ? <Check size={9} weight="bold" /> : prep === index ? <SpinnerGap className="mui-spin" size={12} /> : null}</span>{index === 0 && sourceKind === 'replay' ? 'Audio file' : label}</li>)}</ol>
       <p role="status">{micWait ? 'Waiting for microphone permission…' : 'Recording starts when everything is ready.'}</p></div>}
     {error && <p role="alert" className="meeting-hud-error">{error}</p>}
   </main>

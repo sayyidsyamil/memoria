@@ -62,7 +62,7 @@ mod tests {
 }
 
 #[tauri::command]
-pub fn open_meeting_hud(app: tauri::AppHandle, vault_path: String) -> Result<(), String> {
+pub fn open_meeting_hud(app: tauri::AppHandle, vault_path: String, replay: Option<bool>) -> Result<(), String> {
     let boundary = super::vault::VaultBoundary::from_request(Some(&vault_path))?;
     if let Some(hud) = app.get_webview_window("meeting-hud") {
         hud.show().map_err(|e| e.to_string())?;
@@ -76,6 +76,7 @@ pub fn open_meeting_hud(app: tauri::AppHandle, vault_path: String) -> Result<(),
     let mut route = tauri::Url::parse("tauri://localhost/").map_err(|e| e.to_string())?;
     route.query_pairs_mut().append_pair("meetingHud", "1")
         .append_pair("vault", &boundary.requested_root().to_string_lossy());
+    if replay == Some(true) { route.query_pairs_mut().append_pair("replay", "1"); }
     let relative = format!("/?{}", route.query().unwrap_or(""));
     WebviewWindowBuilder::new(&app, "meeting-hud", WebviewUrl::App(relative.into()))
         .title("Memoria Meeting").inner_size(360.0, 68.0)

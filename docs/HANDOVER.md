@@ -18,12 +18,21 @@ See [WORK-LOG.md](WORK-LOG.md) for detail. This is not a completed eight-hour ru
 - Original deterministic engine suite: 291 passed; source/results unchanged.
 - Public AMI 60-second file transcription smoke: 14 segments in 17.651 seconds.
   This is file throughput, not measured live caption latency; no WER claimed.
+- Three model-only paced public-audio replays completed with 240/240 ACKs each.
+  Kept 4s cadence after 2s experiment increased backpressure; see
+  [cadence evidence](research/PUBLIC-STREAMING-CADENCE.md).
+- Trimmed captions preserve raw timing, visibly label unresolved text alignment,
+  and cannot enter temporal ingestion until refined. Empty captions no longer emit.
 
 ## In progress
 
+- Latest bundle installed; native setup, real-Qwen extraction, approval, current/past/
+  change-count queries and restart persistence passed in a disposable fictional vault.
+  See [native check](research/NATIVE-INTEGRATED-CHECK.md). Live flows remain pending.
+
 - Combined app build, native API checks, live queue/reliability verification.
 - Tracked-facts setup view now loads in installed app after fixing nested package
-  resource mapping. Native fact ingestion/approval and live Ask remain to verify.
+   resource mapping. Native fact ingestion/approval now passed; live Ask remains to verify.
 
 ## Not yet verified
 
@@ -44,11 +53,13 @@ See [WORK-LOG.md](WORK-LOG.md) for detail. This is not a completed eight-hour ru
 
 ## Latest verified development checks
 
-- 76 Python adapter/engine/product tests passed.
-- 67 frontend temporal/meeting integration tests passed in the latest focused run.
+- 77 Python adapter/engine/product tests passed; separate speech/transport-related
+  focused suite: 20 passed (overlapping coverage; totals are not additive).
+- 68 frontend temporal/meeting integration tests passed in the latest focused run.
 - Original engine: 291 tests passed without modifying its source/results.
 - TypeScript and scoped lint passed. Hardened native bundle and packaged imports
-  pass. Preferred black/white Dock logo is in the new bundle. Native reinstall and
+  pass; latest timing-patched bundle is 103.81 MiB, with packaged adapter bytes
+  verified against source. Preferred black/white Dock logo is in the new bundle. Native reinstall and
   end-to-end hardened flows still need checking.
 
 ## Needs you

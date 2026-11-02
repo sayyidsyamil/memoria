@@ -18,6 +18,7 @@ mod wiki_memory;
 mod meetings;
 mod temporal;
 mod meeting_hud;
+mod recording_recovery;
 mod live_speech;
 pub(crate) mod model_manager;
 
@@ -41,6 +42,7 @@ pub use wiki_memory::*;
 pub use meetings::*;
 pub use temporal::*;
 pub use meeting_hud::*;
+pub use recording_recovery::*;
 pub use live_speech::*;
 pub use model_manager::*;
 

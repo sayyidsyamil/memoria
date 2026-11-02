@@ -16,6 +16,7 @@ import './workspaceMemoryHub.css'
 import { meetingService } from '../features/meetings/meetingService'
 import type { MeetingRecord } from '../features/meetings/meetingTypes'
 import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
+import { RecordingRecovery } from '../features/meetings/RecordingRecovery'
 
 export type HubView = 'meetings' | 'search' | 'ask' | 'approved' | 'briefs' | 'facts'
 type Meeting = MeetingRecord
@@ -58,8 +59,8 @@ function LeadAvatar({ meeting }: { meeting: Meeting }) {
     {order.length > 1 && <span className="hub-lead-count" aria-hidden="true">{order.length}</span>}</span>
 }
 
-export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeting }: {
-  vaultPath: string; summary?: WorkspaceSummary | null; onChanged?: () => void; onStartMeeting?: () => void
+export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeting, onReplayMeeting }: {
+  vaultPath: string; summary?: WorkspaceSummary | null; onChanged?: () => void; onStartMeeting?: () => void; onReplayMeeting?: () => void
 }) {
   const [view, setView] = useState<HubView | null>(null)
   const [meetings, setMeetings] = useState<Meeting[]>([])
@@ -173,11 +174,15 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
           <div className="hub-page-heading" hidden={current === 'facts'}>
             <div><h1>{tabs.find(item => item.value === current)?.label}</h1>
               <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Answers from knowledge you have approved' : current === 'approved' ? 'Accepted claims with their original evidence' : 'Context for your next conversation'}</p></div>
-            {current === 'meetings' && meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
+            {current === 'meetings' && <div className="flex gap-2">
+              {onReplayMeeting && <Button size="sm" variant="outline" onClick={() => { setView(null); onReplayMeeting() }}>Replay audio test</Button>}
+              {meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
+            </div>}
           </div>
           <div className="hub-body" data-view={current}>
             {busy && !loaded[current] && <p role="status" className="hub-loading">Loading {current === 'approved' ? 'approved knowledge' : current}…</p>}
             <PillTabPanel value="meetings">
+              <RecordingRecovery vaultPath={vaultPath} active={current === 'meetings' && !!view} onRecovered={record => { void resume(record.id, 'transcript'); void load('meetings'); onChanged?.() }} />
               {shownMeetings.map(item => {
                 const next = nextAction(item)
                 return <article key={item.id} className="hub-meeting">

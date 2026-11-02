@@ -30,7 +30,7 @@ pub async fn live_memory_check(window: tauri::WebviewWindow, vault_path: String,
 }
 
 #[tauri::command]
-pub async fn live_ask(window: tauri::WebviewWindow, vault_path: String, question: String, session_text: String) -> Result<Value, String> {
+pub async fn live_ask(window: tauri::WebviewWindow, vault_path: String, question: String, session_text: String, job_id: Option<String>) -> Result<Value, String> {
     if question.is_empty() || question.len() > 8000 || session_text.len() > 20000 { return Err("Meeting question or context exceeds its limit.".into()); }
-    super::wiki_memory::wiki_memory(window, json!({"action":"live_ask","vaultPath":vault_path,"question":question,"sessionText":session_text})).await
+    super::wiki_memory::wiki_memory(window, json!({"action":"live_ask","vaultPath":vault_path,"question":question,"sessionText":session_text,"jobId":job_id.unwrap_or_else(|| uuid::Uuid::new_v4().to_string())})).await
 }

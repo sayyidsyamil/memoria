@@ -5,6 +5,27 @@ import numpy as np
 from live_speech import WindowTranscript, has_speech, RATE, trim_context_repeat, trim_overlapping_context, assign_voice
 
 class LiveSpeechTests(unittest.TestCase):
+    def test_trimmed_context_preserves_raw_interval_and_marks_alignment_unresolved(self):
+        with patch('live_speech.has_speech', return_value=True), patch('live_speech.emit') as emit, patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=[{'start': 0, 'end': 6, 'speaker': 'S01', 'text': 'my role is the interface'}]):
+            session = WindowTranscript(None)
+            session.turns = [{'start': 0, 'end': 2, 'speaker': 'unassigned', 'text': 'my role is'}]
+            session.feed(np.ones(RATE * 6, dtype='float32'))
+            retained = session.turns[-1]
+            self.assertEqual(retained['text'], 'the interface')
+            self.assertEqual(retained['rawWindowText'], 'my role is the interface')
+            self.assertEqual((retained['start'], retained['end']), (0, 6))
+            self.assertEqual((retained['rawWindowStart'], retained['rawWindowEnd']), (0, 6))
+            self.assertEqual(retained['timingStatus'], 'unresolved-context-trim')
+            self.assertTrue(retained['contextTrimmed'])
+            self.assertEqual(emit.call_count, 1)
+
+    def test_empty_decode_does_not_emit_a_caption_update(self):
+        with patch('live_speech.has_speech', return_value=True), patch('live_speech.emit') as emit, patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=[]):
+            session = WindowTranscript(None)
+            session.feed(np.ones(RATE * 6, dtype='float32'))
+            self.assertEqual(session.committed, RATE * 4)
+            emit.assert_not_called()
+
     def test_variant_spelling_context_is_trimmed_without_rewriting_remaining_words(self):
         self.assertEqual(trim_overlapping_context('pasal jerebu sejak episode ke 21 dan dalam episode lepas',
             'pasal jerbu sejak episod ke 21 dan dalam episode lepas kami suruh korang'), 'kami suruh korang')

@@ -12,7 +12,7 @@ export interface LiveAskResult {
   needsReview?: { sourcePath: string; sourceTitle: string }[]
 }
 
-export function askLiveMeeting(vaultPath: string, question: string, sessionText: string): Promise<LiveAskResult> {
+export function askLiveMeeting(vaultPath: string, question: string, sessionText: string, jobId: string): Promise<LiveAskResult> {
   // Keep the most recent context, without retaining a second full transcript in UI state.
-  return invoke('live_ask', { vaultPath, question: question.trim(), sessionText: sessionText.slice(-5000) })
+  return invoke('live_ask', { vaultPath, question: question.trim(), sessionText: sessionText.slice(-5000), jobId })
 }

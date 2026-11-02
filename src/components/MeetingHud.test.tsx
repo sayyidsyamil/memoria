@@ -7,6 +7,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { MeetingHud } from './MeetingHud'
 import { applySource } from '../lib/sourceImport'
 import { startMeetingLiveSpeech } from '../lib/meetingLiveSpeech'
+import type { RecordingMetadata } from '../features/meetings/recordingService'
 
 const close = vi.fn(async () => undefined)
 vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
@@ -14,12 +15,21 @@ vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
 } }))
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn(async () => undefined), convertFileSrc: (path: string) => path }))
 vi.mock('@tauri-apps/api/window', () => ({ LogicalSize: class {}, getCurrentWindow: () => ({ close, center: vi.fn(async () => undefined), setSize: vi.fn(async () => undefined), startDragging: vi.fn(), onCloseRequested: vi.fn(async () => () => undefined) }) }))
-vi.mock('../lib/sourceImport', () => ({ applySource: vi.fn(async (source: {originalPath?: string}) => { source.originalPath = '/vault/audio.webm'; return 'meeting.md' }) }))
+vi.mock('../lib/sourceImport', () => ({ applySource: vi.fn(async (source: {originalPath?: string}) => { source.originalPath ??= '/vault/audio.webm'; return 'meeting.md' }) }))
 vi.mock('../utils/openNoteWindow', () => ({ openNoteInNewWindow: vi.fn(async () => undefined) }))
-vi.mock('../lib/meetingLiveSpeech', () => ({ startMeetingLiveSpeech: vi.fn(async () => ({activate:vi.fn(async () => undefined),pause:vi.fn(),stop:vi.fn(async () => undefined)})) }))
+vi.mock('../lib/meetingLiveSpeech', () => ({ startMeetingLiveSpeech: vi.fn(async () => fakeSession()) }))
+function fakeSession() {
+  return {
+    recordingStream: new MediaStream(), activate: vi.fn(async () => undefined), pause: vi.fn(async () => undefined),
+    finishCapture: vi.fn(async () => undefined), stop: vi.fn(async () => undefined),
+    audioProgress: () => ({ acceptedSamples: 0, processedSamples: 0, queuedSamples: 0, refusedSamples: 0, unacknowledgedSamples: 0, sampleRate: 16000 }),
+  }
+}
 const stopTrack = vi.fn()
 let capture: FakeRecorder
+let metadata: RecordingMetadata
 class FakeRecorder {
+  static instances: FakeRecorder[] = []
   static isTypeSupported() { return true }
   state = 'inactive'
   mimeType = 'audio/webm'
@@ -27,7 +37,7 @@ class FakeRecorder {
   onstop?: () => void
   onerror?: () => void
   // eslint-disable-next-line @typescript-eslint/no-this-alias -- tests need the live recorder instance
-  constructor() { capture = this }
+  constructor() { capture = this; FakeRecorder.instances.push(this) }
   start() { this.state = 'recording' }
   pause() { this.state = 'paused' }
   resume() { this.state = 'recording' }
@@ -35,13 +45,24 @@ class FakeRecorder {
 }
 beforeEach(() => {
   vi.clearAllMocks()
+  FakeRecorder.instances.length = 0
   window.history.replaceState({}, '', '/?meetingHud=1&vault=%2Fvault')
   vi.stubGlobal('MediaRecorder', FakeRecorder)
+  vi.stubGlobal('MediaStream', class { getTracks() { return [] }; getAudioTracks() { return [] } })
   vi.stubGlobal('Blob', NodeBlob)
   Object.defineProperty(globalThis.crypto, 'subtle', { configurable: true, value: webcrypto.subtle })
   Object.defineProperty(navigator, 'mediaDevices', { configurable: true, value: { getUserMedia: vi.fn(async () => ({
     getTracks: () => [{ stop: stopTrack }], getAudioTracks: () => [],
   })) } })
+  vi.mocked(invoke).mockImplementation(async (command, args) => {
+    if (command === 'begin_meeting_recording') metadata = (args as { metadata: RecordingMetadata }).metadata
+    if (command === 'finalize_meeting_recording') {
+      const request = args as { sessionId: string; expectedChunks: number }
+      return { sessionId: request.sessionId, originalPath: `/vault/.memoria-recordings/${request.sessionId}/original.webm`,
+        sha256: 'a'.repeat(64), byteLength: 3, chunkCount: request.expectedChunks, metadata, warnings: [], interrupted: false }
+    }
+    return command === 'wiki_memory' ? null : undefined
+  })
 })
 it('starts once in StrictMode, hides only after capture succeeds, and preserves capture while opening workspace', async () => {
   render(<StrictMode><MeetingHud /></StrictMode>)
@@ -51,8 +72,10 @@ it('starts once in StrictMode, hides only after capture succeeds, and preserves 
   fireEvent.click(screen.getByRole('button', { name: 'Open workspace' }))
   expect(capture.state).toBe('recording')
   fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
+  await screen.findByText('Paused')
   expect(capture.state).toBe('paused')
   fireEvent.click(screen.getByRole('button', { name: 'Resume' }))
+  await screen.findByText('Recording')
   expect(capture.state).toBe('recording')
   fireEvent.click(screen.getByRole('button', { name: 'End' }))
   await waitFor(() => expect(invoke).toHaveBeenCalledWith('finish_meeting_hud'))
@@ -70,12 +93,12 @@ it('does not record, hide the workspace, or run the timer while MOSS is preparin
   vi.mocked(startMeetingLiveSpeech).mockImplementationOnce(() => new Promise(resolve => { ready = resolve }))
   render(<MeetingHud />)
   await screen.findByText('Preparing')
-  expect(capture.state).toBe('inactive')
+  expect(FakeRecorder.instances).toHaveLength(0)
   expect(invoke).not.toHaveBeenCalledWith('meeting_capture_ready')
   expect(screen.queryByLabelText('Meeting duration')).not.toBeInTheDocument()
   expect(screen.queryByRole('button', { name: 'Toggle live captions' })).not.toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Cancel preparation' })).toBeEnabled()
-  await act(async () => ready({activate:vi.fn(async () => undefined),pause:vi.fn(),stop:vi.fn(async () => undefined)}))
+  await act(async () => ready(fakeSession()))
   await screen.findByText('Recording')
   expect(capture.state).toBe('recording')
 })
@@ -83,7 +106,7 @@ it('preparation failure leaves recording off and workspace visible', async () =>
   vi.mocked(startMeetingLiveSpeech).mockRejectedValueOnce(new Error('MOSS failed'))
   render(<MeetingHud />)
   expect(await screen.findByRole('alert')).toHaveTextContent('MOSS failed')
-  expect(capture.state).toBe('inactive')
+  expect(FakeRecorder.instances).toHaveLength(0)
   expect(invoke).not.toHaveBeenCalledWith('meeting_capture_ready')
   expect(stopTrack).toHaveBeenCalled()
 })
@@ -117,7 +140,7 @@ it('shows real preparation steps and a level meter that follows the microphone',
   act(() => emit({ sessionId: 'x', stage: 'Warming MOSS · not recording' }))
   expect(within(steps).getByText('Speech model').closest('li')).toHaveAttribute('data-state', 'done')
   expect(within(steps).getByText('Live captions').closest('li')).toHaveAttribute('data-state', 'active')
-  await act(async () => ready({activate:vi.fn(async () => undefined),pause:vi.fn(),stop:vi.fn(async () => undefined)}))
+  await act(async () => ready(fakeSession()))
   await screen.findByText('Recording')
   expect(screen.queryByRole('list', { name: 'Preparation steps' })).not.toBeInTheDocument()
   act(() => level(1))
@@ -130,7 +153,7 @@ it('opens the Record view with a large timer, waveform and live captions that fo
   let emit!: (event: { sessionId: string; turns?: { start: number; end: number; speaker: string; text: string }[] }) => void
   vi.mocked(startMeetingLiveSpeech).mockImplementationOnce(async (_stream, _vault, _id, update) => {
     emit = update
-    return { activate: vi.fn(async () => undefined), pause: vi.fn(), stop: vi.fn(async () => undefined) }
+    return fakeSession()
   })
   render(<MeetingHud />)
   await screen.findByText('Recording')
@@ -174,10 +197,10 @@ it('keeps the timer and marks on recorded time, excluding paused time', async ()
     expect(screen.getByText('Recording')).toBeInTheDocument()
     await act(async () => { await vi.advanceTimersByTimeAsync(5000) })
     expect(screen.getByLabelText('Meeting duration')).toHaveTextContent('00:05')
-    fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Pause' })); await Promise.resolve() })
     await act(async () => { await vi.advanceTimersByTimeAsync(10000) })
     expect(screen.getByLabelText('Meeting duration')).toHaveTextContent('00:05')
-    fireEvent.click(screen.getByRole('button', { name: 'Resume' }))
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Resume' })); await Promise.resolve() })
     await act(async () => { await vi.advanceTimersByTimeAsync(3000) })
     expect(screen.getByLabelText('Meeting duration')).toHaveTextContent('00:08')
   } finally { vi.useRealTimers() }
@@ -195,4 +218,48 @@ it('says so when the microphone step is still waiting, and clears the hint once 
     await act(async () => { allow({ getTracks: () => [{ stop: stopTrack }], getAudioTracks: () => [] } as unknown as MediaStream) })
     expect(screen.queryByText('Waiting for microphone permission…')).not.toBeInTheDocument()
   } finally { vi.useRealTimers() }
+})
+
+it('retains and retries a failed audio checkpoint before publishing the original', async () => {
+  const normal = vi.mocked(invoke).getMockImplementation()!
+  let fail = true
+  vi.mocked(invoke).mockImplementation(async (command, args) => {
+    if (command === 'save_meeting_chunk' && fail) { fail = false; throw new Error('checkpoint write failed') }
+    return normal(command, args)
+  })
+  render(<MeetingHud />); await screen.findByText('Recording')
+  await act(async () => { capture.ondataavailable?.({ data: new Blob([new Uint8Array([1, 2, 3])]) }) })
+  expect(await screen.findByRole('alert')).toHaveTextContent('checkpoint write failed')
+  fireEvent.click(screen.getByRole('button', { name: 'End' }))
+  await screen.findByText('Review transcript')
+  const checkpoints = vi.mocked(invoke).mock.calls.filter(([command]) => command === 'save_meeting_chunk')
+  expect(checkpoints).toHaveLength(2)
+  expect(checkpoints[0][1]).toEqual(checkpoints[1][1])
+  expect(invoke).toHaveBeenCalledWith('finalize_meeting_recording', expect.objectContaining({ expectedChunks: 1 }))
+})
+
+it('persists original audio before a slow transcript drain and publishes the final draft afterward', async () => {
+  let finish!: () => void
+  const session = fakeSession()
+  session.stop.mockImplementation(() => new Promise(resolve => { finish = resolve }))
+  vi.mocked(startMeetingLiveSpeech).mockResolvedValueOnce(session)
+  render(<MeetingHud />); await screen.findByText('Recording')
+  await act(async () => { capture.ondataavailable?.({ data: new Blob([new Uint8Array([1, 2, 3])]) }) })
+  fireEvent.click(screen.getByRole('button', { name: 'End' }))
+  await screen.findByText('Finishing transcript')
+  expect(applySource).toHaveBeenCalledTimes(1)
+  expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'save_meeting', record: expect.objectContaining({ sourcePath: 'meeting.md' }) }) })
+  expect(invoke).not.toHaveBeenCalledWith('complete_meeting_recording', expect.anything())
+  await act(async () => finish())
+  await screen.findByText('Review transcript')
+  expect(invoke).toHaveBeenCalledWith('complete_meeting_recording', expect.objectContaining({ sourcePath: 'meeting.md' }))
+})
+
+it('prerecorded setup never requests a microphone and waits for explicit replay start', async () => {
+  window.history.replaceState({}, '', '/?meetingHud=1&vault=%2Fvault&replay=1')
+  render(<MeetingHud />)
+  expect(screen.getByText('Replay prerecorded audio')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Start audio replay' })).toBeDisabled()
+  expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled()
+  expect(startMeetingLiveSpeech).not.toHaveBeenCalled()
 })

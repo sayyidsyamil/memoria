@@ -74,3 +74,17 @@ class TemporalIntegrationTests(unittest.TestCase):
     def test_strict_ids_queries_and_reasons(self):
         for method, params in [('facts.correct', {'fact_id':True,'value':'Beta','reason':'Fix'}), ('query',{'object_id':'supplier','attribute':'value','type':'unknown'}), ('facts.retract', {'fact_id':1,'reason':''})]:
             self.assertFalse(temporal_api(self.engine, {'method':method,'params':params})['ok'])
+
+    def test_unaligned_trimmed_turn_cannot_become_a_precise_fact_citation(self):
+        identifier = str(uuid.uuid4())
+        text = 'We decided to use Beta as supplier.'
+        (self.root/'trimmed.md').write_text(f'[0:12 · original interval; text timing unresolved] Maya: {text}')
+        workspace_product(self.engine, {'action': 'save_meeting', 'record': {'id': identifier, 'title': 'Trimmed', 'status': 'transcript-reviewed', 'transcriptPath': 'trimmed.md', 'created': '2026-10-01T10:00:00Z', 'names': {'S01': 'Maya'}, 'turns': [{'speaker': 'S01', 'start': 12, 'end': 15, 'text': text, 'contextTrimmed': True}]}})
+        class NoInference:
+            name = 'not-called'
+            def extract(self, _context): raise AssertionError('Unaligned source must be rejected before inference')
+        result = temporal_api(self.engine, {'method': 'ingest_reviewed_meeting', 'params': {'meetingId': identifier}}, NoInference())
+        self.assertFalse(result['ok'])
+        self.assertIn('no aligned audio start', result['error']['message'])
+        self.assertEqual(self.call('meetings.list'), [])
+        self.assertIn('text timing unresolved', (self.root/f'meetings/meeting-{identifier}.md').read_text())

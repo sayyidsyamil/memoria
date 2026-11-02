@@ -14,6 +14,13 @@ serially with deduplicated cues. Numeric checks require comparable scope/units;
 semantic checks use the existing Qwen worker. This new adapter is not the original
 benchmark guard configuration, and full live latency remains unmeasured.
 
+Live overlap trimming preserves the original decoder interval and explicitly marks
+retained-word timing unresolved. Review/export labels distinguish this replay anchor;
+temporal ingestion rejects unresolved turns before extraction. Refinement remains
+available. Empty decoded windows no longer publish caption updates. Model-only cadence
+experiments are in [PUBLIC-STREAMING-CADENCE.md](research/PUBLIC-STREAMING-CADENCE.md);
+they do not measure native capture latency.
+
 ## Explicit meeting API
 
 Meeting CRUD now crosses a dedicated frontend client and Tauri `meetings_api`

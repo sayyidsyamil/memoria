@@ -39,7 +39,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   onClose: () => Promise<void>
 }) {
   const [draft, setDraft] = useState<TranscriptDraft | null>(() => initialDraft ?? (liveText.trim() ? { segments: [], duration: 0, warnings: ['Live draft: no verified speaker labels or word timestamps.'], text: liveText } : null))
-  const [turns, setTurns] = useState<Turn[]>(() => initialDraft?.segments ?? (liveText.trim() ? [{ start: 0, end: 0, speaker: 'unassigned', text: liveText }] : []))
+  const [turns, setTurns] = useState<Turn[]>(() => initialDraft?.segments ?? (liveText.trim() ? [{ start: 0, end: 0, speaker: 'unassigned', text: liveText, timingStatus: 'unresolved-live-text' }] : []))
   const [refined, setRefined] = useState(!!initialDraft)
   const [names, setNames] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.name])))
   const [profileIds, setProfileIds] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.id])))
@@ -112,7 +112,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
         }
       }
       const order = speakerOrder(turns.map(turn => turn.speaker))
-      const text = turns.map(turn => refined ? `[${clock(turn.start)}] ${speakerLabel(turn.speaker, names, order)}: ${turn.text}` : turn.text).join('\n\n')
+      const text = turns.map(turn => refined ? `[${clock(turn.start)}${turn.contextTrimmed ? ' · original interval; text timing unresolved' : ''}] ${speakerLabel(turn.speaker, names, order)}: ${turn.text}` : turn.text).join('\n\n')
       const bytes = new TextEncoder().encode(text)
       const digest = await crypto.subtle.digest('SHA-256', bytes)
       const relative = originalPath.slice(vaultPath.replace(/\/$/, '').length + 1)
@@ -178,7 +178,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
           </div>)}
         </Fold></section>}
         {!draft && <EmptyState icon={<ListChecks size={20} />} title={busy ? 'Preparing your transcript' : 'Your recording is saved'}>{busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
-        {!busy && !refined && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>{draft ? 'Refine transcript and speakers' : 'Create transcript'}</Button></div>}
+         {!busy && (!refined || turns.some(turn => turn.contextTrimmed)) && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>{draft ? 'Refine transcript and speakers' : 'Create transcript'}</Button></div>}
         {draft && <>
           {!!draft.gaps?.length && <div role="alert" className="review-notice" data-tone="warn"><Warning size={16} aria-hidden="true" /><div><p><strong>{draft.gaps.length} passage needs audio review</strong></p>{draft.gaps.map(gap => <p key={gap.start}>{clock(gap.start)}–{clock(gap.end)} · No transcript was accepted for this interval.</p>)}</div></div>}
           {refined && speakers.length > 0 && <section className="review-speakers" aria-label="Meeting speakers">
@@ -224,7 +224,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
                     setTurns(previous => previous.map((item, itemIndex) => itemIndex === index ? { ...item, speaker: event.target.value } : item)); invalidate()
                   }}>{speakers.map(speaker => <option key={speaker} value={speaker}>{speakerLabel(speaker, names, order)}</option>)}</select>
                   <CaretUpDown size={11} aria-hidden="true" /></label> : <strong className="review-turn-speaker">Live transcript</strong>}
-                {refined && <button type="button" className="review-time" aria-label={`Play from ${clock(turn.start)}`} onClick={() => player.current?.seek(turn.start)}>{clock(turn.start)}</button>}
+                 {refined && <button type="button" className="review-time" aria-label={turn.contextTrimmed ? `Play original interval from ${clock(turn.start)}; text timing unresolved` : `Play from ${clock(turn.start)}`} onClick={() => player.current?.seek(turn.start)}>{clock(turn.start)}{turn.contextTrimmed ? ' · unaligned' : ''}</button>}
               </div>
               <textarea aria-label={`Transcript turn ${index + 1}`} value={turn.text} rows={Math.max(1, Math.ceil(turn.text.length / 88) + (turn.text.match(/\n/g)?.length ?? 0))} disabled={busy} onChange={event => {
                 setTurns(previous => previous.map((item, itemIndex) => itemIndex === index ? { ...item, text: event.target.value } : item)); invalidate()
@@ -232,6 +232,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             </div>
           </article>)}</div>
           <details className="review-details"><summary>Transcript details</summary>{draft.warnings.map(warning => <p key={warning}>{warning}</p>)}<p>Voice matches are suggestions. Unknown and ambiguous voices stay unnamed.</p></details>
+          {draft.captionAudio && <p className="review-status" aria-label="Saved caption audio accounting">Caption audio: {draft.captionAudio.acceptedSamples} accepted samples · {draft.captionAudio.processedSamples} acknowledged samples · {draft.captionAudio.refusedSamples} refused · {draft.captionAudio.unacknowledgedSamples} unacknowledged.</p>}
+          {draft.liveChecks && <p className="review-status" aria-label="Final live evidence checks">Live checks: {draft.liveChecks.checkedTurns} checked turns · {draft.liveChecks.uncheckedTurns} unchecked. Checks did not approve knowledge.</p>}
         </>}
       </PillTabPanel>
 

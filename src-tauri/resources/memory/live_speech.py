@@ -98,6 +98,7 @@ class WindowTranscript:
             window = self.buffer[window_start-self.offset:window_end-self.offset]
             core = self.buffer[self.committed-self.offset:end-self.offset]
             if has_speech(core):
+                previous_count = len(self.turns)
                 recovery = False
                 try:
                     segments = decode_window(self.model, window)
@@ -137,9 +138,16 @@ class WindowTranscript:
                         if segment['text'] != original_text:
                             segment['rawWindowText'] = original_text
                             segment['contextTrimmed'] = True
+                            # MOSS supplies segment timing, not retained-word timing.
+                            # Keep the source interval for replay, never invent a
+                            # word-count estimate or clamp away genuine overlap.
+                            segment['rawWindowStart'] = segment['start']
+                            segment['rawWindowEnd'] = segment['end']
+                            segment['timingStatus'] = 'unresolved-context-trim'
                     if not segment['text']: continue
                     self.turns.append(segment)
-                emit({'transcript': self.text(), 'turns': self.turns, 'stage': 'Live transcript', 'provisional': True})
+                if len(self.turns) != previous_count:
+                    emit({'transcript': self.text(), 'turns': self.turns, 'stage': 'Live transcript', 'provisional': True})
             self.committed = end
             keep = max(0, self.committed - CONTEXT)
             self.buffer = self.buffer[keep-self.offset:]
@@ -177,6 +185,12 @@ def run(model=None):
     for line in sys.stdin:
         message = json.loads(line)
         if message.get('end'):
+            if message.get('expectedChunks') is not None and message['expectedChunks'] != expected:
+                raise ValueError(f'Caption chunk drain mismatch: received {expected}, expected {message["expectedChunks"]}')
+            if message.get('expectedSamples') is not None and message['expectedSamples'] != session.total:
+                raise ValueError(f'Caption sample drain mismatch: received {session.total}, expected {message["expectedSamples"]}')
+            emit({'progress': {'phase': 'finalizing', 'receivedChunks': expected,
+                               'receivedSamples': session.total, 'processedSamples': session.committed}})
             session.feed(np.zeros(0, dtype='float32'), final=True)
             from voice_profiles import match_profiles, list_profiles
             result = {'model': MODEL, 'revision': REVISION, 'segments': session.turns,
@@ -186,21 +200,31 @@ def run(model=None):
                       'warnings': ['MOSS near-live draft. Review words and speaker assignments.',
                                    'Window boundaries and overlapping speech can cause omissions or repeats.',
                                    'Timestamps use caption PCM time; pauses and startup may differ from the original recording clock.'],
-                      'nearLive': True, 'gaps': session.gaps}
+                      'nearLive': True, 'gaps': session.gaps,
+                      'audioAccounting': {'receivedChunks': expected, 'receivedSamples': session.total,
+                                          'processedSamples': session.committed, 'sampleRate': RATE}}
             if session.gaps: result['warnings'].append(f'{len(session.gaps)} audio intervals could not be transcribed. Check the marked intervals against the recording.')
+            if any(turn.get('contextTrimmed') for turn in session.turns):
+                result['warnings'].append('Context-trimmed passages retain their original audio interval; the remaining words have no aligned start time. Refine before adding tracked facts.')
             temporary = directory / f'.transcript-{uuid.uuid4()}.tmp'
             with temporary.open('x') as file:
                 json.dump(result, file, ensure_ascii=False); file.flush(); os.fsync(file.fileno())
             os.replace(temporary, directory / 'transcript-draft.json')
             result.pop('speakerEmbeddings')
-            emit({'stage': 'Transcript ready for review', 'done': True, 'draft': result})
+            emit({'stage': 'Transcript ready for review', 'done': True, 'draft': result,
+                  'turns': session.turns, 'transcript': session.text(), 'provisional': False})
             return
-        if message['index'] != expected: raise ValueError('PCM sequence gap; captioning stopped')
-        expected += 1
+        if type(message.get('index')) is not int or message['index'] != expected:
+            raise ValueError('PCM sequence gap; captioning stopped')
         pcm = np.frombuffer(base64.b64decode(message['data'], validate=True), dtype='<f4').copy()
         if not 0 < len(pcm) <= 16384 or not np.isfinite(pcm).all(): raise ValueError('Invalid PCM segment')
+        expected += 1
+        emit({'progress': {'phase': 'processing', 'receivedChunks': expected,
+                           'receivedSamples': session.total + len(pcm), 'processedSamples': session.committed}})
         session.feed(pcm)
         emit({'ack': message['index']})
+        emit({'progress': {'phase': 'waiting', 'receivedChunks': expected,
+                           'receivedSamples': session.total, 'processedSamples': session.committed}})
 
 if __name__ == '__main__':
     try:

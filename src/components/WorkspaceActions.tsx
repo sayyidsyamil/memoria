@@ -14,9 +14,9 @@ export function WorkspaceActions({ vaultPath }: { vaultPath: string }) {
   const [starting, setStarting] = useState(false)
   const [error, setError] = useState('')
   const { summary, refresh } = useWorkspaceSummary(vaultPath)
-  async function start() {
+  async function start(replay = false) {
     setStarting(true); setError('')
-    try { await invoke('open_meeting_hud', { vaultPath }) }
+    try { await invoke('open_meeting_hud', { vaultPath, ...(replay ? { replay: true } : {}) }) }
     catch (error) { setError(String(error)); setMeetingOpen(true) }
     finally { setStarting(false) }
   }
@@ -27,7 +27,7 @@ export function WorkspaceActions({ vaultPath }: { vaultPath: string }) {
         <SourceIntake key={vaultPath} vaultPath={vaultPath} />
         <MemoryReview key={`memory-${vaultPath}`} vaultPath={vaultPath} triggerIcon={<ListChecks size={16} />} badge={summary?.pendingReviews} />
       </div>
-      <WorkspaceMemoryHub key={`hub-${vaultPath}`} vaultPath={vaultPath} summary={summary} onChanged={() => { void refresh() }} onStartMeeting={() => { void start() }} />
+      <WorkspaceMemoryHub key={`hub-${vaultPath}`} vaultPath={vaultPath} summary={summary} onChanged={() => { void refresh() }} onStartMeeting={() => { void start() }} onReplayMeeting={() => { void start(true) }} />
       <Dialog open={meetingOpen} onOpenChange={setMeetingOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

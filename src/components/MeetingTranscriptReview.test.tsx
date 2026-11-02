@@ -44,6 +44,17 @@ it('opens the existing live transcript without launching a second transcription'
   expect(invoke).not.toHaveBeenCalled()
   expect(screen.getByText('Refine transcript and speakers')).toBeInTheDocument()
 })
+it('labels and publishes trimmed timing as an original interval rather than an aligned text start', async () => {
+  vi.mocked(invoke).mockResolvedValue([])
+  render(<MeetingTranscriptReview vaultPath="/vault" sessionId="session" originalPath="/vault/audio.webm" title="Test"
+    initialDraft={{ ...draft, segments: [{ start: 38, end: 46, speaker: 'S01', text: 'the interface', contextTrimmed: true, timingStatus: 'unresolved-context-trim', rawWindowStart: 38, rawWindowEnd: 46, rawWindowText: 'my role is the interface' }] }} onClose={async () => undefined} />)
+  expect(screen.getByRole('button', { name: 'Play original interval from 0:38; text timing unresolved' })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Refine transcript and speakers' })).toBeInTheDocument()
+  fireEvent.click(screen.getByText('Save reviewed transcript'))
+  await waitFor(() => expect(applySource).toHaveBeenCalledTimes(1))
+  expect(vi.mocked(applySource).mock.calls[0][0].pages[0]).toContain('[0:38 · original interval; text timing unresolved]')
+  expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'save_meeting', record: expect.objectContaining({ turns: [expect.objectContaining({ contextTrimmed: true, timingStatus: 'unresolved-context-trim' })] }) }) })
+})
 it('shows a failed save while Summary remains selected', async () => {
   vi.mocked(invoke).mockImplementation(async (_command, args) => {
     const action = (args as { request?: { action: string } })?.request?.action

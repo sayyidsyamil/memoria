@@ -3,21 +3,43 @@ import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { applySource, type PreparedSource } from '../lib/sourceImport'
 import { MeetingTranscriptReview, type TranscriptDraft } from './MeetingTranscriptReview'
-import { startMeetingLiveSpeech } from '../lib/meetingLiveSpeech'
+import { startMeetingLiveSpeech, type CaptionAudioProgress } from '../lib/meetingLiveSpeech'
+import { prepareMeetingReplay } from '../lib/meetingReplay'
+import { withTimeout } from '../lib/asyncTimeout'
 import { MeetingHudView, type HudState } from './MeetingHudView'
 import { clockText } from '../lib/hud'
 import { meetingService } from '../features/meetings/meetingService'
-import { checkLiveStatement, type LiveCue } from '../features/temporal/liveAssistanceService'
+import { recordingService, recordingSource } from '../features/meetings/recordingService'
+import type { LiveCue } from '../features/temporal/liveAssistanceService'
+import { LiveEvidenceQueue } from '../features/temporal/liveEvidenceQueue'
+import { Button } from './ui/button'
 
 const METER_BARS = 56
+function captureTitle(startedAt: number, replay: boolean) {
+  return `${replay ? 'Audio replay test' : 'Meeting'} · ${new Date(startedAt).toLocaleString(undefined, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`
+}
+async function persistChunk(vaultPath: string, sessionId: string, index: number, blob: Blob) {
+  const bytes = new Uint8Array(await blob.arrayBuffer())
+  let binary = ''
+  for (let offset = 0; offset < bytes.length; offset += 8192) binary += String.fromCharCode(...bytes.subarray(offset, offset + 8192))
+  await invoke('save_meeting_chunk', { vaultPath, sessionId, index, data: btoa(binary) })
+}
 
 export function MeetingHud() {
   const vaultPath = new URLSearchParams(location.search).get('vault') ?? ''
+  const replayMode = new URLSearchParams(location.search).get('replay') === '1'
+  const [replayFile, setReplayFile] = useState<File | null>(null)
+  const [replayRequested, setReplayRequested] = useState(false)
+  const replayInput = useRef<Awaited<ReturnType<typeof prepareMeetingReplay>> | null>(null)
+  const pauseRef = useRef<() => Promise<void>>(async () => undefined)
   const recorder = useRef<MediaRecorder | null>(null)
   const stream = useRef<MediaStream | null>(null)
-  const chunks = useRef<Blob[]>([])
+  const chunks = useRef<(Blob | null)[]>([])
+  const pendingDisk = useRef(0)
   const started = useRef(false)
   const ended = useRef(false)
+  const ending = useRef(false)
+  const pauseBusy = useRef(false)
   const savedSource = useRef<PreparedSource | null>(null)
   const sessionId = useRef(crypto.randomUUID())
   const diskQueue = useRef(Promise.resolve())
@@ -35,6 +57,9 @@ export function MeetingHud() {
   const [prep, setPrep] = useState(0)
   const [levels, setLevels] = useState<number[]>(() => Array(METER_BARS).fill(0))
   const [captionError, setCaptionError] = useState('')
+  const [audioProgress, setAudioProgress] = useState<CaptionAudioProgress | null>(null)
+  const [speechProgress, setSpeechProgress] = useState('')
+  const [replayNotice, setReplayNotice] = useState('')
   const [micSlow, setMicSlow] = useState(false)
   const [marks, setMarks] = useState<{ at: number; label: string }[]>([])
   const [markNotice, setMarkNotice] = useState('')
@@ -51,44 +76,23 @@ export function MeetingHud() {
   const [assistanceEnabled, setAssistanceEnabled] = useState(false)
   const [liveCues, setLiveCues] = useState<LiveCue[]>([])
   const [assistanceNotice, setAssistanceNotice] = useState('')
-  const checkedTurns = useRef(new Set<string>())
-  const assistanceBusy = useRef(false)
-  const assistanceJob = useRef<string | null>(null)
-  const assistanceAttempts = useRef(new Map<string, number>())
   const assistanceTurns = useRef(liveTurns)
+  const assistance = useRef<LiveEvidenceQueue | null>(null)
+  assistance.current ??= new LiveEvidenceQueue(vaultPath, (cues, notice) => { setLiveCues(cues); setAssistanceNotice(notice) })
   useEffect(() => { assistanceTurns.current = liveTurns }, [liveTurns])
-
+  useEffect(() => { assistance.current?.setEnabled(assistanceEnabled) }, [assistanceEnabled])
   useEffect(() => {
     if (!assistanceEnabled || state !== 'recording') return
-    let active = true
-    const timer = window.setInterval(() => {
-      if (assistanceBusy.current) return
-      // The newest turn is provisional; inspect completed earlier turns only.
-      const turn = assistanceTurns.current.slice(0, -1).find(item => !checkedTurns.current.has(`${item.start}:${item.text}`))
-      if (!turn) return
-      const key = `${turn.start}:${turn.text}`
-      assistanceAttempts.current.set(key, (assistanceAttempts.current.get(key) ?? 0) + 1)
-      assistanceBusy.current = true
-      const jobId = crypto.randomUUID()
-      assistanceJob.current = jobId
-      void checkLiveStatement(vaultPath, turn.text, jobId).then(result => {
-        if (!active) return
-        checkedTurns.current.add(key)
-        if (result.cues?.length) setLiveCues(previous => [...result.cues, ...previous].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3))
-        setAssistanceNotice(result.warnings?.includes('No approved tracked facts') ? 'No approved tracked facts. Add and approve tracked items before using live checks.' : result.status === 'uncertain' ? 'A statement could not be verified. Inspect the transcript.' : '')
-      }).catch(() => {
-        if (active) {
-          if ((assistanceAttempts.current.get(key) ?? 0) >= 2) checkedTurns.current.add(key)
-          setAssistanceNotice('Live evidence checks are unavailable. Recording continues.')
-        }
-      })
-        .finally(() => { assistanceBusy.current = false; if (assistanceJob.current === jobId) assistanceJob.current = null })
-    }, 1500)
+    const timer = window.setInterval(() => { void assistance.current?.inspectEarlier(assistanceTurns.current) }, 1500)
     return () => {
-      active = false; window.clearInterval(timer)
-      if (assistanceJob.current) void invoke('cancel_wiki_memory', { jobId: assistanceJob.current }).catch(() => undefined)
+      window.clearInterval(timer)
+      void assistance.current?.cancel().catch(failure => setAssistanceNotice(`Live check cancellation failed: ${String(failure)}`))
     }
   }, [assistanceEnabled, state, vaultPath])
+  useEffect(() => () => {
+    assistance.current?.setEnabled(false)
+    void assistance.current?.cancel().catch(failure => console.error('Live check cancellation failed', failure))
+  }, [])
 
   useEffect(() => {
     const view = transcriptView.current
@@ -97,48 +101,33 @@ export function MeetingHud() {
 
   useEffect(() => {
     layoutQueue.current = layoutQueue.current.catch(() => undefined).then(() => invoke<void>('layout_meeting_hud', {
-      width: review ? 900 : captionsOpen ? 620 : 360,
-      height: review ? 740 : captionsOpen ? 540 : error ? 184 : state === 'starting' ? 176 : 68,
+      width: review ? 900 : captionsOpen || (replayMode && !replayRequested) ? 620 : 360,
+      height: review ? 740 : replayMode && !replayRequested ? 300 : captionsOpen ? 620 : error ? 184 : state === 'starting' ? 176 : 68,
       review,
     })).catch(() => undefined)
-  }, [error, review, captionsOpen, state])
+  }, [error, review, captionsOpen, state, replayMode, replayRequested])
 
   useEffect(() => {
+    if (replayMode && (!replayRequested || !replayFile)) return
     if (started.current) return
     started.current = true
     void (async () => {
       try {
-        const permission = navigator.mediaDevices.getUserMedia({ audio: true }).then(audio => {
+        const permission = (replayMode && replayFile
+          ? prepareMeetingReplay(replayFile, () => {
+            setReplayNotice('Test audio finished. End the meeting to drain captions and open review.')
+            void pauseRef.current().catch(failure => { setError(String(failure)); setState('error') })
+          }).then(input => { replayInput.current = input; return input.stream })
+          : navigator.mediaDevices.getUserMedia({ audio: true })).then(audio => {
           if (aborted.current) { audio.getTracks().forEach(track => track.stop()); throw new Error('Meeting start cancelled') }
           return audio
         })
         let timeout: ReturnType<typeof setTimeout> | undefined
         const audio = await Promise.race([permission, new Promise<MediaStream>((_, reject) => {
-          timeout = setTimeout(() => { aborted.current = true; reject(new Error('Microphone permission is taking too long. Check the macOS permission prompt, then restart the meeting.')) }, 30000)
+          timeout = setTimeout(() => { aborted.current = true; reject(new Error(replayMode ? 'Test audio preparation timed out.' : 'Microphone permission is taking too long. Check the macOS permission prompt, then restart the meeting.')) }, 30000)
         })]).finally(() => clearTimeout(timeout))
         stream.current = audio
         setPrep(1)
-        const mimeType = ['audio/webm;codecs=opus', 'audio/mp4'].find(type => MediaRecorder.isTypeSupported(type))
-        const capture = new MediaRecorder(audio, mimeType ? { mimeType } : undefined)
-        recorder.current = capture
-        capture.ondataavailable = event => {
-          if (!event.data.size) return
-          const index = chunks.current.length
-          chunks.current.push(event.data)
-          diskQueue.current = diskQueue.current.then(async () => {
-            const bytes = new Uint8Array(await event.data.arrayBuffer())
-            let binary = ''
-            for (let offset = 0; offset < bytes.length; offset += 8192) binary += String.fromCharCode(...bytes.subarray(offset, offset + 8192))
-            await invoke('save_meeting_chunk', { vaultPath, sessionId: sessionId.current, index, data: btoa(binary) })
-          }).catch(error => {
-            if (capture.state === 'recording') capture.pause()
-            setError(`Audio checkpoint failed: ${String(error)}. End the meeting to save available audio.`); setState('error')
-          })
-        }
-        capture.onerror = () => { setError('Audio capture failed. End the meeting to preserve available audio.'); setState('error') }
-        audio.getAudioTracks().forEach(track => { track.onended = () => {
-          setError('Microphone disconnected. End the meeting to save the captured audio.'); setState('error')
-        } })
         const session = await startMeetingLiveSpeech(audio, vaultPath, sessionId.current, event => {
           if (event.stage?.startsWith('Warming')) setPrep(2)
           if (event.stage === 'Live captions ready') setPrep(3)
@@ -147,33 +136,70 @@ export function MeetingHud() {
           if (event.transcript !== undefined) setCaption(event.transcript)
           if (event.turns) setLiveTurns(event.turns)
           if (event.draft) finalDraft.current = event.draft
+          if (event.audioProgress) setAudioProgress(event.audioProgress)
+          if (event.progress) setSpeechProgress(event.progress.phase === 'processing' ? 'Processing captured audio' : event.progress.phase === 'finalizing' ? 'Decoding the final audio' : '')
         }, preparation.current.signal, level => setLevels(previous => [...previous.slice(1), level]))
         live.current = session
         if (aborted.current) { await session.stop(); return }
-        capture.start(1000)
+        const mimeType = ['audio/webm;codecs=opus', 'audio/mp4'].find(type => MediaRecorder.isTypeSupported(type))
+        const capture = new MediaRecorder(session.recordingStream, mimeType ? { mimeType } : undefined)
+        recorder.current = capture
+        capture.ondataavailable = event => {
+          if (!event.data.size) return
+          const index = chunks.current.length
+          chunks.current.push(event.data); pendingDisk.current++
+          diskQueue.current = diskQueue.current.then(async () => { await persistChunk(vaultPath, sessionId.current, index, event.data); chunks.current[index] = null }).catch(failure => {
+            if (capture.state === 'recording') {
+              capture.pause(); pausedAt.current ??= Date.now()
+              void session.pause(true).catch(error => setCaptionError(String(error)))
+            }
+            setError(`Audio checkpoint failed: ${String(failure)}. Capture paused; End will retry retained audio.`); setState('error')
+          }).finally(() => { pendingDisk.current-- })
+          if (pendingDisk.current > 30 && capture.state === 'recording') {
+            capture.pause(); pausedAt.current ??= Date.now()
+            void session.pause(true).catch(failure => setCaptionError(String(failure)))
+            setError('Audio storage is more than 30 checkpoints behind. Capture paused; accepted audio will drain. End to preserve and review it.'); setState('error')
+          }
+        }
+        capture.onerror = () => {
+          void session.pause(true).catch(failure => setCaptionError(String(failure)))
+          setError('Audio capture failed. End the meeting to preserve available audio.'); setState('error')
+        }
+        audio.getAudioTracks().forEach(track => { track.onended = () => {
+          if (!captureStarted.current || ending.current) return
+          void session.pause(true).catch(failure => setCaptionError(String(failure)))
+          setError('Audio input disconnected. End the meeting to save the captured audio.'); setState('error')
+        } })
         startTime.current = Date.now()
+        await recordingService.begin(vaultPath, sessionId.current, {
+          title: captureTitle(startTime.current, replayMode), created: new Date(startTime.current).toISOString(), mimeType: capture.mimeType, sourceKind: replayMode ? 'replay' : 'microphone',
+        })
+        capture.start(1000)
         captureStarted.current = true
         await session.activate()
+        await replayInput.current?.start()
         await invoke('meeting_capture_ready')
         setState('recording')
       } catch (error) {
         if (recorder.current?.state !== 'inactive') recorder.current?.stop()
         stream.current?.getTracks().forEach(track => track.stop())
-        await live.current?.stop().catch(() => undefined)
+        await replayInput.current?.stop()
+        try { await live.current?.stop() }
+        catch (failure) { setCaptionError(`Speech cleanup failed: ${String(failure)}`) }
         if (aborted.current) return
         setError(`Meeting did not start: ${String(error)}`)
         setState('error')
         await invoke('show_meeting_workspace').catch(() => undefined)
       }
     })()
-  }, [vaultPath])
+  }, [vaultPath, replayMode, replayFile, replayRequested])
 
   useEffect(() => {
     // Only a real stall is reported: the Microphone step is still pending after a few seconds (usually the macOS permission prompt).
-    if (state !== 'starting' || prep > 0) return
+    if (state !== 'starting' || prep > 0 || replayMode) return
     const timer = window.setTimeout(() => setMicSlow(true), 4000)
     return () => window.clearTimeout(timer)
-  }, [state, prep])
+  }, [state, prep, replayMode])
   useEffect(() => {
     // Recorded time excludes pauses, so it matches the audio file, marked moments and the player.
     const timer = setInterval(() => { if (captureStarted.current) setSeconds(Math.floor(recordedSeconds())) }, 1000)
@@ -181,6 +207,7 @@ export function MeetingHud() {
   }, [])
   useEffect(() => {
     markRef.current = markMoment
+    pauseRef.current = pause
   })
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -211,58 +238,106 @@ export function MeetingHud() {
   }
 
   async function end() {
-    if (state === 'saving') return
+    if (ending.current) return
     if (state === 'starting') { aborted.current = true; preparation.current.abort(); stream.current?.getTracks().forEach(track => track.stop()); ended.current = true; await invoke('show_meeting_workspace'); await invoke('finish_meeting_hud'); return }
+    ending.current = true
     setState('saving'); setError('')
     try {
       const capture = recorder.current
       captureStarted.current = false
       setSaveStage('Saving recording')
-      if (capture && capture.state !== 'inactive') await new Promise<void>(resolve => { capture.onstop = () => resolve(); capture.stop() })
-      setSaveStage('Finishing transcript')
-      await live.current?.stop()
-      if (!finalDraft.current) finalDraft.current = await invoke<TranscriptDraft | null>('wiki_memory', {
-        request: { action: 'meeting_draft', vaultPath, sessionId: sessionId.current },
-      }).catch(() => null)
+      const warnings: string[] = []
+      try { await live.current?.finishCapture() }
+      catch (failure) { warnings.push(`Caption tail flush failed: ${String(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
+      if (capture && capture.state !== 'inactive') await withTimeout(new Promise<void>(resolve => { capture.onstop = () => resolve(); capture.stop() }), 10000, 'MediaRecorder did not stop. Keep this HUD open; audio checkpoints are preserved.')
+      await replayInput.current?.stop()
+      stream.current?.getAudioTracks().forEach(track => { track.onended = null })
       stream.current?.getTracks().forEach(track => track.stop())
       await diskQueue.current
-      setSaveStage('Opening review')
+      for (let index = 0; index < chunks.current.length; index++) {
+        const blob = chunks.current[index]
+        if (blob) { await persistChunk(vaultPath, sessionId.current, index, blob); chunks.current[index] = null }
+      }
       if (chunks.current.length) {
-        const blob = new Blob(chunks.current, { type: capture?.mimeType || 'audio/mp4' })
-        const bytes = new Uint8Array(await blob.arrayBuffer())
         const id = sessionId.current
-        const title = `Meeting · ${new Date(startTime.current).toLocaleString(undefined, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`
-        const hash = await crypto.subtle.digest('SHA-256', bytes)
-        const sha256 = Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, '0')).join('')
-        savedSource.current ??= { id, title, filename: `meeting-${id}.${blob.type.includes('webm') ? 'webm' : 'm4a'}`, bytes, sha256,
-          pages: [`Meeting audio captured over ${Math.floor((Date.now() - startTime.current) / 1000)} seconds, including pauses. Microphone only. Create and review a transcript after the meeting before compiling knowledge.`] }
+        const recording = await recordingService.finalize(vaultPath, id, chunks.current.length)
+        savedSource.current ??= recordingSource(recording)
         const sourcePath = await applySource(savedSource.current, vaultPath)
         await meetingService.save(vaultPath, {
-          id, title, status: 'needs-review', audioPath: savedSource.current.originalPath?.slice(vaultPath.replace(/\/$/, '').length + 1),
-          sourcePath, created: new Date(startTime.current).toISOString(), draft: finalDraft.current,
-          turns: finalDraft.current?.segments ?? [], names: {}, marks,
+          id, title: savedSource.current.title, status: 'needs-review', audioPath: recording.originalPath.slice(vaultPath.replace(/\/$/, '').length + 1),
+          sourcePath, created: recording.metadata.created, marks,
         })
+        setSaveStage('Finishing transcript')
+        try { await live.current?.stop() }
+        catch (failure) { warnings.push(`Live transcript did not fully finalize: ${String(failure)}. Refine from the saved original.`); setCaptionError(warnings[warnings.length - 1]) }
+        if (!finalDraft.current) {
+          try { finalDraft.current = await invoke<TranscriptDraft | null>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId: id } }) }
+          catch (failure) { warnings.push(`Saved transcript lookup failed: ${String(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
+        }
+        if (finalDraft.current) {
+          const progress = live.current?.audioProgress()
+          if (progress && (progress.refusedSamples || progress.unacknowledgedSamples)) warnings.push(`${((progress.refusedSamples + progress.unacknowledgedSamples) / progress.sampleRate).toFixed(3)} seconds of caption audio were refused or unacknowledged. The original recording is retained for refinement.`)
+          finalDraft.current = { ...finalDraft.current, captionAudio: progress, warnings: [...finalDraft.current.warnings, ...warnings, ...recording.warnings] }
+          if (assistanceEnabled) {
+            setSaveStage('Checking final transcript turn')
+            try { finalDraft.current.liveChecks = await assistance.current?.finish(finalDraft.current.segments) }
+            catch (failure) {
+              finalDraft.current.liveChecks = { checkedTurns: 0, uncheckedTurns: finalDraft.current.segments.length, warnings: [`Final checks incomplete: ${String(failure)}`] }
+            }
+            finalDraft.current.warnings.push(...(finalDraft.current.liveChecks?.warnings ?? []))
+          }
+        }
+        await meetingService.save(vaultPath, { id, status: 'needs-review', draft: finalDraft.current, turns: finalDraft.current?.segments ?? [] })
+        await recordingService.complete(vaultPath, id, sourcePath)
+        setSaveStage('Opening review')
         await invoke('show_meeting_workspace')
         ended.current = true
         setReview(true)
         return
-      } else await invoke('show_meeting_workspace')
+      } else {
+        try { await live.current?.stop() }
+        catch (failure) { setCaptionError(String(failure)) }
+        await invoke('show_meeting_workspace')
+      }
       ended.current = true
       await invoke('finish_meeting_hud')
-    } catch (error) { setError(`Audio could not be saved: ${String(error)}. Keep this HUD open and retry End.`); setState('error'); await invoke('show_meeting_workspace').catch(() => undefined) }
+    } catch (error) { setError(`Audio could not be saved: ${String(error)}. Checkpoints are retained. Keep this HUD open and retry End.`); setState('error'); await invoke('show_meeting_workspace').catch(() => undefined) }
+    finally { ending.current = false }
   }
 
-  function pause() {
+  async function pause() {
+    if (ending.current || pauseBusy.current) return
+    pauseBusy.current = true
     const capture = recorder.current
-    if (capture?.state === 'recording') { capture.pause(); pausedAt.current = Date.now(); live.current?.pause(true); setState('paused') }
-    else if (capture?.state === 'paused') { capture.resume(); if (pausedAt.current) pausedTotal.current += Date.now() - pausedAt.current; pausedAt.current = null; live.current?.pause(false); setState('recording') }
+    try {
+      if (capture?.state === 'recording') {
+        await live.current?.pause(true)
+        capture.pause(); pausedAt.current = Date.now()
+        await replayInput.current?.pause(true); setState('paused')
+      } else if (capture?.state === 'paused' && !replayInput.current?.ended()) {
+        capture.resume()
+        if (pausedAt.current) pausedTotal.current += Date.now() - pausedAt.current
+        pausedAt.current = null
+        await live.current?.pause(false); await replayInput.current?.pause(false); setState('recording')
+      }
+    } catch (failure) { setError(`Pause transition failed: ${String(failure)}. End to preserve the recording.`); setState('error') }
+    finally { pauseBusy.current = false }
   }
+  if (replayMode && !replayRequested) return <main className="meeting-hud"><section className="meeting-hud-replay">
+    <h1>Replay prerecorded audio</h1>
+    <p>Native capture and captions test. Choose a public or fictional mono WAV, up to ten minutes. No microphone or speaker playback is used.</p>
+    <label>Test audio<input aria-label="Prerecorded test audio" type="file" accept=".wav,audio/wav" onChange={event => setReplayFile(event.target.files?.[0] ?? null)} /></label>
+    {error && <p role="alert">{error}</p>}
+    <div><Button disabled={!replayFile} onClick={() => { setReplayRequested(true) }}>Start audio replay</Button><Button variant="ghost" onClick={() => { void end() }}>Cancel replay</Button></div>
+  </section></main>
   if (review && savedSource.current?.originalPath) return <MeetingTranscriptReview vaultPath={vaultPath} sessionId={sessionId.current}
     originalPath={savedSource.current.originalPath} title={savedSource.current.title} created={new Date(startTime.current).toISOString()} liveText={caption} initialDraft={finalDraft.current} initialMarks={marks} onClose={() => invoke('finish_meeting_hud')} />
   return <MeetingHudView state={state} saveStage={saveStage} seconds={seconds} levels={levels} prep={prep} captionsOpen={captionsOpen}
     vaultPath={vaultPath}
+    sourceKind={replayMode ? 'replay' : 'microphone'} replayNotice={replayNotice}
+    progressText={audioProgress ? `${(audioProgress.queuedSamples / audioProgress.sampleRate).toFixed(1)}s queued · ${(audioProgress.processedSamples / audioProgress.sampleRate).toFixed(1)}s acknowledged${audioProgress.refusedSamples || audioProgress.unacknowledgedSamples ? ` · ${((audioProgress.refusedSamples + audioProgress.unacknowledgedSamples) / audioProgress.sampleRate).toFixed(1)}s not captioned` : ''}${speechProgress ? ` · ${speechProgress}` : ''}` : speechProgress}
     assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={assistanceEnabled ? liveCues : []} assistanceNotice={assistanceEnabled ? assistanceNotice : ''}
     liveTurns={liveTurns} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}
     transcriptRef={transcriptView} onTranscriptScroll={event => { const view = event.currentTarget; followTranscript.current = view.scrollHeight - view.scrollTop - view.clientHeight < 40 }}
-    onToggleCaptions={setCaptionsOpen} onOpenWorkspace={() => { void invoke('show_meeting_workspace') }} onPause={pause} onEnd={() => { void end() }} onMark={markMoment} />
+    onToggleCaptions={setCaptionsOpen} onOpenWorkspace={() => { void invoke('show_meeting_workspace') }} onPause={() => { void pause() }} onEnd={() => { void end() }} onMark={markMoment} />
 }
