@@ -118,7 +118,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         {captionError && <p role="alert" className="meeting-hud-caption-warning">Live transcript paused. Your recording is preserved.</p>}
         {transcript}
         {vaultPath && <LiveAskPanel vaultPath={vaultPath} sessionText={meetingTranscript(liveTurns)} enabled={capturing} />}
-        <small className="meeting-hud-hint">{captionError ? <details><summary>Show details</summary>{captionError}</details> : 'Speaker labels are provisional. Add names in review.'}</small>
+        <small className="meeting-hud-hint">{captionError ? <details><summary>Show details</summary>{captionError}</details> : 'Speakers are named after the meeting, in review.'}</small>
       </section>
       <footer className="meeting-hud-actions">
         <button className="meeting-hud-mark" disabled={!capturing} onClick={onMark}><Flag size={15} />Mark moment<kbd>M</kbd></button>

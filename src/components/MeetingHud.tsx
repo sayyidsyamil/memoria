@@ -72,6 +72,18 @@ function useCueToast(cues: LiveCue[], open: boolean) {
   }
 }
 
+/**
+ * What the meeting window says about caption audio: nothing while captions keep up, how far behind they are when
+ * they do not, and audio that could not be captioned. The recording itself is never affected.
+ */
+function captionLag(progress: CaptionAudioProgress | null, stage: string): string {
+  if (!progress) return stage
+  const seconds = (samples: number) => samples / progress.sampleRate
+  const behind = seconds(progress.queuedSamples)
+  const lost = seconds(progress.refusedSamples + progress.unacknowledgedSamples)
+  return [behind >= 2 ? `Captions ${behind.toFixed(0)} s behind` : '', lost >= .1 ? `${lost.toFixed(1)} s not captioned` : '', stage].filter(Boolean).join(' · ')
+}
+
 export function MeetingHud() {
   const vaultPath = new URLSearchParams(location.search).get('vault') ?? ''
   const replayMode = new URLSearchParams(location.search).get('replay') === '1'
@@ -396,7 +408,7 @@ export function MeetingHud() {
   return <MeetingHudView state={state} saveStage={saveStage} seconds={seconds} levels={levels} prep={prep} captionsOpen={captionsOpen}
     vaultPath={vaultPath}
     sourceKind={replayMode ? 'replay' : 'microphone'} replayNotice={replayNotice}
-    progressText={audioProgress ? `${(audioProgress.queuedSamples / audioProgress.sampleRate).toFixed(1)}s queued · ${(audioProgress.processedSamples / audioProgress.sampleRate).toFixed(1)}s acknowledged${audioProgress.refusedSamples || audioProgress.unacknowledgedSamples ? ` · ${((audioProgress.refusedSamples + audioProgress.unacknowledgedSamples) / audioProgress.sampleRate).toFixed(1)}s not captioned` : ''}${speechProgress ? ` · ${speechProgress}` : ''}` : speechProgress}
+    progressText={captionLag(audioProgress, speechProgress)}
     assistanceEnabled={assistanceEnabled} onToggleAssistance={toggleAssistance} liveCues={shownCues} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
     cueToast={cueToast.toast} onHoldCueToast={cueToast.hold} onDismissCueToast={cueToast.dismiss}
     liveTurns={liveTurns} partial={partial} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}

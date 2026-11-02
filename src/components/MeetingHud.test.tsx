@@ -276,6 +276,19 @@ it('prerecorded setup never requests a microphone and waits for explicit replay 
   expect(startMeetingLiveSpeech).not.toHaveBeenCalled()
 })
 
+it('says nothing about caption audio while captions keep up, and how far behind they are when they do not', async () => {
+  let emit!: (event: LiveSpeechEvent) => void
+  vi.mocked(startMeetingLiveSpeech).mockImplementationOnce(async (_stream, _vault, _id, update) => { emit = update; return fakeSession() })
+  render(<MeetingHud />)
+  await screen.findByText('Recording')
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  const progress = { acceptedSamples: 0, processedSamples: 160000, queuedSamples: 0, refusedSamples: 0, unacknowledgedSamples: 0, sampleRate: 16000 }
+  act(() => emit({ sessionId: 's', audioProgress: progress }))
+  expect(screen.queryByLabelText('Caption audio progress')).toBeNull()
+  act(() => emit({ sessionId: 's', audioProgress: { ...progress, queuedSamples: 48000 } }))
+  expect(screen.getByLabelText('Caption audio progress')).toHaveTextContent('Captions 3 s behind')
+})
+
 it('shows the words being spoken until an event replaces or clears them, and never asks with them', async () => {
   let emit!: (event: LiveSpeechEvent & { partial?: string }) => void
   vi.mocked(startMeetingLiveSpeech).mockImplementationOnce(async (_stream, _vault, _id, update) => { emit = update; return fakeSession() })

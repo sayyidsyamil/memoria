@@ -26,7 +26,7 @@ export function MeetingHudPreview() {
   }
   return <MeetingHudView state="recording" saveStage="" seconds={86} levels={Array.from({ length: 48 }, (_, index) => 0.2 + 0.6 * Math.abs(Math.sin(index / 3)))}
     prep={0} captionsOpen={!compact} liveTurns={turns} partial="So finance has to sign that off before the" vaultPath="/preview" transcriptRef={view => { if (view) view.scrollTop = view.scrollHeight }} caption="" captionError="" marks={[]} markNotice="" error=""
-    assistanceEnabled onToggleAssistance={() => undefined} liveCues={[budget, vendor]} progressText="0.0s queued · 86.0s acknowledged" assistanceNotice=""
+    assistanceEnabled onToggleAssistance={() => undefined} liveCues={[budget, vendor]} assistanceNotice=""
     cueMeetingTitles={new Map([['preview', 'Procurement pilot progress check']])} cueToast={compact ? { cue: budget, more: 1 } : null}
     onToggleCaptions={() => undefined} onOpenWorkspace={() => undefined} onPause={() => undefined} onEnd={() => undefined} onMark={() => undefined} />
 }
