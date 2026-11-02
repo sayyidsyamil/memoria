@@ -159,6 +159,19 @@ class WorkspaceProductTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'no cited statements'):
             self.run_action('save_brief',id=str(uuid.uuid4()),topic='Pilot',result=empty)
 
+    def test_brief_count_excludes_uncited_statements(self):
+        (self.root/'source.md').write_text('---\ntype: Source\ntitle: Evidence\n---\n# Evidence\n## Page 1\n\nLaunch Thursday confirmed by Maya.\n')
+        claim={'title':'Launch','kind':'Decision','statement':'Launch Thursday.','evidenceId':'E1','quote':'Launch Thursday confirmed by Maya.','targetPath':None}
+        proposal=self.engine.compile('source.md',generator=lambda _:json.dumps({'claims':[claim]}))
+        self.engine.apply(proposal['id'])
+        evidence={'id':'R1','sourcePath':'source.md','sourceTitle':'Evidence','page':1,'quote':'Launch Thursday confirmed by Maya.','proposalId':proposal['id'],'sourceHash':proposal['sourceHash']}
+        result={'sections':[{'heading':'Context','items':[{'text':'Launch Thursday.','citations':['R1']}]},
+                            {'heading':'Risks and open questions','items':[{'text':'The reviewed knowledge does not answer this.','citations':[]}]}],'citations':[evidence],'warnings':[]}
+        saved=self.run_action('save_brief',id=str(uuid.uuid4()),topic='Pilot',result=result,prepared='2026-11-02T05:33:06+00:00')
+        content=(self.root/saved['pagePath']).read_text()
+        self.assertIn('· 1 cited statement\n',content)
+        self.assertIn('The reviewed knowledge does not answer this.',content)
+
     def test_summary_meeting_status_and_readable_meeting_page(self):
         (self.root/'audio.wav').write_bytes(b'audio'); (self.root/'transcript.md').write_text('---\ntype: Source\n---\n## Page 1\n\nLaunch Thursday confirmed by Maya.\n')
         identifier=str(uuid.uuid4())

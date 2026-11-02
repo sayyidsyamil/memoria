@@ -322,6 +322,11 @@ class Engine:
                 validated_claims = [validate_claim(claim, chunk, related) for claim in corrected['claims']]
             for validated in validated_claims:
                 if validated not in claims: claims.append(validated)
+        rejected = sum(1 for claim in claims if claim.get('rejectedTarget'))
+        if rejected:
+            note = (f"{rejected} suggested destination{'s' if rejected != 1 else ''} did not match an existing page of the "
+                    f"same type; {'those claims' if rejected != 1 else 'that claim'} will create a new page instead.")
+            warning = f'{warning} {note}' if warning else note
         proposal = {'id': uuid.uuid4().hex, 'sourcePath': source_path, 'sourceHash': source_hash,
                     'sourceTitle': title_of(source, text), 'claims': claims, 'created': now(), 'model': MODEL,
                     'retrieval': retrieval, 'warning': warning, 'schemaHash': digest(schema), 'schemaExists': schema_path.exists(),
@@ -591,9 +596,13 @@ def validate_claim(claim, units, related):
         raise ValueError('Claim quote does not match the cited evidence')
     claim = dict(claim, quote=quote)
     target = claim.get('targetPath')
+    rejected = None
     if target is not None and not any(page['path'] == target and page['kind'] == claim['kind'] for page in related):
-        raise ValueError('Model selected an unknown or mismatched target page')
-    return {key: claim[key] for key in ['title', 'kind', 'statement', 'evidenceId', 'quote']} | {'targetPath': target, 'page': unit['page']}
+        # A destination is only a suggestion. One of another type, or an unknown path, must not
+        # receive the claim, but it must not discard the other supported claims either.
+        rejected, target = str(target)[:200], None
+    result = {key: claim[key] for key in ['title', 'kind', 'statement', 'evidenceId', 'quote']} | {'targetPath': target, 'page': unit['page']}
+    return result | {'rejectedTarget': rejected} if rejected else result
 
 def local_generator():
     script = Path(__file__).with_name('model_server.py')
@@ -805,7 +814,7 @@ def workspace_product(engine, request):
         except ValueError: raise ValueError('Invalid brief preparation time')
         sections = [section for section in result.get('sections', []) if section.get('items')]
         if not sections: raise ValueError('Brief has no cited statements to save')
-        statements = sum(len(section['items']) for section in sections)
+        statements = sum(1 for section in sections for item in section['items'] if item.get('citations'))
         content = (f"---\ntype: Brief\n_organized: true\ntitle: {json.dumps('Brief — ' + topic)}\nprepared: {prepared}\n---\n"
                    f"# Brief — {topic.replace(chr(10), ' ')}\n\nPrepared {human_date(prepared)} · {statements} cited statement{'s' if statements != 1 else ''}\n")
         for section in sections:

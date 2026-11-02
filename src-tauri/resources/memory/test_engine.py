@@ -180,6 +180,27 @@ class MemoryTests(unittest.TestCase):
         result = self.engine.answer('When is launch?', generator=answer)
         self.assertEqual(len(result['sections']), 1)
 
+    def test_mismatched_destination_becomes_a_new_page_without_losing_other_claims(self):
+        # Observed natively: Qwen filed a Person claim under a Project page and the whole build failed.
+        (self.root / 'pilot.md').write_text('---\ntype: Project\n---\n# Pilot\n\nThe pilot is fictional.\n')
+        (self.root / 'meeting.md').write_text('---\ntype: Source\n---\n# Review\n\n## Page 1\n\nWe decided to use Acme as supplier. Maya owns the pilot.\n')
+        def mixed(prompt):
+            return json.dumps({'claims': [
+                {'title': 'Supplier', 'kind': 'Decision', 'statement': 'Acme is the supplier.', 'evidenceId': 'E1',
+                 'quote': 'We decided to use Acme as supplier.', 'targetPath': None},
+                {'title': 'Pilot ownership', 'kind': 'Person', 'statement': 'Maya owns the pilot.', 'evidenceId': 'E1',
+                 'quote': 'Maya owns the pilot.', 'targetPath': 'pilot.md'},
+                {'title': 'Supplier choice', 'kind': 'Decision', 'statement': 'Acme supplies the pilot.', 'evidenceId': 'E1',
+                 'quote': 'We decided to use Acme as supplier.', 'targetPath': 'missing.md'}]})
+        with self.engine.locked():
+            proposal = self.engine.compile('meeting.md', mixed)
+            self.assertEqual([claim['targetPath'] for claim in proposal['claims']], [None, None, None])
+            self.assertEqual([claim.get('rejectedTarget') for claim in proposal['claims']], [None, 'pilot.md', 'missing.md'])
+            self.assertIn('2 suggested destinations did not match an existing page of the same type', proposal['warning'])
+            self.assertEqual(self.engine.apply(proposal['id'])['status'], 'applied')
+        self.assertNotIn('Maya owns the pilot', (self.root / 'pilot.md').read_text())
+        self.assertIn('Maya owns the pilot', (self.root / 'knowledge' / 'person-pilot-ownership.md').read_text())
+
     def test_model_json_tolerates_fences_prose_and_missing_final_brackets(self):
         self.assertEqual(parse_model_json('```json\n{"a": [1, 2]}\n```'), {'a': [1, 2]})
         self.assertEqual(parse_model_json('Here you go: {"a": 1}'), {'a': 1})
