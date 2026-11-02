@@ -84,36 +84,36 @@ describe('findEntryByTarget', () => {
 })
 
 describe('lookupColorForEntry', () => {
-  it('returns Project color (red) for a Project entry', () => {
-    expect(lookupColorForEntry(allEntries, projectEntry)).toBe('var(--accent-red)')
+  it('uses the link accent instead of the Project type color', () => {
+    expect(lookupColorForEntry(allEntries, projectEntry)).toBe('var(--accent-blue)')
   })
 
-  it('returns Person color (yellow) for a Person entry', () => {
-    expect(lookupColorForEntry(allEntries, personEntry)).toBe('var(--accent-yellow)')
+  it('uses the link accent instead of the Person type color', () => {
+    expect(lookupColorForEntry(allEntries, personEntry)).toBe('var(--accent-blue)')
   })
 
-  it('returns Event color (yellow) for an Event entry', () => {
-    expect(lookupColorForEntry(allEntries, eventEntry)).toBe('var(--accent-yellow)')
+  it('uses the link accent instead of the Event type color', () => {
+    expect(lookupColorForEntry(allEntries, eventEntry)).toBe('var(--accent-blue)')
   })
 
-  it('returns Topic color (green) for a Topic entry', () => {
-    expect(lookupColorForEntry(allEntries, topicEntry)).toBe('var(--accent-green)')
+  it('uses the link accent instead of the Topic type color', () => {
+    expect(lookupColorForEntry(allEntries, topicEntry)).toBe('var(--accent-blue)')
   })
 
-  it('returns custom color (orange) for a Recipe entry via Type color', () => {
-    expect(lookupColorForEntry(allEntries, recipeEntry)).toBe('var(--accent-orange)')
+  it('uses the link accent instead of a custom Type color', () => {
+    expect(lookupColorForEntry(allEntries, recipeEntry)).toBe('var(--accent-blue)')
   })
 
-  it('returns neutral color for an entry with no type', () => {
-    expect(lookupColorForEntry(allEntries, untypedEntry)).toBe('var(--muted-foreground)')
+  it('uses the same link accent for an entry with no type', () => {
+    expect(lookupColorForEntry(allEntries, untypedEntry)).toBe('var(--accent-blue)')
   })
 })
 
 describe('resolveWikilinkColor', () => {
-  it('returns type color for a known typed note', () => {
+  it('returns the link accent for a known typed note', () => {
     const result = resolveWikilinkColor(allEntries, 'Build App')
     expect(result.isBroken).toBe(false)
-    expect(result.color).toBe('var(--accent-red)')
+    expect(result.color).toBe('var(--accent-blue)')
   })
 
   it('returns broken link for a non-existent target', () => {
@@ -122,39 +122,39 @@ describe('resolveWikilinkColor', () => {
     expect(result.color).toBe('var(--text-muted)')
   })
 
-  it('returns neutral color for an untyped note', () => {
+  it('returns the link accent for an untyped note', () => {
     const result = resolveWikilinkColor(allEntries, 'Random Thought')
     expect(result.isBroken).toBe(false)
-    expect(result.color).toBe('var(--muted-foreground)')
+    expect(result.color).toBe('var(--accent-blue)')
   })
 
-  it('returns neutral color when entries list is empty', () => {
+  it('uses the link accent without marking links broken before entries load', () => {
     const result = resolveWikilinkColor([], 'Anything')
     expect(result.isBroken).toBe(false)
-    expect(result.color).toBe('var(--muted-foreground)')
+    expect(result.color).toBe('var(--accent-blue)')
   })
 
   it('resolves alias-based wikilink target', () => {
     const result = resolveWikilinkColor(allEntries, 'Alice Smith')
     expect(result.isBroken).toBe(false)
-    expect(result.color).toBe('var(--accent-yellow)')
+    expect(result.color).toBe('var(--accent-blue)')
   })
 
   it('resolves pipe-syntax wikilink target', () => {
     const result = resolveWikilinkColor(allEntries, 'Alice|Alice S.')
     expect(result.isBroken).toBe(false)
-    expect(result.color).toBe('var(--accent-yellow)')
+    expect(result.color).toBe('var(--accent-blue)')
   })
 
-  it('resolves relative-path wikilink target to correct type color', () => {
+  it('resolves relative-path wikilink target to the link accent', () => {
     const result = resolveWikilinkColor(allEntries, 'note/welcome-to-laputa')
     expect(result.isBroken).toBe(false)
     expect(result.color).toBe('var(--accent-blue)')
   })
 
-  it('resolves relative-path with pipe syntax to correct type color', () => {
+  it('resolves relative-path with pipe syntax to the link accent', () => {
     const result = resolveWikilinkColor(allEntries, 'person/alice|Alice S.')
     expect(result.isBroken).toBe(false)
-    expect(result.color).toBe('var(--accent-yellow)')
+    expect(result.color).toBe('var(--accent-blue)')
   })
 })

@@ -54,10 +54,11 @@ describe('StatusBar on the web', () => {
     expect(screen.queryByTestId('status-offline')).not.toBeInTheDocument()
   })
 
-  it('keeps the desktop git controls without a remote server', () => {
+  it('keeps the quiet desktop footer without a remote server', () => {
     renderStatusBar({ web: false })
 
     expect(screen.queryByTestId('status-sync-pill')).not.toBeInTheDocument()
-    expect(screen.getByTestId('status-commit-push')).toBeInTheDocument()
+    expect(screen.queryByTestId('status-commit-push')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Switch vault' })).toBeInTheDocument()
   })
 })

@@ -12,6 +12,9 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['apps/server/test/**/*.test.ts', 'packages/*/test/**/*.test.ts'],
+    // Real git fixtures and codec imports are heavy too; use the desktop suite's
+    // worker cap instead of spawning one worker per core on large local machines.
+    maxWorkers: process.env.VITEST_MAX_WORKERS ?? 4,
     testTimeout: 30_000,
     coverage: {
       provider: 'v8',

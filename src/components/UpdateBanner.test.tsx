@@ -57,17 +57,18 @@ function renderBanner(
 }
 
 describe("UpdateBanner", () => {
-	it("shows the community banner when idle", () => {
+	it("shows no promotional or update banner when idle", () => {
 		const status: UpdateStatus = { state: "idle" };
 		renderBanner(status);
-		expect(screen.getByTestId("community-banner")).toBeInTheDocument();
+		expect(screen.queryByTestId("community-banner")).not.toBeInTheDocument();
+		expect(screen.queryByTestId("update-banner")).not.toBeInTheDocument();
 	});
 
-	it("keeps updater errors in the bottom stack with the community banner", () => {
+	it("keeps updater errors visible without community promotions", () => {
 		renderBanner({ state: "error", kind: "check" });
 		const stack = screen.getByTestId("bottom-banner-stack");
 		expect(stack).toContainElement(screen.getByTestId("update-banner"));
-		expect(stack).toContainElement(screen.getByTestId("community-banner"));
+		expect(screen.queryByTestId("community-banner")).not.toBeInTheDocument();
 		expect(stack).toHaveTextContent("Could not check for updates");
 	});
 
@@ -93,7 +94,7 @@ describe("UpdateBanner", () => {
 		const stack = screen.getByTestId("bottom-banner-stack");
 		const banners = Array.from(stack.children);
 		expect(banners.map((banner) => banner.getAttribute("data-testid"))).toEqual(
-			["update-banner", "community-banner"],
+			["update-banner"],
 		);
 		expect(stack).toHaveTextContent("Checking for updates");
 	});

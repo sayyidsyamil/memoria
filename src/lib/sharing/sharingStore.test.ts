@@ -96,4 +96,21 @@ describe('the share records of the page', () => {
     forgetOutgoingShare(SHARE.id)
     expect(getSharing().outgoing).toEqual([])
   })
+
+  it.each(['invite', 'revoke'] as const)('does not let a stale refresh undo a successful %s', async mutation => {
+    resetSharingForTests({ status: 'available', vaultId: 'v_1', outgoing: mutation === 'revoke' ? [SHARE] : [], incoming: [] })
+    let respond!: (response: Response) => void
+    const snapshot = new Promise<Response>(resolve => { respond = resolve })
+    vi.stubGlobal('fetch', vi.fn(async (input: RequestInfo | URL) => String(input).endsWith('/incoming')
+      ? Response.json({ shares: [] }) : snapshot))
+
+    const refresh = refreshSharing()
+    if (mutation === 'invite') rememberOutgoingShare(SHARE)
+    else forgetOutgoingShare(SHARE.id)
+    // This read reflects the state before the mutation, even though it arrives later.
+    respond(Response.json({ vaultId: 'v_1', shares: mutation === 'revoke' ? [SHARE] : [] }))
+    await refresh
+
+    expect(getSharing()).toEqual({ status: 'available', vaultId: 'v_1', outgoing: mutation === 'invite' ? [SHARE] : [], incoming: [] })
+  })
 })

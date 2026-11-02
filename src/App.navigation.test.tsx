@@ -23,6 +23,16 @@ import {
 	SLOW_APP_READY_TIMEOUT_MS,
 } from "./App.testUtils";
 
+async function organizeFromNoteMenu() {
+	const trigger = await screen.findByRole("button", { name: "More note actions" }, { timeout: SLOW_APP_READY_TIMEOUT_MS });
+	fireEvent.pointerDown(trigger, { button: 0, ctrlKey: false, pointerType: "mouse" });
+	fireEvent.mouseDown(trigger, { button: 0, ctrlKey: false });
+	fireEvent.pointerUp(trigger, { button: 0, ctrlKey: false, pointerType: "mouse" });
+	fireEvent.mouseUp(trigger, { button: 0, ctrlKey: false });
+	fireEvent.click(trigger, { button: 0, ctrlKey: false });
+	fireEvent.click(await screen.findByRole("menuitem", { name: "Set note as organized" }));
+}
+
 describe("App.navigation", () => {
 	it("renders sidebar with correct default selection (All Notes)", async () => {
 		render(<App />);
@@ -95,7 +105,7 @@ describe("App.navigation", () => {
 
 		let favoritesSection: HTMLElement | undefined;
 		await waitFor(() => {
-			const sidebar = screen.getByText("FAVORITES");
+			const sidebar = screen.getByText("Favorites");
 			const currentFavoritesSection = sidebar.closest("div")?.parentElement;
 			if (!currentFavoritesSection)
 				throw new Error("Expected favorites section");
@@ -166,24 +176,7 @@ describe("App.navigation", () => {
 
 		await clickNoteListItem({ container: noteListContainer, title: "Alpha" });
 
-		expect(
-			await screen.findByRole(
-				"button",
-				{ name: "Set note as organized" },
-				{ timeout: SLOW_APP_READY_TIMEOUT_MS },
-			),
-		).toBeInTheDocument();
-
-		await act(async () => {
-			fireEvent.click(
-				await screen.findByRole(
-					"button",
-					{ name: "Set note as organized" },
-					{ timeout: SLOW_APP_READY_TIMEOUT_MS },
-				),
-			);
-			await Promise.resolve();
-		});
+		await organizeFromNoteMenu();
 
 		await waitFor(() => {
 			expect(window.__laputaTest?.activeTabPath).toBe("/vault/beta.md");
@@ -213,24 +206,7 @@ describe("App.navigation", () => {
 
 		await clickNoteListItem({ container: noteListContainer, title: "Alpha" });
 
-		expect(
-			await screen.findByRole(
-				"button",
-				{ name: "Set note as organized" },
-				{ timeout: SLOW_APP_READY_TIMEOUT_MS },
-			),
-		).toBeInTheDocument();
-
-		await act(async () => {
-			fireEvent.click(
-				await screen.findByRole(
-					"button",
-					{ name: "Set note as organized" },
-					{ timeout: SLOW_APP_READY_TIMEOUT_MS },
-				),
-			);
-			await Promise.resolve();
-		});
+		await organizeFromNoteMenu();
 
 		await act(async () => {
 			fireEvent.click(within(noteListContainer).getByText("Gamma"));
@@ -328,14 +304,11 @@ describe("App.navigation", () => {
 
 		render(<App />);
 
-		expect(
-			await screen.findByTestId(
-				"status-missing-git",
-				{},
-				{ timeout: SLOW_APP_READY_TIMEOUT_MS },
-			),
-		).toBeInTheDocument();
-		fireEvent.click(screen.getByTestId("status-missing-git"));
+		await screen.findByText("All Notes");
+		act(() => {
+			window.__laputaTest?.dispatchBrowserMenuCommand?.("view-command-palette");
+		});
+		fireEvent.click(await screen.findByText("Initialize Git for Current Vault"));
 		expect(
 			await screen.findByText("Enable Git for this vault?"),
 		).toBeInTheDocument();

@@ -771,7 +771,7 @@ describe('BreadcrumbBar — action buttons always right-aligned', () => {
     }
   })
 
-  it('does not duplicate visible lower-priority toolbar actions in the permanent overflow menu', async () => {
+  it('keeps lower-priority actions in the permanent overflow menu even at wide widths', async () => {
     render(
       <BreadcrumbBar
         entry={baseEntry}
@@ -785,10 +785,10 @@ describe('BreadcrumbBar — action buttons always right-aligned', () => {
     )
 
     const menu = await openOverflowMenu()
-    expect(within(menu).queryByRole('menuitem', { name: 'Switch to wide note width' })).not.toBeInTheDocument()
-    expect(within(menu).queryByRole('menuitem', { name: 'Reveal in Finder' })).not.toBeInTheDocument()
-    expect(within(menu).queryByRole('menuitem', { name: 'Copy file path' })).not.toBeInTheDocument()
-    expect(within(menu).queryByRole('menuitem', { name: "Open note's neighborhood" })).not.toBeInTheDocument()
+    expect(within(menu).getByRole('menuitem', { name: 'Switch to wide note width' })).toBeInTheDocument()
+    expect(within(menu).getByRole('menuitem', { name: 'Reveal in Finder' })).toBeInTheDocument()
+    expect(within(menu).getByRole('menuitem', { name: 'Copy file path' })).toBeInTheDocument()
+    expect(within(menu).getByRole('menuitem', { name: "Open note's neighborhood" })).toBeInTheDocument()
     expect(within(menu).getByRole('menuitem', { name: 'Copy note deeplink' })).toBeInTheDocument()
   })
 

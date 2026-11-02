@@ -69,7 +69,7 @@ describe("Sidebar saved views", () => {
 
 			expect(navItem).toHaveStyle({ padding: "6px 8px 6px 12px" });
 			expect(countChip).toHaveStyle({
-				background: "var(--muted)",
+				background: "transparent",
 				height: "20px",
 				padding: "0 6px",
 			});
@@ -91,12 +91,12 @@ describe("Sidebar saved views", () => {
 			expect(topNavItem).toHaveStyle({ padding: "6px 8px 6px 12px" });
 			expect(viewItem).toHaveStyle({ padding: "6px 8px 6px 12px" });
 			expect(topNavCount).toHaveStyle({
-				background: "var(--muted)",
+				background: "transparent",
 				height: "20px",
 				padding: "0 6px",
 			});
 			expect(viewCount).toHaveStyle({
-				background: "var(--muted)",
+				background: "transparent",
 				height: "20px",
 				padding: "0 6px",
 			});
@@ -160,8 +160,8 @@ describe("Sidebar saved views", () => {
 			});
 			expect(icon).toHaveStyle({ color: "var(--accent-blue)" });
 			expect(countChip).toHaveStyle({
-				background: "var(--accent-blue)",
-				color: "var(--text-inverse)",
+				background: "transparent",
+				color: "var(--accent-blue)",
 			});
 		});
 

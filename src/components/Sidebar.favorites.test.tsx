@@ -11,7 +11,7 @@ import {
 } from "./Sidebar.testUtils";
 
 describe("Sidebar.favorites", () => {
-	describe("FAVORITES section", () => {
+	describe("Favorites section", () => {
 		const favEntry: VaultEntry = buildSidebarEntry({
 			path: "/vault/project/fav.md",
 			filename: "fav.md",
@@ -71,9 +71,9 @@ describe("Sidebar.favorites", () => {
 			};
 		}
 
-		it("shows FAVORITES section when there are favorites", () => {
+		it("shows Favorites section when there are favorites", () => {
 			renderSidebar({ entries: [...mockEntries, favEntry] });
-			expect(screen.getByText("FAVORITES")).toBeInTheDocument();
+			expect(screen.getByText("Favorites")).toBeInTheDocument();
 			expect(screen.getByText("My Favorite Note")).toBeInTheDocument();
 		});
 
@@ -85,9 +85,9 @@ describe("Sidebar.favorites", () => {
 			expect(screen.getByText("[26Q2] Memoria MVP")).toBeInTheDocument();
 		});
 
-		it("hides FAVORITES section when no favorites", () => {
+		it("hides Favorites section when no favorites", () => {
 			renderSidebar({});
-			expect(screen.queryByText("FAVORITES")).not.toBeInTheDocument();
+			expect(screen.queryByText("Favorites")).not.toBeInTheDocument();
 		});
 
 		it("calls onSelect with favorites filter when clicking a favorite", () => {
@@ -111,13 +111,13 @@ describe("Sidebar.favorites", () => {
 		it("aligns the favorites header count pill with the shared sidebar count column", () => {
 			renderSidebar({ entries: [...mockEntries, favEntry] });
 
-			const favoritesHeader = screen.getByText("FAVORITES").closest("div");
+			const favoritesHeader = screen.getByText("Favorites").closest("div");
 			const countChip =
 				within(favoritesHeader).getByTestId("sidebar-count-chip");
 
 			expect(favoritesHeader).toHaveStyle({ padding: "8px 8px 8px 12px" });
 			expect(countChip).toHaveStyle({
-				background: "var(--muted)",
+				background: "transparent",
 				height: "18px",
 				padding: "0 6px",
 			});
@@ -199,9 +199,9 @@ describe("Sidebar.favorites", () => {
 	});
 
 	describe("group separators", () => {
-		it("TYPES header and its entries share the same border-b container (no separator inside group)", () => {
+		it("Knowledge header and its entries share the same border-b container (no separator inside group)", () => {
 			renderSidebar({});
-			const sectionsHeader = screen.getByText("TYPES");
+			const sectionsHeader = screen.getByText("Knowledge");
 			const projectsSection = screen.getByText("Projects");
 			// Walk up from TYPES header to find the border-b container
 			const borderContainer = sectionsHeader.closest(".border-b");

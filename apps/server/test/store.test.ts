@@ -224,8 +224,9 @@ describe('R2BlobStore', () => {
 })
 
 describe('R2BlobStore request signing', () => {
-  // Expected signatures from botocore's S3SigV4Auth (an independent implementation), same
-  // credentials, date and signed headers (host, x-amz-content-sha256, x-amz-date).
+  // SigV4 vectors independently recomputed with Python hashlib/hmac after the
+  // fixture bucket rename. Same credentials, date and signed headers
+  // (host, x-amz-content-sha256, x-amz-date); the bucket is part of the signed URI.
   const signer = new R2BlobStore(
     {
       bucket: 'memoria-proto',
@@ -239,10 +240,10 @@ describe('R2BlobStore request signing', () => {
   const base = 'https://acct.r2.cloudflarestorage.com/memoria-proto'
 
   it.each([
-    ['GET', `${base}/vaults/prototype/vault-index.json`, undefined, '770c3ace401f3b74cd6ba1cc857c003beaf32f1fed8e9ed531ca2bee07ee6293'],
-    ['PUT', `${base}/vaults/prototype/vault-index.json`, '{"version":1}', '7df3fa7292f8e61dc05a591fa7b76d5ff74354bb042e8503e81ec1f4f08c8a32'],
-    ['GET', `${base}/?list-type=2&prefix=vaults%2Fprototype%2F`, undefined, '8afad17ddd4095c5d9d93f08aadc4236c5ac08f77700c01f0b7dd56871ec29fc'],
-    ['DELETE', `${base}/a%20b/it%27s.json`, undefined, 'b562274d2e736bb9b1c01b9c2e7bec057afa5bdbe33188dffa849d0a4c327ba3'],
+    ['GET', `${base}/vaults/prototype/vault-index.json`, undefined, '542bac0c3c16cd7a6746ea583d5ce85d3668e537c5f449a5674d079565bd8a9a'],
+    ['PUT', `${base}/vaults/prototype/vault-index.json`, '{"version":1}', 'aa15e15810f1543d3808a3216ec74679de79cdaaebc1f4287fbfe29d4237fc73'],
+    ['GET', `${base}/?list-type=2&prefix=vaults%2Fprototype%2F`, undefined, '48d8ec590596f6de31f543ce33cafd30602170131c729bd06aa5dbd1e4e73645'],
+    ['DELETE', `${base}/a%20b/it%27s.json`, undefined, 'b91bca78618f0e4c862b163974dc79b9ddff68e2141a5db6abdec6ced2e15431'],
   ])('signs %s %s as SigV4 does', (method, url, body, signature) => {
     const headers = signer.signRequest(method as StoreMethod, new URL(url), body === undefined ? undefined : text(body))
     expect(headers['X-Amz-Date']).toBe('20261023T123456Z')

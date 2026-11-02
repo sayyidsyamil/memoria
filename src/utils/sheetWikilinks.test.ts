@@ -66,9 +66,9 @@ describe('sheetWikilinks', () => {
     expect(firstSheetWikilinkTarget('[[project-alpha|Alpha]]')).toBe('project-alpha|Alpha')
   })
 
-  it('uses the resolved entry type color when available', () => {
+  it('uses the shared link accent regardless of the resolved entry type color', () => {
     const entry = makeEntry({})
 
-    expect(sheetWikilinkColor('[[project-alpha]]', [entry], null, '#155dff')).toBe('var(--accent-red)')
+    expect(sheetWikilinkColor('[[project-alpha]]', [entry], null, '#155dff')).toBe('var(--accent-blue)')
   })
 })

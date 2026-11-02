@@ -94,9 +94,7 @@ function ViewCountChip({ count, isActive, accent }: { count: number; isActive: b
     <SidebarCountPill
       count={count}
       className="text-muted-foreground"
-      style={
-        isActive && accent ? { background: accent.color, color: 'var(--text-inverse)' } : { background: 'var(--muted)' }
-      }
+      style={isActive && accent ? { color: accent.color } : undefined}
       testId="view-count-chip"
     />
   )

@@ -1,7 +1,7 @@
 import type { Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { join } from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { WebSocket as NodeWebSocket } from 'ws'
 import { COLLAB_CLOSE, type ErrorBody, type ListResponse } from '../../../packages/protocol/src/index.ts'
 import { ChangeEmitter } from '../src/changeEmitter.ts'
@@ -150,6 +150,11 @@ describe('ConnectionCounter', () => {
 })
 
 describe('the request rate limit', () => {
+  // HTTP/git scheduling must not refill the bucket under test. Freeze only the
+  // rate-limit clock, not the real timers used by sockets and server shutdown.
+  beforeEach(() => { vi.spyOn(Date, 'now').mockReturnValue(Date.now()) })
+  afterEach(() => { vi.restoreAllMocks() })
+
   it('answers 429 rate_limited with Retry-After once the account has used its burst', async () => {
     await start({ rateLimit: { perSecond: SLOW, burst: 2 } })
 

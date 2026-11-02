@@ -51,7 +51,7 @@ function mockUpdaterWithStatus(
 }
 
 describe("App.integrations", () => {
-	it("shows visible feedback when a manual update check finds an update", async () => {
+	it("shows visible feedback when a menu-driven update check finds an update", async () => {
 		mockUpdaterWithStatus(async () => ({
 			kind: "available",
 			version: "2026.4.25",
@@ -64,7 +64,9 @@ describe("App.integrations", () => {
 			expect(screen.getByText("All Notes")).toBeInTheDocument();
 		});
 
-		fireEvent.click(screen.getByTestId("status-build-number"));
+		act(() => {
+			window.__laputaTest?.dispatchBrowserMenuCommand?.("app-check-for-updates");
+		});
 
 		await waitFor(() => {
 			const bottomStack = screen.getByTestId("app-bottom-banner-stack");

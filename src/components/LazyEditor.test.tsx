@@ -47,6 +47,11 @@ function editorRequested(): boolean {
   return startup.markStartupPhase.mock.calls.some(([phase]) => phase === 'editor_module_requested')
 }
 
+// Transform the shell dependency graph during collection, not during the first
+// timed interaction. beforeEach still resets module state; Editor stays deferred
+// behind editorModule.ready, so every lazy-loading assertion is unchanged.
+await import('./LazyEditor')
+
 describe('LazyEditor', () => {
   beforeEach(() => {
     vi.resetModules()

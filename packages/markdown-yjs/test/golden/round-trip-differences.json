@@ -149,13 +149,6 @@
           ""
         ],
         "canonical": []
-      },
-      {
-        "kind": "blank-lines",
-        "source": [
-          ""
-        ],
-        "canonical": []
       }
     ]
   },
@@ -227,6 +220,11 @@
         "canonical": []
       }
     ]
+  },
+  {
+    "note": "demo-vault-v2/memoria-sheet-prototype-sample.md",
+    "byteStable": true,
+    "differences": []
   },
   {
     "note": "demo-vault-v2/note-on-clear-prose.md",
@@ -438,11 +436,6 @@
         "canonical": []
       }
     ]
-  },
-  {
-    "note": "demo-vault-v2/memoria-sheet-prototype-sample.md",
-    "byteStable": true,
-    "differences": []
   },
   {
     "note": "demo-vault-v2/topic-writing.md",

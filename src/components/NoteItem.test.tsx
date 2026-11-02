@@ -147,7 +147,7 @@ describe('NoteItem', () => {
     expect(dataTransfer.setData).toHaveBeenCalledWith('text/plain', entry.path)
   })
 
-  it('uses CSS named colors from the Type document for note type indicators', () => {
+  it('uses neutral note type indicators regardless of Type color metadata', () => {
     const ideaType = makeEntry({
       path: '/vault/type/idea.md',
       filename: 'idea.md',
@@ -171,7 +171,7 @@ describe('NoteItem', () => {
       />,
     )
 
-    expect(screen.getByTestId('type-icon')).toHaveStyle({ color: 'rgb(0, 255, 255)' })
+    expect(screen.getByTestId('type-icon')).toHaveStyle({ color: 'var(--muted-foreground)' })
   })
 
   it('shows the title with filename metadata when a change status is present', () => {
@@ -246,7 +246,7 @@ describe('NoteItem', () => {
     expect(screen.getByTestId('note-content-stack').className).toContain('space-y-2')
   })
 
-  it('shows created date on the right side of the date row when available', () => {
+  it('shows only the modified date, without redundant creation metadata', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date(NOW_SECONDS * 1000))
     const entry = makeEntry({
@@ -260,10 +260,10 @@ describe('NoteItem', () => {
     const dateRow = screen.getByTestId('note-date-row')
     expect(dateRow.className).toContain('grid')
     expect(dateRow).toHaveTextContent('April 8, 2025')
-    expect(dateRow).toHaveTextContent('Created April 5, 2025')
+    expect(dateRow).not.toHaveTextContent('Created')
   })
 
-  it('shows the workspace badge after the creation date as an outlined badge', () => {
+  it('shows the workspace badge at the trailing edge without a creation date', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date(NOW_SECONDS * 1000))
     const personalWorkspace = {
@@ -316,7 +316,7 @@ describe('NoteItem', () => {
     const dateRow = screen.getByTestId('note-date-row')
     const badge = within(dateRow).getByTestId('workspace-badge')
     expect(screen.getByTestId('note-title-row')).not.toContainElement(badge)
-    expect(dateRow).toHaveTextContent('Created April 10, 2025')
+    expect(dateRow).not.toHaveTextContent('Created')
     expect(badge).toHaveTextContent('LA')
     expect(badge).toHaveClass('-mr-1.5', 'border', 'bg-transparent', 'opacity-75')
     expect(badge.getAttribute('style')).toContain('border-color: var(--accent-red)')

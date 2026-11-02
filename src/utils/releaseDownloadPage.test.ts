@@ -1,93 +1,9 @@
-import { readFileSync } from 'node:fs'
 import {
   buildStableDownloadRedirectPage,
   extractStableDownloadTargets,
   extractStableDownloadTargetsFromReleases,
   resolveStableDownloadTargets,
 } from './releaseDownloadPage'
-
-describe('release workflow macOS artifact names', () => {
-  function countOccurrences(input: string, value: string): number {
-    return input.split(value).length - 1
-  }
-
-  it('publishes versioned Silicon and Intel artifact names', () => {
-    const alphaWorkflow = readFileSync(`${process.cwd()}/.github/workflows/release.yml`, 'utf8')
-    const stableWorkflow = readFileSync(
-      `${process.cwd()}/.github/workflows/release-stable.yml`,
-      'utf8',
-    )
-
-    expect(alphaWorkflow).toContain(
-      'Memoria_${{ needs.version.outputs.version }}_macOS_Silicon.app.tar.gz',
-    )
-    expect(alphaWorkflow).toContain(
-      'Memoria_${{ needs.version.outputs.version }}_macOS_Intel.app.tar.gz',
-    )
-    expect(stableWorkflow).toContain(
-      'Memoria_${{ needs.version.outputs.version }}_macOS_Silicon.app.tar.gz',
-    )
-    expect(stableWorkflow).toContain(
-      'Memoria_${{ needs.version.outputs.version }}_macOS_Intel.app.tar.gz',
-    )
-    expect(stableWorkflow).toContain(
-      'Memoria_${{ needs.version.outputs.version }}_macOS_Silicon.dmg',
-    )
-    expect(stableWorkflow).toContain(
-      'Memoria_${{ needs.version.outputs.version }}_macOS_Intel.dmg',
-    )
-  })
-
-  it('passes the computed build version to Sentry release env for packaged apps', () => {
-    const artifactWorkflow = readFileSync(
-      `${process.cwd()}/.github/workflows/release-build-artifacts.yml`,
-      'utf8',
-    )
-    const releaseEnv = 'VITE_SENTRY_RELEASE: ${{ inputs.version }}'
-
-    expect(countOccurrences(artifactWorkflow, releaseEnv)).toBe(3)
-  })
-
-  it('keeps Windows Authenticode optional while certificate provisioning is pending', () => {
-    const alphaWorkflow = readFileSync(`${process.cwd()}/.github/workflows/release.yml`, 'utf8')
-    const stableWorkflow = readFileSync(
-      `${process.cwd()}/.github/workflows/release-stable.yml`,
-      'utf8',
-    )
-    const artifactWorkflow = readFileSync(
-      `${process.cwd()}/.github/workflows/release-build-artifacts.yml`,
-      'utf8',
-    )
-    const signingScript = readFileSync(
-      `${process.cwd()}/.github/scripts/configure-windows-authenticode.ps1`,
-      'utf8',
-    )
-
-    expect(alphaWorkflow).not.toContain('require_windows_authenticode')
-    expect(stableWorkflow).not.toContain('require_windows_authenticode')
-    expect(artifactWorkflow).not.toContain('require_windows_authenticode')
-    expect(artifactWorkflow).toContain('id: windows-signing')
-    expect(artifactWorkflow).toContain('authenticode_available=true')
-    expect(artifactWorkflow).toContain('authenticode_available=false')
-    expect(artifactWorkflow).toContain('without Authenticode signatures')
-    expect(artifactWorkflow).toContain('Tauri updater signatures are still required')
-    expect(artifactWorkflow).toContain('WINDOWS_CODE_SIGNING_CERTIFICATE')
-    expect(artifactWorkflow).toContain('WINDOWS_CERTIFICATE')
-    expect(artifactWorkflow).toContain('Set both certificate and password secrets')
-    expect(artifactWorkflow).not.toContain('required to Authenticode-sign Windows installers')
-    expect(artifactWorkflow).toContain('./.github/scripts/configure-windows-authenticode.ps1')
-    expect(artifactWorkflow).toContain('--config src-tauri/tauri.windows-signing.conf.json')
-    expect(artifactWorkflow).toContain('pnpm tauri build --target x86_64-pc-windows-msvc --bundles nsis')
-    expect(artifactWorkflow).toContain(
-      "if: ${{ steps.windows-signing.outputs.authenticode_available == 'true' }}",
-    )
-    expect(artifactWorkflow).toContain('Validate Windows Authenticode signatures')
-    expect(artifactWorkflow).toContain('Get-AuthenticodeSignature')
-    expect(signingScript).toContain('certificateThumbprint')
-    expect(signingScript).toContain('timestampUrl')
-    expect(signingScript).toContain('WINDOWS_CODE_SIGNING_CERTIFICATE_THUMBPRINT')
-  })
-})
 
 describe('extractStableDownloadTargets', () => {
   it('returns stable downloads for each supported desktop platform when present', () => {

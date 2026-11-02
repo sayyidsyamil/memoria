@@ -1,5 +1,7 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import type { AppLocale } from '../lib/i18n'
+import { takeFeedbackDialogOpener } from '../lib/feedbackDialogOpener'
+import { APP_COMMAND_EVENT_NAME, APP_COMMAND_IDS } from '../hooks/appCommandDispatcher'
 
 interface FeedbackDialogProps {
   open: boolean
@@ -11,8 +13,20 @@ interface FeedbackDialogProps {
 
 /** Retains the existing command/menu entry without upstream promotional content. */
 export function FeedbackDialog({ open, onClose, buildNumber }: FeedbackDialogProps) {
+  const close = () => {
+    const opener = takeFeedbackDialogOpener()
+    onClose()
+    // Let the modal and command-palette focus scopes finish closing first.
+    setTimeout(() => {
+      if (opener.reopenCommandPalette) {
+        window.dispatchEvent(new CustomEvent(APP_COMMAND_EVENT_NAME, { detail: APP_COMMAND_IDS.viewCommandPalette }))
+      } else if (opener.element?.isConnected) {
+        opener.element.focus()
+      }
+    }, 100)
+  }
   return (
-    <Dialog open={open} onOpenChange={value => { if (!value) onClose() }}>
+    <Dialog open={open} onOpenChange={value => { if (!value) close() }}>
       <DialogContent className="sm:max-w-[420px]" data-testid="feedback-dialog">
         <DialogHeader>
           <DialogTitle>Memoria</DialogTitle>

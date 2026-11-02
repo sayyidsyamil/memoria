@@ -37,6 +37,7 @@ const editorSnapshots = vi.hoisted(() => [] as Array<{
 
 vi.mock('@tauri-apps/api/core', () => ({
   invoke: vi.fn(),
+  isTauri: vi.fn(() => false),
 }))
 
 vi.mock('@tauri-apps/api/window', () => ({
@@ -231,7 +232,7 @@ describe('App note windows', () => {
         vaultPath: '/vault',
       })
     })
-    expect(commandResults.list_vault).toHaveBeenCalled()
+    await waitFor(() => expect(commandResults.list_vault).toHaveBeenCalled())
 
     await waitFor(() => {
       expect(screen.getByTestId('mock-editor-entry-titles')).toHaveTextContent(
@@ -280,7 +281,7 @@ describe('App note windows', () => {
       })
     })
     expect(commandResults.reload_vault_entry).toHaveBeenCalledTimes(2)
-    expect(vi.mocked(commandResults.list_vault).mock.calls.length).toBeGreaterThanOrEqual(2)
+    await waitFor(() => expect(vi.mocked(commandResults.list_vault).mock.calls.length).toBeGreaterThanOrEqual(2))
   })
 
   it('keeps automatic Git work out of secondary note windows', async () => {

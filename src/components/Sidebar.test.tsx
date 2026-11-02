@@ -377,7 +377,7 @@ describe("Sidebar", () => {
 			).not.toBeInTheDocument();
 		});
 
-		it("preserves custom section colors in the customize popover", () => {
+		it("uses neutral section icons in the customize popover regardless of saved colors", () => {
 			const entries: VaultEntry[] = [
 				...mockEntries,
 				buildSidebarEntry({
@@ -416,10 +416,10 @@ describe("Sidebar", () => {
 
 			expect(
 				screen.getByLabelText("Toggle Projects").querySelector("svg"),
-			).toHaveStyle({ color: "var(--accent-green)" });
+			).toHaveStyle({ color: "var(--muted-foreground)" });
 			expect(
 				screen.getByLabelText("Toggle Recipes").querySelector("svg"),
-			).toHaveStyle({ color: "rgb(0, 255, 255)" });
+			).toHaveStyle({ color: "var(--muted-foreground)" });
 		});
 
 		it("calls onToggleTypeVisibility when toggling a section in the popover", () => {

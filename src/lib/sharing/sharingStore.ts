@@ -29,6 +29,7 @@ const STARTUP_DELAY_MS = 1_500
 let state: SharingState = INITIAL
 let loading: Promise<void> | null = null
 let scheduled = false
+let revision = 0
 const listeners = new Set<() => void>()
 
 export function getSharing(): SharingState {
@@ -51,11 +52,15 @@ function mayOfferSharing(): boolean {
 }
 
 async function load(): Promise<void> {
+  const requestedRevision = revision
   try {
     const [outgoing, incoming] = await Promise.all([listOutgoingShares(), listIncomingShares()])
+    // A dialog refresh started before an invite/revoke must not undo the local
+    // result when its older snapshot arrives after the mutation succeeds.
+    if (requestedRevision !== revision) return
     publish({ status: 'available', vaultId: outgoing.vaultId, outgoing: outgoing.shares, incoming })
   } catch (error) {
-    if (error instanceof ShareApiError && error.code === 'unavailable') publish(UNAVAILABLE)
+    if (requestedRevision === revision && error instanceof ShareApiError && error.code === 'unavailable') publish(UNAVAILABLE)
   }
 }
 
@@ -77,17 +82,20 @@ export function scheduleSharingLoad(): void {
 
 /** A share was created or changed in this page: shown at once, before the next read. */
 export function rememberOutgoingShare(share: OutgoingShare): void {
+  revision += 1
   const others = state.outgoing.filter((existing) => existing.id !== share.id)
   publish({ ...state, outgoing: [...others, share] })
 }
 
 /** A share was revoked in this page. */
 export function forgetOutgoingShare(id: string): void {
+  revision += 1
   publish({ ...state, outgoing: state.outgoing.filter((share) => share.id !== id) })
 }
 
 /** Tests only. */
 export function resetSharingForTests(next: SharingState = INITIAL): void {
+  revision += 1
   state = next
   loading = null
   scheduled = false

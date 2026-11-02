@@ -1,5 +1,66 @@
 # Permanent meeting workspace — 1 November 2026
 
+## Full regression reconciliation (M3) — 2 November 2026
+
+Fresh baseline: **133 failed / 6,539 passed / 1 existing skip**, with 26 failed
+and 677 passed files, plus 27 uncaught errors. Two files failed collection during
+transient disk exhaustion. This supersedes the older 97-failure baseline below.
+Final `pnpm exec vitest run`: **6,648 passed / 0 failed / 1 existing skip;
+702 files passed** (736.69 s). The existing skip is the opt-in 6,000-line performance
+test (`MEMORIA_PERF_TESTS=1`), unchanged by this pass.
+
+The failure groups were changed component chrome/copy/styles (67), App runtime
+footer mocks and old interaction entry points (39), intentionally disabled update
+feed (10), link-color policy (13), removed release workflows (3), and a lazy-import
+timeout (1). Two real product issues were fixed: selected saved-view counts now use
+readable accent text on their transparent background, and closing About restores
+its opener/command palette. Other changes reconcile tests with confirmed product
+changes, preserve asynchronous assertions, or isolate module transformation from
+interaction timing. The first after-run reached 6,644 passed / 1 failed / 1 existing
+skip; its remaining sharing assertion exposed a genuine stale-refresh race. The
+sharing store now refuses to overwrite a successful invite/revoke with an older
+snapshot, covered by two deterministic deferred-response tests. The original UI
+assertion remains unchanged. No new skips were added.
+
+| Tests removed/changed | Why |
+|---|---|
+| Footer: 23 removed; visibility/layout tests revised | Both footer sections default to simplified; developer/promotional controls no longer render. Vault/settings/offline/reload/conflict/web sync remain covered. |
+| About: 4 removed; content/focus tests replaced | Contribution, diagnostics and sponsor actions were replaced by attribution. Closing and focus restoration remain tested. |
+| Updater: 11 removed; native/browser no-network matrix added | No signed Memoria feed is configured; metadata/download orchestration is unreachable. Lower-level updater coverage remains. |
+| Community/Discord: 4 removed; launcher spacing revised | Promotional buttons and community banner no longer exist. |
+| Release workflow contracts: 3 removed | Referenced publishing/signing workflows are absent from this fork; six release-page tests remain. |
+| Sidebar, notes, breadcrumb, link and App tests revised | Sentence case, neutral styling, no Git/creation metadata, permanent overflow and current menu entry points; saving, navigation, graph contents and broken links still asserted. |
+| Server signing vectors and corpus golden corrected | Bucket/file renames changed exact signatures and sorted corpus order; current team-sync fixture has one fewer blank-line hunk. |
+
+Every removed test name, source confirmation, other test change and verification
+detail is recorded in [M3-FULL-SUITE-TRIAGE.md](M3-FULL-SUITE-TRIAGE.md).
+
+Other `pnpm test` stages: Node script tests **16 passed**; web config **45 passed**;
+dev mock **3 passed**; server **1,033 passed / 2 existing skips, 48 files passed**,
+with statements 94.79%, branches 89.06%, functions 95.31%, lines 95.94% (all gates
+pass). Pages verification first had **12 passing / 2 failing checks**: it required
+the absent upstream `deploy-docs.yml` and `release.yml` publishers. The check now
+accepts their absence (Memoria does not publish upstream's Pages) and still validates
+any publisher that exists: **14 passed**. Every stage of aggregate `pnpm test` passes.
+
+Final `tsc -b` and scoped ESLint (`--max-warnings=0`) pass. `pnpm test:memoria`
+passes **94 tests / 14 files**. An earlier scoped run had two disk-full import
+failures, then passed in full when space returned; no user files were deleted.
+No desktop build, installation, launch or model loading was performed in this pass.
+
+| Final command | Result |
+|---|---|
+| `pnpm exec vitest run` | 702 files passed; 6,648 passed, 1 existing skip, no failures or uncaught errors |
+| `pnpm exec tsc -b` | Exit 0 |
+| `pnpm exec eslint <all changed TS/TSX files> --max-warnings=0` | Exit 0, no warnings |
+| `pnpm test:memoria` | 14 files / 94 tests passed |
+| Node release-version + AppImage script tests | 16 passed |
+| `bash scripts/verify-pages-site.test.sh` | 14 passed (after accepting the absent upstream publishers) |
+| `pnpm test:web-config` | 45 passed |
+| `pnpm test:server` | 48 files passed; 1,033 passed, 2 existing skips; coverage gates pass |
+| `pnpm test:dev-mock` | 3 passed |
+| `git diff --check` (assignment files) | Clean |
+
 ## Meeting API migration — 2 November 2026
 
 Meeting list/get/save/delete now use a typed frontend service and dedicated Tauri

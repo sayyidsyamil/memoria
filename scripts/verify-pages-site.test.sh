@@ -65,8 +65,10 @@ while IFS= read -r workflow; do
   publishers+=("$workflow")
 done < <(grep -lE 'actions/(deploy-pages|upload-pages-artifact)@' .github/workflows/*.yml .github/workflows/*.yaml 2>/dev/null || true)
 
+# Memoria removed upstream's publishing workflows; when one exists it must still be a known publisher.
 for expected in .github/workflows/deploy-docs.yml .github/workflows/release.yml; do
-  if [[ " ${publishers[*]} " == *" $expected "* ]]; then pass "$expected is a known Pages publisher"; else fail "$expected is a known Pages publisher"; fi
+  if [[ ! -e $expected ]]; then pass "$expected is absent (no upstream Pages publishing in Memoria)"
+  elif [[ " ${publishers[*]} " == *" $expected "* ]]; then pass "$expected is a known Pages publisher"; else fail "$expected is a known Pages publisher"; fi
 done
 
 for publisher in "${publishers[@]}"; do

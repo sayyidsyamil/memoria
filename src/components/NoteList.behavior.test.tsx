@@ -5,14 +5,11 @@ import { makeEntry, makeIndexedEntry, mockEntries, renderNoteList } from '../tes
 import type { NoteStatus } from '../types'
 
 describe('NoteList status indicators', () => {
-  it('shows a modified indicator for modified notes', () => {
+  it('hides the Git modified indicator for modified notes', () => {
     const getNoteStatus = (path: string) => path === mockEntries[0].path ? 'modified' as const : 'clean' as const
     renderNoteList({ getNoteStatus })
 
-    const indicators = screen.getAllByTestId('modified-indicator')
-    expect(indicators).toHaveLength(1)
-    const noteRow = indicators[0].closest('[data-testid="modified-indicator"]')!.parentElement!.parentElement!
-    expect(noteRow.textContent).toContain('Build Laputa App')
+    expect(screen.queryByTestId('modified-indicator')).not.toBeInTheDocument()
   })
 
   it('does not show indicators when everything is clean', () => {
@@ -21,12 +18,12 @@ describe('NoteList status indicators', () => {
     expect(screen.queryByTestId('new-indicator')).not.toBeInTheDocument()
   })
 
-  it('shows multiple modified indicators when multiple notes are dirty', () => {
+  it('hides Git modified indicators when multiple notes are dirty', () => {
     const modifiedPaths = new Set([mockEntries[0].path, mockEntries[1].path])
     const getNoteStatus = (path: string) => modifiedPaths.has(path) ? 'modified' as const : 'clean' as const
 
     renderNoteList({ getNoteStatus })
-    expect(screen.getAllByTestId('modified-indicator')).toHaveLength(2)
+    expect(screen.queryByTestId('modified-indicator')).not.toBeInTheDocument()
   })
 
   it('does not show indicators when getNoteStatus is undefined', () => {
@@ -35,14 +32,14 @@ describe('NoteList status indicators', () => {
     expect(screen.queryByTestId('new-indicator')).not.toBeInTheDocument()
   })
 
-  it('shows the green new indicator for new notes', () => {
+  it('hides the Git new indicator for new notes', () => {
     const getNoteStatus = (path: string) => path === mockEntries[0].path ? 'new' as const : 'clean' as const
     renderNoteList({ getNoteStatus })
-    expect(screen.getAllByTestId('new-indicator')).toHaveLength(1)
+    expect(screen.queryByTestId('new-indicator')).not.toBeInTheDocument()
     expect(screen.queryByTestId('modified-indicator')).not.toBeInTheDocument()
   })
 
-  it('keeps the green indicator steady while a new note is edited and saved', () => {
+  it('shows steady saving indicators only while a new note is being saved', () => {
     const targetPath = mockEntries[0].path
     const getNoteStatus = (noteStatus: NoteStatus) => (path: string) => path === targetPath ? noteStatus : 'clean'
     const { props, rerender } = renderNoteList({ getNoteStatus: getNoteStatus('new') })
@@ -54,13 +51,13 @@ describe('NoteList status indicators', () => {
       expect(indicator).not.toHaveClass('tab-status-pulse')
     }
 
-    expectSteadyIndicator('new-indicator')
+    expect(screen.queryByTestId('new-indicator')).not.toBeInTheDocument()
     rerenderWithStatus('unsaved')
     expectSteadyIndicator('unsaved-indicator')
     rerenderWithStatus('pendingSave')
     expectSteadyIndicator('pending-save-indicator')
     rerenderWithStatus('new')
-    expectSteadyIndicator('new-indicator')
+    expect(screen.queryByTestId('new-indicator')).not.toBeInTheDocument()
   })
 })
 

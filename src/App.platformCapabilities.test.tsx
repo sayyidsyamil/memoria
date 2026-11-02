@@ -101,7 +101,7 @@ describe("App platform capabilities", () => {
 		render(<App />);
 
 		const statusBar = await screen.findByTestId("status-bar");
-		await waitFor(() => expect(statusBar).toHaveTextContent("Contribute"));
+		expect(within(statusBar).getByTestId("status-settings")).toBeInTheDocument();
 		expect(within(statusBar).getByTestId("status-sync-pill")).toHaveAttribute(
 			"role",
 			"status",
@@ -109,12 +109,16 @@ describe("App platform capabilities", () => {
 		expect(statusBar).not.toHaveTextContent(/changes|commit|not synced/i);
 	});
 
-	test("keeps the git status in the status bar without a remote server", async () => {
+	test("keeps the quiet status bar without a remote server", async () => {
 		render(<App />);
 
-		const statusBar = await screen.findByTestId("status-bar");
-		await waitFor(() => expect(statusBar).toHaveTextContent("Contribute"));
-		expect(statusBar).toHaveTextContent(/Changes/);
-		expect(statusBar).toHaveTextContent(/Commit/);
+		// Startup may replace the temporary footer. Query the live shell rather
+		// than keeping an element detached by the vault scan.
+		await waitFor(() => {
+			const statusBar = screen.getByTestId("status-bar");
+			expect(within(statusBar).getByTestId("status-settings")).toBeInTheDocument();
+			expect(within(statusBar).queryByTestId("status-sync-pill")).not.toBeInTheDocument();
+			expect(statusBar).not.toHaveTextContent(/changes|commit|contribute/i);
+		});
 	});
 });

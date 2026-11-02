@@ -1,4 +1,8 @@
 import "./App.blocknote.testUtils";
+// App interaction tests exercise the real editor with BlockNote's DOM adapter
+// above. Collect its large module graph before timing user interactions, rather
+// than charging the first note-open assertion for Vite's lazy bundle transform.
+import "./components/Editor";
 import { invoke } from "@tauri-apps/api/core";
 import {
 	act,
@@ -52,6 +56,7 @@ Object.defineProperty(window, "matchMedia", {
 // Mock @tauri-apps/api/core before importing App
 vi.mock("@tauri-apps/api/core", () => ({
 	invoke: vi.fn(),
+	isTauri: vi.fn(() => false),
 }));
 
 vi.mock("@tauri-apps/api/window", async () => {
