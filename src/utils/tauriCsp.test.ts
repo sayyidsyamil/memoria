@@ -38,6 +38,12 @@ describe('Tauri Content Security Policy', () => {
     expect(devCsp).not.toMatch(/https:\/\/fonts\.(?:googleapis|gstatic)\.com/)
   })
 
+  it('lets no meeting data leave through the web view: no remote connections or remote scripts', () => {
+    const csp = JSON.parse(tauriConfigSource).app.security.csp as Record<string, string>
+    expect(csp['connect-src']).not.toMatch(/https?:(?!\/\/(ipc|asset)\.localhost)/)
+    expect(csp['script-src']).not.toMatch(/https?:/)
+  })
+
   it('blocks legacy object-based PDF previews', () => {
     const config = JSON.parse(tauriConfigSource)
     const csp = config.app.security.csp as Record<string, string>
