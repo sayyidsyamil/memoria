@@ -1,0 +1,35 @@
+[estimate] 3.762 characters per DeepSeek token (604 paid requests); output = October Qwen lengths, worst = every output at max_tokens
+  K method   requests  input tok  cacheable  out exp  out max $ no cache  $ cached  $ worst
+  0 memoria        48     38,041     25,445    2,892   13,230     0.0074    0.0037   0.0136
+  0 fc             37     30,917     22,541    9,418  151,552     0.0103    0.0070   0.0956
+ 24 memoria       120    146,385     71,395    8,073   78,030     0.0268    0.0163   0.0688
+ 24 fc             37    131,708     98,335   32,836  151,552     0.0395    0.0250   0.1107
+ 48 memoria       192    287,889    149,006   13,137  142,830     0.0511    0.0292   0.1289
+ 48 fc             37    227,892    169,092   34,663  151,552     0.0550    0.0301   0.1251
+[estimate] total: $0.1900 without caching, $0.1113 with, $0.5427 worst
+[key] before scaling memoria: usage $0.1232, limit $1, remaining $0.8768; spend log $0.1232; cap $0.9
+[estimate] GO: memoria at K=(0, 24, 48): $0.0853 expected without caching (worst $0.2113), $0.7768 left
+  K=0 hiring: extracted 3 meetings
+  K=0 hiring: answered 13 questions
+  K=0 portfolio: extracted 5 meetings
+  K=0 portfolio: answered 12 questions
+  K=0 tender: extracted 3 meetings
+  K=0 tender: answered 12 questions
+level K=0 done in 106.1s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/scaling_memoria_test.json
+  K=24 hiring: extracted 27 meetings
+  K=24 hiring: answered 13 questions
+  K=24 portfolio: extracted 29 meetings
+  K=24 portfolio: answered 12 questions
+  K=24 tender: extracted 27 meetings
+  K=24 tender: answered 12 questions
+level K=24 done in 236.1s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/scaling_memoria_test.json
+  K=48 hiring: extracted 51 meetings
+  K=48 hiring: answered 13 questions
+  K=48 portfolio: extracted 53 meetings
+  K=48 portfolio: answered 12 questions
+  K=48 tender: extracted 51 meetings
+  K=48 tender: answered 12 questions
+level K=48 done in 362.2s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/scaling_memoria_test.json
+[key] after scaling memoria: usage $0.2075, limit $1, remaining $0.7925; spend log $0.2111; cap $0.9
+[spend] scaling memoria: paid $0.0639 (360 new requests, 0 from the cache)
+[run] 706 s

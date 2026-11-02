@@ -1,0 +1,213 @@
+{
+ "split": "test",
+ "meetings": 20,
+ "dispositions": {
+  "applied": 80,
+  "proposed": 16,
+  "unresolved": 10,
+  "invalid": 1
+ },
+ "proposals_total": 16,
+ "proposals_per_meeting_mean": 0.8,
+ "proposals_per_meeting_max": 3,
+ "oracle_reviewer_outcomes": {
+  "rejected": 7,
+  "accepted": 9
+ },
+ "per_meeting": [
+  {
+   "chain": "ES2004",
+   "meeting": "ES2004a",
+   "statuses": {
+    "applied": 1
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "ES2004",
+   "meeting": "ES2004b",
+   "statuses": {
+    "applied": 2
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "ES2004",
+   "meeting": "ES2004c",
+   "statuses": {
+    "proposed": 2,
+    "applied": 5
+   },
+   "reviewed": {
+    "rejected": 1,
+    "accepted": 1
+   }
+  },
+  {
+   "chain": "ES2004",
+   "meeting": "ES2004d",
+   "statuses": {
+    "applied": 6,
+    "proposed": 2
+   },
+   "reviewed": {
+    "rejected": 1,
+    "accepted": 1
+   }
+  },
+  {
+   "chain": "ES2014",
+   "meeting": "ES2014a",
+   "statuses": {
+    "applied": 1
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "ES2014",
+   "meeting": "ES2014b",
+   "statuses": {
+    "applied": 5,
+    "unresolved": 1
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "ES2014",
+   "meeting": "ES2014c",
+   "statuses": {
+    "applied": 11,
+    "unresolved": 1,
+    "proposed": 2
+   },
+   "reviewed": {
+    "accepted": 1,
+    "rejected": 1
+   }
+  },
+  {
+   "chain": "ES2014",
+   "meeting": "ES2014d",
+   "statuses": {
+    "unresolved": 1,
+    "applied": 4,
+    "proposed": 2
+   },
+   "reviewed": {
+    "accepted": 2
+   }
+  },
+  {
+   "chain": "IS1009",
+   "meeting": "IS1009a",
+   "statuses": {
+    "applied": 1
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "IS1009",
+   "meeting": "IS1009b",
+   "statuses": {
+    "applied": 2,
+    "unresolved": 1
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "IS1009",
+   "meeting": "IS1009c",
+   "statuses": {
+    "applied": 4
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "IS1009",
+   "meeting": "IS1009d",
+   "statuses": {
+    "applied": 6,
+    "proposed": 2
+   },
+   "reviewed": {
+    "accepted": 1,
+    "rejected": 1
+   }
+  },
+  {
+   "chain": "TS3003",
+   "meeting": "TS3003a",
+   "statuses": {
+    "applied": 2
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "TS3003",
+   "meeting": "TS3003b",
+   "statuses": {
+    "applied": 3,
+    "unresolved": 3
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "TS3003",
+   "meeting": "TS3003c",
+   "statuses": {
+    "applied": 3,
+    "unresolved": 3,
+    "proposed": 1
+   },
+   "reviewed": {
+    "rejected": 1
+   }
+  },
+  {
+   "chain": "TS3003",
+   "meeting": "TS3003d",
+   "statuses": {
+    "applied": 6,
+    "proposed": 3
+   },
+   "reviewed": {
+    "accepted": 1,
+    "rejected": 2
+   }
+  },
+  {
+   "chain": "TS3007",
+   "meeting": "TS3007a",
+   "statuses": {},
+   "reviewed": {}
+  },
+  {
+   "chain": "TS3007",
+   "meeting": "TS3007b",
+   "statuses": {
+    "applied": 1
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "TS3007",
+   "meeting": "TS3007c",
+   "statuses": {
+    "invalid": 1,
+    "applied": 12
+   },
+   "reviewed": {}
+  },
+  {
+   "chain": "TS3007",
+   "meeting": "TS3007d",
+   "statuses": {
+    "applied": 5,
+    "proposed": 2
+   },
+   "reviewed": {
+    "accepted": 2
+   }
+  }
+ ]
+}

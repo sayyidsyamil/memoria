@@ -1,0 +1,29 @@
+[estimate] 3.762 characters per DeepSeek token (613 paid requests); output = October Qwen lengths, worst = every output at max_tokens
+  K method   requests  input tok  cacheable  out exp  out max $ no cache  $ cached  $ worst
+  0 memoria        39     30,686     20,868    2,238    9,990     0.0059    0.0029   0.0106
+  0 fc             37     30,920     22,543    9,418  151,552     0.0103    0.0070   0.0956
+ 24 memoria       120    146,399     71,401    8,073   78,030     0.0268    0.0163   0.0688
+ 24 fc             37    131,720     98,344   32,836  151,552     0.0395    0.0250   0.1107
+ 48 memoria       192    287,916    149,020   13,137  142,830     0.0511    0.0292   0.1289
+ 48 fc             37    227,913    169,108   34,663  151,552     0.0550    0.0301   0.1251
+[estimate] total: $0.1886 without caching, $0.1105 with, $0.5396 worst
+[key] before scaling fc: usage $0.1238, limit $1, remaining $0.8762; spend log $0.1245; cap $0.9
+[estimate] GO: fc at K=(0, 24, 48): $0.1047 expected without caching (worst $0.3314), $0.7755 left
+  K=0 full-context+cot: finished hiring
+  K=0 full-context+cot: finished portfolio
+  K=0 full-context+cot: finished tender
+  K=0 full-context+cot: {'correct': 32, 'n': 37, 'accuracy': 0.8648648648648649, 'ci_95': (0.72, 0.941)}
+level K=0 done in 286.5s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/scaling_fc_test.json
+  K=24 full-context+cot: finished hiring
+  K=24 full-context+cot: finished portfolio
+  K=24 full-context+cot: finished tender
+  K=24 full-context+cot: {'correct': 30, 'n': 37, 'accuracy': 0.8108108108108109, 'ci_95': (0.658, 0.905)}
+level K=24 done in 89.1s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/scaling_fc_test.json
+  K=48 full-context+cot: finished hiring
+  K=48 full-context+cot: finished portfolio
+  K=48 full-context+cot: finished tender
+  K=48 full-context+cot: {'correct': 34, 'n': 37, 'accuracy': 0.918918918918919, 'ci_95': (0.787, 0.972)}
+level K=48 done in 98.5s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/scaling_fc_test.json
+[key] after scaling fc: usage $0.1811, limit $1, remaining $0.8189; spend log $0.1873; cap $0.9
+[spend] scaling fc: paid $0.0239 (111 new requests, 0 from the cache)
+[run] 476 s

@@ -1,0 +1,1849 @@
+{
+ "config": {
+  "split": "test",
+  "part": "baselines",
+  "chains": [
+   "ES2004",
+   "ES2014",
+   "IS1009",
+   "TS3003",
+   "TS3007"
+  ],
+  "questions": 96,
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "extractor_prompt": "v2",
+  "extractor_prompt_sha256_12": "7f816362cd95",
+  "router_prompt": "r1",
+  "window_chars": 7000,
+  "baseline_configs": "bm25-12",
+  "cot_max_tokens": 4096,
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "date": "2026-11-02 21:08:48"
+ },
+ "baselines": {
+  "bm25-rag(k=12)": {
+   "qa": {
+    "overall": {
+     "correct": 70,
+     "n": 96,
+     "accuracy": 0.7291666666666666,
+     "ci_95": [
+      0.633,
+      0.808
+     ]
+    },
+    "as_of_valid": {
+     "correct": 29,
+     "n": 29,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.883,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 19,
+     "n": 34,
+     "accuracy": 0.5588235294117647,
+     "ci_95": [
+      0.395,
+      0.711
+     ]
+    },
+    "n_changes": {
+     "correct": 22,
+     "n": 33,
+     "accuracy": 0.6666666666666666,
+     "ci_95": [
+      0.496,
+      0.802
+     ]
+    }
+   },
+   "items": [
+    {
+     "qid": "q1",
+     "chain": "ES2004",
+     "type": "current",
+     "gold": "kinetic",
+     "answer": "conventional",
+     "raw": "conventional",
+     "correct": false,
+     "seconds": 1.02,
+     "prompt_tokens": 1691,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the battery type of the remote?"
+    },
+    {
+     "qid": "q2",
+     "chain": "ES2004",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 4.33,
+     "prompt_tokens": 1821,
+     "output_tokens": 2,
+     "question": "What had been decided about the battery type of the remote as of February 5, 2026?"
+    },
+    {
+     "qid": "q3",
+     "chain": "ES2004",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "1",
+     "correct": true,
+     "seconds": 2.75,
+     "prompt_tokens": 1630,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the battery type of the remote changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q4",
+     "chain": "ES2004",
+     "type": "current",
+     "gold": "included",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 3.67,
+     "prompt_tokens": 1870,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about whether the remote has Video Plus?"
+    },
+    {
+     "qid": "q5",
+     "chain": "ES2004",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.09,
+     "prompt_tokens": 1931,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has Video Plus as of February 5, 2026?"
+    },
+    {
+     "qid": "q6",
+     "chain": "ES2004",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.09,
+     "prompt_tokens": 1753,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has Video Plus changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q7",
+     "chain": "ES2004",
+     "type": "current",
+     "gold": "included",
+     "answer": "included",
+     "raw": "included",
+     "correct": true,
+     "seconds": 1.09,
+     "prompt_tokens": 1670,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about whether the remote comes with a docking station?"
+    },
+    {
+     "qid": "q8",
+     "chain": "ES2004",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 4.29,
+     "prompt_tokens": 1807,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote comes with a docking station as of February 5, 2026?"
+    },
+    {
+     "qid": "q9",
+     "chain": "ES2004",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 2.93,
+     "prompt_tokens": 1672,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote comes with a docking station changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q10",
+     "chain": "ES2004",
+     "type": "current",
+     "gold": "black and white",
+     "answer": "black and white",
+     "raw": "black and white",
+     "correct": true,
+     "seconds": 1.38,
+     "prompt_tokens": 1649,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the colours of the LCD screen?"
+    },
+    {
+     "qid": "q11",
+     "chain": "ES2004",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.03,
+     "prompt_tokens": 1616,
+     "output_tokens": 2,
+     "question": "What had been decided about the colours of the LCD screen as of February 5, 2026?"
+    },
+    {
+     "qid": "q12",
+     "chain": "ES2004",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.31,
+     "prompt_tokens": 1768,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the colours of the LCD screen changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q13",
+     "chain": "ES2004",
+     "type": "current",
+     "gold": "excluded",
+     "answer": "excluded",
+     "raw": "excluded",
+     "correct": true,
+     "seconds": 1.24,
+     "prompt_tokens": 2177,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about whether the remote has speech recognition?"
+    },
+    {
+     "qid": "q14",
+     "chain": "ES2004",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 3.92,
+     "prompt_tokens": 1978,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has speech recognition as of February 5, 2026?"
+    },
+    {
+     "qid": "q1",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "television only",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 1.55,
+     "prompt_tokens": 2328,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about which devices the remote controls?"
+    },
+    {
+     "qid": "q2",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.16,
+     "prompt_tokens": 2452,
+     "output_tokens": 2,
+     "question": "How many times has the decision about which devices the remote controls changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q3",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "included",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 6.54,
+     "prompt_tokens": 2515,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about whether the remote has a panel hiding the complicated functions?"
+    },
+    {
+     "qid": "q4",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.46,
+     "prompt_tokens": 2621,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has a panel hiding the complicated functions as of February 5, 2026?"
+    },
+    {
+     "qid": "q5",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 3.76,
+     "prompt_tokens": 2752,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has a panel hiding the complicated functions changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q6",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "included",
+     "answer": "excluded",
+     "raw": "excluded",
+     "correct": false,
+     "seconds": 1.35,
+     "prompt_tokens": 2335,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about whether the remote has speech recognition?"
+    },
+    {
+     "qid": "q7",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 2.62,
+     "prompt_tokens": 2422,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has speech recognition as of February 5, 2026?"
+    },
+    {
+     "qid": "q8",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": null,
+     "raw": "Let me trace the speech recognition decisions across the meetings.\n\n- **2026-02-09**: Discussion of speech recognition",
+     "correct": false,
+     "seconds": 4.87,
+     "prompt_tokens": 2157,
+     "output_tokens": 24,
+     "question": "How many times has the decision about whether the remote has speech recognition changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q9",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "kinetic",
+     "answer": "kinetic",
+     "raw": "kinetic",
+     "correct": true,
+     "seconds": 2.42,
+     "prompt_tokens": 2350,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the power source of the remote?"
+    },
+    {
+     "qid": "q10",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.14,
+     "prompt_tokens": 2256,
+     "output_tokens": 2,
+     "question": "What had been decided about the power source of the remote as of February 5, 2026?"
+    },
+    {
+     "qid": "q11",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 6.0,
+     "prompt_tokens": 2626,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the power source of the remote changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q12",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "simple chip",
+     "answer": "simple chip",
+     "raw": "simple chip",
+     "correct": true,
+     "seconds": 4.31,
+     "prompt_tokens": 1961,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about which chip the remote uses?"
+    },
+    {
+     "qid": "q13",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 4.27,
+     "prompt_tokens": 2650,
+     "output_tokens": 2,
+     "question": "What had been decided about which chip the remote uses as of February 5, 2026?"
+    },
+    {
+     "qid": "q14",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 3.06,
+     "prompt_tokens": 1892,
+     "output_tokens": 2,
+     "question": "How many times has the decision about which chip the remote uses changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q15",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "plastic",
+     "answer": "rubber",
+     "raw": "rubber",
+     "correct": false,
+     "seconds": 1.82,
+     "prompt_tokens": 2299,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the material of the remote's case?"
+    },
+    {
+     "qid": "q16",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.21,
+     "prompt_tokens": 2459,
+     "output_tokens": 2,
+     "question": "What had been decided about the material of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q17",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "raw": "0",
+     "correct": false,
+     "seconds": 1.15,
+     "prompt_tokens": 2370,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the material of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q18",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "single curved",
+     "answer": "single curved",
+     "raw": "single curved",
+     "correct": true,
+     "seconds": 1.43,
+     "prompt_tokens": 2246,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the curvature of the remote's case?"
+    },
+    {
+     "qid": "q19",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.23,
+     "prompt_tokens": 2227,
+     "output_tokens": 2,
+     "question": "What had been decided about the curvature of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q20",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 4.22,
+     "prompt_tokens": 2348,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the curvature of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q21",
+     "chain": "ES2014",
+     "type": "current",
+     "gold": "push buttons",
+     "answer": "push buttons",
+     "raw": "push buttons",
+     "correct": true,
+     "seconds": 3.24,
+     "prompt_tokens": 2562,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about which type of buttons the remote uses?"
+    },
+    {
+     "qid": "q22",
+     "chain": "ES2014",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.12,
+     "prompt_tokens": 2785,
+     "output_tokens": 2,
+     "question": "What had been decided about which type of buttons the remote uses as of February 5, 2026?"
+    },
+    {
+     "qid": "q23",
+     "chain": "ES2014",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.25,
+     "prompt_tokens": 2508,
+     "output_tokens": 2,
+     "question": "How many times has the decision about which type of buttons the remote uses changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q1",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": 25,
+     "answer": 2500000,
+     "raw": "2500000",
+     "correct": false,
+     "seconds": 1.05,
+     "prompt_tokens": 3445,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the selling price of the remote, in euros?"
+    },
+    {
+     "qid": "q2",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 0.95,
+     "prompt_tokens": 2758,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the selling price of the remote, in euros changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q3",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": "excluded",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 1.27,
+     "prompt_tokens": 2848,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about whether the remote has teletext?"
+    },
+    {
+     "qid": "q4",
+     "chain": "IS1009",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.09,
+     "prompt_tokens": 2355,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has teletext as of February 5, 2026?"
+    },
+    {
+     "qid": "q5",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.09,
+     "prompt_tokens": 2387,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has teletext changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q6",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": "batteries",
+     "answer": "batteries",
+     "raw": "batteries",
+     "correct": true,
+     "seconds": 2.34,
+     "prompt_tokens": 2777,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the power source of the remote?"
+    },
+    {
+     "qid": "q7",
+     "chain": "IS1009",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.22,
+     "prompt_tokens": 2224,
+     "output_tokens": 2,
+     "question": "What had been decided about the power source of the remote as of February 5, 2026?"
+    },
+    {
+     "qid": "q8",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.28,
+     "prompt_tokens": 2622,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the power source of the remote changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q9",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": "plastic",
+     "answer": "plastic",
+     "raw": "plastic",
+     "correct": true,
+     "seconds": 1.05,
+     "prompt_tokens": 2663,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about the material of the remote's case?"
+    },
+    {
+     "qid": "q10",
+     "chain": "IS1009",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.17,
+     "prompt_tokens": 2258,
+     "output_tokens": 2,
+     "question": "What had been decided about the material of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q11",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 3.16,
+     "prompt_tokens": 2457,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the material of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q12",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": "soft rubber",
+     "answer": "soft rubber",
+     "raw": "soft rubber",
+     "correct": true,
+     "seconds": 1.45,
+     "prompt_tokens": 3227,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the material of the remote's buttons?"
+    },
+    {
+     "qid": "q13",
+     "chain": "IS1009",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.52,
+     "prompt_tokens": 2591,
+     "output_tokens": 2,
+     "question": "What had been decided about the material of the remote's buttons as of February 5, 2026?"
+    },
+    {
+     "qid": "q14",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.02,
+     "prompt_tokens": 3035,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the material of the remote's buttons changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q15",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": "snail shape",
+     "answer": "snail shape",
+     "raw": "snail shape",
+     "correct": true,
+     "seconds": 2.74,
+     "prompt_tokens": 2812,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the shape of the remote?"
+    },
+    {
+     "qid": "q16",
+     "chain": "IS1009",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.5,
+     "prompt_tokens": 2212,
+     "output_tokens": 2,
+     "question": "What had been decided about the shape of the remote as of February 5, 2026?"
+    },
+    {
+     "qid": "q17",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": null,
+     "raw": "Let me trace the decisions about remote shape across the meetings.\n\n**Meeting 2026-02-09 (first excerpt",
+     "correct": false,
+     "seconds": 3.87,
+     "prompt_tokens": 2331,
+     "output_tokens": 24,
+     "question": "How many times has the decision about the shape of the remote changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q18",
+     "chain": "IS1009",
+     "type": "current",
+     "gold": "fluorescent green",
+     "answer": "fluorescent green",
+     "raw": "fluorescent green",
+     "correct": true,
+     "seconds": 0.95,
+     "prompt_tokens": 2763,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the colour of the remote's light emitting diode?"
+    },
+    {
+     "qid": "q19",
+     "chain": "IS1009",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 0.96,
+     "prompt_tokens": 2383,
+     "output_tokens": 2,
+     "question": "What had been decided about the colour of the remote's light emitting diode as of February 5, 2026?"
+    },
+    {
+     "qid": "q20",
+     "chain": "IS1009",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.1,
+     "prompt_tokens": 3262,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the colour of the remote's light emitting diode changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q1",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": 25,
+     "answer": 2500000,
+     "raw": "2500000",
+     "correct": false,
+     "seconds": 1.17,
+     "prompt_tokens": 2894,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the selling price of the remote, in euros?"
+    },
+    {
+     "qid": "q2",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 0.99,
+     "prompt_tokens": 2409,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the selling price of the remote, in euros changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q3",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": 12.5,
+     "answer": 12.5,
+     "raw": "12.5",
+     "correct": true,
+     "seconds": 1.22,
+     "prompt_tokens": 2963,
+     "output_tokens": 4,
+     "question": "Currently, what has been decided about the maximum production cost of the remote, in euros?"
+    },
+    {
+     "qid": "q4",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.31,
+     "prompt_tokens": 2469,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the maximum production cost of the remote, in euros changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q5",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": "multiple devices",
+     "answer": "televisions only",
+     "raw": "televisions only",
+     "correct": false,
+     "seconds": 1.31,
+     "prompt_tokens": 2387,
+     "output_tokens": 5,
+     "question": "Currently, what has been decided about which devices the remote controls?"
+    },
+    {
+     "qid": "q6",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.09,
+     "prompt_tokens": 2183,
+     "output_tokens": 2,
+     "question": "How many times has the decision about which devices the remote controls changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q7",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": "included",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 4.62,
+     "prompt_tokens": 2066,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about whether the remote has an LCD screen?"
+    },
+    {
+     "qid": "q8",
+     "chain": "TS3003",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.5,
+     "prompt_tokens": 3346,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has an LCD screen as of February 5, 2026?"
+    },
+    {
+     "qid": "q9",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 3.96,
+     "prompt_tokens": 1796,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has an LCD screen changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q10",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": "included",
+     "answer": "included",
+     "raw": "included",
+     "correct": true,
+     "seconds": 4.29,
+     "prompt_tokens": 1921,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about whether the remote has a docking station?"
+    },
+    {
+     "qid": "q11",
+     "chain": "TS3003",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.12,
+     "prompt_tokens": 2221,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has a docking station as of February 5, 2026?"
+    },
+    {
+     "qid": "q12",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.25,
+     "prompt_tokens": 2051,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has a docking station changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q13",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": "advanced chip",
+     "answer": "advanced chip",
+     "raw": "advanced chip",
+     "correct": true,
+     "seconds": 0.99,
+     "prompt_tokens": 2189,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about which chip the remote uses?"
+    },
+    {
+     "qid": "q14",
+     "chain": "TS3003",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.05,
+     "prompt_tokens": 3495,
+     "output_tokens": 2,
+     "question": "What had been decided about which chip the remote uses as of February 5, 2026?"
+    },
+    {
+     "qid": "q15",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.29,
+     "prompt_tokens": 2392,
+     "output_tokens": 2,
+     "question": "How many times has the decision about which chip the remote uses changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q16",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": "plastic",
+     "answer": "plastic",
+     "raw": "plastic",
+     "correct": true,
+     "seconds": 3.82,
+     "prompt_tokens": 2557,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about the material of the remote's case?"
+    },
+    {
+     "qid": "q17",
+     "chain": "TS3003",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 4.01,
+     "prompt_tokens": 2990,
+     "output_tokens": 2,
+     "question": "What had been decided about the material of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q18",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.32,
+     "prompt_tokens": 2309,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the material of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q19",
+     "chain": "TS3003",
+     "type": "current",
+     "gold": "single curved",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 2.01,
+     "prompt_tokens": 2013,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about the curvature of the remote's case?"
+    },
+    {
+     "qid": "q20",
+     "chain": "TS3003",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.42,
+     "prompt_tokens": 2524,
+     "output_tokens": 2,
+     "question": "What had been decided about the curvature of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q21",
+     "chain": "TS3003",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": null,
+     "raw": "Let me trace the decisions about case curvature across the meetings.\n\n**Meeting 2026-02-02:** No decision",
+     "correct": false,
+     "seconds": 3.97,
+     "prompt_tokens": 2234,
+     "output_tokens": 24,
+     "question": "How many times has the decision about the curvature of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q1",
+     "chain": "TS3007",
+     "type": "current",
+     "gold": "battery only",
+     "answer": "batteries and kinetic",
+     "raw": "batteries and kinetic",
+     "correct": false,
+     "seconds": 1.18,
+     "prompt_tokens": 2230,
+     "output_tokens": 6,
+     "question": "Currently, what has been decided about the energy source of the remote?"
+    },
+    {
+     "qid": "q2",
+     "chain": "TS3007",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 4.26,
+     "prompt_tokens": 2199,
+     "output_tokens": 2,
+     "question": "What had been decided about the energy source of the remote as of February 5, 2026?"
+    },
+    {
+     "qid": "q3",
+     "chain": "TS3007",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "raw": "0",
+     "correct": false,
+     "seconds": 1.18,
+     "prompt_tokens": 2852,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the energy source of the remote changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q4",
+     "chain": "TS3007",
+     "type": "current",
+     "gold": "single curved",
+     "answer": "double curved",
+     "raw": "double curved",
+     "correct": false,
+     "seconds": 1.75,
+     "prompt_tokens": 1627,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the curvature of the remote's case?"
+    },
+    {
+     "qid": "q5",
+     "chain": "TS3007",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.05,
+     "prompt_tokens": 1603,
+     "output_tokens": 2,
+     "question": "What had been decided about the curvature of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q6",
+     "chain": "TS3007",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "raw": "0",
+     "correct": false,
+     "seconds": 1.33,
+     "prompt_tokens": 2537,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the curvature of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q7",
+     "chain": "TS3007",
+     "type": "current",
+     "gold": "rubber",
+     "answer": "rubber",
+     "raw": "rubber",
+     "correct": true,
+     "seconds": 1.4,
+     "prompt_tokens": 1706,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about the material of the remote's case?"
+    },
+    {
+     "qid": "q8",
+     "chain": "TS3007",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.43,
+     "prompt_tokens": 1701,
+     "output_tokens": 2,
+     "question": "What had been decided about the material of the remote's case as of February 5, 2026?"
+    },
+    {
+     "qid": "q9",
+     "chain": "TS3007",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.06,
+     "prompt_tokens": 2527,
+     "output_tokens": 2,
+     "question": "How many times has the decision about the material of the remote's case changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q10",
+     "chain": "TS3007",
+     "type": "current",
+     "gold": "included",
+     "answer": "included",
+     "raw": "included",
+     "correct": true,
+     "seconds": 1.26,
+     "prompt_tokens": 1736,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about whether the remote has a touch screen?"
+    },
+    {
+     "qid": "q11",
+     "chain": "TS3007",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.51,
+     "prompt_tokens": 1598,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has a touch screen as of February 5, 2026?"
+    },
+    {
+     "qid": "q12",
+     "chain": "TS3007",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.04,
+     "prompt_tokens": 2092,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has a touch screen changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q13",
+     "chain": "TS3007",
+     "type": "current",
+     "gold": "excluded",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 1.1,
+     "prompt_tokens": 1730,
+     "output_tokens": 2,
+     "question": "Currently, what has been decided about whether the remote has speech recognition?"
+    },
+    {
+     "qid": "q14",
+     "chain": "TS3007",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.48,
+     "prompt_tokens": 1583,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote has speech recognition as of February 5, 2026?"
+    },
+    {
+     "qid": "q15",
+     "chain": "TS3007",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 2.31,
+     "prompt_tokens": 1866,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote has speech recognition changed from one value to a different value across the meetings?"
+    },
+    {
+     "qid": "q16",
+     "chain": "TS3007",
+     "type": "current",
+     "gold": "included",
+     "answer": "included",
+     "raw": "included",
+     "correct": true,
+     "seconds": 1.72,
+     "prompt_tokens": 1472,
+     "output_tokens": 3,
+     "question": "Currently, what has been decided about whether the remote includes games?"
+    },
+    {
+     "qid": "q17",
+     "chain": "TS3007",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "none",
+     "correct": true,
+     "seconds": 1.49,
+     "prompt_tokens": 1764,
+     "output_tokens": 2,
+     "question": "What had been decided about whether the remote includes games as of February 5, 2026?"
+    },
+    {
+     "qid": "q18",
+     "chain": "TS3007",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "0",
+     "correct": true,
+     "seconds": 1.22,
+     "prompt_tokens": 2168,
+     "output_tokens": 2,
+     "question": "How many times has the decision about whether the remote includes games changed from one value to a different value across the meetings?"
+    }
+   ],
+   "median_seconds": 1.35,
+   "mean_prompt_tokens": 2291,
+   "mean_output_tokens": 3
+  }
+ },
+ "wall_seconds": 206.9,
+ "cache": {
+  "hits": 0,
+  "misses": 96
+ },
+ "strong_model": {
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "settings": {
+   "temperature": 0,
+   "reasoning": {
+    "effort": "none"
+   },
+   "provider": {
+    "order": [
+     "streamlake"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+   },
+   "usage": {
+    "include": true
+   }
+  },
+  "estimate": {
+   "part": "bm25",
+   "requests": 96,
+   "to_pay": 96,
+   "chars_per_token": 3.743,
+   "ratio_source": "DeepSeek, 508 paid requests",
+   "input_tokens": 240940,
+   "cacheable_tokens": 37384,
+   "output_tokens_expected": 150,
+   "output_tokens_max": 2304,
+   "usd_no_cache": 0.0362,
+   "usd_with_cache": 0.0307,
+   "usd_worst": 0.0375
+  },
+  "key_before": {
+   "usage": 0.092535212,
+   "limit": 1,
+   "limit_remaining": 0.907464788
+  },
+  "key_after": {
+   "usage": 0.121412158,
+   "limit": 1,
+   "limit_remaining": 0.878587842
+  },
+  "paid_usd": 0.030195,
+  "calls": [
+   {
+    "key": "f82f97ccfd965298cccb3eb84f3c63d01b10cb5a30142ed94ea3c22736012d1a",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "e68401e6a8bb6890dabde1e6a12a49424463a5decb9c1fafaf7c3eea48ad4dc7",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "cbc673bdafc108c13c3fa6ead3a47f1c66835a40e2307ae7520d11e2f1d3e965",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "0e566965a3e542734714f0494ac699e1e2510a0459a4598c9236195cde83f0be",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "644002dac15bd6b9244e53ac29ea1764d9c723219778f6176f05b0d245de8426",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "db60ca49a1367a3b0c384a5c1515c006d4398aaf5f8393191650481a3c9a4803",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "c7344b67c6c77959e5a488f178aabc69555220b73755f2342c314db318b1be9a",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "810641e1b8794872b1c85c88e34bff6d4fb0fe1351ff7e0b917be6b36e5ba97a",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "8b541d8e409c322c4582ff7c307379241c868f277b4acfffa1eadc6d6fb8c6ad",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "c56d6ae25f45acac1bcd6416470f9a7dc9cb935516fcb99b8587e839616aafec",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "f3d5b9d10b7cb1281a8a43eba7f8e4541a84e19c8d8b9a6f029eb805d9ffdb87",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "f33578cfc9fc01beb428cf89107f0126a1e201fa9d7486f032bf3ca05ab89e92",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "5292ea4b72aa5e781a925cf6ff2d570743a2c23fe6eeec1a4b0f0507b724b4da",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ee17819cec6a1d9bf86d835a9f90de1630b68dcb138d57ee91fc4d87ad57955e",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "d7b0b41f0026a21efa3ee6a00d3ccb859bd29781416ec978de8c87d2b36c457c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "5bb8b29df45362a8a30da503124386fae14d8350afd87fe189836bf112d22019",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "d73177cc1eb3fe3ef9cee389cc370b13bf0a47bdc4e828aa461e7543135d2dc9",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "8d73951c527dee05a243c83a2583907f1e296ffb98108f898c15c909b6e0d193",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ea2b1ab10aaeb35642fd36093d6fc386b0cbd992d0880303011f730450d4c574",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "3decdb5c9e947ca6c79083b86f770b2583aadd7adebdcce5cb70ab9470773e8c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "73f357122759bcf9406e4253881f98002074179f042d848740ef8f53d59b17f4",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "96eea7c98850981e07f8b7483fffd90647cc71057bb754cef88093a088181cf1",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "34b8d69ea0f2d4e4ed7b97678ef0418c3ab26716e5bba8323b495205b47487ba",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "efe74a44886123de394153e7d998ac062863c75c5ebe393d126e91a69211ac64",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "3442b4d7c991918defb544ddcb623f04b49fd0df6f00d2e1e90898077390bf4a",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "b6025b5f09f22dc3f1fa0ed7a97d0bba0f42ea64774f4a09c8b3f95e3d9b8e4d",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "fb4b03203c51afb0dbd964c2afbbbde5cd65e584909a29b19e99a6fe0b9756a5",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ccf3851f18793a8dbf1c9f416c321504e42915e7a94bdc4dcb43066f3ba78a29",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "d8ff04e1769f23761fd96fcba22ee9634b33cba16a8eb8dbadaea4620f4f8263",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "264e0fb73db9ba4f577f73e68a0380cc833483e91902165bc98581660496dcfc",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "7bea8c8a32ec6bcdd3bba77272eb65069587ae0ca22f273a99f6133397ab74f0",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ed0f520288fbacb83c9ae56f2cb3b8299dddecb795e5cd9c9812deea97a711c0",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "a777492618509b4560ca3b08e7bb78b2ca26bcf5baed9f0f5d539d057f399a0f",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "de09669e46737260811a15a4def3d469f5106c14b4a9c451282924405ab66357",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "772bd936befcd1d4ce710dc38692b0879865ce87a8d6ec3a6bdfd240ec908635",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "7b1b0934087717cfc93a36ac2b4bb6ee50b7064254df90afba6ec044b57fd1bc",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "7e489630dc007a56d6cbd0f6d4d398066d33308f1c91d5abf3c3b888ea008c97",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "2eb40ab3eccb95a3b2b3cb1617a0367a06ba69b69b59beaddcc53cf4349dd58c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ec0a9a990c53c93be9bd0d61f3b18b8e4899bdb59eaaf8d827a7ab6a7491adf3",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "af1debcaa7a08733458281e5f0d22f25a05a54331e7e664f73dd5e0e2276cb8c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "f32b9e9c3bf9f826edceaf1b74a03904649dc446778ee82cbb757f9be2895186",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "93438100e05ffa319ff3a436f5e920ca4fbb43ef18bf95dff008a6e9633bf3df",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "bcc60650e8b9862967a19eaf598f87803539b54984ec5b682195cbd3a38c2ba9",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "8a9c6ea10d238dd7d3077079b7693b03b07ca7e7667ed5b7378377104ccab0cb",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "a55d5b730c9038c331ae7ce402289777b029b051275cef69ae93ce61f18b5323",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "2fa32164ff0c0ff6c419d59058422311fe671ea255ff0203cf96476e0a790afe",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "bf1d76ba19d2099ecec042a56103935c0b3a1444da51e3835ba78a6c31faf1b5",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "1cd8004f57d989d678e3f51d94f21156dcc0a1d3634f6db9d6e68f21cec6c87c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "7af141b9a70be538af5a7423e1728a195c4c04e913ae52dd07a9673ffbcc995e",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "4137b0be73dd3b15dc175bb0ddbb5aac25614a36cf783fec88b524abc3802bc9",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "5fec331e5f2cf0c58fb78c128f971456c735091b06291c2e10dbfff3fe7b1e5e",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "b003ec87f340699a0eaa25b39b0535cb86ffe57cef304376402d4b94c85bbbf2",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "9d9a7615e3e00200529711d2bedcc6657aa623dd6aca09053d0e3c5ee1bf257c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ef666305d93d83e539829239db4bc925b1897ee7fbd574e602d2d694a36eed78",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "8ee835dcc182124b11c37aec70c7ddc164948e3a2346fe021b7cda20e9ce757f",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "16625784bb71ef58690e82139e8e0760f2d6dfc107abaf1193f4536656ccf3cc",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "4d74eaccef2f50a4eb686988130747fbc18b176fa868e6a347741c1d6306e1a3",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ee07f725bf052c64864875194cbc578220538d02dbbc9bade2cb2081d14b3e09",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "b9bfe14d649ba880d06fd1a2b3cbf8bee1682e985ab73212316b20bc7a09e4be",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "bc1893453c6ad49f2bb74871b68a7be6acc8af11fabdeaa669f7980e6b44a6fb",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "f14dea3653b83636c97dfd8ba8d2723ae7fa614daa30af442bdd8cc992da2820",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "aa4f42cf7cc48e11d3a24f272a450b54299b1150efecda57034db44db928390c",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "c3f954624bc4ba13aaf4bff4dd1d79097959581418256cb3b1082b4faf3168cb",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "276d15d2c636b59b2fdeefa4417ce4bf5d6285b1c2955be75667cd4c35dc3dc1",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "937566b6135a36f3d9f9658190f5ac03d335d03a6555024ffe785c1f59870306",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "c9d560d5ff78f848b7609da95a723ac79ab79240959af6d5d1446c9132f77651",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "b1c6bdd41ea7292a16db51d35d4fcfc974b4bd575f46dd8772e2ce27c46f2f83",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "6305bd69f821a7279a0183d924c2c74f92565add966f3cbaddeabe3715bbf7c8",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "b039bebc3f8ed553ef8ad842152937fd064ed6b7e4774719c09da15fda8b00f8",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "f729f915cd1fe941c0f048c17184372683a68f0ff052d9ef96b49c4f2259a256",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "f874bc3a7e08c346f1601d5ddb6739abd91a91c1ec552f54858d51068d202bbe",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "089261cc4c02f65b542f2c2028463eedf60b52c5a1c88b5cbe1c18d2b165dd4f",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "770abbee9613abee718be176137f61ad3f44d6b0c0993d1340ff16704b859c2f",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "549562ed8dfe3ec75952f83bc3d39b4c3349d700952af3aefd5ff8284f534410",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "11e9845a0a180f88777068e1fe529996bad6f5d78d9128a4ac7e25dfac13ddd5",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "3e5f86dc49882f9c535a4a12231bc5f60e7596852e2f9af35de11100c611122e",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ad58e2cd8ba4a7bab0527cb8b6055bdbc272ecca1da6238c56f3121d17c99161",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "1bdd92f7877d7f523c9276142033dc6ca75342da96fe151ff941983db89690d3",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "8e9a62933481d2ecb76fb17c196861d05f251bc5c42964ca5323d84ca3180c45",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "b81d6a0adc3257c4c5025891e08c277639fd4b1b01b9ca60e241bc438152f36e",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "28d6fc156cd0456402e2378672a8f9e35544465a37254fff864133682c6beb93",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "020fe74a1f25482e42f3cc766b4f76c6f966b274073305fff8a26190719f422f",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "7474019ae8519350cf7e0e63b6f4f64d3b6d1e3526db67eb6ecf5316bc3bb768",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ce525332a90b67fa8b6c0ed107ad961c354bbafcc290cf3e515eb373f9729eab",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "225befac1a3d4a45cb2e924feaf050b0923ea294ecb5b3c69f54746281f513ca",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "ccb82b7f95273471479b8163aef0fa87ac30c4f856c66c310cb5cd9d9faed720",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "bdc5d8074d0b5bd9bae9fdb2da963a2277cdda8828bbbe2667c912b68c847caf",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "56595289bf7075aa9d256063be5f757a82c4f95d34009c3a81b25e3ead27eb8b",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "7d93d81c8b861e09755d8da032c65731eed675fb834ec1440ab938ae2adce54d",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "1b2d986464309eed83757b8f854793432b911f75cba15d1b478895a371350a67",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "d5f5d507a611bba95e5ac9d290c03d9350178c247c4ac552fc7f57a474acdea9",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "c0d8f9b4ed14825bfa075fd3e17be4e7da5d9299905c92fa0d666215cf4c2afc",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "2f77bfc661e6fd5c9af53b32aa1fc05798fc009a199656a9309d43f96b7a1e05",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "dbff3b44d6332814c39fcd6a7f133c592655f451321f70a88520dda67b9aaafc",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "af2cc64bb16326ebf8018b60053835b87cfaf6f2b8591ee450733144699582f7",
+    "hit": false,
+    "tag": null
+   },
+   {
+    "key": "15c10ac439560896f35ad444dd14459d308f2f1ebc9938fb201e284091aa56a7",
+    "hit": false,
+    "tag": null
+   }
+  ]
+ }
+}
