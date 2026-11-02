@@ -49,7 +49,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [profileIds, setProfileIds] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.id])))
   // Names already used elsewhere (People notes, other meetings); they only add picker options. `pickedNames` marks the ones chosen from that list rather than typed.
   const [knownNames, setKnownNames] = useState<string[]>([])
-  const [pickedNames, setPickedNames] = useState<Record<string, string>>({})
+  // A reopened meeting's typed names count as picked, so a name that is also known shows in the picker rather than as "Add a name…" beside it.
+  const [pickedNames, setPickedNames] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).filter(([, profile]) => !profile.id).map(([speaker, profile]) => [speaker, profile.name])))
   const [marks, setMarks] = useState<Mark[]>(() => initialMarks ?? [])
   // Voice templates are biometric data: remembering them is opt-in (UAT acceptance criterion AC8).
   const [remember, setRemember] = useState(false)

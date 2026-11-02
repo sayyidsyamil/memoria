@@ -352,3 +352,15 @@ it('states the meeting once: no status line above the title, speakers counted pl
   const marked = screen.getByText(/Marked moments · 1/).closest('summary')!
   expect(marked.querySelector('svg.review-fold-caret')).toHaveAttribute('aria-hidden', 'true')
 })
+it('shows a reopened meeting’s known speaker names in the picker, not as "Add a name…" beside a text field', async () => {
+  listMeetings.mockResolvedValue([savedMeeting('earlier', { S01: 'Aisha', S02: 'Raj' })])
+  render(reviewing({ initialDraft: { ...draft, segments: [...draft.segments, { start: 3, end: 4, speaker: 'S02', text: 'Agreed' }],
+    speakerMatches: { S01: { id: '', name: 'Aisha' }, S02: { id: '', name: 'Someone new' } } } }))
+  const known = screen.getByRole('combobox', { name: 'Name S01' })
+  await waitFor(() => expect(known).toHaveDisplayValue('Aisha'))
+  expect(screen.queryByRole('textbox', { name: 'New name for S01' })).not.toBeInTheDocument()
+  // A name no other meeting or People note uses stays a typed name.
+  expect(screen.getByRole('combobox', { name: 'Name S02' })).toHaveDisplayValue('Add a name…')
+  expect(screen.getByRole('textbox', { name: 'New name for S02' })).toHaveValue('Someone new')
+  expect(screen.getByRole('combobox', { name: 'Speaker for turn 1' })).toHaveDisplayValue('Aisha')
+})
