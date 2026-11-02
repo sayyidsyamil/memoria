@@ -1,0 +1,73 @@
+{
+ "complete": true,
+ "conditions": {
+  "0/hybrid-k12-w3-a1-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a1-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 43,
+     "n": 96,
+     "accuracy": 0.4479166666666667,
+     "ci_95": [
+      0.352,
+      0.547
+     ]
+    },
+    "as_of_valid": {
+     "correct": 16,
+     "n": 29,
+     "accuracy": 0.5517241379310345,
+     "ci_95": [
+      0.375,
+      0.716
+     ]
+    },
+    "current": {
+     "correct": 24,
+     "n": 34,
+     "accuracy": 0.7058823529411765,
+     "ci_95": [
+      0.538,
+      0.832
+     ]
+    },
+    "n_changes": {
+     "correct": 3,
+     "n": 33,
+     "accuracy": 0.09090909090909091,
+     "ci_95": [
+      0.031,
+      0.236
+     ]
+    }
+   },
+   "median_generation_seconds": 2.9388868334999643,
+   "mean_prompt_tokens": 2403.5520833333335,
+   "evidence_found": 31,
+   "evidence_total": 91
+  }
+ },
+ "sensitivity": [],
+ "comparisons": [
+  {
+   "config": "hybrid-k12-w3-a1-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.16666666666666666,
+    "ci_95": [
+     -0.22857142857142856,
+     -0.09278350515463918
+    ],
+    "clusters": 5,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 10,
+    "b_only": 26,
+    "both": 33,
+    "neither": 27,
+    "p_two_sided": 0.011330984183587134
+   }
+  }
+ ]
+}

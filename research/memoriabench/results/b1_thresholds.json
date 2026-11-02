@@ -1,0 +1,7 @@
+{
+ "tau_alert": 0.65063,
+ "low": 0.6541,
+ "high": 0.90537,
+ "tuned_on": "development series",
+ "probes": 60
+}

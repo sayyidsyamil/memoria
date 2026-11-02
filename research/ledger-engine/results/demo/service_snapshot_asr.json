@@ -1,0 +1,1107 @@
+{
+ "registry": {
+  "objects": [
+   {
+    "object_id": "vendor",
+    "kind": "decision",
+    "label": "Vendor",
+    "attributes": [
+     {
+      "name": "outcome",
+      "type": "enum",
+      "values": [
+       "Alpha Systems",
+       "Beta Cloud",
+       "Gamma Soft"
+      ],
+      "change_kind": "REVERSE"
+     }
+    ]
+   },
+   {
+    "object_id": "budget",
+    "kind": "decision",
+    "label": "Pilot budget (RM)",
+    "attributes": [
+     {
+      "name": "amount",
+      "type": "number",
+      "values": [],
+      "change_kind": "REVISE"
+     }
+    ]
+   },
+   {
+    "object_id": "golive",
+    "kind": "decision",
+    "label": "Go-live date",
+    "attributes": [
+     {
+      "name": "date",
+      "type": "date",
+      "values": [],
+      "change_kind": "REVISE"
+     }
+    ]
+   },
+   {
+    "object_id": "training",
+    "kind": "commitment",
+    "label": "Staff training",
+    "attributes": [
+     {
+      "name": "owner",
+      "type": "person",
+      "values": [],
+      "change_kind": "REVISE"
+     },
+     {
+      "name": "deadline",
+      "type": "date",
+      "values": [],
+      "change_kind": "REVISE"
+     },
+     {
+      "name": "status",
+      "type": "enum",
+      "values": [
+       "done",
+       "cancelled"
+      ],
+      "change_kind": "REVISE"
+     }
+    ]
+   },
+   {
+    "object_id": "migration",
+    "kind": "commitment",
+    "label": "Data migration",
+    "attributes": [
+     {
+      "name": "owner",
+      "type": "person",
+      "values": [],
+      "change_kind": "REVISE"
+     },
+     {
+      "name": "deadline",
+      "type": "date",
+      "values": [],
+      "change_kind": "REVISE"
+     },
+     {
+      "name": "status",
+      "type": "enum",
+      "values": [
+       "done",
+       "cancelled"
+      ],
+      "change_kind": "REVISE"
+     }
+    ]
+   },
+   {
+    "object_id": "security",
+    "kind": "commitment",
+    "label": "Security review",
+    "attributes": [
+     {
+      "name": "owner",
+      "type": "person",
+      "values": [],
+      "change_kind": "REVISE"
+     },
+     {
+      "name": "deadline",
+      "type": "date",
+      "values": [],
+      "change_kind": "REVISE"
+     },
+     {
+      "name": "status",
+      "type": "enum",
+      "values": [
+       "done",
+       "cancelled"
+      ],
+      "change_kind": "REVISE"
+     }
+    ]
+   }
+  ],
+  "people": {
+   "aisha": "Aisha",
+   "raj": "Raj",
+   "wei_ling": "Wei Ling"
+  }
+ },
+ "meetings": [
+  {
+   "meeting_id": "m1",
+   "occurred_at": "2026-09-14T09:30:00Z",
+   "source_id": "8386b4c956f9",
+   "evidence_items": 6
+  },
+  {
+   "meeting_id": "m2",
+   "occurred_at": "2026-09-28T09:30:00Z",
+   "source_id": "1653e042de0e",
+   "evidence_items": 6
+  },
+  {
+   "meeting_id": "m3",
+   "occurred_at": "2026-10-12T09:30:00Z",
+   "source_id": "703ab4313fc2",
+   "evidence_items": 4
+  }
+ ],
+ "facts": [
+  {
+   "fact_id": 14,
+   "object_id": "vendor",
+   "attribute": "outcome",
+   "label": "Vendor",
+   "value": "Beta Cloud",
+   "claim_from": "2026-09-28T09:30:24Z",
+   "claim_to": null,
+   "decided_at": "2026-09-28T09:30:24Z",
+   "change_type": "REVERSE",
+   "supersedes": 1,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "Okay, we drop alpha systems and move to Beta Cloud, this is final.",
+     "speaker": "Aisha",
+     "meeting": "m2",
+     "char_start": 681,
+     "char_end": 747,
+     "audio_start": 24.9,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "decision",
+   "n_changes": 1,
+   "valid_from": "2026-09-28T09:30:24Z"
+  },
+  {
+   "fact_id": 7,
+   "object_id": "budget",
+   "attribute": "amount",
+   "label": "Pilot budget (RM)",
+   "value": 280000,
+   "claim_from": "2026-09-28T09:31:10Z",
+   "claim_to": null,
+   "decided_at": "2026-09-28T09:31:10Z",
+   "change_type": "INITIAL",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "Fine, the pilot budget is now 280,000 ringgit, I will take it to the board.",
+     "speaker": "Aisha",
+     "meeting": "m2",
+     "char_start": 1134,
+     "char_end": 1209,
+     "audio_start": 70.6,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "decision",
+   "n_changes": 0,
+   "valid_from": "2026-09-28T09:31:10Z"
+  },
+  {
+   "fact_id": 16,
+   "object_id": "golive",
+   "attribute": "date",
+   "label": "Go-live date",
+   "value": "2026-11-09",
+   "claim_from": "2026-10-12T09:30:35Z",
+   "claim_to": null,
+   "decided_at": "2026-10-12T09:30:35Z",
+   "change_type": "REVISE",
+   "supersedes": 2,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "Then the go live date is now November 9, 2026.",
+     "speaker": "Aisha",
+     "meeting": "m3",
+     "char_start": 678,
+     "char_end": 724,
+     "audio_start": 35.4,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "decision",
+   "n_changes": 1,
+   "valid_from": "2026-10-12T09:30:35Z"
+  },
+  {
+   "fact_id": 5,
+   "object_id": "training",
+   "attribute": "owner",
+   "label": "Staff training",
+   "value": "aisha",
+   "claim_from": "2026-09-14T09:31:58Z",
+   "claim_to": null,
+   "decided_at": "2026-09-14T09:31:58Z",
+   "change_type": "INITIAL",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "I will coordinate it with HR myself and make sure training is finished by October 16th.",
+     "speaker": "Aisha",
+     "meeting": "m1",
+     "char_start": 2096,
+     "char_end": 2183,
+     "audio_start": 118.1,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 0,
+   "valid_from": "2026-09-14T09:31:58Z"
+  },
+  {
+   "fact_id": 6,
+   "object_id": "training",
+   "attribute": "deadline",
+   "label": "Staff training",
+   "value": "2026-10-16",
+   "claim_from": "2026-09-14T09:31:58Z",
+   "claim_to": null,
+   "decided_at": "2026-09-14T09:31:58Z",
+   "change_type": "INITIAL",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "I will coordinate it with HR myself and make sure training is finished by October 16th.",
+     "speaker": "Aisha",
+     "meeting": "m1",
+     "char_start": 2096,
+     "char_end": 2183,
+     "audio_start": 118.1,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 0,
+   "valid_from": "2026-09-14T09:31:58Z"
+  },
+  {
+   "fact_id": 3,
+   "object_id": "migration",
+   "attribute": "owner",
+   "label": "Data migration",
+   "value": "aisha",
+   "claim_from": "2026-09-14T09:31:58Z",
+   "claim_to": null,
+   "decided_at": "2026-09-14T09:31:58Z",
+   "change_type": "INITIAL",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "I will own the data migration and have it finished by the 9th of October.",
+     "speaker": "Aisha",
+     "meeting": "m1",
+     "char_start": 1942,
+     "char_end": 2015,
+     "audio_start": 118.1,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 0,
+   "valid_from": "2026-09-14T09:31:58Z"
+  },
+  {
+   "fact_id": 15,
+   "object_id": "migration",
+   "attribute": "deadline",
+   "label": "Data migration",
+   "value": "2026-10-23",
+   "claim_from": "2026-10-12T09:30:00Z",
+   "claim_to": null,
+   "decided_at": "2026-10-12T09:30:00Z",
+   "change_type": "REVISE",
+   "supersedes": 4,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "Okay, data migration is now due on October 23rd, same owner.",
+     "speaker": "Aisha",
+     "meeting": "m3",
+     "char_start": 341,
+     "char_end": 401,
+     "audio_start": 0.2,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 1,
+   "valid_from": "2026-10-12T09:30:00Z"
+  },
+  {
+   "fact_id": 8,
+   "object_id": "security",
+   "attribute": "owner",
+   "label": "Security review",
+   "value": "aisha",
+   "claim_from": "2026-09-28T09:31:20Z",
+   "claim_to": null,
+   "decided_at": "2026-09-28T09:31:20Z",
+   "change_type": "INITIAL",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "I can do it, I will own the security review and have it done by the 5th of October.",
+     "speaker": "Aisha",
+     "meeting": "m2",
+     "char_start": 1473,
+     "char_end": 1556,
+     "audio_start": 80.4,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 0,
+   "valid_from": "2026-09-28T09:31:20Z"
+  },
+  {
+   "fact_id": 9,
+   "object_id": "security",
+   "attribute": "deadline",
+   "label": "Security review",
+   "value": "2026-10-05",
+   "claim_from": "2026-09-28T09:31:20Z",
+   "claim_to": null,
+   "decided_at": "2026-09-28T09:31:20Z",
+   "change_type": "INITIAL",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "I can do it, I will own the security review and have it done by the 5th of October.",
+     "speaker": "Aisha",
+     "meeting": "m2",
+     "char_start": 1473,
+     "char_end": 1556,
+     "audio_start": 80.4,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 0,
+   "valid_from": "2026-09-28T09:31:20Z"
+  },
+  {
+   "fact_id": 12,
+   "object_id": "security",
+   "attribute": "status",
+   "label": "Security review",
+   "value": "done",
+   "claim_from": "2026-10-12T09:30:57Z",
+   "claim_to": null,
+   "decided_at": "2026-10-12T09:30:57Z",
+   "change_type": "COMPLETE",
+   "supersedes": null,
+   "confirms": null,
+   "corrects": null,
+   "retracted": null,
+   "evidence": [
+    {
+     "quote": "Security review is done.",
+     "speaker": "Aisha",
+     "meeting": "m3",
+     "char_start": 1044,
+     "char_end": 1068,
+     "audio_start": 57.9,
+     "confidence": 0.9,
+     "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+    }
+   ],
+   "kind": "commitment",
+   "n_changes": 0,
+   "valid_from": "2026-10-12T09:30:57Z"
+  }
+ ],
+ "inbox": [],
+ "inbox_before_review": [
+  {
+   "proposal_id": 1,
+   "object_id": "vendor",
+   "label": "Vendor",
+   "attribute": "outcome",
+   "value": "Beta Cloud",
+   "current_value": "Alpha Systems",
+   "confidence": 0.9,
+   "reason": "confirm_conflicts",
+   "quote": "Okay, we drop alpha systems and move to Beta Cloud, this is final.",
+   "speaker": "Aisha",
+   "meeting": "m2"
+  },
+  {
+   "proposal_id": 2,
+   "object_id": "budget",
+   "label": "Pilot budget (RM)",
+   "attribute": "amount",
+   "value": 160000,
+   "current_value": 280000,
+   "confidence": 0.9,
+   "reason": "the number is not in the quote",
+   "quote": "Beta Cloud's license is 30,000 Ringit higher, so the pilot budget has to go from 2x50,000 to 2x80,000 ringgit.",
+   "speaker": "Raj",
+   "meeting": "m2"
+  },
+  {
+   "proposal_id": 3,
+   "object_id": "migration",
+   "label": "Data migration",
+   "attribute": "deadline",
+   "value": "2026-10-23",
+   "current_value": "2026-10-09",
+   "confidence": 0.9,
+   "reason": "confirm_conflicts",
+   "quote": "Okay, data migration is now due on October 23rd, same owner.",
+   "speaker": "Aisha",
+   "meeting": "m3"
+  },
+  {
+   "proposal_id": 4,
+   "object_id": "golive",
+   "label": "Go-live date",
+   "attribute": "date",
+   "value": "2026-11-09",
+   "current_value": "2026-10-26",
+   "confidence": 0.9,
+   "reason": "confirm_conflicts",
+   "quote": "Then the go live date is now November 9, 2026.",
+   "speaker": "Aisha",
+   "meeting": "m3"
+  }
+ ],
+ "history": {
+  "vendor.outcome": [
+   {
+    "fact_id": 1,
+    "object_id": "vendor",
+    "attribute": "outcome",
+    "label": "Vendor",
+    "value": "Alpha Systems",
+    "claim_from": "2026-09-14T09:30:55Z",
+    "claim_to": null,
+    "decided_at": "2026-09-14T09:30:55Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "We go with Alpha Systems for the pilot.",
+      "speaker": "Aisha",
+      "meeting": "m1",
+      "char_start": 900,
+      "char_end": 939,
+      "audio_start": 55.0,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   },
+   {
+    "fact_id": 14,
+    "object_id": "vendor",
+    "attribute": "outcome",
+    "label": "Vendor",
+    "value": "Beta Cloud",
+    "claim_from": "2026-09-28T09:30:24Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:30:24Z",
+    "change_type": "REVERSE",
+    "supersedes": 1,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Okay, we drop alpha systems and move to Beta Cloud, this is final.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 681,
+      "char_end": 747,
+      "audio_start": 24.9,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "budget.amount": [
+   {
+    "fact_id": 7,
+    "object_id": "budget",
+    "attribute": "amount",
+    "label": "Pilot budget (RM)",
+    "value": 280000,
+    "claim_from": "2026-09-28T09:31:10Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:31:10Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Fine, the pilot budget is now 280,000 ringgit, I will take it to the board.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 1134,
+      "char_end": 1209,
+      "audio_start": 70.6,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   },
+   {
+    "fact_id": 13,
+    "object_id": "budget",
+    "attribute": "amount",
+    "label": "Pilot budget (RM)",
+    "value": 280000,
+    "claim_from": "2026-10-12T09:31:18Z",
+    "claim_to": null,
+    "decided_at": "2026-10-12T09:31:18Z",
+    "change_type": "CONFIRM",
+    "supersedes": null,
+    "confirms": 7,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Good, so no change to the budget.",
+      "speaker": "Aisha",
+      "meeting": "m3",
+      "char_start": 1157,
+      "char_end": 1190,
+      "audio_start": 78.6,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "golive.date": [
+   {
+    "fact_id": 2,
+    "object_id": "golive",
+    "attribute": "date",
+    "label": "Go-live date",
+    "value": "2026-10-26",
+    "claim_from": "2026-09-14T09:31:30Z",
+    "claim_to": null,
+    "decided_at": "2026-09-14T09:31:30Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "We go live on October 26, 2026.",
+      "speaker": "Aisha",
+      "meeting": "m1",
+      "char_start": 1647,
+      "char_end": 1678,
+      "audio_start": 90.2,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   },
+   {
+    "fact_id": 10,
+    "object_id": "golive",
+    "attribute": "date",
+    "label": "Go-live date",
+    "value": "2026-10-26",
+    "claim_from": "2026-09-28T09:31:20Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:31:20Z",
+    "change_type": "CONFIRM",
+    "supersedes": null,
+    "confirms": 2,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Golift stays on October 26 for now.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 1279,
+      "char_end": 1314,
+      "audio_start": 80.4,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   },
+   {
+    "fact_id": 16,
+    "object_id": "golive",
+    "attribute": "date",
+    "label": "Go-live date",
+    "value": "2026-11-09",
+    "claim_from": "2026-10-12T09:30:35Z",
+    "claim_to": null,
+    "decided_at": "2026-10-12T09:30:35Z",
+    "change_type": "REVISE",
+    "supersedes": 2,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Then the go live date is now November 9, 2026.",
+      "speaker": "Aisha",
+      "meeting": "m3",
+      "char_start": 678,
+      "char_end": 724,
+      "audio_start": 35.4,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "training.owner": [
+   {
+    "fact_id": 5,
+    "object_id": "training",
+    "attribute": "owner",
+    "label": "Staff training",
+    "value": "aisha",
+    "claim_from": "2026-09-14T09:31:58Z",
+    "claim_to": null,
+    "decided_at": "2026-09-14T09:31:58Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "I will coordinate it with HR myself and make sure training is finished by October 16th.",
+      "speaker": "Aisha",
+      "meeting": "m1",
+      "char_start": 2096,
+      "char_end": 2183,
+      "audio_start": 118.1,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "training.deadline": [
+   {
+    "fact_id": 6,
+    "object_id": "training",
+    "attribute": "deadline",
+    "label": "Staff training",
+    "value": "2026-10-16",
+    "claim_from": "2026-09-14T09:31:58Z",
+    "claim_to": null,
+    "decided_at": "2026-09-14T09:31:58Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "I will coordinate it with HR myself and make sure training is finished by October 16th.",
+      "speaker": "Aisha",
+      "meeting": "m1",
+      "char_start": 2096,
+      "char_end": 2183,
+      "audio_start": 118.1,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "migration.owner": [
+   {
+    "fact_id": 3,
+    "object_id": "migration",
+    "attribute": "owner",
+    "label": "Data migration",
+    "value": "aisha",
+    "claim_from": "2026-09-14T09:31:58Z",
+    "claim_to": null,
+    "decided_at": "2026-09-14T09:31:58Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "I will own the data migration and have it finished by the 9th of October.",
+      "speaker": "Aisha",
+      "meeting": "m1",
+      "char_start": 1942,
+      "char_end": 2015,
+      "audio_start": 118.1,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "migration.deadline": [
+   {
+    "fact_id": 4,
+    "object_id": "migration",
+    "attribute": "deadline",
+    "label": "Data migration",
+    "value": "2026-10-09",
+    "claim_from": "2026-09-14T09:31:58Z",
+    "claim_to": null,
+    "decided_at": "2026-09-14T09:31:58Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "I will own the data migration and have it finished by the 9th of October.",
+      "speaker": "Aisha",
+      "meeting": "m1",
+      "char_start": 1942,
+      "char_end": 2015,
+      "audio_start": 118.1,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   },
+   {
+    "fact_id": 11,
+    "object_id": "migration",
+    "attribute": "deadline",
+    "label": "Data migration",
+    "value": "2026-10-09",
+    "claim_from": "2026-09-28T09:31:20Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:31:20Z",
+    "change_type": "CONFIRM",
+    "supersedes": null,
+    "confirms": 4,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Migration is going okay, I am still on track for the 9th of October.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 1315,
+      "char_end": 1383,
+      "audio_start": 80.4,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   },
+   {
+    "fact_id": 15,
+    "object_id": "migration",
+    "attribute": "deadline",
+    "label": "Data migration",
+    "value": "2026-10-23",
+    "claim_from": "2026-10-12T09:30:00Z",
+    "claim_to": null,
+    "decided_at": "2026-10-12T09:30:00Z",
+    "change_type": "REVISE",
+    "supersedes": 4,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Okay, data migration is now due on October 23rd, same owner.",
+      "speaker": "Aisha",
+      "meeting": "m3",
+      "char_start": 341,
+      "char_end": 401,
+      "audio_start": 0.2,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "security.owner": [
+   {
+    "fact_id": 8,
+    "object_id": "security",
+    "attribute": "owner",
+    "label": "Security review",
+    "value": "aisha",
+    "claim_from": "2026-09-28T09:31:20Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:31:20Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "I can do it, I will own the security review and have it done by the 5th of October.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 1473,
+      "char_end": 1556,
+      "audio_start": 80.4,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "security.deadline": [
+   {
+    "fact_id": 9,
+    "object_id": "security",
+    "attribute": "deadline",
+    "label": "Security review",
+    "value": "2026-10-05",
+    "claim_from": "2026-09-28T09:31:20Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:31:20Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "I can do it, I will own the security review and have it done by the 5th of October.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 1473,
+      "char_end": 1556,
+      "audio_start": 80.4,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ],
+  "security.status": [
+   {
+    "fact_id": 12,
+    "object_id": "security",
+    "attribute": "status",
+    "label": "Security review",
+    "value": "done",
+    "claim_from": "2026-10-12T09:30:57Z",
+    "claim_to": null,
+    "decided_at": "2026-10-12T09:30:57Z",
+    "change_type": "COMPLETE",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Security review is done.",
+      "speaker": "Aisha",
+      "meeting": "m3",
+      "char_start": 1044,
+      "char_end": 1068,
+      "audio_start": 57.9,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ]
+   }
+  ]
+ },
+ "brief": {
+  "open_commitments": [
+   {
+    "object_id": "migration",
+    "label": "Data migration",
+    "owner": "aisha",
+    "deadline": "2026-10-23",
+    "status": "open"
+   },
+   {
+    "object_id": "training",
+    "label": "Staff training",
+    "owner": "aisha",
+    "deadline": "2026-10-16",
+    "status": "open"
+   }
+  ],
+  "recent_changes": [
+   {
+    "label": "Go-live date",
+    "attribute": "date",
+    "from": "2026-10-26",
+    "to": "2026-11-09",
+    "decided_at": "2026-10-12T09:30:35Z",
+    "quote": "Then the go live date is now November 9, 2026."
+   },
+   {
+    "label": "Data migration",
+    "attribute": "deadline",
+    "from": "2026-10-09",
+    "to": "2026-10-23",
+    "decided_at": "2026-10-12T09:30:00Z",
+    "quote": "Okay, data migration is now due on October 23rd, same owner."
+   },
+   {
+    "label": "Vendor",
+    "attribute": "outcome",
+    "from": "Alpha Systems",
+    "to": "Beta Cloud",
+    "decided_at": "2026-09-28T09:30:24Z",
+    "quote": "Okay, we drop alpha systems and move to Beta Cloud, this is final."
+   }
+  ],
+  "decisions": [
+   {
+    "fact_id": 14,
+    "object_id": "vendor",
+    "attribute": "outcome",
+    "label": "Vendor",
+    "value": "Beta Cloud",
+    "claim_from": "2026-09-28T09:30:24Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:30:24Z",
+    "change_type": "REVERSE",
+    "supersedes": 1,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Okay, we drop alpha systems and move to Beta Cloud, this is final.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 681,
+      "char_end": 747,
+      "audio_start": 24.9,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ],
+    "kind": "decision",
+    "n_changes": 1,
+    "valid_from": "2026-09-28T09:30:24Z"
+   },
+   {
+    "fact_id": 7,
+    "object_id": "budget",
+    "attribute": "amount",
+    "label": "Pilot budget (RM)",
+    "value": 280000,
+    "claim_from": "2026-09-28T09:31:10Z",
+    "claim_to": null,
+    "decided_at": "2026-09-28T09:31:10Z",
+    "change_type": "INITIAL",
+    "supersedes": null,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Fine, the pilot budget is now 280,000 ringgit, I will take it to the board.",
+      "speaker": "Aisha",
+      "meeting": "m2",
+      "char_start": 1134,
+      "char_end": 1209,
+      "audio_start": 70.6,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ],
+    "kind": "decision",
+    "n_changes": 0,
+    "valid_from": "2026-09-28T09:31:10Z"
+   },
+   {
+    "fact_id": 16,
+    "object_id": "golive",
+    "attribute": "date",
+    "label": "Go-live date",
+    "value": "2026-11-09",
+    "claim_from": "2026-10-12T09:30:35Z",
+    "claim_to": null,
+    "decided_at": "2026-10-12T09:30:35Z",
+    "change_type": "REVISE",
+    "supersedes": 2,
+    "confirms": null,
+    "corrects": null,
+    "retracted": null,
+    "evidence": [
+     {
+      "quote": "Then the go live date is now November 9, 2026.",
+      "speaker": "Aisha",
+      "meeting": "m3",
+      "char_start": 678,
+      "char_end": 724,
+      "audio_start": 35.4,
+      "confidence": 0.9,
+      "extractor": "Qwen3.5-4B-MLX-4bit+windows"
+     }
+    ],
+    "kind": "decision",
+    "n_changes": 1,
+    "valid_from": "2026-10-12T09:30:35Z"
+   }
+  ],
+  "waiting_for_review": 0,
+  "meetings": 3
+ }
+}

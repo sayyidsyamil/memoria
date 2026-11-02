@@ -1,0 +1,976 @@
+{
+ "complete": true,
+ "conditions": {
+  "0/hybrid-k12-w3-a0.5-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0.5-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 12,
+     "n": 45,
+     "accuracy": 0.26666666666666666,
+     "ci_95": [
+      0.16,
+      0.41
+     ]
+    },
+    "as_of_valid": {
+     "correct": 2,
+     "n": 13,
+     "accuracy": 0.15384615384615385,
+     "ci_95": [
+      0.043,
+      0.422
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 16,
+     "accuracy": 0.625,
+     "ci_95": [
+      0.386,
+      0.815
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 3.356437417000052,
+   "mean_prompt_tokens": 2912.6666666666665,
+   "evidence_found": 18,
+   "evidence_total": 46
+  },
+  "0/hybrid-k4-w3-a0.5-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k4-w3-a0.5-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 14,
+     "n": 45,
+     "accuracy": 0.3111111111111111,
+     "ci_95": [
+      0.195,
+      0.457
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 13,
+     "accuracy": 0.3076923076923077,
+     "ci_95": [
+      0.127,
+      0.576
+     ]
+    },
+    "current": {
+     "correct": 8,
+     "n": 16,
+     "accuracy": 0.5,
+     "ci_95": [
+      0.28,
+      0.72
+     ]
+    },
+    "n_changes": {
+     "correct": 2,
+     "n": 16,
+     "accuracy": 0.125,
+     "ci_95": [
+      0.035,
+      0.36
+     ]
+    }
+   },
+   "median_generation_seconds": 1.8497095410002657,
+   "mean_prompt_tokens": 1352.3555555555556,
+   "evidence_found": 11,
+   "evidence_total": 46
+  },
+  "0/hybrid-k8-w3-a0.5-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k8-w3-a0.5-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 13,
+     "n": 45,
+     "accuracy": 0.28888888888888886,
+     "ci_95": [
+      0.177,
+      0.434
+     ]
+    },
+    "as_of_valid": {
+     "correct": 3,
+     "n": 13,
+     "accuracy": 0.23076923076923078,
+     "ci_95": [
+      0.082,
+      0.503
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 16,
+     "accuracy": 0.625,
+     "ci_95": [
+      0.386,
+      0.815
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 3.5691404170011083,
+   "mean_prompt_tokens": 2132.1111111111113,
+   "evidence_found": 17,
+   "evidence_total": 46
+  },
+  "0/hybrid-k24-w3-a0.5-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k24-w3-a0.5-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 13,
+     "n": 45,
+     "accuracy": 0.28888888888888886,
+     "ci_95": [
+      0.177,
+      0.434
+     ]
+    },
+    "as_of_valid": {
+     "correct": 1,
+     "n": 13,
+     "accuracy": 0.07692307692307693,
+     "ci_95": [
+      0.014,
+      0.333
+     ]
+    },
+    "current": {
+     "correct": 12,
+     "n": 16,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.505,
+      0.898
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 9.253123167000012,
+   "mean_prompt_tokens": 4903.266666666666,
+   "evidence_found": 25,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w1-a0.5-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w1-a0.5-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 14,
+     "n": 45,
+     "accuracy": 0.3111111111111111,
+     "ci_95": [
+      0.195,
+      0.457
+     ]
+    },
+    "as_of_valid": {
+     "correct": 3,
+     "n": 13,
+     "accuracy": 0.23076923076923078,
+     "ci_95": [
+      0.082,
+      0.503
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 16,
+     "accuracy": 0.5625,
+     "ci_95": [
+      0.332,
+      0.769
+     ]
+    },
+    "n_changes": {
+     "correct": 2,
+     "n": 16,
+     "accuracy": 0.125,
+     "ci_95": [
+      0.035,
+      0.36
+     ]
+    }
+   },
+   "median_generation_seconds": 2.939489500000491,
+   "mean_prompt_tokens": 1833.2222222222222,
+   "evidence_found": 13,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w6-a0.5-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w6-a0.5-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 15,
+     "n": 45,
+     "accuracy": 0.3333333333333333,
+     "ci_95": [
+      0.214,
+      0.479
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 13,
+     "accuracy": 0.3076923076923077,
+     "ci_95": [
+      0.127,
+      0.576
+     ]
+    },
+    "current": {
+     "correct": 11,
+     "n": 16,
+     "accuracy": 0.6875,
+     "ci_95": [
+      0.444,
+      0.858
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 9.721366042000227,
+   "mean_prompt_tokens": 4293.022222222222,
+   "evidence_found": 18,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w3-a0-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 13,
+     "n": 45,
+     "accuracy": 0.28888888888888886,
+     "ci_95": [
+      0.177,
+      0.434
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 13,
+     "accuracy": 0.3076923076923077,
+     "ci_95": [
+      0.127,
+      0.576
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 16,
+     "accuracy": 0.5625,
+     "ci_95": [
+      0.332,
+      0.769
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 7.714161500000046,
+   "mean_prompt_tokens": 2936.266666666667,
+   "evidence_found": 12,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w3-a0.25-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0.25-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 14,
+     "n": 45,
+     "accuracy": 0.3111111111111111,
+     "ci_95": [
+      0.195,
+      0.457
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 13,
+     "accuracy": 0.3076923076923077,
+     "ci_95": [
+      0.127,
+      0.576
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 16,
+     "accuracy": 0.625,
+     "ci_95": [
+      0.386,
+      0.815
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 6.1308855839997705,
+   "mean_prompt_tokens": 3025.2,
+   "evidence_found": 17,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w3-a0.75-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0.75-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 15,
+     "n": 45,
+     "accuracy": 0.3333333333333333,
+     "ci_95": [
+      0.214,
+      0.479
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 13,
+     "accuracy": 0.3076923076923077,
+     "ci_95": [
+      0.127,
+      0.576
+     ]
+    },
+    "current": {
+     "correct": 11,
+     "n": 16,
+     "accuracy": 0.6875,
+     "ci_95": [
+      0.444,
+      0.858
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 4.061474000000089,
+   "mean_prompt_tokens": 2723.088888888889,
+   "evidence_found": 20,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w3-a1-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a1-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 15,
+     "n": 45,
+     "accuracy": 0.3333333333333333,
+     "ci_95": [
+      0.214,
+      0.479
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 13,
+     "accuracy": 0.3076923076923077,
+     "ci_95": [
+      0.127,
+      0.576
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 16,
+     "accuracy": 0.5625,
+     "ci_95": [
+      0.332,
+      0.769
+     ]
+    },
+    "n_changes": {
+     "correct": 2,
+     "n": 16,
+     "accuracy": 0.125,
+     "ci_95": [
+      0.035,
+      0.36
+     ]
+    }
+   },
+   "median_generation_seconds": 3.184425207999084,
+   "mean_prompt_tokens": 2263.5555555555557,
+   "evidence_found": 19,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w3-a0.5-r10-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0.5-r10-c50",
+   "qa": {
+    "overall": {
+     "correct": 11,
+     "n": 45,
+     "accuracy": 0.24444444444444444,
+     "ci_95": [
+      0.142,
+      0.387
+     ]
+    },
+    "as_of_valid": {
+     "correct": 2,
+     "n": 13,
+     "accuracy": 0.15384615384615385,
+     "ci_95": [
+      0.043,
+      0.422
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 16,
+     "accuracy": 0.5625,
+     "ci_95": [
+      0.332,
+      0.769
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 3.7818087920004473,
+   "mean_prompt_tokens": 2768.1111111111113,
+   "evidence_found": 17,
+   "evidence_total": 46
+  },
+  "0/hybrid-k12-w3-a0.5-r100-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0.5-r100-c50",
+   "qa": {
+    "overall": {
+     "correct": 12,
+     "n": 45,
+     "accuracy": 0.26666666666666666,
+     "ci_95": [
+      0.16,
+      0.41
+     ]
+    },
+    "as_of_valid": {
+     "correct": 2,
+     "n": 13,
+     "accuracy": 0.15384615384615385,
+     "ci_95": [
+      0.043,
+      0.422
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 16,
+     "accuracy": 0.625,
+     "ci_95": [
+      0.386,
+      0.815
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    }
+   },
+   "median_generation_seconds": 3.567680709000342,
+   "mean_prompt_tokens": 2914.5555555555557,
+   "evidence_found": 18,
+   "evidence_total": 46
+  }
+ },
+ "sensitivity": [
+  {
+   "level": 0,
+   "parameter": "k",
+   "value": 4,
+   "reference": 12,
+   "delta_accuracy_pp": 4.444444444444445,
+   "paired_cluster": {
+    "delta": 0.044444444444444446,
+    "ci_95": [
+     -0.05,
+     0.12
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": -0.5555555555555556
+  },
+  {
+   "level": 0,
+   "parameter": "k",
+   "value": 8,
+   "reference": 12,
+   "delta_accuracy_pp": 2.2222222222222223,
+   "paired_cluster": {
+    "delta": 0.022222222222222223,
+    "ci_95": [
+     0.0,
+     0.04
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": -0.5555555555555556
+  },
+  {
+   "level": 0,
+   "parameter": "k",
+   "value": 24,
+   "reference": 12,
+   "delta_accuracy_pp": 2.2222222222222223,
+   "paired_cluster": {
+    "delta": 0.022222222222222223,
+    "ci_95": [
+     -0.05,
+     0.08
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": 0.1851851851851852
+  },
+  {
+   "level": 0,
+   "parameter": "window",
+   "value": 1,
+   "reference": 3,
+   "delta_accuracy_pp": 4.444444444444445,
+   "paired_cluster": {
+    "delta": 0.044444444444444446,
+    "ci_95": [
+     0.04,
+     0.05
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": -2.2222222222222223
+  },
+  {
+   "level": 0,
+   "parameter": "window",
+   "value": 6,
+   "reference": 3,
+   "delta_accuracy_pp": 6.666666666666667,
+   "paired_cluster": {
+    "delta": 0.06666666666666667,
+    "ci_95": [
+     0.05,
+     0.08
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": 2.2222222222222223
+  },
+  {
+   "level": 0,
+   "parameter": "alpha",
+   "value": 0.0,
+   "reference": 0.5,
+   "delta_accuracy_pp": 2.2222222222222223,
+   "paired_cluster": {
+    "delta": 0.022222222222222223,
+    "ci_95": [
+     0.0,
+     0.04
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": -4.444444444444445
+  },
+  {
+   "level": 0,
+   "parameter": "alpha",
+   "value": 0.25,
+   "reference": 0.5,
+   "delta_accuracy_pp": 4.444444444444445,
+   "paired_cluster": {
+    "delta": 0.044444444444444446,
+    "ci_95": [
+     0.0,
+     0.1
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": -17.77777777777778
+  },
+  {
+   "level": 0,
+   "parameter": "alpha",
+   "value": 0.75,
+   "reference": 0.5,
+   "delta_accuracy_pp": 6.666666666666667,
+   "paired_cluster": {
+    "delta": 0.06666666666666667,
+    "ci_95": [
+     0.05,
+     0.08
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": 26.666666666666668
+  },
+  {
+   "level": 0,
+   "parameter": "alpha",
+   "value": 1.0,
+   "reference": 0.5,
+   "delta_accuracy_pp": 6.666666666666667,
+   "paired_cluster": {
+    "delta": 0.06666666666666667,
+    "ci_95": [
+     0.0,
+     0.15
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": 13.333333333333334
+  },
+  {
+   "level": 0,
+   "parameter": "rrf",
+   "value": 10,
+   "reference": 60,
+   "delta_accuracy_pp": -2.2222222222222223,
+   "paired_cluster": {
+    "delta": -0.022222222222222223,
+    "ci_95": [
+     -0.04,
+     0.0
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": 0.044444444444444446
+  },
+  {
+   "level": 0,
+   "parameter": "rrf",
+   "value": 100,
+   "reference": 60,
+   "delta_accuracy_pp": 0.0,
+   "paired_cluster": {
+    "delta": 0.0,
+    "ci_95": [
+     0.0,
+     0.0
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "pp_per_unit": 0.0
+  }
+ ],
+ "comparisons": [
+  {
+   "config": "hybrid-k12-w3-a0.5-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.5111111111111111,
+    "ci_95": [
+     -0.56,
+     -0.45
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 3,
+    "b_only": 26,
+    "both": 9,
+    "neither": 7,
+    "p_two_sided": 1.5236437320709229e-05
+   }
+  },
+  {
+   "config": "hybrid-k4-w3-a0.5-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4666666666666667,
+    "ci_95": [
+     -0.5,
+     -0.44
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 3,
+    "b_only": 24,
+    "both": 11,
+    "neither": 7,
+    "p_two_sided": 4.9233436584472656e-05
+   }
+  },
+  {
+   "config": "hybrid-k8-w3-a0.5-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4888888888888889,
+    "ci_95": [
+     -0.52,
+     -0.45
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 2,
+    "b_only": 24,
+    "both": 11,
+    "neither": 8,
+    "p_two_sided": 1.049041748046875e-05
+   }
+  },
+  {
+   "config": "hybrid-k24-w3-a0.5-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4888888888888889,
+    "ci_95": [
+     -0.5,
+     -0.48
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 3,
+    "b_only": 25,
+    "both": 10,
+    "neither": 7,
+    "p_two_sided": 2.744048833847046e-05
+   }
+  },
+  {
+   "config": "hybrid-k12-w1-a0.5-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4666666666666667,
+    "ci_95": [
+     -0.52,
+     -0.4
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 4,
+    "b_only": 25,
+    "both": 10,
+    "neither": 6,
+    "p_two_sided": 0.00010371580719947815
+   }
+  },
+  {
+   "config": "hybrid-k12-w6-a0.5-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4444444444444444,
+    "ci_95": [
+     -0.48,
+     -0.4
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 4,
+    "b_only": 24,
+    "both": 11,
+    "neither": 6,
+    "p_two_sided": 0.00017999112606048584
+   }
+  },
+  {
+   "config": "hybrid-k12-w3-a0-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4888888888888889,
+    "ci_95": [
+     -0.52,
+     -0.45
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 1,
+    "b_only": 23,
+    "both": 12,
+    "neither": 9,
+    "p_two_sided": 2.9802322387695312e-06
+   }
+  },
+  {
+   "config": "hybrid-k12-w3-a0.25-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4666666666666667,
+    "ci_95": [
+     -0.56,
+     -0.35
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 2,
+    "b_only": 23,
+    "both": 12,
+    "neither": 8,
+    "p_two_sided": 1.9431114196777344e-05
+   }
+  },
+  {
+   "config": "hybrid-k12-w3-a0.75-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4444444444444444,
+    "ci_95": [
+     -0.48,
+     -0.4
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 3,
+    "b_only": 23,
+    "both": 12,
+    "neither": 7,
+    "p_two_sided": 8.797645568847656e-05
+   }
+  },
+  {
+   "config": "hybrid-k12-w3-a1-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.4444444444444444,
+    "ci_95": [
+     -0.56,
+     -0.3
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 4,
+    "b_only": 24,
+    "both": 11,
+    "neither": 6,
+    "p_two_sided": 0.00017999112606048584
+   }
+  },
+  {
+   "config": "hybrid-k12-w3-a0.5-r10-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.5333333333333333,
+    "ci_95": [
+     -0.6,
+     -0.45
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 2,
+    "b_only": 26,
+    "both": 9,
+    "neither": 8,
+    "p_two_sided": 3.032386302947998e-06
+   }
+  },
+  {
+   "config": "hybrid-k12-w3-a0.5-r100-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.5111111111111111,
+    "ci_95": [
+     -0.56,
+     -0.45
+    ],
+    "clusters": 2,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 3,
+    "b_only": 26,
+    "both": 9,
+    "neither": 7,
+    "p_two_sided": 1.5236437320709229e-05
+   }
+  }
+ ]
+}

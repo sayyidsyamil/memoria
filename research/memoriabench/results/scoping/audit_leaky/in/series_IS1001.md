@@ -1,0 +1,119 @@
+# Series IS1001
+
+## APPROVED DECISIONS
+
+- [IS1001c:14:15] The group decided to keep the wheel sensor despite the added cost.
+- [ES2008a:07:35] The remote will be sold for 25 Euro.
+- [TS3003c:21:37] The remote will have a docking station.
+- [ES2002a:07:50] The remote will sell for 25 Euro.
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [TS3003a:18:35] The selling price will be 25 Euro.
+- [ES2008b:34:15] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [IS1001c:18:19] The remote will use standard batteries. (replaces solar power)
+- [ES2008c:34:39] The remote will have a simple chip.
+- [ES2006a:15:44] They will aim for a profit of fifty million Euros.
+- [IS1001b:32:18] The remote will not have an LCD screen. (replaces an LCD screen)
+- [TS3005c:25:07] The remote will use a chip on print.
+- [ES2013b:28:52] The remote will have large buttons.
+- [ES2007b:15:38] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [TS3009c:34:36] The logo will be both at the front and the back of the remote; the company slogan will be engraved at the back.
+- [IS1009a:06:17] Company aims to profit fifty million Euro.
+- [ES2012c:34:15] If used, face plates will be cheap.
+- [TS3011a:17:31] The remote will be sold directly to individual consumers rather than companies.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [IS1003c:27:06#2] The remote will use low level chips. (replaces an advanced chip)
+- [ES2002c:24:29] The remote will be curvy.
+- [ES2015c:28:35] Regular chip will be used.
+- [TS3003b:34:42] The remote will be made to accommodate different languages.
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [ES2016b:29:15] The corporate slogan will appear on the bottom of the remote.
+- [IS1001c:15:46] The group decided on the features that will be incorporated into the design of the prototype.
+- [ES2008b:21:21] The team will not work with teletext.
+- [TS3005c:28:24] The case will be single curved. (replaces a double curved case)
+- [ES2016b:23:37] The remote will be simple.
+- [TS3005b:24:42] The remote will shut down when the television shuts down.
+- [ES2016a:09:32] The remote will sell for 25 Euro.
+- [IS1004b:11:21] Corporate logo will be clearly displayed on product. (replaces a remote without the corporate image)
+- [IS1009a:06:12] Selling price will be twenty five Euro.
+- [IS1000a:20:12] The remote will be for use with the television set.
+- [TS3008a:15:18] The remote will be sold for 25 Euros.
+- [IS1004a:10:32] They will generate a proft of fifty million Euros.
+- [IS1003b:20:44] Teletext will not be used.
+- [TS3011a:11:39] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [TS3005b:15:22] The team will not pay any attention to teletext.
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [ES2012b:05:27] The remote will be extremely simple.
+- [IS1001c:16:36] The remote will be shaped and colored like a banana, and be covered in a spongy material.
+- [TS3012b:24:40] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [IS1006a:05:48] The remote will be child proof.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [ES2007c:12:10] The remote will not use a chip on print.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [TS3003b:31:26] The remote will be fancy.
+- [IS1001b:32:27] The remote will not include speech recognition.
+- [ES2016b:22:42] The team will not work with teletext.
+- [IS1001b:28:28] The group decided to include a previous channel change button to the standard remote buttons, and to have a wheel for changing channels in increments, with a smaller number pad below it.
+- [IS1001a:08:29] The group would like the remote to control multiple devices and have optional water and other damage protection.
+- [IS1000a:17:25] The selling price of the product will be about twenty five Euros each.
+- [ES2015c:28:21] Push buttons will be used.
+- [ES2012c:07:44] The remote will contain a custom chip.
+- [ES2007c:09:59] The remote will have rubber push buttons.
+- [IS1006b:33:09] The team will not work with teletext.
+- [TS3003c:21:53] The remote will use an advanced chip.
+- [TS3005b:39:04] The remote will be button-less.
+- [IS1001a:12:33] The group will research the possibility of integrating a locator function into the design.
+- [IS1001c:16:47] It will be placed at the top of the banana shape.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2015a:14:07] The selling price will be twenty five Euros.
+- [TS3008a:15:22] The profit aim is 15 million Euros.
+- [IS1004a:10:21] The target selling price will be 25 Euro dollars.
+- [ES2016b:23:35] The remote will look appealing.
+- [ES2015b:31:33] Glow in the dark buttons, self-timed lighting.
+- [ES2006a:15:38] They will sell the remotes for twenty five Euros each.
+- [ES2012a:07:47] The company should profit fifty million Euros overall.
+- [ES2007a:09:41] The selling price of the remote will be 25 Euro.
+- [IS1006c:27:28] The remote will have some buttons.
+- [IS1003b:16:07] The remote should look fancy.
+- [ES2012a:07:39] The product will be sold for twenty five Euro.
+- [ES2013c:37:17] The remote will use push buttons.
+- [ES2002b:20:58] The target demographic is people aged fifteen to thirty five.
+- [TS3011b:10:13] LED's can be used to light up the remote.
+- [IS1004b:27:47] To target towards young people will bring in new technology.
+- [ES2007b:23:40] The remote will use a regular infra-red signal.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [ES2013b:07:16] The team will not work with teletext.
+- [ES2015a:14:28] The profit will be fifty million Euros.
+- [ES2008a:07:35#2] The profit aim is fifteen million Euro.
+- [ES2014c:13:18] The remote will contain a simple chip. (replaces an advanced chip)
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [ES2015b:25:50] Teletext is outdated and will not be used.
+- [ES2007c:14:26] The case will be double curved.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [ES2015a:04:45] It will be a television remote control.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [ES2013a:07:41] The remote will be sold for 25 Euro.
+- [ES2002c:38:42] The case will have a soft fruit-like feel to it.
+- [ES2015c:23:12] Control will light up when you touch a button.
+- [ES2006c:28:46] The case will be flat on top and curved on the bottom.
+- [TS3012b:31:31] The important buttons will be on top.
+- [ES2007a:09:45] The profit aim will be 50 million Euro.
+- [IS1006a:04:47] The remote will be sold for 25 Euro.
+- [TS3003c:32:18] The case will be single curved. (replaces a double curved case)
+- [TS3003a:22:54] The remote will be shockproof.
+
+## LIVE STATEMENTS (label each one)
+
+- IS1001-S-01: Okay, we will keep the wheel sensor despite the added cost.
+- IS1001-S-02: Right, the remote will not have an LCD screen.
+- IS1001-O-01: Okay, the remote will have an LCD screen.
+- IS1001-O-02: Okay, we will use solar cells to power the remote.
+- IS1001-C-01: We will add voice recognition to the remote.
+- IS1001-C-02: The remote will be powered by a kinetic battery.
+- IS1001-U-01: Why don't we add a night mode with dimmer colours?
+- IS1001-U-02: Okay, what about adding a firmware update through a cable?
+- IS1001-I-01: Right, does anyone know where the whiteboard markers are?
+- IS1001-I-02: Right, my neighbour's dog barked all night.
+- IS1001-E-01: The usability lab has no free slot before the end of the month.
+- IS1001-E-02: I think the focus group loved the first sketches.

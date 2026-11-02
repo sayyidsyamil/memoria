@@ -1,0 +1,81 @@
+{
+ "machine": {
+  "chip": "Apple M5",
+  "memory_gb": 17.2,
+  "macos": "26.7.1"
+ },
+ "software": {
+  "python": "3.11.17",
+  "mlx": "n/a",
+  "mlx_lm": "0.31.3",
+  "torch": "2.12.0",
+  "transformers": "5.8.1",
+  "numpy": "2.4.5"
+ },
+ "models": {
+  "language_model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+  "embedder": "BAAI/bge-small-en-v1.5"
+ },
+ "benchmark": {
+  "file": "memoria_bench.jsonl",
+  "sha256": "8d8f9ca6237b793adb628c579b62a88e7026ea070750c3fd0f25ccedd6c94793",
+  "provenance_sha256": "0782e40469b12590ca8a32ec481afe44aade8bf3d45ac08278dbf4bcfe9905c6",
+  "frozen": true
+ },
+ "settings": {
+  "temperature": 0.0,
+  "max_tokens": 60,
+  "chunk_words": 90,
+  "chunk_overlap_words": 25,
+  "top_k": 5,
+  "backchannel_min_words": 3,
+  "bootstrap_draws": 2000,
+  "seed": 20261015
+ },
+ "b1_thresholds": {
+  "tau_alert": 0.65063,
+  "low": 0.6541,
+  "high": 0.90537,
+  "tuned_on": "development series",
+  "probes": 60
+ },
+ "workers": {
+  "A1": {
+   "probes": 336,
+   "peak_gb": 3.688,
+   "load_s": 26.2,
+   "wall_s": 914.3
+  },
+  "B0": {
+   "probes": 336,
+   "peak_gb": 3.54,
+   "load_s": 4.9,
+   "wall_s": 354.3
+  },
+  "B1": {
+   "probes": 336,
+   "peak_gb": 0.426,
+   "load_s": 5.7,
+   "wall_s": 5.7
+  },
+  "B1b": {
+   "probes": 336,
+   "peak_gb": 0.426,
+   "load_s": 5.7,
+   "wall_s": 5.7
+  },
+  "B2": {
+   "probes": 336,
+   "peak_gb": 3.547,
+   "load_s": 4.9,
+   "wall_s": 831.9
+  },
+  "M2": {
+   "probes": 336,
+   "peak_gb": 3.507,
+   "load_s": 28.7,
+   "wall_s": 817.9
+  }
+ },
+ "finished": "2026-10-15 22:48:04 +0800"
+}

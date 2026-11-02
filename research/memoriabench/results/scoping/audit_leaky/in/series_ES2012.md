@@ -1,0 +1,100 @@
+# Series ES2012
+
+## APPROVED DECISIONS
+
+- [ES2015b:06:48] Will reserach environmental factor.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [ES2008c:30:28] The remote will have a latex case.
+- [TS3012b:17:12] Buttons should be made bigger, with clearly defined functions and of durable materials to avoid fading of the symbols.
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [IS1003b:16:07] The remote should look fancy.
+- [ES2012b:05:27] The remote will be extremely simple.
+- [IS1009a:09:02] Have a locator to help find the remote when it is lost. (replaces a remote without a locator function)
+- [IS1003a:07:40] The remote will have new functions that existing remotes do not have.
+- [ES2008b:34:15] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [ES2013b:28:47] The remote will have an enter button and number buttons.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [ES2012a:08:04] The production cost should be twelve Euros fifty.
+- [ES2007a:17:40] The remote will have a lock function.
+- [IS1003c:27:06#3] The case of the remote will be made of wood. (replaces a titanium case)
+- [ES2004b:22:42] The marketing will be focused towards a young, business-class buyer.
+- [IS1000c:31:43] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [ES2012c:07:44] The remote will contain a custom chip.
+- [ES2014c:18:14] The group decided to focus on a basic remote that will appeal to the widest market.
+- [ES2008b:32:31] The remote will contain a function to aid in its recovery when lost. (replaces a remote without a locator function)
+- [ES2013c:36:00] The case of the remote will be made of rubber.
+- [TS3003b:31:26] The remote will be fancy.
+- [ES2007c:09:59] The remote will have rubber push buttons.
+- [ES2007c:07:52] The case will be made of rubber.
+- [ES2012b:03:53] The remote will be for television only. (replaces controlling multiple devices)
+- [TS3003a:22:59] The remote will be waterproof.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2006c:29:05] The remote control and its buttons will be made of rubber. (replaces a wooden case)
+- [TS3008c:34:09] The case will be made of plastic and rubber. (replaces a metal case)
+- [TS3012b:13:10] The target group will be people below 40. (replaces targeting people over sixty)
+- [TS3003a:22:54] The remote will be shockproof.
+- [ES2015b:29:48] Alarm locator will be implemented.
+- [TS3009a:22:12] They will look further at the idea of covers in the mext meeting too.
+- [TS3010c:32:20] The case will be made of hard plastic and rubber. (replaces a titanium case)
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [ES2016c:34:50] The case will be made of plastic with rubber grips.
+- [IS1009b:30:37] Their target group is basically everybody who owns a TV.
+- [IS1004b:27:47] To target towards young people will bring in new technology.
+- [ES2009b:11:29] The marketing will be focused towards the youth market.
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [ES2012c:28:01] Will be curved, shape similar to a computer mouse, but narrower.
+- [ES2013c:37:17] The remote will use push buttons.
+- [IS1000b:29:01] They will target the 20-40 age group. (replaces targeting people over sixty)
+- [ES2002c:30:39] The remote will not have a talk-back function.
+- [TS3009c:24:59] The case will be titanium with a plastic front with rounded buttons.
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [TS3005b:39:04] The remote will be button-less.
+- [TS3009b:35:35] There is no need for a special button to recognise two-digit numbers.
+- [ES2012c:31:16] No display screen.
+- [ES2008b:32:36] The remote will have large buttons for essential functions.
+- [ES2013b:28:52] The remote will have large buttons.
+- [TS3009c:07:08] The push buttons are going to be made of rubber.
+- [ES2012c:07:29] The remote will have a long-term battery source.
+- [TS3012a:12:10] The team will also take into account possible usability issues concerning disabled people.
+- [ES2012c:30:59] Will have menu, channel, power, volume buttons.
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [TS3005c:27:12] The case will be made of rubber.
+- [ES2012c:30:32] Will have voice with fewer buttons.
+- [ES2016b:26:49] The remote will have a minimal number of buttons.
+- [ES2012a:07:39] The product will be sold for twenty five Euro.
+- [ES2002b:28:23] The remote will use an infra-red sensor.
+- [ES2016b:23:40] The remote will be easy to find.
+- [TS3003c:21:37] The remote will have a docking station.
+- [ES2012b:25:49] The remote will have few buttons, but the main ones such as channel, volume, on/off.
+- [ES2012c:34:15] If used, face plates will be cheap.
+- [ES2012b:34:52] The remote will be a radiaclly different shape.
+- [IS1006a:05:48] The remote will be child proof.
+- [IS1006c:27:28] The remote will have some buttons.
+- [ES2014b:29:34] The remote will feature a locator function that responds to clapping.
+- [ES2016b:23:35] The remote will look appealing.
+- [ES2012b:03:39] Teletext no longer important given rise of internet and thus will not be used. (replaces including teletext)
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [ES2012a:07:47] The company should profit fifty million Euros overall.
+- [ES2002c:38:42] The case will have a soft fruit-like feel to it.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [ES2012b:04:48] Device will incorporate company logo and colors.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [ES2015c:29:02] Case will be plastic and coated in rubber.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [ES2002c:38:03] The remote will have a jog dial.
+
+## LIVE STATEMENTS (label each one)
+
+- ES2012-S-01: So the corporate image will be shown on the remote.
+- ES2012-S-02: So our profit aim is 50 million Euro.
+- ES2012-O-01: The remote will work with several devices.
+- ES2012-O-02: So we will include teletext in the design.
+- ES2012-C-01: We will put an LCD screen on the remote.
+- ES2012-C-02: So the remote will sell for 35 Euro.
+- ES2012-U-01: What about adding a layout that works for left-handed users?
+- ES2012-U-02: Let's add a profile switch for different family members.
+- ES2012-I-01: The room is a bit dim, can someone switch on the other light?
+- ES2012-I-02: Well, the carpet in this room is really loud.
+- ES2012-E-01: Well, the safety lab has not signed off on the casing yet.
+- ES2012-E-02: So the data from the second field trial has been uploaded.

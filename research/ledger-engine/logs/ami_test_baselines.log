@@ -1,0 +1,14 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 79287.41it/s]
+full-context+cot: finished ES2004
+full-context+cot: finished ES2014
+full-context+cot: finished IS1009
+full-context+cot: finished TS3003
+full-context+cot: finished TS3007
+full-context+cot: {'correct': 41, 'n': 96, 'accuracy': 0.4270833333333333, 'ci_95': (0.333, 0.527)}
+bm25-rag(k=12): finished ES2004
+bm25-rag(k=12): finished ES2014
+bm25-rag(k=12): finished IS1009
+bm25-rag(k=12): finished TS3003
+bm25-rag(k=12): finished TS3007
+bm25-rag(k=12): {'correct': 37, 'n': 96, 'accuracy': 0.3854166666666667, 'ci_95': (0.294, 0.485)}
+done in 8804.4s -> /Users/sayyid/Desktop/FYP/engine/results/ami/baselines_test.json

@@ -1,0 +1,29 @@
+Aisha: Good morning everyone, thanks for making time. Today we need to settle the basics of the procurement pilot: the vendor, the budget, and when we go live.
+Raj: Morning. Finance has only seen draft numbers so far, so I would like to keep the budget talk practical.
+Wei Ling: And from IT, I have done demos with all three vendors over the past two weeks, so I can speak to the technical fit.
+Aisha: Great. Wei Ling, give us the short version.
+Wei Ling: Gamma Soft is the cheapest, but their reporting cannot do approvals by department, so I would drop them.
+Raj: Agreed, Gamma Soft is out for me too.
+Wei Ling: Alpha Systems and Beta Cloud both work. Alpha Systems has the better demo and can start immediately. Beta Cloud is more flexible but slower to onboard.
+Raj: On price, Alpha Systems is cheaper. Beta Cloud's licence is about 30,000 ringgit more for the pilot.
+Aisha: Then let's be decisive. We go with Alpha Systems for the pilot. Any objection?
+Raj: No objection from finance.
+Wei Ling: Fine by me. I will tell Alpha Systems we are proceeding.
+Aisha: Good. Next, the budget. Raj, what number do you need?
+Raj: My draft says 300,000 ringgit, but honestly that includes a lot of contingency.
+Aisha: 300,000 is too high for a pilot. The board will not approve that without a business case.
+Raj: Then I can make 250,000 ringgit work if we are careful with the training costs.
+Aisha: Okay, the pilot budget is 250,000 ringgit. Raj, please note that down.
+Raj: Noted.
+Aisha: Now timing. I would like to be live before the end of October. How about 26 October?
+Wei Ling: That is tight but doable if migration starts this week.
+Aisha: Then let's fix it. We go live on 26 October 2026.
+Raj: Do we need a security review before go-live? I am not sure who would do that.
+Aisha: Good question. Let's not decide the owner today. I will bring it back at the next meeting once we are sure about the vendor.
+Wei Ling: Okay. For migration, I can take that. I will own the data migration and have it finished by 9 October.
+Aisha: Thank you Wei Ling.
+Aisha: And training. Staff need a week of training before go-live. I will coordinate it with HR myself and make sure training is finished by 16 October.
+Raj: Do you want me to book the training room?
+Aisha: Yes please, but that is only a favour. I remain the owner.
+Wei Ling: One more thing. Maybe we should think about a mobile app later, but that is for another day.
+Aisha: Parked. Let's meet again on 28 September. Thanks everyone.

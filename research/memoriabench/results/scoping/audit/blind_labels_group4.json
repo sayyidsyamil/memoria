@@ -1,0 +1,422 @@
+{
+  "set_22/s01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered battery-cover feature."
+  },
+  "set_22/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d073"],
+    "note": "Matches the approved 12.50 Euro production cost."
+  },
+  "set_22/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Retailer request is not established by approved decisions."
+  },
+  "set_22/s04": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated sports chatter."
+  },
+  "set_22/s05": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d080"],
+    "note": "Selling price conflicts with the approved 25 Euro price."
+  },
+  "set_22/s06": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated weather chatter."
+  },
+  "set_22/s07": {
+    "label": "OUTDATED",
+    "decisions_used": ["d010"],
+    "note": "Teletext was explicitly replaced by a no-teletext decision."
+  },
+  "set_22/s08": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered recycled-plastic casing."
+  },
+  "set_22/s09": {
+    "label": "OUTDATED",
+    "decisions_used": ["d081"],
+    "note": "The approved demographic replaced targeting people over sixty."
+  },
+  "set_22/s10": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d035"],
+    "note": "Matches the approved trendy design."
+  },
+  "set_22/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d042"],
+    "note": "Europe-only sales conflict with the international target market."
+  },
+  "set_22/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Warehouse capacity is not established by approved decisions."
+  },
+  "set_23/s01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered games menu."
+  },
+  "set_23/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d044"],
+    "note": "Matches the approved 50 million Euro profit aim."
+  },
+  "set_23/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d034"],
+    "note": "An LCD screen was explicitly replaced by no LCD."
+  },
+  "set_23/s04": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d001"],
+    "note": "Matches the approved speech-recognition feature."
+  },
+  "set_23/s05": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Trade-fair rating is not established by approved decisions."
+  },
+  "set_23/s06": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered television-settings button."
+  },
+  "set_23/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d017"],
+    "note": "Europe-only sales conflict with approved international sales."
+  },
+  "set_23/s08": {
+    "label": "OUTDATED",
+    "decisions_used": ["d033"],
+    "note": "Television-only use was replaced by multi-device control."
+  },
+  "set_23/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Meeting-room equipment issue unrelated to the project."
+  },
+  "set_23/s10": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Customer complaints are not established by approved decisions."
+  },
+  "set_23/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d055"],
+    "note": "Twenty Euro exceeds the approved 12.50 Euro production cap."
+  },
+  "set_23/s12": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated personal chatter."
+  },
+  "set_24/s01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d038"],
+    "note": "Matches approved rubber case material."
+  },
+  "set_24/s02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated cafe chatter."
+  },
+  "set_24/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Supplier delay is not established by approved decisions."
+  },
+  "set_24/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d037"],
+    "note": "Targeting over-sixties was explicitly replaced by customers under forty."
+  },
+  "set_24/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered language-switch feature."
+  },
+  "set_24/s06": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d005"],
+    "note": "Omitting the dock conflicts with approved docking-station recharging."
+  },
+  "set_24/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d024"],
+    "note": "No LCD conflicts with the approved LCD screen."
+  },
+  "set_24/s08": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Logo-file status is not established by approved decisions."
+  },
+  "set_24/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated refreshment chatter."
+  },
+  "set_24/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered personalized engraving."
+  },
+  "set_24/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d008"],
+    "note": "The double-curved case was explicitly replaced by a single-curved case."
+  },
+  "set_24/s12": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d024"],
+    "note": "Matches the approved LCD screen."
+  },
+  "set_25/s01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d107"],
+    "note": "Multi-device use conflicts with the approved television-only scope."
+  },
+  "set_25/s02": {
+    "label": "OUTDATED",
+    "decisions_used": ["d088"],
+    "note": "No corporate image is the explicitly replaced design."
+  },
+  "set_25/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Retailer order is not established by approved decisions."
+  },
+  "set_25/s04": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated personal diet chatter."
+  },
+  "set_25/s05": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d072"],
+    "note": "Matches the approved 25 Euro target price."
+  },
+  "set_25/s06": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered shake-to-wake gesture."
+  },
+  "set_25/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated traffic chatter."
+  },
+  "set_25/s08": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Progress-report request is not established by approved decisions."
+  },
+  "set_25/s09": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d038"],
+    "note": "Matches the approved international target market."
+  },
+  "set_25/s10": {
+    "label": "OUTDATED",
+    "decisions_used": ["d026"],
+    "note": "Speech recognition was explicitly ruled out and replaced."
+  },
+  "set_25/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d038"],
+    "note": "Europe-only sales conflict with the approved international market."
+  },
+  "set_25/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered high-contrast button scheme."
+  },
+  "set_26/s01": {
+    "label": "OUTDATED",
+    "decisions_used": ["d005"],
+    "note": "A screenless remote was explicitly replaced by an LCD screen."
+  },
+  "set_26/s02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated personal lunch logistics."
+  },
+  "set_26/s03": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated social chatter."
+  },
+  "set_26/s04": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Quality-control result is not established by approved decisions."
+  },
+  "set_26/s05": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d049"],
+    "note": "Including teletext conflicts with the approved no-teletext decision."
+  },
+  "set_26/s06": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d030"],
+    "note": "Fifteen Euro exceeds the approved 12.50 Euro production cap."
+  },
+  "set_26/s07": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d061"],
+    "note": "Matches the approved speech recognizer."
+  },
+  "set_26/s08": {
+    "label": "OUTDATED",
+    "decisions_used": ["d021"],
+    "note": "No changeable covers is the explicitly replaced design."
+  },
+  "set_26/s09": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered large-print labels."
+  },
+  "set_26/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered low-battery vibration alert."
+  },
+  "set_26/s11": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Intern progress is not established by approved decisions."
+  },
+  "set_26/s12": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d018"],
+    "note": "Matches the approved 25 Euro selling price."
+  },
+  "set_27/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated travel logistics."
+  },
+  "set_27/s02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d082"],
+    "note": "Fifty Euro conflicts with the approved 25 Euro selling price."
+  },
+  "set_27/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d046"],
+    "note": "A metal case was explicitly replaced by plastic and rubber."
+  },
+  "set_27/s04": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d068"],
+    "note": "An LCD screen conflicts with the approved screenless design."
+  },
+  "set_27/s05": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Manufacturer quote timing is not established by approved decisions."
+  },
+  "set_27/s06": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated meeting logistics."
+  },
+  "set_27/s07": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d040"],
+    "note": "Matches approved international sales."
+  },
+  "set_27/s08": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered glow-in-the-dark numbering."
+  },
+  "set_27/s09": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Survey completion is not established by approved decisions."
+  },
+  "set_27/s10": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d049"],
+    "note": "Matches the approved 15 million Euro profit aim."
+  },
+  "set_27/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d023"],
+    "note": "Changeable covers were explicitly replaced by fixed colour schemes."
+  },
+  "set_27/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered second-television pairing button."
+  },
+  "set_28/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated commuting chatter."
+  },
+  "set_28/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d080"],
+    "note": "Matches the approved double-curved case."
+  },
+  "set_28/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d021"],
+    "note": "Twenty Euro exceeds the approved 12.50 Euro production cap."
+  },
+  "set_28/s04": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered picture-in-picture button."
+  },
+  "set_28/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered wrist strap."
+  },
+  "set_28/s06": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d047"],
+    "note": "Matches the approved 50 million Euro profit aim."
+  },
+  "set_28/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated room-comfort complaint."
+  },
+  "set_28/s08": {
+    "label": "OUTDATED",
+    "decisions_used": ["d041"],
+    "note": "No corporate image is the explicitly replaced design."
+  },
+  "set_28/s09": {
+    "label": "OUTDATED",
+    "decisions_used": ["d020"],
+    "note": "Regular batteries were explicitly replaced by a kinetic battery."
+  },
+  "set_28/s10": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Survey result is not established by approved decisions."
+  },
+  "set_28/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d055"],
+    "note": "Wood conflicts with the approved rubber case material."
+  },
+  "set_28/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Mock-up progress is not established by approved decisions."
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "ES2005-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2005c:12:15"],
+    "note": "Speech recognition is approved."
+  },
+  "ES2005-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2005c:29:27"],
+    "note": "The approved shape and yellow coloring match."
+  },
+  "ES2005-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2005c:31:55"],
+    "note": "Rechargeable batteries and a stand replaced solar power."
+  },
+  "ES2005-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2005c:12:15"],
+    "note": "Speech recognition replaced a remote without it."
+  },
+  "ES2005-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2005b:23:09"],
+    "note": "Button functions are approved as limited for usability."
+  },
+  "ES2005-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2005c:31:55"],
+    "note": "The approved design includes a recharging stand."
+  },
+  "ES2005-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered emergency call feature."
+  },
+  "ES2005-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered quick-start card."
+  },
+  "ES2005-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lobby pastries are unrelated social chatter."
+  },
+  "ES2005-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A child's school schedule is unrelated."
+  },
+  "ES2005-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish pilot return results."
+  },
+  "ES2005-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish test-group reactions."
+  },
+  "ES2009-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2009c:22:23"],
+    "note": "Solar power with backup battery is approved."
+  },
+  "ES2009-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2009b:11:29"],
+    "note": "Youth-market targeting is approved."
+  },
+  "ES2009-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2009c:21:36"],
+    "note": "Voice recognition replaced the touch-screen interface."
+  },
+  "ES2009-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2009c:25:19"],
+    "note": "Soft rubber replaced the plastic casing."
+  },
+  "ES2009-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2009c:30:58"],
+    "note": "Optional alternative cases are approved."
+  },
+  "ES2009-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2009b:12:23"],
+    "note": "A locator operated by voice or paging is approved."
+  },
+  "ES2009-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered motion-wake sensor."
+  },
+  "ES2009-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered programme-guide button."
+  },
+  "ES2009-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A post-meeting walk is unrelated."
+  },
+  "ES2009-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lunch chatter is unrelated."
+  },
+  "ES2009-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish sound-lab findings."
+  },
+  "ES2009-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish seasonal demand forecasts."
+  },
+  "ES2014-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2014b:33:40"],
+    "note": "The approved rear panel hides complicated functions."
+  },
+  "ES2014-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2014c:29:59"],
+    "note": "The company logo is approved for the remote."
+  },
+  "ES2014-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2014c:27:31"],
+    "note": "A single-curved case replaced the double-curved case."
+  },
+  "ES2014-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2014c:13:18"],
+    "note": "A simple chip replaced the advanced chip."
+  },
+  "ES2014-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2014c:34:34"],
+    "note": "The approved power supply is kinetic."
+  },
+  "ES2014-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2014b:29:34"],
+    "note": "A clap-responsive locator is approved."
+  },
+  "ES2014-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered subtitles button."
+  },
+  "ES2014-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered fingerprint-profile feature."
+  },
+  "ES2014-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Television-series chatter is unrelated."
+  },
+  "ES2014-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room-temperature logistics are unrelated."
+  },
+  "ES2014-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish finance approval."
+  },
+  "ES2014-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish the sample-delivery incident."
+  },
+  "IS1001-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1001c:14:15"],
+    "note": "Keeping the wheel sensor despite cost is approved."
+  },
+  "IS1001-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1001b:32:18"],
+    "note": "Excluding an LCD screen is approved."
+  },
+  "IS1001-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1001b:32:18"],
+    "note": "No LCD screen replaced the LCD-screen design."
+  },
+  "IS1001-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1001c:18:19"],
+    "note": "Standard batteries replaced solar power."
+  },
+  "IS1001-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1001b:32:27"],
+    "note": "Speech recognition is approved for exclusion."
+  },
+  "IS1001-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1001c:18:19"],
+    "note": "The approved power source is standard batteries."
+  },
+  "IS1001-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered dim-color night mode."
+  },
+  "IS1001-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered cable firmware-update feature."
+  },
+  "IS1001-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Whiteboard-marker logistics are unrelated."
+  },
+  "IS1001-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A neighbour's dog is unrelated."
+  },
+  "IS1001-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish lab scheduling."
+  },
+  "IS1001-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish focus-group reactions."
+  },
+  "IS1007-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1007b:06:48"],
+    "note": "Use of a recharging stand is approved."
+  },
+  "IS1007-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1007c:16:11"],
+    "note": "Excluding a help button is approved."
+  },
+  "IS1007-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1007b:06:48"],
+    "note": "A recharging stand replaced having no dock."
+  },
+  "IS1007-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1007c:16:11"],
+    "note": "Excluding the help button replaced including it."
+  },
+  "IS1007-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1007b:01:26"],
+    "note": "The lighting adaptation system is approved for exclusion."
+  },
+  "IS1007-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1007a:09:36"],
+    "note": "Channel-or-content selection is approved."
+  },
+  "IS1007-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered child-lock function."
+  },
+  "IS1007-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered record button."
+  },
+  "IS1007-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Morning parking chatter is unrelated."
+  },
+  "IS1007-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal jet lag is unrelated."
+  },
+  "IS1007-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish photo-retouching progress."
+  },
+  "IS1007-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish the distributor's request."
+  },
+  "TS3007-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3007c:34:08"],
+    "note": "Fruity-colored removable covers are approved."
+  },
+  "TS3007-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3007c:31:04"],
+    "note": "Excluding speech recognition is approved."
+  },
+  "TS3007-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3007c:34:08"],
+    "note": "Changeable covers replaced having no changeable covers."
+  },
+  "TS3007-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3007c:31:04"],
+    "note": "Excluding speech recognition replaced including it."
+  },
+  "TS3007-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3007c:34:37"],
+    "note": "Games are approved for inclusion."
+  },
+  "TS3007-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3007c:34:08"],
+    "note": "The approved case is double-curved."
+  },
+  "TS3007-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered audible button feedback."
+  },
+  "TS3007-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered haptic button feedback."
+  },
+  "TS3007-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A personal train pass is unrelated."
+  },
+  "TS3007-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Concert-ticket chatter is unrelated."
+  },
+  "TS3007-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish the journalist's call."
+  },
+  "TS3007-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish preorder-page traffic."
+  },
+  "TS3011-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3011a:11:39"],
+    "note": "The approved profit aim is 50 million euros."
+  },
+  "TS3011-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3011b:27:43"],
+    "note": "Speech recognition is approved."
+  },
+  "TS3011-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3011a:17:17"],
+    "note": "Multiple-device control replaced the television-only remote."
+  },
+  "TS3011-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3011c:26:48"],
+    "note": "No LCD replaced the LCD-screen design."
+  },
+  "TS3011-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3011a:11:59"],
+    "note": "International sales are approved, not Europe-only sales."
+  },
+  "TS3011-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3011a:12:09"],
+    "note": "Twenty euros exceeds the 12.50-euro production cap."
+  },
+  "TS3011-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered television-settings button."
+  },
+  "TS3011-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered games menu."
+  },
+  "TS3011-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal grocery chatter is unrelated."
+  },
+  "TS3011-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Projector trouble is unrelated meeting logistics."
+  },
+  "TS3011-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish trade-fair reviews."
+  },
+  "TS3011-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Decisions do not establish old-model complaints."
+  }
+}

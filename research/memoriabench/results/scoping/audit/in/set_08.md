@@ -1,0 +1,109 @@
+# Meeting set 08
+
+## APPROVED DECISIONS
+
+- [d001] The remote will be sold for 25 Euros.
+- [d002] To target towards young people will bring in new technology.
+- [d003] Will research changable covers.
+- [d004] The remote will sell for 25 Euro.
+- [d005] The remote will incorporate a fruit and vegetable theme.
+- [d006] The team will not use the intelligent controller proposed by the User Interface Designer.
+- [d007] The remote should not have too many buttons.
+- [d008] The remote will use an infra-red sensor.
+- [d009] The profit aim will be 50 million Euro.
+- [d010] The remote will be sold for 25 Euro.
+- [d011] The remote will go into standby when idle.
+- [d012] The profit aim is fifteen million Euro.
+- [d013] They will generate a proft of fifty million Euros.
+- [d014] The remote will only be used for televisions.
+- [d015] The remote will be shaped like a snowman.
+- [d016] Glow in the dark buttons, self-timed lighting.
+- [d017] The profit will be fifty million Euros.
+- [d018] Selling price will be twenty five Euro.
+- [d019] The corporate color must be featured on the product.
+- [d020] The target demographic is people aged fifteen to thirty five.
+- [d021] The remote will use solar energy.
+- [d022] The remote will have large buttons.
+- [d023] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d024] The remote will have an enter button and number buttons.
+- [d025] It will be placed at the top of the banana shape.
+- [d026] The remote will have a scrolling device.
+- [d027] The latter would be preferable to implementing a backlight into the remote.
+- [d028] The remote has to be fashionable.
+- [d029] The remote will be easy to find.
+- [d030] Alarm locator will be implemented.
+- [d031] The remote will have pushbuttons.
+- [d032] The company should profit fifty million Euros overall.
+- [d033] The remote will have a docking station.
+- [d034] Will be curved, shape similar to a computer mouse, but narrower.
+- [d035] The remote will be shockproof.
+- [d036] The remote will have LCD buttons.
+- [d037] Will consider using number-shaped buttons.
+- [d038] The remote will have a minimal number of buttons.
+- [d039] Company aims to profit fifty million Euro.
+- [d040] Teletext will not be used.
+- [d041] The remote will have some buttons.
+- [d042] They will aim for a profit of fifty million Euros.
+- [d043] The remote will only have a few buttons.
+- [d044] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d045] The remote will use speech recognition for simple commands.
+- [d046] The team will mix the concepts of the Google controller and the fancy controller in their design.
+- [d047] The remote will be sold for 25 Euro.
+- [d048] The remote will sell for 25 Euro.
+- [d049] Will reserach environmental factor.
+- [d050] The profit aim is 15 million Euros.
+- [d051] The remote will have rubber buttons.
+- [d052] Their target group is basically everybody who owns a TV.
+- [d053] The selling price of the remote will be 25 Euro.
+- [d054] The case of the remote will be made of wood. (replaces a titanium case)
+- [d055] The remote will be waterproof.
+- [d056] The group decided to make the standby button in the shape of an apple.
+- [d057] The remote will have new functions that existing remotes do not have.
+- [d058] The important buttons will be on top.
+- [d059] The selling price will be twenty five Euros.
+- [d060] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d061] The marketing will be focused towards a young, business-class buyer.
+- [d062] They will target the 20-40 age group. (replaces targeting people over sixty)
+- [d063] The remote will use push buttons.
+- [d064] The target selling price will be 25 Euro dollars.
+- [d065] The marketing will be focused towards the youth market.
+- [d066] The selling price will be 25 Euro.
+- [d067] Will use personal face places.
+- [d068] Another button to switch between two channels could also be implemented.
+- [d069] The remote should look fancy.
+- [d070] The remote will use low level chips. (replaces an advanced chip)
+- [d071] The remote will have a jog dial.
+- [d072] The corporate logo should be recognizable on the product.
+- [d073] The remote will be button-less.
+- [d074] Control will light up when you touch a button.
+- [d075] They will sell the remotes for twenty five Euros each.
+- [d076] The target group will be people below 40. (replaces targeting people over sixty)
+- [d077] The remote will have rubber push buttons.
+- [d078] The remote will use a regular infra-red signal.
+- [d079] They cannot make a device that works on the whole house- will need a focus.
+- [d080] The remote will have international appeal.
+- [d081] The remote will have a docking station.
+- [d082] The remote will be easy to learn.
+- [d083] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d084] The remote will be sold directly to individual consumers rather than companies.
+- [d085] The remote will be sold for 25 Euro.
+- [d086] The remote will not be too expensive.
+- [d087] The remote will be curvy.
+- [d088] The remote will be yellow with black or gray buttons.
+- [d089] The remote will be child proof.
+- [d090] The project goal is to develop a new remote control.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: I think it's going to rain this afternoon.
+- s02: Teletext will not be part of the design.
+- s03: I think the team will use the intelligent controller proposed by the User Interface Designer.
+- s04: So we will make the case out of titanium.
+- s05: Well, the football on the radio this morning was terrible.
+- s06: Well, we need an advanced chip in the remote.
+- s07: The remote will not include speech recognition.
+- s08: Right, why don't we add a scratch-resistant coating?
+- s09: Right, the remote will only control televisions.
+- s10: So why don't we add a rotating volume knob?
+- s11: The cost estimate for the tooling came in last Friday.
+- s12: I think the accounting team found a small error in last quarter's cost sheet.

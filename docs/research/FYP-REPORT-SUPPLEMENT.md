@@ -38,7 +38,7 @@ UAT remains pending in the report evidence reviewed. Remove wording implying tha
 
 ## Requirement traceability (Chapter 4 identifiers retained)
 
-Statuses concern the current combined workspace. **Implemented** means a code path and focused evidence exist, not UAT acceptance. **Partial** means a substantial path exists but a required behaviour, interface or verification is missing. **Unverified** means the required outcome has not been demonstrated. Paths below use `W` = `/Users/sayyid/Documents/memoria-workspace`, `E` = `/Users/sayyid/Desktop/FYP/engine`, and `R` = `/Users/sayyid/Desktop/FYP/report/ap2`. `M` = `W/src-tauri/resources/memory`; `T` = `W/src/features/temporal`. These are evidence pointers, not claims that every historical app test was rerun.
+Statuses concern the current combined workspace. **Implemented** means a code path and focused evidence exist, not UAT acceptance. **Partial** means a substantial path exists but a required behaviour, interface or verification is missing. **Unverified** means the required outcome has not been demonstrated. Paths below use `W` = `/Users/sayyid/Documents/memoria-workspace`, `E` = `W/research/ledger-engine` (formerly `/Users/sayyid/Desktop/FYP/engine`), and `R` = `/Users/sayyid/Documents/Memoria-FYP/report/ap2` (private, outside this repository). `M` = `W/src-tauri/resources/memory`; `T` = `W/src/features/temporal`. These are evidence pointers, not claims that every historical app test was rerun.
 
 | ID | Requirement in plain English | Status | Evidence and remaining qualification |
 |---|---|---|---|

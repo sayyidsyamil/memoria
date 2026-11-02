@@ -1,0 +1,105 @@
+# Series ES2007
+
+## APPROVED DECISIONS
+
+- [ES2007b:21:24] The remote will not contain a voice activation feature.
+- [ES2012c:34:15] If used, face plates will be cheap.
+- [ES2016b:39:18] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [ES2014c:18:14] The group decided to focus on a basic remote that will appeal to the widest market.
+- [ES2007c:12:10] The remote will not use a chip on print.
+- [ES2005c:29:27] The remote will be yellow or partially yellow and have an organic shape.
+- [ES2016b:23:40] The remote will be easy to find.
+- [ES2015b:31:33] Glow in the dark buttons, self-timed lighting.
+- [ES2002b:20:58] The target demographic is people aged fifteen to thirty five.
+- [IS1004b:27:47] To target towards young people will bring in new technology.
+- [IS1000b:29:01] They will target the 20-40 age group. (replaces targeting people over sixty)
+- [ES2015b:29:48] Alarm locator will be implemented.
+- [TS3003b:34:42] The remote will be made to accommodate different languages.
+- [TS3009b:35:35] There is no need for a special button to recognise two-digit numbers.
+- [ES2015c:23:12] Control will light up when you touch a button.
+- [ES2007a:09:41] The selling price of the remote will be 25 Euro.
+- [ES2014c:25:32] The group decided to make the standby button in the shape of an apple.
+- [IS1006c:27:28] The remote will have some buttons.
+- [IS1006c:27:31] The remote will incorporate a fruit and vegetable theme.
+- [ES2007c:28:10] The remote will use a kinetic battery. (replaces regular batteries)
+- [ES2007a:09:57] The production cost cannot exceed 12.50 Euro.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [ES2002c:27:28] The remote will be shaped like a snowman.
+- [ES2009b:11:29] The marketing will be focused towards the youth market.
+- [ES2012b:05:27] The remote will be extremely simple.
+- [TS3009a:22:12] They will look further at the idea of covers in the mext meeting too.
+- [IS1007b:01:26] The group decided not to include a lighting adaptation system.
+- [ES2007c:09:59] The remote will have rubber push buttons.
+- [TS3011b:21:58] A single, large, round button can be used for both volume and channel selection by using the four separate quadrants.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [ES2007b:22:34] The remote will have an ergonomic design.
+- [IS1000c:31:43] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [IS1001b:28:28] The group decided to include a previous channel change button to the standard remote buttons, and to have a wheel for changing channels in increments, with a smaller number pad below it.
+- [TS3005b:39:04] The remote will be button-less.
+- [ES2007c:20:07] There will be no display physically featured on the remote itself.
+- [IS1001c:16:47] It will be placed at the top of the banana shape.
+- [ES2007a:09:51] The remote will be sold internationally.
+- [ES2015b:06:48] Will reserach environmental factor.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [TS3011b:24:50] Another button to switch between two channels could also be implemented.
+- [ES2007b:15:38] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [TS3005c:23:09] The remote will not include a pen.
+- [ES2013b:28:52] The remote will have large buttons.
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [IS1000a:19:55] The necessary buttons are on/off, channel up/down browsing, volume, and record button(s).
+- [TS3003a:22:59] The remote will be waterproof.
+- [ES2007a:09:45] The profit aim will be 50 million Euro.
+- [ES2012b:34:52] The remote will be a radiaclly different shape.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [ES2016b:23:35] The remote will look appealing.
+- [ES2013b:28:47] The remote will have an enter button and number buttons.
+- [TS3003b:31:26] The remote will be fancy.
+- [TS3009b:37:33] The less frequently used buttons will not be hidden under a flip, as it had been previously suggested, as there are not that many of them; they will just be clearly separated from the more important ones.
+- [ES2007c:07:52] The case will be made of rubber.
+- [TS3009c:14:52] TV settings will be included in menus there instead of having separate buttons for them.
+- [TS3012b:13:10] The target group will be people below 40. (replaces targeting people over sixty)
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [ES2007a:15:42] The team will create a back-up plan for a remote that only controls televisions.
+- [ES2012b:25:49] The remote will have few buttons, but the main ones such as channel, volume, on/off.
+- [ES2007a:15:20] The remote will control televisions and devices connected to televisions.
+- [TS3003a:22:54] The remote will be shockproof.
+- [TS3012b:31:31] The important buttons will be on top.
+- [ES2012c:30:59] Will have menu, channel, power, volume buttons.
+- [TS3003c:21:37] The remote will have a docking station.
+- [ES2016b:26:49] The remote will have a minimal number of buttons.
+- [ES2015b:32:48] Will consider using number-shaped buttons.
+- [IS1003b:16:07] The remote should look fancy.
+- [ES2016b:31:57] The remote will have buttons for numbers, volume up and down, channel up and down, power, mute, and a menu.
+- [ES2007a:17:40] The remote will have a lock function.
+- [ES2008c:33:33] The remote will have a power button, volume buttons, channel preset buttons, and a menu button.
+- [TS3012b:24:40] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [ES2015c:22:55] Will use personal face places.
+- [IS1006a:05:48] The remote will be child proof.
+- [ES2004b:22:42] The marketing will be focused towards a young, business-class buyer.
+- [TS3010b:29:09] The buttons will consist of number, a menu button, arrows for changing channel and volume, but also navigating the menu, and a mute button.
+- [ES2007b:23:40] The remote will use a regular infra-red signal.
+- [ES2015b:37:00] Will research changable covers.
+- [ES2007c:14:26] The case will be double curved.
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [ES2016b:23:37] The remote will be simple.
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [TS3011b:10:13] LED's can be used to light up the remote.
+- [IS1004b:27:38] The remote control should be fancy, a good shape, and not too small or too big.
+- [TS3003b:32:22] The remote will only have a few buttons.
+
+## LIVE STATEMENTS (label each one)
+
+- ES2007-S-01: Okay, the case will be double curved.
+- ES2007-S-02: Well, we are aiming for a profit of 50 million Euro.
+- ES2007-O-01: The remote will run on regular batteries.
+- ES2007-O-02: The corporate image will not be shown on the remote.
+- ES2007-C-01: Okay, the case will be made of wood.
+- ES2007-C-02: So production will cost us 20 Euro per remote.
+- ES2007-U-01: We should add a picture-in-picture button.
+- ES2007-U-02: Well, what about adding a wrist strap?
+- ES2007-I-01: The air conditioning is far too loud.
+- ES2007-I-02: Right, my bus was packed this morning.
+- ES2007-E-01: I think the design team finished the first colour mock-ups on Tuesday.
+- ES2007-E-02: So last month's survey says nine in ten users lose their remote every week.

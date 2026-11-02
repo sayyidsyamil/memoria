@@ -1,0 +1,27 @@
+[
+ {
+  "language": "en",
+  "raw": "{\"events\":[{\"turn\":0,\"quote\":\"We have decided to use Beta as the supplier. This is final.\",\"object_id\":\"vendor\",\"attribute\":\"outcome\",\"value\":\"Beta\",\"valid_from\":null,\"confidence\":1.0,\"unresolved\":false}]}",
+  "parsed_cleanly": true,
+  "candidates": [
+   {
+    "object_id": "vendor",
+    "attribute": "outcome",
+    "value": "Beta",
+    "quote": "We have decided to use Beta as the supplier. This is final.",
+    "turn": 0,
+    "valid_from": null,
+    "confidence": 1.0,
+    "unresolved": false
+   }
+  ],
+  "seconds": 1.3060864170001878
+ },
+ {
+  "language": "ms",
+  "raw": "{\"events\":[]}",
+  "parsed_cleanly": true,
+  "candidates": [],
+  "seconds": 0.5105085830000462
+ }
+]

@@ -1,0 +1,34 @@
+{
+  "meeting": "IS1009a",
+  "audio_s": 300.0,
+  "frames_bounded": 3751,
+  "frames_stock": 3751,
+  "max_abs_prob_diff": 0.19427597522735596,
+  "frac_frames_abs_diff_gt_0.001": 0.4628099173553719,
+  "frac_frames_abs_diff_gt_0.05": 0.034924020261263664,
+  "frac_frames_active_decision_differs": 0.002932551319648094,
+  "first_frame_diff_gt_0.001": 687,
+  "der_collar0.25_overlap_scored": {
+    "bounded_replica": {
+      "der": 0.28094270621698525,
+      "miss": 0.21905148894177778,
+      "fa": 0.016253555465258012,
+      "conf": 0.04563766180994947
+    },
+    "stock_generate_stream": {
+      "der": 0.28131421605619095,
+      "miss": 0.21942299878098348,
+      "fa": 0.016253555465258012,
+      "conf": 0.04563766180994947
+    }
+  },
+  "seconds_wall": {
+    "bounded_replica": 18.33935809135437,
+    "stock_generate_stream": 23.192816019058228
+  },
+  "mlx_peak_gb": {
+    "bounded_replica": 0.849729386,
+    "stock_generate_stream": 2.16175319
+  },
+  "note": "stock generate_stream is deterministic run-to-run (checked: identical output twice); the replica's conv pre-encode is computed in blocks, whose float32 results differ from the one-shot pre-encode by ~1e-4 (relative ~1e-6); this perturbation is amplified by the speaker-cache selection, so the two outputs agree closely but not bit-exactly."
+}

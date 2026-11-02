@@ -1,0 +1,38 @@
+{
+  "meeting": "ES2014a",
+  "audio_s": 1149.013375,
+  "stt_model": "mlx-community/parakeet-tdt-0.6b-v3",
+  "diar_model": "mlx-community/diar_streaming_sortformer_4spk-v2.1-fp16",
+  "stt_chunk_s": 120.0,
+  "diar_chunk_s": 5.0,
+  "diar_threshold": 0.5,
+  "timing_s": {
+    "load_stt": 18.85634684562683,
+    "load_diar": 0.5497128963470459,
+    "warmup": 3.4370861053466797,
+    "stt": 52.558594942092896,
+    "diar": 84.17967295646667,
+    "stt_plus_diar": 136.73826789855957
+  },
+  "rtf": {
+    "stt": 0.04574237000687037,
+    "diar": 0.07326257012148939,
+    "stt_plus_diar": 0.11900494012835976
+  },
+  "mlx_peak_gb": {
+    "stt": 4.629187418,
+    "diar": 4.149818182
+  },
+  "mlx_cache_limit_gb": 0.5,
+  "ru_maxrss_gb": 3.222437888,
+  "n_tokens": 3550,
+  "n_sentences": 149,
+  "n_diar_frames": 14363,
+  "finished": "2026-10-13T23:26:27+08:00",
+  "complete": true,
+  "process": {
+    "wall_s": 165.3,
+    "max_rss_bytes": 3222437888.0,
+    "peak_footprint_bytes": 5728505408.0
+  }
+}

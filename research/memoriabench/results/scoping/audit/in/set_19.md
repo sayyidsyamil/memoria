@@ -1,0 +1,119 @@
+# Meeting set 19
+
+## APPROVED DECISIONS
+
+- [d001] The group decided to keep the wheel sensor despite the added cost.
+- [d002] The remote will be sold for 25 Euro.
+- [d003] The remote will have a docking station.
+- [d004] The remote will sell for 25 Euro.
+- [d005] The remote will have a docking station.
+- [d006] The selling price will be 25 Euro.
+- [d007] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d008] The remote will use standard batteries. (replaces solar power)
+- [d009] The remote will have a simple chip.
+- [d010] They will aim for a profit of fifty million Euros.
+- [d011] The remote will not have an LCD screen. (replaces an LCD screen)
+- [d012] The remote will use a chip on print.
+- [d013] The remote will have large buttons.
+- [d014] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [d015] The logo will be both at the front and the back of the remote; the company slogan will be engraved at the back.
+- [d016] Company aims to profit fifty million Euro.
+- [d017] If used, face plates will be cheap.
+- [d018] The remote will be sold directly to individual consumers rather than companies.
+- [d019] The remote will be easy to learn.
+- [d020] The remote will use low level chips. (replaces an advanced chip)
+- [d021] The remote will be curvy.
+- [d022] Regular chip will be used.
+- [d023] The remote will be made to accommodate different languages.
+- [d024] The remote has to look good and be easy to use.
+- [d025] The corporate slogan will appear on the bottom of the remote.
+- [d026] The group decided on the features that will be incorporated into the design of the prototype.
+- [d027] The team will not work with teletext.
+- [d028] The case will be single curved. (replaces a double curved case)
+- [d029] The remote will be simple.
+- [d030] The remote will shut down when the television shuts down.
+- [d031] The remote will sell for 25 Euro.
+- [d032] Corporate logo will be clearly displayed on product. (replaces a remote without the corporate image)
+- [d033] Selling price will be twenty five Euro.
+- [d034] The remote will be for use with the television set.
+- [d035] The remote will be sold for 25 Euros.
+- [d036] They will generate a proft of fifty million Euros.
+- [d037] Teletext will not be used.
+- [d038] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d039] The latter would be preferable to implementing a backlight into the remote.
+- [d040] The team will not pay any attention to teletext.
+- [d041] The remote will have rubber buttons.
+- [d042] The remote will be extremely simple.
+- [d043] The remote will be shaped and colored like a banana, and be covered in a spongy material.
+- [d044] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d045] The remote will be child proof.
+- [d046] The remote has to be fashionable.
+- [d047] The remote will have pushbuttons.
+- [d048] The remote will not use a chip on print.
+- [d049] The remote will be yellow with black or gray buttons.
+- [d050] The remote will be fancy.
+- [d051] The remote will not include speech recognition.
+- [d052] The team will not work with teletext.
+- [d053] The group decided to include a previous channel change button to the standard remote buttons, and to have a wheel for changing channels in increments, with a smaller number pad below it.
+- [d054] The group would like the remote to control multiple devices and have optional water and other damage protection.
+- [d055] The selling price of the product will be about twenty five Euros each.
+- [d056] Push buttons will be used.
+- [d057] The remote will contain a custom chip.
+- [d058] The remote will have rubber push buttons.
+- [d059] The team will not work with teletext.
+- [d060] The remote will use an advanced chip.
+- [d061] The remote will be button-less.
+- [d062] The group will research the possibility of integrating a locator function into the design.
+- [d063] It will be placed at the top of the banana shape.
+- [d064] The project goal is to develop a new remote control.
+- [d065] The selling price will be twenty five Euros.
+- [d066] The profit aim is 15 million Euros.
+- [d067] The target selling price will be 25 Euro dollars.
+- [d068] The remote will look appealing.
+- [d069] Glow in the dark buttons, self-timed lighting.
+- [d070] They will sell the remotes for twenty five Euros each.
+- [d071] The company should profit fifty million Euros overall.
+- [d072] The selling price of the remote will be 25 Euro.
+- [d073] The remote will have some buttons.
+- [d074] The remote should look fancy.
+- [d075] The product will be sold for twenty five Euro.
+- [d076] The remote will use push buttons.
+- [d077] The target demographic is people aged fifteen to thirty five.
+- [d078] LED's can be used to light up the remote.
+- [d079] To target towards young people will bring in new technology.
+- [d080] The remote will use a regular infra-red signal.
+- [d081] The remote will have a jog dial.
+- [d082] The team will not work with teletext.
+- [d083] The profit will be fifty million Euros.
+- [d084] The profit aim is fifteen million Euro.
+- [d085] The remote will contain a simple chip. (replaces an advanced chip)
+- [d086] The remote should not have too many buttons.
+- [d087] Teletext is outdated and will not be used.
+- [d088] The case will be double curved.
+- [d089] The remote will not be too expensive.
+- [d090] It will be a television remote control.
+- [d091] The remote will only have a few buttons.
+- [d092] The remote will be sold for 25 Euro.
+- [d093] The case will have a soft fruit-like feel to it.
+- [d094] Control will light up when you touch a button.
+- [d095] The case will be flat on top and curved on the bottom.
+- [d096] The important buttons will be on top.
+- [d097] The profit aim will be 50 million Euro.
+- [d098] The remote will be sold for 25 Euro.
+- [d099] The case will be single curved. (replaces a double curved case)
+- [d100] The remote will be shockproof.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: We will add voice recognition to the remote.
+- s02: Right, the remote will not have an LCD screen.
+- s03: The usability lab has no free slot before the end of the month.
+- s04: Okay, we will use solar cells to power the remote.
+- s05: Okay, what about adding a firmware update through a cable?
+- s06: Right, does anyone know where the whiteboard markers are?
+- s07: Okay, the remote will have an LCD screen.
+- s08: Okay, we will keep the wheel sensor despite the added cost.
+- s09: Right, my neighbour's dog barked all night.
+- s10: Why don't we add a night mode with dimmer colours?
+- s11: I think the focus group loved the first sketches.
+- s12: The remote will be powered by a kinetic battery.

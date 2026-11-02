@@ -1,0 +1,93 @@
+# Meeting set 11
+
+## APPROVED DECISIONS
+
+- [d001] The product will be sold for twenty five Euro.
+- [d002] The remote will be yellow with black or gray buttons.
+- [d003] The remote has to look good and be easy to use.
+- [d004] The remote will feature the company logo, possibly in a sticker form.
+- [d005] The remote will contain a simple chip. (replaces an advanced chip)
+- [d006] The remote will have LCD buttons.
+- [d007] The production cost should be twelve Euros fifty.
+- [d008] The remote will feature push buttons instead of scroll buttons, and a kinetic power supply.
+- [d009] The remote will feature a panel that hides complicated functions on the back of the device.
+- [d010] The production costs cannot exceed 12.50 Euro.
+- [d011] The remote will sell for 25 Euro.
+- [d012] The group decided to focus on a basic remote that will appeal to the widest market.
+- [d013] The remote will resemble a vegetable and be in bright vegetable colors.
+- [d014] The remote will be sold for 25 Euro.
+- [d015] The remote should look fancy.
+- [d016] The maximum production cost for the remote is 12.50 Euro.
+- [d017] The remote will be child proof.
+- [d018] The remote will also feature a rubber case and rubber buttons, and a single-curved design. (replaces a double curved case)
+- [d019] The remote will be made in fruity colors.
+- [d020] The remote will be made to accommodate different languages.
+- [d021] The remote will sell for 25 Euro.
+- [d022] The remote will have large buttons.
+- [d023] They will sell the remotes for twenty five Euros each.
+- [d024] The remote will not be too expensive.
+- [d025] The remote will be shockproof.
+- [d026] Production costs cannot exceed 12.50 Euro.
+- [d027] The selling price will be 25 Euro.
+- [d028] The production costs should be no more than 12.50 euros.
+- [d029] The remote will be waterproof.
+- [d030] They also decided to market the speech recognition component as a "finder function" so as not to confuse it with more advanced speech recognition components in other remote controls.
+- [d031] Will reserach environmental factor.
+- [d032] It will cost no more than 12.5 Euros to make.
+- [d033] The remote will only have a few buttons.
+- [d034] They will look further at the idea of covers in the mext meeting too.
+- [d035] The selling price of the product will be about twenty five Euros each.
+- [d036] The target selling price will be 25 Euro dollars.
+- [d037] Buttons to adjust picture quality, channel tuning, and other settings will be hidden in this panel; the number pad, the channel- and volume-changing and power buttons will remain on the main interface.
+- [d038] The remote should not have too many buttons.
+- [d039] The production cost cannot exceed 12.50 Euro.
+- [d040] The production cost will be twelve Euros and fifty cents.
+- [d041] The remote will have a docking station.
+- [d042] The selling price of the remote will be 25 Euro.
+- [d043] The remote will be fancy.
+- [d044] Control will light up when you touch a button.
+- [d045] The project goal is to develop a new remote control.
+- [d046] There will be a device that allows the user to enter two numbers separately to get a two-digit number in order to reduce the overall number of buttons.
+- [d047] The remote has to be fashionable.
+- [d048] The group decided to make the standby button in the shape of an apple.
+- [d049] LED's can be used to light up the remote.
+- [d050] The remote will have a jog dial.
+- [d051] The production cost will be 12.50 Euro maximum.
+- [d052] The production costs for the remote will be 12.50 Euro maximum.
+- [d053] The control will cost a maximum of twelve Euro and fifty cents to produce.
+- [d054] The remote will incorporate a fruit and vegetable theme.
+- [d055] LCD is not going to be implemented. (replaces an LCD screen)
+- [d056] There will be a touch screen and not many buttons.
+- [d057] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d058] The important buttons will be on top.
+- [d059] The remote will be sold for 25 Euros.
+- [d060] The remote will have some buttons.
+- [d061] The remote will feature a locator function that responds to clapping.
+- [d062] The remote will be easy to learn.
+- [d063] The selling price will be twenty five Euros.
+- [d064] The target demographic is people aged fifteen to thirty five.
+- [d065] The remote will have a docking station.
+- [d066] The remote will be sold for 25 Euro.
+- [d067] The remote will be button-less.
+- [d068] If used, face plates will be cheap.
+- [d069] The group discussed the function of the prototype and decided that they should restrict the remote to television for the time being instead of allowing it to control multiple devices.
+- [d070] The remote will not have an LCD screen. (replaces an LCD screen)
+- [d071] Selling price will be twenty five Euro.
+- [d072] No display screen.
+- [d073] The remote will be sold for 25 Euro.
+- [d074] The production cost cannot exceed 12.50 Euro.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: Let's add a subtitles button.
+- s02: Well, the case will be double curved.
+- s03: Is anyone watching that new series everyone is talking about?
+- s04: The delivery truck for the samples broke down on the way.
+- s05: So we could include a fingerprint sensor for personal profiles.
+- s06: It's freezing in here, can someone turn the heating up?
+- s07: There will be no locator function on the remote.
+- s08: Right, the remote will use regular batteries.
+- s09: Okay, the remote will feature a panel that hides complicated functions on the back of the device.
+- s10: Right, the corporate image will be shown on the remote.
+- s11: Well, we need an advanced chip in the remote.
+- s12: I think finance has already signed off on the second phase.

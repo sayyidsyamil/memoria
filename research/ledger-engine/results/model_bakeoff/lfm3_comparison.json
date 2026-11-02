@@ -1,0 +1,15 @@
+{
+ "lfm3_optiq_dev": {
+  "extraction_calls": 41,
+  "extraction_at_output_cap": 40,
+  "router_calls": 45,
+  "router_at_output_cap": 40
+ },
+ "lfm3_adapted_dev": {
+  "extraction_calls": 41,
+  "extraction_at_output_cap": 31,
+  "router_calls": 45,
+  "router_at_output_cap": 21,
+  "extraction_reasoning_finished": 0
+ }
+}

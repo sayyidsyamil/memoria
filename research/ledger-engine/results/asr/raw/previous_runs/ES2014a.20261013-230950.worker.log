@@ -1,0 +1,27 @@
+{"meeting": "ES2014a", "audio_s": 1149.013375, "timing_s": {"load_stt": 10.715664863586426, "load_diar": 0.8044369220733643, "warmup": 161.36234593391418, "stt": 64.04299592971802, "diar": 86.17047190666199, "stt_plus_diar": 150.21346783638}, "rtf": {"stt": 0.055737380715623105, "diar": 0.07499518611492402, "stt_plus_diar": 0.13073256683054713}, "mlx_peak_gb": {"stt": 4.629187418, "diar": 4.149818182}}
+
+--- stderr ---
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 47662.55it/s]
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 2317.94it/s]
+      325.82 real        14.73 user        22.68 sys
+          1155055616  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              375900  page reclaims
+                6391  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  43  messages sent
+                 118  messages received
+                   0  signals received
+              191984  voluntary context switches
+              209766  involuntary context switches
+        148631048342  instructions retired
+         76195633485  cycles elapsed
+          5548985848  peak memory footprint

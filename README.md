@@ -61,6 +61,7 @@ local meeting inference does not make every inherited integration offline.
 ## Project documentation
 
 - [Architecture](docs/ARCHITECTURE.md) and [model lifecycle](docs/MODEL-LIFECYCLE.md)
+- [Research evidence](research/) behind the FYP evaluation: ledger engine and MemoriaBench
 - [UI conventions](docs/UI-PATTERNS.md) and [Unslop audit](docs/UNSLOP-PASS.md)
 - [Fictional demo vault](memoria-demo/)
 - [Contributing](CONTRIBUTING.md), [issues](https://github.com/sayyidsyamil/memoria/issues), and [security](SECURITY.md)
@@ -78,4 +79,4 @@ Design refinement follows [Unslop](https://github.com/heydamir/unslop) by Damir
 Sokolovsky ([@heydamir](https://x.com/heydamir)), CC BY 4.0.
 
 `main` is the desktop workspace. `legacy` preserves the previous Next.js default;
-`fyp2` and `master` retain earlier work.
+`fyp2` (tag `v0.1.0-uat`, the app evaluated in the FYP2 report) and `master` retain earlier work.

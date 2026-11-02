@@ -1,0 +1,15 @@
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Fetching 14 files: 100%|██████████| 14/14 [00:00<00:00, 1833.40it/s]
+prompts available: {"BitextMining": "task: search result | query: ", "Classification": "task: classification | query: ", "Clustering": "task: clustering | query: ", "CodeRetrieval": "task: code retrieval | query: ", "Document": "title: none | text: ", "FactChecking": "task: fact checking | query: ", "InstructionRetrieval": "task: code retrieval | query: ", "MultilabelClassification": "task: classification | query: ", "PairClassification": "task: sentence similarity | query: ", "QuestionAnswering": "task: question answering | query: ", "Reranking": "task: search result | query: ", "Retrieval": "task: search resul
+{
+ "model": "mlx-community/embeddinggemma-2-bf16",
+ "q_prefix": "task: sentence similarity | query: ",
+ "d_prefix": "task: sentence similarity | query: ",
+ "mlx_peak_gb": 1.842811622,
+ "p50_ms": 7.221603998914361,
+ "p95_ms": 8.879518613684922,
+ "backend": "mlx",
+ "docs": 405,
+ "queries": 396,
+ "seconds": 5.4,
+ "peak_rss_gb": 2.488
+}

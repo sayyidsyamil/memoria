@@ -1,0 +1,62 @@
+Behaviour-preservation and robustness evidence for results/testing/proposed_fixes.patch
+=========================================================================================
+
+"Before" is the live engine (memoria_engine/ unchanged, frozen while the AMI evaluation runs).
+"After" is a scratch copy of the engine with proposed_fixes.patch applied. No language model, GPU or network was used:
+every script replays recorded replies. Commands are run from the engine directory (a copy of it for "after").
+
+1. Replay of the recorded evaluation          results/testing/evidence/replay_evaluation.py OUT.json
+   Every model call of the recorded runs is served from results/cache (ReplayOnly: a miss would raise).
+
+     split K    cache hits   misses   before   after
+     test  0         11         0       ok       ok
+     test  8         46         0       ok       ok
+     test 24        129         0       ok       ok
+     test 48        284         0       ok       ok
+     dev   0          9         0       ok       ok
+     dev   8         34         0       ok       ok
+
+   The two output files (every answer, the extraction and ledger statistics and the QA scores of each K) are byte-identical:
+   sha256 1ed87b3b043970e6cb70770d62b75e7744d636272651868984f0351632a804f1 (before) = (after).
+
+2. Replay of the stored raw replies under every review policy     results/testing/evidence/replay_policies.py OUT.json
+   The raw model replies kept in results/dev_v2.json (13 policy x chain entries) and results/test_v2.json (51 entries) are
+   pushed through Pipeline again, each into a fresh ledger, under the same policy as the recording.
+     dispositions that differ from the recorded ones: 0 of 13 (dev), 0 of 51 (test), before and after.
+   Ledger dumps and answers of all 64 runs are byte-identical before and after:
+   sha256 d9dbd89d649019e77dbfa16b5067d5a5559c81a36b32d3b8e73f9e87e28ac47a (before) = (after).
+
+3. parse_events over every recorded reply     results/testing/evidence/parse_snapshot.py OUT.json + compare_parse.py
+   Scope: every reply in results/cache/*.jsonl (the AMI caches are only read, they were still growing, so one run saw one
+   record more than the other) and the raw replies in results/{dev,test}_v2.json.
+
+     recorded replies compared                                   942
+     extraction replies (prompt "You maintain a decision ...")   478   identical candidates and identical clean flag: 478, different: 0
+     exceptions raised by parse_events, before and after                 0
+     other replies (question router, baselines; not event lists) 464   candidates unchanged in all; clean flag True -> False in 452
+
+   The only observable change is the clean flag of replies that are valid JSON but hold no "events" list (router and
+   baseline answers): "clean" now means "the reply contained an events list". parsed_cleanly is read only by
+   MLXExtractor.extract (a statistic in the stats dict) and by windowed.py, and never for the 478 extraction replies it changed.
+
+4. Seeded fuzz campaign     results/testing/evidence/fuzz_campaign.py OUT.json   (seed 20260301; the mutators of tests/test_error_handling.py)
+   Layer 1: 24,000 structural + 18,000 textual mutations of a valid reply -> parse_events.
+   Layer 2: 11 recorded test meetings x 300 mutated copies of the real model reply x 3 review policies
+            (immediate, confirm_all, threshold:0.8) = 3,300 runs of Pipeline.ingest, each into a fresh ledger.
+
+                                                                   before (live engine)   after (patched copy)
+     parse_events: exceptions in 42,000 replies                         803 TypeError                 0
+     Pipeline.ingest: runs that raised an exception (of 3,300)         189                           0
+        TypeError 142, sqlite3.IntegrityError 35, OverflowError 10, InvalidAssertion 2                 -
+     runs that raised after part of the meeting was stored                23                           0
+     ledger invariant violations                                           0                           0
+     facts without matching evidence (traceability violations)             0                           0
+     facts applied                                                      1,991                       2,040
+
+   The campaign is deterministic: re-running it on 2026-10-13 gave exactly the stored fuzz_campaign_before_fixes.json and
+   fuzz_campaign_after_fixes.json (apart from the run time). "Facts applied" is higher after the fixes because 189 runs
+   that used to abort now complete.
+
+Conclusion: the fixes change nothing the recorded evaluation can observe (items 1 to 3) and remove every exception the
+campaign provoked (item 4). They are not applied to the live engine because the AMI run records the hashes of
+memoria_engine/{ledger,pipeline,extractors}.py in results/ami/frozen_manifest.sha256.

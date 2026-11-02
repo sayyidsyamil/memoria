@@ -1,0 +1,16 @@
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 14 files:   7%|▋         | 1/14 [00:00<00:10,  1.29it/s]Fetching 14 files:  21%|██▏       | 3/14 [00:00<00:02,  3.72it/s]Fetching 14 files:  64%|██████▍   | 9/14 [00:01<00:00,  6.94it/s]Fetching 14 files:  86%|████████▌ | 12/14 [00:01<00:00,  8.62it/s]Fetching 14 files:  93%|█████████▎| 13/14 [00:20<00:00,  8.62it/s]Fetching 14 files: 100%|██████████| 14/14 [00:21<00:00,  2.57s/it]Fetching 14 files: 100%|██████████| 14/14 [00:21<00:00,  1.54s/it]
+prompts available: {"BitextMining": "task: search result | query: ", "Classification": "task: classification | query: ", "Clustering": "task: clustering | query: ", "CodeRetrieval": "task: code retrieval | query: ", "Document": "title: none | text: ", "FactChecking": "task: fact checking | query: ", "InstructionRetrieval": "task: code retrieval | query: ", "MultilabelClassification": "task: classification | query: ", "PairClassification": "task: sentence similarity | query: ", "QuestionAnswering": "task: question answering | query: ", "Reranking": "task: search result | query: ", "Retrieval": "task: search resul
+{
+ "model": "mlx-community/embeddinggemma-2-4bit",
+ "q_prefix": "task: search result | query: ",
+ "d_prefix": "title: none | text: ",
+ "mlx_peak_gb": 1.416638374,
+ "p50_ms": 8.08127099298872,
+ "p95_ms": 10.471267164393792,
+ "backend": "mlx",
+ "docs": 405,
+ "queries": 396,
+ "seconds": 28.1,
+ "peak_rss_gb": 2.617
+}

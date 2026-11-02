@@ -1,0 +1,17 @@
+[2026-10-10 20:48:16] run begins; code+data hash a36b185cd792
+[2026-10-10 20:48:16] START memoria (code+data hash a36b185cd792)
+[2026-10-10 21:25:10] END   memoria rc=0
+[2026-10-10 21:25:10] START dev_baselines (code+data hash a36b185cd792)
+[2026-10-10 21:51:35] END   dev_baselines rc=0
+full-context  -> full-context+cot (18/27 on dev at K=24)
+bm25-rag      -> bm25-rag(k=12) (18/27 on dev at K=24)
+--configs fc+cot,bm25-12
+--select "full-context+cot,bm25-rag(k=12)"
+[2026-10-10 21:51:35] chosen on dev: configs=fc+cot,bm25-12 select=full-context+cot,bm25-rag(k=12)
+[2026-10-10 21:51:35] START baselines (code+data hash a36b185cd792)
+[2026-10-11 03:52:46] END   baselines rc=0
+[2026-10-11 03:52:46] START memoria_alt (code+data hash a36b185cd792)
+[2026-10-11 11:16:46] END   memoria_alt rc=0
+[2026-10-11 11:16:47] report written (rc=0)
+[2026-10-11 11:16:47] code+data unchanged since the start (a36b185cd792)
+[2026-10-11 11:16:47] ALL-DONE

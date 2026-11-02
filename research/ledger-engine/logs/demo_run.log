@@ -1,0 +1,23 @@
+[2026-10-14 02:27:19] demo jobs begin; engine code hash 9346615b033b
+[2026-10-14 02:27:19] START system_accept_all
+[2026-10-14 02:28:27] END   system_accept_all rc=0
+[2026-10-14 02:28:27] START system_careful
+[2026-10-14 02:29:37] END   system_careful rc=0
+[2026-10-14 02:29:37] START eval_immediate
+[2026-10-14 02:33:50] END   eval_immediate rc=0
+[2026-10-14 02:33:50] START eval_review
+[2026-10-14 02:35:11] END   eval_review rc=0
+[2026-10-14 02:35:11] demo jobs end
+[2026-10-14 02:41:45] demo jobs begin (v3: value-in-quote check, fallback router); engine code hash 639b57ffd079
+[2026-10-14 02:41:45] START system_accept_all
+[2026-10-14 02:42:53] END   system_accept_all rc=1
+[2026-10-14 02:42:53] START system_careful
+[2026-10-14 02:44:03] END   system_careful rc=1
+[2026-10-14 02:44:03] START eval_immediate
+[2026-10-14 02:48:22] END   eval_immediate rc=0
+[2026-10-14 02:48:22] START eval_review
+[2026-10-14 02:49:52] END   eval_review rc=0
+[2026-10-14 02:49:52] demo jobs end
+[2026-10-14 02:56:06] system tests rerun begin; engine code hash 639b57ffd079
+[2026-10-14 02:57:14] END system_accept_all rc=0
+[2026-10-14 02:58:24] END system_careful rc=0

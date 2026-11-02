@@ -1,0 +1,1788 @@
+{
+ "config": {
+  "split": "demo",
+  "policy": "immediate",
+  "chains": [
+   "demo"
+  ],
+  "questions": 21,
+  "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+  "extractor_prompt": "v2",
+  "extractor_prompt_sha256_12": "7f816362cd95",
+  "router_prompt": "r1",
+  "window_chars": 7000,
+  "cot_max_tokens": 4096,
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "date": "2026-10-14 02:29:43",
+  "note": "FICTIONAL series authored with AI help; a system check, not evidence about real meetings"
+ },
+ "memoria": {
+  "qa": {
+   "ext+router": {
+    "overall": {
+     "correct": 17,
+     "n": 21,
+     "accuracy": 0.8095238095238095,
+     "ci_95": [
+      0.6,
+      0.923
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 5,
+     "accuracy": 0.8,
+     "ci_95": [
+      0.376,
+      0.964
+     ]
+    },
+    "current": {
+     "correct": 7,
+     "n": 9,
+     "accuracy": 0.7777777777777778,
+     "ci_95": [
+      0.453,
+      0.937
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 6,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.436,
+      0.97
+     ]
+    }
+   },
+   "ext+oracle_route": {
+    "overall": {
+     "correct": 18,
+     "n": 21,
+     "accuracy": 0.8571428571428571,
+     "ci_95": [
+      0.654,
+      0.95
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 5,
+     "accuracy": 0.8,
+     "ci_95": [
+      0.376,
+      0.964
+     ]
+    },
+    "current": {
+     "correct": 7,
+     "n": 9,
+     "accuracy": 0.7777777777777778,
+     "ci_95": [
+      0.453,
+      0.937
+     ]
+    },
+    "n_changes": {
+     "correct": 6,
+     "n": 6,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.61,
+      1.0
+     ]
+    }
+   },
+   "oracle_ext+router": {
+    "overall": {
+     "correct": 20,
+     "n": 21,
+     "accuracy": 0.9523809523809523,
+     "ci_95": [
+      0.773,
+      0.992
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 9,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.701,
+      1.0
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 6,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.436,
+      0.97
+     ]
+    }
+   },
+   "oracle_ext+oracle_route": {
+    "overall": {
+     "correct": 21,
+     "n": 21,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.845,
+      1.0
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 9,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.701,
+      1.0
+     ]
+    },
+    "n_changes": {
+     "correct": 6,
+     "n": 6,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.61,
+      1.0
+     ]
+    }
+   }
+  },
+  "rows": [
+   {
+    "chain": "demo",
+    "qid": "q1",
+    "type": "current",
+    "gold": "Beta Cloud",
+    "question": "Which vendor are we using for the pilot now?",
+    "route": {
+     "type": "current",
+     "object_id": "vendor",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "Beta Cloud",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "Beta Cloud",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "Beta Cloud",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "Beta Cloud",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q2",
+    "type": "current",
+    "gold": 280000,
+    "question": "What is the pilot budget at the moment, in ringgit?",
+    "route": {
+     "type": "current",
+     "object_id": "budget",
+     "attribute": "amount",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 280000,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 280000,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 280000,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 280000,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q3",
+    "type": "current",
+    "gold": "2026-11-09",
+    "question": "What is the current go-live date?",
+    "route": {
+     "type": "current",
+     "object_id": "golive",
+     "attribute": "date",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-11-09",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-11-09",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-11-09",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-11-09",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q4",
+    "type": "current",
+    "gold": "2026-10-23",
+    "question": "When is the data migration due now?",
+    "route": {
+     "type": "current",
+     "object_id": "migration",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-23",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-23",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-23",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-23",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q5",
+    "type": "current",
+    "gold": "wei_ling",
+    "question": "Who owns the data migration?",
+    "route": {
+     "type": "current",
+     "object_id": "migration",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "wei_ling",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q6",
+    "type": "current",
+    "gold": "aisha",
+    "question": "Who is responsible for staff training?",
+    "route": {
+     "type": "current",
+     "object_id": "training",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "aisha",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "aisha",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "aisha",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "aisha",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q7",
+    "type": "current",
+    "gold": "2026-11-03",
+    "question": "When is staff training due?",
+    "route": {
+     "type": "current",
+     "object_id": "training",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-11-03",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-11-03",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-11-03",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-11-03",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q8",
+    "type": "current",
+    "gold": "done",
+    "question": "What is the status of the security review?",
+    "route": {
+     "type": "current",
+     "object_id": "security",
+     "attribute": "status",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "done",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "done",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q9",
+    "type": "current",
+    "gold": "wei_ling",
+    "question": "Who owns the security review?",
+    "route": {
+     "type": "current",
+     "object_id": "security",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "wei_ling",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q10",
+    "type": "as_of_valid",
+    "gold": 250000,
+    "question": "What was the pilot budget on 27 September 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "budget",
+     "attribute": "amount",
+     "valid_at": "2026-09-27",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 2500000,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 2500000,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": 250000,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 250000,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q11",
+    "type": "as_of_valid",
+    "gold": "2026-10-26",
+    "question": "What was the go-live date on 5 October 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "golive",
+     "attribute": "date",
+     "valid_at": "2026-10-05",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q12",
+    "type": "as_of_valid",
+    "gold": "Alpha Systems",
+    "question": "Which vendor had been chosen on 20 September 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "vendor",
+     "attribute": "outcome",
+     "valid_at": "2026-09-20",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "Alpha Systems",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "Alpha Systems",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "Alpha Systems",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "Alpha Systems",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q13",
+    "type": "as_of_valid",
+    "gold": "2026-10-09",
+    "question": "What was the data migration deadline on 10 October 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "migration",
+     "attribute": "deadline",
+     "valid_at": "2026-10-10",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-09",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-09",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-09",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-09",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q14",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "Who owned the security review on 20 September 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "security",
+     "attribute": "owner",
+     "valid_at": "2026-09-20",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q15",
+    "type": "as_of_tx",
+    "gold": "2026-10-26",
+    "question": "Going by what had been recorded by 6 October 2026, what was the go-live date for 16 October 2026?",
+    "route": {
+     "type": "as_of_tx",
+     "object_id": "golive",
+     "attribute": "date",
+     "valid_at": "2026-10-16",
+     "tx_at": "2026-10-06",
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q16",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the vendor choice change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "vendor",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q17",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the pilot budget change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "budget",
+     "attribute": "amount",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q18",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the go-live date change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no tracked item"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q19",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the data migration deadline change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "migration",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q20",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the training deadline change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "training",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q21",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times did the owner of the security review change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "security",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   }
+  ],
+  "extraction": {
+   "gold_events": 18,
+   "tp": 14,
+   "fp": 3,
+   "fn": 4,
+   "precision": 0.8235294117647058,
+   "recall": 0.7777777777777778,
+   "f1": 0.7999999999999999,
+   "ci_95": {
+    "precision": [
+     0.8,
+     0.857
+    ],
+    "recall": [
+     0.667,
+     0.857
+    ],
+    "f1": [
+     0.727,
+     0.857
+    ]
+   },
+   "state_changing_recall": 0.7333333333333333,
+   "state_changing_gold": 15,
+   "by_kind": {
+    "INITIAL": {
+     "gold": 9,
+     "found": 7,
+     "recall": 0.778
+    },
+    "REVERSE": {
+     "gold": 1,
+     "found": 1,
+     "recall": 1.0
+    },
+    "CONFIRM": {
+     "gold": 3,
+     "found": 3,
+     "recall": 1.0
+    },
+    "REVISE": {
+     "gold": 4,
+     "found": 3,
+     "recall": 0.75
+    },
+    "COMPLETE": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    }
+   },
+   "by_tag": {
+    "(no tag)": {
+     "gold": 18,
+     "found": 14,
+     "recall": 0.778
+    }
+   },
+   "miss_reasons": {
+    "value_error": 1,
+    "wrong_evidence": 1,
+    "attribute_error": 1,
+    "missed": 1
+   },
+   "fp_reasons": {
+    "wrong_content": 2,
+    "distractor:tentative": 1
+   },
+   "filtered": {},
+   "distractor_hit_rate": 0.09090909090909091,
+   "distractor_turns": 22,
+   "evidence_exact_turn": 0.8571428571428571,
+   "confidence_auroc": 0.5,
+   "confidence_ece": 0.0764705882352944,
+   "confidence_mean": 0.9000000000000002,
+   "confidence_distinct": 1
+  },
+  "extraction_by_chain": {
+   "demo": {
+    "gold_events": 18,
+    "tp": 14,
+    "fp": 3,
+    "fn": 4,
+    "precision": 0.8235294117647058,
+    "recall": 0.7777777777777778,
+    "f1": 0.7999999999999999,
+    "ci_95": {
+     "precision": [
+      0.8,
+      0.857
+     ],
+     "recall": [
+      0.667,
+      0.857
+     ],
+     "f1": [
+      0.727,
+      0.857
+     ]
+    },
+    "state_changing_recall": 0.7333333333333333,
+    "state_changing_gold": 15,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 9,
+      "found": 7,
+      "recall": 0.778
+     },
+     "REVERSE": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 4,
+      "found": 3,
+      "recall": 0.75
+     },
+     "COMPLETE": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 18,
+      "found": 14,
+      "recall": 0.778
+     }
+    },
+    "miss_reasons": {
+     "value_error": 1,
+     "wrong_evidence": 1,
+     "attribute_error": 1,
+     "missed": 1
+    },
+    "fp_reasons": {
+     "wrong_content": 2,
+     "distractor:tentative": 1
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.09090909090909091,
+    "distractor_turns": 22,
+    "evidence_exact_turn": 0.8571428571428571,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.0764705882352944,
+    "confidence_mean": 0.9000000000000002,
+    "confidence_distinct": 1
+   }
+  },
+  "ledger": {
+   "supersession_tp": 4,
+   "supersession_fp": 1,
+   "supersession_fn": 1,
+   "state_gold": 10,
+   "state_correct": 8,
+   "phantom_beliefs": 0,
+   "supersession_precision": 0.8,
+   "supersession_recall": 0.8,
+   "supersession_f1": 0.8000000000000002,
+   "state_accuracy": 0.8
+  },
+  "router": {
+   "exact": 20,
+   "n": 21,
+   "failed": 1,
+   "mean_seconds": 1.654,
+   "mean_prompt_tokens": 851.714
+  },
+  "cost": {
+   "meetings": 3,
+   "extract_seconds_per_meeting": 10.103,
+   "extract_seconds_total": 30.3,
+   "prompt_tokens_per_meeting": 1667.667,
+   "output_tokens_per_meeting": 406.667,
+   "windows_per_meeting": 1.0
+  }
+ },
+ "baselines": {
+  "full-context+cot": {
+   "qa": {
+    "overall": {
+     "correct": 19,
+     "n": 21,
+     "accuracy": 0.9047619047619048,
+     "ci_95": [
+      0.711,
+      0.973
+     ]
+    },
+    "as_of_tx": {
+     "correct": 0,
+     "n": 1,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.793
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 9,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.701,
+      1.0
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 6,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.436,
+      0.97
+     ]
+    }
+   },
+   "items": [
+    {
+     "qid": "q1",
+     "chain": "demo",
+     "type": "current",
+     "gold": "Beta Cloud",
+     "answer": "Beta Cloud",
+     "raw": "Based on the meeting notes, here are the decisions regarding the vendor in date order:\n\n1.  **2026-09-14**: Alpha Systems was selected for the pilot.\n2.  **2026-09-28**: Alpha Systems was dropped due to failing the security questionnaire, and Beta Cloud was selected as the replacement.\n\nANSWER: Beta Cloud",
+     "correct": true,
+     "seconds": 4.58,
+     "prompt_tokens": 2411,
+     "output_tokens": 83,
+     "question": "Which vendor are we using for the pilot now?"
+    },
+    {
+     "qid": "q2",
+     "chain": "demo",
+     "type": "current",
+     "gold": 280000,
+     "answer": 280000,
+     "raw": "- 2026-09-14: Decision made to set the pilot budget at 250,000 ringgit.\n- 2026-09-28: Decision made to increase the pilot budget to 280,000 ringgit due to the vendor change from Alpha Systems to Beta Cloud.\n- 2026-10-12: Decision confirmed that the pilot budget remains at 280,000 ringgit with no changes.\n\nANSWER: 280000",
+     "correct": true,
+     "seconds": 5.63,
+     "prompt_tokens": 2414,
+     "output_tokens": 123,
+     "question": "What is the pilot budget at the moment, in ringgit?"
+    },
+    {
+     "qid": "q3",
+     "chain": "demo",
+     "type": "current",
+     "gold": "2026-11-09",
+     "answer": "2026-11-09",
+     "raw": "- 2026-09-14: Go-live set to 2026-10-26\n- 2026-10-12: Go-live changed to 2026-11-09 due to delayed data migration\n\nANSWER: 2026-11-09",
+     "correct": true,
+     "seconds": 4.67,
+     "prompt_tokens": 2409,
+     "output_tokens": 77,
+     "question": "What is the current go-live date?"
+    },
+    {
+     "qid": "q4",
+     "chain": "demo",
+     "type": "current",
+     "gold": "2026-10-23",
+     "answer": "2026-10-23",
+     "raw": "Based on the meeting notes, here are the decisions regarding the data migration deadline:\n\n1.  **2026-09-14**: Wei Ling initially committed to finishing the data migration by **2026-10-09**.\n2.  **2026-10-12**: Wei Ling reported the migration was delayed due to duplicate records and requested an extension, with the new deadline set for **2026-10-23**.\n\nSince today's date is 2026-10-14, the decision made on 2026-10-12 is the one currently in effect.\n\nANSWER: 2026-10-23",
+     "correct": true,
+     "seconds": 6.64,
+     "prompt_tokens": 2409,
+     "output_tokens": 159,
+     "question": "When is the data migration due now?"
+    },
+    {
+     "qid": "q5",
+     "chain": "demo",
+     "type": "current",
+     "gold": "wei_ling",
+     "answer": "wei_ling",
+     "raw": "Wei Ling was assigned to own the data migration in the meeting held on 2026-09-14.\nWei Ling remains the owner of the data migration in the meeting held on 2026-09-28.\nWei Ling remains the owner of the data migration in the meeting held on 2026-10-12.\nANSWER: Wei Ling",
+     "correct": true,
+     "seconds": 4.81,
+     "prompt_tokens": 2407,
+     "output_tokens": 86,
+     "question": "Who owns the data migration?"
+    },
+    {
+     "qid": "q6",
+     "chain": "demo",
+     "type": "current",
+     "gold": "aisha",
+     "answer": "aisha",
+     "raw": "Based on the meeting notes, here are the decisions regarding staff training responsibility:\n\n1.  **Meeting 2026-09-14**: Aisha states, \"I will coordinate it with HR myself and make sure training is finished by 16 October,\" and Raj confirms, \"Yes please, but that is only a favour. I remain the owner.\"\n    *   *Decision*: Owner is Aisha.\n2.  **Meeting 2026-10-12**: Aisha updates the plan, stating, \"I will move training to 3 November so staff are trained a week before go-live. I stay the owner.\"\n    *   *Decision*: Owner remains Aisha.\n\nANSWER: Aisha",
+     "correct": true,
+     "seconds": 6.45,
+     "prompt_tokens": 2408,
+     "output_tokens": 157,
+     "question": "Who is responsible for staff training?"
+    },
+    {
+     "qid": "q7",
+     "chain": "demo",
+     "type": "current",
+     "gold": "2026-11-03",
+     "answer": "2026-11-03",
+     "raw": "Based on the meeting notes, here are the decisions regarding staff training:\n\n1.  **Meeting 2026-09-14**: Training was initially set to be finished by **2026-10-16** (Decision [24]).\n2.  **Meeting 2026-10-12**: Due to the data migration delay, the go-live date was moved to 9 November, and the training deadline was updated to **2026-11-03** (Decision [10]).\n\nSince today's date is 2026-10-14, the decision from the 12th October (2026-11-03) is the one currently in effect.\n\nANSWER: 2026-11-03",
+     "correct": true,
+     "seconds": 7.16,
+     "prompt_tokens": 2407,
+     "output_tokens": 180,
+     "question": "When is staff training due?"
+    },
+    {
+     "qid": "q8",
+     "chain": "demo",
+     "type": "current",
+     "gold": "done",
+     "answer": "done",
+     "raw": "Based on the meeting notes, here are the decisions regarding the security review:\n\n1.  **Meeting 2026-09-28**: Wei Ling was assigned to own the security review with a deadline of 5 October 2026. Status was pending.\n2.  **Meeting 2026-10-12**: Wei Ling confirmed the security review of Beta Cloud was finished and they passed. Status is done.\n\nANSWER: done",
+     "correct": true,
+     "seconds": 5.17,
+     "prompt_tokens": 2410,
+     "output_tokens": 101,
+     "question": "What is the status of the security review?"
+    },
+    {
+     "qid": "q9",
+     "chain": "demo",
+     "type": "current",
+     "gold": "wei_ling",
+     "answer": "wei_ling",
+     "raw": "Based on the meeting notes, here are the decisions regarding the owner of the security review:\n\n1.  **2026-09-14**: Aisha decided not to assign an owner yet, stating she would bring it back at the next meeting once the vendor was confirmed.\n2.  **2026-09-28**: Wei Ling offered to own the security review for Beta Cloud, with a deadline of 5 October.\n3.  **2026-09-28**: Raj suggested hiring an outside consultant, but Aisha rejected this, confirming Wei Ling would do it.\n4.  **2026-10-12**: Wei Ling confirmed the security review was finished and passed.\n\nANSWER: wei_ling",
+     "correct": true,
+     "seconds": 7.1,
+     "prompt_tokens": 2407,
+     "output_tokens": 166,
+     "question": "Who owns the security review?"
+    },
+    {
+     "qid": "q10",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": 250000,
+     "answer": 250000,
+     "raw": "Based on the meeting notes, here are the decisions regarding the pilot budget relevant to the date 2026-09-27:\n\n1.  **Meeting on 2026-09-14**: The budget was set to **250,000** ringgit for Alpha Systems.\n2.  **Meeting on 2026-09-28**: The vendor was changed to Beta Cloud, and the budget was increased to **280,000** ringgit. This decision was made effective on the day of the meeting (2026-09-28).\n\nOn 2026-09-27, the decision from the 14th meeting (250,000) was the one in effect, as the 28th meeting had not yet occurred.\n\nANSWER: 250000",
+     "correct": true,
+     "seconds": 7.66,
+     "prompt_tokens": 2417,
+     "output_tokens": 198,
+     "question": "What was the pilot budget on 27 September 2026?"
+    },
+    {
+     "qid": "q11",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": "2026-10-26",
+     "answer": "2026-10-26",
+     "raw": "Based on the meeting notes, here are the decisions regarding the go-live date relevant to the date of 2026-10-05:\n\n1.  **2026-09-14**: Decision made to go live on **2026-10-26**. This decision was in effect on 2026-10-05.\n2.  **2026-10-12**: Decision made to move the go-live date to **2026-11-09**. This decision was made *after* 2026-10-05, so it does not apply to that date.\n\nANSWER: 2026-10-26",
+     "correct": true,
+     "seconds": 6.81,
+     "prompt_tokens": 2417,
+     "output_tokens": 164,
+     "question": "What was the go-live date on 5 October 2026?"
+    },
+    {
+     "qid": "q12",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": "Alpha Systems",
+     "answer": "Alpha Systems",
+     "raw": "Based on the meeting notes, here are the decisions regarding the vendor choice relevant to the date 2026-09-20:\n\n1.  **2026-09-14**: Alpha Systems was chosen for the pilot.\n2.  **2026-09-28**: Alpha Systems was dropped due to security failures, and Beta Cloud was chosen.\n\nSince 2026-09-20 falls between these two dates, the decision in effect on that day was Alpha Systems.\n\nANSWER: Alpha Systems",
+     "correct": true,
+     "seconds": 5.81,
+     "prompt_tokens": 2417,
+     "output_tokens": 121,
+     "question": "Which vendor had been chosen on 20 September 2026?"
+    },
+    {
+     "qid": "q13",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": "2026-10-09",
+     "answer": "2026-10-09",
+     "raw": "Based on the meeting notes, here are the decisions regarding the data migration deadline relevant to the date of 2026-10-10:\n\n1.  **Meeting 2026-09-14**: Wei Ling initially set the data migration deadline to **2026-10-09**.\n2.  **Meeting 2026-10-12**: Wei Ling reported the migration was delayed and requested a new deadline of **2026-10-23**. Aisha confirmed this new date.\n\nSince the date in question (2026-10-10) falls after the first decision but before the second decision, the first decision is the one in effect.\n\nANSWER: 2026-10-09",
+     "correct": true,
+     "seconds": 7.15,
+     "prompt_tokens": 2418,
+     "output_tokens": 174,
+     "question": "What was the data migration deadline on 10 October 2026?"
+    },
+    {
+     "qid": "q14",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "raw": "Based on the meeting notes, here are the decisions regarding the security review owner and deadline:\n\n1.  **2026-09-14**: Aisha decided not to assign an owner immediately, stating she would bring it back at the next meeting once the vendor was confirmed.\n2.  **2026-09-28**: Wei Ling assigned herself as the owner of the security review with a deadline of 5 October.\n3.  **2026-10-12**: Wei Ling confirmed the security review was finished and passed.\n\nOn 2026-09-20, the vendor had not yet been confirmed (Alpha Systems was rejected on 2026-09-28), so the decision to assign Wei Ling as the owner was not yet in effect. The decision to assign Wei Ling was made on 2026-09-28, which is after the date in question.\n\nANSWER: none",
+     "correct": true,
+     "seconds": 8.0,
+     "prompt_tokens": 2417,
+     "output_tokens": 211,
+     "question": "Who owned the security review on 20 September 2026?"
+    },
+    {
+     "qid": "q15",
+     "chain": "demo",
+     "type": "as_of_tx",
+     "gold": "2026-10-26",
+     "answer": null,
+     "raw": "Based on the meeting notes, here are the decisions regarding the go-live date:\n\n1.  **2026-09-14**: The team decided to go live on **2026-10-26**.\n2.  **2026-09-28**: The team confirmed the go-live date remains **2026-10-26**, despite the vendor change to Beta Cloud.\n\nThe question asks for the go-live date *for* 16 October 2026. The decision made on 2026-09-14 set the go-live date to 26 October 2026. This decision was reaffirmed on 2026-09-28 and remained in effect on 16 October 2026. There is no decision recorded that changes the go-live date to 16 October 2026. The date \"16 October\" mentioned in the notes refers to the deadline for staff training, not the go-live date itself.\n\nANSWER: none",
+     "correct": false,
+     "seconds": 7.98,
+     "prompt_tokens": 1939,
+     "output_tokens": 233,
+     "question": "Going by what had been recorded by 6 October 2026, what was the go-live date for 16 October 2026?"
+    },
+    {
+     "qid": "q16",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "Based on the meeting notes, here are the decisions regarding the vendor choice in date order:\n\n1.  **2026-09-14**: Decision made to select **Alpha Systems** for the pilot.\n2.  **2026-09-28**: Decision made to drop Alpha Systems due to security questionnaire failure and select **Beta Cloud** instead.\n\nThe vendor choice changed from Alpha Systems to Beta Cloud exactly once.\n\nANSWER: 1",
+     "correct": true,
+     "seconds": 5.28,
+     "prompt_tokens": 2410,
+     "output_tokens": 101,
+     "question": "How many times did the vendor choice change?"
+    },
+    {
+     "qid": "q17",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "Based on the meeting notes, here are the decisions regarding the pilot budget:\n\n1.  **2026-09-14**: The budget was set to **250,000** ringgit (Meeting 1, lines 14-15).\n2.  **2026-09-28**: The budget was increased to **280,000** ringgit due to the vendor change from Alpha Systems to Beta Cloud (Meeting 2, lines 9-12).\n3.  **2026-10-12**: The budget remained at **280,000** ringgit with no change (Meeting 3, lines 13-14).\n\nThe budget changed from 250,000 to 280,000 once.\n\nANSWER: 1",
+     "correct": true,
+     "seconds": 7.92,
+     "prompt_tokens": 2410,
+     "output_tokens": 192,
+     "question": "How many times did the pilot budget change?"
+    },
+    {
+     "qid": "q18",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "Based on the meeting notes, here are the decisions regarding the go-live date:\n\n1.  **2026-09-14**: Decision made to go live on **2026-10-26**.\n2.  **2026-09-28**: Decision confirmed to keep the go-live date on **2026-10-26**.\n3.  **2026-10-12**: Decision made to change the go-live date to **2026-11-09** due to data migration delays.\n\nThe date changed from 2026-10-26 to 2026-11-09, which is a single change event.\n\nANSWER: 1",
+     "correct": true,
+     "seconds": 7.51,
+     "prompt_tokens": 2411,
+     "output_tokens": 172,
+     "question": "How many times did the go-live date change?"
+    },
+    {
+     "qid": "q19",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "Based on the meeting notes, here are the decisions regarding the data migration deadline:\n\n1.  **2026-09-14**: Wei Ling initially set the deadline for **2026-10-09**.\n2.  **2026-10-12**: Wei Ling reported the migration was delayed and requested an extension, changing the deadline to **2026-10-23**.\n\nThe deadline was changed exactly once (from Oct 9 to Oct 23).\n\nANSWER: 1",
+     "correct": true,
+     "seconds": 5.96,
+     "prompt_tokens": 2411,
+     "output_tokens": 119,
+     "question": "How many times did the data migration deadline change?"
+    },
+    {
+     "qid": "q20",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 2,
+     "raw": "Based on the meeting notes, here are the decisions regarding the training deadline:\n\n1.  **2026-09-14**: The training deadline was set to **2026-10-16** (16 October).\n2.  **2026-10-12**: The training deadline was changed to **2026-11-03** (3 November) because the go-live date was moved to 9 November.\n\nThe deadline was changed 2 times.\n\nANSWER: 2",
+     "correct": false,
+     "seconds": 6.07,
+     "prompt_tokens": 2410,
+     "output_tokens": 119,
+     "question": "How many times did the training deadline change?"
+    },
+    {
+     "qid": "q21",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "raw": "Based on the meeting notes, here are the decisions regarding the owner of the security review:\n\n1.  **2026-09-14**: Aisha decided not to assign an owner today, stating she would bring it back at the next meeting once the vendor was confirmed. No owner was assigned.\n2.  **2026-09-28**: Wei Ling volunteered to own the security review for Beta Cloud, with a deadline of 5 October.\n3.  **2026-10-12**: Wei Ling confirmed the security review was finished and passed. The owner remained Wei Ling.\n\nThe owner was assigned once (Wei Ling on 2026-09-28) and never changed after that assignment.\n\nANSWER: 0",
+     "correct": true,
+     "seconds": 7.35,
+     "prompt_tokens": 2413,
+     "output_tokens": 169,
+     "question": "How many times did the owner of the security review change?"
+    }
+   ],
+   "median_seconds": 6.64,
+   "mean_prompt_tokens": 2389,
+   "mean_output_tokens": 148
+  },
+  "bm25-rag(k=12)": {
+   "qa": {
+    "overall": {
+     "correct": 12,
+     "n": 21,
+     "accuracy": 0.5714285714285714,
+     "ci_95": [
+      0.365,
+      0.755
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 3,
+     "n": 5,
+     "accuracy": 0.6,
+     "ci_95": [
+      0.231,
+      0.882
+     ]
+    },
+    "current": {
+     "correct": 8,
+     "n": 9,
+     "accuracy": 0.8888888888888888,
+     "ci_95": [
+      0.565,
+      0.98
+     ]
+    },
+    "n_changes": {
+     "correct": 0,
+     "n": 6,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.39
+     ]
+    }
+   },
+   "items": [
+    {
+     "qid": "q1",
+     "chain": "demo",
+     "type": "current",
+     "gold": "Beta Cloud",
+     "answer": "Alpha Systems",
+     "raw": "Alpha Systems",
+     "correct": false,
+     "seconds": 2.23,
+     "prompt_tokens": 1598,
+     "output_tokens": 2,
+     "question": "Which vendor are we using for the pilot now?"
+    },
+    {
+     "qid": "q2",
+     "chain": "demo",
+     "type": "current",
+     "gold": 280000,
+     "answer": 280000,
+     "raw": "280000",
+     "correct": true,
+     "seconds": 2.08,
+     "prompt_tokens": 1587,
+     "output_tokens": 6,
+     "question": "What is the pilot budget at the moment, in ringgit?"
+    },
+    {
+     "qid": "q3",
+     "chain": "demo",
+     "type": "current",
+     "gold": "2026-11-09",
+     "answer": "2026-11-09",
+     "raw": "2026-11-09",
+     "correct": true,
+     "seconds": 2.33,
+     "prompt_tokens": 1608,
+     "output_tokens": 10,
+     "question": "What is the current go-live date?"
+    },
+    {
+     "qid": "q4",
+     "chain": "demo",
+     "type": "current",
+     "gold": "2026-10-23",
+     "answer": "2026-10-23",
+     "raw": "2026-10-23",
+     "correct": true,
+     "seconds": 2.23,
+     "prompt_tokens": 1569,
+     "output_tokens": 10,
+     "question": "When is the data migration due now?"
+    },
+    {
+     "qid": "q5",
+     "chain": "demo",
+     "type": "current",
+     "gold": "wei_ling",
+     "answer": "wei_ling",
+     "raw": "wei_ling",
+     "correct": true,
+     "seconds": 2.1,
+     "prompt_tokens": 1580,
+     "output_tokens": 3,
+     "question": "Who owns the data migration?"
+    },
+    {
+     "qid": "q6",
+     "chain": "demo",
+     "type": "current",
+     "gold": "aisha",
+     "answer": "aisha",
+     "raw": "aisha",
+     "correct": true,
+     "seconds": 2.06,
+     "prompt_tokens": 1581,
+     "output_tokens": 2,
+     "question": "Who is responsible for staff training?"
+    },
+    {
+     "qid": "q7",
+     "chain": "demo",
+     "type": "current",
+     "gold": "2026-11-03",
+     "answer": "2026-11-03",
+     "raw": "2026-11-03",
+     "correct": true,
+     "seconds": 2.28,
+     "prompt_tokens": 1565,
+     "output_tokens": 10,
+     "question": "When is staff training due?"
+    },
+    {
+     "qid": "q8",
+     "chain": "demo",
+     "type": "current",
+     "gold": "done",
+     "answer": "done",
+     "raw": "done",
+     "correct": true,
+     "seconds": 2.15,
+     "prompt_tokens": 1548,
+     "output_tokens": 1,
+     "question": "What is the status of the security review?"
+    },
+    {
+     "qid": "q9",
+     "chain": "demo",
+     "type": "current",
+     "gold": "wei_ling",
+     "answer": "wei_ling",
+     "raw": "wei_ling",
+     "correct": true,
+     "seconds": 2.12,
+     "prompt_tokens": 1611,
+     "output_tokens": 3,
+     "question": "Who owns the security review?"
+    },
+    {
+     "qid": "q10",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": 250000,
+     "answer": 250000,
+     "raw": "250000",
+     "correct": true,
+     "seconds": 2.15,
+     "prompt_tokens": 1574,
+     "output_tokens": 6,
+     "question": "What was the pilot budget on 27 September 2026?"
+    },
+    {
+     "qid": "q11",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": "2026-10-26",
+     "answer": "2026-10-26",
+     "raw": "2026-10-26",
+     "correct": true,
+     "seconds": 2.23,
+     "prompt_tokens": 1529,
+     "output_tokens": 10,
+     "question": "What was the go-live date on 5 October 2026?"
+    },
+    {
+     "qid": "q12",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": "Alpha Systems",
+     "answer": null,
+     "raw": "none",
+     "correct": false,
+     "seconds": 1.99,
+     "prompt_tokens": 1493,
+     "output_tokens": 1,
+     "question": "Which vendor had been chosen on 20 September 2026?"
+    },
+    {
+     "qid": "q13",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": "2026-10-09",
+     "answer": "2026-10-09",
+     "raw": "2026-10-09",
+     "correct": true,
+     "seconds": 2.19,
+     "prompt_tokens": 1545,
+     "output_tokens": 10,
+     "question": "What was the data migration deadline on 10 October 2026?"
+    },
+    {
+     "qid": "q14",
+     "chain": "demo",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": "wei_ling",
+     "raw": "wei_ling",
+     "correct": false,
+     "seconds": 2.17,
+     "prompt_tokens": 1497,
+     "output_tokens": 3,
+     "question": "Who owned the security review on 20 September 2026?"
+    },
+    {
+     "qid": "q15",
+     "chain": "demo",
+     "type": "as_of_tx",
+     "gold": "2026-10-26",
+     "answer": "2026-10-26",
+     "raw": "2026-10-26",
+     "correct": true,
+     "seconds": 2.3,
+     "prompt_tokens": 1639,
+     "output_tokens": 10,
+     "question": "Going by what had been recorded by 6 October 2026, what was the go-live date for 16 October 2026?"
+    },
+    {
+     "qid": "q16",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 2,
+     "raw": "2",
+     "correct": false,
+     "seconds": 1.98,
+     "prompt_tokens": 1497,
+     "output_tokens": 1,
+     "question": "How many times did the vendor choice change?"
+    },
+    {
+     "qid": "q17",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 2,
+     "raw": "2",
+     "correct": false,
+     "seconds": 2.03,
+     "prompt_tokens": 1590,
+     "output_tokens": 1,
+     "question": "How many times did the pilot budget change?"
+    },
+    {
+     "qid": "q18",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 2,
+     "raw": "2",
+     "correct": false,
+     "seconds": 2.06,
+     "prompt_tokens": 1585,
+     "output_tokens": 1,
+     "question": "How many times did the go-live date change?"
+    },
+    {
+     "qid": "q19",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 2,
+     "raw": "2",
+     "correct": false,
+     "seconds": 2.21,
+     "prompt_tokens": 1550,
+     "output_tokens": 1,
+     "question": "How many times did the data migration deadline change?"
+    },
+    {
+     "qid": "q20",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 2,
+     "raw": "2",
+     "correct": false,
+     "seconds": 2.16,
+     "prompt_tokens": 1614,
+     "output_tokens": 1,
+     "question": "How many times did the training deadline change?"
+    },
+    {
+     "qid": "q21",
+     "chain": "demo",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 2,
+     "raw": "2",
+     "correct": false,
+     "seconds": 2.02,
+     "prompt_tokens": 1594,
+     "output_tokens": 1,
+     "question": "How many times did the owner of the security review change?"
+    }
+   ],
+   "median_seconds": 2.15,
+   "mean_prompt_tokens": 1569,
+   "mean_output_tokens": 4
+  }
+ },
+ "wall_seconds": 246.5
+}

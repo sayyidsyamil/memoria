@@ -1,0 +1,7 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 65027.97it/s]
+# System test on the fictional demo series (extractor: mlx; transcripts: asr)
+
+Through the app's JSON service. Wall time 133.0 s. Reviewer: careful. Inbox held 4 proposal(s): 3 accepted (0 after fixing the number from the quote), 1 rejected as not in the answer key, 0 rejected as stale.
+
+- Facts after review: 9/12 slots match the answer key; phantom facts (value where none expected): 0.
+- Questions: 15/21 correct (current 6/9, as_of_valid 4/5, as_of_tx 1/1, n_changes 4/6).

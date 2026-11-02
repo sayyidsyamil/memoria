@@ -1,0 +1,4 @@
+full-context  -> full-context+cot (18/27 on dev at K=24)
+bm25-rag      -> bm25-rag(k=12) (18/27 on dev at K=24)
+--configs fc+cot,bm25-12
+--select "full-context+cot,bm25-rag(k=12)"

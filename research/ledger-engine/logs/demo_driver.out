@@ -1,0 +1,10 @@
+[2026-10-14 02:41:45] demo jobs begin (v3: value-in-quote check, fallback router); engine code hash 639b57ffd079
+[2026-10-14 02:41:45] START system_accept_all
+[2026-10-14 02:42:53] END   system_accept_all rc=1
+[2026-10-14 02:42:53] START system_careful
+[2026-10-14 02:44:03] END   system_careful rc=1
+[2026-10-14 02:44:03] START eval_immediate
+[2026-10-14 02:48:22] END   eval_immediate rc=0
+[2026-10-14 02:48:22] START eval_review
+[2026-10-14 02:49:52] END   eval_review rc=0
+[2026-10-14 02:49:52] demo jobs end

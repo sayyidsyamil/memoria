@@ -1,0 +1,20 @@
+[2026-10-13 22:33:45] run begins; code+data hash 70ce8922420a
+[2026-10-13 22:33:45] START dev_baselines (code+data hash 70ce8922420a)
+[2026-10-13 23:07:14] END   dev_baselines rc=134
+[2026-10-13 23:07:15] START test_memoria (code+data hash 70ce8922420a)
+[2026-10-13 23:07:58] driver run_rest.sh starts (code+data hash 70ce8922420a); waiting for test_memoria pid 63280
+[2026-10-13 23:33:22] END   test_memoria (pid 63280 ended; output file decides success)
+[2026-10-13 23:33:22] START fast_equivalence
+[2026-10-13 23:35:24] END   fast_equivalence -> runner run_ami.py ({"compared": 4, "identical_text": 1, "same_verdict": 3, "prefix_builds": 1, "prefix_hits": 3})
+[2026-10-13 23:35:24] START test_baselines (code+data hash 70ce8922420a)
+[2026-10-13 23:38:03] queue driver starts; waiting for run_rest.sh pid 63382
+[2026-10-14 00:03:26] driver run_after.sh starts (code+data hash 70ce8922420a); run_rest.sh and run_queue.sh were stopped by hand; waiting for test_baselines pid 70275
+[2026-10-14 00:36:27] driver run_after.sh starts (code+data hash 70ce8922420a); run_rest.sh and run_queue.sh were stopped by hand; waiting for test_baselines pid 70275
+[2026-10-14 02:02:29] END   test_baselines (pid 70275 ended; output file decides success)
+[2026-10-14 02:02:30] START test_memoria_review (code+data hash 70ce8922420a)
+[2026-10-14 02:09:05] END   test_memoria_review rc=0
+[2026-10-14 02:09:05] driver run_after.sh ends (code+data hash 70ce8922420a); the engine fixes (results/testing/proposed_fixes.patch and the service fixes) may be applied now. The dev baselines are run last, by hand, with the patched code (replay_offline.py shows the patched code reproduces the frozen runs).
+[2026-10-14 03:45:13] START dev_baselines (engine fixed on 14 Oct; code hash of memoria_engine 639b57ffd079)
+[2026-10-14 03:47:37] dev_baselines paused by hand for the release build (resumable; cache kept)
+[2026-10-14 07:07:38] START dev_baselines (engine fixed on 14 Oct; code hash of memoria_engine 639b57ffd079)
+[2026-10-14 07:20:38] dev_baselines paused by hand (two MLX processes at once while the diarization check ran; resumable, cache kept)

@@ -1,0 +1,100 @@
+# Meeting set 15
+
+## APPROVED DECISIONS
+
+- [d001] Will reserach environmental factor.
+- [d002] The remote has to be fashionable.
+- [d003] The remote will have a latex case.
+- [d004] Buttons should be made bigger, with clearly defined functions and of durable materials to avoid fading of the symbols.
+- [d005] The remote will have pushbuttons.
+- [d006] The remote should look fancy.
+- [d007] The remote will be extremely simple.
+- [d008] Have a locator to help find the remote when it is lost. (replaces a remote without a locator function)
+- [d009] The remote will have new functions that existing remotes do not have.
+- [d010] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d011] The remote will have an enter button and number buttons.
+- [d012] The remote will be easy to learn.
+- [d013] The production cost should be twelve Euros fifty.
+- [d014] The remote will have a lock function.
+- [d015] The case of the remote will be made of wood. (replaces a titanium case)
+- [d016] The marketing will be focused towards a young, business-class buyer.
+- [d017] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d018] The remote will contain a custom chip.
+- [d019] The group decided to focus on a basic remote that will appeal to the widest market.
+- [d020] The remote will contain a function to aid in its recovery when lost. (replaces a remote without a locator function)
+- [d021] The case of the remote will be made of rubber.
+- [d022] The remote will be fancy.
+- [d023] The remote will have rubber push buttons.
+- [d024] The case will be made of rubber.
+- [d025] The remote will be for television only. (replaces controlling multiple devices)
+- [d026] The remote will be waterproof.
+- [d027] The project goal is to develop a new remote control.
+- [d028] The remote control and its buttons will be made of rubber. (replaces a wooden case)
+- [d029] The case will be made of plastic and rubber. (replaces a metal case)
+- [d030] The target group will be people below 40. (replaces targeting people over sixty)
+- [d031] The remote will be shockproof.
+- [d032] Alarm locator will be implemented.
+- [d033] They will look further at the idea of covers in the mext meeting too.
+- [d034] The case will be made of hard plastic and rubber. (replaces a titanium case)
+- [d035] The remote has to look good and be easy to use.
+- [d036] The case will be made of plastic with rubber grips.
+- [d037] Their target group is basically everybody who owns a TV.
+- [d038] To target towards young people will bring in new technology.
+- [d039] The marketing will be focused towards the youth market.
+- [d040] The remote should not have too many buttons.
+- [d041] Will be curved, shape similar to a computer mouse, but narrower.
+- [d042] The remote will use push buttons.
+- [d043] They will target the 20-40 age group. (replaces targeting people over sixty)
+- [d044] The remote will not have a talk-back function.
+- [d045] The case will be titanium with a plastic front with rounded buttons.
+- [d046] The remote will have a docking station.
+- [d047] The remote will be button-less.
+- [d048] There is no need for a special button to recognise two-digit numbers.
+- [d049] No display screen.
+- [d050] The remote will have large buttons for essential functions.
+- [d051] The remote will have large buttons.
+- [d052] The push buttons are going to be made of rubber.
+- [d053] The remote will have a long-term battery source.
+- [d054] The team will also take into account possible usability issues concerning disabled people.
+- [d055] Will have menu, channel, power, volume buttons.
+- [d056] The remote will have rubber buttons.
+- [d057] The case will be made of rubber.
+- [d058] Will have voice with fewer buttons.
+- [d059] The remote will have a minimal number of buttons.
+- [d060] The product will be sold for twenty five Euro.
+- [d061] The remote will use an infra-red sensor.
+- [d062] The remote will be easy to find.
+- [d063] The remote will have a docking station.
+- [d064] The remote will have few buttons, but the main ones such as channel, volume, on/off.
+- [d065] If used, face plates will be cheap.
+- [d066] The remote will be a radiaclly different shape.
+- [d067] The remote will be child proof.
+- [d068] The remote will have some buttons.
+- [d069] The remote will feature a locator function that responds to clapping.
+- [d070] The remote will look appealing.
+- [d071] Teletext no longer important given rise of internet and thus will not be used. (replaces including teletext)
+- [d072] The remote will only have a few buttons.
+- [d073] The company should profit fifty million Euros overall.
+- [d074] The case will have a soft fruit-like feel to it.
+- [d075] The remote will go into standby when idle.
+- [d076] Device will incorporate company logo and colors.
+- [d077] The remote will be yellow with black or gray buttons.
+- [d078] Case will be plastic and coated in rubber.
+- [d079] The remote will not be too expensive.
+- [d080] The latter would be preferable to implementing a backlight into the remote.
+- [d081] The remote will have a jog dial.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: The room is a bit dim, can someone switch on the other light?
+- s02: So the remote will sell for 35 Euro.
+- s03: So our profit aim is 50 million Euro.
+- s04: So we will include teletext in the design.
+- s05: Well, the safety lab has not signed off on the casing yet.
+- s06: Let's add a profile switch for different family members.
+- s07: We will put an LCD screen on the remote.
+- s08: So the data from the second field trial has been uploaded.
+- s09: So the corporate image will be shown on the remote.
+- s10: Well, the carpet in this room is really loud.
+- s11: The remote will work with several devices.
+- s12: What about adding a layout that works for left-handed users?

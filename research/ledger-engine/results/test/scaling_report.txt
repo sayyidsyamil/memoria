@@ -1,0 +1,78 @@
+Split `test` (hiring, portfolio, tender; 37 questions), model mlx-community/Qwen3.5-4B-MLX-4bit, extractor `mlx` (prompt v2 7f816362cd95), router prompt r1, filler generator g1 seed 0. Data 92eaa27b5e5b, wording 3a4cc6404d7e. Run 2026-10-10 20:48:23.
+
+### Question answering accuracy as the history grows (exact match; Wilson 95% interval)
+
+| System | K=0 | K=8 | K=24 | K=48 |
+|---|---|---|---|---|
+| Meetings per chain (mean) | 3.7 | 11.7 | 27.7 | 51.7 |
+| Tracked objects per chain (mean) | 3.0 | 7.7 | 12.7 | 20.0 |
+| Full-context prompt tokens (mean) | 904 | 2096 | 4273 | 7596 |
+| Memoria (LLM extractor + LLM router) | 76% [60-87] (28/37) | 70% [54-82] (26/37) | 70% [54-82] (26/37) | 65% [49-78] (24/37) |
+| Memoria, oracle router (extraction errors only) | 76% [60-87] (28/37) | 70% [54-82] (26/37) | 70% [54-82] (26/37) | 68% [52-80] (25/37) |
+| Memoria, oracle extractor (routing errors only) | 100% [91-100] (37/37) | 100% [91-100] (37/37) | 100% [91-100] (37/37) | 97% [86-100] (36/37) |
+| full-context+cot * | 62% [46-76] (23/37) | 59% [44-74] (22/37) | 65% [49-78] (24/37) | 62% [46-76] (23/37) |
+| bm25-rag(k=12) * | 59% [44-74] (22/37) | 46% [31-62] (17/37) | 46% [31-62] (17/37) | 35% [22-51] (13/37) |
+
+`*` = configuration chosen on the dev chains before any test run (rule fixed in advance).
+
+### Paired comparison on the same questions (exact sign test; only discordant questions matter)
+
+| K | Memoria vs | Memoria only right | Baseline only right | Both right | Neither | p (two-sided) |
+|---|---|---|---|---|---|---|
+| 0 | full-context+cot * | 11 | 6 | 17 | 3 | 0.332 |
+| 0 | bm25-rag(k=12) * | 11 | 5 | 17 | 4 | 0.210 |
+| 8 | full-context+cot * | 10 | 6 | 16 | 5 | 0.454 |
+| 8 | bm25-rag(k=12) * | 13 | 4 | 13 | 7 | 0.049 |
+| 24 | full-context+cot * | 9 | 7 | 17 | 4 | 0.804 |
+| 24 | bm25-rag(k=12) * | 12 | 3 | 14 | 8 | 0.035 |
+| 48 | full-context+cot * | 8 | 7 | 16 | 6 | 1.000 |
+| 48 | bm25-rag(k=12) * | 14 | 3 | 10 | 10 | 0.013 |
+
+Exploratory: many comparisons, no multiple-comparison correction; n is small.
+
+### By question type (Memoria end to end vs the selected baselines)
+
+| System | K | current | as_of_valid | as_of_tx | n_changes |
+|---|---|---|---|---|---|
+| Memoria (LLM + router) | 0 | 83% (10/12) | 69% (11/16) | 50% (2/4) | 100% (5/5) |
+| full-context+cot | 0 | 67% (8/12) | 75% (12/16) | 75% (3/4) | 0% (0/5) |
+| bm25-rag(k=12) | 0 | 83% (10/12) | 56% (9/16) | 75% (3/4) | 0% (0/5) |
+| Memoria (LLM + router) | 48 | 67% (8/12) | 62% (10/16) | 50% (2/4) | 80% (4/5) |
+| full-context+cot | 48 | 42% (5/12) | 81% (13/16) | 75% (3/4) | 40% (2/5) |
+| bm25-rag(k=12) | 48 | 58% (7/12) | 19% (3/16) | 25% (1/4) | 40% (2/5) |
+
+### Router (natural-language question to ledger lookup)
+
+| K | Exact route | Failed to parse | Prompt tokens (mean) | Seconds / question (mean) |
+|---|---|---|---|---|
+| 0 | 37/37 | 0 | 810.108 | 2.183 |
+| 8 | 37/37 | 0 | 930.27 | 2.542 |
+| 24 | 37/37 | 0 | 1065.892 | 3.298 |
+| 48 | 36/37 | 0 | 1261.486 | 4.061 |
+
+Routing misses:
+
+- K=48 hiring.q3 (current): "What deadline is currently on record for the data engineer hire?" -> current h05_hire.deadline valid=None tx=None 
+
+### What the ledger holds as the history grows
+
+| K | Extraction F1 on the original meetings | P / R | Extraction F1 on filler | Base slots: final state correct | Base slots: supersession F1 | All slots: final state correct | Distractor turns that became events (original) |
+|---|---|---|---|---|---|---|---|
+| 0 | 80% | 92% / 71% | - | 14/16 | 50% | 14/16 | 0% |
+| 8 | 78% | 91% / 68% | 81% | 14/16 | 53% | 27/37 | 0% |
+| 24 | 78% | 91% / 68% | 81% | 14/16 | 53% | 42/60 | 0% |
+| 48 | 75% | 91% / 65% | 78% | 13/16 | 53% | 62/91 | 0% |
+
+### Cost
+
+| K | Memoria: extraction s / meeting | Memoria: extraction prompt tokens | Memoria: ingestion total (s) | Memoria: router s / question | full-context+cot: s / question (median) | bm25-rag(k=12): s / question (median) |
+|---|---|---|---|---|---|---|
+| 0 | 5.327 | 1070.455 | 58.6 | 2.183 | 6.69 | 2.15 |
+| 8 | 5.218 | 1239.486 | 182.6 | 2.542 | 10.97 | 3.22 |
+| 24 | 5.53 | 1448.337 | 459.0 | 3.298 | 18.33 | 3.38 |
+| 48 | 6.795 | 1763.639 | 1053.3 | 4.061 | 27.92 | 6.18 |
+
+Memoria pays at ingestion (once per meeting); the baselines pay at every question. Seconds are the generation times recorded when each call was first made on this machine.
+
+Not shown by this experiment: real speech, real meeting series (hundreds of meetings), open-world item discovery (the registry is given), or questions that need information outside the ledger.
+The filler is template-written, so it is more regular than real text and easier to extract; it tests length and crowding, not language understanding.

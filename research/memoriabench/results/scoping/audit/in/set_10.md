@@ -1,0 +1,79 @@
+# Meeting set 10
+
+## APPROVED DECISIONS
+
+- [d001] The remote will have a docking station.
+- [d002] The remote will be made to accommodate different languages.
+- [d003] Control will light up when you touch a button.
+- [d004] The remote will be button-less.
+- [d005] The user target group will be younger consumers. (replaces targeting people over sixty)
+- [d006] The remote will target the international market.
+- [d007] The remote will go into standby when idle.
+- [d008] The remote will be easy to find.
+- [d009] The target demographic is people aged fifteen to thirty five.
+- [d010] The interface will contain larger buttons.
+- [d011] The remote will be shockproof.
+- [d012] They will target the 20-40 age group. (replaces targeting people over sixty)
+- [d013] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d014] The remote will have a minimal number of buttons.
+- [d015] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d016] To target towards young people will bring in new technology.
+- [d017] Will reserach environmental factor.
+- [d018] The remote will only be used for televisions. (replaces controlling multiple devices)
+- [d019] They will target the international market.
+- [d020] The remote will use conventional batteries.
+- [d021] The marketing will be focused towards a young, business-class buyer.
+- [d022] The remote will be simple.
+- [d023] The team will not create a ball shaped remote. (replaces creating a ball shaped remote)
+- [d024] The remote will have large buttons.
+- [d025] The important buttons will be on top.
+- [d026] The remote will be yellow with black or gray buttons.
+- [d027] The target group comprises of individuals who can afford the product.
+- [d028] The remote will look appealing.
+- [d029] The remote will feature a scroll function similar to the scroll function found on iPods. The remote will use a more expensive, advanced chip-on-print.
+- [d030] The team will not work with teletext.
+- [d031] The target group will be people below 40. (replaces targeting people over sixty)
+- [d032] The remote will have a jog dial.
+- [d033] The remotes will target the international market.
+- [d034] The project goal is to develop a new remote control.
+- [d035] The latter would be preferable to implementing a backlight into the remote.
+- [d036] The remote will only have a few buttons.
+- [d037] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d038] The remote will be curvy.
+- [d039] The remote will include a scroll action.
+- [d040] The user target group consists of adults age sixty to eighty.
+- [d041] The remote will be waterproof.
+- [d042] The remote will have buttons for numbers, volume up and down, channel up and down, power, mute, and a menu.
+- [d043] The remote will be child proof.
+- [d044] The focus will be on an international market.
+- [d045] Their target group is basically everybody who owns a TV.
+- [d046] The marketing will be focused towards the youth market.
+- [d047] The remote will use push buttons.
+- [d048] The remote has to be fashionable.
+- [d049] Will use personal face places.
+- [d050] The corporate slogan will appear on the bottom of the remote.
+- [d051] The case will be made of plastic with rubber grips.
+- [d052] The remote will sell for 25 Euro.
+- [d053] Glow in the dark buttons, self-timed lighting.
+- [d054] The remote will have some buttons.
+- [d055] The remote will allow users to have the possibility to enlarge the buttons.
+- [d056] The corporate color and slogan must be incorporated into the design.
+- [d057] The remote will have pushbuttons.
+- [d058] The remote will be fancy.
+- [d059] The remote will have a docking station.
+- [d060] The remote should not have too many buttons.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: I think we will make the case out of wood.
+- s02: So a customer wrote to say her old remote still works after ten years.
+- s03: Let's add voice feedback that reads out the channel.
+- s04: The remote will use regular batteries.
+- s05: I'd like us to include a tilt sensor that rotates the on-screen menu.
+- s06: The remote will have a teletext button.
+- s07: Well, let's grab a sandwich from the corner shop afterwards.
+- s08: Right, the team will create a ball shaped remote.
+- s09: Okay, the remote will control multiple devices, not just the television.
+- s10: Well, the regulator in Germany has asked for an extra safety document.
+- s11: We are pricing the remote at 25 Euro.
+- s12: Well, who has a charger I can borrow for my laptop?

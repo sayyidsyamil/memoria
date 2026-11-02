@@ -1,0 +1,5 @@
+[2026-10-14 00:36:27] driver run_after.sh starts (code+data hash 70ce8922420a); run_rest.sh and run_queue.sh were stopped by hand; waiting for test_baselines pid 70275
+[2026-10-14 02:02:29] END   test_baselines (pid 70275 ended; output file decides success)
+[2026-10-14 02:02:30] START test_memoria_review (code+data hash 70ce8922420a)
+[2026-10-14 02:09:05] END   test_memoria_review rc=0
+[2026-10-14 02:09:05] driver run_after.sh ends (code+data hash 70ce8922420a); the engine fixes (results/testing/proposed_fixes.patch and the service fixes) may be applied now. The dev baselines are run last, by hand, with the patched code (replay_offline.py shows the patched code reproduces the frozen runs).

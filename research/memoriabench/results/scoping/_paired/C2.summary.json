@@ -1,0 +1,31 @@
+{
+ "condition": "C2",
+ "probes": 112,
+ "p50_ms": {
+  "M3": 978.645,
+  "M2": 3776.065
+ },
+ "p95_ms": {
+  "M3": 1435.7835,
+  "M2": 6014.4079999999985
+ },
+ "ratio_of_medians": {
+  "ratio": 0.2591705916079305,
+  "lo": 0.23818095969859585,
+  "hi": 0.2767966717121264
+ },
+ "median_paired_difference_ms": -2685.2999999999997,
+ "share_of_probes_where_m3_was_faster": 1.0,
+ "median_when_first_ms": {
+  "M3": 974.145,
+  "M2": 3877.355
+ },
+ "median_when_second_ms": {
+  "M3": 984.7950000000001,
+  "M2": 3632.09
+ },
+ "same_label_as_batch_run": {
+  "M3": "112/112",
+  "M2": "112/112"
+ }
+}

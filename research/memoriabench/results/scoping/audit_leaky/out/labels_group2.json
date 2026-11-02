@@ -1,0 +1,422 @@
+{
+  "ES2004-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2004b:30:44"],
+    "note": "Recharging docking station is approved."
+  },
+  "ES2004-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2004b:27:02"],
+    "note": "Video Plus capability is approved."
+  },
+  "ES2004-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2004c:32:41"],
+    "note": "An LCD screen replaced the screenless design."
+  },
+  "ES2004-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2004b:30:44"],
+    "note": "Multiple casings replaced no changeable covers."
+  },
+  "ES2004-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2004b:27:02"],
+    "note": "Approved design includes Video Plus."
+  },
+  "ES2004-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2004b:22:42"],
+    "note": "Approved market is young business-class buyers."
+  },
+  "ES2004-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered movie-mode feature."
+  },
+  "ES2004-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered dedicated mute button."
+  },
+  "ES2004-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room comfort is unrelated to the project."
+  },
+  "ES2004-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Sports chatter is unrelated to the project."
+  },
+  "ES2004-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes usability-test results."
+  },
+  "ES2004-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes booked factory capacity."
+  },
+  "ES2008-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2008a:07:51"],
+    "note": "Matches the approved production-cost cap."
+  },
+  "ES2008-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2008c:34:39"],
+    "note": "A simple chip is approved."
+  },
+  "ES2008-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2008b:32:31"],
+    "note": "A locator function replaced its absence."
+  },
+  "ES2008-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2008b:34:15"],
+    "note": "A charging station replaced no recharging dock."
+  },
+  "ES2008-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2008b:21:21"],
+    "note": "Approved decision excludes teletext."
+  },
+  "ES2008-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2008b:22:59"],
+    "note": "Corporate image must be recognizable."
+  },
+  "ES2008-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered sleep-mode button."
+  },
+  "ES2008-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered flashlight feature."
+  },
+  "ES2008-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Kitchen supplies are unrelated to the project."
+  },
+  "ES2008-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lift maintenance is unrelated to the project."
+  },
+  "ES2008-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the photography booking."
+  },
+  "ES2008-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes interview duration."
+  },
+  "ES2013-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2013b:07:16"],
+    "note": "Approved decision excludes teletext."
+  },
+  "ES2013-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2013a:08:15"],
+    "note": "Matches the approved production-cost cap."
+  },
+  "ES2013-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2013b:26:54"],
+    "note": "Younger consumers replaced the over-sixty target."
+  },
+  "ES2013-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2013c:33:59"],
+    "note": "A kinetic battery replaced regular batteries."
+  },
+  "ES2013-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2013b:07:23"],
+    "note": "Approved scope is televisions only."
+  },
+  "ES2013-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2013b:07:27"],
+    "note": "Corporate image must be incorporated."
+  },
+  "ES2013-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered Bluetooth phone pairing."
+  },
+  "ES2013-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered favourite-channel shortcuts."
+  },
+  "ES2013-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal phone trouble is unrelated to the project."
+  },
+  "ES2013-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room heating is unrelated to the project."
+  },
+  "ES2013-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the prototype test result."
+  },
+  "ES2013-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms extra tooling budget."
+  },
+  "IS1000-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1000a:18:31"],
+    "note": "Matches the approved production cost."
+  },
+  "IS1000-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1000b:29:37"],
+    "note": "A trendy design is approved."
+  },
+  "IS1000-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1000b:29:01"],
+    "note": "Ages 20–40 replaced the over-sixty target."
+  },
+  "IS1000-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1000b:27:42"],
+    "note": "Excluding teletext replaced including it."
+  },
+  "IS1000-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1000a:17:59"],
+    "note": "Europe-only sales conflict with the international market."
+  },
+  "IS1000-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1000a:17:25"],
+    "note": "Approved selling price is about 25 Euro."
+  },
+  "IS1000-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered recycled case material."
+  },
+  "IS1000-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered tool-free battery cover."
+  },
+  "IS1000-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Weather chatter is unrelated to the project."
+  },
+  "IS1000-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Sports chatter is unrelated to the project."
+  },
+  "IS1000-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes warehouse capacity."
+  },
+  "IS1000-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the retailer request."
+  },
+  "IS1006-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1006c:27:26"],
+    "note": "Speech recognition is approved."
+  },
+  "IS1006-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1006a:04:47"],
+    "note": "Matches the approved selling price."
+  },
+  "IS1006-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1006a:06:37"],
+    "note": "Changeable face plates replaced no changeable covers."
+  },
+  "IS1006-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1006c:30:54"],
+    "note": "An LCD screen replaced the screenless design."
+  },
+  "IS1006-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1006a:05:13"],
+    "note": "Exceeds the 12.50 Euro production-cost cap."
+  },
+  "IS1006-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1006b:33:09"],
+    "note": "Approved decision excludes teletext."
+  },
+  "IS1006-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered low-battery vibration alert."
+  },
+  "IS1006-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered large-print labels."
+  },
+  "IS1006-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lunch logistics are unrelated to the project."
+  },
+  "IS1006-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Weekend chatter is unrelated to the project."
+  },
+  "IS1006-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the intern's progress."
+  },
+  "IS1006-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes quality-control results."
+  },
+  "TS3005-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3005c:27:12"],
+    "note": "A rubber case is approved."
+  },
+  "TS3005-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3005b:20:06"],
+    "note": "An LCD screen is approved."
+  },
+  "TS3005-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3005c:28:24"],
+    "note": "A single curve replaced the double-curved case."
+  },
+  "TS3005-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3005b:15:40"],
+    "note": "Under-forty customers replaced the over-sixty target."
+  },
+  "TS3005-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3005b:20:06"],
+    "note": "Approved design includes an LCD screen."
+  },
+  "TS3005-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3005c:24:25"],
+    "note": "Approved batteries recharge in a docking station."
+  },
+  "TS3005-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered personalized engraving."
+  },
+  "TS3005-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered language switch."
+  },
+  "TS3005-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Cafe chatter is unrelated to the project."
+  },
+  "TS3005-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Refreshment logistics are unrelated to the project."
+  },
+  "TS3005-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the designer's status."
+  },
+  "TS3005-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the supplier delay."
+  },
+  "TS3010-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3010c:32:20"],
+    "note": "Plastic and rubber match the approved case materials."
+  },
+  "TS3010-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3010c:29:25"],
+    "note": "A normal battery is approved."
+  },
+  "TS3010-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3010c:29:25"],
+    "note": "A normal battery replaced solar power."
+  },
+  "TS3010-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3010c:32:20"],
+    "note": "Hard plastic and rubber replaced titanium."
+  },
+  "TS3010-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3010c:32:20"],
+    "note": "Metal conflicts with the approved plastic-and-rubber case."
+  },
+  "TS3010-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3010c:29:25"],
+    "note": "Kinetic power conflicts with the approved normal battery."
+  },
+  "TS3010-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered colored button ring."
+  },
+  "TS3010-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered display-dimming eco-mode."
+  },
+  "TS3010-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Refreshment logistics are unrelated to the project."
+  },
+  "TS3010-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Film chatter is unrelated to the project."
+  },
+  "TS3010-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the tooling payment."
+  },
+  "TS3010-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes humidity-test timing."
+  }
+}

@@ -1,0 +1,22 @@
+# Natural-language wording of each question in demo.chain (authored by the AI assistant).
+q1 | Which vendor are we using for the pilot now?
+q2 | What is the pilot budget at the moment, in ringgit?
+q3 | What is the current go-live date?
+q4 | When is the data migration due now?
+q5 | Who owns the data migration?
+q6 | Who is responsible for staff training?
+q7 | When is staff training due?
+q8 | What is the status of the security review?
+q9 | Who owns the security review?
+q10 | What was the pilot budget on 27 September 2026?
+q11 | What was the go-live date on 5 October 2026?
+q12 | Which vendor had been chosen on 20 September 2026?
+q13 | What was the data migration deadline on 10 October 2026?
+q14 | Who owned the security review on 20 September 2026?
+q15 | Going by what had been recorded by 6 October 2026, what was the go-live date for 16 October 2026?
+q16 | How many times did the vendor choice change?
+q17 | How many times did the pilot budget change?
+q18 | How many times did the go-live date change?
+q19 | How many times did the data migration deadline change?
+q20 | How many times did the training deadline change?
+q21 | How many times did the owner of the security review change?

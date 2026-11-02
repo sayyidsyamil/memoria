@@ -1,0 +1,31 @@
+{"meeting": "IS1009a", "audio_s": 838.8333125, "timing_s": {"load_stt": 10.464793682098389, "load_diar": 0.5180747509002686, "warmup": 6.146676063537598, "stt": 87.06851983070374, "diar": 147.7363829612732, "stt_plus_diar": 234.80490279197693}, "rtf": {"stt": 0.10379716510209974, "diar": 0.17612126361668926, "stt_plus_diar": 0.279918428718789}, "mlx_peak_gb": {"stt": 4.599399258, "diar": 3.875484486}}
+
+--- stderr ---
+/Users/sayyid/Desktop/FYP/engine/scripts/asr_der_eval.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  rate, data = wavfile.read(path)
+/Users/sayyid/Desktop/FYP/engine/scripts/asr_der_eval.py:73: WavFileWarning: Incomplete chunk ID: b'\x00', ignoring it.
+  rate, data = wavfile.read(path)
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 63310.25it/s]
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 6594.82it/s]
+      256.89 real        20.53 user        40.59 sys
+          2271674368  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              350904  page reclaims
+                6669  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  43  messages sent
+                 116  messages received
+                   0  signals received
+              256609  voluntary context switches
+              258673  involuntary context switches
+        150094748298  instructions retired
+         86082885889  cycles elapsed
+          7233474040  peak memory footprint

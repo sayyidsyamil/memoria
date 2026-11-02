@@ -1,0 +1,2470 @@
+{
+ "config": {
+  "extractor": "keyword",
+  "model": null,
+  "policies": [
+   "immediate",
+   "confirm_conflicts",
+   "confirm_all"
+  ],
+  "data": "data/pilot_v0",
+  "data_sha256_12": "92eaa27b5e5b",
+  "chains": [
+   "hiring",
+   "portfolio",
+   "tender"
+  ],
+  "meetings": 11,
+  "questions": 37,
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.11.17",
+  "date": "2026-10-10 17:30:09",
+  "prompt_version": "v2",
+  "prompt_sha256_12": "7f816362cd95",
+  "split": "test"
+ },
+ "pipeline": {
+  "immediate": {
+   "extraction": {
+    "gold_events": 31,
+    "tp": 6,
+    "fp": 9,
+    "fn": 25,
+    "precision": 0.4,
+    "recall": 0.1935483870967742,
+    "f1": 0.26086956521739135,
+    "ci_95": {
+     "precision": [
+      0.1,
+      0.667
+     ],
+     "recall": [
+      0.034,
+      0.393
+     ],
+     "f1": [
+      0.05,
+      0.488
+     ]
+    },
+    "state_changing_recall": 0.1724137931034483,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 3,
+      "recall": 0.3
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 0,
+      "recall": 0.0
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 0,
+      "recall": 0.0
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 1,
+      "recall": 0.125
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 0,
+      "recall": 0.0
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 3,
+      "recall": 0.188
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 1,
+      "recall": 0.333
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "link_error": 5,
+     "missed": 20
+    },
+    "fp_reasons": {
+     "wrong_content": 6,
+     "distractor:untracked": 1,
+     "distractor:hearsay": 2
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.13043478260869565,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.09999999999999998,
+    "confidence_mean": 0.5,
+    "confidence_distinct": 1
+   },
+   "ledger": {
+    "supersession_tp": 0,
+    "supersession_fp": 3,
+    "supersession_fn": 12,
+    "state_gold": 16,
+    "state_correct": 5,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.0,
+    "supersession_recall": 0.0,
+    "supersession_f1": 0.0,
+    "state_accuracy": 0.3125
+   },
+   "review": {
+    "meetings": 11,
+    "applied_directly": 15,
+    "proposed": 0,
+    "proposals_per_meeting": 0.0,
+    "accepted": 0,
+    "accepted_edited": 0,
+    "rejected": 0,
+    "pending": 0,
+    "acceptance_rate": null
+   },
+   "qa_memoria": {
+    "overall": {
+     "correct": 11,
+     "n": 37,
+     "accuracy": 0.2972972972972973,
+     "ci_95": [
+      0.175,
+      0.458
+     ]
+    },
+    "as_of_tx": {
+     "correct": 0,
+     "n": 4,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.49
+     ]
+    },
+    "as_of_valid": {
+     "correct": 6,
+     "n": 16,
+     "accuracy": 0.375,
+     "ci_95": [
+      0.185,
+      0.614
+     ]
+    },
+    "current": {
+     "correct": 4,
+     "n": 12,
+     "accuracy": 0.3333333333333333,
+     "ci_95": [
+      0.138,
+      0.609
+     ]
+    },
+    "n_changes": {
+     "correct": 1,
+     "n": 5,
+     "accuracy": 0.2,
+     "ci_95": [
+      0.036,
+      0.624
+     ]
+    }
+   },
+   "qa_latency_micros_median": 10.87499549612403,
+   "extraction_seconds_per_meeting": 0.0006563105535778133,
+   "wall_seconds": 0.0,
+   "audit": [
+    {
+     "chain": "hiring",
+     "meeting": "h1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-07-01",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "For now, headcount is approved at four, effective 1 July.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 7,
+       "object": "hire_de",
+       "attribute": "owner",
+       "value": "salmah",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "I'll handle that.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-08-01",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Quick update. Business wants more capacity, so headcount goes up to six, effective 1 August.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "hire_ds",
+       "attribute": "status",
+       "value": "done",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Good news, the data engineer signed the offer yesterday.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-08-01",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Excellent. Now, finance has pushed back, so the increase to six is off. Back to four, effective 1 August.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": []
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Fund X",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Fund X wants more time on their due diligence. Tak sempat siap by Friday.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "So the buyer is now a strategic buyer, we go with the Strategic Buyer.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Okay, I'll keep ownership.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2b",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Fund X",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-29",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p4",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "The sale to the strategic buyer has closed. Dah siap semua.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": []
+    },
+    {
+     "chain": "tender",
+     "meeting": "t2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Beta",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Vendor Beta minta lanjut masa, mereka kata dokumen belum siap.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5500000,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Gamma",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "kelvin",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Kelvin, awak ambil alih daripada Zul untuk tender ni.",
+       "confidence": 0.5
+      }
+     ]
+    }
+   ],
+   "answers": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "done",
+     "correct": false,
+     "micros": 20.292005501687527
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 6.124988431110978
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": null,
+     "correct": false,
+     "micros": 5.165988113731146
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": null,
+     "correct": false,
+     "micros": 4.875008016824722
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 18.916005501523614
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": null,
+     "correct": false,
+     "micros": 6.667018169537187
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": null,
+     "correct": false,
+     "micros": 5.750014679506421
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": null,
+     "correct": false,
+     "micros": 65.12500112876296
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": null,
+     "correct": false,
+     "micros": 7.209018804132938
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "correct": true,
+     "micros": 56.12499080598354
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 8.167000487446785
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": null,
+     "correct": false,
+     "micros": 9.167008101940155
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 6.583024514839053
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 8.500006515532732
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "correct": true,
+     "micros": 14.00001929141581
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-05-29",
+     "correct": false,
+     "micros": 10.87499549612403
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 5.04200579598546
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": null,
+     "correct": false,
+     "micros": 18.916995031759143
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 6.417016265913844
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": null,
+     "correct": false,
+     "micros": 5.875015631318092
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": null,
+     "correct": false,
+     "micros": 5.791982403025031
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "correct": true,
+     "micros": 11.750002158805728
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": null,
+     "correct": false,
+     "micros": 453.4579929895699
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": "Fund X",
+     "correct": true,
+     "micros": 26.124995201826096
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 0,
+     "correct": false,
+     "micros": 88.91700417734683
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "correct": true,
+     "micros": 15.624973457306623
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "correct": true,
+     "micros": 13.749988283962011
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": null,
+     "correct": false,
+     "micros": 16.416975995525718
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "correct": true,
+     "micros": 11.541007552295923
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": null,
+     "correct": false,
+     "micros": 5.707988748326898
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Beta",
+     "correct": true,
+     "micros": 13.333017705008388
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": null,
+     "correct": false,
+     "micros": 6.709014996886253
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": null,
+     "correct": false,
+     "micros": 286.70800384134054
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": null,
+     "correct": false,
+     "micros": 11.958996765315533
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 64.95797424577177
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 7.499998901039362
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 6.749993190169334
+    }
+   ]
+  },
+  "confirm_conflicts": {
+   "extraction": {
+    "gold_events": 31,
+    "tp": 6,
+    "fp": 9,
+    "fn": 25,
+    "precision": 0.4,
+    "recall": 0.1935483870967742,
+    "f1": 0.26086956521739135,
+    "ci_95": {
+     "precision": [
+      0.1,
+      0.667
+     ],
+     "recall": [
+      0.034,
+      0.393
+     ],
+     "f1": [
+      0.05,
+      0.488
+     ]
+    },
+    "state_changing_recall": 0.1724137931034483,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 3,
+      "recall": 0.3
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 0,
+      "recall": 0.0
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 0,
+      "recall": 0.0
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 1,
+      "recall": 0.125
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 0,
+      "recall": 0.0
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 3,
+      "recall": 0.188
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 1,
+      "recall": 0.333
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "link_error": 5,
+     "missed": 20
+    },
+    "fp_reasons": {
+     "wrong_content": 6,
+     "distractor:untracked": 1,
+     "distractor:hearsay": 2
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.13043478260869565,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.09999999999999998,
+    "confidence_mean": 0.5,
+    "confidence_distinct": 1
+   },
+   "ledger": {
+    "supersession_tp": 0,
+    "supersession_fp": 2,
+    "supersession_fn": 12,
+    "state_gold": 16,
+    "state_correct": 5,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.0,
+    "supersession_recall": 0.0,
+    "supersession_f1": 0.0,
+    "state_accuracy": 0.3125
+   },
+   "review": {
+    "meetings": 11,
+    "applied_directly": 11,
+    "proposed": 4,
+    "proposals_per_meeting": 0.36363636363636365,
+    "accepted": 2,
+    "accepted_edited": 0,
+    "rejected": 2,
+    "pending": 0,
+    "acceptance_rate": 0.5
+   },
+   "qa_memoria": {
+    "overall": {
+     "correct": 11,
+     "n": 37,
+     "accuracy": 0.2972972972972973,
+     "ci_95": [
+      0.175,
+      0.458
+     ]
+    },
+    "as_of_tx": {
+     "correct": 0,
+     "n": 4,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.49
+     ]
+    },
+    "as_of_valid": {
+     "correct": 6,
+     "n": 16,
+     "accuracy": 0.375,
+     "ci_95": [
+      0.185,
+      0.614
+     ]
+    },
+    "current": {
+     "correct": 4,
+     "n": 12,
+     "accuracy": 0.3333333333333333,
+     "ci_95": [
+      0.138,
+      0.609
+     ]
+    },
+    "n_changes": {
+     "correct": 1,
+     "n": 5,
+     "accuracy": 0.2,
+     "ci_95": [
+      0.036,
+      0.624
+     ]
+    }
+   },
+   "qa_latency_micros_median": 11.584023013710976,
+   "extraction_seconds_per_meeting": 0.00024142809243957427,
+   "wall_seconds": 0.0,
+   "audit": [
+    {
+     "chain": "hiring",
+     "meeting": "h1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-07-01",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "For now, headcount is approved at four, effective 1 July.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 7,
+       "object": "hire_de",
+       "attribute": "owner",
+       "value": "salmah",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "I'll handle that.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-08-01",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": true,
+       "quote": "Quick update. Business wants more capacity, so headcount goes up to six, effective 1 August.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "hire_ds",
+       "attribute": "status",
+       "value": "done",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Good news, the data engineer signed the offer yesterday.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-08-01",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": true,
+       "quote": "Excellent. Now, finance has pushed back, so the increase to six is off. Back to four, effective 1 August.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": []
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Fund X",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Fund X wants more time on their due diligence. Tak sempat siap by Friday.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "So the buyer is now a strategic buyer, we go with the Strategic Buyer.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Okay, I'll keep ownership.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2b",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Fund X",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-29",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p4",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "The sale to the strategic buyer has closed. Dah siap semua.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": []
+    },
+    {
+     "chain": "tender",
+     "meeting": "t2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Beta",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Vendor Beta minta lanjut masa, mereka kata dokumen belum siap.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5500000,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Gamma",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.",
+       "confidence": 0.5
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "kelvin",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Kelvin, awak ambil alih daripada Zul untuk tender ni.",
+       "confidence": 0.5
+      }
+     ]
+    }
+   ],
+   "answers": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "done",
+     "correct": false,
+     "micros": 14.208984794095159
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 6.375019438564777
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": null,
+     "correct": false,
+     "micros": 5.0000089686363935
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": null,
+     "correct": false,
+     "micros": 4.958012141287327
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 15.665980754420161
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": null,
+     "correct": false,
+     "micros": 6.999995093792677
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": null,
+     "correct": false,
+     "micros": 7.124996045604348
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": null,
+     "correct": false,
+     "micros": 59.95799438096583
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": null,
+     "correct": false,
+     "micros": 6.541988113895059
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "correct": true,
+     "micros": 46.667002607136965
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 7.041002390906215
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": null,
+     "correct": false,
+     "micros": 8.08399636298418
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 6.165995728224516
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 12.459000572562218
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "correct": true,
+     "micros": 14.20799526385963
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-05-29",
+     "correct": false,
+     "micros": 14.290999388322234
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 4.91601531393826
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": null,
+     "correct": false,
+     "micros": 18.37499439716339
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 6.207992555573583
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": null,
+     "correct": false,
+     "micros": 11.750002158805728
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": null,
+     "correct": false,
+     "micros": 6.250018486753106
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "correct": true,
+     "micros": 11.584023013710976
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": null,
+     "correct": false,
+     "micros": 98.66699110716581
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": "Fund X",
+     "correct": true,
+     "micros": 19.416998839005828
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 0,
+     "correct": false,
+     "micros": 107.54200047813356
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "correct": true,
+     "micros": 17.12498487904668
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "correct": true,
+     "micros": 12.541975593194366
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": null,
+     "correct": false,
+     "micros": 15.750003512948751
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "correct": true,
+     "micros": 11.124997399747372
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": null,
+     "correct": false,
+     "micros": 4.917004844173789
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Beta",
+     "correct": true,
+     "micros": 14.082994312047958
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": null,
+     "correct": false,
+     "micros": 6.707996362820268
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": null,
+     "correct": false,
+     "micros": 74.37498425133526
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": null,
+     "correct": false,
+     "micros": 7.499998901039362
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 61.166996601969004
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 7.915979949757457
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 6.583024514839053
+    }
+   ]
+  },
+  "confirm_all": {
+   "extraction": {
+    "gold_events": 31,
+    "tp": 6,
+    "fp": 9,
+    "fn": 25,
+    "precision": 0.4,
+    "recall": 0.1935483870967742,
+    "f1": 0.26086956521739135,
+    "ci_95": {
+     "precision": [
+      0.1,
+      0.667
+     ],
+     "recall": [
+      0.034,
+      0.393
+     ],
+     "f1": [
+      0.05,
+      0.488
+     ]
+    },
+    "state_changing_recall": 0.1724137931034483,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 3,
+      "recall": 0.3
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 0,
+      "recall": 0.0
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 0,
+      "recall": 0.0
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 1,
+      "recall": 0.125
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 0,
+      "recall": 0.0
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 3,
+      "recall": 0.188
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 1,
+      "recall": 0.333
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "link_error": 5,
+     "missed": 20
+    },
+    "fp_reasons": {
+     "wrong_content": 6,
+     "distractor:untracked": 1,
+     "distractor:hearsay": 2
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.13043478260869565,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.09999999999999998,
+    "confidence_mean": 0.5,
+    "confidence_distinct": 1
+   },
+   "ledger": {
+    "supersession_tp": 0,
+    "supersession_fp": 0,
+    "supersession_fn": 12,
+    "state_gold": 16,
+    "state_correct": 6,
+    "phantom_beliefs": 0,
+    "supersession_precision": null,
+    "supersession_recall": 0.0,
+    "supersession_f1": null,
+    "state_accuracy": 0.375
+   },
+   "review": {
+    "meetings": 11,
+    "applied_directly": 1,
+    "proposed": 14,
+    "proposals_per_meeting": 1.2727272727272727,
+    "accepted": 6,
+    "accepted_edited": 1,
+    "rejected": 7,
+    "pending": 0,
+    "acceptance_rate": 0.42857142857142855
+   },
+   "qa_memoria": {
+    "overall": {
+     "correct": 9,
+     "n": 37,
+     "accuracy": 0.24324324324324326,
+     "ci_95": [
+      0.134,
+      0.401
+     ]
+    },
+    "as_of_tx": {
+     "correct": 0,
+     "n": 4,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.49
+     ]
+    },
+    "as_of_valid": {
+     "correct": 4,
+     "n": 16,
+     "accuracy": 0.25,
+     "ci_95": [
+      0.102,
+      0.495
+     ]
+    },
+    "current": {
+     "correct": 4,
+     "n": 12,
+     "accuracy": 0.3333333333333333,
+     "ci_95": [
+      0.138,
+      0.609
+     ]
+    },
+    "n_changes": {
+     "correct": 1,
+     "n": 5,
+     "accuracy": 0.2,
+     "ci_95": [
+      0.036,
+      0.624
+     ]
+    }
+   },
+   "qa_latency_micros_median": 10.916992323473096,
+   "extraction_seconds_per_meeting": 0.0002311513605739244,
+   "wall_seconds": 0.0,
+   "audit": [
+    {
+     "chain": "hiring",
+     "meeting": "h1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-07-01",
+       "review": "accepted_edited",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "For now, headcount is approved at four, effective 1 July.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 7,
+       "object": "hire_de",
+       "attribute": "owner",
+       "value": "salmah",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": false,
+       "quote": "I'll handle that.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-08-01",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": true,
+       "quote": "Quick update. Business wants more capacity, so headcount goes up to six, effective 1 August.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "hire_ds",
+       "attribute": "status",
+       "value": "done",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": false,
+       "quote": "Good news, the data engineer signed the offer yesterday.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-08-01",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": true,
+       "quote": "Excellent. Now, finance has pushed back, so the increase to six is off. Back to four, effective 1 August.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": []
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Fund X",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": false,
+       "quote": "Fund X wants more time on their due diligence. Tak sempat siap by Friday.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "So the buyer is now a strategic buyer, we go with the Strategic Buyer.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Okay, I'll keep ownership.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2b",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Fund X",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": false,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-29",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p4",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "The sale to the strategic buyer has closed. Dah siap semua.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t1",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": []
+    },
+    {
+     "chain": "tender",
+     "meeting": "t2",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Beta",
+       "review": "rejected",
+       "outcome": null,
+       "conflict": false,
+       "quote": "Vendor Beta minta lanjut masa, mereka kata dokumen belum siap.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5500000,
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.",
+       "confidence": 0.5
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t3",
+     "seconds": 0.0,
+     "stats": {},
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Gamma",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.",
+       "confidence": 0.5
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "kelvin",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Kelvin, awak ambil alih daripada Zul untuk tender ni.",
+       "confidence": 0.5
+      }
+     ]
+    }
+   ],
+   "answers": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": null,
+     "correct": false,
+     "micros": 9.000010322779417
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 4.917004844173789
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": null,
+     "correct": false,
+     "micros": 4.95798303745687
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": null,
+     "correct": false,
+     "micros": 4.542001988738775
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 14.124991139397025
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": null,
+     "correct": false,
+     "micros": 5.54099096916616
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": null,
+     "correct": false,
+     "micros": 6.250018486753106
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": null,
+     "correct": false,
+     "micros": 96.99998190626502
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": null,
+     "correct": false,
+     "micros": 7.166992872953415
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "correct": true,
+     "micros": 44.957996578887105
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 7.5830030255019665
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": null,
+     "correct": false,
+     "micros": 8.000002708286047
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 5.541980499401689
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 6.749993190169334
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "correct": true,
+     "micros": 12.125005014240742
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-05-29",
+     "correct": false,
+     "micros": 10.457995813339949
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 4.8330111894756556
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": null,
+     "correct": false,
+     "micros": 14.416000340133905
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 5.95799065195024
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": null,
+     "correct": false,
+     "micros": 5.95799065195024
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": null,
+     "correct": false,
+     "micros": 5.749985575675964
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "correct": true,
+     "micros": 11.125026503577828
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": null,
+     "correct": false,
+     "micros": 58.833014918491244
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": null,
+     "correct": false,
+     "micros": 6.665999535471201
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 0,
+     "correct": false,
+     "micros": 57.95797915197909
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "correct": true,
+     "micros": 13.832992408424616
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "correct": true,
+     "micros": 10.916992323473096
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": null,
+     "correct": false,
+     "micros": 14.62499494664371
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "correct": true,
+     "micros": 13.374985428526998
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": null,
+     "correct": false,
+     "micros": 5.249981768429279
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": null,
+     "correct": false,
+     "micros": 738.2089970633388
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": null,
+     "correct": false,
+     "micros": 19.66700074262917
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": null,
+     "correct": false,
+     "micros": 919.374986551702
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": null,
+     "correct": false,
+     "micros": 20.042003598064184
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 211.2919755745679
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "correct": false,
+     "micros": 18.332997569814324
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 13.209006283432245
+    }
+   ]
+  }
+ }
+}

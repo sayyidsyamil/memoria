@@ -1,0 +1,65 @@
+{
+ "n": 56,
+ "results": {
+  "bge-small | C0 | English": {
+   "1": 48,
+   "4": 54,
+   "n": 56
+  },
+  "bge-small | C0 | Malay": {
+   "1": 21,
+   "4": 41,
+   "n": 56
+  },
+  "bge-small | C0 | Malay-English mixed": {
+   "1": 46,
+   "4": 53,
+   "n": 56
+  },
+  "bge-small | C2 | English": {
+   "1": 44,
+   "4": 47,
+   "n": 56
+  },
+  "bge-small | C2 | Malay": {
+   "1": 13,
+   "4": 19,
+   "n": 56
+  },
+  "bge-small | C2 | Malay-English mixed": {
+   "1": 38,
+   "4": 45,
+   "n": 56
+  },
+  "eg2-5bit | C0 | English": {
+   "1": 49,
+   "4": 56,
+   "n": 56
+  },
+  "eg2-5bit | C0 | Malay": {
+   "1": 46,
+   "4": 52,
+   "n": 56
+  },
+  "eg2-5bit | C0 | Malay-English mixed": {
+   "1": 49,
+   "4": 55,
+   "n": 56
+  },
+  "eg2-5bit | C2 | English": {
+   "1": 41,
+   "4": 49,
+   "n": 56
+  },
+  "eg2-5bit | C2 | Malay": {
+   "1": 33,
+   "4": 42,
+   "n": 56
+  },
+  "eg2-5bit | C2 | Malay-English mixed": {
+   "1": 39,
+   "4": 48,
+   "n": 56
+  }
+ }
+}

@@ -1,0 +1,135 @@
+# Meeting set 02
+
+## APPROVED DECISIONS
+
+- [d001] The remote will feature Video Plus capabilities and a seashell-like shape to accomodate the LCD display and the flip screen.
+- [d002] Push buttons will be used.
+- [d003] The remote will use low level chips. (replaces an advanced chip)
+- [d004] The remote will be sold internationally.
+- [d005] The chip is going to be a standard one. (replaces an advanced chip)
+- [d006] The remote will be sold for 25 Euro.
+- [d007] The remote will have a jog dial.
+- [d008] The remote has to be fashionable.
+- [d009] The remote will contain a simple chip. (replaces an advanced chip)
+- [d010] The remote will use a regular infra-red signal.
+- [d011] The remote will contain a hard plastic inner shell to protect the interior.
+- [d012] They also agreed to choose light materials.
+- [d013] The remote will go into standby when idle.
+- [d014] They will aim for a profit of fifty million Euros.
+- [d015] LED's can be used to light up the remote.
+- [d016] The remote will have a simple chip.
+- [d017] The remote will be sold for 25 Euro.
+- [d018] The remote will sell for 25 Euro.
+- [d019] The case will be titanium with a plastic front with rounded buttons.
+- [d020] An additional remote will contain special functions.
+- [d021] The remote will have a scrolling device.
+- [d022] The remote will be simple.
+- [d023] The remote will have a latex case.
+- [d024] Buttons should be made bigger, with clearly defined functions and of durable materials to avoid fading of the symbols.
+- [d025] The team will not work with teletext.
+- [d026] The remote will have international appeal.
+- [d027] The case will be single curved. (replaces a double curved case)
+- [d028] The remote control will be for television only.
+- [d029] The selling price will be twenty five Euros.
+- [d030] The remote will shut down when the television shuts down.
+- [d031] The remote will be sold for 25 Euro.
+- [d032] The remote is just going to be for TV.
+- [d033] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d034] They will sell the remotes for twenty five Euros each.
+- [d035] The remote will be used only with televisions.
+- [d036] Teletext will not be used.
+- [d037] The remote is going to be a universal one.
+- [d038] The remote will be shockproof.
+- [d039] Control will light up when you touch a button.
+- [d040] Selling price will be twenty five Euro.
+- [d041] The marketing will be focused towards a young, business-class buyer.
+- [d042] The profit will be fifty million Euros.
+- [d043] Specific ideas as to components and materials are to be left to the next meeting.
+- [d044] The remote will only control televisions.
+- [d045] The selling price will be 25 Euro.
+- [d046] The remote will not use a chip on print.
+- [d047] The remote will incorporate a fruit and vegetable theme.
+- [d048] The remote will have large buttons.
+- [d049] The remote will use an infra-red sensor.
+- [d050] The remote will have an enter button and number buttons.
+- [d051] The profit aim will be 50 million Euro.
+- [d052] The remote will be for use with the television set.
+- [d053] The remote will only have a few buttons.
+- [d054] It was decided that the remote would feature an LCD screen, rubber buttons, colorful rubber changeable skins, a kinetic battery, and possibly speech recognition if it is still within the budget to include it. (replaces a remote without a screen)
+- [d055] The profit aim is 15 million Euros.
+- [d056] The remote will only be for televisions.
+- [d057] The remote will have a minimal number of buttons.
+- [d058] The remote will not be too expensive.
+- [d059] The remote will control televisions and devices connected to televisions.
+- [d060] The remote should not have too many buttons.
+- [d061] The remote will be sold internationally.
+- [d062] Glow in the dark buttons, self-timed lighting.
+- [d063] The remote will be button-less.
+- [d064] The remote will contain a custom chip.
+- [d065] The remote will only be used for televisions.
+- [d066] Regular chip will be used.
+- [d067] The remote will have new functions that existing remotes do not have.
+- [d068] The company should profit fifty million Euros overall.
+- [d069] The case will have a soft fruit-like feel to it.
+- [d070] The team will not work with teletext.
+- [d071] The team will not work with teletext.
+- [d072] The case will be single curved. (replaces a double curved case)
+- [d073] The remote will be curvy.
+- [d074] The remote will have a lock function.
+- [d075] The remote will use a chip on print.
+- [d076] The team will not work with teletext.
+- [d077] The remote will be waterproof.
+- [d078] The profit aim is fifteen million Euro.
+- [d079] The corporate slogan will appear on the bottom of the remote.
+- [d080] The remote will use an advanced chip.
+- [d081] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d082] Company aims to profit fifty million Euro.
+- [d083] The remote will be sold for 25 Euros.
+- [d084] The logo will be both at the front and the back of the remote; the company slogan will be engraved at the back.
+- [d085] The remote will be bundled with a docking station to recharge the remote's batteries and a user-friendly instruction manual, and multiple casings will be made available. (replaces a remote without changeable covers)
+- [d086] The selling price of the remote will be 25 Euro.
+- [d087] The remote will have some buttons.
+- [d088] The remote will be sold on an international scale.
+- [d089] The important buttons will be on top.
+- [d090] The remote will have pushbuttons.
+- [d091] The case will be double curved.
+- [d092] The remote will be sold on an international scale.
+- [d093] It will cost no more than 12.5 Euros to make.
+- [d094] It will be a television remote control.
+- [d095] The remote should look fancy.
+- [d096] The remote will only be used for televisions.
+- [d097] Using them sparsely, as in mobile phones, could bring down the cost.
+- [d098] Will use personal face places.
+- [d099] The remote will not have a talk-back function.
+- [d100] The remote will sell for 25 Euro.
+- [d101] The remote will be extremely simple.
+- [d102] The remote will be yellow with black or gray buttons.
+- [d103] The remote will be sold internationally.
+- [d104] The interface will contain larger buttons.
+- [d105] Alarm locator will be implemented.
+- [d106] The remote will be fancy.
+- [d107] The remote will have large buttons for essential functions.
+- [d108] The remote will look appealing.
+- [d109] The case will be flat on top and curved on the bottom.
+- [d110] Teletext is outdated and will not be used.
+- [d111] The remote will be child proof.
+- [d112] They will generate a proft of fifty million Euros.
+- [d113] Command interface is the best for a remote, so it will be used.
+- [d114] The remote will use push buttons.
+- [d115] It was decided that the group will produce one product design instead of creating alternate designs in an attempt to accomodate different users' preferences.
+- [d116] The case of the remote will be made of wood. (replaces a titanium case)
+
+## LIVE STATEMENTS (label each one)
+
+- s01: The remote will not feature Video Plus capabilities.
+- s02: The remote will come with a recharging dock.
+- s03: So the usability test showed that people find it easy to learn.
+- s04: Well, the remote will not have an LCD screen.
+- s05: I think the factory already has capacity booked for our first run.
+- s06: The remote will feature Video Plus capabilities.
+- s07: Right, why don't we add a one-button movie mode?
+- s08: I think we are targeting people over sixty with this remote.
+- s09: I think that was a fantastic goal on Saturday.
+- s10: Could someone close the door, there's a draught.
+- s11: I think there will be no changeable covers.
+- s12: So can we add a dedicated mute button?

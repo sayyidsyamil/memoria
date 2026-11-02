@@ -1,0 +1,145 @@
+# Meeting set 14
+
+## APPROVED DECISIONS
+
+- [d001] The product will be sold for twenty five Euro.
+- [d002] They also agreed to choose light materials.
+- [d003] The remote will be easy to learn.
+- [d004] The remote will be sold for 25 Euro.
+- [d005] The remote will use a regular infra-red signal.
+- [d006] The remote will be sold for 25 Euro.
+- [d007] The important buttons will be on top.
+- [d008] Push buttons will be used.
+- [d009] The remote will be fancy.
+- [d010] Will reserach environmental factor.
+- [d011] The remote will not use a chip on print.
+- [d012] The remote will have a docking station.
+- [d013] The team will also take into account possible usability issues concerning disabled people.
+- [d014] It will cost no more than 12.5 Euros to make.
+- [d015] The profit aim is 15 million Euros.
+- [d016] Alarm locator will be implemented.
+- [d017] The production costs cannot exceed 12.50 Euro.
+- [d018] The remote will contain a speech recognizer.
+- [d019] They will sell the remotes for twenty five Euros each.
+- [d020] It was also decided that the remote will not have the traditional look of a hand-held remote since it can be stationary with voice recognition software.
+- [d021] The remote will be powered by rechargeable batteries and come with a recharging stand. (replaces solar power)
+- [d022] The remote will use a kinetic battery. (replaces regular batteries)
+- [d023] The latter would be preferable to implementing a backlight into the remote.
+- [d024] The remote should not have too many buttons.
+- [d025] Using them sparsely, as in mobile phones, could bring down the cost.
+- [d026] The remote will be child proof.
+- [d027] The profit aim will be 50 million Euro.
+- [d028] The production cost will be 12.50 Euro maximum.
+- [d029] The case will be single curved. (replaces a double curved case)
+- [d030] The selling price of the remote will be 25 Euro.
+- [d031] The control will cost a maximum of twelve Euro and fifty cents to produce.
+- [d032] The target group will be people below 40. (replaces targeting people over sixty)
+- [d033] The remote will have a docking station.
+- [d034] The production cost cannot exceed 12.50 Euro.
+- [d035] The remote will have a jog dial.
+- [d036] The remote will be button-less.
+- [d037] The remote will run on kinetic energy.
+- [d038] Production costs cannot exceed 12.50 Euro.
+- [d039] The remote will sell for 25 Euro.
+- [d040] The case will have a soft fruit-like feel to it.
+- [d041] It will not use speech recognition. (replaces speech recognition)
+- [d042] The remote will have an enter button and number buttons.
+- [d043] It will be a television remote control.
+- [d044] Selling price will be twenty five Euro.
+- [d045] Regular chip will be used.
+- [d046] The remote will use a normal battery. (replaces solar power)
+- [d047] The remote will be curvy.
+- [d048] The remote will be sold for 25 Euro.
+- [d049] The remote will go into standby when idle.
+- [d050] The selling price will be 25 Euro.
+- [d051] The selling price of the product will be about twenty five Euros each.
+- [d052] The energy source will be a combination of batteries and kinetic energy.
+- [d053] The remote will look appealing.
+- [d054] An automatic on/off feature will not be used.
+- [d055] The remote will shut down when the television shuts down.
+- [d056] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d057] The remote will have some buttons.
+- [d058] The case will be flat on top and curved on the bottom.
+- [d059] The remote is just going to be for TV.
+- [d060] The remote will have a rechargeable battery which comes with a charger.
+- [d061] It will have voice recognition, use a simple battery, and contain an advanced chip. (replaces a simple chip)
+- [d062] The remote will incorporate a fruit and vegetable theme.
+- [d063] The remote has to be fashionable.
+- [d064] The remote will use standard batteries. (replaces solar power)
+- [d065] It would be a good idea to integrate a mechanism for finding the remote control, when the user loses it.
+- [d066] The remote will use a conventional battery and a docking station which recharges the battery.
+- [d067] The case will be double curved.
+- [d068] The production costs should be no more than 12.50 euros.
+- [d069] The production cost should be twelve Euros fifty.
+- [d070] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d071] The case will be single curved. (replaces a double curved case)
+- [d072] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d073] The remote will have pushbuttons.
+- [d074] The production costs for the remote will be 12.50 Euro maximum.
+- [d075] The maximum production cost for the remote is 12.50 Euro.
+- [d076] The remote will use an advanced chip.
+- [d077] The remote will be simple.
+- [d078] The remote will have large buttons.
+- [d079] The remote will use push buttons.
+- [d080] The remote will need to be different from those available in the market in terms of shape and colour.
+- [d081] Teletext will not be used.
+- [d082] The production cost cannot exceed 12.50 Euro.
+- [d083] The remote will have a minimal number of buttons.
+- [d084] The remote will use speech recognition for simple commands.
+- [d085] The remote will contain a simple chip. (replaces an advanced chip)
+- [d086] The remote will use a chip on print.
+- [d087] The remote will use conventional batteries.
+- [d088] The design should generally be intuitive without changes that would render it an unfamiliar object to customers.
+- [d089] Teletext is outdated and will not be used.
+- [d090] The profit will be fifty million Euros.
+- [d091] The remote will use solar energy.
+- [d092] Will use personal face places.
+- [d093] The production cost will be twelve Euros and fifty cents.
+- [d094] The remote will be waterproof.
+- [d095] The remote will be shockproof.
+- [d096] The company colours and slogan will have to be shown on the device. (replaces a remote without the corporate image)
+- [d097] The remote will use low level chips. (replaces an advanced chip)
+- [d098] The remote will not be too expensive.
+- [d099] The remote will be yellow with black or gray buttons.
+- [d100] The remote should look fancy.
+- [d101] The remote will have a simple chip.
+- [d102] There is no need for a special button to recognise two-digit numbers.
+- [d103] The remote will be sold for 25 Euros.
+- [d104] The remote will sell for 25 Euro.
+- [d105] The remote will use rechargeable batteries which recharge in a docking station.
+- [d106] The project goal is to develop a new remote control.
+- [d107] The remote will have rubber buttons.
+- [d108] Because symbols may fade, the additional covers could include those.
+- [d109] The remote will use an infra-red sensor.
+- [d110] The remote will use a kinetic battery.
+- [d111] The profit aim is fifteen million Euro.
+- [d112] The remote will not contain a voice activation feature.
+- [d113] The remote will only have a few buttons.
+- [d114] Buttons should be made bigger, with clearly defined functions and of durable materials to avoid fading of the symbols.
+- [d115] If used, face plates will be cheap.
+- [d116] The remote will have rubber push buttons.
+- [d117] The remote will use regular batteries.
+- [d118] The remote is going to be a universal one.
+- [d119] The remote will be for use with the television set.
+- [d120] The remote will use two regular batteries.
+- [d121] The preferred energy source was a combination of batteries and solar cells.
+- [d122] The selling price will be twenty five Euros.
+- [d123] Will have voice with fewer buttons.
+- [d124] The remote will be extremely simple.
+- [d125] They will aim for a profit of fifty million Euros.
+- [d126] The remote will use a kinetic battery. (replaces regular batteries)
+
+## LIVE STATEMENTS (label each one)
+
+- s01: So has anyone seen my pen?
+- s02: Right, the design should generally be intuitive without changes that would render it an unfamiliar object to customers.
+- s03: Okay, we are targeting young people with this remote.
+- s04: How about a one-touch weather channel?
+- s05: The team will not take into account possible usability issues concerning disabled people.
+- s06: The design review has been moved to the end of the month.
+- s07: Okay, we are targeting people over sixty with this remote.
+- s08: We will leave the corporate image off the remote.
+- s09: Okay, the important buttons will not be on top.
+- s10: Right, that clock on the wall is ten minutes slow.
+- s11: Well, the supplier has confirmed it can deliver the casings within six weeks.
+- s12: Can we add a text-size setting for the on-screen menu?

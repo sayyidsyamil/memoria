@@ -1,0 +1,27 @@
+{"run": "demo_2", "audio_s": 127.566375, "mode": "stream", "timing_s": {"load_models_s": 5.355107750045136, "cold_first_calls_s": {"stt_s": 0.2219841669430025, "diarize_stream_s": 0.20298529200954363, "diarize_oneshot_s": 0.047430875012651086}, "finalize_s": 7.272526458022185, "stt_s": 3.9972738339565694, "diarize_s": 3.2677031669882126, "other_s": 0.0075494570774026215}, "rtf": {"finalize": 0.057009744597839244, "stt": 0.03133485476840248, "diarize": 0.025615709210112875}, "mlx_peak_gb": {"stt": 4.531143516, "diarize": 3.266052548, "finalize": 3.266052548}}
+
+--- stderr ---
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 70492.50it/s]
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 33420.75it/s]
+       14.63 real         3.84 user         2.74 sys
+          3276455936  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              295507  page reclaims
+                3454  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  23  messages sent
+                  65  messages received
+                   0  signals received
+                6198  voluntary context switches
+               34842  involuntary context switches
+         46772643296  instructions retired
+         17136826180  cycles elapsed
+          7175835296  peak memory footprint

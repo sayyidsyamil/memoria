@@ -1,0 +1,141 @@
+{
+ "version": 1,
+ "dataset": "ami",
+ "data": "/Users/sayyid/Desktop/FYP/engine/data/ami_v0",
+ "split": "dev",
+ "levels": [
+  0
+ ],
+ "chains": [
+  "ES2003",
+  "TS3004"
+ ],
+ "configs": [
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 0.5,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 4,
+   "window": 3,
+   "alpha": 0.5,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 8,
+   "window": 3,
+   "alpha": 0.5,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 24,
+   "window": 3,
+   "alpha": 0.5,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 1,
+   "alpha": 0.5,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 6,
+   "alpha": 0.5,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 0.0,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 0.25,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 0.75,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 1.0,
+   "rrf": 60,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 0.5,
+   "rrf": 10,
+   "candidates": 50
+  },
+  {
+   "k": 12,
+   "window": 3,
+   "alpha": 0.5,
+   "rrf": 100,
+   "candidates": 50
+  }
+ ],
+ "cases": 540,
+ "questions_per_condition": 45,
+ "cot": false,
+ "max_tokens": 24,
+ "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+ "encoder": {
+  "model": "BAAI/bge-small-en-v1.5",
+  "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+  "pooling": "CLS",
+  "max_tokens": 512,
+  "query_prefix": "Represent this sentence for searching relevant passages: "
+ },
+ "manifest": {
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/ES2003.chain": "b07bbf11eaf3d4172158fd950ef5411e8778bb8a078122e73aff79d76eb52192",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/ES2004.chain": "4f45d338f0f469246cf5cfb4106f832e82e2ec89330f6e25bb0efb8502fc1b04",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/ES2014.chain": "22cf4e3636b583661cec29852e96412edc57da6001e020477f572ec5073398b4",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/IS1009.chain": "08d75a10030e93cd6d955faecaf6ca8349870430c62e6f622b22e0853d991a94",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/TS3003.chain": "e3a5ff12ab82209590db507e2e4663d7ab1e3c75db4b6c928fda0564c74d6e33",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/TS3004.chain": "0e1cc17a8b6cde1fcb3a082625bd049c592ccbb720c02fbb8c90a1f0c5ea01b2",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/TS3007.chain": "621154bd401b3eaaf5f2c8a8953076c7c01bab733841873829e129d1291ea1bc",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/ES2003.ask": "05f92755a123984c62e26a11e5c81b33666a45e3848b2dc8a1872fca37d0a40c",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/ES2004.ask": "aa103601f70d54e73c1ad721e09957077a217bf1fb99f38460a916becefd9329",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/ES2014.ask": "a8040d81973377ecc50a4a0ff67bbc14a336f0875bd3f189dafd4770d2a2a4af",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/IS1009.ask": "57e46e3c48535dcf625f4764b0f67b9da25a2ad85f2542dc20cebf8b09c5d520",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/TS3003.ask": "bd47d472cd6a757ff25a504e4964c27d3a7731c142afde8a6117e7ddfcdda40d",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/TS3004.ask": "ce7e41579b2572a363f6ef973689ccd9d22eb776a9125b6b452e34de0690364b",
+  "/Users/sayyid/Desktop/FYP/engine/data/ami_v0/TS3007.ask": "710f4e210a41dd73fe611cbb2d7868e3d85998936c5125b26d8e19152a6ab758",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/evaluation/hybrid_experiment.py": "23d197bd05a4ac99333cd27a0caae83db94f2cd1d02690fab6f6d2e77d03821d",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/evaluation/hybrid.py": "eefc228e033c9874b11b7d539e0558c19b45bb6e043ff98e7e1a372dc9b7e600",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/evaluation/baselines.py": "d98c29fd7d77565e84fa259e439bb9cce7bae947cc8082d2c264723ba70e2e22",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/evaluation/padding.py": "85dfad6f89ebbc903a56470985648cc74fe8f0bebe493a1d39e8d207db90d4a3",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/evaluation/dataset.py": "031199a015c270d661a3399b9e9fab356e7555603bdbebf642afe9cad9ff2bad",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/evaluation/metrics.py": "cee95ab4c709af6d78887d863bf8b510883339b024bcc4ed3c4490d1db55a5bd",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/llmcache.py": "70ca5230fd1ecb67aaf043dbe2afbedb20bb7ad76aff1933eb4e5196cac0ac08",
+  "/Users/sayyid/Desktop/FYP/engine/memoria_engine/extractors.py": "fba79ff3f9408acafb060f52cc9ef4ebfb49e093cda47050011c7bb457caae1f"
+ },
+ "cases_sha256": "1f8edfa5a1530454cbb083e0f5a82b2237f73b4223cf0b57a07a6a874e752770",
+ "selection": null,
+ "created": "2026-10-29 21:10:10",
+ "design": "one-factor-at-a-time around k12/window3/alpha0.5/rrf60; no interaction estimates",
+ "selection_rule": "highest dev exact-match accuracy at K=0, then lowest mean prompt tokens, then name",
+ "status": "exploratory extension: previous AMI test results were already inspected"
+}

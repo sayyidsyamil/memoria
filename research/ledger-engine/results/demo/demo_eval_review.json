@@ -1,0 +1,1132 @@
+{
+ "config": {
+  "split": "demo",
+  "policy": "review",
+  "chains": [
+   "demo"
+  ],
+  "questions": 21,
+  "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+  "extractor_prompt": "v2",
+  "extractor_prompt_sha256_12": "7f816362cd95",
+  "router_prompt": "r1",
+  "window_chars": 7000,
+  "cot_max_tokens": 4096,
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "date": "2026-10-14 02:48:45",
+  "note": "FICTIONAL series authored with AI help; a system check, not evidence about real meetings"
+ },
+ "memoria": {
+  "qa": {
+   "ext+router": {
+    "overall": {
+     "correct": 18,
+     "n": 21,
+     "accuracy": 0.8571428571428571,
+     "ci_95": [
+      0.654,
+      0.95
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 7,
+     "n": 9,
+     "accuracy": 0.7777777777777778,
+     "ci_95": [
+      0.453,
+      0.937
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 6,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.436,
+      0.97
+     ]
+    }
+   },
+   "ext+oracle_route": {
+    "overall": {
+     "correct": 19,
+     "n": 21,
+     "accuracy": 0.9047619047619048,
+     "ci_95": [
+      0.711,
+      0.973
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 7,
+     "n": 9,
+     "accuracy": 0.7777777777777778,
+     "ci_95": [
+      0.453,
+      0.937
+     ]
+    },
+    "n_changes": {
+     "correct": 6,
+     "n": 6,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.61,
+      1.0
+     ]
+    }
+   },
+   "oracle_ext+router": {
+    "overall": {
+     "correct": 20,
+     "n": 21,
+     "accuracy": 0.9523809523809523,
+     "ci_95": [
+      0.773,
+      0.992
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 9,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.701,
+      1.0
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 6,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.436,
+      0.97
+     ]
+    }
+   },
+   "oracle_ext+oracle_route": {
+    "overall": {
+     "correct": 21,
+     "n": 21,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.845,
+      1.0
+     ]
+    },
+    "as_of_tx": {
+     "correct": 1,
+     "n": 1,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.207,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 9,
+     "n": 9,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.701,
+      1.0
+     ]
+    },
+    "n_changes": {
+     "correct": 6,
+     "n": 6,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.61,
+      1.0
+     ]
+    }
+   }
+  },
+  "rows": [
+   {
+    "chain": "demo",
+    "qid": "q1",
+    "type": "current",
+    "gold": "Beta Cloud",
+    "question": "Which vendor are we using for the pilot now?",
+    "route": {
+     "type": "current",
+     "object_id": "vendor",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "Beta Cloud",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "Beta Cloud",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "Beta Cloud",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "Beta Cloud",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q2",
+    "type": "current",
+    "gold": 280000,
+    "question": "What is the pilot budget at the moment, in ringgit?",
+    "route": {
+     "type": "current",
+     "object_id": "budget",
+     "attribute": "amount",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 280000,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 280000,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 280000,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 280000,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q3",
+    "type": "current",
+    "gold": "2026-11-09",
+    "question": "What is the current go-live date?",
+    "route": {
+     "type": "current",
+     "object_id": "golive",
+     "attribute": "date",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-11-09",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-11-09",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-11-09",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-11-09",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q4",
+    "type": "current",
+    "gold": "2026-10-23",
+    "question": "When is the data migration due now?",
+    "route": {
+     "type": "current",
+     "object_id": "migration",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-23",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-23",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-23",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-23",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q5",
+    "type": "current",
+    "gold": "wei_ling",
+    "question": "Who owns the data migration?",
+    "route": {
+     "type": "current",
+     "object_id": "migration",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "wei_ling",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q6",
+    "type": "current",
+    "gold": "aisha",
+    "question": "Who is responsible for staff training?",
+    "route": {
+     "type": "current",
+     "object_id": "training",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "aisha",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "aisha",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "aisha",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "aisha",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q7",
+    "type": "current",
+    "gold": "2026-11-03",
+    "question": "When is staff training due?",
+    "route": {
+     "type": "current",
+     "object_id": "training",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-11-03",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-11-03",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-11-03",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-11-03",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q8",
+    "type": "current",
+    "gold": "done",
+    "question": "What is the status of the security review?",
+    "route": {
+     "type": "current",
+     "object_id": "security",
+     "attribute": "status",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "done",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "done",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q9",
+    "type": "current",
+    "gold": "wei_ling",
+    "question": "Who owns the security review?",
+    "route": {
+     "type": "current",
+     "object_id": "security",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "wei_ling",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "wei_ling",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q10",
+    "type": "as_of_valid",
+    "gold": 250000,
+    "question": "What was the pilot budget on 27 September 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "budget",
+     "attribute": "amount",
+     "valid_at": "2026-09-27",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 250000,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 250000,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 250000,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 250000,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q11",
+    "type": "as_of_valid",
+    "gold": "2026-10-26",
+    "question": "What was the go-live date on 5 October 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "golive",
+     "attribute": "date",
+     "valid_at": "2026-10-05",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q12",
+    "type": "as_of_valid",
+    "gold": "Alpha Systems",
+    "question": "Which vendor had been chosen on 20 September 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "vendor",
+     "attribute": "outcome",
+     "valid_at": "2026-09-20",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "Alpha Systems",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "Alpha Systems",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "Alpha Systems",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "Alpha Systems",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q13",
+    "type": "as_of_valid",
+    "gold": "2026-10-09",
+    "question": "What was the data migration deadline on 10 October 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "migration",
+     "attribute": "deadline",
+     "valid_at": "2026-10-10",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-09",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-09",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-09",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-09",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q14",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "Who owned the security review on 20 September 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "security",
+     "attribute": "owner",
+     "valid_at": "2026-09-20",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q15",
+    "type": "as_of_tx",
+    "gold": "2026-10-26",
+    "question": "Going by what had been recorded by 6 October 2026, what was the go-live date for 16 October 2026?",
+    "route": {
+     "type": "as_of_tx",
+     "object_id": "golive",
+     "attribute": "date",
+     "valid_at": "2026-10-16",
+     "tx_at": "2026-10-06",
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "2026-10-26",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "2026-10-26",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q16",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the vendor choice change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "vendor",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q17",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the pilot budget change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "budget",
+     "attribute": "amount",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q18",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the go-live date change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no tracked item"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q19",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the data migration deadline change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "migration",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q20",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times did the training deadline change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "training",
+     "attribute": "deadline",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "demo",
+    "qid": "q21",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times did the owner of the security review change?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "security",
+     "attribute": "owner",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   }
+  ],
+  "extraction": {
+   "gold_events": 18,
+   "tp": 14,
+   "fp": 3,
+   "fn": 4,
+   "precision": 0.8235294117647058,
+   "recall": 0.7777777777777778,
+   "f1": 0.7999999999999999,
+   "ci_95": {
+    "precision": [
+     0.8,
+     0.857
+    ],
+    "recall": [
+     0.667,
+     0.857
+    ],
+    "f1": [
+     0.727,
+     0.857
+    ]
+   },
+   "state_changing_recall": 0.7333333333333333,
+   "state_changing_gold": 15,
+   "by_kind": {
+    "INITIAL": {
+     "gold": 9,
+     "found": 7,
+     "recall": 0.778
+    },
+    "REVERSE": {
+     "gold": 1,
+     "found": 1,
+     "recall": 1.0
+    },
+    "CONFIRM": {
+     "gold": 3,
+     "found": 3,
+     "recall": 1.0
+    },
+    "REVISE": {
+     "gold": 4,
+     "found": 3,
+     "recall": 0.75
+    },
+    "COMPLETE": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    }
+   },
+   "by_tag": {
+    "(no tag)": {
+     "gold": 18,
+     "found": 14,
+     "recall": 0.778
+    }
+   },
+   "miss_reasons": {
+    "value_error": 1,
+    "wrong_evidence": 1,
+    "attribute_error": 1,
+    "missed": 1
+   },
+   "fp_reasons": {
+    "wrong_content": 2,
+    "distractor:tentative": 1
+   },
+   "filtered": {},
+   "distractor_hit_rate": 0.09090909090909091,
+   "distractor_turns": 22,
+   "evidence_exact_turn": 0.8571428571428571,
+   "confidence_auroc": 0.5,
+   "confidence_ece": 0.0764705882352944,
+   "confidence_mean": 0.9000000000000002,
+   "confidence_distinct": 1
+  },
+  "extraction_by_chain": {
+   "demo": {
+    "gold_events": 18,
+    "tp": 14,
+    "fp": 3,
+    "fn": 4,
+    "precision": 0.8235294117647058,
+    "recall": 0.7777777777777778,
+    "f1": 0.7999999999999999,
+    "ci_95": {
+     "precision": [
+      0.8,
+      0.857
+     ],
+     "recall": [
+      0.667,
+      0.857
+     ],
+     "f1": [
+      0.727,
+      0.857
+     ]
+    },
+    "state_changing_recall": 0.7333333333333333,
+    "state_changing_gold": 15,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 9,
+      "found": 7,
+      "recall": 0.778
+     },
+     "REVERSE": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 4,
+      "found": 3,
+      "recall": 0.75
+     },
+     "COMPLETE": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 18,
+      "found": 14,
+      "recall": 0.778
+     }
+    },
+    "miss_reasons": {
+     "value_error": 1,
+     "wrong_evidence": 1,
+     "attribute_error": 1,
+     "missed": 1
+    },
+    "fp_reasons": {
+     "wrong_content": 2,
+     "distractor:tentative": 1
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.09090909090909091,
+    "distractor_turns": 22,
+    "evidence_exact_turn": 0.8571428571428571,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.0764705882352944,
+    "confidence_mean": 0.9000000000000002,
+    "confidence_distinct": 1
+   }
+  },
+  "ledger": {
+   "supersession_tp": 4,
+   "supersession_fp": 1,
+   "supersession_fn": 1,
+   "state_gold": 10,
+   "state_correct": 8,
+   "phantom_beliefs": 0,
+   "supersession_precision": 0.8,
+   "supersession_recall": 0.8,
+   "supersession_f1": 0.8000000000000002,
+   "state_accuracy": 0.8
+  },
+  "router": {
+   "exact": 20,
+   "n": 21,
+   "failed": 1,
+   "mean_seconds": 1.701,
+   "mean_prompt_tokens": 851.714
+  },
+  "cost": {
+   "meetings": 3,
+   "extract_seconds_per_meeting": 10.38,
+   "extract_seconds_total": 31.1,
+   "prompt_tokens_per_meeting": 1667.333,
+   "output_tokens_per_meeting": 406.667,
+   "windows_per_meeting": 1.0
+  }
+ },
+ "wall_seconds": 67.1
+}

@@ -1,0 +1,5 @@
+[2026-10-13 23:07:58] driver run_rest.sh starts (code+data hash 70ce8922420a); waiting for test_memoria pid 63280
+[2026-10-13 23:33:22] END   test_memoria (pid 63280 ended; output file decides success)
+[2026-10-13 23:33:22] START fast_equivalence
+[2026-10-13 23:35:24] END   fast_equivalence -> runner run_ami.py ({"compared": 4, "identical_text": 1, "same_verdict": 3, "prefix_builds": 1, "prefix_hits": 3})
+[2026-10-13 23:35:24] START test_baselines (code+data hash 70ce8922420a)

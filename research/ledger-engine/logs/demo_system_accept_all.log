@@ -1,0 +1,25 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 81284.96it/s]
+# System test on the fictional demo series (extractor: mlx)
+
+Through the app's JSON service. Wall time 68.4 s. Reviewer: accept_all. Inbox held 6 proposal(s): 5 accepted, 0 rejected as not in the answer key, 1 rejected as stale.
+
+- Facts after review: 10/12 slots match the answer key; phantom facts (value where none expected): 0.
+- Questions: 17/21 correct (current 7/9, as_of_valid 4/5, as_of_tx 1/1, n_changes 5/6).
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 78692.38it/s]
+Traceback (most recent call last):
+  File "/Users/sayyid/Desktop/FYP/engine/scripts/demo/system_test.py", line 191, in <module>
+    main()
+  File "/Users/sayyid/Desktop/FYP/engine/scripts/demo/system_test.py", line 185, in main
+    md += [f"| {r['qid']} | {r['type']} | {r['question']} | {shown(r['gold'])} | {shown(r['answer'])} | {'yes' if r['correct'] else 'NO'} | {'yes' if r['has_evidence'] else 'no'} |" for r in a["rows"]]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sayyid/Desktop/FYP/engine/scripts/demo/system_test.py", line 185, in <listcomp>
+    md += [f"| {r['qid']} | {r['type']} | {r['question']} | {shown(r['gold'])} | {shown(r['answer'])} | {'yes' if r['correct'] else 'NO'} | {'yes' if r['has_evidence'] else 'no'} |" for r in a["rows"]]
+                                                             ^^^^^^^^^^^^^^^^
+TypeError: 'str' object is not callable
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 121927.44it/s]
+# System test on the fictional demo series (extractor: mlx)
+
+Through the app's JSON service. Wall time 67.7 s. Reviewer: accept_all. Inbox held 5 proposal(s): 5 accepted (0 after fixing the number from the quote), 0 rejected as not in the answer key, 0 rejected as stale.
+
+- Facts after review: 10/12 slots match the answer key; phantom facts (value where none expected): 0.
+- Questions: 18/21 correct (current 7/9, as_of_valid 4/5, as_of_tx 1/1, n_changes 6/6).

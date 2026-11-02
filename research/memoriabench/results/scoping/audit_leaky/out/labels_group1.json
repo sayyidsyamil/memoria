@@ -1,0 +1,422 @@
+{
+  "ES2002-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2002b:02:01"],
+    "note": "Matches the television-only scope."
+  },
+  "ES2002-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2002a:08:52"],
+    "note": "Matches the approved international sales market."
+  },
+  "ES2002-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2002b:01:44"],
+    "note": "Including teletext was explicitly replaced."
+  },
+  "ES2002-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2002c:38:36"],
+    "note": "Plastic and rubber explicitly replaced a wooden case."
+  },
+  "ES2002-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2002b:30:20"],
+    "note": "Conflicts with the approved regular batteries."
+  },
+  "ES2002-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2002a:07:50"],
+    "note": "Conflicts with the approved 25 Euro selling price."
+  },
+  "ES2002-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered previous-channel function."
+  },
+  "ES2002-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered built-in stand."
+  },
+  "ES2002-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated chatter about a coffee machine."
+  },
+  "ES2002-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated weather chatter."
+  },
+  "ES2002-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the printer sample issue."
+  },
+  "ES2002-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes the trademark application's status."
+  },
+  "ES2007-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2007c:14:26"],
+    "note": "Matches the approved double-curved case."
+  },
+  "ES2007-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2007a:09:45"],
+    "note": "Matches the approved 50 million Euro profit aim."
+  },
+  "ES2007-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2007c:28:10"],
+    "note": "Kinetic batteries explicitly replaced regular batteries."
+  },
+  "ES2007-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2007b:15:38"],
+    "note": "Displaying the corporate image replaced omitting it."
+  },
+  "ES2007-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2007c:07:52"],
+    "note": "Conflicts with the approved rubber case."
+  },
+  "ES2007-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2007a:09:57"],
+    "note": "Exceeds the 12.50 Euro production-cost cap."
+  },
+  "ES2007-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered picture-in-picture button."
+  },
+  "ES2007-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered wrist strap."
+  },
+  "ES2007-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated chatter about air conditioning."
+  },
+  "ES2007-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated chatter about a bus journey."
+  },
+  "ES2007-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the mock-ups' completion."
+  },
+  "ES2007-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the survey result."
+  },
+  "ES2012-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2012b:04:48"],
+    "note": "Company logo and colors support showing the corporate image."
+  },
+  "ES2012-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2012a:07:47"],
+    "note": "Matches the approved 50 million Euro profit."
+  },
+  "ES2012-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2012b:03:53"],
+    "note": "Television-only operation explicitly replaced controlling multiple devices."
+  },
+  "ES2012-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2012b:03:39"],
+    "note": "Excluding teletext explicitly replaced including it."
+  },
+  "ES2012-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2012c:31:16"],
+    "note": "An LCD conflicts with the no-display decision."
+  },
+  "ES2012-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2012a:07:39"],
+    "note": "Conflicts with the approved 25 Euro selling price."
+  },
+  "ES2012-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered left-handed layout."
+  },
+  "ES2012-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered family-member profiles."
+  },
+  "ES2012-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated room-lighting chatter."
+  },
+  "ES2012-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated chatter about the carpet."
+  },
+  "ES2012-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the safety lab's status."
+  },
+  "ES2012-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the field-trial upload."
+  },
+  "ES2016-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2016a:09:32"],
+    "note": "Matches the approved 25 Euro selling price."
+  },
+  "ES2016-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2016c:33:34"],
+    "note": "Regular batteries are consistent with conventional batteries."
+  },
+  "ES2016-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2016a:19:36"],
+    "note": "Rejecting a ball shape explicitly replaced creating one."
+  },
+  "ES2016-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2016b:22:11"],
+    "note": "Television-only use explicitly replaced controlling multiple devices."
+  },
+  "ES2016-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2016c:34:50"],
+    "note": "Wood conflicts with the approved plastic case and rubber grips."
+  },
+  "ES2016-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2016b:22:42"],
+    "note": "A teletext button conflicts with excluding teletext."
+  },
+  "ES2016-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered spoken channel feedback."
+  },
+  "ES2016-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered menu-rotation tilt sensor."
+  },
+  "ES2016-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated lunch chatter."
+  },
+  "ES2016-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated request for a laptop charger."
+  },
+  "ES2016-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the customer's report."
+  },
+  "ES2016-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the regulator's request."
+  },
+  "IS1004-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1004a:10:21"],
+    "note": "Matches the approved 25 Euro target price."
+  },
+  "IS1004-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1004a:10:38"],
+    "note": "Matches the approved international target market."
+  },
+  "IS1004-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1004b:28:23"],
+    "note": "Excluding speech recognition explicitly replaced including it."
+  },
+  "IS1004-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1004b:11:21"],
+    "note": "Displaying the corporate logo replaced omitting the corporate image."
+  },
+  "IS1004-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1004b:10:46"],
+    "note": "Several-device control conflicts with television-only operation."
+  },
+  "IS1004-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1004a:10:38"],
+    "note": "Europe-only sales conflict with the international target market."
+  },
+  "IS1004-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered high-contrast button scheme."
+  },
+  "IS1004-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered shake-to-wake gesture."
+  },
+  "IS1004-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated traffic chatter."
+  },
+  "IS1004-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated personal diet chatter."
+  },
+  "IS1004-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the progress-report request."
+  },
+  "IS1004-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the retailer's requested order."
+  },
+  "TS3003-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3003b:34:02"],
+    "note": "Matches the approved target of adults aged sixty to eighty."
+  },
+  "TS3003-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3003c:21:37#2"],
+    "note": "Matches the approved battery-recharging docking station."
+  },
+  "TS3003-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3003b:17:41"],
+    "note": "Television-only operation explicitly replaced controlling multiple devices."
+  },
+  "TS3003-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3003c:32:18"],
+    "note": "A single-curved case explicitly replaced a double-curved case."
+  },
+  "TS3003-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3003c:21:37#2"],
+    "note": "Conflicts with the approved recharging docking station."
+  },
+  "TS3003-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3003c:21:53"],
+    "note": "A simple chip conflicts with the approved advanced chip."
+  },
+  "TS3003-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered multi-command macro button."
+  },
+  "TS3003-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered countdown timer."
+  },
+  "TS3003-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated office-printer chatter."
+  },
+  "TS3003-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated meeting-room chatter."
+  },
+  "TS3003-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies receipt of the drawings."
+  },
+  "TS3003-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the foam-insert back order."
+  },
+  "TS3009-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3009c:34:36"],
+    "note": "Front and back logos support displaying the corporate image."
+  },
+  "TS3009-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3009b:27:24"],
+    "note": "Matches the approved noninteractive LCD screen."
+  },
+  "TS3009-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3009c:26:39"],
+    "note": "A standard chip explicitly replaced an advanced chip."
+  },
+  "TS3009-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3009b:27:24"],
+    "note": "Using an LCD explicitly replaced having no screen."
+  },
+  "TS3009-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3009c:30:01"],
+    "note": "Conflicts with the approved speech-recognition implementation."
+  },
+  "TS3009-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3009b:37:33"],
+    "note": "Conflicts with keeping infrequently used buttons outside a flip."
+  },
+  "TS3009-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered built-in bottle opener."
+  },
+  "TS3009-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered accidental-press screen lock."
+  },
+  "TS3009-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated chatter about room ventilation."
+  },
+  "TS3009-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated canteen-hours question."
+  },
+  "TS3009-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the mould maker's prediction."
+  },
+  "TS3009-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision verifies the pilot run's timing."
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "objects": [
+    {
+      "object_id": "vendor",
+      "kind": "decision",
+      "label": "Vendor",
+      "attributes": [
+        {
+          "name": "outcome",
+          "type": "enum",
+          "values": [
+            "Alpha Systems",
+            "Beta Cloud",
+            "Gamma Soft"
+          ],
+          "change_kind": "REVERSE"
+        }
+      ]
+    },
+    {
+      "object_id": "budget",
+      "kind": "decision",
+      "label": "Pilot budget (RM)",
+      "attributes": [
+        {
+          "name": "amount",
+          "type": "number",
+          "values": [],
+          "change_kind": "REVISE"
+        }
+      ]
+    },
+    {
+      "object_id": "golive",
+      "kind": "decision",
+      "label": "Go-live date",
+      "attributes": [
+        {
+          "name": "date",
+          "type": "date",
+          "values": [],
+          "change_kind": "REVISE"
+        }
+      ]
+    },
+    {
+      "object_id": "training",
+      "kind": "commitment",
+      "label": "Staff training",
+      "attributes": [
+        {
+          "name": "owner",
+          "type": "person",
+          "values": [],
+          "change_kind": "REVISE"
+        },
+        {
+          "name": "deadline",
+          "type": "date",
+          "values": [],
+          "change_kind": "REVISE"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "done",
+            "cancelled"
+          ],
+          "change_kind": "REVISE"
+        }
+      ]
+    },
+    {
+      "object_id": "migration",
+      "kind": "commitment",
+      "label": "Data migration",
+      "attributes": [
+        {
+          "name": "owner",
+          "type": "person",
+          "values": [],
+          "change_kind": "REVISE"
+        },
+        {
+          "name": "deadline",
+          "type": "date",
+          "values": [],
+          "change_kind": "REVISE"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "done",
+            "cancelled"
+          ],
+          "change_kind": "REVISE"
+        }
+      ]
+    },
+    {
+      "object_id": "security",
+      "kind": "commitment",
+      "label": "Security review",
+      "attributes": [
+        {
+          "name": "owner",
+          "type": "person",
+          "values": [],
+          "change_kind": "REVISE"
+        },
+        {
+          "name": "deadline",
+          "type": "date",
+          "values": [],
+          "change_kind": "REVISE"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "done",
+            "cancelled"
+          ],
+          "change_kind": "REVISE"
+        }
+      ]
+    }
+  ],
+  "people": {
+    "aisha": "Aisha",
+    "raj": "Raj",
+    "wei_ling": "Wei Ling"
+  }
+}

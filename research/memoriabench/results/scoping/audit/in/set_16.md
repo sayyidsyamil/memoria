@@ -1,0 +1,97 @@
+# Meeting set 16
+
+## APPROVED DECISIONS
+
+- [d001] To incorporate the company logo and color, the buttons will be illuminated yellow when pressed and the logo will be displayed through a cutout in the latex casing. (replaces a remote without the corporate image)
+- [d002] The profit aim is fifteen million Euro.
+- [d003] The profit will be fifty million Euros.
+- [d004] The remote will be sold for 25 Euros.
+- [d005] The remote will be covered by a soft latex casing that can be changed.
+- [d006] There will be a touch screen and not many buttons.
+- [d007] The remote will go into standby when idle.
+- [d008] It will cost no more than 12.5 Euros to make.
+- [d009] Will reserach environmental factor.
+- [d010] The remote will use a regular infra-red signal.
+- [d011] The remote will have some buttons.
+- [d012] They will aim for a profit of fifty million Euros.
+- [d013] The important buttons will be on top.
+- [d014] It will be placed at the top of the banana shape.
+- [d015] The project goal is to develop a new remote control.
+- [d016] The remote will use an infra-red sensor.
+- [d017] The remote will include the company color and logo in its design.
+- [d018] The case will be single curved. (replaces a double curved case)
+- [d019] The remote will have rubber buttons.
+- [d020] The remote will sell for 25 Euro.
+- [d021] The selling price will be 25 Euro.
+- [d022] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d023] The device be small and compact and will feature a locator function that uses voice recognition. (replaces a remote without a locator function)
+- [d024] The remote should not have too many buttons.
+- [d025] The remote will be shockproof.
+- [d026] The remote will sell for 25 Euro.
+- [d027] The remote will have a jog dial.
+- [d028] The remote will have rubber push buttons.
+- [d029] There will be only one design of the remote rather than producing it in several different materials.
+- [d030] The device will be marketed to all age groups, and made simple for those with less technical skills.
+- [d031] The remote will only have a few buttons.
+- [d032] The latter would be preferable to implementing a backlight into the remote.
+- [d033] The case will be single curved. (replaces a double curved case)
+- [d034] The group will consider including speech recognition and a locator function in the functional design.
+- [d035] The remote will be curvy.
+- [d036] The remote has to be fashionable.
+- [d037] The remote should look fancy.
+- [d038] They will generate a proft of fifty million Euros.
+- [d039] The remote will have a docking station.
+- [d040] The remote will be shaped like a snowman.
+- [d041] The remote will have LCD buttons.
+- [d042] The remote will have push buttons outside, and an LCD and spinning wheel inside.
+- [d043] The target selling price will be 25 Euro dollars.
+- [d044] The selling price of the remote will be 25 Euro.
+- [d045] The team will not create a ball shaped remote. (replaces creating a ball shaped remote)
+- [d046] Voice recognition will not be incorporated for other functions.
+- [d047] If used, face plates will be cheap.
+- [d048] The interface will contain larger buttons.
+- [d049] Will use personal face places.
+- [d050] The remote will be child proof.
+- [d051] The remote has to look good and be easy to use.
+- [d052] The remote will have a docking station.
+- [d053] The remote will not be too expensive.
+- [d054] The remote will look appealing.
+- [d055] The case will be double curved.
+- [d056] The case will be flat on top and curved on the bottom.
+- [d057] The profit aim will be 50 million Euro.
+- [d058] The remote will use push buttons.
+- [d059] The remote will be sold for 25 Euro.
+- [d060] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d061] The remote will have pushbuttons.
+- [d062] The selling price will be twenty five Euros.
+- [d063] The profit aim is 15 million Euros.
+- [d064] The remote will feature a smart processor chip to accomodate all of the remote's functions.
+- [d065] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d066] Selling price will be twenty five Euro.
+- [d067] The remote will feature an extra lightbulb that will light up when the remote is communicating with the television.
+- [d068] They will sell the remotes for twenty five Euros each.
+- [d069] The remote will be easy to learn.
+- [d070] The target demographic is people aged fifteen to thirty five.
+- [d071] There will be no buttons for controlling a VCR or other device; the interface will feature only channel and volume up/down buttons, a number pad, and a menu button to access the menu functions on a television.
+- [d072] The remote will be sold for 25 Euro.
+- [d073] LCD is not going to be implemented. (replaces an LCD screen)
+- [d074] Push buttons will be used.
+- [d075] The remote will be sold for 25 Euro.
+- [d076] The remote will not have an LCD screen. (replaces an LCD screen)
+- [d077] The remote will be fancy.
+- [d078] The remote will be waterproof.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: Right, we could include a built-in thermometer.
+- s02: I'm so tired, I barely slept last night.
+- s03: The pilot users reported no problems with the first batch.
+- s04: I think we will leave the corporate image off the remote.
+- s05: The remote will use a simple chip.
+- s06: The corporate image will be shown on the remote.
+- s07: Well, the remote will not have a locator function.
+- s08: Right, can we add a hidden compartment for spare batteries?
+- s09: Okay, I'm hopeless at parallel parking.
+- s10: The interface will not contain larger buttons.
+- s11: Right, the remote will have a locator function so it can be found when lost.
+- s12: I think the prototype box was crushed during the courier test.

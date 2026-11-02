@@ -1,0 +1,14 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 82080.31it/s]
+running QA baselines...
+    full-context: finished hiring
+    full-context: finished portfolio
+    full-context: finished tender
+  full-context: {'correct': 23, 'n': 37, 'accuracy': 0.6216216216216216, 'ci_95': (0.461, 0.759)}
+    bm25-rag: finished hiring
+    bm25-rag: finished portfolio
+    bm25-rag: finished tender
+  bm25-rag: {'correct': 24, 'n': 37, 'accuracy': 0.6486486486486487, 'ci_95': (0.488, 0.782)}
+[mlx / immediate] P=0.9166666666666666 R=0.7096774193548387 F1=0.7999999999999999 | supersession F1=0.5 | state acc=0.875 | QA=0.7567567567567568 | proposals/meeting=0.0
+[mlx / confirm_conflicts] P=0.92 R=0.7419354838709677 F1=0.8214285714285714 | supersession F1=0.7000000000000001 | state acc=0.875 | QA=0.8108108108108109 | proposals/meeting=0.7272727272727273
+[mlx / confirm_all] P=0.92 R=0.7419354838709677 F1=0.8214285714285714 | supersession F1=0.8 | state acc=0.875 | QA=0.8378378378378378 | proposals/meeting=2.090909090909091
+saved results/test_v2.json

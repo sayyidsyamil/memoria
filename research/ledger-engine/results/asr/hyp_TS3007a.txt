@@ -1,0 +1,172 @@
+[14.6s - 15.6s] Speaker 1: Hi.
+[15.6s - 42.7s] Speaker 0: Hello. Good morning.
+[42.7s - 43.4s] Speaker 1: Good morning.
+[43.4s - 44.5s] Speaker 2: Good morning.
+[45.1s - 52.2s] Speaker 0: Before I start with uh with the meeting, I have a few things to tell you about uh the setting we're in. Uh because we're uh being
+[52.2s - 54.9s] Speaker 2: watched by uh Big Brother. So um
+[55.4s - 56.5s] Speaker 1: by Big Brother.
+[56.7s - 82.7s] Speaker 2: Yeah. Okay. This uh this are cameras, so are these. This thing uh that looks like a pie are actually all microphones. Okay. So you must be careful with uh with uh all this. And uh as I can see you you uh you have placed your laptops uh exactly on the place where it must be. And that has to do with the camera setting, so we don't have our uh laptops in front of the cameras.
+[82.7s - 84.3s] Speaker 1: Of our faces.
+[84.3s - 143.0s] Speaker 2: And indeed, so they can see our faces. I think it's very uh good to introduce yourself. Uh then uh a little bit of acquaintance, acquaintance to uh to ourselves, so uh we get to know each other. Uh that will be done uh with a tool training from the these two uh smart boards, then the project plan, what we're going to do and how we're going to do it, uh, and a discussion about that and a little closing at the end.
+[143.0s - 143.7s] Speaker 1: Okay, uh
+[143.8s - 148.0s] Speaker 2: my name is uh Daniel Wolfs. I'm the project manager. What's your name?
+[148.0s - 150.9s] Speaker 3: I'm Irun Tops, I'm the user interface designer.
+[150.9s - 152.3s] Speaker 2: User interface, okay.
+[152.3s - 156.6s] Speaker 0: Hi, my name's uh Jan van Vuren. I'm the industrial designer.
+[156.6s - 157.6s] Speaker 2: Industrial.
+[157.6s - 162.4s] Speaker 1: I'm uh Tim Van E. Um, my function is uh marketing expert.
+[162.4s - 273.4s] Speaker 2: Okay, thank you. First, a little about the project aim. Uh the the aim is to make a new remote control. Uh maybe you have read uh read the website. It's a very uh yeah, very uh ambitious uh company. They uh they want to do something else, so uh there must be a new remote control. Uh first of all, uh it must be original uh and trendy. That's two things really uh close to each other, but at the same time uh user-friendly, and they have uh yeah, that's uh very important uh for them. Uh there are three stages. There's a functional design. So uh what are we going uh to uh to do? What are we going to uh uh make uh kind of functions in the remote and why are we going to do it? Then the conceptual design, how are we going to do it? And that's uh really global uh because at the detailed design, how part two uh we go uh to dig in and really uh about how the the the technical of if it uh it's uh possible technical-wise. Uh each stage is uh Is broken up in two uh two stages individual work and a meeting, so it's uh it's very straightforward. Okay, the tool training. We have two smartboards. This one is for the presentations, the PowerPoint presentations or word presentation of whatever you uh you had. Uh and this is uh only for uh drawing. So uh we uh must let it uh stand on this uh this program. This is called a smart board thing uh
+[273.7s - 274.6s] Speaker 1: speaks for itself,
+[274.6s - 351.8s] Speaker 2: yeah. It speaks for itself. Um as you uh may have heard the documents in the shared folder uh can be uh showed on this screen, not in the my documents. So if you want to show something, put it in the shared folder. Uh this uh is very straightforward with the save, the print, the undo, the blank, the select, the pen. Well, I don't uh gonna explain it all because I think you know uh how it works. Um we must not forget uh everything we draw on here, uh all must be saved. We we may not delete anything. So uh if you have uh drawed something, save it. Never delete it. That's a very important thing. Okay. Uh little uh little kind of exercise to uh know each other at uh the whiteboard on the left. Every uh every one of us uh must draw our favorite animal and uh tell uh tell us why we uh had uh chosen that animal. Uh important is that we use different colors and uh different pen widths, white widths.
+[351.8s - 361.6s] Speaker 1: I have a question, yes. Um this exercise, yeah. Um did the company board tell you to do it or did you just make it up yourself?
+[361.6s - 380.1s] Speaker 2: No, no, no. It's uh it's uh I I'm part of the interview. Yeah, yeah, yeah. Okay. Because we uh really don't know each other and uh it's kinda new, so getting used to each other we can uh have a little fun and before we uh dig in really to the hard stuff that kind of thing. Would you start with drawing your uh favorite?
+[380.1s - 384.9s] Speaker 1: Um I don't know really how it works. Maybe you can show us first.
+[384.9s - 396.1s] Speaker 2: Yeah, okay. Drawing goes with uh this thing. Do not touch your hand on uh this little uh thingies here that's uh important. So all it uh like this.
+[396.1s - 397.5s] Speaker 1: You get electrocuted or
+[397.9s - 428.9s] Speaker 2: yeah, kinda. So um you must uh push a little uh good because and uh wait uh wait a few seconds. It's not uh fully real time, so uh watch it. Oh yeah. Well I'm gonna paint in uh red. Oh that's the background colour
+[431.4s - 435.2s] Speaker 1: well undo.
+[435.2s - 472.7s] Speaker 2: Um the pen. One minute please. Okay.
+[477.4s - 479.2s] Speaker 1: It's like Pictionary.
+[480.2s - 481.8s] Speaker 2: Yeah, you can guess what it is.
+[481.8s - 486.3s] Speaker 1: The one who says it first gets a race.
+[486.3s - 502.7s] Speaker 2: May uh paint uh next pork? No, it's not an orc. You don't see it uh at the ears?
+[502.7s - 506.2s] Speaker 1: Nah, I have it at home.
+[506.2s - 507.8s] Speaker 2: You have an orc at home.
+[507.8s - 509.1s] Speaker 3: Very artistic.
+[509.4s - 513.8s] Speaker 2: Thank you. So it's a cat.
+[514.5s - 516.1s] Speaker 1: What's it called?
+[516.1s - 544.0s] Speaker 2: Simba. Because uh we have a cat at home and he's called Simba because he looks like the the the lion from the Lion King. So we sound kinda cool to uh name it after a lion. Okay. He's happy with us, so uh he's smiling.
+[544.0s - 547.6s] Speaker 3: Wow. He does have body.
+[547.6s - 551.4s] Speaker 2: No, only the face because we have we have twenty twenty-five minutes.
+[551.4s - 560.2s] Speaker 1: So we uh I have to speed up. Yeah. Remember you use uh different colors and different penwids.
+[560.2s - 571.0s] Speaker 2: Yeah. Okay, who wants to go next? Okay. Yeah. So choose a color, choose a pen width, and draw uh
+[571.2s - 575.0s] Speaker 3: you don't have to change the color on the pen with the uh the drawing.
+[575.7s - 576.7s] Speaker 1: You have to save it.
+[576.7s - 578.0s] Speaker 2: Save it, okay.
+[578.0s - 589.6s] Speaker 1: I've done it. Okay.
+[589.8s - 592.3s] Speaker 3: We have to draw uh push hard on the pen or
+[594.4s - 599.5s] Speaker 1: not really. Uh from touch. That one.
+[601.0s - 605.1s] Speaker 3: I'm I'm sorry to disturb you, but can you please uh continue
+[605.1s - 649.3s] Speaker 1: on the last uh file? Yeah take a new c new page, not a new file but a new page. Okay. Open. Which one is it? It's on the project documents uh smartboard. Smartboard? Okay. And now uh um uh uh uh just uh blank. Okay. Okay, thanks. Okay, uh speed up. Yeah, it's fine.
+[650.4s - 653.0s] Speaker 0: By the way, why was your cat uh red?
+[653.0s - 661.1s] Speaker 2: Because uh my cat is red uh and I have red hair, so uh it must be red. It's a frog.
+[664.5s - 665.9s] Speaker 3: It's an apple.
+[667.4s - 668.6s] Speaker 1: It's not an apple.
+[669.3s - 671.4s] Speaker 0: It must be a dog.
+[671.4s - 672.1s] Speaker 3: A dog
+[678.5s - 688.3s] Speaker 1: color. Something like this. Smaller.
+[690.4s - 691.9s] Speaker 3: Oh, it is a turtle.
+[691.9s - 695.6s] Speaker 2: It is a turtle. Why a turtle uh Tim?
+[695.6s - 699.5s] Speaker 1: Um because we're like the teenage mutant here authority.
+[700.8s - 704.3s] Speaker 2: You watched it a lot? Huh? You watched it a lot?
+[704.3s - 706.9s] Speaker 3: It's uh inside a shell, you'll be uh finished.
+[707.0s - 709.8s] Speaker 2: No, it's uh it's a scared turtle.
+[710.6s - 729.3s] Speaker 1: No no it's coming up. Wow.
+[732.1s - 735.2s] Speaker 2: Okay, thank you. Okay, you know.
+[735.5s - 737.0s] Speaker 1: Very artistic.
+[737.0s - 739.0s] Speaker 2: June, you want to go next?
+[739.0s - 745.4s] Speaker 3: Yes, good. Okay. Thank you.
+[745.4s - 746.3s] Speaker 1: There you go.
+[746.3s - 756.5s] Speaker 3: Yeah. How did it work? For it.
+[757.2s - 771.9s] Speaker 2: And then you have the the current color you can change. So no red or green and pen. And uh line uh width. I had five, Tim at what kinda line width.
+[772.1s - 775.0s] Speaker 1: Uh the big lines were like nine.
+[776.5s - 778.2s] Speaker 2: Okay. It's a dog.
+[778.2s - 783.1s] Speaker 3: Well very I just uh thought I'd pick the easiest one.
+[783.1s - 784.6s] Speaker 2: Why a dog? You have a dog at home?
+[784.6s - 791.4s] Speaker 3: Well we had a dog. And uh and it well yeah when it died we didn't get a new one or something.
+[791.4s - 791.5s] Speaker 2: Oh
+[791.8s - 793.1s] Speaker 1: it's pretty good, uh
+[794.9s - 798.3s] Speaker 2: we have an artistic uh in our middle
+[799.3s - 800.8s] Speaker 1: an artist.
+[801.4s - 803.6s] Speaker 3: Uh graphical user designer, so
+[806.2s - 811.9s] Speaker 1: think you uh picked the wrong uh function. Wrong job.
+[812.8s - 821.4s] Speaker 3: Oh no, don't work together. Uh color.
+[821.4s - 835.8s] Speaker 2: So I think you can see it's really a really y easy program to use, not difficult at all. Okay, thank you.
+[835.8s - 837.0s] Speaker 1: That's enough, thanks.
+[837.6s - 838.3s] Speaker 0: Yeah, sure.
+[838.3s - 839.4s] Speaker 2: The last one.
+[843.1s - 844.5s] Speaker 0: Thanks.
+[844.5s - 845.9s] Speaker 1: I wonder.
+[845.9s - 853.7s] Speaker 2: Yeah. After a cat, a turtle and a dog. I think he's gonna draw an elephant.
+[854.2s - 859.1s] Speaker 0: I figure I should do something like that, but I'm gonna do something much more difficult.
+[859.1s - 863.4s] Speaker 3: Uh oh. Uh oh. Oh he is the artistic way design.
+[864.5s - 868.1s] Speaker 1: I'm gonna design a remote uh remote control animal.
+[869.8s - 877.9s] Speaker 0: Exactly. Sorry.
+[877.9s - 883.0s] Speaker 3: Well with the interface it might be easier to ha to draw here and play it there.
+[887.6s - 901.2s] Speaker 1: That that might be easier, but at the other hand uh a pen like that is easy to hold in your hand and I think it's easier to do. Better to draw with a yeah with a pen and with a mouth with a mouse.
+[901.4s - 907.4s] Speaker 3: Yeah, I'm I mean like uh like here drawing, drawing and then displaying on the screen.
+[907.4s - 909.5s] Speaker 1: But this paper is too uh too expensive.
+[909.9s - 914.2s] Speaker 2: Is it a rabbit? Yes. You have a rabbit at home?
+[914.2s - 914.7s] Speaker 0: No.
+[914.7s - 917.4s] Speaker 1: Is it a rabbit with uh broken legs?
+[917.6s - 921.2s] Speaker 2: Is it the white rabbit it's the white rabbit from the matrix?
+[921.2s - 922.2s] Speaker 0: Yeah, exactly.
+[922.2s - 922.5s] Speaker 2: Okay.
+[925.5s - 931.6s] Speaker 3: So he's a little bit stoned there.
+[931.9s - 935.3s] Speaker 0: I figured this is a pretty good impression of a rabbit.
+[935.3s - 937.8s] Speaker 1: Yeah. It will do.
+[937.8s - 939.0s] Speaker 0: Uh well.
+[939.0s - 944.8s] Speaker 2: Okay. Finishing touch and then we go further.
+[944.8s - 947.1s] Speaker 1: Project manager, uh yeah.
+[947.1s - 948.9s] Speaker 0: With a spin go just have you
+[948.9s - 951.5s] Speaker 1: been uh counting the time?
+[951.5s - 952.6s] Speaker 2: Yeah, a little.
+[952.6s - 961.0s] Speaker 1: Okay. Let's go on now.
+[961.0s - 963.3s] Speaker 2: Well, I think the dog is the the most uh
+[964.0s - 967.2s] Speaker 0: I figured a rabbit was actually the most uh impressive.
+[967.6s - 1011.2s] Speaker 2: Don't choose for yourself, not selfish. Okay, it's pretty now. We're gonna dig into the uh to the serious stuff. Uh the selling price for the remote will be uh 25 euro, and the production cost uh may not be more than uh twenty and a half euro. So uh from my point of view, I don't think it's uh gonna be a very uh very high-tech, high definition uh ultra modern uh kind of remote for twelve uh fifth uh twelve and a half euro. Uh the profit we must make with uh the new remote is uh fifty million euro. So that's a lot. We have to sell a lot of uh
+[1012.4s - 1013.0s] Speaker 1: like how much
+[1013.1s - 1014.6s] Speaker 3: 100 million uh remotes.
+[1014.6s - 1077.8s] Speaker 2: Uh I think uh when the selling price is 25 or 20 million uh you can two million remotes, but our marketing range is uh market rate is international, so we have uh virtually the whole world we can sell uh we can sell our uh remotes too, at least that uh countries which have a television. Um so now it's time uh for us to uh go on uh to discuss a little uh things. You can think about uh experience with uh remote control uh yourself at home, what you think might be uh a useful uh new future. What uh what can distinguish our new trendy remote control from all the others? Um so uh let's uh let's discuss a little. I'm gonna join you at the table. Well, what what's the most uh important thing at uh remote control?
+[1077.8s - 1087.4s] Speaker 3: Um well I think the most important thing of a remote control is that you can switch channels. And my opinion is you should keep it as basic as possible. Okay.
+[1087.7s - 1097.4s] Speaker 2: So not a not a remote control who uh which can uh can be used for television and uh DVD and radio and just only
+[1098.0s - 1102.5s] Speaker 1: I think so. Uh but I have some points. Can I show them on the on the big screen?
+[1102.5s - 1104.6s] Speaker 2: If you have them on uh I can uh
+[1105.0s - 1105.8s] Speaker 1: yeah I can find
+[1106.4s - 1129.4s] Speaker 2: okay. Oh in case you wanted this is a that kind of fly between the the the yeah the the screen? Yeah okay is
+[1129.4s - 1131.5s] Speaker 3: it possible to open pen drawings in this uh
+[1132.1s - 1136.3s] Speaker 2: no no no only all the drawings go there at the left uh
+[1136.8s - 1140.1s] Speaker 3: yeah but um which the ones we made on the
+[1140.5s - 1148.4s] Speaker 2: oh that pen drawings uh no I think uh when it is uh in Word and you have saved it in the shared documents folder you can show it there
+[1148.6s - 1150.1s] Speaker 3: or only in Word, okay.
+[1150.1s - 1172.2s] Speaker 1: Okay, I have some uh points from marketing point of view. Yeah. Um just a standard thing, things like uh intuitive, uh small, fairly cheap. It's pretty cheap, 25 euros. Uh brand independent. Um I think it doesn't have to matter uh which brand your TV or other thing is.
+[1172.2s - 1175.3s] Speaker 2: Um okay, five minutes.
+[1175.3s - 1224.5s] Speaker 1: Five minutes? Okay, yeah, I'll wrap it up quickly. Um I personally think it has to be multi-purpose. Most of the remote remote controls are just for one purpose. And by making it multi-purpose, it has a new feature, adds a new feature to the market and distinguish from current products. Okay. That might be a little bit expensive. And something like an L C D screen.
+[1224.7s - 1226.3s] Speaker 3: For what purpose?
+[1227.3s - 1241.4s] Speaker 1: Like it's said here. It's nice as an added future feature that when you run a certain channel, you can see on the L C D screen what programs are coming up.
+[1242.2s - 1250.1s] Speaker 2: So it'd be a multi-purpose very technically high from my point
+[1250.1s - 1251.2s] Speaker 1: of view, yeah.
+[1251.2s - 1255.3s] Speaker 2: Yeah, it must be really uh innovative technical-wise.
+[1255.3s - 1268.0s] Speaker 1: Yeah, it has to be uh yeah. Our company is very uh good in making new yeah, innovative uh things.
+[1268.0s - 1274.6s] Speaker 2: So yeah, so I agree with you. So we must focus on things who are really uh really add something to to
+[1275.3s - 1299.0s] Speaker 1: the current market. Yeah. Look, uh you got some cheap uh remote controls uh they just uh yeah, you got a dozen of them. But when you enter a new market with remote control and uh want to gain market share, yeah, you have to do something special, yeah. I think.
+[1299.1s - 1317.3s] Speaker 2: But we have to keep an eye that it's uh at the beginning of such a project it's it's it's very uh cool to talk about well this would be cool that would be cool. Yeah uh but we must not uh lose uh sight of the the user uh uh friendly uh yeah of course
+[1317.4s - 1318.5s] Speaker 3: and and price.
+[1318.7s - 1320.9s] Speaker 1: But but this is just from marketing uh yeah
+[1321.0s - 1322.2s] Speaker 2: okay aspect yeah
+[1322.5s - 1324.8s] Speaker 1: I don't know anything about user interface or
+[1327.0s - 1328.4s] Speaker 2: that's because we have him
+[1329.0s - 1329.5s] Speaker 0: and him
+[1332.7s - 1360.2s] Speaker 2: okay uh next meeting we'll start in 30 minutes so uh you uh will have uh individual actions where I presume uh will be some feedback uh via the the mail um the the the uh industrial uh designer has to uh look at the working design uh the user interface designer has to look at the the technical functions so
+[1360.3s - 1360.9s] Speaker 3: yeah that's
+[1360.9s - 1362.9s] Speaker 2: the thing we uh discussed one yeah
+[1363.1s - 1373.1s] Speaker 3: thing uh we must first agree on uh what we're gonna to going to make do we are we going to use um it for multiple systems or uh we should have some agreement on that
+[1373.6s - 1374.9s] Speaker 2: okay um
+[1376.2s - 1380.2s] Speaker 1: I I I don't think we have to be we have to agree on that.
+[1380.2s - 1380.9s] Speaker 2: Uh
+[1382.9s - 1385.7s] Speaker 0: figure that that's a next meeting actually yeah
+[1385.9s - 1403.0s] Speaker 1: that's a phase further yeah j just uh make some mock-ups some some general ideas okay and then we can plan yeah yeah we can plan further I think
+[1404.2s - 1439.0s] Speaker 2: but maybe because uh you are working on the user requirements you are working on the technical functions we uh must uh have a little uh kinda uh uh how do you call it? A little plan on on what we're going to do. So you don't uh uh come up with a user requirements who don't fit the the the technical functions at all. Some basic things we got we want to go and to do. Uh I think that's well uh yeah will come in handy.
+[1439.3s - 1446.4s] Speaker 1: Yeah. I don't know. You decide. Okay. You're the project manager.
+[1447.4s - 1457.8s] Speaker 3: Well yeah, if the technical functions have to be designed, I I've gotta know for what kind of machine it will be, or do we use a text screen or uh will it be with uh with Bluetooth?
+[1458.2s - 1465.8s] Speaker 2: Well that that's that's really a step further. But if you say uh is it uh uh one way or multi-purpose,
+[1466.3s - 1468.5s] Speaker 1: uh that that's the same step further.
+[1468.5s - 1475.0s] Speaker 0: Yeah, actually it is. Yeah. Why then looking at individual components, so actually have a step further.
+[1475.4s - 1487.8s] Speaker 1: Like we all have a list of uh things that has to be that have to be in it or how the so we like. And then in the next meeting we decide what it's gonna be.
+[1488.6s - 1489.8s] Speaker 0: Yeah, we can take it from there.
+[1489.8s - 1495.8s] Speaker 1: And then you then you can delete uh the obsolete uh details.
+[1496.2s - 1519.6s] Speaker 2: So uh each individual individually uh must think on what's uh at uh his point of view is the most important. Yeah, and uh then are we going to uh fit uh all the the pieces together the next meeting. Yeah. I must finish off now so it's over. You uh will receive specific specific instructions uh by your personal coach, and I see you in uh 30 minutes.
+[1520.0s - 1520.2s] Speaker 0: Thank you.
+[1534.9s - 1536.2s] Speaker 2: Be careful.
+[1543.4s - 1544.2s] Speaker 1: Success.
+[1544.2s - 1570.8s] Speaker 3: Yes. Come on.

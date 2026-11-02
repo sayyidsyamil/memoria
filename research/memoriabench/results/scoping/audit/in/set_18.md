@@ -1,0 +1,93 @@
+# Meeting set 18
+
+## APPROVED DECISIONS
+
+- [d001] The remote will have large buttons for essential functions.
+- [d002] No display screen.
+- [d003] The remote will have a simple chip.
+- [d004] The remote will go into standby when idle.
+- [d005] Glow in the dark buttons, self-timed lighting.
+- [d006] The remote will be curvy.
+- [d007] The maximum production cost for the remote is 12.50 Euro.
+- [d008] They will look further at the idea of covers in the mext meeting too.
+- [d009] The remote will be shockproof.
+- [d010] The remote will be waterproof.
+- [d011] The target group comprises of individuals who can afford the product.
+- [d012] The remote will have an enter button and number buttons.
+- [d013] The remote has to look good and be easy to use.
+- [d014] The remote will use a kinetic battery.
+- [d015] The remote will contain a function to aid in its recovery when lost. (replaces a remote without a locator function)
+- [d016] The buttons for extra, infrequently used functions will be hidden in the design in some manner.
+- [d017] There will be a touch screen and not many buttons.
+- [d018] The remote will be yellow or partially yellow and have an organic shape.
+- [d019] The remote control should be fancy, a good shape, and not too small or too big.
+- [d020] The latter would be preferable to implementing a backlight into the remote.
+- [d021] The remote will feature Video Plus capabilities and a seashell-like shape to accomodate the LCD display and the flip screen.
+- [d022] Thus far, LCD and ASR have been ruled out.
+- [d023] Rather than define a specific target group by age, the team will define objectives such as fashion and simplicity instead.
+- [d024] The profit aim is fifteen million Euro.
+- [d025] The important buttons will be on top.
+- [d026] The remote will be shaped like a snowman.
+- [d027] The team's design will focus on simplicity and fashion.
+- [d028] The remote will not feature an LCD screen.
+- [d029] The remote will feature an LCD screen.
+- [d030] Will consider using number-shaped buttons.
+- [d031] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d032] The remote will have a latex case.
+- [d033] The remote will be sold on an international scale.
+- [d034] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d035] Control will light up when you touch a button.
+- [d036] Parts of the front (like the bottom where the LCD is and the top corner where the logo is) will also be titanium.
+- [d037] Will reserach environmental factor.
+- [d038] The remote should not have too many buttons.
+- [d039] Will have voice with fewer buttons.
+- [d040] One remote will contain main functions such as on, off, channel changing, and volume.
+- [d041] The remote will be button-less.
+- [d042] It will be placed at the top of the banana shape.
+- [d043] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d044] The remote will have a possibility to get extra functions.
+- [d045] The remote will be used only with televisions.
+- [d046] The remote will be made to accommodate different languages.
+- [d047] The remote will have LCD buttons.
+- [d048] The team will not work with teletext.
+- [d049] The remote will be yellow with black or gray buttons.
+- [d050] The remote will be child proof.
+- [d051] The remote will feature a small LCD screen.
+- [d052] The remote will have some buttons.
+- [d053] Will use personal face places.
+- [d054] The remote will have a jog dial.
+- [d055] The remote will have rubber buttons.
+- [d056] The remote will not have an LCD screen. (replaces an LCD screen)
+- [d057] The remote will be fancy.
+- [d058] The remote will be sold for 25 Euro.
+- [d059] The remote will only have a few buttons.
+- [d060] LCD is not going to be implemented. (replaces an LCD screen)
+- [d061] The remote will have a minimal number of buttons.
+- [d062] The remote will look appealing.
+- [d063] The corporate image must be recognizable on the remote.
+- [d064] The remote will be easy to learn.
+- [d065] The project goal is to develop a new remote control.
+- [d066] The remote will have pushbuttons.
+- [d067] The remote will have a scrolling device.
+- [d068] The remote will have a power button, volume buttons, channel preset buttons, and a menu button.
+- [d069] The remote will be a radiaclly different shape.
+- [d070] There will be no display physically featured on the remote itself.
+- [d071] The remote should look fancy.
+- [d072] An additional remote will contain special functions.
+- [d073] The remote will be made in fruity colors.
+- [d074] The remote will not contain a voice activation feature.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: So the first user interviews ran longer than expected.
+- s02: Right, how about a sleep-mode button?
+- s03: The photographer is booked for the product shoot on Thursday.
+- s04: So the remote will not have a locator function.
+- s05: I think we will not include a recharging dock.
+- s06: The production cost cannot exceed 12.50 Euro.
+- s07: Okay, the lift is out of order again.
+- s08: So a simple chip is enough for the remote.
+- s09: Right, can we add a tiny flashlight at the tip?
+- s10: Okay, we're out of tea bags in the kitchen.
+- s11: We will leave the corporate image off the remote.
+- s12: Well, we will include teletext in the design.

@@ -1,0 +1,25 @@
+Aisha: Morning. Two weeks in. Let's go through progress, and there is a security question we have to settle.
+Wei Ling: Before anything else, I have bad news on Alpha Systems. They failed our security questionnaire. They could not show that data stays in Malaysia, and they do not have the audit certificate we need.
+Raj: That is a problem. Are we sure? Their sales team told us it was all covered.
+Wei Ling: I asked twice in writing. Their answer was that it is on the roadmap for next year.
+Aisha: Then we cannot use them for a pilot with procurement data. What about Beta Cloud?
+Wei Ling: Beta Cloud hosts in Cyberjaya and has the certificate. They can start next week.
+Aisha: Okay. We drop Alpha Systems and move to Beta Cloud. This is final.
+Raj: Fine, but then finance has to say the budget does not survive this change.
+Aisha: How much more is it?
+Raj: Beta Cloud's licence is 30,000 ringgit higher, so the pilot budget has to go from 250,000 to 280,000 ringgit.
+Aisha: Can we absorb part of it from training costs?
+Raj: No, training is already tight. I would rather ask for a clean increase.
+Aisha: Fine. The pilot budget is now 280,000 ringgit. I will take it to the board.
+Raj: Thanks. I will update the finance sheet today.
+Aisha: Go-live stays on 26 October for now.
+Wei Ling: Migration is going okay. I am still on track for 9 October.
+Aisha: Good. Now security. Beta Cloud still needs our own review before we sign. Who can do it?
+Wei Ling: I can do it. I will own the security review and have it done by 5 October.
+Raj: Is that realistic with migration running at the same time?
+Wei Ling: It will be busy, but yes.
+Raj: Maybe we should hire an outside consultant for the review?
+Aisha: Let's not spend money on that. Wei Ling will do it.
+Wei Ling: Also, maybe we could add a second pilot team in Penang.
+Aisha: Interesting, but that is out of scope for now.
+Aisha: Anything else? No? Then the next meeting is on 12 October. Thanks.

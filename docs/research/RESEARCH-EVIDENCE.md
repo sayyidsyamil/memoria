@@ -4,10 +4,13 @@ Reviewed 2 November 2026. This inventory records existing evidence and a read-on
 
 ## Path key
 
+Paths were consolidated on 2 November 2026; the original working folders were removed after a
+verified backup (`~/Backups/memoria-2026-11-02`). See `research/README.md`.
+
 - `W`: `/Users/sayyid/Documents/memoria-workspace`
-- `E`: `/Users/sayyid/Desktop/FYP/engine`
-- `R`: `/Users/sayyid/Desktop/FYP/report/ap2`
-- `A`: `/Users/sayyid/Documents/memoria` (separate historical auditor project)
+- `E`: `W/research/ledger-engine` (formerly `/Users/sayyid/Desktop/FYP/engine`; its `memoria_engine` links to the app's preserved copy)
+- `R`: `/Users/sayyid/Documents/Memoria-FYP/report/ap2` (private, not in this repository; formerly `/Users/sayyid/Desktop/FYP/report/ap2`)
+- `A`: `W/research/memoriabench` (research files of the separate historical auditor project, formerly `/Users/sayyid/Documents/memoria`)
 - `S`: `/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/overnight-engine-checks` (parent scratch evidence; `/private/var/folders/...` aliases the same location)
 
 Scratch files are evidence pointers, not durable thesis attachments. Archive them through the parent workflow before relying on them for final submission. Nothing was copied or modified outside `W/docs/research/` by this report task.
@@ -79,9 +82,9 @@ Keep four states explicit: **source evidence → reviewed compiled wiki** is one
 
 `E/results/asr/README.md` and `app_path_check.md` document historical post-recording Parakeet/Sortformer evaluation: pooled WER 19.9%, DER 28.4% on six near-field AMI meetings, and a separate application-path check. These results do not evaluate the current MOSS/resident live speech path. `S/audio-inventory.json` inventories 20 existing AMI WAVs and three synthetic demo WAVs. `S/SUMMARY.md` proposes an IS1009a 30–90 second interval; it was not extracted or benchmarked. Annotation ZIPs contain no audio, and demo speech is macOS text-to-speech, not natural AMI speech.
 
-`R/ch06_results_discussion.md` §6.5 and `/Users/sayyid/Desktop/FYP/report/uat/` provide a planned protocol, not completed participant results. Historical installation evidence in `E/results/testing/install_smoke.md` still leaves clean-account first-run T1 pending. AC1–AC5, SUS, current AC7 and integrated consent acceptance must remain unverified until observations and receipts exist. Chapter 7's wording “evaluated ... with users” needs correction.
+`R/ch06_results_discussion.md` §6.5 and `/Users/sayyid/Documents/Memoria-FYP/report/uat/` (private) provide a planned protocol, not completed participant results. Historical installation evidence in `E/results/testing/install_smoke.md` still leaves clean-account first-run T1 pending. AC1–AC5, SUS, current AC7 and integrated consent acceptance must remain unverified until observations and receipts exist. Chapter 7's wording “evaluated ... with users” needs correction.
 
-`/Users/sayyid/Desktop/FYP/research/benchmarks_report.txt`, `datasets_report.txt` and `uat_report.txt` are earlier research/scoping notes. `R/ch02_literature_review.md` and `references.md` supply the thesis literature context. Benchmark suggestions, setup estimates and vendor-reported external scores in those notes are not Memoria experiment results, and were not freshly web-verified here. LongMemEval and other memory systems were not run for this supplement. Do not claim superiority to systems absent from the same-model comparison.
+`/Users/sayyid/Documents/Memoria-FYP/research/benchmarks_report.txt` (private), `datasets_report.txt` and `uat_report.txt` are earlier research/scoping notes. `R/ch02_literature_review.md` and `references.md` supply the thesis literature context. Benchmark suggestions, setup estimates and vendor-reported external scores in those notes are not Memoria experiment results, and were not freshly web-verified here. LongMemEval and other memory systems were not run for this supplement. Do not claim superiority to systems absent from the same-model comparison.
 
 ## Evidence still needed
 

@@ -1,0 +1,17 @@
+[0.0s - 9.2s] Speaker 0: Good morning everyone, thanks for making time. Today we need to settle the basics of the procurement pilot, the vendor, the budget, and when we go live.
+[9.2s - 16.7s] Speaker 1: Morning, finance has only seen draft numbers so far, so I would like to keep the budget talk practical.
+[16.7s - 34.1s] Speaker 0: And from IT, I have done demos with all three vendors over the past two weeks, so I can speak to the technical fit. Great, Weyling, give us the short version. Gammasoft is the cheapest, but their reporting cannot do approvals by department, so I would drop them.
+[34.1s - 37.3s] Speaker 1: Agreed, Gamma Soft is out for me too.
+[37.3s - 47.0s] Speaker 0: Alpha Systems and BetaCloud both work. Alpha Systems has the beta demo and can start immediately. BetaCloud is more flexible but slower to unbode.
+[47.0s - 55.0s] Speaker 1: On price, Alpha Systems is cheaper, Beta Cloud's license is about 30,000 ringit more for the pilot.
+[55.0s - 60.7s] Speaker 0: Then let's be decisive. We go with Alpha Systems for the pilot. Any objection?
+[60.7s - 63.1s] Speaker 1: No objection from finance.
+[63.1s - 71.4s] Speaker 0: Fine by me, I will tell Alpha Systems we are proceeding. Good. Next, the budget, Raj, what number do you need?
+[71.7s - 77.8s] Speaker 1: My draft says 3 lakhs ringit, but honestly, that includes a lot of contingency.
+[77.8s - 83.8s] Speaker 0: 300,000 is too high for a pilot. The board will not approve that without a business case.
+[83.8s - 90.2s] Speaker 1: Then I can make 2x50,000 ringit work if we are careful with the training costs.
+[90.2s - 112.8s] Speaker 0: Okay, the pilot budget is 250,000 ringgit, Raj, please note that down. Noted. Now timing, I would like to be live before the end of October. How about October 26th? That is tight, but doable if migration starts this week. Then let's fix it. We go live on October 26, 2026.
+[112.8s - 118.1s] Speaker 1: Do we need a security review before go live? I am not sure who would do that.
+[118.1s - 144.2s] Speaker 0: Good question. Let's not decide the owner today, I will bring it back at the next meeting once we are sure about the vendor. Okay, for migration, I can take that. I will own the data migration and have it finished by the 9th of October. Thank you, Wei Ling. And training staff need a week of training before go live. I will coordinate it with HR myself and make sure training is finished by October 16th.
+[144.2s - 146.9s] Speaker 1: Do you want me to book the training room?
+[146.9s - 161.8s] Speaker 0: Yes, please, but that is only a favor, I remain the owner. One more thing, maybe we should think about a mobile app later, but that is for another day. Parked, let's meet again on September 28th. Thanks everyone.

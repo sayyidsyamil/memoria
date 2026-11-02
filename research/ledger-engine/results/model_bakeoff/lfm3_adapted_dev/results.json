@@ -1,0 +1,2142 @@
+{
+ "config": {
+  "runtime": {
+   "mlx-optiq": "0.7.8",
+   "mlx-lm": "0.32.2",
+   "mlx": "0.32.4",
+   "implementation": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/lfm3-venv/lib/python3.11/site-packages/optiq/models/lfm3.py",
+   "model": "mlx-community/LFM3-1.7B-OptiQ-4bit",
+   "revision": "82d0e45972a9343db2ab5534b257b2d6fb3edd46"
+  },
+  "model": "mlx-community/LFM3-1.7B-OptiQ-4bit",
+  "revision": "82d0e45972a9343db2ab5534b257b2d6fb3edd46",
+  "split": "dev",
+  "temperature": 0.1,
+  "top_k": 50,
+  "repetition_penalty": 1.1,
+  "seed_per_call": 0,
+  "thinking": true,
+  "extract_budget": 4096,
+  "router_budget": 1536,
+  "note": "adaptation chosen after failed drop-in dev run; not equal-budget comparison",
+  "code_hashes": {
+   "scripts/lfm3_adapted.py": "f8726d2da00be47151d4ebf3fffced8cdcd042efc80004f90180c2df08ec80bd",
+   "memoria_engine/__init__.py": "f0f13f302f8170aaaaa8203ae732f26d11e40d187aa502974a860142fc84e541",
+   "memoria_engine/demo.py": "1366a533932ecf38a5ee3414b15c5b9c281cda8f63803809ca2d9cf732ac1788",
+   "memoria_engine/envelope.py": "5b6ae14919a17da1fd8b62da5430962cd76a4d0e14693d230bfff39e56ca9738",
+   "memoria_engine/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "memoria_engine/evaluation/baselines.py": "d98c29fd7d77565e84fa259e439bb9cce7bae947cc8082d2c264723ba70e2e22",
+   "memoria_engine/evaluation/dataset.py": "031199a015c270d661a3399b9e9fab356e7555603bdbebf642afe9cad9ff2bad",
+   "memoria_engine/evaluation/metrics.py": "cee95ab4c709af6d78887d863bf8b510883339b024bcc4ed3c4490d1db55a5bd",
+   "memoria_engine/evaluation/oracle.py": "506c4dab1e89c774f79e9c4e2b94f3857d73da5842a91f4995d9e492b498b68d",
+   "memoria_engine/evaluation/padding.py": "85dfad6f89ebbc903a56470985648cc74fe8f0bebe493a1d39e8d207db90d4a3",
+   "memoria_engine/evaluation/report.py": "be50ebcf6ffc5c52a9dca998b1a0c156ba8709f3b758871d9d83b6944833f19e",
+   "memoria_engine/evaluation/router.py": "19bb01eb7dae489b27f07529b48092b95009378f24dc250d96d88ee0c16f677e",
+   "memoria_engine/evaluation/run_eval.py": "978c93fa18ac38bf1225c883266ac97a00da02e994c8adb2600bb9e01f573ac4",
+   "memoria_engine/evaluation/run_scaling.py": "3844d571a868aa58d7bbb4c351529f78131ddec201433cd96d5794046938678a",
+   "memoria_engine/evaluation/scaling_report.py": "90eec48dfd11d9926ba9305d54ff070398e096ab335013600bf94cc4b73ca1b8",
+   "memoria_engine/evaluation/select_baselines.py": "c2fe8e4616a5c9874f346a80daec4bb66c15b87a846d30b174691ec19e660009",
+   "memoria_engine/extractors.py": "fba79ff3f9408acafb060f52cc9ef4ebfb49e093cda47050011c7bb457caae1f",
+   "memoria_engine/fallback_router.py": "a01a31477c6a12f2f8f18ac64d8fb4e37b514d7e4ba6ca56e9ada1f53bca77ff",
+   "memoria_engine/ledger.py": "ec0b28a3988b555ec99ca091fb3903fa3ce0c92e78bafd6c8b9d5ecc29ee4e54",
+   "memoria_engine/llmcache.py": "70ca5230fd1ecb67aaf043dbe2afbedb20bb7ad76aff1933eb4e5196cac0ac08",
+   "memoria_engine/pipeline.py": "e10200648b2ae9a900ae6d1e790340da3d4f256a5956e53a40165460fcb89fdf",
+   "memoria_engine/service.py": "823644697ec512b00df0adf523b0959eef87bc402352aabf959508a4654c1408",
+   "memoria_engine/windowed.py": "618ac34f0c996d68da8713329e10b337ec076225375c9f1cfbb7e893258d5db3"
+  }
+ },
+ "memoria": {
+  "qa": {
+   "ext+router": {
+    "overall": {
+     "correct": 7,
+     "n": 45,
+     "accuracy": 0.15555555555555556,
+     "ci_95": [
+      0.077,
+      0.288
+     ]
+    },
+    "as_of_valid": {
+     "correct": 2,
+     "n": 13,
+     "accuracy": 0.15384615384615385,
+     "ci_95": [
+      0.043,
+      0.422
+     ]
+    },
+    "current": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 16,
+     "accuracy": 0.3125,
+     "ci_95": [
+      0.142,
+      0.556
+     ]
+    }
+   },
+   "ext+oracle_route": {
+    "overall": {
+     "correct": 24,
+     "n": 45,
+     "accuracy": 0.5333333333333333,
+     "ci_95": [
+      0.391,
+      0.671
+     ]
+    },
+    "as_of_valid": {
+     "correct": 13,
+     "n": 13,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.772,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 0,
+     "n": 16,
+     "accuracy": 0.0,
+     "ci_95": [
+      0.0,
+      0.194
+     ]
+    },
+    "n_changes": {
+     "correct": 11,
+     "n": 16,
+     "accuracy": 0.6875,
+     "ci_95": [
+      0.444,
+      0.858
+     ]
+    }
+   },
+   "oracle_ext+router": {
+    "overall": {
+     "correct": 20,
+     "n": 45,
+     "accuracy": 0.4444444444444444,
+     "ci_95": [
+      0.309,
+      0.588
+     ]
+    },
+    "as_of_valid": {
+     "correct": 2,
+     "n": 13,
+     "accuracy": 0.15384615384615385,
+     "ci_95": [
+      0.043,
+      0.422
+     ]
+    },
+    "current": {
+     "correct": 12,
+     "n": 16,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.505,
+      0.898
+     ]
+    },
+    "n_changes": {
+     "correct": 6,
+     "n": 16,
+     "accuracy": 0.375,
+     "ci_95": [
+      0.185,
+      0.614
+     ]
+    }
+   },
+   "oracle_ext+oracle_route": {
+    "overall": {
+     "correct": 45,
+     "n": 45,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.921,
+      1.0
+     ]
+    },
+    "as_of_valid": {
+     "correct": 13,
+     "n": 13,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.772,
+      1.0
+     ]
+    },
+    "current": {
+     "correct": 16,
+     "n": 16,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.806,
+      1.0
+     ]
+    },
+    "n_changes": {
+     "correct": 16,
+     "n": 16,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.806,
+      1.0
+     ]
+    }
+   }
+  },
+  "rows": [
+   {
+    "chain": "ES2003",
+    "qid": "q1",
+    "type": "current",
+    "gold": 12.5,
+    "question": "Currently, what has been decided about the production cost per remote, in euros?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 12.5,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q2",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about the production cost per remote, in euros changed from one value to a different value across the meetings?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "prod_cost",
+     "attribute": "amount",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q3",
+    "type": "current",
+    "gold": 25,
+    "question": "Currently, what has been decided about the selling price of the remote, in euros?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 25,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q4",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about the selling price of the remote, in euros changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q5",
+    "type": "current",
+    "gold": "televisions only",
+    "question": "Currently, what has been decided about which devices the remote controls?",
+    "route": {
+     "type": "current",
+     "object_id": "devices",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "televisions only",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "televisions only",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q6",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about which devices the remote controls as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q7",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about which devices the remote controls changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q8",
+    "type": "current",
+    "gold": "excluded",
+    "question": "Currently, what has been decided about whether the remote has teletext?",
+    "route": {
+     "type": "current",
+     "object_id": "teletext",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "excluded",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "excluded",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q9",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about whether the remote has teletext as of February 5, 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "teletext",
+     "attribute": "outcome",
+     "valid_at": "2026-02-05",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q10",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about whether the remote has teletext changed from one value to a different value across the meetings?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "teletext",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q11",
+    "type": "current",
+    "gold": "included",
+    "question": "Currently, what has been decided about whether the remote has an LCD screen?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "included",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q12",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about whether the remote has an LCD screen as of February 5, 2026?",
+    "route": {
+     "type": "as_of_valid",
+     "object_id": "lcd",
+     "attribute": "outcome",
+     "valid_at": "2026-02-05",
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q13",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about whether the remote has an LCD screen changed from one value to a different value across the meetings?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "lcd",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q14",
+    "type": "current",
+    "gold": "lithium",
+    "question": "Currently, what has been decided about the battery type of the remote?",
+    "route": {
+     "type": "current",
+     "object_id": "battery",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "lithium",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "lithium",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q15",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the battery type of the remote as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q16",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about the battery type of the remote changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q17",
+    "type": "current",
+    "gold": "single curved",
+    "question": "Currently, what has been decided about the curvature of the remote's case?",
+    "route": {
+     "type": "current",
+     "object_id": "case_curve",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "single curved",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "single curved",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q18",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the curvature of the remote's case as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q19",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times has the decision about the curvature of the remote's case changed from one value to a different value across the meetings?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "case_curve",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": 1,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q20",
+    "type": "current",
+    "gold": "plastic",
+    "question": "Currently, what has been decided about the material of the remote's case?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "plastic",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q21",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the material of the remote's case as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q22",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times has the decision about the material of the remote's case changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q23",
+    "type": "current",
+    "gold": "special colour",
+    "question": "Currently, what has been decided about the colour of the remote?",
+    "route": {
+     "type": "current",
+     "object_id": "colour",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "special colour",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "special colour",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q24",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the colour of the remote as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "ES2003",
+    "qid": "q25",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times has the decision about the colour of the remote changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q1",
+    "type": "current",
+    "gold": "universal",
+    "question": "Currently, what has been decided about what kind of remote it is?",
+    "route": {
+     "type": "current",
+     "object_id": "remote_type",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "universal",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "universal",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q2",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about what kind of remote it is changed from one value to a different value across the meetings?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "remote_type",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q3",
+    "type": "current",
+    "gold": "included",
+    "question": "Currently, what has been decided about whether the remote has speech recognition?",
+    "route": {
+     "type": "current",
+     "object_id": "speech",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "included",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "included",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q4",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about whether the remote has speech recognition as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q5",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times has the decision about whether the remote has speech recognition changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q6",
+    "type": "current",
+    "gold": "excluded",
+    "question": "Currently, what has been decided about whether the remote has an LCD screen?",
+    "route": {
+     "type": "current",
+     "object_id": "lcd",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "excluded",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "excluded",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q7",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about whether the remote has an LCD screen as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q8",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about whether the remote has an LCD screen changed from one value to a different value across the meetings?",
+    "route": {
+     "type": "n_changes",
+     "object_id": "lcd",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q9",
+    "type": "current",
+    "gold": "included",
+    "question": "Currently, what has been decided about whether the remote has teletext?",
+    "route": {
+     "type": "current",
+     "object_id": "teletext",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "included",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "included",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q10",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about whether the remote has teletext as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q11",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about whether the remote has teletext changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q12",
+    "type": "current",
+    "gold": "rechargeable",
+    "question": "Currently, what has been decided about the battery type of the remote?",
+    "route": {
+     "type": "current",
+     "object_id": "battery",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "rechargeable",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "rechargeable",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q13",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the battery type of the remote as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q14",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about the battery type of the remote changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q15",
+    "type": "current",
+    "gold": "plastic",
+    "question": "Currently, what has been decided about the material of the remote's case?",
+    "route": {
+     "type": "current",
+     "object_id": "case_material",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "plastic",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "plastic",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q16",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the material of the remote's case as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q17",
+    "type": "n_changes",
+    "gold": 0,
+    "question": "How many times has the decision about the material of the remote's case changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 0,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q18",
+    "type": "current",
+    "gold": "various colours",
+    "question": "Currently, what has been decided about the colour of the remote?",
+    "route": {
+     "type": "current",
+     "object_id": "colour",
+     "attribute": "outcome",
+     "valid_at": null,
+     "tx_at": null,
+     "ok": true,
+     "reason": ""
+    },
+    "route_exact": true,
+    "answers": {
+     "ext+router": {
+      "answer": null,
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "various colours",
+      "correct": true
+     },
+     "oracle_ext+oracle_route": {
+      "answer": "various colours",
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q19",
+    "type": "as_of_valid",
+    "gold": null,
+    "question": "What had been decided about the colour of the remote as of February 5, 2026?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": null,
+      "correct": true
+     }
+    }
+   },
+   {
+    "chain": "TS3004",
+    "qid": "q20",
+    "type": "n_changes",
+    "gold": 1,
+    "question": "How many times has the decision about the colour of the remote changed from one value to a different value across the meetings?",
+    "route": {
+     "type": null,
+     "object_id": null,
+     "attribute": null,
+     "valid_at": null,
+     "tx_at": null,
+     "ok": false,
+     "reason": "no JSON in the reply"
+    },
+    "route_exact": false,
+    "answers": {
+     "ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "ext+oracle_route": {
+      "answer": 0,
+      "correct": false
+     },
+     "oracle_ext+router": {
+      "answer": "<route failed>",
+      "correct": false
+     },
+     "oracle_ext+oracle_route": {
+      "answer": 1,
+      "correct": true
+     }
+    }
+   }
+  ],
+  "extraction": {
+   "gold_events": 23,
+   "tp": 0,
+   "fp": 0,
+   "fn": 23,
+   "precision": null,
+   "recall": 0.0,
+   "f1": null,
+   "ci_95": {
+    "precision": null,
+    "recall": [
+     0.0,
+     0.0
+    ],
+    "f1": null
+   },
+   "state_changing_recall": 0.0,
+   "state_changing_gold": 21,
+   "by_kind": {
+    "INITIAL": {
+     "gold": 16,
+     "found": 0,
+     "recall": 0.0
+    },
+    "REVISE": {
+     "gold": 4,
+     "found": 0,
+     "recall": 0.0
+    },
+    "CONFIRM": {
+     "gold": 2,
+     "found": 0,
+     "recall": 0.0
+    },
+    "REVERSE": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    }
+   },
+   "by_tag": {
+    "win_43_47": {
+     "gold": 2,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_8_12": {
+     "gold": 2,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_124_128": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_100_104": {
+     "gold": 3,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_109_115": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_9_118": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_8_66": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_55_101": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_141_221": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_117_129": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_54_351": {
+     "gold": 2,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_287_384": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_173_280": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_223_276": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_445_449": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_30_36": {
+     "gold": 2,
+     "found": 0,
+     "recall": 0.0
+    },
+    "win_41_41": {
+     "gold": 1,
+     "found": 0,
+     "recall": 0.0
+    }
+   },
+   "miss_reasons": {
+    "missed": 23
+   },
+   "fp_reasons": {},
+   "filtered": {},
+   "distractor_hit_rate": null,
+   "distractor_turns": 0,
+   "evidence_exact_turn": null,
+   "confidence_auroc": null,
+   "confidence_ece": null,
+   "confidence_mean": null,
+   "confidence_distinct": 0
+  },
+  "extraction_by_chain": {
+   "ES2003": {
+    "gold_events": 13,
+    "tp": 0,
+    "fp": 0,
+    "fn": 13,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null,
+    "ci_95": {
+     "precision": null,
+     "recall": [
+      0.0,
+      0.0
+     ],
+     "f1": null
+    },
+    "state_changing_recall": 0.0,
+    "state_changing_gold": 12,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 9,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVISE": {
+      "gold": 3,
+      "found": 0,
+      "recall": 0.0
+     },
+     "CONFIRM": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "win_43_47": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_8_12": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_124_128": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_100_104": {
+      "gold": 3,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_109_115": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_9_118": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_8_66": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_55_101": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_141_221": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 13
+    },
+    "fp_reasons": {},
+    "filtered": {},
+    "distractor_hit_rate": null,
+    "distractor_turns": 0,
+    "evidence_exact_turn": null,
+    "confidence_auroc": null,
+    "confidence_ece": null,
+    "confidence_mean": null,
+    "confidence_distinct": 0
+   },
+   "TS3004": {
+    "gold_events": 10,
+    "tp": 0,
+    "fp": 0,
+    "fn": 10,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null,
+    "ci_95": {
+     "precision": null,
+     "recall": [
+      0.0,
+      0.0
+     ],
+     "f1": null
+    },
+    "state_changing_recall": 0.0,
+    "state_changing_gold": 9,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 7,
+      "found": 0,
+      "recall": 0.0
+     },
+     "CONFIRM": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVISE": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "win_117_129": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_54_351": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_287_384": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_173_280": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_223_276": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_445_449": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_30_36": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "win_41_41": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 10
+    },
+    "fp_reasons": {},
+    "filtered": {},
+    "distractor_hit_rate": null,
+    "distractor_turns": 0,
+    "evidence_exact_turn": null,
+    "confidence_auroc": null,
+    "confidence_ece": null,
+    "confidence_mean": null,
+    "confidence_distinct": 0
+   }
+  },
+  "ledger": {
+   "supersession_tp": 0,
+   "supersession_fp": 0,
+   "supersession_fn": 5,
+   "state_gold": 16,
+   "state_correct": 0,
+   "phantom_beliefs": 0,
+   "supersession_precision": null,
+   "supersession_recall": 0.0,
+   "supersession_f1": null,
+   "state_accuracy": 0.0
+  },
+  "router": {
+   "exact": 20,
+   "n": 45,
+   "failed": 25,
+   "mean_seconds": 17.06,
+   "mean_prompt_tokens": 850.511
+  },
+  "cost": {
+   "meetings": 8,
+   "extract_seconds_per_meeting": 276.104,
+   "extract_seconds_total": 2208.8,
+   "prompt_tokens_per_meeting": 14029.625,
+   "output_tokens_per_meeting": 20990.625,
+   "windows_per_meeting": 5.125
+  }
+ },
+ "wall_seconds": 1793.3662089999998,
+ "mlx_peak_gb": 2.259499336
+}

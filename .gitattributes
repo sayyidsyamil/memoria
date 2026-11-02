@@ -1,0 +1,3 @@
+# Frozen research evidence keeps its exact bytes (checksum manifests cover it):
+# no end-of-line conversion and no whitespace rules.
+research/** -text -whitespace

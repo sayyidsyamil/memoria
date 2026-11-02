@@ -1,0 +1,102 @@
+# Meeting set 05
+
+## APPROVED DECISIONS
+
+- [d001] TV settings will be included in menus there instead of having separate buttons for them.
+- [d002] The remote will be waterproof.
+- [d003] It will cost no more than 12.5 Euros to make.
+- [d004] They will sell the remotes for twenty five Euros each.
+- [d005] The selling price of the remote will be 25 Euro.
+- [d006] They will generate a proft of fifty million Euros.
+- [d007] The remote will only have a few buttons.
+- [d008] The team agreed to place the LCD at the bottom of the device, below the buttons.
+- [d009] Selling price will be twenty five Euro.
+- [d010] The remote will only control televisions.
+- [d011] Will reserach environmental factor.
+- [d012] The profit aim will be 50 million Euro.
+- [d013] The push buttons are going to be made of rubber.
+- [d014] The chip is going to be a standard one. (replaces an advanced chip)
+- [d015] The remote control will be for television only.
+- [d016] The remote will have a possibility to get extra functions.
+- [d017] The remote will be sold for 25 Euro.
+- [d018] The remote will be easy to find.
+- [d019] The selling price will be 25 Euro.
+- [d020] The remote will have large buttons for essential functions.
+- [d021] The remote will have a long-term battery source.
+- [d022] The remote will feature an extra lightbulb that will light up when the remote is communicating with the television.
+- [d023] The remote will use a conventional battery and a docking station which recharges the battery.
+- [d024] The less frequently used buttons will not be hidden under a flip, as it had been previously suggested, as there are not that many of them; they will just be clearly separated from the more important ones.
+- [d025] The remote will only be for televisions.
+- [d026] The logo will be both at the front and the back of the remote; the company slogan will be engraved at the back.
+- [d027] They will launch the product with various fronts to choose from including a couple of basic colours or fruit and vegetable themes to go with the current fashion.
+- [d028] The remote will use rechargeable batteries which recharge in a docking station.
+- [d029] The remote will be sold for 25 Euro.
+- [d030] The remote will be shaped like a snowman.
+- [d031] The remote will use a regular infra-red signal.
+- [d032] The case will be titanium with a plastic front with rounded buttons.
+- [d033] They will look further at the idea of covers in the mext meeting too.
+- [d034] The remote will use a kinetic battery. (replaces regular batteries)
+- [d035] It will be a television remote control.
+- [d036] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d037] The remote will use an infra-red sensor.
+- [d038] The profit aim is 15 million Euros.
+- [d039] The remote will use regular batteries.
+- [d040] The selling price will be twenty five Euros.
+- [d041] The remote will have a docking station.
+- [d042] The remote will be sold for 25 Euros.
+- [d043] The project goal is to develop a new remote control.
+- [d044] The remote will be fancy.
+- [d045] There is no need for a special button to recognise two-digit numbers.
+- [d046] The remote will be shockproof.
+- [d047] An LCD screen is going to be used to display information, but would not be interactive. (replaces a remote without a screen)
+- [d048] The remote will have a rechargeable battery which comes with a charger.
+- [d049] The remote will sell for 25 Euro.
+- [d050] Parts of the front (like the bottom where the LCD is and the top corner where the logo is) will also be titanium.
+- [d051] The preferred energy source was a combination of batteries and solar cells.
+- [d052] The remote will have a docking station.
+- [d053] The remote will be yellow with black or gray buttons.
+- [d054] Control will light up when you touch a button.
+- [d055] Specific ideas as to components and materials are to be left to the next meeting.
+- [d056] The remote will have new functions that existing remotes do not have.
+- [d057] Making changeable fascias can allow for the integration of this or future fashion trends in the device.
+- [d058] The buttons are going to include: OK, menu, screen sizing, AV, settings buttons, mute, digits 1-9, power, volume control, channel up/down.
+- [d059] The team agreed to follow a user-centred approach and simplify the design by somehow minimising the number of buttons.
+- [d060] The profit will be fifty million Euros.
+- [d061] The remote will use two regular batteries.
+- [d062] The energy source will be a combination of batteries and kinetic energy.
+- [d063] The remote will use solar energy.
+- [d064] The profit aim is fifteen million Euro.
+- [d065] The remote control should be fancy, a good shape, and not too small or too big.
+- [d066] The remote will sell for 25 Euro.
+- [d067] The remote will be child proof.
+- [d068] The remote will run on kinetic energy.
+- [d069] They will aim for a profit of fifty million Euros.
+- [d070] The remote will use conventional batteries.
+- [d071] The remote will feature a locator function that responds to clapping.
+- [d072] They will implement speech recognition as well, because their target group like such gimmicks.
+- [d073] The remote will be curvy.
+- [d074] The remote will use a kinetic battery. (replaces regular batteries)
+- [d075] The remote will be sold for 25 Euro.
+- [d076] The remote will have some buttons.
+- [d077] The remote will not be too expensive.
+- [d078] The solution to complaints about remote controls being difficult to learn is to focus on an intuitive design instead of a thorough manual.
+- [d079] The idea of interchangeable fronts was mentioned again; if it were adopted, the company should be recognisable in all the available fronts as well as the remote itself.
+- [d080] The remote will have large buttons.
+- [d081] The remote will use a kinetic battery.
+- [d082] The remote will be for use with the television set.
+- [d083] The remote will have a jog dial.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: So we could include a screen lock so buttons are not pressed by accident.
+- s02: Right, the less frequently used buttons will be hidden under a flip.
+- s03: I think the remote will not have an LCD screen.
+- s04: Okay, is it just me or is it really stuffy in here?
+- s05: Right, what time does the canteen close today?
+- s06: Okay, the corporate image will be shown on the remote.
+- s07: I think there will be no voice recognition in the remote.
+- s08: I think the pilot run finished two days earlier than planned.
+- s09: The remote needs an advanced chip to work with the LCD screen.
+- s10: Okay, the remote will have an LCD screen.
+- s11: The mould maker believes the first samples will be perfect.
+- s12: Right, why don't we add a built-in bottle opener?

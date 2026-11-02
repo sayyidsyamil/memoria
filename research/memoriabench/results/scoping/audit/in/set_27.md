@@ -1,0 +1,101 @@
+# Meeting set 27
+
+## APPROVED DECISIONS
+
+- [d001] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [d002] The remote will use two regular batteries.
+- [d003] The remote will have a long-term battery source.
+- [d004] The important buttons will be on top.
+- [d005] The remote will use conventional batteries.
+- [d006] The remote will use a regular infra-red signal.
+- [d007] Control will light up when you touch a button.
+- [d008] The remote has to be fashionable.
+- [d009] The remote will only have a few buttons.
+- [d010] The remote will have a docking station.
+- [d011] The remote is going to be a universal one.
+- [d012] The corporate image must be recognizable in the product.
+- [d013] The remote will use a kinetic battery. (replaces regular batteries)
+- [d014] The less frequently used buttons will not be hidden under a flip, as it had been previously suggested, as there are not that many of them; they will just be clearly separated from the more important ones.
+- [d015] The remote will be adaptable so that it can be used by right-handed and left-handed people.
+- [d016] The remote will be yellow or partially yellow and have an organic shape.
+- [d017] The remote will be easy to learn.
+- [d018] The remote will look appealing.
+- [d019] Will use personal face places.
+- [d020] The remote will have some buttons.
+- [d021] It will be placed at the top of the banana shape.
+- [d022] The remote is just going to be for TV.
+- [d023] The remote will be available in different colour schemes, but not with changeable fronts. (replaces changeable covers)
+- [d024] The remote will not be too expensive.
+- [d025] Push buttons will be used.
+- [d026] The remote will be curvy.
+- [d027] The preferred energy source was a combination of batteries and solar cells.
+- [d028] The corporate slogan will appear on the bottom of the remote.
+- [d029] The remote will have a docking station.
+- [d030] The remote will be child proof.
+- [d031] It will cost no more than 12.5 Euros to make.
+- [d032] The remote will have a jog dial.
+- [d033] It will not use speech recognition. (replaces speech recognition)
+- [d034] The remote will have large buttons.
+- [d035] The remote will be shockproof.
+- [d036] The remote will be shaped like a snowman.
+- [d037] The remote has to look good and be easy to use.
+- [d038] The remote will incorporate a fruit and vegetable theme.
+- [d039] The project goal is to develop a new remote control.
+- [d040] The remote will be sold internationally.
+- [d041] The target demographic is people aged fifteen to thirty five.
+- [d042] If the budget allows it the remote will include a base unit with a locator function, which will also act as a recharger.
+- [d043] The remote will use a kinetic battery. (replaces regular batteries)
+- [d044] The remote will be waterproof.
+- [d045] The remote will feature power, skip, volume, mute, teletext and menu buttons.
+- [d046] The case will be made of plastic and rubber. (replaces a metal case)
+- [d047] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d048] The corporate image must be recognizable on the remote.
+- [d049] The profit aim is 15 million Euros.
+- [d050] The remote will use regular batteries.
+- [d051] The remote should look fancy.
+- [d052] The remote will have a scrolling device.
+- [d053] The remote will use an infra-red sensor.
+- [d054] To target towards young people will bring in new technology.
+- [d055] The remote control should be fancy, a good shape, and not too small or too big.
+- [d056] The group will design a trendy, original and user friendly television remote control.
+- [d057] The remote will have a simple, trendy design, with some kind of special feature that makes it stand out.
+- [d058] They cannot make a device that works on the whole house- will need a focus.
+- [d059] The remote will use push buttons.
+- [d060] Will be curved, shape similar to a computer mouse, but narrower.
+- [d061] The remote will run on kinetic energy.
+- [d062] The remote will be fancy.
+- [d063] The remote will use solar energy.
+- [d064] Will reserach environmental factor.
+- [d065] The corporate logo should be recognizable on the product.
+- [d066] The remote will use a kinetic battery.
+- [d067] The energy source will be a combination of batteries and kinetic energy.
+- [d068] The remote will not feature an LCD screen.
+- [d069] The remote should not have too many buttons.
+- [d070] The remote will contain a speech recognizer.
+- [d071] The team will not create a ball shaped remote. (replaces creating a ball shaped remote)
+- [d072] It was also decided that the remote will not have the traditional look of a hand-held remote since it can be stationary with voice recognition software.
+- [d073] Will have voice with fewer buttons.
+- [d074] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d075] The remote will be yellow with black or gray buttons.
+- [d076] The team will also take into account possible usability issues concerning disabled people.
+- [d077] LED's can be used to light up the remote.
+- [d078] The remote will have pushbuttons.
+- [d079] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d080] The remote will be button-less.
+- [d081] Corporate logo will be clearly displayed on product. (replaces a remote without the corporate image)
+- [d082] The remote will be sold for 25 Euros.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: Sorry I'm late, the train was delayed again.
+- s02: I think the remote will sell for 50 Euro.
+- s03: We will make the case out of metal.
+- s04: Well, we will put an LCD screen on the remote.
+- s05: I think the quote from the chip manufacturer came back this morning.
+- s06: Let's keep an eye on the time, I have a call at four.
+- s07: So the remote will be sold on the international market.
+- s08: Okay, I'd like us to include glow-in-the-dark numbers.
+- s09: I think the pilot survey has just closed with three hundred answers.
+- s10: I think our profit aim is 15 million Euro.
+- s11: We will offer changeable covers for the remote.
+- s12: We should add a pairing button for a second television.

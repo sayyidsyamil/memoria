@@ -1,0 +1,20 @@
+MALAY SIDE CHECK
+=================
+
+56 probes with a gold decision; dense retrieval; the decisions are in English.
+
+embedder    memory  statement language      nearest  in top 4
+bge-small   C0      English                     86%       96%
+bge-small   C0      Malay                       38%       73%
+bge-small   C0      Malay-English mixed         82%       95%
+bge-small   C2      English                     79%       84%
+bge-small   C2      Malay                       23%       34%
+bge-small   C2      Malay-English mixed         68%       80%
+eg2-5bit    C0      English                     88%      100%
+eg2-5bit    C0      Malay                       82%       93%
+eg2-5bit    C0      Malay-English mixed         88%       98%
+eg2-5bit    C2      English                     73%       88%
+eg2-5bit    C2      Malay                       59%       75%
+eg2-5bit    C2      Malay-English mixed         70%       86%
+
+The statements were translated by the assistant: a small sample, not a benchmark.

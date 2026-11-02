@@ -1,0 +1,145 @@
+# Series TS3012
+
+## APPROVED DECISIONS
+
+- [ES2012a:07:39] The product will be sold for twenty five Euro.
+- [TS3012a:12:39] They also agreed to choose light materials.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [ES2008a:07:35] The remote will be sold for 25 Euro.
+- [ES2007b:23:40] The remote will use a regular infra-red signal.
+- [IS1006a:04:47] The remote will be sold for 25 Euro.
+- [TS3012b:31:31] The important buttons will be on top.
+- [ES2015c:28:21] Push buttons will be used.
+- [TS3003b:31:26] The remote will be fancy.
+- [ES2015b:06:48] Will reserach environmental factor.
+- [ES2007c:12:10] The remote will not use a chip on print.
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [TS3012a:12:10] The team will also take into account possible usability issues concerning disabled people.
+- [TS3008a:15:31] It will cost no more than 12.5 Euros to make.
+- [TS3008a:15:22] The profit aim is 15 million Euros.
+- [ES2015b:29:48] Alarm locator will be implemented.
+- [ES2002a:08:07] The production costs cannot exceed 12.50 Euro.
+- [IS1006c:27:26] The remote will contain a speech recognizer.
+- [ES2006a:15:38] They will sell the remotes for twenty five Euros each.
+- [ES2009c:23:04] It was also decided that the remote will not have the traditional look of a hand-held remote since it can be stationary with voice recognition software.
+- [ES2005c:31:55] The remote will be powered by rechargeable batteries and come with a recharging stand. (replaces solar power)
+- [ES2013c:33:59] The remote will use a kinetic battery. (replaces regular batteries)
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [TS3011b:11:07] Using them sparsely, as in mobile phones, could bring down the cost.
+- [IS1006a:05:48] The remote will be child proof.
+- [ES2007a:09:45] The profit aim will be 50 million Euro.
+- [TS3005a:13:09] The production cost will be 12.50 Euro maximum.
+- [TS3003c:32:18] The case will be single curved. (replaces a double curved case)
+- [ES2007a:09:41] The selling price of the remote will be 25 Euro.
+- [ES2015a:14:52] The control will cost a maximum of twelve Euro and fifty cents to produce.
+- [TS3012b:13:10] The target group will be people below 40. (replaces targeting people over sixty)
+- [TS3003c:21:37] The remote will have a docking station.
+- [TS3003a:19:12] The production cost cannot exceed 12.50 Euro.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [TS3005b:39:04] The remote will be button-less.
+- [ES2015c:26:59] The remote will run on kinetic energy.
+- [ES2013a:08:15] Production costs cannot exceed 12.50 Euro.
+- [ES2016a:09:32] The remote will sell for 25 Euro.
+- [ES2002c:38:42] The case will have a soft fruit-like feel to it.
+- [TS3007c:31:04] It will not use speech recognition. (replaces speech recognition)
+- [ES2013b:28:47] The remote will have an enter button and number buttons.
+- [ES2015a:04:45] It will be a television remote control.
+- [IS1009a:06:12] Selling price will be twenty five Euro.
+- [ES2015c:28:35] Regular chip will be used.
+- [TS3010c:29:25] The remote will use a normal battery. (replaces solar power)
+- [ES2002c:24:29] The remote will be curvy.
+- [ES2013a:07:41] The remote will be sold for 25 Euro.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [TS3003a:18:35] The selling price will be 25 Euro.
+- [IS1000a:17:25] The selling price of the product will be about twenty five Euros each.
+- [TS3007c:33:59] The energy source will be a combination of batteries and kinetic energy.
+- [ES2016b:23:35] The remote will look appealing.
+- [IS1006b:33:17] An automatic on/off feature will not be used.
+- [TS3005b:24:42] The remote will shut down when the television shuts down.
+- [TS3012b:24:40] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [IS1006c:27:28] The remote will have some buttons.
+- [ES2006c:28:46] The case will be flat on top and curved on the bottom.
+- [TS3012a:11:32] The remote is just going to be for TV.
+- [TS3005b:25:09] The remote will have a rechargeable battery which comes with a charger.
+- [ES2006c:33:24] It will have voice recognition, use a simple battery, and contain an advanced chip. (replaces a simple chip)
+- [IS1006c:27:31] The remote will incorporate a fruit and vegetable theme.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [IS1001c:18:19] The remote will use standard batteries. (replaces solar power)
+- [TS3012b:09:07] It would be a good idea to integrate a mechanism for finding the remote control, when the user loses it.
+- [TS3003c:21:37#2] The remote will use a conventional battery and a docking station which recharges the battery.
+- [ES2007c:14:26] The case will be double curved.
+- [TS3011a:12:09] The production costs should be no more than 12.50 euros.
+- [ES2012a:08:04] The production cost should be twelve Euros fifty.
+- [IS1000c:31:43] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [TS3005c:28:24] The case will be single curved. (replaces a double curved case)
+- [TS3011a:11:39] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [IS1006a:05:13] The production costs for the remote will be 12.50 Euro maximum.
+- [ES2008a:07:51] The maximum production cost for the remote is 12.50 Euro.
+- [TS3003c:21:53] The remote will use an advanced chip.
+- [ES2016b:23:37] The remote will be simple.
+- [ES2013b:28:52] The remote will have large buttons.
+- [ES2013c:37:17] The remote will use push buttons.
+- [TS3012b:22:47] The remote will need to be different from those available in the market in terms of shape and colour.
+- [IS1003b:20:44] Teletext will not be used.
+- [ES2007a:09:57] The production cost cannot exceed 12.50 Euro.
+- [ES2016b:26:49] The remote will have a minimal number of buttons.
+- [IS1003c:28:41] The remote will use speech recognition for simple commands.
+- [ES2014c:13:18] The remote will contain a simple chip. (replaces an advanced chip)
+- [TS3005c:25:07] The remote will use a chip on print.
+- [ES2016c:33:34] The remote will use conventional batteries.
+- [TS3012a:11:54] The design should generally be intuitive without changes that would render it an unfamiliar object to customers.
+- [ES2015b:25:50] Teletext is outdated and will not be used.
+- [ES2015a:14:28] The profit will be fifty million Euros.
+- [IS1003c:27:06] The remote will use solar energy.
+- [ES2015c:22:55] Will use personal face places.
+- [IS1000a:18:31] The production cost will be twelve Euros and fifty cents.
+- [TS3003a:22:59] The remote will be waterproof.
+- [TS3003a:22:54] The remote will be shockproof.
+- [TS3012b:13:39] The company colours and slogan will have to be shown on the device. (replaces a remote without the corporate image)
+- [IS1003c:27:06#2] The remote will use low level chips. (replaces an advanced chip)
+- [IS1003a:07:22] The remote will not be too expensive.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [IS1003b:16:07] The remote should look fancy.
+- [ES2008c:34:39] The remote will have a simple chip.
+- [TS3009b:35:35] There is no need for a special button to recognise two-digit numbers.
+- [TS3008a:15:18] The remote will be sold for 25 Euros.
+- [ES2002a:07:50] The remote will sell for 25 Euro.
+- [TS3005c:24:25] The remote will use rechargeable batteries which recharge in a docking station.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [TS3012b:18:18] Because symbols may fade, the additional covers could include those.
+- [ES2002b:28:23] The remote will use an infra-red sensor.
+- [ES2008c:26:54] The remote will use a kinetic battery.
+- [ES2008a:07:35#2] The profit aim is fifteen million Euro.
+- [ES2007b:21:24] The remote will not contain a voice activation feature.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [TS3012b:17:12] Buttons should be made bigger, with clearly defined functions and of durable materials to avoid fading of the symbols.
+- [ES2012c:34:15] If used, face plates will be cheap.
+- [ES2007c:09:59] The remote will have rubber push buttons.
+- [ES2002b:30:20] The remote will use regular batteries.
+- [TS3012b:16:15] The remote is going to be a universal one.
+- [IS1000a:20:12] The remote will be for use with the television set.
+- [IS1006c:31:24] The remote will use two regular batteries.
+- [TS3011c:30:17] The preferred energy source was a combination of batteries and solar cells.
+- [ES2015a:14:07] The selling price will be twenty five Euros.
+- [ES2012c:30:32] Will have voice with fewer buttons.
+- [ES2012b:05:27] The remote will be extremely simple.
+- [ES2006a:15:44] They will aim for a profit of fifty million Euros.
+- [ES2007c:28:10] The remote will use a kinetic battery. (replaces regular batteries)
+
+## LIVE STATEMENTS (label each one)
+
+- TS3012-S-01: Right, the design should generally be intuitive without changes that would render it an unfamiliar object to customers.
+- TS3012-S-02: Okay, we are targeting young people with this remote.
+- TS3012-O-01: Okay, we are targeting people over sixty with this remote.
+- TS3012-O-02: We will leave the corporate image off the remote.
+- TS3012-C-01: The team will not take into account possible usability issues concerning disabled people.
+- TS3012-C-02: Okay, the important buttons will not be on top.
+- TS3012-U-01: How about a one-touch weather channel?
+- TS3012-U-02: Can we add a text-size setting for the on-screen menu?
+- TS3012-I-01: So has anyone seen my pen?
+- TS3012-I-02: Right, that clock on the wall is ten minutes slow.
+- TS3012-E-01: Well, the supplier has confirmed it can deliver the casings within six weeks.
+- TS3012-E-02: The design review has been moved to the end of the month.

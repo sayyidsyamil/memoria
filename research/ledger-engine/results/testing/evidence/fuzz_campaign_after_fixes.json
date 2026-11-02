@@ -1,0 +1,34 @@
+{
+ "parse_events": {
+  "exception_total": 0,
+  "exceptions": {},
+  "runs": {
+   "structural": 24000,
+   "textual": 18000
+  }
+ },
+ "pipeline": {
+  "dispositions": {
+   "applied": 2040,
+   "invalid": 1597,
+   "proposed": 1151,
+   "ungrounded": 277,
+   "unresolved": 532
+  },
+  "exception_examples": {},
+  "exception_total": 0,
+  "exceptions": {},
+  "facts_applied": 2040,
+  "invariant_violations": 0,
+  "runs": 3300,
+  "runs_that_raised_after_part_of_the_meeting_was_stored": 0,
+  "traceability_violations": 0
+ },
+ "policies": [
+  "immediate",
+  "confirm_all",
+  "threshold:0.8"
+ ],
+ "seconds": 9.7,
+ "seed": 20260301
+}

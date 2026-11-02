@@ -1,0 +1,62 @@
+chain: datacentre
+language: en
+note: PILOT DEV SET v0, authored by the AI assistant. Not real meetings and not independent of the pipeline's author. For debugging and regression only, not evidence of real-world performance.
+now: 2026-06-01T00:00:00Z
+people: chair=Dato' Aziz, nora=Nora, farid=Farid, mei=Mei Ling
+object: dc_site | decision | Data centre site | outcome:enum[Cyberjaya,Johor,Penang]!reverse
+object: dc_budget | decision | Data centre budget | amount:number, status:enum[approved,on_hold,revoked]
+object: dc_phase1 | commitment | Phase one build | owner:person, deadline:date
+
+meeting: d1 | 2026-02-03T09:00:00Z | ingested=2026-02-03T13:00:00Z
+chair: Thanks for coming. Today we settle the site and the money for the data centre.
+nora: Johor has offered tax incentives, I heard, but nothing is in writing yet.  ## distractor hearsay
+chair: Noted. Cyberjaya has the better fibre links, so we go with Cyberjaya.  ## event dc_site.outcome = Cyberjaya | INITIAL | quote="we go with Cyberjaya"
+chair: On budget, allocate RM5 million for phase one.  ## event dc_budget.amount = 5000000 | INITIAL | quote="allocate RM5 million for phase one"
+nora: Board still needs to sign off, so I wouldn't call it approved yet.  ## distractor tentative
+chair: The board chair already gave us a verbal yes. Mark the budget as approved.  ## event dc_budget.status = approved | INITIAL | quote="Mark the budget as approved"
+chair: Farid, you lead phase one. I want the build finished by 30 June.  ## event dc_phase1.owner = farid | INITIAL | quote="Farid, you lead phase one" ;; event dc_phase1.deadline = 2026-06-30 | INITIAL | quote="finished by 30 June"
+farid: If the power grid permits are late we could slip, but let's see.  ## distractor hypothetical
+chair: Fine. Next meeting in five weeks.  ## distractor ignorable
+
+meeting: d2 | 2026-03-10T09:00:00Z | ingested=2026-03-10T13:00:00Z
+chair: The board wants a trim. Take the budget down to RM4 million.  ## event dc_budget.amount = 4000000 | REVISE | quote="Take the budget down to RM4 million"
+mei: Does the trim affect the phase one scope?  ## distractor question
+chair: Scope stays the same. We'll find savings in procurement.  ## distractor untracked
+farid: On the timeline, I need more room. Can we say end of July?  ## distractor question
+chair: Yes, push phase one to the end of July.  ## distractor ignorable
+chair: Actually, sorry, make that the end of August, the permits will not be ready by July.  ## event dc_phase1.deadline = 2026-08-31 | REVISE | quote="make that the end of August" | tags=same_meeting_correction,relative_date
+nora: I'll update the risk register with the new date.  ## distractor untracked
+chair: Good. That's all.  ## distractor ignorable
+
+meeting: d3 | 2026-04-22T09:00:00Z | ingested=2026-04-22T13:00:00Z
+chair: Two things. First, Farid is moving to the Johor project, so Mei Ling takes over phase one.  ## event dc_phase1.owner = mei | REVISE | quote="Mei Ling takes over phase one"
+mei: Understood, I'll take it from here.  ## distractor ignorable
+nora: There is a problem with the Cyberjaya grid connection. They cannot guarantee supply before next year.
+chair: In that case we move the data centre to Johor. That's the decision.  ## event dc_site.outcome = Johor | REVERSE | quote="we move the data centre to Johor" | tags=reversal
+chair: And the board has put the allocation on hold, so treat the budget as on hold until further notice.  ## event dc_budget.status = on_hold | REVISE | quote="treat the budget as on hold until further notice"
+farid: Should we pause procurement too?  ## distractor question
+chair: Yes, pause it.  ## distractor untracked
+nora: What if Penang turns out cheaper? Worth a look, maybe.  ## distractor hypothetical
+
+meeting: d4 | 2026-05-15T09:00:00Z | ingested=2026-05-15T13:00:00Z
+chair: Good news. The board has released the hold.  ## distractor ignorable
+chair: Budget status is back to approved, and the new figure is RM4.5 million.  ## event dc_budget.status = approved | REVISE | quote="Budget status is back to approved" ;; event dc_budget.amount = 4500000 | REVISE | quote="the new figure is RM4.5 million"
+mei: Great. I'll restart procurement tomorrow.  ## distractor untracked
+chair: Site stays Johor, by the way, no changes there.  ## event dc_site.outcome = Johor | CONFIRM | quote="Site stays Johor"
+nora: And the phase one date?  ## distractor question
+chair: Still end of August.  ## event dc_phase1.deadline = 2026-08-31 | CONFIRM | quote="Still end of August" | tags=anaphora,relative_date
+
+question: q1 | current | dc_site.outcome | gold=Johor
+question: q2 | current | dc_budget.amount | gold=4500000
+question: q3 | current | dc_budget.status | gold=approved
+question: q4 | current | dc_phase1.owner | gold=mei
+question: q5 | current | dc_phase1.deadline | gold=2026-08-31
+question: q6 | as_of_valid | dc_budget.status | valid=2026-04-30 | gold=on_hold
+question: q7 | as_of_valid | dc_budget.amount | valid=2026-02-20 | gold=5000000
+question: q8 | as_of_tx | dc_budget.status | valid=2026-05-20 | tx=2026-04-25T00:00:00Z | gold=on_hold
+question: q9 | as_of_valid | dc_site.outcome | valid=2026-03-01 | gold=Cyberjaya
+question: q10 | as_of_valid | dc_phase1.owner | valid=2026-04-01 | gold=farid
+question: q11 | n_changes | dc_budget.status | gold=2
+question: q12 | n_changes | dc_budget.amount | gold=2
+question: q13 | n_changes | dc_phase1.deadline | gold=1
+question: q14 | as_of_tx | dc_phase1.deadline | valid=2026-07-01 | tx=2026-02-20T00:00:00Z | gold=2026-06-30
