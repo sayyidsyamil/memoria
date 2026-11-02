@@ -102,6 +102,30 @@ class ChunkTests(unittest.TestCase):
         self.assertEqual(events, [f'Transcribing part {i} of 3' for i in range(1, 4)])
         self.assertEqual(result['gaps'], [])
 
+    def test_a_passage_the_parts_segment_differently_is_kept_once(self):
+        # Observed on AMI ES2004 at 42:10: the first part ended a turn just before the boundary and
+        # put the next words in a turn centred after it; the second part merged them into one turn
+        # centred before it. Midpoint ownership kept neither. The cut moves to a shared pause.
+        result, _, _ = self.decode([
+            output((279, 286.8, 'S01', 'we were gonna think about the port'), (287, 293, 'S01', 'our market was going to be young business')),
+            output((0, 13, 'S01', 'the port and our market was going to be young business'), (13.6, 14, 'S02', 'Okay'))], duration=580)
+        self.assertEqual([s['text'] for s in result['segments']],
+                         ['we were gonna think about the port', 'our market was going to be young business', 'Okay'])
+
+    def test_a_turn_repeated_across_a_boundary_keeps_its_words_once(self):
+        # Observed at 23:30 of the AMI hour: both parts owned overlapping turns of one passage. When
+        # speech runs through the whole overlap there is no shared pause, so repeats are trimmed.
+        from transcript_chunks import drop_repeats
+        turns = drop_repeats([
+            {'start': 284.2, 'end': 290.8, 'speaker': 'S02', 'part': 0, 'text': "Because um they're cut, just generally, uh, Japanese people have smaller hands."},
+            {'start': 286.9, 'end': 293.7, 'speaker': 'S02', 'part': 1, 'text': "They're cut, just generally, uh, Japanese people have smaller hands, so they couldn't go around the controller"},
+            {'start': 293.8, 'end': 295, 'speaker': 'S01', 'part': 1, 'text': 'Too big.'},
+            {'start': 296, 'end': 297, 'speaker': 'S01', 'part': 1, 'text': 'Smaller hands.'}])
+        self.assertEqual([(t['start'], t['text']) for t in turns],
+                         [(284.2, "Because um they're cut, just generally, uh, Japanese people have smaller hands."),
+                          (290.8, "So they couldn't go around the controller"), (293.8, 'Too big.'), (296, 'Smaller hands.')])
+        self.assertTrue(all('part' not in t for t in turns))
+
     def test_voice_ids_are_reconciled_unknown_and_ambiguous_stay_unassigned(self):
         result, _, _ = self.decode([
             output((1, 5, 'S01', 'first voice')),
@@ -113,6 +137,17 @@ class ChunkTests(unittest.TestCase):
         self.assertEqual([s['speaker'] for s in result['segments']],
                          ['S01', 'S01', 'S02', 'unassigned', 'unassigned', 'S01'])
         self.assertEqual(len(result['speakerEmbeddings']), 2)
+
+    def test_two_speakers_of_one_part_never_share_a_voice(self):
+        # Observed on AMI ES2004: two people both closest to the first person's voice were
+        # merged into one label; the closer keeps it and the other becomes a new voice.
+        result, _, _ = self.decode([
+            output((1, 5, 'S01', 'first person')),
+            output((20, 24, 'S01', 'first again'), (30, 34, 'S02', 'similar second person')),
+            output((12, 16, 'S01', 'second person again'), (24, 28, 'S02', 'first person again'))],
+            embeddings=[{'S01': [1, 0]}, {'S01': [1, 0], 'S02': [.9, .43588989]},
+                        {'S01': [.9, .43588989], 'S02': [1, 0]}])
+        self.assertEqual([s['speaker'] for s in result['segments']], ['S01', 'S01', 'S02', 'S02', 'S01'])
 
     def test_limit_retries_in_halves_and_retains_later_chunks(self):
         result, model, events = self.decode([
