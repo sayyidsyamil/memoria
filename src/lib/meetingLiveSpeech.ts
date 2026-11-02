@@ -11,6 +11,8 @@ export interface CaptionAudioProgress {
 }
 export interface LiveSpeechEvent {
   sessionId: string; stage?: string; speaker?: string; text?: string; transcript?: string
+  /** The words being spoken, not yet committed as a turn; an empty string clears them. */
+  partial?: string
   turns?: TranscriptDraft['segments']; error?: string; done?: boolean; draft?: TranscriptDraft
   audioProgress?: CaptionAudioProgress
   progress?: { phase: string; receivedChunks: number; receivedSamples: number; processedSamples: number }
@@ -127,7 +129,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
       }), 5000, 'AudioWorklet did not flush its final PCM. The original recording is preserved; caption tail completion is unverified.'))
       return controls
     }
-    await withTimeout(readiness, 60000, 'MOSS preparation timed out. Recording has not started.')
+    await withTimeout(readiness, 60000, 'Speech models took too long to prepare. Recording has not started.')
     signal?.removeEventListener('abort', abort)
     if (signal?.aborted) throw new Error('Meeting preparation cancelled')
     function finishCapture() {

@@ -46,7 +46,7 @@ export class LiveEvidenceQueue {
     const promise = checkLiveStatement(this.vaultPath, turn.text, id).then(result => {
       if (generation !== this.generation || !this.enabled) return
       this.checked.add(turnKey)
-      this.cues = [...result.cues.map(cue => ({ ...cue, heardAt: turn.start })), ...this.cues].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3)
+      this.cues = [...result.cues.map(cue => ({ ...cue, heardAt: turn.start, heard: turn.text })), ...this.cues].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3)
       const notice = result.warnings.includes('No approved tracked facts')
         ? 'No approved tracked facts. Add and approve tracked items before using live checks.'
         : result.status === 'uncertain' ? 'A statement could not be verified. Inspect the transcript.' : ''

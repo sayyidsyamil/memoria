@@ -44,7 +44,6 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-end { color: #ee9691; background: #e8746c12; margin-left: 3px; }
 .meeting-hud-end:hover { background: #e8746c22; color: #ffb5b0; }
 .meeting-hud-transcript { flex: 1; min-height: 0; overflow-y: auto; white-space: pre-wrap; user-select: text; font-size: 15px; line-height: 1.7; padding-right: 8px; scrollbar-width: thin; }
-.meeting-hud-live-turn { margin-bottom: 18px; }
 .meeting-hud-speaker { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; color: var(--hud-muted); margin-bottom: 4px; }
 .meeting-hud-speaker i { width: 7px; height: 7px; border-radius: 50%; background: var(--tone, #88888f); }
 .meeting-hud [data-tone='blue'] { --tone: #78a4ff; }
@@ -54,7 +53,6 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud [data-tone='teal'] { --tone: #64d1c8; }
 .meeting-hud [data-tone='pink'] { --tone: #f28ac3; }
 .meeting-hud [data-tone='neutral'] { --tone: #88888f; }
-.meeting-hud-live-turn p { margin: 0; }
 .meeting-hud-error { flex-shrink: 0; margin: 0 18px 14px; padding-top: 10px; border-top: 1px solid var(--hud-line); color: #efaaa5; font-size: 12px; line-height: 18px; max-height: 90px; overflow: auto; user-select: text; }
 .meeting-hud-preparation { padding: 2px 20px 16px; font-size: 12px; color: var(--hud-muted); line-height: 18px; }
 .meeting-hud-preparation ol { display: grid; gap: 8px; margin: 0 0 12px; padding: 0; list-style: none; }
@@ -90,6 +88,32 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud[data-cues] .meeting-hud-wave { height: 30px; }
 .meeting-hud-cue-badge { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border: 0; border-radius: 999px; color: #1a1a1a; background: #f5b94a; font-size: 12px; font-weight: 600; cursor: pointer; }
 .meeting-hud-cue-badge:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* The badge needs room in the notch: the decorative microphone gives way so that the status is not cut short. */
+.meeting-hud[data-cues] .meeting-hud-row { gap: 6px; }
+.meeting-hud[data-cues] .meeting-hud-signal { display: none; }
+/* The newest card lights up as it arrives; without motion it stays lit for the same moment, then switches off. */
+.meeting-hud-cue[data-newest] { animation: meeting-hud-cue-arrive 2.4s ease-out; }
+@keyframes meeting-hud-cue-arrive { from, 35% { border-color: #f5b94a; background: #f5b94a33; } }
+/* A cue that arrives while compact, under the notch row. MeetingHud grows the window by its height plus margins (84px). */
+.meeting-hud-toast { display: flex; flex-direction: column; gap: 1px; height: 96px; box-sizing: border-box; margin: -4px 10px 10px; padding: 6px 6px 7px 12px; border: 1px solid #f5b94a40; border-left: 3px solid #f5b94a; border-radius: 12px; background: #f5b94a14; cursor: pointer; animation: meeting-hud-toast-in 180ms ease-out; }
+@keyframes meeting-hud-toast-in { from { opacity: 0; } }
+.meeting-hud-toast:hover { background: #f5b94a1f; }
+.meeting-hud-toast-head { display: flex; align-items: center; gap: 4px; height: 24px; }
+.meeting-hud-toast-head .meeting-hud-cue-kicker { flex: 1; min-width: 0; margin: 0; }
+.meeting-hud-toast-more { padding: 1px 6px; border-radius: 999px; color: #f5cf86; background: #f5b94a24; font-size: 10px; letter-spacing: 0; text-transform: none; }
+.meeting-hud-toast-show, .meeting-hud-toast-dismiss { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; height: 24px; border: 0; border-radius: 7px; cursor: pointer; transition: background 120ms, color 120ms; }
+.meeting-hud-toast-show { padding: 0 10px; color: #f5b94a; background: #f5b94a24; font-size: 12px; font-weight: 600; }
+.meeting-hud-toast-show:hover { background: #f5b94a3d; }
+.meeting-hud-toast-dismiss { width: 24px; padding: 0; color: var(--hud-muted); background: transparent; }
+.meeting-hud-toast-dismiss:hover { color: white; background: #ffffff14; }
+.meeting-hud-toast button:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+.meeting-hud-toast-value, .meeting-hud-toast-meta, .meeting-hud-toast-heard { margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* What was just said, so the toast explains itself when the captions are closed. */
+.meeting-hud-toast-heard { color: var(--hud-text); font-size: 12px; line-height: 17px; font-style: italic; opacity: .85; }
+.meeting-hud-toast-value { color: var(--hud-text); font-size: 14px; line-height: 20px; }
+/* Speaker and time stay whole; a long meeting title gives way. */
+.meeting-hud-toast-meta { display: flex; color: var(--hud-muted); font-size: 12px; line-height: 17px; white-space: pre; }
+.meeting-hud-toast-meta span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .meeting-hud-pill { display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 500; color: #f0a39d; background: #ee817a1f; }
 .meeting-hud-pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .meeting-hud[data-state='recording'] .meeting-hud-pill i { background: currentColor; }
@@ -98,11 +122,15 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-wave { width: 100%; max-width: 440px; height: 56px; gap: 3px; color: #d4d4d8; -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); }
 .meeting-hud-wave span { flex: 1; width: auto; max-width: 4px; }
 .meeting-hud-record .meeting-hud-transcript { align-self: stretch; flex: 1; min-height: 112px; margin-top: 12px; padding: 4px 4px 0; font-size: 17px; line-height: 1.55; white-space: normal; }
-.meeting-hud-live-turn { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; color: #8d8d96; transition: color 200ms; }
+.meeting-hud-live-run { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.meeting-hud-live-run > div { display: grid; flex: 1; gap: 6px; min-width: 0; }
+.meeting-hud-live-turn { margin: 0; padding-top: 2px; color: #8d8d96; transition: color 200ms; }
 .meeting-hud-live-turn[data-latest] { color: var(--hud-text); }
-/* The words that raised a cue, so the room can see what clashed with which decision. */
-.meeting-hud-live-turn[data-flagged] p { margin-left: -2px; padding-left: 10px; border-left: 2px solid #f5b94a; }
-.meeting-hud-live-turn p { margin: 0; padding-top: 2px; }
+/* The words that raised a cue, so the room can see what clashed with which decision. The bar sits in the gutter, keeping the text in line. */
+.meeting-hud-live-turn[data-flagged] { margin-left: -8px; padding-left: 6px; border-left: 2px solid #f5b94a; }
+/* Words still being spoken: quieter than the captions, with a slow dot where a speaker's avatar would be. */
+.meeting-hud-partial { position: relative; margin: 0 0 14px; padding: 2px 0 0 40px; color: #a3a3ac; }
+.meeting-hud-partial::before { content: ''; position: absolute; top: 12px; left: 11px; width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: meeting-hud-pulse 1.6s ease-in-out infinite; }
 .meeting-hud-empty { margin: 0; text-align: center; color: var(--hud-muted); }
 .meeting-hud-hint { align-self: stretch; padding: 8px 0 12px; font-size: 11px; color: var(--hud-muted); text-align: center; }
 .meeting-hud-actions { display: flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--hud-line); }
@@ -122,4 +150,8 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-replay label { display: grid; gap: 6px; }
 .meeting-hud-replay > div { display: flex; gap: 8px; }
 .meeting-hud-actions button:focus-visible, .meeting-hud-bar button:focus-visible { outline: 2px solid #d4d4d8; outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) { .meeting-hud-live-turn, .meeting-hud-actions button { transition: none; } .meeting-hud[data-state='recording'] .meeting-hud-pill i { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .meeting-hud-live-turn, .meeting-hud-actions button, .meeting-hud-toast button { transition: none; }
+  .meeting-hud[data-state='recording'] .meeting-hud-pill i, .meeting-hud-partial::before, .meeting-hud-toast { animation: none; }
+  .meeting-hud-cue[data-newest] { animation-timing-function: steps(1, end); }
+}

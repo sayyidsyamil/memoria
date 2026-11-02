@@ -11,8 +11,19 @@ pub fn layout_meeting_hud(window: tauri::WebviewWindow, width: f64, height: f64,
     let scale = monitor.scale_factor();
     let origin = monitor.position();
     let size = monitor.size();
-    let x = origin.x as f64 / scale + (size.width as f64 / scale - width) / 2.0;
-    let y = origin.y as f64 / scale + if review { ((size.height as f64 / scale - height) / 2.0).max(38.0) } else { 38.0 };
+    let centred = origin.x as f64 / scale + (size.width as f64 / scale - width) / 2.0;
+    let (x, y) = if review {
+        (centred, origin.y as f64 / scale + ((size.height as f64 / scale - height) / 2.0).max(38.0))
+    } else {
+        // Growing for a cue or the captions keeps the window where the user left it: same top, same centre line.
+        match (window.outer_position(), window.outer_size()) {
+            (Ok(at), Ok(current)) => (
+                (at.x as f64 + current.width as f64 / 2.0) / scale - width / 2.0,
+                at.y as f64 / scale,
+            ),
+            _ => (centred, origin.y as f64 / scale + 38.0),
+        }
+    };
     window.set_size(tauri::LogicalSize::new(width, height)).map_err(|e| e.to_string())?;
     window.set_position(tauri::LogicalPosition::new(x, y)).map_err(|e| e.to_string())
 }

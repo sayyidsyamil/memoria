@@ -6,7 +6,7 @@ import { MeetingTranscriptReview, type TranscriptDraft } from './MeetingTranscri
 import { startMeetingLiveSpeech, type CaptionAudioProgress } from '../lib/meetingLiveSpeech'
 import { prepareMeetingReplay } from '../lib/meetingReplay'
 import { withTimeout } from '../lib/asyncTimeout'
-import { MeetingHudView, type HudState } from './MeetingHudView'
+import { MeetingHudView, type CueToast, type CueToastHold, type HudState } from './MeetingHudView'
 import { clockText } from '../lib/hud'
 import { meetingService } from '../features/meetings/meetingService'
 import { recordingService, recordingSource } from '../features/meetings/recordingService'
@@ -33,6 +33,44 @@ async function persistChunk(vaultPath: string, sessionId: string, index: number,
  */
 const MEETING_AUDIO: MediaTrackConstraints = { echoCancellation: false, noiseSuppression: false, autoGainControl: true, channelCount: 1 }
 
+const NO_CUES: LiveCue[] = []
+const CUE_TOAST_MS = 8000
+/** What the compact window grows by while a cue toast shows: the toast and its margins in meetingHud.css. */
+const CUE_TOAST_HEIGHT = 102
+
+/**
+ * A cue that arrives while the window is compact is shown under the notch for eight seconds; the countdown waits while the
+ * pointer or keyboard focus is on it. Each cue is announced once, so one first seen expanded, or shown again after the live
+ * check was turned off and on, stays quiet.
+ */
+function useCueToast(cues: LiveCue[], open: boolean) {
+  const [toast, setToast] = useState<CueToast | null>(null)
+  const [pointer, setPointer] = useState(false)
+  const [focus, setFocus] = useState(false)
+  const seen = useRef(new Set<string>())
+  const countdown = useRef<{ toast: CueToast | null; left: number }>({ toast: null, left: CUE_TOAST_MS })
+  const held = pointer || focus
+  useEffect(() => {
+    const fresh = cues.filter(cue => !seen.current.has(`${cue.factId}:${cue.reason}`))
+    fresh.forEach(cue => seen.current.add(`${cue.factId}:${cue.reason}`))
+    // Cues come newest first: show the newest, and count the others this toast has stood for.
+    if (fresh.length && !open) setToast(previous => ({ cue: fresh[0], more: Math.min(cues.length - 1, (previous ? previous.more + 1 : 0) + fresh.length - 1) }))
+  }, [cues, open])
+  useEffect(() => {
+    if (!toast || held) return
+    // A new toast gets the full time; one released from a hold gets what it had left.
+    const wait = countdown.current.toast === toast ? countdown.current.left : CUE_TOAST_MS
+    const ends = Date.now() + wait
+    const timer = window.setTimeout(() => setToast(null), wait)
+    return () => { window.clearTimeout(timer); countdown.current = { toast, left: Math.max(0, ends - Date.now()) } }
+  }, [toast, held])
+  return {
+    toast,
+    hold: (by: CueToastHold, on: boolean) => (by === 'pointer' ? setPointer : setFocus)(on),
+    dismiss: () => { setToast(null); setPointer(false); setFocus(false) },
+  }
+}
+
 export function MeetingHud() {
   const vaultPath = new URLSearchParams(location.search).get('vault') ?? ''
   const replayMode = new URLSearchParams(location.search).get('replay') === '1'
@@ -58,6 +96,8 @@ export function MeetingHud() {
   const [review, setReview] = useState(false)
   const live = useRef<Awaited<ReturnType<typeof startMeetingLiveSpeech>> | null>(null)
   const [caption, setCaption] = useState('')
+  // Words still being spoken: shown after the captions, never part of the committed text.
+  const [partial, setPartial] = useState('')
   const [liveTurns, setLiveTurns] = useState<TranscriptDraft['segments']>([])
   const layoutQueue = useRef(Promise.resolve())
   const finalDraft = useRef<TranscriptDraft | null>(null)
@@ -88,6 +128,9 @@ export function MeetingHud() {
   const assistanceTurns = useRef(liveTurns)
   const assistance = useRef<LiveEvidenceQueue | null>(null)
   assistance.current ??= new LiveEvidenceQueue(vaultPath, (cues, notice) => { setLiveCues(cues); setAssistanceNotice(notice) })
+  const shownCues = assistanceEnabled ? liveCues : NO_CUES
+  const cueToast = useCueToast(shownCues, captionsOpen)
+  const cueToastShown = !!cueToast.toast && !captionsOpen && !review
   useEffect(() => { assistanceTurns.current = liveTurns }, [liveTurns])
   useEffect(() => { assistance.current?.setEnabled(assistanceEnabled) }, [assistanceEnabled])
   useEffect(() => {
@@ -106,15 +149,15 @@ export function MeetingHud() {
   useEffect(() => {
     const view = transcriptView.current
     if (view && followTranscript.current) view.scrollTop = view.scrollHeight
-  }, [caption, captionsOpen])
+  }, [caption, liveTurns, partial, captionsOpen])
 
   useEffect(() => {
     layoutQueue.current = layoutQueue.current.catch(() => undefined).then(() => invoke<void>('layout_meeting_hud', {
       width: review ? 900 : captionsOpen || (replayMode && !replayRequested) ? 620 : 360,
-      height: review ? 740 : replayMode && !replayRequested ? 300 : captionsOpen ? 620 : error ? 184 : state === 'starting' ? 176 : 68,
+      height: review ? 740 : replayMode && !replayRequested ? 300 : captionsOpen ? 620 : (error ? 184 : state === 'starting' ? 176 : 68) + (cueToastShown ? CUE_TOAST_HEIGHT : 0),
       review,
     })).catch(() => undefined)
-  }, [error, review, captionsOpen, state, replayMode, replayRequested])
+  }, [error, review, captionsOpen, state, replayMode, replayRequested, cueToastShown])
 
   useEffect(() => {
     if (replayMode && (!replayRequested || !replayFile)) return
@@ -144,6 +187,8 @@ export function MeetingHud() {
           if (event.text) setCaption(previous => `${previous}${event.text}`)
           if (event.transcript !== undefined) setCaption(event.transcript)
           if (event.turns) setLiveTurns(event.turns)
+          // An event without `partial` leaves the words being spoken as they are; an empty one clears them.
+          if (typeof event.partial === 'string') setPartial(event.partial)
           if (event.draft) finalDraft.current = event.draft
           if (event.audioProgress) setAudioProgress(event.audioProgress)
           if (event.progress) setSpeechProgress(event.progress.phase === 'processing' ? 'Processing captured audio' : event.progress.phase === 'finalizing' ? 'Decoding the final audio' : '')
@@ -323,6 +368,7 @@ export function MeetingHud() {
         await live.current?.pause(true)
         capture.pause(); pausedAt.current = Date.now()
         await replayInput.current?.pause(true); setState('paused')
+        setPartial('')  // nobody is speaking into a paused meeting
       } else if (capture?.state === 'paused' && !replayInput.current?.ended()) {
         capture.resume()
         if (pausedAt.current) pausedTotal.current += Date.now() - pausedAt.current
@@ -345,8 +391,9 @@ export function MeetingHud() {
     vaultPath={vaultPath}
     sourceKind={replayMode ? 'replay' : 'microphone'} replayNotice={replayNotice}
     progressText={audioProgress ? `${(audioProgress.queuedSamples / audioProgress.sampleRate).toFixed(1)}s queued · ${(audioProgress.processedSamples / audioProgress.sampleRate).toFixed(1)}s acknowledged${audioProgress.refusedSamples || audioProgress.unacknowledgedSamples ? ` · ${((audioProgress.refusedSamples + audioProgress.unacknowledgedSamples) / audioProgress.sampleRate).toFixed(1)}s not captioned` : ''}${speechProgress ? ` · ${speechProgress}` : ''}` : speechProgress}
-    assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={assistanceEnabled ? liveCues : []} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
-    liveTurns={liveTurns} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}
+    assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={shownCues} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
+    cueToast={cueToast.toast} onHoldCueToast={cueToast.hold} onDismissCueToast={cueToast.dismiss}
+    liveTurns={liveTurns} partial={partial} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}
     transcriptRef={transcriptView} onTranscriptScroll={event => { const view = event.currentTarget; followTranscript.current = view.scrollHeight - view.scrollTop - view.clientHeight < 40 }}
-    onToggleCaptions={setCaptionsOpen} onOpenWorkspace={() => { void invoke('show_meeting_workspace') }} onPause={() => { void pause() }} onEnd={() => { void end() }} onMark={markMoment} />
+    onToggleCaptions={open => { setCaptionsOpen(open); if (open) cueToast.dismiss() }} onOpenWorkspace={() => { void invoke('show_meeting_workspace') }} onPause={() => { void pause() }} onEnd={() => { void end() }} onMark={markMoment} />
 }

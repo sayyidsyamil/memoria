@@ -6,10 +6,19 @@ import { beforeEach, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
 import { MeetingHud } from './MeetingHud'
 import { applySource } from '../lib/sourceImport'
-import { startMeetingLiveSpeech } from '../lib/meetingLiveSpeech'
+import { startMeetingLiveSpeech, type LiveSpeechEvent } from '../lib/meetingLiveSpeech'
 import type { RecordingMetadata } from '../features/meetings/recordingService'
+import type { LiveCue } from '../features/temporal/liveAssistanceService'
 
 const close = vi.fn(async () => undefined)
+// The real queue, with its update callback kept so that a test can publish cues as the queue would.
+let publishCues: (cues: LiveCue[], notice: string) => void = () => undefined
+vi.mock('../features/temporal/liveEvidenceQueue', async importOriginal => {
+  const { LiveEvidenceQueue } = await importOriginal<typeof import('../features/temporal/liveEvidenceQueue')>()
+  return { LiveEvidenceQueue: class extends LiveEvidenceQueue {
+    constructor(vaultPath: string, onUpdate: (cues: LiveCue[], notice: string) => void) { super(vaultPath, onUpdate); publishCues = onUpdate }
+  } }
+})
 vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
   save: (vaultPath: string, record: unknown) => invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record } }),
 } }))
@@ -263,4 +272,115 @@ it('prerecorded setup never requests a microphone and waits for explicit replay 
   expect(screen.getByRole('button', { name: 'Start audio replay' })).toBeDisabled()
   expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled()
   expect(startMeetingLiveSpeech).not.toHaveBeenCalled()
+})
+
+it('shows the words being spoken until an event replaces or clears them, and never asks with them', async () => {
+  let emit!: (event: LiveSpeechEvent & { partial?: string }) => void
+  vi.mocked(startMeetingLiveSpeech).mockImplementationOnce(async (_stream, _vault, _id, update) => { emit = update; return fakeSession() })
+  render(<MeetingHud />)
+  await screen.findByText('Recording')
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  const transcript = screen.getByLabelText('Live transcript')
+  act(() => emit({ sessionId: 's', partial: 'Gamma Solutions is' }))
+  expect(within(transcript).getByText('Gamma Solutions is')).toHaveClass('meeting-hud-partial')
+  expect(within(transcript).queryByText('Listening for speech…')).not.toBeInTheDocument()
+  const turns = [{ start: 0, end: 2, speaker: 'S01', text: 'Gamma Solutions is our vendor now.' }]
+  act(() => emit({ sessionId: 's', turns, transcript: turns[0].text }))
+  expect(within(transcript).getByText('Gamma Solutions is our vendor now.')).toBeInTheDocument()
+  expect(within(transcript).getByText('Gamma Solutions is')).toHaveClass('meeting-hud-partial')
+  act(() => emit({ sessionId: 's', partial: 'and the budget' }))
+  expect(within(transcript).getByText('and the budget')).toHaveClass('meeting-hud-partial')
+  fireEvent.click(screen.getByRole('button', { name: 'Ask this meeting' }))
+  fireEvent.change(screen.getByRole('textbox', { name: 'Meeting question' }), { target: { value: 'Who is the vendor?' } })
+  fireEvent.click(screen.getByRole('button', { name: 'Ask' }))
+  await waitFor(() => expect(invoke).toHaveBeenCalledWith('live_ask', expect.objectContaining({ question: 'Who is the vendor?', sessionText: '[00:00] Speaker 1: Gamma Solutions is our vendor now.' })))
+  act(() => emit({ sessionId: 's', partial: '' }))
+  expect(transcript.querySelector('.meeting-hud-partial')).toBeNull()
+  expect(transcript.querySelectorAll('.meeting-hud-live-turn')).toHaveLength(1)
+})
+
+const vendorCue: LiveCue = {
+  factId: 5, label: 'Vendor', attribute: 'outcome', currentValue: 'Beta Cloud', quote: 'We move to Beta Cloud.', speaker: 'Aisha',
+  meeting: 'earlier', at: 39.84, reason: 'Names another vendor.', heardAt: 3,
+}
+const budgetCue: LiveCue = { ...vendorCue, factId: 9, label: 'Pilot budget (RM)', attribute: 'amount', currentValue: 280000, reason: 'Sets another amount.' }
+const toastRegion = () => screen.queryByRole('region', { name: 'New earlier decision' })
+const layouts = () => vi.mocked(invoke).mock.calls.filter(([command]) => command === 'layout_meeting_hud').map(([, args]) => args)
+const wait = (ms: number) => act(async () => { await vi.advanceTimersByTimeAsync(ms) })
+async function publish(cues: LiveCue[]) { act(() => publishCues(cues, '')); await wait(0) }
+async function compactWithLiveCheck() {
+  vi.useFakeTimers({ toFake: ['Date', 'setInterval', 'clearInterval', 'setTimeout', 'clearTimeout'] })
+  render(<MeetingHud />)
+  await wait(50)
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Flag statements that contradict a decision' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+  await wait(0)
+}
+
+it('shows a new cue under the compact notch for eight seconds, growing the window while it shows', async () => {
+  try {
+    await compactWithLiveCheck()
+    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+    await publish([vendorCue])
+    expect(toastRegion()).toHaveTextContent('Vendor is Beta Cloud')
+    expect(layouts().at(-1)).toEqual({ width: 360, height: 170, review: false })
+    await wait(7999)
+    expect(toastRegion()).toBeInTheDocument()
+    await wait(1)
+    expect(toastRegion()).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '1 earlier decision to check' })).toBeInTheDocument()
+    await wait(0)
+    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+    await publish([vendorCue])
+    expect(toastRegion()).not.toBeInTheDocument()
+  } finally { vi.useRealTimers() }
+})
+
+it('holds the toast while the pointer is on it, then lets it run out the time it had left', async () => {
+  try {
+    await compactWithLiveCheck()
+    await publish([vendorCue])
+    await wait(5000)
+    fireEvent.mouseEnter(toastRegion()!)
+    await wait(20000)
+    expect(toastRegion()).toBeInTheDocument()
+    fireEvent.mouseLeave(toastRegion()!)
+    await wait(2999)
+    expect(toastRegion()).toBeInTheDocument()
+    await wait(1)
+    expect(toastRegion()).not.toBeInTheDocument()
+  } finally { vi.useRealTimers() }
+})
+
+it('shows the newest of several cues, opens the cards on click, and stays quiet for cues seen expanded', async () => {
+  try {
+    await compactWithLiveCheck()
+    await publish([vendorCue])
+    await publish([budgetCue, vendorCue])
+    expect(toastRegion()).toHaveTextContent('Pilot budget is RM 280,000')
+    expect(within(toastRegion()!).getByText('+1 more')).toBeInTheDocument()
+    fireEvent.click(within(toastRegion()!).getByText(/^Pilot budget is/))
+    await wait(0)
+    expect(screen.getByRole('region', { name: 'Earlier decisions to check' })).toBeInTheDocument()
+    expect(layouts().at(-1)).toEqual({ width: 620, height: 620, review: false })
+    await publish([{ ...vendorCue, factId: 12, label: 'Go-live date', reason: 'Names another date.' }, budgetCue, vendorCue])
+    fireEvent.click(screen.getByRole('button', { name: 'Toggle live captions' }))
+    await wait(0)
+    expect(toastRegion()).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '3 earlier decisions to check' })).toBeInTheDocument()
+    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+  } finally { vi.useRealTimers() }
+})
+
+it('dismisses the toast and keeps the badge', async () => {
+  try {
+    await compactWithLiveCheck()
+    await publish([vendorCue])
+    fireEvent.click(within(toastRegion()!).getByRole('button', { name: 'Dismiss' }))
+    await wait(0)
+    expect(toastRegion()).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '1 earlier decision to check' })).toBeInTheDocument()
+    expect(layouts().at(-1)).toEqual({ width: 360, height: 68, review: false })
+  } finally { vi.useRealTimers() }
 })
