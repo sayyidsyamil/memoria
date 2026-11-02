@@ -2,8 +2,8 @@
 
 This bridge evaluates `src-tauri/resources/memory/live_assistance.py`, **not**
 `memoria.py`. Historical Macro-F1 0.87 and real-speech false-alert 0.21% do not
-transfer to this implementation. This app bridge has not yet been evaluated
-against the real resident worker.
+transfer to this implementation. Results against the app's resident worker are
+under **Results** below.
 
 ## Run after rebuilding the app's Qwen worker
 
@@ -64,9 +64,11 @@ facts. A semantic verifier alert is confirmed against its cited current fact usi
 the **exact research question**, pinned to the same SHA-256 test. Keep at
 `log P(YES) - log P(NO) >= 1.0`. If it fails, rank all current slots by IDF-weighted
 literal label/attribute overlap; inspect up to three top slots (do not repeat the
-cited one), retaining only quoted, explicitly named subjects with no deterministic
-numeric result. Re-cite the highest confirming slot, replacing the old reason;
-otherwise drop with a warning. A scorer error, invalid/nonfinite score, oversized
+cited one), retaining only quoted slots with no deterministic numeric result. Re-cite the
+highest confirming slot, replacing the old reason; otherwise drop with a warning.
+With the guard on, the narrow question also decides whether the sentence is about
+the fact's subject, so the item need not be named (the evaluated research design
+has no such gate); with `MEMORIA_GUARD=off` a sentence must still name the item. A scorer error, invalid/nonfinite score, oversized
 context or elapsed budget fails closed as `uncertain`, with no semantic cue.
 The socket scorer receives only the remaining `CHECK_SECONDS=120` budget (at most
 110 s); injected test callbacks own their timeout and late results are discarded.
@@ -74,8 +76,8 @@ The socket scorer receives only the remaining `CHECK_SECONDS=120` budget (at mos
 **Deterministic numeric proofs bypass the model guard**: exact current-slot
 equalities with comparable qualified units and matching evidence retain their
 original behavior. Legitimate historical mentions, missing/inherited correction
-quotes, absent explicit subjects, unknown verifier fact IDs, and pending or future
-facts remain gated as before. Snapshot reading and result shape are unchanged.
+quotes, unknown verifier fact IDs, and pending or future facts remain gated as
+before. Snapshot reading and result shape are unchanged.
 Unlike research, an unknown cited ID is a schema failure, not a retry candidate.
 `live_check(..., verifier=callable, scorer=callable)` injects both model boundaries.
 
@@ -123,6 +125,49 @@ Unlike research, an unknown cited ID is a schema failure, not a retry candidate.
   templated English rather than ASR, model-audited labels, approved oracle memory,
   and small samples. Runtime queue contention contributes to app socket latency;
   resident-worker peak memory and live speech behavior are not measured here.
+
+## Results (2 November 2026, installed app's resident Qwen worker)
+
+Test split, 336 probes (112 conflicts, 224 that must not alert), 28 series; 95%
+cluster-bootstrap intervals by series. Predictions and the summary are in
+`results/app_live_check/`. Research M2 is the historical auditor on the same probes
+(`results/predictions_raw.jsonl`).
+
+| App live check | Conflicts caught (recall) | False alarms | Alert precision | Uncertain | Latency p50 / p95 |
+|---|---|---|---|---|---|
+| **Guard on (final)** | 91 / 112, **81.3%** (75.0–87.5) | 3 / 224, **1.3%** (0–3.1) | 96.8% (93.2–100) | 3 | 4.0 / 6.8 s |
+| Guard on, item must be named | 65 / 112, 58.0% (50.0–66.1) | 2 / 224, 0.9% (0–2.2) | 97.0% (93.0–100) | 31 | 3.4 / 5.9 s |
+| Guard off, item must be named | 63 / 112, 56.3% (47.3–65.2) | 6 / 224, 2.7% (0.9–4.9) | 91.3% (84.7–97.2) | 33 | 3.7 / 5.7 s |
+| Research M2 (reference) | 110 / 112, 98.2% | 1 / 224, 0.4% | | | |
+
+- The guard, with the item-name gate in place, was right on all 6 probes where the
+  two runs disagree (exact McNemar p = 0.031): it removed 4 of the 6 false alarms.
+- Dropping the item-name gate when the guard is on (final design) was better on 26
+  probes and worse on 1 (exact p = 4.2e-7): recall +23.2 points (14.3 to 33.0), false
+  alarms +0.4 points (0 to 1.3). 40 of the 47 conflicts the gated run missed failed
+  only because the harness label (the sentence's first word, e.g. "team" for "The
+  team will not work with teletext") was not in the sentence.
+- Against research M2 the final app check still misses more: recall −17.0 points
+  (−24.1 to −10.7), false alarms +0.9 points (0 to 2.2), exact p = 1.9e-5.
+
+Failure cases of the final design:
+
+- False alarms (3, all SUPPORTED_CURRENT): "Teletext will not be part of the design."
+  confirmed against "Teletext will not be used."; "We will not include a help button
+  on the device." against "The group decided not to include a help button…"; and "I
+  think the remote will not include speech recognition." re-cited to "The remote will
+  include games and a simple parental control feature" (attribution chose a wrong
+  slot and the model confirmed it).
+- Misses (21): 18 never reached a confirmed clash — the five-fact lexical selection
+  did not include the decision (many slots share "remote"), or the app's verifier
+  judged no conflict ("Well, we will make the case out of wood." against rubber;
+  "So the remote will sell for 35 Euro."); 2 had invalid verifier output; 1 was dropped
+  by the guard.
+- 6 of the 91 caught conflicts cite a different decision than the reference.
+
+Not measured here: false alerts on real, unrelated speech for the app's own verifier
+(the research pipeline's 0.21% does not transfer), speech-recognition errors, and
+user-written tracked items instead of the one-slot-per-decision mapping.
 
 ## Model-free checks
 

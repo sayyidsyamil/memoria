@@ -126,12 +126,19 @@ class LiveAssistanceTests(unittest.TestCase):
         verifier.assert_not_called()
         self.assertIn('aliases', data['warnings'][0])
 
-    def test_shared_attribute_false_alert_without_subject_is_suppressed(self):
+    def test_shared_attribute_without_its_subject_is_left_to_the_guard(self):
         self.approve()
-        data = self.check('The hotel budget is MYR 300.', self.conflict)
+        # Without the guard, a sentence must name the tracked item.
+        with patch.dict('os.environ', {'MEMORIA_GUARD': 'off'}):
+            data = self.check('The hotel budget is MYR 300.', self.conflict)
         self.assertEqual(data['status'], 'uncertain')
         self.assertEqual(data['cues'], [])
         self.assertTrue(any('subject' in warning for warning in data['warnings']))
+        # With it, its narrow question decides whether the sentence is about the snack budget at all.
+        with patch.dict('os.environ', {'MEMORIA_GUARD': 'on'}):
+            reply = live_check(self.engine, {'statement': 'The hotel budget is MYR 300.'}, self.conflict, scorer=lambda messages: -2.0)
+        self.assertEqual((reply['data']['status'], reply['data']['cues']), ('quiet', []))
+        self.assertTrue(any('Guard dropped' in warning for warning in reply['data']['warnings']))
 
     def test_incompatible_units_and_ambiguous_numbers_use_verifier(self):
         self.approve()

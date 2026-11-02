@@ -151,10 +151,13 @@ def live_check(engine, request, verifier=None, scorer=None):
     meetingId is optional context, not a filter on workspace current facts.
     Cues' at fields are evidence audio offsets (seconds), not wall-clock dates.
     Semantic alerts require first-token YES/NO confirmation, then up to three
-    lexical attribution candidates. Exact numeric proofs remain deterministic.
-    Injected verifier(statement, facts) and scorer(messages) must provide their
-    own timeout. All late results are discarded; socket scoring uses the remaining
-    CHECK_SECONDS budget. MEMORIA_GUARD=off preserves the unguarded comparison.
+    lexical attribution candidates; that narrow question also decides whether the
+    sentence is about the fact's subject, so the item need not be named. Exact
+    numeric proofs remain deterministic. Injected verifier(statement, facts) and
+    scorer(messages) must provide their own timeout. All late results are
+    discarded; socket scoring uses the remaining CHECK_SECONDS budget.
+    MEMORIA_GUARD=off preserves the unguarded comparison, which suppresses a
+    conflict whose sentence does not name the tracked item.
     """
     started = time.perf_counter()
     service = None
@@ -250,25 +253,25 @@ def live_check(engine, request, verifier=None, scorer=None):
                         named = _presence(statement, fact['label'])
                         reason = verdict['reason']
                         if live_guard.enabled():
-                            # Attribution may recover a current slot outside the
-                            # auditor's five, never an old/pending/unquoted fact.
+                            # The guard's narrow question decides whether the sentence is about the very thing a
+                            # fact settles, as in the evaluated design, so the item need not be named. Attribution
+                            # may recover a current slot outside the auditor's five, never an old/pending/unquoted fact.
                             alternatives = live_guard.candidates(statement, current, _tokens)
                             alternatives = [{**f, 'evidence': supporting_evidence(f)} for f in alternatives
                                             if type(f.get('fact_id')) is int and supporting_evidence(f)
-                                            and _presence(statement, f['label'])
                                             and _numeric(statement, f) is None]
-                            fact, action = live_guard.confirm(statement, fact, alternatives, score,
-                                                              cited_eligible=named)
+                            fact, action = live_guard.confirm(statement, fact, alternatives, score)
                             if action == 'dropped':
                                 warnings.append('Guard dropped semantic cue: no eligible candidate confirmed at log-odds >= 1.0.')
                             elif action == 'moved':
                                 warnings.append('Guard moved semantic cue to the best confirmed current fact.')
                                 reason = 'Statement clashes with this independently confirmed approved current fact.'
-                        if fact is not None and _presence(statement, fact['label']):
-                            cues.append(cue(fact, reason))
                         elif not named:
+                            fact = None
                             warnings.append('Verifier conflict lacked an explicit tracked subject; cue suppressed.')
                             uncertain = True
+                        if fact is not None:
+                            cues.append(cue(fact, reason))
                 except Exception as error:
                     warnings.append(f'Verification unavailable or invalid: {str(error)[:300]}')
                     uncertain = True

@@ -102,16 +102,24 @@ class LiveGuardTests(unittest.TestCase):
         self.assertLessEqual(score.call_args.kwargs['timeout'], 110)
         self.assertIn('Acme', score.call_args.args[0][1]['content'])
 
-    def test_attribution_recovers_wrong_unnamed_subject_without_exposing_it(self):
+    def test_attribution_recovers_a_wrongly_cited_subject(self):
         self.approve(value='Acme', label='Hotel', attribute='choice')
         self.approve(value='Beta', label='Supplier', attribute='choice')
         def verify(statement, facts):
             cited = next(f for f in facts if f['label'] == 'Hotel')
             return self.conflict(statement, [cited])
-        data, scorer = self.guarded('Supplier choice is Globex.', [3], verify)
+        data, scorer = self.guarded('Supplier choice is Globex.', [-1, 3], verify)
         self.assertEqual(data['cues'][0]['label'], 'Supplier')
-        self.assertEqual(scorer.call_count, 1)  # the unnamed cited subject is never asked about
+        self.assertEqual(scorer.call_count, 2)  # the cited hotel is asked first and does not confirm
         self.assertFalse(any('cue suppressed' in w for w in data['warnings']))
+
+    def test_conflict_without_the_item_named_is_confirmed_by_the_guard(self):
+        # People rarely say the item's name: "We'll use Globex as supplier" is about Pilot's supplier.
+        self.approve(value='Beta', label='Pilot', attribute='supplier')
+        data, scorer = self.guarded("We'll use Globex as our supplier.", [2.5])
+        self.assertEqual((data['status'], data['cues'][0]['label'], data['cues'][0]['currentValue']), ('attention', 'Pilot', 'Beta'))
+        data, _ = self.guarded("We'll use Globex as our supplier.", [0.2])
+        self.assertEqual((data['status'], data['cues']), ('quiet', []))
 
     def test_attribution_can_recover_sixth_fact_but_checks_at_most_three(self):
         for index in range(6):

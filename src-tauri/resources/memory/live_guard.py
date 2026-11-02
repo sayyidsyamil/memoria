@@ -64,7 +64,7 @@ def candidates(statement, facts, tokens):
     return [facts[i] for score, i in sorted(ranked, key=lambda row: (-row[0], row[1])) if score > 0][:CANDIDATES]
 
 
-def confirm(statement, cited, alternatives, score, cited_eligible=True):
+def confirm(statement, cited, alternatives, score):
     """Return (confirmed fact or None, action); score enforces the call budget."""
     def ask(fact):
         value = score(question(statement, decision(fact)))
@@ -72,7 +72,7 @@ def confirm(statement, cited, alternatives, score, cited_eligible=True):
             raise ValueError('Guard returned an invalid log-odds score.')
         return value
 
-    if cited_eligible and ask(cited) >= MIN_SCORE:
+    if ask(cited) >= MIN_SCORE:
         return cited, 'confirmed'
     best, best_score = None, float('-inf')
     for fact in alternatives:
