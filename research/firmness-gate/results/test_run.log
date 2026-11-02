@@ -1,0 +1,13 @@
+immediate: live gate calls so far 147
+review: live gate calls so far 177
+inbox_confirm_all: live gate calls so far 177
+
+immediate: QA 59 -> 67 of 96 | current 18->19/34 | as_of_valid 29->29/29 | n_changes 12->19/33 | TP 31->26 FP 116->61 | P 0.211->0.299 R 0.674->0.565 F1 0.321->0.391 | sign {'a_only': 10, 'b_only': 2, 'both': 57, 'neither': 27, 'p_two_sided': 0.03857421875}
+  suggestions/meeting 0.0 -> 0.0; drift 6 meetings
+
+review: QA 85 -> 85 of 96 | current 29->28/34 | as_of_valid 29->29/29 | n_changes 27->28/33 | TP 33->29 FP 114->62 | P 0.224->0.319 R 0.717->0.630 F1 0.342->0.423 | sign {'a_only': 3, 'b_only': 3, 'both': 82, 'neither': 8, 'p_two_sided': 1.0}
+  suggestions/meeting 1.75 -> 0.75; drift 5 meetings
+
+app inbox (confirm_all): 4.6 -> 3.0 per meeting
+latency {'events': 147, 'median_s': 0.563, 'mean_s': 0.682, 'p90_s': 0.789, 'max_s': 3.374, 'per_meeting_s': 5.01} 
+accepted proposals removed {'accepted_by_reviewer': 13, 'removed_by_gate': 5}

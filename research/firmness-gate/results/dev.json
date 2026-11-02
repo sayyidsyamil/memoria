@@ -1,0 +1,5726 @@
+{
+ "date": "2026-11-02 20:40:55",
+ "october": {
+  "qa": {
+   "overall": 35,
+   "current": 12,
+   "as_of_valid": 13,
+   "n_changes": 10
+  },
+  "n": {
+   "overall": 45,
+   "current": 16,
+   "as_of_valid": 13,
+   "n_changes": 16
+  },
+  "tp": 15,
+  "fp": 58,
+  "fn": 8,
+  "precision": 0.2054794520547945,
+  "recall": 0.6521739130434783,
+  "f1": 0.3125,
+  "fp_reasons": {
+   "spurious": 58
+  },
+  "state_correct": 12
+ },
+ "configs": {
+  "w1/context": {
+   "wording": "w1",
+   "variant": "context",
+   "prompt_sha256": "a4201c044d1e1f859dab4ea3dfe72fb604e273553e92d1d623fb741ac7bf0f3b",
+   "auroc": 0.48563218390804597,
+   "positives": 15,
+   "negatives": 58,
+   "latency": {
+    "events": 73,
+    "median_s": 0.365,
+    "mean_s": 0.409,
+    "p90_s": 0.492,
+    "max_s": 1.319
+   },
+   "curve": [
+    {
+     "tau": -8,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -7,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -6,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -5,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -4,
+     "kept": 69,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 54,
+     "fn": 8,
+     "precision": 0.21739130434782608,
+     "recall": 0.6521739130434783,
+     "f1": 0.32608695652173914,
+     "fp_reasons": {
+      "spurious": 54
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -3,
+     "kept": 58,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 13,
+     "fp": 45,
+     "fn": 10,
+     "precision": 0.22413793103448276,
+     "recall": 0.5652173913043478,
+     "f1": 0.32098765432098764,
+     "fp_reasons": {
+      "spurious": 45
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -2,
+     "kept": 41,
+     "qa": {
+      "overall": 31,
+      "current": 8,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 8,
+     "fp": 33,
+     "fn": 15,
+     "precision": 0.1951219512195122,
+     "recall": 0.34782608695652173,
+     "f1": 0.25000000000000006,
+     "fp_reasons": {
+      "spurious": 33
+     },
+     "state_correct": 8
+    },
+    {
+     "tau": -1,
+     "kept": 20,
+     "qa": {
+      "overall": 30,
+      "current": 6,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 5,
+     "fp": 15,
+     "fn": 18,
+     "precision": 0.25,
+     "recall": 0.21739130434782608,
+     "f1": 0.23255813953488372,
+     "fp_reasons": {
+      "spurious": 15
+     },
+     "state_correct": 6
+    },
+    {
+     "tau": 0,
+     "kept": 11,
+     "qa": {
+      "overall": 27,
+      "current": 3,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 1,
+     "fp": 10,
+     "fn": 22,
+     "precision": 0.09090909090909091,
+     "recall": 0.043478260869565216,
+     "f1": 0.0588235294117647,
+     "fp_reasons": {
+      "spurious": 10
+     },
+     "state_correct": 3
+    },
+    {
+     "tau": 1,
+     "kept": 3,
+     "qa": {
+      "overall": 26,
+      "current": 1,
+      "as_of_valid": 13,
+      "n_changes": 12
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 3,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 3
+     },
+     "state_correct": 1
+    },
+    {
+     "tau": 2,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 3,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 4,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 5,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 6,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 7,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 8,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    }
+   ],
+   "events": [
+    {
+     "meeting": "ES2003b",
+     "turn": 124,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Vol Volume selection okay, yep, the teletext we're gambling with, and we're gonna say it's dead, the way of the dodo",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.75,
+     "seconds": 1.3187
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "battery.outcome",
+     "value": "conventional",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.4603
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.5,
+     "seconds": 0.4547
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 53,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um conventional battery would seem to make sense. Um I'm not sure if there's any cost differences between single and double curved and I'm I don't know about anybody else, but plastic or rubber as a traditional form of casing would seem to be a good way forward?.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.416
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 65,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Can I just jump in slightly there? That would suggest the double curved design's probably going to be most appropriate, then.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -1.375,
+     "seconds": 0.4871
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "um, say something like um lithium ion battery",
+     "gold": "ES2003c.t102.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.625,
+     "seconds": 0.4254
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Looks like we going for a double curved design.",
+     "gold": "ES2003c.t102.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.25,
+     "seconds": 0.4357
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um, looks like we're pretty much decided on some kind of flexible rubber.",
+     "gold": "ES2003c.t102.2",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.125,
+     "seconds": 0.4324
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 111,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "why don't we make the damn thing yellow to incorporate the des the colour of the logo?",
+     "gold": "ES2003c.t111.3",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.0,
+     "seconds": 0.3358
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 165,
+     "slot": "devices.outcome",
+     "value": "televisions only",
+     "quote": "It's just for T_V_",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.311
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 181,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "they're going with the fashion thing, like the design, spongy rubber",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.4047
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 187,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "I having it i having it sort of br bright yellow I think that's quite a good idea",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.375,
+     "seconds": 0.4029
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.1",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -1.25,
+     "seconds": 0.6815
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -0.125,
+     "seconds": 0.6746
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "We've gone for one of the cheaper options as well",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.5784
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.6217
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "price.amount",
+     "value": 1.5,
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.625,
+     "seconds": 0.6576
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 99,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "So, I would say that it would seem like the general opinion is we're gonna keep the L_C_ display 'cause it's about what really separates us, despite the cost it's gonna incur. Um",
+     "gold": "ES2003d.t57.2",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -1.25,
+     "seconds": 0.4861
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 116,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "We wouldn't actually save a lot by reducing it anyway, so I mean for the purposes of this meeting maybe we can state that single curve still allows articulation. Um unless we hear otherwise we could go ahead with that proposal.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.5,
+     "seconds": 0.4414
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 130,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "Um. So, okay yeah, battery definitely,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.3503
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 143,
+     "slot": "colour.outcome",
+     "value": "special colour",
+     "quote": "Okay, well l let's say that and then we can have our special coloured case and then we at least have make it a little harder to lose. Because most m most remotes are a fairly dingy colour that gets camouflaged under any pile of crap in a living room.",
+     "gold": "ES2003d.t143.3",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.0,
+     "seconds": 0.4361
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 171,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Sure. And we could do whatever we like with the L_ L_C_D_. Yeah let's just assume it's a good L_C_D_ display. Maybe I was panicking for no reason.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.3803
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 179,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "No need for teletext.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.3107
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 188,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, w It is, yeah. Don't blame them. Um because of the way that we've minimalised the number of buttons and such. Plastic, it sucks. But it's no worse than any of the other pl remote controls we have.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.75,
+     "seconds": 0.3983
+    },
+    {
+     "meeting": "TS3004a",
+     "turn": 124,
+     "slot": "remote_type.outcome",
+     "value": "universal",
+     "quote": "Okay, so we we just say we just say that's universal remote control. Okay, perfect.",
+     "gold": "TS3004a.t119.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.375,
+     "seconds": 0.3502
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 25,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "So so we have uh forty minutes for this uh for this second meeting, and we have to make uh sure that we going t that we are sure, that we are,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.75,
+     "seconds": 0.4374
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 56,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "So yeah, so we just can skip the L_C_D_ r on the remote control, because",
+     "gold": "TS3004b.t56.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.625,
+     "seconds": 0.4357
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 57,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "I I think we can speak, uh we can skip speech recognition uh directly, because it's not reachable for twenty five Euros. Um then",
+     "gold": "TS3004b.t57.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.0,
+     "seconds": 0.4367
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 137,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "But do we still need a two level remote control? Because if we only have that l only f No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.4923
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 152,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Maybe we can give it out in different colours. You can choose blue or yellow or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.75,
+     "seconds": 0.3979
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 181,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Yeah, I know. Okay, we make it red.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 0.25,
+     "seconds": 0.3558
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 287,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "So a teletext option, maybe we have to skip that one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.875,
+     "seconds": 0.427
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 297,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "That still stays. Yeah.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.5,
+     "seconds": 0.3596
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 300,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "And I d I don't don't think it's very usable in a remote control, especially when you only have T_V_ functions on it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -1.125,
+     "seconds": 0.3163
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 349,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, no speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.125,
+     "seconds": 0.3069
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.875,
+     "seconds": 0.522
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.375,
+     "seconds": 0.5236
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 142,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "So the colours also. So we have ha to ma make it in black, black, yellow.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.0,
+     "seconds": 0.3553
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 156,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Like fronts in in red and yellow and blue and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.0,
+     "seconds": 0.3576
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 164,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We decided that, huh? S",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.125,
+     "seconds": 0.3129
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah. It it could be like a Nokia, like plastic. That's better prob Yeah.",
+     "gold": "TS3004c.t175.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.3484
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 190,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "basic remote control from normal plastic, and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.5,
+     "seconds": 0.306
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 197,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Yeah, but we can still make it transparent. So Or no",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.3494
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 200,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah okay. Good. And in green colour, the back lights or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.75,
+     "seconds": 0.3582
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 215,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Just make it some different colours. Blue, red and green, or something.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.5,
+     "seconds": 0.3207
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 236,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "No, just rechargeable batteries.",
+     "gold": "TS3004c.t233.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.25,
+     "seconds": 0.3614
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 248,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "But it doesn't really matter, we just make it plastic.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.3031
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 256,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Okay, then we we use m must use the second most expensive chip.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.125,
+     "seconds": 0.3327
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 268,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "So just hard plastic? Okay.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.125,
+     "seconds": 0.3501
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.875,
+     "seconds": 0.4249
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.25,
+     "seconds": 0.4227
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 364,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah, five. Let's give five.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.375,
+     "seconds": 0.3112
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 466,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, only the colour and the flashy light and the We just we just skip the the the voca or was it the the speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.375,
+     "seconds": 0.3628
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 504,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Yeah, we just decide not to put it in, because it's too difficult.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.0,
+     "seconds": 0.361
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 507,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Okay, we just put it in, because it's a good feature.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 1.0,
+     "seconds": 0.3667
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 10,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Well then then we're gonna put it in.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.0,
+     "seconds": 0.3141
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 32,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Uh the material should be hard plastic.",
+     "gold": "TS3004d.t32.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.25,
+     "seconds": 0.3116
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 34,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Uh colour changeable, and also transparent.",
+     "gold": "TS3004d.t34.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.3135
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 102,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "So here are multiple speech buttons, I don't know how many.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.301
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.75,
+     "seconds": 0.3559
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.75,
+     "seconds": 0.3592
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 120,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Or we just make it three buttons, all the colours on it. Just red, yel uh red, green and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.3123
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, I I thought about one thing. Uh the buttons? Uh from which material are they now?",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.3938
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 249,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Then we do it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.75,
+     "seconds": 0.369
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 262,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, this It is a one. It's okay. It's cool.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.4073
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 300,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Different colours, so",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.625,
+     "seconds": 0.2981
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 308,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "Yeah. Oh yeah, that's right. Rechargeable.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.3605
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 385,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "Yeah, and single curved curved.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.3613
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 394,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Special colour, you can skip this one, because it's all quite normal. We get different ones, that's all.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.3248
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 395,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "So you can put a recharger in it as well.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.378
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 400,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, that's included.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.875,
+     "seconds": 0.3655
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 438,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "The smart board is okay. Digital pen is horrible. I dunno if you use it. But if you want to download it to your computer, it's doesn't work. No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.4481
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 455,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Digital pen.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.875,
+     "seconds": 0.3075
+    }
+   ]
+  },
+  "w2/context": {
+   "wording": "w2",
+   "variant": "context",
+   "prompt_sha256": "158bd99178489e8086bde210fffe63796aeda6c05ab4d9a42c9caf794bd276da",
+   "auroc": 0.524712643678161,
+   "positives": 15,
+   "negatives": 58,
+   "latency": {
+    "events": 73,
+    "median_s": 0.621,
+    "mean_s": 0.637,
+    "p90_s": 0.756,
+    "max_s": 0.9
+   },
+   "curve": [
+    {
+     "tau": -8,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -7,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -6,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -5,
+     "kept": 72,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 57,
+     "fn": 8,
+     "precision": 0.20833333333333334,
+     "recall": 0.6521739130434783,
+     "f1": 0.31578947368421056,
+     "fp_reasons": {
+      "spurious": 57
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -4,
+     "kept": 65,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 13,
+     "fp": 52,
+     "fn": 10,
+     "precision": 0.2,
+     "recall": 0.5652173913043478,
+     "f1": 0.29545454545454547,
+     "fp_reasons": {
+      "spurious": 52
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -3,
+     "kept": 48,
+     "qa": {
+      "overall": 38,
+      "current": 11,
+      "as_of_valid": 13,
+      "n_changes": 14
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 13,
+     "fp": 35,
+     "fn": 10,
+     "precision": 0.2708333333333333,
+     "recall": 0.5652173913043478,
+     "f1": 0.3661971830985915,
+     "fp_reasons": {
+      "spurious": 35
+     },
+     "state_correct": 11
+    },
+    {
+     "tau": -2,
+     "kept": 31,
+     "qa": {
+      "overall": 34,
+      "current": 10,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 9,
+     "fp": 22,
+     "fn": 14,
+     "precision": 0.2903225806451613,
+     "recall": 0.391304347826087,
+     "f1": 0.33333333333333337,
+     "fp_reasons": {
+      "spurious": 22
+     },
+     "state_correct": 10
+    },
+    {
+     "tau": -1,
+     "kept": 20,
+     "qa": {
+      "overall": 32,
+      "current": 8,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 6,
+     "fp": 14,
+     "fn": 17,
+     "precision": 0.3,
+     "recall": 0.2608695652173913,
+     "f1": 0.27906976744186046,
+     "fp_reasons": {
+      "spurious": 14
+     },
+     "state_correct": 8
+    },
+    {
+     "tau": 0,
+     "kept": 8,
+     "qa": {
+      "overall": 27,
+      "current": 3,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 8,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 8
+     },
+     "state_correct": 3
+    },
+    {
+     "tau": 1,
+     "kept": 5,
+     "qa": {
+      "overall": 27,
+      "current": 2,
+      "as_of_valid": 13,
+      "n_changes": 12
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 5,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 5
+     },
+     "state_correct": 2
+    },
+    {
+     "tau": 2,
+     "kept": 1,
+     "qa": {
+      "overall": 25,
+      "current": 1,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 1,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 1
+     },
+     "state_correct": 1
+    },
+    {
+     "tau": 3,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 4,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 5,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 6,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 7,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 8,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    }
+   ],
+   "events": [
+    {
+     "meeting": "ES2003b",
+     "turn": 124,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Vol Volume selection okay, yep, the teletext we're gambling with, and we're gonna say it's dead, the way of the dodo",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.25,
+     "seconds": 0.8811
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "battery.outcome",
+     "value": "conventional",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.0,
+     "seconds": 0.5727
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.75,
+     "seconds": 0.5874
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 53,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um conventional battery would seem to make sense. Um I'm not sure if there's any cost differences between single and double curved and I'm I don't know about anybody else, but plastic or rubber as a traditional form of casing would seem to be a good way forward?.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.5,
+     "seconds": 0.6067
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 65,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Can I just jump in slightly there? That would suggest the double curved design's probably going to be most appropriate, then.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.5,
+     "seconds": 0.7141
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "um, say something like um lithium ion battery",
+     "gold": "ES2003c.t102.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -4.125,
+     "seconds": 0.6187
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Looks like we going for a double curved design.",
+     "gold": "ES2003c.t102.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.6126
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um, looks like we're pretty much decided on some kind of flexible rubber.",
+     "gold": "ES2003c.t102.2",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.0,
+     "seconds": 0.6065
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 111,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "why don't we make the damn thing yellow to incorporate the des the colour of the logo?",
+     "gold": "ES2003c.t111.3",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.5472
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 165,
+     "slot": "devices.outcome",
+     "value": "televisions only",
+     "quote": "It's just for T_V_",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 0.4723
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 181,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "they're going with the fashion thing, like the design, spongy rubber",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.0,
+     "seconds": 0.5904
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 187,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "I having it i having it sort of br bright yellow I think that's quite a good idea",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.6268
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.1",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.875,
+     "seconds": 0.89
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.0,
+     "seconds": 0.9003
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "We've gone for one of the cheaper options as well",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -5.125,
+     "seconds": 0.7796
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.805
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "price.amount",
+     "value": 1.5,
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -5.0,
+     "seconds": 0.8714
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 99,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "So, I would say that it would seem like the general opinion is we're gonna keep the L_C_ display 'cause it's about what really separates us, despite the cost it's gonna incur. Um",
+     "gold": "ES2003d.t57.2",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -0.375,
+     "seconds": 0.6273
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 116,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "We wouldn't actually save a lot by reducing it anyway, so I mean for the purposes of this meeting maybe we can state that single curve still allows articulation. Um unless we hear otherwise we could go ahead with that proposal.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.5,
+     "seconds": 0.6418
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 130,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "Um. So, okay yeah, battery definitely,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.5173
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 143,
+     "slot": "colour.outcome",
+     "value": "special colour",
+     "quote": "Okay, well l let's say that and then we can have our special coloured case and then we at least have make it a little harder to lose. Because most m most remotes are a fairly dingy colour that gets camouflaged under any pile of crap in a living room.",
+     "gold": "ES2003d.t143.3",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -1.375,
+     "seconds": 0.603
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 171,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Sure. And we could do whatever we like with the L_ L_C_D_. Yeah let's just assume it's a good L_C_D_ display. Maybe I was panicking for no reason.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.0,
+     "seconds": 0.5565
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 179,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "No need for teletext.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.4852
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 188,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, w It is, yeah. Don't blame them. Um because of the way that we've minimalised the number of buttons and such. Plastic, it sucks. But it's no worse than any of the other pl remote controls we have.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.5,
+     "seconds": 0.5611
+    },
+    {
+     "meeting": "TS3004a",
+     "turn": 124,
+     "slot": "remote_type.outcome",
+     "value": "universal",
+     "quote": "Okay, so we we just say we just say that's universal remote control. Okay, perfect.",
+     "gold": "TS3004a.t119.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.125,
+     "seconds": 0.4589
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 25,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "So so we have uh forty minutes for this uh for this second meeting, and we have to make uh sure that we going t that we are sure, that we are,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -4.875,
+     "seconds": 0.5972
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 56,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "So yeah, so we just can skip the L_C_D_ r on the remote control, because",
+     "gold": "TS3004b.t56.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.6139
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 57,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "I I think we can speak, uh we can skip speech recognition uh directly, because it's not reachable for twenty five Euros. Um then",
+     "gold": "TS3004b.t57.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.6839
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 137,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "But do we still need a two level remote control? Because if we only have that l only f No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.6874
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 152,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Maybe we can give it out in different colours. You can choose blue or yellow or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.5585
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 181,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Yeah, I know. Okay, we make it red.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 0.0,
+     "seconds": 0.4633
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 287,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "So a teletext option, maybe we have to skip that one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.6346
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 297,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "That still stays. Yeah.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.25,
+     "seconds": 0.552
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 300,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "And I d I don't don't think it's very usable in a remote control, especially when you only have T_V_ functions on it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.5,
+     "seconds": 0.5355
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 349,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, no speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.125,
+     "seconds": 0.519
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.0,
+     "seconds": 0.7839
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.75,
+     "seconds": 0.7465
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 142,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "So the colours also. So we have ha to ma make it in black, black, yellow.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.5719
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 156,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Like fronts in in red and yellow and blue and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.625,
+     "seconds": 0.5536
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 164,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We decided that, huh? S",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.5414
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah. It it could be like a Nokia, like plastic. That's better prob Yeah.",
+     "gold": "TS3004c.t175.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.6499
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 190,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "basic remote control from normal plastic, and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.5,
+     "seconds": 0.6093
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 197,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Yeah, but we can still make it transparent. So Or no",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.6705
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 200,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah okay. Good. And in green colour, the back lights or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.125,
+     "seconds": 0.607
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 215,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Just make it some different colours. Blue, red and green, or something.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.375,
+     "seconds": 0.6096
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 236,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "No, just rechargeable batteries.",
+     "gold": "TS3004c.t233.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.125,
+     "seconds": 0.5314
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 248,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "But it doesn't really matter, we just make it plastic.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.6085
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 256,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Okay, then we we use m must use the second most expensive chip.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.25,
+     "seconds": 0.6772
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 268,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "So just hard plastic? Okay.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.6288
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.0,
+     "seconds": 0.6964
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.7154
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 364,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah, five. Let's give five.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.5,
+     "seconds": 0.6184
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 466,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, only the colour and the flashy light and the We just we just skip the the the voca or was it the the speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.125,
+     "seconds": 0.596
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 504,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Yeah, we just decide not to put it in, because it's too difficult.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.0,
+     "seconds": 0.7025
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 507,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Okay, we just put it in, because it's a good feature.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 2.25,
+     "seconds": 0.5701
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 10,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Well then then we're gonna put it in.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.75,
+     "seconds": 0.5224
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 32,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Uh the material should be hard plastic.",
+     "gold": "TS3004d.t32.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.5,
+     "seconds": 0.4756
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 34,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Uh colour changeable, and also transparent.",
+     "gold": "TS3004d.t34.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.5,
+     "seconds": 0.7091
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 102,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "So here are multiple speech buttons, I don't know how many.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.691
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.5,
+     "seconds": 0.6375
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.6311
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 120,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Or we just make it three buttons, all the colours on it. Just red, yel uh red, green and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.6637
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, I I thought about one thing. Uh the buttons? Uh from which material are they now?",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.6913
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 249,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Then we do it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.6043
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 262,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, this It is a one. It's okay. It's cool.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.125,
+     "seconds": 0.6213
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 300,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Different colours, so",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.75,
+     "seconds": 0.6544
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 308,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "Yeah. Oh yeah, that's right. Rechargeable.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.0,
+     "seconds": 0.6838
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 385,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "Yeah, and single curved curved.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.375,
+     "seconds": 0.7023
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 394,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Special colour, you can skip this one, because it's all quite normal. We get different ones, that's all.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.6406
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 395,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "So you can put a recharger in it as well.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.653
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 400,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, that's included.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.75,
+     "seconds": 0.756
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 438,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "The smart board is okay. Digital pen is horrible. I dunno if you use it. But if you want to download it to your computer, it's doesn't work. No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.8349
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 455,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Digital pen.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.125,
+     "seconds": 0.6442
+    }
+   ]
+  },
+  "w1/quote": {
+   "wording": "w1",
+   "variant": "quote",
+   "prompt_sha256": "7538f5c466d587b3f8781bf5ef91d1d9cd10961debe7c8e22f23e837f6554a6f",
+   "auroc": 0.4206896551724138,
+   "positives": 15,
+   "negatives": 58,
+   "latency": {
+    "events": 73,
+    "median_s": 0.33,
+    "mean_s": 0.387,
+    "p90_s": 0.529,
+    "max_s": 0.67
+   },
+   "curve": [
+    {
+     "tau": -8,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -7,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -6,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -5,
+     "kept": 70,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 55,
+     "fn": 8,
+     "precision": 0.21428571428571427,
+     "recall": 0.6521739130434783,
+     "f1": 0.32258064516129026,
+     "fp_reasons": {
+      "spurious": 55
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -4,
+     "kept": 60,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 12,
+     "fp": 48,
+     "fn": 11,
+     "precision": 0.2,
+     "recall": 0.5217391304347826,
+     "f1": 0.2891566265060241,
+     "fp_reasons": {
+      "spurious": 48
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -3,
+     "kept": 47,
+     "qa": {
+      "overall": 34,
+      "current": 10,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 9,
+     "fp": 38,
+     "fn": 14,
+     "precision": 0.19148936170212766,
+     "recall": 0.391304347826087,
+     "f1": 0.2571428571428572,
+     "fp_reasons": {
+      "spurious": 38
+     },
+     "state_correct": 10
+    },
+    {
+     "tau": -2,
+     "kept": 37,
+     "qa": {
+      "overall": 34,
+      "current": 10,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 8,
+     "fp": 29,
+     "fn": 15,
+     "precision": 0.21621621621621623,
+     "recall": 0.34782608695652173,
+     "f1": 0.26666666666666666,
+     "fp_reasons": {
+      "spurious": 29
+     },
+     "state_correct": 10
+    },
+    {
+     "tau": -1,
+     "kept": 18,
+     "qa": {
+      "overall": 30,
+      "current": 6,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 4,
+     "fp": 14,
+     "fn": 19,
+     "precision": 0.2222222222222222,
+     "recall": 0.17391304347826086,
+     "f1": 0.1951219512195122,
+     "fp_reasons": {
+      "spurious": 14
+     },
+     "state_correct": 6
+    },
+    {
+     "tau": 0,
+     "kept": 11,
+     "qa": {
+      "overall": 28,
+      "current": 4,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 2,
+     "fp": 9,
+     "fn": 21,
+     "precision": 0.18181818181818182,
+     "recall": 0.08695652173913043,
+     "f1": 0.1176470588235294,
+     "fp_reasons": {
+      "spurious": 9
+     },
+     "state_correct": 4
+    },
+    {
+     "tau": 1,
+     "kept": 2,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 2,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 2
+     },
+     "state_correct": 0
+    },
+    {
+     "tau": 2,
+     "kept": 1,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 1,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 1
+     },
+     "state_correct": 0
+    },
+    {
+     "tau": 3,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 4,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 5,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 6,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 7,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 8,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    }
+   ],
+   "events": [
+    {
+     "meeting": "ES2003b",
+     "turn": 124,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Vol Volume selection okay, yep, the teletext we're gambling with, and we're gonna say it's dead, the way of the dodo",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.5,
+     "seconds": 0.5595
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "battery.outcome",
+     "value": "conventional",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.25,
+     "seconds": 0.3387
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.3555
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 53,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um conventional battery would seem to make sense. Um I'm not sure if there's any cost differences between single and double curved and I'm I don't know about anybody else, but plastic or rubber as a traditional form of casing would seem to be a good way forward?.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.75,
+     "seconds": 0.3579
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 65,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Can I just jump in slightly there? That would suggest the double curved design's probably going to be most appropriate, then.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.625,
+     "seconds": 0.2765
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "um, say something like um lithium ion battery",
+     "gold": "ES2003c.t102.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -4.5,
+     "seconds": 0.197
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Looks like we going for a double curved design.",
+     "gold": "ES2003c.t102.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.2179
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um, looks like we're pretty much decided on some kind of flexible rubber.",
+     "gold": "ES2003c.t102.2",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.2314
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 111,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "why don't we make the damn thing yellow to incorporate the des the colour of the logo?",
+     "gold": "ES2003c.t111.3",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.25,
+     "seconds": 0.3925
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 165,
+     "slot": "devices.outcome",
+     "value": "televisions only",
+     "quote": "It's just for T_V_",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.25,
+     "seconds": 0.5215
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 181,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "they're going with the fashion thing, like the design, spongy rubber",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.6097
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 187,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "I having it i having it sort of br bright yellow I think that's quite a good idea",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.5314
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.1",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.5,
+     "seconds": 0.4543
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.625,
+     "seconds": 0.4157
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "We've gone for one of the cheaper options as well",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.75,
+     "seconds": 0.257
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.625,
+     "seconds": 0.2894
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "price.amount",
+     "value": 1.5,
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -5.375,
+     "seconds": 0.4288
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 99,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "So, I would say that it would seem like the general opinion is we're gonna keep the L_C_ display 'cause it's about what really separates us, despite the cost it's gonna incur. Um",
+     "gold": "ES2003d.t57.2",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -0.5,
+     "seconds": 0.4973
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 116,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "We wouldn't actually save a lot by reducing it anyway, so I mean for the purposes of this meeting maybe we can state that single curve still allows articulation. Um unless we hear otherwise we could go ahead with that proposal.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.529
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 130,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "Um. So, okay yeah, battery definitely,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.75,
+     "seconds": 0.2966
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 143,
+     "slot": "colour.outcome",
+     "value": "special colour",
+     "quote": "Okay, well l let's say that and then we can have our special coloured case and then we at least have make it a little harder to lose. Because most m most remotes are a fairly dingy colour that gets camouflaged under any pile of crap in a living room.",
+     "gold": "ES2003d.t143.3",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.25,
+     "seconds": 0.6195
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 171,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Sure. And we could do whatever we like with the L_ L_C_D_. Yeah let's just assume it's a good L_C_D_ display. Maybe I was panicking for no reason.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.0,
+     "seconds": 0.5212
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 179,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "No need for teletext.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.125,
+     "seconds": 0.276
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 188,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, w It is, yeah. Don't blame them. Um because of the way that we've minimalised the number of buttons and such. Plastic, it sucks. But it's no worse than any of the other pl remote controls we have.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.5802
+    },
+    {
+     "meeting": "TS3004a",
+     "turn": 124,
+     "slot": "remote_type.outcome",
+     "value": "universal",
+     "quote": "Okay, so we we just say we just say that's universal remote control. Okay, perfect.",
+     "gold": "TS3004a.t119.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.625,
+     "seconds": 0.3259
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 25,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "So so we have uh forty minutes for this uh for this second meeting, and we have to make uh sure that we going t that we are sure, that we are,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -4.125,
+     "seconds": 0.479
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 56,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "So yeah, so we just can skip the L_C_D_ r on the remote control, because",
+     "gold": "TS3004b.t56.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.4062
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 57,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "I I think we can speak, uh we can skip speech recognition uh directly, because it's not reachable for twenty five Euros. Um then",
+     "gold": "TS3004b.t57.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.875,
+     "seconds": 0.4737
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 137,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "But do we still need a two level remote control? Because if we only have that l only f No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.4535
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 152,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Maybe we can give it out in different colours. You can choose blue or yellow or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -5.625,
+     "seconds": 0.3795
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 181,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Yeah, I know. Okay, we make it red.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 0.0,
+     "seconds": 0.3188
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 287,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "So a teletext option, maybe we have to skip that one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.348
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 297,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "That still stays. Yeah.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.125,
+     "seconds": 0.3067
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 300,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "And I d I don't don't think it's very usable in a remote control, especially when you only have T_V_ functions on it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -1.375,
+     "seconds": 0.4875
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 349,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, no speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.75,
+     "seconds": 0.2993
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.875,
+     "seconds": 0.409
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 2.125,
+     "seconds": 0.4133
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 142,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "So the colours also. So we have ha to ma make it in black, black, yellow.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.471
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 156,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Like fronts in in red and yellow and blue and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.0,
+     "seconds": 0.3117
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 164,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We decided that, huh? S",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.2989
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah. It it could be like a Nokia, like plastic. That's better prob Yeah.",
+     "gold": "TS3004c.t175.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.25,
+     "seconds": 0.3932
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 190,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "basic remote control from normal plastic, and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.2966
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 197,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Yeah, but we can still make it transparent. So Or no",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.3301
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 200,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah okay. Good. And in green colour, the back lights or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.25,
+     "seconds": 0.3257
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 215,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Just make it some different colours. Blue, red and green, or something.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -5.125,
+     "seconds": 0.3266
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 236,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "No, just rechargeable batteries.",
+     "gold": "TS3004c.t233.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.25,
+     "seconds": 0.2911
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 248,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "But it doesn't really matter, we just make it plastic.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.2989
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 256,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Okay, then we we use m must use the second most expensive chip.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.375,
+     "seconds": 0.3064
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 268,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "So just hard plastic? Okay.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.3243
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.25,
+     "seconds": 0.6703
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.875,
+     "seconds": 0.5988
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 364,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah, five. Let's give five.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.375,
+     "seconds": 0.3206
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 466,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, only the colour and the flashy light and the We just we just skip the the the voca or was it the the speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.875,
+     "seconds": 0.4545
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 504,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Yeah, we just decide not to put it in, because it's too difficult.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.375,
+     "seconds": 0.3062
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 507,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Okay, we just put it in, because it's a good feature.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 0.625,
+     "seconds": 0.285
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 10,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Well then then we're gonna put it in.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.375,
+     "seconds": 0.2937
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 32,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Uh the material should be hard plastic.",
+     "gold": "TS3004d.t32.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.125,
+     "seconds": 0.2941
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 34,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Uh colour changeable, and also transparent.",
+     "gold": "TS3004d.t34.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.25,
+     "seconds": 0.3084
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 102,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "So here are multiple speech buttons, I don't know how many.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.125,
+     "seconds": 0.3303
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.25,
+     "seconds": 0.526
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.125,
+     "seconds": 0.5155
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 120,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Or we just make it three buttons, all the colours on it. Just red, yel uh red, green and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.875,
+     "seconds": 0.4997
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, I I thought about one thing. Uh the buttons? Uh from which material are they now?",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.4491
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 249,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Then we do it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.5,
+     "seconds": 0.3103
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 262,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, this It is a one. It's okay. It's cool.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.5,
+     "seconds": 0.2964
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 300,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Different colours, so",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.125,
+     "seconds": 0.2956
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 308,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "Yeah. Oh yeah, that's right. Rechargeable.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.25,
+     "seconds": 0.3177
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 385,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "Yeah, and single curved curved.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.3132
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 394,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Special colour, you can skip this one, because it's all quite normal. We get different ones, that's all.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.4827
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 395,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "So you can put a recharger in it as well.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.25,
+     "seconds": 0.3045
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 400,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, that's included.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.125,
+     "seconds": 0.3078
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 438,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "The smart board is okay. Digital pen is horrible. I dunno if you use it. But if you want to download it to your computer, it's doesn't work. No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.25,
+     "seconds": 0.6457
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 455,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Digital pen.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.75,
+     "seconds": 0.2968
+    }
+   ]
+  },
+  "w2/quote": {
+   "wording": "w2",
+   "variant": "quote",
+   "prompt_sha256": "9678bf345e56ecdabde1e65e5f2b591b6b727f0930da658f74e1cca653f6f688",
+   "auroc": 0.49885057471264366,
+   "positives": 15,
+   "negatives": 58,
+   "latency": {
+    "events": 73,
+    "median_s": 0.753,
+    "mean_s": 0.741,
+    "p90_s": 0.874,
+    "max_s": 1.404
+   },
+   "curve": [
+    {
+     "tau": -8,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -7,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -6,
+     "kept": 73,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 58,
+     "fn": 8,
+     "precision": 0.2054794520547945,
+     "recall": 0.6521739130434783,
+     "f1": 0.3125,
+     "fp_reasons": {
+      "spurious": 58
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -5,
+     "kept": 71,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 56,
+     "fn": 8,
+     "precision": 0.2112676056338028,
+     "recall": 0.6521739130434783,
+     "f1": 0.3191489361702128,
+     "fp_reasons": {
+      "spurious": 56
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -4,
+     "kept": 69,
+     "qa": {
+      "overall": 35,
+      "current": 12,
+      "as_of_valid": 13,
+      "n_changes": 10
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 15,
+     "fp": 54,
+     "fn": 8,
+     "precision": 0.21739130434782608,
+     "recall": 0.6521739130434783,
+     "f1": 0.32608695652173914,
+     "fp_reasons": {
+      "spurious": 54
+     },
+     "state_correct": 12
+    },
+    {
+     "tau": -3,
+     "kept": 49,
+     "qa": {
+      "overall": 34,
+      "current": 10,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 11,
+     "fp": 38,
+     "fn": 12,
+     "precision": 0.22448979591836735,
+     "recall": 0.4782608695652174,
+     "f1": 0.3055555555555556,
+     "fp_reasons": {
+      "spurious": 38
+     },
+     "state_correct": 10
+    },
+    {
+     "tau": -2,
+     "kept": 34,
+     "qa": {
+      "overall": 32,
+      "current": 8,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 9,
+     "fp": 25,
+     "fn": 14,
+     "precision": 0.2647058823529412,
+     "recall": 0.391304347826087,
+     "f1": 0.3157894736842105,
+     "fp_reasons": {
+      "spurious": 25
+     },
+     "state_correct": 8
+    },
+    {
+     "tau": -1,
+     "kept": 20,
+     "qa": {
+      "overall": 31,
+      "current": 7,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 6,
+     "fp": 14,
+     "fn": 17,
+     "precision": 0.3,
+     "recall": 0.2608695652173913,
+     "f1": 0.27906976744186046,
+     "fp_reasons": {
+      "spurious": 14
+     },
+     "state_correct": 7
+    },
+    {
+     "tau": 0,
+     "kept": 14,
+     "qa": {
+      "overall": 29,
+      "current": 5,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 2,
+     "fp": 12,
+     "fn": 21,
+     "precision": 0.14285714285714285,
+     "recall": 0.08695652173913043,
+     "f1": 0.1081081081081081,
+     "fp_reasons": {
+      "spurious": 12
+     },
+     "state_correct": 5
+    },
+    {
+     "tau": 1,
+     "kept": 7,
+     "qa": {
+      "overall": 27,
+      "current": 3,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 7,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 7
+     },
+     "state_correct": 3
+    },
+    {
+     "tau": 2,
+     "kept": 2,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 2,
+     "fn": 23,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "fp_reasons": {
+      "spurious": 2
+     },
+     "state_correct": 0
+    },
+    {
+     "tau": 3,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 4,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 5,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 6,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 7,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    },
+    {
+     "tau": 8,
+     "kept": 0,
+     "qa": {
+      "overall": 24,
+      "current": 0,
+      "as_of_valid": 13,
+      "n_changes": 11
+     },
+     "n": {
+      "overall": 45,
+      "current": 16,
+      "as_of_valid": 13,
+      "n_changes": 16
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 23,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "fp_reasons": {},
+     "state_correct": 0
+    }
+   ],
+   "events": [
+    {
+     "meeting": "ES2003b",
+     "turn": 124,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Vol Volume selection okay, yep, the teletext we're gambling with, and we're gonna say it's dead, the way of the dodo",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.0,
+     "seconds": 0.8379
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "battery.outcome",
+     "value": "conventional",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 1.4039
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 51,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um I think we can do it if uh we use conventional batteries and not have solar cells or kinetic. Um and then maybe use single curved uh case. Because we might need it to be curved for the uh thumb to use the joyst joystick easily. Um",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.9758
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 53,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um conventional battery would seem to make sense. Um I'm not sure if there's any cost differences between single and double curved and I'm I don't know about anybody else, but plastic or rubber as a traditional form of casing would seem to be a good way forward?.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -5.375,
+     "seconds": 0.8781
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 65,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Can I just jump in slightly there? That would suggest the double curved design's probably going to be most appropriate, then.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.875,
+     "seconds": 0.7781
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "um, say something like um lithium ion battery",
+     "gold": "ES2003c.t102.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.625,
+     "seconds": 0.6251
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_curve.outcome",
+     "value": "double curved",
+     "quote": "Looks like we going for a double curved design.",
+     "gold": "ES2003c.t102.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.875,
+     "seconds": 0.6357
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 102,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "Um, looks like we're pretty much decided on some kind of flexible rubber.",
+     "gold": "ES2003c.t102.2",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.375,
+     "seconds": 0.7406
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 111,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "why don't we make the damn thing yellow to incorporate the des the colour of the logo?",
+     "gold": "ES2003c.t111.3",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.375,
+     "seconds": 0.7038
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 165,
+     "slot": "devices.outcome",
+     "value": "televisions only",
+     "quote": "It's just for T_V_",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.7077
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 181,
+     "slot": "case_material.outcome",
+     "value": "rubber",
+     "quote": "they're going with the fashion thing, like the design, spongy rubber",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.7402
+    },
+    {
+     "meeting": "ES2003c",
+     "turn": 187,
+     "slot": "colour.outcome",
+     "value": "yellow",
+     "quote": "I having it i having it sort of br bright yellow I think that's quite a good idea",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.125,
+     "seconds": 0.7949
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.1",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.125,
+     "seconds": 0.7872
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 54,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "Um changing it to plastic and a solid unit with a single curve design would allow us to come back into the um proposed costs",
+     "gold": "ES2003d.t11.0",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -2.0,
+     "seconds": 0.8446
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "We've gone for one of the cheaper options as well",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 0.6351
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.7544
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 64,
+     "slot": "price.amount",
+     "value": 1.5,
+     "quote": "Unfortunately we require the advanced chip if we're gonna do what we're needing to",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -6.0,
+     "seconds": 0.8466
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 99,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "So, I would say that it would seem like the general opinion is we're gonna keep the L_C_ display 'cause it's about what really separates us, despite the cost it's gonna incur. Um",
+     "gold": "ES2003d.t57.2",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -0.625,
+     "seconds": 0.9667
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 116,
+     "slot": "case_curve.outcome",
+     "value": "single curved",
+     "quote": "We wouldn't actually save a lot by reducing it anyway, so I mean for the purposes of this meeting maybe we can state that single curve still allows articulation. Um unless we hear otherwise we could go ahead with that proposal.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.0,
+     "seconds": 0.8286
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 130,
+     "slot": "battery.outcome",
+     "value": "lithium",
+     "quote": "Um. So, okay yeah, battery definitely,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.5551
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 143,
+     "slot": "colour.outcome",
+     "value": "special colour",
+     "quote": "Okay, well l let's say that and then we can have our special coloured case and then we at least have make it a little harder to lose. Because most m most remotes are a fairly dingy colour that gets camouflaged under any pile of crap in a living room.",
+     "gold": "ES2003d.t143.3",
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.625,
+     "seconds": 0.9123
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 171,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Sure. And we could do whatever we like with the L_ L_C_D_. Yeah let's just assume it's a good L_C_D_ display. Maybe I was panicking for no reason.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.875,
+     "seconds": 0.866
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 179,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "No need for teletext.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.75,
+     "seconds": 0.5705
+    },
+    {
+     "meeting": "ES2003d",
+     "turn": 188,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, w It is, yeah. Don't blame them. Um because of the way that we've minimalised the number of buttons and such. Plastic, it sucks. But it's no worse than any of the other pl remote controls we have.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 0.9557
+    },
+    {
+     "meeting": "TS3004a",
+     "turn": 124,
+     "slot": "remote_type.outcome",
+     "value": "universal",
+     "quote": "Okay, so we we just say we just say that's universal remote control. Okay, perfect.",
+     "gold": "TS3004a.t119.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.5,
+     "seconds": 0.5423
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 25,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "So so we have uh forty minutes for this uh for this second meeting, and we have to make uh sure that we going t that we are sure, that we are,",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.875,
+     "seconds": 0.8559
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 56,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "So yeah, so we just can skip the L_C_D_ r on the remote control, because",
+     "gold": "TS3004b.t56.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.8449
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 57,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "I I think we can speak, uh we can skip speech recognition uh directly, because it's not reachable for twenty five Euros. Um then",
+     "gold": "TS3004b.t57.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.125,
+     "seconds": 0.8194
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 137,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "But do we still need a two level remote control? Because if we only have that l only f No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 0.762
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 152,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Maybe we can give it out in different colours. You can choose blue or yellow or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.375,
+     "seconds": 0.7622
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 181,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "Yeah, I know. Okay, we make it red.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": 1.125,
+     "seconds": 0.6371
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 287,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "So a teletext option, maybe we have to skip that one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.875,
+     "seconds": 0.7782
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 297,
+     "slot": "lcd.outcome",
+     "value": "included",
+     "quote": "That still stays. Yeah.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 2.5,
+     "seconds": 0.5916
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 300,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "And I d I don't don't think it's very usable in a remote control, especially when you only have T_V_ functions on it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -3.0,
+     "seconds": 0.865
+    },
+    {
+     "meeting": "TS3004b",
+     "turn": 349,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, no speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.75,
+     "seconds": 0.5941
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.875,
+     "seconds": 0.7759
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 26,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "we just decided that we don't make use of uh L_C_D_ or uh speech recognition",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 2.75,
+     "seconds": 0.7639
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 142,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "So the colours also. So we have ha to ma make it in black, black, yellow.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.7229
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 156,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Like fronts in in red and yellow and blue and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.5,
+     "seconds": 0.8274
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 164,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We decided that, huh? S",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.625,
+     "seconds": 0.5019
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah. It it could be like a Nokia, like plastic. That's better prob Yeah.",
+     "gold": "TS3004c.t175.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.7588
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 190,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "basic remote control from normal plastic, and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.25,
+     "seconds": 0.5758
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 197,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Yeah, but we can still make it transparent. So Or no",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.711
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 200,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah okay. Good. And in green colour, the back lights or",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 0.7761
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 215,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Just make it some different colours. Blue, red and green, or something.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.375,
+     "seconds": 0.7016
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 236,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "No, just rechargeable batteries.",
+     "gold": "TS3004c.t233.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -0.375,
+     "seconds": 0.5254
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 248,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "But it doesn't really matter, we just make it plastic.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.125,
+     "seconds": 0.6007
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 256,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Okay, then we we use m must use the second most expensive chip.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.625,
+     "seconds": 0.7421
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 268,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "So just hard plastic? Okay.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.625,
+     "seconds": 0.7341
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.625,
+     "seconds": 1.0554
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 274,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "We have to decide which one we're going to choose from these. What exactly. Because we have to know it. So the energy uh is the recharger. We already know that. Just a normal battery. Okay. The chip-on-print is a normal one.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.9073
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 364,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Yeah, five. Let's give five.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.6152
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 466,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Okay, only the colour and the flashy light and the We just we just skip the the the voca or was it the the speech recognition.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.0,
+     "seconds": 0.8114
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 504,
+     "slot": "speech.outcome",
+     "value": "excluded",
+     "quote": "Yeah, we just decide not to put it in, because it's too difficult.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.5,
+     "seconds": 0.7573
+    },
+    {
+     "meeting": "TS3004c",
+     "turn": 507,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Okay, we just put it in, because it's a good feature.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": true,
+     "score": -0.75,
+     "seconds": 0.7138
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 10,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Well then then we're gonna put it in.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 1.125,
+     "seconds": 0.5911
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 32,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Uh the material should be hard plastic.",
+     "gold": "TS3004d.t32.0",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.875,
+     "seconds": 0.6046
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 34,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Uh colour changeable, and also transparent.",
+     "gold": "TS3004d.t34.1",
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.75,
+     "seconds": 0.6128
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 102,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "So here are multiple speech buttons, I don't know how many.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.625,
+     "seconds": 0.6802
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.8015
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 105,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "It doesn't really matter. That's Yeah well we don't have any uh Hmm? What else? Uh menu buttons with arrows.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.7691
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 120,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Or we just make it three buttons, all the colours on it. Just red, yel uh red, green and",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.375,
+     "seconds": 0.705
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 175,
+     "slot": "case_material.outcome",
+     "value": "plastic",
+     "quote": "Yeah, I I thought about one thing. Uh the buttons? Uh from which material are they now?",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -4.125,
+     "seconds": 0.7567
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 249,
+     "slot": "teletext.outcome",
+     "value": "excluded",
+     "quote": "Then we do it.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.25,
+     "seconds": 0.5777
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 262,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, this It is a one. It's okay. It's cool.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.0,
+     "seconds": 0.7483
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 300,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Different colours, so",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.875,
+     "seconds": 0.5123
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 308,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "Yeah. Oh yeah, that's right. Rechargeable.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.25,
+     "seconds": 0.6381
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 385,
+     "slot": "remote_type.outcome",
+     "value": "single device",
+     "quote": "Yeah, and single curved curved.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.625,
+     "seconds": 0.6236
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 394,
+     "slot": "colour.outcome",
+     "value": "various colours",
+     "quote": "Special colour, you can skip this one, because it's all quite normal. We get different ones, that's all.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.875,
+     "seconds": 0.8743
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 395,
+     "slot": "battery.outcome",
+     "value": "rechargeable",
+     "quote": "So you can put a recharger in it as well.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -3.125,
+     "seconds": 0.7527
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 400,
+     "slot": "speech.outcome",
+     "value": "included",
+     "quote": "Yeah, that's included.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": 0.125,
+     "seconds": 0.6085
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 438,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "The smart board is okay. Digital pen is horrible. I dunno if you use it. But if you want to download it to your computer, it's doesn't work. No.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -2.75,
+     "seconds": 0.7834
+    },
+    {
+     "meeting": "TS3004d",
+     "turn": 455,
+     "slot": "lcd.outcome",
+     "value": "excluded",
+     "quote": "Digital pen.",
+     "gold": null,
+     "status": "applied",
+     "review": null,
+     "conflict": false,
+     "score": -1.75,
+     "seconds": 0.503
+    }
+   ]
+  }
+ },
+ "choice": {
+  "wording": "w2",
+  "variant": "context",
+  "tau": -3,
+  "prompt_sha256": "158bd99178489e8086bde210fffe63796aeda6c05ab4d9a42c9caf794bd276da",
+  "dev_at_tau": {
+   "kept": 48,
+   "qa": {
+    "overall": 38,
+    "current": 11,
+    "as_of_valid": 13,
+    "n_changes": 14
+   },
+   "tp": 13,
+   "fp": 35,
+   "fn": 10,
+   "precision": 0.2708333333333333,
+   "recall": 0.5652173913043478,
+   "f1": 0.3661971830985915
+  }
+ },
+ "ablation": {
+  "context": {
+   "auroc": 0.524712643678161,
+   "at_tau": {
+    "tau": -3,
+    "kept": 48,
+    "qa": {
+     "overall": 38,
+     "current": 11,
+     "as_of_valid": 13,
+     "n_changes": 14
+    },
+    "n": {
+     "overall": 45,
+     "current": 16,
+     "as_of_valid": 13,
+     "n_changes": 16
+    },
+    "tp": 13,
+    "fp": 35,
+    "fn": 10,
+    "precision": 0.2708333333333333,
+    "recall": 0.5652173913043478,
+    "f1": 0.3661971830985915,
+    "fp_reasons": {
+     "spurious": 35
+    },
+    "state_correct": 11
+   }
+  },
+  "quote": {
+   "auroc": 0.49885057471264366,
+   "at_tau": {
+    "tau": -3,
+    "kept": 49,
+    "qa": {
+     "overall": 34,
+     "current": 10,
+     "as_of_valid": 13,
+     "n_changes": 11
+    },
+    "n": {
+     "overall": 45,
+     "current": 16,
+     "as_of_valid": 13,
+     "n_changes": 16
+    },
+    "tp": 11,
+    "fp": 38,
+    "fn": 12,
+    "precision": 0.22448979591836735,
+    "recall": 0.4782608695652174,
+    "f1": 0.3055555555555556,
+    "fp_reasons": {
+     "spurious": 38
+    },
+    "state_correct": 10
+   },
+   "best": {
+    "tau": -4,
+    "kept": 69,
+    "qa": {
+     "overall": 35,
+     "current": 12,
+     "as_of_valid": 13,
+     "n_changes": 10
+    },
+    "n": {
+     "overall": 45,
+     "current": 16,
+     "as_of_valid": 13,
+     "n_changes": 16
+    },
+    "tp": 15,
+    "fp": 54,
+    "fn": 8,
+    "precision": 0.21739130434782608,
+    "recall": 0.6521739130434783,
+    "f1": 0.32608695652173914,
+    "fp_reasons": {
+     "spurious": 54
+    },
+    "state_correct": 12
+   }
+  }
+ }
+}
