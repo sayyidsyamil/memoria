@@ -29,9 +29,10 @@ Python runtimes and HF snapshots can be provisioned for a clean account under
 Explicit environment overrides win, then a completed shared install, then the
 existing developer environment. This is same-Mac provisioning, not bundled Python.
 
-Limits: worker crashes
-are surfaced by readiness polling; automatic restart and memory-pressure eviction
-are not implemented yet. Requests queued behind an active meeting can time out;
+Limits: a worker that stops is started again by the app's supervision loop (checked every
+5 s, at most three starts per worker per run; a killed Qwen worker was back in 4 s in the
+`v0.2.0-uat` smoke test, [RELEASE_RECORD.md](RELEASE_RECORD.md)). Memory-pressure eviction
+is not implemented. Requests queued behind an active meeting can time out;
 cross-worker GPU scheduling is not coordinated. Readiness means models warmed,
 not a guarantee of transcription accuracy, queue throughput or publication safety.
 CLI engine invocations without app-injected socket variables retain their existing
