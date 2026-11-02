@@ -38,8 +38,26 @@ Live captions (`streaming_speech.LiveTranscript`):
   moved 0.8 s past (cut at the quietest moment before the next word), or at its quietest moment after 10 s. A closed
   stretch is read once more and its sentences become turns as soon as the diarizer (0.64 s preset) has caught up.
 - Stretches never overlap, so no word is committed twice; silence is never decoded.
-- On the scripted test meeting (`livetest/meeting.wav`, file fed as fast as possible): every sentence was committed
-  0.5–1.3 s after it ended, all three voices on the right label; worst single feed 0.52 s.
+- One voice detector listens to the whole meeting. WebRTC's detector adapts to the room as it listens; the first
+  version made a new one for every 0.256 s block it was given, and on 55 s of the AMI hour it heard 512 of the 1,302
+  voiced frames that one detector hears. Whole phrases were never decoded.
+
+The AMI hour fed to live captions in the meeting window's 0.256 s blocks (`bakeoff.py live`; the lag is how much
+audio had arrived after a sentence ended when it was committed, so it does not depend on how fast the run went):
+
+| | A new detector per block (before) | **One detector per meeting (shipped)** | Whole recording, for reference |
+|---|---|---|---|
+| WER, fillers removed | 18.9% (502 sub., 1,257 del., 96 ins.) | **15.2%** (430, 952, 111) | 14.4% (446, 870, 91) |
+| Labelled words on their participant | 96.7% | **96.9%** | 96.8% |
+| Commit lag p50 / p90 / max | 0.92 / 2.77 / 10.8 s | **1.34 / 3.87 / 9.9 s** | |
+| One re-read of the open stretch, p50 / p95 | 0.093 / 0.196 s | 0.092 / 0.177 s | |
+
+- Longer stretches cost about 0.4 s of commit lag at the median: a sentence inside continuous speech is committed
+  once speech is 0.8 s past it, at the next re-read.
+- On the two scripted test meetings (`livetest/meeting.wav`, `meeting2.wav`, file fed as fast as possible) every
+  sentence was committed 0.4–2.1 s after it ended (median 0.75 s).
+- One sentence of `meeting.wav` ("Data migration is almost done.", the macOS voice Aman) is recognised as nonsense
+  by v3 and Ultra alike, whole or live, so that voice's recording is at fault, not the cutting.
 
 Rejected on the way:
 
@@ -57,3 +75,4 @@ Rejected on the way:
 
 - `bakeoff.py`: runs a pipeline over the hour and scores it with `../long-meeting/evaluate_transcript.py`.
 - `results/ami-hour-offline.*`: the whole-recording run above.
+- `results/ami-hour-live.*`, `results/ami-hour-live-fresh-vad.*`: live captions over the hour, after and before the detector fix.

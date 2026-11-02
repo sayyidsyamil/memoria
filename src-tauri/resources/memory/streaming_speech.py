@@ -183,10 +183,14 @@ def turns_of(words, label, merge_gap=None):
 VAD_FRAME = 480  # 30 ms at 16 kHz
 
 
-def voiced_frames(samples):
-    """One flag per whole 30 ms frame: WebRTC VAD (mode 2) above a small loudness floor, as live_speech.has_speech."""
+def voiced_frames(samples, vad=None):
+    """One flag per whole 30 ms frame: WebRTC VAD (mode 2) above a small loudness floor, as live_speech.has_speech.
+
+    The detector adapts to the room as it listens, so live captions keep one for the whole meeting (`vad`): a fresh
+    one for every quarter second of audio heard 512 of the 1,302 voiced frames that one detector hears in 55 s of an
+    AMI meeting, and the captions lost whole phrases."""
     import webrtcvad
-    vad = webrtcvad.Vad(2)
+    vad = vad or webrtcvad.Vad(2)
     count = len(samples) // VAD_FRAME
     frames = np.asarray(samples[:count * VAD_FRAME], dtype='float32').reshape(count, VAD_FRAME)
     loud = np.sqrt((frames ** 2).mean(axis=1)) >= .0005
@@ -204,8 +208,10 @@ class LiveTranscript:
     decoded, so nothing is invented there."""
 
     def __init__(self, models, step=.5, pause=.5, longest=10.0, preroll=.25, preset='very_low'):
+        import webrtcvad
         self.asr, diar = models
         self.speakers = SpeakerTrack(diar, preset)
+        self.vad = webrtcvad.Vad(2)
         self.step, self.pause, self.longest, self.preroll = int(step * RATE), int(pause * RATE), int(longest * RATE), int(preroll * RATE)
         self.buffer = np.zeros(0, dtype='float32')
         self.offset = 0          # session sample index of buffer[0]
@@ -246,7 +252,7 @@ class LiveTranscript:
         count = (self.total - self.classified) // VAD_FRAME
         if count:
             first = self.classified - self.offset
-            for index, voiced in enumerate(voiced_frames(self.buffer[first:first + count * VAD_FRAME])):
+            for index, voiced in enumerate(voiced_frames(self.buffer[first:first + count * VAD_FRAME], self.vad)):
                 if voiced:
                     at = self.classified + index * VAD_FRAME
                     if self.start is None:

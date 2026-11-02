@@ -70,7 +70,7 @@ class FakeDiarizer:
         return SimpleNamespace(speaker_probs=probs), state
 
 
-def speaking(samples):
+def speaking(samples, vad=None):
     """Voice detection from the script: the samples hold their own session index."""
     count = len(samples) // S.VAD_FRAME
     starts = np.asarray(samples[:count * S.VAD_FRAME]).reshape(count, S.VAD_FRAME)[:, 0] / RATE
@@ -146,7 +146,22 @@ class StreamingSpeechTest(unittest.TestCase):
         self.assertEqual(session.turns, [])
         self.assertLess(len(session.buffer), RATE)  # nothing kept but a short pre-roll
 
-    @patch('streaming_speech.voiced_frames', lambda samples: np.ones(len(samples) // S.VAD_FRAME, dtype=bool))
+    def test_one_voice_detector_listens_to_the_whole_meeting(self):
+        detectors = []
+
+        def detect(samples, vad=None):
+            detectors.append(vad)
+            return speaking(samples)
+        with patch('streaming_speech.voiced_frames', detect):
+            session, _ = self.live()
+            audio = meeting(3)
+            for index in range(0, len(audio), 4096):
+                session.feed(audio[index:index + 4096])
+        self.assertGreater(len(detectors), 5)
+        self.assertIsNotNone(detectors[0])
+        self.assertTrue(all(vad is detectors[0] for vad in detectors))  # its adaptation to the room carries over
+
+    @patch('streaming_speech.voiced_frames', lambda samples, vad=None: np.ones(len(samples) // S.VAD_FRAME, dtype=bool))
     def test_a_stretch_without_pauses_is_cut_and_never_repeated(self):
         global SCRIPT
         words = [(f' w{i}', .5 + .4 * i) for i in range(60)]
@@ -240,7 +255,7 @@ class StretchTests(unittest.TestCase):
         voiced = np.zeros(len(audio) // S.VAD_FRAME, dtype=bool)
         voiced[33:200] = True     # 1.0-6.0 s
         voiced[250:900] = True    # 7.5-27.0 s, no pause
-        with patch('streaming_speech.voiced_frames', lambda samples: voiced):
+        with patch('streaming_speech.voiced_frames', lambda samples, vad=None: voiced):
             found = [(round(a / RATE, 2), round(b / RATE, 2)) for a, b in S.stretches(audio)]
         self.assertEqual(found[0], (0.74, 6.15))
         self.assertTrue(all(b - a <= 10.0 for a, b in found))
