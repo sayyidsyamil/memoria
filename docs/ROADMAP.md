@@ -15,7 +15,7 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 | M1 Native meeting loop | Week 5–6 (mostly done 2 Nov) | Record → review → approve → reuse works in the installed app with real audio |
 | M2 Meeting intelligence | Week 6–7 (verified 2 Nov) | Measured live check, long meetings, safer tracked facts |
 | M3 Reliability | Week 7 | Recovers from failures; full test suite green |
-| M4 UAT build | End of week 7 | Tagged build that installs from the guide |
+| M4 UAT build | End of week 7 (built 2 Nov; clean-account check pending) | Tagged build that installs from the guide |
 | M5 Evaluation and UAT | Weeks 8–10 | Participant results and current-app measurements |
 | M6 Report and viva | Weeks 10–14 | Report complete, viva ready |
 | M7 Installable product | After M4, in parallel | Installs and runs on a clean Mac without developer folders |
@@ -78,8 +78,11 @@ saves recover from a killed process; tracked-item setup offers only edits the le
 the speaker picker offers known names. Found on the way and fixed: worker deadlines, the
 knowledge-review passage limit and one-invalid-group failure, the meeting record cap, merged
 speakers and repeated passages at part boundaries, and model loading under memory pressure.
-Remaining: false alerts on real unrelated speech for the app's verifier (M5); 6–9% of words
-left on "Unknown speaker"; live captions wait while a long recording is transcribed (M3).
+Remaining: 6–9% of words left on "Unknown speaker"; live captions wait while a long recording
+is transcribed (M3). Since measured: no false alert on real unrelated speech — all 852 turns of
+the AMI hour checked against the UAT procurement facts, 29 of them reached the model
+([research/long-meeting](../research/long-meeting/README.md)); and a November bake-off of newer
+local models kept Qwen3.5-4B ([research/model-bakeoff](../research/model-bakeoff/README.md)).
 
 ## M3 Reliability
 
@@ -108,6 +111,18 @@ behaviour that never promotes incomplete transcripts into reviewed knowledge.
 Acceptance: a second macOS account installs and completes the five acceptance tasks by
 following the guide alone.
 
+Status (2 November): version 0.2.0; `scripts/build-release.sh` builds the disk image and writes
+[RELEASE_RECORD.md](RELEASE_RECORD.md). Another account of this Mac runs the app from a shared
+install in `/Users/Shared/Memoria` (Python runtimes and model snapshots,
+`scripts/install-shared-runtime.sh`; provisioned and import-checked). The starter vault (three
+recorded, reviewed fictional meetings and six tracked items), `reset-demo.sh` and
+`memoria-doctor.sh` (READY check) are in place, and the UAT protocol, runbook and forms match
+the current app. An engine dry run of the five tasks (no UI) gave 17 suggestions, all correct,
+and found all 15 decisions of the answer key. Privacy for AC8: remembering voices is opt-in,
+"Forget remembered voices" deletes profiles, and saving a reviewed transcript removes the
+draft's voice embeddings. Remaining: the clean-account install and task 1 (needs a second macOS
+account), and a real-microphone session.
+
 ## M5 Evaluation and UAT
 
 - UAT with 6–8 participants: task success, SUS, acceptance criteria AC1–AC8, signed acceptance.
@@ -122,8 +137,8 @@ quote matching alone is not an accuracy metric.
 
 ## M6 Report and viva
 
-- Supervisor decisions: final title; MemoriaBench as a fourth objective or an extension; whether
-  the AP1 collaboration letter covers AP2.
+- Supervisor decisions: final title; MemoriaBench is reported as an extension (decided 2 Nov,
+  to confirm with the supervisor); whether the AP1 collaboration letter covers AP2.
 - Fill the report's 14 `[PENDING]`, 26 `[TBD]` and 8 `[CONFIRM]` markers and the slides'
   18 `[FILL]`s; reconcile the engine test count (271 in the report, 291 now).
 - Point the report's appendix generator at `research/ledger-engine`; record the demo video.
@@ -156,4 +171,4 @@ after setup.
 
 - Apple Developer Program membership for notarisation (cost), or ad-hoc signing.
 - Which inherited Tolaria features remain visible in the product.
-- Supervisor: title, MemoriaBench's place in the report, collaboration letter scope.
+- Supervisor: title, agreement that MemoriaBench is an extension, collaboration letter scope.

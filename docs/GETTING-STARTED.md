@@ -96,49 +96,51 @@ under `/opt/homebrew` must remain installed and readable by all users.
    ```bash
    cd /Users/sayyid/Documents/memoria-workspace
    scripts/install-shared-runtime.sh --dry-run
-   scripts/install-shared-runtime.sh
+   scripts/install-shared-runtime.sh --copy-developer
+   cp scripts/uat/reset-demo.sh scripts/uat/memoria-doctor.sh /Users/Shared/Memoria/
+   /opt/homebrew/bin/python3.11 scripts/uat/build_demo_vault.py /Users/Shared/Memoria/demo-vault
    ```
 
-   The default is offline-only: it uses the developer's pip wheel cache plus
-   `~/Library/Caches/Memoria/wheels`. Pip's HTTP download cache is not an offline
-   wheel index. If wheels are missing, explicitly allow the one-time online step:
-
-   ```bash
-   scripts/install-shared-runtime.sh --allow-downloads
-   ```
-
-   Alternatively supply all pinned wheels with `--wheelhouse /path/to/wheels`.
-   No sudo is used. If a previous shared install belongs to someone else, stop
-   and have its owner/admin resolve ownership rather than running this script as
-   root. The script creates fresh speech/embed virtualenvs from committed
-   `scripts/runtime/*-requirements.txt` (`pip freeze`, including speech's inherited
-   system packages), copies only the three revisions in `models.json`, verifies
-   file sizes and package imports **without loading weights**, then writes ready
-   markers. Re-running skips unchanged model files and matching runtime installs.
-   Pip uses `--no-deps` with the full freezes to preserve the working versions:
-   speech's pinned `mlx-audio` declares newer MLX/Transformers than those currently
-   installed, so a fresh dependency solve would change or reject this environment.
-   HF symlinks are dereferenced: no model points into the developer's home.
-   Resemblyzer's voice encoder is supplied by its package, not a fourth HF cache.
-   Allow about 5.64 GiB for model copies, plus Python packages and cached wheels.
-   Shared files are developer-owned, world-readable and not group/world-writable;
-   directories and executable files are executable by other accounts.
+   `--copy-developer` reuses the packages of the working `.speech-runtime` and
+   `.embed-runtime` (same Homebrew interpreter; speech keeps its layering over
+   Homebrew's site-packages) and needs no package index. This is how the
+   2 November install was made: the configured package mirror lacks two pinned
+   wheels. Without it the script installs the committed
+   `scripts/runtime/*-requirements.txt` freezes from wheels, offline by default
+   (developer pip wheel cache plus `~/Library/Caches/Memoria/wheels`);
+   `--allow-downloads` permits the one-time online step and `--wheelhouse /path`
+   supplies all pinned wheels. Pip uses `--no-deps` with the full freezes because
+   speech's pinned `mlx-audio` declares newer MLX/Transformers than those
+   installed. Either way the script places the three revisions in `models.json`
+   under `/Users/Shared/Memoria/hf` as hard links when on the same volume (no
+   extra disk space; the files are made world-readable) and as copies otherwise,
+   never as symlinks into the developer's home. It verifies file sizes and package
+   imports **without loading weights**, then writes ready markers; reruns skip
+   unchanged files. No sudo is used. If a previous shared install belongs to
+   someone else, stop and have its owner resolve ownership rather than running as
+   root. Resemblyzer's voice encoder is supplied by its package, not a fourth HF
+   cache. Shared files are developer-owned, world-readable and not
+   group/world-writable.
 
 2. In **System Settings → Users & Groups → Add User**, authenticate and create a
    new **Standard** account (for example `memoria-ac7`). Do not copy the developer's
-   home, environment overrides, caches or vault settings into it. Manually quit
-   the developer's Memoria before switching accounts, so two ~5 GB model sets do
-   not compete on the 16 GB Mac.
-3. Log in to that account. Open the **tagged release DMG**, install
-   `Memoria Workspace.app` in `/Applications` (authenticate if asked), and open
-   `/Applications/Memoria Workspace.app`. Do not use the developer-only app in
-   `~/Applications`. Follow first-run macOS permissions normally; note any
-   Gatekeeper/signing failure rather than treating provisioning as acceptance.
-4. Choose a new writable workspace under the test account's home, wait for Speech,
-   Knowledge and Search readiness, and **complete UAT task 1** from the UAT runbook
-   (private `Memoria-FYP/report/uat/` materials). Record the tag/app version,
-   installer checksum, clean account, task outcome, permissions and screen
-   recording in the AC7 receipt. Provisioning/tests alone do **not** satisfy AC7.
+   home, environment overrides, caches or vault settings into it. Quit the
+   developer's Memoria before switching accounts, so two ~5 GB model sets do not
+   compete on the 16 GB Mac.
+3. Log in to that account. Open the **tagged release DMG** (`Memoria_0.2.0_aarch64.dmg`,
+   checksum in [RELEASE_RECORD.md](RELEASE_RECORD.md)), drag `Memoria.app` to
+   `/Applications` (authenticate if asked), and run
+   `/Users/Shared/Memoria/reset-demo.sh` (copies the starter vault to
+   `~/Documents/Memoria UAT`), then `/Users/Shared/Memoria/memoria-doctor.sh`, which
+   must print READY. The build is ad-hoc signed: the first open needs right-click >
+   Open. Follow first-run macOS permissions normally; note any Gatekeeper/signing
+   failure rather than treating provisioning as acceptance.
+4. Open `~/Documents/Memoria UAT` as the vault, wait for Speech, Knowledge and
+   Search readiness, and **complete UAT task 1** from the UAT runbook (private
+   `Memoria-FYP/report/uat/` materials). Record the tag/app version, installer
+   checksum, clean account, task outcome, permissions, the doctor output and the
+   screen recording in the AC7 receipt. Provisioning/tests alone do **not**
+   satisfy AC7.
 
 Resolution is `MEMORIA_SPEECH_PYTHON` / `MEMORIA_EMBED_PYTHON` /
 `MEMORIA_MEMORY_PYTHON` → complete `/Users/Shared/Memoria/runtime/{speech,embed}`
