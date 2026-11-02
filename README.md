@@ -43,7 +43,7 @@ Evidence and scripts: [research/](research/), [docs/research/](docs/research/), 
 
 ## Install (UAT build, Apple silicon, 16 GB)
 
-The [`v0.2.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.2.0-uat) disk image is ad-hoc signed (right-click > Open the first time). It does not yet bundle its Python runtimes and models: on the test Mac they are installed once for every account with `scripts/install-shared-runtime.sh`, and `scripts/uat/memoria-doctor.sh` prints READY when an account can run it. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record](docs/RELEASE_RECORD.md).
+The [`v0.3.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.0-uat) disk image is ad-hoc signed (right-click > Open the first time). It does not yet bundle its Python runtimes and models: on the test Mac they are installed once for every account with `scripts/install-shared-runtime.sh`, and `scripts/uat/memoria-doctor.sh` prints READY when an account can run it. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record](docs/RELEASE_RECORD.md).
 
 ## Develop
 
@@ -59,7 +59,7 @@ pnpm tauri dev               # native app; model setup in docs/DEVELOPMENT.md
 
 To see Memoria's own screens in the browser build against a real vault: `MEMORIA_DEV_VAULT=<vault> VITE_MEMORIA_DEV_BRIDGE=1 pnpm exec vite`.
 
-Tests: Rust 1,233, frontend 6,648, app Python 175 and ledger engine 291, all passing (2 November 2026; [verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)).
+Tests: Rust 1,234, frontend 6,769, app Python 214 and ledger engine 291, all passing (3 November 2026, before the `v0.3.0-uat` build; [verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)).
 
 React / TypeScript · Tauri / Rust · Python / MLX · Markdown / SQLite
 
