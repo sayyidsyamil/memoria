@@ -5,7 +5,7 @@ test_ch6_draft.py recomputes the headline figures from the raw predictions and c
 The draft is a stand-alone file. It is NOT in the report's build (build_ap2.sh lists its chapter files by name) and it changes no chapter.
 
     python3.11 make_ch6_draft.py            writes results/chapter6_memoriabench_draft.md
-    python3.11 make_ch6_draft.py --report   also copies it to ~/Desktop/FYP/report/ap2/ch06_memoriabench_draft.md
+    python3.11 make_ch6_draft.py --report   also copies it to ~/Documents/Memoria-FYP/report/ap2/ch06_memoriabench_draft.md
 """
 
 import csv
@@ -21,7 +21,10 @@ DATA = HERE / "data"
 SC = R / "scoping"
 BK = SC / "bakeoff"
 OUT = R / "chapter6_memoriabench_draft.md"
-REPORT_DIR = Path.home() / "Desktop" / "FYP" / "report" / "ap2"
+# The private report moved from ~/Desktop/FYP to ~/Documents/Memoria-FYP when the repositories were consolidated.
+REPORT_DIR = next((path for path in (Path.home() / "Documents" / "Memoria-FYP" / "report" / "ap2",
+                                     Path.home() / "Desktop" / "FYP" / "report" / "ap2") if path.exists()),
+                  Path.home() / "Documents" / "Memoria-FYP" / "report" / "ap2")
 REPORT_COPY = REPORT_DIR / "ch06_memoriabench_draft.md"
 CHAPTER_6 = REPORT_DIR / "ch06_results_discussion.md"
 

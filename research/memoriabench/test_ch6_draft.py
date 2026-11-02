@@ -299,7 +299,8 @@ def hygiene(text: str) -> None:
         check(f"the note says the report's tables run to 6.{highest}", f"Tables 6.1 to 6.{highest}" in text)
         check("the report's objectives are O1 to O3 and its questions RQ1 to RQ3, as the note says", all(f"| O{i} " in body or f"O{i} " in body for i in (1, 2, 3)) and "RQ4" not in body)
     check("the decision note to the author is present and says to agree it with the supervisor", "Agree this with the supervisor first." in text)
-    check("the draft is not in the report build", "ch06_memoriabench_draft" not in Path("~/Desktop/FYP/report/ap2/build_ap2.sh").expanduser().read_text(encoding="utf-8") if Path("~/Desktop/FYP/report/ap2/build_ap2.sh").expanduser().exists() else True)
+    build = D.REPORT_DIR / "build_ap2.sh"
+    check("the draft is not in the report build", "ch06_memoriabench_draft" not in build.read_text(encoding="utf-8") if build.exists() else True)
     check("the generator writes only the draft file", D.OUT.parent == R and D.REPORT_COPY.name == "ch06_memoriabench_draft.md")
 
 
