@@ -20,6 +20,9 @@ def serve(address, resident=False):
         server.settimeout(None if resident else 300)
         model = tokenizer = None
         if resident:
+            # App-managed only: a standalone worker outlives its short-lived caller on purpose.
+            from worker_lifetime import exit_with_parent
+            exit_with_parent(address)
             from huggingface_hub import snapshot_download
             from mlx_lm import load, generate
             model, tokenizer = load(snapshot_download('mlx-community/Qwen3.5-4B-MLX-4bit', local_files_only=True))

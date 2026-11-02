@@ -33,6 +33,8 @@ def serve(kind, address):
         loaded = (model, tokenizer, path)
     server = socket.socket(socket.AF_UNIX)
     server.bind(address); Path(address).chmod(0o600); server.listen(4)
+    from worker_lifetime import exit_with_parent
+    exit_with_parent(address)
     print(json.dumps({'ready': kind, 'pid': os.getpid(), 'mlxBytes': mx.get_active_memory()}), flush=True)
     original_input, original_output = sys.stdin, sys.stdout
     try:
