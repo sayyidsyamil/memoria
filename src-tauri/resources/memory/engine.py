@@ -274,12 +274,16 @@ class Engine:
                     for path, expected in proposal['targets'].items())
                 schema_path = safe_path(self.root, 'SCHEMA.md')
                 unchanged = unchanged and schema_path.exists() == proposal['schemaExists'] and digest(schema_path.read_text() if schema_path.exists() else SCHEMA) == proposal['schemaHash']
+                # A page created since this review would block its publication: rebuild instead.
+                unchanged = unchanged and not any(not claim.get('targetPath') and safe_path(self.root, claim.get('newPath') or new_page_path(claim)).exists()
+                    for claim in proposal['claims'])
+                unchanged = unchanged and not any(meeting_record_page(claim.get('targetPath') or '') for claim in proposal['claims'])
                 if unchanged:
                     return proposal
             # Source or destination changed since this review was built: retire it so only a fresh proposal remains actionable.
             self.db.execute("update proposals set status='stale' where id=?", (proposal['id'],))
             self.db.commit()
-        pages = [page for page in self.pages() if page['kind'] != 'Source']
+        pages = [page for page in self.pages() if page['kind'] != 'Source' and not meeting_record_page(page['path'])]
         related, retrieval, warning = self.related(text, pages)
         schema_path = safe_path(self.root, 'SCHEMA.md')
         schema = schema_path.read_text() if schema_path.exists() else SCHEMA
@@ -327,6 +331,13 @@ class Engine:
             note = (f"{rejected} suggested destination{'s' if rejected != 1 else ''} did not match an existing page of the "
                     f"same type; {'those claims' if rejected != 1 else 'that claim'} will create a new page instead.")
             warning = f'{warning} {note}' if warning else note
+        allocated = {}
+        for claim in claims:
+            if not claim['targetPath']:
+                base = new_page_path(claim)
+                if base not in allocated:
+                    allocated[base] = new_page_path(claim, self.root, set(allocated.values()))
+                claim['newPath'] = allocated[base]
         proposal = {'id': uuid.uuid4().hex, 'sourcePath': source_path, 'sourceHash': source_hash,
                     'sourceTitle': title_of(source, text), 'claims': claims, 'created': now(), 'model': MODEL,
                     'retrieval': retrieval, 'warning': warning, 'schemaHash': digest(schema), 'schemaExists': schema_path.exists(),
@@ -521,16 +532,17 @@ class Engine:
         writes = {}
         for claim in accepted:
             target = claim['targetPath']
+            if target and meeting_record_page(target):
+                raise ValueError(f'{target} is generated from its meeting record and cannot receive knowledge. Compile again.')
             if target:
                 current = safe_path(self.root, target).read_text()
                 if digest(current) != proposal['targets'].get(target):
                     raise ValueError(f'{target} changed since compilation. Compile again; your edits were preserved.')
             else:
-                slug = re.sub(r'[^a-z0-9]+', '-', claim['title'].lower()).strip('-')[:60] or 'knowledge'
-                target = f"knowledge/{claim['kind'].lower()}-{slug}.md"
+                target = claim.get('newPath') or new_page_path(claim)
                 current = None
                 if safe_path(self.root, target).exists():
-                    raise ValueError(f'{target} already exists. Compile again to merge it explicitly.')
+                    raise ValueError(f'{target} was created after this review was prepared. Compile again; existing text stays unchanged.')
             if target not in writes:
                 after = current or f"---\ntype: {claim['kind']}\ntitle: {json.dumps(claim['title'])}\n_organized: true\n---\n# {claim['title']}\n"
                 writes[target] = [current, after]
@@ -582,6 +594,24 @@ def canonical_quote(quote, text):
     match = re.search(r'\s*'.join(characters), text)
     return match.group(0) if match else None
 
+def meeting_record_page(path):
+    """meetings_service renders meetings/meeting-<id>.md from its record and guards the page with a
+    hash, so the knowledge layer must never append to it (user-written Meeting notes are fine)."""
+    return re.fullmatch(r'meetings/meeting-[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}\.md', str(path).replace(os.sep, '/')) is not None
+
+def new_page_path(claim, root=None, taken=frozenset()):
+    """Page for a claim without a destination. With a root, the first numbered variant that
+    does not exist yet, so two pages with the same generic title never collide or merge."""
+    slug = re.sub(r'[^a-z0-9]+', '-', claim['title'].lower()).strip('-')[:60] or 'knowledge'
+    base = f"knowledge/{claim['kind'].lower()}-{slug}"
+    if root is None:
+        return f'{base}.md'
+    for number in range(1, 1000):
+        path = f'{base}.md' if number == 1 else f'{base}-{number}.md'
+        if path not in taken and not safe_path(root, path).exists():
+            return path
+    raise ValueError('Too many knowledge pages share this title')
+
 def validate_claim(claim, units, related):
     if not isinstance(claim, dict):
         raise ValueError('Invalid claim')
@@ -596,6 +626,8 @@ def validate_claim(claim, units, related):
         raise ValueError('Claim quote does not match the cited evidence')
     claim = dict(claim, quote=quote)
     target = claim.get('targetPath')
+    if isinstance(target, str) and target.strip().lower() in ('', 'null', 'none'):
+        target = None  # Small models sometimes write the JSON null as a string.
     rejected = None
     if target is not None and not any(page['path'] == target and page['kind'] == claim['kind'] for page in related):
         # A destination is only a suggestion. One of another type, or an unknown path, must not
@@ -716,7 +748,7 @@ def approved_claims(engine):
         receipts = None
         for index, claim in enumerate(proposal['claims']):
             if not claim.get('accepted', True): continue
-            target = claim.get('targetPath') or f"knowledge/{claim['kind'].lower()}-{re.sub(r'[^a-z0-9]+', '-', claim['title'].lower()).strip('-')[:60] or 'knowledge'}.md"
+            target = claim.get('targetPath') or claim.get('newPath') or new_page_path(claim)
             if not safe_path(engine.root, target).exists():
                 if receipts is None: receipts = engine.db.execute('SELECT path,after_text FROM writes WHERE proposal=?', (proposal['id'],)).fetchall()
                 candidates = [path for path, after in receipts if path.startswith('knowledge/') and claim['statement'] in (after or '')]

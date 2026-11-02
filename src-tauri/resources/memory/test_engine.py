@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from engine import Engine, safe_path, validate_claim, parse_model_json
+from engine import Engine, safe_path, validate_claim, parse_model_json, approved_claims
 
 SOURCE = '---\ntype: Source\n---\n# Review\n\n## Page 1\n\nMaya confirmed launch on 19 November.\n'
 
@@ -200,6 +200,86 @@ class MemoryTests(unittest.TestCase):
             self.assertEqual(self.engine.apply(proposal['id'])['status'], 'applied')
         self.assertNotIn('Maya owns the pilot', (self.root / 'pilot.md').read_text())
         self.assertIn('Maya owns the pilot', (self.root / 'knowledge' / 'person-pilot-ownership.md').read_text())
+
+    def test_same_title_new_pages_never_collide_or_merge(self):
+        # Observed natively: two replay meetings both produced an "Audio replay test" Meeting claim;
+        # the second review could not be applied because the first page existed.
+        def meeting(statement):
+            return lambda prompt: json.dumps({'claims': [{'title': 'Audio replay test', 'kind': 'Meeting',
+                'statement': statement, 'evidenceId': 'E1', 'quote': statement, 'targetPath': None}]})
+        (self.root / 'first.md').write_text('---\ntype: Source\n---\n# First\n\n## Page 1\n\nThis is the first fictional meeting.\n')
+        (self.root / 'second.md').write_text('---\ntype: Source\n---\n# Second\n\n## Page 1\n\nThis is the second fictional meeting.\n')
+        with self.engine.locked():
+            first = self.engine.compile('first.md', meeting('This is the first fictional meeting.'))
+            self.assertEqual(first['claims'][0]['newPath'], 'knowledge/meeting-audio-replay-test.md')
+            self.engine.apply(first['id'])
+            before = (self.root / 'knowledge' / 'meeting-audio-replay-test.md').read_text()
+            second = self.engine.compile('second.md', meeting('This is the second fictional meeting.'))
+            self.assertEqual(second['claims'][0]['newPath'], 'knowledge/meeting-audio-replay-test-2.md')
+            self.assertEqual(self.engine.apply(second['id'])['status'], 'applied')
+        self.assertEqual((self.root / 'knowledge' / 'meeting-audio-replay-test.md').read_text(), before)
+        self.assertIn('second fictional meeting', (self.root / 'knowledge' / 'meeting-audio-replay-test-2.md').read_text())
+        pages = {item['statement']: item['knowledgePath'] for item in approved_claims(self.engine)}
+        self.assertEqual(pages['This is the second fictional meeting.'], 'knowledge/meeting-audio-replay-test-2.md')
+
+    def test_cached_review_is_rebuilt_when_its_new_page_appears(self):
+        def budget(prompt):
+            return json.dumps({'claims': [{'title': 'Pilot budget', 'kind': 'Decision', 'statement': 'Maya confirmed launch on 19 November.',
+                'evidenceId': 'E1', 'quote': 'Maya confirmed launch on 19 November.', 'targetPath': None}]})
+        with self.engine.locked():
+            pending = self.engine.compile('source.md', budget)
+            (self.root / 'knowledge').mkdir(exist_ok=True)
+            (self.root / 'knowledge' / 'decision-pilot-budget.md').write_text('Created elsewhere.')
+            # The review UI offers "Rebuild this review" only for errors that say "Compile again".
+            with self.assertRaisesRegex(ValueError, 'Compile again'):
+                self.engine.apply(pending['id'])
+            rebuilt = self.engine.compile('source.md', budget)
+        self.assertNotEqual(rebuilt['id'], pending['id'])
+        self.assertEqual(rebuilt['claims'][0]['newPath'], 'knowledge/decision-pilot-budget-2.md')
+        statuses = {proposal['id']: proposal['status'] for proposal in self.engine.list()}
+        self.assertEqual(statuses[pending['id']], 'stale')
+
+    def test_meeting_record_pages_never_receive_knowledge(self):
+        # Observed natively: knowledge appended to meetings/meeting-<id>.md made the meetings service
+        # report an external edit, and the reviewed meeting could no longer be saved.
+        record = 'meetings/meeting-6216a31f-5a35-41b5-8850-477405d88643.md'
+        (self.root / 'meetings').mkdir()
+        page = '---\ntype: Meeting\nmeeting_status: transcript-reviewed\n---\n# Audio replay test\n\nMaya confirmed launch on 19 November.\n'
+        (self.root / record).write_text(page)
+        def to_record(prompt):
+            self.assertNotIn(record, prompt)
+            return json.dumps({'claims': [{'title': 'Launch meeting', 'kind': 'Meeting', 'statement': 'Maya confirmed launch on 19 November.',
+                'evidenceId': 'E1', 'quote': 'Maya confirmed launch on 19 November.', 'targetPath': record}]})
+        with self.engine.locked():
+            proposal = self.engine.compile('source.md', to_record)
+            self.assertEqual((proposal['claims'][0]['targetPath'], proposal['claims'][0]['rejectedTarget']), (None, record))
+            self.engine.apply(proposal['id'])
+        self.assertEqual((self.root / record).read_text(), page)
+        self.assertTrue((self.root / 'knowledge' / 'meeting-launch-meeting.md').exists())
+
+    def test_review_aimed_at_a_meeting_record_is_rebuilt_not_applied(self):
+        record = 'meetings/meeting-6216a31f-5a35-41b5-8850-477405d88643.md'
+        (self.root / 'meetings').mkdir()
+        (self.root / record).write_text('---\ntype: Meeting\nmeeting_status: transcript-reviewed\n---\n# Review\n')
+        with self.engine.locked():
+            older = self.engine.compile('source.md', model)
+            payload = dict(older, claims=[dict(older['claims'][0], targetPath=record, kind='Meeting')])
+            payload['targets'][record] = 'unused'
+            self.engine.db.execute('update proposals set payload=? where id=?', (json.dumps(payload), older['id'])); self.engine.db.commit()
+            with self.assertRaisesRegex(ValueError, 'generated from its meeting record.*Compile again'):
+                self.engine.apply(older['id'])
+            rebuilt = self.engine.compile('source.md', model)
+        self.assertNotEqual(rebuilt['id'], older['id'])
+        self.assertNotIn('Maya confirmed', (self.root / record).read_text())
+
+    def test_null_written_as_text_means_no_destination(self):
+        # Observed natively: Qwen returned "targetPath": "null", which was reported as a mismatched page.
+        unit = {'id': 'E1', 'text': 'Maya confirmed launch on 19 November.', 'page': 1}
+        for empty in ['null', 'None', ' ']:
+            claim = dict(json.loads(model(''))['claims'][0], targetPath=empty)
+            validated = validate_claim(claim, [unit], [])
+            self.assertIsNone(validated['targetPath'])
+            self.assertNotIn('rejectedTarget', validated)
 
     def test_model_json_tolerates_fences_prose_and_missing_final_brackets(self):
         self.assertEqual(parse_model_json('```json\n{"a": [1, 2]}\n```'), {'a': [1, 2]})
