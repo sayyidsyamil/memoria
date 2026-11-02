@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { CaretUpDown, ListChecks, Warning, X } from '@phosphor-icons/react'
+import { CaretDown, CaretUpDown, ListChecks, Warning, X } from '@phosphor-icons/react'
 import { Button } from './ui/button'
 import { startMemoryJob } from '../lib/memoryJob'
 import { applySource, type PreparedSource } from '../lib/sourceImport'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
 import { clock, identifiedSpeakers, speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
-import { whenLabel } from '../lib/format'
+import { plural, whenLabel } from '../lib/format'
 import { Avatar, Chip, EmptyState, PillTabList, PillTabPanel, PillTabsRoot, SectionLabel, StateButton } from './memoriaUi'
 import { MeetingPlayer, type PlayerHandle } from './MeetingPlayer'
 import { MeetingSummary, type Mark } from './MeetingSummary'
@@ -28,7 +28,7 @@ const KNOWN_NAME = 'name:'
 function Fold({ title, count, defaultOpen, aside, children }: { title: string; count: number; defaultOpen: boolean; aside?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(defaultOpen)
   return <details className="review-fold" open={open} onToggle={event => setOpen(event.currentTarget.open)}>
-    <summary><span className="mui-label">{title} · {count}</span>{!open && aside}</summary>{children}
+    <summary><CaretDown size={12} className="review-fold-caret" aria-hidden="true" /><span className="mui-label">{title} · {count}</span>{!open && aside}</summary>{children}
   </details>
 }
 
@@ -179,14 +179,13 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   useEffect(() => { if (playing && active >= 0) rows.current[active]?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' }) }, [active, playing])
   const startedAt = whenLabel(created)
   const identified = identifiedSpeakers(speakers, names).length
-  const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? `${identified || 'No'} identified speaker${identified === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ')
+  const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? identified ? plural(identified, 'speaker') : 'Speaker not identified' : ''].filter(Boolean).join(' · ')
   const fallbackLength = Math.max(draft?.duration ?? 0, turns.length ? turns[turns.length - 1].end : 0)
 
   return <PillTabsRoot value={tab} onValueChange={value => setTab(value as MeetingTab)} className="meeting-review" asChild>
     <main>
       <header className="review-header" onMouseDown={event => { if (draggable && event.button === 0 && !(event.target as HTMLElement).closest('input, button, select, textarea')) void getCurrentWindow().startDragging() }}>
         <div className="review-heading">
-          <p className="review-eyebrow">{reviewed ? 'Reviewed meeting' : 'Meeting ended'}</p>
           <h1 className="sr-only">Review transcript</h1>
           <input className="review-title" aria-label="Meeting title" value={name} maxLength={200} disabled={busy} onChange={event => setName(event.target.value)} onBlur={() => { if (!name.trim()) setName(title) }} />
           {meta && <p className="review-meta">{meta}</p>}

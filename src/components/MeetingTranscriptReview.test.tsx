@@ -342,3 +342,13 @@ it('drops the draft voice embeddings once the review is saved', async () => {
   expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: { action: 'drop_voice_embeddings', vaultPath: '/vault', sessionId: 'session' } })
   expect(invoke).not.toHaveBeenCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'save_voice_profiles' }) })
 })
+it('states the meeting once: no status line above the title, speakers counted plainly, and folds that read as folds', () => {
+  render(<MeetingTranscriptReview vaultPath="/vault" sessionId="session" originalPath="/vault/audio.webm" title="Weekly sync" created="2026-11-03T02:00:00Z"
+    initialDraft={{ ...draft, segments: [{ start: 1, end: 2, speaker: 'S01', text: 'Hello' }, { start: 3, end: 4, speaker: 'S02', text: 'Hi' }, { start: 5, end: 6, speaker: 'unassigned', text: 'Sorry I am late' }] }}
+    initialMarks={[{ at: 1, label: '' }]} onClose={async () => undefined} />)
+  expect(screen.queryByText(/^(Meeting ended|Reviewed meeting)$/)).not.toBeInTheDocument()
+  expect(screen.getByText(/· 2 speakers$/)).toBeInTheDocument()
+  expect(screen.getByText('Draft — check before saving')).toBeInTheDocument()
+  const marked = screen.getByText(/Marked moments · 1/).closest('summary')!
+  expect(marked.querySelector('svg.review-fold-caret')).toHaveAttribute('aria-hidden', 'true')
+})
