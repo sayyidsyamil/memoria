@@ -5,9 +5,11 @@ selection differ. The app's exact numeric proof remains model-independent.
 """
 import math
 import os
+import re
 from collections import Counter
 
 MIN_SCORE = 1.0
+ISO_DATE = re.compile(r'\d{4}-\d{2}-\d{2}')
 CANDIDATES = 3
 
 _SYSTEM = "You check one spoken statement against one approved decision from a project meeting."
@@ -47,7 +49,13 @@ def decision(fact):
     # Current slot is explicit: a quote's replacement tail is history, not another
     # current fact. Inputs are approved quoted data, never instructions.
     quote = next(e['quote'] for e in fact['evidence'] if isinstance(e.get('quote'), str) and e['quote'].strip())
-    return f"{fact['label']} {fact['attribute']} is {fact['value']}. Approved quote: {quote}"
+    value = fact['value']
+    if (isinstance(value, (int, float)) and not isinstance(value, bool)) or (isinstance(value, str) and ISO_DATE.fullmatch(value)):
+        # Amounts and dates as people say them ("Pilot budget is RM 280,000", "9 Nov 2026"), not "Pilot budget (RM)
+        # amount is 280000": the raw form left "the pilot budget is now 300,000 ringgit" at log-odds 1.5.
+        from ask_facts import shown_in, subject
+        return f"{subject(fact['label'], fact['attribute'])} is {shown_in(value, fact['label'])}. Approved quote: {quote}"
+    return f"{fact['label']} {fact['attribute']} is {value}. Approved quote: {quote}"
 
 
 def candidates(statement, facts, tokens):
@@ -84,8 +92,10 @@ def confirm(statement, cited, alternatives, score):
     return (best, 'moved') if best_score >= MIN_SCORE else (None, 'dropped')
 
 
-def strongest(statement, facts, score, threshold=MIN_SCORE):
-    """(fact, log-odds) of the candidate the question confirms most strongly, or (None, best) below the threshold."""
+def strongest(statement, facts, score, threshold=MIN_SCORE, certain=5.0):
+    """(fact, log-odds) of the candidate the question confirms most strongly, or (None, best) below the threshold.
+    Candidates come best-matching first; a confirmation at `certain` or more ends the search, so a clear clash costs
+    one question instead of five while the meeting's speech competes for the same GPU."""
     best, best_score = None, float('-inf')
     for fact in facts:
         value = score(question(statement, decision(fact)))
@@ -93,4 +103,6 @@ def strongest(statement, facts, score, threshold=MIN_SCORE):
             raise ValueError('Guard returned an invalid log-odds score.')
         if value > best_score:
             best, best_score = fact, value
+        if value >= certain:
+            break
     return (best, best_score) if best_score >= threshold else (None, best_score)

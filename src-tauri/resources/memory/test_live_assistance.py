@@ -440,3 +440,39 @@ class GuardFirstTests(LiveFixture):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SpokenAmountTests(unittest.TestCase):
+    fact = {'label': 'Pilot budget (RM)', 'attribute': 'amount', 'value': 280000}
+
+    def test_another_figure_in_the_same_currency_contradicts_and_the_same_figure_agrees(self):
+        from live_assistance import _spoken_amount
+        self.assertIs(_spoken_amount('And the pilot budget is now 300,000 ringgit.', self.fact), True)
+        self.assertIs(_spoken_amount('The pilot budget is now RM 300k.', self.fact), True)
+        self.assertIs(_spoken_amount('The pilot budget is still 280,000 ringgit.', self.fact), False)
+        self.assertIs(_spoken_amount('The pilot budget is now 280 thousand ringgit.', self.fact), False)
+
+    def test_questions_history_other_currencies_and_unnamed_items_are_left_to_the_model(self):
+        from live_assistance import _spoken_amount
+        for statement in ('Is the pilot budget 300,000?', 'The pilot budget was 250,000 ringgit last month.',
+                          'The pilot budget is now 300,000 dollars.', 'We need 300,000 ringgit.', 'That is more than we agreed.',
+                          'The pilot budget is 300,000 or 320,000 ringgit.'):
+            self.assertIsNone(_spoken_amount(statement, self.fact), statement)
+        self.assertIsNone(_spoken_amount('The vendor is now Gamma.', {'label': 'Vendor', 'attribute': 'choice', 'value': 'Beta Cloud'}))
+
+
+class SpokenDateTests(unittest.TestCase):
+    fact = {'label': 'Go-live', 'attribute': 'date', 'value': '2026-11-09'}
+
+    def test_another_day_contradicts_and_the_approved_day_agrees(self):
+        from live_assistance import _spoken_date
+        self.assertIs(_spoken_date('The Go Live date is still the 9th of November.', self.fact), False)
+        self.assertIs(_spoken_date('The go-live date is now the 16th of November.', self.fact), True)
+        self.assertIs(_spoken_date('Go live moves to November 16, 2026.', self.fact), True)
+        self.assertIs(_spoken_date('Go live is the 9th of November 2027.', self.fact), True)
+
+    def test_history_questions_and_relative_days_are_left_to_the_model(self):
+        from live_assistance import _spoken_date
+        for statement in ('The go-live date was the 2nd of November.', 'Is go-live still the 9th of November?',
+                          'The go live date is next Friday.', 'Training is on the 9th of November.'):
+            self.assertIsNone(_spoken_date(statement, self.fact), statement)

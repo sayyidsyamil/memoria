@@ -155,6 +155,11 @@ def serve(address, resident=False):
             from mlx_lm import load, generate
             model, tokenizer = load(snapshot_download(LLM, local_files_only=True))
             generate(model, tokenizer, prompt='Ready', max_tokens=1, verbose=False)
+            # Two questions in the live check's form leave its shared opening cached, so the first sentence a
+            # meeting checks costs what every later one does.
+            import live_guard
+            for decision in ('Vendor is Alpha.', 'Budget is RM 1,000.'):
+                score_first_tokens(model, tokenizer, {'messages': live_guard.question('Ready.', decision), 'candidates': ['YES', 'NO']})
             import mlx.core as mx
             print(json.dumps({'ready': 'qwen', 'pid': __import__('os').getpid(), 'mlxBytes': mx.get_active_memory()}), flush=True)
         try:

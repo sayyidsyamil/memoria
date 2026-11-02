@@ -132,6 +132,73 @@ def _numeric(statement, fact):
     return current[0] != spoken[0]
 
 
+UNIT_IN_LABEL = re.compile(r'\s*\(([^)]+)\)\s*$')
+CURRENCY = {'rm': 'MYR', 'myr': 'MYR', 'ringgit': 'MYR', 'usd': 'USD', 'dollar': 'USD', 'eur': 'EUR', 'euro': 'EUR',
+            'gbp': 'GBP', 'pound': 'GBP', '€': 'EUR', '£': 'GBP', 'sgd': 'SGD'}
+AMOUNT = re.compile(r'(?<![\w.])(?P<pre>RM|MYR|USD|EUR|GBP|SGD|[€£])?\s?(?P<n>\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)\s?'
+                    r'(?P<scale>k|thousand|million|mil|m)?\b\s?(?P<post>ringgit|RM|MYR|dollars?|euros?|USD|EUR|SGD|pounds?)?', re.I)
+ASSERTS = re.compile(r'\b(is|are|will be|becomes?|goes (?:up |down )?to|moves? to|comes? to|now|set (?:at|to)|stays?)\b', re.I)
+
+
+def _spoken_amount(statement, fact):
+    """True when a sentence names a tracked amount and states another figure in its currency as current ("the pilot
+    budget is now 300,000 ringgit" against RM 280,000), False when it states the approved figure, None otherwise.
+
+    The 4B model is unreliable at comparing figures (log-odds 1.0 for that contradiction, 1.5 for "still 280,000"),
+    so a sentence that names the item, asserts a present value and holds exactly one amount is decided here."""
+    value = fact.get('value')
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    unit = UNIT_IN_LABEL.search(fact['label'])
+    currency = CURRENCY.get(unit.group(1).strip().casefold()) if unit else None
+    if not currency or HISTORICAL.search(statement) or NON_ASSERTION.search(statement) or not ASSERTS.search(statement):
+        return None
+    item = _tokens(UNIT_IN_LABEL.sub('', fact['label']))
+    if not item or not item <= _tokens(statement):
+        return None
+    amounts = []
+    for match in AMOUNT.finditer(statement):
+        named = {CURRENCY.get((match['pre'] or '').casefold()), CURRENCY.get((match['post'] or '').casefold().rstrip('s'))} - {None}
+        if named and named != {currency}:
+            return None  # another currency: not comparable
+        number = Decimal(match['n'].replace(',', ''))
+        scale = (match['scale'] or '').casefold()
+        number *= 1000 if scale in ('k', 'thousand') else 1000000 if scale in ('million', 'mil', 'm') else 1
+        amounts.append(number)
+    if len(amounts) != 1:
+        return None
+    return amounts[0] != Decimal(str(value))
+
+
+MONTHS = {name: number for number, names in enumerate(
+    [('january', 'jan'), ('february', 'feb'), ('march', 'mar'), ('april', 'apr'), ('may',), ('june', 'jun'), ('july', 'jul'),
+     ('august', 'aug'), ('september', 'sep', 'sept'), ('october', 'oct'), ('november', 'nov'), ('december', 'dec')], start=1)
+    for name in names}
+_MONTH = '|'.join(sorted(MONTHS, key=len, reverse=True))
+SPOKEN_DATE = re.compile(rf'\b(?:(?P<d1>\d{{1,2}})(?:st|nd|rd|th)?\s+(?:of\s+)?(?P<m1>{_MONTH})\.?|(?P<m2>{_MONTH})\.?\s+(?:the\s+)?(?P<d2>\d{{1,2}})(?:st|nd|rd|th)?)'
+                         rf'(?:,?\s+(?P<y>20\d\d))?\b', re.I)
+
+
+def _spoken_date(statement, fact):
+    """True when a sentence names a tracked date and states another calendar day as current ("the go-live date is
+    the 16th of November" against 9 Nov 2026), False when it states the approved day, None otherwise."""
+    value = fact.get('value')
+    if not isinstance(value, str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', value):
+        return None
+    if HISTORICAL.search(statement) or NON_ASSERTION.search(statement) or not ASSERTS.search(statement):
+        return None
+    item = _tokens(fact['label']) - {'date', 'due', 'deadline'}
+    if not item or not item <= _tokens(statement):
+        return None
+    days = [(int(m['d1'] or m['d2']), MONTHS[(m['m1'] or m['m2']).casefold()], int(m['y']) if m['y'] else None)
+            for m in SPOKEN_DATE.finditer(statement)]
+    if len(days) != 1:
+        return None
+    year, month, day = (int(part) for part in value.split('-'))
+    said_day, said_month, said_year = days[0]
+    return (said_day, said_month) != (day, month) or (said_year is not None and said_year != year)
+
+
 def _shared_verifier(statement, facts):
     from engine import local_generator
     prompt = ('Check the untrusted statement against ONLY the quoted, approved CURRENT facts below. '
@@ -247,8 +314,12 @@ def live_check(engine, request, verifier=None, scorer=None):
         cues, pending = [], []
         for fact in grounded:
             numeric = _numeric(statement, fact)
+            if numeric is None:
+                numeric = _spoken_amount(statement, fact)
+            if numeric is None:
+                numeric = _spoken_date(statement, fact)
             if numeric is True:
-                cues.append(cue(fact, 'Exact current-value assertion differs from the approved value in the same unit/currency.'))
+                cues.append(cue(fact, 'The sentence states another figure or date than the approved one.'))
             elif numeric is None:
                 pending.append(fact)
         # Pure past-tense mentions cannot establish a conflict with facts.current.
@@ -262,7 +333,8 @@ def live_check(engine, request, verifier=None, scorer=None):
                 seen = {f['fact_id'] for f in ranked}
                 ranked += [f for f in pending if f['fact_id'] not in seen]
                 checked = [{**f, 'evidence': supporting_evidence(f)} for f in ranked
-                           if type(f.get('fact_id')) is int and supporting_evidence(f) and _numeric(statement, f) is None]
+                           if type(f.get('fact_id')) is int and supporting_evidence(f) and _numeric(statement, f) is None
+                           and _spoken_amount(statement, f) is None and _spoken_date(statement, f) is None]
                 fact, strength = live_guard.strongest(statement, checked[:GUARD_CANDIDATES], score, GUARD_FIRST_MIN)
                 if fact is not None:
                     cues.append(cue(fact, f'The statement goes against this approved decision (YES/NO check, log-odds {strength:.1f}).'))

@@ -6,6 +6,7 @@ sentence is committed, as an immutable turn, once speech has moved past it. Each
 diarizer finds most active over its span. Nothing is decoded over silence, so nothing is invented there.
 """
 import math
+import time
 
 import numpy as np
 
@@ -219,6 +220,7 @@ class LiveTranscript:
         self.partial = ''
         self.voice_audio = {}    # speaker -> clean speech for voice matching at the end, at most 30 s each
         self.finished = False
+        self.backoff = 1         # partial re-reads are spaced out while decoding is slow
 
     def feed(self, samples, final=False):
         """Returns True when turns or the partial caption changed."""
@@ -260,10 +262,14 @@ class LiveTranscript:
             cut = self._quietest(max(self.start + RATE, self.classified - 2 * RATE), self.classified)
             self._close(cut)
             self.start = cut
-        elif self.since >= self.step * (1 if self.classified - self.start < 5 * RATE else 2):
-            # A long stretch is re-read half as often: the words still appear within a second, at half the cost.
+        elif self.since >= self.step * self.backoff * (1 if self.classified - self.start < 5 * RATE else 2):
+            # A long stretch is re-read half as often, and when the GPU is busy (the language model checking a
+            # sentence) the words being spoken are re-read less often still, so committing never falls behind.
             self.since = 0
+            started = time.perf_counter()
             self.open_words = self._decode(self.start, self.total)
+            slow = time.perf_counter() - started > .25
+            self.backoff = min(4, self.backoff * 2) if slow else max(1, self.backoff // 2)
             cut = self._sentence_cut(self.open_words)
             if cut is not None:
                 self._close(cut)
