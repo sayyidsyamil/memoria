@@ -1,5 +1,5 @@
 import type { ReactNode, Ref, UIEvent } from 'react'
-import { ArrowsOutSimple, CaretUp, Check, Flag, Microphone, Pause, Play, SpinnerGap, Stop } from '@phosphor-icons/react'
+import { ArrowsOutSimple, CaretUp, Check, Flag, Microphone, Pause, Play, SpinnerGap, Stop, WarningCircle } from '@phosphor-icons/react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import type { TranscriptDraft } from './MeetingTranscriptReview'
 import { speakerLabel, speakerOrder, speakerTone } from '../lib/speakers'
@@ -7,22 +7,41 @@ import { COMPACT_BARS, PREPARATION_STEPS, clockText } from '../lib/hud'
 import { Avatar, LevelMeter } from './memoriaUi'
 import './meetingHud.css'
 import type { LiveCue } from '../features/temporal/liveAssistanceService'
+import { attributeLabel, formatValue, labelUnit, meetingLabel, type MeetingTitles } from '../features/temporal/temporalFormat'
 import { LiveAskPanel } from '../features/temporal/LiveAskPanel'
 
 export type HudState = 'starting' | 'recording' | 'paused' | 'saving' | 'error'
 export interface HudViewProps {
   sourceKind?: 'microphone' | 'replay'; replayNotice?: string; progressText?: string
   vaultPath?: string
-  assistanceEnabled?: boolean; onToggleAssistance?: (enabled: boolean) => void; liveCues?: LiveCue[]; assistanceNotice?: string
+  assistanceEnabled?: boolean; onToggleAssistance?: (enabled: boolean) => void; liveCues?: LiveCue[]; assistanceNotice?: string; cueMeetingTitles?: MeetingTitles
   state: HudState; saveStage: string; seconds: number; levels: number[]; prep: number; captionsOpen: boolean
   liveTurns: TranscriptDraft['segments']; caption: string; captionError: string; marks: { at: number; label: string }[]; markNotice: string; error: string; micWait?: boolean
   transcriptRef?: Ref<HTMLDivElement>; onTranscriptScroll?: (event: UIEvent<HTMLDivElement>) => void
   onToggleCaptions: (open: boolean) => void; onOpenWorkspace: () => void; onPause: () => void; onEnd: () => void; onMark: () => void
 }
 
+const PLAIN_ATTRIBUTES = new Set(['outcome', 'value', 'amount', 'date'])
+
+/** A statement just made contradicts an approved value: show that value, the words that set it, and who said them when. */
+function LiveCueCard({ cue, titles }: { cue: LiveCue; titles?: MeetingTitles }): ReactNode {
+  const holdsNumber = typeof cue.currentValue === 'number'
+  const { title, unit } = labelUnit(cue.label, holdsNumber)
+  const name = PLAIN_ATTRIBUTES.has(cue.attribute.toLowerCase()) ? title : `${title} ${attributeLabel(cue.attribute).toLowerCase()}`
+  const value = formatValue(cue.currentValue as Parameters<typeof formatValue>[0], holdsNumber ? 'number' : undefined, unit)
+  const source = [cue.speaker || 'Unknown speaker', meetingLabel(cue.meeting, titles ?? new Map()), typeof cue.at === 'number' ? clockText(Math.floor(cue.at)) : null]
+  return <article className="meeting-hud-cue">
+    <p className="meeting-hud-cue-kicker"><WarningCircle size={14} weight="fill" aria-hidden="true" />Earlier decision</p>
+    <p className="meeting-hud-cue-value">{name} is <strong>{value}</strong></p>
+    <blockquote>“{cue.quote}”</blockquote>
+    <small>{source.filter(Boolean).join(' · ')}</small>
+    <details><summary>Why this was flagged</summary><p>{cue.reason}</p></details>
+  </article>
+}
+
 /** Presentation only: the notch, its preparation steps and the expanded Record view. */
 export function MeetingHudView({ state, saveStage, seconds, levels, prep, captionsOpen, liveTurns, caption, captionError, marks, markNotice, error, micWait,
-  assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, vaultPath, sourceKind, replayNotice, progressText,
+  assistanceEnabled, onToggleAssistance, liveCues, assistanceNotice, cueMeetingTitles, vaultPath, sourceKind, replayNotice, progressText,
   transcriptRef, onTranscriptScroll, onToggleCaptions, onOpenWorkspace, onPause, onEnd, onMark }: HudViewProps): ReactNode {
   const liveOrder = speakerOrder(liveTurns.map(turn => turn.speaker))
   const statusText = state === 'starting' ? 'Preparing' : state === 'recording' ? 'Recording' : state === 'paused' ? 'Paused' : state === 'saving' ? saveStage : 'Needs attention'
@@ -48,7 +67,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         {progressText && <p role="status" className="meeting-hud-hint" aria-label="Caption audio progress">{progressText}</p>}
         {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Check against approved tracked facts</label>}
         {assistanceNotice && <p className="meeting-hud-caption-warning" role="status">{assistanceNotice}</p>}
-        {!!liveCues?.length && <section className="meeting-hud-evidence" aria-label="Evidence to review">{liveCues.map(cue => <details key={`${cue.factId}:${cue.reason}`}><summary>{cue.label}: {String(cue.currentValue)}</summary><p>{cue.reason}</p><blockquote>{cue.quote}</blockquote><small>{cue.speaker || 'Unknown speaker'} · {cue.meeting || 'Approved memory'}</small></details>)}</section>}
+        {!!liveCues?.length && <section className="meeting-hud-evidence" aria-label="Earlier decisions to check" aria-live="polite">{liveCues.map(cue => <LiveCueCard key={`${cue.factId}:${cue.reason}`} cue={cue} titles={cueMeetingTitles} />)}</section>}
         {captionError && <p role="alert" className="meeting-hud-caption-warning">Live transcript paused. Your recording is preserved.</p>}
         {transcript}
         {vaultPath && <LiveAskPanel vaultPath={vaultPath} sessionText={caption} enabled={capturing} />}
@@ -70,7 +89,8 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
       </div>
       {state !== 'starting' && <><span className="meeting-hud-time" aria-label="Meeting duration">{clockText(seconds)}</span>
       <span className="meeting-hud-divider" />
-      <button className="meeting-hud-captions-toggle" aria-label="Toggle live captions" aria-expanded={captionsOpen} title="Show transcript" onClick={() => onToggleCaptions(true)}>CC</button></>}
+      <button className="meeting-hud-captions-toggle" aria-label="Toggle live captions" aria-expanded={captionsOpen} title="Show transcript" onClick={() => onToggleCaptions(true)}>CC</button>
+      {!!liveCues?.length && <button className="meeting-hud-cue-badge" aria-label={`${liveCues.length} earlier ${liveCues.length === 1 ? 'decision' : 'decisions'} to check`} title="Something said contradicts an earlier decision" onClick={() => onToggleCaptions(true)}><WarningCircle size={14} weight="fill" aria-hidden="true" />{liveCues.length}</button>}</>}
       <div className="meeting-hud-controls">
         {state !== 'starting' && <><button className="meeting-hud-control" aria-label="Open workspace" title="Open workspace" onClick={onOpenWorkspace}><ArrowsOutSimple size={17} /></button>
         <button className="meeting-hud-control" aria-label={state === 'paused' ? 'Resume' : 'Pause'} title={state === 'paused' ? 'Resume recording' : 'Pause recording'} disabled={!capturing} onClick={onPause}>{state === 'paused' ? <Play size={17} weight="fill" /> : <Pause size={17} weight="fill" />}</button></>}

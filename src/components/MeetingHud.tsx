@@ -11,6 +11,7 @@ import { clockText } from '../lib/hud'
 import { meetingService } from '../features/meetings/meetingService'
 import { recordingService, recordingSource } from '../features/meetings/recordingService'
 import type { LiveCue } from '../features/temporal/liveAssistanceService'
+import { useMeetingTitles } from '../features/temporal/useMeetingTitles'
 import { LiveEvidenceQueue } from '../features/temporal/liveEvidenceQueue'
 import { Button } from './ui/button'
 
@@ -75,6 +76,7 @@ export function MeetingHud() {
   const followTranscript = useRef(true)
   const [assistanceEnabled, setAssistanceEnabled] = useState(false)
   const [liveCues, setLiveCues] = useState<LiveCue[]>([])
+  const { titles: cueMeetingTitles } = useMeetingTitles(vaultPath)
   const [assistanceNotice, setAssistanceNotice] = useState('')
   const assistanceTurns = useRef(liveTurns)
   const assistance = useRef<LiveEvidenceQueue | null>(null)
@@ -336,7 +338,7 @@ export function MeetingHud() {
     vaultPath={vaultPath}
     sourceKind={replayMode ? 'replay' : 'microphone'} replayNotice={replayNotice}
     progressText={audioProgress ? `${(audioProgress.queuedSamples / audioProgress.sampleRate).toFixed(1)}s queued · ${(audioProgress.processedSamples / audioProgress.sampleRate).toFixed(1)}s acknowledged${audioProgress.refusedSamples || audioProgress.unacknowledgedSamples ? ` · ${((audioProgress.refusedSamples + audioProgress.unacknowledgedSamples) / audioProgress.sampleRate).toFixed(1)}s not captioned` : ''}${speechProgress ? ` · ${speechProgress}` : ''}` : speechProgress}
-    assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={assistanceEnabled ? liveCues : []} assistanceNotice={assistanceEnabled ? assistanceNotice : ''}
+    assistanceEnabled={assistanceEnabled} onToggleAssistance={setAssistanceEnabled} liveCues={assistanceEnabled ? liveCues : []} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
     liveTurns={liveTurns} caption={caption} captionError={captionError} marks={marks} markNotice={markNotice} error={error} micWait={micSlow && state === 'starting' && prep === 0}
     transcriptRef={transcriptView} onTranscriptScroll={event => { const view = event.currentTarget; followTranscript.current = view.scrollHeight - view.scrollTop - view.clientHeight < 40 }}
     onToggleCaptions={setCaptionsOpen} onOpenWorkspace={() => { void invoke('show_meeting_workspace') }} onPause={() => { void pause() }} onEnd={() => { void end() }} onMark={markMoment} />

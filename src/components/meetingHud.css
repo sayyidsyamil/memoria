@@ -74,10 +74,17 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-bar-title { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--hud-muted); }
 .meeting-hud-record { display: flex; flex: 1; flex-direction: column; align-items: center; min-height: 0; padding: 4px 28px 0; }
 .meeting-hud-assistance-toggle { display: flex; align-items: center; gap: 8px; align-self: stretch; padding: 8px 0; font-size: 12px; color: var(--hud-muted); }
-.meeting-hud-evidence { width: 100%; max-height: 140px; overflow-y: auto; padding: 8px 12px; border: 1px solid var(--hud-line); border-radius: 8px; font-size: 12px; }
-.meeting-hud-evidence summary { cursor: pointer; color: var(--hud-text); }
-.meeting-hud-evidence p, .meeting-hud-evidence blockquote { margin: 8px 0; }
-.meeting-hud-evidence small { color: var(--hud-muted); }
+.meeting-hud-evidence { display: flex; flex-direction: column; gap: 8px; width: 100%; max-height: 240px; overflow-y: auto; }
+.meeting-hud-cue { padding: 10px 12px; border: 1px solid #f5b94a55; border-left: 3px solid #f5b94a; border-radius: 8px; background: #f5b94a14; font-size: 13px; line-height: 1.45; }
+.meeting-hud-cue-kicker { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; color: #f5b94a; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.meeting-hud-cue-value { margin: 0; color: var(--hud-text); font-size: 15px; }
+.meeting-hud-cue blockquote { margin: 6px 0 4px; color: var(--hud-text); font-style: normal; }
+.meeting-hud-cue small { color: var(--hud-muted); }
+.meeting-hud-cue details { margin-top: 4px; color: var(--hud-muted); }
+.meeting-hud-cue summary { cursor: pointer; font-size: 12px; }
+.meeting-hud-cue details p { margin: 4px 0 0; }
+.meeting-hud-cue-badge { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border: 0; border-radius: 999px; color: #1a1a1a; background: #f5b94a; font-size: 12px; font-weight: 600; cursor: pointer; }
+.meeting-hud-cue-badge:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .meeting-hud-pill { display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 500; color: #f0a39d; background: #ee817a1f; }
 .meeting-hud-pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .meeting-hud[data-state='recording'] .meeting-hud-pill i { background: currentColor; }
