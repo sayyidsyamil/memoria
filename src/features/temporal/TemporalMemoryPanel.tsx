@@ -397,7 +397,7 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
   return <section className="temporal-memory" aria-label={meetingId ? 'Decisions from this meeting' : 'Decision board'} aria-busy={!!busy}>
     <header className="temporal-header"><div>
       <h2>{meetingId ? 'Decisions from this meeting' : 'Decisions and commitments'}</h2>
-      <p>{meetingId ? 'Each suggestion waits for your approval before it joins the board.' : 'What was decided and who owes what, each with the words that set it.'}</p>
+      <p>{meetingId ? 'What this meeting decided and who owes what, each with the words that set it.' : 'What was decided and who owes what, each with the words that set it.'}</p>
     </div><div className="temporal-status">
       {/* One quiet line for progress and results, so that the list never jumps while you work through it. The first load says so in the body. */}
       <p role="status">{overview ? busy ?? message ?? '' : ''}</p>
