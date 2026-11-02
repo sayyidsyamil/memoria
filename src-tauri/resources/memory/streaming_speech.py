@@ -211,9 +211,9 @@ class LiveTranscript:
     """Captions for one meeting from Parakeet, over stretches of speech cut where the speaker pauses.
 
     While someone speaks, the open stretch (at most ten seconds) is decoded again every half second for the words
-    being spoken. When they pause for half a second, or the stretch reaches ten seconds and is cut at its quietest
-    moment, the stretch is decoded once more and its sentences are committed as immutable turns as soon as the
-    diarizer has caught up with them. Stretches never overlap, so no word is committed twice, and silence is never
+    being spoken. When they pause for half a second (by the voice detector or, in steady noise, by the diarizer), after
+    a finished sentence, or when the stretch reaches ten seconds and is cut at its quietest moment, the stretch is
+    decoded once more and its sentences are committed as immutable turns as soon as the diarizer has caught up. Stretches never overlap, so no word is committed twice, and silence is never
     decoded, so nothing is invented there."""
 
     def __init__(self, models, step=.5, pause=.5, longest=10.0, preroll=.25, preset='very_low'):
