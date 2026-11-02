@@ -15,6 +15,7 @@ from types import SimpleNamespace
 from memoria_engine.ledger import Ledger
 from memoria_engine.service import Service, registry_from_json
 from temporal_support import temporal_home, valid_current, supporting_evidence
+import live_guard
 
 MAX_STATEMENT = 2000
 MAX_FACTS = 5
@@ -144,18 +145,39 @@ def _verdict(raw, facts):
     return raw
 
 
-def live_check(engine, request, verifier=None):
+def live_check(engine, request, verifier=None, scorer=None):
     """Check {statement, meetingId?}; never ingest, approve or change memory.
 
     meetingId is optional context, not a filter on workspace current facts.
     Cues' at fields are evidence audio offsets (seconds), not wall-clock dates.
-    One bounded semantic call uses the existing worker timeout; injected
-    verifiers must provide their own timeout. Late results are discarded.
+    Semantic alerts require first-token YES/NO confirmation, then up to three
+    lexical attribution candidates. Exact numeric proofs remain deterministic.
+    Injected verifier(statement, facts) and scorer(messages) must provide their
+    own timeout. All late results are discarded; socket scoring uses the remaining
+    CHECK_SECONDS budget. MEMORIA_GUARD=off preserves the unguarded comparison.
     """
     started = time.perf_counter()
     service = None
     statement = request.get('statement') if isinstance(request, dict) else None
     warnings = []
+
+    def time_left():
+        remaining = CHECK_SECONDS - (time.perf_counter() - started)
+        if remaining <= 0:
+            raise TimeoutError('Live verification time budget exceeded.')
+        return remaining
+
+    def score(messages):
+        remaining = time_left()
+        if len(json.dumps(messages, ensure_ascii=False)) > MAX_CONTEXT:
+            raise ValueError('Guard evidence exceeds the live-check context limit.')
+        if scorer is None:
+            from qwen_scoring import score as shared_score
+            value = shared_score(messages, timeout=min(110, remaining))
+        else:
+            value = scorer(messages)
+        time_left()
+        return value
 
     def result(status, cues=None):
         return {'ok': True, 'data': {'status': status, 'statement': statement,
@@ -220,16 +242,33 @@ def live_check(engine, request, verifier=None):
                 uncertain = True
             else:
                 try:
+                    time_left()
                     verdict = _verdict((verifier or _shared_verifier)(statement, payload), payload)
-                    if time.perf_counter() - started > CHECK_SECONDS:
-                        raise ValueError('Live verification time budget exceeded.')
+                    time_left()
                     if verdict['contradiction']:
                         fact = next(f for f in pending if f['fact_id'] == verdict['factId'])
-                        if not _presence(statement, fact['label']):
+                        named = _presence(statement, fact['label'])
+                        reason = verdict['reason']
+                        if live_guard.enabled():
+                            # Attribution may recover a current slot outside the
+                            # auditor's five, never an old/pending/unquoted fact.
+                            alternatives = live_guard.candidates(statement, current, _tokens)
+                            alternatives = [{**f, 'evidence': supporting_evidence(f)} for f in alternatives
+                                            if type(f.get('fact_id')) is int and supporting_evidence(f)
+                                            and _presence(statement, f['label'])
+                                            and _numeric(statement, f) is None]
+                            fact, action = live_guard.confirm(statement, fact, alternatives, score,
+                                                              cited_eligible=named)
+                            if action == 'dropped':
+                                warnings.append('Guard dropped semantic cue: no eligible candidate confirmed at log-odds >= 1.0.')
+                            elif action == 'moved':
+                                warnings.append('Guard moved semantic cue to the best confirmed current fact.')
+                                reason = 'Statement clashes with this independently confirmed approved current fact.'
+                        if fact is not None and _presence(statement, fact['label']):
+                            cues.append(cue(fact, reason))
+                        elif not named:
                             warnings.append('Verifier conflict lacked an explicit tracked subject; cue suppressed.')
                             uncertain = True
-                        else:
-                            cues.append(cue(fact, verdict['reason']))
                 except Exception as error:
                     warnings.append(f'Verification unavailable or invalid: {str(error)[:300]}')
                     uncertain = True

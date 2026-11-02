@@ -57,7 +57,8 @@ class LiveAssistanceTests(unittest.TestCase):
         # A mock default guarantees a test cannot accidentally start a model.
         if verifier is None:
             verifier = Mock(side_effect=AssertionError('Unexpected verification'))
-        reply = live_check(self.engine, {'statement': statement, **params}, verifier)
+        reply = live_check(self.engine, {'statement': statement, **params}, verifier,
+                           scorer=lambda messages: 2.0)
         self.assertTrue(reply['ok'], reply)
         data = reply['data']
         self.assertEqual(set(data), {'status', 'statement', 'cues', 'warnings', 'seconds'})
