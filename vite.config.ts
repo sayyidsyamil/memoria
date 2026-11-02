@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 import { vaultApiPlugin } from "./scripts/vault-api-plugin";
+import { memoriaDevBridgePlugin } from "./scripts/memoria-dev-bridge";
 
 const vitestCoverageDirectory =
 	process.env.VITEST_COVERAGE_DIR ??
@@ -40,13 +41,25 @@ function mcpBridgeInfoPlugin(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
-	plugins: [react(), tailwindcss(), vaultApiPlugin(), mcpBridgeInfoPlugin()],
+	plugins: [react(), tailwindcss(), vaultApiPlugin(), memoriaDevBridgePlugin(), mcpBridgeInfoPlugin()],
 	cacheDir: process.env.MEMORIA_VITE_CACHE_DIR,
 
 	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "./src"),
-		},
+		alias: [
+			{ find: "@", replacement: path.resolve(__dirname, "./src") },
+			// Development bridge only: route @tauri-apps/api/core's invoke to the browser mock.
+			...(process.env.VITE_MEMORIA_DEV_BRIDGE === "1"
+				? [
+						{
+							find: /^@tauri-apps\/api\/core$/,
+							replacement: path.resolve(
+								__dirname,
+								"./src/mock-tauri/tauri-core-shim.ts",
+							),
+						},
+					]
+				: []),
+		],
 	},
 
 	// Inject the demo-vault-v2 path in local dev only — production Tauri builds and

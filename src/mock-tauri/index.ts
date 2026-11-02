@@ -7,6 +7,7 @@
 import { MOCK_CONTENT } from './mock-content'
 import { mockHandlers, addMockEntry, updateMockContent, trackMockChange } from './mock-handlers'
 import { tryVaultApi } from './vault-api'
+import { NOT_BRIDGED, tryMemoriaBridge } from './memoria-bridge'
 import { assertVaultWritable } from '../lib/offline/offlineMode'
 import { resolveBrowserBackendKind } from '../lib/platformCapabilities'
 
@@ -65,6 +66,8 @@ async function simulateIpcLatency(): Promise<void> {
 
 export async function mockInvoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T> {
   if (VAULT_WRITE_COMMANDS.has(cmd)) assertVaultWritable('saving changes')
+  const bridged = await tryMemoriaBridge(cmd, args)
+  if (bridged !== NOT_BRIDGED) return bridged as T
   const vaultResult = await tryVaultApi<T>(cmd, args)
   if (vaultResult !== undefined) return vaultResult
 
