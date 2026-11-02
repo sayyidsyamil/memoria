@@ -10,6 +10,7 @@
 @media (max-width: 550px) { .knowledge-review-toolbar { flex-wrap: wrap; } .knowledge-review-footer { flex-wrap: wrap; } }
 .knowledge-review-message { margin: 14px 24px 0; flex-shrink: 0; overflow-wrap: anywhere; }
 .knowledge-review-body { flex: 1; min-height: 100px; overflow-y: auto; padding: 20px 24px; scrollbar-width: thin; }
+.knowledge-review-header + .knowledge-review-body { border-top: 1px solid var(--border); }
 .knowledge-review-proposal { display: flex; flex-direction: column; gap: 12px; }
 .knowledge-review-proposal + .knowledge-review-proposal { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 24px; }
 .knowledge-review-source { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }

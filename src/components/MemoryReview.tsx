@@ -27,6 +27,11 @@ const STATUS_CHIPS: Record<string, { label: string; tone: 'green' | 'orange' | '
   stale: { label: 'Outdated — source or knowledge changed', tone: 'orange' }, rejected: { label: 'Rejected', tone: 'neutral' },
 }
 
+/** A knowledge page as people name it: "knowledge/Digital Procurement Pilot.md" is "Digital Procurement Pilot". */
+function pageName(path: string): string {
+  return path.split('/').pop()?.replace(/\.md$/i, '') || path
+}
+
 export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrigger = false, inline = false, buildOnOpen = true, initialHistory = false, triggerIcon, triggerLabel = 'Review knowledge', badge }: {
   vaultPath: string; sourcePath?: string; autoOpen?: boolean; hideTrigger?: boolean
   /** Render the review in place instead of in a dialog. */
@@ -118,7 +123,7 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
     }}>{triggerIcon ?? <ListChecks size={16} />}<span>{triggerLabel}</span>{!!badge && <span className="workspace-row-count" data-attention="true">{badge}</span>}</Button>)
 
   const content = <>
-    {(!inline || available.length > 1 || hasHistory) && <div className="knowledge-review-toolbar"><span>{showHistory ? 'Completed & pending' : 'Waiting for review'} <span className="text-muted-foreground">{available.length}</span></span>{available.length > 1 && <select aria-label="Choose source to review" value={current?.id ?? ''} onChange={event => setSelectedReview(event.target.value)}>{available.map(proposal => <option value={proposal.id} key={proposal.id}>{proposal.sourceTitle}</option>)}</select>}{hasHistory && <button onClick={() => setShowHistory(value => !value)}>{showHistory ? 'Hide completed reviews' : 'Show completed reviews'}</button>}</div>}
+    {((!inline && available.length > 0) || available.length > 1 || hasHistory) && <div className="knowledge-review-toolbar"><span>{showHistory ? 'Completed & pending' : 'Waiting for review'} <span className="text-muted-foreground">{available.length}</span></span>{available.length > 1 && <select aria-label="Choose source to review" value={current?.id ?? ''} onChange={event => setSelectedReview(event.target.value)}>{available.map(proposal => <option value={proposal.id} key={proposal.id}>{proposal.sourceTitle}</option>)}</select>}{hasHistory && <button onClick={() => setShowHistory(value => !value)}>{showHistory ? 'Hide completed reviews' : 'Show completed reviews'}</button>}</div>}
     {operation && <div className="knowledge-review-message space-y-2"><p role="status" className="text-sm">{operation === 'compile' ? stage : PROGRESS[operation]}</p>
       {operation === 'compile' && <Button variant="outline" onClick={() => { setStage('Cancelling…'); void cancel.current?.().catch(error => setError(String(error))) }}>Cancel build</Button>}
     </div>}
@@ -129,7 +134,7 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
     <div className="knowledge-review-body">
       {!operation && visible.length === 0 && !error && (inline && sourcePath
         ? <EmptyState icon={<ListChecks size={20} />} title="No outcomes proposed yet" action={<Button disabled={Boolean(operation)} onClick={() => { void run('compile') }}>Build knowledge</Button>}>Memoria reads this reviewed transcript and suggests decisions, commitments and people. Nothing is saved until you approve it.</EmptyState>
-        : <div className="space-y-2 py-4">
+        : <div className="space-y-1">
           <p className="font-medium">No changes waiting for review</p>
           <p className="text-sm text-muted-foreground">Suggestions from meeting outcomes and imported files appear here.</p>
         </div>)}
@@ -147,14 +152,14 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
         {proposal.claims.map((claim, index) => <article key={index} className="knowledge-claim" data-included={claim.accepted === false ? 'false' : 'true'}>
           <div className="knowledge-claim-head">
             <Chip tone={kindTone(claim.kind)}>{claim.kind}</Chip>
-            <Chip>{claim.targetPath ? 'Adds to existing page' : 'New page'}</Chip>
+            <Chip>{claim.targetPath ? 'Update' : 'New page'}</Chip>
             {proposal.status === 'pending' && <label className="knowledge-claim-include"><Checkbox checked={claim.accepted !== false} disabled={Boolean(operation)} onCheckedChange={value => editClaim(proposal.id, index, { accepted: value === true })} />Include this suggestion</label>}
           </div>
           <h4>{claim.title}</h4>
           {proposal.status === 'pending'
             ? <label className="block"><span className="sr-only">Reviewed statement</span><Textarea aria-label={`Statement: ${claim.title}`} value={claim.statement} disabled={Boolean(operation) || claim.accepted === false} maxLength={1200} onChange={event => editClaim(proposal.id, index, { statement: event.target.value })} /></label>
             : <p className="knowledge-claim-statement">{claim.statement}</p>}
-          {claim.targetPath && <p className="knowledge-claim-destination">Destination: {claim.targetPath}. Existing text stays unchanged.</p>}
+          {claim.targetPath && <p className="knowledge-claim-destination">Adds to {pageName(claim.targetPath)}. Its existing text stays as it is.</p>}
           <details className="knowledge-review-evidence" open>
             <summary>Source evidence · page {claim.page}</summary>
             <blockquote>{claim.quote}</blockquote>
@@ -165,7 +170,7 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
         {proposal.status === 'applied' && <Button variant="outline" disabled={Boolean(operation)} onClick={() => { void run('undo', proposal.id) }}>Undo saved changes</Button>}
       </section>)}
     </div>
-    <footer className="knowledge-review-footer"><span>{current?.status === 'pending' ? 'Nothing is added until you save.' : inline ? 'Approved knowledge appears under All approved.' : 'Nothing is added until you save.'}</span>{current?.status === 'pending'
+    <footer className="knowledge-review-footer"><span>{current?.status === 'pending' ? 'Nothing is added until you save.' : inline ? 'Approved knowledge is listed under Approved.' : ''}</span>{current?.status === 'pending'
       ? <div className="flex gap-2"><Button disabled={Boolean(operation)} variant="ghost" onClick={() => { void run('reject', current.id) }}>Skip source</Button>
         <StateButton disabled={!canSave} status={operation === 'apply' ? 'working' : 'idle'} labels={{ idle: 'Save changes', working: 'Saving…', done: 'Saved' }} onClick={() => { void run('apply', current.id) }} /></div>
       : inline ? null : <Button variant="ghost" onClick={() => setOpen(false)}>Done</Button>}</footer>
