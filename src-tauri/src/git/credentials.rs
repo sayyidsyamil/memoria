@@ -107,7 +107,7 @@ mod tests {
 
     #[test]
     fn credential_fill_input_extracts_https_remote_parts() {
-        let input = credential_fill_input("https://github.com/refactoringhq/tolaria.git").unwrap();
+        let input = credential_fill_input("https://github.com/refactoringhq/memoria.git").unwrap();
 
         assert!(input.contains("protocol=https\n"));
         assert!(input.contains("host=github.com\n"));

@@ -14,14 +14,14 @@
     "fileSize": 443,
     "snippet": "The original spike that proved Memoria could read a markdown vault, render note metadata, and support keyboard-first navigation. Set the initial four-panel layo...",
     "relationships": {
-      "owner": [
-        "[[person-luca-rossi]]"
+      "belongs_to": [
+        "[[24q4]]"
       ],
       "Type": [
         "[[project]]"
       ],
-      "belongs_to": [
-        "[[24q4]]"
+      "owner": [
+        "[[person-luca-rossi]]"
       ]
     },
     "wordCount": 38,
@@ -43,11 +43,11 @@
     "fileSize": 320,
     "snippet": "The quarter where the Laputa prototype became real enough to replace sketches and notes. Started 24q4-laputa-start as the first working app spike. Captured the ...",
     "relationships": {
-      "Type": [
-        "[[quarter]]"
-      ],
       "has": [
         "[[24q4-laputa-start]]"
+      ],
+      "Type": [
+        "[[quarter]]"
       ]
     },
     "wordCount": 29,
@@ -75,11 +75,11 @@
       "belongs_to": [
         "[[25q1]]"
       ],
-      "Type": [
-        "[[project]]"
-      ],
       "owner": [
         "[[person-luca-rossi]]"
+      ],
+      "Type": [
+        "[[project]]"
       ]
     },
     "wordCount": 31,
@@ -130,17 +130,17 @@
     "fileSize": 463,
     "snippet": "The active polish project used for current QA, especially richer editing, keyboard navigation, and attachment rendering. Tightened the editor interaction model....",
     "relationships": {
-      "related_to": [
-        "[[laputa-qa-reference]]"
-      ],
       "owner": [
         "[[person-luca-rossi]]"
       ],
-      "Type": [
-        "[[project]]"
-      ],
       "belongs_to": [
         "[[25q2]]"
+      ],
+      "related_to": [
+        "[[laputa-qa-reference]]"
+      ],
+      "Type": [
+        "[[project]]"
       ]
     },
     "wordCount": 33,
@@ -184,11 +184,11 @@
     "fileSize": 203,
     "snippet": "The business-facing area used in QA to anchor a responsibility with linked procedures and metrics.",
     "relationships": {
-      "Type": [
-        "[[area]]"
-      ],
       "has": [
         "[[responsibility-sponsorships]]"
+      ],
+      "Type": [
+        "[[area]]"
       ]
     },
     "wordCount": 15,
@@ -217,18 +217,18 @@
       "[[person-luca-rossi]]",
       "[[person-matteo-cellini]]"
     ],
-    "fileSize": 287,
+    "fileSize": 286,
     "snippet": "Short checkpoint on V1 priorities: stabilize quick open, tighten keyboard navigation, and keep the inspector fast.",
     "relationships": {
+      "related_to": [
+        "[[person-luca-rossi]]",
+        "[[person-matteo-cellini]]"
+      ],
       "belongs_to": [
         "[[25q1-laputa-v1]]"
       ],
       "Type": [
         "[[event]]"
-      ],
-      "related_to": [
-        "[[person-luca-rossi]]",
-        "[[person-matteo-cellini]]"
       ]
     },
     "wordCount": 16,
@@ -252,11 +252,11 @@
     "fileSize": 407,
     "snippet": "This note anchors the fixture's binary attachment scenario and gives native QA a simple note with an embedded image. !Fixture reference image Use this note to c...",
     "relationships": {
-      "related_to": [
-        "[[25q2-laputa-v2]]"
-      ],
       "Type": [
         "[[note]]"
+      ],
+      "related_to": [
+        "[[25q2-laputa-v2]]"
       ]
     },
     "wordCount": 44,
@@ -320,6 +320,26 @@
     "fileKind": "markdown"
   },
   {
+    "path": "memoria-sheet-prototype-sample.md",
+    "filename": "memoria-sheet-prototype-sample.md",
+    "title": "Memoria Sheet Prototype Sample",
+    "isA": "Note",
+    "fileSize": 507,
+    "snippet": "Metric,January,February,March,Quarter Subscriptions,1200,1350,1500,=SUM(B2:D2) Services,800,900,700,=SUM(B3:D3) Expenses,650,700,760,=SUM(B4:D4) Net,=B2+B3-B4,=...",
+    "relationships": {
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "display": "sheet",
+    "wordCount": 43,
+    "properties": {
+      "tags": "spreadsheet"
+    },
+    "hasH1": false,
+    "fileKind": "markdown"
+  },
+  {
     "path": "note-on-clear-prose.md",
     "filename": "note-on-clear-prose.md",
     "title": "On Clear Prose",
@@ -327,11 +347,11 @@
     "fileSize": 151,
     "snippet": "Reference note for a book worth reopening whenever prose starts to feel bloated.",
     "relationships": {
-      "Type": [
-        "[[note]]"
-      ],
       "topics": [
         "[[topic-writing]]"
+      ],
+      "Type": [
+        "[[note]]"
       ]
     },
     "wordCount": 13,
@@ -396,11 +416,11 @@
     "fileSize": 422,
     "snippet": "Review the pipeline, choose the next target companies, and send a fresh outreach batch each quarter. Start from last quarter's warm leads. Share the shortlist w...",
     "relationships": {
-      "owner": [
-        "[[person-matteo-cellini]]"
-      ],
       "belongs_to": [
         "[[responsibility-sponsorships]]"
+      ],
+      "owner": [
+        "[[person-matteo-cellini]]"
       ],
       "Type": [
         "[[procedure]]"
@@ -433,11 +453,11 @@
       "belongs_to": [
         "[[responsibility-sponsorships]]"
       ],
-      "Type": [
-        "[[procedure]]"
-      ],
       "owner": [
         "[[person-luca-rossi]]"
+      ],
+      "Type": [
+        "[[procedure]]"
       ]
     },
     "wordCount": 25,
@@ -488,19 +508,19 @@
     "fileSize": 547,
     "snippet": "The compact responsibility used to verify that wikilink-valued fields render as relationships instead of plain text properties. status stays a normal property. ...",
     "relationships": {
-      "has_procedures": [
-        "[[procedure-quarterly-sponsor-outreach]]",
-        "[[procedure-sponsor-onboarding]]"
-      ],
-      "belongs_to": [
-        "[[area-building]]"
+      "has_measures": [
+        "[[measure-sponsorship-mrr]]",
+        "[[measure-close-rate]]"
       ],
       "Type": [
         "[[responsibility]]"
       ],
-      "has_measures": [
-        "[[measure-sponsorship-mrr]]",
-        "[[measure-close-rate]]"
+      "belongs_to": [
+        "[[area-building]]"
+      ],
+      "has_procedures": [
+        "[[procedure-quarterly-sponsor-outreach]]",
+        "[[procedure-sponsor-onboarding]]"
       ]
     },
     "wordCount": 31,
@@ -524,26 +544,6 @@
     },
     "wordCount": 73,
     "hasH1": true,
-    "fileKind": "markdown"
-  },
-  {
-    "path": "memoria-sheet-prototype-sample.md",
-    "filename": "memoria-sheet-prototype-sample.md",
-    "title": "Memoria Sheet Prototype Sample",
-    "isA": "Note",
-    "fileSize": 507,
-    "snippet": "Metric,January,February,March,Quarter Subscriptions,1200,1350,1500,=SUM(B2:D2) Services,800,900,700,=SUM(B3:D3) Expenses,650,700,760,=SUM(B4:D4) Net,=B2+B3-B4,=...",
-    "relationships": {
-      "Type": [
-        "[[note]]"
-      ]
-    },
-    "display": "sheet",
-    "wordCount": 43,
-    "properties": {
-      "tags": "spreadsheet"
-    },
-    "hasH1": false,
     "fileKind": "markdown"
   },
   {
