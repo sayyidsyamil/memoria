@@ -26,11 +26,19 @@ def public_tree(root):
 
 
 def copy_if_changed(source, target):
-    source, target = Path(source), Path(target)
+    """Link the model file into the shared cache when both are on one volume (no second copy of
+    several GB; the file is the same, made world-readable), else copy it."""
+    source, target = Path(source).resolve(), Path(target)
     if target.is_symlink():
         raise ValueError(f'Refusing destination symlink: {target}')
+    if target.is_file() and target.stat().st_ino == source.stat().st_ino:
+        return str(target)
     if not target.is_file() or source.stat().st_size != target.stat().st_size or source.stat().st_mtime_ns != target.stat().st_mtime_ns:
-        shutil.copy2(source, target)
+        target.unlink(missing_ok=True)
+        try:
+            os.link(source, target)
+        except OSError:
+            shutil.copy2(source, target)
     return str(target)
 
 
@@ -54,10 +62,31 @@ def offline_requirements(text):
     return '\n'.join(result) + '\n'
 
 
+def install_offline(interpreter, lock, wheelhouse):
+    """Install the exact lock from the wheelhouse and pip's wheel cache, never from an index."""
+    cache = Path(subprocess.check_output([str(PYTHON), '-m', 'pip', 'cache', 'dir'], text=True).strip())
+    with tempfile.TemporaryDirectory(prefix='memoria-wheels-', dir=wheelhouse) as temporary:
+        links = Path(temporary)
+        for root in (wheelhouse, cache / 'wheels'):
+            for wheel in root.rglob('*.whl'):
+                if links not in wheel.parents:
+                    link = links / wheel.name
+                    if not link.exists():
+                        link.symlink_to(wheel.resolve())
+        requirements = links / 'requirements.txt'
+        requirements.write_text(offline_requirements(lock.read_text()))
+        try:
+            run(interpreter, '-m', 'pip', 'install', '--no-deps', '--no-index', '--find-links', links, '-r', requirements)
+        except subprocess.CalledProcessError:
+            raise SystemExit('Offline wheels incomplete. Retry with --allow-downloads while online, supply --wheelhouse '
+                             'with all pinned wheels, or use --copy-developer.') from None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dry-run', action='store_true', help='read-only plan with exact snapshot sizes')
     parser.add_argument('--allow-downloads', action='store_true', help='allow pip to obtain missing wheels online')
+    parser.add_argument('--copy-developer', action='store_true', help="copy the developer's working .speech-runtime/.embed-runtime packages (same interpreter) instead of installing wheels")
     parser.add_argument('--source-hf', type=Path, default=Path(os.environ.get('HF_HOME', str(Path.home() / '.cache/huggingface'))))
     parser.add_argument('--wheelhouse', type=Path, default=Path.home() / 'Library/Caches/Memoria/wheels', help='persistent wheel cache, outside the shared install')
     args = parser.parse_args()
@@ -109,30 +138,28 @@ def main():
             # (pip otherwise treats damaged .dist-info as already installed).
             if base.exists():
                 shutil.rmtree(base)
-            run(PYTHON, '-m', 'venv', base)
+            developer = HERE.parents[1] / f'.{kind}-runtime'
+            # The developer speech runtime layers its packages over Homebrew's shared site-packages
+            # (readable by every account); mirror that so the same imports resolve.
+            layered = args.copy_developer and 'include-system-site-packages = true' in (developer / 'pyvenv.cfg').read_text()
+            run(PYTHON, '-m', 'venv', *(['--system-site-packages'] if layered else []), base)
             interpreter = base / 'bin/python'
-            if args.allow_downloads:
+            if args.copy_developer:
+                # Same Homebrew interpreter, so the installed packages are reused as they are, without
+                # an index (the configured package mirror lacks some pinned wheels).
+                source = developer / 'lib' / 'python3.11' / 'site-packages'
+                if not source.is_dir():
+                    raise SystemExit(f'No developer runtime at {source}')
+                run('rsync', '-a', '--delete', f'{source}/', f'{base}/lib/python3.11/site-packages/')
+            elif args.allow_downloads:
                 # This consults pip's HTTP cache too. Download/build once, install
                 # from wheels afterwards; direct URLs remain pinned in the lock.
                 # Reproduce the complete freeze, not a fresh dependency solve:
                 # speech's pinned mlx-audio metadata requests newer MLX and
                 # Transformers than the developer's working installed versions.
                 run(interpreter, '-m', 'pip', 'wheel', '--no-deps', '-r', lock, '--wheel-dir', args.wheelhouse)
-            cache = Path(subprocess.check_output([str(PYTHON), '-m', 'pip', 'cache', 'dir'], text=True).strip())
-            with tempfile.TemporaryDirectory(prefix='memoria-wheels-', dir=args.wheelhouse) as temporary:
-                links = Path(temporary)
-                for root in (args.wheelhouse, cache / 'wheels'):
-                    for wheel in root.rglob('*.whl'):
-                        if links not in wheel.parents:
-                            link = links / wheel.name
-                            if not link.exists():
-                                link.symlink_to(wheel.resolve())
-                requirements = links / 'requirements.txt'
-                requirements.write_text(offline_requirements(lock.read_text()))
-                try:
-                    run(interpreter, '-m', 'pip', 'install', '--no-deps', '--no-index', '--find-links', links, '-r', requirements)
-                except subprocess.CalledProcessError:
-                    raise SystemExit('Offline wheels incomplete. Retry with --allow-downloads while online, or supply --wheelhouse with all pinned wheels.') from None
+            if not args.copy_developer:
+                install_offline(interpreter, lock, args.wheelhouse)
         modules = ('mlx.core, mlx_lm, mlx_audio.stt, resemblyzer, soundfile, huggingface_hub' if kind == 'speech'
                    else 'mlx.core, mlx_vlm.embedding_loader, transformers, huggingface_hub')
         env = dict(os.environ, HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1', PYTHONDONTWRITEBYTECODE='1')
