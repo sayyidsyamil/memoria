@@ -122,6 +122,7 @@ it('shows live counts in the sidebar rows, flags waiting suggestions and changed
   fireEvent.click(decisions)
   expect(within(await screen.findByRole('tab',{name:/Decisions/})).getByLabelText('needs attention')).toBeInTheDocument()
   expect(within(screen.getByRole('tab',{name:/Approved/})).getByLabelText('needs attention')).toBeInTheDocument()
+  expect(document.querySelector('.hub-footer')).toHaveTextContent('3 suggestions to review')
 })
 it('lists the Memoria places in one sidebar list, with further rows such as Review at its end', () => {
   render(<WorkspaceMemoryHub vaultPath="/vault"><button type="button">Review</button></WorkspaceMemoryHub>)
@@ -134,7 +135,6 @@ it('opens on Decisions, the decision board, by default', async () => {
   fireEvent.click(screen.getByRole('button',{name:'Decisions'}))
   expect(await screen.findByRole('tab',{name:'Decisions'})).toHaveAttribute('aria-selected','true')
   expect(screen.getByRole('region',{name:'Decision board'})).toBeInTheDocument()
-  expect(screen.getByText('Nothing here changes without your approval')).toBeInTheDocument()
 })
 it('opens a section on request, as the app does at startup', async () => {
   vi.mocked(invoke).mockResolvedValue([])
@@ -154,7 +154,7 @@ it('switches between all six sections without closing the dialog', async () => {
   expect(await screen.findByRole('textbox', { name: 'Search meetings and approved knowledge' })).toBeInTheDocument()
   fireEvent.click(screen.getByRole('tab', { name: /Briefs/ }))
   await waitFor(() => expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: { action: 'briefs', vaultPath: '/vault' } }))
-  fireEvent.click(await screen.findByRole('button', { name: 'New brief' }))
+  fireEvent.click(await screen.findByRole('button', { name: 'Create a brief' }))
   expect(await screen.findByRole('textbox', { name: 'Question or meeting topic' })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Create brief' })).toBeInTheDocument()
 })
@@ -224,4 +224,37 @@ it('does not let a stale request overwrite the current view or its error', async
   await act(async () => { rejectMeetings(new Error('Old request failed')) })
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /Briefs/ })).toHaveAttribute('aria-selected', 'true')
+})
+it('reports a list that failed to load under its title, offers to try again, and counts nothing meanwhile', async () => {
+  let fail = true
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    const action = (args as { request: { action: string } }).request.action
+    if (action === 'meetings' && fail) throw new Error('The local memory runtime is not responding.')
+    return action === 'meetings' ? [meeting()] : []
+  })
+  renderOpen('meetings')
+  const alert = await screen.findByRole('alert')
+  expect(alert).toHaveTextContent(/^The local memory runtime is not responding\.$/)
+  expect(alert.closest('.hub-alert')?.previousElementSibling).toHaveClass('hub-page-heading')
+  expect(document.querySelector('.hub-footer')).toHaveTextContent(/^Done$/)
+  expect(screen.queryByRole('textbox', { name: 'Search meetings' })).not.toBeInTheDocument()
+  fail = false
+  fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+  expect(await screen.findByText('Pilot review')).toBeInTheDocument()
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(document.querySelector('.hub-footer')).toHaveTextContent('1 meeting')
+  expect(screen.getByRole('textbox', { name: 'Search meetings' })).toBeInTheDocument()
+})
+it('keeps one way to start a brief: the empty state when there are none, the page action when there are', async () => {
+  vi.mocked(invoke).mockResolvedValue([])
+  const view = renderOpen('briefs')
+  expect(await screen.findByRole('button', { name: 'Create a brief' })).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: 'New brief' })).not.toBeInTheDocument()
+  view.unmount()
+  vi.mocked(invoke).mockResolvedValue([{ id: 'b1', topic: 'Pilot launch', pagePath: 'briefs/pilot.md', created: '2026-11-02T08:15:00Z' }])
+  renderOpen('briefs')
+  expect(await screen.findByRole('button', { name: 'Open brief Pilot launch' })).toHaveTextContent(/^Open$/)
+  expect(screen.getByRole('button', { name: 'New brief' })).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: 'Create a brief' })).not.toBeInTheDocument()
+  expect(document.querySelector('.hub-footer')).toHaveTextContent('1 saved brief')
 })

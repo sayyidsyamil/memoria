@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from './ui/dial
 import { MeetingTranscriptReview, type MeetingTab, type TranscriptDraft } from './MeetingTranscriptReview'
 import { MemoryAsk, type AskMode } from './MemoryAsk'
 import { MemorySearch } from './MemorySearch'
-import { Avatar, Chip, EmptyState, LifecycleRail, PillTabList, PillTabPanel, PillTabsRoot, SectionLabel, type RailState } from './memoriaUi'
+import { Avatar, Chip, EmptyState, LifecycleRail, PillTabList, PillTabPanel, PillTabsRoot, type RailState } from './memoriaUi'
 import { openNoteInNewWindow } from '../utils/openNoteWindow'
 import { kindTone } from '../lib/knowledgeKinds'
 import { dayLabel, plural, whenLabel } from '../lib/format'
@@ -58,6 +58,10 @@ function nextAction(meeting: Meeting): { label: string; tab: MeetingTab } {
   if (meeting.outcomesStatus !== 'approved') return { label: 'Review outcomes', tab: 'summary' }
   return { label: 'Open meeting', tab: 'summary' }
 }
+/** A failure as people read it: the message, without a leading "Error:". */
+function errorText(failure: unknown): string {
+  return failure instanceof Error ? failure.message : String(failure)
+}
 /** One avatar per meeting (first identified speaker), with a count when more people spoke. Keeps titles aligned. */
 function LeadAvatar({ meeting }: { meeting: Meeting }) {
   const speakers = (meeting.turns ?? []).map(turn => turn.speaker)
@@ -100,12 +104,12 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
     try {
       const result = next === 'meetings' ? await meetingService.list(vaultPath) : await invoke('wiki_memory', { request: { action: next, vaultPath } })
       if (version !== loadVersion.current) return
-      if (!Array.isArray(result)) throw new Error('This view could not be loaded. Close it and try again.')
+      if (!Array.isArray(result)) throw new Error('This list could not be loaded.')
       if (next === 'meetings') setMeetings([...(result as Meeting[])].sort((a, b) => (b.created ?? '').localeCompare(a.created ?? '') || a.id.localeCompare(b.id)))
       if (next === 'approved') setApproved(result as Approved[])
       if (next === 'briefs') setBriefs([...(result as Brief[])].sort((a, b) => b.created.localeCompare(a.created) || a.id.localeCompare(b.id)))
       setLoaded(previous => ({ ...previous, [next]: true }))
-    } catch (failure) { if (version === loadVersion.current) setError(String(failure)) }
+    } catch (failure) { if (version === loadVersion.current) setError(errorText(failure)) }
     finally { if (version === loadVersion.current) setBusy(false) }
   }, [vaultPath])
   function open(next: HubView) { if (next === view) return; ++loadVersion.current; setBusy(false); setError(''); setView(next); setSearch(''); setKind('all'); void load(next) }
@@ -121,7 +125,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
       if (current.draft && current.turns?.length) current.draft.segments = current.turns
       if (current.draft) current.draft.speakerMatches = Object.fromEntries(Object.entries(current.names ?? {}).map(([speaker, name]) => [speaker, { id: current.profileIds?.[speaker] ?? '', name }]))
       setMeeting({ ...current, initialTab: tab, initialSeek: at })
-    } catch (failure) { setError(String(failure)) }
+    } catch (failure) { setError(errorText(failure)) }
     finally { setResuming(null) }
   }
   const text = search.trim().toLowerCase()
@@ -133,7 +137,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
       setMeetings(previous => previous.filter(item => item.id !== deleteTarget.id))
       setDeleteTarget(null)
       await load('meetings'); onChanged?.()
-    } catch (failure) { setDeleteError(String(failure)) }
+    } catch (failure) { setDeleteError(errorText(failure)) }
     finally { setDeleting(false) }
   }
   const matches = (value: string) => value.toLowerCase().includes(text)
@@ -166,9 +170,18 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
   const row = (icon: ReactNode, label: string, target: HubView, value?: number, attention = false, hint?: string) => <Button variant="ghost" className="workspace-row" aria-label={value ? `${label}, ${value}${hint ? ` ${hint}` : ''}` : undefined} onClick={() => open(target)}>
     {icon}<span>{label}</span>{!!value && <span className="workspace-row-count" data-attention={attention || undefined}>{value}</span>}
   </Button>
-  const openPage = (path: string, title: string) => { void openNoteInNewWindow(`${vaultPath}/${path}`, vaultPath, title).catch(failure => setError(String(failure))) }
+  const openPage = (path: string, title: string) => { void openNoteInNewWindow(`${vaultPath}/${path}`, vaultPath, title).catch(failure => setError(errorText(failure))) }
   const openMoment = (id: string, at: number) => { void resume(id, 'transcript', at) }
   const current = view ?? 'facts'
+  const listed = current === 'meetings' || current === 'approved' || current === 'briefs'
+  const pages = new Set(approved.map(item => item.knowledgePath)).size
+  // Counts only once the list has loaded; while loading, or after a failed load, there is nothing to count.
+  const footer = current === 'facts' ? (waiting ? `${plural(waiting, 'suggestion')} to review` : '')
+    : current === 'search' ? 'Keyword search over saved transcripts and approved claims'
+      : current === 'ask' || !loaded[current] ? ''
+        : current === 'approved' ? `${plural(approved.length, 'approved claim')}${pages ? ` across ${plural(pages, 'page')}` : ''}${changed ? ` · ${changed} ${changed === 1 ? 'needs' : 'need'} review` : ''}`
+          : current === 'briefs' ? plural(briefs.length, 'saved brief') : plural(meetings.length, 'meeting')
+  const filterable = (current === 'meetings' && meetings.length > 0) || (current === 'approved' && approved.length > 0)
   useImperativeHandle(ref, () => ({ open }))
   return <>
     <nav className="memory-hub-navigation" aria-label="Meeting memory">
@@ -186,18 +199,20 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
         <PillTabsRoot value={current} onValueChange={value => open(value as HubView)} className="hub-root">
           <header className="hub-header">
             <PillTabList label="Memory sections" value={current} tabs={tabs} onSelect={value => open(value as HubView)} />
-            {(view === 'meetings' || view === 'approved') && <label className="hub-search"><MagnifyingGlass size={14} aria-hidden="true" />
+            {filterable && <label className="hub-search"><MagnifyingGlass size={14} aria-hidden="true" />
               <input aria-label={view === 'approved' ? 'Search approved knowledge' : 'Search meetings'} placeholder={view === 'approved' ? 'Filter claims and sources' : 'Filter meetings and people'} value={search} onChange={event => setSearch(event.target.value)} /></label>}
           </header>
-          {error && <p role="alert" className="hub-error">{error}</p>}
           <div className="hub-page-heading" hidden={current === 'facts'}>
             <div><h1>{tabs.find(item => item.value === current)?.label}</h1>
-              <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Answers from knowledge you have approved' : current === 'approved' ? 'Accepted claims with their original evidence' : 'Context for your next conversation'}</p></div>
+              <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Questions and briefs from approved knowledge' : current === 'approved' ? 'What you approved, with the quote it came from' : 'Cited notes for your next meeting'}</p></div>
             {current === 'meetings' && <div className="flex gap-2">
-              {onReplayMeeting && <Button size="sm" variant="outline" onClick={() => { setView(null); onReplayMeeting() }}>Replay audio test</Button>}
+              {onReplayMeeting && <Button size="sm" variant="ghost" onClick={() => { setView(null); onReplayMeeting() }}>Replay a recording</Button>}
               {meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
             </div>}
+            {current === 'briefs' && briefs.length > 0 && <Button size="sm" onClick={() => { setAskMode('brief'); open('ask') }}>New brief</Button>}
           </div>
+          {error && <div className="hub-alert"><p role="alert">{error}</p>
+            {listed && !busy && !loaded[current] && <Button size="sm" variant="outline" onClick={() => { void load(current) }}>Try again</Button>}</div>}
           <div className="hub-body" data-view={current}>
             {busy && !loaded[current] && <p role="status" className="hub-loading">Loading {current === 'approved' ? 'approved knowledge' : current}…</p>}
             <PillTabPanel value="meetings">
@@ -256,26 +271,20 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
                   </li>)}
                 </ul>
               </section>)}
-              {!busy && loaded.approved && !approved.length && <EmptyState icon={<SealCheck size={20} />} title="Nothing approved yet">Approve suggestions from a meeting or an imported document. They are listed here with their exact source quote.</EmptyState>}
+              {!busy && loaded.approved && !approved.length && <EmptyState icon={<SealCheck size={20} />} title="Nothing approved yet">Knowledge you approve from meetings and imported documents is listed here with its source quote. Accepted decisions and commitments are on the Decisions tab.</EmptyState>}
               {!busy && !!approved.length && !groups.length && <p className="hub-muted">No approved claims match this filter.</p>}
             </PillTabPanel>
             <PillTabPanel value="briefs" className="hub-briefs">
-              <section className="hub-saved">
-                <div className="hub-saved-head"><SectionLabel>Saved briefs{loaded.briefs ? ` · ${briefs.length}` : ''}</SectionLabel>
-                  <Button size="sm" onClick={() => { setAskMode('brief'); open('ask') }}>New brief</Button></div>
-                {briefs.map(item => <article key={item.id} className="hub-brief">
-                  <FileText size={18} aria-hidden="true" />
-                  <div><h3>{item.topic}</h3><p className="hub-meta">{dayLabel(item.created)} · {whenLabel(item.created).split(', ').pop()}</p></div>
-                  <Button size="sm" variant="outline" onClick={() => openPage(item.pagePath, `Brief — ${item.topic}`)}>Open saved brief</Button>
-                </article>)}
-                {loaded.briefs && !briefs.length && <EmptyState icon={<FileText size={20} />} title="No saved briefs yet" action={<Button onClick={() => { setAskMode('brief'); open('ask') }}>Create a brief</Button>}>A brief is a cited document for your next meeting, built only from approved knowledge.</EmptyState>}
-              </section>
+              {briefs.map(item => <article key={item.id} className="hub-brief">
+                <FileText size={18} aria-hidden="true" />
+                <div><h3>{item.topic}</h3><p className="hub-meta">{dayLabel(item.created)} · {whenLabel(item.created).split(', ').pop()}</p></div>
+                <Button size="sm" variant="outline" aria-label={`Open brief ${item.topic}`} onClick={() => openPage(item.pagePath, `Brief — ${item.topic}`)}>Open</Button>
+              </article>)}
+              {loaded.briefs && !briefs.length && <EmptyState icon={<FileText size={20} />} title="No saved briefs yet" action={<Button onClick={() => { setAskMode('brief'); open('ask') }}>Create a brief</Button>}>A brief is a cited document for your next meeting, built only from approved knowledge.</EmptyState>}
             </PillTabPanel>
           </div>
           <footer className="hub-footer">
-            <span>{busy && !loaded[current] ? 'Loading…' : view === 'approved'
-              ? `${plural(approved.length, 'approved claim')} across ${plural(new Set(approved.map(item => item.knowledgePath)).size, 'page')}${changed ? ` · ${changed} ${changed === 1 ? 'needs' : 'need'} review` : ''}`
-               : view === 'facts' ? 'Nothing here changes without your approval' : view === 'briefs' ? plural(briefs.length, 'saved brief') : view === 'search' ? 'Keyword search over saved transcripts and approved claims' : view === 'ask' ? 'Answers use approved knowledge only' : plural(meetings.length, 'meeting')}</span>
+            <span>{footer}</span>
             <Button variant="ghost" onClick={() => setView(null)}>Done</Button>
           </footer>
         </PillTabsRoot>
