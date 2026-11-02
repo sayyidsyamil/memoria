@@ -117,9 +117,12 @@ pub(super) fn configure(command: &mut Command) {
     if std::env::var_os("MEMORIA_EMBED_PYTHON").is_some() || embed.is_file() {
         command.env("MEMORIA_EMBED_PYTHON", embed);
     }
+    // The app's Python sources live inside the installed bundle: writing bytecode
+    // there would alter the signed app (and other accounts cannot write it).
     command
         .env("HF_HUB_OFFLINE", "1")
-        .env("TRANSFORMERS_OFFLINE", "1");
+        .env("TRANSFORMERS_OFFLINE", "1")
+        .env("PYTHONDONTWRITEBYTECODE", "1");
 }
 
 fn configure_writable_caches(
@@ -144,6 +147,17 @@ fn configure_writable_caches(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn workers_never_write_bytecode_into_the_app_bundle() {
+        let mut command = Command::new("unused");
+        configure(&mut command);
+        let envs: std::collections::HashMap<_, _> = command.get_envs().collect();
+        assert_eq!(
+            envs.get(std::ffi::OsStr::new("PYTHONDONTWRITEBYTECODE")).copied().flatten(),
+            Some(std::ffi::OsStr::new("1"))
+        );
+    }
 
     #[test]
     fn shared_snapshots_keep_generated_caches_in_the_current_account() {
