@@ -276,14 +276,10 @@ class LiveTranscript:
             self._close(self.total if final else min(self.voice_end + int(.15 * RATE), self.total))
             self.start = None
         elif quiet is not None:
-            end, known = quiet
-            if end - self.start >= VAD_FRAME:
-                self._close(end)
-            else:
-                self.open_words, self.since = [], 0
-            # Nobody spoke between `end` and what the diarizer has heard; the next stretch begins there (less a
-            # pre-roll for a voice it is slow to pick up), so nothing it has not yet heard is skipped.
-            self.floor = self.start = max(end, known - self.preroll)
+            # The next stretch begins where this one ends: audio the diarizer calls silent is still read, in case a
+            # quiet voice was heard by the voice detector alone.
+            self._close(quiet)
+            self.start = quiet
         elif self.classified - self.start >= self.longest:
             cut = self._quietest(max(self.start + RATE, self.classified - 2 * RATE), self.classified)
             self._close(cut)
@@ -302,10 +298,10 @@ class LiveTranscript:
                 self.start = cut
 
     def _speakers_quiet(self):
-        """(end, known) when the diarizer has heard nobody for `pause` seconds of the open stretch: the end of its last
-        speech (plus a short tail) and how far it has heard, in samples. WebRTC's voice detector takes steady noise
-        (air conditioning, a fan) for speech, so without this a stretch would only close at a sentence end or after
-        10 s; the diarizer is not fooled by noise."""
+        """Where to end the open stretch when the diarizer has heard nobody in its last `pause` seconds: just after the
+        last speech it heard, or, if it heard none, a pre-roll short of how far it has heard. WebRTC's voice detector
+        takes steady noise (air conditioning, a fan) for speech, so without this a stretch would only close at a
+        sentence end or after 10 s; the diarizer is not fooled by noise."""
         known = int(self.speakers.known_until * RATE)
         if known - self.start < self.pause:
             return None
@@ -314,7 +310,8 @@ class LiveTranscript:
         spoken = int((first + active[-1] + 1) / FRAMES_PER_SECOND * RATE) if len(active) else self.start
         if known - spoken < self.pause:
             return None
-        return min(spoken + int(.15 * RATE), known) if len(active) else self.start, known
+        end = min(spoken + int(.15 * RATE), known) if len(active) else known - self.preroll
+        return end if end - self.start >= VAD_FRAME else None
 
     def _sentence_cut(self, words):
         """Where to close the open stretch early: before the first word after its last finished sentence that speech
