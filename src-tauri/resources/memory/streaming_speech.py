@@ -271,9 +271,15 @@ class LiveTranscript:
         if self.start is None:
             self._trim(self.classified - self.preroll)
             return
+        quiet = None if final else self._speakers_quiet()
         if final or self.classified - self.voice_end >= self.pause:
             self._close(self.total if final else min(self.voice_end + int(.15 * RATE), self.total))
             self.start = None
+        elif quiet is not None:
+            # The next stretch begins where this one ends: audio the diarizer calls silent is still read, in case a
+            # quiet voice was heard by the voice detector alone.
+            self._close(quiet)
+            self.start = quiet
         elif self.classified - self.start >= self.longest:
             cut = self._quietest(max(self.start + RATE, self.classified - 2 * RATE), self.classified)
             self._close(cut)
@@ -290,6 +296,22 @@ class LiveTranscript:
             if cut is not None:
                 self._close(cut)
                 self.start = cut
+
+    def _speakers_quiet(self):
+        """Where to end the open stretch when the diarizer has heard nobody in its last `pause` seconds: just after the
+        last speech it heard, or, if it heard none, a pre-roll short of how far it has heard. WebRTC's voice detector
+        takes steady noise (air conditioning, a fan) for speech, so without this a stretch would only close at a
+        sentence end or after 10 s; the diarizer is not fooled by noise."""
+        known = int(self.speakers.known_until * RATE)
+        if known - self.start < self.pause:
+            return None
+        first, last = int(self.start / RATE * FRAMES_PER_SECOND), int(known / RATE * FRAMES_PER_SECOND)
+        active = np.flatnonzero(self.speakers.probs[first:last].max(axis=1) >= ACTIVE)
+        spoken = int((first + active[-1] + 1) / FRAMES_PER_SECOND * RATE) if len(active) else self.start
+        if known - spoken < self.pause:
+            return None
+        end = min(spoken + int(.15 * RATE), known) if len(active) else known - self.preroll
+        return end if end - self.start >= VAD_FRAME else None
 
     def _sentence_cut(self, words):
         """Where to close the open stretch early: before the first word after its last finished sentence that speech

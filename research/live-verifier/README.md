@@ -27,6 +27,8 @@ speech it raised no alert.
   (575 turns of a design meeting that has nothing to do with the procurement pilot, recognised by the app's own
   Parakeet Ultra pipeline, `../long-meeting/results/unrelated-speech-guard-*.jsonl`):
   - Without the lift, 284 turns reached the model; with it, 49. Neither raised an alert.
+  - Sentence by sentence, as the meeting window checks it (the hour's 899 live-caption turns,
+    `unrelated-speech-live-captions.jsonl`): 74 reached the model, no alert.
   - The lift was chosen on remarks such as "Thanks." and "Thank you all." (no candidate after it) and left the dev
     split unchanged. On test it costs 2 of the 100 catches; 4 alerts differ in all.
   - In a live meeting every question competes with the captions for the GPU, which is why it ships.
@@ -72,6 +74,40 @@ window does. A statement is alerted when a turn overlapping it raised a cue.
   where checks start when a turn is committed.
 - No turn fell outside the statements and no statement went unheard.
 - The audio is clean and the voices take turns with one-second gaps; real meetings have overlap, noise and distance.
+
+**In a simulated room** (`--room SNR,RT60,DRR`: a synthetic impulse response and pink noise, seeded per series):
+
+| Shipped pipeline, test split | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Statements sharing a turn |
+|---|---|---|---|---|---|
+| Clean | 1.9% | 98 (87.5%) | 2 | 1.26 / 2.19 s | 0 |
+| SNR 10 dB, RT60 0.5 s, DRR 3 dB | 4.1% | 93 (83.0%, CI 75.0–90.2) | 6 (CI 0.9–4.9%) | 2.66 / 3.65 s | 22 |
+| SNR 5 dB, RT60 0.8 s, DRR 0 dB | 9.6% | 82 (73.2%, CI 64.3–81.2) | 5 | 2.99 / 3.92 s | 18 |
+| SNR 0 dB, RT60 0.8 s, DRR −3 dB | 29% | 51 (45.5%, CI 34.8–55.4) | 7 | 3.16 / 3.86 s | 45 |
+
+\* on the statements that kept a turn of their own.
+
+- Misses follow the recogniser's errors ("recharging dock" heard as "… bar").
+- Most false alarms are statements that shared a turn with a neighbouring conflict ("The remote will work with several
+  devices, so the corporate image will be shown …"); the cue was right for the turn and is counted against both.
+- Steady noise defeats the voice detector: at SNR 10 dB WebRTC's detector marks every frame of the gaps as speech
+  (mode 2; mode 3 still 30%), so stretches close only at sentence ends or after 10 s. Turns are committed 2.0 s after
+  the statement instead of 0.7 s, and statements that the recogniser does not split with a full stop share a turn.
+  The diarizer is not fooled (5% of gap frames active at 10 dB, 13% at 0 dB, against all of every statement).
+
+**Since `v0.3.0-uat`, a stretch also ends when the diarizer has heard nobody for 0.5 s** (`streaming_speech.LiveTranscript._speakers_quiet`;
+the next stretch starts where the last ended, so no audio is skipped):
+
+| Same runs, with the diarizer pause | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Turn committed p50 | Sharing a turn |
+|---|---|---|---|---|---|---|
+| Clean | 1.9% | 98, the same verdicts | 2 | 1.22 / 2.14 s | 0.68 s (unchanged) | 0 |
+| SNR 10 dB, RT60 0.5 s, DRR 3 dB | 3.9% | 94 (CI 75.0–91.1) | 4 | 1.91 / 2.87 s | 1.10 s (was 2.00) | 2 (was 22) |
+| SNR 0 dB, RT60 0.8 s, DRR −3 dB | 30% | 57 | 3 | 2.32 / 3.81 s | 1.23 s (was 2.18) | 17 (was 45) |
+
+- Paired verdicts against the shipped pipeline (exact McNemar): 5 against 2 at 10 dB (p = 0.45), 21 against 11 at
+  0 dB (p = 0.11). The gain is in timing and in keeping statements apart, not yet in significant catches.
+- On real speech the change costs a little: live WER on the AMI hour 15.4% instead of 15.2% (insertions 134 against
+  111, deletions 943 against 952), 97.6% of words on their participant (97.8%), commit lag p50 / p90 1.04 / 1.99 s
+  (1.16 / 2.18 s). The far-field laptop recording is unchanged (recall 0.822).
 
 ## Method
 

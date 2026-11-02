@@ -38,6 +38,9 @@ Live captions (`streaming_speech.LiveTranscript`):
   moved 0.8 s past (cut at the quietest moment before the next word), or at its quietest moment after 10 s. A closed
   stretch is read once more and its sentences become turns as soon as the diarizer (0.64 s preset) has caught up.
 - Stretches never overlap, so no word is committed twice; silence is never decoded.
+- Since `v0.3.0-uat`, a stretch also ends when the diarizer has heard nobody for half a second: WebRTC's detector takes steady noise
+  for speech, the diarizer does not (`../live-verifier/README.md`, simulated rooms). On this hour: WER 15.4%
+  (`results/ami-hour-live-pauses2.*`), commit lag p50 1.04 s.
 - One voice detector listens to the whole meeting. WebRTC's detector adapts to the room as it listens; the first
   version made a new one for every 0.256 s block it was given, and on 55 s of the AMI hour it heard 512 of the 1,302
   voiced frames that one detector hears. Whole phrases were never decoded.
