@@ -76,6 +76,27 @@ def llm_route(registry, question, today, generate):
     return {'type': kind, 'object_id': route.object_id, 'attribute': route.attribute, 'valid_at': route.valid_at, 'tx_at': route.tx_at}
 
 
+def direct_route(registry, question):
+    """Live Ask's instant fallback: the current value of the one item a question names in full ("What is the pilot
+    budget?"), when one of its attributes fits (its only one, its owner for "who", its date for "when")."""
+    from memoria_engine.fallback_router import STOP, _words
+    if TOPIC.search(question) or CHANGES.search(question):
+        return None
+    words = set(_words(question))
+    named = [item for item in registry.objects.values()
+             if (label := {w for w in _words(item.label) if w not in STOP and len(w) >= 3}) and label <= words]
+    if len(named) != 1:
+        return None
+    item, asked = named[0], set(re.findall(r'[a-z]+', question.casefold()))
+    fits = item.attributes if len(item.attributes) == 1 else \
+        [a for a in item.attributes if a.name == 'owner' or a.type == 'person'] if 'who' in asked else \
+        [a for a in item.attributes if a.type == 'date'] if asked & {'when', 'due', 'deadline'} else \
+        [a for a in item.attributes if _names(a.name, question)]
+    if len(fits) != 1:
+        return None
+    return {'type': 'current', 'object_id': item.object_id, 'attribute': fits[0].name, 'valid_at': None, 'tx_at': None}
+
+
 def route_question(registry, question, today, generate=None):
     """Which tracked slot and lookup a question asks for, or None. With the language model available
     (`generate`), the evaluated model router decides; without it, or when its reply names no usable slot,
@@ -290,6 +311,8 @@ def tracked_answer(engine, question, today=None, rules_only=False):
     # scripts without a worker use the rules.
     generate = local_generator() if os.environ.get('MEMORIA_QWEN_SOCKET') and not rules_only else None
     route = route_question(registry, question, today or date.today(), generate)
+    if route is None and rules_only:
+        route = direct_route(registry, question)
     if route is None:
         return None
     service = _snapshot(home, registry)

@@ -249,3 +249,31 @@ class ModelRouterTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DirectRouteTests(unittest.TestCase):
+    """Live Ask's instant fallback for a question naming one tracked item in full."""
+
+    def registry(self):
+        from types import SimpleNamespace as N
+        attribute = lambda name, kind='text': N(name=name, type=kind)
+        return N(objects={
+            'pilot_budget': N(object_id='pilot_budget', label='Pilot budget (RM)', attributes=[attribute('amount', 'number')]),
+            'data_migration': N(object_id='data_migration', label='Data migration',
+                                attributes=[attribute('owner', 'person'), attribute('deadline', 'date')]),
+            'vendor': N(object_id='vendor', label='Vendor', attributes=[attribute('choice')])})
+
+    def test_the_item_named_in_full_gives_its_fitting_attribute(self):
+        from ask_facts import direct_route
+        registry = self.registry()
+        self.assertEqual(direct_route(registry, 'What is the pilot budget?')['object_id'], 'pilot_budget')
+        self.assertEqual(direct_route(registry, 'Who owns the data migration?')['attribute'], 'owner')
+        self.assertEqual(direct_route(registry, 'When is the data migration due?')['attribute'], 'deadline')
+        self.assertEqual(direct_route(registry, 'Which vendor?')['type'], 'current')
+
+    def test_topics_histories_and_unclear_questions_are_left_alone(self):
+        from ask_facts import direct_route
+        registry = self.registry()
+        for question in ('What did we discuss about the vendor?', 'How has the pilot budget changed?',
+                         'What about the data migration?', 'What is the weather?'):
+            self.assertIsNone(direct_route(registry, question), question)
