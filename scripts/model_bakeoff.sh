@@ -4,7 +4,7 @@
 # Usage: model_bakeoff.sh <out-dir> <model> [<model> ...]
 set -u
 out=${1:A}; shift
-repo=${0:A:h}/../..
+repo=${0:A:h}/..
 memory=$repo/src-tauri/resources/memory
 mkdir -p $out
 for model in "$@"; do
