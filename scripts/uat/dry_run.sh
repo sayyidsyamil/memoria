@@ -3,8 +3,9 @@
 # resident models, then print what T2-T4 would show. Usage: dry_run.sh <vault>
 vault=${1:A}
 pid=$(pgrep -f "Memoria Workspace.app/Contents/MacOS/memoria" | head -1)
-export MEMORIA_QWEN_SOCKET=$(print -r -- $TMPDIR/mm-$pid-*-qwen.sock(N))
-export MEMORIA_EMBED_SOCKET=$(print -r -- $TMPDIR/mm-$pid-*-embed.sock(N))
+# An explicit MEMORIA_QWEN_SOCKET (an evaluation worker) wins over the running app's.
+export MEMORIA_QWEN_SOCKET=${MEMORIA_QWEN_SOCKET:-$(print -r -- $TMPDIR/mm-$pid-*-qwen.sock(N))}
+export MEMORIA_EMBED_SOCKET=${MEMORIA_EMBED_SOCKET:-$(print -r -- $TMPDIR/mm-$pid-*-embed.sock(N))}
 [[ -S $MEMORIA_QWEN_SOCKET ]] || { print "no app Qwen socket"; exit 1; }
 engine=${0:A:h}/../../src-tauri/resources/memory/engine.py
 for meeting in $(cd $vault/.memoria-recordings && ls); do

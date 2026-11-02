@@ -1,10 +1,15 @@
 """Private Unix-socket Qwen worker, retained for five minutes between requests."""
 import fcntl
 import json
+import os
 from pathlib import Path
 import select
 import socket
 import sys
+
+
+# The app's language model; MEMORIA_LLM_MODEL selects another downloaded MLX model for evaluation.
+LLM = os.environ.get('MEMORIA_LLM_MODEL', 'mlx-community/Qwen3.5-4B-MLX-4bit')
 
 
 def score_first_tokens(model, tokenizer, request):
@@ -51,7 +56,7 @@ def serve(address, resident=False):
             exit_with_parent(address)
             from huggingface_hub import snapshot_download
             from mlx_lm import load, generate
-            model, tokenizer = load(snapshot_download('mlx-community/Qwen3.5-4B-MLX-4bit', local_files_only=True))
+            model, tokenizer = load(snapshot_download(LLM, local_files_only=True))
             generate(model, tokenizer, prompt='Ready', max_tokens=1, verbose=False)
             import mlx.core as mx
             print(json.dumps({'ready': 'qwen', 'pid': __import__('os').getpid(), 'mlxBytes': mx.get_active_memory()}), flush=True)
@@ -70,7 +75,7 @@ def serve(address, resident=False):
                         from mlx_lm.sample_utils import make_sampler
                         if model is None:
                             connection.sendall(b'{"progress":"Loading local language model (first request)"}\n')
-                            path = snapshot_download('mlx-community/Qwen3.5-4B-MLX-4bit', local_files_only=True)
+                            path = snapshot_download(LLM, local_files_only=True)
                             model, tokenizer = load(path)
                         if request.get('type') == 'score':
                             reply = score_first_tokens(model, tokenizer, request)
