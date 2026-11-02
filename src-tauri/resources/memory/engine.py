@@ -716,6 +716,9 @@ def human_date(value):
 def meeting_records(engine):
     """Meeting records for moment lookup; the table is created lazily by workspace_product."""
     try:
+        if engine.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='meeting_intents'").fetchone():
+            from meetings_service import MeetingRepository
+            MeetingRepository(engine).reconcile()  # a save a crash interrupted is settled before it is read
         return [json.loads(row[0]) for row in engine.db.execute('SELECT record FROM meetings ORDER BY rowid DESC')]
     except sqlite3.OperationalError:
         return []

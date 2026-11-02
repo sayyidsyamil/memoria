@@ -41,11 +41,17 @@ Meeting CRUD implementations have moved out of `engine.py` into
 one persistence implementation. SQLite record access belongs to the repository;
 the service coordinates generated document validation and publication.
 
-Runtime failures attempt to restore the prior generated document when SQLite
-publication fails. This is exception compensation, **not yet a crash-atomic
-transaction across SQLite and the filesystem**. Process termination during a write
-still needs a durable write-ahead recovery protocol. Delete preserves audio,
-reviewed sources, voice profiles, and approved proposal history.
+Runtime failures restore the prior generated document when SQLite publication
+fails. A process killed mid-write is recovered by a write-ahead intent in the same
+database (`meeting_intents`: the page path, its digests before and after, and the
+new record). The intent is committed before the page changes; the record and the
+end of the intent commit together. Every read of meeting records first settles any
+intent left behind: a page in its after state completes the record, anything else
+discards the intent and leaves the page untouched, so an outside edit stays
+protected by the record's old `pageHash`. Recovery never writes a page. It covers a
+killed process, not power loss: page writes do not fsync their directory.
+Delete preserves audio, reviewed sources, voice profiles, and approved proposal
+history.
 
 ## Scope of this migration
 
