@@ -10,8 +10,8 @@ running them make captions appear while people speak, without losing accuracy on
 |---|---|---|---|---|
 | WER, fillers removed | 13.2% | 16.7% | 17.0% | **14.4%** (446 sub., 870 del., 91 ins. over 9,808) |
 | WER, fillers kept | 14.7% | 18.3% | 18.5% | **16.3%** |
-| Labelled words on their participant | 96.6% | 96.5% (8,704 words) | 97.0% (8,714) | **96.8%** (8,933) |
-| Words on "Unknown speaker" | 9% | 0 | 20 | **5** |
+| Labelled words on their participant | 96.6% | 96.5% (8,704 words) | 97.0% (8,714) | **97.4%** (8,934; 96.8% labelled word by word) |
+| Words on "Unknown speaker" | 9% | 0 | 20 | **4** |
 | Time for the hour | 11 min 34 s | 63 s | 89 s | **113 s** |
 | Recogniser memory (MLX, active) | 1.8 GB | 2.55 GB (float32) | 2.55 GB | **1.3 GB** (bfloat16) |
 
@@ -38,8 +38,30 @@ Live captions (`streaming_speech.LiveTranscript`):
   moved 0.8 s past (cut at the quietest moment before the next word), or at its quietest moment after 10 s. A closed
   stretch is read once more and its sentences become turns as soon as the diarizer (0.64 s preset) has caught up.
 - Stretches never overlap, so no word is committed twice; silence is never decoded.
-- On the scripted test meeting (`livetest/meeting.wav`, file fed as fast as possible): every sentence was committed
-  0.5–1.3 s after it ended, all three voices on the right label; worst single feed 0.52 s.
+- One voice detector listens to the whole meeting. WebRTC's detector adapts to the room as it listens; the first
+  version made a new one for every 0.256 s block it was given, and on 55 s of the AMI hour it heard 512 of the 1,302
+  voiced frames that one detector hears. Whole phrases were never decoded.
+
+The AMI hour fed to live captions in the meeting window's 0.256 s blocks (`bakeoff.py live`; the lag is how much
+audio had arrived after a sentence ended when it was committed, so it does not depend on how fast the run went):
+
+| | A new detector per block (before) | One detector per meeting | **… and one speaker per sentence (shipped)** | Whole recording, for reference |
+|---|---|---|---|---|
+| WER, fillers removed | 18.9% (502 sub., 1,257 del., 96 ins.) | 15.2% (430, 952, 111) | **15.2%** | 14.4% (446, 870, 91) |
+| Labelled words on their participant | 96.7% | 96.9% | **97.8%** | 97.4% |
+| Turns | 1,265 | 1,119 | **899** | 333 (merged within 1.5 s) |
+| Commit lag p50 / p90 / max | 0.92 / 2.77 / 10.8 s | 1.34 / 3.87 / 9.9 s | **1.16 / 2.18 / 6.5 s** | |
+| One re-read of the open stretch, p50 / p95 | 0.093 / 0.196 s | 0.092 / 0.177 s | 0.091 / 0.177 s | |
+
+- One speaker per sentence: labelled word by word, the diarizer's flicker split sentences into fragments with
+  alternating speakers. Each sentence now takes the speaker most active over it (`streaming_speech.turns_of`). The
+  lag is measured per turn, so fragments that waited for the rest of their sentence no longer count as late turns.
+- Longer stretches still cost commit lag: a sentence inside continuous speech is committed once speech is 0.8 s past
+  it, at the next re-read.
+- On the two scripted test meetings (`livetest/meeting.wav`, `meeting2.wav`, file fed as fast as possible) every
+  sentence was committed 0.4–2.1 s after it ended (median 0.75 s).
+- One sentence of `meeting.wav` ("Data migration is almost done.", the macOS voice Aman) is recognised as nonsense
+  by v3 and Ultra alike, whole or live, so that voice's recording is at fault, not the cutting.
 
 Rejected on the way:
 
@@ -57,3 +79,6 @@ Rejected on the way:
 
 - `bakeoff.py`: runs a pipeline over the hour and scores it with `../long-meeting/evaluate_transcript.py`.
 - `results/ami-hour-offline.*`: the whole-recording run above.
+- `results/ami-hour-live.*` (shipped), `results/ami-hour-live-word-labels.*`, `results/ami-hour-live-fresh-vad.*`: live
+  captions over the hour, as shipped, before one speaker per sentence, and before the detector fix.
+- `results/ami-hour-ultra-sentences.*`: the whole-recording run with one speaker per sentence (shipped).

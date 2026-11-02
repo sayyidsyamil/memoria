@@ -22,6 +22,7 @@
 .summary-side section { display: flex; flex-direction: column; gap: 8px; }
 .summary-moment { display: flex; align-items: flex-start; gap: 12px; width: 100%; padding: 8px 0; border-bottom: 1px solid var(--border); border-radius: 0; font-size: 12px; line-height: 20px; text-align: left; cursor: pointer; transition: background 160ms; }
 .summary-moment:hover { background: color-mix(in srgb, var(--accent-orange) 14%, var(--muted)); }
+.summary-moment:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
 .summary-moment b { flex-shrink: 0; font-weight: 500; font-variant-numeric: tabular-nums; color: color-mix(in srgb, var(--accent-orange) 72%, var(--foreground)); }
 .summary-moment span { min-width: 0; overflow-wrap: anywhere; }
 .summary-muted { margin: 0; font-size: 12px; line-height: 1.55; color: var(--muted-foreground); }

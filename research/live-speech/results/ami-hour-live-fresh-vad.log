@@ -1,0 +1,14 @@
+/opt/homebrew/lib/python3.11/site-packages/webrtcvad.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+0 min, 0 turns
+5 min, 80 turns
+10 min, 161 turns
+15 min, 262 turns
+20 min, 354 turns
+25 min, 485 turns
+30 min, 608 turns
+35 min, 749 turns
+40 min, 852 turns
+45 min, 941 turns
+50 min, 1051 turns
+55 min, 1163 turns

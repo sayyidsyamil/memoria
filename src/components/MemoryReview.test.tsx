@@ -89,4 +89,20 @@ it('can be named Review in the sidebar, with its waiting count in the name, and 
   expect(await screen.findByText('No changes waiting for review')).toBeInTheDocument()
   expect(screen.getByText('Suggestions from meeting outcomes and imported files appear here.')).toBeInTheDocument()
   expect(screen.getByRole('dialog', { name: 'Review knowledge' })).toBeInTheDocument()
+  // Nothing waits, so there is no "Waiting for review 0" bar and no note about saving.
+  expect(screen.queryByText('Waiting for review')).not.toBeInTheDocument()
+  expect(screen.queryByText('Nothing is added until you save.')).not.toBeInTheDocument()
+})
+it('names the page an update adds to, without its file path', async () => {
+  vi.mocked(invoke).mockReset()
+  const update = { ...proposal, claims: [{ ...proposal.claims[0], targetPath: 'knowledge/Digital Procurement Pilot.md' }, { ...proposal.claims[0], title: 'Beta Cloud', targetPath: null }] }
+  vi.mocked(invoke).mockResolvedValueOnce([update]).mockResolvedValueOnce(update)
+  render(<MemoryReview vaultPath="/vault" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Review knowledge' }))
+  expect(await screen.findByText('Adds to Digital Procurement Pilot. Its existing text stays as it is.')).toBeInTheDocument()
+  expect(screen.getByText('Update')).toBeInTheDocument()
+  expect(screen.getByText('New page')).toBeInTheDocument()
+  expect(screen.queryByText(/\.md/)).not.toBeInTheDocument()
+  expect(screen.getByText('Waiting for review')).toBeInTheDocument()
+  expect(screen.getByText('Nothing is added until you save.')).toBeInTheDocument()
 })

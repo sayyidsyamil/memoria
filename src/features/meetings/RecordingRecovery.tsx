@@ -7,6 +7,16 @@ import { meetingService, MeetingServiceError } from './meetingService'
 import { recordingService, recordingSource, type RecordingList } from './recordingService'
 import type { MeetingRecord, TranscriptDraft } from './meetingTypes'
 
+/** A failure as people read it: the message, without a leading "Error:". */
+function errorText(failure: unknown): string {
+  return failure instanceof Error ? failure.message : String(failure)
+}
+
+/** "540 KB", "1.8 MB". */
+function size(bytes: number): string {
+  return bytes < 1_000_000 ? `${Math.max(1, Math.round(bytes / 1000))} KB` : `${(bytes / 1_000_000).toFixed(1)} MB`
+}
+
 export function RecordingRecovery({ vaultPath, active, onRecovered }: { vaultPath: string; active: boolean; onRecovered: (record: MeetingRecord) => void }) {
   const [list, setList] = useState<RecordingList | null>(null)
   const [error, setError] = useState('')
@@ -16,7 +26,7 @@ export function RecordingRecovery({ vaultPath, active, onRecovered }: { vaultPat
     if (!active) return
     let current = true
     void recordingService.list(vaultPath).then(result => { if (current) { setList(result); setError('') } })
-      .catch(failure => { if (current) setError(`Recording recovery could not be loaded: ${String(failure)}`) })
+      .catch(failure => { if (current) setError(`Interrupted recordings could not be listed: ${errorText(failure)}`) })
     return () => { current = false }
   }, [active, vaultPath, version])
 
@@ -32,7 +42,7 @@ export function RecordingRecovery({ vaultPath, active, onRecovered }: { vaultPat
       let record = existing
       if (!existing?.transcriptPath) {
         const draft = existing?.draft ?? await invoke<TranscriptDraft | null>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId } })
-        const warnings = [...original.warnings, 'Interrupted recording: the last uncheckpointed audio and media-container tail may be missing. Listen before relying on this evidence.']
+        const warnings = [...original.warnings, 'Interrupted recording: the last few seconds may be missing. Listen before relying on it.']
         const reviewedDraft = draft ? { ...draft, warnings: [...draft.warnings, ...warnings] } : null
         record = await meetingService.save(vaultPath, {
           id: sessionId, title: existing?.title ?? original.metadata.title, status: 'needs-review',
@@ -45,20 +55,20 @@ export function RecordingRecovery({ vaultPath, active, onRecovered }: { vaultPat
       if (!record) throw new Error('Recovered meeting publication could not be confirmed.')
       setList(previous => previous ? { ...previous, recordings: previous.recordings.filter(item => item.sessionId !== sessionId) } : previous)
       onRecovered(record)
-    } catch (failure) { setError(`Recording recovery failed: ${String(failure)}. Original fragments are retained; retry without deleting them.`) }
+    } catch (failure) { setError(`This recording could not be recovered: ${errorText(failure)}. Its saved audio is kept, so you can try again.`) }
     finally { setRecovering(null) }
   }
   if (!active || (!error && !list?.recordings.length && !list?.activeRecording)) return null
-  return <section className="hub-page" aria-label="Interrupted recordings">
+  return <section className="hub-page hub-recovery" aria-label="Interrupted recordings">
     <h2>Interrupted recordings</h2>
     {error && <p role="alert" className="hub-error">{error}</p>}
-    {list?.activeRecording && <p className="hub-muted">End or close the current meeting HUD before recovering another recording.</p>}
-    {!!list?.recordings.length && <p className="hub-muted">Recover checkpointed audio into review. The final uncheckpointed passage or container tail may be missing. Nothing is deleted or approved.</p>}
+    {list?.activeRecording && <p className="hub-muted">Finish the meeting in progress before recovering another recording.</p>}
+    {!!list?.recordings.length && <p className="hub-muted">These recordings stopped before they were saved. Recovering one opens it for review; the last few seconds may be missing.</p>}
     {list?.recordings.map(item => <article key={item.sessionId} className="hub-meeting">
-      <div className="hub-meeting-main"><h3>{item.metadata.title}</h3><p className="hub-meta">{whenLabel(item.metadata.created)} · {item.chunkCount} checkpoints · {(item.byteLength / 1024).toFixed(1)} KiB</p>
+      <div className="hub-meeting-main"><h3>{item.metadata.title}</h3><p className="hub-meta">{whenLabel(item.metadata.created)} · {size(item.byteLength)}</p>
         {item.warnings.map(warning => <p key={warning} className="hub-muted">{warning}</p>)}</div>
       <Button disabled={!!recovering} onClick={() => { void recover(item.sessionId) }}>{recovering === item.sessionId ? 'Recovering…' : 'Recover recording'}</Button>
     </article>)}
-    {error && <Button variant="outline" disabled={!!recovering} onClick={() => setVersion(value => value + 1)}>Retry recovery list</Button>}
+    {error && <Button variant="outline" disabled={!!recovering} onClick={() => setVersion(value => value + 1)}>Try again</Button>}
   </section>
 }

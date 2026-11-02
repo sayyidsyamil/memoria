@@ -13,13 +13,15 @@ speech it raised no alert.
 | Live check (test split, 336 probes, 28 series) | Conflicts caught | False alarms | Unverified | Latency p50 / p95 |
 |---|---|---|---|---|
 | Written verdict, then guard (shipped before, `../memoriabench/results/app_live_check/guard_on.jsonl`) | 91 / 112 (81.3%) | 3 / 224 (1.3%) | 3 | 4.0 / 6.8 s |
-| Guard alone, threshold 2.0 | 91 / 112 (81.3%) | 2 / 224 (0.9%) | 0 | 0.83 / 1.83 s |
-| Guard alone + candidates by meaning (cosine ≥ 0.66) | 100 / 112 (89.3%), CI 83.0–94.6 | 2 / 224 (0.9%), CI 0–2.2 | 0 | 0.56 / 1.72 s |
-| **… and 0.08 above the median decision (shipped)** | **98 / 112 (87.5%)** | **2 / 224 (0.9%)** | **0** | **0.26 / 1.28 s** |
+| Guard alone, threshold 2.0 | 91 / 112 (81.3%), CI 74.1–87.5 | 2 / 224 (0.9%), CI 0–2.2 | 0 | 0.81 / 1.83 s |
+| Guard alone + candidates by meaning (cosine ≥ 0.66) | 100 / 112 (89.3%), CI 83.0–94.6 | 2 / 224 (0.9%), CI 0–2.2 | 0 | 0.56 / 1.70 s |
+| **… and 0.08 above the median decision (shipped)** | **98 / 112 (87.5%)**, CI 81.2–92.9 | **2 / 224 (0.9%)**, CI 0–2.2 | **0** | **0.26 / 1.26 s** |
 
-- Paired, the final check against the guard alone: right on 10 probes it got wrong, wrong on 1 it got right (exact
-  McNemar p = 0.012). Against the shipped check: 17 against 7 (p = 0.064).
-- 93 of the 100 caught conflicts cite the reference decision.
+- Paired (exact McNemar), the shipped check against the guard alone: right on 7 probes it got wrong, wrong on none
+  (p = 0.016); against the check shipped before: 14 against 6 (p = 0.12). Without the lift, candidates by meaning
+  against the guard alone: 10 against 1 (p = 0.012).
+- 91 of the 98 caught conflicts cite the reference decision.
+- CIs are 95% cluster-bootstrap intervals over the 28 series.
 - Research M2, which read the whole ledger with a written verdict, caught 110/112 (`../memoriabench/GUARD.md`).
 - **Why the shipped check requires the lift.** A short remark is about as close to every decision. On the AMI hour
   (575 turns of a design meeting that has nothing to do with the procurement pilot, recognised by the app's own
@@ -37,7 +39,7 @@ checks the recognised text as above.
 
 | Shipped live check, test split | Conflicts caught | False alarms | Check p50 / p95 |
 |---|---|---|---|
-| Written statements | 98 / 112 | 2 / 224 | 0.26 / 1.28 s |
+| Written statements | 98 / 112 | 2 / 224 | 0.26 / 1.26 s |
 | **Spoken and recognised** (WER 2.1%: 67 errors in 3,152 words) | **97 / 112** (86.6%, CI 80.4–92.9) | **2 / 224** | 0.33 / 1.53 s |
 
 - Speech recognition cost one catch: "So the remote will sell for 35 Euro." came out as "… for €35." and was not
@@ -48,6 +50,28 @@ checks the recognised text as above.
   Tessa 25/28.
 - Synthetic voices are cleaner than people in a room; this measures the recogniser's errors on clear speech, not
   far-field audio or overlap.
+
+## Spoken meetings: audio to cue, through the live pipeline
+
+`spoken_meetings.py` turns each of the 28 test series into one meeting: its 12 statements, in a fixed shuffled order,
+one second apart, with the same audio as above. The meeting is captioned by the app's `LiveTranscript` in the meeting
+window's 0.256 s blocks, and every committed turn is checked against the series' approved decisions, as the meeting
+window does. A statement is alerted when a turn overlapping it raised a cue.
+
+| Shipped live check, test split | Conflicts caught | False alarms | Statement end → cue, p50 / p95 / max |
+|---|---|---|---|
+| Spoken meetings, speakers labelled word by word | 93 / 112 (83.0%) | 2 / 224 | 1.34 / 2.24 / 2.59 s |
+| **Spoken meetings, one speaker per sentence (shipped)** | **98 / 112** (87.5%, CI 81.2–92.9) | **2 / 224** | **1.26 / 2.19 / 2.66 s** |
+
+- Word by word, the diarizer flickered between similar synthetic voices and split 61 of the 336 statements into
+  fragments with alternating speakers ("Right, we | should add an emergency | call | button for | elderly | users."),
+  and 5 conflicts were then judged on fragments and missed. One speaker per sentence (the most active over it) leaves
+  4 statements in two turns and recovers all 5 (5 against 0, exact McNemar p = 0.062).
+- The shipped run gives the same verdict as the written statements on all 336.
+- Turns were committed 0.68 s after a statement ended (p50; p95 0.90 s). The cue latency adds the check, as in the app,
+  where checks start when a turn is committed.
+- No turn fell outside the statements and no statement went unheard.
+- The audio is clean and the voices take turns with one-second gaps; real meetings have overlap, noise and distance.
 
 ## Method
 

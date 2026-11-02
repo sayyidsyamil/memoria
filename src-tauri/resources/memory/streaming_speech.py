@@ -158,35 +158,48 @@ class SpeakerTrack:
         return f'S{best + 1:02d}'
 
 
-def turns_of(words, label, merge_gap=None):
-    """Turns from attributed words: a new turn at each speaker change and, live, at each sentence end.
+def sentences_of(words):
+    """Words grouped into sentences; the last word of every decoded stretch ends one, so none crosses a stretch."""
+    sentences, current = [], []
+    for word in words:
+        current.append(word)
+        if word[3]:
+            sentences.append(current)
+            current = []
+    return sentences + ([current] if current else [])
 
+
+def turns_of(words, label, merge_gap=None):
+    """Turns from attributed words, one speaker per sentence: the one most active over the whole sentence.
+
+    Labelled word by word, the diarizer's flicker between similar voices split single sentences into fragments with
+    alternating speakers (61 of 336 spoken benchmark statements), and the live check then saw only fragments.
     merge_gap=None keeps one sentence per turn (live captions, so each statement is checked on its own);
     a number joins a speaker's consecutive sentences unless they are that many seconds apart (review)."""
     turns = []
-    for start, end, text, ends in words:
-        speaker = label(start, end)
+    for sentence in sentences_of(words):
+        start, end = sentence[0][0], sentence[-1][1]
+        speaker, text = label(start, end), ' '.join(word[2] for word in sentence)
         last = turns[-1] if turns else None
-        joins = last is not None and last['speaker'] == speaker and (
-            not last['closed'] or (merge_gap is not None and start - last['end'] <= merge_gap))
-        if joins:
+        if last is not None and merge_gap is not None and last['speaker'] == speaker and start - last['end'] <= merge_gap:
             last['text'] += ' ' + text
             last['end'] = round(end, 2)
         else:
-            turns.append({'start': round(start, 2), 'end': round(end, 2), 'speaker': speaker, 'text': text, 'closed': False})
-        turns[-1]['closed'] = ends
-    for turn in turns:
-        del turn['closed']
+            turns.append({'start': round(start, 2), 'end': round(end, 2), 'speaker': speaker, 'text': text})
     return turns
 
 
 VAD_FRAME = 480  # 30 ms at 16 kHz
 
 
-def voiced_frames(samples):
-    """One flag per whole 30 ms frame: WebRTC VAD (mode 2) above a small loudness floor, as live_speech.has_speech."""
+def voiced_frames(samples, vad=None):
+    """One flag per whole 30 ms frame: WebRTC VAD (mode 2) above a small loudness floor, as live_speech.has_speech.
+
+    The detector adapts to the room as it listens, so live captions keep one for the whole meeting (`vad`): a fresh
+    one for every quarter second of audio heard 512 of the 1,302 voiced frames that one detector hears in 55 s of an
+    AMI meeting, and the captions lost whole phrases."""
     import webrtcvad
-    vad = webrtcvad.Vad(2)
+    vad = vad or webrtcvad.Vad(2)
     count = len(samples) // VAD_FRAME
     frames = np.asarray(samples[:count * VAD_FRAME], dtype='float32').reshape(count, VAD_FRAME)
     loud = np.sqrt((frames ** 2).mean(axis=1)) >= .0005
@@ -204,8 +217,10 @@ class LiveTranscript:
     decoded, so nothing is invented there."""
 
     def __init__(self, models, step=.5, pause=.5, longest=10.0, preroll=.25, preset='very_low'):
+        import webrtcvad
         self.asr, diar = models
         self.speakers = SpeakerTrack(diar, preset)
+        self.vad = webrtcvad.Vad(2)
         self.step, self.pause, self.longest, self.preroll = int(step * RATE), int(pause * RATE), int(longest * RATE), int(preroll * RATE)
         self.buffer = np.zeros(0, dtype='float32')
         self.offset = 0          # session sample index of buffer[0]
@@ -246,7 +261,7 @@ class LiveTranscript:
         count = (self.total - self.classified) // VAD_FRAME
         if count:
             first = self.classified - self.offset
-            for index, voiced in enumerate(voiced_frames(self.buffer[first:first + count * VAD_FRAME])):
+            for index, voiced in enumerate(voiced_frames(self.buffer[first:first + count * VAD_FRAME], self.vad)):
                 if voiced:
                     at = self.classified + index * VAD_FRAME
                     if self.start is None:

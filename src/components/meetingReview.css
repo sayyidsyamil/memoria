@@ -7,7 +7,6 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
 }
 .review-header { flex-shrink: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 24px 32px 0; }
 .review-heading { flex: 1; min-width: 0; }
-.review-eyebrow { margin: 0 0 8px; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--muted-foreground); }
 .review-title { display: block; width: calc(100% + 8px); margin: 0 -4px; padding: 4px; border-radius: 4px; background: transparent; font-size: 24px; font-weight: 500; letter-spacing: -.4px; line-height: 32px; text-overflow: ellipsis; outline: none; transition: background 160ms, box-shadow 160ms; }
 .review-title:hover:not(:disabled) { background: var(--muted); }
 .review-title:focus { background: var(--muted); box-shadow: 0 0 0 2px var(--ring); }
@@ -33,11 +32,12 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
 .review-notice p { margin: 0; }
 .review-notice p + p { margin-top: 4px; color: var(--muted-foreground); }
 
-/* Collapsible metadata blocks */
-.review-fold > summary { display: flex; align-items: center; gap: 10px; padding: 6px 0; list-style: none; cursor: pointer; }
+/* Collapsible metadata blocks, folded with the same caret as the decision board */
+.review-fold > summary { display: flex; align-items: center; gap: 8px; width: fit-content; padding: 6px 0; border-radius: 4px; list-style: none; cursor: pointer; }
 .review-fold > summary::-webkit-details-marker { display: none; }
-.review-fold > summary::before { content: '▸'; font-size: 10px; color: var(--muted-foreground); transition: transform 120ms; }
-.review-fold[open] > summary::before { transform: rotate(90deg); }
+.review-fold > summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.review-fold-caret { flex-shrink: 0; color: var(--muted-foreground); transform: rotate(-90deg); transition: transform 120ms; }
+.review-fold[open] > summary .review-fold-caret { transform: none; }
 .review-fold-avatars { display: inline-flex; margin-left: 4px; }
 .review-fold-avatars > * + * { margin-left: -5px; box-shadow: 0 0 0 2px var(--background); }
 
@@ -71,12 +71,12 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
 .review-turn-body { flex: 1; min-width: 0; }
 .review-turn-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 2px; }
 .review-turn-speaker { position: relative; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--foreground); }
-.review-turn-speaker select { appearance: none; max-width: 220px; padding: 0; background: transparent; font-weight: 600; color: var(--foreground); cursor: pointer; }
+.review-turn-speaker select { appearance: none; max-width: 220px; padding: 0; background: transparent; font-weight: 600; color: var(--foreground); cursor: pointer; field-sizing: content; }
 .review-turn-speaker svg { color: var(--muted-foreground); }
 .review-time { padding: 0; border-radius: 4px; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--muted-foreground); cursor: pointer; transition: color 120ms; }
 .review-turn[data-active] .review-time, .review-time:hover { color: color-mix(in srgb, var(--accent-orange) 75%, var(--foreground)); }
 .review-time:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-.review-turn textarea { display: block; width: 100%; padding: 2px 0; border-radius: 4px; background: transparent; font-size: 15px; line-height: 1.65; resize: none; overflow: hidden; outline: none; }
+.review-turn textarea { display: block; width: 100%; padding: 2px 0; border-radius: 4px; background: transparent; font-size: 15px; line-height: 1.65; resize: none; overflow: hidden; outline: none; field-sizing: content; }
 .review-turn textarea:focus { box-shadow: 0 0 0 2px var(--ring); padding-inline: 6px; margin-inline: -6px; width: calc(100% + 12px); }
 .review-details { margin-top: 20px; font-size: 12px; color: var(--muted-foreground); }
 .review-details summary { cursor: pointer; }
@@ -87,4 +87,4 @@ html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review)
 .review-footer[hidden] { display: none; }
 @media (max-width: 600px) { .review-body { padding: 8px 20px 20px; } .review-header, .review-tabbar, .review-footer { padding-inline: 20px; } .review-share-bar { display: none; } }
 @media (max-width: 600px) { .review-header { gap: 12px; } .review-title { font-size: 20px; line-height: 28px; } .review-tabbar { flex-wrap: wrap; gap: 12px; } .review-footer { flex-wrap: wrap; gap: 12px; } .review-global-error { padding-inline: 20px; } }
-@media (prefers-reduced-motion: reduce) { .review-turn, .review-share-bar i { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .review-turn, .review-share-bar i, .review-fold-caret { transition: none; } }

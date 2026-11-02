@@ -70,7 +70,7 @@ class FakeDiarizer:
         return SimpleNamespace(speaker_probs=probs), state
 
 
-def speaking(samples):
+def speaking(samples, vad=None):
     """Voice detection from the script: the samples hold their own session index."""
     count = len(samples) // S.VAD_FRAME
     starts = np.asarray(samples[:count * S.VAD_FRAME]).reshape(count, S.VAD_FRAME)[:, 0] / RATE
@@ -99,6 +99,15 @@ class StreamingSpeechTest(unittest.TestCase):
         self.assertEqual([t['text'] for t in S.turns_of(words, label)], ['Yes.', 'We agree.', 'No.'])
         merged = S.turns_of(words, label, merge_gap=1.5)
         self.assertEqual([(t['speaker'], t['text']) for t in merged], [('S01', 'Yes. We agree.'), ('S02', 'No.')])
+
+    def test_a_sentence_keeps_one_speaker_when_the_diarizer_flickers(self):
+        words = [[0, .4, 'Right,', False], [.4, .8, 'we', False], [.8, 1.6, 'should', False], [1.6, 2.0, 'add', False],
+                 [2.0, 2.3, 'a', False], [2.3, 2.9, 'button.', True]]
+        flicker = lambda start, end: 'S02' if end - start < 1 and int(start * 10) % 4 == 0 else 'S03'
+        self.assertEqual({flicker(w[0], w[1]) for w in words}, {'S02', 'S03'})   # word by word it alternates
+        whole = lambda start, end: 'S03' if end - start > 2 else flicker(start, end)
+        turns = S.turns_of(words, whole)
+        self.assertEqual([(t['speaker'], t['text']) for t in turns], [('S03', 'Right, we should add a button.')])
 
     def test_speaker_is_the_most_active_over_the_word_or_nearby(self):
         track = S.SpeakerTrack.__new__(S.SpeakerTrack)
@@ -146,7 +155,22 @@ class StreamingSpeechTest(unittest.TestCase):
         self.assertEqual(session.turns, [])
         self.assertLess(len(session.buffer), RATE)  # nothing kept but a short pre-roll
 
-    @patch('streaming_speech.voiced_frames', lambda samples: np.ones(len(samples) // S.VAD_FRAME, dtype=bool))
+    def test_one_voice_detector_listens_to_the_whole_meeting(self):
+        detectors = []
+
+        def detect(samples, vad=None):
+            detectors.append(vad)
+            return speaking(samples)
+        with patch('streaming_speech.voiced_frames', detect):
+            session, _ = self.live()
+            audio = meeting(3)
+            for index in range(0, len(audio), 4096):
+                session.feed(audio[index:index + 4096])
+        self.assertGreater(len(detectors), 5)
+        self.assertIsNotNone(detectors[0])
+        self.assertTrue(all(vad is detectors[0] for vad in detectors))  # its adaptation to the room carries over
+
+    @patch('streaming_speech.voiced_frames', lambda samples, vad=None: np.ones(len(samples) // S.VAD_FRAME, dtype=bool))
     def test_a_stretch_without_pauses_is_cut_and_never_repeated(self):
         global SCRIPT
         words = [(f' w{i}', .5 + .4 * i) for i in range(60)]
@@ -240,7 +264,7 @@ class StretchTests(unittest.TestCase):
         voiced = np.zeros(len(audio) // S.VAD_FRAME, dtype=bool)
         voiced[33:200] = True     # 1.0-6.0 s
         voiced[250:900] = True    # 7.5-27.0 s, no pause
-        with patch('streaming_speech.voiced_frames', lambda samples: voiced):
+        with patch('streaming_speech.voiced_frames', lambda samples, vad=None: voiced):
             found = [(round(a / RATE, 2), round(b / RATE, 2)) for a, b in S.stretches(audio)]
         self.assertEqual(found[0], (0.74, 6.15))
         self.assertTrue(all(b - a <= 10.0 for a, b in found))

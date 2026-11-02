@@ -46,6 +46,8 @@ def score(draft_path):
 
 
 def main(mode, out):
+    from worker_lifetime import limit_gpu_cache
+    limit_gpu_cache()  # as the app's workers do; MLX's unbounded buffer cache would otherwise swap the Mac
     audio = sf.read(FIXTURE / 'es2004-60.wav', dtype='float32')[0]
     seconds = float(os.environ.get('BAKEOFF_SECONDS', 0)) or None
     if seconds:

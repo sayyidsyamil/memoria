@@ -102,11 +102,11 @@ const status = () => within(screen.getByRole('region', { name: /Decision board|D
 
 async function lookUp(type: string, { item = 'launch', attribute = 'budget', when = '' } = {}) {
   const fold = open('Look up a past value')
-  fireEvent.change(within(fold).getByRole('combobox', { name: 'Query item' }), { target: { value: item } })
-  fireEvent.change(within(fold).getByRole('combobox', { name: 'Query attribute' }), { target: { value: attribute } })
-  fireEvent.change(within(fold).getByRole('combobox', { name: 'Time perspective' }), { target: { value: type } })
-  if (when) input('As of (ISO date or timestamp)', when)
-  fireEvent.click(within(fold).getByRole('button', { name: 'Look up value' }))
+  fireEvent.change(within(fold).getByRole('combobox', { name: 'Item' }), { target: { value: item } })
+  fireEvent.change(within(fold).getByRole('combobox', { name: 'Field' }), { target: { value: attribute } })
+  fireEvent.change(within(fold).getByRole('combobox', { name: 'When' }), { target: { value: type } })
+  if (when) input('Date', when)
+  fireEvent.click(within(fold).getByRole('button', { name: 'Look up' }))
   return within(fold).findByRole('status')
 }
 
@@ -163,7 +163,7 @@ describe('the decision board', () => {
     expect(current).not.toHaveTextContent(MEETING_1)
     // Not even on hover: ids stay inside the ledger.
     expect(current.querySelector(`[title*="${MEETING_1}"], [title*="ID"]`)).toBeNull()
-    expect(within(current).getByRole('button', { name: 'Changed 2×: history of Launch project' })).toHaveTextContent('changed 2×')
+    expect(within(current).getByRole('button', { name: 'History of Launch project, changed twice' })).toHaveTextContent('Changed twice')
     expect(screen.getByRole('alert')).toHaveTextContent('Overlapping valid intervals')
     expect(requests).toEqual([{ vaultPath: '/vault', method: 'overview', params: {} }])
     expect(meetingRequests).toEqual([{ vaultPath: '/vault', operation: 'list' }])
@@ -176,13 +176,13 @@ describe('the decision board', () => {
     overview.proposals = [{ ...base.proposals[0], object_id: 'golive', label: 'Go-live date', attribute: 'date', value: '2026-11-16', current_value: '2026-11-09' }]
     await load()
     const board = screen.getByRole('region', { name: 'Decision board' })
-    expect(within(board).getAllByRole('heading', { level: 3 }).map(heading => heading.textContent)).toEqual(['Needs review (1)', 'Decisions 3', 'Commitments 3', 'Look up a past value', 'Tracked items'])
+    expect(within(board).getAllByRole('heading', { level: 3 }).map(heading => heading.textContent)).toEqual(['Needs review 1', 'Decisions 3', 'Commitments 3', 'Look up a past value', 'Tracked items'])
     expect(within(screen.getByRole('region', { name: /^Decisions/ })).getAllByRole('article').map(item => item.getAttribute('aria-label'))).toEqual(['Vendor', 'Pilot budget', 'Go-live date'])
     // Folded by default: the setup form is not even reachable until asked for.
     expect(screen.getByRole('button', { name: 'Tracked items' })).toHaveAttribute('aria-expanded', 'false')
-    expect(screen.queryByRole('textbox', { name: 'Object ID' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('textbox', { name: 'ID' })).not.toBeInTheDocument()
     open('Tracked items')
-    expect(screen.getByRole('textbox', { name: 'Object ID' })).toBeVisible()
+    expect(screen.getByRole('textbox', { name: 'ID' })).toBeVisible()
   })
 
   it('writes values for people: money with its unit, one date style, and no internal ids', async () => {
@@ -225,7 +225,7 @@ describe('the decision board', () => {
     expect(training).not.toHaveTextContent('I will coordinate it with HR myself.')
     // The overview names the replaced fact only; its history holds the reason.
     expect(requests.filter(request => request.method === 'facts.history').map(request => request.params)).toEqual([{ object_id: 'training', attribute: 'owner' }])
-    const opened = await openHistory('History: history of Staff training owner')
+    const opened = await openHistory('History of Staff training owner')
     const [now, replaced] = within(opened).getAllByRole('listitem')
     expect(now).toHaveTextContent('Raj')
     expect(now).toHaveTextContent('Corrected by you: The chair said Raj will do the staff training from now on.')
@@ -244,11 +244,11 @@ describe('the decision board', () => {
   })
 
   it.each([
-    [0, null], [1, 'changed 1×'], [2, 'changed 2×'], [11, 'changed 11×'],
+    [0, null], [1, 'Changed once'], [2, 'Changed twice'], [11, 'Changed 11 times'],
   ])('offers the history of a value that changed %i times as %j', async (count, text) => {
     overview.facts[0] = { ...fact, n_changes: count }
     await load()
-    const button = within(card('Launch project')).queryByRole('button', { name: /history of/ })
+    const button = within(card('Launch project')).queryByRole('button', { name: /^History of/ })
     if (text === null) expect(button).not.toBeInTheDocument()
     else expect(button).toHaveTextContent(text)
   })
@@ -259,6 +259,18 @@ describe('the decision board', () => {
     await load()
     expect(screen.getByRole('heading', { name: 'No decisions yet' })).toBeInTheDocument()
     expect(screen.getByText(/Find decisions and commitments/)).toBeInTheDocument()
+  })
+
+  it('says it is loading in the board itself while the ledger is first read', async () => {
+    let finish!: (result: unknown) => void
+    respond = request => request.method === 'overview' ? new Promise(resolve => { finish = resolve }) : { ok: true }
+    render(<TemporalMemoryPanel vaultPath="/vault" />)
+    const board = screen.getByRole('region', { name: 'Decision board' })
+    expect(within(board).getAllByRole('status').map(item => item.textContent)).toEqual(['', 'Loading decisions…'])
+    await act(async () => finish(structuredClone(overview)))
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Refresh' })).toBeEnabled())
+    expect(within(board).getAllByRole('status')).toHaveLength(1)
+    expect(card('Launch project')).toBeInTheDocument()
   })
 })
 
@@ -285,7 +297,7 @@ describe('suggestions that need review', () => {
     expect(item.querySelector('.board-value')).toHaveTextContent('120now 100')
     expect(within(item).getByText('The budget should now be 120.')).toBeInTheDocument()
     expect(await within(item).findByText('Pilot review')).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'Needs review (1)' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Needs review 1' })).toBeInTheDocument()
   })
 
   it('accepts an edited value in the form the ledger stores', async () => {
@@ -352,8 +364,8 @@ describe('suggestions that need review', () => {
 describe('corrections and history', () => {
   it('shows history in place and requires a reason before sending a typed numeric correction', async () => {
     await load()
-    const opened = await openHistory('Changed 2×: history of Launch project')
-    expect(within(card('Launch project')).getByRole('button', { name: /history of Launch project/ })).toHaveAttribute('aria-expanded', 'true')
+    const opened = await openHistory('History of Launch project, changed twice')
+    expect(within(card('Launch project')).getByRole('button', { name: /^History of Launch project/ })).toHaveAttribute('aria-expanded', 'true')
     const [now, previous] = within(opened).getAllByRole('listitem')
     expect(now).toHaveTextContent(`100Now · decided ${at('2026-11-01T10:00:12Z')}`)
     expect(previous).toHaveTextContent(`80Earlier · decided ${at('2026-10-02T10:00:00Z')} · until 1 Nov 2026`)
@@ -364,7 +376,7 @@ describe('corrections and history', () => {
     const save = screen.getByRole('button', { name: 'Save correction' })
     input('Corrected value', '95')
     expect(save).toBeDisabled()
-    input('Reason (required)', '  Corrected transcript figure  ')
+    input('Reason', '  Corrected transcript figure  ')
     fireEvent.click(save)
     await screen.findByText('Correction saved.')
     expect(requests.find(request => request.method === 'facts.correct')?.params).toEqual({ fact_id: 1, value: 95, reason: 'Corrected transcript figure' })
@@ -373,26 +385,26 @@ describe('corrections and history', () => {
   it('corrects the current value from its row, starting in the value field', async () => {
     await load()
     fireEvent.click(within(card('Launch project')).getByRole('button', { name: 'Correct Launch project' }))
-    const form = screen.getByRole('region', { name: 'Correct fact' })
-    expect(form).toHaveTextContent('Correct Launch project. Recorded value: 100.')
+    const form = screen.getByRole('region', { name: 'Correct Launch project' })
+    expect(form).toHaveTextContent('Correct Launch project: 100')
     expect(screen.getByRole('textbox', { name: 'Corrected value' })).toHaveFocus()
     input('Corrected value', '110')
-    input('Reason (required)', 'Misheard figure')
+    input('Reason', 'Misheard figure')
     fireEvent.click(screen.getByRole('button', { name: 'Save correction' }))
     await screen.findByText('Correction saved.')
     expect(requests.find(request => request.method === 'facts.correct')?.params).toEqual({ fact_id: 2, value: 110, reason: 'Misheard figure' })
-    await waitFor(() => expect(screen.queryByRole('region', { name: 'Correct fact' })).not.toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByRole('region', { name: 'Correct Launch project' })).not.toBeInTheDocument())
   })
 
   it('rejects invalid numeric corrections in place and retains the reason for retry', async () => {
     await load()
     fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
     input('Corrected value', 'not a number')
-    input('Reason (required)', 'Transcript correction')
+    input('Reason', 'Transcript correction')
     fireEvent.click(screen.getByRole('button', { name: 'Save correction' }))
-    expect(await within(screen.getByRole('region', { name: 'Correct fact' })).findByRole('alert')).toHaveTextContent('Enter a number, for example 280,000.')
+    expect(await within(screen.getByRole('region', { name: 'Correct Launch project' })).findByRole('alert')).toHaveTextContent('Enter a number, for example 280,000.')
     expect(requests.some(request => request.method === 'facts.correct')).toBe(false)
-    expect(screen.getByRole('textbox', { name: 'Reason (required)' })).toHaveValue('Transcript correction')
+    expect(screen.getByRole('textbox', { name: 'Reason' })).toHaveValue('Transcript correction')
   })
 
   it.each([
@@ -403,7 +415,7 @@ describe('corrections and history', () => {
     await load()
     fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
     input('Corrected value', value)
-    input('Reason (required)', 'Fix incorrect value')
+    input('Reason', 'Fix incorrect value')
     fireEvent.click(screen.getByRole('button', { name: 'Save correction' }))
     expect(await screen.findByRole('alert')).toHaveTextContent(error)
     expect(requests.some(request => request.method === 'facts.correct')).toBe(false)
@@ -416,7 +428,7 @@ describe('corrections and history', () => {
     const choice = screen.getByRole('combobox', { name: 'Corrected value' })
     // The recorded value stays selected even though the list no longer allows it.
     expect(within(choice).getAllByRole('option').map(option => option.textContent)).toEqual(['planned', 'active', '100'])
-    input('Reason (required)', 'Fix incorrect value')
+    input('Reason', 'Fix incorrect value')
     fireEvent.click(screen.getByRole('button', { name: 'Save correction' }))
     expect(await screen.findByRole('alert')).toHaveTextContent('Choose one of: planned, active')
     fireEvent.change(choice, { target: { value: 'active' } })
@@ -429,16 +441,16 @@ describe('corrections and history', () => {
     await load()
     fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
     fireEvent.click(screen.getByRole('button', { name: 'Retract instead' }))
-    expect(screen.getByRole('region', { name: 'Retract fact' })).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: 'Retract Launch project' })).toBeInTheDocument()
     expect(screen.queryByRole('textbox', { name: 'Corrected value' })).not.toBeInTheDocument()
-    input('Reason (required)', '   ')
-    expect(screen.getByRole('button', { name: 'Confirm retraction' })).toBeDisabled()
+    input('Reason', '   ')
+    expect(screen.getByRole('button', { name: 'Retract value' })).toBeDisabled()
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
     expect(requests.some(request => request.method === 'facts.retract')).toBe(false)
     fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
     fireEvent.click(screen.getByRole('button', { name: 'Retract instead' }))
-    input('Reason (required)', 'Unsupported by the reviewed recording')
-    fireEvent.click(screen.getByRole('button', { name: 'Confirm retraction' }))
+    input('Reason', 'Unsupported by the reviewed recording')
+    fireEvent.click(screen.getByRole('button', { name: 'Retract value' }))
     await screen.findByText('Value retracted.')
     expect(requests.find(request => request.method === 'facts.retract')?.params).toEqual({ fact_id: 2, reason: 'Unsupported by the reviewed recording' })
   })
@@ -446,7 +458,7 @@ describe('corrections and history', () => {
   it('names a retraction and its reason in the history, and offers no edits of withdrawn values', async () => {
     history = [{ ...historicalFact, retracted: { by: 'user', reason: 'Never agreed' } }, structuredClone(currentInHistory)]
     await load()
-    const opened = await openHistory(/history of Launch project/)
+    const opened = await openHistory(/^History of Launch project/)
     const previous = within(opened).getAllByRole('listitem')[1]
     expect(previous).toHaveTextContent('Retracted')
     expect(previous).toHaveTextContent('Reason: Never agreed')
@@ -457,7 +469,7 @@ describe('corrections and history', () => {
 
   it('shows meeting titles in the history of a value', async () => {
     await load()
-    const opened = await openHistory(/history of Launch project/)
+    const opened = await openHistory(/^History of Launch project/)
     expect(await within(opened).findByText('Budget workshop')).toBeInTheDocument()
     expect(opened).not.toHaveTextContent(MEETING_2)
   })
@@ -465,22 +477,22 @@ describe('corrections and history', () => {
 
 describe('looking up a past value', () => {
   it.each([
-    ['current', {}, '', 'Current', '100', ['We agreed on a budget of 100.'], ['Maya · Pilot review · 1:05']],
-    ['as_of_valid', { valid_at: '2026-10-15' }, '2026-10-15', 'Valid at 15 Oct 2026', '80', ['Let us start with 80.'], ['Sam · Budget workshop · 0:12']],
-    ['as_of_tx', { tx_at: '2026-10-15' }, '2026-10-15', 'Value valid now, as known on 15 Oct 2026', '80', ['Let us start with 80.'], ['Sam · Budget workshop · 0:12']],
+    ['current', {}, '', 'Now', '100', ['We agreed on a budget of 100.'], ['Maya · Pilot review · 1:05']],
+    ['as_of_valid', { valid_at: '2026-10-15' }, '2026-10-15', 'On 15 Oct 2026', '80', ['Let us start with 80.'], ['Sam · Budget workshop · 0:12']],
+    ['as_of_tx', { tx_at: '2026-10-15' }, '2026-10-15', 'As recorded on 15 Oct 2026', '80', ['Let us start with 80.'], ['Sam · Budget workshop · 0:12']],
     ['n_changes', {}, '', 'Number of changes', 'Changed once', ['Let us start with 80.', 'We agreed on a budget of 100.'], ['Sam · Budget workshop · 0:12', 'Maya · Pilot review · 1:05']],
   ])('queries %s only after explicit submission and shows a readable answer', async (type, time, when, heading, answer, quotes, captions) => {
     await load()
     const fold = open('Look up a past value')
-    fireEvent.change(within(fold).getByRole('combobox', { name: 'Query item' }), { target: { value: 'launch' } })
-    fireEvent.change(within(fold).getByRole('combobox', { name: 'Query attribute' }), { target: { value: 'budget' } })
-    fireEvent.change(within(fold).getByRole('combobox', { name: 'Time perspective' }), { target: { value: type } })
+    fireEvent.change(within(fold).getByRole('combobox', { name: 'Item' }), { target: { value: 'launch' } })
+    fireEvent.change(within(fold).getByRole('combobox', { name: 'Field' }), { target: { value: 'budget' } })
+    fireEvent.change(within(fold).getByRole('combobox', { name: 'When' }), { target: { value: type } })
     if (type.startsWith('as_of')) {
-      expect(within(fold).getByRole('button', { name: 'Look up value' })).toBeDisabled()
-      input('As of (ISO date or timestamp)', when)
+      expect(within(fold).getByRole('button', { name: 'Look up' })).toBeDisabled()
+      input('Date', when)
     }
     expect(requests.some(request => request.method === 'query')).toBe(false)
-    fireEvent.click(within(fold).getByRole('button', { name: 'Look up value' }))
+    fireEvent.click(within(fold).getByRole('button', { name: 'Look up' }))
     const result = await within(fold).findByRole('status')
     expect(within(result).getByRole('heading')).toHaveTextContent(`Launch project — Budget · ${heading}`)
     if (when) expect(within(result).getByRole('heading').querySelector('time')).toHaveAttribute('datetime', when)
@@ -498,9 +510,9 @@ describe('looking up a past value', () => {
     respond = request => { if (request.method === 'query') throw { message: 'Unknown temporal query type.' }; return original(request) }
     await load()
     const fold = open('Look up a past value')
-    fireEvent.change(within(fold).getByRole('combobox', { name: 'Query item' }), { target: { value: 'launch' } })
-    fireEvent.change(within(fold).getByRole('combobox', { name: 'Query attribute' }), { target: { value: 'budget' } })
-    fireEvent.click(within(fold).getByRole('button', { name: 'Look up value' }))
+    fireEvent.change(within(fold).getByRole('combobox', { name: 'Item' }), { target: { value: 'launch' } })
+    fireEvent.change(within(fold).getByRole('combobox', { name: 'Field' }), { target: { value: 'budget' } })
+    fireEvent.click(within(fold).getByRole('button', { name: 'Look up' }))
     expect(await within(fold).findByRole('alert')).toHaveTextContent('Unknown temporal query type.')
   })
 
@@ -533,14 +545,14 @@ describe('looking up a past value', () => {
   it('writes a typed lookup timestamp as a readable date and time while keeping its exact value', async () => {
     await load()
     const heading = within(await lookUp('as_of_valid', { when: '2026-10-15T10:00:00Z' })).getByRole('heading')
-    expect(heading).toHaveTextContent(`Launch project — Budget · Valid at ${at('2026-10-15T10:00:00Z')}`)
+    expect(heading).toHaveTextContent(`Launch project — Budget · On ${at('2026-10-15T10:00:00Z')}`)
     expect(heading.querySelector('time')).toHaveAttribute('datetime', '2026-10-15T10:00:00Z')
   })
 
   it('shows a lookup date it cannot read as typed, without a time element', async () => {
     await load()
     const heading = within(await lookUp('as_of_valid', { when: 'last autumn' })).getByRole('heading')
-    expect(heading).toHaveTextContent('Launch project — Budget · Valid at last autumn')
+    expect(heading).toHaveTextContent('Launch project — Budget · On last autumn')
     expect(heading.querySelector('time')).toBeNull()
   })
 
@@ -571,7 +583,7 @@ describe('looking up a past value', () => {
     overview.proposals = []
     history = [{ ...currentInHistory, object_id: 'pilot', attribute: 'supplier', value: 'Beta' }]
     await load()
-    const opened = await openHistory(/history of Pilot/)
+    const opened = await openHistory(/^History of Pilot/)
     expect(opened).toHaveAccessibleName('History: Pilot')
     expect(opened).not.toHaveTextContent(/pilot/)
     fireEvent.click(within(opened).getByRole('button', { name: 'Close history' }))
@@ -625,7 +637,7 @@ describe('dates and values', () => {
     expect(result.querySelector('.temporal-value time')).toHaveAttribute('datetime', '2026-12-15')
 
     fireEvent.click(within(card('Launch project')).getByRole('button', { name: 'Correct Launch project' }))
-    expect(screen.getByRole('region', { name: 'Correct fact' })).toHaveTextContent('Recorded value: 1 Dec 2026.')
+    expect(screen.getByRole('region', { name: 'Correct Launch project' })).toHaveTextContent('Correct Launch project: 1 Dec 2026')
     // Editing stays in the format the ledger validates.
     expect(screen.getByRole('textbox', { name: 'Corrected value' })).toHaveValue('2026-12-01')
   })
@@ -664,7 +676,7 @@ describe('meeting titles', () => {
     await act(async () => { await Promise.resolve() })
     expect(item.querySelector('.board-cite')).toHaveTextContent('Maya · Meeting 3f2a… · 1:05')
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-    expect(within(item).getByRole('button', { name: /history of Launch project/ })).toBeEnabled()
+    expect(within(item).getByRole('button', { name: /^History of Launch project/ })).toBeEnabled()
     expect(within(suggestion('Launch project')).getByRole('button', { name: 'Accept' })).toBeEnabled()
   })
 
@@ -765,16 +777,16 @@ describe('tracked items setup', () => {
     overview.registry.objects.push(other)
     await load()
     open('Tracked items')
-    input('Item label', 'Contradictory label')
-    fireEvent.change(screen.getByRole('combobox', { name: 'Item kind' }), { target: { value: 'commitment' } })
-    input('Object ID', 'launch')
-    expect(screen.getByRole('textbox', { name: 'Item label' })).toBeDisabled()
-    expect(screen.getByRole('textbox', { name: 'Item label' })).toHaveValue('Launch project')
-    expect(screen.getByRole('combobox', { name: 'Item kind' })).toBeDisabled()
-    expect(screen.getByRole('combobox', { name: 'Item kind' })).toHaveValue('decision')
-    input('Attribute name', 'status')
-    fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: 'enum' } })
-    input('Allowed values (required, comma-separated)', 'planned, active, planned')
+    input('Name', 'Contradictory label')
+    fireEvent.change(screen.getByRole('combobox', { name: 'Kind' }), { target: { value: 'commitment' } })
+    input('ID', 'launch')
+    expect(screen.getByRole('textbox', { name: 'Name' })).toBeDisabled()
+    expect(screen.getByRole('textbox', { name: 'Name' })).toHaveValue('Launch project')
+    expect(screen.getByRole('combobox', { name: 'Kind' })).toBeDisabled()
+    expect(screen.getByRole('combobox', { name: 'Kind' })).toHaveValue('decision')
+    input('Field', 'status')
+    fireEvent.change(screen.getByRole('combobox', { name: 'Type' }), { target: { value: 'enum' } })
+    input('Allowed values, separated by commas', 'planned, active, planned')
     fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
     await screen.findByText('Tracked item saved.')
     expect(requests.find(request => request.method === 'registry.set')).toEqual({
@@ -789,9 +801,9 @@ describe('tracked items setup', () => {
     const setup = open('Tracked items')
     const original = respond
     respond = request => { if (request.method === 'registry.set') throw { message: 'The ledger refused the change.' }; return original(request) }
-    input('Object ID', 'owner')
-    input('Item label', 'Owner')
-    input('Attribute name', 'name')
+    input('ID', 'owner')
+    input('Name', 'Owner')
+    input('Field', 'name')
     fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
     expect(await within(setup).findByRole('alert')).toHaveTextContent('The ledger refused the change.')
     expect(screen.queryByText('Tracked item saved.')).not.toBeInTheDocument()
@@ -811,16 +823,16 @@ describe('tracked items setup', () => {
     await load()
     open('Tracked items')
     fireEvent.click(screen.getByRole('button', { name: 'Edit stage (text)' }))
-    expect(screen.getByRole('textbox', { name: 'Object ID' })).toHaveValue('launch')
-    fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: 'enum' } })
+    expect(screen.getByRole('textbox', { name: 'ID' })).toHaveValue('launch')
+    fireEvent.change(screen.getByRole('combobox', { name: 'Type' }), { target: { value: 'enum' } })
     const save = screen.getByRole('button', { name: 'Save tracked item' })
-    expect(screen.getByRole('textbox', { name: 'Allowed values (required, comma-separated)' })).toBeRequired()
+    expect(screen.getByRole('textbox', { name: 'Allowed values, separated by commas' })).toBeRequired()
     expect(save).toBeDisabled()
-    input('Allowed values (required, comma-separated)', ' , , ')
+    input('Allowed values, separated by commas', ' , , ')
     expect(save).toBeDisabled()
     fireEvent.submit(save.closest('form')!)
     expect(requests.some(request => request.method === 'registry.set')).toBe(false)
-    input('Allowed values (required, comma-separated)', 'planned, active')
+    input('Allowed values, separated by commas', 'planned, active')
     fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
     await screen.findByText('Tracked item saved.')
     expect(requests.find(request => request.method === 'registry.set')?.params).toEqual({ objects: [
@@ -832,26 +844,26 @@ describe('tracked items setup', () => {
     await load()
     open('Tracked items')
     expect(screen.queryByText(/is already tracked/)).not.toBeInTheDocument()
-    input('Object ID', 'launch')
-    const note = screen.getByText(/"Launch project" is already tracked, so its label and kind can't be changed here/)
-    expect(screen.getByRole('textbox', { name: 'Item label' })).toHaveAccessibleDescription(note.textContent ?? '')
-    expect(screen.getByRole('combobox', { name: 'Item kind' })).toHaveAccessibleDescription(note.textContent ?? '')
-    input('Object ID', 'owner')
+    input('ID', 'launch')
+    const note = screen.getByText(/"Launch project" is already tracked, so its name and kind stay as they are/)
+    expect(screen.getByRole('textbox', { name: 'Name' })).toHaveAccessibleDescription(note.textContent ?? '')
+    expect(screen.getByRole('combobox', { name: 'Kind' })).toHaveAccessibleDescription(note.textContent ?? '')
+    input('ID', 'owner')
     expect(screen.queryByText(/is already tracked/)).not.toBeInTheDocument()
-    expect(screen.getByRole('textbox', { name: 'Item label' })).toBeEnabled()
-    expect(screen.getByRole('combobox', { name: 'Item kind' })).toBeEnabled()
+    expect(screen.getByRole('textbox', { name: 'Name' })).toBeEnabled()
+    expect(screen.getByRole('combobox', { name: 'Kind' })).toBeEnabled()
   })
 
   // Observed in the engine: a new item whose kind is not issue, decision or commitment is refused, and the form used to start with "object".
   it('offers a new item only the kinds the ledger accepts, starting with decision rather than the refused "object"', async () => {
     await load()
     open('Tracked items')
-    const kind = screen.getByRole('combobox', { name: 'Item kind' })
+    const kind = screen.getByRole('combobox', { name: 'Kind' })
     expect(within(kind).getAllByRole('option').map(option => option.textContent)).toEqual(['Decision', 'Commitment', 'Issue'])
     expect(kind).toHaveValue('decision')
-    input('Object ID', 'owner')
-    input('Item label', 'Owner')
-    input('Attribute name', 'name')
+    input('ID', 'owner')
+    input('Name', 'Owner')
+    input('Field', 'name')
     fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
     await screen.findByText('Tracked item saved.')
     expect(requests.find(request => request.method === 'registry.set')?.params).toEqual({ objects: [
@@ -862,10 +874,10 @@ describe('tracked items setup', () => {
   it('saves the kind that was chosen for a new item', async () => {
     await load()
     open('Tracked items')
-    input('Object ID', 'owner')
-    input('Item label', 'Owner')
-    fireEvent.change(screen.getByRole('combobox', { name: 'Item kind' }), { target: { value: 'commitment' } })
-    input('Attribute name', 'name')
+    input('ID', 'owner')
+    input('Name', 'Owner')
+    fireEvent.change(screen.getByRole('combobox', { name: 'Kind' }), { target: { value: 'commitment' } })
+    input('Field', 'name')
     fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
     await screen.findByText('Tracked item saved.')
     expect(requests.find(request => request.method === 'registry.set')?.params).toMatchObject({ objects: [expect.anything(), { object_id: 'owner', kind: 'commitment' }] })
@@ -885,18 +897,18 @@ describe('tracked items setup', () => {
   }
 
   function startEditing(name: string, type: string, change: { type?: string; values?: string }) {
-    fireEvent.click(screen.getByRole('button', { name: `Edit ${name} (${type})` }))
-    if (change.type) fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: change.type } })
-    if (change.values !== undefined) input('Allowed values (required, comma-separated)', change.values)
+    fireEvent.click(screen.getByRole('button', { name: `Edit ${name} (${type === 'enum' ? 'list' : type})` }))
+    if (change.type) fireEvent.change(screen.getByRole('combobox', { name: 'Type' }), { target: { value: change.type } })
+    if (change.values !== undefined) input('Allowed values, separated by commas', change.values)
   }
 
   // The ledger accepts all of these and leaves the old value as it was, so the form is what keeps a number sitting in a date attribute.
   it.each([
     ['budget', 'number', { type: 'text' }, /"budget" has values that would not fit the type "text": 100 \(recorded\)\. First retract the recorded values, or keep the type "number"\./],
     ['budget', 'number', { type: 'date' }, /would not fit the type "date": 100 \(recorded\)/],
-    ['budget', 'number', { type: 'enum', values: 'planned, 100' }, /would not fit the type "enum": 100 \(recorded\)/],
+    ['budget', 'number', { type: 'enum', values: 'planned, 100' }, /would not fit the type "list": 100 \(recorded\)/],
     ['owner', 'text', { type: 'number' }, /would not fit the type "number": "Maya" \(recorded\)/],
-    ['owner', 'text', { type: 'enum', values: 'Sam, Priya' }, /would not fit the type "enum": "Maya" \(recorded\)/],
+    ['owner', 'text', { type: 'enum', values: 'Sam, Priya' }, /would not fit the type "list": "Maya" \(recorded\)/],
     ['status', 'enum', { type: 'number' }, /would not fit the type "number": "active" \(recorded\)/],
     ['status', 'enum', { values: 'planned, done' }, /"status" still has values outside the allowed list: "active" \(recorded\)\. Keep them in the list, or first retract the recorded values\./],
     ['go_live', 'date', { type: 'number' }, /would not fit the type "number": "2026-12-01" \(recorded\)/],
@@ -908,8 +920,8 @@ describe('tracked items setup', () => {
     const note = screen.getByText(explanation)
     const save = screen.getByRole('button', { name: 'Save tracked item' })
     expect(save).toBeDisabled()
-    expect(screen.getByRole('combobox', { name: 'Attribute type' })).toBeInvalid()
-    expect(screen.getByRole('combobox', { name: 'Attribute type' })).toHaveAccessibleDescription(note.textContent ?? '')
+    expect(screen.getByRole('combobox', { name: 'Type' })).toBeInvalid()
+    expect(screen.getByRole('combobox', { name: 'Type' })).toHaveAccessibleDescription(note.textContent ?? '')
     // A forced submission is refused as well; the ledger would otherwise have accepted it.
     fireEvent.submit(save.closest('form')!)
     expect(requests.some(request => request.method === 'registry.set')).toBe(false)
@@ -928,7 +940,7 @@ describe('tracked items setup', () => {
     open('Tracked items')
     startEditing(name, type, change)
     expect(screen.queryByText(/would not fit|outside the allowed list/)).not.toBeInTheDocument()
-    expect(screen.getByRole('combobox', { name: 'Attribute type' })).toBeValid()
+    expect(screen.getByRole('combobox', { name: 'Type' })).toBeValid()
     expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled()
   })
 
@@ -984,8 +996,8 @@ describe('tracked items setup', () => {
     startEditing('stage', 'number', { type: 'date' })
     expect(screen.queryByText(/would not fit/)).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled()
-    input('Attribute name', 'brand_new')
-    fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: 'number' } })
+    input('Field', 'brand_new')
+    fireEvent.change(screen.getByRole('combobox', { name: 'Type' }), { target: { value: 'number' } })
     expect(screen.queryByText(/would not fit/)).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled()
   })
