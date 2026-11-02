@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { changeCount, changeSummary, describeQueryResult, meetingLabel, readableDate } from './temporalFormat'
+import { changeCount, changeSummary, describeQueryResult, itemLabel, meetingLabel, readableDate } from './temporalFormat'
 
 describe('readableDate', () => {
   it('writes dates the way the locale does and keeps the exact value for the time element', () => {
@@ -90,6 +90,30 @@ describe('change counts', () => {
 
   it.each([[0, 'No changes recorded'], [1, 'Changed once'], [2, 'Changed twice'], [3, 'Changed 3 times'], [12, 'Changed 12 times']])('answers %i with "%s"', (count, text) => {
     expect(changeSummary(count)).toBe(text)
+  })
+})
+
+describe('itemLabel', () => {
+  const objects = [{ object_id: 'pilot', label: 'Pilot' }, { object_id: 'padded', label: '  Launch project  ' }, { object_id: 'blank', label: '   ' }]
+
+  it('names a tracked item by its label rather than its id', () => {
+    expect(itemLabel('pilot', objects)).toBe('Pilot')
+    expect(itemLabel('padded', objects)).toBe('Launch project')
+  })
+
+  it('falls back to the id when the registry is unknown, lacks the item or holds no usable label', () => {
+    expect(itemLabel('pilot', undefined)).toBe('pilot')
+    expect(itemLabel('pilot', [])).toBe('pilot')
+    expect(itemLabel('missing', objects)).toBe('missing')
+    expect(itemLabel('blank', objects)).toBe('blank')
+    expect(itemLabel('pilot', [{ object_id: 'pilot', label: undefined as unknown as string }])).toBe('pilot')
+  })
+
+  it('matches ids exactly, as the ledger does', () => {
+    const programme = [{ object_id: 'pilot', label: 'The pilot programme' }]
+    expect(itemLabel('pilot', programme)).toBe('The pilot programme')
+    expect(itemLabel('Pilot', programme)).toBe('Pilot')
+    expect(itemLabel(' pilot', programme)).toBe(' pilot')
   })
 })
 

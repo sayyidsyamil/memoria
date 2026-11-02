@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import {
@@ -8,11 +8,13 @@ import {
   type TemporalEvidence,
   type TemporalFact,
   type TemporalHistoryFact,
+  type TemporalObject,
   type TemporalOverview,
   type TemporalQuery,
   type TemporalValue,
 } from './temporalService'
-import { changeCount, changeSummary, describeQueryResult, meetingLabel, readableDate, type MeetingTitles } from './temporalFormat'
+import { changeCount, changeSummary, describeQueryResult, itemLabel, meetingLabel, readableDate, type MeetingTitles } from './temporalFormat'
+import { DEFAULT_ITEM_KIND, ITEM_KINDS, attributeEditProblem, isCalendarDate, isItemKind, kindLabel, recordedValues } from './trackedItemRules'
 import { useMeetingTitles } from './useMeetingTitles'
 import './temporalMemory.css'
 
@@ -42,6 +44,11 @@ function MeetingName({ id, titles }: { id: string | null; titles: MeetingTitles 
   return typeof id === 'string' && id.trim() ? <span title={`Meeting ID: ${id}`}>{meetingLabel(id, titles)}</span> : <>{meetingLabel(id, titles)}</>
 }
 
+/** The tracked item's label; its exact id stays available on hover, as meeting ids do in citations. */
+function ItemName({ id, objects }: { id: string; objects: readonly TemporalObject[] | undefined }) {
+  return <span className="temporal-item" title={`Item ID: ${id}`}>{itemLabel(id, objects)}</span>
+}
+
 function Evidence({ evidence, titles }: { evidence: TemporalEvidence[]; titles: MeetingTitles }) {
   return <div className="temporal-evidence">{evidence.map((source, index) => <figure key={index}>
     <blockquote>{source.quote || 'No source quote recorded.'}</blockquote>
@@ -53,9 +60,9 @@ function Evidence({ evidence, titles }: { evidence: TemporalEvidence[]; titles: 
 
 type QueryResult = { result: TemporalValue; type: TemporalQuery['type']; objectId: string; attribute: string; at: string }
 
-function QueryHeading({ query }: { query: QueryResult }) {
+function QueryHeading({ query, objects }: { query: QueryResult; objects: readonly TemporalObject[] | undefined }) {
   const { type, at } = query
-  return <h4>{query.objectId} — {query.attribute} · {type === 'current' ? 'Current' : type === 'n_changes' ? 'Number of changes'
+  return <h4><ItemName id={query.objectId} objects={objects} /> — {query.attribute} · {type === 'current' ? 'Current' : type === 'n_changes' ? 'Number of changes'
     : <>{type === 'as_of_valid' ? 'Valid at' : 'Value valid now, as known on'} <TemporalDate value={at} time /></>}</h4>
 }
 
@@ -78,6 +85,7 @@ export function TemporalMemoryPanel(props: TemporalMemoryPanelProps) {
 }
 
 function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
+  const notes = useId()
   const [overview, setOverview] = useState<TemporalOverview | null>(null)
   const [busy, setBusy] = useState<string | null>('Loading tracked facts…')
   const [error, setError] = useState<string | null>(null)
@@ -86,7 +94,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
   const mounted = useRef(false)
   const [objectId, setObjectId] = useState('')
   const [label, setLabel] = useState('')
-  const [kind, setKind] = useState('object')
+  const [kind, setKind] = useState<string>(DEFAULT_ITEM_KIND)
   const [attribute, setAttribute] = useState('')
   const [attributeType, setAttributeType] = useState<TemporalAttributeType>('text')
   const [enumValues, setEnumValues] = useState('')
@@ -144,12 +152,12 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
     if (!overview || !objectId.trim() || !attribute.trim()) return
     const objects = overview.registry.objects
     const existing = objects.find(item => item.object_id === objectId.trim())
-    const values = [...new Set(enumValues.split(',').map(value => value.trim()).filter(Boolean))]
-    if ((!existing && (!label.trim() || !kind.trim())) || (attributeType === 'enum' && !values.length)) return
+    // The ledger refuses a new item without a label or with a kind outside its list, and an edit that strands recorded values is held back here.
+    if ((!existing && (!label.trim() || !isItemKind(kind))) || (attributeType === 'enum' && !allowedValues.length) || attributeProblem) return
     const nextAttribute: TemporalAttribute = { name: attribute.trim(), type: attributeType,
-      ...(attributeType === 'enum' && values.length ? { values } : {}) }
+      ...(attributeType === 'enum' && allowedValues.length ? { values: allowedValues } : {}) }
     const attributes = existing?.attributes ?? []
-    const nextObject = { ...existing, object_id: objectId.trim(), label: existing?.label ?? label.trim(), kind: existing?.kind ?? kind.trim(),
+    const nextObject = { ...existing, object_id: objectId.trim(), label: existing?.label ?? label.trim(), kind: existing?.kind ?? kind,
       attributes: attributes.some(item => item.name === nextAttribute.name)
         ? attributes.map(item => item.name === nextAttribute.name ? nextAttribute : item)
         : [...attributes, nextAttribute] }
@@ -175,7 +183,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
       if (!value) throw new Error('Enter a corrected value.')
       const type = definition?.type ?? (typeof fact.value === 'number' ? 'number' : 'text')
       if (type === 'number' && !Number.isFinite(Number(value))) throw new Error('Enter a finite number for the corrected value.')
-      if (type === 'date' && (!/^\d{4}-\d{2}-\d{2}$/.test(value) || !Number.isFinite(Date.parse(value)) || new Date(value).toISOString().slice(0, 10) !== value)) {
+      if (type === 'date' && !isCalendarDate(value)) {
         throw new Error('Enter a valid date in YYYY-MM-DD format.')
       }
       if (type === 'enum' && definition?.values?.length && !definition.values.includes(value)) {
@@ -219,7 +227,13 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
 
   const queryAttributes = overview?.registry.objects.find(item => item.object_id === queryObject)?.attributes ?? []
   const existingItem = overview?.registry.objects.find(item => item.object_id === objectId.trim())
-  const hasEnumValues = enumValues.split(',').some(value => value.trim())
+  const allowedValues = [...new Set(enumValues.split(',').map(value => value.trim()).filter(Boolean))]
+  const attributeName = attribute.trim()
+  // An edit to an attribute that already has values is checked against them before it can be sent; the ledger stays the authority.
+  const attributeProblem = overview && existingItem ? attributeEditProblem(existingItem.attributes.find(item => item.name === attributeName),
+    { name: attributeName, type: attributeType, ...(attributeType === 'enum' ? { values: allowedValues } : {}) }, recordedValues(overview, existingItem.object_id, attributeName)) : null
+  // A new item can only take a kind the ledger accepts; an existing item shows the kind it has, whatever that is.
+  const kindOptions: string[] = existingItem && !isItemKind(existingItem.kind) ? [existingItem.kind, ...ITEM_KINDS] : [...ITEM_KINDS]
   const proposals = overview?.proposals.filter(proposal => !meetingId || proposal.meeting === meetingId) ?? []
   const facts = overview?.facts.filter(fact => !meetingId || fact.evidence.some(source => source.meeting === meetingId)) ?? []
 
@@ -245,24 +259,28 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
     </section>}
     {!meetingId && overview && <section className="temporal-section" aria-label="Tracked items setup">
       <h3>Tracked items setup</h3>
-      <p>Name an item and an attribute to follow. Existing item labels and kinds are fixed; you can add or edit their attributes.</p>
+      <p>Name an item and an attribute to follow. Once an item is tracked, its label and kind are fixed. You can still add attributes to it, or change an attribute's type or allowed values while the values already recorded still fit.</p>
       {overview.registry.objects.length > 0 && <ul className="temporal-registry">{overview.registry.objects.map(item => <li key={item.object_id}>
         <strong>{item.label}</strong> <span className="temporal-meta">{item.object_id} · {item.kind}</span>
         <div className="temporal-actions">{item.attributes.map(definition => <Button key={definition.name} variant="ghost" disabled={!!busy} onClick={() => {
-          setObjectId(item.object_id); setLabel(item.label); setKind(item.kind); setAttribute(definition.name); setAttributeType(definition.type); setEnumValues(definition.values?.join(', ') ?? '')
+          setObjectId(item.object_id); setLabel(item.label); setKind(isItemKind(item.kind) ? item.kind : DEFAULT_ITEM_KIND); setAttribute(definition.name); setAttributeType(definition.type); setEnumValues(definition.values?.join(', ') ?? '')
         }}>Edit {definition.name} ({definition.type})</Button>)}</div>
       </li>)}</ul>}
       <form onSubmit={event => { event.preventDefault(); saveTrackedItem() }}>
         <fieldset disabled={!!busy} className="temporal-fields">
           <label>Object ID<Input required value={objectId} onChange={event => setObjectId(event.target.value)} placeholder="e.g. launch-project" /></label>
-          <label>Item label<Input required disabled={!!existingItem} value={existingItem?.label ?? label} onChange={event => setLabel(event.target.value)} placeholder="e.g. Launch project" /></label>
-          <label>Item kind<Input required disabled={!!existingItem} value={existingItem?.kind ?? kind} onChange={event => setKind(event.target.value)} /></label>
+          <label>Item label<Input required disabled={!!existingItem} aria-describedby={existingItem ? `${notes}-fixed` : undefined} value={existingItem?.label ?? label} onChange={event => setLabel(event.target.value)} placeholder="e.g. Launch project" /></label>
+          <label>Item kind<select disabled={!!existingItem} aria-describedby={existingItem ? `${notes}-fixed` : undefined} value={existingItem?.kind ?? kind} onChange={event => setKind(event.target.value)}>
+            {kindOptions.map(option => <option key={option} value={option}>{kindLabel(option)}</option>)}
+          </select></label>
+          {existingItem && <p id={`${notes}-fixed`} className="temporal-hint">{`"${existingItem.label}" is already tracked, so its label and kind can't be changed here. Add an attribute, or edit one of its attributes.`}</p>}
           <label>Attribute name<Input required value={attribute} onChange={event => setAttribute(event.target.value)} placeholder="e.g. launch_date" /></label>
-          <label>Attribute type<select value={attributeType} onChange={event => setAttributeType(event.target.value as TemporalAttributeType)}>
+          <label>Attribute type<select value={attributeType} aria-invalid={!!attributeProblem} aria-describedby={attributeProblem ? `${notes}-problem` : undefined} onChange={event => setAttributeType(event.target.value as TemporalAttributeType)}>
             <option value="text">Text</option><option value="number">Number</option><option value="date">Date</option><option value="enum">Enum</option>
           </select></label>
-          {attributeType === 'enum' && <label>Allowed values (required, comma-separated)<Input required value={enumValues} onChange={event => setEnumValues(event.target.value)} placeholder="e.g. planned, active, complete" /></label>}
-          <Button type="submit" variant="outline" disabled={!objectId.trim() || (!existingItem && (!label.trim() || !kind.trim())) || !attribute.trim() || (attributeType === 'enum' && !hasEnumValues)}>Save tracked item</Button>
+          {attributeType === 'enum' && <label>Allowed values (required, comma-separated)<Input required aria-invalid={!!attributeProblem} aria-describedby={attributeProblem ? `${notes}-problem` : undefined} value={enumValues} onChange={event => setEnumValues(event.target.value)} placeholder="e.g. planned, active, complete" /></label>}
+          {attributeProblem && <p id={`${notes}-problem`} role="status" className="temporal-hint" data-tone="warn">{attributeProblem}</p>}
+          <Button type="submit" variant="outline" disabled={!objectId.trim() || (!existingItem && (!label.trim() || !isItemKind(kind))) || !attribute.trim() || (attributeType === 'enum' && !allowedValues.length) || !!attributeProblem}>Save tracked item</Button>
         </fieldset>
       </form>
     </section>}
@@ -289,7 +307,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
       </section>
     </>}
     {history && <section className="temporal-section" aria-label="Fact history">
-      <div className="temporal-header"><h3>History: {history.objectId} — {history.attribute}</h3><Button variant="ghost" disabled={!!busy} onClick={() => setHistory(null)}>Close history</Button></div>
+      <div className="temporal-header"><h3>History: <ItemName id={history.objectId} objects={overview?.registry.objects} /> — {history.attribute}</h3><Button variant="ghost" disabled={!!busy} onClick={() => setHistory(null)}>Close history</Button></div>
       {!history.facts.length && <p>No fact history recorded.</p>}
       {history.facts.map(fact => factCard(fact, true))}
     </section>}
@@ -324,7 +342,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
         {queryType.startsWith('as_of') && <label>As of (ISO date or timestamp)<Input required value={queryAt} placeholder="2026-11-02 or 2026-11-02T10:00:00Z" onChange={event => { setQueryAt(event.target.value); setQueryResult(null) }} /></label>}
         <Button type="submit" variant="outline" disabled={!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt.trim())}>Look up value</Button>
       </fieldset></form>
-      {queryResult && <div className="temporal-query-result" role="status"><QueryHeading query={queryResult} />
+      {queryResult && <div className="temporal-query-result" role="status"><QueryHeading query={queryResult} objects={overview.registry.objects} />
         <QueryAnswer result={queryResult.result} type={queryResult.type} valueType={typeOfAttribute(queryResult.objectId, queryResult.attribute)} titles={titles} /></div>}
     </section>}
   </section>

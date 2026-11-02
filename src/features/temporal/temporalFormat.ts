@@ -78,6 +78,12 @@ export function meetingLabel(id: string | null | undefined, titles: MeetingTitle
   return title || `Meeting ${id.length > SHORT_ID_LENGTH ? `${id.slice(0, SHORT_ID_LENGTH)}…` : id}`
 }
 
+/** The tracked item's label for a heading; its id only when the registry does not list the item (the id stays on hover). */
+export function itemLabel(objectId: string, objects: readonly { object_id: string; label: string }[] | undefined): string {
+  const label = objects?.find(item => item.object_id === objectId)?.label
+  return typeof label === 'string' && label.trim() ? label.trim() : objectId
+}
+
 /** What a lookup returned, reduced to what the panel can show. Unknown shapes are kept so they can still be inspected. */
 export type QueryAnswerView =
   | { kind: 'changes'; count: number; evidence: TemporalEvidence[] }

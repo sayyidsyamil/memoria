@@ -16,6 +16,7 @@
 .temporal-memory h4 { font-size: 15px; font-weight: 600; }
 .temporal-memory h2, .temporal-memory h3, .temporal-memory h4, .temporal-memory p { margin: 0 0 10px; }
 .temporal-memory h4 span, .temporal-meta, .temporal-memory figcaption { color: var(--muted-foreground, #69655f); font-weight: 400; }
+.temporal-memory h4 span.temporal-item { color: inherit; font-weight: inherit; }
 .temporal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .temporal-section { padding-block: 24px; border-top: 1px solid var(--border, #dedbd5); }
 .temporal-card { margin-top: 16px; padding: 18px; background: var(--card, #fff); border: 1px solid var(--border, #dedbd5); border-radius: 8px; }
@@ -29,6 +30,9 @@
 .temporal-fields select { border: 1px solid var(--border, #dedbd5); border-radius: 6px; padding: 6px 10px; }
 .temporal-fields select:focus-visible { outline: 2px solid var(--ring, #69655f); outline-offset: 2px; }
 .temporal-fields select:disabled { opacity: 0.5; }
+.temporal-fields select[aria-invalid='true'] { border-color: var(--destructive, #983a32); }
+.temporal-memory p.temporal-hint { grid-column: 1 / -1; margin: 0; font-size: 12px; color: var(--muted-foreground, #69655f); }
+.temporal-memory p.temporal-hint[data-tone='warn'] { color: var(--destructive, #983a32); }
 .temporal-evidence { margin: 14px 0; }
 .temporal-evidence figure { margin: 12px 0; border-left: 2px solid var(--border, #dedbd5); padding-left: 14px; }
 .temporal-evidence blockquote { margin: 0 0 6px; white-space: pre-wrap; }

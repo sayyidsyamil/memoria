@@ -122,12 +122,12 @@ it('saves a new enum attribute while preserving other tracked objects and attrib
   overview.registry.objects.push(other)
   await load()
   input('Item label', 'Contradictory label')
-  input('Item kind', 'Contradictory kind')
+  fireEvent.change(screen.getByRole('combobox', { name: 'Item kind' }), { target: { value: 'commitment' } })
   input('Object ID', 'launch')
   expect(screen.getByRole('textbox', { name: 'Item label' })).toBeDisabled()
   expect(screen.getByRole('textbox', { name: 'Item label' })).toHaveValue('Launch project')
-  expect(screen.getByRole('textbox', { name: 'Item kind' })).toBeDisabled()
-  expect(screen.getByRole('textbox', { name: 'Item kind' })).toHaveValue('project')
+  expect(screen.getByRole('combobox', { name: 'Item kind' })).toBeDisabled()
+  expect(screen.getByRole('combobox', { name: 'Item kind' })).toHaveValue('project')
   input('Attribute name', 'status')
   fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: 'enum' } })
   input('Allowed values (required, comma-separated)', 'planned, active, planned')
@@ -141,8 +141,10 @@ it('saves a new enum attribute while preserving other tracked objects and attrib
 })
 
 it('requires nonempty allowed values before saving an enum definition', async () => {
+  // `stage` holds no value yet, so changing its type is free; `budget` (a recorded number) is covered by the guard tests below.
+  overview.registry.objects[0].attributes.push({ name: 'stage', type: 'text' })
   await load()
-  fireEvent.click(screen.getByRole('button', { name: 'Edit budget (number)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Edit stage (text)' }))
   expect(screen.getByRole('textbox', { name: 'Object ID' })).toHaveValue('launch')
   fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: 'enum' } })
   const save = screen.getByRole('button', { name: 'Save tracked item' })
@@ -156,8 +158,161 @@ it('requires nonempty allowed values before saving an enum definition', async ()
   fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
   await screen.findByText('Tracked item saved.')
   expect(requests.find(request => request.method === 'registry.set')?.params).toEqual({ objects: [
-    { ...base.registry.objects[0], attributes: [{ name: 'budget', type: 'enum', values: ['planned', 'active'] }] },
+    { ...base.registry.objects[0], attributes: [{ name: 'budget', type: 'number' }, { name: 'stage', type: 'enum', values: ['planned', 'active'] }] },
   ] })
+})
+
+it('explains why an existing item keeps its label and kind, and stays quiet for a new item', async () => {
+  await load()
+  expect(screen.queryByText(/is already tracked/)).not.toBeInTheDocument()
+  input('Object ID', 'launch')
+  const note = screen.getByText(/"Launch project" is already tracked, so its label and kind can't be changed here/)
+  expect(screen.getByRole('textbox', { name: 'Item label' })).toHaveAccessibleDescription(note.textContent ?? '')
+  expect(screen.getByRole('combobox', { name: 'Item kind' })).toHaveAccessibleDescription(note.textContent ?? '')
+  input('Object ID', 'owner')
+  expect(screen.queryByText(/is already tracked/)).not.toBeInTheDocument()
+  expect(screen.getByRole('textbox', { name: 'Item label' })).toBeEnabled()
+  expect(screen.getByRole('combobox', { name: 'Item kind' })).toBeEnabled()
+})
+
+// Observed in the engine: a new item whose kind is not issue, decision or commitment is refused, and the form used to start with "object".
+it('offers a new item only the kinds the ledger accepts, starting with decision rather than the refused "object"', async () => {
+  await load()
+  const kind = screen.getByRole('combobox', { name: 'Item kind' })
+  expect(within(kind).getAllByRole('option').map(option => option.textContent)).toEqual(['Decision', 'Commitment', 'Issue'])
+  expect(kind).toHaveValue('decision')
+  input('Object ID', 'owner')
+  input('Item label', 'Owner')
+  input('Attribute name', 'name')
+  fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
+  await screen.findByText('Tracked item saved.')
+  expect(requests.find(request => request.method === 'registry.set')?.params).toEqual({ objects: [
+    base.registry.objects[0], { object_id: 'owner', label: 'Owner', kind: 'decision', attributes: [{ name: 'name', type: 'text' }] },
+  ] })
+})
+
+it('saves the kind that was chosen for a new item', async () => {
+  await load()
+  input('Object ID', 'owner')
+  input('Item label', 'Owner')
+  fireEvent.change(screen.getByRole('combobox', { name: 'Item kind' }), { target: { value: 'commitment' } })
+  input('Attribute name', 'name')
+  fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
+  await screen.findByText('Tracked item saved.')
+  expect(requests.find(request => request.method === 'registry.set')?.params).toMatchObject({ objects: [expect.anything(), { object_id: 'owner', kind: 'commitment' }] })
+})
+
+/** One tracked item whose four attributes each hold a value, the shape the ledger really has once facts were approved. */
+function withRecordedValues() {
+  overview.registry.objects[0].attributes = [
+    { name: 'budget', type: 'number' }, { name: 'owner', type: 'text' },
+    { name: 'status', type: 'enum', values: ['planned', 'active'] }, { name: 'go_live', type: 'date' },
+  ]
+  overview.facts = [
+    { ...fact, fact_id: 2, value: 100 }, { ...fact, fact_id: 3, attribute: 'owner', value: 'Maya' },
+    { ...fact, fact_id: 4, attribute: 'status', value: 'active' }, { ...fact, fact_id: 5, attribute: 'go_live', value: '2026-12-01' },
+  ]
+  overview.proposals = []
+}
+
+function startEditing(name: string, type: string, change: { type?: string; values?: string }) {
+  fireEvent.click(screen.getByRole('button', { name: `Edit ${name} (${type})` }))
+  if (change.type) fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: change.type } })
+  if (change.values !== undefined) input('Allowed values (required, comma-separated)', change.values)
+}
+
+// The ledger accepts all of these and leaves the old value as it was, so the form is what keeps a number sitting in a date attribute.
+it.each([
+  ['budget', 'number', { type: 'text' }, /"budget" has values that would not fit the type "text": 100 \(recorded\)\. First retract the recorded values, or keep the type "number"\./],
+  ['budget', 'number', { type: 'date' }, /would not fit the type "date": 100 \(recorded\)/],
+  ['budget', 'number', { type: 'enum', values: 'planned, 100' }, /would not fit the type "enum": 100 \(recorded\)/],
+  ['owner', 'text', { type: 'number' }, /would not fit the type "number": "Maya" \(recorded\)/],
+  ['owner', 'text', { type: 'enum', values: 'Sam, Priya' }, /would not fit the type "enum": "Maya" \(recorded\)/],
+  ['status', 'enum', { type: 'number' }, /would not fit the type "number": "active" \(recorded\)/],
+  ['status', 'enum', { values: 'planned, done' }, /"status" still has values outside the allowed list: "active" \(recorded\)\. Keep them in the list, or first retract the recorded values\./],
+  ['go_live', 'date', { type: 'number' }, /would not fit the type "number": "2026-12-01" \(recorded\)/],
+] as const)('holds back changing %s (%s) as %j, because its recorded value would no longer fit', async (name, type, change, explanation) => {
+  withRecordedValues()
+  await load()
+  startEditing(name, type, change)
+  const note = screen.getByText(explanation)
+  const save = screen.getByRole('button', { name: 'Save tracked item' })
+  expect(save).toBeDisabled()
+  expect(screen.getByRole('combobox', { name: 'Attribute type' })).toBeInvalid()
+  expect(screen.getByRole('combobox', { name: 'Attribute type' })).toHaveAccessibleDescription(note.textContent ?? '')
+  // A forced submission is refused as well; the ledger would otherwise have accepted it.
+  fireEvent.submit(save.closest('form')!)
+  expect(requests.some(request => request.method === 'registry.set')).toBe(false)
+})
+
+it.each([
+  ['a text value that is on the new list', 'owner', 'text', { type: 'enum', values: 'Maya, Sam' }],
+  ['a longer list that keeps the value', 'status', 'enum', { values: 'planned, active, done' }],
+  ['the same list in another order', 'status', 'enum', { values: 'active, planned' }],
+  ['a value that is text anyway', 'status', 'enum', { type: 'text' }],
+  ['a date, which is text', 'go_live', 'date', { type: 'text' }],
+  ['no change at all', 'budget', 'number', {}],
+] as const)('allows %s: changing %s (%s) as %j', async (_reason, name, type, change) => {
+  withRecordedValues()
+  await load()
+  startEditing(name, type, change)
+  expect(screen.queryByText(/would not fit|outside the allowed list/)).not.toBeInTheDocument()
+  expect(screen.getByRole('combobox', { name: 'Attribute type' })).toBeValid()
+  expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled()
+})
+
+it('names every kind of value that stands in the way: recorded values and suggestions, a few at a time', async () => {
+  withRecordedValues()
+  overview.proposals = [
+    { ...base.proposals[0], proposal_id: 1, value: 120 }, { ...base.proposals[0], proposal_id: 2, value: 130 },
+    { ...base.proposals[0], proposal_id: 3, value: 140 }, { ...base.proposals[0], proposal_id: 4, attribute: 'owner', value: 'Sam' },
+  ]
+  await load()
+  startEditing('budget', 'number', { type: 'date' })
+  expect(screen.getByText('"budget" has values that would not fit the type "date": 100 (recorded), 120 (suggestion), 130 (suggestion) and 1 more. First retract the recorded values and reject the suggestions, or keep the type "number".')).toBeInTheDocument()
+  // Only suggestions in the way: rejecting them is the way out.
+  startEditing('owner', 'text', { type: 'number' })
+  expect(screen.getByText(/"owner" has values that would not fit the type "number": "Maya" \(recorded\), "Sam" \(suggestion\)\. First retract the recorded values and reject the suggestions/)).toBeInTheDocument()
+})
+
+it('lets the type change once nothing recorded or suggested is left in the way', async () => {
+  withRecordedValues()
+  await load()
+  startEditing('budget', 'number', { type: 'text' })
+  expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeDisabled()
+  // The reviewer retracts the value; the refreshed overview no longer holds it.
+  overview.facts = overview.facts.filter(item => item.attribute !== 'budget')
+  fireEvent.click(screen.getByRole('button', { name: 'Refresh' }))
+  await waitFor(() => expect(screen.queryByText(/would not fit/)).not.toBeInTheDocument())
+  await waitFor(() => expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled())
+  fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
+  await screen.findByText('Tracked item saved.')
+  expect(requests.find(request => request.method === 'registry.set')?.params).toMatchObject({ objects: [{ attributes: expect.arrayContaining([{ name: 'budget', type: 'text' }]) }] })
+})
+
+it('still saves a permitted edit to an attribute that holds a value', async () => {
+  withRecordedValues()
+  await load()
+  startEditing('owner', 'text', { type: 'enum', values: 'Maya, Sam' })
+  fireEvent.click(screen.getByRole('button', { name: 'Save tracked item' }))
+  await screen.findByText('Tracked item saved.')
+  expect(requests.find(request => request.method === 'registry.set')?.params).toEqual({ objects: [{ ...base.registry.objects[0], attributes: [
+    { name: 'budget', type: 'number' }, { name: 'owner', type: 'enum', values: ['Maya', 'Sam'] },
+    { name: 'status', type: 'enum', values: ['planned', 'active'] }, { name: 'go_live', type: 'date' },
+  ] }] })
+})
+
+it('does not check a new attribute, or one that holds no value, against anything', async () => {
+  withRecordedValues()
+  overview.registry.objects[0].attributes.push({ name: 'stage', type: 'number' })
+  await load()
+  startEditing('stage', 'number', { type: 'date' })
+  expect(screen.queryByText(/would not fit/)).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled()
+  input('Attribute name', 'brand_new')
+  fireEvent.change(screen.getByRole('combobox', { name: 'Attribute type' }), { target: { value: 'number' } })
+  expect(screen.queryByText(/would not fit/)).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Save tracked item' })).toBeEnabled()
 })
 
 it.each([
@@ -195,6 +350,11 @@ it('shows history and requires a reason before sending a typed numeric correctio
   await load()
   fireEvent.click(screen.getByRole('button', { name: 'History' }))
   const history = await screen.findByRole('region', { name: 'Fact history' })
+  // Observed natively: the heading showed the item id ("pilot"). It shows the label now, with the id on hover.
+  const heading = within(history).getByRole('heading', { level: 3 })
+  expect(heading).toHaveTextContent('History: Launch project — budget')
+  expect(within(heading).getByTitle('Item ID: launch')).toHaveTextContent('Launch project')
+  expect(heading).not.toHaveTextContent(/History: launch/)
   expect(within(history).getByText('80')).toBeInTheDocument()
   expect(line(history, /^Valid from/)).toHaveTextContent(`Valid from ${calendar('2026-10-01')} until ${calendar('2026-11-01')}`)
   expect(line(history, /^Decided/)).toHaveTextContent(`Decided ${instant('2026-10-02T10:00:00Z', true)}`)
@@ -300,7 +460,10 @@ it.each([
   expect(requests.some(request => request.method === 'query')).toBe(false)
   fireEvent.click(screen.getByRole('button', { name: 'Look up value' }))
   const result = await within(screen.getByRole('region', { name: 'Query tracked facts' })).findByRole('status')
-  expect(within(result).getByRole('heading')).toHaveTextContent(`launch — budget · ${heading}`)
+  expect(within(result).getByRole('heading')).toHaveTextContent(`Launch project — budget · ${heading}`)
+  // The label reads as the heading; the item id stays available on hover.
+  expect(within(within(result).getByRole('heading')).getByTitle('Item ID: launch')).toHaveTextContent('Launch project')
+  expect(within(result).getByRole('heading')).not.toHaveTextContent(/launch — budget/)
   if (at) expect(within(result).getByRole('heading').querySelector('time')).toHaveAttribute('datetime', at)
   expect(result.querySelector('.temporal-value')?.textContent).toBe(answer)
   for (const quote of quotes) expect(within(result).getAllByText(quote)).toHaveLength(1)
@@ -340,14 +503,14 @@ it('says so when the ledger held no value for the lookup', async () => {
 it('writes a typed lookup timestamp as a readable date and time while keeping its exact value', async () => {
   await load()
   const heading = within(await lookUp('as_of_valid', { at: '2026-10-15T10:00:00Z' })).getByRole('heading')
-  expect(heading).toHaveTextContent(`launch — budget · Valid at ${instant('2026-10-15T10:00:00Z', true)}`)
+  expect(heading).toHaveTextContent(`Launch project — budget · Valid at ${instant('2026-10-15T10:00:00Z', true)}`)
   expect(heading.querySelector('time')).toHaveAttribute('datetime', '2026-10-15T10:00:00Z')
 })
 
 it('shows a lookup date it cannot read as typed, without a time element', async () => {
   await load()
   const heading = within(await lookUp('as_of_valid', { at: 'last autumn' })).getByRole('heading')
-  expect(heading).toHaveTextContent('launch — budget · Valid at last autumn')
+  expect(heading).toHaveTextContent('Launch project — budget · Valid at last autumn')
   expect(heading.querySelector('time')).toBeNull()
 })
 
@@ -479,6 +642,24 @@ it('shows meeting titles in the history of a fact', async () => {
   const history = await screen.findByRole('region', { name: 'Fact history' })
   expect(await within(history).findByText('Pilot review')).toBeInTheDocument()
   expect(history).not.toHaveTextContent(MEETING_1)
+})
+
+// Observed natively: "History: pilot — supplier" and "pilot — supplier · Number of changes" named the item by its id.
+it('names the item by its label in the history and lookup headings, whatever its id looks like', async () => {
+  overview.registry.objects = [{ object_id: 'pilot', label: 'Pilot', kind: 'decision', attributes: [{ name: 'supplier', type: 'text' }] }]
+  overview.facts = [{ ...fact, object_id: 'pilot', label: 'Pilot', attribute: 'supplier', value: 'Beta' }]
+  overview.proposals = []
+  await load()
+  fireEvent.click(screen.getByRole('button', { name: 'History' }))
+  const history = await screen.findByRole('region', { name: 'Fact history' })
+  expect(within(history).getByRole('heading', { level: 3 })).toHaveTextContent('History: Pilot — supplier')
+  expect(within(history).getByRole('heading', { level: 3 }).textContent).not.toMatch(/pilot —/)
+  expect(within(within(history).getByRole('heading', { level: 3 })).getByTitle('Item ID: pilot')).toHaveTextContent('Pilot')
+  fireEvent.click(within(history).getByRole('button', { name: 'Close history' }))
+  const result = await lookUp('n_changes', { item: 'pilot', attribute: 'supplier' })
+  expect(within(result).getByRole('heading')).toHaveTextContent('Pilot — supplier · Number of changes')
+  expect(within(result).getByRole('heading').textContent).not.toMatch(/pilot —/)
+  expect(within(within(result).getByRole('heading')).getByTitle('Item ID: pilot')).toBeInTheDocument()
 })
 
 it.each([
