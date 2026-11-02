@@ -13,11 +13,15 @@ import { MeetingSummary, type Mark } from './MeetingSummary'
 import { MemoryAsk } from './MemoryAsk'
 import './meetingReview.css'
 import { meetingService } from '../features/meetings/meetingService'
+import { loadKnownSpeakerNames, withoutNames } from '../features/meetings/knownSpeakerNames'
 import type { TranscriptDraft, TranscriptTurn as Turn } from '../features/meetings/meetingTypes'
 import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
 export type { TranscriptDraft } from '../features/meetings/meetingTypes'
 
 export type MeetingTab = 'transcript' | 'summary' | 'ask' | 'facts'
+
+/** Prefix of the picker values that stand for a known name, so that they can never be mistaken for a voice profile id. */
+const KNOWN_NAME = 'name:'
 
 /** Collapsible metadata block: open when it needs attention, folded away when it does not. */
 function Fold({ title, count, defaultOpen, aside, children }: { title: string; count: number; defaultOpen: boolean; aside?: ReactNode; children: ReactNode }) {
@@ -43,6 +47,9 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [refined, setRefined] = useState(!!initialDraft)
   const [names, setNames] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.name])))
   const [profileIds, setProfileIds] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialDraft?.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.id])))
+  // Names already used elsewhere (People notes, other meetings); they only add picker options. `pickedNames` marks the ones chosen from that list rather than typed.
+  const [knownNames, setKnownNames] = useState<string[]>([])
+  const [pickedNames, setPickedNames] = useState<Record<string, string>>({})
   const [marks, setMarks] = useState<Mark[]>(() => initialMarks ?? [])
   const [remember, setRemember] = useState(true)
   const [name, setName] = useState(title)
@@ -92,6 +99,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
       publication.current = null; profilesSaved.current = false; setOutcomeSource(null); setBuildNow(false)
       setNames(Object.fromEntries(Object.entries(result.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.name])))
       setProfileIds(Object.fromEntries(Object.entries(result.speakerMatches ?? {}).map(([speaker, profile]) => [speaker, profile.id])))
+      setPickedNames({})
       setNotice(result.segments.length ? 'Your transcript is ready. Name speakers once; all their lines update.' : 'No readable speech detected.')
     } catch (failure) { setError(String(failure)); setNotice('Your original recording is saved.') }
     finally { setBusy(false); cancel.current = null }
@@ -129,6 +137,19 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
 
   const speakers = [...new Set(turns.map(turn => turn.speaker))]
   const order = speakerOrder(speakers)
+  // The names only add options, so they load in the background once there is a speaker to name; a failure just leaves them out.
+  const naming = refined && speakers.length > 0
+  useEffect(() => {
+    if (!naming) return
+    let canceled = false
+    // Starting inside a promise turns a loader that throws at once into an ordinary failure.
+    Promise.resolve().then(() => loadKnownSpeakerNames(vaultPath, sessionId)).then(found => { if (!canceled && Array.isArray(found)) setKnownNames(found) }).catch(() => undefined)
+    return () => { canceled = true }
+  }, [naming, vaultPath, sessionId])
+  // A remembered voice with the same name is already in the picker, with its voice attached.
+  const offeredNames = withoutNames(knownNames, draft?.profiles?.map(profile => profile.name) ?? [])
+  const pickedFromList = (speaker: string) => !profileIds[speaker] && !!names[speaker] && pickedNames[speaker] === names[speaker] && offeredNames.includes(names[speaker])
+  const pickerValue = (speaker: string) => profileIds[speaker] || (pickedFromList(speaker) ? `${KNOWN_NAME}${names[speaker]}` : names[speaker] ? 'new' : '')
   const words = (speaker: string) => turns.filter(turn => turn.speaker === speaker).reduce((total, turn) => total + (turn.text.trim() ? turn.text.trim().split(/\s+/).length : 0), 0)
   const totalWords = speakers.reduce((total, speaker) => total + words(speaker), 0) || 1
   const reviewed = !!outcomeSource
@@ -194,18 +215,23 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
                 <div className="review-speaker-fields">
                   <label htmlFor={`speaker-${speaker}`} className="sr-only">{speakerLabel(speaker, undefined, order)}</label>
                   <select id={`speaker-${speaker}`} aria-label={`Name ${speaker}`} disabled={busy}
-                    value={profileIds[speaker] || (names[speaker] ? 'new' : '')} onChange={event => {
-                      const profile = draft.profiles?.find(candidate => candidate.id === event.target.value)
+                    value={pickerValue(speaker)} onChange={event => {
+                      const choice = event.target.value
+                      const profile = draft.profiles?.find(candidate => candidate.id === choice)
+                      // A known name is assigned exactly as if it had been typed under "Add a name…": a name, with no remembered voice behind it.
+                      const known = choice.startsWith(KNOWN_NAME) ? choice.slice(KNOWN_NAME.length) : ''
                       setProfileIds(previous => ({ ...previous, [speaker]: profile?.id ?? '' }))
-                      setNames(previous => ({ ...previous, [speaker]: profile?.name ?? '' }))
+                      setNames(previous => ({ ...previous, [speaker]: profile?.name ?? known }))
+                      setPickedNames(previous => ({ ...previous, [speaker]: known }))
                       profilesSaved.current = false; invalidate()
-                      if (event.target.value === 'new') setNames(previous => ({ ...previous, [speaker]: ' ' }))
+                      if (choice === 'new') setNames(previous => ({ ...previous, [speaker]: ' ' }))
                     }}>
                     <option value="">{speakerLabel(speaker, undefined, order)} · not named yet</option>
                     {draft.profiles?.map(profile => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
+                    {offeredNames.length > 0 && <optgroup label="Known names">{offeredNames.map(known => <option key={known} value={`${KNOWN_NAME}${known}`}>{known}</option>)}</optgroup>}
                     <option value="new">Add a name…</option>
                   </select>
-                  {names[speaker] && !profileIds[speaker] && <input aria-label={`New name for ${speaker}`} placeholder="Speaker name" value={names[speaker].trimStart()} maxLength={100} disabled={busy}
+                  {names[speaker] && !profileIds[speaker] && !pickedFromList(speaker) && <input aria-label={`New name for ${speaker}`} placeholder="Speaker name" value={names[speaker].trimStart()} maxLength={100} disabled={busy}
                     onChange={event => { setNames(previous => ({ ...previous, [speaker]: event.target.value || ' ' })); profilesSaved.current = false; invalidate() }} />}
                 </div>
                 <span className="review-share-bar" aria-hidden="true"><i style={{ width: `${share}%` }} /></span>
