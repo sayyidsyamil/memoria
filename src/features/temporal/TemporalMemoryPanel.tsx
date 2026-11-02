@@ -12,6 +12,8 @@ import {
   type TemporalQuery,
   type TemporalValue,
 } from './temporalService'
+import { changeCount, changeSummary, describeQueryResult, meetingLabel, readableDate, type MeetingTitles } from './temporalFormat'
+import { useMeetingTitles } from './useMeetingTitles'
 import './temporalMemory.css'
 
 export interface TemporalMemoryPanelProps {
@@ -24,13 +26,50 @@ function displayValue(value: TemporalValue | undefined): string {
   return typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)
 }
 
-function Evidence({ evidence }: { evidence: TemporalEvidence[] }) {
+/** A date for people, with the exact value kept in the `datetime` attribute. Text that is not a date is shown as written. */
+function TemporalDate({ value, time }: { value: string; time?: boolean }) {
+  const date = readableDate(value, { time })
+  return date ? <time dateTime={date.dateTime}>{date.label}</time> : <>{value}</>
+}
+
+/** Date attributes hold ISO calendar dates; everything else is shown as recorded. */
+function Value({ value, type }: { value: TemporalValue | undefined; type?: TemporalAttributeType }) {
+  return type === 'date' && typeof value === 'string' ? <TemporalDate value={value} /> : <>{displayValue(value)}</>
+}
+
+/** The meeting's title; the exact id stays available on hover for citations whose title is unknown. */
+function MeetingName({ id, titles }: { id: string | null; titles: MeetingTitles }) {
+  return typeof id === 'string' && id.trim() ? <span title={`Meeting ID: ${id}`}>{meetingLabel(id, titles)}</span> : <>{meetingLabel(id, titles)}</>
+}
+
+function Evidence({ evidence, titles }: { evidence: TemporalEvidence[]; titles: MeetingTitles }) {
   return <div className="temporal-evidence">{evidence.map((source, index) => <figure key={index}>
     <blockquote>{source.quote || 'No source quote recorded.'}</blockquote>
-    <figcaption>{source.speaker || 'Speaker not recorded'} · {source.meeting || 'Meeting not recorded'}
+    <figcaption>{source.speaker || 'Speaker not recorded'} · <MeetingName id={source.meeting} titles={titles} />
       {source.audio_start != null && Number.isFinite(source.audio_start) && ` · Audio ${Math.floor(source.audio_start / 60)}:${String(Math.floor(source.audio_start % 60)).padStart(2, '0')}`}
     </figcaption>
   </figure>)}</div>
+}
+
+type QueryResult = { result: TemporalValue; type: TemporalQuery['type']; objectId: string; attribute: string; at: string }
+
+function QueryHeading({ query }: { query: QueryResult }) {
+  const { type, at } = query
+  return <h4>{query.objectId} — {query.attribute} · {type === 'current' ? 'Current' : type === 'n_changes' ? 'Number of changes'
+    : <>{type === 'as_of_valid' ? 'Valid at' : 'Value valid now, as known on'} <TemporalDate value={at} time /></>}</h4>
+}
+
+/** The answer as the value, its source quotes and when it was decided; a count as a sentence. Unfamiliar shapes stay inspectable. */
+function QueryAnswer({ result, type, valueType, titles }: { result: TemporalValue; type: TemporalQuery['type']; valueType?: TemporalAttributeType; titles: MeetingTitles }) {
+  const view = describeQueryResult(result, type)
+  if (view.kind === 'unknown') {
+    return typeof view.raw === 'object' && view.raw !== null ? <pre>{displayValue(view.raw)}</pre> : <p className="temporal-value">{displayValue(view.raw)}</p>
+  }
+  return <>
+    <p className="temporal-value">{view.kind === 'changes' ? changeSummary(view.count) : view.value == null ? 'No value recorded' : <Value value={view.value} type={valueType} />}</p>
+    {view.kind === 'value' && view.decidedAt && <p className="temporal-meta">Decided <TemporalDate value={view.decidedAt} time /></p>}
+    {view.evidence.length > 0 && <Evidence evidence={view.evidence} titles={titles} />}
+  </>
 }
 
 // A new scope remounts the ledger so late responses cannot leak across vaults or meetings.
@@ -59,7 +98,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
   const [queryAttribute, setQueryAttribute] = useState('')
   const [queryType, setQueryType] = useState<TemporalQuery['type']>('current')
   const [queryAt, setQueryAt] = useState('')
-  const [queryResult, setQueryResult] = useState<{ result: TemporalValue; label: string } | null>(null)
+  const [queryResult, setQueryResult] = useState<QueryResult | null>(null)
 
   useEffect(() => {
     mounted.current = true
@@ -74,6 +113,8 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
     })
     return () => { canceled = true; mounted.current = false }
   }, [vaultPath])
+  // Declared after the ledger load so the ledger is requested first; titles only label the citations and never gate them.
+  const { titles, reload: reloadTitles } = useMeetingTitles(vaultPath)
 
   async function run(status: string, action: () => Promise<void>) {
     if (working.current || !mounted.current) return
@@ -144,20 +185,25 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
     })
   }
 
+  function typeOfAttribute(objectId: string | undefined, name: string): TemporalAttributeType | undefined {
+    return overview?.registry.objects.find(item => item.object_id === objectId)?.attributes.find(item => item.name === name)?.type
+  }
+
   function factCard(fact: TemporalFact | TemporalHistoryFact, historical = false) {
     const validFrom = 'claim_from' in fact ? fact.claim_from : fact.valid_from
     const validTo = 'claim_to' in fact ? fact.claim_to : fact.valid_to
     const replaces = fact.correction?.replaced_fact_id ?? fact.corrects
+    const changes = 'n_changes' in fact ? changeCount(fact.n_changes) : ''
     return <article className="temporal-card" key={fact.fact_id} aria-label={`${historical ? 'Historical fact' : 'Fact'}: ${fact.label} — ${fact.attribute}`}>
       <h4>{fact.label} <span>— {fact.attribute}</span></h4>
-      <p className="temporal-value">{displayValue(fact.value)}</p>
-      <p className="temporal-meta">Valid from {validFrom || 'date not recorded'}{validTo && ` until ${validTo}`}{'n_changes' in fact && ` · ${fact.n_changes} changes`}</p>
-      {'decided_at' in fact && <p className="temporal-meta">Decided {fact.decided_at || 'date not recorded'}</p>}
-      {historical && fact.tx_from && <p className="temporal-meta">Recorded {fact.tx_from}{fact.tx_to && ` until ${fact.tx_to}`}</p>}
+      <p className="temporal-value"><Value value={fact.value} type={typeOfAttribute(fact.object_id, fact.attribute)} /></p>
+      <p className="temporal-meta">Valid from {validFrom ? <TemporalDate value={validFrom} /> : 'date not recorded'}{validTo && <> until <TemporalDate value={validTo} /></>}{changes && ` · ${changes}`}</p>
+      {'decided_at' in fact && <p className="temporal-meta">Decided {fact.decided_at ? <TemporalDate value={fact.decided_at} time /> : 'date not recorded'}</p>}
+      {historical && fact.tx_from && <p className="temporal-meta">Recorded <TemporalDate value={fact.tx_from} time />{fact.tx_to && <> until <TemporalDate value={fact.tx_to} time /></>}</p>}
       {fact.retracted && <p className="temporal-meta">Retracted</p>}
       {replaces != null && <p className="temporal-meta">Corrects fact #{replaces}</p>}
       {fact.correction && <p className="temporal-meta">Correction by {fact.correction.reviewer || 'reviewer not recorded'}: {fact.correction.reason}</p>}
-      {fact.evidence.length ? <Evidence evidence={fact.evidence} /> : <p className="temporal-meta">No source evidence recorded.</p>}
+      {fact.evidence.length ? <Evidence evidence={fact.evidence} titles={titles} /> : <p className="temporal-meta">No source evidence recorded.</p>}
       <div className="temporal-actions">
         {!historical && <Button variant="outline" disabled={!!busy} onClick={() => {
           void run('Loading fact history…', async () => {
@@ -181,7 +227,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
     <header className="temporal-header"><div>
       <h2>{meetingId ? 'Review tracked facts' : 'Tracked facts'}</h2>
       <p>Follow specific values over time, with their source evidence and recorded changes.</p>
-    </div><Button variant="outline" disabled={!!busy} onClick={() => { void run('Loading tracked facts…', refresh) }}>Refresh</Button></header>
+    </div><Button variant="outline" disabled={!!busy} onClick={() => { reloadTitles(); void run('Loading tracked facts…', refresh) }}>Refresh</Button></header>
     {busy && <p role="status" className="temporal-notice">{busy}</p>}
     {error && <p role="alert" className="temporal-error">{error}</p>}
     {message && <p role="status" className="temporal-notice">{message}</p>}
@@ -229,8 +275,8 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
         {!proposals.length && <p>No tracked fact suggestions waiting for review.</p>}
         {proposals.map(proposal => <article key={proposal.proposal_id} className="temporal-card" aria-label={`Proposal: ${proposal.label} — ${proposal.attribute}`}>
           <h4>{proposal.label} <span>— {proposal.attribute}</span></h4>
-          <dl className="temporal-comparison"><div><dt>Current value</dt><dd>{displayValue(proposal.current_value)}</dd></div><div><dt>Proposed value</dt><dd>{displayValue(proposal.value)}</dd></div></dl>
-          <Evidence evidence={[{ quote: proposal.quote, speaker: proposal.speaker, meeting: proposal.meeting }]} />
+          <dl className="temporal-comparison"><div><dt>Current value</dt><dd><Value value={proposal.current_value} type={typeOfAttribute(proposal.object_id, proposal.attribute)} /></dd></div><div><dt>Proposed value</dt><dd><Value value={proposal.value} type={typeOfAttribute(proposal.object_id, proposal.attribute)} /></dd></div></dl>
+          <Evidence evidence={[{ quote: proposal.quote, speaker: proposal.speaker, meeting: proposal.meeting }]} titles={titles} />
           <div className="temporal-actions">
             <Button variant="outline" disabled={!!busy} onClick={() => { void run('Accepting suggestion…', () => mutate(() => temporalService.acceptProposal(vaultPath, proposal.proposal_id), 'Suggestion accepted.')) }}>Accept suggestion</Button>
             <Button variant="ghost" disabled={!!busy} onClick={() => { void run('Rejecting suggestion…', () => mutate(() => temporalService.rejectProposal(vaultPath, proposal.proposal_id), 'Suggestion rejected.')) }}>Reject suggestion</Button>
@@ -249,7 +295,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
     </section>}
     {edit && <section className="temporal-section" aria-label={edit.action === 'correct' ? 'Correct fact' : 'Retract fact'}>
       <h3>{edit.action === 'correct' ? 'Correct' : 'Retract'} {edit.fact.label} — {edit.fact.attribute}</h3>
-      <p>Recorded value: {displayValue(edit.fact.value)}. A reason is required for this ledger change.</p>
+      <p>Recorded value: <Value value={edit.fact.value} type={typeOfAttribute(edit.fact.object_id, edit.fact.attribute)} />. A reason is required for this ledger change.</p>
       <form onSubmit={event => { event.preventDefault(); submitEdit() }}><fieldset disabled={!!busy} className="temporal-fields">
         {edit.action === 'correct' && <label>Corrected value<Input required value={newValue} onChange={event => setNewValue(event.target.value)} /></label>}
         <label>Reason (required)<Input required value={reason} onChange={event => setReason(event.target.value)} /></label>
@@ -269,7 +315,7 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
             : queryType === 'as_of_tx' ? { type: queryType, object_id: queryObject, attribute: queryAttribute, tx_at: queryAt }
               : { type: queryType, object_id: queryObject, attribute: queryAttribute }
           const result = await temporalService.query(vaultPath, params)
-          if (mounted.current) setQueryResult({ result, label: `${queryObject} — ${queryAttribute} · ${queryType === 'current' ? 'Current' : queryType === 'n_changes' ? 'Number of changes' : queryType === 'as_of_valid' ? `Valid at ${queryAt}` : `Value valid now, as known on ${queryAt}`}` })
+          if (mounted.current) setQueryResult({ result, type: queryType, objectId: queryObject, attribute: queryAttribute, at: queryAt })
         })
       }}><fieldset disabled={!!busy} className="temporal-fields">
         <label>Query item<select required value={queryObject} onChange={event => { setQueryObject(event.target.value); setQueryAttribute(''); setQueryResult(null) }}><option value="">Choose an item</option>{overview.registry.objects.map(item => <option key={item.object_id} value={item.object_id}>{item.label}</option>)}</select></label>
@@ -278,7 +324,8 @@ function TemporalLedger({ vaultPath, meetingId }: TemporalMemoryPanelProps) {
         {queryType.startsWith('as_of') && <label>As of (ISO date or timestamp)<Input required value={queryAt} placeholder="2026-11-02 or 2026-11-02T10:00:00Z" onChange={event => { setQueryAt(event.target.value); setQueryResult(null) }} /></label>}
         <Button type="submit" variant="outline" disabled={!queryObject || !queryAttribute || (queryType.startsWith('as_of') && !queryAt.trim())}>Look up value</Button>
       </fieldset></form>
-      {queryResult && <div className="temporal-query-result" role="status"><h4>{queryResult.label}</h4><pre>{displayValue(queryResult.result)}</pre></div>}
+      {queryResult && <div className="temporal-query-result" role="status"><QueryHeading query={queryResult} />
+        <QueryAnswer result={queryResult.result} type={queryResult.type} valueType={typeOfAttribute(queryResult.objectId, queryResult.attribute)} titles={titles} /></div>}
     </section>}
   </section>
 }

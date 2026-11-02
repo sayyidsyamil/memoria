@@ -6,9 +6,13 @@ import type { TemporalFact, TemporalHistoryFact, TemporalOverview } from './temp
 
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn() }))
 
+const MEETING_1 = '3f2a8c1e-5b7d-4e9a-8c3f-1a2b3c4d5e6f'
+const MEETING_2 = '9d41b7a2-6c0e-4f58-b1d3-7e2f9a8c5b04'
+const UNKNOWN_MEETING = 'c0ffee00-1d2e-4a3b-9c4d-5e6f7a8b9c0d'
+
 const fact: TemporalFact = {
   fact_id: 2, object_id: 'launch', label: 'Launch project', attribute: 'budget', value: 100,
-  evidence: [{ quote: 'We agreed on a budget of 100.', speaker: 'Maya', meeting: 'meeting-1', audio_start: 65 }],
+  evidence: [{ quote: 'We agreed on a budget of 100.', speaker: 'Maya', meeting: MEETING_1, audio_start: 65 }],
   valid_from: '2026-11-01', n_changes: 2,
 }
 const historicalFact: TemporalHistoryFact = {
@@ -19,26 +23,53 @@ const historicalFact: TemporalHistoryFact = {
 const base: TemporalOverview = {
   registry: { objects: [{ object_id: 'launch', label: 'Launch project', kind: 'project', attributes: [{ name: 'budget', type: 'number' }] }] },
   facts: [fact],
-  proposals: [{ proposal_id: 1, label: 'Launch project', attribute: 'budget', value: 120, current_value: 100,
-    quote: 'The budget should now be 120.', speaker: 'Maya', meeting: 'meeting-1' }],
+  proposals: [{ proposal_id: 1, object_id: 'launch', label: 'Launch project', attribute: 'budget', value: 120, current_value: 100,
+    quote: 'The budget should now be 120.', speaker: 'Maya', meeting: MEETING_1 }],
   check: { ok: true, problems: [] },
 }
+// The shapes the ledger really answers with: the value, when it was decided and the source quotes.
+const citation = { quote: 'We agreed on a budget of 100.', speaker: 'Maya', meeting: MEETING_1, audio_start: 65, char_start: 0, char_end: 29, confidence: 0.9, extractor: 'workspace-qwen' }
+const earlier = { quote: 'Let us start with 80.', speaker: 'Sam', meeting: MEETING_2, audio_start: 12.5, char_start: 0, char_end: 21, confidence: 1, extractor: 'workspace-qwen' }
+const answers: Record<string, unknown> = {
+  current: { type: 'current', answer: 100, decided_at: '2026-11-01T10:00:12Z', evidence: [citation] },
+  as_of_valid: { type: 'as_of_valid', answer: 80, decided_at: '2026-10-02T10:00:12Z', evidence: [earlier] },
+  as_of_tx: { type: 'as_of_tx', answer: 80, decided_at: '2026-10-02T10:00:12Z', evidence: [earlier] },
+  n_changes: { type: 'n_changes', answer: 1, evidence: [earlier, citation, citation], history: [{ fact_id: 1, value: 80, evidence: [earlier] }, { fact_id: 2, value: 100, evidence: [citation] }] },
+}
+
+// Expected labels are built with Intl directly, so these tests hold in any locale and time zone.
+const day = { day: 'numeric', month: 'short', year: 'numeric' } as const
+const calendar = (iso: string) => new Intl.DateTimeFormat(undefined, { ...day, timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`))
+const instant = (iso: string, time = false) => new Intl.DateTimeFormat(undefined, time ? { ...day, hour: '2-digit', minute: '2-digit' } : day).format(new Date(iso))
 
 type Request = { vaultPath: string; method: string; params: Record<string, unknown> }
+type MeetingRequest = { vaultPath: string; operation: string }
+const meetingRecord = (id: string, title: string) => ({ id, title, status: 'needs-review', pagePath: `meetings/meeting-${id}.md` })
 let overview: TemporalOverview
 let requests: Request[]
+let meetingRequests: MeetingRequest[]
 let respond: (request: Request) => unknown
+let respondMeetings: (request: MeetingRequest) => unknown
+let calls: string[]
 
 beforeEach(() => {
   overview = structuredClone(base)
   requests = []
+  meetingRequests = []
+  calls = []
+  respondMeetings = () => [meetingRecord(MEETING_1, 'Pilot review'), meetingRecord(MEETING_2, 'Budget workshop')]
   respond = request => request.method === 'overview' ? structuredClone(overview)
     : request.method === 'facts.history' ? [structuredClone(historicalFact)]
-      : request.method === 'query' ? { answer: 80, evidence: fact.evidence }
+      : request.method === 'query' ? answers[String(request.params.type)]
         : request.method === 'ingest_reviewed_meeting' ? { items: overview.proposals, counts: { proposed: 1 } } : { ok: true }
   vi.mocked(invoke).mockReset().mockImplementation(async (command, args) => {
+    const request = (args as { request: Request & MeetingRequest }).request
+    calls.push(String(command))
+    if (command === 'meetings_api') {
+      meetingRequests.push(request)
+      return respondMeetings(request) as never
+    }
     expect(command).toBe('temporal_api')
-    const request = (args as { request: Request }).request
     requests.push(request)
     return respond(request) as never
   })
@@ -56,15 +87,34 @@ function input(name: string, value: string) {
   fireEvent.change(screen.getByRole('textbox', { name }), { target: { value } })
 }
 
+/** The paragraph that starts with the given words; its text spans the date elements inside it. */
+function line(scope: HTMLElement, start: RegExp) {
+  return within(scope).getByText(start)
+}
+
+async function lookUp(type: string, { item = 'launch', attribute = 'budget', at = '' } = {}) {
+  fireEvent.change(screen.getByRole('combobox', { name: 'Query item' }), { target: { value: item } })
+  fireEvent.change(screen.getByRole('combobox', { name: 'Query attribute' }), { target: { value: attribute } })
+  fireEvent.change(screen.getByRole('combobox', { name: 'Time perspective' }), { target: { value: type } })
+  if (at) input('As of (ISO date or timestamp)', at)
+  fireEvent.click(screen.getByRole('button', { name: 'Look up value' }))
+  return within(screen.getByRole('region', { name: 'Query tracked facts' })).findByRole('status')
+}
+
 it('loads facts with evidence and ledger check problems without performing writes', async () => {
   overview.check = { ok: false, problems: ['Overlapping valid intervals'] }
   await load()
   const current = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
   expect(within(current).getByText('We agreed on a budget of 100.')).toBeInTheDocument()
-  expect(within(current).getByText(/Maya · meeting-1 · Audio 1:05/)).toBeInTheDocument()
-  expect(within(current).getByText(/Valid from 2026-11-01 · 2 changes/)).toBeInTheDocument()
+  expect(await within(current).findByText('Pilot review')).toBeInTheDocument()
+  expect(current.querySelector('figcaption')).toHaveTextContent('Maya · Pilot review · Audio 1:05')
+  expect(current).not.toHaveTextContent(MEETING_1)
+  expect(line(current, /^Valid from/)).toHaveTextContent(`Valid from ${calendar('2026-11-01')} · 2 changes`)
   expect(screen.getByRole('alert')).toHaveTextContent('Overlapping valid intervals')
   expect(requests).toEqual([{ vaultPath: '/vault', method: 'overview', params: {} }])
+  expect(meetingRequests).toEqual([{ vaultPath: '/vault', operation: 'list' }])
+  // The ledger is requested first; the titles only label its citations.
+  expect(calls).toEqual(['temporal_api', 'meetings_api'])
 })
 
 it('saves a new enum attribute while preserving other tracked objects and attributes', async () => {
@@ -146,9 +196,9 @@ it('shows history and requires a reason before sending a typed numeric correctio
   fireEvent.click(screen.getByRole('button', { name: 'History' }))
   const history = await screen.findByRole('region', { name: 'Fact history' })
   expect(within(history).getByText('80')).toBeInTheDocument()
-  expect(within(history).getByText('Valid from 2026-10-01 until 2026-11-01')).toBeInTheDocument()
-  expect(within(history).getByText('Decided 2026-10-02T10:00:00Z')).toBeInTheDocument()
-  expect(within(history).queryByText(/undefined changes|date not recorded/)).not.toBeInTheDocument()
+  expect(line(history, /^Valid from/)).toHaveTextContent(`Valid from ${calendar('2026-10-01')} until ${calendar('2026-11-01')}`)
+  expect(line(history, /^Decided/)).toHaveTextContent(`Decided ${instant('2026-10-02T10:00:00Z', true)}`)
+  expect(history).not.toHaveTextContent(/undefined changes|date not recorded|NaN|2026-1\d-\d\d/)
   expect(requests.find(request => request.method === 'facts.history')?.params).toEqual({ object_id: 'launch', attribute: 'budget' })
   fireEvent.click(within(history).getByRole('button', { name: 'Correct' }))
   const save = screen.getByRole('button', { name: 'Save correction' })
@@ -197,9 +247,9 @@ it('renders correction provenance in current facts and vendor history, disabling
   fireEvent.click(within(rows[0]).getByRole('button', { name: 'Retract' }))
   expect(screen.queryByRole('region', { name: 'Correct fact' })).not.toBeInTheDocument()
   expect(screen.queryByRole('region', { name: 'Retract fact' })).not.toBeInTheDocument()
-  expect(within(rows[1]).getByText('Valid from 2026-11-01')).toBeInTheDocument()
-  expect(within(rows[1]).getByText('Decided 2026-11-02T10:00:00Z')).toBeInTheDocument()
-  expect(within(rows[1]).getByText('Recorded 2026-11-02T10:01:00Z until 2026-11-03T10:00:00Z')).toBeInTheDocument()
+  expect(line(rows[1], /^Valid from/)).toHaveTextContent(`Valid from ${calendar('2026-11-01')}`)
+  expect(line(rows[1], /^Decided/)).toHaveTextContent(`Decided ${instant('2026-11-02T10:00:00Z', true)}`)
+  expect(line(rows[1], /^Recorded/)).toHaveTextContent(`Recorded ${instant('2026-11-02T10:01:00Z', true)} until ${instant('2026-11-03T10:00:00Z', true)}`)
   expect(within(rows[1]).getByText('Corrects fact #1')).toBeInTheDocument()
   expect(within(rows[1]).getByText('Correction by Maya: Reviewed transcript correction')).toBeInTheDocument()
   expect(requests.some(request => ['facts.correct', 'facts.retract'].includes(request.method))).toBe(false)
@@ -234,34 +284,250 @@ it('requires a nonblank retraction reason and allows cancellation without a writ
 })
 
 it.each([
-  ['current', {}], ['as_of_valid', { valid_at: '2026-10-15' }],
-  ['as_of_tx', { tx_at: '2026-10-15' }], ['n_changes', {}],
-])('queries %s only after explicit submission', async (type, time) => {
+  ['current', {}, '', 'Current', '100', ['We agreed on a budget of 100.'], ['Maya · Pilot review · Audio 1:05']],
+  ['as_of_valid', { valid_at: '2026-10-15' }, '2026-10-15', `Valid at ${calendar('2026-10-15')}`, '80', ['Let us start with 80.'], ['Sam · Budget workshop · Audio 0:12']],
+  ['as_of_tx', { tx_at: '2026-10-15' }, '2026-10-15', `Value valid now, as known on ${calendar('2026-10-15')}`, '80', ['Let us start with 80.'], ['Sam · Budget workshop · Audio 0:12']],
+  ['n_changes', {}, '', 'Number of changes', 'Changed once', ['Let us start with 80.', 'We agreed on a budget of 100.'], ['Sam · Budget workshop · Audio 0:12', 'Maya · Pilot review · Audio 1:05']],
+])('queries %s only after explicit submission and shows a readable answer', async (type, time, at, heading, answer, quotes, captions) => {
   await load()
   fireEvent.change(screen.getByRole('combobox', { name: 'Query item' }), { target: { value: 'launch' } })
   fireEvent.change(screen.getByRole('combobox', { name: 'Query attribute' }), { target: { value: 'budget' } })
   fireEvent.change(screen.getByRole('combobox', { name: 'Time perspective' }), { target: { value: type } })
   if (type.startsWith('as_of')) {
     expect(screen.getByRole('button', { name: 'Look up value' })).toBeDisabled()
-    input('As of (ISO date or timestamp)', '2026-10-15')
+    input('As of (ISO date or timestamp)', at)
   }
   expect(requests.some(request => request.method === 'query')).toBe(false)
   fireEvent.click(screen.getByRole('button', { name: 'Look up value' }))
-  await waitFor(() => expect(screen.getByRole('region', { name: 'Query tracked facts' })).toHaveTextContent('"answer": 80'))
-  if (type === 'as_of_tx') expect(screen.getByRole('heading', { name: 'launch — budget · Value valid now, as known on 2026-10-15' })).toBeInTheDocument()
+  const result = await within(screen.getByRole('region', { name: 'Query tracked facts' })).findByRole('status')
+  expect(within(result).getByRole('heading')).toHaveTextContent(`launch — budget · ${heading}`)
+  if (at) expect(within(result).getByRole('heading').querySelector('time')).toHaveAttribute('datetime', at)
+  expect(result.querySelector('.temporal-value')?.textContent).toBe(answer)
+  for (const quote of quotes) expect(within(result).getAllByText(quote)).toHaveLength(1)
+  await waitFor(() => expect(Array.from(result.querySelectorAll('figcaption'), caption => caption.textContent)).toEqual(captions))
+  // Readable, not the ledger's raw answer: no JSON, no extraction internals, no meeting ids.
+  expect(result.querySelector('pre')).toBeNull()
+  expect(result).not.toHaveTextContent(/"answer"|[{}[\]]|char_start|confidence|extractor|history|[0-9a-f]{8}-[0-9a-f]{4}/)
   expect(requests.find(request => request.method === 'query')?.params).toEqual({ type, object_id: 'launch', attribute: 'budget', ...time })
 })
 
+it('shows when a looked-up value was decided, in the viewer’s own time', async () => {
+  await load()
+  const result = await lookUp('current')
+  expect(line(result, /^Decided/)).toHaveTextContent(`Decided ${instant('2026-11-01T10:00:12Z', true)}`)
+  expect(line(result, /^Decided/).querySelector('time')).toHaveAttribute('datetime', '2026-11-01T10:00:12Z')
+})
+
+it.each([[0, 'No changes recorded'], [1, 'Changed once'], [2, 'Changed twice'], [3, 'Changed 3 times']])('answers a lookup of %i changes with a sentence', async (count, sentence) => {
+  const original = respond
+  respond = request => request.method === 'query' ? { type: 'n_changes', answer: count, evidence: [], history: [] } : original(request)
+  await load()
+  const result = await lookUp('n_changes')
+  expect(result.querySelector('.temporal-value')?.textContent).toBe(sentence)
+  expect(result.querySelector('figure')).toBeNull()
+})
+
+it('says so when the ledger held no value for the lookup', async () => {
+  const original = respond
+  respond = request => request.method === 'query' ? { type: 'as_of_valid', answer: null, evidence: [] } : original(request)
+  await load()
+  const result = await lookUp('as_of_valid', { at: '2026-01-01' })
+  expect(result.querySelector('.temporal-value')?.textContent).toBe('No value recorded')
+  expect(result.querySelector('figure')).toBeNull()
+  expect(result.querySelector('pre')).toBeNull()
+})
+
+it('writes a typed lookup timestamp as a readable date and time while keeping its exact value', async () => {
+  await load()
+  const heading = within(await lookUp('as_of_valid', { at: '2026-10-15T10:00:00Z' })).getByRole('heading')
+  expect(heading).toHaveTextContent(`launch — budget · Valid at ${instant('2026-10-15T10:00:00Z', true)}`)
+  expect(heading.querySelector('time')).toHaveAttribute('datetime', '2026-10-15T10:00:00Z')
+})
+
+it('shows a lookup date it cannot read as typed, without a time element', async () => {
+  await load()
+  const heading = within(await lookUp('as_of_valid', { at: 'last autumn' })).getByRole('heading')
+  expect(heading).toHaveTextContent('launch — budget · Valid at last autumn')
+  expect(heading.querySelector('time')).toBeNull()
+})
+
+it('keeps an unfamiliar result shape inspectable instead of crashing', async () => {
+  const original = respond
+  respond = request => request.method === 'query' ? { surprise: ['a', 1], nested: { ok: true } } : original(request)
+  await load()
+  const result = await lookUp('current')
+  expect(result.querySelector('pre')).toHaveTextContent('"surprise"')
+  expect(result.querySelector('pre')).toHaveTextContent('"nested"')
+  expect(result.querySelector('figure')).toBeNull()
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+})
+
+it('shows a bare lookup value as the value', async () => {
+  const original = respond
+  respond = request => request.method === 'query' ? 'Beta' : original(request)
+  await load()
+  const result = await lookUp('current')
+  expect(result.querySelector('.temporal-value')?.textContent).toBe('Beta')
+  expect(result.querySelector('pre')).toBeNull()
+})
+
+it.each([
+  [0, 'no changes'], [1, '1 change'], [2, '2 changes'], [11, '11 changes'],
+])('writes a fact with %i changes as "%s"', async (count, text) => {
+  overview.facts[0] = { ...fact, n_changes: count }
+  await load()
+  const card = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
+  expect(line(card, /^Valid from/)).toHaveTextContent(`Valid from ${calendar('2026-11-01')} · ${text}`)
+  expect(card).not.toHaveTextContent(/\b1 changes|\b0 changes/)
+})
+
+it('shows dates as readable text and keeps the exact value in a time element', async () => {
+  overview.facts[0] = { ...fact, valid_from: '2026-10-10', valid_to: '2026-10-20T10:00:12Z', decided_at: '2026-10-20T10:00:12Z' } as TemporalFact
+  await load()
+  const card = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
+  const [from, until, decided] = Array.from(card.querySelectorAll('time'))
+  expect(from).toHaveAttribute('datetime', '2026-10-10')
+  expect(from).toHaveTextContent(calendar('2026-10-10'))
+  expect(until).toHaveAttribute('datetime', '2026-10-20T10:00:12Z')
+  expect(until).toHaveTextContent(instant('2026-10-20T10:00:12Z'))
+  expect(decided).toHaveAttribute('datetime', '2026-10-20T10:00:12Z')
+  expect(decided).toHaveTextContent(instant('2026-10-20T10:00:12Z', true))
+  expect(line(card, /^Valid from/)).toHaveTextContent(`Valid from ${calendar('2026-10-10')} until ${instant('2026-10-20T10:00:12Z')} · 2 changes`)
+  expect(card).not.toHaveTextContent(/2026-10-\d\d|T10:00:12Z/)
+})
+
+it.each(['Pacific/Pago_Pago', 'America/Los_Angeles'])('keeps date-only values on their own day for a viewer in %s', async zone => {
+  const original = process.env.TZ
+  process.env.TZ = zone
+  try {
+    expect(new Date(2026, 9, 10).getTimezoneOffset()).toBeGreaterThan(0)
+    overview.registry.objects[0].attributes = [{ name: 'go_live', type: 'date' }]
+    overview.facts[0] = { ...fact, attribute: 'go_live', value: '2026-12-01', valid_from: '2026-10-10', valid_to: '2026-10-20' }
+    await load()
+    const card = screen.getByRole('article', { name: 'Fact: Launch project — go_live' })
+    expect(Array.from(card.querySelectorAll('time'), item => item.textContent)).toEqual([calendar('2026-12-01'), calendar('2026-10-10'), calendar('2026-10-20')])
+    const heading = within(await lookUp('as_of_valid', { attribute: 'go_live', at: '2026-10-15' })).getByRole('heading')
+    expect(heading.querySelector('time')).toHaveTextContent(calendar('2026-10-15'))
+  } finally {
+    if (original === undefined) delete process.env.TZ
+    else process.env.TZ = original
+  }
+})
+
+it('shows a date it cannot read as recorded, and a missing one as not recorded', async () => {
+  overview.facts[0] = { ...fact, valid_from: 'sometime in autumn', valid_to: '2026-02-30' }
+  overview.facts.push({ ...fact, fact_id: 3, attribute: 'owner', value: 'Maya', valid_from: null, n_changes: 0 })
+  overview.registry.objects[0].attributes.push({ name: 'owner', type: 'text' })
+  await load()
+  const budget = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
+  expect(line(budget, /^Valid from/)).toHaveTextContent('Valid from sometime in autumn until 2026-02-30 · 2 changes')
+  expect(budget.querySelector('time')).toBeNull()
+  expect(line(screen.getByRole('article', { name: 'Fact: Launch project — owner' }), /^Valid from/)).toHaveTextContent('Valid from date not recorded · no changes')
+})
+
+it('shows date attributes as readable dates everywhere a value appears, and edits them as typed', async () => {
+  overview.registry.objects[0].attributes = [{ name: 'go_live', type: 'date' }]
+  overview.facts[0] = { ...fact, attribute: 'go_live', value: '2026-12-01' }
+  overview.proposals[0] = { ...base.proposals[0], attribute: 'go_live', current_value: '2026-12-01', value: '2026-12-15' }
+  const original = respond
+  respond = request => request.method === 'query' ? { type: 'current', answer: '2026-12-15', evidence: [] } : original(request)
+  await load()
+  const card = screen.getByRole('article', { name: 'Fact: Launch project — go_live' })
+  expect(card.querySelector('.temporal-value time')).toHaveAttribute('datetime', '2026-12-01')
+  expect(card.querySelector('.temporal-value')?.textContent).toBe(calendar('2026-12-01'))
+  const proposal = screen.getByRole('article', { name: 'Proposal: Launch project — go_live' })
+  expect(Array.from(proposal.querySelectorAll('dd'), item => item.textContent)).toEqual([calendar('2026-12-01'), calendar('2026-12-15')])
+  expect(proposal.querySelectorAll('dd time')).toHaveLength(2)
+
+  const result = await lookUp('current', { attribute: 'go_live' })
+  expect(result.querySelector('.temporal-value')?.textContent).toBe(calendar('2026-12-15'))
+  expect(result.querySelector('.temporal-value time')).toHaveAttribute('datetime', '2026-12-15')
+
+  fireEvent.click(within(card).getByRole('button', { name: 'Correct' }))
+  const form = screen.getByRole('region', { name: 'Correct fact' })
+  expect(form).toHaveTextContent(`Recorded value: ${calendar('2026-12-01')}.`)
+  // Editing stays in the format the ledger validates.
+  expect(screen.getByRole('textbox', { name: 'Corrected value' })).toHaveValue('2026-12-01')
+})
+
+it('shows a date-looking value of a text attribute exactly as recorded', async () => {
+  overview.facts[0] = { ...fact, attribute: 'budget', value: '2026-12-01' }
+  overview.registry.objects[0].attributes = [{ name: 'budget', type: 'text' }]
+  await load()
+  const card = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
+  expect(card.querySelector('.temporal-value')?.textContent).toBe('2026-12-01')
+  expect(card.querySelector('.temporal-value time')).toBeNull()
+})
+
+it('shows meeting titles instead of ids in proposals and falls back to a short labelled id for an unknown meeting', async () => {
+  overview.proposals.push({ ...base.proposals[0], proposal_id: 2, meeting: UNKNOWN_MEETING, quote: 'Maybe 150.' })
+  overview.proposals.push({ ...base.proposals[0], proposal_id: 3, meeting: null, quote: 'Source not linked.' })
+  await load()
+  const [known, unknown, unlinked] = screen.getAllByRole('article', { name: 'Proposal: Launch project — budget' })
+  await waitFor(() => expect(known.querySelector('figcaption')).toHaveTextContent('Maya · Pilot review'))
+  expect(unknown.querySelector('figcaption')).toHaveTextContent('Maya · Meeting c0ff…')
+  expect(unlinked.querySelector('figcaption')).toHaveTextContent('Maya · Meeting not recorded')
+  // The exact id stays inspectable.
+  expect(within(unknown).getByTitle(`Meeting ID: ${UNKNOWN_MEETING}`)).toHaveTextContent('Meeting c0ff…')
+  expect(within(known).getByTitle(`Meeting ID: ${MEETING_1}`)).toHaveTextContent('Pilot review')
+  for (const proposal of [known, unknown, unlinked]) expect(proposal).not.toHaveTextContent(/[0-9a-f]{8}-[0-9a-f]{4}/)
+})
+
+it('shows meeting titles in the history of a fact', async () => {
+  await load()
+  fireEvent.click(screen.getByRole('button', { name: 'History' }))
+  const history = await screen.findByRole('region', { name: 'Fact history' })
+  expect(await within(history).findByText('Pilot review')).toBeInTheDocument()
+  expect(history).not.toHaveTextContent(MEETING_1)
+})
+
+it.each([
+  ['the service reports an error', () => { throw { code: 'RUNTIME_UNAVAILABLE', message: 'The meeting runtime is unavailable.' } }],
+  ['the list is malformed', () => ({ meetings: [] })],
+  ['the list holds an invalid record', () => [{ id: MEETING_1 }]],
+])('keeps working with short labelled ids when %s', async (_name, answer) => {
+  respondMeetings = answer
+  await load()
+  const card = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
+  await waitFor(() => expect(meetingRequests).toHaveLength(1))
+  await act(async () => { await Promise.resolve() })
+  expect(card.querySelector('figcaption')).toHaveTextContent('Maya · Meeting 3f2a… · Audio 1:05')
+  expect(within(card).getByTitle(`Meeting ID: ${MEETING_1}`)).toBeInTheDocument()
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(within(card).getByRole('button', { name: 'History' })).toBeEnabled()
+  expect(screen.getByRole('button', { name: 'Accept suggestion' })).toBeEnabled()
+})
+
+it('does not wait for meeting titles before showing the ledger', async () => {
+  respondMeetings = () => new Promise(() => undefined)
+  await load()
+  expect(screen.getByRole('article', { name: 'Fact: Launch project — budget' }).querySelector('figcaption')).toHaveTextContent('Maya · Meeting 3f2a… · Audio 1:05')
+  expect(screen.getByRole('button', { name: 'Refresh' })).toBeEnabled()
+})
+
+it('looks meeting titles up again when the ledger is refreshed', async () => {
+  await load()
+  const card = screen.getByRole('article', { name: 'Fact: Launch project — budget' })
+  expect(await within(card).findByText('Pilot review')).toBeInTheDocument()
+  respondMeetings = () => [meetingRecord(MEETING_1, 'Pilot review, renamed')]
+  fireEvent.click(screen.getByRole('button', { name: 'Refresh' }))
+  expect(await within(card).findByText('Pilot review, renamed')).toBeInTheDocument()
+  expect(meetingRequests).toEqual([{ vaultPath: '/vault', operation: 'list' }, { vaultPath: '/vault', operation: 'list' }])
+})
+
 it('ingests a reviewed meeting only on request and never auto-approves suggestions', async () => {
-  overview.proposals.push({ ...base.proposals[0], proposal_id: 2, meeting: 'meeting-2', quote: 'Unrelated meeting evidence' })
-  await load('meeting-1')
+  overview.proposals.push({ ...base.proposals[0], proposal_id: 2, meeting: MEETING_2, quote: 'Unrelated meeting evidence' })
+  await load(MEETING_1)
   expect(screen.queryByText('Unrelated meeting evidence')).not.toBeInTheDocument()
+  const proposal = screen.getByRole('article', { name: 'Proposal: Launch project — budget' })
+  expect(await within(proposal).findByText('Pilot review')).toBeInTheDocument()
+  expect(proposal).not.toHaveTextContent(MEETING_1)
   expect(screen.queryByRole('region', { name: 'Tracked items setup' })).not.toBeInTheDocument()
   expect(requests.every(request => request.method === 'overview')).toBe(true)
   fireEvent.click(screen.getByRole('button', { name: 'Find tracked fact suggestions' }))
   await screen.findByText('Meeting reviewed. proposed: 1')
   await waitFor(() => expect(screen.getByRole('button', { name: 'Accept suggestion' })).toBeEnabled())
-  expect(requests.find(request => request.method === 'ingest_reviewed_meeting')?.params).toEqual({ meetingId: 'meeting-1' })
+  expect(requests.find(request => request.method === 'ingest_reviewed_meeting')?.params).toEqual({ meetingId: MEETING_1 })
   expect(requests.some(request => request.method === 'proposals.accept')).toBe(false)
 })
 

@@ -39,8 +39,9 @@
 .temporal-registry li { padding-block: 10px; border-bottom: 1px solid var(--border, #dedbd5); }
 .temporal-notice, .temporal-error { padding: 12px 16px; border: 1px solid var(--border, #dedbd5); border-radius: 6px; background: var(--muted, #f0eeea); }
 .temporal-error { color: var(--destructive, #983a32); }
-.temporal-query-result { margin-top: 16px; }
-.temporal-query-result pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; margin: 0; padding: 16px; background: var(--muted, #f0eeea); border-radius: 6px; }
+.temporal-query-result { margin-top: 16px; padding: 16px; background: var(--muted, #f0eeea); border-radius: 6px; }
+.temporal-query-result > :last-child, .temporal-query-result figure:last-child { margin-bottom: 0; }
+.temporal-query-result pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; margin: 0; }
 
 @media (max-width: 600px) {
   .temporal-memory { padding: 16px; }

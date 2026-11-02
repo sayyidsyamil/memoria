@@ -58,6 +58,8 @@ export interface TemporalHistoryFact extends Omit<TemporalFact, 'valid_from' | '
 
 export interface TemporalProposal {
   proposal_id: TemporalId
+  /** Always sent by the ledger; lets the panel look up the attribute's type. */
+  object_id?: string
   label: string
   attribute: string
   value: TemporalValue
