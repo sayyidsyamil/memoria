@@ -144,6 +144,17 @@ class StreamingSpeechTest(unittest.TestCase):
                          [('S01', 'Good morning everyone.'), ('S02', 'The budget is now 300,000.')])
         self.assertEqual(session.partial, '')
 
+    @patch('streaming_speech.voiced_frames', lambda samples, vad=None: np.ones(len(samples) // S.VAD_FRAME, dtype=bool))
+    def test_steady_noise_the_voice_detector_takes_for_speech_still_ends_each_sentence(self):
+        session, _ = self.live()
+        audio = meeting(12)
+        events = self.feed(session, audio, 12)
+        committed = next(at for at, turns, _ in events if turns == 2)
+        self.assertLess(committed - 6.0, 1.6)   # closed by the diarizer's silence, not the 10 s limit
+        self.assertEqual([(t['speaker'], t['text']) for t in session.turns],
+                         [('S01', 'Good morning everyone.'), ('S02', 'The budget is now 300,000.')])
+        self.assertLess(len(session.buffer), 2 * RATE)   # noise after the last word is not kept
+
     @patch('streaming_speech.voiced_frames', speaking)
     def test_silence_is_never_decoded(self):
         session, recogniser = self.live()
