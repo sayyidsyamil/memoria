@@ -278,9 +278,9 @@ def tracked_citation_holds(engine, citation):
         service.pipe.ledger._db.close()
 
 
-def tracked_answer(engine, question, today=None):
+def tracked_answer(engine, question, today=None, rules_only=False):
     """An Ask result (same shape as wiki answers) when the question is about a tracked value with
-    approved facts, else None."""
+    approved facts, else None. rules_only (live Ask, where a second counts) skips the model router."""
     from engine import human_date, local_generator, meeting_records
     from temporal_support import valid_current, supporting_evidence
     registry, home = _registry(engine)
@@ -288,7 +288,7 @@ def tracked_answer(engine, question, today=None):
         return None
     # In the app the resident language-model worker routes the question as in the evaluation; tests and
     # scripts without a worker use the rules.
-    generate = local_generator() if os.environ.get('MEMORIA_QWEN_SOCKET') else None
+    generate = local_generator() if os.environ.get('MEMORIA_QWEN_SOCKET') and not rules_only else None
     route = route_question(registry, question, today or date.today(), generate)
     if route is None:
         return None

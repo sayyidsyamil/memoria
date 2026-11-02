@@ -128,3 +128,36 @@ class LiveAskTests(unittest.TestCase):
         self.assertEqual(len(result['sections'][0]['items']), 1)
         self.assertTrue(result['sections'][0]['items'][0]['noEvidence'])
         self.assertEqual(result['citations'], [])
+
+
+class MeetingLiveAskTests(unittest.TestCase):
+    def ask(self, tracked=None, reply=None, session='[00:05] Speaker 1: The budget is now 300,000 ringgit.'):
+        from live_ask import meeting_live_ask
+        return meeting_live_ask(None, {'question': 'What is the budget?', 'sessionText': session},
+                                tracked=tracked or (lambda q: None), reply=reply or (lambda transcript, q: 'Raj said 300,000 [00:05].'))
+
+    def test_approved_value_and_what_was_said_stay_apart(self):
+        approved = {'sections': [{'heading': 'Answer', 'items': [{'text': 'Pilot budget is RM 280,000.', 'citations': ['R1']}]}],
+                    'citations': [{'id': 'R1', 'quote': 'to 280,000 ringgit'}]}
+        result = self.ask(tracked=lambda q: approved)
+        self.assertEqual([s['heading'] for s in result['sections']], ['Approved decision', 'In this meeting'])
+        self.assertEqual(result['sections'][0]['items'][0]['citations'], ['R1'])
+        self.assertTrue(result['sections'][1]['items'][0]['live'])
+        self.assertEqual(result['sections'][1]['items'][0]['citations'], [])
+        self.assertTrue(any('not reviewed' in w for w in result['warnings']))
+
+    def test_without_a_transcript_only_the_ledger_answers(self):
+        calls = []
+        result = self.ask(session='', reply=lambda t, q: calls.append(q) or 'x')
+        self.assertIsNone(result)
+        self.assertEqual(calls, [])
+
+    def test_long_transcripts_drop_their_oldest_part_in_large_steps(self):
+        from live_ask import WINDOW, window
+        lines = [f'[{i:05d}] Speaker 1: sentence number {i}.' for i in range(3000)]
+        text = '\n'.join(lines)
+        kept = window(text)
+        self.assertLessEqual(len(kept), WINDOW * 2 // 3)
+        self.assertTrue(kept.startswith('['))
+        self.assertTrue(text.endswith(kept))
+        self.assertEqual(window(text[:1000]), text[:1000])

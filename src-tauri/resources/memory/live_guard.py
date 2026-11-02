@@ -82,3 +82,15 @@ def confirm(statement, cited, alternatives, score):
         if value > best_score:
             best, best_score = fact, value
     return (best, 'moved') if best_score >= MIN_SCORE else (None, 'dropped')
+
+
+def strongest(statement, facts, score, threshold=MIN_SCORE):
+    """(fact, log-odds) of the candidate the question confirms most strongly, or (None, best) below the threshold."""
+    best, best_score = None, float('-inf')
+    for fact in facts:
+        value = score(question(statement, decision(fact)))
+        if type(value) not in (int, float) or not math.isfinite(value):
+            raise ValueError('Guard returned an invalid log-odds score.')
+        if value > best_score:
+            best, best_score = fact, value
+    return (best, best_score) if best_score >= threshold else (None, best_score)

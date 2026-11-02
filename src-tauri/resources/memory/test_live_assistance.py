@@ -14,11 +14,16 @@ from memoria_engine.ledger import ts
 from temporal_support import contained_path, temporal_home, valid_current, supporting_evidence
 
 
-class LiveAssistanceTests(unittest.TestCase):
+class LiveFixture(unittest.TestCase):
+    mode = 'verifier'  # the written-verdict path; GuardFirstTests covers the default
+
     def setUp(self):
         clock = patch('temporal_support.now_us', return_value=ts('2026-11-02T12:00:00Z'))
         clock.start()
         self.addCleanup(clock.stop)
+        environment = patch.dict('os.environ', {'MEMORIA_LIVE_CHECK': getattr(self, 'mode', 'verifier')})
+        environment.start()
+        self.addCleanup(environment.stop)
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         self.engine = SimpleNamespace(root=self.root)
@@ -73,6 +78,9 @@ class LiveAssistanceTests(unittest.TestCase):
     @staticmethod
     def conflict(statement, facts):
         return {'contradiction': True, 'reason': 'Same subject has an incompatible current choice.', 'factId': facts[0]['factId']}
+
+
+class LiveAssistanceTests(LiveFixture):
 
     def test_missing_registry_is_quiet_without_creating_memory(self):
         verifier = Mock()
@@ -387,6 +395,48 @@ class LiveAssistanceTests(unittest.TestCase):
         (self.home / 'registry.json').write_text('{')
         self.assertEqual(live_check(self.engine, {'statement': 'hi'})['error']['code'], 'LIVE_CHECK_FAILED')
 
+
+
+class GuardFirstTests(LiveFixture):
+    """The default live check: the YES/NO question alone, asked about each candidate decision."""
+    mode = 'guard'
+
+    def guard(self, statement, scores):
+        asked = []
+
+        def scorer(messages):
+            decision = messages[-1]['content'].split('DECISION: ', 1)[1].split('\n', 1)[0]
+            asked.append(decision)
+            return next((value for key, value in scores.items() if key in decision), -5.0)
+        reply = live_check(self.engine, {'statement': statement}, Mock(side_effect=AssertionError('no written verdict')), scorer=scorer)
+        self.assertTrue(reply['ok'], reply)
+        return reply['data'], asked
+
+    def test_the_strongest_confirmed_decision_is_cued_without_a_written_verdict(self):
+        self.approve('Beta Cloud', label='Vendor', attribute='choice')
+        self.approve('MYR 280000', label='Pilot', attribute='budget')
+        data, asked = self.guard('The vendor choice is now Gamma Solutions.', {'Vendor': 7.0, 'Pilot': -3.0})
+        self.assertEqual(data['status'], 'attention')
+        self.assertEqual([cue['label'] for cue in data['cues']], ['Vendor'])
+        self.assertIn('log-odds 7.0', data['cues'][0]['reason'])
+        self.assertTrue(asked)
+
+    def test_a_weak_yes_is_not_enough_on_its_own(self):
+        self.approve('Beta Cloud', label='Vendor', attribute='choice')
+        data, _ = self.guard('The vendor choice is still Beta Cloud.', {'Vendor': 1.5})
+        self.assertEqual((data['status'], data['cues']), ('quiet', []))
+
+    def test_a_sentence_sharing_no_word_with_any_decision_asks_nothing(self):
+        self.approve('Beta Cloud', label='Vendor', attribute='choice')
+        data, asked = self.guard('Lunch was lovely today.', {'Vendor': 9.0})
+        self.assertEqual((data['status'], asked), ('quiet', []))
+
+    def test_a_failing_question_leaves_the_sentence_unverified(self):
+        self.approve('Beta Cloud', label='Vendor', attribute='choice')
+        reply = live_check(self.engine, {'statement': 'The vendor choice is Gamma.'}, None,
+                           scorer=Mock(side_effect=TimeoutError('busy')))
+        self.assertEqual(reply['data']['status'], 'uncertain')
+        self.assertTrue(any('busy' in warning for warning in reply['data']['warnings']))
 
 if __name__ == '__main__':
     unittest.main()

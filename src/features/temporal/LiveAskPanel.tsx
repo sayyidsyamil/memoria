@@ -67,8 +67,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
     </button>
     {open && <div id={`${id}-body`} className="live-ask-body">
       <div className="live-ask-scroll" tabIndex={0} role="region" aria-label="Meeting answer and evidence">
-        <p id={`${id}-notice`} className="live-ask-note">Answers use approved knowledge only. This session is not durable approved evidence and is not used to generate factual answers.</p>
-        <p className="live-ask-note">Provisional transcript: {sessionText.trim() ? 'available for display, not factual answer generation.' : 'not available yet; ask approved knowledge.'}</p>
+        <p id={`${id}-notice`} className="live-ask-note">Approved decisions come from the record. What was said comes from this meeting's live transcript, which nobody has reviewed yet.</p>
         {question && <p className="live-ask-question">{question}</p>}
         {busy && <p role="status" className="live-ask-note">Asking this meeting…</p>}
         {error && <p role="alert" className="live-ask-error">Could not answer: {error}</p>}
@@ -78,7 +77,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
           {result.sections.map((section, sectionIndex) => <section key={sectionIndex}>
             <h3>{section.heading}</h3>
             {!section.items.length && <p className="live-ask-note">No supporting evidence found.</p>}
-            {section.items.map((item, itemIndex) => <div className="live-ask-item" key={itemIndex}>
+            {section.items.map((item, itemIndex) => <div className="live-ask-item" data-live={item.live || undefined} key={itemIndex}>
               <p>{item.text}</p>
               <div className="live-ask-citations">{[...new Set(item.citations)].map(citeId => {
                 const evidence = result.citations.find(source => source.id === citeId)

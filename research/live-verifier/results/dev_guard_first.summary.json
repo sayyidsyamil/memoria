@@ -1,0 +1,19 @@
+{
+  "n": 60,
+  "tp": 17,
+  "fp": 4,
+  "fn": 3,
+  "tn": 36,
+  "alert_precision": 0.8095238095238095,
+  "alert_recall": 0.85,
+  "false_alarm": 0.1,
+  "errors": 0,
+  "uncertain": 0,
+  "p50_ms": 952.8,
+  "p95_ms": 1360.1999999999994,
+  "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+  "split": "dev",
+  "limit": null,
+  "guard": "on",
+  "socket": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/qwen-bench.sock"
+}

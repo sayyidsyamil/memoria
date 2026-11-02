@@ -14,6 +14,8 @@
 .live-ask-question { font-weight: 600; }
 .live-ask-answer h3 { font-size: 12px; font-weight: 600; margin: 8px 0 4px; }
 .live-ask-item { margin-bottom: 8px; }
+/* Unreviewed: what was said in this meeting, set apart from approved decisions. */
+.live-ask-item[data-live] p { margin-left: -2px; padding-left: 10px; border-left: 2px dashed currentColor; }
 .live-ask-citations { display: flex; flex-wrap: wrap; gap: 4px; }
 .live-ask-citation { min-width: 0; max-width: 100%; }
 .live-ask-citation button { max-width: 100%; padding: 3px 7px; border: 1px solid var(--hud-line, var(--border)); border-radius: 6px; background: var(--muted); text-align: left; overflow-wrap: anywhere; font-size: 11px; }

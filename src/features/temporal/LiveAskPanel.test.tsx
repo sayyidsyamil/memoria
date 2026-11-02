@@ -22,15 +22,14 @@ it('requires explicit disclosure and submission, labels provisional context, and
   expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
   expect(invoke).not.toHaveBeenCalled()
   fireEvent.click(screen.getByRole('button', { name: 'Ask this meeting' }))
-  expect(screen.getByText(/This session is not durable approved evidence/)).toBeInTheDocument()
-  expect(screen.getByText(/Provisional transcript: not available yet/)).toBeInTheDocument()
+  expect(screen.getByText(/live transcript, which nobody has reviewed yet/)).toBeInTheDocument()
   type('  ')
   expect(screen.getByRole('button', { name: 'Ask', exact: true })).toBeDisabled()
   fireEvent.submit(screen.getByRole('form', { name: 'Ask this meeting' }))
   expect(invoke).not.toHaveBeenCalled()
 })
 
-it('submits the trimmed question with the latest bounded session text and vault', async () => {
+it('submits the trimmed question with the whole transcript so far, which the model keeps cached', async () => {
   vi.mocked(invoke).mockResolvedValue(empty)
   open('older context'.repeat(600) + 'Maya: Thursday.')
   type('  When is the pilot?  ')
@@ -38,7 +37,7 @@ it('submits the trimmed question with the latest bounded session text and vault'
   await screen.findByText('No supporting evidence found.')
   expect(invoke).toHaveBeenCalledExactlyOnceWith('live_ask', {
     vaultPath: '/vault', question: 'When is the pilot?',
-    sessionText: ('older context'.repeat(600) + 'Maya: Thursday.').slice(-5000),
+    sessionText: 'older context'.repeat(600) + 'Maya: Thursday.',
     jobId: expect.any(String),
   })
 })
@@ -142,4 +141,17 @@ it('unmount cancels the request using the same caller-owned job ID', () => {
   const request = vi.mocked(invoke).mock.calls[0][1] as { jobId: string }
   unmount()
   expect(invoke).toHaveBeenCalledWith('cancel_wiki_memory', { jobId: request.jobId })
+})
+
+it('keeps an answer from the live transcript visibly apart from the approved decision', async () => {
+  vi.mocked(invoke).mockResolvedValue({
+    sections: [{ heading: 'Approved decision', items: [{ text: 'Pilot budget is RM 280,000.', citations: [] }] },
+      { heading: 'In this meeting', items: [{ text: 'Raj said 300,000 [00:05].', citations: [], live: true }] }],
+    citations: [], warnings: ['From the live transcript: not reviewed and not approved. Check it against the recording.'],
+  })
+  open('[00:05] Speaker 2: The budget is now 300,000 ringgit.'); type('What is the budget?')
+  fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
+  expect(await screen.findByRole('heading', { name: 'In this meeting' })).toBeInTheDocument()
+  expect(screen.getByText('Raj said 300,000 [00:05].').closest('.live-ask-item')).toHaveAttribute('data-live', 'true')
+  expect(screen.getByText('Pilot budget is RM 280,000.').closest('.live-ask-item')).not.toHaveAttribute('data-live')
 })

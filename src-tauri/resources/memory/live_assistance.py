@@ -5,6 +5,7 @@ as the shared generator: {contradiction: bool, reason: str, factId: int}.
 Only current facts are supplied, never superseded values or pending proposals.
 """
 import json
+import os
 import re
 import sqlite3
 import time
@@ -25,6 +26,19 @@ CHECK_SECONDS = 120  # Shared local_generator has a 110-second socket timeout.
 # A valid verdict, its reason capped at 1000 characters, fits well inside this. A reply that starts arguing with
 # itself is cut off after a few seconds instead of holding the live queue for a minute.
 VERIFIER_TOKENS = 320
+GUARD_CANDIDATES = 5
+# Asked alone about up to five candidates, the question needs more confidence than when it confirms one cited
+# decision (live_guard.MIN_SCORE): 2.0 was chosen on the MemoriaBench dev split (research/live-verifier).
+GUARD_FIRST_MIN = 2.0
+
+
+def mode():
+    """'guard' (default): the YES/NO question alone, on each candidate decision. 'verifier': a written verdict first,
+    then the guard, as evaluated in October. On the MemoriaBench test split both catch 91 of 112 conflicts; the guard
+    alone raises 2 false alarms in 224 against 3, with no unverified sentences, in 0.8 s against 4.0 s (median)."""
+    return 'verifier' if os.environ.get('MEMORIA_LIVE_CHECK', 'guard').strip().lower() == 'verifier' else 'guard'
+
+
 LIMIT_WARNING = ('Lexical selection checks at most 5 current facts; aliases, paraphrases '
                  'and temporal/unit scoping may be missed. Quiet is not a correctness guarantee.')
 STOP = set('a an the of for to in on at is are was were be been and or with value'.split())
@@ -239,7 +253,23 @@ def live_check(engine, request, verifier=None, scorer=None):
                 pending.append(fact)
         # Pure past-tense mentions cannot establish a conflict with facts.current.
         historical_only = HISTORICAL.search(statement) and not re.search(r'\b(now|currently|is|are|will)\b', statement, re.I)
-        if pending and not historical_only:
+        if pending and not historical_only and mode() == 'guard':
+            # Guard first: no generated verdict. The narrow YES/NO question is asked about each candidate decision
+            # (the slots sharing the most words with the sentence, and the selected ones), and the decision it
+            # confirms most strongly is shown. One forward pass per candidate instead of a written verdict.
+            try:
+                ranked = live_guard.candidates(statement, current, _tokens)
+                seen = {f['fact_id'] for f in ranked}
+                ranked += [f for f in pending if f['fact_id'] not in seen]
+                checked = [{**f, 'evidence': supporting_evidence(f)} for f in ranked
+                           if type(f.get('fact_id')) is int and supporting_evidence(f) and _numeric(statement, f) is None]
+                fact, strength = live_guard.strongest(statement, checked[:GUARD_CANDIDATES], score, GUARD_FIRST_MIN)
+                if fact is not None:
+                    cues.append(cue(fact, f'The statement goes against this approved decision (YES/NO check, log-odds {strength:.1f}).'))
+            except Exception as error:
+                warnings.append(f'Verification unavailable or invalid: {str(error)[:300]}')
+                uncertain = True
+        elif pending and not historical_only:
             payload = [{'factId': f['fact_id'], 'label': f['label'], 'attribute': f['attribute'],
                         'value': f['value'], 'validFrom': f.get('valid_from'),
                         'evidence': [e for e in f['evidence'] if isinstance(e.get('quote'), str) and e['quote'].strip()][:1]} for f in pending]

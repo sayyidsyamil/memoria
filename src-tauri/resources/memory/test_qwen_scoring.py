@@ -21,8 +21,10 @@ class ScoringTests(unittest.TestCase):
         tokenizer.apply_chat_template.return_value = '<bos>chat'
         tokenizer.encode.side_effect = lambda text, **kw: {'YES': [7, 77], 'NO': [9], '<bos>chat': [1, 2]}[text]
         messages = [{'role': 'user', 'content': 'One word?'}]
+        model_server._prefix = {'ids': None, 'state': None, 'seen': None}
         with patch.dict('sys.modules', {'mlx': SimpleNamespace(core=mx), 'mlx.core': mx,
-                                      'mlx_lm.generate': SimpleNamespace(generate_step=step)}):
+                                      'mlx_lm.generate': SimpleNamespace(generate_step=step),
+                                      'mlx_lm.models.cache': SimpleNamespace(make_prompt_cache=lambda model: [])}):
             reply = model_server.score_first_tokens('model', tokenizer,
                 {'messages': messages, 'candidates': ['YES', 'NO']})
         self.assertEqual(reply, {'logprobs': {'YES': -0.5, 'NO': -3.0}})
@@ -32,6 +34,34 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(step.call_args.args, ([1, 2], 'model'))
         self.assertEqual(step.call_args.kwargs['max_tokens'], 1)
         self.assertEqual(step.call_args.kwargs['prefill_step_size'], 128)
+
+    def test_a_shared_question_opening_is_run_once_and_reused(self):
+        class Arr(list):
+            def __getitem__(self, index):
+                return self if index is None else list.__getitem__(self, index)
+
+        class Layer:
+            def __init__(self):
+                self.state = []
+
+        mx = SimpleNamespace(array=lambda x: Arr(x) if isinstance(x, list) else x, argmax=Mock(), eval=lambda *a: None)
+        fed = []
+        model = Mock(side_effect=lambda x, cache: [fed.append(len(x)), [layer.state.append(len(x)) for layer in cache]])
+        step = Mock(side_effect=lambda ids, *a, **k: iter([(0, {7: -1.0, 9: -2.0})]))
+        prompts = {f'p{k}': list(range(130)) + [1000 + k, 2000 + k] for k in range(3)}
+        tokenizer = Mock(bos_token=None)
+        tokenizer.apply_chat_template.side_effect = lambda messages, **kw: messages[0]['content']
+        tokenizer.encode.side_effect = lambda text, **kw: {'YES': [7], 'NO': [9]}.get(text) or prompts[text]
+        model_server._prefix = {'ids': None, 'state': None, 'seen': None}
+        with patch.dict('sys.modules', {'mlx': SimpleNamespace(core=mx), 'mlx.core': mx,
+                                      'mlx_lm.generate': SimpleNamespace(generate_step=step),
+                                      'mlx_lm.models.cache': SimpleNamespace(make_prompt_cache=lambda m: [Layer(), Layer()])}):
+            for k in range(3):
+                reply = model_server.score_first_tokens(model, tokenizer, {'messages': [{'role': 'user', 'content': f'p{k}'}], 'candidates': ['YES', 'NO']})
+                self.assertEqual(reply, {'logprobs': {'YES': -1.0, 'NO': -2.0}})
+        self.assertEqual([len(call.args[0]) for call in step.call_args_list], [132, 2, 2])
+        self.assertEqual(fed, [128, 2])  # the shared 130 tokens ran once, in prefill steps of 128
+        self.assertEqual(step.call_args_list[2].args[0], [1002, 2002])
 
     def exchange(self, reply, candidates=('YES', 'NO')):
         with tempfile.TemporaryDirectory() as folder:

@@ -5,7 +5,8 @@ export interface LiveAskCitation {
   id: string; quote: string; sourceTitle: string; sourcePath: string; page: number
 }
 export interface LiveAskResult {
-  sections: { heading: string; items: { text: string; citations: string[] }[] }[]
+  /** `live` items come from this meeting's unreviewed transcript, never from approved knowledge. */
+  sections: { heading: string; items: { text: string; citations: string[]; live?: boolean }[] }[]
   citations: LiveAskCitation[]
   warnings: string[]
   message?: string
@@ -13,6 +14,7 @@ export interface LiveAskResult {
 }
 
 export function askLiveMeeting(vaultPath: string, question: string, sessionText: string, jobId: string): Promise<LiveAskResult> {
-  // Keep the most recent context, without retaining a second full transcript in UI state.
-  return invoke('live_ask', { vaultPath, question: question.trim(), sessionText: sessionText.slice(-5000), jobId })
+  // The whole transcript, in order: the language model keeps it cached and reads only what is new since the last
+  // question. The engine drops the oldest part of a very long meeting.
+  return invoke('live_ask', { vaultPath, question: question.trim(), sessionText: sessionText.slice(-120000), jobId })
 }

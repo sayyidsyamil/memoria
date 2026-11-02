@@ -57,3 +57,31 @@ def first_token_logprobs(messages, candidates=('YES', 'NO'), timeout=110):
 def score(messages, timeout=110):
     scores = first_token_logprobs(messages, timeout=timeout)
     return scores['YES'] - scores['NO']
+
+
+def meeting_reply(transcript, question, timeout=60, max_tokens=200):
+    """Answer a question from the live transcript the worker keeps cached; an empty question only warms the cache."""
+    deadline = time.monotonic() + timeout
+    with socket.socket(socket.AF_UNIX) as connection:
+        connection.settimeout(timeout)
+        connection.connect(socket_address())
+        connection.sendall((json.dumps({'type': 'meeting', 'transcript': transcript, 'question': question,
+                                       'maxTokens': max_tokens}) + '\n').encode())
+        buffer = b''
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError('Live answer time budget exceeded.')
+            connection.settimeout(remaining)
+            part = connection.recv(65536)
+            if not part:
+                raise ValueError('Local model connection closed before completing')
+            buffer += part
+            while b'\n' in buffer:
+                line, buffer = buffer.split(b'\n', 1)
+                reply = json.loads(line)
+                if 'progress' in reply:
+                    continue
+                if not isinstance(reply.get('text'), str):
+                    raise ValueError(reply.get('error', 'Invalid local answer'))
+                return reply['text']

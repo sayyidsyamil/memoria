@@ -1,0 +1,109 @@
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{"progress": "Connecting to local model; first request may need loading"}
+{"progress": "Drafting with the ready local model"}
+{
+  "n": 60,
+  "tp": 15,
+  "fp": 2,
+  "fn": 5,
+  "tn": 38,
+  "alert_precision": 0.8823529411764706,
+  "alert_recall": 0.75,
+  "false_alarm": 0.05,
+  "errors": 0,
+  "uncertain": 0,
+  "p50_ms": 4014.1000000000004,
+  "p95_ms": 6994.749999999999,
+  "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+  "split": "dev",
+  "limit": null,
+  "guard": "on",
+  "socket": "/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/mm-26719-9dfaf2f2-qwen.sock"
+}
