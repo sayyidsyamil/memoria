@@ -34,7 +34,7 @@ def serve(kind, address):
         import embeddings
         path = snapshot_download('mlx-community/embeddinggemma-2-5bit', local_files_only=True,
                                  allow_patterns=['*.json', '*.safetensors', '*.jinja', '*.model'])
-        model = load_embedding_model(Path(path))
+        model = embeddings.text_only(load_embedding_model(Path(path)))
         tokenizer = AutoTokenizer.from_pretrained(path, local_files_only=True)
         batch = tokenizer(['search_query: readiness'], return_tensors='np')
         mx.eval(model(**{k: mx.array(v) for k, v in batch.items()}).text_embeds)

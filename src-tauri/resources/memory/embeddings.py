@@ -3,6 +3,19 @@ import json
 import sys
 from pathlib import Path
 
+def text_only(model):
+    """EmbeddingGemma 2 ships audio and vision towers (0.94 of its 1.13 GB in this build); Memoria embeds text only.
+    Dropping them leaves the text embeddings bit-identical and the worker 0.19 GB instead of 1.13 GB."""
+    import gc
+    import mlx.core as mx
+    for name in ('audio_tower', 'vision_tower', 'embed_audio', 'embed_vision'):
+        if name in model:
+            del model[name]
+    gc.collect()
+    mx.clear_cache()
+    return model
+
+
 def main(loaded=None):
     import mlx.core as mx
     import numpy as np
@@ -15,7 +28,7 @@ def main(loaded=None):
     else:
         path = snapshot_download('mlx-community/embeddinggemma-2-5bit', local_files_only=True,
             allow_patterns=['*.json', '*.safetensors', '*.jinja', '*.model'])
-        model = load_embedding_model(Path(path))
+        model = text_only(load_embedding_model(Path(path)))
         tokenizer = AutoTokenizer.from_pretrained(path, local_files_only=True)
     vectors = []
     for offset in range(0, len(request['texts']), 4):
