@@ -65,7 +65,7 @@ class AskTrackedFactsTests(unittest.TestCase):
         result = self.ask('Which supplier do we use now?')
         self.assertEqual(result['source'], 'tracked-facts')
         item = result['sections'][0]['items'][0]
-        self.assertTrue(item['text'].startswith('The current supplier for Pilot is Beta (decided '), item['text'])
+        self.assertTrue(item['text'].startswith('Pilot supplier is Beta (decided '), item['text'])
         evidence = {citation['id']: citation for citation in result['citations']}[item['citations'][0]]
         self.assertEqual(evidence['quote'], 'We decided to use Beta as supplier.')
         self.assertEqual((evidence['moment']['meetingId'], evidence['moment']['meetingTitle']), (second, 'Supplier review'))
@@ -74,7 +74,7 @@ class AskTrackedFactsTests(unittest.TestCase):
     def test_change_question_lists_each_value_with_its_evidence(self):
         self.two_meetings()
         items = self.ask('What changed about the supplier?')['sections'][0]['items']
-        self.assertEqual(items[0]['text'], 'The supplier for Pilot changed once: Acme → Beta.')
+        self.assertEqual(items[0]['text'], 'Pilot supplier changed once: Acme → Beta.')
         self.assertEqual(len(items[0]['citations']), 2)
         self.assertEqual([item['text'].split(' — ')[0] for item in items[1:]], ['Acme', 'Beta'])
 
@@ -82,9 +82,9 @@ class AskTrackedFactsTests(unittest.TestCase):
         self.two_meetings()
         self.assertTrue(self.ask('How many times did the pilot supplier change?')['sections'][0]['items'][0]['text'].endswith('changed once: Acme → Beta.'))
         past = self.ask('What was the pilot supplier on 10 October 2026?')['sections'][0]['items'][0]
-        self.assertTrue(past['text'].startswith('On 10 Oct 2026, the supplier for Pilot was Acme'), past['text'])
+        self.assertTrue(past['text'].startswith('On 10 Oct 2026, Pilot supplier was Acme'), past['text'])
         before = self.ask('What was the pilot supplier on 20 September 2026?')['sections'][0]['items'][0]
-        self.assertEqual((before['text'], before['citations'], before['noEvidence']), ('No supplier for Pilot was recorded for 20 Sep 2026.', [], True))
+        self.assertEqual((before['text'], before['citations'], before['noEvidence']), ('Pilot supplier had no recorded value on 20 Sep 2026.', [], True))
 
     def test_other_questions_stay_with_the_wiki(self):
         self.two_meetings()
@@ -171,5 +171,72 @@ class BriefTrackedFactsTests(AskTrackedFactsTests):
         self.assertIsNone(brief_items(self.engine))
 
 
+class RouteQuestionTests(unittest.TestCase):
+    def test_an_item_named_in_full_wins_a_tie_against_a_longer_shared_word(self):
+        # Ties in named label words went to the longest word, so the subject a question mentions in passing
+        # ("project") sent "What is the project budget now?" to the project timeline.
+        registry = registry_from_json({'objects': [
+            {'object_id': 'timeline', 'label': 'Project timeline', 'kind': 'decision', 'attributes': [{'name': 'end', 'type': 'date'}]},
+            {'object_id': 'budget', 'label': 'Budget', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]},
+            {'object_id': 'vendor', 'label': 'Vendor', 'kind': 'decision', 'attributes': [{'name': 'outcome', 'type': 'text'}]},
+            {'object_id': 'vendor_contract', 'label': 'Vendor contract', 'kind': 'decision', 'attributes': [{'name': 'term', 'type': 'text'}]}]})
+        today = date(2026, 11, 2)
+        now = route_question(registry, 'What is the project budget now?', today)
+        self.assertEqual((now['object_id'], now['attribute'], now['type']), ('budget', 'amount', 'current'))
+        self.assertEqual(route_question(registry, 'How many times has the project budget changed?', today)['type'], 'n_changes')
+        self.assertEqual(route_question(registry, 'How many times has the project budget changed?', today)['object_id'], 'budget')
+        self.assertEqual(route_question(registry, 'What is the project timeline now?', today)['object_id'], 'timeline')
+        # Only a tie is broken: more named label words still win over a short label named in full.
+        self.assertEqual(route_question(registry, 'Which vendor contract do we use now?', today)['object_id'], 'vendor_contract')
+
+
 if __name__ == '__main__':
     unittest.main()
+
+
+class ModelRouterTests(unittest.TestCase):
+    """The app routes typed questions with the evaluated language-model router when its worker is available."""
+
+    def registry(self):
+        from memoria_engine.service import registry_from_json
+        return registry_from_json({'objects': [
+            {'object_id': 'budget', 'label': 'Pilot budget (RM)', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]},
+            {'object_id': 'training', 'label': 'Staff training', 'kind': 'commitment', 'attributes': [{'name': 'owner', 'type': 'text'}]}],
+            'people': {}})
+
+    def test_the_model_route_is_used_when_valid(self):
+        from datetime import date
+        reply = '{"type":"as_of_valid","object_id":"budget","attribute":"amount","valid_at":"2026-09-27","tx_at":null}'
+        route = route_question(self.registry(), 'How much money did the pilot have on 27 September?', date(2026, 11, 2), lambda prompt: reply)
+        self.assertEqual((route['type'], route['object_id'], route['valid_at']), ('as_of_valid', 'budget', '2026-09-27'))
+
+    def test_no_tracked_item_goes_to_knowledge_and_a_bad_reply_falls_back_to_rules(self):
+        from datetime import date
+        today = date(2026, 11, 2)
+        none = '{"type":"current","object_id":null,"attribute":null,"valid_at":null,"tx_at":null}'
+        self.assertIsNone(route_question(self.registry(), 'What did we discuss about catering?', today, lambda prompt: none))
+        route = route_question(self.registry(), 'Who owns staff training now?', today, lambda prompt: 'no json here')
+        self.assertEqual((route['object_id'], route['attribute']), ('training', 'owner'))
+
+    def test_an_item_with_one_attribute_needs_no_attribute_in_the_reply(self):
+        from datetime import date
+        reply = '{"type":"n_changes","object_id":"budget","attribute":null,"valid_at":null,"tx_at":null}'
+        route = route_question(self.registry(), 'How often has the budget moved?', date(2026, 11, 2), lambda prompt: reply)
+        self.assertEqual((route['type'], route['object_id'], route['attribute']), ('n_changes', 'budget', 'amount'))
+
+    def test_who_and_when_pick_the_owner_and_the_only_date(self):
+        from datetime import date
+        from memoria_engine.service import registry_from_json
+        registry = registry_from_json({'objects': [{'object_id': 'training', 'label': 'Staff training', 'kind': 'commitment',
+            'attributes': [{'name': 'owner', 'type': 'text'}, {'name': 'deadline', 'type': 'date'}, {'name': 'status', 'type': 'enum', 'values': ['done', 'cancelled']}]}], 'people': {}})
+        reply = '{"type":"current","object_id":"training","attribute":null,"valid_at":null,"tx_at":null}'
+        today = date(2026, 11, 2)
+        self.assertEqual(route_question(registry, 'Who is doing the staff training?', today, lambda prompt: reply)['attribute'], 'owner')
+        self.assertEqual(route_question(registry, 'When will the staff training happen?', today, lambda prompt: reply)['attribute'], 'deadline')
+
+    def test_answers_name_the_slot_plainly_and_show_the_unit(self):
+        from ask_facts import shown_in, subject
+        self.assertEqual(subject('Pilot budget (RM)', 'amount'), 'Pilot budget')
+        self.assertEqual(subject('Staff training', 'owner'), 'Staff training owner')
+        self.assertEqual(shown_in(280000, 'Pilot budget (RM)'), 'RM 280,000')
+        self.assertEqual(shown_in('Beta Cloud', 'Vendor'), 'Beta Cloud')

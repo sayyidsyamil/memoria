@@ -7,6 +7,7 @@ Questions that name no tracked item, or name only an attribute without asking ab
 left to the wiki answer.
 """
 import json
+import os
 import re
 import sqlite3
 from datetime import date
@@ -20,14 +21,74 @@ def _names(attribute, question):
     return re.search(rf"\b{re.escape(attribute.casefold().replace('_', ' '))}s?\b", question.casefold()) is not None
 
 
-def route_question(registry, question, today):
-    """Which tracked slot and lookup a question asks for, or None. Reuses the evaluated rule router.
-    A named item counts when the question also names the attribute or asks about time; an attribute
-    named without its item counts only when it is the only such slot and the question asks about time."""
+def _named_in_full(registry, question):
+    """Of the items tied for the most label words in the question, the only one whose label words are all
+    named, else None. The rule router breaks that tie by the longest word, so a word many questions share
+    ('project' in "Project timeline") would outrank the item the question names in full ("Budget")."""
+    from memoria_engine.fallback_router import STOP, _item_scores, _words
+    scores = _item_scores(registry, _words(question))
+    tied = [item for hits, _, item in scores if hits == scores[0][0]]
+    full = [item for item in tied if scores[0][0] == len(
+        {w for w in _words(f"{item.label} {item.object_id.replace('_', ' ')}") if w not in STOP and len(w) >= 3})]
+    return full[0] if len(tied) > 1 and len(full) == 1 else None
+
+
+def _complete_attribute(raw, registry, question):
+    """A reply that names an item but leaves out its attribute is completed when only one attribute fits:
+    the item's only attribute, its owner for a "who" question, or its only date for a "when" question."""
+    start, end = raw.find('{'), raw.rfind('}')
+    try:
+        data = json.loads(raw[start:end + 1])
+        item = registry.objects.get(data.get('object_id'))
+        if item is None or data.get('attribute'):
+            return raw
+        words = set(re.findall(r'[a-z]+', question.casefold()))
+        fits = item.attributes if len(item.attributes) == 1 else \
+            [a for a in item.attributes if a.name == 'owner' or a.type == 'person'] if 'who' in words else \
+            [a for a in item.attributes if a.type == 'date'] if words & {'when', 'due', 'deadline'} else []
+        if len(fits) == 1:
+            data['attribute'] = fits[0].name
+            return json.dumps(data)
+    except (ValueError, AttributeError, TypeError):
+        pass
+    return raw
+
+
+def llm_route(registry, question, today, generate):
+    """The evaluated language-model router (research/ledger-engine, report Section 6.4.2): the same prompt and
+    validation, so a typed question routes as in the evaluation. Returns the route dict, or None when the
+    reply names no usable slot."""
+    from memoria_engine.evaluation.router import build_prompt, parse_route
+    try:
+        route = parse_route(_complete_attribute(generate(build_prompt(registry, today.isoformat(), question)), registry, question), registry)
+    except Exception:
+        return None
+    if not route.ok:
+        return None
+    kind = route.type
+    if kind == 'current' and CHANGES.search(question) and not CURRENT.search(question):
+        kind = 'history'
+    return {'type': kind, 'object_id': route.object_id, 'attribute': route.attribute, 'valid_at': route.valid_at, 'tx_at': route.tx_at}
+
+
+def route_question(registry, question, today, generate=None):
+    """Which tracked slot and lookup a question asks for, or None. With the language model available
+    (`generate`), the evaluated model router decides; without it, or when its reply names no usable slot,
+    the evaluated rule router does. With rules, a named item counts when the question also names the attribute
+    or asks about time; an attribute named without its item counts only when it is the only such slot and
+    the question asks about time."""
+    if generate is not None:
+        routed = llm_route(registry, question, today, generate)
+        if routed is not None:
+            return routed  # otherwise the rules decide; they leave topic questions to knowledge
     from memoria_engine.fallback_router import fallback_route, parse_dates, N_CHANGES
+    from memoria_engine.pipeline import Registry
     dates = parse_dates(question, today)
     temporal = bool(CURRENT.search(question) or CHANGES.search(question) or N_CHANGES.search(question) or dates)
     route = fallback_route(registry, today.isoformat(), question)
+    named = _named_in_full(registry, question)
+    if named is not None and named.object_id != route.object_id:
+        route = fallback_route(Registry({named.object_id: named}, registry.people), today.isoformat(), question)
     if route.ok:
         kind, object_id, attribute, valid_at, tx_at = route.type, route.object_id, route.attribute, route.valid_at, route.tx_at
         if not temporal and not _names(attribute, question):
@@ -63,6 +124,24 @@ def _snapshot(home, registry):
         ledger._db.close()
         raise
     return service
+
+
+GENERIC_ATTRIBUTES = {'outcome', 'value', 'amount', 'date'}
+UNIT = re.compile(r'\s*\(([A-Z]{1,4}|[$€£¥])\)\s*$')
+
+
+def subject(label, attribute):
+    """How an answer names a slot: "Vendor" for an item's only generic value, "Staff training owner" otherwise;
+    a unit in the label ("Pilot budget (RM)") moves to the value."""
+    label = UNIT.sub('', label)
+    return label if attribute.casefold() in GENERIC_ATTRIBUTES else f'{label} {attribute.replace("_", " ")}'
+
+
+def shown_in(value, label):
+    """A value in the unit its item's label names, e.g. "RM 280,000" for "Pilot budget (RM)"."""
+    unit = UNIT.search(label)
+    text = shown(value)
+    return f'{unit.group(1)} {text}' if unit and isinstance(value, (int, float)) and not isinstance(value, bool) else text
 
 
 def _times(count):
@@ -194,12 +273,15 @@ def tracked_citation_holds(engine, citation):
 def tracked_answer(engine, question, today=None):
     """An Ask result (same shape as wiki answers) when the question is about a tracked value with
     approved facts, else None."""
-    from engine import human_date, meeting_records
+    from engine import human_date, local_generator, meeting_records
     from temporal_support import valid_current, supporting_evidence
     registry, home = _registry(engine)
     if registry is None:
         return None
-    route = route_question(registry, question, today or date.today())
+    # In the app the resident language-model worker routes the question as in the evaluation; tests and
+    # scripts without a worker use the rules.
+    generate = local_generator() if os.environ.get('MEMORIA_QWEN_SOCKET') else None
+    route = route_question(registry, question, today or date.today(), generate)
     if route is None:
         return None
     service = _snapshot(home, registry)
@@ -210,6 +292,7 @@ def tracked_answer(engine, question, today=None):
             return None  # Nothing approved for this slot yet: the wiki may still know something.
         label = registry.objects[route['object_id']].label
         attribute = route['attribute']
+        name = subject(label, attribute)
         records = {record['id']: record for record in meeting_records(engine)}
         citations = []
         cite = _citer(engine, records, citations)
@@ -218,31 +301,30 @@ def tracked_answer(engine, question, today=None):
         if route['type'] == 'current':
             fact = next((row for row in valid_current(service) if (row['object_id'], row['attribute']) == slot), None)
             if fact is None:
-                items.append({'text': f'No {attribute} for {label} is in force now.', 'citations': [], 'noEvidence': True})
+                items.append({'text': f'{name} has no value in force now.', 'citations': [], 'noEvidence': True})
             else:
-                items.append({'text': f"The current {attribute} for {label} is {shown(fact['value'])} (decided {human_date(fact['decided_at'])}).",
+                items.append({'text': f"{name} is {shown_in(fact['value'], label)} (decided {human_date(fact['decided_at'])}).",
                               'citations': cite(supporting_evidence(fact))})
         elif route['type'] in ('as_of_valid', 'as_of_tx'):
             found = service.query(route['type'], *slot, valid_at=route['valid_at'], tx_at=route['tx_at'])
             on = route['valid_at']
             if found['answer'] is None:
-                items.append({'text': f'No {attribute} for {label} was recorded for {shown(on)}.', 'citations': [], 'noEvidence': True})
+                items.append({'text': f'{name} had no recorded value on {shown(on)}.', 'citations': [], 'noEvidence': True})
             else:
-                known = f", as recorded by {route['tx_at']}" if route['type'] == 'as_of_tx' and route['tx_at'] else ''
-                items.append({'text': f"On {shown(on)}{known}, the {attribute} for {label} was {shown(found['answer'])} (decided {human_date(found['decided_at'])}).",
+                known = f", as recorded by {shown(route['tx_at'])}" if route['type'] == 'as_of_tx' and route['tx_at'] else ''
+                items.append({'text': f"On {shown(on)}{known}, {name} was {shown_in(found['answer'], label)} (decided {human_date(found['decided_at'])}).",
                               'citations': cite(found['evidence'])})
         else:  # n_changes and history: the recorded values in order, each with its own evidence
             changes = service.query('n_changes', *slot)['answer']
             # A confirmation repeats the value; the summary lists each value once per run.
-            values = ' → '.join(shown(fact['value']) for index, fact in enumerate(history)
+            values = ' → '.join(shown_in(fact['value'], label) for index, fact in enumerate(history)
                                 if index == 0 or fact['value'] != history[index - 1]['value'])
             steps = []
             for fact in history:
                 ids = cite(fact.get('evidence') or [])
                 if ids:
-                    steps.append({'text': f"{shown(fact['value'])} — decided {human_date(fact['decided_at'])}.", 'citations': ids})
-            summary = f'The {attribute} for {label} has not changed: {values}.' if not changes else \
-                f'The {attribute} for {label} changed {_times(changes)}: {values}.'
+                    steps.append({'text': f"{shown_in(fact['value'], label)} — decided {human_date(fact['decided_at'])}.", 'citations': ids})
+            summary = f'{name} has not changed: {values}.' if not changes else f'{name} changed {_times(changes)}: {values}.'
             items.append({'text': summary, 'citations': [ref for step in steps for ref in step['citations']]})
             items.extend(steps)
         if not any(item['citations'] for item in items) and not all(item.get('noEvidence') for item in items):
