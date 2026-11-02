@@ -104,7 +104,8 @@ export function WorkspaceMemoryHub({ vaultPath, summary, onChanged, onStartMeeti
       const current = await meetingService.get(vaultPath, id)
       if (!current.audioPath) throw new Error('This meeting has no recording to open. Use its document instead.')
       if (!current.draft) current.draft = await invoke<TranscriptDraft | undefined>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId: id } })
-      if (current.draft && current.turns) current.draft.segments = current.turns
+      // Saved reviewed turns take precedence; an unreviewed (e.g. recovered) meeting keeps its draft's own segments.
+      if (current.draft && current.turns?.length) current.draft.segments = current.turns
       if (current.draft) current.draft.speakerMatches = Object.fromEntries(Object.entries(current.names ?? {}).map(([speaker, name]) => [speaker, { id: current.profileIds?.[speaker] ?? '', name }]))
       setMeeting({ ...current, initialTab: tab, initialSeek: at })
     } catch (failure) { setError(String(failure)) }

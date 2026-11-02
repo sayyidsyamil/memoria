@@ -45,6 +45,17 @@ it('lists durable meetings and reopens saved transcript edits', async () => {
   // Opening a record must not drop the cursor into (and select) the title field.
   expect(screen.getByRole('textbox',{name:'Meeting title'})).not.toHaveFocus()
 })
+it('reopens an unreviewed recovered meeting with its created transcript', async () => {
+  // Observed natively: an empty saved turn list replaced the created draft, leaving "No readable speech" and no way back.
+  const recovered = meeting({ id:'rec', turns:[], draft:undefined })
+  const created = { segments:[{start:9.86,end:12.42,speaker:'S01',text:'We decided to use Acme as supplier.'}], duration:15.96, text:'', warnings:[] }
+  vi.mocked(invoke).mockResolvedValueOnce([recovered]).mockResolvedValueOnce(recovered).mockResolvedValueOnce(created)
+  render(<WorkspaceMemoryHub vaultPath="/vault" />)
+  fireEvent.click(screen.getByText('Meetings'))
+  fireEvent.click(await screen.findByRole('button',{name:'Review transcript'}))
+  expect(await screen.findByRole('textbox',{name:'Transcript turn 1'})).toHaveValue('We decided to use Acme as supplier.')
+  expect(screen.queryByText(/No readable speech was detected/)).not.toBeInTheDocument()
+})
 it('offers one next action per meeting and shows real progress', async () => {
   vi.mocked(invoke).mockResolvedValueOnce([
     meeting({id:'a',title:'Needs transcript'}),
