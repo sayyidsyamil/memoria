@@ -55,8 +55,8 @@ was screenshot-inspected; microphone permission stall still prevents full live
 word verification on the installed app. Direct plain streaming worker verified
 incremental text and final flush on JFK.
 
-Resemblyzer software and bundled voice encoder retain MIT licensing:
-https://github.com/resemble-ai/Resemblyzer
+Resemblyzer software and bundled voice encoder are licensed under Apache-2.0
+(Copyright 2019 Resemble.AI): https://github.com/resemble-ai/Resemblyzer
 
 Machine: Apple M5, 16 GB unified memory. MLX-Audio pinned to
 `7a0986280fe295f4cf40f64164bb23abed416a22` (package 0.6.3), installed in
