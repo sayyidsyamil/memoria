@@ -54,6 +54,31 @@ class MemoryTests(unittest.TestCase):
         self.assertLess(len(proposal['claims']), 30)  # tens of model calls, not 120
         self.assertEqual(proposal['claims'][-1]['quote'], turns[-1])
 
+    def test_an_unreadable_passage_group_is_skipped_and_named_not_the_whole_review(self):
+        # Observed on the 60-minute AMI transcript: one group's draft stayed invalid after the
+        # quotation correction, which used to discard the review of the whole hour.
+        turns = [f'[{index}:00] Speaker 1: Passage {index} records a point about the pilot plan and its owner.' for index in range(120)]
+        (self.root / 'meeting.md').write_text('---\ntype: Source\n---\n# Pilot review\n\n' + '\n\n'.join(turns) + '\n')
+        calls = []
+        def reader(prompt):
+            chunk = json.loads(prompt.split('evidence units:\n', 1)[1].split('\nReturn JSON only', 1)[0])
+            calls.append(chunk[0]['id'])
+            if len(calls) in (2, 3):  # the second group, and its quotation correction
+                return json.dumps({'claims': [{'title': 'Pilot', 'kind': 'Topic', 'statement': 'Pilot.', 'evidenceId': chunk[0]['id'],
+                                               'quote': 'not in the passage', 'targetPath': None}]})
+            last = chunk[-1]
+            return json.dumps({'claims': [{'title': f'Point {last["id"]}', 'kind': 'Topic', 'statement': last['text'],
+                                           'evidenceId': last['id'], 'quote': last['text'], 'targetPath': None}]})
+        with self.engine.locked():
+            proposal = self.engine.compile('meeting.md', reader)
+        self.assertEqual(len(proposal['skipped']), 1)
+        skipped = proposal['skipped'][0]
+        self.assertEqual(skipped['from'], calls[1])
+        self.assertIn('quote does not match', skipped['reason'])
+        self.assertIn('1 of', proposal['warning'])
+        self.assertEqual(len(proposal['claims']), len(set(calls)) - 1)  # every other group still contributes
+        self.assertTrue(proposal['claims'][-1]['quote'].startswith('[119:00]'))
+
     def test_stale_destination_rejected(self):
         proposal = self.engine.compile('source.md', model)
         (self.root / 'launch.md').write_text('User edited this while reviewing.')

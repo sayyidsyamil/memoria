@@ -23,6 +23,17 @@ it('shows evidence, saves reviewed changes, and moves completed work into histor
   await waitFor(() => expect(invoke).toHaveBeenCalledWith('wiki_memory', { request: { action: 'apply', vaultPath: '/vault', sourcePath: undefined, id: 'one' } }))
 })
 
+it('names the parts of a long source that could not be read, instead of hiding them', async () => {
+  vi.mocked(invoke).mockReset()
+  const partial = { ...proposal, skipped: [{ from: 'E79', to: 'E121', excerpt: '[12:34] Speaker 2: And our market was going to be', reason: 'Claim quote does not match the cited evidence' }] }
+  vi.mocked(invoke).mockResolvedValueOnce([partial]).mockResolvedValueOnce(partial)
+  render(<MemoryReview vaultPath="/vault" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Review knowledge' }))
+  expect(await screen.findByText(/One part of this source could not be read reliably/)).toBeInTheDocument()
+  expect(screen.getByText('[12:34] Speaker 2: And our market was going to be…')).toBeInTheDocument()
+  expect(screen.getByText('Maya confirmed 19 November.')).toBeInTheDocument()
+})
+
 it('offers to rebuild a stale review from the global list', async () => {
   vi.mocked(invoke).mockReset()
   vi.mocked(invoke).mockResolvedValueOnce([proposal]).mockResolvedValueOnce(proposal)

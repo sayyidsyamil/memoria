@@ -30,6 +30,9 @@
 .knowledge-review-evidence blockquote { margin: 8px 0 4px; padding-left: 12px; border-left: 2px solid var(--accent-blue); font-size: 13px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
 .knowledge-review-evidence button { margin-left: -8px; color: var(--muted-foreground); }
 .knowledge-review-details { font-size: 12px; color: var(--muted-foreground); }
+.knowledge-review-skipped { font-size: 13px; padding: 10px 12px; border: 1px solid var(--border); border-left: 3px solid var(--destructive, #983a32); border-radius: 6px; }
+.knowledge-review-skipped p { margin: 0; }
+.knowledge-review-skipped ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted-foreground); overflow-wrap: anywhere; }
 .knowledge-review-details summary { cursor: pointer; }
 .knowledge-review-details p { margin: 8px 0 0; }
 .knowledge-review-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; border-top: 1px solid var(--border); flex-shrink: 0; }

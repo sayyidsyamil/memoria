@@ -14,7 +14,9 @@ import { plural } from '../lib/format'
 import './memoryReview.css'
 
 interface Claim { title: string; kind: string; statement: string; quote: string; evidenceId: string; page: number; targetPath: string | null; accepted?: boolean }
-interface Proposal { id: string; status?: string; sourcePath: string; sourceTitle: string; claims: Claim[]; retrieval: string; warning?: string }
+/** A group of passages whose draft stayed invalid; it was skipped, not silently dropped. */
+interface SkippedGroup { from: string; to: string; excerpt: string; reason: string }
+interface Proposal { id: string; status?: string; sourcePath: string; sourceTitle: string; claims: Claim[]; retrieval: string; warning?: string; skipped?: SkippedGroup[] }
 const PROGRESS: Record<string, string> = {
   list: 'Loading saved reviews…', compile: 'Reading your source and preparing changes… You can close this window while it runs.',
   apply: 'Saving reviewed knowledge…', reject: 'Rejecting this proposal…',
@@ -135,6 +137,10 @@ export function MemoryReview({ vaultPath, sourcePath, autoOpen = false, hideTrig
           <p>{plural(proposal.claims.length, 'suggestion')} · {plural(proposal.claims.filter(claim => !claim.targetPath).length, 'new page')} · {plural(proposal.claims.filter(claim => claim.targetPath).length, 'update')}</p>
           {proposal.status !== 'pending' && STATUS_CHIPS[proposal.status ?? ''] && <Chip tone={STATUS_CHIPS[proposal.status ?? ''].tone} dot>{STATUS_CHIPS[proposal.status ?? ''].label}</Chip>}
         </div>
+        {!!proposal.skipped?.length && <div role="status" className="knowledge-review-skipped">
+          <p>{proposal.skipped.length === 1 ? 'One part' : `${proposal.skipped.length} parts`} of this source could not be read reliably, so no suggestions came from {proposal.skipped.length === 1 ? 'it' : 'them'}. Check {proposal.skipped.length === 1 ? 'it' : 'them'} in the source:</p>
+          <ul>{proposal.skipped.map(group => <li key={group.from}>{group.excerpt}…</li>)}</ul>
+        </div>}
         {proposal.claims.length === 0 && <p className="text-sm">No supported additions were found in this source.</p>}
         {proposal.claims.map((claim, index) => <article key={index} className="knowledge-claim" data-included={claim.accepted === false ? 'false' : 'true'}>
           <div className="knowledge-claim-head">
