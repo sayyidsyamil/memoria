@@ -1,6 +1,6 @@
 """Live captions and a reusable final draft for one meeting.
 
-The default engine is Parakeet TDT v3 with Nemotron 3 Diarization (streaming_speech.py): words appear while they
+The default engine is Parakeet Ultra with Nemotron 3 Diarization (streaming_speech.py): words appear while they
 are spoken and each sentence is committed about a second after it ends. MEMORIA_SPEECH_ENGINE=moss keeps the
 earlier speech-gated MOSS windows (4 s cores with 2 s of context), which the report's MOSS figures were measured on.
 """

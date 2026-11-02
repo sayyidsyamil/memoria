@@ -54,12 +54,8 @@ def main(mode, out):
     models = S.load_models()
     label = S.MODEL_LABEL
     if mode == 'ultra':
-        import mlx.core as mx
-        from mlx.utils import tree_map
         from mlx_audio.stt import load
-        ultra = load('selcukkubur/parakeet-ultra-mlx')
-        ultra.update(tree_map(lambda v: v.astype(mx.bfloat16) if v.dtype == mx.float32 else v, ultra.parameters()))
-        models = (ultra, models[1])
+        models = (load('selcukkubur/parakeet-ultra-mlx'), models[1])
         label = 'Parakeet Ultra + Nemotron 3 Diarization'
     if mode == 'stream':
         models = (S.load_streaming_model(), models[1])

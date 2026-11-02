@@ -95,7 +95,7 @@ audio is also retained in HUD memory until End; long-meeting memory usage and
 background/sleep behaviour require further testing. Explicit app Quit stops
 capture; only workspace window close/reopen is protected.
 
-This is microphone capture with live local captions (Parakeet TDT v3 over stretches of speech cut at pauses, speakers
+This is microphone capture with live local captions (Parakeet Ultra over stretches of speech cut at pauses, speakers
 from Nemotron 3 Diarization; `streaming_speech.py`) and an editable review screen. System audio is not captured.
 End now expands the HUD into review rather than opening the recording note;
 Create transcript starts cancellable local inference, and Save reviewed transcript

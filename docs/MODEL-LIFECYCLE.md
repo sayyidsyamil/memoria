@@ -5,7 +5,7 @@ background at native app startup. The workspace stays interactive. Sidebar
 readiness reports Preparing AI, AI ready or AI needs attention, with component
 details on hover. Each worker uses a random app-instance Unix socket, mode 0600.
 
-- Speech: Parakeet TDT 0.6B v3 and Nemotron 3 Diarization plus Resemblyzer, one worker shared by successive
+- Speech: Parakeet Ultra 0.6B and Nemotron 3 Diarization plus Resemblyzer, one worker shared by successive
   meetings and recording-transcription requests (`MEMORIA_SPEECH_ENGINE=moss` loads MOSS 0.9B instead). Session
   transcript/audio buffers reset for each connection; voice templates remain vault-local.
 - The language worker also keeps two caches: the model state after the live check's shared question, and the

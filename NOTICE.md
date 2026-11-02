@@ -59,7 +59,7 @@ and are not part of this repository or the app bundle.
 
 | Model | Used for | Licence |
 |---|---|---|
-| [NVIDIA Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3), MLX conversion [`mlx-community/parakeet-tdt-0.6b-v3`](https://huggingface.co/mlx-community/parakeet-tdt-0.6b-v3) | Live captions and transcripts | CC BY 4.0 |
+| [Moondream Parakeet Ultra](https://huggingface.co/moondream/parakeet-ultra) (post-trained [NVIDIA Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3)), MLX build [`selcukkubur/parakeet-ultra-mlx`](https://huggingface.co/selcukkubur/parakeet-ultra-mlx) | Live captions and transcripts | CC BY 4.0 |
 | [NVIDIA Nemotron 3 Diarization](https://huggingface.co/nvidia/Nemotron-3-Diarization), MLX conversion [`mlx-community/Nemotron-3-Diarization`](https://huggingface.co/mlx-community/Nemotron-3-Diarization) | Who spoke when | OpenMDW 1.1 |
 | [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B), MLX 4-bit [`mlx-community/Qwen3.5-4B-MLX-4bit`](https://huggingface.co/mlx-community/Qwen3.5-4B-MLX-4bit) | Suggestions, the live check, Ask | Apache-2.0 |
 | [EmbeddingGemma 2](https://huggingface.co/google/embeddinggemma-2), [`mlx-community/embeddinggemma-2-5bit`](https://huggingface.co/mlx-community/embeddinggemma-2-5bit) | Search | Apache-2.0 |

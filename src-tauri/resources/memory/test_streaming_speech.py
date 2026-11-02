@@ -232,3 +232,17 @@ class StreamCaptionsTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class StretchTests(unittest.TestCase):
+    def test_a_recording_is_cut_at_pauses_and_long_speech_every_ten_seconds(self):
+        audio = np.zeros(RATE * 30, dtype='float32')
+        voiced = np.zeros(len(audio) // S.VAD_FRAME, dtype=bool)
+        voiced[33:200] = True     # 1.0-6.0 s
+        voiced[250:900] = True    # 7.5-27.0 s, no pause
+        with patch('streaming_speech.voiced_frames', lambda samples: voiced):
+            found = [(round(a / RATE, 2), round(b / RATE, 2)) for a, b in S.stretches(audio)]
+        self.assertEqual(found[0], (0.74, 6.15))
+        self.assertTrue(all(b - a <= 10.0 for a, b in found))
+        self.assertTrue(all(found[i][1] <= found[i + 1][0] for i in range(len(found) - 1)))  # never overlapping
+        self.assertAlmostEqual(found[-1][1], 27.15, places=2)

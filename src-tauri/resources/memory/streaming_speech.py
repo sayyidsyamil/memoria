@@ -1,4 +1,4 @@
-"""Live and whole-recording speech: Parakeet TDT v3 words, Nemotron 3 Diarization speakers.
+"""Live and whole-recording speech: Parakeet Ultra words, Nemotron 3 Diarization speakers.
 
 Parakeet decodes a few seconds of audio in well under a tenth of a second, so live captions re-decode the
 still-open stretch of speech every half second: the words of a sentence appear while it is spoken and the
@@ -11,11 +11,13 @@ import time
 import numpy as np
 
 RATE = 16000
-ASR_MODEL = 'mlx-community/parakeet-tdt-0.6b-v3'
-ASR_REVISION = 'ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15'
+# Parakeet Ultra (Moondream's post-training of NVIDIA Parakeet TDT 0.6B v3, same architecture and tokenizer), MLX
+# bfloat16 build. On the 60-minute AMI hour it errs on 14.4% of words against 17.0% for v3, in half the memory.
+ASR_MODEL = 'selcukkubur/parakeet-ultra-mlx'
+ASR_REVISION = 'b554592c50b2a48471add2daa3d46fa9f00fef5e'
 DIAR_MODEL = 'mlx-community/Nemotron-3-Diarization'
 DIAR_REVISION = '59ed2dbfc1346dcea9d423c71306a3a2499c568f'
-MODEL_LABEL = 'Parakeet TDT 0.6B v3 + Nemotron 3 Diarization'
+MODEL_LABEL = 'Parakeet Ultra 0.6B + Nemotron 3 Diarization'
 STREAM_MODEL = 'nvidia/nemotron-speech-streaming-en-0.6b'
 STREAM_REVISION = 'ebe59e5a817142986528bbbee5dba8db7b38ed50'
 STREAM_LABEL = 'Nemotron Speech Streaming EN 0.6B (560 ms) + Nemotron 3 Diarization'
@@ -27,7 +29,7 @@ SENTENCE_END = ('.', '?', '!')
 
 
 def recogniser():
-    """'parakeet' (default: Parakeet TDT v3 over stretches of speech cut at pauses) or 'stream' (Nemotron Speech
+    """'parakeet' (default: Parakeet Ultra over stretches of speech cut at pauses) or 'stream' (Nemotron Speech
     Streaming EN, cache-aware). On the scripted test meeting the streaming model ran sentences of three speakers
     together, dropped "Gamma" from "Gamma Solutions" at 560 ms and wrote numbers as words, so it is not the default."""
     import os
@@ -55,12 +57,11 @@ def load(kind=None):
 
 
 def load_models(recogniser=True):
-    """Parakeet TDT v3 and the diarizer from the local cache."""
+    """Parakeet Ultra and the diarizer from the local cache."""
     from mlx_audio.stt import load
     from mlx_audio.vad import load as load_diarizer
     # Repository names, not snapshot paths: the loaders tell model families apart by name. The pinned revisions
     # resolve from the local cache (HF_HUB_OFFLINE is set by every worker).
-    # Float32 as published: bfloat16 decoded more slowly here (0.149 s against 0.095 s for 10 s of speech).
     asr = load(ASR_MODEL, revision=ASR_REVISION) if recogniser else None
     diar = load_diarizer(DIAR_MODEL, revision=DIAR_REVISION, strict=True)
     return asr, diar
@@ -515,19 +516,51 @@ def voice_vectors(voice_audio):
     return result
 
 
+def stretches(audio, pause=.5, longest=10.0, preroll=.25, tail=.15):
+    """(start, end) samples of the stretches of speech in a recording, cut where the speaker pauses for `pause`
+    seconds, or at the quietest moment of the last two seconds once a stretch reaches `longest`, as live captions are."""
+    flags = voiced_frames(audio)
+    found, start, last = [], None, None
+    for index, voiced in enumerate(flags):
+        at = index * VAD_FRAME
+        if voiced:
+            if start is None:
+                start = max(found[-1][1] if found else 0, at - int(preroll * RATE))
+            last = at + VAD_FRAME
+        if start is None:
+            continue
+        if at + VAD_FRAME - last >= pause * RATE:
+            found.append((start, min(last + int(tail * RATE), len(audio))))
+            start = None
+        elif at + VAD_FRAME - start >= longest * RATE:
+            window = audio[at + VAD_FRAME - 2 * RATE:at + VAD_FRAME]
+            count = len(window) // VAD_FRAME
+            energy = (window[:count * VAD_FRAME].reshape(count, VAD_FRAME) ** 2).mean(axis=1)
+            cut = at + VAD_FRAME - 2 * RATE + int(energy.argmin()) * VAD_FRAME + VAD_FRAME // 2
+            found.append((start, cut))
+            start = cut
+    if start is not None:
+        found.append((start, len(audio)))
+    return found
+
+
 def transcribe_audio(models, audio, progress=lambda stage: None):
-    """Whole recording: Parakeet in two-minute parts with 15 s of overlap, speakers from offline diarization."""
+    """Whole recording, read stretch by stretch as live captions are (speech cut at pauses, never longer than 10 s),
+    with speakers from offline diarization. Reading two-minute parts instead lost whole quiet sentences in a recording
+    made through the laptop microphone (recall 0.68 against 0.82 by stretches)."""
     import mlx.core as mx
     asr, diar = models
     duration = len(audio) / RATE
     progress('Recognising speech')
     if streaming(models):
         # The streaming recogniser reads the whole recording once, cache-aware, with its widest lookahead (1.12 s).
-        result = asr.generate(mx.array(audio), att_context_size=[asr.default_att_context_size[0], 13])
+        words = words_of(asr.generate(mx.array(audio), att_context_size=[asr.default_att_context_size[0], 13]))
     else:
-        result = asr.generate(mx.array(audio), chunk_duration=120.0, overlap_duration=15.0,
-                              chunk_callback=lambda done, total: progress(f'Recognising speech · {100 * done // max(total, 1)}%'))
-    words = words_of(result)
+        words, found = [], stretches(audio)
+        for index, (start, end) in enumerate(found):
+            words += words_of(asr.decode_chunk(mx.array(audio[start:end])), start / RATE)
+            if index % 50 == 0:
+                progress(f'Recognising speech · {100 * index // max(len(found), 1)}%')
     progress('Telling speakers apart')
     diar.set_streaming_config('offline')
     output = diar.generate(mx.array(audio))

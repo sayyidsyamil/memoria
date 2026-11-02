@@ -136,7 +136,7 @@ class InstallerTests(unittest.TestCase):
 
     def test_model_manifest_pins_four_revisions_and_packaged_voice_weights(self):
         models = json.loads((installer.HERE / 'models.json').read_text())
-        self.assertEqual([model['repo'] for model in models], ['mlx-community/parakeet-tdt-0.6b-v3', 'mlx-community/Nemotron-3-Diarization',
+        self.assertEqual([model['repo'] for model in models], ['selcukkubur/parakeet-ultra-mlx', 'mlx-community/Nemotron-3-Diarization',
                                                                'mlx-community/Qwen3.5-4B-MLX-4bit', 'mlx-community/embeddinggemma-2-5bit'])
         for model in models:
             self.assertRegex(model['revision'], r'^[0-9a-f]{40}$')

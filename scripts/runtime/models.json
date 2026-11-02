@@ -1,12 +1,11 @@
 [
   {
-    "repo": "mlx-community/parakeet-tdt-0.6b-v3",
-    "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+    "repo": "selcukkubur/parakeet-ultra-mlx",
+    "revision": "b554592c50b2a48471add2daa3d46fa9f00fef5e",
     "files": {
-      ".gitattributes": 1519,
-      "README.md": 1081,
+      "README.md": 3971,
       "config.json": 244093,
-      "model.safetensors": 2508288736,
+      "model.safetensors": 1254184462,
       "tokenizer.model": 360916,
       "tokenizer.vocab": 101024,
       "vocab.txt": 46772
