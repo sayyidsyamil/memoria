@@ -3,8 +3,9 @@
 Every turn of the 60-minute AMI ES2004 transcript (a design team discussing a TV remote) is
 checked against the approved tracked facts of the fictional procurement pilot (vendor, budget,
 go-live date, owners and deadlines). The meeting is about something else, so every alert is false.
-Uses the app's live_check with its verifier and guard through a running Qwen worker
-(MEMORIA_QWEN_SOCKET); no model is loaded here.
+Uses the app's live_check (MEMORIA_LIVE_CHECK selects the guard-first or the written-verdict design) through a
+running Qwen worker (MEMORIA_QWEN_SOCKET) and, for candidates by meaning, the embedding worker
+(MEMORIA_EMBED_SOCKET); no model is loaded here.
 
     MEMORIA_QWEN_SOCKET=... python3.11 unrelated_speech.py <ledger-vault> <ami-draft.json> <out.jsonl>
 """
@@ -36,7 +37,13 @@ def main(ledger_vault, draft_path, output):
                 asked.append([fact['label'] for fact in facts])
                 return live_assistance._shared_verifier(spoken, facts)
 
-            reply = live_assistance.live_check(engine, {'statement': statement}, verifier=verifier)
+            def scorer(messages):
+                # The guard-first check asks the YES/NO question directly; count those turns too.
+                from qwen_scoring import score
+                asked.append(messages[-1]['content'].split('DECISION: ', 1)[1].split(' is ', 1)[0])
+                return score(messages)
+
+            reply = live_assistance.live_check(engine, {'statement': statement}, verifier=verifier, scorer=scorer)
             data = reply.get('data', {})
             rows.append({'statement': statement, 'status': data.get('status', 'error'), 'cues': data.get('cues', []),
                          'modelChecked': asked[0] if asked else None, 'warnings': data.get('warnings', []),

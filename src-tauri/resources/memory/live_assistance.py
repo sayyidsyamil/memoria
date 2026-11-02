@@ -202,6 +202,8 @@ def _spoken_date(statement, fact):
 
 SEMANTIC = 2           # candidate decisions found by meaning, on top of those sharing words with the sentence
 SEMANTIC_MIN = .66     # cosine floor (EmbeddingGemma 2, fact-checking prompt); chosen on the MemoriaBench dev split
+SEMANTIC_LIFT = .08    # and this far above the median decision: a short remark ("Thanks.") is about as close to every
+                       # decision, so it stands out from none and costs no question
 
 
 def _fact_text(fact):
@@ -252,7 +254,8 @@ def _semantic(statement, facts, home):
         os.replace(temporary, cache_path)
     similarity = np.asarray([cache[key] for key in keys], dtype='float32') @ vectors[0]
     order = np.argsort(-similarity)
-    return [facts[i] for i in order[:SEMANTIC] if similarity[i] >= SEMANTIC_MIN]
+    floor = max(SEMANTIC_MIN, float(np.median(similarity)) + SEMANTIC_LIFT)
+    return [facts[i] for i in order[:SEMANTIC] if similarity[i] >= floor]
 
 
 def _shared_verifier(statement, facts):

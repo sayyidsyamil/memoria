@@ -6,19 +6,28 @@ sentence, so a cue appeared 8–17 s after the words, and a sentence that did no
 never checked. Can the guard's question alone replace the written verdict, and can candidate decisions be found by
 meaning as well as by shared words?
 
-**Answer.** Yes to both. On the held-out MemoriaBench test split the final check catches 100 of 112 conflicts instead of
-91, with the same 2 false alarms in 224, in 0.56 s instead of 4.0 s (median).
+**Answer.** Yes to both. On the held-out MemoriaBench test split the shipped check catches 98 of 112 conflicts instead of
+91, with 2 false alarms in 224 instead of 3, in 0.26 s instead of 4.0 s (median). On an hour of real, unrelated meeting
+speech it raised no alert.
 
 | Live check (test split, 336 probes, 28 series) | Conflicts caught | False alarms | Unverified | Latency p50 / p95 |
 |---|---|---|---|---|
 | Written verdict, then guard (shipped before, `../memoriabench/results/app_live_check/guard_on.jsonl`) | 91 / 112 (81.3%) | 3 / 224 (1.3%) | 3 | 4.0 / 6.8 s |
 | Guard alone, threshold 2.0 | 91 / 112 (81.3%) | 2 / 224 (0.9%) | 0 | 0.83 / 1.83 s |
-| **Guard alone + candidates by meaning (new default)** | **100 / 112 (89.3%)**, CI 83.0–94.6 | **2 / 224 (0.9%)**, CI 0–2.2 | **0** | **0.56 / 1.72 s** |
+| Guard alone + candidates by meaning (cosine ≥ 0.66) | 100 / 112 (89.3%), CI 83.0–94.6 | 2 / 224 (0.9%), CI 0–2.2 | 0 | 0.56 / 1.72 s |
+| **… and 0.08 above the median decision (shipped)** | **98 / 112 (87.5%)** | **2 / 224 (0.9%)** | **0** | **0.26 / 1.28 s** |
 
 - Paired, the final check against the guard alone: right on 10 probes it got wrong, wrong on 1 it got right (exact
   McNemar p = 0.012). Against the shipped check: 17 against 7 (p = 0.064).
 - 93 of the 100 caught conflicts cite the reference decision.
 - Research M2, which read the whole ledger with a written verdict, caught 110/112 (`../memoriabench/GUARD.md`).
+- **Why the shipped check requires the lift.** A short remark is about as close to every decision. On the AMI hour
+  (575 turns of a design meeting that has nothing to do with the procurement pilot, recognised by the app's own
+  Parakeet Ultra pipeline, `../long-meeting/results/unrelated-speech-guard-*.jsonl`):
+  - Without the lift, 284 turns reached the model; with it, 49. Neither raised an alert.
+  - The lift was chosen on remarks such as "Thanks." and "Thank you all." (no candidate after it) and left the dev
+    split unchanged. On test it costs 2 of the 100 catches; 4 alerts differ in all.
+  - In a live meeting every question competes with the captions for the GPU, which is why it ships.
 
 ## Method
 
