@@ -3,6 +3,7 @@ import json
 import sqlite3
 import uuid
 from pathlib import Path
+from private_storage import mark_private
 
 ENCODER = 'resemblyzer-0.1.4'
 _encoder = None
@@ -10,7 +11,7 @@ _encoder = None
 def database(root):
     directory = Path(root) / '.memoria-memory'
     directory.resolve().relative_to(Path(root).resolve())
-    directory.mkdir(exist_ok=True)
+    mark_private(directory)
     path = directory / 'voices.sqlite'
     if path.is_symlink(): raise ValueError('Voice profile database cannot be a symlink')
     connection = sqlite3.connect(path)

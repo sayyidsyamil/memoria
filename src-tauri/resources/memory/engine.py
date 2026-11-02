@@ -19,6 +19,7 @@ import socket
 import tempfile
 import time
 import uuid
+from private_storage import mark_private
 
 MODEL = 'mlx-community/Qwen3.5-4B-MLX-4bit'
 KINDS = {'Person', 'Organization', 'Project', 'Topic', 'Decision', 'Commitment', 'Meeting'}
@@ -171,7 +172,7 @@ class Engine:
     def __init__(self, root):
         self.root = Path(root).resolve(strict=True)
         state = safe_path(self.root, '.memoria-memory')
-        state.mkdir(exist_ok=True)
+        mark_private(state)
         self.lock_path = state / 'lock'
         self.db = sqlite3.connect(state / 'journal.sqlite', timeout=30)
         self.db.execute('pragma journal_mode=WAL')

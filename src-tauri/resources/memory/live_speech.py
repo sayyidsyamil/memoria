@@ -6,6 +6,7 @@ import sys
 import uuid
 import re
 from pathlib import Path
+from private_storage import mark_private
 
 os.environ['HF_HUB_OFFLINE'] = '1'
 os.environ['TRANSFORMERS_OFFLINE'] = '1'
@@ -193,6 +194,7 @@ def run(model=None):
     identifier = str(uuid.UUID(request['sessionId']))
     directory = root / '.memoria-recordings' / identifier
     directory.resolve().relative_to(root)
+    mark_private(directory.parent)
     directory.mkdir(parents=True, exist_ok=True)
     from huggingface_hub import snapshot_download
     from mlx_audio.stt import load

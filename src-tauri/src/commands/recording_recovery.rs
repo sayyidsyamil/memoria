@@ -251,6 +251,19 @@ fn inspect(path: &Path) -> Result<Option<Metadata>, String> {
     }
 }
 
+/// Recordings hold meeting audio and voice data. A vault can be a git repository with a
+/// remote, so the storage folder ignores its own content: nothing in it is ever committed.
+const PRIVATE_MARKER: &str = ".gitignore";
+const IGNORE_ALL: &str = "# Memoria private data (audio, voices, ledger): never committed.\n*\n";
+
+fn ignore_in_version_control(storage: &Path) -> Result<(), String> {
+    let marker = storage.join(PRIVATE_MARKER);
+    if inspect(&marker)?.is_none() {
+        fs::write(&marker, IGNORE_ALL).map_err(|error| format!("Cannot write {}: {error}", marker.display()))?;
+    }
+    Ok(())
+}
+
 fn ensure_directory(path: &Path, create: bool) -> Result<bool, String> {
     match inspect(path)? {
         Some(metadata) if !metadata.is_dir() => {
@@ -360,6 +373,9 @@ impl RecordingStorage {
         let storage = self.root.join(STORAGE_NAME);
         if !ensure_directory(&storage, create)? {
             return Err(format!("Recording storage is missing for session {id}"));
+        }
+        if create {
+            ignore_in_version_control(&storage)?;
         }
         let directory = storage.join(id);
         if !ensure_directory(&directory, create)? {
@@ -512,6 +528,9 @@ impl RecordingStorage {
             let entry = entry.map_err(|error| format!("Cannot read recording storage entry: {error}"))?;
             let name = entry.file_name();
             let name = name.to_str().ok_or("Recording session directory name is not UTF-8")?;
+            if name == PRIVATE_MARKER {
+                continue;
+            }
             let id = session_id(name).map_err(|error| format!("Invalid recording storage entry {name}: {error}"))?;
             if id != name {
                 return Err(format!("Recording directory must use its canonical UUID: {name}"));
@@ -1260,6 +1279,15 @@ mod tests {
         let result = storage.finalize(&id, Some(3)).unwrap();
         assert_eq!(fs::read(&result.original_path).unwrap(), expected);
         assert_eq!(result.sha256, format!("{:x}", Sha256::digest(&expected)));
+    }
+
+    #[test]
+    fn recording_storage_is_never_committed_and_its_marker_is_not_a_session() {
+        let (_root, storage, id) = fixture();
+        storage.begin(&id, metadata()).unwrap();
+        let marker = storage.root.join(STORAGE_NAME).join(".gitignore");
+        assert_eq!(fs::read_to_string(&marker).unwrap().lines().last(), Some("*"));
+        assert!(storage.list(false).is_ok());
     }
 
     #[test]

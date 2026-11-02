@@ -9,6 +9,7 @@ import sys
 import tempfile
 import time
 from transcript_chunks import CHUNK_SECONDS, MAX_RECORDING_SECONDS, MAX_TOKENS, transcribe_chunks
+from private_storage import mark_private
 
 MODEL = 'OpenMOSS-Team/MOSS-Transcribe-Diarize'
 REVISION = '704aa4a9c304e8520be88901e0d1960158ef5b15'
@@ -166,6 +167,7 @@ def run(request, model=None):
         identifier = str(uuid.UUID(identifier))
         directory = root / '.memoria-recordings' / identifier
         directory.resolve().relative_to(root)
+        mark_private(directory.parent)
         directory.mkdir(parents=True, exist_ok=True)
         destination = directory / 'transcript-draft.json'
         temporary_file = directory / f'.draft-{uuid.uuid4()}.tmp'
