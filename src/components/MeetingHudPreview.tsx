@@ -17,12 +17,12 @@ export function MeetingHudPreview() {
   const vendor = {
     factId: 5, label: 'Vendor', attribute: 'outcome', currentValue: 'Beta Cloud',
     quote: 'We drop Alpha Systems and move to Beta Cloud. This is final.', speaker: 'Aisha',
-    meeting: 'preview', at: 39.84, reason: 'The statement names Gamma Solutions as the vendor, but the approved decision is Beta Cloud.', heardAt: 67,
+    meeting: 'preview', at: 39.84, reason: 'What was said goes against this approved decision.', heardAt: 67,
   }
   const budget = {
     factId: 9, label: 'Pilot budget (RM)', attribute: 'amount', currentValue: 280000,
     quote: "Beta Cloud's licence is 30,000 ringgit higher, so the pilot budget has to go from 250,000 to 280,000 ringgit.", speaker: 'Raj',
-    meeting: 'preview', at: 52.25, reason: 'The statement sets the pilot budget at 300,000 ringgit; the approved current value is 280,000.', heardAt: 80,
+    meeting: 'preview', at: 52.25, reason: 'A different figure or date from the approved one.', heardAt: 80,
   }
   return <MeetingHudView state="recording" saveStage="" seconds={86} levels={Array.from({ length: 48 }, (_, index) => 0.2 + 0.6 * Math.abs(Math.sin(index / 3)))}
     prep={0} captionsOpen={!compact} liveTurns={turns} partial="So finance has to sign that off before the" vaultPath="/preview" transcriptRef={view => { if (view) view.scrollTop = view.scrollHeight }} caption="" captionError="" marks={[]} markNotice="" error=""
