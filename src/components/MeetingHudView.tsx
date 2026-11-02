@@ -65,7 +65,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         {sourceKind === 'replay' && <p className="meeting-hud-hint">Prerecorded audio test · no microphone capture</p>}
         {replayNotice && <p role="status" className="meeting-hud-hint">{replayNotice}</p>}
         {progressText && <p role="status" className="meeting-hud-hint" aria-label="Caption audio progress">{progressText}</p>}
-        {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Check against approved tracked facts</label>}
+        {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Flag statements that contradict a decision</label>}
         {assistanceNotice && <p className="meeting-hud-caption-warning" role="status">{assistanceNotice}</p>}
         {!!liveCues?.length && <section className="meeting-hud-evidence" aria-label="Earlier decisions to check" aria-live="polite">{liveCues.map(cue => <LiveCueCard key={`${cue.factId}:${cue.reason}`} cue={cue} titles={cueMeetingTitles} />)}</section>}
         {captionError && <p role="alert" className="meeting-hud-caption-warning">Live transcript paused. Your recording is preserved.</p>}

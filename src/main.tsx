@@ -86,6 +86,7 @@ async function loadAppModule() {
 
 const RootApp = lazy(loadAppModule)
 const MeetingHud = lazy(() => import('./components/MeetingHud').then(module => ({ default: module.MeetingHud })))
+const MeetingHudPreview = lazy(() => import('./components/MeetingHudPreview').then(module => ({ default: module.MeetingHudPreview })))
 
 function dataTransferHasFiles(dataTransfer: DataTransfer | null): boolean {
   if (!dataTransfer) return false
@@ -300,7 +301,9 @@ function renderRoot(content: ReactNode): void {
 }
 
 function renderLazyRoot(): void {
-  renderRoot(new URLSearchParams(location.search).has('meetingHud') ? <MeetingHud /> : <><RootApp /><FrontendReadyMarker /></>)
+  const params = new URLSearchParams(location.search)
+  if (import.meta.env.DEV && params.has('hudPreview')) { renderRoot(<MeetingHudPreview />); return }
+  renderRoot(params.has('meetingHud') ? <MeetingHud /> : <><RootApp /><FrontendReadyMarker /></>)
 }
 
 /**
