@@ -1,8 +1,10 @@
 # Memoria
 
+**Know what's decided. See what changed.**
+
 Memoria is a meeting-memory app for Apple-silicon Macs. It transcribes meetings on the Mac, proposes the decisions and commitments it hears with their exact quotes, and keeps the approved ones in a ledger with their history.
 
-[UAT build `v0.3.1-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.1-uat) · [Documentation](docs/README.md) · [Roadmap](docs/ROADMAP.md) · [Research](research/)
+[Published build `v0.3.1-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.1-uat) · [Local 0.3.2 candidate](docs/RELEASE_RECORD.md) · [Documentation](docs/README.md) · [Research](research/)
 
 ![Native meeting summary with approved outcomes and source timestamps](docs/media/summary.webp)
 
@@ -14,9 +16,14 @@ To answer "who is our vendor now?" or "what was the budget on 27 September?" fro
 
 1. **Record.** Microphone audio, plus audio playing on the Mac when Call audio is on, is transcribed locally with speaker labels.
 2. **Review.** A local model proposes each decision or commitment with its exact quote. You approve, correct or reject it.
-3. **Recall.** Approved values go into a ledger with their history. Questions about now, a past date or the number of changes are answered by lookup, with the quote and its time in the recording.
+3. **Recall.** Approved values go into a ledger with their history. Questions about now, a past date or the number of changes are answered by lookup, with the source quote or an explicitly labelled human-correction note.
 
 During a meeting, Memoria can flag a sentence that contradicts an approved decision.
+
+For example: Alpha Systems is approved; a later meeting proposes Beta Cloud. The
+board keeps Alpha current until you accept the change, then shows Beta with Alpha
+still in history and both source quotes accessible. The [demo and UAT tools](scripts/uat/README.md)
+prepare this fictional workflow separately from participant tasks.
 
 ## Results
 
@@ -46,7 +53,17 @@ The later [targeted 4B studies](research/REVIEW-2026-11-03.md) are complete; non
 
 ## Install (UAT build, Apple silicon, 16 GB)
 
-The [`v0.3.1-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.1-uat) disk image is ad-hoc signed (right-click > Open the first time). Call audio requires macOS 14.2+. Python runtimes and models are installed separately with `scripts/install-shared-runtime.sh`; `scripts/uat/memoria-doctor.sh` checks the setup. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record and remaining checks](docs/RELEASE_RECORD.md).
+The published [`v0.3.1-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.1-uat)
+disk image is ad-hoc signed (right-click > Open the first time); its
+[archived record](docs/releases/v0.3.1-uat.md) identifies that installer. A corrected
+0.3.2 candidate is built and installed locally, with source/worker/browser checks
+passed and native acceptance still pending; it is **not published**.
+
+Call audio requires macOS 14.2+. Python runtimes and models are installed separately
+with `scripts/install-shared-runtime.sh`. The doctor on current `main` expects 0.3.2;
+use the doctor from `v0.3.1-uat` for the older published installer. See
+[Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7)
+and the [current candidate record and remaining checks](docs/RELEASE_RECORD.md).
 
 ## Develop
 
@@ -62,9 +79,16 @@ pnpm tauri dev               # native app; model setup in docs/DEVELOPMENT.md
 
 To see Memoria's own screens in the browser build against a real vault: `MEMORIA_DEV_VAULT=<vault> VITE_MEMORIA_DEV_BRIDGE=1 pnpm exec vite`.
 
-Tests (0.3.1, 3 November 2026): Rust 1,245, frontend 6,805 and app Python 216, all passing ([verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)); ledger engine 291, all passing on 2 November ([research](research/README.md)).
+Checks for the 0.3.2 candidate (4 November): 6,821 frontend and 243 app Python tests
+passed, with type checking, lint and locale validation. The 1,245 Rust tests passed
+during preparation; Rust code was unchanged afterward. See
+[verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md) for scopes and skips.
+The protected ledger engine's historical 291-test result is separate
+([research](research/README.md)).
 
-Later source checks at `70707fa3b`: 234 app Python tests pass, including [amounts stated in words and digit-format repairs](research/number-word-fix/README.md). Those fixes postdate the 0.3.1 installer.
+The candidate includes [number-word and digit-format fixes](research/number-word-fix/README.md),
+clearer current/history controls and manual-correction provenance. These changes
+postdate the published 0.3.1 installer.
 
 React / TypeScript · Tauri / Rust · Python / MLX · Markdown / SQLite
 

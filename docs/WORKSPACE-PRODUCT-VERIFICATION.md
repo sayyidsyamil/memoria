@@ -1,6 +1,29 @@
 # Workspace product verification
 
-Test-suite runs and native checks of the meeting workspace, newest first (1 to 3 November 2026).
+Test-suite runs and native checks of the meeting workspace, newest first (1 to 4 November 2026).
+
+## Corrected 0.3.2 candidate — 4 November 2026
+
+Built from `169ce3d9604c5a4fa2ce8a4f850f8bb150f4192b`; installed locally, not
+published. The board distinguishes current values, history and Knowledge. Human
+corrections now retain their reviewer/reason in Ask, Live Ask, briefs and saved
+Markdown; the first candidate was withheld after browser QA exposed that omission.
+
+| Check | Result |
+|---|---|
+| Full frontend suite | 6,821 passed / one skipped; 709 files |
+| App Python suite | 243 passed |
+| TypeScript, whole-repository lint, locale validation | Passed; 21 catalogs / 1,365 English keys |
+| Rust suite during 0.3.2 preparation | 1,245 passed / two ignored; Rust unchanged afterward |
+| C1 tooling / private analysis tooling | Seven / 14 checks passed; no participant results |
+| Installed engine and workers | 17 values matched the key, all 15 expected events; T4/T5/history, manual-correction provenance, saved brief and post-restart check passed |
+| Real-data browser frontend | Alpha→Beta review/history/source flow, C1 reject/accept control, correction evidence and saved Markdown passed |
+| Native acceptance | Blocked by no active display; remaining checks listed in the release record |
+
+Exact hashes, measured times, evidence scope and the raw scripted result are in
+[`RELEASE_RECORD.md`](RELEASE_RECORD.md). The
+[first candidate](releases/v0.3.2-candidate1.md) and
+[0.3.1](releases/v0.3.1-uat.md) retain their original identities and measurements.
 
 ## 0.3.1 release checks — 3 November 2026
 

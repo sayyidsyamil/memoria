@@ -1,0 +1,464 @@
+{
+  "version": "0.3.2",
+  "app": "/Applications/Memoria.app",
+  "scope": "Installed engine and resident workers; fictional fixture, scripted review. No native UI/microphone/UAT claim.",
+  "engine_sha256": "a6425b8882318399645a6fcfcee53a7a3581a79b506c3d8e6947d9a9ce7bdc31",
+  "model_server_sha256": "84cfbf69f4a516b2afbe25692b973049be89ad5c0e9fe243b5e8a4be6747ddc2",
+  "t1_seconds": 29.7,
+  "proposals": [
+    {
+      "proposal_id": 1,
+      "object_id": "vendor",
+      "label": "Vendor",
+      "attribute": "outcome",
+      "value": "Alpha Systems",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "We go with Alpha Systems for the pilot.",
+      "speaker": "Aisha",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 2,
+      "object_id": "budget",
+      "label": "Pilot budget (RM)",
+      "attribute": "amount",
+      "value": 250000,
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Okay, the pilot budget is 250,000 ringgit.",
+      "speaker": "Aisha",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 3,
+      "object_id": "golive",
+      "label": "Go-live date",
+      "attribute": "date",
+      "value": "2026-10-26",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "We go live on 26 October 2026.",
+      "speaker": "Aisha",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 4,
+      "object_id": "migration",
+      "label": "Data migration",
+      "attribute": "owner",
+      "value": "Wei Ling",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I will own the data migration and have it finished by 9 October.",
+      "speaker": "Wei Ling",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 5,
+      "object_id": "migration",
+      "label": "Data migration",
+      "attribute": "deadline",
+      "value": "2026-10-09",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I will own the data migration and have it finished by 9 October.",
+      "speaker": "Wei Ling",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 6,
+      "object_id": "training",
+      "label": "Staff training",
+      "attribute": "owner",
+      "value": "Aisha",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I will coordinate it with HR myself and make sure training is finished by 16 October.",
+      "speaker": "Aisha",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 7,
+      "object_id": "training",
+      "label": "Staff training",
+      "attribute": "deadline",
+      "value": "2026-10-16",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I will coordinate it with HR myself and make sure training is finished by 16 October.",
+      "speaker": "Aisha",
+      "meeting": "974c0b51-61b4-53d4-9324-a24c194be887"
+    },
+    {
+      "proposal_id": 8,
+      "object_id": "vendor",
+      "label": "Vendor",
+      "attribute": "outcome",
+      "value": "Beta Cloud",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "We drop Alpha Systems and move to Beta Cloud. This is final.",
+      "speaker": "Aisha",
+      "meeting": "40748792-9187-5f8a-9542-eb8aa480f4c7"
+    },
+    {
+      "proposal_id": 9,
+      "object_id": "budget",
+      "label": "Pilot budget (RM)",
+      "attribute": "amount",
+      "value": 280000,
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Beta Cloud's licence is 30,000 ringgit higher, so the pilot budget has to go from 250,000 to 280,000 ringgit.",
+      "speaker": "Raj",
+      "meeting": "40748792-9187-5f8a-9542-eb8aa480f4c7"
+    },
+    {
+      "proposal_id": 10,
+      "object_id": "golive",
+      "label": "Go-live date",
+      "attribute": "date",
+      "value": "2026-10-26",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Go-live stays on 26 October for now.",
+      "speaker": "Aisha",
+      "meeting": "40748792-9187-5f8a-9542-eb8aa480f4c7"
+    },
+    {
+      "proposal_id": 11,
+      "object_id": "migration",
+      "label": "Data migration",
+      "attribute": "deadline",
+      "value": "2026-10-09",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Migration is going okay. I am still on track for 9 October.",
+      "speaker": "Wei Ling",
+      "meeting": "40748792-9187-5f8a-9542-eb8aa480f4c7"
+    },
+    {
+      "proposal_id": 12,
+      "object_id": "security",
+      "label": "Security review",
+      "attribute": "owner",
+      "value": "Wei Ling",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I can do it. I will own the security review and have it done by 5 October.",
+      "speaker": "Wei Ling",
+      "meeting": "40748792-9187-5f8a-9542-eb8aa480f4c7"
+    },
+    {
+      "proposal_id": 13,
+      "object_id": "security",
+      "label": "Security review",
+      "attribute": "deadline",
+      "value": "2026-10-05",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I can do it. I will own the security review and have it done by 5 October.",
+      "speaker": "Wei Ling",
+      "meeting": "40748792-9187-5f8a-9542-eb8aa480f4c7"
+    },
+    {
+      "proposal_id": 14,
+      "object_id": "migration",
+      "label": "Data migration",
+      "attribute": "deadline",
+      "value": "2026-10-23",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Data migration is now due on 23 October, same owner.",
+      "speaker": "Aisha",
+      "meeting": "006296a4-1afe-5a9f-b6b3-bfc7b95f59b9"
+    },
+    {
+      "proposal_id": 15,
+      "object_id": "golive",
+      "label": "Go-live date",
+      "attribute": "date",
+      "value": "2026-11-09",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Then the go-live date is now 9 November 2026.",
+      "speaker": "Aisha",
+      "meeting": "006296a4-1afe-5a9f-b6b3-bfc7b95f59b9"
+    },
+    {
+      "proposal_id": 16,
+      "object_id": "training",
+      "label": "Staff training",
+      "attribute": "deadline",
+      "value": "2026-11-03",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "I will move training to 3 November so staff are trained a week before go-live. I stay the owner.",
+      "speaker": "Aisha",
+      "meeting": "006296a4-1afe-5a9f-b6b3-bfc7b95f59b9"
+    },
+    {
+      "proposal_id": 17,
+      "object_id": "security",
+      "label": "Security review",
+      "attribute": "status",
+      "value": "done",
+      "current_value": null,
+      "confidence": 0.9,
+      "reason": "confirm_all",
+      "quote": "Security review is done.",
+      "speaker": "Aisha",
+      "meeting": "006296a4-1afe-5a9f-b6b3-bfc7b95f59b9"
+    }
+  ],
+  "value_matches_key": 17,
+  "expected_events_found": 15,
+  "quote_provenance_checked": true,
+  "source_entailment": "Value matching and quote provenance are checked; source interpretation needs a separate audit.",
+  "answers": [
+    {
+      "question": "What is the go-live date now?",
+      "answer": [
+        "Go-live date is 9 Nov 2026 (decided 12 Oct 2026, 09:30)."
+      ]
+    },
+    {
+      "question": "What was the pilot budget on 27 September 2026?",
+      "answer": [
+        "On 27 Sep 2026, Pilot budget was RM 250,000 (decided 14 Sep 2026, 09:31)."
+      ]
+    },
+    {
+      "question": "How many times did the go-live date change?",
+      "answer": [
+        "Go-live date changed once: 26 Oct 2026 → 9 Nov 2026.",
+        "26 Oct 2026 — decided 14 Sep 2026, 09:31.",
+        "26 Oct 2026 — decided 28 Sep 2026, 09:31.",
+        "9 Nov 2026 — decided 12 Oct 2026, 09:30."
+      ]
+    }
+  ],
+  "open_commitments": "Staff training: owner Raj; due 3 Nov 2026. Data migration: owner Wei Ling; due 23 Oct 2026.",
+  "correction_provenance": {
+    "question": "Who owns Staff training?",
+    "answer": {
+      "sections": [
+        {
+          "heading": "Answer",
+          "items": [
+            {
+              "text": "Staff training owner is Raj (corrected by Release smoke (script); correction recorded 4 Nov 2026, 03:33; original claim 14 Sep 2026, 09:32).",
+              "citations": [
+                "R1"
+              ]
+            }
+          ]
+        }
+      ],
+      "citations": [
+        {
+          "id": "R1",
+          "kind": "manual-correction",
+          "factId": 18,
+          "objectId": "training",
+          "attribute": "owner",
+          "correction": {
+            "reviewer": "Release smoke (script)",
+            "reason": "The chair confirmed the recorded owner should be Raj.",
+            "replaced_fact_id": 6
+          },
+          "statement": "Staff training owner: Raj.",
+          "recordedAt": "2026-11-03T19:33:11.224627Z",
+          "decidedAt": "2026-09-14T01:32:14Z",
+          "claimFrom": "2026-09-14T01:32:14Z",
+          "claimTo": null,
+          "originalContext": [
+            {
+              "sourcePath": "source-Procurement-pilot-kick-off-reviewed-transcript-974c0b51-61b4-53d4-9324-a24c194be887.md",
+              "sourceTitle": "Procurement pilot kick-off — reviewed transcript"
+            }
+          ],
+          "requiresCurrent": true
+        }
+      ],
+      "retrieval": "Tracked facts · Staff training — owner · current value",
+      "warnings": [],
+      "message": null,
+      "source": "tracked-facts"
+    },
+    "brief_training": {
+      "item": {
+        "text": "Staff training: owner Raj; due 3 Nov 2026.",
+        "citations": [
+          "T1",
+          "T2"
+        ]
+      },
+      "citations": [
+        {
+          "id": "T1",
+          "kind": "manual-correction",
+          "factId": 18,
+          "objectId": "training",
+          "attribute": "owner",
+          "correction": {
+            "reviewer": "Release smoke (script)",
+            "reason": "The chair confirmed the recorded owner should be Raj.",
+            "replaced_fact_id": 6
+          },
+          "statement": "Staff training owner: Raj.",
+          "recordedAt": "2026-11-03T19:33:11.224627Z",
+          "decidedAt": "2026-09-14T01:32:14Z",
+          "claimFrom": "2026-09-14T01:32:14Z",
+          "claimTo": null,
+          "originalContext": [
+            {
+              "sourcePath": "source-Procurement-pilot-kick-off-reviewed-transcript-974c0b51-61b4-53d4-9324-a24c194be887.md",
+              "sourceTitle": "Procurement pilot kick-off — reviewed transcript"
+            }
+          ],
+          "requiresCurrent": true
+        },
+        {
+          "id": "T2",
+          "kind": "tracked-fact",
+          "factId": 16,
+          "objectId": "training",
+          "attribute": "deadline",
+          "quote": "I will move training to 3 November so staff are trained a week before go-live. I stay the owner.",
+          "sourcePath": "source-Procurement-pilot-pre-launch-review-reviewed-transcript-006296a4-1afe-5a9f-b6b3-bfc7b95f59b9.md",
+          "sourceTitle": "Procurement pilot pre-launch review — reviewed transcript",
+          "page": 1,
+          "moment": {
+            "meetingId": "006296a4-1afe-5a9f-b6b3-bfc7b95f59b9",
+            "meetingTitle": "Procurement pilot pre-launch review",
+            "at": 58.06
+          },
+          "requiresCurrent": true
+        }
+      ]
+    },
+    "reason_returned": "The chair confirmed the recorded owner should be Raj.",
+    "live_ask_reason": "passed",
+    "saved_brief": {
+      "id": "bdfd86b8-a399-43b1-b60f-24333d11aaa0",
+      "topic": "Next steering committee meeting",
+      "pagePath": "briefs/brief-bdfd86b8-a399-43b1-b60f-24333d11aaa0.md",
+      "created": "2026-11-03T19:33:18.329209+00:00",
+      "fingerprint": "7d9675b99cd94cdc7bd8b7aa896502a1fb5af698033da6829cbd5c7beb54d723",
+      "pageHash": "e910d8eb531fff1e4d056f5cb638bd93d9ff6e4671a7390cad93f21a3246efcb",
+      "factDependencies": [
+        {
+          "factId": 1,
+          "objectId": "vendor",
+          "attribute": "outcome",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 2,
+          "objectId": "budget",
+          "attribute": "amount",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 4,
+          "objectId": "migration",
+          "attribute": "owner",
+          "requiresCurrent": true
+        },
+        {
+          "factId": 7,
+          "objectId": "training",
+          "attribute": "deadline",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 8,
+          "objectId": "vendor",
+          "attribute": "outcome",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 9,
+          "objectId": "budget",
+          "attribute": "amount",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 10,
+          "objectId": "golive",
+          "attribute": "date",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 11,
+          "objectId": "migration",
+          "attribute": "deadline",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 14,
+          "objectId": "migration",
+          "attribute": "deadline",
+          "requiresCurrent": true
+        },
+        {
+          "factId": 15,
+          "objectId": "golive",
+          "attribute": "date",
+          "requiresCurrent": false
+        },
+        {
+          "factId": 16,
+          "objectId": "training",
+          "attribute": "deadline",
+          "requiresCurrent": true
+        },
+        {
+          "factId": 18,
+          "objectId": "training",
+          "attribute": "owner",
+          "requiresCurrent": true
+        }
+      ]
+    }
+  },
+  "advantage_demo": {
+    "pending_vendor_proposal_id": 8,
+    "origin": "Actual proposals from this model run; other suggestions reviewed by a script for presentation. Separate from participant T1-T5 and C1."
+  },
+  "vendor_history_check": {
+    "current": "Beta Cloud",
+    "on_2026_09_27": "Alpha Systems",
+    "cited": true
+  },
+  "qwen_replacement_process_seconds": 3.89,
+  "post_restart_check": "passed",
+  "signature": "passed",
+  "ledger_invariants": "passed",
+  "build_commit": "169ce3d9604c5a4fa2ce8a4f850f8bb150f4192b",
+  "dmg_sha256": "06bde921a77d5bb09ac9bc5597cbe339208734998150e7f7000e1157616a2246",
+  "publication": "Local 0.3.2 candidate; no release tag or installer publication.",
+  "receipt": {
+    "original_sha256": "b10563277963a8d7298593a49590bb127a511204fa988ce458f9f631481740e8",
+    "removed": "Host-specific test vault locations and transient process ID only. Assertions and model proposals are unchanged.",
+    "review": "Developer-scripted review on fictional meetings; not participant UAT."
+  }
+}

@@ -128,8 +128,8 @@ under `/opt/homebrew` must remain installed and readable by all users.
    home, environment overrides, caches or vault settings into it. Quit the
     developer's Memoria before switching accounts, so two ~6 GB model sets do not
    compete on the 16 GB Mac.
-3. Log in to that account. Open the **tagged release DMG** (`Memoria_0.3.1_aarch64.dmg`,
-   checksum in [RELEASE_RECORD.md](RELEASE_RECORD.md)), drag `Memoria.app` to
+3. Log in to that account. Open the **frozen session-build DMG**, recording its
+   version and checksum from [RELEASE_RECORD.md](RELEASE_RECORD.md), and drag `Memoria.app` to
    `/Applications` (authenticate if asked), and run
    `/Users/Shared/Memoria/reset-demo.sh` (copies the starter vault to
    `~/Documents/Memoria UAT`), then `/Users/Shared/Memoria/memoria-doctor.sh`, which
@@ -142,6 +142,11 @@ under `/opt/homebrew` must remain installed and readable by all users.
    checksum, clean account, task outcome, permissions, the doctor output and the
    screen recording in the AC7 receipt. Provisioning/tests alone do **not**
    satisfy AC7.
+
+The current 0.3.2 installer is a local candidate with native checks pending; it has
+not been published. The older `Memoria_0.3.1_aarch64.dmg` is identified by the
+[archived 0.3.1 record](releases/v0.3.1-uat.md). Keep the setup doctor and installer
+versions aligned, and freeze the actual session build before recruiting the main round.
 
 Resolution is `MEMORIA_SPEECH_PYTHON` / `MEMORIA_EMBED_PYTHON` /
 `MEMORIA_MEMORY_PYTHON` → complete `/Users/Shared/Memoria/runtime/{speech,embed}`
