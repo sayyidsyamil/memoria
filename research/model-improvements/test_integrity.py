@@ -1,7 +1,7 @@
 """Integrity self-checks, no model: python3.11 test_integrity.py
 
 1. Reserved data: loading development series opens only those series' own files; with every reserved (new-val)
-   file denied at the operating-system open call, development loading and the cached dev/audit summaries still work.
+   file denied at Python's file-open audit event, development loading and the cached dev/audit summaries still work.
 2. Pinned baseline: every app module the harness imports comes from pinned/f45bbe549 (the v0.3.1-uat files), and a
    changed pinned file stops the harness.
 """

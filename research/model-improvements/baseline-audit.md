@@ -9,6 +9,9 @@ October's own answer functions: `oracle.ledger_answer` with the structured quest
 `router.routed_answer` with the routes the cached runs actually used. Every other row is read from its cached result
 file and compared with the empty record question by question (exact two-sided sign test on the discordant questions).
 
+These post-hoc, question-level tests are exploratory. They do not account for dependence within a meeting series;
+a non-significant difference does not establish equivalence.
+
 ## The original 96 questions (October's AMI test split)
 
 38 of the 96 questions need a recorded value or a real change: all 34 current-value questions and 4 of the 33
@@ -102,5 +105,5 @@ source audit before it counts.
   reserved questions; their chain files were parsed into memory by the folder-wide loader used until 18:45 on
   3 November (see PROTOCOL.md), which now reads only the requested file.
 - Reproduction: `test_integrity.py` recomputes this audit and the dev tables with every reserved file denied at the
-  operating-system open call and checks them against `results/baseline-audit.json` and `results/dev/summary.json`
+  Python file-open audit event and checks them against `results/baseline-audit.json` and `results/dev/summary.json`
   (identical, in this worktree and in a checkout of `main` at `c9357d693`).

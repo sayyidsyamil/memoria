@@ -203,7 +203,7 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
 - 18:45 **Harness integrity fixes** after the parent's review (PROTOCOL amendment 18:45). (1) The folder-wide loader
   parsed all eight reserved chains (16 files, confirmed with an open spy) whenever a new-dev series was loaded; nothing
   reserved was generated, scored or used. Now `read_chain` opens exactly the requested files; `test_integrity.py`
-  denies every reserved file at the OS open call (audit hook) and recomputes the dev tables and the baseline audit:
+  denies every reserved file through Python's file-open audit hook and recomputes the dev tables and the baseline audit:
   identical to the committed JSON. (2) The app modules were imported from the checkout; they are now the pinned
   `f45bbe549` copies (git blobs identical to `v0.3.1-uat`), hash-checked with 69 in-place files; mixing with a
   checkout's app modules is refused. On a `git archive` of `main` (`c9357d693`, whose `temporal_service.py` and
@@ -213,6 +213,6 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   50,000,000 from "sell as much as fifty million Euros" (words confirm a number, not its item). Candidate A's freeze
   file is unchanged; A remains rejected.
 - 19:00 Both 1,000-draw random-removal controls recomputed with the pinned harness and every reserved file denied at
-  the OS open call (`recheck_controls.py`): identical to their logs in every field (removed writes, base and filter
+  Python's file-open audit event (`recheck_controls.py`): identical to their logs in every field (removed writes, base and filter
   QA/gold/wrong, random mean, percentiles, gold and wrong means, share of draws, pass), 0 reserved files opened
   (`logs/recheck-controls-1000-*.json`).

@@ -212,7 +212,7 @@ value, which is exactly what breaks the contract.
   `0a713e9b1`, `data/manifest.json`). No generation or scoring has touched them. Their chain files were, however,
   parsed into memory during development by the folder-wide loader the harness used until 18:45 on 3 November (see
   PROTOCOL.md); the loader now reads only the requested file, which `test_integrity.py` checks with the reserved
-  files denied at the operating-system level. They are reserved, not wholly unseen corpus data: I read their human
+  file opens denied by a Python audit hook. They are reserved, not wholly unseen corpus data: I read their human
   abstracts to write the gold, and MemoriaBench used their decisions.
 - **Frozen:** candidate A as recorded at its freeze (`results/validation/candidate-A.json`, commit `a78112dee`); A is
   **rejected for default deployment** and no recommendation here proposes it.
@@ -286,5 +286,5 @@ and the harness refuses to run if an app module was imported from elsewhere firs
 | `build_gold.py`, `specs_new.py`, `show_abstracts.py`, `data/` | gold for the new series; splits; GSM8K sample (unused) |
 | `check_harness.py`, `test_helpers.py` | no-model checks |
 | `pinned.py`, `pinned/f45bbe549/` | the historical app modules (identical to v0.3.1-uat), their manifest, and the hash checks of everything else the harness reads |
-| `test_integrity.py`, `recheck_controls.py` | reserved files denied at the OS level while dev/audit summaries and controls are recomputed; pinned-module checks |
+| `test_integrity.py`, `recheck_controls.py` | Python's file-open audit hook rejects reserved reads while dev/audit summaries and controls are recomputed; pinned-module checks |
 | `results/` | leases, controls, guard predictions, audits, dev summaries, edit checks, frozen candidate |

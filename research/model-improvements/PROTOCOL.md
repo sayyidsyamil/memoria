@@ -150,7 +150,7 @@ line is edited.
      wording "not opened by any other script" and "never read" was false. Gold building also read the reserved series'
      AMI abstracts (to write `specs_new.py`) and transcripts (October's builder), and freezing hashed their chain files;
      those reads were by design. The loader now reads exactly the requested file (`read_chain`, the engine's
-     `parse_chain`/`parse_ask`), and `test_integrity.py` denies every reserved file at the operating-system open call
+      `parse_chain`/`parse_ask`), and `test_integrity.py` denies every reserved file at Python's file-open audit event
      while it loads development series and recomputes the dev and audit summaries. The reserved split stays reserved;
      it is not described as wholly unseen data.
   2. **The historical baseline was not pinned.** The harness imported `temporal_service.py`, `model_server.py`,
