@@ -14,6 +14,8 @@ use uuid::Uuid;
 const STORAGE_NAME: &str = ".memoria-recordings";
 const MANIFEST_NAME: &str = "recording.json";
 const PLAYBACK_NAME: &str = "playback.webm";
+/// The live captions' draft, which the speech worker writes into the session folder when End drains them.
+const DRAFT_NAME: &str = "transcript-draft.json";
 const PLAYBACK_EXTENSIONS: [&str; 5] = ["wav", "webm", "m4a", "mp3", "flac"];
 const REMUX_TIMEOUT: Duration = Duration::from_secs(120);
 const SCHEMA_VERSION: u32 = 1;
@@ -877,8 +879,8 @@ fn scan_chunks(directory: &Path) -> Result<ChunkInventory, String> {
             return Err(format!("Unexpected non-file recording entry: {}", path.display()));
         }
         match name {
-            // Neither the journal nor the playable copy is an audio checkpoint.
-            MANIFEST_NAME | PLAYBACK_NAME => continue,
+            // Neither the journal, the playable copy nor the transcript draft is an audio checkpoint.
+            MANIFEST_NAME | PLAYBACK_NAME | DRAFT_NAME => continue,
             "original.webm" => {
                 open_regular_file(&path)?;
                 inventory.webm_original = true;
@@ -1696,6 +1698,21 @@ mod tests {
         assert_eq!(result.chunk_count, 1);
         assert!(result.warnings.iter().any(|warning| warning.contains("1 unpublished temporary")));
         assert!(temporary.exists());
+    }
+
+    #[test]
+    fn the_live_transcript_draft_beside_the_checkpoints_does_not_stop_end_or_recovery() {
+        // End saves the original, then the speech worker writes its draft into the session folder. A retried End, or the
+        // interrupted list after a crash before publication, must still read the folder.
+        let (_root, storage, id) = fixture();
+        let expected = begin_with_audio(&storage, &id);
+        let first = storage.finalize(&id, Some(1)).unwrap();
+        fs::write(storage.directory(&id, false).unwrap().join(DRAFT_NAME), "{\"segments\": []}").unwrap();
+        let listed = storage.list(false).unwrap();
+        assert_eq!(listed.recordings[0].chunk_count, 1);
+        let retried = storage.finalize(&id, Some(1)).unwrap();
+        assert_eq!(retried.sha256, first.sha256);
+        assert_eq!(fs::read(retried.original_path).unwrap(), expected);
     }
 
     #[test]
