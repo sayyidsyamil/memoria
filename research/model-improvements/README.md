@@ -1,6 +1,6 @@
 # Model improvements: extraction quality, and the edited Qwen3.5-0.8B
 
-**Status (3 November 2026, 15:55): development complete; new-val not opened.** Candidate A is frozen
+**Status (3 November 2026, 15:42): development complete; new-val not opened.** Candidate A is frozen
 (`results/validation/candidate-A.json`) but **fails two of three product-contract fixtures** (see "Product-contract
 review" below): it is not fit to be a default, and validating it would only test an experimental one-value-per-meeting
 policy. On the user's steering the final validation waits until separate specialists report their own 4B candidates
@@ -141,7 +141,7 @@ questions only edited routes right, 1 only stock (p = 0.021).
 - In MLX the edited model is built at load time from the stock weights and the two rebuilt tensors (hash-checked in
   memory), so no second full copy is stored.
 
-## Product-contract review of candidate A (15:45, no model)
+## Product-contract review of candidate A (15:36-15:41, no model)
 
 The engine keeps chronology inside a meeting: `Pipeline._commit` gives each write the claim time meeting start + turn
 start, commits in turn order and compares each write with the belief in force at that moment, so two real changes in

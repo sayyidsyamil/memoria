@@ -127,11 +127,11 @@ line is edited.
   dev outcomes. Candidate A (below, frozen in `results/validation/candidate-A.json`) and any specialist candidate are
   then preregistered together, the Holm correction counting all of them, and new-val is run once. Leases are kept to
   5-8 minutes.
-- 15:50, deviation recorded: the filter rule fixed 1,000 random removals; the dev screening used 300 draws per filter
+- 15:38, deviation recorded: the filter rule fixed 1,000 random removals; the dev screening used 300 draws per filter
   (`results/controls.jsonl`). The selected configuration's control is recomputed with 1,000 draws (same seed rule)
   and both are reported. Dev p-values (sign tests, shares of random draws) are descriptive: they were computed after
   choosing among about 15 variants and are not corrected for that selection.
-- 15:50, product-contract review of candidate A (no model; `test_modevalue_contract.py`): A's per-meeting rule fails
+- 15:38, product-contract review of candidate A (no model; `test_modevalue_contract.py`): A's per-meeting rule fails
   two of three contract fixtures the parent specified (it drops an approved intermediate change, and lets a repeated old
   value outvote a later explicit decision). A stays frozen and unchanged. A contract-respecting rule written afterwards
   (`revertonly.py`, rule R) is a new, unfrozen identity with open-loop dev checks only; it is not a validation

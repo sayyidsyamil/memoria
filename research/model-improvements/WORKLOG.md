@@ -149,12 +149,12 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
 - Model consolidation (`consolidate`, thinking off, 16 questions on dev, 28 s in all): on the nosys base QA 101, gold
   27 (no better than modevalue: 102, 28); on the app base QA 102 with current 32/43 but gold 23 and correct proposals 22
   (fails both guardrails). Not preferred (ties go to fewer model calls).
-- 15:20 Guard reference, 4B in-process (lexical candidates, threshold 2.0): 16/20 caught, 2/40 false alarms, the
+- 15:16 Guard reference, 4B in-process (lexical candidates, threshold 2.0): 16/20 caught, 2/40 false alarms, the
   numbers `../live-verifier` published for "guard alone, threshold 2.0" on this split (an independent parity check of
   the harness); strongest-candidate AUROC 0.969; 0.33 s per question. 0.8B AUROC: stock 0.629 / edited 0.632 (bf16),
   0.619 / 0.620 (4-bit). Routing in 4-bit 0.8B collapses (51 and 54 of 124 replies unparsable; 52 and 53 right on
   gold facts against 95 and 103 in bf16).
-- 15:25-15:40 **Steering from the user (via the parent): narrow scope.** Cancelled the queued and in-flight 0.8B jobs
+- 15:22-15:31 **Steering from the user (via the parent): narrow scope.** Cancelled the queued and in-flight 0.8B jobs
   (one 0.8B 4-bit extraction stopped mid-series; its finished windows stay cached) and both thinking-on math checks
   (never run). Protocol amended before any new result (new-val reserved, specialists' families recorded). Candidate A
   frozen with hashes (`results/validation/candidate-A.json`), not preregistered. Demo regression, one short lease per
@@ -162,7 +162,7 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   correct). Consolidation with thinking on: 13 of 16 questions ran out of the 1,024-token thinking budget, 552 s in
   all, QA 95: rejected. README rewritten as the intermediate deliverable; every table regenerates from the caches
   (`dev_tables.py`, `small_tables.py`). No change to `src-tauri/` or `research/ledger-engine/` on this branch.
-- 15:45 **Product-contract review of candidate A** (parent's request; no model, no new-val, A unchanged). The engine keeps
+- 15:36 **Product-contract review of candidate A** (parent's request; no model, no new-val, A unchanged). The engine keeps
   chronology inside a meeting (`Pipeline._commit`: claim time = meeting start + turn start, commits in turn order, each
   write compared with the belief in force at that moment). Fixtures through the real `Pipeline` (immediate policy),
   candidates injected, A's rule applied exactly as in A's closed loop (`harness._Gated`, `modevalue`):
@@ -179,3 +179,9 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   keeps almost none of A's gain: app base QA 93 with gold 23 (fails the gold guardrail); nosys base QA 96, gold 28;
   nosys+numwords+loopstop base QA 90, gold 27. **A's dev gain therefore comes from the part of its rule that breaks the
   product contract** (collapsing a meeting to one value), not from removing abandoned excursions.
+- 15:41 How often the contract-breaking part of A acts on dev (the candidates of the nosys + numwords + loopstop run,
+  no model): 20 meeting-slots carry more than one value. In 16 the commonest value is also the last one (11 right, 5
+  wrong at the meeting's end); in 4 they differ, and there the commonest value was right 3 times and the last one once
+  (the extractor's last write was a late remark). So on AMI dev the majority vote happened to help, but most of A's gain
+  is the collapse to one value per meeting (last value on the same base: QA 100 against 102), which is what fixture 1
+  forbids; fixture 2 shows the majority vote losing a real decision.
