@@ -122,9 +122,13 @@ def main():
     assert temporal('query', target=demo, type='current', object_id='vendor', attribute='outcome')['answer'] == 'Alpha Systems'
     print(f'Opening-demo vault: {demo} (Alpha approved, one Beta proposal pending)', flush=True)
     for proposal in proposals:
-        temporal('proposals.accept', proposal_id=proposal['proposal_id'])
+        temporal('proposals.accept', proposal_id=proposal['proposal_id'], reviewer='Release smoke (script)')
     owner = next(f for f in temporal('overview')['facts'] if f['object_id'] == 'training' and f['attribute'] == 'owner')
-    temporal('facts.correct', fact_id=owner['fact_id'], value='Raj', reason='The chair said Raj will do the staff training from now on.')
+    correction_reason = 'The chair confirmed the recorded owner should be Raj.'
+    temporal('facts.correct', fact_id=owner['fact_id'], value='Raj', reason=correction_reason, reviewer='Release smoke (script)')
+    owner_answer = call('ask', question='Who owns Staff training?')
+    assert owner_answer.get('source') == 'tracked-facts' and any('Raj' in text for text in items(owner_answer)), owner_answer
+    assert correction_reason in json.dumps(owner_answer, ensure_ascii=False), 'Ask omitted the recorded correction reason.'
     assert not temporal('proposals.list')
     vendor_now = temporal('query', type='current', object_id='vendor', attribute='outcome')
     vendor_past = temporal('query', type='as_of_valid', object_id='vendor', attribute='outcome', valid_at='2026-09-27')
@@ -142,6 +146,10 @@ def main():
     open_items = next(s['items'] for s in brief['sections'] if s['heading'] == 'Open commitments')
     open_text = ' '.join(i['text'] for i in open_items)
     assert all(text in open_text for text in ('Staff training', 'Raj', '3 Nov 2026', 'Data migration', 'Wei Ling', '23 Oct 2026')), open_text
+    training = next(item for item in open_items if 'Staff training' in item['text'])
+    by_id = {citation['id']: citation for citation in brief.get('citations', [])}
+    training_evidence = {'item': training, 'citations': [by_id[identifier] for identifier in training.get('citations', [])]}
+    assert correction_reason in json.dumps(training_evidence, ensure_ascii=False), 'The brief omitted the owner correction reason.'
     assert temporal('check')['ok']
 
     def vendor_check():
@@ -189,6 +197,8 @@ def main():
               't1_seconds': t1, 'proposals': proposals, 'value_matches_key': len(proposals), 'expected_events_found': len(GOLD),
               'quote_provenance_checked': True, 'source_entailment': 'Value matching and quote provenance are checked; source interpretation needs a separate audit.',
               'answers': answers, 'open_commitments': open_text,
+              'correction_provenance': {'question': 'Who owns Staff training?', 'answer': owner_answer,
+                                        'brief_training': training_evidence, 'reason_returned': correction_reason},
               'advantage_demo': {'vault': str(demo), 'pending_vendor_proposal_id': held,
                                  'origin': 'Actual proposals from this model run; other suggestions reviewed by a script for presentation. Separate from participant T1-T5 and C1.'},
               'vendor_history_check': {'current': vendor_now['answer'], 'on_2026_09_27': vendor_past['answer'], 'cited': True},
