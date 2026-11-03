@@ -30,7 +30,7 @@ recordings, credentials, voice profiles, or runtime journals in a pull request.
   you could not test, including platform-specific behaviour.
 - Preserve upstream copyright, AGPL-3.0-or-later licensing, and third-party notices.
 
-The wider frontend suite has outstanding failures documented in
+The latest full-suite results are in
 [Workspace product verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md). Do not
 describe scoped passing tests as a green full suite.
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Memoria local checks. No upstream services, signing identities, or account gates.
-# Full-suite failures and native acceptance gaps are tracked in docs/WORKSPACE-PRODUCT-VERIFICATION.md.
+# Full-suite results and native acceptance gaps are recorded in docs/WORKSPACE-PRODUCT-VERIFICATION.md.
 set -eu
 pnpm build
 pnpm test:memoria

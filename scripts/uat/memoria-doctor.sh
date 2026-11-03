@@ -19,10 +19,10 @@ done
 autoload -Uz is-at-least
 if [[ -n $app ]]; then
   version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist" 2>/dev/null)
-  if is-at-least 0.2.0 "${version:-0}"; then
+  if is-at-least 0.3.1 "${version:-0}"; then
     ok "app: $app (version $version)"
   else
-    bad "app: $app is version $version; install the 0.2.0 release (.dmg) into /Applications"
+    bad "app: $app is version $version; install the 0.3.1 release (.dmg) into /Applications"
   fi
 else
   bad "app: install Memoria.app into /Applications from the release .dmg"
@@ -59,7 +59,7 @@ fi
 free=$(df -g "$HOME" | awk 'NR==2 {print $4}')
 (( free >= 5 )) && ok "disk: ${free} GB free" || bad "disk: only ${free} GB free (need 5 GB)"
 memory=$(memory_pressure 2>/dev/null | awk -F': ' '/free percentage/ {print $2}')
-[[ -n $memory ]] && note "memory free now: $memory (close other large apps if under 20%; the three models need about 6 GB)"
+[[ -n $memory ]] && note "memory free now: $memory (close other large apps if under 20%; the speech, language and search models need about 6 GB together)"
 note "microphone: the first recording asks for permission; allow it once for this account"
 
 if (( ${#missing} == 0 )); then

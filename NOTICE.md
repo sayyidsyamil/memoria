@@ -11,7 +11,7 @@ The upstream AGPL-3.0-or-later licence and existing copyright and third-party
 notices remain applicable. Tolaria's name and logo belong to their respective
 owners. Memoria is a separate project, not an official Tolaria release.
 
-## Initial fork verification
+## Initial fork verification (30 October 2026)
 
 - Application and internal naming migrated to Memoria, including renamed module
   paths, packages, protocols, environment variables, and locale strings.
@@ -33,7 +33,6 @@ owners. Memoria is a separate project, not an official Tolaria release.
   install check; the successful build invoked the installed tools directly.
 - Screen Recording permission was unavailable, so rendered native UI was not
   visually verified.
-- No changes have been committed, pushed, or published.
 
 ## Design references (inspiration only)
 
