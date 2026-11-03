@@ -136,3 +136,9 @@ line is edited.
   value outvote a later explicit decision). A stays frozen and unchanged. A contract-respecting rule written afterwards
   (`revertonly.py`, rule R) is a new, unfrozen identity with open-loop dev checks only; it is not a validation
   candidate unless it passes closed-loop dev checks and is preregistered by name.
+- 18:33, baseline for the final validation: every cached "app" figure here is the app path at `f45bbe549` (0.3.1).
+  `main` (`70707fa3b`) has since changed production extraction, so the preregistration must name and hash the
+  contemporary production baseline (commit, `temporal_service.py`, `model_server.py`) beside every candidate; the
+  f45bbe549 figures are reported as historical. Candidate A remains frozen and is rejected for default deployment.
+  Reports give the empty-record floor, per-type scores and the needs-a-value subset beside the aggregate
+  (`baseline-audit.md`).

@@ -1,0 +1,318 @@
+{
+ "original96": {
+  "counts": {
+   "current": {
+    "questions": 34,
+    "need_a_value_or_real_change": 34,
+    "empty_answer_is_right": 0
+   },
+   "as_of_valid": {
+    "questions": 29,
+    "need_a_value_or_real_change": 0,
+    "empty_answer_is_right": 29
+   },
+   "n_changes": {
+    "questions": 33,
+    "need_a_value_or_real_change": 4,
+    "empty_answer_is_right": 29
+   },
+   "all": {
+    "questions": 96,
+    "need_a_value_or_real_change": 38,
+    "empty_answer_is_right": 58
+   }
+  },
+  "systems": {
+   "empty record, exact routes": {
+    "all": "58/96",
+    "current": "0/34",
+    "as_of_valid": "29/29",
+    "n_changes": "29/33",
+    "needs_value": "0/38",
+    "empty_answer_is_right": "58/58",
+    "real_changes_right": "0/4",
+    "past_values_right": "0/0"
+   },
+   "empty record, October's routes": {
+    "all": "58/96",
+    "current": "0/34",
+    "as_of_valid": "29/29",
+    "n_changes": "29/33",
+    "needs_value": "0/38",
+    "empty_answer_is_right": "58/58",
+    "real_changes_right": "0/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 0,
+     "empty_only": 0,
+     "both": 58,
+     "neither": 38,
+     "p_two_sided": 1.0
+    }
+   },
+   "October ledger, Qwen3.5-4B (headline 59/96)": {
+    "all": "59/96",
+    "current": "18/34",
+    "as_of_valid": "29/29",
+    "n_changes": "12/33",
+    "needs_value": "18/38",
+    "empty_answer_is_right": "41/58",
+    "real_changes_right": "0/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 18,
+     "empty_only": 17,
+     "both": 41,
+     "neither": 20,
+     "p_two_sided": 1.0
+    }
+   },
+   "October ledger + perfect reviewer": {
+    "all": "85/96",
+    "current": "29/34",
+    "as_of_valid": "29/29",
+    "n_changes": "27/33",
+    "needs_value": "31/38",
+    "empty_answer_is_right": "54/58",
+    "real_changes_right": "2/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 31,
+     "empty_only": 4,
+     "both": 54,
+     "neither": 7,
+     "p_two_sided": 0.0
+    }
+   },
+   "app 0.3.0-era Ask on October's ledger (app-parity replay)": {
+    "all": "58/96",
+    "current": "18/34",
+    "as_of_valid": "29/29",
+    "n_changes": "11/33",
+    "needs_value": "18/38",
+    "empty_answer_is_right": "40/58",
+    "real_changes_right": "0/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 18,
+     "empty_only": 18,
+     "both": 40,
+     "neither": 20,
+     "p_two_sided": 1.0
+    }
+   },
+   "October full context + CoT, Qwen3.5-4B": {
+    "all": "41/96",
+    "current": "24/34",
+    "as_of_valid": "6/29",
+    "n_changes": "11/33",
+    "needs_value": "26/38",
+    "empty_answer_is_right": "15/58",
+    "real_changes_right": "2/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 26,
+     "empty_only": 43,
+     "both": 15,
+     "neither": 12,
+     "p_two_sided": 0.0533
+    }
+   },
+   "October BM25 k=12, Qwen3.5-4B": {
+    "all": "37/96",
+    "current": "22/34",
+    "as_of_valid": "14/29",
+    "n_changes": "1/33",
+    "needs_value": "23/38",
+    "empty_answer_is_right": "14/58",
+    "real_changes_right": "1/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 23,
+     "empty_only": 44,
+     "both": 14,
+     "neither": 15,
+     "p_two_sided": 0.0139
+    }
+   },
+   "ledger, DeepSeek V4.1 Flash extractor": {
+    "all": "82/96",
+    "current": "29/34",
+    "as_of_valid": "28/29",
+    "n_changes": "25/33",
+    "needs_value": "31/38",
+    "empty_answer_is_right": "51/58",
+    "real_changes_right": "2/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 31,
+     "empty_only": 7,
+     "both": 51,
+     "neither": 7,
+     "p_two_sided": 0.0001
+    }
+   },
+   "full context + CoT, DeepSeek": {
+    "all": "81/96",
+    "current": "30/34",
+    "as_of_valid": "24/29",
+    "n_changes": "27/33",
+    "needs_value": "33/38",
+    "empty_answer_is_right": "48/58",
+    "real_changes_right": "3/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 33,
+     "empty_only": 10,
+     "both": 48,
+     "neither": 5,
+     "p_two_sided": 0.0006
+    }
+   },
+   "gold facts (router only)": {
+    "all": "96/96",
+    "current": "34/34",
+    "as_of_valid": "29/29",
+    "n_changes": "33/33",
+    "needs_value": "38/38",
+    "empty_answer_is_right": "58/58",
+    "real_changes_right": "4/4",
+    "past_values_right": "0/0",
+    "vs_empty": {
+     "system_only": 38,
+     "empty_only": 0,
+     "both": 58,
+     "neither": 0,
+     "p_two_sided": 0.0
+    }
+   }
+  }
+ },
+ "development124": {
+  "counts": {
+   "current": {
+    "questions": 43,
+    "need_a_value_or_real_change": 43,
+    "empty_answer_is_right": 0
+   },
+   "as_of_valid": {
+    "questions": 38,
+    "need_a_value_or_real_change": 1,
+    "empty_answer_is_right": 37
+   },
+   "n_changes": {
+    "questions": 43,
+    "need_a_value_or_real_change": 11,
+    "empty_answer_is_right": 32
+   },
+   "all": {
+    "questions": 124,
+    "need_a_value_or_real_change": 55,
+    "empty_answer_is_right": 69
+   }
+  },
+  "systems": {
+   "empty record, exact routes": {
+    "all": "69/124",
+    "current": "0/43",
+    "as_of_valid": "37/38",
+    "n_changes": "32/43",
+    "needs_value": "0/55",
+    "empty_answer_is_right": "69/69",
+    "real_changes_right": "0/11",
+    "past_values_right": "0/1"
+   },
+   "empty record, the 4B app router's routes": {
+    "all": "69/124",
+    "current": "0/43",
+    "as_of_valid": "37/38",
+    "n_changes": "32/43",
+    "needs_value": "0/55",
+    "empty_answer_is_right": "69/69",
+    "real_changes_right": "0/11",
+    "past_values_right": "0/1",
+    "vs_empty": {
+     "system_only": 0,
+     "empty_only": 0,
+     "both": 69,
+     "neither": 55,
+     "p_two_sided": 1.0
+    }
+   },
+   "app path at f45bbe549 / 0.3.1 (historical)": {
+    "all": "90/124",
+    "current": "28/43",
+    "as_of_valid": "36/38",
+    "n_changes": "26/43",
+    "needs_value": "31/55",
+    "empty_answer_is_right": "59/69",
+    "real_changes_right": "3/11",
+    "past_values_right": "0/1",
+    "vs_empty": {
+     "system_only": 31,
+     "empty_only": 10,
+     "both": 59,
+     "neither": 24,
+     "p_two_sided": 0.0015
+    }
+   },
+   "request without the system message (nosys)": {
+    "all": "95/124",
+    "current": "27/43",
+    "as_of_valid": "37/38",
+    "n_changes": "31/43",
+    "needs_value": "33/55",
+    "empty_answer_is_right": "62/69",
+    "real_changes_right": "6/11",
+    "past_values_right": "0/1",
+    "vs_empty": {
+     "system_only": 33,
+     "empty_only": 7,
+     "both": 62,
+     "neither": 22,
+     "p_two_sided": 0.0
+    }
+   },
+   "candidate A (rejected for default deployment)": {
+    "all": "100/124",
+    "current": "28/43",
+    "as_of_valid": "37/38",
+    "n_changes": "35/43",
+    "needs_value": "35/55",
+    "empty_answer_is_right": "65/69",
+    "real_changes_right": "7/11",
+    "past_values_right": "0/1",
+    "vs_empty": {
+     "system_only": 35,
+     "empty_only": 4,
+     "both": 65,
+     "neither": 20,
+     "p_two_sided": 0.0
+    }
+   }
+  }
+ },
+ "scorer_windows": {
+  "old-test": {
+   "gold_events": 46,
+   "median_turns_accepted": 8,
+   "max": 369,
+   "over_20_turns": 17,
+   "over_50_turns": 13
+  },
+  "old-dev": {
+   "gold_events": 23,
+   "median_turns_accepted": 7,
+   "max": 298,
+   "over_20_turns": 9,
+   "over_50_turns": 8
+  },
+  "new-dev": {
+   "gold_events": 37,
+   "median_turns_accepted": 27,
+   "max": 339,
+   "over_20_turns": 20,
+   "over_50_turns": 15
+  }
+ }
+}

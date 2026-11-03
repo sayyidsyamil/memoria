@@ -1,12 +1,14 @@
 # Model improvements: extraction quality, and the edited Qwen3.5-0.8B
 
-**Status (3 November 2026, 15:42): development complete; new-val not opened.** Candidate A is frozen
-(`results/validation/candidate-A.json`) but **fails two of three product-contract fixtures** (see "Product-contract
-review" below): it is not fit to be a default, and validating it would only test an experimental one-value-per-meeting
-policy. On the user's steering the final validation waits until separate specialists report their own 4B candidates
-(weight-space repair of repetition loops, attribution edits); all candidates are then preregistered together and the
-reserved validation series are run once. Protocol and amendments: [`PROTOCOL.md`](PROTOCOL.md). Dated notes,
-including every rejected idea: [`WORKLOG.md`](WORKLOG.md).
+**Status (3 November 2026, 18:33): development complete; new-val not opened.** Candidate A is frozen
+(`results/validation/candidate-A.json`) and **rejected for default deployment**: it fails two of three product-contract
+fixtures (see "Product-contract review" below); validating it would only test an experimental one-value-per-meeting
+policy. Baseline audit (empty-record floor, per-type and paired results, scorer false credit):
+[`baseline-audit.md`](baseline-audit.md). On the user's steering the final validation waits until separate
+specialists report their own 4B candidates (weight-space repair of repetition loops, attribution edits); all
+candidates are then preregistered together with an explicitly frozen current production baseline, and the reserved
+validation series are run once. Protocol and amendments: [`PROTOCOL.md`](PROTOCOL.md). Dated notes, including every
+rejected idea: [`WORKLOG.md`](WORKLOG.md).
 
 Everything below is **development data** (old-dev ES2003, TS3004 and new-dev ES2011, IS1008, TS3006: 20 meetings,
 60 gold events, 124 questions), already used to choose among variants, so the candidate's numbers are optimistic.
@@ -14,17 +16,22 @@ No number here is a held-out result.
 
 ## Answers so far
 
-1. **The shipped extraction is weaker than the configuration evaluated in October.** On old-dev the app's request
+1. **The 0.3.1 extraction was weaker than the configuration evaluated in October.** On old-dev the app's request
    answers 27/45 questions against 35/45 for October's request with the same model and prompt (0 only-app against 8
    only-October, p = 0.008). One cause is identified: `temporal_service.repaired` drops amounts whose quote spells the
    number ("twelve point five Euros per unit"; keeping them recovers 3 gold events and 3 answers on dev). The other
    difference is the worker's JSON system message: without it the 4B marks far more events unresolved and writes fewer
    wrong changes, but on the full dev set that effect alone is within the run-to-run movement of greedy decoding
    (QA 95 vs 90, p = 0.36; 90 again in a closed-loop variant), so it is a hypothesis, not a finding.
-2. **QA has a high floor.** An empty ledger answers 69 of the 124 dev questions (56%) and 58 of October's 96 test
-   questions: as-of-date questions mostly have the answer "none", change counts mostly 0. Only the 43 current-value
-   questions need a decision to be found. Every filter therefore gains QA by writing less; filters are judged against
-   random removal of the same number of writes, and against the gold events they keep.
+2. **QA has a high floor** ([`baseline-audit.md`](baseline-audit.md), measured with the real engine and both
+   routers). An empty record answers 58 of October's 96 test questions and 69 of the 124 dev questions: on the 96,
+   every past-date question has the answer "none" and 29 of 33 change counts are 0; only 38 questions need a value or
+   a real change. **October's 4B ledger headline (59/96, 61%) is indistinguishable from recording nothing** (18
+   questions only the ledger gets right, 17 only the empty record, p = 1.0); it has 18/34 current values and none of
+   the 4 real changes. The published comparisons with full context (41) and BM25 (37) stand, but the ledger leads only
+   on the "none"/0 questions; on the 38 that need a value it is behind both (18 against 26 and 23). Every filter gains
+   QA by writing less, so filters are judged against random removal, and current values and real changes are read
+   separately.
 3. **Best 4B candidate on dev (A):** request without the system message, amounts in words kept, replies stopped at
    their first repeated event, and one value per tracked item per meeting (the value written most often). QA 100/124
    against 90 (17 only-A against 7 only-app, p = 0.064), gold events found 28 against 26, wrong-value writes 31 against
@@ -42,13 +49,17 @@ No number here is a held-out result.
 
 ## 4B on development data
 
-Shipped request (`app`) and mechanisms. Open loop = a filter on the shipped run's candidates (its prompts fixed);
+"App" / "shipped" in this folder always means the **historical app path at `f45bbe549` (the 0.3.1 release)**: the
+harness imports that commit's `temporal_service.py` and `model_server.py`. `main` has since changed production
+extraction (`70707fa3b`: amounts in words, exact numeric parsing, quote and singleton fixes), so these figures are
+historical, not current `main`; see [`baseline-audit.md`](baseline-audit.md). Open loop = a filter on the app run's
+candidates (its prompts fixed);
 closed loop = the configuration's own beliefs in its later prompts. Empty ledger: 69/124. Regenerate with
 `python3.11 dev_tables.py` (no model; 27 s).
 
 | configuration | QA /124 | current /43 | as of /38 | changes /43 | gold found /60 | wrong writes | inbox | correct proposals | QA after review | gen s / meeting | only / only vs app, p |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| shipped app path (baseline) | 90 | 28 | 36 | 26 | 26 | 46 | 119 | 25 | 92 | 57.6 | |
+| app path at f45bbe549 / 0.3.1 (historical baseline) | 90 | 28 | 36 | 26 | 26 | 46 | 119 | 25 | 92 | 57.6 | |
 | + amounts in words kept (open loop) | 93 | 31 | 36 | 26 | 29 | 46 | 122 | 28 | 95 | 57.6 | 3 / 0, 0.25 |
 | + stop at the first repeated event (open loop) | 90 | 28 | 36 | 26 | 26 | 46 | 119 | 25 | 92 | 54.3 | 0 / 0 |
 | support check, tau 0 (open loop) | 87 | 23 | 36 | 28 | 23 | 27 | 80 | 22 | 89 | 57.6 | 3 / 6, 0.51 |
@@ -190,7 +201,9 @@ value, which is exactly what breaks the contract.
   `0a713e9b1`, `data/manifest.json`).
 - **Frozen:** candidate A and the hashes of the harness, mechanisms, engine files and data
   (`results/validation/candidate-A.json`).
-- **Primary:** QA with exact routes against the shipped path, paired exact sign test, Holm over all candidates
+- **Primary:** QA with exact routes against a production baseline that must be chosen and frozen at preregistration
+  (the commit of current `main` and the hashes of its `temporal_service.py` and `model_server.py`; not the historical
+  `f45bbe549` path cached here), paired exact sign test, Holm over all candidates
   (A plus any specialist candidates). **Guardrails:** gold events found >= baseline - max(2, 5%); correct proposals
   >= baseline - 2; wrong writes <= baseline; unclean replies <= baseline + 1; current-value questions >= baseline - 2.
   Closed loop; one run; `validate.py` refuses changed files and a second scoring.
@@ -239,6 +252,7 @@ python3.11 lease.py job -- $PY run.py parity      # in-process requests against 
 | `dev_tables.py`, `small_tables.py`, `guard_summary.py`, `route_summary.py` | the tables above, from the caches |
 | `support.py`, `consolidate.py`, `numwords.py`, `revertonly.py` | mechanisms tested (R in `revertonly.py` is new and unfrozen) |
 | `test_modevalue_contract.py` | product-contract fixtures for A's per-meeting rule (no model) |
+| `baseline_audit.py`, `baseline-audit.md` | empty-record floor with the real engine, per-type and paired results, scorer windows |
 | `wsp.py` | the edit rebuilt, checked against the release, its survival under 4-bit quantisation, applied at load |
 | `run.py` | model jobs (extract, route, guard, parity, suite) |
 | `validate.py` | preregistration, single run and scoring of the final validation (not run) |

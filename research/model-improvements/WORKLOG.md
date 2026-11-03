@@ -190,3 +190,13 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   nosys + numwords + loopstop base (nearest to A) QA 99 vs 92.3, 90th percentile 95, 2/1,000, gold kept 28 vs 25.2,
   wrong writes 29 vs 42.7. Passes the rule with 1,000 draws as with 300; descriptive after the variant selection; does
   not change the contract verdict.
+- 18:30 **Baseline audit** (`baseline_audit.py`, `baseline-audit.md`, `results/baseline-audit.json`; no model). The
+  empty record measured with the real engine (nothing extracted) and both routers: 58/96 on October's test questions
+  (0/34 current, 29/29 past date, 29/33 changes) and 69/124 on dev. October's 4B ledger (59/96): 18 questions only it
+  gets right, 17 only the empty record (p = 1.0); 18/34 current values and 0 of the 4 real changes. On the 38 questions
+  that need a value, October's full context (26) and BM25 (23) are ahead of the 4B ledger (18); the ledger leads only on
+  the 58 "none"/0 questions (41 against 15 and 14). DeepSeek's ledger (31/38) and the 4B with a perfect reviewer
+  (31/38) clear the floor (p < 0.001). Scorer windows: 13 of 46 test gold events accept any write within more than
+  50 turns (widest 369); the attribution specialist's false-credit case (a write about company profit counted as a gold
+  event inside a 14-117 window) is cited, not copied. The "app" baseline here is labelled as `f45bbe549` / 0.3.1
+  history; `main` 70707fa3b differs in production extraction.
