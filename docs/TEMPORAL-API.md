@@ -44,9 +44,10 @@ or approves memory.
 The meeting window checks each committed caption turn as soon as the speech worker
 publishes it (turns are appended, never rewritten), one at a time, oldest first. The
 check is on unless switched off, and the choice is remembered. A turn whose check fails
-is tried once more. Cues are deduplicated, keep their evidence (value, quote, speaker,
-meeting and offset), and at most three are shown. They are review prompts, not
-declarations that a speaker lied.
+is tried once more. When the meeting ends, turns not yet checked get a last pass of at
+most 30 s, and any left unchecked are reported with the draft. Cues are deduplicated,
+keep their evidence (value, quote, speaker, meeting and offset), and at most three are
+shown. They are review prompts, not declarations that a speaker lied.
 
 `live_ask` (`live_ask.py`) accepts an explicit question during a meeting. With the
 app's Qwen worker it answers from two sources kept apart: the approved value of a
