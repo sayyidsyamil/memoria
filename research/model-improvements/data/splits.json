@@ -1,0 +1,11 @@
+{
+ "written": "2026-11-03 12:17 +08, before any model call on new-dev or new-val",
+ "old-dev": {"series": ["ES2003", "TS3004"], "data": "research/ledger-engine/data/ami_v0", "role": "development"},
+ "old-test": {"series": ["ES2004", "ES2014", "IS1009", "TS3003", "TS3007"], "data": "research/ledger-engine/data/ami_v0", "role": "regression only"},
+ "new-dev": {"series": ["ES2011", "IS1008", "TS3006"], "data": "research/model-improvements/data/ami_new", "role": "development"},
+ "new-val": {"series": ["ES2002", "ES2005", "ES2010", "ES2016", "IS1001", "IS1004", "TS3005", "TS3010"],
+             "data": "research/model-improvements/data/ami_new", "role": "final validation, run once",
+             "selection": "lowest sha256('memoria-model-improvements/validation/2026-11-03/' + series) per corpus: 4 ES, 2 IS, 2 TS of the 23 complete scenario series never used for extraction"},
+ "reserve": {"series": ["ES2006", "ES2007", "ES2008", "ES2009", "ES2012", "ES2013", "ES2015", "IS1000", "IS1003", "IS1006", "IS1007", "TS3008", "TS3009", "TS3011", "TS3012"],
+             "role": "untouched in this round"}
+}

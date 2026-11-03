@@ -1,0 +1,30 @@
+{
+ "model.language_model.layers.15.mlp.down_proj.weight": {
+  "edit_norm": 1.7488863468170166,
+  "rank1_share": 0.9999945163726807,
+  "after_q4_norm": 1.8202130794525146,
+  "cosine(edit, q4 difference)": 0.9566017985343933,
+  "loop direction written by edited columns, bf16 -> q4": [
+   0.15306052565574646,
+   0.1520763486623764
+  ],
+  "same, stock": [
+   0.030609484761953354,
+   0.03068281151354313
+  ]
+ },
+ "model.language_model.layers.19.mlp.down_proj.weight": {
+  "edit_norm": 1.3987622261047363,
+  "rank1_share": 0.9999914765357971,
+  "after_q4_norm": 1.469512939453125,
+  "cosine(edit, q4 difference)": 0.9438995122909546,
+  "loop direction written by edited columns, bf16 -> q4": [
+   0.12008099257946014,
+   0.11918260157108307
+  ],
+  "same, stock": [
+   0.024014391005039215,
+   0.023991968482732773
+  ]
+ }
+}

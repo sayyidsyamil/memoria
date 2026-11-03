@@ -1,0 +1,815 @@
+chain: TS3010
+language: en
+note: REAL meetings: AMI Meeting Corpus (CC BY 4.0) scenario series TS3010a-d, a role-played design team speaking spontaneously. Turns = AMI manual words merged per speaker (gap <= 2 s), turns under 2 words dropped. Gold = decisions listed in the human DECISIONS abstracts, evidence found through the human summary links; the slot list and allowed values were written by the AI assistant. Meeting dates are assigned (weekly) because AMI has none. Not the product's target domain (corporate board meetings).
+now: 2026-03-02T00:00:00Z
+people: id=Industrial Designer, me=Marketing Expert, pm=Project Manager, ui=User Interface Designer
+object: battery | decision | Battery type | outcome:enum[normal battery,rechargeable,kinetic]
+object: case_material | decision | Case material | outcome:enum[hard plastic and rubber,plastic,rubber,wood]
+object: lcd | decision | LCD screen | outcome:enum[included,excluded]!reverse
+object: navigation | decision | Navigation control | outcome:enum[push buttons,joystick]
+object: colour | decision | Remote colour | outcome:enum[normal colour,special colour]
+
+meeting: TS3010a | 2026-02-02T09:00:00Z | ingested=2026-02-02T12:00:00Z
+pm: So welcome. The first kick-off meeting. What shall we do? First the opening, then the rest. What are we going to do. We m have to make a new remote control. It has to be original, trendy and user-friendly. So we will get back th on that. First we have to make a functional design. After that we have to make a conceptual design, and then after that a detailed design. So we'll discuss that later. First we have a look at. So first to we have to make a small painting. What have do we have to do. First you can save the documents. We have to do that every time we make something. You can print it. No. And we have to use the pen and the eraser. So Now. We all have to use this one. You have to make your own favourite animal. So I'll make an example. First don't touch that things.
+pm: You can use the pen. And then you can make um
+pm: Um you can change some things. Um format,
+pm: line, and change it.
+pm: And you can change the colour.
+id: An elephant.
+pm: So that's it.
+pm: So and after it you have to save it. Now we can make a new one. You have to paint now. So you're next.
+me: Well we will try.
+me: Where it going?
+ui: That's uh strange.
+pm: What is going on?
+id: pop-ups.
+pm: What are you What?
+id: What is this, Pictionary.
+id: Uh a bird.
+pm: Is a It is a It is a
+pm: A duck.
+me: So Now save?
+me: Now uh blank?
+pm: Blank, yes.
+pm: Okay next one.
+ui: Okay. Let's try this. Uh
+me: Yeah, yeah.
+ui: Um. Mm-hmm.
+id: Oh not. Oh.
+id: Okay. Okay. Yeah. No problem.
+id: Shit happens.
+me: I'm not getting anything uh on my screen now.
+id: A parrot. Ish.
+id: He did it before.
+ui: No, no. Yeah. Okay.
+pm: Very good.
+ui: Uh blank.
+id: Thank you.
+pm: Okay. Very good. So um you can always go back. So
+pm: That's it. So that was two. Now next. The budget. The b Uh we will sell the t at twenty five Euros. And we have only twenty of twelve and a half Euro to make it. So now we have to think about what we will make. First I wanna hear from you. Uh what are your experiences with remote controls. So
+id: Uh I will start. Uh Big one, they are uh not easy to use. Um I have one set and uh a remote control, when I dropped it, uh it broke. So that won't be uh our goal, I think. And uh g big buttons, m uh that's easier to use than uh I think.
+pm: F first.
+id: Not all the small buttons, you don't know
+pm: Is this positive or negative, that uh big buttons?
+id: Big buttons, positive. All all small buttons like when you have uh like a hundred buttons on your remote control, you won't know what they're working for.
+pm: Okay. What are your experiences?
+ui: Uh well I think the the the goal of a remote control is that it's it it has an influence on the T_V_ set. And that it controls the channels and the the volume.
+ui: And uh I I I think it's positive if there's a a LED uh uh a LED on the corner of the of the remote. So that you know it s it still has batteries on it in it. And that if you push the button the LED uh gives a light, and uh and you see that it's working. And uh yeah. Uh
+pm: So and do they always have that?
+ui: Yeah, but
+ui: No no no. But I my my experience is that it it it's convenient to have that. Yeah. Yeah.
+pm: It's easy to you. Okay. 'Kay.
+me: Uh at home we have a T_V_, a video uh recorder, a D_V_D_ player, and a satellite receiver. We have uh four distinctive remote controls for that. That's not really ea easy. So it would be nice if we have one for all.
+id: Thank you.
+id: Help also. Thank you.
+me: And we also had a remote control for our radio set. But um i it it had a lot of buttons on it, and you didn't know which one was what. And it was uh uh v not easy to use. So we n barely used it.
+pm: Okay so they have too much. So next. For our own remote control we have to think how do we make it. So what ideas do you have for it, for the new remote control? What what does it have to have?
+id: The weight. Not not too heavy.
+pm: Not too heavy.
+id: Not much buttons.
+id: Bust-free. That when you drop it, it won't break. Like uh some kind of rubber on it. Or hard uh hard plastic.
+id: Uh buttons not too small.
+id: Uh something like when you uh lose your uh remote control, sometimes it happen. Uh it between the couch and you can't find it. When you push a but a button on the T_V_, then you hear some uh some sort of bleep. And then you uh, hey there there's remote control.
+pm: Like a phone.
+pm: So, that's.
+ui: Yeah well that's that are good ideas. Uh Yeah well the LED on the corner, that that indicates that it's working. If you push a button. Um
+ui: And looking on the budget, not too expensive uh material. So probably plastic or something. Uh
+me: Yeah I think it uh from a marketing point of view, it also has to look nice. Or you won't sell it.
+me: And um yeah uh on our website we can see what products we already have. And it should work with as many uh as possible of them.
+pm: Okay. This is It has to be compatible with other things. Okay.
+id: I have one more idea. Just popped up.
+id: Uh it it won't take a lot of batteries. So you don't won't have to change the batteries uh once a week or uh once every two weeks.
+pm: No battery use.
+pm: So more ideas?
+ui: Mm no.
+pm: No okay. It's only the first ideas. So uh what are we going to do now is Next meeting is in half an h hour. Uh
+pm: Okay. Next meeting, half an hour. Um, what you have to do. Well look on your. And Next instructions you'll get in your email. So This is the first meeting. See you later in half an hour.
+id: Okay. Thank you.
+
+meeting: TS3010b | 2026-02-09T09:00:00Z | ingested=2026-02-09T12:00:00Z
+pm: Okay. So welcome back. What do do we have to do?
+pm: So first. I want to say I'm the secretary, so I make the minutes. You find them in your in the map in the From the group. There's the minutes from the first meeting. You'll find the next minutes also there. Then I wanna hear from you, what you've done. And after that I have some new product requirements. So And after that we have to make decisions, what we will do. And then we're ready. We have forty minutes for this meeting. After that we'll have lunch. So first I wanna ask the Industrial Designer to tell what he did. So
+id: That's my task. Okay. Uh I've
+id: Where have I put it? My Documents or not?
+id: I've save it on my computer, my presentation.
+pm: Yeah on your computer, or the
+id: But where?
+pm: What's the name?
+id: Uh uh uh
+pm: What's the name of it?
+id: It was about the working of the remote control.
+pm: It's the technical function or the functional requirements.
+id: Not a of
+id: The working design. But I've saved it.
+pm: Working design.
+id: But now I don't know where it is.
+pm: Working design. What is this? Product documents.
+id: And I import this until
+pm: On the desktop.
+pm: Up. up.
+id: One more.
+pm: Up. Up. Up. Yes. My Documents.
+id: What the fuck is this?
+pm: Gone. Well you Um Nah. Nah, nah, nah. PowerPoint. Working design.
+id: Yeah that's the empty one.
+id: I had one.
+id: Uh-huh.
+pm: of working design.
+id: Open it. Okay here it is.
+pm: Save as.
+pm: Uh it's
+me: Yeah. Okay. Well.
+pm: Very good.
+id: A little later but here it is.
+pm: Okay. So
+id: So okay. It's a little difficult what I'm gonna tell you. It's about the working of the remote control. I just had an half an hour j to study it and I don't get it.
+me: Make it.
+pm: Now have ten minutes to tell it.
+id: Ten minutes to tell it. Okay. I think it will be a few minutes and First uh I will tell you something about the findings, what I discovered about the remote control. The working bout it uh of it.
+id: Uh then I'll have uh some kind of map, and it's the top of the remote control. With a little bit of science, uh you I will show that uh in in a few minutes. And then uh what I'll think about it. First, the findings. The remote control is a very difficult uh thing to uh to explain to just all of you wh who haven't seen a remote control uh inside. Uh there's a lot of uh plastic on it, um because its uh not so expensive. And there are uh a lot of uh wires, uh which um connect the components in it, the battery, and there are um switches and things like that. There's a lot of small uh electronics. So it won't be um uh too expensive to build it. Only twelve Euro fifty I think uh we will make it. Now And here I have the top of the remote control. Uh here's some kind of chip. Uh on top of this, there are uh the numbers. Uh you have all on your remote control. And uh the teletext uh button. And uh here's the battery. And when you push the button, it will uh will be sent to the chip. And the chip will um send it to all kind of sub-components. That's what I said, it's very difficult. And after that it will be sent to the infrared. And that will send it to your television. That's a short h uh how it works. Uh I think I can uh make it uh difficult, but we all we all don't get it. My preferences? It's uh it won't be uh We shouldn't make it too big. Uh also for the cost, uh we should only put one battery on it. A long-lasting battery. Uh also for the cost, uh use only plastic. Not other materials. Also because of the cost, uh not too much buttons on it. We can also make uh a button uh with a menu uh button. And then um that that you will see it on the T_V_. And on the T_V_ you can uh switch into the menu. That's I think it's easier.
+ui: Mm-hmm.
+id: And the bleep signal, y uh you told us. Uh but we can also use it uh a bleep like something, when the battery's empty, then there is a bleep. Then you'll have to change it in a in a week or something. And also the bleep, when what I told you about uh when you lost it, and you push a button, and then you hear bleep bleep, and we will find it. This is uh just uh Yeah. Yeah.
+pm: Oh oh. Two questions. The battery. You say one battery is cheaper. Why?
+id: If we w if we use only just one uh small pen-light, then it will be cheaper than when we use two.
+pm: Yeah but when you use two, you can use it two times longer.
+id: Yeah but then we'll have to make the um remote control uh long lasting. Just
+pm: Okay so it's the size of the remote control. Okay and the buttons. When you use it on the television, you've you need the television, wh which can use it.
+id: Yeah. But uh I think this our remote control is for the televisions we uh we sell in our company? Or is it also for other company uh for other televisions?
+pm: I think we have to use it also on other televisions though.
+id: Then this is an option. Maybe just a menu button to use it on our televisions. And then we make it easier uh for our televisions. And on the other tele televisions, you can also use it, but then we won't use the
+pm: Yeah but I don't I think it They are two different things though. We have to choose one. It has to work on o uh all televisions.
+id: Yeah? Okay. Then I think uh the menu button uh will only work on the newer televisions. And we will uh look forward and don't make a remote control which for the older televisions.
+id: And I just uh have one more idea. Uh maybe it's one of your tasks. But Uh, to have a trendy remote control, we can also um make something like the Nokia um mobile phones. To change covers. So if you have uh a trendy half with all red, uh yellow and something. And then you can put a red cover on it. And also different things.
+pm: Yeah. Good idea.
+me: Will this will this add to the cost?
+id: Uh then it won't be uh will have just one cover on the uh original one. And then you can buy the covers.
+me: Yes but you have to m uh be able to change it. D does it make it more difficult to design?
+id: I think it will be a little more difficult, but not too much.
+pm: Mm-hmm.
+me: Not much. 'Kay.
+id: Just like with the Nokia uh mobile phones. Just one.
+pm: Yeah but there are much more Nokia telephones than um these ones.
+id: Yeah but then we'll have to to just um put five covers on it, and see if it works. If it won't works then we'll get something else. Then we uh won't g uh go further with it.
+pm: Yeah but are their profits bigger than their cost?
+id: Uh a p a a cover made in uh in China, it it won't be I guess so expensive I think.
+pm: Yeah but there are also design cost. I don't think When you have a remote control, do you change the cover?
+id: Maybe. I wi I won't. But maybe I think trendy people or like children where you can paint on it, and uh the the children think, oh this is my remote control, uh I made a picture on it. Uh
+pm: Would you change the cover? No.
+pm: N yeah but
+pm: I think that too less people would change it for good profit. So
+id: Yeah. Okay.
+id: And the other people? What do you think about it?
+ui: Yeah it's a good idea. But If if it Yeah, I don't I'm not sure if it will make profit enough to uh But it's uh yeah it's uh original idea.
+pm: Yes it is but I don't think we have to do it.
+id: Okay. You're the Project Manager. Yes. That's it.
+pm: Okay. That's clear. Okay thank you. So now the User Interface Designer.
+ui: Oh. That's me.
+ui: Come on..
+ui: Yes well uh uh I shall give a short talk about the the technical function design. Um I thought the the the technical function design was uh to uh for a remote control to to to have some influence on the T_V_ set. Uh both audio and vide video uh in a cordless way. No cords attached. And uh well, it all by pushing a button on the remote. That was from my own experience and uh and uh the previous meeting. Uh I find some uh some interesting quotes on the web. Uh well the same idea here. Uh message to the television. And uh and and and well basic uh operations like on and off, and uh switching channels, and uh and maybe uh teletext or something like that. Uh well these are two uh remotes, and that's our uh our dilemma I think. Uh We just heard from the Industrial Designer how uh difficult it is. But uh shall we make a basic remote control, uh just uh swapping channels and volume and uh power button and well nothing much more. Or uh uh more functions on the remote. Uh maybe more devices you can influence. Uh a radio or a v a video recorder, uh V_C_R_. Yeah well that's our dilemma. Um any ideas about that? Basic or multifunctional?
+pm: We'll got back on that later.
+ui: Okay yeah. Yeah well the that was just on my mind. So uh I didn't know what uh
+ui: what way we would go.
+ui: Mm yeah well that was my uh functional uh talk.
+pm: 'Kay, thank you.
+pm: Then it's your turn, the marketing expert.
+me: Okay. Uh um m
+me: Um yeah okay. This bit too far.
+me: So I'm uh gonna have a presentation about um the market, about um yeah what people think. Uh we did a usability lab-test with a hundred persons. And we looked at uh several um things. Uh among them design, uh d d how d did they like the use of it, uh what frustrations they had while using remote controls. Uh well what what will be our market. And uh we asked them if we had some new featu features. If um that would be a good idea or not. Well our findings. Uh our users, they disliked the look and feel of current remote controls.
+me: Um uh they especially found found them very ugly. And um th they also found them hard to to learn how to use it. Uh well they also zap a lot. So uh zapping uh should be very easy. And uh fifty percent of the users only use ten percent of the buttons. So a lot of unused buttons. There is more findings. Uh on the buttons. Which uh buttons find users uh very important and which which not? And how much would they use them? Well uh the most used button is the channel selection. And uh we asked them how uh relevant they think uh the buttons are. The power, volume and channel selections are very relevant. Uh teletext is uh less relevant but also important. Uh not important they found the audio, uh that's not the volume but uh specific the the pitch, or the left or right. Uh the screen and the brightness. And uh channel settings. Uh th and they also are not used very often. Then we have a few um graphs about the market. Uh here we can see what the market share is of uh several groups. Um as you can see, most users are uh between thirty six and forty five. Um the the the younger group between sixteen and twenty five is not very big. And to come back on the the swapping uh things, uh I don't think uh, I I think the younger will be most interest in it. But uh they are not a very big group. Um in the we asked them, uh how would you like a s a new feature. If you have an L_C_D_ on the remote control, what would you think of it. Now you can clearly see young users say. I will that would very nice. And older user think uh they will be scared of change I think. And they won't like it. And another thing, how would you like to have a speech recognition on it. Well here we see the same. Young users uh think that's an interesting idea. And old users not. Uh well we uh found out that there are two several markets at which we can aim. Uh the first are the younger, the age between sixteen and forty five. Uh they are highly interested in the features, as you can see uh here. And um they are more critical on their money spending.
+me: Uh the second group is the older group. Aged between forty six and sixty five. They are less interested in uh new features. But uh they spend their money more easily. Now if we look back at this graph, we can see that among the first group is about um sixty percent. And the second group about forty percent. So the the first group is bigger. Well then I come to my uh personal preferences. Uh yeah the first question is uh also we have to ask is at the which market do we aim at. Uh of course n uh saying we aim at the young group doesn't say that old people won't buy it. But less of them will buy it. Um well I uh Okay. What I thought, um even young people say it's hard to use, remote control. So if you make a remote control that is uh very easy to use, that's especially aimed at this group, even uh the young group will also be more interested. And um we can make special features. But uh I think it looks nice in the first time. But when use it, uh I don't know what's uh good thing of speech recognition.
+ui: Mm-hmm.
+me: Um well th uh that's my second point. Uh less important functions should be discarded from the remote control. It's about discussion we had earlier. Um You can find most functions on a T_V_ set. So uh you don't have to have a lot of audio options, or screen options to change the brightness. And such things. Um well the design is very important. One thing I did not say I think, is that a lot of users also said then I would uh buy a good looking uh remote control if there will be one. But they found most remote controls very ugly. So the design of our remote control is very important. And uh yeah it should be very zap friendly, as most users use it for that.
+me: That were my findings.
+pm: Okay thank you. Yes.
+id: Yeah. I have uh one question. If we aim for the younger people, um and there will be uh a lot of features like L_C_D_ or the the the speech uh f recognising, uh the cost will be a lot of h uh a lot higher. Uh I think we don't have that in our budget. Do you think? Like
+ui: Mm-hmm.
+ui: And I don't uh I don't think twenty five Euros for a remote is really cheap or something. So it's
+id: No. No.
+ui: Yeah, it's hard to uh
+ui: get the younger
+id: Uh-huh.
+pm: I think uh the L_C_D_ is cheaper than speech recognition. So I think that can be an d good option. L_C_D_.
+ui: Mm-hmm.
+ui: Just the L_C_D_? Mm-hmm.
+pm: Yes. Only the L_C_D_.
+pm: So But we'll come back on that.
+pm: Now Oh, go on.
+pm: What d d d um
+pm: Uh we go back on the decisions later. Now we have a few new product requirements. First, teletext. We have internet now so we don't need the teletext anymore. So not necessary. Next. Only for the television. So we don't look at the other things like the radio or something. Only the television. Third.
+pm: We look at the age group of forty plus. Uh no, younger than forty. Is a g big group, and like you showed, n not very much people buy our stuff.
+pm: Fourth point. Our corporate colour and slogan must be used. Very important for the design. So you can see it on our site. Next. Um no.
+pm: We have to make our decisions, what we want to do. So like you said, we need the. Maybe it's good to put it in a document.
+pm: Now we have to decide what controls do we need. So maybe you can tell us.
+me: Yeah maybe we can first have a discussion uh on the the product requirements you just uh said.
+me: The the requirements you just said, maybe we should first have a discussion about that. I uh personally think uh teletext is a good option. Uh not everyone um who is looking T_V_ can go to internet when they want to see the latest news.
+pm: Yes, it's okay.
+pm: Yeah but we don't use it. It's a new requirement. So, it's not my requirement.
+id: 'Kay, we'll just have to do that. Okay.
+pm: We have to do this.
+me: Okay. Okay sorry. Then uh
+id: No discussion about it. Okay. Unfortunately.
+pm: So what controls do we need?
+pm: Who first?
+ui: Well a power button?
+pm: Okay. Uh power.
+ui: Uh the well um I think separate channels. So
+pm: Uh mm channel.
+ui: But then both the the separate channels. So so uh zero to nine or something.
+pm: Zero to nine.
+ui: Uh volume.
+pm: Maybe it's easy to pick. What was w your one? Techno
+me: Mine? It's the functional requirements.
+pm: We had w uh no no no no. Where was that example of the
+ui: Oh mine.
+pm: Johan. That was the the the the the technical
+pm: Okay. What do we need? On-off. Zero to nine.
+id: To change to the next channel, just one button. To move up, move down.
+pm: Yeah that's the channel.
+me: D Yeah. Do we make a menu?
+pm: Menu? Uh yes the n newer televisions ha do have menus. Uh
+pm: M Menu. I think um
+pm: the only one or two numbers.
+ui: Mm yes.
+pm: And Hello?
+pm: That's ch
+me: I think it will be um q quite easy to use, to have uh uh four arrows. Up-down for channel selection, and left-right uh for volume. And uh a menu uh button. And if you press the menu button you get into the menu, and you can use the same buttons. But the then to scroll through the menu and to change the options.
+pm: On the L_C_D_ screen, you mean?
+me: Uh well yeah that depends on if you have uh the menu on the T_V_. Or you get the menu on the L_C_D_ screen on the remote control.
+pm: Think it's better to have it on the remote control, 'cause it it has to work on all televisions. So
+id: But then we come to the costs.
+pm: we need N Yes. But if we have this
+me: 'Kay. But well if you aim at the younger market, um a as they as uh s uh as we seen in the usability uh lab, uh they will buy a nice looking um remote control. And also to find the easy to use uh part very important. So if we have a L_C_D_ sh uh screen, and uh not too many buttons, I think that will incre uh uh even when it's a bit more cost, it will still sell.
+pm: So now we don't have a lot of buttons.
+pm: Is this enough?
+pm: Mute. Maybe in the menu?
+ui: Yeah but then it's always uh more than one uh
+pm: Mute. Mm-hmm. Okay.
+ui: thing to do.
+pm: Maybe more?
+pm: Well. Then that's all. This will be the buttons.
+pm: I think that's enough for the next phase. So we can go on to
+id: But now we have only the buttons. And uh we don't yet have to decide what the remote control would look like? Or
+pm: No that's for the next phase. Um
+pm: Phase two is the conceptual design. So then we'll have the concepts.
+pm: That's for the So uh next point. Now we have lunch-break. After that we have t thirty minutes for work. And you can find the minutes in the Project Documents folder inclusive the uh buttons. No. Your individual action, you can find them in the email.
+pm: So now it's time for lunch.
+me: Okay. Good idea.
+pm: Thanks for coming.
+
+meeting: TS3010c | 2026-02-16T09:00:00Z | ingested=2026-02-16T12:00:00Z
+pm: Okay. Well, let's start. What are we doing? Oops.
+id: Ah, pinball.
+pm: Okay. Okay. Not doing. Uh
+me: Mm. Ah. Hey. Ah. Now I have my screen back too.
+pm: Very good.
+pm: Okay. we have presentations. So first, it's your turn. Yeah. Isn't it amazing.
+ui: Mine. Oh, great.
+me: Yeah. Very interesting.
+pm: Industrial Designer. Interface concept.
+ui: Yes, well uh let's uh talk about the interface uh concept.
+ui: Uh, first I'll uh I'll uh discuss the buttons we just chose, uh show you some samples, uh uh discuss some colours and design maybe, already. And uh my personal preferences. Well we chose the power button to switch the television on and off. The bu uh the mute button to switch the volume on and o on and off. The channels buttons, one to nine, and uh off uh uh zero to nine, and the uh button to choose uh higher channels than nine. Uh the volume and channel quadrants, uh left and right, up and down arrows, to uh do the volume and channel. And the menu menu button to man manipulate the L_C_D_ uh display. Um, I found some uh interesting uh uh samples. Examples. Um, well uh what's pretty standard is uh that it's that they're all pretty uh uh high uh
+me: Large. A lot a lot of buttons buttons.
+ui: Yeah. Yeah. Large and and and pretty thin and uh and long. Um, power buttons are mostly at the top uh left or right. Um, well we see the the the same uh arrows. Like there. And uh Yeah, well arrow b buttons can be blue. And what's interesting is the the the icons on the buttons. Some buttons have icons like the play and stop, but we don't use that. But uh, these we we have to choose the right icons, or or letters. Uh this is the V_ for volume, but they're both uh a V_. So it's it's not really very uh clear what's the function of that.
+ui: Um Yeah. So, that's
+pm: Can you go back one page? For the uh menu, what do we use for that?
+ui: Uh, well
+pm: We don't have buttons for the menu. Or we may have to use channel of the volume and channel.
+ui: Yeah. I thought that was our uh idea. So, uh how
+pm: Okay. But uh You have to put it on the
+ui: Like this. Or or this.
+ui: And that the menu button is okay.
+pm: Yeah but, has to be clear that you can use the arrows.
+ui: Yeah, okay. Uh, so the
+ui: The icons on the arrows, as well, you mean.
+pm: Mm-hmm. Yes. The second one.
+ui: Uh, well that's something to uh think about.
+id: Uh, maybe I'll have something in my uh presentation. And you will see it.
+ui: Um, well I don't I don't know if we have to discuss this already, or in the next uh meeting. But uh, as we have to uh to to design the the case and the whole uh remote control in our uh our our corporate uh company uh uh colours and the logo, I would uh recommend a yellow case. Uh, round edges. The logo at the bottom. And uh, well maybe each each uh set of buttons uh has uh has his own colour. So, it's good. Uh, recognisable. K so, I think.
+pm: Not too much colours.
+ui: Uh, no. Not too much. But uh No, no, no. But this has to be has to be trendy and uh and
+pm: No, it's not flower power.
+pm: S okay.
+ui: Uh, yeah so good uh good icons on the buttons, and uh and big buttons is my uh personal uh opinion.
+ui: That was that.
+pm: Thank you. So, you're next.
+id: I'm next, okay.
+id: Yes. No. Here we go. Uh, at first we will uh I will f uh say something about what younger people want, our uh group w uh w uh we want to uh sell our remote controls to. And then, I'll discuss what my opinion is about the costs, about uh what battery is in it, what kind of buttons also.
+me: Okay. Mm-hmm.
+id: First uh, the younger people, they want like soft mat uh materials and primary colours. Like, totally yellow, totally red. Uh, so it's visible. Uh, the shapes are curved and round, like uh you also said. Maybe it's nice to uh get a remote control not like all the other ones, straight and uh flat and long. But to give him the shape of your hand, so you it's easier to use or something like that. But that's just an idea. And then,
+id: I'll have to discuss about the costs uh of all the things for the remote control. The battery, there are few options. Uh, I think the best option is to use uh the basic battery. So, everybody can buy it uh at the at the supermarket. Or use uh a k uh kinetic battery like uh within a watch. When you uh shake it a few times, it it's loaded. Uh, the the form of the remote control, I think it's also nice have it curved. And maybe like it's hand-shaped. Uh, so uh you take it here in your hand and here are the buttons. Uh material, you use plastic. Hard plastic uh because uh it won't have to burst uh like in the in one time. And also rubber because the younger people like that, what we see in the research. Uh the push-buttons. We have one new thing uh discovered. It's a scroll push uh thing like a mouse. Maybe it's uh easy to use uh for the channels. When you want to go m move up, you just scroll up and click on the button, if you wanna see the next, uh if you wanna see that channel. And also for the mouse, uh for the volume, it's also uh easy to use. Just scroll a bit up, scroll a bit down. And that's also easy just w when you have a thing like this, and you get it here. You can do it with your thumb. And with your l left hand you can uh push the buttons uh if you push uh channel one, you can see channel one.
+id: The electrics um with a scroll push uh button, we must use regular uh chips. There are also uh simple chips. They are uh cheaper. Um, but then we have just a basic uh uh remote control, and I think there are a lot of those uh things, and people won't buy it any more. They have seen enough of it. And you have also advanced um chips. But that's with the L_C_D_ uh screen. And the costs will increase a lot more. And I think our budget is too low to use and an L_C_D_, and the chip who is more expensive. And maybe it's also then uh thoughtful if we u uh use uh as um different kind of uh shapes for the for remote control, that we then use the primary colours. Like, you get a yellow uh remote control, red one, blue one, et cetera. You have any more questions about this?
+id: I think the main thing is we look at the costs. And not too basic, not a basic remote control, who everybody already has.
+me: Yeah. But, thi i uh This is with an L_C_D_? No, not.
+id: Not with an L_C_D_. No.
+pm: No, isn't. But the L_C_D_ is easy when you use the scroll uh buttons. Then you can scroll, you see what number, and then you push.
+id: Yeah. But then, what I say, the costs will uh get a lot higher.
+pm: But then it's not easy to use scroll uh wheel.
+id: Th then you'll see it on the television.
+pm: If you don't Hmm, yes. But then. Yeah, then you go one down one up. When you scroll.
+id: Yeah but l when you see a menu uh on the television, it's like you see uh one to twenty, you go uh uh s scroll up, and push number tw twenty.
+pm: Yeah but like we said before, it has to be used on every television. So you may not be uh
+pm: No. The television must do that. So
+id: Mm-hmm. Yeah, I think the younger people will have newer televisions, which can provide our uh remote control.
+pm: Yeah but young people have to have all their uh room. And mostly they are smaller. So
+id: Yes. But that won't be a problem. I think.
+pm: Most the times that are not advanced televisions.
+id: No, but then we'll get to the regular uh remote controls. And I think, what I said, everybody has them uh has them already. And they go to a uh supermarket and buy them uh for two Euros. Uh, and ge and get the most cheapest uh thing. And I think we must look further to uh to devel d develop something news.
+me: Uh, can you give an indication in b uh in the cost difference between uh the chip with L_C_D_ or without?
+id: I got it on my screen and it was uh higher. But I don't know uh how much higher.
+me: 'Cause it I think if we have an L_C_D_, it will also sell a lot better.
+pm: That's important.
+id: That's true.
+me: And that might uh bring back the costs uh
+id: But then we'll I think we must discuss who uh what will be better. If we have a better shape of the um remote control, or better options on it. With a scroll menu, a w scroll thing, and a L_C_D_. And then a flat um remote control. Or, a more hand-shaped remote control, with scroll, without L_C_D_.
+pm: Yeah. Maybe you can look how how much it is for the L_C_D_. It's very important.
+id: I can uh look on my uh
+id: Note that the push-button requires a simple chip chip. A scroll wheel requires minimally a regular chip, which is a higher price range. The display requires a advanced chip, which is which in turn is more expensive than the regular chip.
+pm: Yeah, more expensive. But how much?
+id: Doesn't say.
+id: That's from my manufacturing division.
+pm: Okay. Well, thank you. Next.
+me: My turn?
+me: Mm. So
+me: Yeah. So, my uh presentation is about trend-watching. Uh, I did some trend-watching. It's very important to uh keep up with latest trends. 'Cause if you don't, you won't sell. So, well how we did do that? Uh, well we made an investigation of the market, by Trendwatchers. They uh watch in uh cities like uh Paris and Milan. Of course, well known for their uh trend uh trends. And well, uh what did you find? Uh, we have two groups, young and trendy, and the old and rich. Well th and the young and trendy, they uh they starting to like uh fruit and vegetables uh as a theme for n uh clothes, shoes, and also uh products. And um, material? That should feel have uh a spongy feeling. And to get a feeling for what it is, uh here is an image of it.
+me: Then the old and rich. They like uh dark colours, and simple, recognisable shapes. And um, they also like uh familiar material, uh especially wood. Now, another picture. To get a feeling for this. Well, uh then already come to my personal preferences. We uh aim at the younger market. So, we should also be uh look at their uh trends. However, with trends it's always if there's it's now. It it it might last one year, and next year it be uh can be totally different. And I think we want to sell our product for longer than one year. So, we m must not just only look at what the trend is now, as it might be totally different next year. So, that's uh one thing to keep in mind.
+id: Changing covers.
+me: Any questions?
+pm: No. It's clear.
+pm: So now, it's uh Ah, let's see.
+pm: Now, w we have to decide
+pm: Well, we have to decide on the concept. So, we have to look at 'S next. Components and user interface concept. So
+pm: Now, we have to make some concept. Maybe one of you can paint it on the board.
+pm: First, uh user interface.
+id: Uh, uh-uh. How w how we how we make it? Uh
+pm: Yes, a concept on uh Just
+id: Shouldn't we first discuss about like what w we all
+pm: Yeah, but maybe we can paint it. Uh, what do we want?
+id: Yeah, but if I paint with
+pm: I'll paint. Okay. Well
+pm: Something like this? Or
+ui: Mm, yes.
+pm: Shapes or What do we need?
+me: Can make several uh concepts.
+pm: Yes, okay.
+me: We have this, and we had the idea of an um a more uh uh uh like sh in the shape of your hand.
+id: More like something
+me: Yeah I I I uh yes.
+id: M like Yeah I can't dr I can't draw it. Uh I have to. I'm not a designer. It's more three D_. Like, um when you have
+pm: And you have to. Yeah.
+id: a part here. This is the remote control. And then you have something like th this under it. So, it's easier to get it like this. It's like a gun.
+ui: Mm. Yeah.
+me: Yeah. A g Mm..
+pm: So, it has to be soft?
+id: And it has to be soft, yeah.
+id: So, you can squeeze in it and Sorry? Buttons on top of it. And here.
+pm: And uh, the buttons? Buttons.
+id: The scrolling. You can do it with your thumb.
+pm: No, it won't.
+ui: But but i that's the only scroll uh button on it then?
+id: But now we use one scroll button and the other one is here. One till uh uh zero till nine. And the b
+ui: Yeah, okay. But but how
+pm: But, well there one for the sound and one for the channels.
+ui: Yeah. How
+id: Yeah? Or two buttons.
+me: And i if we go to uh
+pm: Uh, two scroll uh wheels.
+id: If uh 'Kay c If we do If we use one, then we'll have just a switch on it, and you'll just switch it, and now it's the sound to switch back
+pm: That's th that's more difficult.
+me: But if we have uh a me Yeah. If we have a menu, uh how do we uh choose other options?
+pm: It's better in
+id: with the menu uh button. And then you also can scroll uh scroll in it. Just not like all the other ones, with uh this thing, and uh here an arrow, here an arrow, here an arrow, here an arrow. Because uh, from h hundred uh remote controls, ninety nine have it.
+pm: But if we don't have a L_C_D_ we don't have a menu.
+id: Uh, then we have it on the T_V_, the menu.
+me: Uh-uh.
+pm: Yeah, but again maybe th How do we know the T_V_ can handle it? You don't know. So, there's no menu.
+id: I don't know. It's like some sort of uh teletext option, but we don't have teletext.
+pm: No. So you can't use it.
+id: And if we put an L_C_D_ thing on it, then the costs will uh be much higher.
+pm: Okay, we make two concepts. One with L_C_D_. One without L_C_D_.
+id: 'Kay. But you all like this kind of thing. Uh
+pm: Good concept. But
+id: With the scroll button. And and this one has to be soft. And this has to be harder, because when it falls, it mu mu must not burst. Or some kind of rubber around it.
+pm: That's one.
+me: Uh-uh.
+ui: Mm-hmm.
+pm: It's one. Two. Number two.
+ui: And you can and you can uh make the the power button as a trigger. Like uh
+id: Yeah. Yeah. Ah that's nice. Here. Trigger.
+pm: No. But when you handle it, you put it on and off.
+ui: Just to uh
+pm: It's not good to use.
+ui: Oh, like a
+pm: Yeah, but I'll zap. Fuck. Out.
+pm: No, it's not good. Now, second concept. One with L_C_D_, one without L_C_D_.
+pm: Then uh
+pm: Paint it.
+id: Paint it? With the scroll thing on, like this?
+pm: One with two scroll buttons and one with without. Yeah. Uh, one with a with a menu, and one without a menu. And the one with with a menu has an L_C_D_.
+id: Draw it.
+pm: Unbelievable. Do I have to do everything. Blank. You have
+pm: Not so difficult.
+ui: But if you put push the the menu button
+pm: Uh, that's the menu. There for the L_C_D_ screen.
+ui: Yeah, wh what Yes, but you don't know which of the scroll buttons you have to choose.
+pm: You have to For the menu.
+pm: Mm-hmm. One
+pm: that way. And one that way.
+pm: Then it depends on the cost. S On and off.
+id: But is it easy to use? When you have it on your left side, and
+pm: When it's not too big. Just like a a phone.
+ui: Mm-hmm.
+me: M uh yeah, maybe it's better if the uh scroll-wheels are um more separate, yeah. Like, you have the menu button in between uh
+id: Separate, more separate, h yeah.
+pm: Yes, okay.
+id: Yeah. On the left a scroll button, and on the right a scroll button.
+id: But would it be easy to use then? If it's like you have a big uh
+pm: Very good.
+pm: Is it better? When you uh the menu, you have to go there there there there.
+id: I also think this concept is not what the young people were looking for. They were like round curves, uh different uh
+pm: Yeah, okay. That's that's the outside. But now the First the buttons.
+id: Okay, okay, okay. Mm-hmm.
+me: Think we have we have now two buttons missing. The uh um The mute button.
+me: We have two buttons missing. The mute button. And um, the to to uh have to uh numbers
+pm: Mute. And the other.
+me: Okay. But, uh
+pm: Yeah. Not so difficult.
+id: Personally, I think two scroll buttons uh aren't easy to handle.
+pm: But how do you wanna solve it?
+id: With the switch button.
+pm: Yeah but on the menu that's not uh easy.
+id: No like uh
+pm: Then you go down, you switch, you go into the right, you switch, you go down.
+id: Oh, you mean like that. Uh, then you can also have like uh th um
+pm: A joystick.
+id: Yeah, and joystick, I think.
+pm: Yeah. But is it uh Does that break, a joystick? Or a small one just like in a laptop.
+id: Yeah like in a laptop, s uh s some sort of thing. A little bit bigger, with easier thi
+pm: Mean, it's better. But how expensive it is?
+id: I don't know.
+pm: Oh. Why do I pay you for? Um, well um
+pm: Better ideas.
+id: Or no scroll uh things. Just a shape. And No, no. It won't work.
+pm: For the young peoples I think scroll button's good.
+id: Yeah. Uh-huh.
+pm: So Think we have to keep them.
+id: Or a remote control more like joystick.
+pm: Yeah, but is it That's not expensive than uh Joystick is better. A small one.
+id: A small one like this, like a Nintendo uh k
+pm: No just like in a
+id: Playstation thing.
+pm: a laptop. Small, round.
+pm: Then it's not so big.
+id: No, no, no. I mean the the shape of the remote control. Just like a Playstation thing.
+pm: Oh the sh Yeah, but then you can You have to use t with one hand.
+pm: So Maybe, if it's possible, it's not too expensive, I think a joystick is better. A small one. So, please look at it.
+id: No, that's okay, I got
+me: And on the L_C_D_, how much it costs? Uh, it costs extra?
+id: Uh they're not uh
+id: in details. It's more expensive or less expensive, huh?
+pm: Yeah we I think you get it.
+pm: So, after this meeting you have half an hour to uh fix it.
+id: Then I have to come with it.
+id: I got my personal costs. I I don't I don't know the costs.
+pm: Your problem. Not mine.
+id: Then I'll uh make something up.
+pm: Okay. So, do we have other concepts?
+pm: Then for the components, we use a normal battery.  ## event battery.outcome = normal battery | INITIAL | quote="Then for the components, we use a normal battery." | tags=win_214_222
+ui: Mm, yeah.
+pm: Then it's Ch cheapest way, I think.
+id: Yeah, or the or the kinetic uh with normal battery. Yeah, I think it's uh, yeah, more expensive. Yeah.
+pm: No, no kinetic. Kinetic is uh ch makes it more expensive. So we use a normal battery.
+pm: Chip. Depends on the L_C_D_.
+id: Depends on the scroll.
+id: If we use a scroll, then we have the uh regular chip. If we don't use a scroll, then we can use the simple chip. And that's
+pm: Yeah. And uh, we If you use the L_C_D_, we have to
+id: Uh the most expensive. Yeah.
+pm: Yes, okay. So, depends on the L_C_D_ and the scroll. Okay.
+id: If we Yeah. If we No okay scroll-wheel. So, I have this. So, it will be uh the advanced chip, or the uh regu uh or the regular chip.
+pm: Okay. So, uh the shapes of the design depends on the L_C_D_ and But, it has to be small.
+pm: I think.
+id: Or shall we just put it on the pistol thing? And then just put also on L_C_D_ on it?
+pm: If you have pistol, it L_C_D_'s not easy. Y y Yeah but
+id: Just use your thumb.
+pm: If you use a phone.
+id: If you Yeah. I use my thumb.
+pm: k Yeah, but but then you have it. Like, th if you have pistol, you have it so. And the screen is
+id: Yeah. If you have a joystick on
+pm: Well, then you have to keep it this way to look at the screen.
+id: No, if you have like uh an uh uh a ni a uh Playstation uh game controller. And you move up, f forward, down, left. Then you have uh just, yeah, a little bit curved. It's not just uh straight.
+pm: No. No, no.
+id: That's how we use it. That's why they make joysticks like that, I think.
+pm: Yeah, but then you look forward. And then you can y
+me: Uh, yeah, but Yeah.
+pm: N well, if you have to look at it.
+me: If you
+id: 'Kay. Here's our designer.
+me: If we have uh then something standing here, with the L_C_D_.
+pm: Then it goes like this.
+id: Yeah, why not.
+pm: If th n well
+id: It's for the younger people. It's something new.
+pm: Yes, of course. That's good good. But the um, it may not break.
+ui: It's uh
+id: Now we put uh rubber around it.
+pm: Okay. If that's possible.
+me: Um, Yeah.
+id: Hard plastic, uh the shape, and around it hard uh around it rubber. And the uh the hand shape is also rubber.  ## event case_material.outcome = hard plastic and rubber | INITIAL | quote="Hard plastic, uh the shape, and around it hard uh around it rubber." | tags=win_251_258
+ui: Or you can uh
+me: I can't see the.
+ui: turn it inside.
+me: But, uh the easy of uh, th the ease of use wasn't uh the most important uh aspect of it.
+ui: But that's
+ui: No, that's true.
+me: Uh, for us it's about to sell it. Uh
+pm: Yeah of course. Okay.
+id: This is something new.
+pm: Then this is the design. And the buttons are on the next page. So, depends on the cost. So, um we have one minute.
+id: Costs are okay.
+pm: I think. No. More. Seven.
+me: No. You have more. You have still ten.
+pm: Next meeting. Thirty minutes. So hurry up.
+id: Oh, that's us together.
+pm: You two stay here. Paint it.
+pm: Now you have to. So
+pm: I think it's clear. Check your mail. So
+pm: It has to be ready in the next meeting. So
+pm: Next meeting is called the detailed design. So Everyth everything has to be ready.
+pm: Thanks for your attention.
+me: See you at the next meeting.
+id: Bye bye.
+
+meeting: TS3010d | 2026-02-23T09:00:00Z | ingested=2026-02-23T12:00:00Z
+pm: Okay. So, now um, last time. Can you uh push the button? One time please. So
+pm: I'm still the secretary. Now uh, I ask you to presentate the prototype. One of your you two.
+id: I don't care.
+ui: Oh this, you mean?
+pm: Yes. The prototype.
+ui: Yes, well uh this is it.
+me: This is it.
+pm: Well, thank you. Uh, now
+ui: It's uh it's uh it's yellow. And uh, this is rubber. And and and this too. The the sides. And the rest is hard plastic.
+ui: And uh We uh we had some uh We had a new idea that that this can uh can be uh uh turned inside. And then it covers the these buttons
+ui: until here or something. And then you can still use the the power button and the mute and the the joystick.
+pm: Mm-hmm.
+ui: So, you can still operate uh all the things. Because you don't always use the menu. And then it can break.
+pm: Okay. And the buttons?
+ui: Uh, well uh
+ui: Big buttons. And everything is blue, except the power button. And the mute. Of uh yeah, and the mute and the the other button. Yeah. Channel higher channel button.
+pm: And the joystick is for the volume and the channels.
+ui: Uh, yes. Yes, that's uh
+ui: Very obvious.
+id: Up is channel up. Down is channel down. To the right is volume up. To the left is volume down.
+pm: Okay, so if joystick and L_C_D_. What's the R_R_ d
+id: The R_R_?
+ui: R_R_'s the l the the the the company uh logo.
+pm: Okay. Very good. So, we have
+me: That's on the rub rubber part.
+ui: Uh, yes. Yes. That's about here.
+pm: So, what they say on the side is put fashion there. Yes. It's good. So, that's it. That's prototype. Now, the finance.
+pm: We don't know if it's th it if it's okay. So, I'm gonna look. We have Sorry?
+me: Do we Do we change the Do we change the the order? Or are we going to uh ev evaluate it first?
+pm: Finance is um Yeah it's No, first uh
+pm: Yes. We have to evaluate the product yet. Sorry.
+me: Okay. That's uh um That can be none.
+me: Um, we gonna do the evaluation now, together. But I have uh a introduction how it works. So, it will come up.
+me: Uh-oh. Okay. Um, yeah. Well, we uh uh, I have um thinked a few evaluation uh criterias, uh based on um our marketing strategy, on uh the latest trends, on user preferences. Uh, we have a seven point scale from uh true, as well. To false, seven? And on base of each c uh criteria, we need to um give a rating. We can uh Well, it look like this. But we gonna uh do it here, they said. So, you hope found out how to do it with a Word document.
+me: Okay, yeah. Yeah. Um, well uh we have the Word document
+me: You So we open up that blank here. Um
+me: Think I can Uh, what this just an example. So, this not very important. But um, if I can get a number in here.
+pm: No, it's okay.
+me: Well, uh we can't do that.
+id: I'll get it.
+pm: Oh, it's okay.
+me: Um, so uh you have to think of it as uh the remote control is techno technologically innovative. Uh, and then we have to uh agree on the rating together. And in the end, we will c uh count an average of all rating. The first uh on each item.
+pm: What do you think?
+me: Yeah, I think it's uh Uh, well technologically using, it's not uh it doesn't contain many new features. Only the L_C_D_. So, it Um, I think I will give it a yeah, yeah, yeah, a four. Hmm.
+id: I think the scroll-button is something also uh new. What uh not anoth uh, not a lot of uh a lot of uh remote controls have. I think technologically I'll give it an seven. Si six six. Sorry, six.
+me: So now i I think you uh see it um its statement. And you true or false. And true is one.
+id: Oh, true or false. Oh, uh I'll I'll give it uh a t a two. Sorry.
+me: So, yeah. Yeah.
+pm: Two. You?
+pm: Me too. So it's a three.
+me: 'Kay. Um, well
+me: It's a one. The first item. So, okay the second item. Um, this product is for all sorts of customers.
+me: Well, it's a statement which uh I disagree with, because we uh really aim uh at at young market and I think the way it looked uh c uh totally in yellow, it's not uh really aimed for all customers. It doesn't look like that.
+pm: So it's a
+me: That's uh a six.
+ui: Mm, four.
+pm: Yes, it's for the younger g group. So it's uh half half of the people.
+ui: Yeah, but it's it's
+pm: So I think it's four.
+ui: Yeah. I mean it still has l large buttons and not m many buttons. So I mean, the colours are for young people, but
+id: Mm-hmm.
+pm: Yes. So, I think it's four.
+ui: older Yeah.
+id: Maybe version uh three point O_ uh has other colours.
+ui: Yeah. Maybe.
+pm: Okay. Give it a four. Yep.
+me: Four. Uh, okay. Mm.
+pm: We put the fashion in electronics.
+me: That's uh the motto of our company. Yeah, well do we do this with uh this product?
+me: I um Yeah. I think if we do this, as it's uh uh c uh it's really orientates on the design. Um, so I would give it a two.
+id: Me too a two, because only the battery is not uh techin uh technologically high standard. But the rest of it is. So, I think a two.
+ui: Yes. Two.
+pm: Uh, I say uh a five. It's not fashion, it's new. It must be a fashion. But it isn't. Yes. It w If it's not a fashion
+id: It it will be fashion.
+pm: we can put it in it. So, it must be a fashion. I think it's a five.
+me: Uh Okay.
+ui: Then make it th three.
+me: Okay. Yes, I'll think of that too. Yeah, agree?
+pm: No. Oh. I use my feet though.
+id: 'Kay. Three is okay. Oh, we'll wait outside.
+me: A three.
+me: Yeah okay.
+me: The next element um is the product looks good. Well personally, I do not prefer a um remote control that's fully in yellow. So, I would give this a five.
+id: I give it a one.
+ui: Yes, a one. I like it.
+pm: Well, I say three. So, counting then is two and a half.
+me: We have to do our uh Two or three? Two. Okay.
+id: Say two. Two.
+pm: Okay, two.
+me: So, well we gonna do the next part. Uh, yep. Uh uh, the next statement. It has not too much buttons. Um, yeah, I I have uh said is not because uh a low number is better. And in the end we calculate an average. So, um that's why it's a negative in it. Um, well this one of our aims not have too much buttons. So, um uh did we uh do that? Well, uh if we go to uh this fashion, I We still have caused uh a lot of uh buttons for the numbers. But you can you can go for that. And um that way, you don't have a lot of buttons over. So, I would give this a two.
+pm: Me too. One.
+me: Um, but where where is the?
+pm: Next, six.
+pm: It does not get lost easily.
+me: Yeah, did we implement uh the sound?
+id: Uh Just a small thing.
+pm: No, we did not. So, but can it get lost if it's such a thing? I don't think so.
+ui: Yeah, but uh
+id: Ah. Yellow. Looks like a pistol. Uh
+pm: Yes. Not a not a normal shapes. So
+id: It won't get between uh the pillows uh on the couch.
+pm: No. It won't get lost. So
+me: It won't.
+pm: A one?
+id: Yeah, o one.
+pm: Okay, a one. Next.
+me: Okay, um well we aimed for the younger market. Uh yeah, did we achieve that. I think with the way it looks and um it is designed, I will give it a two.
+pm: Yeah me
+id: Yeah. Me too.
+pm: That was our target. Two.
+id: Two. Yeah? Yeah.
+pm: Yep. Right. There's a fancy look-and-feel.
+me: Uh, yes. That that was uh, yeah, one of the most important things that uh Trendwatch said. I didn't uh say it in my presentation. But um, well does it have that?
+me: I would say yes. So um Well, let's also give this a two. T
+id: I gave this a one because of the rubber. It feels soft. Uh, it looks like a l uh uh b uh, a bit like a joystick. It's Yeah. Yeah, f very fancy trendy.
+ui: Yes, a one.
+pm: I say a two. It's a a bit personal. If it's fancy. So I think s two is better.
+ui: Yeah, okay.
+me: Okay. Two. And um, then the last one I could think of, uh it goes with the latest trends.
+id: Two is okay..
+pm: No, it's new. Innovation.
+me: If we looked at the latest trends for the uh younger people, and they ate uh fruit and vegetables, well it has a um a nice colour, uh well compared to food but we didn't uh We did not paint any uh fruit and vegetable on it for something like that. So, I would did not give this uh a one or two. I We'll go for a three.
+id: I go for two because uh the the shapes are still round. Uh, the latest trends are soft things, you know, like uh I said in my presentation. Uh
+id: But the the colours are um basic, like yellow, red, um blue. Something what also younger people want. It's also a trend, so I'll give it a two.
+ui: Mm, three.
+pm: Me too. Three.
+me: A three.
+me: Okay. So um, come back to the presentation now. So, we find yourself there, and now we have to calculate an average rating. So, we will do that. Yes.
+pm: Effort is three, ten and twelve. Thirty, forty, fifty,. Twenty one. So, it's uh two and three nine two and one third.
+me: By nine.
+me: Yeah. Um, uh okay.
+me: Come on.
+pm: Uh, nah.
+me: So uh, that's a pretty low rating, I think.
+pm: So, it's good.
+me: So, according to our uh own evaluation uh we did a good job.
+pm: Okay. Thank you.
+id: Yeah, I think.
+me: Oh. Nah. How am I doing? Yes. And I closed your slide-show.
+pm: Okay. Back to my uh
+me: Which one was the last for you? Uh, dreaming.
+pm: Next please. So, now uh we have a product. Very happy. But uh, is it cheap enough?
+me: Next. Finance.
+pm: Um, so if uh I'll have a look. We have a battery. One battery.
+ui: Mm-hmm.
+id: Cheapest there is.
+pm: Okay, one battery. Electronics. Advanced chip.
+pm: Yeah it's the most advanced. Chip-on-print. We have that one.
+id: Well, it's the most advanced.
+pm: We have the simple, regular and advanced.
+pm: We have the adva advanced. 'Kay, so uncurved or flat. Nope. Single curved or double curved? We have double curved.
+pm: Then we have plastic, wood, rubber. we have half rubber, half plastic.
+ui: Mm, yes.
+pm: No titanium. Special colour.
+pm: Yes, yellow.
+id: Uh, yellow.
+ui: Mm, yeah.
+pm: Interface, push-button. Scroll-wheel, integrated scroll-wheel push push-button, or L_C_D_ display. So, we have the L_C_D_ We have two scroll-wheels? Or one?
+pm: And it's not really a s
+id: Joystick uh thing.
+pm: Yeah, it's this one. Now, uh button supplement. Special colour. We already Uh, that's the from the for the buttons. The buttons are regular colour.
+ui: Mm, yeah.
+pm: So, then uh then then then then then then Then
+id: We're not gonna make it.
+pm: Uh, no. It's too expensive.
+id: Yeah. Wh
+pm: So, we have to change something. Fifteen Euros. Yeah, well uh when we lose one scroll-wheel, it's okay. 'Cause we can't lose the battery. We can't lose the advanced chip. We can't lose the double curve.
+id: What what are the costs?
+pm: We have rubber, special colour.
+me: . We would have uh n
+id: A special colour. Uh, I don't think it's a very special colour.  ## event colour.outcome = normal colour | INITIAL | quote="A special colour." | tags=win_168_221
+pm: Oh, no, we No, it's uh Sorry?
+id: Yellow? Uh, is it a special colour?
+me: For a remote control. I've For a remote control, I think it is.
+id: What? Yeah.
+me: If we would have uh uh normal buttons instead of uh the joystick. For up down left right.
+pm: Um, then we uh lose two Euros. Then we have thirteen Euros. Half a Euro too much.
+pm: Exactly the special colours.
+id: And what if we use only one sort of um
+id: Um just only plastic or only rubber?
+pm: That's one Euro.
+id: One Euro discount.
+pm: So, I don't think that's good. Mm
+pm: I think we have to keep the L_C_D_.  ## event lcd.outcome = included | INITIAL | quote="I think we have to keep the L_C_D_." | tags=win_181_185
+id: If we change the joyst uh the joystick thing into a button up, button down, button right, button left.
+pm: Yes. Then it's
+pm: only thirteen Euros.
+id: And then we'll lose fifty cent in what?
+pm: So uh yeah.
+pm: Yeah. Then you have Or you have to cut this off.
+id: Uh uh-uh.
+pm: Then it's not good anymore. So, wait. Okay. I'll have a look.
+id: And if you say it's just a r uh normal colour it's a normal colour, wh No one will see it.
+pm: Yellow rubber. Yeah, normal.
+id: Normal colour, and the the joystick away, and put the button up, button down, right, left.
+id: And it's twelve Euros, I think.
+pm: One minute, please. Uh Is it maximum. Um
+pm: Yeah, it's normal colour.
+pm: But if you lose the joystick, it's still uh an advanced chip?
+id: No. Uh, no, no, no. Uh
+pm: Or it's then a regular?
+id: Oh, wait wait wait.
+me: The advanced chip was for the L_C_D_ wasn't it?
+id: Oh yeah.
+pm: So, the advanced is for the L_C_D_ and the regular for the joystick.
+id: Oh yeah. Yeah. Yeah, yeah.
+pm: And what if we lose the L_C_D_?
+id: If we lose the L_C_D_, then we have an uh regular chip and no L_C_D_.
+pm: Yeah, regular chip. But Is it a good design?
+id: Uh, yeah. Then you'll have to m uh see the menu on the television. And you don't have the L_C_D_.
+me: If uh
+id: So, the T_V_s has to uh have to be up-to-date.
+me: If we have the n no buttons If we have we have uh not a joystick but buttons, we would have uh, we have thirteen Euros?
+pm: Mm, yes.
+me: And then uh we move the the colour. What will that be?
+pm: Then it's okay.
+id: Huh. No knew that.
+pm: Okay, so no joystick. Oh no, but we then we get push-buttons from half a Euro.
+id: Yeah, then it's twelve Euro fifty, then it's okay.
+pm: Uh, yes, yes, yes, yes. No joystick. Push-buttons. No special colour. Twelve and a half Euros. Then it's okay. So, we have to change that a little bit. And you cannot use the red and green button. Because if you give them a s uh colour,  ## event navigation.outcome = push buttons | INITIAL | quote="No joystick." | tags=win_171_221
+ui: Okay. All the same uh
+pm: you have to pay
+pm: point two Euros.
+id: So, all the buttons has to have to be the same colour. But then the print on it will g um change it. Make it uh
+id: for everybody to see what button it is. Uh l How you call it?
+ui: Mm, yeah.
+ui: Recognisable. Like what Yeah.
+id: Recognisable, yeah.
+ui: Mm, yeah.
+pm: So Well
+pm: Now we have to change that, but that's okay. Rubber. What's the normal colour?
+id: Oh, well that's clear.
+pm: So And
+pm: So, now it's
+id: And the joystick away. And its buttons.
+pm: Yeah. It is. But then it will be
+pm: just that ones.
+pm: Now it's
+me: still, he waited at the
+pm: Very good. Now, uh project eva evaluation. Well
+pm: What do you think of it? Uh
+id: About the
+pm: About the project.
+id: process. Went good. Uh
+id: I think uh the creativity uh was good enough. We have a gun instead of a remote control. Um
+id: Uh leadership. Yeah, you were the project project manager, and uh had the final vote. So yeah that was clear. Team-work okay. Everybody uh has something uh to say about it.
+id: And uh no, uh o only the the drawing uh was very difficult. But, nah. New ideas found.
+pm: Okay. And you.
+ui: Yeah, well the same. I I espe I especially uh liked the the means, the the SMARTboard and uh Yeah, it uh
+ui: It brings up new ideas when you work with uh with it.
+me: Yeah, I think you have to compare it to if you would have a normal um normal project without laptops uh and without these devices. I think um Well, the laptops if you have them out front of you, you sometimes looking at that instead of the presentation. Um, well uh the draw-board, well you can draw things. But it not really going very convenient.
+ui: Mm-hmm.
+me: Uh, maybe it will be easier if you have a smaller monitor and uh you would also see there. And with a normal mouse. Um, and uh the project. Yeah, I agree on what was said uh mainly. Uh, yeah but you always have that some people are talking more than others. And maybe is then um the task of the the project manager to also uh ask more to the people uh less talking.
+me: To tell their opinion.
+pm: Okay. Well, what do I have to say. I think it was good. Not too many discussions. So, it's good for the speed.
+pm: So, I think we're ready. Good price. Evaluation ready.
+pm: That's it.
+id: Yeah? Okay then.
+
+question: q1 | current | battery.outcome | gold=normal battery
+question: q2 | as_of_valid | battery.outcome | valid=2026-02-05 | gold=none
+question: q3 | n_changes | battery.outcome | gold=0
+question: q4 | current | case_material.outcome | gold=hard plastic and rubber
+question: q5 | as_of_valid | case_material.outcome | valid=2026-02-05 | gold=none
+question: q6 | n_changes | case_material.outcome | gold=0
+question: q7 | current | lcd.outcome | gold=included
+question: q8 | as_of_valid | lcd.outcome | valid=2026-02-05 | gold=none
+question: q9 | n_changes | lcd.outcome | gold=0
+question: q10 | current | navigation.outcome | gold=push buttons
+question: q11 | as_of_valid | navigation.outcome | valid=2026-02-05 | gold=none
+question: q12 | n_changes | navigation.outcome | gold=0
+question: q13 | current | colour.outcome | gold=normal colour
+question: q14 | as_of_valid | colour.outcome | valid=2026-02-05 | gold=none
+question: q15 | n_changes | colour.outcome | gold=0

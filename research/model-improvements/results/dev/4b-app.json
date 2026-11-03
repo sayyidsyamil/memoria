@@ -1,0 +1,3971 @@
+{
+ "summary": {
+  "variant": "4b",
+  "mechanism": "app",
+  "splits": "old-dev,new-dev",
+  "series": [
+   "ES2003",
+   "TS3004",
+   "ES2011",
+   "IS1008",
+   "TS3006"
+  ],
+  "meetings": 20,
+  "gold_events": 60,
+  "tp": 26,
+  "fp": 130,
+  "fn": 34,
+  "precision": 0.167,
+  "recall": 0.433,
+  "f1": 0.241,
+  "ci_95": {
+   "precision": [
+    0.092,
+    0.278
+   ],
+   "recall": [
+    0.238,
+    0.636
+   ],
+   "f1": [
+    0.137,
+    0.364
+   ]
+  },
+  "miss_reasons": {
+   "missed": 15,
+   "wrong_evidence": 17,
+   "link_error": 1,
+   "unresolved": 1
+  },
+  "fp_reasons": {
+   "spurious": 124,
+   "wrong_content": 6
+  },
+  "filtered": {
+   "unresolved": 30,
+   "invalid": 2
+  },
+  "writes_per_meeting": 7.8,
+  "values": {
+   "agrees": 110,
+   "changes_belief": 78,
+   "no_gold_value_yet": 12,
+   "other_value": 29,
+   "earlier_value": 5,
+   "wrong": 46
+  },
+  "qa_exact": "90/124",
+  "qa_exact_by_type": {
+   "as_of_valid": "36/38",
+   "current": "28/43",
+   "n_changes": "26/43"
+  },
+  "inbox_confirm_all": {
+   "proposals": 119,
+   "accepted": 25,
+   "edited": 6,
+   "rejected": 88,
+   "per_meeting": 5.95,
+   "qa_after_review": "92/124"
+  },
+  "windows": 97,
+  "unclean": 3,
+  "hit_budget": 3,
+  "windows_with_repeats": 2,
+  "window_seconds_p50_p95": [
+   7.89,
+   29.89
+  ],
+  "meeting_seconds_p50_p95": [
+   53.23,
+   99.78
+  ],
+  "meeting_seconds_mean": 57.6,
+  "output_tokens_per_meeting": 1001.7,
+  "peak_gb_max": 4.078,
+  "per_series": {
+   "ES2003": {
+    "tp": 7,
+    "fp": 20,
+    "fn": 6,
+    "qa_exact": "17/25",
+    "wrong": 8,
+    "proposals": 23
+   },
+   "TS3004": {
+    "tp": 6,
+    "fp": 33,
+    "fn": 4,
+    "qa_exact": "10/20",
+    "wrong": 16,
+    "proposals": 29
+   },
+   "ES2011": {
+    "tp": 0,
+    "fp": 16,
+    "fn": 9,
+    "qa_exact": "21/24",
+    "wrong": 7,
+    "proposals": 16
+   },
+   "IS1008": {
+    "tp": 3,
+    "fp": 13,
+    "fn": 7,
+    "qa_exact": "17/21",
+    "wrong": 4,
+    "proposals": 10
+   },
+   "TS3006": {
+    "tp": 10,
+    "fp": 48,
+    "fn": 8,
+    "qa_exact": "25/34",
+    "wrong": 11,
+    "proposals": 41
+   }
+  },
+  "router": {
+   "exact": 100,
+   "failed": 0,
+   "n": 124,
+   "qa_routed": "90/124"
+  }
+ },
+ "series": [
+  {
+   "series": "ES2003",
+   "qa_exact": [
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false
+   ],
+   "qa_routed": [
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false
+   ],
+   "types": [
+    "current",
+    "n_changes",
+    "current",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes"
+   ],
+   "qids": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "q8",
+    "q9",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15",
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20",
+    "q21",
+    "q22",
+    "q23",
+    "q24",
+    "q25"
+   ],
+   "values": {
+    "agrees": 19,
+    "changes_belief": 17,
+    "no_gold_value_yet": 1,
+    "other_value": 5,
+    "earlier_value": 2,
+    "wrong": 8
+   },
+   "inbox": {
+    "proposals": 23,
+    "accepted": 7,
+    "edited": 1,
+    "rejected": 15,
+    "qa_after_review": [
+     false,
+     true,
+     false,
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false
+    ]
+   },
+   "ledger": {
+    "supersession_tp": 3,
+    "supersession_fp": 7,
+    "supersession_fn": 0,
+    "supersession_precision": 0.3,
+    "supersession_recall": 1.0,
+    "supersession_f1": 0.4615384615384615,
+    "state_gold": 9,
+    "state_correct": 5,
+    "phantom_beliefs": 0
+   },
+   "calls": [
+    {
+     "meeting": "ES2003a",
+     "turns": [
+      0,
+      50
+     ],
+     "seconds": 5.583,
+     "prompt_tokens": 2950,
+     "output_tokens": 96,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003a",
+     "turns": [
+      45,
+      81
+     ],
+     "seconds": 4.983,
+     "prompt_tokens": 2751,
+     "output_tokens": 96,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003b",
+     "turns": [
+      0,
+      22
+     ],
+     "seconds": 2.908,
+     "prompt_tokens": 2592,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003b",
+     "turns": [
+      17,
+      36
+     ],
+     "seconds": 3.065,
+     "prompt_tokens": 2654,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003b",
+     "turns": [
+      31,
+      59
+     ],
+     "seconds": 3.026,
+     "prompt_tokens": 2603,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003b",
+     "turns": [
+      54,
+      88
+     ],
+     "seconds": 3.18,
+     "prompt_tokens": 2719,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003b",
+     "turns": [
+      83,
+      130
+     ],
+     "seconds": 5.826,
+     "prompt_tokens": 2938,
+     "output_tokens": 110,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003b",
+     "turns": [
+      125,
+      178
+     ],
+     "seconds": 4.619,
+     "prompt_tokens": 2765,
+     "output_tokens": 60,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003c",
+     "turns": [
+      0,
+      44
+     ],
+     "seconds": 4.44,
+     "prompt_tokens": 2849,
+     "output_tokens": 45,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003c",
+     "turns": [
+      39,
+      77
+     ],
+     "seconds": 22.418,
+     "prompt_tokens": 2853,
+     "output_tokens": 694,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 9,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003c",
+     "turns": [
+      72,
+      92
+     ],
+     "seconds": 6.187,
+     "prompt_tokens": 2771,
+     "output_tokens": 52,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003c",
+     "turns": [
+      87,
+      122
+     ],
+     "seconds": 10.668,
+     "prompt_tokens": 2897,
+     "output_tokens": 141,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 3,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003c",
+     "turns": [
+      117,
+      158
+     ],
+     "seconds": 6.345,
+     "prompt_tokens": 2885,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003c",
+     "turns": [
+      153,
+      195
+     ],
+     "seconds": 22.618,
+     "prompt_tokens": 2422,
+     "output_tokens": 422,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 7,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003d",
+     "turns": [
+      0,
+      48
+     ],
+     "seconds": 20.758,
+     "prompt_tokens": 2952,
+     "output_tokens": 383,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 3,
+     "duplicates": 0,
+     "peak_gb": 3.991,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003d",
+     "turns": [
+      43,
+      85
+     ],
+     "seconds": 13.53,
+     "prompt_tokens": 2891,
+     "output_tokens": 199,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 3,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003d",
+     "turns": [
+      80,
+      154
+     ],
+     "seconds": 20.111,
+     "prompt_tokens": 3131,
+     "output_tokens": 394,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 6,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003d",
+     "turns": [
+      149,
+      234
+     ],
+     "seconds": 13.533,
+     "prompt_tokens": 3246,
+     "output_tokens": 234,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003d",
+     "turns": [
+      229,
+      294
+     ],
+     "seconds": 16.338,
+     "prompt_tokens": 3102,
+     "output_tokens": 344,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 5,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2003d",
+     "turns": [
+      289,
+      308
+     ],
+     "seconds": 3.414,
+     "prompt_tokens": 1735,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 3.883,
+     "cut": false
+    }
+   ],
+   "meetings": [
+    {
+     "meeting_id": "ES2003a",
+     "n_gold": 2,
+     "tp": [],
+     "miss": [
+      {
+       "event": "ES2003a.t45.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_43_47"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "ES2003a.t45.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_43_47"
+       ],
+       "reason": "missed"
+      }
+     ],
+     "fp": [],
+     "reach": 0,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 0
+    },
+    {
+     "meeting_id": "ES2003b",
+     "n_gold": 3,
+     "tp": [],
+     "miss": [
+      {
+       "event": "ES2003b.t10.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_8_12"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "ES2003b.t10.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_8_12"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "ES2003b.t126.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_124_128"
+       ],
+       "reason": "missed"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 3,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 3
+    },
+    {
+     "meeting_id": "ES2003c",
+     "n_gold": 4,
+     "tp": [
+      {
+       "event": "ES2003c.t102.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_100_104"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "ES2003c.t102.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_100_104"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "ES2003c.t102.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_100_104"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [
+      {
+       "event": "ES2003c.t111.3",
+       "kind": "INITIAL",
+       "tags": [
+        "win_109_115"
+       ],
+       "reason": "wrong_evidence"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 12,
+     "filtered": {
+      "unresolved": 1
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 13
+    },
+    {
+     "meeting_id": "ES2003d",
+     "n_gold": 4,
+     "tp": [
+      {
+       "event": "ES2003d.t11.0",
+       "kind": "REVISE",
+       "tags": [
+        "win_9_118"
+       ],
+       "exact_turn": false,
+       "confidence": 0.5
+      },
+      {
+       "event": "ES2003d.t11.1",
+       "kind": "REVISE",
+       "tags": [
+        "win_8_66"
+       ],
+       "exact_turn": false,
+       "confidence": 0.5
+      },
+      {
+       "event": "ES2003d.t57.2",
+       "kind": "CONFIRM",
+       "tags": [
+        "win_55_101"
+       ],
+       "exact_turn": false,
+       "confidence": 0.5
+      },
+      {
+       "event": "ES2003d.t143.3",
+       "kind": "REVISE",
+       "tags": [
+        "win_141_221"
+       ],
+       "exact_turn": false,
+       "confidence": 0.5
+      }
+     ],
+     "miss": [],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 12,
+     "filtered": {
+      "unresolved": 3
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 15
+    }
+   ]
+  },
+  {
+   "series": "TS3004",
+   "qa_exact": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false
+   ],
+   "qa_routed": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false
+   ],
+   "types": [
+    "current",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes"
+   ],
+   "qids": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "q8",
+    "q9",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15",
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20"
+   ],
+   "values": {
+    "agrees": 23,
+    "changes_belief": 20,
+    "no_gold_value_yet": 3,
+    "other_value": 13,
+    "wrong": 16
+   },
+   "inbox": {
+    "proposals": 29,
+    "accepted": 5,
+    "edited": 2,
+    "rejected": 22,
+    "qa_after_review": [
+     true,
+     true,
+     false,
+     true,
+     false,
+     true,
+     true,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     true,
+     false
+    ]
+   },
+   "ledger": {
+    "supersession_tp": 0,
+    "supersession_fp": 11,
+    "supersession_fn": 2,
+    "supersession_precision": 0.0,
+    "supersession_recall": 0.0,
+    "supersession_f1": 0.0,
+    "state_gold": 7,
+    "state_correct": 4,
+    "phantom_beliefs": 0
+   },
+   "calls": [
+    {
+     "meeting": "TS3004a",
+     "turns": [
+      0,
+      108
+     ],
+     "seconds": 3.203,
+     "prompt_tokens": 3289,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004a",
+     "turns": [
+      103,
+      197
+     ],
+     "seconds": 5.609,
+     "prompt_tokens": 3236,
+     "output_tokens": 120,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004a",
+     "turns": [
+      192,
+      236
+     ],
+     "seconds": 3.667,
+     "prompt_tokens": 2240,
+     "output_tokens": 69,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004b",
+     "turns": [
+      0,
+      60
+     ],
+     "seconds": 41.604,
+     "prompt_tokens": 3047,
+     "output_tokens": 1800,
+     "hit_budget": true,
+     "parsed_cleanly": false,
+     "candidates": 24,
+     "duplicates": 23,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004b",
+     "turns": [
+      55,
+      127
+     ],
+     "seconds": 5.144,
+     "prompt_tokens": 3066,
+     "output_tokens": 58,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004b",
+     "turns": [
+      122,
+      194
+     ],
+     "seconds": 9.896,
+     "prompt_tokens": 3115,
+     "output_tokens": 223,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004b",
+     "turns": [
+      189,
+      270
+     ],
+     "seconds": 7.343,
+     "prompt_tokens": 3180,
+     "output_tokens": 65,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004b",
+     "turns": [
+      265,
+      354
+     ],
+     "seconds": 14.535,
+     "prompt_tokens": 3262,
+     "output_tokens": 251,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004b",
+     "turns": [
+      349,
+      390
+     ],
+     "seconds": 5.26,
+     "prompt_tokens": 2086,
+     "output_tokens": 44,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004c",
+     "turns": [
+      0,
+      68
+     ],
+     "seconds": 10.458,
+     "prompt_tokens": 3017,
+     "output_tokens": 109,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004c",
+     "turns": [
+      63,
+      136
+     ],
+     "seconds": 22.377,
+     "prompt_tokens": 3137,
+     "output_tokens": 491,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 9,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004c",
+     "turns": [
+      131,
+      229
+     ],
+     "seconds": 12.126,
+     "prompt_tokens": 3329,
+     "output_tokens": 181,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004c",
+     "turns": [
+      224,
+      323
+     ],
+     "seconds": 17.122,
+     "prompt_tokens": 3327,
+     "output_tokens": 355,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 8,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004c",
+     "turns": [
+      318,
+      423
+     ],
+     "seconds": 7.848,
+     "prompt_tokens": 3337,
+     "output_tokens": 53,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004c",
+     "turns": [
+      418,
+      508
+     ],
+     "seconds": 12.313,
+     "prompt_tokens": 3167,
+     "output_tokens": 205,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004d",
+     "turns": [
+      0,
+      84
+     ],
+     "seconds": 9.697,
+     "prompt_tokens": 3137,
+     "output_tokens": 126,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 3,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004d",
+     "turns": [
+      79,
+      194
+     ],
+     "seconds": 21.793,
+     "prompt_tokens": 3437,
+     "output_tokens": 543,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 11,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004d",
+     "turns": [
+      189,
+      279
+     ],
+     "seconds": 6.762,
+     "prompt_tokens": 3306,
+     "output_tokens": 45,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004d",
+     "turns": [
+      274,
+      385
+     ],
+     "seconds": 8.594,
+     "prompt_tokens": 3449,
+     "output_tokens": 91,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004d",
+     "turns": [
+      380,
+      502
+     ],
+     "seconds": 8.331,
+     "prompt_tokens": 3447,
+     "output_tokens": 49,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3004d",
+     "turns": [
+      497,
+      605
+     ],
+     "seconds": 5.425,
+     "prompt_tokens": 2778,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    }
+   ],
+   "meetings": [
+    {
+     "meeting_id": "TS3004a",
+     "n_gold": 1,
+     "tp": [
+      {
+       "event": "TS3004a.t119.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_117_129"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 2,
+     "filtered": {
+      "unresolved": 1
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 3
+    },
+    {
+     "meeting_id": "TS3004b",
+     "n_gold": 3,
+     "tp": [
+      {
+       "event": "TS3004b.t56.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_54_351"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3004b.t57.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_54_351"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [
+      {
+       "event": "TS3004b.t373.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_287_384"
+       ],
+       "reason": "missed"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      }
+     ],
+     "reach": 6,
+     "filtered": {
+      "unresolved": 5
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 11
+    },
+    {
+     "meeting_id": "TS3004c",
+     "n_gold": 3,
+     "tp": [
+      {
+       "event": "TS3004c.t175.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_173_280"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3004c.t233.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_223_276"
+       ],
+       "exact_turn": false,
+       "confidence": 0.5
+      }
+     ],
+     "miss": [
+      {
+       "event": "TS3004c.t447.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_445_449"
+       ],
+       "reason": "missed"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 19,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 19
+    },
+    {
+     "meeting_id": "TS3004d",
+     "n_gold": 3,
+     "tp": [
+      {
+       "event": "TS3004d.t32.0",
+       "kind": "CONFIRM",
+       "tags": [
+        "win_30_36"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [
+      {
+       "event": "TS3004d.t34.1",
+       "kind": "REVISE",
+       "tags": [
+        "win_30_36"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "TS3004d.t41.2",
+       "kind": "REVERSE",
+       "tags": [
+        "win_41_41"
+       ],
+       "reason": "wrong_evidence"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 12,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 12
+    }
+   ]
+  },
+  {
+   "series": "ES2011",
+   "qa_exact": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   "qa_routed": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   "types": [
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes"
+   ],
+   "qids": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "q8",
+    "q9",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15",
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20",
+    "q21",
+    "q22",
+    "q23",
+    "q24"
+   ],
+   "values": {
+    "agrees": 9,
+    "changes_belief": 10,
+    "other_value": 5,
+    "no_gold_value_yet": 2,
+    "wrong": 7
+   },
+   "inbox": {
+    "proposals": 16,
+    "accepted": 0,
+    "edited": 1,
+    "rejected": 15,
+    "qa_after_review": [
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   "ledger": {
+    "supersession_tp": 0,
+    "supersession_fp": 2,
+    "supersession_fn": 0,
+    "supersession_precision": 0.0,
+    "supersession_recall": null,
+    "supersession_f1": null,
+    "state_gold": 8,
+    "state_correct": 5,
+    "phantom_beliefs": 0
+   },
+   "calls": [
+    {
+     "meeting": "ES2011a",
+     "turns": [
+      0,
+      70
+     ],
+     "seconds": 6.206,
+     "prompt_tokens": 3016,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011a",
+     "turns": [
+      65,
+      140
+     ],
+     "seconds": 6.191,
+     "prompt_tokens": 3100,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011a",
+     "turns": [
+      135,
+      150
+     ],
+     "seconds": 2.56,
+     "prompt_tokens": 1329,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 3.714,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011b",
+     "turns": [
+      0,
+      43
+     ],
+     "seconds": 5.155,
+     "prompt_tokens": 2703,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011b",
+     "turns": [
+      38,
+      88
+     ],
+     "seconds": 46.363,
+     "prompt_tokens": 2868,
+     "output_tokens": 1219,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 16,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011b",
+     "turns": [
+      83,
+      159
+     ],
+     "seconds": 8.914,
+     "prompt_tokens": 3130,
+     "output_tokens": 69,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011b",
+     "turns": [
+      154,
+      215
+     ],
+     "seconds": 5.72,
+     "prompt_tokens": 2887,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011c",
+     "turns": [
+      0,
+      31
+     ],
+     "seconds": 12.375,
+     "prompt_tokens": 2803,
+     "output_tokens": 193,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011c",
+     "turns": [
+      26,
+      79
+     ],
+     "seconds": 9.887,
+     "prompt_tokens": 2958,
+     "output_tokens": 78,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011c",
+     "turns": [
+      74,
+      141
+     ],
+     "seconds": 11.607,
+     "prompt_tokens": 3088,
+     "output_tokens": 158,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 3,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011c",
+     "turns": [
+      136,
+      210
+     ],
+     "seconds": 7.417,
+     "prompt_tokens": 3166,
+     "output_tokens": 52,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011c",
+     "turns": [
+      205,
+      218
+     ],
+     "seconds": 3.974,
+     "prompt_tokens": 1398,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 3.789,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011d",
+     "turns": [
+      0,
+      60
+     ],
+     "seconds": 29.627,
+     "prompt_tokens": 2980,
+     "output_tokens": 707,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011d",
+     "turns": [
+      55,
+      169
+     ],
+     "seconds": 9.479,
+     "prompt_tokens": 3375,
+     "output_tokens": 81,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011d",
+     "turns": [
+      164,
+      240
+     ],
+     "seconds": 7.894,
+     "prompt_tokens": 3135,
+     "output_tokens": 53,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "ES2011d",
+     "turns": [
+      235,
+      296
+     ],
+     "seconds": 5.559,
+     "prompt_tokens": 2814,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    }
+   ],
+   "meetings": [
+    {
+     "meeting_id": "ES2011a",
+     "n_gold": 0,
+     "tp": [],
+     "miss": [],
+     "fp": [],
+     "reach": 0,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 0
+    },
+    {
+     "meeting_id": "ES2011b",
+     "n_gold": 5,
+     "tp": [],
+     "miss": [
+      {
+       "event": "ES2011b.t56.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_54_86"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "ES2011b.t69.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_67_71"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "ES2011b.t77.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_75_92"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "ES2011b.t96.3",
+       "kind": "INITIAL",
+       "tags": [
+        "win_94_100"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "ES2011b.t157.4",
+       "kind": "INITIAL",
+       "tags": [
+        "win_128_189"
+       ],
+       "reason": "wrong_evidence"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      }
+     ],
+     "reach": 7,
+     "filtered": {
+      "invalid": 2
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 9
+    },
+    {
+     "meeting_id": "ES2011c",
+     "n_gold": 2,
+     "tp": [],
+     "miss": [
+      {
+       "event": "ES2011c.t120.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_118_122"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "ES2011c.t134.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_132_158"
+       ],
+       "reason": "missed"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 4,
+     "filtered": {
+      "unresolved": 2
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 6
+    },
+    {
+     "meeting_id": "ES2011d",
+     "n_gold": 2,
+     "tp": [],
+     "miss": [
+      {
+       "event": "ES2011d.t162.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_160_209"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "ES2011d.t200.1",
+       "kind": "CONFIRM",
+       "tags": [
+        "win_160_209"
+       ],
+       "reason": "wrong_evidence"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      }
+     ],
+     "reach": 5,
+     "filtered": {
+      "unresolved": 1
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 6
+    }
+   ]
+  },
+  {
+   "series": "IS1008",
+   "qa_exact": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false
+   ],
+   "qa_routed": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false
+   ],
+   "types": [
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes"
+   ],
+   "qids": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "q8",
+    "q9",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15",
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20",
+    "q21"
+   ],
+   "values": {
+    "no_gold_value_yet": 2,
+    "changes_belief": 7,
+    "agrees": 12,
+    "other_value": 2,
+    "wrong": 4
+   },
+   "inbox": {
+    "proposals": 10,
+    "accepted": 3,
+    "edited": 1,
+    "rejected": 6,
+    "qa_after_review": [
+     false,
+     true,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   "ledger": {
+    "supersession_tp": 0,
+    "supersession_fp": 1,
+    "supersession_fn": 1,
+    "supersession_precision": 0.0,
+    "supersession_recall": 0.0,
+    "supersession_f1": 0.0,
+    "state_gold": 7,
+    "state_correct": 5,
+    "phantom_beliefs": 0
+   },
+   "calls": [
+    {
+     "meeting": "IS1008a",
+     "turns": [
+      0,
+      62
+     ],
+     "seconds": 4.402,
+     "prompt_tokens": 2913,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008a",
+     "turns": [
+      57,
+      97
+     ],
+     "seconds": 4.343,
+     "prompt_tokens": 2816,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008a",
+     "turns": [
+      92,
+      111
+     ],
+     "seconds": 2.284,
+     "prompt_tokens": 1478,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 3.853,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008b",
+     "turns": [
+      0,
+      28
+     ],
+     "seconds": 5.531,
+     "prompt_tokens": 2725,
+     "output_tokens": 67,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008b",
+     "turns": [
+      23,
+      69
+     ],
+     "seconds": 5.948,
+     "prompt_tokens": 2805,
+     "output_tokens": 52,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008b",
+     "turns": [
+      64,
+      112
+     ],
+     "seconds": 5.029,
+     "prompt_tokens": 2871,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008b",
+     "turns": [
+      107,
+      153
+     ],
+     "seconds": 7.536,
+     "prompt_tokens": 2775,
+     "output_tokens": 95,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008c",
+     "turns": [
+      0,
+      41
+     ],
+     "seconds": 28.818,
+     "prompt_tokens": 2773,
+     "output_tokens": 813,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008c",
+     "turns": [
+      36,
+      86
+     ],
+     "seconds": 8.564,
+     "prompt_tokens": 2856,
+     "output_tokens": 84,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008c",
+     "turns": [
+      81,
+      138
+     ],
+     "seconds": 8.862,
+     "prompt_tokens": 2940,
+     "output_tokens": 90,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008c",
+     "turns": [
+      133,
+      165
+     ],
+     "seconds": 20.559,
+     "prompt_tokens": 2062,
+     "output_tokens": 450,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 6,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008d",
+     "turns": [
+      0,
+      59
+     ],
+     "seconds": 23.875,
+     "prompt_tokens": 2835,
+     "output_tokens": 489,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 6,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008d",
+     "turns": [
+      54,
+      109
+     ],
+     "seconds": 7.371,
+     "prompt_tokens": 2826,
+     "output_tokens": 54,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008d",
+     "turns": [
+      104,
+      169
+     ],
+     "seconds": 8.301,
+     "prompt_tokens": 2984,
+     "output_tokens": 59,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "IS1008d",
+     "turns": [
+      164,
+      216
+     ],
+     "seconds": 7.504,
+     "prompt_tokens": 2631,
+     "output_tokens": 61,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    }
+   ],
+   "meetings": [
+    {
+     "meeting_id": "IS1008a",
+     "n_gold": 0,
+     "tp": [],
+     "miss": [],
+     "fp": [],
+     "reach": 0,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 0
+    },
+    {
+     "meeting_id": "IS1008b",
+     "n_gold": 2,
+     "tp": [],
+     "miss": [
+      {
+       "event": "IS1008b.t61.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_14_117"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "IS1008b.t61.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_14_117"
+       ],
+       "reason": "wrong_evidence"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 3,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 3
+    },
+    {
+     "meeting_id": "IS1008c",
+     "n_gold": 7,
+     "tp": [
+      {
+       "event": "IS1008c.t14.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_12_155"
+       ],
+       "exact_turn": true,
+       "confidence": 0.5
+      },
+      {
+       "event": "IS1008c.t14.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_12_155"
+       ],
+       "exact_turn": true,
+       "confidence": 0.5
+      }
+     ],
+     "miss": [
+      {
+       "event": "IS1008c.t14.1",
+       "kind": "CONFIRM",
+       "tags": [
+        "win_12_155"
+       ],
+       "reason": "link_error"
+      },
+      {
+       "event": "IS1008c.t46.3",
+       "kind": "CONFIRM",
+       "tags": [
+        "win_12_155"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "IS1008c.t67.4",
+       "kind": "INITIAL",
+       "tags": [
+        "win_12_155"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "IS1008c.t140.5",
+       "kind": "INITIAL",
+       "tags": [
+        "win_136_149"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "IS1008c.t153.6",
+       "kind": "INITIAL",
+       "tags": [
+        "win_12_155"
+       ],
+       "reason": "unresolved"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 4,
+     "filtered": {
+      "unresolved": 5
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 9
+    },
+    {
+     "meeting_id": "IS1008d",
+     "n_gold": 1,
+     "tp": [
+      {
+       "event": "IS1008d.t19.0",
+       "kind": "REVERSE",
+       "tags": [
+        "win_17_40"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [],
+     "fp": [
+      {
+       "reason": "wrong_content",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "wrong_content",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "wrong_content",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "wrong_content",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "wrong_content",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      }
+     ],
+     "reach": 9,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 9
+    }
+   ]
+  },
+  {
+   "series": "TS3006",
+   "qa_exact": [
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false
+   ],
+   "qa_routed": [
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false
+   ],
+   "types": [
+    "current",
+    "n_changes",
+    "current",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes",
+    "current",
+    "as_of_valid",
+    "n_changes"
+   ],
+   "qids": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "q8",
+    "q9",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15",
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20",
+    "q21",
+    "q22",
+    "q23",
+    "q24",
+    "q25",
+    "q26",
+    "q27",
+    "q28",
+    "q29",
+    "q30",
+    "q31",
+    "q32",
+    "q33",
+    "q34"
+   ],
+   "values": {
+    "agrees": 47,
+    "changes_belief": 24,
+    "no_gold_value_yet": 4,
+    "other_value": 4,
+    "earlier_value": 3,
+    "wrong": 11
+   },
+   "inbox": {
+    "proposals": 41,
+    "accepted": 10,
+    "edited": 1,
+    "rejected": 30,
+    "qa_after_review": [
+     false,
+     true,
+     false,
+     true,
+     true,
+     false,
+     false,
+     true,
+     true,
+     true,
+     false,
+     true,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     true,
+     false,
+     false,
+     true,
+     false,
+     true,
+     true,
+     true,
+     false,
+     true,
+     true
+    ]
+   },
+   "ledger": {
+    "supersession_tp": 3,
+    "supersession_fp": 10,
+    "supersession_fn": 2,
+    "supersession_precision": 0.23076923076923078,
+    "supersession_recall": 0.6,
+    "supersession_f1": 0.33333333333333337,
+    "state_gold": 12,
+    "state_correct": 9,
+    "phantom_beliefs": 0
+   },
+   "calls": [
+    {
+     "meeting": "TS3006a",
+     "turns": [
+      0,
+      134
+     ],
+     "seconds": 10.352,
+     "prompt_tokens": 3515,
+     "output_tokens": 95,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006a",
+     "turns": [
+      129,
+      209
+     ],
+     "seconds": 6.418,
+     "prompt_tokens": 3203,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006a",
+     "turns": [
+      204,
+      246
+     ],
+     "seconds": 4.179,
+     "prompt_tokens": 2019,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.033,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      0,
+      78
+     ],
+     "seconds": 9.008,
+     "prompt_tokens": 3096,
+     "output_tokens": 82,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      73,
+      160
+     ],
+     "seconds": 13.081,
+     "prompt_tokens": 3223,
+     "output_tokens": 201,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      155,
+      237
+     ],
+     "seconds": 6.077,
+     "prompt_tokens": 3228,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      232,
+      323
+     ],
+     "seconds": 6.946,
+     "prompt_tokens": 3273,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      318,
+      401
+     ],
+     "seconds": 6.207,
+     "prompt_tokens": 3200,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      396,
+      498
+     ],
+     "seconds": 9.422,
+     "prompt_tokens": 3359,
+     "output_tokens": 55,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006b",
+     "turns": [
+      493,
+      516
+     ],
+     "seconds": 3.158,
+     "prompt_tokens": 1554,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 3.838,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      0,
+      60
+     ],
+     "seconds": 12.446,
+     "prompt_tokens": 2981,
+     "output_tokens": 193,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 2,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      55,
+      124
+     ],
+     "seconds": 28.743,
+     "prompt_tokens": 3095,
+     "output_tokens": 657,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 13,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      119,
+      211
+     ],
+     "seconds": 11.679,
+     "prompt_tokens": 3324,
+     "output_tokens": 176,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 4,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      206,
+      298
+     ],
+     "seconds": 8.026,
+     "prompt_tokens": 3312,
+     "output_tokens": 53,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      293,
+      405
+     ],
+     "seconds": 7.72,
+     "prompt_tokens": 3415,
+     "output_tokens": 54,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      400,
+      507
+     ],
+     "seconds": 7.295,
+     "prompt_tokens": 3441,
+     "output_tokens": 43,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006c",
+     "turns": [
+      502,
+      570
+     ],
+     "seconds": 17.409,
+     "prompt_tokens": 2577,
+     "output_tokens": 410,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 10,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      0,
+      90
+     ],
+     "seconds": 69.06,
+     "prompt_tokens": 3267,
+     "output_tokens": 1800,
+     "hit_budget": true,
+     "parsed_cleanly": false,
+     "candidates": 28,
+     "duplicates": 12,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      85,
+      182
+     ],
+     "seconds": 16.493,
+     "prompt_tokens": 3411,
+     "output_tokens": 254,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 6,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      177,
+      282
+     ],
+     "seconds": 30.958,
+     "prompt_tokens": 3475,
+     "output_tokens": 673,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 14,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      277,
+      387
+     ],
+     "seconds": 69.162,
+     "prompt_tokens": 3491,
+     "output_tokens": 1800,
+     "hit_budget": true,
+     "parsed_cleanly": false,
+     "candidates": 40,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      382,
+      508
+     ],
+     "seconds": 9.056,
+     "prompt_tokens": 3634,
+     "output_tokens": 59,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 1,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      503,
+      640
+     ],
+     "seconds": 15.862,
+     "prompt_tokens": 3686,
+     "output_tokens": 222,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 5,
+     "duplicates": 0,
+     "peak_gb": 4.078,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      635,
+      754
+     ],
+     "seconds": 6.93,
+     "prompt_tokens": 3580,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    },
+    {
+     "meeting": "TS3006d",
+     "turns": [
+      749,
+      798
+     ],
+     "seconds": 5.045,
+     "prompt_tokens": 2287,
+     "output_tokens": 5,
+     "hit_budget": false,
+     "parsed_cleanly": true,
+     "candidates": 0,
+     "duplicates": 0,
+     "peak_gb": 4.057,
+     "cut": false
+    }
+   ],
+   "meetings": [
+    {
+     "meeting_id": "TS3006a",
+     "n_gold": 3,
+     "tp": [],
+     "miss": [
+      {
+       "event": "TS3006a.t128.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_126_132"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "TS3006a.t130.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_128_132"
+       ],
+       "reason": "missed"
+      },
+      {
+       "event": "TS3006a.t220.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_213_230"
+       ],
+       "reason": "missed"
+      }
+     ],
+     "fp": [],
+     "reach": 0,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 0
+    },
+    {
+     "meeting_id": "TS3006b",
+     "n_gold": 5,
+     "tp": [
+      {
+       "event": "TS3006b.t56.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_54_181"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006b.t107.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_105_443"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006b.t114.2",
+       "kind": "REVISE",
+       "tags": [
+        "win_112_181"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006b.t441.3",
+       "kind": "INITIAL",
+       "tags": [
+        "win_105_443"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006b.t447.4",
+       "kind": "INITIAL",
+       "tags": [
+        "win_445_451"
+       ],
+       "exact_turn": true,
+       "confidence": 0.5
+      }
+     ],
+     "miss": [],
+     "fp": [
+      {
+       "reason": "wrong_content",
+       "confidence": 0.9,
+       "status": "applied"
+      }
+     ],
+     "reach": 6,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 6
+    },
+    {
+     "meeting_id": "TS3006c",
+     "n_gold": 4,
+     "tp": [
+      {
+       "event": "TS3006c.t113.0",
+       "kind": "INITIAL",
+       "tags": [
+        "win_111_115"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006c.t114.1",
+       "kind": "INITIAL",
+       "tags": [
+        "win_111_118"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006c.t121.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_119_123"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      },
+      {
+       "event": "TS3006c.t122.3",
+       "kind": "INITIAL",
+       "tags": [
+        "win_111_124"
+       ],
+       "exact_turn": false,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      }
+     ],
+     "reach": 23,
+     "filtered": {},
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 23
+    },
+    {
+     "meeting_id": "TS3006d",
+     "n_gold": 6,
+     "tp": [
+      {
+       "event": "TS3006d.t150.4",
+       "kind": "REVISE",
+       "tags": [
+        "win_148_207"
+       ],
+       "exact_turn": true,
+       "confidence": 0.9
+      }
+     ],
+     "miss": [
+      {
+       "event": "TS3006d.t75.0",
+       "kind": "CONFIRM",
+       "tags": [
+        "win_73_85"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "TS3006d.t83.1",
+       "kind": "REVERSE",
+       "tags": [
+        "win_81_85"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "TS3006d.t93.2",
+       "kind": "INITIAL",
+       "tags": [
+        "win_40_97"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "TS3006d.t135.3",
+       "kind": "REVISE",
+       "tags": [
+        "win_133_137"
+       ],
+       "reason": "wrong_evidence"
+      },
+      {
+       "event": "TS3006d.t675.5",
+       "kind": "REVISE",
+       "tags": [
+        "win_675_675"
+       ],
+       "reason": "wrong_evidence"
+      }
+     ],
+     "fp": [
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.5,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      },
+      {
+       "reason": "spurious",
+       "confidence": 0.9,
+       "status": "applied"
+      }
+     ],
+     "reach": 29,
+     "filtered": {
+      "unresolved": 12
+     },
+     "distractor_turns": 0,
+     "distractor_turns_hit": 0,
+     "candidates": 41
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,117 @@
+{
+ "commit": "f45bbe54919adcd95c1d98d2794e27cca6087548",
+ "identical_release_tag": "v0.3.1-uat",
+ "pinned": {
+  "temporal_service.py": {
+   "source": "src-tauri/resources/memory/temporal_service.py",
+   "git_blob": "3762a2884a99c400898302cde85064c5a081563b",
+   "sha256": "11e8418ac7e6858376f0923d5bd58b065630f082184e61b0e0261280ebc1cf4d"
+  },
+  "temporal_support.py": {
+   "source": "src-tauri/resources/memory/temporal_support.py",
+   "git_blob": "53249436ab94402c0cc215c4fbbf3e16f76751e8",
+   "sha256": "9c1334b6dfa625faacc903ec0f60b647c45f7cd52bc099c45643a481321078d9"
+  },
+  "model_server.py": {
+   "source": "src-tauri/resources/memory/model_server.py",
+   "git_blob": "6510e3bf56a08a918518db0b42ecd965145beb8e",
+   "sha256": "84cfbf69f4a516b2afbe25692b973049be89ad5c0e9fe243b5e8a4be6747ddc2"
+  },
+  "worker_lifetime.py": {
+   "source": "src-tauri/resources/memory/worker_lifetime.py",
+   "git_blob": "6dfe7418410355b64d7e5a9959bf6e75db5965b5",
+   "sha256": "2df8d1b2f7fad0196a709d79f8c51cbc4aabd12f1e2267374bd002cb21032b71"
+  },
+  "live_guard.py": {
+   "source": "src-tauri/resources/memory/live_guard.py",
+   "git_blob": "ba280640f6aa0bc7d5991f291d012f53139bd554",
+   "sha256": "50683c52f0d5ec9cc958633a64e1d22972c61cf2f1cec42c7b53145906021b9e"
+  },
+  "live_assistance.py": {
+   "source": "src-tauri/resources/memory/live_assistance.py",
+   "git_blob": "a306ea2fe4d959dfe51c349f7973e4f8cf56c7ff",
+   "sha256": "943015b645524209a05c260ff2714431ef5991f05f61c67e811de71ce8fb6c29"
+  },
+  "ask_facts.py": {
+   "source": "src-tauri/resources/memory/ask_facts.py",
+   "git_blob": "752fa299ca84c07d59c8a40c90549d9803b9c83f",
+   "sha256": "aee9e887a9d09890d61547a2076e64a63172ee7075c460c266f43a416da92251"
+  },
+  "qwen_scoring.py": {
+   "source": "src-tauri/resources/memory/qwen_scoring.py",
+   "git_blob": "b1ef1eb4cb20f1a84759b0c89926fb6958bd18c8",
+   "sha256": "58c039bdbe400e23b7ddc8602396a6d9547959da615d8cd5191707950f76adf1"
+  }
+ },
+ "verified_in_place": {
+  "src-tauri/resources/memory/memoria_engine/PROVENANCE.md": "72ec35a73a51fb17db9f20ba5e99752804c1fa150cdd0a6a60eb5010c7f5c8ab",
+  "src-tauri/resources/memory/memoria_engine/__init__.py": "f0f13f302f8170aaaaa8203ae732f26d11e40d187aa502974a860142fc84e541",
+  "src-tauri/resources/memory/memoria_engine/demo.py": "1366a533932ecf38a5ee3414b15c5b9c281cda8f63803809ca2d9cf732ac1788",
+  "src-tauri/resources/memory/memoria_engine/envelope.py": "5b6ae14919a17da1fd8b62da5430962cd76a4d0e14693d230bfff39e56ca9738",
+  "src-tauri/resources/memory/memoria_engine/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src-tauri/resources/memory/memoria_engine/evaluation/baselines.py": "d98c29fd7d77565e84fa259e439bb9cce7bae947cc8082d2c264723ba70e2e22",
+  "src-tauri/resources/memory/memoria_engine/evaluation/dataset.py": "031199a015c270d661a3399b9e9fab356e7555603bdbebf642afe9cad9ff2bad",
+  "src-tauri/resources/memory/memoria_engine/evaluation/metrics.py": "cee95ab4c709af6d78887d863bf8b510883339b024bcc4ed3c4490d1db55a5bd",
+  "src-tauri/resources/memory/memoria_engine/evaluation/oracle.py": "506c4dab1e89c774f79e9c4e2b94f3857d73da5842a91f4995d9e492b498b68d",
+  "src-tauri/resources/memory/memoria_engine/evaluation/padding.py": "85dfad6f89ebbc903a56470985648cc74fe8f0bebe493a1d39e8d207db90d4a3",
+  "src-tauri/resources/memory/memoria_engine/evaluation/report.py": "be50ebcf6ffc5c52a9dca998b1a0c156ba8709f3b758871d9d83b6944833f19e",
+  "src-tauri/resources/memory/memoria_engine/evaluation/router.py": "19bb01eb7dae489b27f07529b48092b95009378f24dc250d96d88ee0c16f677e",
+  "src-tauri/resources/memory/memoria_engine/evaluation/run_eval.py": "978c93fa18ac38bf1225c883266ac97a00da02e994c8adb2600bb9e01f573ac4",
+  "src-tauri/resources/memory/memoria_engine/evaluation/run_scaling.py": "3844d571a868aa58d7bbb4c351529f78131ddec201433cd96d5794046938678a",
+  "src-tauri/resources/memory/memoria_engine/evaluation/scaling_report.py": "90eec48dfd11d9926ba9305d54ff070398e096ab335013600bf94cc4b73ca1b8",
+  "src-tauri/resources/memory/memoria_engine/evaluation/select_baselines.py": "c2fe8e4616a5c9874f346a80daec4bb66c15b87a846d30b174691ec19e660009",
+  "src-tauri/resources/memory/memoria_engine/extractors.py": "fba79ff3f9408acafb060f52cc9ef4ebfb49e093cda47050011c7bb457caae1f",
+  "src-tauri/resources/memory/memoria_engine/fallback_router.py": "a01a31477c6a12f2f8f18ac64d8fb4e37b514d7e4ba6ca56e9ada1f53bca77ff",
+  "src-tauri/resources/memory/memoria_engine/ledger.py": "ec0b28a3988b555ec99ca091fb3903fa3ce0c92e78bafd6c8b9d5ecc29ee4e54",
+  "src-tauri/resources/memory/memoria_engine/llmcache.py": "70ca5230fd1ecb67aaf043dbe2afbedb20bb7ad76aff1933eb4e5196cac0ac08",
+  "src-tauri/resources/memory/memoria_engine/pipeline.py": "e10200648b2ae9a900ae6d1e790340da3d4f256a5956e53a40165460fcb89fdf",
+  "src-tauri/resources/memory/memoria_engine/schema.sql": "357893607c4e6dbdb5226ac7899f01dfd0b05bd32b66292e11a4f7589c139ff5",
+  "src-tauri/resources/memory/memoria_engine/service.py": "823644697ec512b00df0adf523b0959eef87bc402352aabf959508a4654c1408",
+  "src-tauri/resources/memory/memoria_engine/windowed.py": "618ac34f0c996d68da8713329e10b337ec076225375c9f1cfbb7e893258d5db3",
+  "research/ledger-engine/scripts/ami/amilib.py": "e6bf11a5ecee1bfffed7446c43d9973dae517b569770d77ae9881b6a384a733c",
+  "research/ledger-engine/scripts/ami/build_chains.py": "c6418b313cbf1839813fb6be9139e58b3baf6f0673bb7fa6771554d26c72ed18",
+  "research/ledger-engine/scripts/ami/check_fast_equivalence.py": "ff7e07c786da3967b0a2789e332cdae302c7349a9f2fb542e6cf96df4deb41da",
+  "research/ledger-engine/scripts/ami/fastllm.py": "02469b2c437f52a26022309c56f27e0c95109d56c09c900af3583d0ae3f8c244",
+  "research/ledger-engine/scripts/ami/render_ami.py": "723d09338f03c012d26f79b37bc481779bce3a1de04cd2ea4e63fcecf5de13e3",
+  "research/ledger-engine/scripts/ami/replay_offline.py": "46777eab8230d70a72f9fb2610ede579fbfdf01b447d7adb419e6614535368fc",
+  "research/ledger-engine/scripts/ami/review_burden.py": "c18bc5b0026d554c6f824cd48a4e324eafa08b629a50d084f2a88cc7f024aefd",
+  "research/ledger-engine/scripts/ami/run_after.sh": "7b342b0c8f331c93cc2b8a6e86999945a9a2b6c97e6d043ddc103160817af664",
+  "research/ledger-engine/scripts/ami/run_all.sh": "3379f0dafe7a9ebf016472b48c03e2e783e51d065535a9685117cf3a9374332b",
+  "research/ledger-engine/scripts/ami/run_ami.py": "883b878bd7314bdb748fbdefb1a3167e9d1301ba4b7eb1c1ef30b99a5c2b1592",
+  "research/ledger-engine/scripts/ami/run_ami_fast.py": "fa4bb2c08c4fabbca2b73bc3c99a5e40cfc4f0d667016e24c8ee928117df669c",
+  "research/ledger-engine/scripts/ami/run_ami_review.py": "45e0c1e752a1f859e449e9b5b0501b18a57a35e6607d0a04b7496965a9ca8348",
+  "research/ledger-engine/scripts/ami/run_dev_baselines.sh": "46d22dcf77efa43b37180d37a4fd4fd64c998e65fb564af71f6a9b7a75ef3d1c",
+  "research/ledger-engine/scripts/ami/run_queue.sh": "825e9b5e03acf6890bb99ead091add6946ab066c840d0643b964c3e23de0ea7a",
+  "research/ledger-engine/scripts/ami/run_rest.sh": "03e0a424fb7cfcba4d4510a851e983552f4224ccc1613a5ce243118c4246fb91",
+  "research/ledger-engine/scripts/ami/specs.py": "a7591d3a61d38627919017576aae10f2d65379c5d0dd1036a1eb8fb5b06ef609",
+  "research/ledger-engine/data/ami_v0/ES2003.ask": "05f92755a123984c62e26a11e5c81b33666a45e3848b2dc8a1872fca37d0a40c",
+  "research/ledger-engine/data/ami_v0/ES2003.chain": "b07bbf11eaf3d4172158fd950ef5411e8778bb8a078122e73aff79d76eb52192",
+  "research/ledger-engine/data/ami_v0/ES2004.ask": "aa103601f70d54e73c1ad721e09957077a217bf1fb99f38460a916becefd9329",
+  "research/ledger-engine/data/ami_v0/ES2004.chain": "4f45d338f0f469246cf5cfb4106f832e82e2ec89330f6e25bb0efb8502fc1b04",
+  "research/ledger-engine/data/ami_v0/ES2014.ask": "a8040d81973377ecc50a4a0ff67bbc14a336f0875bd3f189dafd4770d2a2a4af",
+  "research/ledger-engine/data/ami_v0/ES2014.chain": "22cf4e3636b583661cec29852e96412edc57da6001e020477f572ec5073398b4",
+  "research/ledger-engine/data/ami_v0/IS1009.ask": "57e46e3c48535dcf625f4764b0f67b9da25a2ad85f2542dc20cebf8b09c5d520",
+  "research/ledger-engine/data/ami_v0/IS1009.chain": "08d75a10030e93cd6d955faecaf6ca8349870430c62e6f622b22e0853d991a94",
+  "research/ledger-engine/data/ami_v0/TS3003.ask": "bd47d472cd6a757ff25a504e4964c27d3a7731c142afde8a6117e7ddfcdda40d",
+  "research/ledger-engine/data/ami_v0/TS3003.chain": "e3a5ff12ab82209590db507e2e4663d7ab1e3c75db4b6c928fda0564c74d6e33",
+  "research/ledger-engine/data/ami_v0/TS3004.ask": "ce7e41579b2572a363f6ef973689ccd9d22eb776a9125b6b452e34de0690364b",
+  "research/ledger-engine/data/ami_v0/TS3004.chain": "0e1cc17a8b6cde1fcb3a082625bd049c592ccbb720c02fbb8c90a1f0c5ea01b2",
+  "research/ledger-engine/data/ami_v0/TS3007.ask": "710f4e210a41dd73fe611cbb2d7868e3d85998936c5125b26d8e19152a6ab758",
+  "research/ledger-engine/data/ami_v0/TS3007.chain": "621154bd401b3eaaf5f2c8a8953076c7c01bab733841873829e129d1291ea1bc",
+  "research/ledger-engine/data/demo/demo.chain": "bb04e24908bd475264df7cec5bdb0c7f4a460911c1c095e1a83063d9385210ec",
+  "research/ledger-engine/results/cache/ami_dev_memoria.jsonl": "d244a0e1fa5b2a02ad003376b9965b79162b9ab408f1055c8741aa56197c1398",
+  "research/ledger-engine/results/cache/ami_test_memoria.jsonl": "f576ca9f152a4110e7837b78a10b315bd28ed6af7ad58badf81fea2316592c93",
+  "research/ledger-engine/results/ami/memoria_dev.json": "960f9baa5d3e8119824478c72dfcf801b15d152f52ddb2339f32ec7c0b2a998f",
+  "research/ledger-engine/results/ami/memoria_test.json": "a0fe7975ce4618a4cc75f95bb1cad4743929faa20b404331c504957b475dd563",
+  "research/ledger-engine/results/ami/memoria_test_review.json": "a9d77a2d7f31b611f9aa0cfda02e9d683f69c029bb0234b9ee788962e2d1d799",
+  "research/ledger-engine/results/ami/baselines_test.json": "ef833ad04f1029f2d97fd63dc0fad6106e55a2727d1f9dabaf933271c78e652c",
+  "research/strong-model/results/memoria_test.json": "d2f46a5735127bef6abf1c835cc161f7c5f4091032736791337c41d1adba12d1",
+  "research/strong-model/results/baselines_test.json": "00888c61cf91bd06d666e0ca961bb0d5e3faf49a75b5d41a145045eff2ae465c",
+  "research/app-parity/results-replay.json": "0b917c066fff153c608373ca720843d558f790002c5c57728cd2b46777d9b0d8",
+  "research/memoriabench/app_live_check_bench.py": "b7ad9ea211af703044a2ca65b0e038dd8eaa2e67b4ed978a077f027bcb887708",
+  "research/memoriabench/eval_metrics.py": "1b6cfd58d45dde778674bad0e5e37357f5d72a87e4e37f26ac9ed158e7eb327a",
+  "research/memoriabench/stat_tests.py": "49685123e073c4fe5c38d01b0836bc52f9f54dbce83631cac01f037a5d0694d3",
+  "research/memoriabench/ami_loader.py": "af17f8fc0890c6f7680a407e75ade3ed16a6431e475de5ca549aa55ece037a4b",
+  "research/memoriabench/generate_bench.py": "4c3bb60d144093b0614aabeb418195d55518b7c59a9229f8ff82fdb749c855cf"
+ }
+}

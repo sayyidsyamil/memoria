@@ -1,0 +1,691 @@
+chain: IS1008
+language: en
+note: REAL meetings: AMI Meeting Corpus (CC BY 4.0) scenario series IS1008a-d, a role-played design team speaking spontaneously. Turns = AMI manual words merged per speaker (gap <= 2 s), turns under 2 words dropped. Gold = decisions listed in the human DECISIONS abstracts, evidence found through the human summary links; the slot list and allowed values were written by the AI assistant. Meeting dates are assigned (weekly) because AMI has none. Not the product's target domain (corporate board meetings).
+now: 2026-03-02T00:00:00Z
+people: id=Industrial Designer, me=Marketing Expert, pm=Project Manager, ui=User Interface Designer
+object: locator | decision | Locator function | outcome:enum[included,excluded]!reverse
+object: speech | decision | Voice recognition | outcome:enum[included,excluded]!reverse
+object: case_material | decision | Case material | outcome:enum[plastic,rubber,wood]
+object: button_material | decision | Button material | outcome:enum[soft rubber,hard plastic]
+object: chip | decision | Chip | outcome:enum[simple chip,advanced chip]
+object: battery_indicator | decision | Battery life indicator | outcome:enum[included,excluded]!reverse
+object: lcd | decision | Display | outcome:enum[included,excluded]!reverse
+
+meeting: IS1008a | 2026-02-02T09:00:00Z | ingested=2026-02-02T12:00:00Z
+id: That's as far as it goes.
+pm: Hi guys uh good morning everybody here. And uh I want to introduce myself, uh my name is uh Shrida Daseri and uh I'm a project manager for this new project which we are going to discuss now. So I want to introduce first of all uh the names and the colleagues here.
+pm: And what you're uh drawing?
+ui: Uh sure my name is Agnes and I'm an user usability user interface designer.
+me: My name is Ed and I do accounting.
+pm: Uh how you spell your name uh?
+me: E_D_.
+pm: E_D_ okay.
+id: Do you also do marketing?
+pm: So only accounting?
+me: Accounting, yes.
+pm: Okay. And?
+id: And I'm Christine, and my role in this uh scenario is to be the industrial designer.
+pm: Mm-hmm.
+pm: Industrial designer.
+id: But I'm not really one.
+pm: So who is uh marketing, nobody in the market
+me: Marketing is uh, is me.
+pm: It's you, okay. So thanks for coming for the meeting first of all, and uh we have a long time, just twenty-five minutes to discuss about uh this project and the the project initiation. First of all I want to ask uh Mister Ed about your uh marketing plan and your product plan and uh
+me: Well I think that we'll see that throughout the day in how we're going to put this together as a marketing to to market the product. We'll have to see on a through discussion on where we're gonna go from here and from with this.
+pm: Mm-hmm but uh do you already have like a functional design or a technical design or
+me: Uh for the moment not yet.
+pm: Oh for the moment not yet, okay, but uh what's what's your uh do you have some project plan, something with you or
+me: Good question. No, this is like I said that we have to be discussed between all of us and we'll go from there. We'll have to simply we'll have to work on it together.
+pm: Mm-hmm. Okay, so uh by when you think you can uh give me some kind of uh project plan, okay, a discussion with uh
+me: Certainly by the next meeting.
+pm: By next meeting, okay that will be great.
+pm: Okay, so there's any questions or uh first of all about uh this project?
+id: What is the goal of the project?
+pm: Uh the goal of the project I think maybe I'll uh hand out to the Ed, okay, so to explain uh what is the project because he's in the sales and the accounting.
+me: I'm in the sales I'm supposed to explain them what to do. We have to define exactly what our product is, from uh
+pm: Yes, so can you explain uh what exactly the product is?
+me: From what I had in mind we're supposed to be marketing coffee, is that right?
+pm: Oh I think uh, if I'm not wrong, we're making the remote control.
+ui: Um I was wondering
+me: Remote controls, 'cause I had two different things. I had a first part of mine was to make a remote control for a new f remote control for television, and afterward I had a discussion about coffee so we'll start with the remote control for television then.
+me: So we're have to design something that is very user friendly. Something uh visual that has something that will will draw people to buy the product, because I think everybody's experienced with uh remote controls, and some remote controls are are worth uh throwing out the window.
+pm: Mm-hmm.
+ui: Mm-hmm.
+pm: Mm-hmm.
+me: Uh th most of them ar I don't know we're have to come up with a new idea on how to make it a lot easier to use, 'cause a lot of times uh spend uh half a day through the instruction book trying to figure out how to use it.
+pm: Mm-hmm.
+pm: Mm-hmm.
+pm: And uh what abo uh Christine, what about your uh the industrial design plan? Are you have a design already on this product or uh you're still working on the design?
+id: Um no, I I have not begun working on the design, and um I uh I actually didn't know we were designing a remote control, I thought we were designing a new monitor. Um the website I went to look at had some announcements about an introduction of a um uh some sort of a seven inch um monitor, and um I understood that that was the project goal.
+pm: Mm-hmm.
+id: So um I'm glad I didn't d do any work um ahead of time because uh I clearly didn't understand the project goal. Um I just did s see that we were starting a new project together and there was going to be a four member team composed of these people, and um that's about uh that's and I I read through the different steps, and what my responsibilities were relative to the steps.
+pm: Mm-hmm.
+pm: So uh you'll be leading the team for your design team or how many members is working in the team, for the design?
+id: Uh for the industrial design?
+id: Um well, I would th think that depends on how much money you give us.
+pm: Okay. That's
+id: Um because uh, you know, you can uh you can make it uh you have different choices with different financial models.
+pm: Yeah, but uh before we talk about uh the finance, okay, uh do you have some idea how we can uh sell this product or project in the market and how much is going to benefit to the company and uh of course it's to the individual also.
+id: Well, you know um, I kind of think that in general you have to do uh um y you have to have something that's very fashionable, that's uh very attractive that um people see and recognize uh its goal, and uh they immediately wanna have it uh have one of their own. So it would really would need to um something like the iPod would be good, seems to have caught on fairly well, so um d uh you know, I don't care what it does, just so it looks cool.
+pm: Mm-hmm.
+pm: Okay, but uh uh when you think you can give me like a kind of design on the functional design or the technical design?
+id: Well, uh I've got a lot of other projects I'm doing right now um and so I'll have to wait and see how those uh how those go. If they uh go quickly then uh it could be a month. If um if I run into any problems in my other projects it might be six months.
+pm: Yeah, but uh I need something in the writing, so like uh what's your functional design, what's your technical design, and uh how many people you need for this project, and what's the time frame you're looking, okay, and what is the budget, maybe uh initial budget you're looking,
+id: Mm-hmm. Mm-hmm.
+pm: okay, and uh how is going to the market, okay, so you've you've had to meet with the marketing team and how they're going to market and what are the marketing strategic plan, okay, when are you going to introduce, okay, and by the time you introduce the product and uh you know there there would be a competition, okay, so I need some kind of uh uh the plan in the writing from you. Okay, and it's po
+id: And when would you like that?
+pm: B as soon as possible.
+id: Uh well if uh if we have enough time uh then d do you think um two weeks is a is close enough?
+pm: Yes I think uh that would be good, because I need to go to the management and uh tell them what we are going to do, and uh what cost is, okay, and what's the time frame and what's the project plan, because uh without any uh documentations, I cannot go to the management and say, so we are going to do this and we need this much money, okay, so then it's it's difficult for me to say, okay, that's the reason I need uh some kind of plan from you, initially, okay, then we can have the further discussion again.
+id: Uh are there other people who will be contributing to the plan?
+pm: Yes, of course, if you need some help, uh so let me know. So, who are the people you need uh from the marketing or uh the technical side or uh the administration point of view, okay, to add in any documentation, or some technical point of view, so just let me know so I can uh coordinate all the teams.
+id: Okay, I'll get back to you on that.
+pm: Yes. Thank you. Okay. And uh Ed uh so what's what do you think about uh this uh project for the remote control and d do you have some already planned something for your marketing strategy or uh the sales strategy?
+me: Well not yet other than uh doing research and taking remote controls and looking what other companies have to do uh, what they're building, their designs, their ideas, uh also have to pinpoint which market we're gonna go into. It should be a fairly large market because uh the number of people that uh the competition, uh th I agree it has to be something it has to be something new, it has to be something that that draws people saying eh, I like this.
+pm: Mm-hmm.
+pm: Mm-hmm.
+me: Whether it works or not, they have to first say I like this, I like the design, and then it's gotta be simple to use.
+pm: Yes, so what I uh prefer maybe uh you need to interact uh more with the Christine, okay, because you know what she is going to do it, okay, and you know how to sell it. Okay, because uh she is doing the design, but you are the core because you are in the marketing, okay, so because you need to sell and you're the responsible for the all the money, the finance, okay, tomorrow.
+me: Mm-hmm.
+pm: So, what I prefer, okay, so you need to interact with the Christine more and uh within her team, okay, who is using the functional design or technical design, okay, and uh you need to come up with some kind of plan, okay, how we are going to do the your sales plan, okay, th
+me: Mm-hmm.
+me: Do we already have a cost limit on this, th an idea of how much uh we want to market this for, how much it's gonna sell for, that's up that's up to us to decide, eh?
+pm: Th That that's Yes, that's you have to decide, okay, so the best thing is you uh both of uh the Christine and you discuss with yourself, okay, and come up with the cost, and how we are going to compete in the market, okay, in the the technically, or in the sales wise, okay, the commercial wise, okay. Then uh we have to design, okay, how long it will take the whole project, okay, how much is going to cost us, and how much we are going to benefit for the company. Okay, of course it's it's uh of benefit for everybody individually. Okay, so I think it's uh maybe if we can uh give me some kind of your uh the sales plan, okay, including the technical what uh she's going to talk to you within the team, okay, then it will help me to discuss with the management for further, okay, and put it in the the proper project plan.
+me: Very good.
+pm: Okay, and if you need uh any coordination in between uh compared to the maybe the some technical vendors or commercial vendors, okay, depends if you want to have some uh uh marketing plan or technical plan, okay, so you let me know. Okay, I can coordinate, or maybe uh, you are my coordinator, am I right?
+me: Very good.
+pm: Between uh all the coor
+ui: Well, no, not exactly. I mean my job from what I understood was to look at the usability requirements and make sure that the product is usable, it's acceptable to the people who are gonna use it and look at the best ways to do that.
+ui: So I think I'll have to interact with Christine and discuss with her, so that she's not designing something that my studies will show right off the bat that it's not going to work, and so it's sort of it's a loop that feeds in, but I don't think necessarily that I'm in a coordinating position for it.
+pm: Th Christine, yeah.
+pm: Which is
+pm: Yes. Yeah, so basically you need to interact with Christine more, okay, for the user acceptability, okay, and the testing, okay, then you will
+ui: Yeah. Mm-hmm. Which will also feed into the marketing, because depending on what users want, depends on how you sell it, what tag lines you attach to it, how you try to make it more attractive to users. So I think all three groups will need to interact quite a bit.
+pm: Yes. Yeah. Yeah. Yeah.
+ui: Um, and then I guess build the plan based on all of that, because I think you need to take all the factors into account.
+pm: Yep. But what I request, okay, keep Ed in the loop, okay, in between your uh meeting and Christine meeting, because uh he should know what's happening.
+ui: Yeah, of course.
+ui: Yeah, we can C_C_ him on any discussions or documents that are passed around.
+pm: Yes. Okay and please please copy all the mails, okay, all the discussions to me, okay, so I need to submit to the management.
+ui: Sure. No problem.
+pm: So any questions for uh time being?
+ui: So, the immediate next step is to start determining the functional design, or okay.
+pm: Yes. Okay. To come up with the functional design and uh to discuss with Ed, okay, and how it's going to be work, and uh first of all with your user acceptance, okay, how it looks like and how it's going to be work in the market, okay, so then we can discuss about uh further things.
+ui: Mm-hmm.
+pm: So, we'll meet when the we'll discuss on the further meeting. It's okay?
+ui: Mm-hmm.
+pm: Thanks for coming.
+id: Would you mind um at the conclusion of our meeting could could you send us a copy of your slides?
+pm: Yes, I will. Yes.
+ui: Mm-hmm, yeah, that would be useful.
+pm: I'll copy, uh le let us keep all the emails and all the copies, okay, share each other, okay, so you know everybody what's happening, okay?
+pm: And if anything you need anytime so please either you can call me, or just send me email, or uh just come and uh knock my door, okay, so I'm available here. It's good?
+pm: Okay, thanks for coming and uh I wish you a nice time then.
+id: Thank you.
+ui: Thank you.
+pm: Okay, see you later. Bye.
+
+meeting: IS1008b | 2026-02-09T09:00:00Z | ingested=2026-02-09T12:00:00Z
+pm: Okay uh Agnes, you can help me for the slide when okay.
+ui: Yep. Sure.
+pm: Okay, welcome back. I hope uh you have a fresh head and a fresh time. How t now the meeting actually we gathering here to discuss about the functional design meeting. Okay, and uh we'll issue some information from uh all of you. And it's in the, I think uh, in the sharing folder. And uh I will invite uh the Christine and the Ed and uh Agnes to discuss about on the various subjects. So can you go to the next slide? Yeah uh the agenda of the meeting is opening. Then uh I'm going to talk about uh the project management, what I'm going to do, and uh, of course, I'm doing the project management and secretary both, okay, to take the minutes of the meeting. And there are three presentations. One is uh new project requirements. And the second one about uh decision on remote control functions. And uh finally we are closing. Uh and the meeting time will be uh forty minutes, so you have to be very quick. And I have come up with the management come with the new proposal, okay, and I have to discuss a few points on this. Uh both says new insights in the aim of your project. Uh the one is uh the teletext becomes uh outmoded, okay because if uh because of the computer systems and the new technology. So we don't need to consider really about the teletext all in our new project design. And the second one is about uh the remote control. Should be used only for the T_V_. That's what our uh management says. And the third point, it's very very important to establish our uh marketing or uh corporate image, okay, with this new project or new product. Okay. So I will invite uh Agnes, can you go to the third slide?
+ui: No, this is the third slide.
+pm: Okay,. So, I'll invite uh Christine to discuss about uh the functional design.
+id: 'Kay, do you wanna open the
+ui: Sure. Um.
+ui: You're participant s
+id: I'm number two.
+id: That's it.
+ui: Do you want the mouse, or do you want me to
+id: I'll do the notes. Yeah, thanks.
+id: So um well I I figured uh we should um identify some user requirements, and from my experience, I wanna uh, and from research I did, uh the the device has to turn the television on and off the first time you press on the big button, you can't uh can't have like uh waffling on this point, you know. Really have It needs to be able y y have to be able to find it. Because one of the biggest problems with remote controls is finding them. So uh, I also, since we have to establish our corporate image on the basis of this new product, thought we better look at things that are popular and um ex go beyond those, and, as I said in the first meeting, um and then uh we might wanna talk eventually about the materials that are appropriate to use in uh in the construction, especially in the the uh the outside of the product so that it gives the appearance, and it is reliable, and so forth. I did a little history on uh the the uh remote controls and when they were invented and so forth, so, I guess this guy Zenith uh created the Flashmatic, which I kinda like the idea, 'cause it made me think of um um maybe the remote control made a big flash when uh you turn the T_V_ on and off, that might be interesting. And um so it was highly directional flash light that uh you could turn the picture on and off, and the sound on and off, and change channels c so I think um those are still requirements we have today, uh fifty years later.
+ui: Mm-hmm.
+id: And uh it was really a pioneering innovation, but it was uh sensitive to the sun, so that uh it would get would start off by the you'd get it would easily cause um problems. So, uh I in addition to uh looking at the um uh the functional requir so all these devices are examples of where uh mm they represent examples that are available today which I think the one in the middle is r um really uh something to keep in mind. It'd be easy to find.
+id: And um it would uh y you'd you could throw it at things if if the T_V_ didn't turn on and off, you could use it for something else. And since I'm not really um Industrial Designer, I didn't really know what to do with this slide. But um I just took some different uh schematics and I put them into this, and I guess this is what a slide might look like if you were drawing a circuit board. I don't know why um we were asked to do this. So, uh personal preferences, um I think we could uh I I'm really thinking outside the box here, and I think that we should consider perhaps having an an an a a size uh a remote control that changes in size depending on the user preference. So something that's very very flexible and inflatable and then you could shrink it. I think um it could either be you could go either one extreme, be very colourful, or you could make it clear, and um kind of blend in with things, so you didn't have to um uh have a problem with the th the decoration of the of the user's home. Um I think uh it needs to be waterproof, because uh sometimes they fall into cups and, you know, it might be out by the swimming pool or something like that. Um if you uh mi one of one of my requirements was about needs t to tell you when it's done its job or not, because half the time, I keep pushing on the remote control, and I don't know if it's actually understood my message, so I think it should give you some sort of an oral cue. And uh, course I never wanna replace the battery. So, that's those are my f preferences, and that's my presentation.
+pm: Yeah, let me uh interrupt you uh if you can add other facility, other feature, like uh unbreakable.
+pm: Okay, because uh especially today, you know, you have the family and the kids, okay, and the kids throw it and they they play with their remotes and.
+id: Run over it with a car.
+pm: Yes. Okay, so if you can add the feature, okay, for your uh fabric whatever in your outline design okay, with unbreakable, okay, I think that will give a lot of advantage for our product,
+id: Good idea. Good idea, I'll I'll uh um
+pm: if I'm not wrong. Maybe you can uh add it in that.
+id: Yes, very good.
+pm: Okay, uh thank you Christine, and uh uh any questions or uh clarifications, or any discussion on the functional design?
+ui: Do you have any preconceived ideas in terms of materials? 'Cause, for example, in the unbreakable thing, doing something plastic would be harder, whereas having something like, I dunno, steel or titanium isn't really economically viable.
+id: Titanium. Titanium would be be heavy, too, wouldn't it?
+id: No, I haven't really um I wanted feedback, I think we need to rate rank these, but we'll see what your uh personal preferences are and your thoughts.
+ui: Yeah. Sure, yeah. No, I just wondering whether that you had any sort of
+id: I like titanium. It's light.
+id: Uh yeah but uh who who said who said we were, you know, nobody told me how mu what our financial objective is, so um
+ui: The marketing comes out.
+pm: Yeah so
+id: It'd be hard to inflate something ou made out of titanium though.
+pm: Yeah the the I'm sorry because uh the last meeting we supposed to discuss about the financial thing. Uh let me go quickly, maybe if I can go back. I know the project plan and the budget.
+pm: So I can close this, not sure. Was in uh
+pm: S This.
+pm: So let me see where is this file.
+ui: That's Christine's.
+pm: This is Christine.
+ui: And that's mine, I think.
+pm: That's yours, okay. Saving.
+ui: In modified.
+me: I don't know, I think verbally we can we can pretty much sell.
+pm: Okay, uh I will I will send you a mail, okay? The project may be the the project aim, okay. At the end of the day, the company uh wants to make at least uh the fifty million Euro. Okay, and uh of course the price will be very reasonable on the the sales side. Okay, that maybe Eddie will talk to you about uh how much uh the price and uh what's uh how much its cost for the manufacturing and how much it's going to be we sell in the market. Okay. Then uh you can come back with your feedback. And I I have one maybe the suggestion or opinion. This remote control, okay, it can be for like universal, to use for any T_V_. Okay, and it will be slim, okay, and uh
+id: Not fat?
+pm: Not fat.
+id: Not fat, huh.
+id: Might be hard to find, though.
+pm: But let's try it, okay, with the different uh the designs, okay, the functional designs.
+id: Oh, okay.
+pm: Okay? So any other questions?
+me: Uh from her side, I don't think uh there's too many more questions. If you can come to the
+pm: Okay. Thank you Christine for uh time being, so then uh Ed, so can you tell about
+me: Okay, from the marketing yeah, from the marketing side, just to to give an idea what the management is looking for, I was looking for a a remote control to have a s
+ui: S 'scuse me for one sec.
+me: I have a sales price of twenty-five Euro, with a production price of uh twelve and a half Euro. For what uh I think from what we're trying to find, we're tr we're looking for, I don't think that price is exactly in the market. Okay?
+pm: Mm-hmm.
+me: I'll explain myself here now in the sense that uh in a in the recent surveys, uh from the ages fr from fifteen to thirty-five, eighty percent are willing to spend more money for something as fancy as trendy. Twenty-five Euros, uh that's that's a preson reasonable price. That's a market price right now. Now if we're gonna take a risk, and push this up a bit, make it more expensive, but give them added things that they don't have now, then it w it could possibly sell. Obviously the risk is there.
+me: Too expensive, they're not gonna buy. But, I think uh there's one other thing interesting two things that are interesting is that uh from the fifteen to thirty-five year-old group, which always spends more money on trendy new things, speech recognition is requested. And we're talking between seventy-five to ninety percent of this group is willing to pay for speech recognition on a remote.
+id: Speech recognition?.
+pm: Mm-hmm.
+me: Obviously, we can't make a remote into a computer, but maybe simple commands. I dunno, louder, softer, on, off. That might be a possibility, even though it costs more, to be the first on the market to produce this. Thirty-five percent say they're too difficult to use. So we have to figure out a way of making it um more user friendly. Uh fifty percent say they can't find the remote half the time. So maybe one word speech recognition commands, say remote, and there's a beep beep beep, and they can find it through, you know, ten tons of newspapers, magazines, whatever you have at home. But, in the cost that uh the management is looking for, that's not gonna be possible. But if it's trendy, if it's fancy, it's got some colour to it, if it's very easy easy to use, if it's got simple remote speech remote uh control, like I said, louder, softer, change channel, on, off, remote, it goes beep beep, I can find my my remote without spending half a day looking for it and getting all upset 'cause I can't turn the T_V_ on. So we're gonna have to look at it in a in this global idea, with the ideas of the industrial uh design. But, price obviously we have to talk about.  ## event locator.outcome = included | INITIAL | quote="Uh fifty percent say they can't find the remote half the time." | tags=win_14_117 ;; event speech.outcome = included | INITIAL | quote="So maybe one word speech recognition commands, say remote, and there's a beep beep beep, and they can find it through, you know, ten tons of newspapers, magazines, whatever you have at home." | tags=win_14_117
+pm: Yep. So what do you think about uh the design? Do you think you can make it or uh
+id: D uh I'm sorry?
+pm: What do you think about uh the design, uh what he was talking about of the speech recognition?
+me: Speech recognition.
+id: Well, uh training is always an issue with uh commands.
+pm: Mm-hmm.
+id: So um might uh we can perhaps um do it if the user is willing to spend some time in the training process, uh it could reduce th th uh the overall um cost. Not sure how. But um anyway, um I I think also that uh this might impact the battery life. And um so, maybe what we'll have to do is um add something where you can um recharge it wirelessly so that uh y you know sen send power to it. So uh or maybe uh set it out in the sun and it uh, you know, gets uh, from the light, um a a solar cell inside there so that uh you have enough uh juice to do all these fancy things.
+ui: It seems also like with the speech recognition, yeah, it's a great feature, but if you're watching T_V_, there's a lot of ambient sound, and it's words. It's not just, you know, noises like something hitting. It's actual speech, so then you have to make sure that the speech recognizer is good enough to filter out the T_V_ speech, and the the user's speech. Otherwise, you can say remote. But if someone on the screen is saying the same thing, all of a sudden, you have someone in a movie saying off and your screen dies,
+ui: because they've triggered the remote control and it's turned off your T_V_. So, I think if we can find a speech recognizer that can handle those types of problems, then yeah, it'd be a really good marketing gimmick. But, I think we seriously need to consider how that would impact
+ui: the situation.
+id: Very good point.
+me: Because tha w with speech recognition uh th I'm not that good at that idea but th
+ui: Mm-hmm.
+me: if it's a one-word recognition, 'cause I know with telephones and cars and things I've seen in the States, a friend of mine says call Mom, and it calls up Mom.
+me: 'Kay the radio can be on and everything.
+me: Because I think s with speech recognition, if uh the the remote or like the telephone it has a exact word that it has to hear.
+ui: Mm-hmm.
+me: I don't think it would come through a sentence in a television. If somebody's speaking on the se the television, they're not gonna stop and say remote, okay.
+ui: Mm-hmm.
+me: So I think that uh something could be designed to recognise single word
+ui: Oh yeah. Yeah.
+me: Like the t like the telephone.
+ui: No, I think it's a great idea if we can design it to to suit those requirements.
+me: No because I this is this is years ago in the United States where we're driving down and he said call home, and the telephone called immediately so well, that's kinda cute.
+pm: Well, what I can uh suggest to you, Christine, okay, uh if you need some uh the technical feedback, or some training, okay, about uh this facility, especially for the speech recognition, I can recommend you some companies like uh Intel or I_B_M_, okay, because they're already in this uh speech recognition part, okay. And uh you can maybe have some uh technical backup from them, some kind of a technical tie-up. Okay, and uh if you want, I can coordinate, okay, to get some information, okay, and uh you can uh let me know, okay, so what kind of uh the details you require okay, to add this feature in this project. I don't think it's uh the difficult.
+pm: And uh we need to know how much is the timeframe you need to develop, apart from uh what today.
+id: Okay, we'll find that out.
+me: From from your side uh, you're gonna have to go back the management and s be more s precise. What do they want? Uh, a risk, take a risk on the market? Something that's gonna cost more, but could very easily s make a boom in the market?
+pm: Yes. Yes.
+pm: Yes. Yep.
+me: Because it has to be something totally different, has to be total totally new. Something that nobody has right now. And it's gonna cost.
+pm: Yeah but but end of the day, you're the sales guy, so I will come back and sit on your head because uh you are going to give your sales projection, okay. It's uh of course it's uh good to uh tell the management how much it's cost us and how much you are going to benefit, okay.
+me: Mm-hmm.
+me: Sure. Sure.
+pm: And uh, so I don't mind to convince, okay, the management to spend some more money on the project, okay, if you can make out of
+pm: the money from this project. Yes, okay I don't mind to convince the the management, okay.
+me: If the bottom line is positive. Mm.
+pm: The management says, okay, so they they don't want certain facilities, which it's already worked, okay, they want something uh new, okay. I think uh like uh speech recognit definitely they will agree, I don't think they'll say no for that, okay. And uh I hope I can convince the management on that, okay. So if you have any uh new ideas, okay, for uh your you can always come up and uh you can tell me if you need any uh s special, okay, coordination, okay, between any uh technical companies, which you can uh hide their technology backup, okay, for your uh functional design or technical design, okay, then I am ready to do that.
+pm: And uh what's your comments about uh
+ui: Um well, I mean, maybe if I go through my presentation, you can sort of see what the user perspective is, and how it ties into the other two comments.
+pm: Yeah, so you are finish, Ed, uh so I can uh
+me: Yes. Mm.
+pm: Okay, I'll uh hand over to Agnes. Just gonna close this. T
+pm: Uh where are you, here?
+ui: Mm participant three.
+pm: Participant three.
+ui: Nope, here
+pm: Okay, so I'll yep.
+ui: Thanks. Yeah, and that's fine.
+pm: Is it okay? Alri
+ui: Okay. So, basically, the method that we usually use in the user interface design is that we need to look at what people like and what people don't like about existing products. So, in our case, existing remote controls. And then, what the good ideas are, and what the bad ideas are, and why they're bad and good, which isn't always as obvious. We seem to have intuitions about why things are good or things are bad, but when you look, technically, at how it works, sometimes that's not the case. Then we need to decide what functionalities we really want to keep, 'cause that'll feed into both Ed's work and Christine's work. Um and then what the remote control should look like, obviously, once we've got a good idea of what the functionalities are. So, in terms of the functionalities that we need, you obviously need to be able to turn the T_V_ on and off. You need to change channels, both by directly going to a specific channel or by channel surfing. You need to be able to control the volume and then control any menus on the T_V_ to regulate contrast or whatever.
+ui: So, the problems that people have expressed is that there's too many buttons on remote controls, in general. The buttons it's not clear what they're supposed to do. Um often, you need to know specific button sequences to get certain functionalities done, um which you don't necessarily always remember, especially if it's a functionality that you don't use very often. And that the buttons are too small. So, here we've got two examples where here on the left-hand side, you can see a remote control that has lots and lots of buttons. The buttons, in a lot of cases, are tiny. Um they're hard to see, and okay, they're labelled, but the labels don't necessarily tell you too much. Whereas, on the other side, you have a much simpler remote control that I think basically has the minimum functionalities that are needed. And it sort of looks simpler and just less imposing when you first look at it. So, I would be inclined to go sort of towards this, in terms of design, rather than this. And if there's specific functionalities that require more buttons, then we can figure out how to do it with existing um buttons. So my personal preferences are to keep the number of buttons to a limit, or to a minimum, sorry, make frequently used buttons bigger and more strategically placed, so like the on button being really obvious one, the channel changing and the volume, and to keep the design basically sleek and simple.
+pm: Click mm.
+ui: Which, I think ties into what Christine and Ed have both said fairly reasonably. Um so, that's pretty much it, an I don't know if you guys have any questions or
+id: Oh, it's um, seems very understandable. Clearly your research and uh and ours uh heading in the same direction, and um uh
+id: the only thing that I saw missing from uh your your research that we found was this uh ability to find the doggone thing when you need it.
+ui: Yes, that's true. Yeah.
+id: So uh, you know, but that's okay. That's why we're all here at the table, so that if we think of it and our research indicates certain things and um w we it's complementary.
+id: I also think that um uh th f the the feel of it is uh, when you hold it, is something that um uh was expressed more in in in in my uh design
+ui: Mm-hmm. Yeah.
+id: and that's logical and normal 'cause those are the parameters that an Industrial Designer's more thinking about, th th the look and the feel, and uh, you're
+ui: Oh, that's definitely a very important factor, especially to users who are gonna be buying the thing and then using it almost on an daily basis in a lot of cases, I think.
+id: First. Yep.
+id: Mm-hmm.
+id: Okay, so I don't have any questions. Sounds good.
+pm: So for anybody need uh any help, for time being, on this uh subjects, okay, so please come back to me, and uh Christine, maybe I can uh try to help you to get some uh the technical uh the companies to help you for uh make a design uh slim, okay, and to add some features, like we are talking about, the speech recognition and all.
+ui: Should we maybe make a decision about what features we actually want to include, 'cause we've thrown a lot of features onto the table, but
+ui: do we actually want to incorporate all of them, or have we missed anything?
+id: Do you wanna go back and look at the closing slide, maybe that would provide some guidance?
+id: Doesn't really tell us.
+pm: So not really this one we are talk ab
+me: Individual actions.
+id: Well it says individual actions, it says user interf so I'm supposed to do the components concept,
+id: supposed to work on the user interface concept, and you're supposed to keep watching the trends.
+ui: Mm-hmm.
+id: Um and specific instructions will be sent by our our coach. I think we should do as many features as uh start with all of them right now and eliminate them later in the process, that's my suggestion.
+ui: I thought
+pm: Okay, that will be great. And uh I'll send you the the minutes of meet
+id: You can object if you want to
+ui: No, I I'm just thinking in terms of time, like if
+me: She's objecting.
+ui: Yes, now I'm objecting. No, I mean, I was just thinking is it really practical to start designing something with features that we're just gonna end up throwing away? I mean, it takes a lot of time and effort for everyone to consider different features, um
+ui: and s if we spend that time and effort on features that we're not gonna use, maybe it's better to spend it on the f thinking more about features that we actually do want, but
+me: Oh th we s we still have
+ui: I guess
+id: I think we should take that as an action item for after the meeting, 'cause w our meeting time has run out. Somebody else has go to use this room, and, you know, we can't hang out here and talk about this, so
+me: Yeah. Right.
+ui: Sure. Yeah. Yeah. Sure.
+pm: Okay, what we'll do is now we'll take for lunch break, okay, then uh we can discuss furthermore, okay, with our areas, and uh then we will come back again in the in the next meeting. So thanks for coming and uh I'll send you minutes of meeting, and uh please put your all information in the sharing folder so everybody can share the information. Okay?
+pm: So let's go for lunch then.
+id: Thank you very much.
+pm: Thank you.
+
+meeting: IS1008c | 2026-02-16T09:00:00Z | ingested=2026-02-16T12:00:00Z
+pm: Uh welcome back after lunch, I hope uh you had a good lunch together. For uh this meeting the main agenda okay uh to discuss about the conceptual design meeting.
+pm: Okay and the agenda will be
+pm: the opening and uh that's uh the product manager or secretary that's me and uh the presentations from the Christine and uh
+pm: Agnes and from Mister Ed. And finally in this meeting we have to decide and we are to take a decision on the remote control concept and uh the functional design So we have forty minutes, I think it's uh little bit uh low, but I I hope we can finish it up so I'll handle to the the functional team, to the Christine, okay, to discuss about uh the components concept.
+id: Okay. So uh, if you could open the PowerPoint presentation. I'm number two.
+pm: You're number two.
+id: Components design, there we go.
+id: So uh can we put it in slide show mode? Yeah.
+pm: The next one.
+id: Right here, is that little that one, yes please. Thank you. I'll take the mouse. So uh
+id: we were looking he specifically at the components uh the following components, uh the case, the power supply, uh the means of communications with the television set. In instance we had talked about using some sort of speech recognition, you have to have microphone well no you don't actually I haven't have to have microphone in the device, but um maybe you do have it a a way it has to it has to hear the speaker and um, so it could be in the television set, could be in the device, but somewhere you have to put the microphone, um and a w a way of making beeps or sounds so you can find it when it's gets lost. Um so the other w thing that we So. Our method for going about this is we've looked at uh the histo hi historical record, what's worked, what hasn't and then we also um we wanted to evaluate some new materials and we contacted manufacturing for their input because, course, we m might come up and choose the material that then manufacturing didn't have the technologies or capabilities to offer us, so uh this is the approach that we took during our um our research.
+ui: Mm-hmm.
+id: So um for the case, um we told we were making a specifica specific assumption that it would be curved in design. Course, you know, I wanted it to be expandable and shrinkable, but um that uh doesn't seem to b be one of the choic non-option we can uh we can really seriously explore, so then we were thinking about um rubber, but um unfortunately that's been eliminated because of the heat uh factor and th um there might be some problems with the m uh how it's uh goes with the board. Uh and uh then th plastic also has this problem of melting and it's brittle it gets brittle after a while, so um we still had titanium and and wood available, but um unfortunately uh uh titanium's also been eliminated uh, the m people in manufacturing said that you couldn't make d curved cases out of titanium, although how Apple did it with th PowerBook I'm not su quite sure but uh nevertheless um they've eliminated all of our options except wood.
+ui: At least it's environmentally friendly.
+id: So, this is our finding. And a as she said, it's an environmentally friendly uh material, so we're we're currently uh proposing, uh we'll get to all my personal preferences in just a second. So then there's this other matter of the chips and um well we could use a simple design on the board, but uh these simple chips, but that's only works for the bu you don't get very much um intelligence with this simple one. And um then there was the regular which I regret that I've forgotten exactly why I'm eliminating that one. Uh the other option was this advanced chip on print, and uh we liked th we we found that it it includes this infrared sender, which w 'member the beam was that was an important component of finding the right chip. And uh manufacturing has told us that they've um uh recently developed a uh a sensor and a speaker that would uh be integrated into this advanced chip on print, so uh we we uh now jumping right to our personal preferences um I I'd really think we should, you know, use some of uh some really exotic woods, like um, you know uh, well you guys come from tropical countries so you can kinda think of some trees and some nice woods. I think that people will might really want to design their own cases, you see, they could do sort of a this um three-dimensional design on the internet, and then they could submit their orders, kinda like you submit a custom car order, you know, and you can choose the colour and the size of the wheels and the colours of the leather and things like that, and then I uh think we should go with the solar cells as well as the um microphone and speaker on the advanced chip. So this is the findings of our research and my recommendations um for the new remote control w um would be to have um have it be made out of wood. Do you have any problems with that?  ## event case_material.outcome = wood | INITIAL | quote="personal preferences um I I'd really think we should, you know, use some of uh some really exotic woods, like um, you know uh, well you guys come from tropical countries so you can kinda think of some" | tags=win_12_155 ;; event locator.outcome = included | CONFIRM | quote="So, this is our finding." | tags=win_12_155 ;; event chip.outcome = advanced chip | INITIAL | quote="So then there's this other matter of the chips and um well we could use a simple design on the board, but uh these simple chips, but that's" | tags=win_12_155
+pm: Can you go back uh one slide?
+id: I'm not sure, how do I Oh, I know, let's see. Let's go back up here.
+ui: Thank you. Yeah.
+pm: Yes, uh question, uh, what's mean exactly, advanced chip on print? What's the meaning of that?
+id: I think it's um um a multiple uh chip design um and it's uh maybe printed on to the circuit board.
+pm: Mm-hmm.
+id: Uh I could find out more about that uh before the next fi next meeting.
+pm: Yeah, is it means it's on the yeah is it on a micro-proc micro-processor based or uh
+id: I don't know, but I'll find out more at our next meeting.
+pm: Okay, tha that would be great, so if you find out from the technology background, okay, so that would be good.
+id: Sounds good.
+ui: Why was the plastic eliminated as a possible material?
+id: Because um it gets brittle, cracks
+ui: Mm-hmm.
+id: Um We want we expect these um uh these remote controls to be around for several hundred years. So. Good ex Good expression.
+me: Wow, good expression. Well after us.
+id: I don't know, speak for yourself, I'm planning to be around for a while.
+ui: Although I think I think with wood though you'd run into the same types of problems, wouldn't you, I mean it chips, it if you drop it, uh it's I'm not su
+pm: So so you're not convinced about the the wood, yes.
+me: Actually, I'm ready to sell it. I'm ready to sell it.
+id: you're what?
+ui: I think if you re if you use really good quality wood, then it might work, but you can't just use
+id: You think? And you could you could sell oils with it, to take care of it.
+me: No y no no no, the o the only w the only wood you can use are the ones that are hard, extremely hard wood, but there are some very pretty woods out there.
+ui: Yeah, exactly, yeah.
+id: Well I'm glad you
+me: That's actually very innovative idea.
+id: Okay, good. Sorr having a hard time keeping wi control over my face.
+me: Well, it's actually a very innovative n different idea that uh you know you can choose your colour of wood, your type of wood.
+id: Mm-hmm.
+ui: The stain.
+me: I mean it's each person is gonna have their own personalised, individualised speech recognition remote control in wood, that's not on the market.  ## event speech.outcome = included | CONFIRM | quote="I mean it's each person is gonna have their own personalised, individualised speech recognition remote control in wood, that's not on the market." | tags=win_12_155
+pm: Yeah, so it it's looks good the the design the functional design uh, what about yo you?
+ui: Um, in terms of comments on this or in terms of my own
+pm: Yes, in t yes, in term in terms of comments first
+me: In turns of wow.
+id: She works in the cubicle next to me so she's uh she was already a little bit prepared for this. Luckily Ed was not.
+ui: Y yeah.
+ui: I think we can get the quality materials then it shouldn't influence the design principles too much, which you'll see with my presentation. One thing we'd have to check though is what the users whether how quickly the novelty wears off of having uh Yeah, for example. So, have to see how kid-friendly it is and and all that, but
+id: Mm-hmm. Yeah, you wouldn't wanna have to have splinters in your hand while you're using your
+id: It's really good if your dog gets ahold of it, they can use it for teething.
+me: They do that anyway with the rubber and plastic, so, and chew 'em up.
+id: Yeah, they do it with other materials as well, yeah.
+me: And chew 'em up.
+pm: Okay then, uh, let's move to Agnes.
+id: Oh, I'm sorry.
+pm: S you're
+pm: You are in participant three.
+ui: One point three, yeah. Uh, yeah.
+pm: This one?
+ui: I think so, yeah. Yeah, that's the one. So, it's a very short presentation, 'cause I'm actually gonna draw you the layout on the board so if you want to just go straight to the second slide, um, which basically shows, sort of I took the ideas that we were talking about last time um and tried to put that into the remote control so the things that y you can actually see on it are the on off switch, volume and channel control, the menu access button, ergonomic shape, which I completely agree with Christine's idea to have it sort of molded, so it's slightly more ergonomic and comfortable to hold than the r standard very straight remote controls. And actually the other thing with the wood if we take your customising idea, is that people can actually do sort of quasi-measurements on their hand size, so if someone has larger hands, you have a wider remote control.
+id: Right, my hand is uh different size than yours for example.
+ui: So, that's actually a really good idea for customi customisability. Um, one thing I thought might be kind of interesting is to put a flip screen on it, just like you have on flip phones, so that you don't have this case where someone sits on the remote control or accidentally puts their hand on it, especially if you have little kids around, they're not pressing the buttons while you're trying to watch a T_V_ show and accidentally change the channel or turn it off. And also um you had issues with the batteries running out, so I thought maybe we could put a little battery life-light on it that kind of goes dimmer and dimmer and dimmer as your battery is starts to die. And in terms of invisible features, audio and um tactile feedback on button presses and, like you said, speech recognition. So, in terms of what this thing would actually look like  ## event battery_indicator.outcome = included | INITIAL | quote="And also um you had issues with the batteries running out, so I thought maybe we could put a little battery life-light on it that kind of goes dimmer and dimmer and dimmer as your battery is starts to die." | tags=win_12_155
+id: Mm-hmm.
+id: Mm-hmm.
+ui: Despite working in interface design, I'm not the greatest artist in the world, so you'll have to forgive me.
+ui: You'd have something like this with an on-off switch fairly big, sort of in the corner and by itself, so you don't accidentally turn your T_V_ off while you're trying to manoeuvre other buttons. And then you have sort of one of those toggle displays for, oops, channels and volume, sort of for surfing channels and then volume, so the volume would be the up and down, 'cause volume goes up and down and then channels left to right. And then here you'd have your sort of standard, telephonish number pad.
+ui: And then on one side you would have an access to the menu on your T_V_ and on the other side a way to turn off the voice control. So that if the user doesn't want to use their voice, they can just turn it off and you don't have the remote control accidentally changing things on you.
+id: Mm-hmm.
+ui: Um, so again you can have a little L_C_D_ light somewhere, the flip thing and Have I forgotten anything? I don't think so. So, as you can see, it's a very very simple design, which is one of the things I really wanted to keep, is keep it simple, not have too many buttons, not have too many functionalities thrown into it. Think the design can pretty much carry over to everything, although with the wood the flip screen might have to do something slightly different.
+id: A hinge. Be like a copper hinge or you know.
+ui: Yeah. But you also have to d start watching out for the weight, 'cause depending on how much the the flip screen will add to the weight of the remote control, you don't want it to start getting too heavy. But that's the general layout with the general functionalities, if we come up with something else. As you can see, there's still lots of space on the actual remote control and if you do it customisably, you can make this thing fairly small or fairly o large, depending on personal preferences.
+id: Mm-hmm.
+id: Mm-hmm, mm-hmm.
+ui: So, that's pretty much all I had to say, I mean, everything else in terms of design issues. Um the centering of the key pad and the channel is just depending on where your thumb is and you tend to use the the volume control and uh the browsing more than the actual number pad, so that would be sort of in direct line of where your thumb goes when you are holding the remote control, the number pad a little bit lower 'cause it's used less frequently.
+id: Mm-hmm.
+id: Mm. Mm-hmm.
+ui: So once we decide exactly what we want, then we can figure out the exact positioning, but more or less I think it should go along those lines.
+pm: So what's your, uh, the comments or uh s
+me: Simple design. It's what consumers want.
+me: It's almost like, Houston, we have a product here. Problem is obviously gonna be cost.
+ui: Mm-hmm.
+me: Okay, I also have a f very simple presentation, because for the marketing point you have to see what the consumers want.
+pm: Mm-hmm. Yeah.
+me: I also have uh copied a different type of remote. If you can find me, where I'm at. There should only be one in here. trend watch.
+me: It's being modified. They're stealing our product. We've been giving simple questionnaires in different areas because th obviously we have to see what the com consumers are looking for today, 'cause uh trends change very very quickly. In six months maybe this idea is already gone out the window, so it's gonna be a question how fast we can act. Uh they already erased the rest of mine, huh.
+id: No, f go to findings.
+ui: No, no.
+me: No no, no no. 'Cause I had another comment there. Uh the market trend. This is what we know from the last uh from the questionnaires from the the all the p surveys we've done, fancy and feel-good, that's what we've been looking for, something that feels good in the hand, that's easy to use. Looking for next generation of innovation, because all the remotes out there now, they're all very similar, they all do the same thing, we have to have something completely different. Okay? Easy to use, has always has become has become another major interest that uh, with the whiteboard we can see that it's a remote that's easy to use. And I think this is another thing that's interesting is the consumers actually willing to pay the price for exciting tel technology. So even if we have a product that may be more expensive, if it comes out right, if they look it looks and feels good and has technology. The second two, you can see the last one is a very easy simple design. The second one, there is about uh forty-five thousand different buttons on it, which makes it fairly hard to read, uh very hard to use. The first one, I see that they put in a display. Now there's something else uh with the little flip-up, now we're adding all kinds of things in, but with the little flip-up, if you have a little display on the flip-up that when you close it everything is locked. Maybe the display also makes it easier to use, because sometimes when you're looking for buttons, maybe if you see a display
+ui: Mm-hmm.
+id: Context-sensitive instructions, depending on what the tel what mode the T_V_ or the D_V_D_ or something else is in.
+me: Because I've seen mostly the standard ones, yeah. Now you have it now you have one with the very simple also. The idea is simple, but with a display, so you can see what you're doing. So maybe if we can incorporate the easiness of use,
+ui: Especially you might need something like that for training the speech recognition and yeah.
+ui: Mm-hmm.
+ui: Mm-hmm.
+me: trendy, fancy, feels good, uh with a display, wood, designer wood, designer colours, we might've
+id: You know, maybe what you could do is when somebody orders the device id you could send them like um a uh uh b some sort of a foam rubber um ball, and then they would squeeze it, and it would take the shape of their hand.
+ui: Oh yeah.
+ui: Yeah, so it's really molded to to your specific
+id: To t an and then you would know like um what the geometry of their hands would be and uh
+me: Mm-hmm.
+me: How hard they squeeze? Resistance resistance, right.
+id: Yes you'd know what kind of wood to get.
+ui: But th for that you'd also have to do sort of an average across families and things like that if unless everyone has their own personal remote.
+id: That's right, that's right, you wouldn't wanna go too far down that. Oh that that actually would uh increase the um the revenues we could expect, yeah.
+ui: The sales, yeah.
+pm: The Yeah.
+pm: I hope so.
+me: No, but incorporating the three uh obviously it'd be something totally new on the market, totally different and from
+ui: Well, already the customisability is a really good sort of new gimmick.
+me: Although, what it was it uh it was uh Nokia that came out with this changeable colours. Right, you take it apart, and put on another face, take it off and put on another face and then they sold millions, millions.
+id: Mm-hmm.
+ui: Yeah. Yeah.
+id: Right, mm.
+ui: And that took off, yeah, yeah.
+me: So. So say with the f with the findings, with the research, easy to use something totally new. We have to come up with something totally new that is not on the market.
+ui: Mm-hmm.
+id: We'd also have to wor um consider that uh who we were gonna get to make these custom cases in terms of manufacturing processes, we might wanna um learn about um labour laws. You know in different countries and stuff wher so we can do it cheap, but you don't wanna exploit uh labour in um third world countries. So actually you could turn it y turn around and say that you're uh par the reason the cost is high for the device is because um you're paying a a working wage to the person who made the device.
+ui: Mm-hmm.
+pm: Yeah, but we can get a production in, uh, countries like, uh, India yes, yes, countries like India or China or Malaysia, so you can go a better features and better price and you can sell more.
+id: Cost of living is low.
+id: Good, well th that'd be something that manufacturing would have to um explore more and to where Mm-hmm.
+pm: Yeah, yeah, so
+me: Where w Where it would be manufactured is is
+ui: Mm yeah.
+me: another step. We're here to design,
+pm: Yeah, so
+pm: Yes uh, but uh that that we can that we can talk about the production later, okay, depends on the the quantity, okay. So we don't need to have our own uh fabric factory or something, so we can have a tie-up with who the do the fabric, okay, for the different uh electronics items, then we can have a business tie-up and to get to cut the cost, okay, to sell more.
+me: come up with a nice product.
+ui: Mm-hmm.
+id: Mm-hmm.
+pm: So, but uh le let's decide first about the components concept and uh interface concept, okay, if is acceptable for both of you, what uh Ed was talking. And your design whether you want with the display or without display or just a simple, so
+ui: Mm-hmm.
+ui: I think it depends, I mean I think it's a good idea, but we need to really think about how useful it's gonna be because theoretically with the T_V_ you already have a big display right in front of you.
+ui: So, if we're trying to keep costs down, then maybe sacrificing the display
+ui: is a way to go. I mean it depends on how much putting a display costs and what it would be used for very specifically what it would be used for, 'cause if it's only used for one little thing, then putting in a big display case or a big display that's  ## event lcd.outcome = excluded | INITIAL | quote="I mean it depends on how much putting a display costs and what it would be used for very specifically what it would be used for, 'cause if it's" | tags=win_136_149
+id: Mm-hmm.
+ui: probably expensive just to do the training on the chip for the speech recognition or whatever, may not be the most cost-efficient way to go, but that's just sort of speculation, I mean.
+id: What do you think Ed? Do you he liked the display in one of the concepts that you showed, um, do you know how much it costs, um, to to add a little display like this uh?
+me: No. No no p spec It's 'cause we have to find out cost on it.
+id: Do you wanna take an action item to go find out?
+id: Okay. Sorry about that.
+me: Um, no that's no problem. I'm here for the pushing it after it's made. I will market it. Once we get a price on it then we can market it.
+id: So the the advanced chip on print is what um what we've we've deci we've determined and the uh engineering industrial design is the recommendation, and um I think we've kinda come to some agreement regarding um this concept of a wooden case.
+ui: Mm-hmm.
+id: A customisable and
+me: Nice beautiful mahogany red wooden case.
+ui: What about the buttons, would Would the buttons be wood too, or
+id: Uh I don't think so, no, I think they could be rubber like they are now, so you have that tactile experience of  ## event button_material.outcome = soft rubber | INITIAL | quote="Uh I don't think so, no, I think they could be rubber like they are now, so you have that tactile experience of" | tags=win_12_155
+pm: I don't think so. Yes. Yes. Don't looks nice uh.
+pm: Yeah, so uh what we'll do is, uh, we will stick with the the simple design for time being until uh th Ed find outs about the how much it's cost to the extra, in case we go for the display. Okay. So maybe what you can do is uh, both of you, you can come up with the the prototype, okay, the model. Okay?
+ui: Mm-hmm.
+id: So um are we done with this meeting?
+pm: Yeah, I hope, if is it okay if uh they will come up with the prototype design, okay. Then they can show you how it looks like, and then we can uh submit to the I will submit to the management. Okay? Then meantime you can come up with the price, how much it's cost as extra for uh the display. An and the marketing strategy, that's very important, okay.
+id: And a marketing strategy.
+me: And marketing strategy, thank you. Fired.
+pm: Yes. How much you can how mu how much how much you can sell extra. Of course you'll make money too, so it it's not only pay-out, you make money too, your commission.
+pm: Okay, so, any questions?
+pm: So, by next meeting, so, please come up with the the prototype, okay, then uh, then we can proceed from there.
+ui: Okay. Mm-hmm.
+pm: It's okay? So thanks for all your uh efforts and coming for the meeting again, and see you soon then. Okay? Thank you.
+
+meeting: IS1008d | 2026-02-23T09:00:00Z | ingested=2026-02-23T12:00:00Z
+id: I'm sorry to be late.
+pm: Welcome back. Welcome back everybody.
+ui: Yeah. Thanks.
+pm: So this meeting agenda will be the detailed design meeting. And uh opening and uh P_M_s of the meet minutes, uh prototype presentation from uh Christine and uh Agnes.
+id: Agnes, yes.
+pm: Yes and uh evaluation criteria. The finance, it's uh from my side, from the management, and uh production evaluation. Then uh closing. So we have forty minutes to discuss and uh finalise and close the product and project and to move further, okay, so
+pm: Okay, let's talk about uh maybe first uh for the prototype.
+ui: Mm, okay.
+pm: So I handle to
+ui: I've done a presentation, but it pretty much covers work that we've both done, so if I'm missing anything, Christine can just correct me.
+pm: So shall I go to sorry.
+id: Uh thank you, so you did a PowerPoint presentation, good for you.
+pm: Yep. S Okay, let's go to A_M_I_.
+ui: It's not the biggest PowerPoint presentation in the world, but
+pm: So in two or three or
+ui: Um. No it's think it's the last one.
+me: Probably. Technical pa I would think.
+ui: No, then this is the la yeah, that one, final design. It is named appropriately, you just couldn't see the name. Um okay, can I have the mouse?
+ui: Alright, so
+ui: from when we were discussing specifying the case in the last meeting, we decided that we wanted an ergonomic shape, the material that we chose was wood, and uh the colour would be customisable, 'cause you can stain the wood whatever colour. Um, so in terms of function, you have to be able to turn the T_V_ on and off, volume and channel control, menu control, voice recognition control, and we've incorporated the L_C_D_ screen on the flip panel as part of the design, if we figure out it's too expensive, well then you just take it off. Um, so to unveil our lovely product.  ## event lcd.outcome = included | REVERSE | quote="volume and channel control, menu control, voice recognition control, and we've incorporated the L_C_D_ screen on the flip panel as part of the design, if we figure out it's too expensive, well then" | tags=win_17_40
+ui: This is our remote control, with the flip panel as you can see. So if you lift up the panel, you can see the lovely yellow L_C_D_ display. Um, this is actually hard to do. The yellow button you have is the on off button, so it's really big, hard to miss. You have the the red um triangles are the toggles for changing the volume. So up volume up, down volume down. The green are the channel changing. S And it's one of those very light, very touchable displays. And then you have the numeric pad in the dark blue at the bottom, and on the right-hand side you have the access to the menu on the T_V_, and on the left-hand side you have the the the ability to turn off the voice recognition. So this is pretty much what we had on the white board the last time.
+pm: Mm-hmm.
+id: Um and uh I could
+ui: Oh yes. Additional feature on the back is that you can have your own customised backing and I suppose you could do the same thing on the flip case on the front. So that you can really make this a highly highly customisable remote control.
+id: Yeah the d
+id: We haven't um uh specified where the speaker or the microphone will be placed. That depends on the uh s design of the circuit board inside and uh what room is left um
+pm: I think the microphone is on on the top, uh on the middle, the under the flip.
+id: Yes, okay. Uh-huh.
+pm: So that will be the safe, so p any the chip it's not on the chip because you need to have microphone to
+id: No, I mean it depends on the design of the circuit board.
+ui: But it shouldn't be under the flip either, because you can have the remote control closed, but you still might want to activate it by voice.
+pm: Uh it's it's Yeah, but uh uh my opinion I think it's better under the flip because whenever you want to uh the talk, okay, so then you can speak then you can close it. But if you put it on the on the flip, okay, then uh technical I don't think it's uh feasible, 'cause most of the time you speak then it will be recognised.
+ui: But if you've already got the remote control in your hand you need to open the flip to use the voice, why use the voice, why not just use your hand? I mean the whole point of the voice is that if the remote control is sitting there and I'm too lazy to reach over and pick it up, I can just use my voice.
+id: Maybe I've got my hand in the popcorn bowl and I'm holding my cup of Coca-Cola in the other hand.
+ui: Yeah. And you don't wanna let go of either one.
+me: I don't wanna say. Louder. Yeah.
+ui: I mean it doesn't have to be on the flip, it can be on the side somewhere.
+me: Can also be on the side.
+pm: Yeah, the sides maybe is good. So That's good idea.
+id: Mm-hmm.
+ui: So, I mean I can pass this around if anyone wants to
+pm: Yes. So it's maybe good idea.
+id: Yeah, y better you pass it around with a napkin.
+me: No, because y you can easily put a microphone on the side that would have no problem would haven't been not be damaged or anything, and it'd be accessible all the time to voice.
+ui: Yeah, exactly.
+pm: So it's maybe good idea. S s
+id: It's um
+me: Compliments to the artist.
+id: It's um You need to work on the weight a little bit.
+ui: Yes. And maybe the shape of the buttons, the little egg shapes aren't the most economical, but
+pm: Okay. S I'm fine, I'm satisfi I'm satisfied.
+id: We're glad you're satisfied.
+pm: Of course it's it's it's looks more heo heavy, but I think when it's completely maybe it's a less weight.
+ui: Yeah. I mean this is plasticene. There's only so much you can do. We could have possibly made it a lot thinner as well.
+ui: But And part of the thing is m a lot of people say that they don't like something that's too light, because they don't feel like they have enough control over it. So I mean maybe this is excessively heavy, but I think it needs to have some weight, it needs to feel like you're still holding something.
+id: Mm-hmm.
+ui: So that's pretty much it for our presentation actually.
+pm: That's your uh prototype model? Okay, that's good, thank you very much. So any comments or uh
+me: Well, the prototype is is very well within the design and ideas that we've we've talked about on the previous meetings. Now it goes into this next phase as the financial uh marketing uh
+pm: Yes, that uh So I'll come back to the
+pm: So evaluation criteria, I think uh that will be good, so then let's come to the finance uh, I have some uh calculations which I made uh as for uh the budget. So here you can uh look like uh the energy and uh dynamo and uh kinetic and solar cells. Uh it's optional, somewhat optional and Ed wants the chip on print, that's what uh we were talking about that. So then we have sample sensor and sample speaker, then uh we have the wood material, then special colour and push button. So it's uh actually, our budget was uh twelve point five Euro, but uh it's coming to nine point nine five Euro, so we are under uh below the budget, okay, so still we are saving some money.
+pm: I think it's a good figure.
+id: Yes, great I I'm surprised. Congratulations.
+pm: Than thank you.
+me: Well we haven't come to mine yet, so we're gonna have a bit of difference of opinion, yes.
+id: Oh, okay. It's gonna cost a long way to c you know, cost a lot of money to market it, is it?
+pm: So maybe it's for some money we can utilise for our uh marketing, for the sales, okay, and uh
+me: Well, it just depends on if we're gonna add a o on this pr provisionary cost analysis, we do not have a L_C_ display. L_C_ display is gonna be very expensive, it's gonna be
+ui: No we do, but it's not filled in. It's number thirty. Oh, yeah, yeah, you're right, sorry, yes.
+me: It's not it doesn't say. We don't have the price up there, okay, so if we add approximately two to three Euro per
+pm: It's not. Yeah. Yeah.
+pm: Yeah. Yeah.
+me: remote, now we're up around about twelve, twelve and a half as to what uh the company had initially uh requested. Um
+id: So that means we can put the uh
+me: Display in. But as far as production um I'm putting up a question because we're talking about profit also, and in mine you'll see uh
+id: the L_C_D_ in, yeah.
+me: the problem with uh our survey, the p the possibility that how many units can be sold, what percentage of the market, etcetera etcetera because that has to be taken in into consideration. Uh this is just production cost, it is not uh advertising cost, it's not transportation cost uh
+pm: Yes, so still uh we have twelve point five Euro.
+me: And that will inflate quite a bit the cost of the uh the cost of the unit for the company. So to come up with what the company wants is a fifty million Pound profit, we're gonna have to go a long ways.
+pm: Yes. Yeah, but Yes. Yep.
+ui: Um-hmm.
+pm: Yes. This we are talking about one unit, okay, so when it go into the quantity, okay, and the cost will come down.
+id: Although customisation, because this is being done, you know, the on on-order basis, it might be uh the the quantity won't m won't uh the circuit board will b you're right, would be in producing quantity, but the cost of the case would uh be fixed at the
+me: It's gonna be very hard to reduce.
+id: Uh you got some pretty cheap labour that can do this case for one Euro. That's really that's the cost of the material and lab wow, that's really outstanding.
+me: That's not bad.
+pm: Yep. Yeah.
+pm: But anyhow, still we are under control, okay, so what uh I will do is I will try to negotiate with the vendors, okay, to get uh the production cost less, okay, so then we can save some money, okay, to put into th our marketing or uh you know the promotions, whatever, okay, so that uh I will look after. I will speak to the management and how to get uh you know some more uh cost down.
+me: If we can go to to my display. And we'll come back to yours just to give everybody an idea of the market.
+me: So now I'm gonna scare everybody out of this project.
+me: If I'm still here. Yep.
+pm: You're in four?
+me: The four gives me it's gotta be uh TrendWatch.
+id: Is this the same one you did before?
+me: It shouldn't be if it's not it's not the right one. No, no we g no, that's the same one. You have to go back and find another one.
+ui: That's no, I think it's the same one.
+me: Whatever name it popped up under. Uh functional, try functional, it might not be it either, but we'll see.
+ui: It looks like it, there's
+me: Yep, that's it. So we'll go screen by screen. Although since uh we need to have some type of idea on a market uh we had independent study that says it this this market has an availability to absorb eight mi eight million units per year. Okay? Our internal company evaluation puts it between eight to nine million which is approximately the same as the independent study.
+ui: S Yeah.
+me: So if we continue, we'll look at the findings. Next screen.
+me: Which means that uh if we have a target of two million would the company has to take twenty five percent of the market in the first year, which is actually a tremendous amount.
+pm: Mm-hmm.
+id: Yeah, no kidding.
+me: No kidding, yeah.
+id: Mayb maybe they already expected something.
+me: So, if we put an inflated price of fifty Euro at a production cost that cannot exceed twenty-five Euro, okay, we're already in that that price, okay, with transport, promotion, labour, because we hav gi included the promotion in the cost, transport for the material to the stores or whatever how however we're gonna break this down between our our retailers.
+ui: Um-hmm.
+me: Twenty-five percent of the market to get to two million units. At two million units, we have to have a profit of twenty-five Euro per unit to get to the fifty million unit Eu Euro profit. Okay?
+pm: Mm-hmm. Yep.
+me: So, obviously we w w I just did a run down the evaluation of the form, the fan uh the fancy stylishness of the of the unit, the ease of use, speech recognition, cost, we've gone through these. Now, the company must evaluate the feasibility of being able to take enough of the market to justify in production. Or we project this over two years, but being that the market changes very very quickly, maybe there's no more interest in buying this thing in eighteen months from now. So, now we have to come up with a decision. Can the company sell two million units? Can it sell it for fifty Euros?
+pm: Yep. Of course.
+id: Could could I go to findings? Uh uh um I would uh like to explore the possibility of using um alternative um delivery and sales channel which would be um to use the internet for promotion and ordering and then to drop-ship the p product to the customer's residence. That way you have no storage, you have no um you do have transportation, still have the labour cost, but you don't have the transport to the uh point of sale. The point of sale is online.
+ui: I was thinking the same thing, yeah.
+ui: Um-hmm.
+pm: To the agents.
+ui: Yeah. You can do a shipping centre somewhere, or strategically place shipping centres to minimise distance costs.
+id: Right, like Amazon. In fact, we should sell through Amazon, don't you think? Or eBay, yeah.
+pm: Yes. Or eBay, or Yes.
+id: There's an idea. Going with um
+pm: Yeah, that's a good idea. To impro more profit and uh
+me: S Upscale technology. Well.
+pm: Yeah, yes.
+id: Ah, we we're do you know, selling a unique product uh.
+ui: That actually makes more sense if we're gonna make it so highly customisable, 'cause on the web people can look at the different options they have, see maybe what other people have done, what the range of possibility as, whereas if you're in a store, you can't unless you're a highly imaginative person, you may not really know what it is you want, whereas on the web, if you have a bunch of pictures, it can sort of trigger ideas and
+me: There are several companies that have gone that way.
+id: Mm-hmm.
+id: And you can even have an a movie that you can rotate the object and look at the di the only thing that you're missing really is the weight.
+ui: Yeah. The weight and feel.
+me: Weight, the feel of the product, but
+id: We're getting used to that. It's not quite like trying on a shoe, but people are getting used to buying things online that they can't touch before buying.
+me: There are several that have gone through with the watches, too. You can customise a watch, you can see how it is at the f at the end of the production, you can change it uh
+ui: Mm-hmm.
+id: Uh-huh.
+me: There's a lot of online that's that is doing this now.
+me: And when you're rotating, you'll look behind and look this way uh it's possible to do with this, maybe there's a possibility of selling more than two million units in one year, which could you know, feasibili feasibility uh lower the price of the unit.
+ui: Mm-hmm.
+pm: We can.
+pm: I don't think that's uh not possible, it's uh okay then, l uh let's wait for the production, okay, then uh you can evaluate the product, so how it looks like technically and uh how it look like uh the real.
+ui: What turnaround time do we have?
+ui: 'Cause I mean production evaluation can be very very quick or very very long.
+pm: Oh but Yes it's it's very quick, of course. It will uh come back in two weeks, okay, it will be ready in two weeks. For evaluation, okay.
+id: Works for me.
+id: Prototypes, you mean. In um
+pm: Yes, the prototype uh prototype product evaluation.
+id: We probably should do some market tests uh once we have the prototypes and do some orders and things like that and test-market it.
+me: Well, obviously.
+pm: Yes. Yes.
+me: Mm that'd have to be thrown out on the market for people to get an idea, to see get get their
+pm: So you can take a minimum two weeks to a maximum four weeks.
+ui: Mm-hmm. Think minimum two weeks if we're gonna develop prototypes and then try to take them to different places and see how people use it's not a trivial task.
+pm: Yeah, because we we are not going to do it in uh our factory, okay, so we can give it a product evalua Yes, yes.
+ui: No no. We definitely shouldn't do it in our factory.
+pm: So we'll do it in the other place, and I don't think it's take more than four weeks time.
+pm: Or uh Okay, so then the real production we will start once we product evaluation, okay, then uh it's approve from uh the technical team and uh your team, okay, uh from the management, then we can launch in the market.
+id: Any outstanding?
+pm: S Any any other uh questions or uh comments to be discuss?
+id: No, I'm go ahead.
+ui: What ab
+me: I think we pretty much covered everything.
+pm: Okay, so then uh
+id: Did you have something?
+ui: Well I was just wondering about if we're gonna do a product evaluation then what about time for redesign if the users come back and tell us no this is bad, this is bad, we want this done differently.
+pm: Okay uh, let's take like this. Let's proceed with this model, okay, for the for the marketing direction, okay. So no more changes will be made, okay, in this the basic design. Okay? So we will introduce m this model and uh let's introduce in the market and let's take the feedback from the customers, then we can uh go for the
+id: Second generation.
+pm: second generation. Okay. There's no end, there's not limit. Every every custom
+ui: The problem is there might not be a second generation if the first generation flops for some silly reason that we haven't thought of.
+me: Well, then it may not be.
+pm: Okay. Well, every customer, okay, they have their own ideas, they have their own test, okay, so there's no end, there's no limit.
+me: Like people don't like wood.
+ui: No, but there's a difference between releasing a product that has been minimally tested and fine-tuned to suit a general range of requirements versus releasing a product that we think will work but we don't really have anything to back it up.
+me: very specific.
+pm: Yeah, so that's the reason you are here for uh the design, okay, I hope you made a good design.
+ui: Yes, but I'm not everybody. I mean the whole point of user evaluation is to see what real people need. We have our own motivations in mind, we have our own ideas in mind, but that doesn't mean that that's what's gonna sell.
+pm: Yeah, but uh see, we ought to take a few considerations, okay, one is the price consideration, one is future consideration, okay, like uh you can eat uh you can all eat more chi I can eat more chilli, okay, so i it's a depends on the individual taste, you know, so we have we have to balance somewhere.
+ui: Yeah, of course. I'm just trying to point out that I think that your evaluation and redesign turnaround time is too short well you have no redesign not you personally, but in the project we have no redesign time and
+id: Our project doesn't um
+id: Ed, d do you know what season of the year or time of the year is the most important for T_V_ remote control sales?
+id: Would it be the Christmas season by any chance? Sports season.
+pm: The sports time.
+me: Right before the Eur the World Cup. World soccer. World Cup soccer, they need those things that they have their hands g occupied and they need to be able to talk to the con remote control.
+id: Which sport season?
+id: So so
+id: maybe what
+id: So I think what we need to do is perhaps to synchronise the final the the launch of a user-tested device with some special event. And and then um so that gives us a little more time perhaps then we anticipated, because I don't know when the World Cup is, but I'm sure there's gonna be one.
+ui: Yeah, that's a good idea.
+me: Or any major sports.
+id: Or another m major sports event. Probably not the um the football games coming up the end of January. I think that might be a little too aggressive um, but, so, I'm just ig uh pointing out a uh a strategy to uh do some additional user testing pri and then to launch um at a a major sports event or uh perhaps to uh also
+ui: Mm-hmm.
+ui: That's actually good place to advertise it too.
+id: And to work with motion pictures. There might be some motion pictures that are coming out um that are coming out on D_V_D_ that uh they need to have a m special remote control to work with it, so we could maybe work out a campaign with uh with Sony Pictures for example. Maybe some management has got uh relationships there we can leverage.
+ui: Mm-hmm.
+pm: Yes, the that of course uh I will convince the management to do that, okay.
+id: That's great.
+ui: It's just something to to keep in mind, 'cause it's really really important. A lot of products have gone out there without being properly user-tested and completely flopped, when in fact it gets re-released a few years down the line with proper testing and it takes off like crazy.
+pm: Sure, sure, yes.
+id: Disposable diapers is an example of that in fact. Yes, it is one of the first consumer products that was launched about thirty years that was a disposable consumer product, and uh people the market hadn't really gotten on to the concept that you could use something and then throw it away, 'cause it wasn't uh but then when they re-launched them thirty years later, they were virtually the same design, but people had gotten the throw-away, you know, paper cups and napki y all kinds of things that they hadn't um so, you're right, timing is very important, but I think we've got a good product.
+ui: Really? That I didn't know.
+ui: Mm-hmm.
+pm: That's the reason Ed is here. I think he can promote the the brand value and the product value. Yes.
+id: That's right.
+id: It's gonna be very important to the company.
+pm: We are behind the scene and he is the front screen, so.
+me: Yeah, I'm the one who takes the heat. If it's a flop, it's the marketer.
+pm: He's on the big screen.
+id: Good luck, Ed.
+id: You look very relaxed, considering h you know, the uh the weight on your shoulders, yeah.
+me: Yes. Yes. Stress.
+pm: Okay, so then uh let's come to the closing and uh are the costs within the budget and uh is the product evaluated, okay, so that will uh come soon. Okay for uh but our time being, so thanks for all your efforts and great work and uh great design and uh let's leave it to the Ed for later for once production is
+pm: over and the meantime let's celebrate. So let's meet up uh this evening to hang up for some party.
+id: Sounds good. Thank you. Nice working with you.
+pm: 'S good.
+me: Very good.
+me: Thank you very much. Bye-bye. Yep, okay, see you later on.
+pm: Thank you. Thank you again for all.
+ui: Thanks. Bye.
+pm: And see you in the evening for drinks.
+
+question: q1 | current | locator.outcome | gold=included
+question: q2 | as_of_valid | locator.outcome | valid=2026-02-05 | gold=none
+question: q3 | n_changes | locator.outcome | gold=0
+question: q4 | current | speech.outcome | gold=included
+question: q5 | as_of_valid | speech.outcome | valid=2026-02-05 | gold=none
+question: q6 | n_changes | speech.outcome | gold=0
+question: q7 | current | case_material.outcome | gold=wood
+question: q8 | as_of_valid | case_material.outcome | valid=2026-02-05 | gold=none
+question: q9 | n_changes | case_material.outcome | gold=0
+question: q10 | current | button_material.outcome | gold=soft rubber
+question: q11 | as_of_valid | button_material.outcome | valid=2026-02-05 | gold=none
+question: q12 | n_changes | button_material.outcome | gold=0
+question: q13 | current | chip.outcome | gold=advanced chip
+question: q14 | as_of_valid | chip.outcome | valid=2026-02-05 | gold=none
+question: q15 | n_changes | chip.outcome | gold=0
+question: q16 | current | battery_indicator.outcome | gold=included
+question: q17 | as_of_valid | battery_indicator.outcome | valid=2026-02-05 | gold=none
+question: q18 | n_changes | battery_indicator.outcome | gold=0
+question: q19 | current | lcd.outcome | gold=included
+question: q20 | as_of_valid | lcd.outcome | valid=2026-02-05 | gold=none
+question: q21 | n_changes | lcd.outcome | gold=1

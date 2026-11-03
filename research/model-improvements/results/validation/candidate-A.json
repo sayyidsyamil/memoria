@@ -1,0 +1,90 @@
+{
+ "frozen": "2026-11-03 15:28:20 +0800",
+ "candidate": "A",
+ "mechanism": "app-nosys-numwords-loopstop+modevalue",
+ "baseline": "app",
+ "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+ "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+ "components": {
+  "nosys": "the extraction request is sent without the worker JSON system message (user turn only); same prompt (engine build_prompt v2), 1,800 tokens, greedy, thinking off",
+  "numwords": "an amount whose quote states no number in digits is kept when the quote states that amount in words (numwords.repaired); words never replace a value",
+  "loopstop": "a reply is cut at its first exactly repeated event object (the worker would stop generating there)",
+  "modevalue": "closed loop, per meeting before writing: a tracked slot keeps only the value written most often in that meeting, ties to the later write; candidates the pipeline would not write are untouched"
+ },
+ "dev": {
+  "qa": "100/124",
+  "by_type": {
+   "as_of_valid": "37/38",
+   "current": "28/43",
+   "n_changes": "35/43"
+  },
+  "gold_found": 28,
+  "wrong_writes": 31,
+  "inbox": {
+   "proposals": 89,
+   "accepted": 27,
+   "edited": 5,
+   "rejected": 57,
+   "per_meeting": 4.45,
+   "qa_after_review": "98/124"
+  },
+  "seconds_per_meeting_mean": 67.1,
+  "vs_app": {
+   "a_only": 17,
+   "b_only": 7,
+   "both": 83,
+   "neither": 17,
+   "p_two_sided": 0.06391465663909912
+  },
+  "baseline": {
+   "qa": "90/124",
+   "by_type": {
+    "as_of_valid": "36/38",
+    "current": "28/43",
+    "n_changes": "26/43"
+   },
+   "gold_found": 26,
+   "wrong_writes": 46,
+   "inbox": {
+    "proposals": 119,
+    "accepted": 25,
+    "edited": 6,
+    "rejected": 88,
+    "per_meeting": 5.95,
+    "qa_after_review": "92/124"
+   },
+   "seconds_per_meeting_mean": 57.6
+  },
+  "empty_ledger_right": 69
+ },
+ "hashes": {
+  "harness.py": "7cf4dcd07f69187e0d0c893a9ec4c2e03e3ffe1b0b7696e6554d0350e8f3465d",
+  "lm.py": "1e870f97c757504c6cfc840ebb8d3ae086ce3c630d17bd327c1fb547091319ef",
+  "score.py": "6af0c62eada8d2350413a7149e65b5d59085d126df8aca13ecfa38fe4eb082da",
+  "support.py": "b8a79581190647b0c466c55d1f4128b56756c1b13bf9c71a4d52afcf2f73fc85",
+  "consolidate.py": "186421bf6d7d6345538c075b238900202c9525958c38d830d51695cfe6703713",
+  "numwords.py": "1a9ee7e204d4b02a72915e329a1b7c183a742848a75c13c43cc22394e068ec0f",
+  "validate.py": "3605655f3abdbd113e93f82978e2e04aa37ef5d4b4a0d1a322446672123a4026",
+  "lease.py": "63538b58cb0612cf5cd8aad9babe14fe2d12535a52b88316048500444c4252e1",
+  "data/splits.json": "438d9b24b6d4a89a970c622dd5ca7527ef6ee05b5ed416726e0efdf814ab5503",
+  "data/manifest.json": "8ad9b2ddab88fb9c4bfe5fb57e3d304535a84291b0e9df94334198df07e8c6d1",
+  "PROTOCOL.md": "d6ae731ec8d6c24a049a5422a3f0a76a7a159731c40d7fb72011a1dcbefde87b",
+  "src-tauri/resources/memory/temporal_service.py": "11e8418ac7e6858376f0923d5bd58b065630f082184e61b0e0261280ebc1cf4d",
+  "src-tauri/resources/memory/model_server.py": "84cfbf69f4a516b2afbe25692b973049be89ad5c0e9fe243b5e8a4be6747ddc2",
+  "src-tauri/resources/memory/memoria_engine/extractors.py": "fba79ff3f9408acafb060f52cc9ef4ebfb49e093cda47050011c7bb457caae1f",
+  "src-tauri/resources/memory/memoria_engine/windowed.py": "618ac34f0c996d68da8713329e10b337ec076225375c9f1cfbb7e893258d5db3",
+  "src-tauri/resources/memory/memoria_engine/pipeline.py": "e10200648b2ae9a900ae6d1e790340da3d4f256a5956e53a40165460fcb89fdf",
+  "src-tauri/resources/memory/memoria_engine/ledger.py": "ec0b28a3988b555ec99ca091fb3903fa3ce0c92e78bafd6c8b9d5ecc29ee4e54",
+  "src-tauri/resources/memory/memoria_engine/evaluation/metrics.py": "cee95ab4c709af6d78887d863bf8b510883339b024bcc4ed3c4490d1db55a5bd",
+  "src-tauri/resources/memory/memoria_engine/evaluation/oracle.py": "506c4dab1e89c774f79e9c4e2b94f3857d73da5842a91f4995d9e492b498b68d",
+  "data/ami_new/ES2002.chain": "ffffa49e723c0bf574c76ef3fde5fd344e93d6250a8efe91373b1ec565f3b60b",
+  "data/ami_new/ES2005.chain": "26e2e4ca5d8fdd2e8a4f4a2700572ba0c8bf6a349d9093907ba03d7d1a6b1591",
+  "data/ami_new/ES2010.chain": "cf1ff2fe337c936f00fbdbf9551e6c58256a47373962f29eb80e6f9f1075fe62",
+  "data/ami_new/ES2016.chain": "0862fe9adea85237fd4294cb2c822f922a9472144aafaebc64fe4944b086fa18",
+  "data/ami_new/IS1001.chain": "a16fa7021a063ea20486dff2bbe52e33bc8f25338af2fe8c27f6260a5dd97c4a",
+  "data/ami_new/IS1004.chain": "ad20147fd5548f1aededd1242d1519f19b82253f4c8434ea5efd2a36e4f9bbec",
+  "data/ami_new/TS3005.chain": "83866bcd40f72e7bbdf13666ce6f8b666b27a97f67a18fcfbb8a223d53f05ba0",
+  "data/ami_new/TS3010.chain": "378962a198e7cfc1c2d4c29921ffda79adb1fe704ba61eeb25f84fbb265adab1"
+ },
+ "note": "Frozen for validation; not a preregistration. new-val is reserved until the specialists dev outcomes arrive; then all candidates are preregistered together (validate.py prereg) and new-val is run once."
+}
