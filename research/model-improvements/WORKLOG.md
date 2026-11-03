@@ -35,3 +35,11 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   require the advanced chip" -> LCD excluded and price 1.5; "Yeah, and single curved curved." -> remote type); the
   rest are suggestions or colour talk before the decision. Hypothesis for a mechanism: an attribution (support)
   check, not a firmness check. Its question was written (`support.py`) before reading any app-path output.
+- 12:55 No-model filters on October's dev replies (illustration only; the app path differs), open loop, against
+  random removal of the same number of writes per meeting (`controls.py`, 300 draws):
+  - `lastvalue` (within a meeting, a slot keeps only writes of the value its last write states): removes 8 writes;
+    QA with exact routes 35 -> 39 of 45 (changes 10 -> 14 of 16); gold events kept 15 of 15; wrong writes 19 -> 14.
+    Random removal of 8: QA mean 35.2, 90th percentile 36; gold kept 13.9. Passes the protocol's filter rule.
+  - `lexsupport` (keep a write only if its turn or the one before names a word of the item or the value): removes 23;
+    QA 36 (random mean 35.1, 90th percentile 36), gold kept 14 (random 12.7), wrong writes 19 -> 9. Marginal on QA.
+  To be rerun on the app path (old-dev + new-dev) before any conclusion.

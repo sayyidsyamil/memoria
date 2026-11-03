@@ -34,8 +34,8 @@ def budget_minutes(args):
     return 9.0
 
 
-def extract(variant, mechanism, names, minutes):
-    lm, started = LM(variant, CACHE / f"{variant}.jsonl"), time.time()
+def extract(variant, mechanism, names, minutes, lm=None):
+    lm, started = lm or LM(variant, CACHE / f"{variant}.jsonl"), time.time()
     for chain in harness.load_series(names):
         if time.time() - started > minutes * 60:
             print(f"time budget reached before {chain.chain_id}", flush=True)
@@ -50,11 +50,10 @@ def extract(variant, mechanism, names, minutes):
     return lm
 
 
-def route(variant, names, minutes):
-    from ask_facts import _complete_attribute
+def route(variant, names, minutes, lm=None):
     from memoria_engine.evaluation import baselines
     from memoria_engine.evaluation.router import build_prompt
-    lm, started = LM(variant, CACHE / f"{variant}.jsonl"), time.time()
+    lm, started = lm or LM(variant, CACHE / f"{variant}.jsonl"), time.time()
     for chain in harness.load_series(names):
         if time.time() - started > minutes * 60:
             print(f"time budget reached before {chain.chain_id}", flush=True)
@@ -63,16 +62,15 @@ def route(variant, names, minutes):
         for q in chain.questions:
             lm.app_generate(build_prompt(chain.registry, today, q.ask), 1800, APP_SYSTEM, tag=f"route:{chain.chain_id}:{q.qid}")
         print(json.dumps({"series": chain.chain_id, "questions": len(chain.questions), "misses": lm.misses, "hits": lm.hits}), flush=True)
-    del _complete_attribute
     return lm
 
 
-def guard(variant, split):
+def guard(variant, split, lm=None):
     sys.path.insert(0, str(harness.ROOT / "research" / "memoriabench"))
     os.environ.pop("MEMORIA_EMBED_SOCKET", None)  # lexical candidates only: no embedding model is loaded
     os.environ["MEMORIA_LIVE_CHECK"] = "guard"
     import app_live_check_bench as bench
-    lm = LM(variant, CACHE / f"{variant}.jsonl")
+    lm = lm or LM(variant, CACHE / f"{variant}.jsonl")
     probes, provenance, memories = bench.load_inputs(split)
     current = {}
 
@@ -191,6 +189,13 @@ if __name__ == "__main__":
         used = parity()
     elif task == "thinkcheck":
         used = thinkcheck(args[1])
+    elif task == "suite":
+        # one lease, one model load: guard on bench-dev, routes and extraction on the given series
+        variant, names = args[1], args[2:]
+        started = time.time()
+        used = guard(variant, "dev")
+        route(variant, names, minutes, lm=used)
+        extract(variant, "app", names, max(0.5, minutes - (time.time() - started) / 60), lm=used)
     else:
         raise SystemExit(__doc__)
     used.close()

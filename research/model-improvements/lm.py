@@ -103,8 +103,8 @@ class LM:
         self.misses += 1
 
     # ---- the app's generation request (model_server.serve, plain request branch)
-    def app_generate(self, prompt, max_tokens=1800, system=APP_SYSTEM, tag=None):
-        key = key_of(self.variant, "generate", max_tokens, system, prompt)
+    def app_generate(self, prompt, max_tokens=1800, system=APP_SYSTEM, tag=None, think=False):
+        key = key_of(self.variant, "generate-think" if think else "generate", max_tokens, system, prompt)
         hit = self.cache.get(key)
         if hit is not None:
             self.hits += 1
@@ -115,14 +115,14 @@ class LM:
         from mlx_lm.sample_utils import make_sampler
 
         messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
-        rendered = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        rendered = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=think)
         mx.reset_peak_memory()
         started, text, last = time.perf_counter(), "", None
         for response in stream_generate(self.model, self.tokenizer, prompt=rendered, max_tokens=max_tokens, sampler=make_sampler(temp=0)):
             text += response.text
             last = response
         seconds = time.perf_counter() - started
-        record = {"key": key, "variant": self.variant, "revision": VARIANTS[self.variant]["revision"], "kind": "generate",
+        record = {"key": key, "variant": self.variant, "revision": VARIANTS[self.variant]["revision"], "kind": "generate-think" if think else "generate",
                   "max_tokens": max_tokens, "system": system, "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
                   "prompt_head": prompt[:120], "tag": tag, "text": text, "seconds": round(seconds, 3),
                   "prompt_tokens": last.prompt_tokens if last else None, "output_tokens": last.generation_tokens if last else 0,

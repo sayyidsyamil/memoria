@@ -67,65 +67,171 @@ def duplicate_events(text):
     return repeats
 
 
+def cut_at_repeat(text):
+    """The reply up to the first event object that repeats an earlier one exactly: what a worker that stops generating
+    there would have returned (greedy decoding writes the same prefix). None when nothing repeats."""
+    import re
+    seen = set()
+    for match in re.finditer(r"\{[^{}]*\"quote\"[^{}]*\}", text):
+        body = re.sub(r"\s+", " ", match.group(0))
+        if body in seen:
+            return text[:match.start()]
+        seen.add(body)
+    return None
+
+
 class AppExtractor:
     """temporal_service.SharedExtractor with the worker call made through lm.LM (cached)."""
     name = "workspace-qwen"
 
-    def __init__(self, lm, budget=1800, prompt=build_prompt, system=None, post=None, repair=True):
+    def __init__(self, lm, budget=1800, prompt=build_prompt, system=None, post=None, repair=True, loopstop=False):
         from lm import APP_SYSTEM
-        self.lm, self.budget, self.prompt, self.repair = lm, budget, prompt, repair
+        self.lm, self.budget, self.prompt, self.repair, self.loopstop = lm, budget, prompt, repair, loopstop
         self.system = APP_SYSTEM if system is None else system
         self.post = post
-        self.last_stats, self.calls = {}, []
+        self.last_stats, self.calls, self.records = {}, [], {}
 
     def extract(self, ctx):
         from temporal_service import repaired
         record = self.lm.app_generate(self.prompt(ctx), self.budget, self.system, tag=ctx.meeting.meeting_id)
-        candidates, clean = parse_events(record["text"])
-        fixed = [f for c in candidates if (f := repaired(c, ctx.registry) if self.repair else c) is not None]
+        self.records.setdefault(ctx.meeting.meeting_id, []).append(record)
+        text, seconds, output_tokens = record["text"], record["seconds"], record["output_tokens"]
+        cut = cut_at_repeat(text) if self.loopstop else None
+        if cut is not None and record.get("generation_tps") and record.get("prompt_tps"):
+            output_tokens = round(record["output_tokens"] * len(cut) / max(1, len(text)))
+            seconds = round(record["prompt_tokens"] / record["prompt_tps"] + output_tokens / record["generation_tps"], 3)
+            text = cut
+        candidates, clean = parse_events(text)
+        repair = (repaired if self.repair is True else self.repair) if self.repair else None
+        fixed = [f for c in candidates if (f := repair(c, ctx.registry) if repair else c) is not None]
         if self.post is not None:
             fixed = self.post(ctx, fixed, record)
         self.calls.append({"meeting": ctx.meeting.meeting_id, "turns": [ctx.meeting.turns[0].index, ctx.meeting.turns[-1].index],
-                           "seconds": record["seconds"], "prompt_tokens": record["prompt_tokens"], "output_tokens": record["output_tokens"],
-                           "hit_budget": record["hit_budget"], "parsed_cleanly": clean, "candidates": len(candidates),
-                           "duplicates": duplicate_events(record["text"]), "peak_gb": record.get("peak_gb")})
-        self.last_stats = {"prompt_tokens": record["prompt_tokens"], "output_tokens": record["output_tokens"],
-                           "llm_seconds": record["seconds"], "parsed_cleanly": clean, "raw": record["text"]}
+                           "seconds": seconds, "prompt_tokens": record["prompt_tokens"], "output_tokens": output_tokens,
+                           "hit_budget": record["hit_budget"] and cut is None, "parsed_cleanly": clean, "candidates": len(candidates),
+                           "duplicates": duplicate_events(text), "peak_gb": record.get("peak_gb"), "cut": cut is not None})
+        self.last_stats = {"prompt_tokens": record["prompt_tokens"], "output_tokens": output_tokens,
+                           "llm_seconds": seconds, "parsed_cleanly": clean, "raw": text}
         return fixed
 
 
 MECHANISMS = {"app": dict(),
+              # the worker stops a reply at its first repeated event (simulated on the cached reply: same greedy prefix)
+              "app-loopstop": dict(loopstop=True),
+              # amounts stated in words in the quote are kept instead of dropped (numwords.repaired)
+              "app-numwords": dict(repair="numwords"),
               # October's request (no system message, 900 tokens, no repairs): only for checking the harness
               "october": dict(budget=900, system="", repair=False)}
 
 
 def make_extractor(lm, mechanism="app"):
-    spec = MECHANISMS[mechanism]
-    inner = AppExtractor(lm, **{k: v for k, v in spec.items() if k in ("budget", "prompt", "system", "post", "repair")})
+    spec = dict(MECHANISMS[mechanism])
+    if spec.get("repair") == "numwords":
+        import numwords
+        spec["repair"] = numwords.repaired
+    inner = AppExtractor(lm, **{k: v for k, v in spec.items() if k in ("budget", "prompt", "system", "post", "repair", "loopstop")})
     outer = spec.get("outer")
     return (outer(inner) if outer else WindowedExtractor(inner)), inner
 
 
 def run_chain(chain, lm, mechanism="app"):
     """mechanism: a name in MECHANISMS, optionally followed by post-hoc filters on its candidates, open loop
-    ("app|support>=0"): the base run's candidates of each meeting, minus those a filter drops, go to a fresh pipeline."""
-    base, *filters = mechanism.split("|")
-    windowed, inner = make_extractor(lm, base)
+    ("app|support>=0"): the base run's candidates of each meeting, minus those a filter drops, go to a fresh pipeline.
+    "app>app-numwords": the app's replies, read the way app-numwords reads them, open loop (the prompts, and so the
+    beliefs they show, stay those of the app run)."""
+    head, *filters = mechanism.split("|")
+    reader_lm = lm
+    if ">" in head:
+        source, reader = head.split(">")
+        recorded = run_chain(chain, lm, source)
+        reader_lm = _Recorded(recorded["records"])
+        head = reader
+    windowed, inner = make_extractor(reader_lm, head)
     run = run_eval.run_pipeline(chain, windowed, "immediate")
-    run["calls"] = inner.calls
+    run["calls"], run["records"] = inner.calls, inner.records
     for name in filters:
-        run = {**replay_filtered(chain, run["results"], make_filter(name, chain, run["results"], lm)), "calls": run["calls"]}
+        run = {**replay_filtered(chain, run["results"], make_filter(name, chain, run, lm)), "calls": run["calls"],
+               "records": run["records"]}
     return run
 
 
-def make_filter(name, chain, results, lm):
+class _Recorded:
+    """Gives back another run's replies in order, per meeting, whatever the prompt (open-loop re-reading)."""
+
+    def __init__(self, records):
+        self.records, self.used = records, {}
+
+    def app_generate(self, prompt, max_tokens=1800, system=None, tag=None):
+        i = self.used.get(tag, 0)
+        self.used[tag] = i + 1
+        return self.records[tag][i]
+
+    def score(self, *args, **kwargs):
+        raise SystemExit("scores are not replayed by _Recorded")
+
+
+def make_filter(name, chain, run, lm):
+    results = run["results"]
     if name.startswith("support>="):
         import support
         tau = float(name.split(">=")[1])
         scores = support.scored(chain, results, lm)
         dropped = {(m, id(c)) for m, rows in scores.items() for c, v, s in rows if s is not None and s < tau}
         return lambda meeting, candidate: (meeting.meeting_id, id(candidate)) not in dropped
+    if name == "lexsupport":
+        return lambda meeting, candidate: lexical_support(chain, meeting, candidate)
+    if name == "lastvalue":
+        return last_value_filter(chain, results)
+    if name in ("consolidate", "consolidate-think"):
+        import consolidate
+        keep, log = consolidate.consolidate_filter(chain, run, lm, think=name.endswith("think"))
+        CONSOLIDATION_LOG.extend(log)
+        return keep
     raise SystemExit(f"unknown filter {name}")
+
+
+CONSOLIDATION_LOG = []
+
+
+def last_value_filter(chain, results):
+    """Within one meeting, a tracked slot keeps only writes of the value its last valid write states: earlier different
+    values in the same meeting (talk that the meeting moved past) are dropped. No model."""
+    import support
+    keep_ids = set()
+    for gm, res in zip(chain.meetings, results):
+        valid = [(d.candidate, support.valid(gm.meeting, chain.registry, d.candidate)) for d in res.dispositions]
+        last = {}
+        for c, v in valid:
+            if v.status == "valid":
+                slot = (v.object_id, v.attribute)
+                if slot not in last or v.turn >= last[slot][0]:
+                    last[slot] = (v.turn, v.value)
+        for c, v in valid:
+            if v.status != "valid" or values_equal(v.value, last[(v.object_id, v.attribute)][1]):
+                keep_ids.add(id(c))
+    return lambda meeting, candidate: id(candidate) in keep_ids
+
+
+def _words(text):
+    import re
+    text = re.sub(r"(?<=[A-Za-z])_\s*(?=[A-Za-z]_)", "", text)  # AMI spells letters out: "L_ C_ D_" -> "LCD_"
+    text = text.replace("_", "")
+    stop = {"the", "a", "an", "of", "to", "and", "is", "are", "for", "with", "what", "which", "whether", "remote", "it", "in", "on", "type",
+            "we", "so", "be", "do", "go", "uh", "um", "or", "if", "as", "at", "by", "my", "me", "no", "up", "us", "oh", "ok", "he", "mm", "hm"}
+    return {w for w in re.findall(r"[a-z]+", text.casefold()) if w not in stop and len(w) > 1}
+
+
+def lexical_support(chain, meeting, candidate):
+    """Control for the support check: keep a write when its turn or the one before names a word of the item or the value."""
+    from memoria_engine.pipeline import ground
+    located = ground(meeting, candidate.quote, candidate.turn)
+    if located is None or candidate.object_id not in chain.registry.objects:
+        return True  # the pipeline drops or rejects it anyway
+    spec = chain.registry.objects[candidate.object_id]
+    wanted = _words(f"{spec.label} {spec.object_id.replace('_', ' ')} {candidate.value}")
+    turn = located[0]
+    seen = _words(" ".join(t.text for t in meeting.turns[max(0, turn - 1): turn + 1]))
+    return bool(wanted & seen)
 
 
 def replay_filtered(chain, results, keep):

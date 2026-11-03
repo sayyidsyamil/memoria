@@ -5,7 +5,8 @@
 The lock (`fcntl.flock`, exclusive, blocking in the kernel) is shared with the release work, so models never compete.
 It is taken before the worker starts and released only after the worker has exited, i.e. after its weights are freed.
 The worker runs under `/usr/bin/time -l`, which reports the process's peak memory footprint (unified memory included).
-Refuses to start if Memoria.app or a resident model worker that this lease did not start is running.
+Never runs beside Memoria.app or a resident model worker it did not start: if one is running when the lock is taken, the
+lock is released again and the lease blocks in the kernel (kqueue) until those processes exit, then tries again.
 Every lease is appended to results/leases.jsonl.
 """
 import fcntl
@@ -28,6 +29,24 @@ def foreign_models():
     return [row.strip() for row in rows if FOREIGN.search(row) and str(os.getpid()) != row.split()[0]]
 
 
+def wait_for_exit(rows):
+    """Block in the kernel (kqueue, NOTE_EXIT) until every listed process has exited: no polling."""
+    import select
+    queue = select.kqueue()
+    events = [select.kevent(int(row.split()[0]), filter=select.KQ_FILTER_PROC, flags=select.KQ_EV_ADD | select.KQ_EV_ONESHOT,
+                            fflags=select.KQ_NOTE_EXIT) for row in rows]
+    pending = 0
+    for event in events:
+        try:
+            queue.control([event], 0)
+            pending += 1
+        except ProcessLookupError:
+            pass
+    while pending:
+        pending -= len(queue.control(None, pending))
+    queue.close()
+
+
 def free_gb():
     stat = os.statvfs("/Users/sayyid")
     return stat.f_bavail * stat.f_frsize / 1e9
@@ -37,15 +56,21 @@ def main(argv):
     label, command = argv[0], argv[argv.index("--") + 1:]
     LOG.parent.mkdir(parents=True, exist_ok=True)
     asked = time.time()
+    deferred = []
     with open(LOCK, "a") as handle:
-        fcntl.flock(handle, fcntl.LOCK_EX)
+        while True:
+            fcntl.flock(handle, fcntl.LOCK_EX)
+            busy = foreign_models()
+            if not busy:
+                break
+            # Memoria.app or another model worker is running: let it be, release the lock and wait for it to exit
+            deferred.append({"at": time.strftime("%H:%M:%S"), "processes": busy})
+            fcntl.flock(handle, fcntl.LOCK_UN)
+            wait_for_exit(busy)
         got = time.time()
-        busy = foreign_models()
         record = {"label": label, "command": command, "asked": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(asked)),
-                  "waited_s": round(got - asked, 1), "free_disk_gb": round(free_gb(), 1)}
-        if busy:
-            record.update(status="refused: another model process is running", processes=busy)
-        elif record["free_disk_gb"] < 10:
+                  "waited_s": round(got - asked, 1), "deferred_for": deferred, "free_disk_gb": round(free_gb(), 1)}
+        if record["free_disk_gb"] < 10:
             record.update(status="refused: under 10 GB of disk free")
         else:
             env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1", "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1"}

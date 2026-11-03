@@ -1,1 +1,22 @@
 === 12:30:04 4b-app-ES2003: extract 4b app ES2003
+{"series": "ES2003", "mechanism": "app", "windows": 20, "seconds": 205.1, "hit_budget": 0, "unclean": 0, "misses": 20, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.83, "active_gb": 2.499}
+      206.58 real        68.06 user        21.28 sys
+          1646936064  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              412392  page reclaims
+                8696  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                9127  voluntary context switches
+              460916  involuntary context switches
+        267373799254  instructions retired
+        137647875626  cycles elapsed
+          4857384152  peak memory footprint
+{"label": "4b-app-ES2003", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "ES2003"], "asked": "2026-11-03 12:30:04", "waited_s": 335.8, "free_disk_gb": 23.8, "status": "exit 0", "seconds": 206.6, "peak_footprint_gb": 4.857, "max_rss_gb": 1.647, "released": "2026-11-03 12:39:07"}
+=== 12:39:07 4b-app-TS3004: extract 4b app TS3004
