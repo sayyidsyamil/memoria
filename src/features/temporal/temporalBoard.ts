@@ -106,6 +106,32 @@ export function isCorrection(fact: Pick<TemporalFact, 'corrects' | 'change_type'
   return fact.corrects != null || fact.change_type === 'CORRECT' || !!fact.correction
 }
 
+export interface BoardHistoryEntry {
+  fact: TemporalHistoryFact
+  current: boolean
+  reconfirmed: boolean
+  replaced: TemporalHistoryFact | null
+}
+
+/**
+ * Every recorded fact, newest decision first; the service's order breaks ties, including changes within one meeting.
+ * A before/after pair requires an explicit replacement link. Adjacent dates, quotes and change counts prove no such link.
+ * Corrections inherit the original decision's date and stay beside it; reconfirmations keep their own source words.
+ */
+export function buildHistory(facts: readonly TemporalHistoryFact[], currentId: number): BoardHistoryEntry[] {
+  const byId = new Map(facts.map(fact => [fact.fact_id, fact]))
+  return facts.map((fact, index) => ({ fact, index }))
+    .sort((a, b) => (b.fact.decided_at ?? b.fact.claim_from ?? '').localeCompare(a.fact.decided_at ?? a.fact.claim_from ?? '') || b.index - a.index)
+    .map(({ fact }) => {
+      const corrected = isCorrection(fact)
+      const reconfirmed = !corrected && (fact.change_type === 'CONFIRM' || fact.confirms != null)
+      const replacedId = corrected ? fact.corrects ?? fact.correction?.replaced_fact_id : reconfirmed ? null : fact.supersedes
+      const previous = replacedId == null ? undefined : byId.get(replacedId)
+      const replaced = previous && previous.fact_id !== fact.fact_id && previous.object_id === fact.object_id && previous.attribute === fact.attribute ? previous : null
+      return { fact, current: fact.fact_id === currentId && !fact.retracted, reconfirmed, replaced }
+    })
+}
+
 /** Why a fact was withdrawn: by a correction (its reason) or a retraction. Null while the fact stands. */
 export function retractionOf(fact: Pick<TemporalHistoryFact, 'retracted'>): { corrected: boolean; reason: string | null } | null {
   const retracted = fact.retracted

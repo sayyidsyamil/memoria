@@ -40,10 +40,14 @@
 .board-row-label { font-size: 13px; font-weight: 500; line-height: 24px; color: var(--muted-foreground, #626262); }
 .board-card[data-single] h4.board-row-label { font-size: 14px; font-weight: 600; color: var(--foreground, #242424); }
 .board-row-body { min-width: 0; }
-.board-value-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 24px; }
+.board-value-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; min-height: 24px; }
+.board-current-value { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 6px; min-width: 0; }
+.board-value-state { font-size: 11px; color: var(--muted-foreground, #626262); }
 .board-value { font-size: 15px; font-weight: 600; line-height: 24px; font-variant-numeric: tabular-nums; }
-.board-row-actions { display: inline-flex; flex-shrink: 0; align-items: center; gap: 2px; margin-right: -6px; }
+.board-row-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-right: -6px; }
 .board-row-actions button, .board-history-line button { color: var(--muted-foreground, #626262); font-size: 12px; font-weight: 500; }
+.board-row-actions .board-link { color: var(--foreground, #242424); }
+.board-change-count { color: var(--muted-foreground, #626262); font-variant-numeric: tabular-nums; }
 .board-row-actions button:hover:not(:disabled), .board-history-line button:hover:not(:disabled) { color: var(--foreground, #242424); }
 .board-link svg { transition: transform 120ms; }
 .board-link svg[data-open] { transform: rotate(180deg); }
@@ -82,16 +86,24 @@
 /* History, opened under the value it belongs to */
 .board-history { margin: 8px 0 2px; padding: 10px 12px 12px; border-radius: 8px; background: var(--muted, #f0f0ef); }
 .board-history-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.board-history h5 { font-size: 12px; font-weight: 600; color: var(--muted-foreground, #626262); }
+.board-history h5 { font-size: 13px; font-weight: 600; }
 .board-history-head button { color: var(--muted-foreground, #626262); }
-.board-history ol { display: flex; flex-direction: column; gap: 12px; margin: 6px 0 0; padding: 0; list-style: none; }
+.board-history-order { font-size: 12px; color: var(--muted-foreground, #626262); }
+.board-history ol { display: flex; flex-direction: column; gap: 16px; margin: 12px 0 0; padding: 0; list-style: none; }
 .board-history li { position: relative; padding-left: 16px; }
 .board-history li::before { content: ''; position: absolute; left: 1px; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--border-strong, #d9d9d6); }
+.board-history li:not(:last-child)::after { content: ''; position: absolute; left: 4px; top: 19px; bottom: -12px; width: 1px; background: var(--border-strong, #d9d9d6); }
 .board-history li[data-current]::before { background: var(--foreground, #242424); }
-.board-history-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; }
+.board-history-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.board-history-values { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-variant-numeric: tabular-nums; }
+.board-history-before, .board-history-after { display: flex; flex-direction: column; }
+.board-history-before, .board-history-arrow { color: var(--muted-foreground, #626262); }
+.board-history-state { font-size: 11px; font-weight: 500; color: var(--muted-foreground, #626262); }
+.board-history li[data-current] .board-history-after .board-history-state { color: var(--foreground, #242424); font-weight: 600; }
 .board-history-value { font-weight: 600; font-variant-numeric: tabular-nums; }
 .board-history li[data-withdrawn] .board-history-value { color: var(--muted-foreground, #626262); text-decoration: line-through; }
 .board-history-meta { font-size: 12px; color: var(--muted-foreground, #626262); }
+.board-history-meta:empty { display: none; }
 .board-history .board-evidence { margin-top: 2px; }
 
 /* Inline correction and suggestion edits */
@@ -136,6 +148,7 @@
 
 @media (max-width: 640px) {
   .board-row { grid-template-columns: minmax(0, 1fr); }
+  .board-row-actions { margin-right: 0; }
   .board-proposal-main { flex-direction: column; }
   .temporal-header { flex-wrap: wrap; }
 }

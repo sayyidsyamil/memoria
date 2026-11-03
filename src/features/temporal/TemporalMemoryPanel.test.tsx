@@ -22,7 +22,7 @@ const historicalFact: TemporalHistoryFact = {
   decided_at: '2026-10-02T10:00:00Z', retracted: null, corrects: null,
 }
 const currentInHistory: TemporalHistoryFact = {
-  ...historicalFact, fact_id: 2, value: 100, evidence: fact.evidence, claim_from: '2026-11-01', claim_to: null, decided_at: '2026-11-01T10:00:12Z',
+  ...historicalFact, fact_id: 2, value: 100, evidence: fact.evidence, claim_from: '2026-11-01', claim_to: null, decided_at: '2026-11-01T10:00:12Z', supersedes: 1,
 }
 const base: TemporalOverview = {
   registry: { objects: [{ object_id: 'launch', label: 'Launch project', kind: 'decision', attributes: [{ name: 'budget', type: 'number' }] }] },
@@ -163,7 +163,8 @@ describe('the decision board', () => {
     expect(current).not.toHaveTextContent(MEETING_1)
     // Not even on hover: ids stay inside the ledger.
     expect(current.querySelector(`[title*="${MEETING_1}"], [title*="ID"]`)).toBeNull()
-    expect(within(current).getByRole('button', { name: 'History of Launch project, changed twice' })).toHaveTextContent('Changed twice')
+    expect(within(current).getByRole('button', { name: 'History of Launch project, changed twice' })).toHaveTextContent('History · 2 changes')
+    expect(current.querySelector('.board-history-before')).toBeNull()
     expect(screen.getByRole('alert')).toHaveTextContent('Overlapping valid intervals')
     expect(requests).toEqual([{ vaultPath: '/vault', method: 'overview', params: {} }])
     expect(meetingRequests).toEqual([{ vaultPath: '/vault', operation: 'list' }])
@@ -231,7 +232,8 @@ describe('the decision board', () => {
     expect(now).toHaveTextContent('Corrected by you: The chair said Raj will do the staff training from now on.')
     expect(now).not.toHaveTextContent('decided')
     expect(replaced).toHaveTextContent('Aisha')
-    expect(replaced).toHaveTextContent(`Replaced by a correction · decided ${at('2026-09-14T01:32:14Z')}`)
+    expect(replaced).toHaveTextContent('Replaced by a correction')
+    expect(replaced.querySelector('.board-history-meta')).toHaveTextContent(`Decided ${at('2026-09-14T01:32:14Z')}`)
     expect(within(replaced).getByText('I will coordinate it with HR myself.')).toBeInTheDocument()
     expect(within(replaced).queryByRole('button', { name: /Correct/ })).not.toBeInTheDocument()
   })
@@ -244,13 +246,12 @@ describe('the decision board', () => {
   })
 
   it.each([
-    [0, null], [1, 'Changed once'], [2, 'Changed twice'], [11, 'Changed 11 times'],
+    [0, 'History'], [1, 'History · 1 change'], [2, 'History · 2 changes'], [11, 'History · 11 changes'],
   ])('offers the history of a value that changed %i times as %j', async (count, text) => {
     overview.facts[0] = { ...fact, n_changes: count }
     await load()
-    const button = within(card('Launch project')).queryByRole('button', { name: /^History of/ })
-    if (text === null) expect(button).not.toBeInTheDocument()
-    else expect(button).toHaveTextContent(text)
+    expect(within(card('Launch project')).getByRole('button', { name: /^History of/ })).toHaveTextContent(text)
+    expect(requests.some(request => request.method === 'facts.history')).toBe(false)
   })
 
   it('says so when nothing is approved yet', async () => {
@@ -367,12 +368,15 @@ describe('corrections and history', () => {
     const opened = await openHistory('History of Launch project, changed twice')
     expect(within(card('Launch project')).getByRole('button', { name: /^History of Launch project/ })).toHaveAttribute('aria-expanded', 'true')
     const [now, previous] = within(opened).getAllByRole('listitem')
-    expect(now).toHaveTextContent(`100Now · decided ${at('2026-11-01T10:00:12Z')}`)
-    expect(previous).toHaveTextContent(`80Earlier · decided ${at('2026-10-02T10:00:00Z')} · until 1 Nov 2026`)
+    expect(now.querySelector('.board-history-before')).toHaveTextContent('Previous value80')
+    expect(now.querySelector('.board-history-after')).toHaveTextContent('Current value100')
+    expect(now.querySelector('.board-history-meta')).toHaveTextContent(`Decided ${at('2026-11-01T10:00:12Z')}`)
+    expect(previous.querySelector('.board-history-after')).toHaveTextContent('Recorded value80')
+    expect(previous.querySelector('.board-history-meta')).toHaveTextContent(`Decided ${at('2026-10-02T10:00:00Z')} · Applies until 1 Nov 2026`)
     expect(within(previous).getByText('Let us start with 80.')).toBeInTheDocument()
     expect(opened).not.toHaveTextContent(/undefined|NaN|2026-1\d-\d\d|launch\b/)
     expect(requests.find(request => request.method === 'facts.history')?.params).toEqual({ object_id: 'launch', attribute: 'budget' })
-    fireEvent.click(within(previous).getByRole('button', { name: 'Correct this earlier value of Launch project' }))
+    fireEvent.click(within(previous).getByRole('button', { name: 'Correct value of Launch project from history' }))
     const save = screen.getByRole('button', { name: 'Save correction' })
     input('Corrected value', '95')
     expect(save).toBeDisabled()
@@ -384,8 +388,10 @@ describe('corrections and history', () => {
 
   it('corrects the current value from its row, starting in the value field', async () => {
     await load()
-    fireEvent.click(within(card('Launch project')).getByRole('button', { name: 'Correct Launch project' }))
+    await openHistory(/^History of Launch project/)
+    fireEvent.click(within(card('Launch project')).getByRole('button', { name: 'Correct value of Launch project' }))
     const form = screen.getByRole('region', { name: 'Correct Launch project' })
+    expect(screen.getAllByRole('region', { name: 'Correct Launch project' })).toHaveLength(1)
     expect(form).toHaveTextContent('Correct Launch project: 100')
     expect(screen.getByRole('textbox', { name: 'Corrected value' })).toHaveFocus()
     input('Corrected value', '110')
@@ -398,7 +404,7 @@ describe('corrections and history', () => {
 
   it('rejects invalid numeric corrections in place and retains the reason for retry', async () => {
     await load()
-    fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Correct value of Launch project' }))
     input('Corrected value', 'not a number')
     input('Reason', 'Transcript correction')
     fireEvent.click(screen.getByRole('button', { name: 'Save correction' }))
@@ -413,7 +419,7 @@ describe('corrections and history', () => {
     overview.registry.objects[0].attributes = [{ name: 'budget', type: type as 'date' }]
     overview.facts[0] = { ...fact, value: '2026-12-01' }
     await load()
-    fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Correct value of Launch project' }))
     input('Corrected value', value)
     input('Reason', 'Fix incorrect value')
     fireEvent.click(screen.getByRole('button', { name: 'Save correction' }))
@@ -424,7 +430,7 @@ describe('corrections and history', () => {
   it('offers only the allowed values when correcting a value from a list, and still refuses one outside it', async () => {
     overview.registry.objects[0].attributes = [{ name: 'budget', type: 'enum', values: ['planned', 'active'] }]
     await load()
-    fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Correct value of Launch project' }))
     const choice = screen.getByRole('combobox', { name: 'Corrected value' })
     // The recorded value stays selected even though the list no longer allows it.
     expect(within(choice).getAllByRole('option').map(option => option.textContent)).toEqual(['planned', 'active', '100'])
@@ -439,7 +445,7 @@ describe('corrections and history', () => {
 
   it('retracts only with a nonblank reason, and cancels without a write', async () => {
     await load()
-    fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Correct value of Launch project' }))
     fireEvent.click(screen.getByRole('button', { name: 'Retract instead' }))
     expect(screen.getByRole('region', { name: 'Retract Launch project' })).toBeInTheDocument()
     expect(screen.queryByRole('textbox', { name: 'Corrected value' })).not.toBeInTheDocument()
@@ -447,7 +453,7 @@ describe('corrections and history', () => {
     expect(screen.getByRole('button', { name: 'Retract value' })).toBeDisabled()
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
     expect(requests.some(request => request.method === 'facts.retract')).toBe(false)
-    fireEvent.click(screen.getByRole('button', { name: 'Correct Launch project' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Correct value of Launch project' }))
     fireEvent.click(screen.getByRole('button', { name: 'Retract instead' }))
     input('Reason', 'Unsupported by the reviewed recording')
     fireEvent.click(screen.getByRole('button', { name: 'Retract value' }))
@@ -472,6 +478,59 @@ describe('corrections and history', () => {
     const opened = await openHistory(/^History of Launch project/)
     expect(await within(opened).findByText('Budget workshop')).toBeInTheDocument()
     expect(opened).not.toHaveTextContent(MEETING_2)
+  })
+
+  it('opens unchanged values lazily and keeps reconfirmations with their exact quotes without presenting them as changes', async () => {
+    overview.facts[0] = { ...fact, n_changes: 0 }
+    history = [
+      { ...currentInHistory, supersedes: null, change_type: 'INITIAL' },
+      { ...currentInHistory, fact_id: 3, supersedes: null, confirms: 2, change_type: 'CONFIRM', decided_at: '2026-11-01T10:01:00Z',
+        evidence: [{ quote: 'Yes, still 100. No increase.', speaker: 'Sam', meeting: MEETING_1, audio_start: 113 }] },
+    ]
+    const play = vi.fn()
+    await load(undefined, play)
+    expect(requests.some(request => request.method === 'facts.history')).toBe(false)
+    const opened = await openHistory('History of Launch project')
+    const [confirmation, current] = within(opened).getAllByRole('listitem')
+    expect(confirmation).toHaveTextContent('Reconfirmed — value unchanged')
+    expect(within(confirmation).getByText('Yes, still 100. No increase.')).toBeInTheDocument()
+    expect(current.querySelector('.board-history-after')).toHaveTextContent('Current value100')
+    expect(opened.querySelector('.board-history-before')).toBeNull()
+    expect(requests.filter(request => request.method === 'facts.history')).toHaveLength(1)
+    fireEvent.click(await within(confirmation).findByRole('button', { name: 'Play Pilot review from 1:53' }))
+    expect(play).toHaveBeenCalledWith(MEETING_1, 113)
+    fireEvent.click(within(opened).getByRole('button', { name: 'Close history' }))
+    expect(within(card('Launch project')).getByRole('button', { name: 'History of Launch project' })).toHaveAttribute('aria-expanded', 'false')
+    expect(requests.every(request => ['overview', 'facts.history'].includes(request.method))).toBe(true)
+  })
+
+  it('renders multiple decisions within one meeting as distinct before/after steps', async () => {
+    const middle = { ...currentInHistory, fact_id: 3, value: 90, supersedes: 1, decided_at: '2026-11-01T10:00:08Z',
+      evidence: [{ quote: 'Let us increase to 90 first.', speaker: 'Maya', meeting: MEETING_1, audio_start: 61 }] }
+    history = [{ ...historicalFact, evidence: [{ ...historicalFact.evidence[0], meeting: MEETING_1 }], decided_at: '2026-11-01T10:00:01Z' },
+      middle, { ...currentInHistory, supersedes: 3 }]
+    await load()
+    const opened = await openHistory(/^History of Launch project/)
+    const entries = within(opened).getAllByRole('listitem')
+    expect(entries).toHaveLength(3)
+    expect(entries.map(entry => entry.querySelector('.board-history-value')?.textContent)).toEqual(['100', '90', '80'])
+    expect(entries.map(entry => entry.querySelector('.board-history-before')?.textContent)).toEqual(['Previous value90', 'Previous value80', undefined])
+    expect(within(opened).getByText('Let us increase to 90 first.')).toBeInTheDocument()
+    expect(within(opened).getByText('Let us start with 80.')).toBeInTheDocument()
+  })
+
+  it('drops an expanded history when refreshing current values, then reads history again only on request', async () => {
+    await load()
+    await openHistory(/^History of Launch project/)
+    overview.facts[0] = { ...fact, fact_id: 4, value: 140, n_changes: 3 }
+    fireEvent.click(screen.getByRole('button', { name: 'Refresh' }))
+    await waitFor(() => expect(card('Launch project').querySelector('.board-value')).toHaveTextContent('140'))
+    expect(screen.queryByRole('region', { name: /^History: / })).not.toBeInTheDocument()
+    expect(requests.filter(request => request.method === 'facts.history')).toHaveLength(1)
+    history.push({ ...currentInHistory, fact_id: 4, value: 140, supersedes: 2, decided_at: '2026-11-02T10:00:00Z' })
+    const opened = await openHistory(/^History of Launch project/)
+    expect(within(opened).getAllByRole('listitem')[0].querySelector('.board-history-after')).toHaveTextContent('Current value140')
+    expect(requests.filter(request => request.method === 'facts.history')).toHaveLength(2)
   })
 })
 
@@ -636,7 +695,7 @@ describe('dates and values', () => {
     expect(result.querySelector('.temporal-value')?.textContent).toBe('15 Dec 2026')
     expect(result.querySelector('.temporal-value time')).toHaveAttribute('datetime', '2026-12-15')
 
-    fireEvent.click(within(card('Launch project')).getByRole('button', { name: 'Correct Launch project' }))
+    fireEvent.click(within(card('Launch project')).getByRole('button', { name: 'Correct value of Launch project' }))
     expect(screen.getByRole('region', { name: 'Correct Launch project' })).toHaveTextContent('Correct Launch project: 1 Dec 2026')
     // Editing stays in the format the ledger validates.
     expect(screen.getByRole('textbox', { name: 'Corrected value' })).toHaveValue('2026-12-01')
