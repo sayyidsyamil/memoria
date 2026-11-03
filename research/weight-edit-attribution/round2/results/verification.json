@@ -1,0 +1,13 @@
+{
+  "round1_hashes_match": 55,
+  "cases_frozen": 30,
+  "checks": [
+    "syntax",
+    "frozen case hash",
+    "same-value wrong-component rejection",
+    "untracked omission/null acceptance",
+    "no abstention credit on tracked decisions",
+    "no false credit from profit quote",
+    "unrelated decision recall retained in scoring"
+  ]
+}
