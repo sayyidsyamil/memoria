@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
 import { MemoryAsk } from './MemoryAsk'
+import { openNoteInNewWindow } from '../utils/openNoteWindow'
+import type { ManualCorrectionCitation } from '../lib/citations'
 
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn() }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async () => () => undefined) }))
@@ -101,4 +103,39 @@ it('names a document citation by its page, and keeps a long meeting title readab
   type('When?'); fireEvent.click(screen.getByRole('button', { name: 'Ask' }))
   expect(await screen.findByRole('button', { name: 'Quote from Launch plan, page 3' })).toHaveTextContent('Launch planp.3')
   expect(screen.getByRole('button', { name: 'Quote from Procurement pilot pre-launch review at 0:45' })).toHaveTextContent('Procurement pilot pre-launch review0:45')
+})
+
+it('discloses a manual owner correction alongside a quoted deadline and preserves both when saving', async () => {
+  const reason = 'The chair confirmed the recorded owner should be Raj.'
+  const manual: ManualCorrectionCitation = { id: 'T1', kind: 'manual-correction', factId: 18, objectId: 'training', attribute: 'owner', requiresCurrent: true,
+    statement: 'Staff training owner: Raj.', correction: { reviewer: 'user', reason, replaced_fact_id: 7 },
+    recordedAt: '2026-11-04T06:00:00Z', decidedAt: '2026-10-21T02:00:00Z', claimFrom: '2026-10-21T02:00:00Z', claimTo: null,
+    originalContext: [{ sourcePath: 'training.md', sourceTitle: 'Training plan — reviewed transcript' }] }
+  const result = { sections: [{ heading: 'Open commitments', items: [{ text: 'Staff training: owner Raj; due 3 Nov 2026.', citations: ['T1', 'T2'] }] }],
+    citations: [manual, { id: 'T2', kind: 'tracked-fact', factId: 8, objectId: 'training', attribute: 'deadline', requiresCurrent: true,
+      sourcePath: 'training.md', sourceTitle: 'Training plan — reviewed transcript', page: 1,
+      quote: 'I will move training to 3 November. I stay the owner.', moment: { meetingId: 'm3', meetingTitle: 'Training plan', at: 20 } }], warnings: [] }
+  vi.mocked(invoke).mockResolvedValueOnce(result).mockResolvedValueOnce({ pagePath: 'briefs/training.md' })
+  const openMoment = vi.fn()
+  render(<MemoryAsk vaultPath="/vault" briefOnly onOpenMoment={openMoment} />)
+  type('Next steering committee'); fireEvent.click(screen.getByRole('button', { name: 'Create brief' }))
+  const correction = await screen.findByRole('button', { name: 'Correction by you: Staff training owner: Raj.' })
+  expect(correction).toHaveTextContent('Correction by youManual')
+  fireEvent.click(correction)
+  const note = screen.getByText(`Corrected by you: ${reason}`)
+  expect(note.closest('blockquote')).toBeNull()
+  expect(screen.getByText(/Correction recorded/)).toBeInTheDocument()
+  expect(screen.getByText(/Original claim date/)).toBeInTheDocument()
+  expect(screen.getByText('Original context only; not evidence for the corrected value.')).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: /Go to .* in the transcript/ })).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Open original context: Training plan — reviewed transcript' }))
+  expect(openNoteInNewWindow).toHaveBeenLastCalledWith('/vault/training.md', '/vault', 'Training plan — reviewed transcript')
+  expect(openMoment).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: 'Quote from Training plan at 0:20' }))
+  expect(screen.getByText('I will move training to 3 November. I stay the owner.').closest('blockquote')).not.toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Go to 0:20 in the transcript' }))
+  expect(openMoment).toHaveBeenCalledWith('m3', 20)
+  fireEvent.click(screen.getByRole('button', { name: 'Save brief' }))
+  await screen.findByRole('button', { name: 'Open saved brief' })
+  expect(invoke).toHaveBeenLastCalledWith('wiki_memory', { request: expect.objectContaining({ action: 'save_brief', result }) })
 })

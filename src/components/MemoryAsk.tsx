@@ -8,14 +8,13 @@ import { MemoryReview } from './MemoryReview'
 import { SectionLabel, StateButton } from './memoriaUi'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
 import { clock } from '../lib/speakers'
-import { citeLabel } from '../lib/citations'
+import { citeLabel, type MemoryCitation } from '../lib/citations'
+import { ManualCorrectionEvidence } from './ManualCorrectionEvidence'
 import './memoryAsk.css'
 
-interface Moment { meetingId: string; meetingTitle: string; at: number | null }
-interface Evidence { id: string; sourcePath: string; sourceTitle: string; page: number; quote: string; moment?: Moment | null }
 interface Result {
   sections: { heading: string; items: { text: string; citations: string[] }[] }[]
-  citations: Evidence[]
+  citations: MemoryCitation[]
   message?: string
   warnings: string[]
   needsReview?: { sourcePath: string; sourceTitle: string }[]
@@ -101,7 +100,7 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
           {(isBrief || result.sections.length > 1) && <h3>{section.heading}</h3>}
           {section.items.length === 0 && <p className="chat-none">No supporting evidence found</p>}
           {section.items.map((item, index) => {
-            const cites = item.citations.map(id => result.citations.find(evidence => evidence.id === id)).filter((evidence): evidence is Evidence => !!evidence)
+            const cites = item.citations.map(id => result.citations.find(evidence => evidence.id === id)).filter((evidence): evidence is MemoryCitation => !!evidence)
             const key = `${entry.id}-${sectionIndex}-${index}`
             const shown = cites.find(evidence => openCitation === `${key}-${evidence.id}`)
             return <div key={index} className="chat-item">
@@ -113,10 +112,12 @@ export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope,
                   onClick={() => setOpenCitation(current => current === `${key}-${evidence.id}` ? null : `${key}-${evidence.id}`)}>
                   <span>{label.title}</span><b>{label.where}</b></button>
               })}</div>}
-              {shown && <blockquote className="chat-evidence"><p>{shown.quote}</p>
+              {shown && (shown.kind === 'manual-correction'
+                ? <div className="chat-evidence" aria-label="Manual correction"><ManualCorrectionEvidence evidence={shown} onOpenContext={openPage} /></div>
+                : <blockquote className="chat-evidence"><p>{shown.quote}</p>
                 <footer><span>{shown.sourceTitle}{shown.moment?.at != null ? '' : ` · page ${shown.page}`}</span><span className="chat-evidence-actions">
                   {shown.moment?.at != null && onOpenMoment && <Button type="button" variant="ghost" size="sm" onClick={() => onOpenMoment(shown.moment!.meetingId, shown.moment!.at!)}>Go to {clock(shown.moment.at)} in the transcript</Button>}
-                  <Button type="button" variant="ghost" size="sm" onClick={() => openPage(shown.sourcePath, shown.sourceTitle)}><ArrowSquareOut size={13} />Open source</Button></span></footer></blockquote>}
+                  <Button type="button" variant="ghost" size="sm" onClick={() => openPage(shown.sourcePath, shown.sourceTitle)}><ArrowSquareOut size={13} />Open source</Button></span></footer></blockquote>)}
             </div>
           })}
         </section>)}

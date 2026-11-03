@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { askLiveMeeting, warmLiveMeeting, type LiveAskResult } from './liveAskService'
 import { citeLabel } from '../../lib/citations'
+import { ManualCorrectionEvidence } from '../../components/ManualCorrectionEvidence'
 import './liveAsk.css'
 
 export interface LiveAskPanelProps { vaultPath: string; sessionText: string; enabled?: boolean }
@@ -106,7 +107,9 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
                     onClick={() => setCitation(current => current === key ? null : key)}>
                     <span>{label.title}</span><b>{label.where}</b>
                   </button>
-                  {expanded && <blockquote id={quoteId}><p>{evidence.quote}</p><footer>{evidence.sourceTitle}{evidence.moment?.at != null ? '' : ` · page ${evidence.page}`}</footer></blockquote>}
+                  {expanded && (evidence.kind === 'manual-correction'
+                    ? <div id={quoteId} className="live-ask-manual" aria-label="Manual correction"><ManualCorrectionEvidence evidence={evidence} /></div>
+                    : <blockquote id={quoteId}><p>{evidence.quote}</p><footer>{evidence.sourceTitle}{evidence.moment?.at != null ? '' : ` · page ${evidence.page}`}</footer></blockquote>)}
                 </div>
               })}</div>
             </div>)}

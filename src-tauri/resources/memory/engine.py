@@ -467,7 +467,7 @@ class Engine:
         tracked_warning = None
         if not brief and scope is None:
             # A tracked value's current state, past value or changes come from the reviewed ledger
-            # across meetings; saved briefs and one-meeting questions cite approved knowledge claims only.
+            # across meetings; one-meeting questions cite approved knowledge claims only.
             try:
                 from ask_facts import tracked_answer
                 routed = tracked_answer(self, question)
@@ -943,8 +943,8 @@ def workspace_product(engine, request):
         if result.get('needsReview'): raise ValueError('Rebuild changed evidence before saving a brief')
         citations = {item['id']: item for item in result.get('citations', [])}
         for evidence in citations.values():
-            if evidence.get('kind') == 'tracked-fact':
-                # Quoted text is checked against its transcript below; the fact must still be approved.
+            if evidence.get('kind') in ('tracked-fact', 'manual-correction'):
+                # Manual provenance must match an actual ledger correction; quoted text is checked below.
                 from ask_facts import tracked_citation_holds
                 if not tracked_citation_holds(engine, evidence):
                     raise ValueError('Brief evidence changed or is no longer approved. Generate it again.')
@@ -972,6 +972,9 @@ def workspace_product(engine, request):
                 for cite in item['citations']:
                     evidence = citations.get(cite)
                     if not evidence: raise ValueError('Brief citation is missing')
+                    if evidence.get('kind') == 'manual-correction':
+                        links.append(f"[{cite}](#{cite.lower()})")
+                        continue
                     source = safe_path(engine.root, evidence['sourcePath'])
                     if not source.exists() or canonical_quote(evidence['quote'], source.read_text()) is None:
                         raise ValueError('Brief evidence changed. Generate it again.')
@@ -980,11 +983,24 @@ def workspace_product(engine, request):
         cited = {cite for section in sections for item in section['items'] for cite in item['citations']}
         content += '\n\n## Evidence\n'
         for cite, evidence in citations.items():
-            if cite in cited: content += f"\n### {cite} · {evidence['sourceTitle']} · page {evidence['page']}\n\n> {evidence['quote'].replace(chr(10), chr(10) + '> ')}\n"
+            if cite not in cited: continue
+            if evidence.get('kind') == 'manual-correction':
+                from ask_facts import manual_correction_markdown
+                content += manual_correction_markdown(engine, evidence)
+            else:
+                content += f"\n### {cite} · {evidence['sourceTitle']} · page {evidence['page']}\n\n> {evidence['quote'].replace(chr(10), chr(10) + '> ')}\n"
         path = f'briefs/brief-{identifier}.md'; target = safe_path(engine.root, path)
         if target.exists() and target.read_text() != content: raise ValueError('Brief already exists; it was not overwritten')
         atomic(target, content)
         record = {'id': identifier, 'topic': topic, 'pagePath': path, 'created': prepared, 'fingerprint': fingerprint, 'pageHash': digest(content)}
+        dependencies = {}
+        for cite in cited:
+            evidence = citations[cite]
+            if evidence.get('kind') in ('tracked-fact', 'manual-correction'):
+                dependency = dependencies.setdefault(evidence['factId'], {key: evidence[key] for key in ('factId', 'objectId', 'attribute')})
+                dependency['requiresCurrent'] = dependency.get('requiresCurrent', False) or evidence.get('requiresCurrent', False)
+        if dependencies:
+            record['factDependencies'] = sorted(dependencies.values(), key=lambda item: item['factId'])
         engine.db.execute('INSERT OR REPLACE INTO briefs VALUES (?,?)', (identifier, json.dumps(record))); engine.db.commit()
         return record
     raise ValueError('Unknown workspace action')

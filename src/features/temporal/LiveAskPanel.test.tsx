@@ -113,6 +113,20 @@ it('names a quote from a meeting as the main Ask does: the meeting and when it w
   expect(screen.queryByText(/page 1|source-pre-launch/)).not.toBeInTheDocument()
 })
 
+it('renders a ledger correction as a reviewer note rather than a transcript quote', async () => {
+  vi.mocked(invoke).mockResolvedValue({
+    sections: [{ heading: 'Approved decision', items: [{ text: 'Staff training owner is Raj (corrected by Maya).', citations: ['R1'] }] }],
+    citations: [{ id: 'R1', kind: 'manual-correction', factId: 18, objectId: 'training', attribute: 'owner', statement: 'Staff training owner: Raj.',
+      correction: { reviewer: 'Maya', reason: 'The chair confirmed Raj.', replaced_fact_id: 7 }, recordedAt: '2026-11-04T06:00:00Z',
+      decidedAt: '2026-10-21T02:00:00Z', claimFrom: '2026-10-21T02:00:00Z', claimTo: null, originalContext: [] }], warnings: [],
+  } satisfies LiveAskResult)
+  open(); type('Who owns staff training now?'); fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
+  fireEvent.click(await screen.findByRole('button', { name: 'Correction by Maya: Staff training owner: Raj.' }))
+  expect(screen.getByText('Corrected by Maya: The chair confirmed Raj.').closest('blockquote')).toBeNull()
+  expect(screen.queryByRole('button', { name: /Quote from/ })).not.toBeInTheDocument()
+  expect(screen.getByText(/Correction recorded/)).toBeInTheDocument()
+})
+
 it('uses the current transcript on each explicit question and keeps disclosure changes request-free', async () => {
   vi.mocked(invoke).mockResolvedValue(empty)
   const { rerender } = open('Early turn')
