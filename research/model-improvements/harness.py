@@ -121,7 +121,11 @@ MECHANISMS = {"app": dict(),
               # amounts stated in words in the quote are kept instead of dropped (numwords.repaired)
               "app-numwords": dict(repair="numwords"),
               # October's request (no system message, 900 tokens, no repairs): only for checking the harness
-              "october": dict(budget=900, system="", repair=False)}
+              "october": dict(budget=900, system="", repair=False),
+              "october-numwords": dict(budget=900, system="", repair="numwords"),
+              # the app's request without its JSON system message (the evaluated October request, with the app's budget)
+              "app-nosys": dict(system=""),
+              "app-nosys-numwords": dict(system="", repair="numwords")}
 
 
 def make_extractor(lm, mechanism="app"):

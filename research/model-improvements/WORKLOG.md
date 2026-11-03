@@ -43,3 +43,19 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   - `lexsupport` (keep a write only if its turn or the one before names a word of the item or the value): removes 23;
     QA 36 (random mean 35.1, 90th percentile 36), gold kept 14 (random 12.7), wrong writes 19 -> 9. Marginal on QA.
   To be rerun on the app path (old-dev + new-dev) before any conclusion.
+- 13:00 4B through the app path on old-dev (ES2003, TS3004; 41 windows, 451 s of generation; 1 reply hit the 1,800-token
+  budget and did not parse cleanly): TP 13, FP 53, FN 10; QA with exact routes **27/45**, against October's request
+  (same model, same prompt, no system message, 900 tokens, no repairs) at 35/45 on the same questions: 0 questions
+  only the app gets right, 8 only October gets right (exact sign test p = 0.008). Wrong writes 24 against 19; the
+  confirm_all inbox 52 proposals against 41. Two causes found so far:
+  1. `temporal_service.repaired` drops an amount whose quote spells the number out ("twelve point five Euros per
+     unit", "sell them for twenty five"): ES2003a's production cost and price are read correctly and then dropped.
+     Keeping amounts that the quote states in words (never replacing a value with one) restores both: QA 29/45.
+  2. The rest is the request: the worker's system message ("Follow the requested JSON structure exactly. Return JSON
+     only. Use only the supplied evidence...") is the remaining difference from October's request apart from the
+     budget (1,800 against 900 tokens, which changes only replies that run that long). Hypothesis H-sys: the system
+     message makes the 4B write more, and more wrong, events. To be tested closed loop on old-dev and new-dev
+     (`app-nosys`), since October's replies exist only for old-dev and with 900 tokens.
+- Filters on the app path, old-dev, open loop: `lastvalue` QA 27 -> 33 but gold events 13 -> 10 (it keeps a late
+  remark over the decision: ES2003d "I'd say we go two... double curved" after single curved was decided);
+  `lexsupport` QA 30, gold 12, wrong writes 24 -> 14. Random-removal controls pending the full dev set.

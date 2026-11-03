@@ -20,3 +20,24 @@
           4857384152  peak memory footprint
 {"label": "4b-app-ES2003", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "ES2003"], "asked": "2026-11-03 12:30:04", "waited_s": 335.8, "free_disk_gb": 23.8, "status": "exit 0", "seconds": 206.6, "peak_footprint_gb": 4.857, "max_rss_gb": 1.647, "released": "2026-11-03 12:39:07"}
 === 12:39:07 4b-app-TS3004: extract 4b app TS3004
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 245.6, "hit_budget": 1, "unclean": 1, "misses": 21, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 2.31, "active_gb": 2.499}
+      246.12 real        60.82 user        16.98 sys
+          3372908544  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              311447  page reclaims
+                5957  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7895  voluntary context switches
+              523221  involuntary context switches
+        342533600528  instructions retired
+        142883397893  cycles elapsed
+          5048700144  peak memory footprint
+{"label": "4b-app-TS3004", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "TS3004"], "asked": "2026-11-03 12:39:07", "waited_s": 748.7, "free_disk_gb": 21.5, "status": "exit 0", "seconds": 246.1, "peak_footprint_gb": 5.049, "max_rss_gb": 3.373, "released": "2026-11-03 12:55:42"}
+=== 12:55:42 4b-app-ES2011: extract 4b app ES2011
