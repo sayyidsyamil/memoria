@@ -187,7 +187,9 @@ Verified in the bundled app on 3 November 2026, with the microphone input turned
 heard: turning Call audio on started the helper and macOS's recording indicator; the scripted test meeting played on
 the Mac's speakers was captioned and both of its contradictions were cued; the saved recording holds it at −24.5 dBFS
 (through the microphone the same meeting arrives near −49 dBFS); the helper exited when the meeting ended. No
-permission prompt appeared on this Mac, where the system-audio permission had been answered before.
+permission prompt appeared in this run. The native lifecycle test (`sh scripts/test-call-audio.sh`) also checks that
+the owning process releases both audio objects with logging off and on. It caught destruction calls inside optional
+logging; cleanup now runs regardless of the logging setting.
 
 Not verified: the prompt's wording, what a denied permission delivers, rebuilding after an output change, Bluetooth
 and USB headsets (including the unused-stream setting), the two-hour limit, CPU use over a long meeting, and dev mode

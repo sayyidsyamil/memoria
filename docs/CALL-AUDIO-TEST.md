@@ -6,8 +6,12 @@ These steps check it in the bundled app. About 20 minutes. Use headphones throug
 **Run on 3 November 2026** (test build of `call-audio` merged with `main`, MacBook Air, speakers, microphone input set
 to 0 so that only the tap could be heard): steps 1, 2 and the end of 7 passed. The test meeting played on the Mac was
 captioned, both contradictions were cued, the saved recording holds it at −24.5 dBFS, and the helper exited at End. No
-permission prompt appeared (this Mac had answered it before). In the next meeting Call audio started on, as left,
+permission prompt appeared in this run. In the next meeting Call audio started on, as left,
 and turning it off mid-meeting stopped the helper (part of step 4). Steps 3, 5 and 6 are still to be run.
+
+**Native lifecycle regression:** `sh scripts/test-call-audio.sh` creates and destroys the tap and aggregate device
+three times with logging off and three times with it on, without starting capture. All six pass. It checks the objects
+from their owning process; it fails with the earlier bug that put the destruction calls inside optional logging.
 
 ## 0. Before you start
 

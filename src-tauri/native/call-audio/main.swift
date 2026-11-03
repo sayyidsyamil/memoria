@@ -2,8 +2,8 @@
 //
 // A Core Audio process tap (macOS 14.2 or later) mixes the output of every process except Memoria's own to mono. It is
 // read through a private aggregate device whose clock is the default output device, converted to 16 kHz mono float32
-// and written to stdout, unbuffered, in frames of 1,600 little-endian samples (100 ms). Silence arrives as zeros, and so
-// does everything while macOS has not granted System Audio Recording to the app that started this helper.
+// and written to stdout, unbuffered, in frames of 1,600 little-endian samples (100 ms). Silence arrives as zeros.
+// Capture can wait without producing frames while macOS's System Audio Recording prompt is unanswered.
 //
 // Stops cleanly (IO stopped, aggregate device and tap destroyed) when stdin closes, which is how the parent going away
 // shows, and on SIGTERM or SIGINT. A failure is one JSON line, {"error": "..."}, on stderr and a non-zero exit. A new
@@ -346,7 +346,9 @@ final class TapSession {
             note("IO stopped: \(stopped), IOProc destroyed: \(released)")
             self.proc = nil
         }
-        note("aggregate device destroyed: \(AudioHardwareDestroyAggregateDevice(aggregate)), tap destroyed: \(AudioHardwareDestroyProcessTap(tap))")
+        let deviceReleased = AudioHardwareDestroyAggregateDevice(aggregate)
+        let tapReleased = AudioHardwareDestroyProcessTap(tap)
+        note("aggregate device destroyed: \(deviceReleased), tap destroyed: \(tapReleased)")
     }
 }
 
@@ -622,6 +624,7 @@ final class CallAudio {
     }
 }
 
+#if !MEMORIA_CALL_AUDIO_TESTS
 if let unknown = CommandLine.arguments.dropFirst().first(where: { !["--verbose", "--test-tone"].contains($0) }) {
     fail("unknown option \(unknown)")
 }
@@ -630,3 +633,4 @@ if #available(macOS 14.2, *) {
 } else {
     fail("recording audio playing on this Mac needs macOS 14.2 or later")
 }
+#endif
