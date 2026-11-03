@@ -1,6 +1,6 @@
 # Research evidence inventory
 
-Reviewed 2 November 2026; results of 3 November are noted where they replace an entry. This inventory records existing evidence and a read-only checksum verification; no model evaluation, native run or UAT was performed for it. Historical scores are not scores of the combined application.
+Reviewed 2 November 2026; additions of 3 November include the empty-record replay below. This inventory records existing evidence, checksum checks and deterministic replays; no new model evaluation, native run or UAT was performed for it. Historical scores are not scores of the combined application.
 
 ## Path key
 
@@ -20,14 +20,15 @@ Scratch files are evidence pointers, not durable thesis attachments; archive the
 | Evidence | Result or purpose | Scope and caveat |
 |---|---|---|
 | `E/results/ami/ami_test_report.md`, `memoria_test.json`, `baselines_test.json` | Immediate temporal ingestion: 59/96 (61%, Wilson 95% interval 52–71%); full context 41/96; BM25 37/96 | Five unseen AMI teams, 20 meetings, Qwen3.5-4B 4-bit, October run. Current-value accuracy 18/34 was below both baselines numerically. Exploratory paired tests, no multiplicity correction. |
+| `W/research/model-improvements/baseline-audit.md`, `results/baseline-audit.json` | Real engine with nothing extracted: 58/96. On the 38 questions needing a value or nonzero change: empty 0, October 4B ledger 18, full context 26, BM25 23, perfect review 31, DeepSeek ledger 31 | Post-hoc audit on 3 November using both exact and cached routes. Ledger versus empty: 18 ledger-only and 17 empty-only answers, p = 1.0; no detected advantage, not equivalence. Independent replay of the five original test series confirmed these counts. |
 | `E/results/ami/ami_test_review_report.md`, `memoria_test_review.json` | Oracle review: 85/96 (89%, interval 81–94%); current 29/34; past-date 29/29; changes 27/33 | Scripted gold-aware reviewer, not UAT. First-value errors remained. Do not label 85/96 an oracle-extractor result. |
 | `E/results/ami/ami_test_report.md` oracle rows | Oracle extractor plus model router: 96/96; exact routes 81/96 | Observed answer errors were attributable to extraction on this set. Fifteen route mismatches were masked by empty past-date answers. |
 | `E/results/ami/review_burden_test.json` | 35 proposals: 22 rejected, 8 accepted, 5 edited/accepted; 112 candidates applied directly | Historical conflict-only review policy; current `confirm_all` changes burden. No observed human review time. |
 | `E/data/ami_v0/`, `E/results/ami/gold_*.md`, `E/scripts/ami/specs.py` | Derived meeting chains, registry, gold and questions | AI-assisted derivation from human abstracts; template questions, incomplete gold, assigned weekly study dates. AMI is role-played natural speech, not organisational deployment data. |
-| `R/ch03_methodology.md` §3.4; `E/results/ami/ami_test_report.md` | 29/29 past-date gold answers are empty; 29/33 change counts are zero; four true changes, two matched replacement links | Stronger support for preventing future leakage than for real supersession retrieval. Gold-event totals in Chapter 3 (18 dev/41 test) differ from the later result setup (23/46); reconcile generator/result definitions before merging tables. |
+| `R/condensed/ch03_methodology.md` §3.3; `E/results/ami/ami_test_report.md` | 29/29 past-date gold answers are empty; 29/33 change counts are zero; four nonzero change-count questions, none answered correctly by the unreviewed 4B ledger | The same all-empty past-date score is achieved by recording nothing. The active report uses 23 dev / 46 test gold events; earlier draft totals were superseded. Two matched replacement links do not imply two correct change-count answers. |
 | `E/results/test/scaling_report.txt`, `E/results/demo/` | Controlled synthetic scaling and fictional service runs | Synthetic padding and scripted review. Historical text/audio service scores are not current workspace integration scores. |
 
-The thesis-ready interpretation is that the temporal representation helped on the tested question distribution, while extraction limited answer accuracy. Gold/oracle consistency is not independent annotation validation, and incomplete gold does not make every extra extraction harmless.
+The ledger's aggregate lead over the text baselines comes from questions whose answers are "none" or zero; on questions needing information it trails them. Gold/oracle consistency is not independent annotation validation. Incomplete gold can under-credit valid decisions, while broad evidence windows can over-credit a wrong attribution: 13 of the 46 test events accept source turns across more than 50 turns. A verbatim quote is not proof that it supports the recorded entity and value. Read extraction scores alongside source audits, current values and real changes.
 
 ## Separate historical auditor and guard
 
@@ -55,7 +56,7 @@ A read-only command in `E`, `shasum -a 256 -c results/ami/frozen_manifest.sha256
 
 `E/results/testing/defect_log.md` records four offline AMI replays identical to saved results, using `E/scripts/ami/replay_offline.py`. `E/results/testing/evidence/oracles_before_after.txt` records additional cached replay/policy/parser equivalence checks. These are existing records, not new replays. Cache replay tests effects on recorded replies; it does not establish equality of new model outputs under a changed runtime.
 
-A snapshot of **37 new Python integration checks** was reported during development; no durable log of it was found and it was not rerun, so it is not added to the 291. The app's Python suite has its own count: 214 tests on 3 November ([WORKSPACE-PRODUCT-VERIFICATION.md](../WORKSPACE-PRODUCT-VERIFICATION.md)). For the wiki, meeting, temporal and live-check integration modules alone, use this deterministic command from `W/src-tauri/resources/memory/`:
+A snapshot of **37 new Python integration checks** was reported during development; no durable log of it was found and it was not rerun, so it is not added to the 291. The app's Python suite has its own counts: 216 for the 0.3.1 release ([WORKSPACE-PRODUCT-VERIFICATION.md](../WORKSPACE-PRODUCT-VERIFICATION.md)), and 234 at source commit `70707fa3b` after the amount and singleton-retrieval fixes ([amount repair evidence](../../research/number-word-fix/README.md)). For the wiki, meeting, temporal and live-check integration modules alone, use this deterministic command from `W/src-tauri/resources/memory/`:
 
 ```sh
 python3.11 -B -m unittest test_engine test_workspace_product test_temporal_service test_live_assistance

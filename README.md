@@ -20,19 +20,23 @@ During a meeting, Memoria can flag a sentence that contradicts an approved decis
 
 ## Results
 
-AMI corpus: 20 test meetings from five series, 96 questions, the same local model (Qwen3.5-4B) for every method ([October evaluation](research/ledger-engine/results/ami/ami_test_report.md)):
+AMI corpus: 20 test meetings from five series, 96 questions, the same local model (Qwen3.5-4B) for the three model-based methods ([October evaluation](research/ledger-engine/results/ami/ami_test_report.md)). A [3 November audit](research/model-improvements/baseline-audit.md) adds the real engine with nothing extracted:
 
-| | Memoria | Full transcripts in the prompt | Transcript search (BM25) |
-|---|---|---|---|
-| All questions | **61%** (59/96) | 43% (41/96) | 39% (37/96) |
-| Value on a past date | **100%** (29/29) | 21% (6/29) | 48% (14/29) |
-| Number of changes | 36% (12/33) | 33% (11/33) | 3% (1/33) |
-| Current value | 53% (18/34) | **71%** (24/34) | 65% (22/34) |
-| Time per question | **3.0 s** | 84.2 s | 3.4 s |
+| | Memoria | Full transcripts in the prompt | Transcript search (BM25) | Empty record |
+|---|---|---|---|---|
+| All questions | 61% (59/96) | 43% (41/96) | 39% (37/96) | 60% (58/96) |
+| Current value | 53% (18/34) | 71% (24/34) | 65% (22/34) | 0/34 |
+| Value on a past date | 100% (29/29) | 21% (6/29) | 48% (14/29) | 29/29 |
+| Number of changes | 36% (12/33) | 33% (11/33) | 3% (1/33) | 29/33 |
+| Questions needing a value or real change | 18/38 | 26/38 | 23/38 | 0/38 |
+| Nonzero change counts | 0/4 | 2/4 | 1/4 | 0/4 |
+| Time per question | 3.0 s | 84.2 s | 3.4 s | — |
 
-- With gold facts the ledger answers 96/96: its errors come from the model's proposals, the step a person reviews. With a simulated perfect reviewer: 85/96 (89%).
-- With a strong hosted model (DeepSeek V4.1 Flash, public AMI data only) the ledger scores 82/96, level with that model reading every transcript (81/96), at 818 instead of 31,337 input tokens per question ([strong model](research/strong-model/README.md)). Asking the 4B model "is this really decided?" did no better than dropping the same number of proposals at random ([firmness gate](research/firmness-gate/README.md)): the limit is extraction, not the ledger.
-- The app's Ask matches the evaluated pipeline: 96/96 with gold facts, and 58/96 with extracted facts where October scored 59/96 ([app parity](research/app-parity/README.md)).
+**The 61% aggregate is only one answer above recording nothing.** All 29 past-date answers are "none", and 29 change counts are zero. The ledger beats the text baselines on these empty answers but trails them on the 38 questions needing information. Against the empty record, 18 answers improve and 17 worsen (paired p = 1.0): no detected advantage on this reused split, not proof of equivalence.
+
+- With gold facts the ledger answers 96/96; only 81/96 routes exactly match the intended lookup, with the other answers correct because they are empty. A simulated gold-aware reviewer raises accuracy to 85/96 (89%), including 31/38 questions needing information. This is an upper bound on review, not a user result.
+- With a strong hosted model (DeepSeek V4.1 Flash, public AMI data only) the ledger scores 82/96, including 31/38 questions needing information. That model reading every transcript scores 81/96; the ledger uses 818 instead of 31,337 input tokens per question ([strong model](research/strong-model/README.md)). Asking the 4B model "is this really decided?" did no better than dropping the same number of proposals at random ([firmness gate](research/firmness-gate/README.md)).
+- Replaying October's ledgers through the app's Ask gives 96/96 with gold facts and 58/96 with extracted facts, where the pipeline scored 59/96 ([app parity](research/app-parity/README.md)). These are routing regressions on reused data.
 - Live contradiction check on the [MemoriaBench](research/memoriabench/) test split: 98/112 conflicts caught (87.5%), 2/224 false alarms (0.9%), 0.26 s per sentence (median). Spoken by six synthetic voices as 28 meetings and captioned live: the same 98/112. No alert on an hour of unrelated real speech. These follow-ups reuse the test partition ([method and limits](research/live-verifier/README.md)).
 - In the installed app, two scripted meetings fed in real time: sentences committed 0.45–2.1 s after they ended, contradictions cued 0.46–1.15 s after the statement when its item was heard correctly, no false alarm ([live speech](research/live-speech/README.md)).
 - Speech: Parakeet Ultra with Nemotron 3 Diarization transcribes a 60-minute AMI recording in 113 s, WER 14.4% (fillers removed), with 97.4% of labelled words on the right speaker. Live captions scored 15.2% WER in 0.3.0; the noisy-room pause fix in 0.3.1 scores 15.4%, with 97.6% speaker attribution ([live speech](research/live-speech/README.md)).
@@ -58,6 +62,8 @@ pnpm tauri dev               # native app; model setup in docs/DEVELOPMENT.md
 To see Memoria's own screens in the browser build against a real vault: `MEMORIA_DEV_VAULT=<vault> VITE_MEMORIA_DEV_BRIDGE=1 pnpm exec vite`.
 
 Tests (0.3.1, 3 November 2026): Rust 1,245, frontend 6,805 and app Python 216, all passing ([verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)); ledger engine 291, all passing on 2 November ([research](research/README.md)).
+
+Later source checks at `70707fa3b`: 234 app Python tests pass, including [amounts stated in words and digit-format repairs](research/number-word-fix/README.md). Those fixes postdate the 0.3.1 installer.
 
 React / TypeScript · Tauri / Rust · Python / MLX · Markdown / SQLite
 

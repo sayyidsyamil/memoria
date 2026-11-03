@@ -1,6 +1,6 @@
 # FYP report supplement
 
-Evidence review: 2 November 2026. This text supplements Academic Project II Chapters 3–7. It describes the current workspace integration separately from the October experiments. Evidence locations and qualifications are recorded in [RESEARCH-EVIDENCE.md](../research/RESEARCH-EVIDENCE.md).
+Evidence review: 2 November 2026, with the empty-record correction added on 3 November. The implementation and traceability sections are a 2 November snapshot; later release evidence is in [RESEARCH-EVIDENCE.md](../research/RESEARCH-EVIDENCE.md) and [RELEASE_RECORD.md](../RELEASE_RECORD.md). This text supplements Academic Project II Chapters 3–7.
 
 ## Implementation update (Chapters 3–5)
 
@@ -23,6 +23,8 @@ Live assistance is off by default in the HUD. When enabled, the HUD selects earl
 The historical AMI temporal experiment answered 59 of 96 questions correctly when candidates were applied immediately, compared with 41/96 for full-context prompting and 37/96 for BM25 retrieval. An oracle reviewer raised the temporal result to 85/96. This is a scripted reviewer using gold knowledge, not observed human performance. A separate oracle-extractor ablation reached 96/96. It identifies extraction as the source of the observed answer errors on that dataset; it does not prove that routing is generally correct, since only 81/96 routes exactly matched the intended route.
 
 All 29 AMI past-date answers were “nothing decided yet”, and 29 of 33 change-count answers were zero. The dataset contains four true value changes. It therefore provides a useful test of later decisions leaking into the past, but limited evidence for retrieving genuinely superseded values. Synthetic chains and the fictional series provide controlled revisions, with lower realism. Gold events and item definitions were derived with AI assistance from human abstracts, and questions were generated from templates. Oracle agreement checks consistency with the ledger, not independent human validity.
+
+The [3 November audit](../../research/model-improvements/baseline-audit.md) ran the real engine with nothing extracted: **58/96**, only one below the October ledger's 59. The paired difference is 18 ledger-only answers against 17 empty-only (p = 1.0), not evidence of an advantage over recording nothing. Only 38 questions need a value or real change; the ledger gets 18, full context 26 and BM25 23. The ledger gets none of the four nonzero change counts right. Its aggregate lead over the text baselines therefore comes from empty answers, not better recovery of decisions. Perfect review and the DeepSeek extractor each get 31/38. These are post-hoc analyses of the cached results.
 
 The separate MemoriaBench auditor reached macro-F1 0.87 on 336 generated statements from 28 AMI series. It received curated decision memory and replacement notes, rather than the current application's extracted facts and provisional speech. Only five of the 56 OUTDATED probes represent recorded replacements; 51 use synthetic replacement notes. Model-only label audits and template wording limit generalisation. This score measures the historical six-class auditor, not the current boolean live checker or the combined workspace pipeline.
 
@@ -80,4 +82,4 @@ Statuses concern the current combined workspace. **Implemented** means a code pa
 
 ## Optional Scout handoff outline
 
-Use the problem and O1–O3; the four information states; reviewed ingestion and temporal history; one evidence-backed correction example; the historical 59/96 versus oracle-review 85/96 comparison; the separate 0.87 auditor result with generated-data caveats; and pending integrated evaluation/UAT. Use current screenshots only after verification and keep latency out of the headline claims. This is a handoff outline, not a slide deliverable.
+Use the problem and O1–O3; the four information states; reviewed ingestion and temporal history; one evidence-backed correction example; the historical 59/96 alongside the empty-record 58/96 and oracle-review 85/96; the separate 0.87 auditor result with generated-data caveats; and pending UAT. Show the 38 questions needing information separately. Use current screenshots only after verification and keep latency out of the headline claims. This is a handoff outline, not a slide deliverable.

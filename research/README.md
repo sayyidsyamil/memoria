@@ -16,6 +16,8 @@ one repository; the other folders were started here. Nothing in this folder is b
 | [`app-parity/`](app-parity/) | The app's Ask against the October pipeline on the same 96 AMI questions | new, 2 November 2026 |
 | [`live-verifier/`](live-verifier/) | The live check of `v0.3.0-uat` on written, spoken and noisy MemoriaBench probes | new, 3 November 2026 |
 | [`live-speech/`](live-speech/) | Parakeet Ultra with Nemotron 3 Diarization against MOSS on the AMI hour, live captions, and end-to-end runs through the installed app | new, 3 November 2026 |
+| [`number-word-fix/`](number-word-fix/) | Production repairs for amounts stated in words, signed decimals, billion units and scientific notation; cached development replay | new, 3 November 2026 |
+| [`model-improvements/`](model-improvements/) | Extraction development experiments, stock/edited 0.8B controls, rejected candidate A and the empty-record baseline audit | new, 3 November 2026 |
 
 The evidence inventory is [`docs/research/RESEARCH-EVIDENCE.md`](../docs/research/RESEARCH-EVIDENCE.md).
 The report sources themselves are kept privately, outside this repository.
@@ -53,14 +55,20 @@ and were not rerun.
 
 ## Status
 
-- The ledger results (61% against 43% and 39% on 96 AMI questions) are the FYP2 report's
-  evaluation. `HYBRID_RAG.md` and `SMALL_MODEL_REVIEW.md` record later exploratory runs made
-  after the test split had been seen.
+- The October ledger scored 59/96 against full context's 41 and BM25's 37. A later
+  [empty-record audit](model-improvements/baseline-audit.md) scores 58/96 with nothing extracted:
+  all past-date answers are "none", and 29 change counts are zero. On the 38 questions needing
+  a value or real change, the ledger trails both baselines (18 against 26 and 23). Its aggregate
+  lead does not establish better extraction. The historical results stay in `ledger-engine/`;
+  `HYBRID_RAG.md` and `SMALL_MODEL_REVIEW.md` there are exploratory follow-ups.
 - MemoriaBench (Macro-F1 0.87) is reported as an extension, not an objective (decided on
   2 November, to be confirmed with the supervisor; [roadmap](../docs/ROADMAP.md), M6).
 - Historical scores describe the evaluated configurations, not the current app. The current app
   is measured in `app-parity/`, `live-verifier/`, `live-speech/`, `long-meeting/` and
   `memoriabench/APP_LIVE_CHECK.md`.
+- The 4B extraction experiments in `model-improvements/` use a historical 0.3.1-era baseline.
+  The production amount repairs postdate it. Development selection and repeated benchmark checks
+  are not fresh validation; the reserved extraction validation has had no model generation or scoring.
 
 ## Licence and data
 
