@@ -8,8 +8,8 @@ Production change: commit `98440ef50`, `src-tauri/resources/memory/temporal_serv
 `repaired` dropped every number-typed candidate whose quote contained no digits. Manual and spoken
 transcripts often write amounts in words. On AMI ES2003a, the 4B model extracted production cost 12.5
 from "twelve point five Euros per unit" and price 25 from "sell them for twenty five". Both values were
-correct gold events, and both were dropped before review. The research coordinator found this in
-`memoria-wt-models` `research/model-improvements/WORKLOG.md` (13:00 entry, cause 1).
+correct gold events, and both were dropped before review. This was found during the separate model-improvement
+experiments; the regression fixture uses the AMI ES2003a turn already represented in this repository.
 
 ## Behaviour now
 
@@ -47,7 +47,7 @@ correct gold events, and both were dropped before review. The research coordinat
   The new helper is missing, and the integration test gets 0 proposals instead of 2. After the fix,
   the full memory suite passes: `python3.11 -B -m unittest discover -p 'test_*.py'`, 224 tests (216
   before).
-- Read-only cached replay: every reply in `memoria-wt-models`
+- Read-only cached replay from the experimental `model-improvements` branch:
   `research/model-improvements/cache/*.jsonl` (`4b.jsonl` sha256 `30329c6d8106f22f…`), 5,104
   candidates, went through the shipped and the fixed `repaired` with each chain's registry.
   - 13 results differ, and every difference is a candidate that was dropped and is now kept unchanged.
