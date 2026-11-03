@@ -20,7 +20,7 @@ See [WORK-LOG.md](WORK-LOG.md) for detail. This is not a completed eight-hour ru
   This is file throughput, not measured live caption latency; no WER claimed.
 - Three model-only paced public-audio replays completed with 240/240 ACKs each.
   Kept 4s cadence after 2s experiment increased backpressure; see
-  [cadence evidence](research/PUBLIC-STREAMING-CADENCE.md).
+  [cadence evidence](../research/PUBLIC-STREAMING-CADENCE.md).
 - Trimmed captions preserve raw timing, visibly label unresolved text alignment,
   and cannot enter temporal ingestion until refined. Empty captions no longer emit.
 
@@ -28,7 +28,7 @@ See [WORK-LOG.md](WORK-LOG.md) for detail. This is not a completed eight-hour ru
 
 - Latest bundle installed; native setup, real-Qwen extraction, approval, current/past/
   change-count queries and restart persistence passed in a disposable fictional vault.
-  See [native check](research/NATIVE-INTEGRATED-CHECK.md). Live flows remain pending.
+  See [native check](../research/NATIVE-INTEGRATED-CHECK.md). Live flows remain pending.
 
 - Combined app build, native API checks, live queue/reliability verification.
 - Tracked-facts setup view now loads in installed app after fixing nested package

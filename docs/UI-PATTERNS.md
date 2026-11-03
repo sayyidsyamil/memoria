@@ -4,7 +4,7 @@ Why this exists: the meeting surfaces were rebuilt around a **Record / Transcrip
 Summary / Ask / Search** model to look like a purpose-built meeting product rather
 than generic generated UI. This file records the rules that pass followed, what is
 shared, and what has and has not been verified. Earlier passes are in
-[UNSLOP-PASS.md](UNSLOP-PASS.md) and [MEETING-UI-PASS.md](MEETING-UI-PASS.md).
+[UNSLOP-PASS.md](notes/UNSLOP-PASS.md) and [MEETING-UI-PASS.md](notes/MEETING-UI-PASS.md).
 
 ## Provenance and licence
 
@@ -50,7 +50,7 @@ confidence or accuracy claim.
 
 ## Shared kit
 
-The product-wide Unslop follow-up in [UNSLOP-PASS.md](UNSLOP-PASS.md) supersedes
+The product-wide Unslop follow-up in [UNSLOP-PASS.md](notes/UNSLOP-PASS.md) supersedes
 the earlier visual treatment: labels use sentence case, shared controls use 8px
 corners inside 12px segmented groups, avatars are neutral, primary chrome is
 graphite, and the selected tab moves without bounce or animated width. Evidence
