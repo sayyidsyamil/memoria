@@ -18,8 +18,12 @@ one repository; the other folders were started here. Nothing in this folder is b
 | [`live-speech/`](live-speech/) | Parakeet Ultra with Nemotron 3 Diarization against MOSS on the AMI hour, live captions, and end-to-end runs through the installed app | new, 3 November 2026 |
 | [`number-word-fix/`](number-word-fix/) | Production repairs for amounts stated in words, signed decimals, billion units and scientific notation; cached development replay | new, 3 November 2026 |
 | [`model-improvements/`](model-improvements/) | Extraction development experiments, stock/edited 0.8B controls, rejected candidate A and the empty-record baseline audit | new, 3 November 2026 |
+| [`weight-edit-loops/`](weight-edit-loops/) | Targeted 4B static edits and repetition stopping; measured effects, random controls and recovery failures | new, 3 November 2026 |
+| [`weight-edit-attribution/`](weight-edit-attribution/) | Source-labelled 4B attribution diagnostics, prompt alternatives and static edits; unsupported gains rejected | new, 3 November 2026 |
 
 The evidence inventory is [`docs/research/RESEARCH-EVIDENCE.md`](../docs/research/RESEARCH-EVIDENCE.md).
+The [3 November integration review](REVIEW-2026-11-03.md) records accepted fixes, rejected interventions,
+historical-checkout requirements and checks run before publication.
 The report sources themselves are kept privately, outside this repository.
 
 ## One engine
