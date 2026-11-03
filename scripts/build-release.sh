@@ -6,6 +6,7 @@
 #   scripts/build-release.sh
 set -eu
 setopt pipefail
+export PYTHONDONTWRITEBYTECODE=1
 repo=${0:A:h}/..
 cd $repo
 
@@ -23,8 +24,9 @@ done
 commit=$(git rev-parse HEAD)
 version=$(/opt/homebrew/bin/python3.11 -c "import json; print(json.load(open('src-tauri/tauri.conf.json'))['version'])")
 started=$(date '+%Y-%m-%d %H:%M %z')
-# Bytecode left by tests and research runs is not part of the app (and is regenerated nowhere in the bundle).
-find src-tauri/resources/memory -name __pycache__ -type d -prune -exec rm -rf {} +
+# Keep the preserved source tree intact. Tests and workers must not add bytecode to build inputs.
+bytecode=$(find src-tauri/resources/memory \( -name __pycache__ -o -name '*.pyc' \) -print -quit)
+[[ -z $bytecode ]] || { print "Refusing: Python bytecode is present in the resource inputs: $bytecode"; exit 1; }
 # CI makes the bundler skip the Finder layout step of the disk image (no window is opened).
 CI=true pnpm tauri build
 

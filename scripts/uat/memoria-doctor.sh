@@ -19,10 +19,10 @@ done
 autoload -Uz is-at-least
 if [[ -n $app ]]; then
   version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist" 2>/dev/null)
-  if is-at-least 0.3.1 "${version:-0}"; then
+  if is-at-least 0.3.2 "${version:-0}"; then
     ok "app: $app (version $version)"
   else
-    bad "app: $app is version $version; install the 0.3.1 release (.dmg) into /Applications"
+    bad "app: $app is version $version; install the 0.3.2 UAT release (.dmg) into /Applications"
   fi
 else
   bad "app: install Memoria.app into /Applications from the release .dmg"
