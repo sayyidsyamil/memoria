@@ -1,4 +1,4 @@
-"""Developer-owned AC7 provisioning. No sudo, model imports with weight loads, or app changes."""
+"""Developer-owned AC7 provisioning: no sudo, no model weights loaded, no change to the app."""
 import argparse
 import hashlib
 import json
