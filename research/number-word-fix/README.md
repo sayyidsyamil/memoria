@@ -58,6 +58,17 @@ correct gold events, and both were dropped before review. The research coordinat
   - The research `numwords.repaired` gives identical results on all 5,104 candidates.
 - Protected paths (`memoria_engine/**`, `research/ledger-engine/**`) are unchanged.
 
+### Integration review
+
+Two further regressions were found and fixed before pushing:
+- Numeric values are read as numbers, not by stripping letters from their printed representation: `1e20` must not
+  be mistaken for 120 and confirmed by "one hundred and twenty".
+- Word confirmation uses equality, not a relative tolerance that could accept a nearby but different amount.
+
+Both added tests fail before these corrections. The combined app suite passes 231 tests, including the five separate
+singleton-retrieval tests. Replaying all 5,104 cached development candidates gives identical results before and after
+these two corrections; no reserved validation series was read.
+
 ## Limits
 
 - This is open-loop evidence only. Restored facts enter later prompts and can change greedy

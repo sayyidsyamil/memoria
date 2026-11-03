@@ -280,6 +280,17 @@ class SpokenAmountTests(unittest.TestCase):
                              (150000, 'a hundred and fifty thousand'), (0.05, 'zero point zero five'), (1250, 'one thousand two hundred and fifty')]:
             self.assertEqual(self.value(value, quote), value, quote)
 
+    def test_scientific_notation_is_not_read_as_its_digits_joined_together(self):
+        self.assertIsNone(self.fix(1e20, 'one hundred and twenty euros'))
+        self.assertIsNone(self.fix(-1e20, 'minus one hundred and twenty euros'))
+        self.assertEqual(self.value(1e20, 'The price is 120 euros.'), 120)
+
+    def test_words_confirm_exact_values_not_nearby_amounts(self):
+        for value, quote in [(12.5000000001, 'twelve point five euros'),
+                             (200000000001, 'two hundred billion ringgit'),
+                             (0.10000000001, 'zero point one euros')]:
+            self.assertIsNone(self.fix(value, quote), (value, quote))
+
     def test_two_amounts_negation_and_sign(self):
         quote = 'Not three hundred thousand but two hundred and eighty thousand.'
         self.assertEqual(self.value(300000, quote), 300000)  # both are said: validation decides, as for 'Not 300,000 but 280,000.'

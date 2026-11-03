@@ -192,8 +192,7 @@ def spoken_numbers(quote):
 
 def said_in_words(value, quote):
     """True when the quote says this finite amount in words."""
-    return value is not None and math.isfinite(value) and any(
-        abs(number - value) <= 1e-9 * max(1.0, abs(value)) for number in spoken_numbers(quote))
+    return value is not None and math.isfinite(value) and value in spoken_numbers(quote)
 
 
 def repaired(candidate, registry):
@@ -215,8 +214,9 @@ def repaired(candidate, registry):
     if attribute is not None and attribute.type == 'number':
         stated = quoted_numbers(candidate.quote)
         try:
-            value = float(re.sub(r'[^\d.\-]', '', str(candidate.value)))
-        except ValueError:
+            raw = candidate.value if isinstance(candidate.value, (int, float)) and not isinstance(candidate.value, bool) else re.sub(r'[^\d.\-]', '', str(candidate.value))
+            value = float(raw)
+        except (ValueError, OverflowError):
             value = None
         numeric = isinstance(candidate.value, (int, float, str)) and not isinstance(candidate.value, bool)
         if numeric and value not in stated and said_in_words(value, candidate.quote):
