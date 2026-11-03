@@ -152,6 +152,11 @@ round-trip test passed. The full macOS file-picker → native attachment command
 Open source click flow remains a separate native acceptance check; browser bridge
 verification is not claimed as that check. OCR remains unconnected.
 
+## Inherited Tolaria architecture
+
+The rest of this document is Tolaria's architecture description, inherited with the fork.
+The fork replaced the product name in it, so "Memoria" below means the inherited workspace.
+
 ## Desktop Note Save Transport
 
 `persistContent` sends native desktop saves through `save_note_content_bytes`
@@ -161,7 +166,7 @@ active-vault path validation and the existing off-thread atomic writer. This
 bounds the JSON note payload and avoids a full JSON copy of embedded image payloads; memory remains proportional
 to note length. Browser fixtures retain their JSON save API. See ADR 0278.
 
-Memoria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
+Tolaria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
 
 ## Design Principles
 

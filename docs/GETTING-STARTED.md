@@ -1,6 +1,8 @@
 # Getting Started
 
-How to navigate the codebase, run the app, and find what you need.
+How to navigate the codebase, run the app, and find what you need. This guide is inherited
+from Tolaria, except [Install for another macOS account (AC7)](#install-for-another-macos-account-ac7),
+which is Memoria's; Memoria's own setup is in [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Prerequisites
 
@@ -162,7 +164,7 @@ model revisions or Homebrew's Python installation.
 
 The tablet/phone app lives in `apps/mobile`, separate from the Tauri desktop app.
 Track work and acceptance evidence in the
-[Memoria Mobile Linear project](https://linear.app/refactoringhq/project/tolaria-mobile-e4f418a855d6),
+[Tolaria Mobile Linear project](https://linear.app/refactoringhq/project/tolaria-mobile-e4f418a855d6),
 not repository readiness reports. Durable decisions use the shared `docs/adr`
 numbering and a `Platform: mobile` header. Reference the TOL issue in commits.
 
