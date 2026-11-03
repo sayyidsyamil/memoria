@@ -1,0 +1,125 @@
+{
+  "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+  ],
+  "meetings": 20,
+  "gold_events": 60,
+  "tp": 26,
+  "fp": 130,
+  "fn": 34,
+  "precision": 0.167,
+  "recall": 0.433,
+  "f1": 0.241,
+  "ci_95": {
+    "precision": [
+      0.092,
+      0.278
+    ],
+    "recall": [
+      0.238,
+      0.636
+    ],
+    "f1": [
+      0.137,
+      0.364
+    ]
+  },
+  "miss_reasons": {
+    "missed": 15,
+    "wrong_evidence": 17,
+    "link_error": 1,
+    "unresolved": 1
+  },
+  "fp_reasons": {
+    "spurious": 124,
+    "wrong_content": 6
+  },
+  "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+  },
+  "writes_per_meeting": 7.8,
+  "values": {
+    "agrees": 110,
+    "changes_belief": 78,
+    "no_gold_value_yet": 12,
+    "other_value": 29,
+    "earlier_value": 5,
+    "wrong": 46
+  },
+  "qa_exact": "90/124",
+  "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "28/43",
+    "n_changes": "26/43"
+  },
+  "inbox_confirm_all": {
+    "proposals": 119,
+    "accepted": 25,
+    "edited": 6,
+    "rejected": 88,
+    "per_meeting": 5.95,
+    "qa_after_review": "92/124"
+  },
+  "windows": 97,
+  "unclean": 3,
+  "hit_budget": 3,
+  "windows_with_repeats": 2,
+  "window_seconds_p50_p95": [
+    7.89,
+    29.89
+  ],
+  "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+  ],
+  "meeting_seconds_mean": 57.6,
+  "output_tokens_per_meeting": 1001.7,
+  "peak_gb_max": 4.078,
+  "per_series": {
+    "ES2003": {
+      "tp": 7,
+      "fp": 20,
+      "fn": 6,
+      "qa_exact": "17/25",
+      "wrong": 8,
+      "proposals": 23
+    },
+    "TS3004": {
+      "tp": 6,
+      "fp": 33,
+      "fn": 4,
+      "qa_exact": "10/20",
+      "wrong": 16,
+      "proposals": 29
+    },
+    "ES2011": {
+      "tp": 0,
+      "fp": 16,
+      "fn": 9,
+      "qa_exact": "21/24",
+      "wrong": 7,
+      "proposals": 16
+    },
+    "IS1008": {
+      "tp": 3,
+      "fp": 13,
+      "fn": 7,
+      "qa_exact": "17/21",
+      "wrong": 4,
+      "proposals": 10
+    },
+    "TS3006": {
+      "tp": 10,
+      "fp": 48,
+      "fn": 8,
+      "qa_exact": "25/34",
+      "wrong": 11,
+      "proposals": 41
+    }
+  }
+}
