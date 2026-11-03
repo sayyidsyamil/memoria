@@ -1,9 +1,8 @@
 # Memoria UI patterns — 1 November 2026
 
-Why this exists: the meeting surfaces were rebuilt around a **Record / Transcript /
-Summary / Ask / Search** model to look like a purpose-built meeting product rather
-than generic generated UI. This file records the rules that pass followed, what is
-shared, and what has and has not been verified. Earlier passes are in
+This file records the 1 November rebuild of the meeting surfaces around Record,
+Transcript, Summary, Ask and Search: the rules it followed, what is shared, and what
+has and has not been verified. Earlier passes are in
 [UNSLOP-PASS.md](notes/UNSLOP-PASS.md) and [MEETING-UI-PASS.md](notes/MEETING-UI-PASS.md).
 
 ## Provenance and licence

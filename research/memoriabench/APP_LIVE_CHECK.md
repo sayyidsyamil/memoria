@@ -160,7 +160,7 @@ Failure cases of that design:
   think the remote will not include speech recognition." re-cited to "The remote will
   include games and a simple parental control feature" (attribution chose a wrong
   slot and the model confirmed it).
-- Misses (21): 18 never reached a confirmed clash — the five-fact lexical selection
+- Misses (21): 18 never reached a confirmed clash, because the five-fact lexical selection
   did not include the decision (many slots share "remote"), or the app's verifier
   judged no conflict ("Well, we will make the case out of wood." against rubber;
   "So the remote will sell for 35 Euro."); 2 had invalid verifier output; 1 was dropped

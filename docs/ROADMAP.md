@@ -42,7 +42,7 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 Acceptance: recording stops cleanly; marks align with recorded time; reviewed state survives
 restart; an interrupted recording is recovered; a saved brief cites only approved evidence.
 
-Status (2 November): verified natively with the replay path and fictional fixtures — see
+Status (2 November): verified natively with the replay path and fictional fixtures; see
 [M1-NATIVE-LOOP.md](research/M1-NATIVE-LOOP.md). Capture, captions, marks, pause/resume, End,
 review, refine, speaker naming, knowledge review and apply, Ask, Brief, Search, tracked facts,
 restart persistence and crash recovery all work; 14 defects found on the way were fixed with
@@ -67,7 +67,7 @@ available), and a playable duration for recovered recordings (D13).
 Acceptance: a 60-minute recording is transcribed and extracted with no silent truncation; the
 live check has a reported MemoriaBench score with intervals and failure cases.
 
-Status (2 November): accepted — see [M2-MEETING-INTELLIGENCE.md](research/M2-MEETING-INTELLIGENCE.md).
+Status (2 November): accepted; see [M2-MEETING-INTELLIGENCE.md](research/M2-MEETING-INTELLIGENCE.md).
 The app's live check with the guard, scored on MemoriaBench through its own Qwen worker, catches
 81.3% of conflicts (75.0–87.5) with 1.3% false alarms (0–3.1); the research auditor still
 catches more (98.2%). A 60-minute AMI recording was transcribed in 11.6 minutes with no gaps
@@ -79,9 +79,9 @@ the speaker picker offers known names. Found on the way and fixed: worker deadli
 knowledge-review passage limit and one-invalid-group failure, the meeting record cap, merged
 speakers and repeated passages at part boundaries, and model loading under memory pressure.
 Remaining: 6–9% of words left on "Unknown speaker"; live captions wait while a long recording
-is transcribed (M3). Since measured: no false alert on real unrelated speech — all 852 turns of
-the AMI hour checked against the UAT procurement facts, 29 of them reached the model
-([research/long-meeting](../research/long-meeting/README.md)); and a November bake-off of newer
+is transcribed (M3). Since measured: no false alert on real unrelated speech (all 852 turns of
+the AMI hour checked against the UAT procurement facts, 29 of them reached the model;
+[research/long-meeting](../research/long-meeting/README.md)); and a November bake-off of newer
 local models kept Qwen3.5-4B ([research/model-bakeoff](../research/model-bakeoff/README.md)).
 
 Since then (3 November): speech moved to Parakeet Ultra with Nemotron 3 Diarization (the AMI hour
@@ -93,7 +93,7 @@ alarms in 224, 0.26 s median; [research/live-verifier](../research/live-verifier
 ## M3 Reliability
 
 - Restart crashed model workers automatically; handle memory pressure; coordinate model use
-  across the three workers. (Workers no longer outlive a crashed app — done in M1. Model loading
+  across the three workers. (Workers no longer outlive a crashed app: done in M1. Model loading
   now allows five minutes, after the M2 check saw all three 60-second attempts fail with other
   apps holding memory.)
 - Live captions in a new meeting wait while a long recording is being transcribed (one resident
@@ -120,7 +120,7 @@ for recovered recordings, and sleep and wake, disconnection, queue pressure and 
 
 ## M4 UAT build
 
-- Tag `v0.2.0-uat` and publish the app bundle as a GitHub release with notes.
+- Tag a UAT build and publish it as a GitHub release with notes (`v0.2.0-uat`, then `v0.3.0-uat`).
 - Fictional demo vault and reset script for sessions; UAT protocol and forms ready.
 
 Acceptance: a second macOS account installs and completes the five acceptance tasks by

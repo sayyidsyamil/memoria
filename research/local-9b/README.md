@@ -142,7 +142,7 @@ audio and vision towers. That document gave the 4B as 2.368 GB, the same as this
 three models would need about 8 GB at rest and 9.5–10.8 GB while the extractor reads. That leaves 5–6.5 GB of a 16 GB
 Mac for macOS, the app's own window and everything else the user has open.
 
-In this session other apps were open. At 22:26, during the 4B check, Edge, Microsoft Defender and a node process ran
+During the runs other apps were open. At 22:26, during the 4B check, Edge, Microsoft Defender and a node process ran
 at 40–55% CPU each, alongside Chrome, OpenCode and WindowServer. The system showed 15 GB used, 4.8 GB compressed and
 126 MB free. During the 9B review run the Mac became unusable and the run was stopped. The 4B fits on a 16 GB Mac;
 a 9B beside the speech and embedding models does not fit comfortably.

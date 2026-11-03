@@ -226,8 +226,8 @@ and cache files. Inventories match exactly. Its top-level entries were
 `stderr.log`, `stdout.jsonl`, and `torchinductor_sayyid/`.
 
 Pre/post process snapshots show the existing Qwen resident PID 68357 at 0% CPU
-and unchanged accumulated CPU time 0:04.27. No other model test was launched by
-this task. System `mediaanalysisd`, Spotlight and browser processes were busy;
+and unchanged accumulated CPU time 0:04.27. No other model test ran at the same
+time. System `mediaanalysisd`, Spotlight and browser processes were busy;
 the machine was not otherwise quiescent. stderr contains only the existing
 webrtcvad `pkg_resources` deprecation warning.
 

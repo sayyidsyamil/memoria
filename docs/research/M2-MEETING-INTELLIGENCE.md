@@ -139,7 +139,7 @@ their own (each through the same worker) and joined offline both ways:
 
 Elimination changed nothing here and was not shipped. The remaining "lost passage" near 42:10
 was not a joining fault: part 9 decoded alone contains it, but in the full run that part's
-decoding ended the turn early — run-to-run decoding variation that ownership cannot recover.
+decoding ended the turn early: run-to-run decoding variation that ownership cannot recover.
 
 ### Knowledge and tracked facts from the hour
 
