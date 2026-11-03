@@ -87,6 +87,13 @@ value-correct extraction, which is why wrong writes and QA are reported beside i
 | commonest value on nosys | 21 | 102 | 95.4, 98 | 0.3% | 28 vs 26.3 | **yes** |
 | last value on nosys | 25 | 100 | 95.4, 98 | 1.3% | 27 vs 25.9 | yes |
 
+300 draws each (the protocol fixed 1,000; deviation recorded). Rechecked with 1,000 draws (seed 0): commonest value on
+nosys, QA 102 against a random mean of 95.4 (90th percentile 98), 2 of 1,000 draws reach it, gold kept 28 against 26.4;
+on the base nearest to A (nosys + numwords + loopstop, closed loop; the rule open loop), 30 writes removed, QA 99 against
+92.3 (90th percentile 95), 2 of 1,000 draws reach it, gold kept 28 against 25.2, wrong writes 29 against 42.7. The rule
+removes better than chance on this data, so its gain is not just writing less; that does not repair its contract failure
+(below), and these shares are descriptive (computed after choosing among about 15 variants).
+
 **Rejected, and why** (all on dev):
 - *Support check* (one YES/NO question per write about attribution, not firmness): halves wrong writes but drops the
   only write of slots whose value was right with a weak quote; QA and gold events both fall.

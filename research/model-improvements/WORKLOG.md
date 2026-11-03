@@ -185,3 +185,8 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   (the extractor's last write was a late remark). So on AMI dev the majority vote happened to help, but most of A's gain
   is the collapse to one value per meeting (last value on the same base: QA 100 against 102), which is what fixture 1
   forbids; fixture 2 shows the majority vote losing a real decision.
+- 15:56 Random-removal control recomputed with the protocol's 1,000 draws (no model, seed 0): commonest value on the
+  nosys base QA 102 vs random mean 95.4, 90th percentile 98, 2/1,000 draws reach it, gold kept 28 vs 26.4; on the
+  nosys + numwords + loopstop base (nearest to A) QA 99 vs 92.3, 90th percentile 95, 2/1,000, gold kept 28 vs 25.2,
+  wrong writes 29 vs 42.7. Passes the rule with 1,000 draws as with 300; descriptive after the variant selection; does
+  not change the contract verdict.
