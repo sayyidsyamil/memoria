@@ -221,9 +221,9 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
           {busy ? 'You can keep working in the workspace while this finishes.' : 'No live transcript is available. You can create one from the saved audio.'}</EmptyState>}
         {!busy && draft && (!refined || turns.some(turn => turn.contextTrimmed)) && <div className="review-actions"><Button variant="outline" onClick={() => { void transcribe() }}>Refine transcript and speakers</Button></div>}
         {draft && <>
-          {!!draft.gaps?.length && <div role="alert" className="review-notice" data-tone="warn"><Warning size={16} aria-hidden="true" /><div><p><strong>{draft.gaps.length} passage needs audio review</strong></p>{draft.gaps.map(gap => <p key={gap.start}>{clock(gap.start)}–{clock(gap.end)} · No transcript was accepted for this interval.</p>)}</div></div>}
+          {!!draft.gaps?.length && <div role="alert" className="review-notice" data-tone="warn"><Warning size={16} aria-hidden="true" /><div><p><strong>{draft.gaps.length === 1 ? 'One passage needs' : `${draft.gaps.length} passages need`} audio review</strong></p>{draft.gaps.map(gap => <p key={gap.start}>{clock(gap.start)}–{clock(gap.end)} · No transcript was accepted for this interval.</p>)}</div></div>}
           {refined && speakers.length > 0 && <section className="review-speakers" aria-label="Meeting speakers">
-            <Fold title="Speakers" count={speakers.length} defaultOpen={speakers.some(speaker => !names[speaker]?.trim())}
+            <Fold title="Speakers" count={identified} defaultOpen={speakers.some(speaker => !names[speaker]?.trim())}
               aside={<span className="review-fold-avatars">{speakers.map(speaker => <Avatar key={speaker} label={speakerLabel(speaker, names, order)} tone={speakerTone(speaker, order)} size={22} />)}</span>}>
             <div className="review-section-head"><span />
               <label className="review-remember"><input type="checkbox" checked={remember} disabled={busy} onChange={event => setRemember(event.target.checked)} />Remember named voices in this workspace</label>

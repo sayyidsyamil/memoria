@@ -348,6 +348,7 @@ it('states the meeting once: no status line above the title, speakers counted pl
     initialMarks={[{ at: 1, label: '' }]} onClose={async () => undefined} />)
   expect(screen.queryByText(/^(Meeting ended|Reviewed meeting)$/)).not.toBeInTheDocument()
   expect(screen.getByText(/· 2 speakers$/)).toBeInTheDocument()
+  expect(screen.getByText(/Speakers · 2/)).toBeInTheDocument()   // the same count as the header; the unknown voice is listed, not counted
   expect(screen.getByText('Draft — check before saving')).toBeInTheDocument()
   const marked = screen.getByText(/Marked moments · 1/).closest('summary')!
   expect(marked.querySelector('svg.review-fold-caret')).toHaveAttribute('aria-hidden', 'true')
