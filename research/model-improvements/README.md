@@ -1,10 +1,12 @@
 # Model improvements: extraction quality, and the edited Qwen3.5-0.8B
 
-**Status (3 November 2026, 15:40): development complete, READY FOR VALIDATION, new-val not opened.** Candidate A is
-frozen (`results/validation/candidate-A.json`). On the user's steering the final validation waits until separate
-specialists report their own 4B candidates (weight-space repair of repetition loops, attribution edits); all
-candidates are then preregistered together and the reserved validation series are run once. Protocol and amendments:
-[`PROTOCOL.md`](PROTOCOL.md). Dated notes, including every rejected idea: [`WORKLOG.md`](WORKLOG.md).
+**Status (3 November 2026, 15:55): development complete; new-val not opened.** Candidate A is frozen
+(`results/validation/candidate-A.json`) but **fails two of three product-contract fixtures** (see "Product-contract
+review" below): it is not fit to be a default, and validating it would only test an experimental one-value-per-meeting
+policy. On the user's steering the final validation waits until separate specialists report their own 4B candidates
+(weight-space repair of repetition loops, attribution edits); all candidates are then preregistered together and the
+reserved validation series are run once. Protocol and amendments: [`PROTOCOL.md`](PROTOCOL.md). Dated notes,
+including every rejected idea: [`WORKLOG.md`](WORKLOG.md).
 
 Everything below is **development data** (old-dev ES2003, TS3004 and new-dev ES2011, IS1008, TS3006: 20 meetings,
 60 gold events, 124 questions), already used to choose among variants, so the candidate's numbers are optimistic.
@@ -28,6 +30,9 @@ No number here is a held-out result.
    against 90 (17 only-A against 7 only-app, p = 0.064), gold events found 28 against 26, wrong-value writes 31 against
    46, review inbox 89 against 119 proposals (-25%) with 27 correct proposals against 25. All of the gain is in change
    counts (35 against 26 of 43); current values are unchanged (28/43). It costs 16% more generation time per meeting.
+   **Its per-meeting rule breaks the product contract** (an explicit later decision can be outvoted by repeated recaps
+   of the old value; an approved intermediate change is dropped), and a contract-respecting variant keeps almost none
+   of the gain, so the dev gain is not a product improvement as it stands.
 4. **The 0.8B is not deployable for these tasks, edited or not.** As the live guard it never alerts (AUROC 0.62-0.63
    against 0.97 for the 4B); it routes 95-103 of 124 questions right in bf16 (4B: 124) and 52-53 in 4-bit; it finds
    2-6 of the gold events the 4B finds 13-16 of. The edit is real and transfers to Memoria's thinking-off JSON
@@ -136,6 +141,41 @@ questions only edited routes right, 1 only stock (p = 0.021).
 - In MLX the edited model is built at load time from the stock weights and the two rebuilt tensors (hash-checked in
   memory), so no second full copy is stored.
 
+## Product-contract review of candidate A (15:45, no model)
+
+The engine keeps chronology inside a meeting: `Pipeline._commit` gives each write the claim time meeting start + turn
+start, commits in turn order and compares each write with the belief in force at that moment, so two real changes in
+one meeting are two facts and the later one is current. `test_modevalue_contract.py` runs the real `Pipeline` on
+injected candidates, shipped and through A's exact closed-loop gate (`harness._Gated` with `modevalue`):
+
+| fixture (the parent's three cases) | shipped | **A** (commonest value per meeting) | last value per meeting | R (revert only; new, unfrozen) |
+|---|---|---|---|---|
+| 1. two approved budget changes in one meeting, 250k -> 280k -> 300k | 2 changes, 300k | **fails**: 280k dropped, 1 change | fails the same way | passes |
+| 2. "Alpha" restated three times, then "we switch the pilot vendor to Beta" | Beta, 1 change | **fails**: stays Alpha, 0 changes | passes | passes |
+| 3. "the vendor is still Alpha" four times | 0 changes | passes | passes | passes |
+
+A's two failures are kept as expected failures; the fixtures were not changed after A's result. Fixture 2 is a
+correctness failure: a majority of recap mentions outvotes an explicit later decision and the ledger keeps the old
+value. Fixture 3 needs no rule at all; the shipped engine already treats restatements as reconfirmations.
+
+Rule R (`revertonly.py`) drops a change only when the same meeting returns to the value in force before it. It passes
+all three fixtures but keeps almost none of A's dev gain (open loop: QA 93 with 23 gold events on the app base, 96 on
+the nosys base, 90 on the nosys + numwords + loopstop base). A's dev gain comes from collapsing each meeting to one
+value, which is exactly what breaks the contract.
+
+**Recommendation.**
+- **Do not offer A as a default.** It can discard an explicit decision (fixture 2) and an approved intermediate change
+  (fixture 1).
+- **Do not run A as the validation candidate for a product default either.** If the final validation is wanted for A,
+  label it "experimental one-value-per-meeting policy" and keep fixture 2 in its report: even a validation win would
+  not remove that failure.
+- A product option worth considering is an *explicit* "final value per meeting" policy that takes the last value (it
+  passes fixture 2, gives up fixture 1's intermediate history by design). It is a new identity: on dev it exists only
+  open loop (nosys base: QA 100, current 27/43, 27 gold events; random-removal control passed with 300 draws). It
+  would need a closed-loop dev run (GPU) and its own freeze before any validation.
+- The parts of A that respect the contract are independent of the per-meeting rule: amounts in words (owned by the
+  number-word agent) and stopping a reply at its first repeated event (latency only).
+
 ## Validation, prepared and not run
 
 - **Reserved data:** new-val, 8 AMI series never used for extraction (ES2002, ES2005, ES2010, ES2016, IS1001, IS1004,
@@ -190,7 +230,8 @@ python3.11 lease.py job -- $PY run.py parity      # in-process requests against 
 | `lm.py` | model variants and the app worker's requests, cached (`cache/<variant>.jsonl`) |
 | `harness.py`, `score.py`, `audit.py`, `controls.py` | the app's extraction on AMI chains; scoring; per-write audit; random-removal controls |
 | `dev_tables.py`, `small_tables.py`, `guard_summary.py`, `route_summary.py` | the tables above, from the caches |
-| `support.py`, `consolidate.py`, `numwords.py` | mechanisms tested |
+| `support.py`, `consolidate.py`, `numwords.py`, `revertonly.py` | mechanisms tested (R in `revertonly.py` is new and unfrozen) |
+| `test_modevalue_contract.py` | product-contract fixtures for A's per-meeting rule (no model) |
 | `wsp.py` | the edit rebuilt, checked against the release, its survival under 4-bit quantisation, applied at load |
 | `run.py` | model jobs (extract, route, guard, parity, suite) |
 | `validate.py` | preregistration, single run and scoring of the final validation (not run) |

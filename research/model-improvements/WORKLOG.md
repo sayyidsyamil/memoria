@@ -162,3 +162,20 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   correct). Consolidation with thinking on: 13 of 16 questions ran out of the 1,024-token thinking budget, 552 s in
   all, QA 95: rejected. README rewritten as the intermediate deliverable; every table regenerates from the caches
   (`dev_tables.py`, `small_tables.py`). No change to `src-tauri/` or `research/ledger-engine/` on this branch.
+- 15:45 **Product-contract review of candidate A** (parent's request; no model, no new-val, A unchanged). The engine keeps
+  chronology inside a meeting (`Pipeline._commit`: claim time = meeting start + turn start, commits in turn order, each
+  write compared with the belief in force at that moment). Fixtures through the real `Pipeline` (immediate policy),
+  candidates injected, A's rule applied exactly as in A's closed loop (`harness._Gated`, `modevalue`):
+  | fixture | shipped | A (commonest value) | last value | R (revert only) |
+  |---|---|---|---|---|
+  | 1. two approved changes in one meeting, 250k -> 280k -> 300k | 2 changes, 300k | **1 change (280k lost)**, 300k | 1 change (280k lost), 300k | 2 changes, 300k |
+  | 2. "Alpha" restated 3 times, then "switch the vendor to Beta" | Beta, 1 change | **Alpha, 0 changes (decision lost)** | Beta, 1 change | Beta, 1 change |
+  | 3. "still Alpha" said 4 times | Alpha, 0 changes | Alpha, 0 changes | Alpha, 0 changes | Alpha, 0 changes |
+  A fails 1 and 2 (recorded as expected failures, the fixtures unchanged). Fixture 2 is a correctness failure, not a
+  granularity choice: a majority of recap mentions outvotes an explicit later decision and the ledger keeps the old
+  value. The shipped engine already handles fixture 3 (restatements are reconfirmations, never changes).
+- Rule R (`revertonly.py`, new identity, written after the fixtures, not frozen): within a meeting, drop a change only if
+  the same meeting returns to the value in force before it. It passes all three fixtures, but on dev (open loop) it
+  keeps almost none of A's gain: app base QA 93 with gold 23 (fails the gold guardrail); nosys base QA 96, gold 28;
+  nosys+numwords+loopstop base QA 90, gold 27. **A's dev gain therefore comes from the part of its rule that breaks the
+  product contract** (collapsing a meeting to one value), not from removing abandoned excursions.
