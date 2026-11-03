@@ -1,0 +1,11 @@
+{"condition": "context", "tag": "ES2003c", "seconds": 8.400796874979278, "output_tokens": 141, "peak_gb": 3.988819432}
+{"condition": "context", "tag": "ES2003d", "seconds": 10.609601083007874, "output_tokens": 263, "peak_gb": 3.988819408}
+{"condition": "context", "tag": "TS3004c", "seconds": 11.736953166982858, "output_tokens": 290, "peak_gb": 3.988820392}
+{"condition": "context", "tag": "TS3004c", "seconds": 13.850135165994288, "output_tokens": 356, "peak_gb": 3.98882116}
+{"condition": "context", "tag": "TS3004d", "seconds": 5.8549328750232235, "output_tokens": 45, "peak_gb": 3.988821068}
+{"condition": "context", "tag": "ES2011b", "seconds": 18.474534124979982, "output_tokens": 567, "peak_gb": 3.988819316}
+{"condition": "context", "tag": "IS1008b", "seconds": 5.425786499981768, "output_tokens": 52, "peak_gb": 3.988819064}
+{"condition": "context", "tag": "IS1008c", "seconds": 6.649916540976847, "output_tokens": 90, "peak_gb": 3.988819604}
+{"condition": "context", "tag": "IS1008d", "seconds": 6.295944375015097, "output_tokens": 86, "peak_gb": 3.988819184}
+{"condition": "context", "tag": "TS3006d", "seconds": 8.207789959007641, "output_tokens": 110, "peak_gb": 4.000291166}
+{"closed": true, "preflight": {"time": "2026-11-03T15:41:55+0800", "conflicts": []}, "seconds": 102.38511095798458, "process_peak_gb": 1.66412288}

@@ -1,0 +1,67 @@
+[
+  {
+    "fixture": "two_changes",
+    "expected": {
+      "values": [
+        250000,
+        280000,
+        300000
+      ],
+      "changes": 2,
+      "current": 300000
+    },
+    "actual": {
+      "values": [
+        250000,
+        280000,
+        300000
+      ],
+      "changes": 2,
+      "current": 300000
+    },
+    "claim_times": {
+      "500": {
+        "expected": 280000,
+        "actual": 280000
+      },
+      "2000": {
+        "expected": 300000,
+        "actual": 300000
+      }
+    },
+    "passed": true
+  },
+  {
+    "fixture": "recaps_then_switch",
+    "expected": {
+      "current": "Beta",
+      "changes": 1
+    },
+    "actual": {
+      "values": [
+        "Alpha",
+        "Beta"
+      ],
+      "changes": 1,
+      "current": "Beta"
+    },
+    "claim_times": {},
+    "passed": true
+  },
+  {
+    "fixture": "unchanged_recaps",
+    "expected": {
+      "current": "Alpha",
+      "changes": 0
+    },
+    "actual": {
+      "values": [
+        "Alpha"
+      ],
+      "changes": 0,
+      "current": "Alpha"
+    },
+    "claim_times": {},
+    "passed": true
+  }
+]

@@ -1,0 +1,316 @@
+{
+  "rows": [
+    {
+      "id": "a00",
+      "margin": 3.0,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a01",
+      "margin": 1.375,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a02",
+      "margin": 0.75,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a03",
+      "margin": 1.25,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a04",
+      "margin": 0.375,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a05",
+      "margin": -0.75,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a06",
+      "margin": 1.25,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a07",
+      "margin": 1.5,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a08",
+      "margin": 1.625,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a09",
+      "margin": 1.5,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a10",
+      "margin": 1.5,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a11",
+      "margin": 0.75,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a12",
+      "margin": 2.25,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a13",
+      "margin": -0.125,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a14",
+      "margin": 1.25,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a15",
+      "margin": 2.5,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a16",
+      "margin": -0.75,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a17",
+      "margin": -1.125,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a18",
+      "margin": -1.375,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a19",
+      "margin": -1.5,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a20",
+      "margin": -1.0,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a21",
+      "margin": -1.625,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a22",
+      "margin": 0.5,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a23",
+      "margin": -1.625,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": false
+    },
+    {
+      "id": "a24",
+      "margin": -0.375,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a25",
+      "margin": 0.0,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a26",
+      "margin": 1.125,
+      "seconds": 0,
+      "lexical_support": false,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a27",
+      "margin": 2.0,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a28",
+      "margin": 0.125,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a29",
+      "margin": 2.125,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a30",
+      "margin": 1.875,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    },
+    {
+      "id": "a31",
+      "margin": 2.125,
+      "seconds": 0,
+      "lexical_support": true,
+      "source_grounded": true,
+      "gold_value_agrees": true
+    }
+  ],
+  "summary": {
+    "existing_support_tau0": {
+      "derive": {
+        "correct": 8,
+        "n": 16,
+        "false_accept": 7,
+        "false_reject": 1,
+        "auc": 0.6484375,
+        "mean_seconds": 0.0
+      },
+      "check": {
+        "correct": 14,
+        "n": 16,
+        "false_accept": 1,
+        "false_reject": 1,
+        "auc": 0.953125,
+        "mean_seconds": 0.0
+      }
+    },
+    "lexical_support": {
+      "derive": {
+        "correct": 9,
+        "n": 16,
+        "false_accept": 6,
+        "false_reject": 1,
+        "auc": 0.5625,
+        "mean_seconds": 0.0
+      },
+      "check": {
+        "correct": 11,
+        "n": 16,
+        "false_accept": 3,
+        "false_reject": 2,
+        "auc": 0.6875,
+        "mean_seconds": 0.0
+      }
+    },
+    "verbatim_grounding_only": {
+      "derive": {
+        "correct": 8,
+        "n": 16,
+        "false_accept": 8,
+        "false_reject": 0,
+        "auc": 0.5,
+        "mean_seconds": 0.0
+      },
+      "check": {
+        "correct": 8,
+        "n": 16,
+        "false_accept": 8,
+        "false_reject": 0,
+        "auc": 0.5,
+        "mean_seconds": 0.0
+      }
+    }
+  }
+}

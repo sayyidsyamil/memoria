@@ -1,0 +1,112 @@
+{
+  "kind": "static sparse rank-one weight adapter on original 4-bit down_proj",
+  "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "layer": 8,
+  "path": "language_model.model.layers.8.mlp.down_proj",
+  "formula": "W'[:, J] = W[:, J] - alpha * outer(u, p); p = u @ W[:, J]",
+  "derive_cases": [
+    "a00",
+    "a01",
+    "a02",
+    "a03",
+    "a04",
+    "a05",
+    "a06",
+    "a07",
+    "a08",
+    "a09",
+    "a10",
+    "a11",
+    "a12",
+    "a13",
+    "a14",
+    "a15"
+  ],
+  "selection": "max old-dev leave-series-out AUC, then direction cosine",
+  "diagnostics": [
+    {
+      "layer": 8,
+      "derive_series_direction_cosine": 0.14504685997962952,
+      "derive_leave_series_out_auc": [
+        0.6875,
+        0.8125
+      ],
+      "check_direction_auc": 0.5
+    },
+    {
+      "layer": 16,
+      "derive_series_direction_cosine": 0.05630265921354294,
+      "derive_leave_series_out_auc": [
+        0.5,
+        0.5625
+      ],
+      "check_direction_auc": 0.578125
+    },
+    {
+      "layer": 24,
+      "derive_series_direction_cosine": -0.011302176862955093,
+      "derive_leave_series_out_auc": [
+        0.5,
+        0.4375
+      ],
+      "check_direction_auc": 0.984375
+    },
+    {
+      "layer": 28,
+      "derive_series_direction_cosine": -0.006495888344943523,
+      "derive_leave_series_out_auc": [
+        0.5625,
+        0.5
+      ],
+      "check_direction_auc": 0.984375
+    }
+  ],
+  "indices": [
+    7290,
+    1285,
+    4,
+    3115,
+    956,
+    4231,
+    636,
+    3702,
+    3286,
+    7167,
+    1382,
+    43,
+    5898,
+    2397,
+    6392,
+    1171
+  ],
+  "direction_norm": 1.0,
+  "unscaled_delta_frobenius": 0.14160087704658508,
+  "layer_weight_frobenius": 40.9273567199707,
+  "relative_delta_at_half": 0.0017299049877009312,
+  "top_contribution": [
+    0.002200378105044365,
+    0.0018743881955742836,
+    0.0018397037638351321,
+    0.001722992747090757,
+    0.0017192931845784187,
+    0.0016056688036769629,
+    0.0015017526457086205,
+    0.0013989629223942757,
+    0.001329322811216116,
+    0.001202963525429368,
+    0.0011963531142100692,
+    0.0009760800749063492,
+    0.000970346387475729,
+    0.0009494191617704928,
+    0.0009374577202834189,
+    0.0009323214180767536
+  ],
+  "strengths": [
+    0.25,
+    0.5
+  ],
+  "random_seed": 20261103,
+  "random_control": "same indices and p, orthogonal unit random_u, exactly matched Frobenius norm",
+  "patch_sha256": "5c4aa47baeb311467a4bb5229b303bbf0779f59b61bcf4775834a5dc161d1c5b",
+  "probes_sha256": "1d5e5991ba771b9da4f3358099ead499bcf27ba7aea0239eb05395470896a86e"
+}
