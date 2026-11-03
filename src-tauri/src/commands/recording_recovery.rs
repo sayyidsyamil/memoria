@@ -4,13 +4,18 @@ use sha2::{Digest, Sha256};
 use std::fs::{self, File, Metadata};
 use std::io::{ErrorKind, Read, Write};
 use std::path::{Component, Path, PathBuf};
+use std::process::{Command, Stdio};
 use std::sync::Mutex;
+use std::time::{Duration, Instant};
 use tauri::Manager;
 use tempfile::{Builder, NamedTempFile};
 use uuid::Uuid;
 
 const STORAGE_NAME: &str = ".memoria-recordings";
 const MANIFEST_NAME: &str = "recording.json";
+const PLAYBACK_NAME: &str = "playback.webm";
+const PLAYBACK_EXTENSIONS: [&str; 5] = ["wav", "webm", "m4a", "mp3", "flac"];
+const REMUX_TIMEOUT: Duration = Duration::from_secs(120);
 const SCHEMA_VERSION: u32 = 1;
 const MAX_CHUNK_BYTES: u64 = 8 * 1024 * 1024;
 const MAX_CHUNKS: u32 = 100_000;
@@ -597,6 +602,93 @@ impl RecordingStorage {
         write_manifest(&self.directory(&id, false)?, &published, Some(&manifest))?;
         Ok(published.status())
     }
+
+    /// The file the meeting player loads. A browser recording (MediaRecorder WebM) states no duration and has no
+    /// index, so a player can neither show its length nor seek in it; FFmpeg copies the same audio packets into a
+    /// WebM that has both. The original evidence is never touched. Any other recording, or a WebM that FFmpeg
+    /// cannot copy, plays as it is.
+    fn playback(&self, raw_audio: &str, ffmpeg: &Path) -> Result<PathBuf, String> {
+        let original = self.vault_file(raw_audio)?;
+        let extension = original.extension().and_then(|value| value.to_str()).unwrap_or("").to_ascii_lowercase();
+        if !PLAYBACK_EXTENSIONS.contains(&extension.as_str()) {
+            return Err("Only recordings can be played".into());
+        }
+        let Some(directory) = self.browser_recording_directory(&original) else {
+            return Ok(original);
+        };
+        // An existing copy is used only when it is a plain file; a link or anything else is never served.
+        let playable = directory.join(PLAYBACK_NAME);
+        let usable = |path: &Path| open_regular_file(path).is_ok();
+        if !matches!(inspect(&playable), Ok(None)) {
+            return Ok(if usable(&playable) { playable } else { original });
+        }
+        let Ok(staged) = remux(ffmpeg, &original, &directory) else {
+            return Ok(original);
+        };
+        match staged.persist_noclobber(&playable) {
+            Ok(_) => Ok(playable),
+            // Another window copied it first.
+            Err(error) if error.error.kind() == ErrorKind::AlreadyExists && usable(&playable) => Ok(playable),
+            Err(_) => Ok(original),
+        }
+    }
+
+    /// The session folder of an original browser recording, `.memoria-recordings/<session>/original.webm`.
+    fn browser_recording_directory(&self, original: &Path) -> Option<PathBuf> {
+        let directory = original.parent()?;
+        let name = directory.file_name()?.to_str()?;
+        let canonical = session_id(name).is_ok_and(|id| id == name);
+        (canonical
+            && original.file_name()? == Container::Webm.file_name()
+            && directory.parent()? == self.root.join(STORAGE_NAME))
+            .then(|| directory.to_path_buf())
+    }
+}
+
+fn ffmpeg_path() -> PathBuf {
+    std::env::var_os("MEMORIA_FFMPEG")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from("/opt/homebrew/bin/ffmpeg"))
+}
+
+/// FFmpeg copies the audio packets unchanged into a staged WebM; writing to a regular file lets it add the duration
+/// and the cue index that a recorder streaming its output cannot.
+fn remux(ffmpeg: &Path, original: &Path, directory: &Path) -> Result<NamedTempFile, String> {
+    let staged = Builder::new().prefix(".playback-").suffix(".tmp").tempfile_in(directory)
+        .map_err(|error| format!("Cannot stage a playable copy: {error}"))?;
+    let mut child = Command::new(ffmpeg)
+        .args(["-nostdin", "-v", "error", "-y", "-i"])
+        .arg(original)
+        .args(["-map", "0:a:0", "-c", "copy", "-f", "webm"])
+        .arg(staged.path())
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()
+        .map_err(|error| format!("Cannot run FFmpeg at {}: {error}", ffmpeg.display()))?;
+    let deadline = Instant::now() + REMUX_TIMEOUT;
+    let status = loop {
+        if let Some(status) = child.try_wait().map_err(|error| format!("Cannot wait for FFmpeg: {error}"))? {
+            break status;
+        }
+        if Instant::now() >= deadline {
+            let _ = child.kill();
+            let _ = child.wait();
+            return Err("FFmpeg did not finish copying the recording in time".into());
+        }
+        std::thread::sleep(Duration::from_millis(20));
+    };
+    if !status.success() {
+        return Err(format!("FFmpeg could not copy the recording: {status}"));
+    }
+    let mut prefix = Vec::with_capacity(CONTAINER_PREFIX_BYTES);
+    File::open(staged.path())
+        .and_then(|file| file.take(CONTAINER_PREFIX_BYTES as u64).read_to_end(&mut prefix))
+        .map_err(|error| format!("Cannot read the playable copy: {error}"))?;
+    if detect_container(&prefix)? != Container::Webm {
+        return Err("FFmpeg did not write a WebM recording".into());
+    }
+    Ok(staged)
 }
 
 fn path_string(path: &Path) -> Result<String, String> {
@@ -785,7 +877,8 @@ fn scan_chunks(directory: &Path) -> Result<ChunkInventory, String> {
             return Err(format!("Unexpected non-file recording entry: {}", path.display()));
         }
         match name {
-            MANIFEST_NAME => continue,
+            // Neither the journal nor the playable copy is an audio checkpoint.
+            MANIFEST_NAME | PLAYBACK_NAME => continue,
             "original.webm" => {
                 open_regular_file(&path)?;
                 inventory.webm_original = true;
@@ -1120,6 +1213,26 @@ pub async fn complete_meeting_recording(
     source_path: String,
 ) -> Result<MeetingRecordingStatus, String> {
     recording_work(vault_path, move |storage| storage.complete(&session_id, &source_path)).await
+}
+
+/// The path the meeting player should load for a recording, which the webview may then read. The vault is served to
+/// the webview without its hidden folders, and recordings live in one, so each recording is allowed as it is opened.
+/// Copying runs outside the recording lock: it only reads the finished original.
+#[tauri::command(rename_all = "camelCase")]
+pub async fn prepare_meeting_playback(
+    app: tauri::AppHandle,
+    vault_path: String,
+    audio_path: String,
+) -> Result<String, String> {
+    validate_raw_path(&vault_path)?;
+    let boundary = super::vault::VaultBoundary::from_request(Some(&vault_path))?;
+    let root = boundary.requested_root().to_path_buf();
+    let ffmpeg = ffmpeg_path();
+    let path = super::blocking::run_blocking(move || RecordingStorage::new(&root)?.playback(&audio_path, &ffmpeg)).await??;
+    app.asset_protocol_scope()
+        .allow_file(&path)
+        .map_err(|error| format!("Cannot open the recording for playback: {error}"))?;
+    path_string(&path)
 }
 
 #[cfg(test)]
@@ -1649,6 +1762,136 @@ mod tests {
         let recovered = storage.finalize(&id, None).unwrap();
         assert_eq!(fs::read(recovered.original_path).unwrap(), expected);
         assert_eq!(result.sha256, recovered.sha256);
+    }
+
+    /// The FFmpeg the app would use; the playback tests that need real audio skip without it.
+    fn installed_ffmpeg() -> Option<PathBuf> {
+        Some(ffmpeg_path()).filter(|path| path.is_file())
+    }
+
+    /// Two seconds of Opus as a browser recorder writes it, streamed: no duration and no cue index.
+    fn streamed_webm(ffmpeg: &Path) -> Vec<u8> {
+        let output = Command::new(ffmpeg)
+            .args(["-nostdin", "-v", "error", "-f", "lavfi", "-i", "sine=frequency=440:duration=2:sample_rate=48000",
+                "-c:a", "libopus", "-b:a", "32k", "-f", "webm", "pipe:1"])
+            .output()
+            .unwrap();
+        assert!(output.status.success(), "{}", String::from_utf8_lossy(&output.stderr));
+        output.stdout
+    }
+
+    /// One EBML integer at `at`: its value, its length in bytes, and whether it is an unknown size.
+    fn ebml_at(bytes: &[u8], at: usize, id: bool) -> (u64, usize, bool) {
+        let length = bytes[at].leading_zeros() as usize + 1;
+        let mut value = if id { u64::from(bytes[at]) } else { u64::from(bytes[at]) & (0xff >> length) };
+        for byte in &bytes[at + 1..at + length] {
+            value = (value << 8) | u64::from(*byte);
+        }
+        (value, length, !id && value == (1u64 << (7 * length)) - 1)
+    }
+
+    /// The duration a WebM states in its Info element, in milliseconds, if it states one.
+    fn stated_duration(bytes: &[u8]) -> Option<f64> {
+        let (_, id, _) = ebml_at(bytes, 0, true);
+        let (size, length, _) = ebml_at(bytes, id, false);
+        let segment = id + length + size as usize;
+        let (_, id, _) = ebml_at(bytes, segment, true);
+        let (_, length, _) = ebml_at(bytes, segment + id, false);
+        let mut at = segment + id + length;
+        while at < bytes.len() {
+            let (element, id, _) = ebml_at(bytes, at, true);
+            let (size, length, unknown) = ebml_at(bytes, at + id, false);
+            let body = at + id + length;
+            if element == 0x1549_a966 {
+                let mut child = body;
+                while child < body + size as usize {
+                    let (element, id, _) = ebml_at(bytes, child, true);
+                    let (size, length, _) = ebml_at(bytes, child + id, false);
+                    let value = &bytes[child + id + length..child + id + length + size as usize];
+                    if element == 0x4489 {
+                        return match value.len() {
+                            4 => Some(f64::from(f32::from_be_bytes(value.try_into().ok()?))),
+                            8 => Some(f64::from_be_bytes(value.try_into().ok()?)),
+                            _ => None,
+                        };
+                    }
+                    child += id + length + size as usize;
+                }
+                return None;
+            }
+            if unknown {
+                return None;
+            }
+            at = body + size as usize;
+        }
+        None
+    }
+
+    #[test]
+    fn a_browser_recording_plays_from_a_copy_that_states_its_length() {
+        // Observed natively (D13): a recovered recording showed 0:01 in the player until it had a transcript.
+        let Some(ffmpeg) = installed_ffmpeg() else {
+            eprintln!("FFmpeg is not installed; the playable copy cannot be checked");
+            return;
+        };
+        let (_root, storage, id) = fixture();
+        storage.begin(&id, metadata()).unwrap();
+        let streamed = streamed_webm(&ffmpeg);
+        assert_eq!(stated_duration(&streamed), None);
+        chunk(&storage, &id, 0, &streamed);
+        let original = storage.finalize(&id, None).unwrap();
+        let played = storage.playback(&original.original_path, &ffmpeg).unwrap();
+        assert_eq!(played, storage.directory(&id, false).unwrap().join(PLAYBACK_NAME));
+        let duration = stated_duration(&fs::read(&played).unwrap()).unwrap();
+        assert!((1900.0..=2100.0).contains(&duration), "stated duration {duration} ms");
+        // The original stays byte for byte; the copy is made once and is never taken for audio evidence.
+        assert_eq!(fs::read(&original.original_path).unwrap(), streamed);
+        let copied = fs::metadata(&played).unwrap();
+        assert_eq!(storage.playback(&original.original_path, &ffmpeg).unwrap(), played);
+        assert!(same_file(&copied, &fs::metadata(&played).unwrap()).unwrap());
+        assert_eq!(storage.finalize(&id, None).unwrap().sha256, original.sha256);
+        assert_eq!(storage.list(false).unwrap().recordings[0].chunk_count, 1);
+        storage.complete(&id, source(&storage).to_str().unwrap()).unwrap();
+    }
+
+    #[test]
+    fn a_recording_without_a_playable_copy_plays_as_it_is() {
+        let (_root, storage, id) = fixture();
+        begin_with_audio(&storage, &id);
+        let original = storage.finalize(&id, Some(1)).unwrap();
+        let directory = storage.directory(&id, false).unwrap();
+        // Without FFmpeg, or with audio it cannot read, the original plays, and nothing is left behind.
+        let missing = storage.root.join("no-ffmpeg");
+        assert_eq!(storage.playback(&original.original_path, &missing).unwrap(), PathBuf::from(&original.original_path));
+        if let Some(ffmpeg) = installed_ffmpeg() {
+            assert_eq!(storage.playback(&original.original_path, &ffmpeg).unwrap(), PathBuf::from(&original.original_path));
+        }
+        assert!(!directory.join(PLAYBACK_NAME).exists());
+        assert_eq!(scan_chunks(&directory).unwrap().temporary_files, 0);
+        // Recordings that state their length, wherever they are in the vault, play as they are; nothing else is served.
+        fs::write(storage.root.join("imported.wav"), b"RIFF fictional").unwrap();
+        assert_eq!(storage.playback("imported.wav", &missing).unwrap(), storage.root.join("imported.wav"));
+        fs::write(storage.root.join("original.webm"), WEBM_HEADER).unwrap();
+        assert_eq!(storage.playback("original.webm", &missing).unwrap(), storage.root.join("original.webm"));
+        fs::write(storage.root.join("notes.md"), "# Fictional notes\n").unwrap();
+        assert!(storage.playback("notes.md", &missing).is_err());
+        assert!(storage.playback(&directory.join(MANIFEST_NAME).to_string_lossy(), &missing).is_err());
+        assert!(storage.playback("../outside.wav", &missing).is_err());
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn a_linked_playable_copy_is_never_served() {
+        use std::os::unix::fs::symlink;
+        let (_root, storage, id) = fixture();
+        begin_with_audio(&storage, &id);
+        let original = storage.finalize(&id, Some(1)).unwrap();
+        let outside = tempfile::tempdir().unwrap();
+        let target = outside.path().join("elsewhere.webm");
+        fs::write(&target, WEBM_HEADER).unwrap();
+        symlink(&target, storage.directory(&id, false).unwrap().join(PLAYBACK_NAME)).unwrap();
+        assert_eq!(storage.playback(&original.original_path, &storage.root.join("no-ffmpeg")).unwrap(), PathBuf::from(&original.original_path));
+        assert_eq!(fs::read(target).unwrap(), WEBM_HEADER);
     }
 
     #[tokio::test]

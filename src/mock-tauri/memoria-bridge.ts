@@ -4,7 +4,7 @@
  */
 
 const BRIDGED = new Set([
-  'load_vault_list', 'get_default_vault_path', 'check_vault_exists', 'ai_model_status', 'list_recoverable_recordings',
+  'load_vault_list', 'get_default_vault_path', 'check_vault_exists', 'ai_model_status', 'list_recoverable_recordings', 'prepare_meeting_playback',
   'cancel_wiki_memory', 'wiki_memory', 'temporal_api', 'meetings_api', 'live_memory_check', 'live_ask',
 ])
 

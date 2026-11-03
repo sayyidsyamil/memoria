@@ -38,6 +38,14 @@ export const recordingService = {
   complete(vaultPath: string, sessionId: string, sourcePath: string) {
     return invoke('complete_meeting_recording', { vaultPath, sessionId, sourcePath })
   },
+  /**
+   * The file the meeting player loads: for a browser recording, a copy that states its length, so the player can show
+   * it and seek. The app also lets the player read it, as recordings are kept in a hidden folder.
+   */
+  async playback(vaultPath: string, audioPath: string): Promise<string> {
+    const path = await invoke<unknown>('prepare_meeting_playback', { vaultPath, audioPath })
+    return typeof path === 'string' && path ? path : audioPath
+  },
 }
 
 export function recordingSource(recording: SavedRecording): PreparedSource {

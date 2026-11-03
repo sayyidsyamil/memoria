@@ -286,6 +286,7 @@ macro_rules! app_invoke_handler {
             commands::finalize_meeting_recording,
             commands::list_recoverable_recordings,
             commands::complete_meeting_recording,
+            commands::prepare_meeting_playback,
             commands::finish_meeting_hud,
             commands::layout_meeting_hud,
             commands::ai_model_status,

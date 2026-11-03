@@ -3,8 +3,10 @@ import { beforeEach, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
 import { MeetingTranscriptReview } from './MeetingTranscriptReview'
 import { applySource } from '../lib/sourceImport'
+import { recordingService } from '../features/meetings/recordingService'
 import { webcrypto } from 'node:crypto'
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn(), convertFileSrc: (path: string) => path }))
+vi.mock('../features/meetings/recordingService', () => ({ recordingService: { playback: vi.fn(async (_vaultPath: string, path: string) => path) } }))
 vi.mock('../features/meetings/meetingService', () => ({ meetingService: {
   save: (vaultPath: string, record: unknown) => invoke('wiki_memory', { request: { action: 'save_meeting', vaultPath, record } }),
   list: (vaultPath: string) => listMeetings(vaultPath),
@@ -145,6 +147,21 @@ it('highlights the line being played and lets a marked moment be removed', () =>
   fireEvent.click(screen.getByText(/Marked moments · 1/))
   fireEvent.click(screen.getByRole('button', { name: 'Remove moment at 0:05' }))
   expect(screen.queryByRole('region', { name: 'Marked moments' })).not.toBeInTheDocument()
+})
+it('plays the copy prepared for the player, which states the length a browser recording leaves out', async () => {
+  // Observed natively (D13): a recovered recording without a transcript showed 0:01 as its length.
+  vi.mocked(recordingService.playback).mockResolvedValueOnce('/vault/.memoria-recordings/session/playback.webm')
+  render(<MeetingTranscriptReview vaultPath="/vault" sessionId="session" originalPath="/vault/.memoria-recordings/session/original.webm" title="Recovered" initialSeek={9} onClose={async () => undefined} />)
+  const audio = screen.getByLabelText('Meeting recording')
+  await waitFor(() => expect(audio).toHaveAttribute('src', '/vault/.memoria-recordings/session/playback.webm'))
+  expect(recordingService.playback).toHaveBeenCalledWith('/vault', '/vault/.memoria-recordings/session/original.webm')
+  expect(screen.getByLabelText('Elapsed time')).toHaveTextContent('0:09')
+})
+it('plays the recording itself when no copy can be prepared', async () => {
+  vi.mocked(recordingService.playback).mockRejectedValueOnce(new Error('Recording unavailable'))
+  render(reviewing())
+  await waitFor(() => expect(screen.getByLabelText('Meeting recording')).toHaveAttribute('src', '/vault/audio.webm'))
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
 })
 
 // Observed natively: the picker offered only "Add a name…", so a name from the previous meeting or a People note had to be retyped.

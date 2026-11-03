@@ -7,9 +7,9 @@ import './meetingPlayer.css'
 export interface PlayerHandle { seek: (at: number, play?: boolean) => void }
 export interface PlayerMark { at: number; label: string }
 
-/** Recording player. The audio element always stays mounted so any tab can jump to a moment. */
+/** Recording player. The audio element always stays mounted so any tab can jump to a moment; it loads once `src` is known. */
 export function MeetingPlayer({ src, fallbackDuration, marks, showControls, onTime, onMark, onOpenAudio, ref }: {
-  src: string; fallbackDuration: number; marks: PlayerMark[]; showControls: boolean
+  src?: string; fallbackDuration: number; marks: PlayerMark[]; showControls: boolean
   onTime: (time: number, playing: boolean) => void; onMark?: () => void; onOpenAudio?: () => void; ref?: Ref<PlayerHandle>
 }) {
   const audio = useRef<HTMLAudioElement>(null)

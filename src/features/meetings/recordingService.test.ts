@@ -26,3 +26,10 @@ it('does not turn an unreadable recovery list into an empty success', async () =
   vi.mocked(invoke).mockResolvedValue(undefined)
   await expect(recordingService.list('/vault')).rejects.toThrow('could not be loaded')
 })
+it('plays the copy the app prepared, or the recording itself when there is none', async () => {
+  vi.mocked(invoke).mockResolvedValueOnce('/vault/.memoria-recordings/session/playback.webm')
+  expect(await recordingService.playback('/vault', '/vault/.memoria-recordings/session/original.webm')).toBe('/vault/.memoria-recordings/session/playback.webm')
+  expect(invoke).toHaveBeenCalledWith('prepare_meeting_playback', { vaultPath: '/vault', audioPath: '/vault/.memoria-recordings/session/original.webm' })
+  vi.mocked(invoke).mockResolvedValueOnce(undefined)
+  expect(await recordingService.playback('/vault', '/vault/audio.wav')).toBe('/vault/audio.wav')
+})

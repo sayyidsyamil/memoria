@@ -51,7 +51,7 @@ Tauri; do not rely on the developer-machine fallback paths:
 | `MEMORIA_SPEECH_PYTHON` | Python environment with MLX Audio STT, Resemblyzer, SoundFile, NumPy, and Hugging Face tooling |
 | `MEMORIA_MEMORY_PYTHON` | Python environment with MLX LM and Hugging Face tooling |
 | `MEMORIA_EMBED_PYTHON` | Python environment with MLX VLM embedding support, Transformers, NumPy, and Hugging Face tooling |
-| `MEMORIA_FFMPEG` | Absolute path to the FFmpeg executable used by audio conversion |
+| `MEMORIA_FFMPEG` | Absolute path to the FFmpeg executable used by audio conversion and by the player's copy of browser recordings |
 
 Use absolute paths to interpreter executables, for example:
 

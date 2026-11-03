@@ -14,6 +14,7 @@ import { MeetingSummary, type Mark } from './MeetingSummary'
 import { MemoryAsk } from './MemoryAsk'
 import './meetingReview.css'
 import { meetingService } from '../features/meetings/meetingService'
+import { recordingService } from '../features/meetings/recordingService'
 import { loadKnownSpeakerNames, withoutNames } from '../features/meetings/knownSpeakerNames'
 import type { TranscriptDraft, TranscriptTurn as Turn } from '../features/meetings/meetingTypes'
 import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
@@ -71,8 +72,16 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [buildNow, setBuildNow] = useState(false)
   const [tab, setTab] = useState<MeetingTab>(() => initialTab !== 'transcript' && transcriptPath ? initialTab : 'transcript')
   const meetingTitle = name.trim() || title
-  const audioUrl = convertFileSrc(originalPath)
-  useEffect(() => { if (initialSeek !== undefined) player.current?.seek(initialSeek, false) }, [initialSeek])
+  // What the player loads: for a browser recording, a copy that states its length (the original states none).
+  const [playback, setPlayback] = useState<string | null>(null)
+  useEffect(() => {
+    let current = true
+    Promise.resolve().then(() => recordingService.playback(vaultPath, originalPath)).catch(() => originalPath)
+      .then(path => { if (current) setPlayback(path) })
+    return () => { current = false }
+  }, [vaultPath, originalPath])
+  const audioUrl = playback ? convertFileSrc(playback) : undefined
+  useEffect(() => { if (initialSeek !== undefined) player.current?.seek(initialSeek, false) }, [initialSeek, playback])
 
   async function persistReview(reviewedPath = outcomeSource) {
     return meetingService.save(vaultPath, {
