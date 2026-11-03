@@ -112,3 +112,16 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
     meeting is more often the decided one. Selection bias: modevalue is the second variant of family (2) tried after
     lastvalue failed on the app base; the dev number is optimistic.
   - Next: closed loop on dev for `app-nosys-numwords-loopstop+modevalue` (its own beliefs in later prompts).
+- 14:10 **0.8B, first results (dev; bf16; same requests as the app, thinking off, greedy).**
+  - Guard (MemoriaBench dev, 20 conflicts / 40 must-not-alert, lexical candidates): stock and edited both catch 0/20
+    with 0/40 false alarms at the shipped threshold 2.0: no first-token log-odds reaches 2. Strongest-candidate AUROC
+    0.629 (stock) and 0.632 (edited), near chance; at threshold 0, stock 14/20 with 20/40 false alarms, edited 20/20
+    with 24/40. Unusable as the guard at any threshold. 0.05 s per question (the 4B reference run is queued).
+  - Routing (124 dev questions): right on gold facts 4B 124, edited 103, stock 95; exact routes 100 / 93 / 85;
+    replies that did not parse 0 / 10 / 15; median 2.8 / 0.9 / 0.95 s. Edited against stock: 9 questions only the
+    edited model routes right, 1 only stock (p = 0.021). 4B against edited: 21 against 0.
+  - Extraction, ES2003 (20 windows): stock 0.8B ran **12 of 20** replies to the 1,800-token budget (repetition loops,
+    thinking off) and took 542 s; the edited 0.8B ran 3 of 20 to the budget and took 193 s. The edit's loop fix carries
+    over to thinking-off JSON generation. Quality of the extracted events is scored once all series are done.
+  - Memory: MLX active after load 1.56 GB (bf16) against 2.50 GB for the 4B (4-bit); process peak footprint over the
+    suite 3.49 GB against 4.5-4.9 GB for 4B extraction jobs.
