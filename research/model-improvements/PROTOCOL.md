@@ -117,3 +117,13 @@ line is edited.
   on old-test (as-of-date questions mostly have the gold answer "none", change counts mostly 0): one more guardrail for
   the final validation, current-value questions right >= baseline - 2, so that a gain from writing fewer changes
   cannot hide a loss of decided values. Results are reported by question type with the empty-ledger floor.
+- 15:35, scope change on the user's steering, before any result of the new work: (a) the 0.8B comparison stops where
+  it stands (guard and 4-bit routing already rule out deployment); in-flight 0.8B jobs and the thinking-on math check
+  were cancelled, partial 0.8B extraction is reported as partial; (b) two new 4B candidate families are developed by
+  separate specialists in their own directories, not here: weight-space repair of the 4B's repetition/JSON loops
+  (`research/weight-edit-loops`) and edits for entity/decision attribution (`research/weight-edit-attribution`); the
+  number-word repair in the product is owned by another agent (this folder keeps its research `numwords.py`);
+  (c) **new-val stays reserved**: no preregistration and no validation run until the parent supplies the specialists'
+  dev outcomes. Candidate A (below, frozen in `results/validation/candidate-A.json`) and any specialist candidate are
+  then preregistered together, the Holm correction counting all of them, and new-val is run once. Leases are kept to
+  5-8 minutes.
