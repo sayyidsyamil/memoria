@@ -1,8 +1,8 @@
 import { useCallback, useImperativeHandle, useMemo, useRef, useState, type ReactNode, type Ref } from 'react'
 import { invoke } from '@tauri-apps/api/core'
-import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Trash, Waveform } from '@phosphor-icons/react'
+import { ArrowSquareOut, FileText, MagnifyingGlass, Microphone, Quotes, SealCheck, Trash, Waveform, X } from '@phosphor-icons/react'
 import { Button } from './ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from './ui/dialog'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from './ui/dialog'
 import { MeetingTranscriptReview, type MeetingTab, type TranscriptDraft } from './MeetingTranscriptReview'
 import { MemoryAsk, type AskMode } from './MemoryAsk'
 import { MemorySearch } from './MemorySearch'
@@ -72,6 +72,11 @@ function nextAction(meeting: Meeting, decided = 0): { label: string; tab: Meetin
 function errorText(failure: unknown): string {
   return failure instanceof Error ? failure.message : String(failure)
 }
+/** Keep keyboard focus inside the memory surface without selecting its first field. */
+function focusDialog(event: Event) {
+  event.preventDefault()
+  if (event.target instanceof HTMLElement) event.target.focus()
+}
 /** One avatar per meeting (first identified speaker), with a count when more people spoke. Keeps titles aligned. */
 function LeadAvatar({ meeting }: { meeting: Meeting }) {
   const speakers = (meeting.turns ?? []).map(turn => turn.speaker)
@@ -109,6 +114,9 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
   const [deleting, setDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState('')
   const loadVersion = useRef(0)
+  const returnFocus = useRef<HTMLElement | null>(null)
+  const hubDialog = useRef<HTMLDivElement>(null)
+  const deleteTrigger = useRef<HTMLButtonElement | null>(null)
   const load = useCallback(async (next: HubView) => {
     if (next !== 'meetings' && next !== 'approved' && next !== 'briefs') return
     const version = ++loadVersion.current
@@ -124,7 +132,11 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
     } catch (failure) { if (version === loadVersion.current) setError(errorText(failure)) }
     finally { if (version === loadVersion.current) setBusy(false) }
   }, [vaultPath])
-  function open(next: HubView) { if (next === view) return; ++loadVersion.current; setBusy(false); setError(''); setView(next); setSearch(''); setKind('all'); void load(next) }
+  function open(next: HubView) {
+    if (next === view) return
+    if (!view) returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    ++loadVersion.current; setBusy(false); setError(''); setView(next); setSearch(''); setKind('all'); void load(next)
+  }
   async function resume(id: string, tab: MeetingTab, at?: number) {
     setResuming(id); setError('')
     try {
@@ -205,9 +217,17 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
       {children}
     </nav>
     <Dialog open={!!view && !meeting} onOpenChange={value => { if (!value) setView(null) }}>
-      <DialogContent className="hub-dialog" onOpenAutoFocus={event => event.preventDefault()}>
+      <DialogContent ref={hubDialog} className="hub-dialog" overlayClassName="hub-overlay" showCloseButton={false} onOpenAutoFocus={focusDialog}
+        onInteractOutside={event => {
+          // A child dialog's deferred pointer event can arrive after that dialog has closed.
+          const target = event.detail.originalEvent.target
+          if (target instanceof Element && target.closest('[role="dialog"]')) event.preventDefault()
+        }}
+        onCloseAutoFocus={event => { event.preventDefault(); if (!meeting) returnFocus.current?.focus() }}>
         <DialogTitle className="sr-only">Meeting memory</DialogTitle>
         <DialogDescription className="sr-only">Decisions, meetings, questions, briefs, search and approved knowledge.</DialogDescription>
+        {/* Close precedes the tab strip so reverse tabbing can leave its roving-focus group. */}
+        <DialogClose asChild><Button size="icon" variant="ghost" className="hub-close" aria-label="Close"><X size={16} aria-hidden="true" /></Button></DialogClose>
         <PillTabsRoot value={current} onValueChange={value => open(value as HubView)} className="hub-root">
           <header className="hub-header">
             <PillTabList label="Memory sections" value={current} tabs={tabs} onSelect={value => open(value as HubView)} />
@@ -242,7 +262,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
                   <div className="hub-meeting-actions">
                     <Button size="sm" variant={next.label === 'Open meeting' ? 'outline' : 'default'} disabled={resuming === item.id} onClick={() => { void resume(item.id, next.tab) }}>{resuming === item.id ? 'Opening…' : next.label}</Button>
                     <Button size="icon-sm" variant="ghost" aria-label={`Open document for ${item.title}`} title="Open meeting document" onClick={() => openPage(item.pagePath, item.title)}><ArrowSquareOut size={15} /></Button>
-                    <Button size="icon-sm" variant="ghost" aria-label={`Delete meeting ${item.title}`} title="Delete meeting" onClick={() => { setDeleteError(''); setDeleteTarget(item) }}><Trash size={16} /></Button>
+                    <Button size="icon-sm" variant="ghost" aria-label={`Delete meeting ${item.title}`} title="Delete meeting" onClick={event => { deleteTrigger.current = event.currentTarget; setDeleteError(''); setDeleteTarget(item) }}><Trash size={16} /></Button>
                   </div>
                 </article>
               })}
@@ -303,11 +323,15 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
         </PillTabsRoot>
       </DialogContent>
     </Dialog>
-    <Dialog open={!!meeting} onOpenChange={value => { if (!value) setMeeting(null) }}><DialogContent className="memory-hub-meeting" showCloseButton={false} onOpenAutoFocus={event => event.preventDefault()} onInteractOutside={event => event.preventDefault()} onEscapeKeyDown={event => event.preventDefault()}><DialogTitle className="sr-only">Meeting record</DialogTitle><DialogDescription className="sr-only">Transcript, summary and questions for one meeting.</DialogDescription>{meeting && <MeetingTranscriptReview key={`${meeting.id}-${meeting.initialSeek ?? ''}`} vaultPath={vaultPath} sessionId={meeting.id} originalPath={`${vaultPath}/${meeting.audioPath}`} title={meeting.title} created={meeting.created} draggable={false} initialDraft={meeting.draft} initialMarks={meeting.marks} transcriptPath={meeting.transcriptPath ?? undefined} outcomesStatus={meeting.outcomesStatus} initialTab={meeting.initialTab} initialSeek={meeting.initialSeek} decisionsOnBoard={decisionsByMeeting?.[meeting.id]}
+    <Dialog open={!!meeting} onOpenChange={value => { if (!value) setMeeting(null) }}><DialogContent className="memory-hub-meeting" overlayClassName="hub-overlay" showCloseButton={false} onOpenAutoFocus={focusDialog} onInteractOutside={event => event.preventDefault()} onEscapeKeyDown={event => event.preventDefault()}><DialogTitle className="sr-only">Meeting record</DialogTitle><DialogDescription className="sr-only">Transcript, summary and questions for one meeting.</DialogDescription>{meeting && <MeetingTranscriptReview key={`${meeting.id}-${meeting.initialSeek ?? ''}`} vaultPath={vaultPath} sessionId={meeting.id} originalPath={`${vaultPath}/${meeting.audioPath}`} title={meeting.title} created={meeting.created} draggable={false} initialDraft={meeting.draft} initialMarks={meeting.marks} transcriptPath={meeting.transcriptPath ?? undefined} outcomesStatus={meeting.outcomesStatus} initialTab={meeting.initialTab} initialSeek={meeting.initialSeek} decisionsOnBoard={decisionsByMeeting?.[meeting.id]}
       onBrief={topic => { setMeeting(null); setAskMode('brief'); setSeed({ text: topic, nonce: Date.now() }); setView('ask') }}
       onClose={async () => { setMeeting(null); await load('meetings'); onChanged?.() }} />}</DialogContent></Dialog>
     <Dialog open={!!deleteTarget} onOpenChange={value => { if (!value && !deleting) setDeleteTarget(null) }}>
-      <DialogContent className="sm:max-w-md" showCloseButton={!deleting}>
+      <DialogContent className="sm:max-w-md" showCloseButton={!deleting} onCloseAutoFocus={event => {
+        event.preventDefault()
+        if (deleteTrigger.current?.isConnected) deleteTrigger.current.focus()
+        else hubDialog.current?.focus()
+      }}>
         <DialogTitle>Delete meeting?</DialogTitle>
         <DialogDescription>Remove “{deleteTarget?.title}” from Meetings and delete its generated meeting document. Original audio, sources, and approved knowledge are kept.</DialogDescription>
         {deleteError && <p role="alert" className="hub-error">{deleteError}</p>}

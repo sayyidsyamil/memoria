@@ -52,6 +52,7 @@ it('lists durable meetings and reopens saved transcript edits', async () => {
   expect(screen.getByText('1 meeting')).toBeInTheDocument()
   fireEvent.click(review)
   expect(await screen.findByRole('textbox',{name:'Transcript turn 1'})).toHaveValue('Saved edit')
+  expect(screen.getByRole('dialog', { name: 'Meeting record' })).toHaveFocus()
   // Opening a record must not drop the cursor into (and select) the title field.
   expect(screen.getByRole('textbox',{name:'Meeting title'})).not.toHaveFocus()
 })
@@ -89,6 +90,7 @@ it('opens a reviewed meeting that has no draft on its reviewed turns, and Save &
   await waitFor(() => expect(saved).toHaveLength(1))
   expect(saved[0]).toMatchObject({ id: 'seeded', transcriptPath: 't.md', names: { S01: 'Aisha', S02: 'Raj' },
     turns: [expect.objectContaining({ text: 'We go with Beta Cloud.' }), expect.objectContaining({ text: 'Agreed.' })] })
+  await waitFor(() => expect(screen.getByRole('dialog', { name: 'Meeting memory' })).toHaveFocus())
 })
 it('offers one next action per meeting and shows real progress', async () => {
   vi.mocked(invoke).mockResolvedValueOnce([
@@ -184,6 +186,34 @@ it('switches between all six sections without closing the dialog', async () => {
   expect(await screen.findByRole('textbox', { name: 'Question or meeting topic' })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Create brief' })).toBeInTheDocument()
 })
+it.each(['Escape', 'Done', 'Close'])('contains keyboard focus through section navigation and returns to its opener after %s', async dismiss => {
+  vi.mocked(invoke).mockResolvedValue([])
+  render(<><button type="button">Outside action</button><WorkspaceMemoryHub vaultPath="/vault" /></>)
+  const outside = screen.getByRole('button', { name: 'Outside action' })
+  const opener = screen.getByRole('button', { name: 'Briefs' })
+  opener.focus()
+  fireEvent.click(opener)
+  const dialog = await screen.findByRole('dialog', { name: 'Meeting memory' })
+  expect(dialog).toHaveFocus()
+  act(() => outside.focus())
+  expect(dialog).toHaveFocus()
+  const briefs = within(dialog).getByRole('tab', { name: /Briefs/ })
+  act(() => briefs.focus())
+  fireEvent.keyDown(briefs, { key: 'End' })
+  expect(await within(dialog).findByRole('tab', { name: /Knowledge/, selected: true })).toHaveFocus()
+  expect(within(dialog).getAllByRole('tab')).toHaveLength(6)
+  const close = within(dialog).getByRole('button', { name: 'Close', exact: true })
+  const done = within(dialog).getByRole('button', { name: 'Done', exact: true })
+  act(() => close.focus())
+  fireEvent.keyDown(close, { key: 'Tab', shiftKey: true })
+  expect(done).toHaveFocus()
+  fireEvent.keyDown(done, { key: 'Tab' })
+  expect(close).toHaveFocus()
+  if (dismiss === 'Escape') fireEvent.keyDown(document.activeElement!, { key: 'Escape' })
+  else fireEvent.click(within(dialog).getByRole('button', { name: dismiss, exact: true }))
+  await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+  await waitFor(() => expect(opener).toHaveFocus())
+})
 it('opens the meeting at the moment an approved claim was said', async () => {
   vi.mocked(invoke).mockImplementation(async (_command, args) => {
     const action = (args as { request: { action: string } }).request.action
@@ -245,6 +275,7 @@ it('requires confirmation to delete a meeting and refreshes the list after succe
   expect(screen.getByText(/Original audio, sources, and approved knowledge are kept/)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'Delete meeting' }))
   await screen.findByText('No meetings yet')
+  await waitFor(() => expect(screen.getByRole('dialog', { name: 'Meeting memory' })).toHaveFocus())
   expect(deleted).toBe(true)
 })
 it('keeps a meeting visible when deletion fails and allows cancellation', async () => {
@@ -257,7 +288,10 @@ it('keeps a meeting visible when deletion fails and allows cancellation', async 
   fireEvent.click(await screen.findByRole('button', { name: 'Delete meeting Pilot review' }))
   fireEvent.click(screen.getByRole('button', { name: 'Delete meeting' }))
   expect(await screen.findByRole('alert')).toHaveTextContent('edited externally')
+  fireEvent.pointerDown(screen.getByRole('button', { name: 'Cancel' }), { pointerType: 'touch', button: 0 })
   fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+  expect(screen.getByRole('dialog', { name: 'Meeting memory' })).toBeInTheDocument()
+  await waitFor(() => expect(screen.getByRole('button', { name: 'Delete meeting Pilot review' })).toHaveFocus())
   expect(screen.getByText('Pilot review')).toBeInTheDocument()
 })
 it('does not let a stale request overwrite the current view or its error', async () => {

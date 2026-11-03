@@ -1,5 +1,8 @@
 .memory-hub-navigation { display: grid; gap: 4px; }
 
+/* The memory workbench hides the inert notes/navigation behind it; other dialogs keep their usual backdrop. */
+.hub-overlay[data-slot='dialog-overlay'] { background: var(--background); }
+.hub-close { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; color: var(--muted-foreground); }
 .hub-dialog[data-slot='dialog-content'] { display: flex; flex-direction: column; gap: 0; padding: 0; width: min(980px, calc(100vw - 40px)); max-width: min(980px, calc(100vw - 40px)); height: min(740px, calc(100dvh - 64px)); overflow: hidden; border-radius: 14px; }
 .hub-root { flex: 1; min-height: 0; }
 .hub-page-heading { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 32px 16px; }

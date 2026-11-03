@@ -99,7 +99,7 @@ function Problem({ text }: { text: string | null }) {
   return text ? <p role="alert" className="board-problem">{text}</p> : null
 }
 
-/** "Corrected by you: …": a corrected value is proved by the person's reason, not by the quote it replaced. */
+/** "Corrected by you: …": a corrected value is explained by the person's reason, not by the quote it replaced. */
 function CorrectionNote({ correction }: { correction?: TemporalCorrection }) {
   return <p className="board-evidence board-corrected">
     <CheckCircle size={14} weight="fill" aria-hidden="true" />

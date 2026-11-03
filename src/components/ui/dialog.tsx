@@ -55,18 +55,20 @@ function DialogOverlay({
 
 function DialogContent({
   className,
+  overlayClassName,
   children,
   showCloseButton = true,
   ref,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
+  overlayClassName?: React.ComponentProps<typeof DialogPrimitive.Overlay>["className"]
 }) {
   const surfaceRef = useMacosDismissableEscapeSurfaceRef<HTMLDivElement>(ref)
 
   return (
     <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
+      <DialogOverlay className={overlayClassName} />
       <DialogPrimitive.Content
         ref={surfaceRef}
         data-slot="dialog-content"
