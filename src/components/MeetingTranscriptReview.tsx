@@ -34,9 +34,11 @@ function Fold({ title, count, defaultOpen, aside, children }: { title: string; c
 }
 
 
-export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, title, created, liveText = '', initialDraft = null, transcriptPath, outcomesStatus, initialTab = 'transcript', initialSeek, initialMarks, draggable = true, onBrief, onClose }: {
+export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, title, created, liveText = '', initialDraft = null, transcriptPath, outcomesStatus, initialTab = 'transcript', initialSeek, initialMarks, decisionsOnBoard, draggable = true, onBrief, onClose }: {
   vaultPath: string; sessionId: string; originalPath: string; title: string; created?: string; liveText?: string; initialDraft?: TranscriptDraft | null; transcriptPath?: string
   outcomesStatus?: 'approved' | 'needs-review' | 'not-built'; initialTab?: MeetingTab; initialSeek?: number; initialMarks?: Mark[]
+  /** Approved values on the decision board that this meeting's words set. */
+  decisionsOnBoard?: number
   /** The HUD review window is dragged by its header; the workspace dialog is not. */
   draggable?: boolean
   /** Offered only where the briefs view exists (the workspace, not the HUD window). */
@@ -296,7 +298,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
       </PillTabPanel>
 
       <PillTabPanel value="summary" className="review-body review-summary">
-        <MeetingSummary vaultPath={vaultPath} sourcePath={outcomeSource} title={meetingTitle} turns={turns} names={names} marks={marks} buildNow={buildNow} onSeek={seekTo} onBrief={onBrief} />
+        <MeetingSummary vaultPath={vaultPath} sourcePath={outcomeSource} title={meetingTitle} turns={turns} names={names} marks={marks} buildNow={buildNow} decisionsOnBoard={decisionsOnBoard} onSeek={seekTo} onBrief={onBrief} />
       </PillTabPanel>
       <PillTabPanel value="facts" className="review-body"><TemporalMemoryPanel vaultPath={vaultPath} meetingId={sessionId} onOpenMoment={(_, at) => seekTo(at)} /></PillTabPanel>
       <PillTabPanel value="ask" forceMount hidden={tab !== 'ask'} className="review-ask">

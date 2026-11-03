@@ -49,6 +49,16 @@ it('offers to build knowledge when nothing is approved and flags changed sources
   render(<MeetingSummary {...props} />)
   expect(await screen.findByText('1 source changed — needs review')).toBeInTheDocument()
 })
+it('says so when the meeting\'s decisions are on the board, and keeps building knowledge as a choice', async () => {
+  // FINDINGS 37: "No approved outcomes yet" sat beside a Decisions tab that listed the meeting's accepted decisions.
+  respond([], [])
+  render(<MeetingSummary {...props} decisionsOnBoard={4} />)
+  expect(await screen.findByRole('heading', { name: 'Decisions accepted' })).toBeInTheDocument()
+  expect(screen.getByText(/decisions and commitments are on the Decisions tab/)).toBeInTheDocument()
+  expect(screen.queryByText('No approved outcomes yet')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Build knowledge' }))
+  expect(await screen.findByRole('region', { name: 'Review knowledge' })).toBeInTheDocument()
+})
 it('explains the locked state before the transcript is reviewed and builds right after saving', async () => {
   const { unmount } = render(<MeetingSummary {...props} sourcePath={null} />)
   expect(screen.getByText('Review the transcript first')).toBeInTheDocument()

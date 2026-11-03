@@ -104,6 +104,30 @@ it('offers one next action per meeting and shows real progress', async () => {
   expect(within(rails[0]).getByText('Transcript reviewed').closest('li')).toHaveAttribute('aria-current','step')
   expect(within(rails[2]).getByText('Outcomes approved').closest('li')).not.toHaveAttribute('aria-current')
 })
+it('does not ask for outcome approval when the meeting\'s decisions are already accepted on the board', async () => {
+  // FINDINGS 37: reviewed demo meetings offered "Review outcomes", with "Outcomes approved" still to do, though the board held their decisions.
+  const reviewed = (id: string, title: string) => meeting({id, title, status:'transcript-reviewed', transcriptPath:`${id}.md`, outcomesStatus:'not-built', draft:undefined})
+  vi.mocked(invoke).mockImplementation(async (_command, args) => {
+    const action = (args as { request?: { action: string } }).request?.action
+    if (action === 'meetings') return [reviewed('decided','Decided on the board'), reviewed('open','Nothing decided yet')]
+    if (action === 'meeting_record') return reviewed('decided','Decided on the board')
+    if (action === 'meeting_draft') return null
+    return []
+  })
+  renderOpen('meetings', { decisionsByMeeting: { decided: 4 } })
+  const decided = (await screen.findByText('Decided on the board')).closest('article')!
+  const open = screen.getByText('Nothing decided yet').closest('article')!
+  expect(within(decided).getByText('Decisions accepted').closest('li')).toHaveAttribute('data-state','done')
+  expect(within(decided).queryByText('Outcomes approved')).not.toBeInTheDocument()
+  expect(within(decided).queryByRole('button',{name:'Review outcomes'})).not.toBeInTheDocument()
+  // A meeting with nothing on the board still has its outcomes to review.
+  expect(within(open).getByText('Outcomes approved').closest('li')).toHaveAttribute('aria-current','step')
+  expect(within(open).getByRole('button',{name:'Review outcomes'})).toBeInTheDocument()
+  fireEvent.click(within(decided).getByRole('button',{name:'Open meeting'}))
+  expect(await screen.findByRole('tab',{name:'Decisions',selected:true})).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('tab',{name:'Summary'}))
+  expect(await screen.findByRole('heading',{name:'Decisions accepted'})).toBeInTheDocument()
+})
 it('shows an empty state that starts a meeting', async () => {
   const start = vi.fn()
   vi.mocked(invoke).mockResolvedValue([])
