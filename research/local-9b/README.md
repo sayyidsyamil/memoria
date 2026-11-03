@@ -2,7 +2,7 @@
 
 **Status: incomplete. Only the dev split was run; the test split was not.** While the 9B's dev review run was going, this
 16 GB Mac (with a browser, Defender and other apps open) came under so much memory pressure that it became unusable.
-The user stopped the run and moved the 9B weights aside. No model was loaded after that. Every number below comes from
+The run was stopped by hand and the 9B weights moved aside. No model was loaded after that. Every number below comes from
 call caches and run logs. The memory pressure is itself a result about running a 9B extractor beside Memoria's speech
 and embedding models ([Memory](#memory-the-practical-finding)).
 
@@ -45,7 +45,7 @@ Whether the result holds on the test split is unknown.
 | `run.py check-4b` | 4B | 110 October test prompts (14 first-meeting windows, 96 routes): **110/110 replies identical**. The runtime (mlx 0.31.2, mlx-lm 0.31.3) is October's. 429 s |
 | `run.py sanity` | 9B | 2 dev calls, both parsed by October's parsers. The window returned no event, as the 4B did in October for the same prompt. 35 s |
 | `run.py run dev` (immediate policy) | 9B | **Complete:** 86 calls, 1,216 s by the `run_ami` timer (1,229 s with model load). `run.py replay dev` reproduces it with no model: `REPLAY IDENTICAL` |
-| `run.py run dev-review` (`confirm_conflicts`, closed loop) | 9B | **Stopped by the user (memory pressure)** after ES2003, during TS3004. 15 new calls are in its cache; no result was written and none is used |
+| `run.py run dev-review` (`confirm_conflicts`, closed loop) | 9B | **Stopped by hand (memory pressure)** after ES2003, during TS3004. 15 new calls are in its cache; no result was written and none is used |
 | `run.py run test`, `run test-review`, `burden test` | 9B | **Not run** |
 
 Because the review run was stopped, both inbox policies are measured the open-loop way the firmness gate measured
@@ -136,20 +136,21 @@ prompts, today's 4B ran within about 10% of them: windows 6.5 vs 7.2 s median, r
 | … at the language model's MLX peak | 6.94 | 9.53 |
 | … with the language model's process footprint | 8.18 | 10.80 |
 
-The speech and embedding figures are the app's measured MLX memory (`docs/MODEL-LIFECYCLE.md`). That document gives the
-4B as 2.368 GB, the same as this run's 2.37. With the 9B, Memoria's three models would need about 8 GB at rest and
-9.5–10.8 GB while the extractor reads. That leaves 5–6.5 GB of a 16 GB Mac for macOS, the app's own window and
-everything else the user has open.
+The speech and embedding figures are the app's measured MLX memory as documented in `docs/MODEL-LIFECYCLE.md` on
+2 November (commit `9229b757e`), when the speech worker ran MOSS and the embedding worker still held EmbeddingGemma's
+audio and vision towers. That document gave the 4B as 2.368 GB, the same as this run's 2.37. With the 9B, Memoria's
+three models would need about 8 GB at rest and 9.5–10.8 GB while the extractor reads. That leaves 5–6.5 GB of a 16 GB
+Mac for macOS, the app's own window and everything else the user has open.
 
 In this session other apps were open. At 22:26, during the 4B check, Edge, Microsoft Defender and a node process ran
 at 40–55% CPU each, alongside Chrome, OpenCode and WindowServer. The system showed 15 GB used, 4.8 GB compressed and
-126 MB free. During the 9B review run the user found the Mac unusable and stopped the run. The 4B fits on a 16 GB Mac;
+126 MB free. During the 9B review run the Mac became unusable and the run was stopped. The 4B fits on a 16 GB Mac;
 a 9B beside the speech and embedding models does not fit comfortably.
 
 ## Failures: what the 9B gets wrong that the 4B got right (17 of 45)
 
-DeepSeek has no dev run and the 9B no test run, so the requested comparison ("9B misses that DeepSeek gets right")
-cannot be made. Below is the dev comparison with the 4B. Every quote is the evidence the 9B ledger stored. Full detail,
+DeepSeek has no dev run and the 9B no test run, so the 9B's misses cannot be compared with DeepSeek's answers.
+Below is the dev comparison with the 4B. Every quote is the evidence the 9B ledger stored. Full detail,
 with value timelines, is in [`results/summary.md`](results/summary.md).
 
 | Team, question | Slot | Gold | 9B | Why |
@@ -183,8 +184,8 @@ cut them only 58 → 47, and more of the ones it kept change a value.
 - **Timing under load.** Other apps were busy during the runs (at 22:26: Edge, Defender and a node process at
   40–55% CPU each), and the 4B times were recorded in October. The same-day 4B check puts October's recorded times
   within about 10% of today's, so the 1.9× ratio is about right but not precise.
-- **Memory.** MLX figures are per process. The speech and embedding figures are the app's documented measurements, not
-  remeasured. Adding a process footprint to MLX-active figures gives a lower bound on the total.
+- **Memory.** MLX figures are per process. The speech and embedding figures are the app's measurements of 2 November,
+  not remeasured. Adding a process footprint to MLX-active figures gives a lower bound on the total.
 - **Gold** is derived from the AMI abstracts (the October caveat). It lists only decisions the annotators wrote down, so
   precision is a lower bound.
 
@@ -205,8 +206,8 @@ python3.11 summarize.py           # no model: results/summary.md, results/summar
 
 Not run: `run.py run test`, `run.py run test-review`, `run.py burden test`. `summarize.py` adds the test split by itself
 once `results/memoria_test.json` exists. At the dev rate, the test split would take about an hour on this Mac: about
-49 minutes for the immediate run and about 12 for the review run. It needs the snapshot back in place and enough free
-memory; that is the user's call.
+49 minutes for the immediate run and about 12 for the review run. It needs the 9B snapshot back in place and enough
+free memory.
 
 ## Files
 

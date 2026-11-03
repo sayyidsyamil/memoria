@@ -94,7 +94,7 @@ window does. A statement is alerted when a turn overlapping it raised a cue.
   the statement instead of 0.7 s, and statements that the recogniser does not split with a full stop share a turn.
   The diarizer is not fooled (5% of gap frames active at 10 dB, 13% at 0 dB, against all of every statement).
 
-**Since `v0.3.0-uat`, a stretch also ends when the diarizer has heard nobody for 0.5 s** (`streaming_speech.LiveTranscript._speakers_quiet`;
+**After the `v0.3.0-uat` build (on `main`), a stretch also ends when the diarizer has heard nobody for 0.5 s** (`streaming_speech.LiveTranscript._speakers_quiet`;
 the next stretch starts where the last ended, so no audio is skipped):
 
 | Same runs, with the diarizer pause | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Turn committed p50 | Sharing a turn |

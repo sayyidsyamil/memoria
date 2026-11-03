@@ -1,6 +1,9 @@
 # The guard: what an alert must survive before it is shown
 
-(The last section is the same method applied to "Find decisions".)
+This is the research guard of the retired live companion (`memoria.py`). The app asks the same
+question (`src-tauri/resources/memory/live_guard.py`); its own results are in `APP_LIVE_CHECK.md`
+and [`../live-verifier/README.md`](../live-verifier/README.md). The last section applies the
+method to "Find decisions".
 
 `guard.py` sits between the auditor (`memoria.check_statement`) and the card. The auditor itself is unchanged and the benchmark
 (`run_benchmarks.py`, `results/`) still measures it alone.

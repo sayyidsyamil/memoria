@@ -1,7 +1,7 @@
 # Language-model bake-off (November 2026)
 
 Should the app's resident language model (Qwen3.5-4B, 4-bit MLX) be replaced by a newer local
-model? Three current MLX models that fit beside the speech and embedding models on a 16 GB Mac
+model? Three newer MLX models that fit beside the speech and embedding models on a 16 GB Mac
 were run through the app's own code, one at a time with the app quit
 (`scripts/model_bakeoff.sh`, `MEMORIA_LLM_MODEL`), on two tasks:
 
@@ -25,8 +25,9 @@ conflicts), twice as slow, twice the memory, and invented a "cancelled" status f
 commitments (three wrong proposals, a confident wrong value in UAT terms). LFM2.5 and Gemma-4
 mostly failed the app's structured output formats (extraction JSON, verifier verdicts), which
 shows up as no proposals and many "uncertain" checks; they would need prompt and parser work
-before a fair comparison. The dev split is small (60 probes); the full test-split result of the
-current model is in `../memoriabench/APP_LIVE_CHECK.md`.
+before a fair comparison. The dev split is small (60 probes). The 4B's test-split results are in
+`../memoriabench/APP_LIVE_CHECK.md` (the check of 2 November, as run here) and
+`../live-verifier/README.md` (the check of `v0.3.0-uat`).
 
 Files: `*.demo.json` (proposals against the answer key), `*.dev.jsonl` and
 `*.dev.summary.json` (live-check predictions and summary per model). Run on 2 November 2026,
