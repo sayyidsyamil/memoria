@@ -14,13 +14,13 @@ To answer "who is our vendor now?" or "what was the budget on 27 September?" fro
 
 1. **Record.** Audio is transcribed on the Mac with speaker labels.
 2. **Review.** A local model proposes each decision or commitment with its exact quote. You approve, correct or reject it.
-3. **Recall.** Approved values go into a ledger with their history. Questions about the current value, a past date or the number of changes are answered by lookup, with the quote and its time in the recording.
+3. **Recall.** Approved values go into a ledger with their history. Questions about now, a past date or the number of changes are answered by lookup, with the quote and its time in the recording.
 
 During a meeting, a sentence that contradicts an approved decision raises a cue.
 
 ## Results
 
-AMI meeting corpus: 20 test meetings from five series, 96 questions, the same local model (Qwen3.5-4B) for every method ([October evaluation](research/ledger-engine/results/ami/ami_test_report.md)):
+AMI corpus: 20 test meetings from five series, 96 questions, the same local model (Qwen3.5-4B) for every method ([October evaluation](research/ledger-engine/results/ami/ami_test_report.md)):
 
 | | Memoria | Full transcripts in the prompt | Transcript search (BM25) |
 |---|---|---|---|
@@ -30,18 +30,18 @@ AMI meeting corpus: 20 test meetings from five series, 96 questions, the same lo
 | Current value | 53% (18/34) | **71%** (24/34) | 65% (22/34) |
 | Time per question | **3.0 s** | 84.2 s | 3.4 s |
 
-- With gold facts the ledger answers 96/96, so its errors come from the model's proposals, the step a person reviews. With a simulated perfect reviewer: 85/96 (89%).
+- With gold facts the ledger answers 96/96: its errors come from the model's proposals, the step a person reviews. With a simulated perfect reviewer: 85/96 (89%).
 - With a strong hosted model (DeepSeek V4.1 Flash, public AMI data only) the ledger scores 82/96, level with that model reading every transcript (81/96), at 818 instead of 31,337 input tokens per question ([strong model](research/strong-model/README.md)). Asking the 4B model "is this really decided?" did no better than dropping the same number of proposals at random ([firmness gate](research/firmness-gate/README.md)): the limit is extraction, not the ledger.
 - The app's Ask matches the evaluated pipeline: 96/96 with gold facts, and 58/96 with extracted facts where October scored 59/96 ([app parity](research/app-parity/README.md)).
-- Live contradiction check on the [MemoriaBench](research/memoriabench/) test split: 98/112 conflicts caught (87.5%), 2/224 false alarms (0.9%), 0.26 s per sentence (median). Spoken by six synthetic voices as 28 meetings and captioned live: the same 98/112, cue 1.26 s after the sentence (median). No alert on an hour of unrelated real meeting speech ([live verifier](research/live-verifier/README.md)).
+- Live contradiction check on the [MemoriaBench](research/memoriabench/) test split: 98/112 conflicts caught (87.5%), 2/224 false alarms (0.9%), 0.26 s per sentence (median). Spoken by six synthetic voices as 28 meetings and captioned live: the same 98/112, cue 1.26 s after the sentence (median). No alert on an hour of unrelated real speech ([live verifier](research/live-verifier/README.md)).
 - In the installed app, two scripted meetings fed in real time: sentences committed 0.45–2.1 s after they ended, contradictions cued 0.46–1.15 s after the statement when its item was heard correctly, no false alarm ([live speech](research/live-speech/README.md)).
 - Speech: Parakeet Ultra with Nemotron 3 Diarization transcribes a 60-minute AMI recording in 113 s, WER 14.4% (fillers removed), with 97.4% of labelled words on the right speaker; as live captions, WER 15.2% and 97.8% ([live speech](research/live-speech/README.md)).
 
-Scripts and data: [research/](research/); choice of model: [bake-off](research/model-bakeoff/README.md).
+Why Qwen3.5-4B: [model bake-off](research/model-bakeoff/README.md).
 
 ## Install (UAT build, Apple silicon, 16 GB)
 
-The [`v0.3.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.0-uat) disk image is ad-hoc signed: open it with right-click > Open the first time. It does not bundle its Python runtimes or models. On the test Mac they are installed once for all accounts with `scripts/install-shared-runtime.sh`, and `scripts/uat/memoria-doctor.sh` prints READY when an account can run the app. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record](docs/RELEASE_RECORD.md).
+The [`v0.3.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.0-uat) disk image is ad-hoc signed (right-click > Open the first time). It does not bundle its Python runtimes or models. On the test Mac they are installed once for all accounts with `scripts/install-shared-runtime.sh`, and `scripts/uat/memoria-doctor.sh` prints READY when an account can run the app. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record](docs/RELEASE_RECORD.md).
 
 ## Develop
 
