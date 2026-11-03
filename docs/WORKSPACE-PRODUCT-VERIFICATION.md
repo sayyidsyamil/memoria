@@ -2,6 +2,26 @@
 
 Test-suite runs and native checks of the meeting workspace, newest first (1 to 3 November 2026).
 
+## 0.3.1 release checks — 3 November 2026
+
+Application code built from `8cf25aca5`; the model-improvement experiments run separately.
+
+| Check | Result |
+|---|---|
+| Frontend, `pnpm exec vitest run --maxWorkers=2` | 6,805 passed in 709 files; one existing performance test skipped |
+| `pnpm exec tsc -b`; `pnpm lint` | Clean |
+| `pnpm l10n:validate` | 21 catalogues, 1,365 English keys |
+| App Python, `python3.11 -B -m unittest discover -p 'test_*.py'` | 216 passed |
+| Rust, `cargo test --release --features tauri/custom-protocol --lib` | 1,245 passed, two ignored |
+| `sh scripts/test-call-audio.sh` | Six native tap/device creation-and-destruction checks passed, with logging off and on |
+| Dev bridge, `pnpm test:dev-mock` | Three passed |
+| Release-version and Tauri CLI Node tests | 16 passed |
+| Clean dependency installation | pnpm 11.1.1 frozen offline install passed; lockfile hash unchanged |
+| App and disk image | Built; bundled helper, permission text and signature checked |
+
+The playback and recovery changes have unit and browser coverage. Installed-app results are recorded in
+[`RELEASE_RECORD.md`](RELEASE_RECORD.md) after the smoke test.
+
 ## Suites before the `v0.3.0-uat` build — 3 November 2026
 
 The frontend and Rust suites ran at `da77c8a` (the interface pass merged), the Python suite at `431b6d4`. The release
