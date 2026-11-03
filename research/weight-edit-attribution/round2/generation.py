@@ -22,10 +22,46 @@ PROCEDURE = """For each event, GENERATE the source-evidence fields before select
 Generate every genuinely adopted change in chronological order. Two real changes in one meeting remain two events; repeated old-value recaps do not outvote a later decision.
 """
 
+SENTINEL_LINE = "\n- __untracked__: Any component or property NOT represented by the real tracked items above (abstention marker): outcome[text]"
+SENTINEL_RULE = 'For a statement about a component or property outside the real tracked registry, object_id may be "__untracked__". This is an abstention marker, never a new ledger fact. Ordinary tracked decisions use their own IDs; include every actual chronological change.\n'
+SENTINEL_PATTERN = r'("object_id"\s*:\s*)"__untracked__"'
+
+SHADOWS = (("case_material", "case_button_material", "button_material", "Material of the remote control buttons"),
+           ("case_curve", "case_button_curve", "button_curve", "Curve of the remote control enter button"))
+
+
+def shadow_prompt(prompt):
+    head = prompt.split("\nPeople:", 1)[0]
+    added, lines = [], []
+    for real, shadow, alias, label in SHADOWS:
+        match = re.search(rf"^- {re.escape(real)}:.*?: (outcome\[[^\n]+\])$", head, re.M)
+        if match and not re.search(rf"^- (?:{re.escape(shadow)}|{re.escape(alias)}):", head, re.M):
+            lines.append(f"- {shadow}: {label} (decision): {match.group(1)}")
+            added.append(shadow)
+    if lines:
+        prompt = prompt.replace("\nPeople:", "\n" + "\n".join(lines) + "\nPeople:", 1)
+    return prompt, added
+
+
+def effective_text(row):
+    """Exact explicit marker translation; preserve raw output and malformedness."""
+    text = re.sub(SENTINEL_PATTERN, r'\1null', row["text"]) if row["condition"] == "sentinel" else row["text"]
+    if row["condition"] == "shadow":
+        for object_id in row["config"]["shadow_ids"]:
+            text = re.sub(r'("object_id"\s*:\s*)"' + re.escape(object_id) + '"', r'\1null', text)
+    return text
+
 
 def procedure_prompt(prompt, condition):
     if condition == "base":
         return prompt
+    if condition == "shadow":
+        return shadow_prompt(prompt)[0]
+    if condition == "sentinel":
+        assert "__untracked__" not in prompt
+        return prompt.replace("\nPeople:", SENTINEL_LINE + "\nPeople:", 1).replace(
+            "Now the real task. Reply with JSON only, in this shape:",
+            SENTINEL_RULE + "\nNow the real task. Reply with JSON only, in this shape:")
     assert condition == "subject-first"
     anchor = "Now the real task. Reply with JSON only, in this shape:"
     assert SCHEMA in prompt and anchor in prompt
@@ -33,12 +69,17 @@ def procedure_prompt(prompt, condition):
 
 
 def configuration(rt, prompt, system, condition):
+    shadow_ids = shadow_prompt(prompt)[1] if condition == "shadow" else []
     prompt = procedure_prompt(prompt, condition)
     messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
     rendered = rt.tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=False)
     config = {"revision": REVISION, "condition": condition, "prompt_sha256": sha(rendered),
-              "procedure_sha256": sha(PROCEDURE+EVIDENCE_SCHEMA) if condition == "subject-first" else "native",
+              "procedure_sha256": sha(PROCEDURE+EVIDENCE_SCHEMA) if condition == "subject-first" else
+                  sha(SENTINEL_LINE+SENTINEL_RULE+SENTINEL_PATTERN) if condition == "sentinel" else
+                  sha(json.dumps(SHADOWS)) if condition == "shadow" else "native",
               "max_tokens": 1800, "temperature": 0, "thinking": False, "intervention": "none"}
+    if condition == "shadow":
+        config["shadow_ids"] = shadow_ids
     return rendered, config
 
 
@@ -85,7 +126,8 @@ def norm(text):
 
 
 def score_output(case, row, reg):
-    candidates, clean = parse_events(row["text"])
+    text = effective_text(row)
+    candidates, clean = parse_events(text)
     source = {t["index"]: t["text"] for t in case["source"]}
     found, wrong, invalid, ungrounded, unresolved, duplicates = set(), [], [], [], 0, 0
     seen = set()
@@ -114,7 +156,7 @@ def score_output(case, row, reg):
             wrong.append(vars(fixed))
     evidence_total = evidence_valid = 0
     try:
-        doc = json.loads(row["text"][row["text"].find("{"):row["text"].rfind("}")+1])
+        doc = json.loads(text[text.find("{"):text.rfind("}")+1])
         for event in doc.get("events", []):
             if event.get("object_id") is None or event.get("unresolved") is True:
                 continue
@@ -130,18 +172,23 @@ def score_output(case, row, reg):
             "wrong_writes": len(wrong), "wrong_details": wrong, "invalid": len(invalid), "invalid_details": invalid,
             "ungrounded": len(ungrounded), "ungrounded_details": ungrounded, "unresolved": unresolved,
             "duplicate_events": duplicates, "parsed_cleanly": clean, "evidence_fields_valid": evidence_valid,
+            "sentinel_emissions": len(re.findall(SENTINEL_PATTERN, row["text"])) if row["condition"] == "sentinel" else 0,
+            "shadow_ids": row.get("config", {}).get("shadow_ids", []),
             "evidence_fields_total": evidence_total,
             "success": len(found) == len(case["expected"]) and not wrong and not invalid and not ungrounded and clean,
             "seconds": row["seconds"], "tokens": row["output_tokens"], "peak_gb": row["peak_gb"]}
 
 
-def run(conditions):
+def run(conditions, old_screen=False):
     verify_round1()
     check = preflight()
     signal.signal(signal.SIGALRM, timeout)
     signal.alarm(450)
     rt = Runtime()
     cases = json.loads((HERE / "data/cases.json").read_text())
+    if old_screen:
+        cases = [c for c in cases if c["kind"] == "controlled-pair" and c["split"] == "derive" and
+                 (not c["dual_tracked"] or c["subject"] == "buttons")]
     path = HERE / "results/generation.jsonl"
     path.parent.mkdir(parents=True, exist_ok=True)
     done = [json.loads(line) for line in path.read_text().splitlines()] if path.exists() else []
@@ -192,4 +239,4 @@ def score():
 
 
 if __name__ == "__main__":
-    score() if sys.argv[1] == "score" else run(sys.argv[1:])
+    score() if sys.argv[1] == "score" else run([a for a in sys.argv[1:] if a != "--old-screen"], old_screen="--old-screen" in sys.argv)

@@ -1,0 +1,112 @@
+{"id": "ES2003b", "seconds": 4.42934149998473, "output_tokens": 61}
+{"id": "ES2003c", "seconds": 5.951900707994355, "output_tokens": 143}
+{"id": "TS3004c", "seconds": 14.322335042001214, "output_tokens": 512}
+{"id": "TS3004c", "seconds": 11.388936625007773, "output_tokens": 356}
+{
+  "source_focus": [
+    {
+      "meeting": "ES2003b",
+      "turn": 177,
+      "object_id": "case_curve",
+      "value": "double curved",
+      "should_write": false,
+      "present": false,
+      "quotes": [],
+      "passed": true
+    },
+    {
+      "meeting": "ES2003c",
+      "turn": 102,
+      "object_id": "battery",
+      "value": "lithium",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "um, say something like um lithium ion battery"
+      ],
+      "passed": true
+    },
+    {
+      "meeting": "ES2003c",
+      "turn": 102,
+      "object_id": "case_curve",
+      "value": "double curved",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "Looks like we going for a double curved design."
+      ],
+      "passed": true
+    },
+    {
+      "meeting": "ES2003c",
+      "turn": 102,
+      "object_id": "case_material",
+      "value": "rubber",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "um, looks like we're pretty much decided on some kind of flexible rubber."
+      ],
+      "passed": true
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 117,
+      "object_id": "case_material",
+      "value": "rubber",
+      "should_write": false,
+      "present": false,
+      "quotes": [],
+      "passed": true
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 185,
+      "object_id": "case_material",
+      "value": "plastic",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "Yeah, okay. Okay, it's chos So that should be hard plastic. Then the buttons?"
+      ],
+      "passed": true
+    }
+  ],
+  "question_flips": [
+    {
+      "series": "TS3004",
+      "qid": "q17",
+      "type": "n_changes",
+      "slot": "case_material",
+      "gold": 0,
+      "before": 4,
+      "after": 0
+    }
+  ],
+  "shadow": {
+    "qa_exact": "91/124",
+    "qa_exact_by_type": {
+      "as_of_valid": "36/38",
+      "current": "28/43",
+      "n_changes": "27/43"
+    },
+    "tp": 26,
+    "values": {
+      "agrees": 111,
+      "changes_belief": 73,
+      "other_value": 28,
+      "earlier_value": 5,
+      "wrong": 44,
+      "no_gold_value_yet": 11
+    },
+    "inbox_confirm_all": {
+      "proposals": 116,
+      "accepted": 25,
+      "edited": 5,
+      "rejected": 86,
+      "per_meeting": 5.8,
+      "qa_after_review": "92/124"
+    }
+  }
+}

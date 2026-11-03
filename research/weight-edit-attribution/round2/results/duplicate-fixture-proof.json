@@ -1,0 +1,15 @@
+{
+  "duplicate_fixture": "n2",
+  "covered_by": "p3-0-buttons",
+  "exact_augmented_prompt_sha256": "86c7b188bc1ca5b3ef70247f6a6cd2537e9f4ac36599203eadd40ec244b8608c",
+  "same_system": true,
+  "same_expected_bindings": true,
+  "same_shadow_ids": [
+    "case_button_material"
+  ],
+  "reply_key": "d360a790c9758d6c96c71cda0669463073d5303b242f18c2ccaa304e61c0b245",
+  "reply": "{\"events\":[]}",
+  "effective_reply": "{\"events\":[]}",
+  "independent_new_model_calls": 0,
+  "note": "30 frozen fixtures; shadow executes 29 distinct requests. Compare against the same 29-case baseline or count the duplicate explicitly as a cache replay, never as independent evidence."
+}

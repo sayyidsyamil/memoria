@@ -1,0 +1,17 @@
+{
+  "round1_hashes_preserved": 55,
+  "frozen_case_hash_matches": true,
+  "complete_sequence_sums_verified": 72,
+  "source_score_replay_matches": true,
+  "chronology_checks_passed": 14,
+  "positive_full_window_quotes_checked": 4,
+  "exact_dev_only_loader": "r2_common imports round1 common.load_dev: explicitly named .chain/.ask files, no held-out directory scan",
+  "final_validation_generation_or_scoring": false,
+  "protected_engine_or_weights_modified": false,
+  "repeat_cuts": 0,
+  "new_budget_hits": 0,
+  "phase1_code_hash_matches_commit_04a1b5df5": true,
+  "shadow_code_hash_matches_frozen_recipe": true,
+  "new_model_calls_for_recovery": 0,
+  "all_round2_python_syntax_valid": true
+}

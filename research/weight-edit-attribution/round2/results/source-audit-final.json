@@ -1,0 +1,229 @@
+{
+  "focus": [
+    {
+      "meeting": "ES2003b",
+      "turn": 177,
+      "object_id": "case_curve",
+      "value": "double curved",
+      "should_write": false,
+      "present": false,
+      "quotes": [],
+      "passed": true,
+      "positive_quote_grounded_and_names_value": true
+    },
+    {
+      "meeting": "ES2003c",
+      "turn": 102,
+      "object_id": "battery",
+      "value": "lithium",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "um, say something like um lithium ion battery"
+      ],
+      "passed": true,
+      "positive_quote_grounded_and_names_value": true
+    },
+    {
+      "meeting": "ES2003c",
+      "turn": 102,
+      "object_id": "case_curve",
+      "value": "double curved",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "Looks like we going for a double curved design."
+      ],
+      "passed": true,
+      "positive_quote_grounded_and_names_value": true
+    },
+    {
+      "meeting": "ES2003c",
+      "turn": 102,
+      "object_id": "case_material",
+      "value": "rubber",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "um, looks like we're pretty much decided on some kind of flexible rubber."
+      ],
+      "passed": true,
+      "positive_quote_grounded_and_names_value": true
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 117,
+      "object_id": "case_material",
+      "value": "rubber",
+      "should_write": false,
+      "present": false,
+      "quotes": [],
+      "passed": true,
+      "positive_quote_grounded_and_names_value": true
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 185,
+      "object_id": "case_material",
+      "value": "plastic",
+      "should_write": true,
+      "present": true,
+      "quotes": [
+        "Yeah, okay. Okay, it's chos So that should be hard plastic. Then the buttons?"
+      ],
+      "passed": true,
+      "positive_quote_grounded_and_names_value": true
+    }
+  ],
+  "new_or_reanchored_real_writes": [
+    {
+      "meeting": "TS3004c",
+      "turn": 76,
+      "object_id": "speech",
+      "value": "excluded",
+      "gold_end_meeting": "excluded",
+      "agrees_gold_value": true,
+      "quote": "Yeah, probably too. I I haven't got anything about speech recognition, but",
+      "source": [
+        {
+          "turn": 74,
+          "text": "Yeah, it says in the email. The display requires an advanced chip."
+        },
+        {
+          "turn": 75,
+          "text": "Okay. And speech recognition?"
+        },
+        {
+          "turn": 76,
+          "text": "Yeah, probably too. I I haven't got anything about speech recognition, but"
+        },
+        {
+          "turn": 77,
+          "text": "Advanced. Yeah."
+        },
+        {
+          "turn": 78,
+          "text": "I'll I'll give you my design."
+        }
+      ],
+      "source_supported": false,
+      "source_assessment": "The exchange asks whether speech recognition also requires an advanced chip; lack of information is not a decision to exclude speech.",
+      "assessor": "AI-assisted source audit, not independently human-adjudicated gold",
+      "caveat": "Newly produced/anchored relative to baseline; some replace earlier unsupported writes, so this is not a count of net additional errors."
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 86,
+      "object_id": "colour",
+      "value": "various colours",
+      "gold_end_meeting": "yellow",
+      "agrees_gold_value": false,
+      "quote": "And then the colour buttons, if we want it on. I don't find it very usable, but it's Uh I don't think it's fits in the the modern theme as well.",
+      "source": [
+        {
+          "turn": 84,
+          "text": "It's the most important part, I think. But And the home base is something like that, something simple. Well and then I just ordered the the buttons a bit. Uh basic buttons. On-off, mute. And th maybe two others, I dunno. Text buttons."
+        },
+        {
+          "turn": 85,
+          "text": "Yeah, maybe the teletext tel"
+        },
+        {
+          "turn": 86,
+          "text": "Yeah, text button, maybe there and there. And then the colour buttons, if we want it on. I don't find it very usable, but it's Uh I don't think it's fits in the the modern theme as well."
+        },
+        {
+          "turn": 87,
+          "text": "No, I don't uh I don't like it."
+        },
+        {
+          "turn": 88,
+          "text": "So and then yeah we saw the the pla display, in the the iPod. They can put the basic buttons, one, two, three, four. And uh f above ten. And I think"
+        }
+      ],
+      "source_supported": false,
+      "source_assessment": "The source discusses coloured buttons, tentatively, followed by rejection; it does not decide the remote's overall colour.",
+      "assessor": "AI-assisted source audit, not independently human-adjudicated gold",
+      "caveat": "Newly produced/anchored relative to baseline; some replace earlier unsupported writes, so this is not a count of net additional errors."
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 125,
+      "object_id": "speech",
+      "value": "excluded",
+      "gold_end_meeting": "excluded",
+      "agrees_gold_value": true,
+      "quote": "Well that's that's my findings. So uh my personal opinion is that we should go more modern look. M_P_ three player. And uh well um if we want to put in speech rec recognition or something, we I don't think we should put it on top then. I think that, if we're gonna put in more technology, that you need to be able to uh switch it open.",
+      "source": [
+        {
+          "turn": 123,
+          "text": "No, I think th the the top buttons are okay. They sh Those should be on top. But uh we we can switch those two, yeah."
+        },
+        {
+          "turn": 124,
+          "text": "Okay. Yeah, maybe Those two, yeah. And uh, yeah, you have to make sure it's easy to uh Yes, it has to be big enough so you can hold it, right."
+        },
+        {
+          "turn": 125,
+          "text": "Well that's that's my findings. So uh my personal opinion is that we should go more modern look. M_P_ three player. And uh well um if we want to put in speech rec recognition or something, we I don't think we should put it on top then. I think that, if we're gonna put in more technology, that you need to be able to uh switch it open."
+        },
+        {
+          "turn": 126,
+          "text": "Yeah. Yeah, that's cool."
+        },
+        {
+          "turn": 127,
+          "text": "To use"
+        }
+      ],
+      "source_supported": false,
+      "source_assessment": "The negation concerns placing speech controls on top / access through opening the device, not excluding speech recognition.",
+      "assessor": "AI-assisted source audit, not independently human-adjudicated gold",
+      "caveat": "Newly produced/anchored relative to baseline; some replace earlier unsupported writes, so this is not a count of net additional errors."
+    },
+    {
+      "meeting": "TS3004c",
+      "turn": 164,
+      "object_id": "lcd",
+      "value": "included",
+      "gold_end_meeting": "excluded",
+      "agrees_gold_value": false,
+      "quote": "Yeah, I dunno. Maybe. But anyways uh it should be transparent. We decided that, huh? S",
+      "source": [
+        {
+          "turn": 162,
+          "text": "Yeah, we make it som Maybe we have to make it from soft material. Uh I'm not sure."
+        },
+        {
+          "turn": 163,
+          "text": "Yeah, I dunno."
+        },
+        {
+          "turn": 164,
+          "text": "Maybe. But anyways uh it should be transparent. We decided that, huh? S"
+        },
+        {
+          "turn": 165,
+          "text": "Well one of the options. You can Just like a mobile phone, you can make um different fronts on it. So you can just replace them I think."
+        },
+        {
+          "turn": 166,
+          "text": "Yeah, we could do that."
+        }
+      ],
+      "source_supported": false,
+      "source_assessment": "The surrounding source concerns a transparent/replaceable front and materials, not a decision to include an LCD.",
+      "assessor": "AI-assisted source audit, not independently human-adjudicated gold",
+      "caveat": "Newly produced/anchored relative to baseline; some replace earlier unsupported writes, so this is not a count of net additional errors."
+    }
+  ],
+  "source_valid_fixture_gains": {
+    "p0-0-buttons": "Enter-button shape correctly routes to an untracked shadow, not case curve.",
+    "p1-0-buttons": "Button rubber correctly routes to an untracked shadow while lithium battery and case curve remain.",
+    "p5-0-buttons": "The unchanged 'It's plastic' answer is resolved from the preceding button-material question.",
+    "p4-0-case": "Additional LCD inclusion cites the explicit 'we've incorporated the L_C_D_ screen ... as part of the design' clause."
+  },
+  "not_a_binding_gain": {
+    "n1": "Bare [] becomes {events:[]}; format improvement only."
+  }
+}

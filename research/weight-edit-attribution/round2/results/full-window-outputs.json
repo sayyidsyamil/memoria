@@ -1,0 +1,115 @@
+{
+  "preflight": {
+    "time": "2026-11-03T19:13:02+0800",
+    "conflicts": []
+  },
+  "rows": [
+    {
+      "id": "ES2003b",
+      "key": "496e2e5dfd9e20c5b0181ed524d456c8416d10186c2b650078544d52ea26b591",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "condition": "shadow",
+        "prompt_sha256": "9cb3d6d278a3429bb5c223ffe5f25c15f9a49f73933a18759c578a985e29b683",
+        "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "intervention": "none",
+        "shadow_ids": [
+          "case_button_material",
+          "case_button_curve"
+        ]
+      },
+      "condition": "shadow",
+      "text": "{\"events\":[{\"turn\":177,\"quote\":\"Yeah. I thought the uh the d the double arc could perhaps uh be the uh the enter button.\",\"object_id\":\"case_button_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.5,\"unresolved\":false}]}",
+      "seconds": 4.42934149998473,
+      "prompt_tokens": 2811,
+      "output_tokens": 61,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.98881848,
+      "original_key": "445caff20136d4b9558c7c74b098d6561dde98b6eb35ba1b9fd2128d739fd9b9"
+    },
+    {
+      "id": "ES2003c",
+      "key": "1f91dc715bce2e0779ee58a2dd1a1d34c5b2d353a72d4014eb7331a1e618f73d",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "condition": "shadow",
+        "prompt_sha256": "cacabab83c02293fed2487ae1520b09f8d45f0bd902637ad92dea7d7fd7c837e",
+        "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "intervention": "none",
+        "shadow_ids": [
+          "case_button_material",
+          "case_button_curve"
+        ]
+      },
+      "condition": "shadow",
+      "text": "{\"events\":[{\"turn\":102,\"quote\":\"um, say something like um lithium ion battery\",\"object_id\":\"battery\",\"attribute\":\"outcome\",\"value\":\"lithium\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":102,\"quote\":\"Looks like we going for a double curved design.\",\"object_id\":\"case_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":102,\"quote\":\"um, looks like we're pretty much decided on some kind of flexible rubber.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"confidence\":0.9,\"unresolved\":false}]}",
+      "seconds": 5.951900707994355,
+      "prompt_tokens": 2943,
+      "output_tokens": 143,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.988819008,
+      "original_key": "92cbdd3e02ebc6683e6f4404a7a2a2134caa35d78e5d0c5a5bd95df0abeaa68a"
+    },
+    {
+      "id": "TS3004c",
+      "key": "aac1920424d09dec370eafc411ccda9a04ea399202572e042d5153146a9674b1",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "condition": "shadow",
+        "prompt_sha256": "f7ddc7f7b21154443bf6e04f53d7768cb05750782f69a36fca1d0b329f9322c1",
+        "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "intervention": "none",
+        "shadow_ids": [
+          "case_button_material"
+        ]
+      },
+      "condition": "shadow",
+      "text": "{\"events\":[{\"turn\":67,\"quote\":\"But a telephone also have a L_C_D_ and and it's about t two hundred Euros. So uh\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":72,\"quote\":\"They say uh a display requires an advanced chip. And this is more expensive than all the other chips. So it's m the most expensive.\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":75,\"quote\":\"L_D_C_ doesn't require\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":76,\"quote\":\"Yeah, probably too. I I haven't got anything about speech recognition, but\",\"object_id\":\"speech\",\"attribute\":\"outcome\",\"value\":\"excluded\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":81,\"quote\":\"I think we should um This is one of the modern remote controls of the moment. I think we should go more to the iPod and M_P_ three players. Mobile phones. More modern. Y yes.\",\"object_id\":\"remote_type\",\"attribute\":\"outcome\",\"value\":\"single device\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":83,\"quote\":\"And then the colour buttons, if we want it on. I don't find it very usable, but it's Uh I don't think it's fits in the the modern theme as well.\",\"object_id\":\"colour\",\"attribute\":\"outcome\",\"value\":\"various colours\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":85,\"quote\":\"Yeah, maybe the teletext tel\",\"object_id\":\"teletext\",\"attribute\":\"outcome\",\"value\":\"excluded\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":125,\"quote\":\"Well that's that's my findings. So uh my personal opinion is that we should go more modern look. M_P_ three player. And uh well um if we want to put in speech rec recognition or something, we I don't think we should put it on top then. I think that, if we're gonna put in more technology, that you need to be able to uh switch it open.\",\"object_id\":\"speech\",\"attribute\":\"outcome\",\"value\":\"excluded\",\"confidence\":0.5,\"unresolved\":false}]}",
+      "seconds": 14.322335042001214,
+      "prompt_tokens": 3160,
+      "output_tokens": 512,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.988819876,
+      "original_key": "c6092916643935ca6e3e6bda616984772bc4717ee1185cbb998ee473c56a4dcf"
+    },
+    {
+      "id": "TS3004c",
+      "key": "2ef3d0a99aa20a1d92f81c188e838ec048149299fcb53b12a54704eec633ef20",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "condition": "shadow",
+        "prompt_sha256": "424a67cc203d934d78f85f14bc0dca630963a3116bfa8f671f4e1194b5e9cb18",
+        "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "intervention": "none",
+        "shadow_ids": [
+          "case_button_material"
+        ]
+      },
+      "condition": "shadow",
+      "text": "{\"events\":[{\"turn\":162,\"quote\":\"Yeah, we make it som Maybe we have to make it from soft material.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":164,\"quote\":\"Yeah, I dunno. Maybe. But anyways uh it should be transparent. We decided that, huh? S\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":173,\"quote\":\"Um the buttons. Normal rubber I think. Like normal ordinary buttons. Soft.\",\"object_id\":\"case_button_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":175,\"quote\":\"Yeah. It it could be like a Nokia, like plastic. That's better prob Yeah.\",\"object_id\":\"case_button_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":185,\"quote\":\"Yeah, okay. Okay, it's chos So that should be hard plastic. Then the buttons?\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":192,\"quote\":\"basic remote control from normal plastic, and\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":225,\"quote\":\"Yeah, a recharger maybe.\",\"object_id\":\"battery\",\"attribute\":\"outcome\",\"value\":\"rechargeable\",\"confidence\":0.5,\"unresolved\":false}]}",
+      "seconds": 11.388936625007773,
+      "prompt_tokens": 3352,
+      "output_tokens": 356,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.988820644,
+      "original_key": "289309cdfc5b725c07882796fc8712d9eaae5d6a7f743fbb62c69b8a6d0df783"
+    }
+  ],
+  "peak_process_rss_gb": 1.19054336
+}

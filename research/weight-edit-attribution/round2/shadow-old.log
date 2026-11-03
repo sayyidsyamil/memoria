@@ -1,0 +1,13 @@
+{"id": "p0-1-buttons", "condition": "shadow", "seconds": 2.7733132079883944, "output_tokens": 48}
+{"id": "p0-0-case", "condition": "shadow", "seconds": 2.714299207989825, "output_tokens": 46}
+{"id": "p0-0-buttons", "condition": "shadow", "seconds": 2.8854833749937825, "output_tokens": 53}
+{"id": "p1-1-buttons", "condition": "shadow", "seconds": 5.628111083002295, "output_tokens": 162}
+{"id": "p1-0-case", "condition": "shadow", "seconds": 5.39221724998788, "output_tokens": 161}
+{"id": "p1-0-buttons", "condition": "shadow", "seconds": 5.856233875005273, "output_tokens": 162}
+{"id": "p2-1-buttons", "condition": "shadow", "seconds": 2.8166909579886124, "output_tokens": 43}
+{"id": "p2-0-case", "condition": "shadow", "seconds": 3.1639013340172824, "output_tokens": 52}
+{"id": "p2-0-buttons", "condition": "shadow", "seconds": 3.1251783749903552, "output_tokens": 43}
+{"id": "p3-1-buttons", "condition": "shadow", "seconds": 2.2297084589954466, "output_tokens": 5}
+{"id": "p3-0-case", "condition": "shadow", "seconds": 2.0216895420162473, "output_tokens": 5}
+{"id": "p3-0-buttons", "condition": "shadow", "seconds": 2.152573333005421, "output_tokens": 5}
+{"closed": true, "preflight": {"time": "2026-11-03T18:53:19+0800", "conflicts": []}, "seconds": 44.849680750019616, "peak_process_rss_gb": 1.354334208}

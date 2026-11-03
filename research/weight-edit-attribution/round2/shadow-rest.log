@@ -1,0 +1,18 @@
+{"id": "p0-1-case", "condition": "shadow", "seconds": 2.6892525410221424, "output_tokens": 46}
+{"id": "p1-1-case", "condition": "shadow", "seconds": 4.948291874985443, "output_tokens": 161}
+{"id": "p2-1-case", "condition": "shadow", "seconds": 2.377269249991514, "output_tokens": 52}
+{"id": "p3-1-case", "condition": "shadow", "seconds": 1.4152422920160461, "output_tokens": 5}
+{"id": "p4-1-case", "condition": "shadow", "seconds": 3.925425000023097, "output_tokens": 117}
+{"id": "p4-1-buttons", "condition": "shadow", "seconds": 4.931378166016657, "output_tokens": 160}
+{"id": "p4-0-case", "condition": "shadow", "seconds": 3.9107632910017855, "output_tokens": 117}
+{"id": "p4-0-buttons", "condition": "shadow", "seconds": 4.926365334016737, "output_tokens": 160}
+{"id": "p5-1-case", "condition": "shadow", "seconds": 2.4072878749866504, "output_tokens": 43}
+{"id": "p5-1-buttons", "condition": "shadow", "seconds": 2.525530875020195, "output_tokens": 49}
+{"id": "p5-0-case", "condition": "shadow", "seconds": 2.44486695798696, "output_tokens": 43}
+{"id": "p5-0-buttons", "condition": "shadow", "seconds": 2.6109244170074817, "output_tokens": 49}
+{"id": "n0", "condition": "shadow", "seconds": 1.488154749997193, "output_tokens": 5}
+{"id": "n1", "condition": "shadow", "seconds": 1.4985457909933757, "output_tokens": 5}
+{"id": "n3", "condition": "shadow", "seconds": 1.5816494580067229, "output_tokens": 5}
+{"id": "n4", "condition": "shadow", "seconds": 3.9458757499814965, "output_tokens": 114}
+{"id": "n5", "condition": "shadow", "seconds": 2.7555580000043847, "output_tokens": 51}
+{"closed": true, "preflight": {"time": "2026-11-03T19:02:29+0800", "conflicts": []}, "seconds": 54.789582041994436, "peak_process_rss_gb": 1.279279104}

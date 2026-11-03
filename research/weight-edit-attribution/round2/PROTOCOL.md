@@ -93,3 +93,59 @@ Append-only and state whether model results had already been observed.
   registry failures do not justify strengthening a case-versus-button axis.
   Also require centered input direction >=6/8 correct held-out subject signs;
   otherwise the proposed linear correction could become a global subject bias.
+- After native and first generation results (frozen in `04a1b5df5`): the
+  correct component wins all 8 OLD dual-tracked full-sequence rankings, while
+  all 4 OLD untracked-property prefixes incorrectly choose the case slot.
+  No weight edit is warranted for the already-correct identity signal. The
+  evidence-field procedure loses recall (28→20 of 38 source-labelled events).
+  Deepen only the evidenced registry-boundary mechanism: add a domain-neutral
+  string abstention marker `__untracked__` as an explicit choice, translating
+  only that exact object_id to JSON null. The native JSON procedure otherwise
+  stays unchanged; there is no added model call, guessed fact or citation
+  repair. This tests a registry/NULL-representation failure, not a global
+  write-less direction. First screen the 12 OLD controlled cases covering
+  all four untracked-property cases, four tracked case controls and four
+  tracked button controls. Expand to the frozen remaining cases only if it
+  reduces wrong writes without losing any source-supported events. No labels
+  or first-round artifacts change.
+- After the 12-case OLD sentinel screen: generic `__untracked__` gives the
+  same 12/14 found bindings and two wrong writes as native generation on those
+  cases, so it is rejected without NEW screening. Native dual-registry
+  generation already supplies positive evidence for a narrower procedure:
+  specific component labels route the OLD mistaken writes correctly. Test
+  a fixed, extraction-only shadow vocabulary: button material and enter-button
+  curve counterparts of case_material/case_curve, with the same allowed values.
+  Add a shadow only when that property is not genuinely registered (including
+  the real IS1008 button_material alias). Present shadows as ordinary extraction
+  choices, then project only their IDs to null before the actual registry can
+  write anything. This is domain-specific schema augmentation, not a generic
+  component-discovery system, learned direction, or new fact. Apply the same
+  fixed rule to every case without reading its expected label. OLD 12-case gate
+  remains: fewer wrong writes, no source-recall loss; only then run the rest
+  of the frozen fixtures and chronology contracts. No additional model calls
+  per extraction request. This is evidence-motivated deepening after the
+  initial small screen, not a new held-out validation.
+- The shadow rule passes the OLD gate: wrong writes 2→0 with all 12 previously
+  found bindings retained. Expand to all frozen fixtures. Add prospective
+  material-domain chronology tests (frozen by `shadow_contracts.py` before its
+  calls) because the original budget/vendor fixtures do not activate this
+  domain-specific shadow rule: two case-material changes, old material recaps
+  before a rare final change, unchanged case with a later untracked button
+  decision, and retention of an actually registered button-material decision.
+- After the frozen remaining-case screen: shadow vocabulary keeps all
+  previously found source bindings, gains one source-backed binding, and
+  reduces wrong writes on NEW fixtures (4→3). Test transfer on four ORIGINAL
+  cached full windows: ES2003b enter-button curve, ES2003c accepted lithium /
+  curve / rubber controls, TS3004c rubber-button error, and TS3004c's accepted
+  hard-plastic case decision with its weak/pronominal quote. No synthetic
+  rewrite. Freeze these focus outcomes in `full_window.py` before calls and
+  replay only those replacements open loop. This is further development
+  screening, never final validation or a closed-loop full-dev claim.
+- Final source audit / terminal decision: all six targeted full-window focus
+  checks and all active-domain chronology checks pass, but current-value QA
+  remains 28/43. The sole QA gain is a change-count answer, and four newly
+  produced/anchored off-target assertions lack source support (two happen to
+  agree with gold values). No procedure qualifies for promotion/validation.
+  Conclude the bounded path without adding shadows or tuning on these checks.
+  Recovery/finalization uses completed artifacts only; no new model calls,
+  production-baseline substitutions, or reserved-247 generation/scoring.
