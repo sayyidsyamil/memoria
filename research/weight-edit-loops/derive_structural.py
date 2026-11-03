@@ -21,6 +21,8 @@ def null_feature(positive, controls, columns):
     rank = int((singular > singular[0] * 1e-7).sum())
     vector = restricted - vt[:rank].T @ (vt[:rank] @ restricted)
     kept = float(np.linalg.norm(vector) / np.linalg.norm(restricted))
+    if not np.isfinite(kept) or kept < 1e-5:
+        raise ValueError("No supported recurrence direction remains after control projection")
     vector /= np.linalg.norm(vector)
     full = np.zeros_like(positive, dtype=np.float32)
     full[columns] = vector.astype(np.float32)

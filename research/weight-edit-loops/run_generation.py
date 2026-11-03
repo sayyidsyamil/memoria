@@ -15,12 +15,14 @@ from runtime import close_model, hard_deadline, load_model, now, reset_shared
 from stop_rule import EventRepeatStop, analyse
 
 
-def generate(lm, row, stop=False):
+def generate(lm, row, stop=False, controller=None):
     import mlx.core as mx
     from mlx_lm import stream_generate
     from mlx_lm.models.cache import make_prompt_cache
     from mlx_lm.sample_utils import make_sampler
     reset_shared()
+    if controller:
+        controller.reset()
     rendered = lm.tokenizer.apply_chat_template(
         [{"role": "system", "content": row["system"]}, {"role": "user", "content": row["prompt"]}],
         tokenize=False, add_generation_prompt=True, enable_thinking=False)
@@ -30,8 +32,12 @@ def generate(lm, row, stop=False):
     mx.reset_peak_memory()
     raw, tokens, first, last = "", [], None, None
     started = time.perf_counter()
+    sampler = make_sampler(temp=0)
+    if controller:
+        from activation_gate import output_phase_sampler
+        sampler = output_phase_sampler(sampler, controller)
     stream = stream_generate(lm.model, lm.tokenizer, prompt=rendered, max_tokens=row["max_tokens"],
-                             sampler=make_sampler(temp=0), prompt_cache=cache)
+                             sampler=sampler, prompt_cache=cache)
     try:
         for response in stream:
             if first is None:
@@ -44,6 +50,8 @@ def generate(lm, row, stop=False):
     finally:
         stream.close()
         mx.synchronize()
+        if controller:
+            controller.reset()
     seconds = time.perf_counter() - started
     stopped = bool(detector and detector.reason)
     returned = detector.closed_text() if stopped else raw

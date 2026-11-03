@@ -7,6 +7,15 @@ for every new request, and uses fresh model caches. No shipping worker is modifi
 from context import HERE, sha256
 
 
+def output_phase_sampler(sampler, controller):
+    """The first model forward/prediction is unsteered; subsequent token forwards may steer."""
+    def sample(logprobs):
+        token = sampler(logprobs)
+        controller.enable()
+        return token
+    return sample
+
+
 def install(model, spec):
     import mlx.core as mx
     import mlx.nn as nn

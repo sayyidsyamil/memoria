@@ -1,0 +1,38 @@
+{
+  "scope": "fresh-process replay of this branch's exact-file access path; not a certification of other sessions or historical shared-cache contents",
+  "validation_generation_or_scoring": false,
+  "directory_loader_disabled": true,
+  "dataset_opens": [
+    "research/ledger-engine/data/ami_v0/ES2003.chain",
+    "research/ledger-engine/data/ami_v0/ES2003.ask",
+    "research/ledger-engine/data/ami_v0/TS3004.chain",
+    "research/ledger-engine/data/ami_v0/TS3004.ask",
+    "research/model-improvements/data/ami_new/ES2011.chain",
+    "research/model-improvements/data/ami_new/ES2011.ask",
+    "research/model-improvements/data/ami_new/IS1008.chain",
+    "research/model-improvements/data/ami_new/IS1008.ask",
+    "research/model-improvements/data/ami_new/TS3006.chain",
+    "research/model-improvements/data/ami_new/TS3006.ask"
+  ],
+  "unique_dataset_files": [
+    "research/ledger-engine/data/ami_v0/ES2003.ask",
+    "research/ledger-engine/data/ami_v0/ES2003.chain",
+    "research/ledger-engine/data/ami_v0/TS3004.ask",
+    "research/ledger-engine/data/ami_v0/TS3004.chain",
+    "research/model-improvements/data/ami_new/ES2011.ask",
+    "research/model-improvements/data/ami_new/ES2011.chain",
+    "research/model-improvements/data/ami_new/IS1008.ask",
+    "research/model-improvements/data/ami_new/IS1008.chain",
+    "research/model-improvements/data/ami_new/TS3006.ask",
+    "research/model-improvements/data/ami_new/TS3006.chain"
+  ],
+  "cache_hits": 97,
+  "cache_misses": 0,
+  "tp": 26,
+  "qa_exact": "90/124",
+  "wrong_writes": 46,
+  "source": {
+    "context.py": "ed314b7310fe16d33e244dff192030e961620737f5de3dc859f72f3bfb8c20b6",
+    "audit_access.py": "8f93f07c99b6cfc774b13ed2b8be9723ccac35edf8371802d2525c9a739b5f2f"
+  }
+}

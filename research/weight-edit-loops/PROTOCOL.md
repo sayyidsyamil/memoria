@@ -109,3 +109,13 @@ Append discoveries and revisions here; keep prior results and failed hypotheses.
   controls; compare a random output direction with identical input/gate/scalar norm.
   This branch continues to import the assigned 225f709fd engine/harness snapshot;
   the coordinator's newer repair changes are not adopted mid-experiment.
+- The rectified gate fails the above criterion at both strengths: every repeated
+  boundary still prefers continuation. Stop that nonlinear arm; no independent
+  free-generation/quality claim is made for it. Finish the originally planned
+  structural-output alternative with one static rank-one edit at the final MLP:
+  output u is the weighted continuation-minus-close unembedding direction; input v
+  is a 512-column recurrence contrast, algebraically nulled on all derivation-normal
+  and first-event inputs. Its normal protection is imposed and cannot validate
+  generalisation. Strength0.5/1/2/4 corresponds to0.5/1/2/4% of that projection's
+  Frobenius norm. Same-input, unit-random-output controls and opposite sign are
+  retained. No new layer/column/strength sweep follows this arm.

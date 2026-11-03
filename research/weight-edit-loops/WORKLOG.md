@@ -81,3 +81,64 @@
 - Prepared but **not run**: `derive_structural.py`, a last-MLP recurrence-input feature
   writing against a structural continuation axis. Coordinator's rectified-gate arm
   takes priority over that optional third static hypothesis.
+
+## Rectified gate — stopped at the preregistered derivation screen
+
+- Nonlinear, generated-token-only ReLU(phi-2) gate with strengths12/24; the same
+  phi/gate/amplitude with a unit-random output vector is its control. The entire
+  prompt prefill and first output-token prediction were unsteered.
+- Base phi>2 on179/218 loop-prefix tokens and17/57 normal-prefix tokens, so the
+  apparent separation at event closure is not a globally loop-specific feature.
+- Third repeated-boundary continuation margin: base3.625; gate12=2.000;
+  gate24=0.8125; random-output24=3.5625. All still select continuation. Gate24 also
+  changes27 earlier greedy predictions, mainly quote/schema positions, without
+  reaching the clean-closure target. Derivation normal remains unchanged.
+- The predeclared criterion rejects both variants. No free-generation speed,
+  independent-loop, Ask/guard or recovery success is claimed for these gates.
+  Source/config/evidence is preserved in `gate-causal.*` and `directions/gate*`.
+- Proceeding to the final preplanned static structural-output alternative, then
+  finish with either a controlled candidate or the bounded negative result.
+
+## Final static check and closeout
+
+- Last-MLP (layer31) static rank-one structural edit,512 input columns. The recurrence
+  input direction retains40.4% of contrast after nulling133 derivation-control states;
+  protected feature magnitude is below1e-5. This is a closed-form weight edit, not
+  the rejected nonlinear gate and not a new architecture or trained optimizer.
+- Actual free TS3004b.w0 generation: strength2 and4 both finish at **149 tokens with
+  natural EOS and clean raw JSON**, in8.558/8.196s. The same-input, equal-norm random
+  output direction at strength4 runs to1800 tokens/61.556s, exactly the baseline text.
+  Both edited outputs retain two copies of the original unresolved event; no unique
+  parsed candidate is lost and there were no valid grounded candidates or gold hits
+  to begin with. This shows a derivation-case mechanical effect, not an accuracy gain.
+- TS3004b.w1 remains exactly58 tokens under both edits and the control, but this is
+  the algebraically protected derivation normal. It is not independent validation.
+- User closeout instruction: complete this running check, conclude the bounded study,
+  do not widen search. All remaining checks are CPU tests/audits/hashes. Independent
+  dev, recovery and cross-task evaluation of the final structural edit is **not run**;
+  consequently no candidate qualifies or enters final247 validation.
+- Conservative stopping is also research-only: a new constructed stream using the
+  actual source-grounded speech/LCD events at TS3006b turn107 proves that four
+  unresolved repeats followed by a distinct correct LCD event loses that later event.
+  This is an algorithmic recovery counterexample, not a naturally generated frequency
+  estimate. The fully generated strict-root control already rejects first-repeat.
+- All15 model jobs completed, longest331.52s; peak process footprint4.9955GB. No owned
+  model process remains. Final CPU helper suite: **19 passed** (includes expected
+  failure/counterexample tests, not successful candidate quality gates).
+- Fresh-process source-access audit disables both coordinator directory-loader
+  entrypoints, blocks unapproved dataset opens, and records exactly10 dev `.chain`/
+  `.ask` files. It reproduces the original97 requests and26 TP/90 QA/46 wrong writes.
+  This verifies our exact-file path, not the coordinator's historical host parsing.
+- Five critical engine/harness source hashes match225f709fd. Runners now reject a
+  mismatch before loading a model, preventing silent main-repair mixing on those
+  critical files; full historical dependency pinning remains the coordinator's scope.
+
+**Final qualification outcome: negative — no deployment/validation candidate.** A
+derivation-only structural-edit lead and all negative/control evidence are preserved.
+
+- Final EOS audit initially made a wrong single-ID assumption from text_config
+  (248044). The recorded terminal ID is248046, the tokenizer's `<|im_end|>` EOS.
+  Cached tokenizer metadata resolves this; both149-token replies have genuine chat
+  EOS, no early-stop flag and no supplied closing syntax. This was an audit
+  assumption error, not a generation failure; the correction is retained in
+  `eos_token_audit.json` and reproducible with `audit_eos.py`.

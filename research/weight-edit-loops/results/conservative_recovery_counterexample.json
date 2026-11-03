@@ -1,0 +1,20 @@
+{
+  "scope": "constructed streaming counterexample with real dev-source events; not a naturally observed or newly generated reply",
+  "source_id": "TS3006b.w1",
+  "source_prompt_sha256": "2f630c547fa6993de881f20901921c068e6368fd202a589355b83fdee344ce77",
+  "evidence": "TS3006b turn107 explicitly requires integrating both the screen and speech; B is LCD included, supported verbatim.",
+  "input": "{\"events\": [{\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}, {\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}, {\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}, {\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}, {\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"lcd\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": false}]}",
+  "returned": "{\"events\": [{\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}, {\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}, {\"turn\": 107, \"quote\": \"And we do have to integrate the screen and the the speech alright.\", \"object_id\": \"speech\", \"attribute\": \"outcome\", \"value\": \"included\", \"confidence\": 0.9, \"unresolved\": true}]}",
+  "policy": "three consecutive unresolved repeats",
+  "first_repeat_termination": false,
+  "conservative_termination": true,
+  "lost_gold": [
+    "TS3006b.t441.3"
+  ],
+  "added_gold": [],
+  "lost_unique_valid": [
+    "[107, \"lcd\", \"outcome\", \"included\", null, \"And we do have to integrate the screen and the the speech alright.\"]"
+  ],
+  "added_unique_valid": [],
+  "decision": "conservative stopping remains research-only; general lossless event preservation is falsified"
+}

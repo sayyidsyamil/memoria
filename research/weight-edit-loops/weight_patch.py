@@ -1,7 +1,7 @@
 """Opt-in linear residuals on a quantised projection; the base arrays stay immutable.
 
-For unit u and a saved vector v (derived from the bf16-rounded dequantisation of W,
-optionally zero outside selected columns), the exact real-arithmetic edit is
+For unit u and a saved vector v (a projected-weight row or an activation-derived
+input feature, optionally zero outside selected columns), the real-arithmetic edit is
 W' = W - strength * u v.T. Inference retains W's original
 4-bit matmul and adds the rank-one term in float32, casting back to the base output
 dtype. This is a weight-equivalent runtime patch, NOT a requantised checkpoint.

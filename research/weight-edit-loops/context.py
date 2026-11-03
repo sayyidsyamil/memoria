@@ -20,6 +20,17 @@ def sha256(data):
     return hashlib.sha256(data if isinstance(data, bytes) else data.encode()).hexdigest()
 
 
+def assert_frozen_sources():
+    """Refuse silent replay against newer engine repairs after copying/merging this study."""
+    expected = json.loads((HERE / "results" / "frozen_source_check.json").read_text())
+    changed = [name for name, record in expected.items()
+               if sha256((ROOT / name).read_bytes()) != record["sha256"]]
+    if changed:
+        raise RuntimeError("Frozen research baseline source mismatch: " + ", ".join(changed)
+                           + ". Use the historical snapshot or explicitly register a new baseline.")
+    return sorted(expected)
+
+
 def load_chain(name):
     if name not in ALLOWED:
         raise ValueError(f"not an owned development series: {name}")

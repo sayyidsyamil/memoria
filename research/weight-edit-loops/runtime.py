@@ -6,7 +6,7 @@ import signal
 import subprocess
 import time
 
-from context import HERE, SCRATCH
+from context import HERE, SCRATCH, assert_frozen_sources
 
 
 def reset_shared():
@@ -24,6 +24,7 @@ def check_foreign():
 
 
 def load_model():
+    assert_frozen_sources()
     check_foreign()
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"

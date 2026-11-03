@@ -1,0 +1,27 @@
+{
+  "tokenizer_eos_token": "<|im_end|>",
+  "tokenizer_eos_id": 248046,
+  "text_config_eos_id": 248044,
+  "correction": "An initial CPU assertion incorrectly assumed the text-config EOS248044 was the only EOS. The actual tokenizer chat EOS is im_end248046; recorded natural termination is confirmed.",
+  "metadata_hashes": {
+    "config.json": "f3efc81b2ea8d96a45301037d3ccccbcccdef44a961845c87f286aaddbc6eaaa",
+    "tokenizer_config.json": "e98f1901ac6f0adff67b1d540bfa0c36ac1a0cf59eb72ed78146ef89aafa1182",
+    "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4"
+  },
+  "checks": [
+    {
+      "condition": "s2",
+      "tokens": 149,
+      "last_token_id": 248046,
+      "natural_tokenizer_eos": true,
+      "synthetic_closure": false
+    },
+    {
+      "condition": "s4",
+      "tokens": 149,
+      "last_token_id": 248046,
+      "natural_tokenizer_eos": true,
+      "synthetic_closure": false
+    }
+  ]
+}
