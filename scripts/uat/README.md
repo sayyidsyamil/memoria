@@ -21,6 +21,9 @@ It requires a test app launched with `--memoria-vault-instance`. The optional re
 only that instance's Qwen child, then checks replacement and a subsequent request. Results include
 value/key and quote-provenance checks, Alpha→Beta history, T4/T5, live-check probes and the bundle signature.
 This does not establish native UI/audio behaviour, source entailment or participant acceptance.
+It also saves a separate `advantage-demo` workspace from the actual model proposals, with Alpha approved
+and one Beta change awaiting review. Other suggestions are reviewed by the setup script. Use this only
+for the presenter's opening demonstration; participant T1–T5 must start from the pristine starter.
 
 ## Separate C1 review challenge
 

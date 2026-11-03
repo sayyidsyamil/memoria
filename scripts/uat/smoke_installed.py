@@ -66,9 +66,9 @@ def main():
     print(f'Fresh smoke vault: {vault}', flush=True)
     engine = app / 'Contents/Resources/memory/engine.py'
 
-    def call(action, **fields):
+    def call(action, target=None, **fields):
         done = subprocess.run([sys.executable, '-B', '-u', str(engine)],
-                              input=json.dumps({'action': action, 'vaultPath': str(vault), **fields}),
+                              input=json.dumps({'action': action, 'vaultPath': str(target or vault), **fields}),
                               text=True, capture_output=True, env=env, timeout=300, check=True)
         for line in reversed(done.stdout.splitlines()):
             reply = json.loads(line)
@@ -81,8 +81,8 @@ def main():
                 return result
         raise RuntimeError(f'No result from installed engine: {done.stdout[-500:]} {done.stderr[-500:]}')
 
-    def temporal(method, **params):
-        return call('temporal_api', method=method, params=params)['data']
+    def temporal(method, target=None, **params):
+        return call('temporal_api', target=target, method=method, params=params)['data']
 
     def items(answer):
         return [item['text'] for section in answer.get('sections', []) for item in section['items']]
@@ -103,6 +103,24 @@ def main():
         for t in sources.get(p['meeting'], []))]
     assert not wrong and not missing and not ungrounded, {'wrong_values': wrong, 'missing': missing, 'ungrounded': ungrounded}
     print(f'T1: {len(proposals)} values match the key; all {len(GOLD)} expected events; quotes grounded; {t1}s', flush=True)
+    # Keep the actual model proposals for a separate, presenter-only opening demonstration.
+    # No engine process is open on this vault between requests, so its databases have closed.
+    demo = vault.parent / 'advantage-demo'
+    shutil.copytree(vault, demo)
+    vendor_changes = sorted((p for p in proposals if p['object_id'] == 'vendor' and p['value'] == 'Beta Cloud'),
+                            key=lambda p: p['proposal_id'])
+    assert vendor_changes, 'No vendor-change proposal for the opening demonstration.'
+    held = vendor_changes[0]['proposal_id']
+    for proposal in sorted(proposals, key=lambda p: p['proposal_id']):
+        if proposal['proposal_id'] == held:
+            continue
+        method = 'proposals.reject' if proposal in vendor_changes else 'proposals.accept'
+        temporal(method, target=demo, proposal_id=proposal['proposal_id'], reviewer='Demo setup',
+                 note='Presenter-only preparation; the vendor change is left for the live demonstration.')
+    demo_pending = temporal('proposals.list', target=demo)
+    assert len(demo_pending) == 1 and demo_pending[0]['proposal_id'] == held
+    assert temporal('query', target=demo, type='current', object_id='vendor', attribute='outcome')['answer'] == 'Alpha Systems'
+    print(f'Opening-demo vault: {demo} (Alpha approved, one Beta proposal pending)', flush=True)
     for proposal in proposals:
         temporal('proposals.accept', proposal_id=proposal['proposal_id'])
     owner = next(f for f in temporal('overview')['facts'] if f['object_id'] == 'training' and f['attribute'] == 'owner')
@@ -171,6 +189,8 @@ def main():
               't1_seconds': t1, 'proposals': proposals, 'value_matches_key': len(proposals), 'expected_events_found': len(GOLD),
               'quote_provenance_checked': True, 'source_entailment': 'Value matching and quote provenance are checked; source interpretation needs a separate audit.',
               'answers': answers, 'open_commitments': open_text,
+              'advantage_demo': {'vault': str(demo), 'pending_vendor_proposal_id': held,
+                                 'origin': 'Actual proposals from this model run; other suggestions reviewed by a script for presentation. Separate from participant T1-T5 and C1.'},
               'vendor_history_check': {'current': vendor_now['answer'], 'on_2026_09_27': vendor_past['answer'], 'cited': True},
               'qwen_replacement_process_seconds': restart, 'post_restart_check': 'passed' if restart is not None else 'not run',
               'signature': 'passed', 'ledger_invariants': 'passed'}
