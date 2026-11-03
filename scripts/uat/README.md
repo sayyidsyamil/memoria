@@ -20,6 +20,8 @@ python3.11 -B scripts/uat/smoke_installed.py --pid <test-app-pid> --expected-ver
 It requires a test app launched with `--memoria-vault-instance`. The optional restart check terminates
 only that instance's Qwen child, then checks replacement and a subsequent request. Results include
 value/key and quote-provenance checks, Alpha→Beta history, T4/T5, live-check probes and the bundle signature.
+It also checks manual correction reasons in Ask, live Ask and the brief, then verifies that the saved
+Markdown retains the reason and the corrected fact dependency.
 This does not establish native UI/audio behaviour, source entailment or participant acceptance.
 It also saves a separate `advantage-demo` workspace from the actual model proposals, with Alpha approved
 and one Beta change awaiting review. Other suggestions are reviewed by the setup script. Use this only

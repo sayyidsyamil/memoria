@@ -24,6 +24,13 @@ opens the preserved ledger within the memory engine's workspace lock.
 Compiled wiki approval and temporal fact approval are separate. This avoids
 silently promoting every generated paragraph into a structured decision.
 
+`facts.correct` fixes a recorded value while retaining its original claim interval;
+it is not a new dated assignment. Ask and briefs distinguish its `manual-correction`
+citation (reviewer, reason, recording time and original claim metadata) from a
+`tracked-fact` transcript citation. Original meeting links are labelled context.
+As-recorded queries select the historical fact at the requested transaction cutoff,
+including an earlier belief that has since been corrected.
+
 ## Live assistance
 
 `live_memory_check` (`live_assistance.py`) accepts a bounded statement and reads only
@@ -53,8 +60,10 @@ shown. They are review prompts, not declarations that a speaker lied.
 app's Qwen worker it answers from two sources kept apart: the approved value of a
 tracked item, read from the ledger, and what was said in this meeting, read from the
 live transcript the worker keeps cached and labelled as unreviewed. Otherwise it answers
-from approved knowledge only, without the session text: each displayed statement must be
-an exact or normalized span of its cited quote, and unsupported paraphrases fail closed.
+from the approved ledger or reviewed knowledge, without the session text. Deterministic
+ledger answers retain their transcript/manual-review provenance; generated knowledge
+statements must be exact or normalized spans of their cited quotes, and unsupported
+paraphrases fail closed.
 
 ## Evidence and limits
 

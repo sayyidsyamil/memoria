@@ -128,7 +128,12 @@ def main():
     temporal('facts.correct', fact_id=owner['fact_id'], value='Raj', reason=correction_reason, reviewer='Release smoke (script)')
     owner_answer = call('ask', question='Who owns Staff training?')
     assert owner_answer.get('source') == 'tracked-facts' and any('Raj' in text for text in items(owner_answer)), owner_answer
-    assert correction_reason in json.dumps(owner_answer, ensure_ascii=False), 'Ask omitted the recorded correction reason.'
+    manual = [citation for citation in owner_answer['citations'] if citation.get('kind') == 'manual-correction'
+              and citation.get('objectId') == 'training' and citation.get('attribute') == 'owner']
+    assert len(manual) == 1 and manual[0]['correction']['reason'] == correction_reason, 'Ask omitted the recorded correction reason.'
+    assert 'quote' not in manual[0] and 'moment' not in manual[0], 'A manual correction was presented as transcript evidence.'
+    live_owner = call('live_ask', question='Who owns Staff training?')
+    assert correction_reason in json.dumps(live_owner, ensure_ascii=False), 'Live Ask omitted the recorded correction reason.'
     assert not temporal('proposals.list')
     vendor_now = temporal('query', type='current', object_id='vendor', attribute='outcome')
     vendor_past = temporal('query', type='as_of_valid', object_id='vendor', attribute='outcome', valid_at='2026-09-27')
@@ -150,6 +155,11 @@ def main():
     by_id = {citation['id']: citation for citation in brief.get('citations', [])}
     training_evidence = {'item': training, 'citations': [by_id[identifier] for identifier in training.get('citations', [])]}
     assert correction_reason in json.dumps(training_evidence, ensure_ascii=False), 'The brief omitted the owner correction reason.'
+    saved = call('save_brief', id=str(uuid.uuid4()), topic='Next steering committee meeting', result=brief)
+    saved_page = (vault / saved['pagePath']).read_text()
+    assert f'Reason: {correction_reason}' in saved_page and f'> {correction_reason}' not in saved_page
+    assert any(dependency['factId'] == manual[0]['factId'] and dependency['requiresCurrent']
+               for dependency in saved['factDependencies']), 'The saved brief omitted its corrected-owner dependency.'
     assert temporal('check')['ok']
 
     def vendor_check():
@@ -198,7 +208,8 @@ def main():
               'quote_provenance_checked': True, 'source_entailment': 'Value matching and quote provenance are checked; source interpretation needs a separate audit.',
               'answers': answers, 'open_commitments': open_text,
               'correction_provenance': {'question': 'Who owns Staff training?', 'answer': owner_answer,
-                                        'brief_training': training_evidence, 'reason_returned': correction_reason},
+                                        'brief_training': training_evidence, 'reason_returned': correction_reason,
+                                        'live_ask_reason': 'passed', 'saved_brief': saved},
               'advantage_demo': {'vault': str(demo), 'pending_vendor_proposal_id': held,
                                  'origin': 'Actual proposals from this model run; other suggestions reviewed by a script for presentation. Separate from participant T1-T5 and C1.'},
               'vendor_history_check': {'current': vendor_now['answer'], 'on_2026_09_27': vendor_past['answer'], 'cited': True},

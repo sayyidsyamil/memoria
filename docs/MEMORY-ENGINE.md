@@ -114,6 +114,15 @@ HTML export is not implemented. Uncited suggested questions are omitted rather t
 assigned invented citations. Citation identity validation does not establish semantic
 correctness. General chat remains a separate mode of the AI panel.
 
+Manual ledger corrections cite the reviewer, reason and correction-recording time,
+separately from the original claim date. Ask, live Ask and briefs label that evidence
+as a **manual correction**; the inherited meeting source is original context, not a
+quote supporting the replacement value. As-recorded lookups retain the belief and
+provenance at the requested cutoff. Briefs record each stated fact dependency and
+refuse to save if a cited fact was retracted or a required current value changed.
+Saved Markdown keeps the correction note and context link. A correction fixes a
+record; a genuinely new assignment should enter as a new dated decision.
+
 Eight engine tests now cover review edits, undo conflicts and grounded query
 eligibility in addition to earlier checks. Real local models passed compile,
 apply, cited Ask, six-section Brief and Undo on temporary fictional data.

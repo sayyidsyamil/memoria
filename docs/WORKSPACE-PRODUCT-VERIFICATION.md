@@ -21,7 +21,8 @@ Application code built from `8cf25aca5`; the model-improvement experiments run s
 
 The installed-worker smoke passed: 17/17 proposals, all 15 events, correct recall and brief, and a successful check
 after a worker restart. The playback and recovery changes have unit and browser coverage; the native player check was
-blocked by the locked Mac with its lid closed. Details are in [`RELEASE_RECORD.md`](RELEASE_RECORD.md).
+blocked by the locked Mac with its lid closed. Details are in the archived
+[`v0.3.1-uat` record](releases/v0.3.1-uat.md).
 
 ## Suites before the `v0.3.0-uat` build — 3 November 2026
 
