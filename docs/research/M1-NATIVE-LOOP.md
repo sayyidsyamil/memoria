@@ -6,6 +6,7 @@ fictional acceptance fixtures (`scripts/create-live-acceptance-fixture.py`: macO
 text-to-speech, six sentences per meeting), played through the app's **Replay audio test**,
 which runs the same capture, live caption, checkpoint, End and review path as a microphone
 meeting without opening the microphone. This is not UAT and not a speech-accuracy evaluation.
+Speech was MOSS-Transcribe-Diarize, the app's speech model until 3 November.
 
 ## How the app was driven
 
@@ -56,7 +57,8 @@ Turn start times against the fixture: 0:00 (0.5 s), 0:09 (9.9 s), 0:18 (18.3 s),
 Not answered well: "Which supplier do we use now?" returned "The reviewed knowledge does not
 answer this", and "What changed about the supplier?" cited only meeting 2. Ask reads approved
 wiki claims, not the tracked-fact ledger that already answers current-value and change
-questions; routing such questions to tracked facts is planned work (roadmap M2).
+questions; routing such questions to tracked facts was planned work (roadmap M2), done in
+[M2](M2-MEETING-INTELLIGENCE.md#ask-from-tracked-facts-m1-vault).
 
 ## Run 3 — interrupted recording (crash during capture)
 

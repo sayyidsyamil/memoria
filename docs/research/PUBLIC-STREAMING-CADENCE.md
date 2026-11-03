@@ -1,5 +1,9 @@
 # Streaming cadence and overlap timing follow-up
 
+A record of 2 November 2026 about the MOSS live windows, which `MEMORIA_SPEECH_ENGINE=moss`
+still uses. Since 3 November the app's live captions read stretches of speech with Parakeet
+Ultra instead; see [research/live-speech](../../research/live-speech/README.md).
+
 ## Decision
 
 Keep the **4-second core / 2-second context** default. A single 2-second-core

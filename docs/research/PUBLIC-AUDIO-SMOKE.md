@@ -1,5 +1,9 @@
 # Public-audio offline file-transcription smoke
 
+A record of 2 November 2026, when the app transcribed with MOSS-Transcribe-Diarize. Since
+3 November it uses Parakeet Ultra with Nemotron 3 Diarization; see
+[research/live-speech](../../research/live-speech/README.md).
+
 ## Result and scope
 
 **PASS:** one invocation of the current `src-tauri/resources/memory/transcribe.py`
@@ -24,7 +28,7 @@ It is not an end-to-end or live-latency measurement.
 ## Data, runtime and reproducibility
 
 - Source: `/Users/sayyid/Desktop/FYP/data/ami/audio/IS1009a.wav`;
-  AMI public **mixed-headset** data, as identified by the user. ffprobe confirms
+  AMI public **mixed-headset** data. ffprobe confirms
   one mono PCM signed-16-bit channel, 16kHz, full duration 838.833313s;
   stream metadata does not independently identify the headset mix.
 - Attribution: **AMI Meeting Corpus / AMI Project**, meeting IS1009a;
@@ -159,7 +163,7 @@ Qualitative annotation comparisons, **not scored accuracy**:
 **WER was not calculated and no WER is claimed.** Reliable speaker/channel
 alignment for the provided mono mix was not independently established, and no
 reference ordering/scoring protocol for overlapping speakers was validated.
-Simply concatenating time-filtered speaker annotations would produce an
+Concatenating time-filtered speaker annotations would produce an
 unjustified reference. No DER or speaker-identification accuracy is claimed.
 
 Inspection confirms the file path performs one whole-clip generation with
@@ -170,5 +174,4 @@ window generations, warmup, boundary ownership/retries and cross-window voice
 reconciliation. It was read, but its live session was not run. This successful
 file smoke cannot validate those live mechanisms or their latency.
 
-Only this documentation file and authorized scratch were created by this task.
-No pipeline/source-data edits, microphone/native actions, commits or pushes.
+No pipeline code or source data was changed, and no microphone or native app was used.

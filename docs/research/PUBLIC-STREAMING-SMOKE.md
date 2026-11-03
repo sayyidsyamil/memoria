@@ -1,5 +1,9 @@
 # Public AMI streaming file-replay smoke
 
+A record of 2 November 2026: live captions then came from MOSS windows
+(`live_speech.WindowTranscript`). Since 3 November they come from Parakeet Ultra reading
+stretches of speech; see [research/live-speech](../../research/live-speech/README.md).
+
 ## Result and scope
 
 **PASS for one bounded, offline model-only replay:** the prepared AMI IS1009a
@@ -20,11 +24,11 @@ The child had a **290s** deadline, killed as a process group if exceeded; the
 outer command had a **300s** timeout. Only one model replay was launched; the
 subsequent analysis command only read logs. No downloads, installs or commits.
 
-## Actual API and method
+## API and method
 
-The current `src-tauri/resources/memory/live_speech.py` has **no `LiveSession`
-class**. Its actual interfaces are `WindowTranscript(model).feed(samples,
-final=False)` and `run(model=None)`, the latter reading newline-delimited JSON:
+At the time of this run, `src-tauri/resources/memory/live_speech.py` exposed
+`WindowTranscript(model).feed(samples, final=False)` and `run(model=None)`, the
+latter reading newline-delimited JSON:
 
 1. Initial request: `vaultPath` and UUID `sessionId`.
 2. Wait for `{"stage":"Live captions ready"}`.
@@ -137,10 +141,9 @@ The first nonempty event text was exactly:
 `Okay. Okay. Everybody ready? Yeah, I think so.`
 Full cumulative text, turns and every ack/stage/error timestamp are in the logs.
 
-## Output defects and concrete recommendations
+## Output defects and recommendations
 
-No API failure or fatal backend defect occurred. The requested `LiveSession`
-name is an API-name mismatch, not a class to invent in the benchmark.
+No API failure or fatal backend defect occurred.
 
 **Observed timestamp/text inconsistency after context trimming:** final segment 9
 has start **38.00s**, end **45.98s**, speaker S01 and trimmed text
@@ -152,7 +155,7 @@ but leaves its original start/end unchanged; the continuation is consequently
 still timed at the start of the removed prefix. This is a concrete metadata
 defect visible in this run, not evidence that all genuine overlap is wrong.
 
-**Concrete fix recommendation:** make overlap alignment return the retained-word
+**Fix recommendation:** make overlap alignment return the retained-word
 boundary as well as text. With reliable word timing, advance the retained text's
 start to that boundary. With only segment timing, retain the raw segment interval
 explicitly and mark trimmed-text timing as unresolved; do not silently present
@@ -160,7 +163,7 @@ explicitly and mark trimmed-text timing as unresolved; do not silently present
 ratio. Consider revising/merging the overlapping same-voice turn when its
 identity can be established, rather than appending an independently timed
 fragment. Do not blanket clamp to the previous end: genuine speakers overlap.
-This task records the fix; it does not apply backend changes.
+The fix was applied afterwards ([cadence follow-up](PUBLIC-STREAMING-CADENCE.md#fixed-timing-contract)).
 
 Other observed limitations:
 
@@ -255,5 +258,4 @@ macOS `/private/var/...` is the equivalent resolved path used inside logs.
 
 Invocation used the existing `.speech-runtime/bin/python -B -u` on scratch
 `replay.py`. The directory's logs are single-run artifacts; do not rerun in
-place and overwrite this evidence. Only this documentation file and
-`opencode/public-streaming-smoke/` were created by the task.
+place and overwrite this evidence.

@@ -15,7 +15,7 @@ source is saved/skipped, the remaining pending source becomes current.
 
 Seven focused tests pass, including direct handoff without automatic claim
 publication and one-source-at-a-time selection. TypeScript, scoped lint, diff
-check and native build pass. Dock bundle updated. Native Review knowledge was
+check and native build pass. Native Review knowledge was
 opened with a real saved pending proposal; the accessibility tree confirms the
 editable claims/evidence and footer actions. Screenshot capture did not reliably
 render the modal in that session. Full native picker → import → build → apply

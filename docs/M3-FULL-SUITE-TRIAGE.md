@@ -1,13 +1,13 @@
 # M3 full-suite reconciliation — 2 November 2026
 
-No desktop build, installation, launch, model loading, dependency installation or
-commit was performed. Rust and Python changes in the shared checkout belong to
-parallel work and are not part of this verification.
+This pass changed tests, four product and configuration files and, separately, one
+script check; it involved no desktop build, installation, launch or model loading. Rust and
+Python changes made at the same time are not part of it.
 
 ## Baseline causes
 
-The initial full run is saved as `memoria-vitest-before.log` in the session's
-approved temporary directory: **133 failed, 6,539 passed, 1 existing skip;
+The initial full run is saved as `memoria-vitest-before.log` in the temporary directory
+listed under Verification observations: **133 failed, 6,539 passed, 1 existing skip;
 26 failed / 677 passed files; 27 uncaught errors**. Two failed files could not
 collect tests because of transient `ENOSPC`; the assertion-failure groups below
 sum to 133. The initial foreground attempt hit its shell timeout and was rerun
@@ -104,7 +104,7 @@ unreachable through this hook. These tests must not re-enable upstream requests.
 
 The old browser no-check and no-update-result tests are replaced by a native/browser
 matrix asserting idle, an exact no-update result and no metadata request even after
-30 seconds. Add a no-download-without-metadata test. Idle, disabled-auto-check,
+30 seconds. A no-download-without-metadata test was added. Idle, disabled-auto-check,
 dismiss and release-notes action tests remain; `useUpdater.memoria.test.ts` remains.
 
 ### Community/Discord — 4 removed
@@ -200,7 +200,7 @@ workflow is absent and still requires any existing one to be a known publisher:
   `markdownSourcePatch.test.ts` / `keeps a 6000-line canonical flush below five milliseconds`,
   gated on the existing `MEMORIA_PERF_TESTS=1` opt-in. No new skips were introduced.
 - Final Node script tests: 16 pass; web config: 45 pass; dev mock: 3 pass. Pages
-  verification remains 12 pass / 2 fail for absent upstream publishers, as documented.
+  verification: 14 pass after the change above (12 pass / 2 fail before it).
 - Logs are under `/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/`:
   `memoria-vitest-before.log`, `memoria-vitest-after.log`, `memoria-vitest-final.log`,
   `memoria-focused-final.log`, `memoria-server-after.log`, `memoria-other-final.log`,
@@ -215,6 +215,6 @@ workflow is absent and still requires any existing one to be a known publisher:
 | `src/lib/sharing/sharingStore.ts` | Revision-fence older refresh results/errors after local invite/revoke mutations so a stale response cannot undo successful UI state. |
 | `apps/server/vitest.config.ts` | Use the frontend's four-worker default (same environment override) to avoid real-git fixture starvation; no assertions or deadlines relaxed. |
 
-All remaining changed code files are test fixtures/assertions or the corpus golden;
-the two documentation files record this reconciliation. Work remained on `main`
-in the shared checkout; this worker did not commit or edit `src-tauri/` or `scripts/`.
+All other changed files are test fixtures, assertions or the corpus golden;
+[WORKSPACE-PRODUCT-VERIFICATION.md](WORKSPACE-PRODUCT-VERIFICATION.md) and this file record
+the reconciliation. The Pages check was changed separately, and `src-tauri/` was not changed.
