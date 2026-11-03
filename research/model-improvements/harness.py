@@ -39,6 +39,9 @@ def split_of(series):
 def load_series(names, allow_validation=False):
     out = []
     for name in names:
+        if name == "demo":  # the fictional UAT series (regression only)
+            out += [c for c in load_chains(str(LEDGER / "data" / "demo")) if c.chain_id == "demo"]
+            continue
         split = split_of(name)
         if split == "new-val" and not allow_validation:
             raise SystemExit(f"{name} is in the reserved validation split; it is opened only by the preregistered final run")

@@ -149,3 +149,8 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
 - Model consolidation (`consolidate`, thinking off, 16 questions on dev, 28 s in all): on the nosys base QA 101, gold
   27 (no better than modevalue: 102, 28); on the app base QA 102 with current 32/43 but gold 23 and correct proposals 22
   (fails both guardrails). Not preferred (ties go to fewer model calls).
+- 15:20 Guard reference, 4B in-process (lexical candidates, threshold 2.0): 16/20 caught, 2/40 false alarms, the
+  numbers `../live-verifier` published for "guard alone, threshold 2.0" on this split (an independent parity check of
+  the harness); strongest-candidate AUROC 0.969; 0.33 s per question. 0.8B AUROC: stock 0.629 / edited 0.632 (bf16),
+  0.619 / 0.620 (4-bit). Routing in 4-bit 0.8B collapses (51 and 54 of 124 replies unparsable; 52 and 53 right on
+  gold facts against 95 and 103 in bf16).

@@ -448,3 +448,84 @@ time budget reached before TS3006
           2704901824  peak memory footprint
 {"label": "08-edit-q4-suite", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "suite", "0.8b-edit-q4", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:42:09", "waited_s": 733.4, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 567.2, "peak_footprint_gb": 2.705, "max_rss_gb": 2.142, "released": "2026-11-03 15:03:50"}
 === 15:03:50 4b-guard-dev: guard 4b dev
+{"variant": "4b", "split": "dev", "n": 60, "tp": 16, "fp": 2, "fn": 4, "tn": 38, "alert_precision": 0.8888888888888888, "alert_recall": 0.8, "false_alarm": 0.05, "errors": 0, "uncertain": 0, "p50_ms": 512.6, "p95_ms": 2003.6699999999994, "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction", "misses": 150, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 7.01, "active_gb": 2.5}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.088], ["candidates:5", 0.089], ["guard", 16.37], ["strength:-2.1", 16.37], ["done", 16.37]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.009], ["candidates:5", 0.012], ["guard", 1.587], ["strength:-1.1", 1.587], ["done", 1.587]]}
+{"liveCheckTiming": [["ledger", 0.039], ["meaning:0", 0.039], ["candidates:5", 0.041], ["guard", 2.592], ["strength:4.8", 2.592], ["done", 2.592]]}
+{"liveCheckTiming": [["ledger", 0.021], ["meaning:0", 0.022], ["candidates:5", 0.023], ["guard", 1.867], ["strength:4.5", 1.867], ["done", 1.867]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.009], ["guard", 0.32], ["strength:5.8", 0.32], ["done", 0.32]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.01], ["candidates:5", 0.01], ["guard", 0.316], ["strength:6.8", 0.316], ["done", 0.316]]}
+{"liveCheckTiming": [["ledger", 0.016], ["meaning:0", 0.016], ["candidates:2", 0.017], ["guard", 1.536], ["strength:-3.4", 1.536], ["done", 1.536]]}
+{"liveCheckTiming": [["ledger", 0.019], ["meaning:0", 0.019], ["candidates:1", 0.02], ["guard", 0.68], ["strength:-5.5", 0.68], ["done", 0.68]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.007], ["candidates:5", 0.009], ["guard", 1.992], ["strength:0.2", 1.992], ["done", 1.992]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:5", 0.009], ["guard", 1.895], ["strength:2.1", 1.895], ["done", 1.895]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.013], ["candidates:5", 0.013], ["guard", 1.662], ["strength:-1.5", 1.662], ["done", 1.662]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.007], ["guard", 1.799], ["strength:2.4", 1.799], ["done", 1.799]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.013], ["candidates:5", 0.015], ["guard", 1.427], ["strength:0.1", 1.427], ["done", 1.427]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.011], ["candidates:5", 0.012], ["guard", 0.363], ["strength:8.1", 0.363], ["done", 0.363]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:2", 0.007], ["guard", 0.628], ["strength:-3.5", 0.628], ["done", 0.628]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.009], ["done", 0.009]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 1.738], ["strength:-5.6", 1.738], ["done", 1.738]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.008], ["guard", 1.943], ["strength:-2.9", 1.943], ["done", 1.943]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:5", 0.009], ["guard", 1.905], ["strength:2.4", 1.905], ["done", 1.905]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:5", 0.009], ["guard", 1.958], ["strength:2.0", 1.958], ["done", 1.958]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 1.878], ["strength:0.0", 1.878], ["done", 1.878]]}
+{"liveCheckTiming": [["ledger", 0.018], ["meaning:0", 0.019], ["candidates:5", 0.019], ["guard", 0.243], ["strength:6.4", 0.243], ["done", 0.243]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.007], ["guard", 0.339], ["strength:5.9", 0.339], ["done", 0.339]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:1", 0.008], ["guard", 0.386], ["strength:-4.5", 0.386], ["done", 0.386]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:1", 0.006], ["guard", 0.382], ["strength:-5.9", 0.382], ["done", 0.382]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:1", 0.007], ["guard", 0.397], ["strength:-7.8", 0.397], ["done", 0.397]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:4", 0.009], ["guard", 1.316], ["strength:-3.5", 1.316], ["done", 1.316]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.01], ["candidates:5", 0.01], ["guard", 2.22], ["strength:1.5", 2.22], ["done", 2.22]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 1.633], ["strength:-0.6", 1.633], ["done", 1.633]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:5", 0.013], ["guard", 1.639], ["strength:4.1", 1.639], ["done", 1.639]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 1.432], ["strength:4.5", 1.432], ["done", 1.432]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.01], ["candidates:5", 0.01], ["guard", 0.291], ["strength:5.8", 0.291], ["done", 0.291]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.008], ["guard", 1.652], ["strength:2.4", 1.652], ["done", 1.652]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:1", 0.007], ["guard", 0.291], ["strength:-3.8", 0.291], ["done", 0.291]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:2", 0.006], ["guard", 1.05], ["strength:-4.8", 1.05], ["done", 1.05]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.005], ["guard", 0.275], ["strength:-5.1", 0.275], ["done", 0.275]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 1.466], ["strength:1.8", 1.466], ["done", 1.466]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 1.466], ["strength:-0.2", 1.466], ["done", 1.466]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 1.52], ["strength:2.6", 1.52], ["done", 1.52]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:5", 0.009], ["guard", 1.573], ["strength:1.0", 1.573], ["done", 1.573]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 1.235], ["strength:4.6", 1.235], ["done", 1.235]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.314], ["strength:6.0", 0.314], ["done", 0.314]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.006], ["guard", 0.24], ["strength:-2.0", 0.24], ["done", 0.24]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.006], ["candidates:4", 0.006], ["guard", 1.276], ["strength:-2.1", 1.276], ["done", 1.276]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.288], ["strength:-6.5", 0.288], ["done", 0.288]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.005], ["guard", 0.278], ["strength:-6.4", 0.278], ["done", 0.278]]}
+       82.41 real        17.70 user        12.83 sys
+          1192984576  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              340739  page reclaims
+                7253  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               18058  voluntary context switches
+              251782  involuntary context switches
+        107436868992  instructions retired
+         59779951717  cycles elapsed
+          3453455576  peak memory footprint
+{"label": "4b-guard-dev", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "guard", "4b", "dev"], "asked": "2026-11-03 15:03:50", "waited_s": 608.0, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 82.4, "peak_footprint_gb": 3.453, "max_rss_gb": 1.193, "released": "2026-11-03 15:15:21"}
+=== 15:15:21 queue done
