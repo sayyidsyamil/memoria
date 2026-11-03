@@ -52,6 +52,15 @@ class QualificationTests(unittest.TestCase):
         rows[-1]["matches_historical_bytes"] = False
         self.assertFalse(decide(rows)["passed"])
 
+    def test_actual_independent_loss_is_not_hidden_by_clean_eos_and_zero_valid_counts(self):
+        rows = [json.loads(line) for line in (HERE / "results" / "transfer.jsonl").read_text().splitlines()]
+        edit = next(r for r in rows if r["condition"] == "edit")
+        self.assertTrue(edit["natural_eos"] and edit["audit"]["strict_raw_schema"])
+        self.assertEqual(edit["output_tokens"], 145)
+        self.assertTrue(all(not r["audit"]["quality"]["unique_valid"] for r in rows))
+        self.assertEqual(len(edit["versus_before"]["lost_source_controls"]), 4)
+        self.assertFalse(decide(rows)["passed"])
+
 
 if __name__ == "__main__":
     unittest.main()

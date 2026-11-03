@@ -1,0 +1,18 @@
+{
+  "recorded": "2026-11-03T21:58:42+0800",
+  "archive": {
+    "commit": "42ad04c4489e48a4b83a36fb26e4657ce7d79fae",
+    "manifest_sha256": "0d1a4ef6f10f907c83a1cec30a194f211ff957fdbcc1ba7457cd6c7f99664a6f",
+    "verified_original_files": 150,
+    "new_subfolder_excluded_from_old_manifest": true
+  },
+  "freeze_commit": "64829416d",
+  "frozen_amendment_plan_and_executed_code_unchanged": true,
+  "owned_transfer_workers_or_wrappers_running": [],
+  "all_new_changes_within_qualification_subfolder": true,
+  "model_leases_used": 1,
+  "model_lease_seconds": 169.27,
+  "outcome": "failed-collateral",
+  "planned_transfer_conditions_completed": 4,
+  "additional_model_leases_after_transfer": 0
+}

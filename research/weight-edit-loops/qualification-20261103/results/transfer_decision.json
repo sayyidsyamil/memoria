@@ -1,0 +1,10 @@
+{
+  "outcome": "failed-transfer-or-collateral",
+  "passed": false,
+  "failures": [
+    "event/source/wrong-value preservation gate failed"
+  ],
+  "matched_random_success": false,
+  "development_candidate": false,
+  "shipping_or_newval_authorised": false
+}
