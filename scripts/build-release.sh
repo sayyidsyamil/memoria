@@ -24,9 +24,8 @@ done
 commit=$(git rev-parse HEAD)
 version=$(/opt/homebrew/bin/python3.11 -c "import json; print(json.load(open('src-tauri/tauri.conf.json'))['version'])")
 started=$(date '+%Y-%m-%d %H:%M %z')
-# Keep the preserved source tree intact. Tests and workers must not add bytecode to build inputs.
-bytecode=$(find src-tauri/resources/memory \( -name __pycache__ -o -name '*.pyc' \) -print -quit)
-[[ -z $bytecode ]] || { print "Refusing: Python bytecode is present in the resource inputs: $bytecode"; exit 1; }
+# The resource map enumerates Python source files, not cache folders. Preserve the
+# source tree and check the assembled bundle below instead of deleting source caches.
 # CI makes the bundler skip the Finder layout step of the disk image (no window is opened).
 CI=true pnpm tauri build
 
@@ -39,7 +38,7 @@ resources=$app/Contents/Resources
 for required in memory/engine.py memory/live_assistance.py memory/ask_facts.py memory/private_storage.py memory/memoria_engine/ledger.py memory/memoria_engine/schema.sql memory/memoria_engine/evaluation/router.py; do
   [[ -e $resources/$required ]] || { print "Bundle check failed: $required missing"; exit 1; }
 done
-[[ -z "$(find $resources -name __pycache__ -print -quit)" ]] || { print "Bundle check failed: __pycache__ in the bundle"; exit 1; }
+[[ -z "$(find $resources \( -name __pycache__ -o -name '*.pyc' \) -print -quit)" ]] || { print "Bundle check failed: Python bytecode in the bundle"; exit 1; }
 # Call audio: the helper beside the app binary (signed with it) and the permission text macOS shows.
 [[ -x $app/Contents/MacOS/memoria-call-audio ]] || { print "Bundle check failed: Contents/MacOS/memoria-call-audio missing"; exit 1; }
 /usr/libexec/PlistBuddy -c 'Print :NSAudioCaptureUsageDescription' $app/Contents/Info.plist >/dev/null 2>&1 \

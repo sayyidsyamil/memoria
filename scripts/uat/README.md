@@ -10,6 +10,18 @@ These scripts prepare fictional data; they do not produce participant results.
 `memoria-doctor.sh` checks the installed app and local runtime setup. `dry_run.sh` and `score_demo.py`
 are developer checks, not user acceptance evidence.
 
+`smoke_installed.py` verifies the installed bundle and its running resident workers on a fresh demo copy:
+
+```sh
+python3.11 -B scripts/uat/smoke_installed.py --pid <test-app-pid> --expected-version 0.3.2 \
+  --pristine <pristine-demo-vault> --output <new-smoke-result.json> --restart-worker
+```
+
+It requires a test app launched with `--memoria-vault-instance`. The optional restart check terminates
+only that instance's Qwen child, then checks replacement and a subsequent request. Results include
+value/key and quote-provenance checks, Alpha→Beta history, T4/T5, live-check probes and the bundle signature.
+This does not establish native UI/audio behaviour, source entailment or participant acceptance.
+
 ## Separate C1 review challenge
 
 Run core T1–T5 and collect SUS before this additional diagnostic. It has its own workspace and results.
