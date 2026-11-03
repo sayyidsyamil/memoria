@@ -21,3 +21,46 @@
             33178152  peak memory footprint
 {"label": "4b-c1mode-a", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop+modevalue", "ES2003", "TS3004"], "asked": "2026-11-03 14:03:30", "waited_s": 777.8, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 0.6, "peak_footprint_gb": 0.033, "max_rss_gb": 0.053, "released": "2026-11-03 14:16:28"}
 === 14:16:28 4b-c1mode-b: extract 4b app-nosys-numwords-loopstop+modevalue ES2011 IS1008
+{"series": "ES2011", "mechanism": "app-nosys-numwords-loopstop+modevalue", "windows": 16, "seconds": 115.7, "hit_budget": 0, "unclean": 1, "misses": 9, "hits": 7, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.0, "active_gb": 2.491}
+{"series": "IS1008", "mechanism": "app-nosys-numwords-loopstop+modevalue", "windows": 15, "seconds": 0.1, "hit_budget": 0, "unclean": 0, "misses": 9, "hits": 22, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.0, "active_gb": 2.491}
+      116.90 real        26.93 user         9.53 sys
+          1946845184  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              381345  page reclaims
+                2693  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6136  voluntary context switches
+              212026  involuntary context switches
+        134466546065  instructions retired
+         65335309296  cycles elapsed
+          4843310296  peak memory footprint
+{"label": "4b-c1mode-b", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop+modevalue", "ES2011", "IS1008"], "asked": "2026-11-03 14:16:28", "waited_s": 1582.4, "deferred_for": [], "free_disk_gb": 20.6, "status": "exit 0", "seconds": 116.9, "peak_footprint_gb": 4.843, "max_rss_gb": 1.947, "released": "2026-11-03 14:44:48"}
+=== 14:44:48 4b-c1mode-c: extract 4b app-nosys-numwords-loopstop+modevalue TS3006
+{"series": "TS3006", "mechanism": "app-nosys-numwords-loopstop+modevalue", "windows": 25, "seconds": 0.1, "hit_budget": 0, "unclean": 1, "misses": 0, "hits": 25}
+        0.40 real         0.24 user         0.04 sys
+            54132736  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                4318  page reclaims
+                 375  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 144  voluntary context switches
+                 733  involuntary context switches
+          2944090091  instructions retired
+           705844270  cycles elapsed
+            33964560  peak memory footprint
+{"label": "4b-c1mode-c", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop+modevalue", "TS3006"], "asked": "2026-11-03 14:44:48", "waited_s": 1186.7, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 0.4, "peak_footprint_gb": 0.034, "max_rss_gb": 0.054, "released": "2026-11-03 15:04:35"}
+=== 15:04:35 queue done

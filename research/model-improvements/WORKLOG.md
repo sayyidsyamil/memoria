@@ -133,3 +133,19 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   question type, with current values and change counts separately. The edited 0.8B on TS3004 shows it: it writes
   almost nothing (73 unresolved and 50 invalid candidates) and scores QA 16/20 against the 4B's 10/20, with 3 of 10
   gold events against 6.
+- 15:10 **Closed loop on full dev** (each configuration's own beliefs in its later prompts):
+  | configuration | QA /124 | current /43 | changes /43 | gold found /60 | wrong | inbox | gen s / meeting |
+  |---|---|---|---|---|---|---|---|
+  | app (shipped) | 90 | 28 | 26 | 26 | 46 | 119 | 57.6 |
+  | nosys | 95 | 27 | 31 | 29 | 45 | 100 | 67.1 |
+  | nosys + numwords + loopstop | 90 | 25 | 28 | 29 | 53 | 104 | 65.3 |
+  | **A = nosys + numwords + loopstop + modevalue** | **100** | 28 | 35 | 28 | 31 | 89 | 67.1 |
+  A against the app: 17 questions only A gets right, 7 only the app (p = 0.064, dev, after choosing among variants).
+  Guardrails on dev: gold found 28 >= 24, correct proposals 27 >= 23, wrong writes 31 <= 46, unclean 4 <= 4, current
+  28 >= 26: all hold. Lesson about noise: nosys + numwords + loopstop differs from nosys only where amounts in words
+  change a later prompt, yet QA moves 95 -> 90 (TS3006 26 -> 23, TS3004 15 -> 13). Greedy decoding of a changed prompt
+  moves single-series QA by several questions, so the request change alone (nosys) is not shown to help; the robust
+  part of A on dev is one value per slot per meeting on top of the request without the system message.
+- Model consolidation (`consolidate`, thinking off, 16 questions on dev, 28 s in all): on the nosys base QA 101, gold
+  27 (no better than modevalue: 102, 28); on the app base QA 102 with current 32/43 but gold 23 and correct proposals 22
+  (fails both guardrails). Not preferred (ties go to fewer model calls).

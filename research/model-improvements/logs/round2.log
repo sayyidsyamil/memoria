@@ -266,3 +266,185 @@ time budget reached before ES2011
           3538094600  peak memory footprint
 {"label": "08-edit-bf16-suite", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "suite", "0.8b-edit-bf16", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 13:52:13", "waited_s": 82.3, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 881.0, "peak_footprint_gb": 3.538, "max_rss_gb": 1.242, "released": "2026-11-03 14:08:16"}
 === 14:08:16 08-q4-suite: suite 0.8b-q4 ES2003 TS3004 ES2011 IS1008 TS3006
+[INFO] Quantized model with 4.508 bits per weight.
+{"variant": "0.8b-q4", "split": "dev", "n": 60, "tp": 0, "fp": 0, "fn": 20, "tn": 40, "alert_precision": NaN, "alert_recall": 0.0, "false_alarm": 0.0, "errors": 0, "uncertain": 0, "p50_ms": 281.25, "p95_ms": 693.7549999999998, "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction", "misses": 178, "hits": 0, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 2.29, "active_gb": 0.479}
+{"series": "ES2003", "questions": 25, "misses": 203, "hits": 0}
+{"series": "TS3004", "questions": 20, "misses": 223, "hits": 0}
+{"series": "ES2011", "questions": 24, "misses": 247, "hits": 0}
+{"series": "IS1008", "questions": 21, "misses": 268, "hits": 0}
+{"series": "TS3006", "questions": 34, "misses": 302, "hits": 0}
+{"series": "ES2003", "mechanism": "app", "windows": 20, "seconds": 324.2, "hit_budget": 15, "unclean": 16, "misses": 322, "hits": 0, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 2.29, "active_gb": 0.479}
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 388.7, "hit_budget": 19, "unclean": 19, "misses": 343, "hits": 0, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 2.29, "active_gb": 0.479}
+time budget reached before ES2011
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.182], ["candidates:5", 0.183], ["guard", 11.906], ["strength:0.1", 11.906], ["done", 11.906]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.303], ["strength:-0.1", 0.303], ["done", 0.303]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.473], ["strength:-0.9", 0.473], ["done", 0.473]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.554], ["strength:-1.5", 0.554], ["done", 0.554]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.389], ["strength:-1.2", 0.389], ["done", 0.389]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.312], ["strength:-1.6", 0.312], ["done", 0.312]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:2", 0.005], ["guard", 0.124], ["strength:-1.4", 0.124], ["done", 0.124]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.05], ["strength:-1.5", 0.05], ["done", 0.05]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.004], ["guard", 0.255], ["strength:-0.1", 0.255], ["done", 0.255]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.004], ["guard", 0.275], ["strength:-0.8", 0.275], ["done", 0.275]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.003], ["guard", 0.392], ["strength:-1.2", 0.392], ["done", 0.392]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 0.368], ["strength:-0.5", 0.368], ["done", 0.368]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.367], ["strength:-0.9", 0.367], ["done", 0.367]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 0.78], ["strength:-1.8", 0.78], ["done", 0.78]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.014], ["candidates:2", 0.015], ["guard", 0.122], ["strength:-0.9", 0.122], ["done", 0.122]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.004], ["guard", 0.308], ["strength:-1.8", 0.308], ["done", 0.308]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.006], ["guard", 0.563], ["strength:0.8", 0.563], ["done", 0.563]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.514], ["strength:-0.8", 0.514], ["done", 0.514]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.003], ["guard", 0.399], ["strength:0.1", 0.399], ["done", 0.399]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.393], ["strength:-1.8", 0.393], ["done", 0.393]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.412], ["strength:-1.4", 0.412], ["done", 0.412]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.003], ["guard", 0.397], ["strength:-1.8", 0.397], ["done", 0.397]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:1", 0.004], ["guard", 0.11], ["strength:-1.4", 0.11], ["done", 0.11]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.116], ["strength:-1.5", 0.116], ["done", 0.116]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.113], ["strength:-2.8", 0.113], ["done", 0.113]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.034], ["meaning:0", 0.034], ["candidates:4", 0.035], ["guard", 0.528], ["strength:-0.8", 0.528], ["done", 0.528]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.01], ["candidates:5", 0.01], ["guard", 0.52], ["strength:-0.6", 0.52], ["done", 0.52]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.01], ["guard", 1.112], ["strength:0.0", 1.112], ["done", 1.112]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.343], ["strength:-0.5", 0.343], ["done", 0.343]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.007], ["guard", 0.395], ["strength:-1.0", 0.395], ["done", 0.395]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.35], ["strength:-1.6", 0.35], ["done", 0.35]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.399], ["strength:-2.4", 0.399], ["done", 0.399]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.015], ["candidates:1", 0.016], ["guard", 0.142], ["strength:-1.1", 0.142], ["done", 0.142]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:2", 0.006], ["guard", 0.135], ["strength:-1.5", 0.135], ["done", 0.135]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.006], ["guard", 0.057], ["strength:-2.0", 0.057], ["done", 0.057]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.373], ["strength:-0.4", 0.373], ["done", 0.373]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.009], ["candidates:5", 0.009], ["guard", 0.689], ["strength:0.0", 0.689], ["done", 0.689]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.291], ["strength:-1.5", 0.291], ["done", 0.291]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.305], ["strength:-1.1", 0.305], ["done", 0.305]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.288], ["strength:-2.0", 0.288], ["done", 0.288]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.296], ["strength:-1.5", 0.296], ["done", 0.296]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.007], ["candidates:1", 0.007], ["guard", 0.086], ["strength:-2.2", 0.086], ["done", 0.086]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:4", 0.005], ["guard", 0.266], ["strength:-1.5", 0.266], ["done", 0.266]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["done", 0.007]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:1", 0.008], ["guard", 0.06], ["strength:-1.4", 0.06], ["done", 0.06]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.005], ["candidates:1", 0.005], ["guard", 0.059], ["strength:-2.2", 0.059], ["done", 0.059]]}
+      851.55 real       605.19 user       139.15 sys
+          1508786176  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              522240  page reclaims
+                6858  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               15951  voluntary context switches
+             6626705  involuntary context switches
+       2824152510986  instructions retired
+       1430154731892  cycles elapsed
+          2639840936  peak memory footprint
+{"label": "08-q4-suite", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "suite", "0.8b-q4", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:08:16", "waited_s": 1182.0, "deferred_for": [], "free_disk_gb": 22.8, "status": "exit 0", "seconds": 851.6, "peak_footprint_gb": 2.64, "max_rss_gb": 1.509, "released": "2026-11-03 14:42:09"}
+=== 14:42:09 08-edit-q4-suite: suite 0.8b-edit-q4 ES2003 TS3004 ES2011 IS1008 TS3006
+[INFO] Quantized model with 4.508 bits per weight.
+{"variant": "0.8b-edit-q4", "split": "dev", "n": 60, "tp": 0, "fp": 0, "fn": 20, "tn": 40, "alert_precision": NaN, "alert_recall": 0.0, "false_alarm": 0.0, "errors": 0, "uncertain": 0, "p50_ms": 288.6, "p95_ms": 511.65, "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction", "misses": 178, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.9, "active_gb": 0.479}
+{"series": "ES2003", "questions": 25, "misses": 203, "hits": 0}
+{"series": "TS3004", "questions": 20, "misses": 223, "hits": 0}
+{"series": "ES2011", "questions": 24, "misses": 247, "hits": 0}
+{"series": "IS1008", "questions": 21, "misses": 268, "hits": 0}
+{"series": "TS3006", "questions": 34, "misses": 302, "hits": 0}
+{"series": "ES2003", "mechanism": "app", "windows": 20, "seconds": 148.9, "hit_budget": 4, "unclean": 4, "misses": 322, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.9, "active_gb": 0.479}
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 154.9, "hit_budget": 7, "unclean": 8, "misses": 343, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.9, "active_gb": 0.479}
+{"series": "ES2011", "mechanism": "app", "windows": 16, "seconds": 64.6, "hit_budget": 1, "unclean": 1, "misses": 359, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.9, "active_gb": 0.479}
+{"series": "IS1008", "mechanism": "app", "windows": 15, "seconds": 72.0, "hit_budget": 3, "unclean": 3, "misses": 374, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.9, "active_gb": 0.479}
+time budget reached before TS3006
+{"liveCheckTiming": [["ledger", 0.002], ["meaning:0", 0.081], ["candidates:5", 0.082], ["guard", 7.714], ["strength:0.6", 7.714], ["done", 7.714]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 0.291], ["strength:0.4", 0.291], ["done", 0.291]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.511], ["strength:-0.4", 0.511], ["done", 0.511]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.008], ["guard", 0.431], ["strength:-1.0", 0.431], ["done", 0.431]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.01], ["candidates:5", 0.011], ["guard", 0.455], ["strength:-0.6", 0.455], ["done", 0.455]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 0.275], ["strength:-1.1", 0.275], ["done", 0.275]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:2", 0.004], ["guard", 0.12], ["strength:-0.6", 0.12], ["done", 0.12]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:1", 0.007], ["guard", 0.063], ["strength:-1.0", 0.063], ["done", 0.063]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.009], ["done", 0.009]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.01], ["candidates:5", 0.011], ["guard", 0.304], ["strength:0.4", 0.304], ["done", 0.304]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.524], ["strength:-0.1", 0.524], ["done", 0.524]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.004], ["guard", 0.312], ["strength:-0.8", 0.312], ["done", 0.312]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 0.449], ["strength:0.1", 0.449], ["done", 0.449]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.01], ["candidates:5", 0.011], ["guard", 0.402], ["strength:0.0", 0.402], ["done", 0.402]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.342], ["strength:-1.0", 0.342], ["done", 0.342]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.012], ["done", 0.012]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:2", 0.005], ["guard", 0.122], ["strength:-0.4", 0.122], ["done", 0.122]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["done", 0.003]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.354], ["strength:-1.1", 0.354], ["done", 0.354]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.008], ["guard", 0.426], ["strength:1.0", 0.426], ["done", 0.426]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 0.719], ["strength:-0.2", 0.719], ["done", 0.719]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.008], ["guard", 0.436], ["strength:0.5", 0.436], ["done", 0.436]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.5], ["strength:-1.0", 0.5], ["done", 0.5]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.349], ["strength:-0.8", 0.349], ["done", 0.349]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:5", 0.004], ["guard", 0.402], ["strength:-1.1", 0.402], ["done", 0.402]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.006], ["guard", 0.107], ["strength:-0.8", 0.107], ["done", 0.107]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.005], ["guard", 0.103], ["strength:-0.9", 0.103], ["done", 0.103]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.126], ["strength:-2.0", 0.126], ["done", 0.126]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.014], ["done", 0.014]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:4", 0.006], ["guard", 0.353], ["strength:-0.2", 0.353], ["done", 0.353]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.007], ["guard", 0.402], ["strength:-0.1", 0.402], ["done", 0.402]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.007], ["guard", 0.306], ["strength:0.4", 0.306], ["done", 0.306]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.359], ["strength:0.1", 0.359], ["done", 0.359]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 0.328], ["strength:-0.4", 0.328], ["done", 0.328]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.303], ["strength:-1.0", 0.303], ["done", 0.303]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.35], ["strength:-1.6", 0.35], ["done", 0.35]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.063], ["strength:-0.6", 0.063], ["done", 0.063]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:2", 0.004], ["guard", 0.106], ["strength:-0.9", 0.106], ["done", 0.106]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:1", 0.007], ["guard", 0.067], ["strength:-1.4", 0.067], ["done", 0.067]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["done", 0.008]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.011], ["candidates:5", 0.013], ["guard", 0.294], ["strength:0.0", 0.294], ["done", 0.294]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.263], ["strength:0.5", 0.263], ["done", 0.263]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.288], ["strength:-1.0", 0.288], ["done", 0.288]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.341], ["strength:-0.5", 0.341], ["done", 0.341]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.298], ["strength:-1.5", 0.298], ["done", 0.298]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.377], ["strength:-1.0", 0.377], ["done", 0.377]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.005], ["guard", 0.075], ["strength:-1.8", 0.075], ["done", 0.075]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:4", 0.004], ["guard", 0.289], ["strength:-0.9", 0.289], ["done", 0.289]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.101], ["strength:-0.6", 0.101], ["done", 0.101]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:1", 0.007], ["guard", 0.089], ["strength:-1.5", 0.089], ["done", 0.089]]}
+      567.17 real       406.32 user        95.56 sys
+          2142142464  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              362154  page reclaims
+                6946  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               17558  voluntary context switches
+             4192102  involuntary context switches
+       2093175782633  instructions retired
+        992659575483  cycles elapsed
+          2704901824  peak memory footprint
+{"label": "08-edit-q4-suite", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "suite", "0.8b-edit-q4", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:42:09", "waited_s": 733.4, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 567.2, "peak_footprint_gb": 2.705, "max_rss_gb": 2.142, "released": "2026-11-03 15:03:50"}
+=== 15:03:50 4b-guard-dev: guard 4b dev

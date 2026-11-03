@@ -1,1 +1,46 @@
 === 14:04:01 08-bf16-x1: extract 0.8b-bf16 app TS3004 ES2011
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 688.3, "hit_budget": 17, "unclean": 17, "misses": 21, "hits": 0, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.27, "active_gb": 1.562}
+time budget reached before ES2011
+      689.33 real       330.07 user        67.83 sys
+          2147205120  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              412458  page reclaims
+                7115  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7598  voluntary context switches
+             3474815  involuntary context switches
+       1433724396688  instructions retired
+        737815287231  cycles elapsed
+          3465234904  peak memory footprint
+{"label": "08-bf16-x1", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "0.8b-bf16", "app", "TS3004", "ES2011"], "asked": "2026-11-03 14:04:02", "waited_s": 746.8, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 689.3, "peak_footprint_gb": 3.465, "max_rss_gb": 2.147, "released": "2026-11-03 14:27:58"}
+=== 14:27:58 08-bf16-x2: extract 0.8b-bf16 app IS1008 TS3006
+{"series": "IS1008", "mechanism": "app", "windows": 15, "seconds": 573.4, "hit_budget": 12, "unclean": 12, "misses": 15, "hits": 0, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 1.12, "active_gb": 1.561}
+time budget reached before TS3006
+      574.96 real       285.93 user        56.55 sys
+          2313830400  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              341922  page reclaims
+                7114  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7741  voluntary context switches
+             2644328  involuntary context switches
+       1043522211849  instructions retired
+        552296377001  cycles elapsed
+          3459516888  peak memory footprint
+{"label": "08-bf16-x2", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "0.8b-bf16", "app", "IS1008", "TS3006"], "asked": "2026-11-03 14:27:58", "waited_s": 1010.0, "deferred_for": [], "free_disk_gb": 20.6, "status": "exit 0", "seconds": 575.0, "peak_footprint_gb": 3.46, "max_rss_gb": 2.314, "released": "2026-11-03 14:54:23"}
+=== 14:54:23 08-edit-bf16-x1: extract 0.8b-edit-bf16 app TS3004 ES2011 IS1008 TS3006
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 0.4, "hit_budget": 14, "unclean": 14, "misses": 0, "hits": 21}
