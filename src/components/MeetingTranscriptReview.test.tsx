@@ -166,7 +166,7 @@ it('plays the recording itself when no copy can be prepared', async () => {
 it('says plainly what the live captions missed and what the live check covered, without sample counts', () => {
   const captionAudio = { acceptedSamples: 64000, processedSamples: 40000, queuedSamples: 0, refusedSamples: 16000, unacknowledgedSamples: 8000, sampleRate: 16000 }
   const view = render(reviewing({ initialDraft: { ...draft, captionAudio, liveChecks: { checkedTurns: 4, uncheckedTurns: 1, warnings: [] } } }))
-  expect(screen.getByText('1.5 s of audio were not captioned live. Refine the transcript to include them.')).toBeInTheDocument()
+  expect(screen.getByText('1.5 s of audio were not captioned live. The recording has them.')).toBeInTheDocument()
   expect(screen.getByText('Live check: 4 of 5 statements checked against decisions. The board was not changed.')).toBeInTheDocument()
   expect(screen.queryByText(/samples|turns|unacknowledged/)).not.toBeInTheDocument()
   view.unmount()

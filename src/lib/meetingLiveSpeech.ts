@@ -83,7 +83,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
         progress.refusedSamples += samples.length
         if (accepting) {
           accepting = false
-          update({ sessionId, error: 'Captions fell more than 30 seconds behind. Refine the transcript after the meeting to include the rest.' })
+          update({ sessionId, error: 'Captions fell more than 30 seconds behind; the recording has the rest.' })
         }
         report()
         return

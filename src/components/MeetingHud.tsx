@@ -347,7 +347,7 @@ export function MeetingHud() {
         })
         setSaveStage('Finishing transcript')
         try { await live.current?.stop() }
-        catch (failure) { warnings.push(`The live transcript did not finish: ${errorText(failure)}. Refine it from the recording.`); setCaptionError(warnings[warnings.length - 1]) }
+        catch (failure) { warnings.push(`The live transcript did not finish: ${errorText(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
         if (!finalDraft.current) {
           try { finalDraft.current = await invoke<TranscriptDraft | null>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId: id } }) }
           catch (failure) { warnings.push(`The live transcript could not be read: ${errorText(failure)}`); setCaptionError(warnings[warnings.length - 1]) }

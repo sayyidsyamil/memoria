@@ -292,7 +292,7 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             </div>
           </article>)}</div>
           <details className="review-details"><summary>Transcript details</summary>{draft.warnings.map(warning => <p key={warning}>{warning}</p>)}<p>Voice matches are suggestions. Unknown and ambiguous voices stay unnamed.</p></details>
-          {uncaptioned >= 0.1 && <p className="review-status">{uncaptioned.toFixed(1)} s of audio were not captioned live. Refine the transcript to include them.</p>}
+          {uncaptioned >= 0.1 && <p className="review-status">{uncaptioned.toFixed(1)} s of audio were not captioned live. The recording has them.</p>}
           {draft.liveChecks && <p className="review-status">Live check: {draft.liveChecks.checkedTurns} of {draft.liveChecks.checkedTurns + draft.liveChecks.uncheckedTurns} statements checked against decisions. The board was not changed.</p>}
         </>}
       </PillTabPanel>
