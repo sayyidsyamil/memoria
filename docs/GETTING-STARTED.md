@@ -91,10 +91,9 @@ install; it is not a self-contained installer for arbitrary Macs. Use a tagged
 release containing the shared-runtime resolver. Homebrew Python 3.11 and ffmpeg
 under `/opt/homebrew` must remain installed and readable by all users.
 
-1. As the developer, from this checkout, inspect then provision:
+1. As the developer, from the root of this checkout, inspect then provision:
 
    ```bash
-   cd /Users/sayyid/Documents/memoria-workspace
    scripts/install-shared-runtime.sh --dry-run
    scripts/install-shared-runtime.sh --copy-developer
    cp scripts/uat/reset-demo.sh scripts/uat/memoria-doctor.sh /Users/Shared/Memoria/
@@ -111,14 +110,14 @@ under `/opt/homebrew` must remain installed and readable by all users.
    `--allow-downloads` permits the one-time online step and `--wheelhouse /path`
    supplies all pinned wheels. Pip uses `--no-deps` with the full freezes because
    speech's pinned `mlx-audio` declares newer MLX/Transformers than those
-   installed. Either way the script places the three revisions in `models.json`
+   installed. Either way the script places the four model revisions in `models.json`
    under `/Users/Shared/Memoria/hf` as hard links when on the same volume (no
    extra disk space; the files are made world-readable) and as copies otherwise,
    never as symlinks into the developer's home. It verifies file sizes and package
    imports **without loading weights**, then writes ready markers; reruns skip
    unchanged files. No sudo is used. If a previous shared install belongs to
    someone else, stop and have its owner resolve ownership rather than running as
-   root. Resemblyzer's voice encoder is supplied by its package, not a fourth HF
+   root. Resemblyzer's voice encoder is supplied by its package, not by an HF
    cache. Shared files are developer-owned, world-readable and not
    group/world-writable.
 
@@ -127,7 +126,7 @@ under `/opt/homebrew` must remain installed and readable by all users.
    home, environment overrides, caches or vault settings into it. Quit the
    developer's Memoria before switching accounts, so two ~5 GB model sets do not
    compete on the 16 GB Mac.
-3. Log in to that account. Open the **tagged release DMG** (`Memoria_0.2.0_aarch64.dmg`,
+3. Log in to that account. Open the **tagged release DMG** (`Memoria_0.3.0_aarch64.dmg`,
    checksum in [RELEASE_RECORD.md](RELEASE_RECORD.md)), drag `Memoria.app` to
    `/Applications` (authenticate if asked), and run
    `/Users/Shared/Memoria/reset-demo.sh` (copies the starter vault to

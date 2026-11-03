@@ -16,17 +16,18 @@ resolve contradictions. Quote matching proves quote provenance, not entailment.
 
 ### Warm generation and retrieval caching
 
-Qwen is retained in a separate private Unix-socket worker for five minutes of
+In the app, Qwen and EmbeddingGemma run in the resident workers described in
+[MODEL-LIFECYCLE.md](MODEL-LIFECYCLE.md). Run outside the app, `engine.py` starts
+its own Qwen worker on a private Unix socket, which unloads after five minutes of
 idle time. The socket is user-only (0600), versioned by script/runtime identity,
 and has no HTTP endpoint. Generation stops when its requesting socket closes
 at the next streamed token; model prefill/loading may finish before it observes
-cancellation. The outer request remains cancellable. The worker consumes memory
-until idle shutdown; it is not an always-on live-capture service.
+cancellation. The outer request remains cancellable.
 
 Identical embedding inputs reuse a SQLite cache keyed by input content, model
 revision and preprocessing script. First retrievals still load embeddings.
-Measured temporary one-claim Ask: 17.4s first request, 1.07s and 1.07s repeats.
-This is a smoke measurement, not latency guaranteed for larger queries or briefs.
+An early smoke measurement of a one-claim Ask: 17.4s first request, 1.07s and 1.07s
+repeats. It is not a latency guarantee for larger queries or briefs.
 
 ### Job controls (31 October)
 
@@ -43,16 +44,14 @@ process-group layer, frontend job scoping/cleanup in unit tests. A new native
 click-through remains necessary after installation.
 
 The native wiki_memory command validates the requested registered workspace and
-runs bundled memory/engine.py using MEMORIA_MEMORY_PYTHON, defaulting to
-/opt/homebrew/bin/python3.11. This installation uses its existing mlx-lm runtime
-and cached mlx-community/Qwen3.5-4B-MLX-4bit weights. No model downloads occur.
+runs bundled memory/engine.py with the Python resolved as in
+[DEVELOPMENT.md](DEVELOPMENT.md) (`MEMORIA_MEMORY_PYTHON`, then the shared install,
+then `/opt/homebrew/bin/python3.11`) and the cached
+mlx-community/Qwen3.5-4B-MLX-4bit weights. No model is downloaded.
 
 Related-page discovery combines BM25 and EmbeddingGemma 2 through RRF when the
-isolated embedding environment is available. MEMORIA_EMBED_PYTHON overrides its
-location; the unversioned repository-local .embed-runtime/bin/python is the
-development fallback. Semantic retrieval failure is shown explicitly
-and compilation uses BM25. Models load per compilation; this is not a packaged,
-standalone inference runtime or a warm low-latency live service.
+embedding model is available. Semantic retrieval failure is shown explicitly
+and compilation uses BM25.
 
 Evidence is split into numbered page-aware passages and all passages are processed.
 Limits (180k characters / 120 passages / 30k related-page context) fail visibly,
@@ -102,23 +101,23 @@ Completed reviews expose Undo. Undo validates all current bytes against the save
 publication receipt before restoring/deleting any file. Newer edits block undo.
 An undoing journal state supports recovery after interruption.
 
-The existing AI side panel's Ask / Brief mode queries accepted claims from
-applied proposals, retrieves their exact supporting quotes and produces validated
-citation-ID output. Changed source hashes are excluded with warnings. Missing
-knowledge produces an explicit no-evidence response. Briefs currently render six
-sections in-app; standalone HTML export and persistent brief saving are not yet
-implemented. Uncited suggested questions are omitted rather than assigned invented
-citations. Citation identity validation does not establish semantic correctness.
-General chat remains accessible as a separate mode in the same AI panel. Switching
-modes retains mounted conversation and knowledge state. The redundant sidebar
-Ask/Brief button and dialog were removed; live capture is not connected.
+Ask across meetings (in the memory hub and the AI panel) answers current-value,
+past-date and change questions from approved tracked facts (`ask_facts.py`; see
+[TEMPORAL-API.md](TEMPORAL-API.md)), and a brief takes open commitments and recent
+changes from them. Other questions, questions about one meeting and the rest of a
+brief use accepted claims from applied proposals, retrieve their exact supporting
+quotes and produce validated citation-ID output. Changed source hashes are excluded with warnings.
+Missing knowledge produces an explicit no-evidence response. Briefs can be saved as
+portable Markdown under `briefs/` and reopened
+([WORKSPACE-PRODUCT-VERIFICATION.md](WORKSPACE-PRODUCT-VERIFICATION.md)); standalone
+HTML export is not implemented. Uncited suggested questions are omitted rather than
+assigned invented citations. Citation identity validation does not establish semantic
+correctness. General chat remains a separate mode of the AI panel.
 
 Eight engine tests now cover review edits, undo conflicts and grounded query
 eligibility in addition to earlier checks. Real local models passed compile,
 apply, cited Ask, six-section Brief and Undo on temporary fictional data.
 
-Pending: standalone model setup, cancellation/timeouts, persistent embedding
-cache and full chunk retrieval, health checks, historical query routing, the
-controlled retrieval comparison, and native macOS click-through verification.
-Desktop input tools in this session are disabled; browser/WebKit integration and
-engine tests are not a substitute for native file-picker acceptance.
+Not yet done: a bundled model runtime (roadmap M7), chunk-level retrieval over whole
+sources, the controlled retrieval comparison (M5) and native file-picker acceptance;
+browser/WebKit integration and engine tests do not substitute for the last.

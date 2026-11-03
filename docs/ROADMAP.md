@@ -14,8 +14,8 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 | M0 Consolidated | Done, 2 November | One repository, research evidence, backup, private report folder |
 | M1 Native meeting loop | Week 5–6 (mostly done 2 Nov) | Record → review → approve → reuse works in the installed app with real audio |
 | M2 Meeting intelligence | Week 6–7 (verified 2 Nov) | Measured live check, long meetings, safer tracked facts |
-| M3 Reliability | Week 7 | Recovers from failures; full test suite green |
-| M4 UAT build | End of week 7 (built 2 Nov; clean-account check pending) | Tagged build that installs from the guide |
+| M3 Reliability | Week 7 (suite green 2 Nov; worker restart checked 3 Nov) | Recovers from failures; full test suite green |
+| M4 UAT build | End of week 7 (`v0.3.0-uat` built 3 Nov; clean-account check pending) | Tagged build that installs from the guide |
 | M5 Evaluation and UAT | Weeks 8–10 | Participant results and current-app measurements |
 | M6 Report and viva | Weeks 10–14 | Report complete, viva ready |
 | M7 Installable product | After M4, in parallel | Installs and runs on a clean Mac without developer folders |
@@ -84,6 +84,12 @@ the AMI hour checked against the UAT procurement facts, 29 of them reached the m
 ([research/long-meeting](../research/long-meeting/README.md)); and a November bake-off of newer
 local models kept Qwen3.5-4B ([research/model-bakeoff](../research/model-bakeoff/README.md)).
 
+Since then (3 November): speech moved to Parakeet Ultra with Nemotron 3 Diarization (the AMI hour
+in 113 s, WER 14.4%, 97.4% of labelled words on the right participant, 4 words on "Unknown
+speaker"; [research/live-speech](../research/live-speech/README.md)), and the live check to the
+guard's question alone with candidates found by meaning (98 of 112 conflicts caught, 2 false
+alarms in 224, 0.26 s median; [research/live-verifier](../research/live-verifier/README.md)).
+
 ## M3 Reliability
 
 - Restart crashed model workers automatically; handle memory pressure; coordinate model use
@@ -103,6 +109,15 @@ local models kept Qwen3.5-4B ([research/model-bakeoff](../research/model-bakeoff
 Acceptance: the full frontend suite passes; each failure mode above has a documented, tested
 behaviour that never promotes incomplete transcripts into reviewed knowledge.
 
+Status (3 November): the full frontend suite passes (6,648 tests on 2 November after the
+[triage](M3-FULL-SUITE-TRIAGE.md), 6,769 on 3 November). A stopped worker is started again,
+up to three times per run; in the `v0.3.0-uat` smoke test a killed Qwen worker was back after
+2 s ([RELEASE_RECORD.md](RELEASE_RECORD.md)). Each worker caps MLX's GPU cache at 256 MB
+([MODEL-LIFECYCLE.md](MODEL-LIFECYCLE.md)). With Parakeet Ultra, 4 words of the AMI hour are
+left on "Unknown speaker". Remaining: memory-pressure eviction and cross-worker scheduling,
+captions during a long transcription, the accessibility-tree observation, a playable duration
+for recovered recordings, and sleep and wake, disconnection, queue pressure and low disk space.
+
 ## M4 UAT build
 
 - Tag `v0.2.0-uat` and publish the app bundle as a GitHub release with notes.
@@ -111,9 +126,11 @@ behaviour that never promotes incomplete transcripts into reviewed knowledge.
 Acceptance: a second macOS account installs and completes the five acceptance tasks by
 following the guide alone.
 
-Status (2 November): version 0.2.0; `scripts/build-release.sh` builds the disk image and writes
-[RELEASE_RECORD.md](RELEASE_RECORD.md). Another account of this Mac runs the app from a shared
-install in `/Users/Shared/Memoria` (Python runtimes and model snapshots,
+Status (3 November): version 0.3.0, tagged `v0.3.0-uat` (`v0.2.0-uat` was built on 2 November);
+`scripts/build-release.sh` builds the disk image and writes [RELEASE_RECORD.md](RELEASE_RECORD.md),
+whose smoke test on this Mac covers T1, T4 and T5, Ask, a killed worker and two scripted live
+meetings. Another account of this Mac can run the app from a shared install in
+`/Users/Shared/Memoria` (Python runtimes and model snapshots,
 `scripts/install-shared-runtime.sh`; provisioned and import-checked). The starter vault (three
 recorded, reviewed fictional meetings and six tracked items), `reset-demo.sh` and
 `memoria-doctor.sh` (READY check) are in place, and the UAT protocol, runbook and forms match
@@ -121,7 +138,8 @@ the current app. An engine dry run of the five tasks (no UI) gave 17 suggestions
 and found all 15 decisions of the answer key. Privacy for AC8: remembering voices is opt-in,
 "Forget remembered voices" deletes profiles, and saving a reviewed transcript removes the
 draft's voice embeddings. Remaining: the clean-account install and task 1 (needs a second macOS
-account), and a real-microphone session.
+account), and a meeting with people speaking into the microphone (so far, synthetic voices played
+through the speakers: [research/live-speech](../research/live-speech/README.md)).
 
 ## M5 Evaluation and UAT
 
@@ -135,12 +153,16 @@ account), and a real-microphone session.
 Acceptance: repeatable scripts under `research/`, reported results including failures. Exact
 quote matching alone is not an accuracy metric.
 
+Status (3 November): first current-app measurements are in `research/`: Ask parity, the live
+check on written, spoken and noisy MemoriaBench probes, and speech and live latency on one AMI
+hour and through the installed app. Malay recordings, the retrieval comparison and UAT are
+still to come.
+
 ## M6 Report and viva
 
 - Supervisor decisions: final title; MemoriaBench is reported as an extension (decided 2 Nov,
   to confirm with the supervisor); whether the AP1 collaboration letter covers AP2.
-- Fill the report's 14 `[PENDING]`, 26 `[TBD]` and 8 `[CONFIRM]` markers and the slides'
-  18 `[FILL]`s; reconcile the engine test count (271 in the report, 291 now).
+- Fill the report's and slides' remaining placeholders.
 - Point the report's appendix generator at `research/ledger-engine`; record the demo video.
 
 Acceptance: report and slides contain no placeholders; every number traces to a file in
@@ -152,8 +174,8 @@ Acceptance: report and slides contain no placeholders; every number traces to a 
   Homebrew `python3.11`) with a relocatable Python runtime and pinned, hashed requirements,
   shipped in the app or installed on first run into Application Support.
 - **Models:** first-run download with progress, disk-space check, resume and SHA-256
-  verification; offline afterwards; licence notices for Qwen, EmbeddingGemma, MOSS and
-  Resemblyzer.
+  verification; offline afterwards; licence notices for each model (listed in
+  [NOTICE.md](../NOTICE.md)).
 - **Paths:** remove compile-time developer fallbacks (`CARGO_MANIFEST_DIR`) and readiness
   messages that mention developer folders.
 - **Release:** release (not debug) build, DMG, Memoria-owned update channel. Signing is ad-hoc
