@@ -11,6 +11,22 @@ Running notes, including rejected ideas: [`WORKLOG.md`](WORKLOG.md).
    lower memory or latency?
 3. Can a small, explainable change give more correct grounded decisions without losing recall?
 
+## The edited 0.8B: what was verified before any comparison
+
+- **Identity.** The published p50c diff (`RikiyaT/lm_understand-logs` @ `4d09ba6`) applied to stock
+  `Qwen/Qwen3.5-0.8B` @ `2fc0636` gives both edited tensors with the model card's SHA-256. The released checkpoint
+  (`RikiyaT/Qwen3.5-0.8B-weight-space-programming` @ `d1671a1`, streamed and hashed, not stored) has the same 488
+  tensors, names, dtypes and shapes as stock; exactly two differ (`layers.15` and `layers.19` `mlp.down_proj.weight`);
+  config, tokenizer, chat template, vocab and merges are byte-identical (`results/wsp/release.json`).
+- **What the edit is**, read from the tensors (`results/wsp/quant.json`): in each of the two layers, 64 of 3,584 MLP
+  neurons have the component of their output along one direction multiplied by **-5** (W' = W - 6uuᵀW on those
+  columns; rank-1 share 0.99999; nothing else changes beyond bf16 rounding). The post describes it as subtracting the
+  direction; the final answer of the run says it "counteracts" it. 130,188 bf16 entries differ.
+- **It survives 4-bit quantisation** (affine, group 64, as MLX and the app's 4B use): the quantised difference has
+  cosine 0.96 and 0.94 with the bf16 edit, and the edited neurons' projection on the direction is unchanged
+  (0.153 -> 0.152, 0.120 -> 0.119; stock 0.031 and 0.024). Each 0.8B variant is therefore evaluated in bf16 and in
+  4-bit quantised in memory from bf16 after the edit, with the same quantisation for stock and edited.
+
 ## Data
 
 | Split | Series | Gold events | Questions | Role |

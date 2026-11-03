@@ -125,7 +125,8 @@ MECHANISMS = {"app": dict(),
               "october-numwords": dict(budget=900, system="", repair="numwords"),
               # the app's request without its JSON system message (the evaluated October request, with the app's budget)
               "app-nosys": dict(system=""),
-              "app-nosys-numwords": dict(system="", repair="numwords")}
+              "app-nosys-numwords": dict(system="", repair="numwords"),
+              "app-nosys-numwords-loopstop": dict(system="", repair="numwords", loopstop=True)}
 
 
 def make_extractor(lm, mechanism="app"):

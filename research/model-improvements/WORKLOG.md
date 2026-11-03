@@ -59,12 +59,12 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
 - Filters on the app path, old-dev, open loop: `lastvalue` QA 27 -> 33 but gold events 13 -> 10 (it keeps a late
   remark over the decision: ES2003d "I'd say we go two... double curved" after single curved was decided);
   `lexsupport` QA 30, gold 12, wrong writes 24 -> 14. Random-removal controls pending the full dev set.
-- 13:16 4B app path, full dev (old-dev + new-dev: 20 meetings, 117 windows, 60 gold events, 124 questions):
+- 13:16 4B app path, full dev (old-dev + new-dev: 20 meetings, 97 windows, 60 gold events, 124 questions):
   TP 26, FP 130, FN 34 (recall 43%); QA with exact routes 90/124; 156 writes reach the ledger, of which 26 are gold
   events, 84 restate the value in force (often from another turn than the gold evidence: on ES2011 the model found
   six of nine decisions with the right value but outside the human-linked windows, so TP 0 there), and 46 write a
   value not in force (wrong). confirm_all inbox: 119 proposals (5.95 per meeting), 25 of them exact gold events;
-  QA after a perfect reviewer 92/124. Mechanical: 3 of 117 replies ran to 1,800 tokens repeating themselves and did
+  QA after a perfect reviewer 92/124. Mechanical: 3 of 97 replies ran to 1,800 tokens repeating themselves and did
   not parse cleanly; median meeting 54 s of generation (mean 57.6 s). Routing (router prompt r1 through the
   worker): 100/124 exact, 0 failed, 124/124 right on gold facts, 2.8 s median.
 - Dev screening, open loop (filters on the app's own candidates; QA, gold events found, wrong writes, inbox):
@@ -79,3 +79,19 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   **lastvalue rejected**: it loses 6 gold events (guardrail: at most 2), because the last value a meeting mentions is
   often a later remark after the decision (evaluation, recap of the prototype), not the decision; its QA gain comes
   from writing fewer changes, which the change-count questions reward whatever is removed.
+- 13:45 **H-sys, closed loop on full dev** (`app-nosys`: the worker's request without its JSON system message, 1,800
+  tokens, the app's repairs): QA 95/124 against 90 (12 questions only nosys gets right, 7 only the app; sign test
+  p = 0.36), gold events 29 against 26, wrong writes 45 against 46, confirm_all inbox 100 against 119 proposals,
+  QA after a perfect reviewer 97 against 92. Per series: ES2003 +3, TS3004 +5, TS3006 +1, ES2011 -3, IS1008 -1, so
+  the dev gain rests mostly on old-dev. Why: without the system message the 4B marks far more events unresolved or
+  with a null item (ES2003: 37 unresolved of 93 events against 9 of 49), which the pipeline discards; it writes
+  fewer belief changes. Cost: replies are longer (ES2003 5,847 output tokens against 3,300; one loop to 1,800
+  tokens), so generation takes 16% longer per meeting (67 against 58 s); stopping a reply at its first repeated
+  event (`loopstop`, simulated on the cached replies) brings that to +7%.
+- **Support check rejected** (`support.py`, first-token YES/NO on attribution, open loop on the app's candidates):
+  tau = 0 removes 76 writes, wrong writes 46 -> 27, inbox 119 -> 80, but QA 90 -> 87 and gold events 26 -> 23: it
+  drops the only write of several slots whose value was right but whose quote was weak (current-value questions
+  28 -> 23 of 43). tau = -2 removes almost nothing; tau = 2 removes nearly everything (QA 78). Like the firmness gate,
+  precision rises and answers do not.
+- **lexsupport rejected on QA**: its QA 92 is inside random removal of the same 49 writes (mean 90.9, 90th percentile
+  94; 39% of draws reach 92), although it keeps more gold events than random removal (24 against 20.1).
