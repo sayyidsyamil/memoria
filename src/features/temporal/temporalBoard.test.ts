@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { buildBoard, commitmentState, isCorrection, retractionOf, reviewerName, type BoardRow } from './temporalBoard'
-import type { TemporalFact, TemporalObject } from './temporalService'
+import { buildBoard, buildHistory, commitmentState, isCorrection, retractionOf, reviewerName, type BoardRow } from './temporalBoard'
+import type { TemporalFact, TemporalHistoryFact, TemporalObject } from './temporalService'
 
 const TODAY = '2026-11-02'
 const objects: TemporalObject[] = [
@@ -76,6 +76,43 @@ describe('commitmentState', () => {
     [[row('deadline', 'date', 'end of the month')], { tone: 'open', label: null }],
   ] as const)('reads %j as %j', (rows, expected) => {
     expect(commitmentState(rows as unknown as BoardRow[], TODAY)).toMatchObject(expected)
+  })
+})
+
+describe('value history', () => {
+  const first: TemporalHistoryFact = {
+    fact_id: 1, object_id: 'vendor', label: 'Vendor', attribute: 'outcome', value: 'Alpha',
+    claim_from: '2026-11-01T10:00:00Z', claim_to: null, decided_at: '2026-11-01T10:00:00Z',
+    evidence: [{ quote: 'We choose Alpha.', speaker: 'Maya', meeting: 'one', audio_start: 0 }],
+    corrects: null, retracted: null, change_type: 'INITIAL',
+  }
+
+  it('keeps every within-meeting change and reconfirmation, and pairs values only through replacement links', () => {
+    const second = { ...first, fact_id: 2, value: 'Beta', supersedes: 1, decided_at: '2026-11-01T10:00:10Z', change_type: 'REVISE' }
+    const confirmation = { ...second, fact_id: 3, supersedes: null, confirms: 2, decided_at: '2026-11-01T10:00:15Z', change_type: 'CONFIRM' }
+    const current = { ...second, fact_id: 4, value: 'Gamma', supersedes: 2, decided_at: '2026-11-01T10:00:20Z' }
+    const facts = [first, second, confirmation, current]
+    expect(buildHistory(facts, 4).map(entry => [entry.fact.fact_id, entry.current, entry.reconfirmed, entry.replaced?.fact_id])).toEqual([
+      [4, true, false, 2], [3, false, true, undefined], [2, false, false, 1], [1, false, false, undefined],
+    ])
+    expect(facts.map(fact => fact.fact_id)).toEqual([1, 2, 3, 4])
+  })
+
+  it('keeps the service order for tied decision times and puts corrections beside the original, preserving its evidence', () => {
+    const withdrawn = { ...first, retracted: { by: 'Maya', reason: 'corrected: Misheard supplier' } }
+    const corrected = { ...first, fact_id: 2, value: 'Beta', corrects: 1, confirms: 1, change_type: 'CORRECT',
+      correction: { reviewer: 'Maya', reason: 'Misheard supplier', replaced_fact_id: 1 } }
+    const result = buildHistory([withdrawn, corrected], 2)
+    expect(result.map(entry => entry.fact.fact_id)).toEqual([2, 1])
+    expect(result[0]).toMatchObject({ current: true, reconfirmed: false, replaced: withdrawn })
+    expect(result[1].fact.evidence).toEqual(first.evidence)
+    expect(buildHistory([withdrawn], 1)[0].current).toBe(false)
+  })
+
+  it.each([undefined, 99, 2, 3])('does not invent a previous value for a missing or invalid replacement link (%s)', supersedes => {
+    const current = { ...first, fact_id: 2, value: 'Beta', supersedes, evidence: [{ quote: 'We change from Alpha to Beta.', speaker: 'Maya', meeting: 'one' }] }
+    const unrelated = { ...first, fact_id: 3, object_id: 'another-vendor' }
+    expect(buildHistory([first, current, unrelated], 2).find(entry => entry.current)?.replaced).toBeNull()
   })
 })
 

@@ -22,6 +22,7 @@ export type HubView = 'facts' | 'meetings' | 'ask' | 'briefs' | 'search' | 'appr
 /** Lets the sidebar open the memory window on a section, e.g. Decisions when the app starts. */
 export interface MemoryHubHandle { open: (view: HubView) => void }
 type Meeting = MeetingRecord
+/** Approved wiki claims, counted individually even when they share a knowledge page. Separate from board values. */
 interface Approved {
   id: string; title: string; kind: string; statement: string; quote: string; sourcePath: string
   sourceTitle: string; page: number; knowledgePath: string; pageTitle?: string; status: string; approvedAt?: string
@@ -175,7 +176,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
     { value: 'ask', label: 'Ask' },
     { value: 'briefs', label: 'Briefs', count: count(summary?.briefs, briefs.length, loaded.briefs) },
     { value: 'search', label: 'Search' },
-    { value: 'approved', label: 'Approved', count: count(summary?.approved, approved.length, loaded.approved), attention: (summary?.sourceChanged ?? changed) > 0 },
+    { value: 'approved', label: 'Knowledge', count: count(summary?.approved, approved.length, loaded.approved), attention: (summary?.sourceChanged ?? changed) > 0 },
   ]
   // A count reads as part of the row's name: "Decisions, 3 suggestions to review", not "Decisions3".
   const row = (icon: ReactNode, label: string, target: HubView, value?: number, attention = false, hint?: string) => <Button variant="ghost" className="workspace-row" aria-label={value ? `${label}, ${value}${hint ? ` ${hint}` : ''}` : undefined} onClick={() => open(target)}>
@@ -215,7 +216,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
           </header>
           <div className="hub-page-heading" hidden={current === 'facts'}>
             <div><h1>{tabs.find(item => item.value === current)?.label}</h1>
-              <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Questions and briefs from approved knowledge' : current === 'approved' ? 'What you approved, with the quote it came from' : 'Cited notes for your next meeting'}</p></div>
+              <p>{current === 'meetings' ? 'Your recordings and reviewed outcomes' : current === 'search' ? 'Find a statement and return to its source' : current === 'ask' ? 'Questions and briefs from approved knowledge' : current === 'approved' ? 'Approved claims from meetings and documents, grouped by knowledge page' : 'Cited notes for your next meeting'}</p></div>
             {current === 'meetings' && <div className="flex gap-2">
               {onReplayMeeting && <Button size="sm" variant="ghost" onClick={() => { setView(null); onReplayMeeting() }}>Replay a recording</Button>}
               {meetings.length > 0 && onStartMeeting && <Button size="sm" onClick={() => { setView(null); onStartMeeting() }}><Microphone size={16} />Start meeting</Button>}
@@ -283,7 +284,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
                   </li>)}
                 </ul>
               </section>)}
-              {!busy && loaded.approved && !approved.length && <EmptyState icon={<SealCheck size={20} />} title="Nothing approved yet">Knowledge you approve from meetings and imported documents is listed here with its source quote. Accepted decisions and commitments are on the Decisions tab.</EmptyState>}
+              {!busy && loaded.approved && !approved.length && <EmptyState icon={<FileText size={20} />} title="No knowledge claims yet">Claims you approve into knowledge pages appear here with their source quotes. Your approved decisions and commitments are on the Decisions tab.</EmptyState>}
               {!busy && !!approved.length && !groups.length && <p className="hub-muted">No approved claims match this filter.</p>}
             </PillTabPanel>
             <PillTabPanel value="briefs" className="hub-briefs">

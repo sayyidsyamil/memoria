@@ -15,8 +15,8 @@ import {
   type TemporalProposal,
   type TemporalValue,
 } from './temporalService'
-import { attributeLabel, changedTimes, formatValue, ingestSummary, isCalendarDay, labelUnit, localDay, plainLedgerError } from './temporalFormat'
-import { buildBoard, isCorrection, retractionOf, reviewerName, type BoardItem, type BoardRow, type CommitmentTone } from './temporalBoard'
+import { attributeLabel, changeCount, changedTimes, formatValue, ingestSummary, isCalendarDay, labelUnit, localDay, plainLedgerError } from './temporalFormat'
+import { buildBoard, buildHistory, isCorrection, retractionOf, reviewerName, type BoardItem, type BoardRow, type CommitmentTone } from './temporalBoard'
 import { Quote, TemporalDate, type OpenMoment } from './TemporalEvidence'
 import { TrackedItemsSetup } from './TrackedItemsSetup'
 import { TrackedValueLookup } from './TrackedValueLookup'
@@ -162,6 +162,7 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
     const result = checkedOverview(await temporalService.overview(vaultPath))
     if (!mounted.current || loading !== version.current) return
     setOverview(result)
+    setHistory(null)
     void correctionReasons(vaultPath, result.facts).then(found => { if (mounted.current && loading === version.current) setCorrections(found) })
   }
 
@@ -259,33 +260,35 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
 
   function historyList(row: BoardRow, item: BoardItem, title: string, id: string): ReactNode {
     if (history?.key !== slotKey(row.fact.object_id, row.fact.attribute)) return null
-    const entries = history.facts.map((entry, index) => ({ entry, index }))
-      .sort((a, b) => (b.entry.decided_at ?? b.entry.claim_from ?? '').localeCompare(a.entry.decided_at ?? a.entry.claim_from ?? '') || b.index - a.index)
-      .map(({ entry }) => entry)
+    const entries = buildHistory(history.facts, row.fact.fact_id)
     return <section id={id} className="board-history" aria-label={`History: ${title}`}>
-      <div className="board-history-head"><h5>History</h5><Button size="xs" variant="ghost" disabled={!!busy} onClick={() => setHistory(null)}>Close history</Button></div>
+      <div className="board-history-head"><h5>Value history</h5><Button size="xs" variant="ghost" disabled={!!busy} onClick={() => setHistory(null)}>Close history</Button></div>
+      {entries.length > 0 && <p className="board-history-order">Latest decision first. Corrections stay with the original decision.</p>}
       {!entries.length && <p className="board-muted">No history recorded.</p>}
-      <ol>{entries.map(entry => {
+      <ol>{entries.map(({ fact: entry, current, reconfirmed, replaced }) => {
         const withdrawn = retractionOf(entry)
-        const current = entry.fact_id === row.fact.fact_id
         const corrected = isCorrection(entry)
         // A correction takes over the replaced value's dates, so a date here would claim the person decided it then.
-        const decided = corrected ? null : entry.decided_at ?? entry.claim_from
+        const decided = corrected ? null : entry.decided_at
+        const state = withdrawn ? (withdrawn.corrected ? 'Replaced by a correction' : 'Retracted') : current ? 'Current value' : 'Recorded value'
         return <li key={entry.fact_id} data-current={current || undefined} data-withdrawn={withdrawn ? true : undefined}>
           <div className="board-history-line">
-            <span className="board-history-value">{show(entry, item.unit)}</span>
-            <span className="board-history-meta">
-              {current ? 'Now' : withdrawn ? (withdrawn.corrected ? 'Replaced by a correction' : 'Retracted') : 'Earlier'}
-              {decided && <> · decided <TemporalDate value={decided} time /></>}
-              {entry.claim_to && <> · until <TemporalDate value={entry.claim_to} /></>}
-            </span>
-            {!withdrawn && !current && <Button size="xs" variant="ghost" disabled={!!busy} aria-label={`Correct this earlier value of ${title}`} onClick={() => startEdit(entry)}>Correct</Button>}
+            <div className="board-history-values">
+              {replaced && <><span className="board-history-before"><span className="board-history-state">{corrected ? 'Replaced value' : 'Previous value'}</span><span>{show(replaced, item.unit)}</span></span><span className="board-history-arrow" aria-hidden="true">→</span></>}
+              <span className="board-history-after"><span className="board-history-state">{state}</span><span className="board-history-value">{show(entry, item.unit)}</span></span>
+            </div>
+            {!withdrawn && !current && <Button size="xs" variant="ghost" disabled={!!busy} aria-label={`Correct value of ${title} from history`} onClick={() => startEdit(entry)}>Correct value…</Button>}
           </div>
+          <p className="board-history-meta">
+            {reconfirmed && <span>Reconfirmed — value unchanged{decided || entry.claim_to ? ' · ' : ''}</span>}
+            {decided && <>Decided <TemporalDate value={decided} time /></>}
+            {entry.claim_to && <>{decided ? ' · ' : ''}Applies until <TemporalDate value={entry.claim_to} /></>}
+          </p>
           {withdrawn && !withdrawn.corrected && withdrawn.reason && <p className="board-muted">Reason: {withdrawn.reason}</p>}
           {corrected ? <CorrectionNote correction={entry.correction ?? corrections.get(entry.fact_id)} />
             : entry.evidence.length ? entry.evidence.map((source, index) => <Quote key={index} source={source} titles={titles} onOpenMoment={momentFor(source)} />)
               : <p className="board-muted">No source quote recorded.</p>}
-          {editForm(entry, title, item.unit)}
+          {!current && editForm(entry, title, item.unit)}
         </li>
       })}</ol>
     </section>
@@ -302,13 +305,13 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
       {single ? <h4 className="board-row-label">{item.title}</h4> : <span className="board-row-label">{attributeLabel(attribute.name)}</span>}
       <div className="board-row-body">
         <div className="board-value-line">
-          <span className="board-value">{show(fact, item.unit)}</span>
+          <span className="board-current-value"><span className="board-value-state">Current</span><span className="board-value">{show(fact, item.unit)}</span></span>
           <span className="board-row-actions">
-            {(changed || corrected) && <Button size="xs" variant="ghost" className="board-link" aria-expanded={historyOpen} aria-controls={historyOpen ? historyId : undefined}
+            <Button size="xs" variant="outline" className="board-link" aria-expanded={historyOpen} aria-controls={historyOpen ? historyId : undefined}
               aria-label={`History of ${title}${changed ? `, ${changed.toLowerCase()}` : ''}`} disabled={!!busy} onClick={() => toggleHistory(fact)}>
-              {changed || 'History'}<CaretDown size={11} aria-hidden="true" data-open={historyOpen || undefined} />
-            </Button>}
-            <Button size="xs" variant="ghost" aria-label={`Correct ${title}`} disabled={!!busy || !!fact.retracted} onClick={() => startEdit(fact)}>Correct</Button>
+              History{changed && <span className="board-change-count"> · {changeCount(fact.n_changes)}</span>}<CaretDown size={11} aria-hidden="true" data-open={historyOpen || undefined} />
+            </Button>
+            <Button size="xs" variant="ghost" aria-label={`Correct value of ${title}`} disabled={!!busy || !!fact.retracted} onClick={() => startEdit(fact)}>Correct value…</Button>
           </span>
         </div>
         {corrected ? <CorrectionNote correction={fact.correction ?? corrections.get(fact.fact_id)} />
@@ -397,7 +400,7 @@ function TemporalLedger({ vaultPath, meetingId, onOpenMoment }: TemporalMemoryPa
   return <section className="temporal-memory" aria-label={meetingId ? 'Decisions from this meeting' : 'Decision board'} aria-busy={!!busy}>
     <header className="temporal-header"><div>
       <h2>{meetingId ? 'Decisions from this meeting' : 'Decisions and commitments'}</h2>
-      <p>{meetingId ? 'What this meeting decided and who owes what, each with the words that set it.' : 'What was decided and who owes what, each with the words that set it.'}</p>
+      <p>{meetingId ? 'Current values you approved from this meeting, with history and exact source quotes.' : 'Current values you approved, with history and exact source quotes.'}</p>
     </div><div className="temporal-status">
       {/* One quiet line for progress and results, so that the list never jumps while you work through it. The first load says so in the body. */}
       <p role="status">{overview ? busy ?? message ?? '' : ''}</p>

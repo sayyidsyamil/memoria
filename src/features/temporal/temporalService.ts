@@ -56,6 +56,9 @@ export interface TemporalFact {
   tx_from?: string | null
   tx_to?: string | null
   retracted?: boolean | TemporalRetraction | null
+  /** Existing history links: the fact this value replaced or reconfirmed. */
+  supersedes?: TemporalId | null
+  confirms?: TemporalId | null
   corrects?: TemporalId | null
   correction?: TemporalCorrection | null
 }
