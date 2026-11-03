@@ -1,0 +1,41 @@
+{
+  "time": "2026-11-03T19:05:17+0800",
+  "source_code_sha256": "b51bcfba706c17479fbee327757daecc664666bb4fb9b06dbd0dbbd057006545",
+  "fixtures": [
+    {
+      "name": "two_material_changes",
+      "transcript": "[0] r: We approve changing the case material to rubber.\n[1] a: Next item: training dates.\n[2] r: After the prototype review, we approve a further change of the case material to wood.",
+      "expected": {
+        "case_material": "wood",
+        "case_changes": 2,
+        "at_500": "rubber",
+        "at_2000": "wood"
+      }
+    },
+    {
+      "name": "recaps_then_material_change",
+      "transcript": "[0] a: As agreed last time, the case material is plastic.\n[1] r: Right, plastic is the case material in the current design.\n[2] a: For now we stay with plastic as the case material.\n[3] r: The drop test failed.\n[4] a: Decision: we switch the case material to rubber, effective today.",
+      "expected": {
+        "case_material": "rubber",
+        "case_changes": 1
+      }
+    },
+    {
+      "name": "unchanged_case_untracked_buttons",
+      "transcript": "[0] a: The case material is still plastic.\n[1] r: No change to the case material: plastic.\n[2] a: The case remains plastic.\n[3] r: We will use wood for the buttons.",
+      "expected": {
+        "case_material": "plastic",
+        "case_changes": 0
+      }
+    },
+    {
+      "name": "registered_button_decision_retained",
+      "transcript": "[0] a: The case material is still plastic.\n[1] r: We will use wood for the buttons.",
+      "expected": {
+        "case_material": "plastic",
+        "button_material": "wood",
+        "case_changes": 0
+      }
+    }
+  ]
+}

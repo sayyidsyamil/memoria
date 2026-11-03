@@ -1,0 +1,8 @@
+{
+  "source_code_sha256": "068f6281413fdbe63eb4359e0baabd983e490272e6c27d4ff326ee10a242a095",
+  "protocol_sha256": "f84ff1e6370ce9032a66653ad0ab1bd996f5c59cfa66d91c0e1c93b5b8f745d0",
+  "cases_sha256": "d941a56bce4c4c50ff5ba3ee0ef428056fb9423b81a4306b90272bcbc2d33076",
+  "round1_hashes_match": 55,
+  "mapping_checks_pass": true,
+  "rule": "fixed button material/curve shadow vocabulary; no expected-label access"
+}

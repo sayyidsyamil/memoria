@@ -1,0 +1,26 @@
+{"id": "p0-1-case", "expected": "case_curve", "predicted": "case_curve", "margin": 3.688138961791992, "correct": true}
+{"id": "p0-1-buttons", "expected": "case_button_curve", "predicted": "case_button_curve", "margin": 2.0036468505859375, "correct": true}
+{"id": "p0-0-case", "expected": "case_curve", "predicted": "case_curve", "margin": 9.449176788330078, "correct": true}
+{"id": "p0-0-buttons", "expected": null, "predicted": "case_curve", "margin": -6.81373405456543, "correct": false}
+{"id": "p1-1-case", "expected": "case_material", "predicted": "case_material", "margin": 1.3141632080078125, "correct": true}
+{"id": "p1-1-buttons", "expected": "case_button_material", "predicted": "case_button_material", "margin": 4.003385543823242, "correct": true}
+{"id": "p1-0-case", "expected": "case_material", "predicted": "case_material", "margin": 9.677108764648438, "correct": true}
+{"id": "p1-0-buttons", "expected": null, "predicted": "case_material", "margin": -9.23723030090332, "correct": false}
+{"id": "p2-1-case", "expected": "case_material", "predicted": "case_material", "margin": 1.3135128021240234, "correct": true}
+{"id": "p2-1-buttons", "expected": "case_button_material", "predicted": "case_button_material", "margin": 5.814186096191406, "correct": true}
+{"id": "p2-0-case", "expected": "case_material", "predicted": "case_material", "margin": 8.771913528442383, "correct": true}
+{"id": "p2-0-buttons", "expected": null, "predicted": "case_material", "margin": -8.83076286315918, "correct": false}
+{"id": "p3-1-case", "expected": "case_material", "predicted": "case_material", "margin": 3.375387191772461, "correct": true}
+{"id": "p3-1-buttons", "expected": "case_button_material", "predicted": "case_button_material", "margin": 3.1273117065429688, "correct": true}
+{"id": "p3-0-case", "expected": "case_material", "predicted": "case_material", "margin": 7.46104621887207, "correct": true}
+{"id": "p3-0-buttons", "expected": null, "predicted": "case_material", "margin": -7.071796417236328, "correct": false}
+{"id": "p4-1-case", "expected": "case_material", "predicted": "case_material", "margin": 4.887628555297852, "correct": true}
+{"id": "p4-1-buttons", "expected": "case_button_material", "predicted": "case_button_material", "margin": 7.93638801574707, "correct": true}
+{"id": "p4-0-case", "expected": "case_material", "predicted": "case_material", "margin": 8.904809951782227, "correct": true}
+{"id": "p4-0-buttons", "expected": null, "predicted": "case_material", "margin": -8.428264617919922, "correct": false}
+{"id": "p5-1-case", "expected": "case_material", "predicted": "case_material", "margin": 1.814422607421875, "correct": true}
+{"id": "p5-1-buttons", "expected": "case_button_material", "predicted": "case_button_material", "margin": 3.8160781860351562, "correct": true}
+{"id": "p5-0-case", "expected": "case_material", "predicted": "case_material", "margin": 7.865924835205078, "correct": true}
+{"id": "p5-0-buttons", "expected": null, "predicted": "case_material", "margin": -8.20665168762207, "correct": false}
+{"summary": {"derive": {"correct": 12, "n": 16}, "check": {"correct": 6, "n": 8}}, "localization": {"derive_only": true, "old_dual_native_errors": 0, "old_dual_n": 8, "layers": [{"layer": 7, "held_pair_cosines": [0.41901981830596924, 0.5778930187225342, 0.596541166305542, 0.046275846660137177], "positive_held_pairs": 4, "median_cosine": 0.4984564185142517, "centered_input_held_examples_correct": 7, "held_examples": 8}, {"layer": 17, "held_pair_cosines": [0.7256410121917725, 0.7466857433319092, 0.7540995478630066, 0.36356320977211], "positive_held_pairs": 4, "median_cosine": 0.7361633777618408, "centered_input_held_examples_correct": 7, "held_examples": 8}, {"layer": 25, "held_pair_cosines": [0.7274354696273804, 0.7664582133293152, 0.7155126333236694, 0.6380596160888672], "positive_held_pairs": 4, "median_cosine": 0.7214740514755249, "centered_input_held_examples_correct": 7, "held_examples": 8}], "eligible_layer": null, "decision": "no justified native binding weight edit on this evidence", "rule": ">=2 old dual native errors; >=3/4 positive held-pair cosines, median>.1, centered input >=6/8"}}
+{"closed": true, "seconds": 225.5040748329775}

@@ -1,0 +1,23 @@
+{
+  "round1_hashes_verified": 55,
+  "case_sha256": "d941a56bce4c4c50ff5ba3ee0ef428056fb9423b81a4306b90272bcbc2d33076",
+  "protocol_sha256": "87c114d90532d4efe80d8fbf59243ea360d922e0c739a2c3d565cd48b6b33845",
+  "n_cases": 30,
+  "controlled": 24,
+  "natural": 6,
+  "derive_anchors": [
+    "ES2003b",
+    "ES2003c",
+    "TS3004c",
+    "TS3004d"
+  ],
+  "check_anchors": [
+    "IS1008d",
+    "TS3006d"
+  ],
+  "layer_grid": [
+    7,
+    17,
+    25
+  ]
+}

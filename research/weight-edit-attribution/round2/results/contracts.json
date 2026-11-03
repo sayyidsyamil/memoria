@@ -1,0 +1,294 @@
+{
+  "source_sha256": "f8b80a87066035378d123393419ca4441a216fa20c3593315f4515e507127eb9",
+  "preflight": {
+    "time": "2026-11-03T18:42:24+0800",
+    "conflicts": []
+  },
+  "rows": [
+    {
+      "condition": "base",
+      "fixture": "two_changes",
+      "expected": {
+        "values": [
+          250000,
+          280000,
+          300000
+        ],
+        "changes": 2,
+        "current": 300000
+      },
+      "actual": {
+        "values": [
+          250000,
+          280000,
+          300000
+        ],
+        "changes": 2,
+        "current": 300000
+      },
+      "claim_times": [
+        {
+          "seconds": 500,
+          "expected": 280000,
+          "actual": 280000
+        },
+        {
+          "seconds": 2000,
+          "expected": 300000,
+          "actual": 300000
+        }
+      ],
+      "passed": true,
+      "records": [
+        {
+          "id": "two_changes",
+          "key": "aca8f4e049cfcfd04f2c937da98df5d96da7abe28b5b8e800521a5444dfdd551",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "d6fd742b4ce2772a8bb336bc4b69664880aa202906ab5a80ae2fa61461220bc3",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[{\"turn\":0,\"quote\":\"We approve raising the pilot budget to 280,000 ringgit.\",\"object_id\":\"budget\",\"attribute\":\"amount\",\"value\":280000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":2,\"quote\":\"After the vendor quote, we approve a further increase of the pilot budget to 300,000 ringgit.\",\"object_id\":\"budget\",\"attribute\":\"amount\",\"value\":300000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 6.009641958022257,
+          "prompt_tokens": 976,
+          "output_tokens": 129,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.491073058
+        }
+      ]
+    },
+    {
+      "condition": "base",
+      "fixture": "recaps_then_switch",
+      "expected": {
+        "current": "Beta",
+        "changes": 1
+      },
+      "actual": {
+        "values": [
+          "Alpha",
+          "Beta"
+        ],
+        "changes": 1,
+        "current": "Beta"
+      },
+      "claim_times": [],
+      "passed": true,
+      "records": [
+        {
+          "id": "recaps_then_switch",
+          "key": "4ce0260d3c88f28c62ed80b2511f1aa7fc6d93417948d3df0f0d2e77922ad78d",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "a481e91007893f258bd4046e60c767698cbcf759be5b70a1cac848725f0c896d",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[{\"turn\":4,\"quote\":\"Decision: we switch the pilot vendor to Beta, effective today.\",\"object_id\":\"vendor\",\"attribute\":\"outcome\",\"value\":\"Beta\",\"valid_from\":\"2026-09-15\",\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 3.592419416992925,
+          "prompt_tokens": 982,
+          "output_tokens": 62,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.497528426
+        }
+      ]
+    },
+    {
+      "condition": "base",
+      "fixture": "unchanged_recaps",
+      "expected": {
+        "current": "Alpha",
+        "changes": 0
+      },
+      "actual": {
+        "values": [
+          "Alpha"
+        ],
+        "changes": 0,
+        "current": "Alpha"
+      },
+      "claim_times": [],
+      "passed": true,
+      "records": [
+        {
+          "id": "unchanged_recaps",
+          "key": "2ce59f3d46eea7de76b349461d633d1e34d06a21d959fbba0696ba34bd2f8826",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "49c293e91281cdca33c17ebafbb2b228d612a060b1e8b9a7eb92d0e92198a142",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[]}",
+          "seconds": 1.865312209003605,
+          "prompt_tokens": 970,
+          "output_tokens": 5,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.484797914
+        }
+      ]
+    },
+    {
+      "condition": "subject-first",
+      "fixture": "two_changes",
+      "expected": {
+        "values": [
+          250000,
+          280000,
+          300000
+        ],
+        "changes": 2,
+        "current": 300000
+      },
+      "actual": {
+        "values": [
+          250000,
+          280000,
+          300000
+        ],
+        "changes": 2,
+        "current": 300000
+      },
+      "claim_times": [
+        {
+          "seconds": 500,
+          "expected": 280000,
+          "actual": 280000
+        },
+        {
+          "seconds": 2000,
+          "expected": 300000,
+          "actual": 300000
+        }
+      ],
+      "passed": true,
+      "records": [
+        {
+          "id": "two_changes",
+          "key": "8980b62deaa26e353ca0bbbe6a62a430950d6b88dd8df4245f0647015b4ff0bf",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "subject-first",
+            "prompt_sha256": "efe3d30c63a7f7399e7665e146c5d8e1d0d1131633a66549087d27072afe2b00",
+            "procedure_sha256": "73956a3d0b3567ea9abaa41a2a713595b30f89a526b518e00cd0922f6de67751",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "subject-first",
+          "text": "[{\"turn\":0,\"quote\":\"We approve raising the pilot budget to 280,000 ringgit.\",\"subject_turn\":0,\"subject_quote\":\"We approve raising the pilot budget to 280,000 ringgit.\",\"value_quote\":\"280,000 ringgit\",\"object_id\":\"budget\",\"attribute\":\"amount\",\"value\":280000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":2,\"quote\":\"After the vendor quote, we approve a further increase of the pilot budget to 300,000 ringgit.\",\"subject_turn\":2,\"subject_quote\":\"we approve a further increase of the pilot budget to 300,000 ringgit\",\"value_quote\":\"300,000 ringgit\",\"object_id\":\"budget\",\"attribute\":\"amount\",\"value\":300000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]",
+          "seconds": 7.982204833999276,
+          "prompt_tokens": 1154,
+          "output_tokens": 208,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.529856104
+        }
+      ]
+    },
+    {
+      "condition": "subject-first",
+      "fixture": "recaps_then_switch",
+      "expected": {
+        "current": "Beta",
+        "changes": 1
+      },
+      "actual": {
+        "values": [
+          "Alpha",
+          "Beta"
+        ],
+        "changes": 1,
+        "current": "Beta"
+      },
+      "claim_times": [],
+      "passed": true,
+      "records": [
+        {
+          "id": "recaps_then_switch",
+          "key": "d6bf33873e18fa0a986e7433313624f2d792f732d03201787553ec471f4fd934",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "subject-first",
+            "prompt_sha256": "f07a539aadad583793d91255431704b3f77373cf43244d3141222bfa6d105846",
+            "procedure_sha256": "73956a3d0b3567ea9abaa41a2a713595b30f89a526b518e00cd0922f6de67751",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "subject-first",
+          "text": "{\"events\":[{\"turn\":4,\"quote\":\"Decision: we switch the pilot vendor to Beta, effective today.\",\"subject_turn\":4,\"subject_quote\":\"we switch the pilot vendor to Beta, effective today\",\"value_quote\":\"switch the pilot vendor to Beta\",\"object_id\":\"vendor\",\"attribute\":\"outcome\",\"value\":\"Beta\",\"valid_from\":\"2026-09-15\",\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 4.583712332998402,
+          "prompt_tokens": 1160,
+          "output_tokens": 91,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.503353962
+        }
+      ]
+    },
+    {
+      "condition": "subject-first",
+      "fixture": "unchanged_recaps",
+      "expected": {
+        "current": "Alpha",
+        "changes": 0
+      },
+      "actual": {
+        "values": [
+          "Alpha"
+        ],
+        "changes": 0,
+        "current": "Alpha"
+      },
+      "claim_times": [],
+      "passed": true,
+      "records": [
+        {
+          "id": "unchanged_recaps",
+          "key": "9d3d9769ec25ddc02add8204cc761ad09a02fb309cd858372857993b76a8e015",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "subject-first",
+            "prompt_sha256": "4dce816b212ca8f81987c3b8476edec1eff56012a3a7294547adac89f5e4931e",
+            "procedure_sha256": "73956a3d0b3567ea9abaa41a2a713595b30f89a526b518e00cd0922f6de67751",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "subject-first",
+          "text": "{\"events\":[]}",
+          "seconds": 2.2790479579998646,
+          "prompt_tokens": 1148,
+          "output_tokens": 5,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.52382672
+        }
+      ]
+    }
+  ],
+  "peak_process_rss_gb": 2.259746816
+}

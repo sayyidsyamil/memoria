@@ -1,0 +1,70 @@
+{
+  "windows": [
+    {
+      "key": "445caff20136d4b9558c7c74b098d6561dde98b6eb35ba1b9fd2128d739fd9b9",
+      "meeting": "ES2003b",
+      "prompt_sha256": "1d3097bb3cbf6f1c8991c93c3dd60a6ee3265335f110f22e8c6d1d1380cef6e2"
+    },
+    {
+      "key": "92cbdd3e02ebc6683e6f4404a7a2a2134caa35d78e5d0c5a5bd95df0abeaa68a",
+      "meeting": "ES2003c",
+      "prompt_sha256": "56a802741848890d4d037994652037cc1048ed00a6fcc38c094b528d7e4b668a"
+    },
+    {
+      "key": "c6092916643935ca6e3e6bda616984772bc4717ee1185cbb998ee473c56a4dcf",
+      "meeting": "TS3004c",
+      "prompt_sha256": "0ccd8912dd7d0c3d67a7146c55966533f4b0454bf350145d69b40b6f14480fe8"
+    },
+    {
+      "key": "289309cdfc5b725c07882796fc8712d9eaae5d6a7f743fbb62c69b8a6d0df783",
+      "meeting": "TS3004c",
+      "prompt_sha256": "9bc34e41228a130318a39134e1fa951722e3f49fe18af2c60dd90bb69e6d5416"
+    }
+  ],
+  "focus": [
+    [
+      "ES2003b",
+      177,
+      "case_curve",
+      "double curved",
+      false
+    ],
+    [
+      "ES2003c",
+      102,
+      "battery",
+      "lithium",
+      true
+    ],
+    [
+      "ES2003c",
+      102,
+      "case_curve",
+      "double curved",
+      true
+    ],
+    [
+      "ES2003c",
+      102,
+      "case_material",
+      "rubber",
+      true
+    ],
+    [
+      "TS3004c",
+      117,
+      "case_material",
+      "rubber",
+      false
+    ],
+    [
+      "TS3004c",
+      185,
+      "case_material",
+      "plastic",
+      true
+    ]
+  ],
+  "code_sha256": "29dcb06df614832fbc63d1fdd6c1cfa85417dd8c9b91fa440beddbbcbd8def46",
+  "scope": "four unchanged original app windows; open-loop replacements only"
+}

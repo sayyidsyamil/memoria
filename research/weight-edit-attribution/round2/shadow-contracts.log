@@ -1,0 +1,9 @@
+{"condition": "base", "fixture": "two_material_changes", "passed": true, "actual": {"case_material": "wood", "case_changes": 2, "at_500": "rubber", "at_2000": "wood"}}
+{"condition": "base", "fixture": "recaps_then_material_change", "passed": true, "actual": {"case_material": "rubber", "case_changes": 1}}
+{"condition": "base", "fixture": "unchanged_case_untracked_buttons", "passed": true, "actual": {"case_material": "plastic", "case_changes": 0}}
+{"condition": "base", "fixture": "registered_button_decision_retained", "passed": true, "actual": {"case_material": "plastic", "button_material": "wood", "case_changes": 0}}
+{"condition": "shadow", "fixture": "two_material_changes", "passed": true, "actual": {"case_material": "wood", "case_changes": 2, "at_500": "rubber", "at_2000": "wood"}}
+{"condition": "shadow", "fixture": "recaps_then_material_change", "passed": true, "actual": {"case_material": "rubber", "case_changes": 1}}
+{"condition": "shadow", "fixture": "unchanged_case_untracked_buttons", "passed": true, "actual": {"case_material": "plastic", "case_changes": 0}}
+{"condition": "shadow", "fixture": "registered_button_decision_retained", "passed": true, "actual": {"case_material": "plastic", "button_material": "wood", "case_changes": 0}}
+{"closed": true, "seconds": 39.753347042016685}

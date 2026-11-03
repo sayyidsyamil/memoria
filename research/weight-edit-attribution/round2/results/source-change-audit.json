@@ -1,0 +1,174 @@
+[
+  {
+    "id": "p0-0-buttons",
+    "source": [
+      {
+        "index": 175,
+        "speaker": "ui",
+        "start": 3500.0,
+        "text": "Mm-hmm."
+      },
+      {
+        "index": 176,
+        "speaker": "ui",
+        "start": 3520.0,
+        "text": "Mm-hmm."
+      },
+      {
+        "index": 177,
+        "speaker": "ui",
+        "start": 3540.0,
+        "text": "We will use a double-curved shape for the enter button."
+      },
+      {
+        "index": 178,
+        "speaker": "pm",
+        "start": 3560.0,
+        "text": "Sounds good. And I'd say that that's us for now. Okay."
+      }
+    ],
+    "expected": [],
+    "base": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the enter button.\",\"object_id\":\"case_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.9,\"unresolved\":false}]}",
+    "shadow_raw": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the enter button.\",\"object_id\":\"case_button_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.9,\"unresolved\":false}]}",
+    "shadow_effective": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the enter button.\",\"object_id\":null,\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.9,\"unresolved\":false}]}"
+  },
+  {
+    "id": "p1-0-buttons",
+    "source": [
+      {
+        "index": 101,
+        "speaker": "ui",
+        "start": 2020.0,
+        "text": "So you"
+      },
+      {
+        "index": 102,
+        "speaker": "pm",
+        "start": 2040.0,
+        "text": "So what it looks like to me is we'll use a large number of standard components, um, say something like um lithium ion battery, the kind that you find in most um small hand held devices now. Um Looks like we going for a double curved design. Um I don't know what cost implications there are in that. Um, we've decided on flexible rubber for the buttons. Though I'd have to say depending on how flexible it is, we might need to have some kind of inner frame."
+      },
+      {
+        "index": 103,
+        "speaker": "ui",
+        "start": 2060.0,
+        "text": "Yeah, I I would say definitely, I mean I mean I mean the the idea of having it sort of articulated i th there would be basically two points of articulation. W um one below and one above the m the uh the main sort of grip."
+      }
+    ],
+    "expected": [
+      {
+        "turn": 102,
+        "object_id": "battery",
+        "attribute": "outcome",
+        "value": "lithium",
+        "value_word": "lithium"
+      },
+      {
+        "turn": 102,
+        "object_id": "case_curve",
+        "attribute": "outcome",
+        "value": "double curved",
+        "value_word": "double curved"
+      }
+    ],
+    "base": "{\"events\":[{\"turn\":102,\"quote\":\"we'll use a large number of standard components, um, say something like um lithium ion battery, the kind that you find in most um small hand held devices now\",\"object_id\":\"battery\",\"attribute\":\"outcome\",\"value\":\"lithium\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":102,\"quote\":\"Looks like we going for a double curved design\",\"object_id\":\"case_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the buttons\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"confidence\":0.9,\"unresolved\":false}]}",
+    "shadow_raw": "{\"events\":[{\"turn\":102,\"quote\":\"we'll use a large number of standard components, um, say something like um lithium ion battery, the kind that you find in most um small hand held devices now\",\"object_id\":\"battery\",\"attribute\":\"outcome\",\"value\":\"lithium\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":102,\"quote\":\"Looks like we going for a double curved design\",\"object_id\":\"case_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the buttons\",\"object_id\":\"case_button_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"confidence\":0.5,\"unresolved\":false}]}",
+    "shadow_effective": "{\"events\":[{\"turn\":102,\"quote\":\"we'll use a large number of standard components, um, say something like um lithium ion battery, the kind that you find in most um small hand held devices now\",\"object_id\":\"battery\",\"attribute\":\"outcome\",\"value\":\"lithium\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":102,\"quote\":\"Looks like we going for a double curved design\",\"object_id\":\"case_curve\",\"attribute\":\"outcome\",\"value\":\"double curved\",\"confidence\":0.5,\"unresolved\":false},{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the buttons\",\"object_id\":null,\"attribute\":\"outcome\",\"value\":\"rubber\",\"confidence\":0.5,\"unresolved\":false}]}"
+  },
+  {
+    "id": "p4-0-case",
+    "source": [
+      {
+        "index": 18,
+        "speaker": "ui",
+        "start": 360.0,
+        "text": "Alright, so"
+      },
+      {
+        "index": 19,
+        "speaker": "ui",
+        "start": 380.0,
+        "text": "from when we were discussing specifying the case in the last meeting, we decided that we wanted an ergonomic shape, the material that we chose for the case was wood, and uh the colour would be customisable, 'cause you can stain the wood whatever colour. Um, so in terms of function, you have to be able to turn the T_V_ on and off, volume and channel control, menu control, voice recognition control, and we've incorporated the L_C_D_ screen on the flip panel as part of the design, if we figure out it's too expensive, well then you just take it off. Um, so to unveil our lovely product."
+      }
+    ],
+    "expected": [
+      {
+        "turn": 19,
+        "object_id": "case_material",
+        "attribute": "outcome",
+        "value": "wood",
+        "value_word": "wood"
+      },
+      {
+        "turn": 19,
+        "object_id": "speech",
+        "attribute": "outcome",
+        "value": "included",
+        "value_word": "voice recognition"
+      },
+      {
+        "turn": 19,
+        "object_id": "lcd",
+        "attribute": "outcome",
+        "value": "included",
+        "value_word": "L_C_D_"
+      }
+    ],
+    "base": "{\"events\":[{\"turn\":19,\"quote\":\"we decided that we wanted an ergonomic shape, the material that we chose for the case was wood\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"confidence\":0.9,\"unresolved\":false}]}",
+    "shadow_raw": "{\"events\":[{\"turn\":19,\"quote\":\"we decided that we wanted an ergonomic shape, the material that we chose for the case was wood\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":19,\"quote\":\"we've incorporated the L_C_D_ screen on the flip panel as part of the design\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+    "shadow_effective": "{\"events\":[{\"turn\":19,\"quote\":\"we decided that we wanted an ergonomic shape, the material that we chose for the case was wood\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":19,\"quote\":\"we've incorporated the L_C_D_ screen on the flip panel as part of the design\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}"
+  },
+  {
+    "id": "p5-0-buttons",
+    "source": [
+      {
+        "index": 529,
+        "speaker": "id",
+        "start": 10580.0,
+        "text": "What material do we use for the buttons?"
+      },
+      {
+        "index": 530,
+        "speaker": "pm",
+        "start": 10600.0,
+        "text": "It's plastic."
+      }
+    ],
+    "expected": [],
+    "base": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.9}]}",
+    "shadow_raw": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":\"case_button_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+    "shadow_effective": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":null,\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}"
+  },
+  {
+    "id": "n1",
+    "source": [
+      {
+        "index": 116,
+        "speaker": "id",
+        "start": 2320.0,
+        "text": "Like zapping is just switching one channel at a time."
+      },
+      {
+        "index": 117,
+        "speaker": "ui",
+        "start": 2340.0,
+        "text": "Yeah, maybe it's not easy if it's below. It's harder to zap. So I think uh it should be should be easy to. I think it's pretty standard, these rubber buttons on the top."
+      },
+      {
+        "index": 118,
+        "speaker": "id",
+        "start": 2360.0,
+        "text": "Yeah okay. That's that's good, but"
+      },
+      {
+        "index": 119,
+        "speaker": "ui",
+        "start": 2380.0,
+        "text": "And uh if you don't light 'em up, they don't uh you don't see 'em very good. I think it's modern to light this area up, and to light this area up. So the focus gets on these parts and not on there."
+      }
+    ],
+    "expected": [],
+    "base": "[]",
+    "shadow_raw": "{\"events\":[]}",
+    "shadow_effective": "{\"events\":[]}"
+  }
+]
