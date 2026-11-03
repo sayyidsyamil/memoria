@@ -1,0 +1,1072 @@
+chain: ES2005
+language: en
+note: REAL meetings: AMI Meeting Corpus (CC BY 4.0) scenario series ES2005a-d, a role-played design team speaking spontaneously. Turns = AMI manual words merged per speaker (gap <= 2 s), turns under 2 words dropped. Gold = decisions listed in the human DECISIONS abstracts, evidence found through the human summary links; the slot list and allowed values were written by the AI assistant. Meeting dates are assigned (weekly) because AMI has none. Not the product's target domain (corporate board meetings).
+now: 2026-03-02T00:00:00Z
+people: id=Industrial Designer, me=Marketing Expert, pm=Project Manager, ui=User Interface Designer
+object: programmable | decision | Programmable channel and volume preferences | outcome:enum[included,excluded]!reverse
+object: colour | decision | Remote colour | outcome:enum[yellow,special colour]
+object: glow | decision | Glow-in-the-dark material | outcome:enum[included,excluded]!reverse
+object: case_material | decision | Case material | outcome:enum[rubbery latex,plastic]
+object: battery | decision | Battery type | outcome:enum[rechargeable,kinetic,conventional]
+object: charging_stand | decision | Charging stand | outcome:enum[included,excluded]!reverse
+
+meeting: ES2005a | 2026-02-02T09:00:00Z | ingested=2026-02-02T12:00:00Z
+pm: Uh, making a profit of fifty million Euros. So, it's go gonna have to be be pretty damn trendy.
+id: Alright so twenty five.
+ui: Mm 'kay.
+id: So yeah, I've The only the only remote controls I've used usually come with the television, and they're fairly basic. So uh
+pm: Yeah. Yeah.
+ui: Mm-hmm.
+pm: Yeah, I was thinking that as well, I think the the only ones that I've seen that you buy are the sort of one for all type things where they're, yeah. So presumably that might be an idea to
+ui: Yeah the universal ones. Yeah.
+id: But but to sell it for twenty five you need a lot of neat features. For sure.
+pm: put into.
+pm: Yeah, yeah. Uh 'cause I mean, what uh twenty five Euros, that's about I dunno, fifteen Pounds or so?
+ui: Mm-hmm, it's about that.
+pm: And that's quite a lot for a remote control.
+id: Yeah, yeah.
+ui: Mm. Um well my first thoughts would be most remote controls are grey or black. As you said they come with the T_V_ so it's normally just your basic grey black remote control functions, so maybe we could think about colour? Make that might make it a bit different from the rest at least. Um, and as you say, we need to have some kind of gimmick, so um I thought maybe something like if you lose it and you can whistle, you know those things?
+pm: Uh-huh.
+pm: Mm-hmm.
+pm: The the keyrings, yeah yeah. Okay, that's cool.
+ui: Because we always lose our remote control.
+me: Uh yeah uh, being as a Marketing Exper Expert I will like to say like before deciding the cost of this remote control or any other things we must see the market potential for this product like what is the competition in the market? What are the available prices of the other remote controls in the prices? What speciality other remote controls are having and how complicated it is to use these remote controls as compared to other remote controls available in the market.
+me: So before deciding or before finalising this project, we must discuss all these things, like and apart from this, it should be having a good look also, because people really li uh like to play with it when they are watching movies or playing with or playing with their C_D_ player, M_P_ three player like any electronic devices. They really want to have something good, having a good design in their hands, so, yes, all this.
+ui: Mm-hmm. Mm-hmm.
+pm: Okay. 'Kay.
+id: Uh, what do we think a
+pm: So, we're looking for 'Kay. We're
+id: What do we think a good size would be for this?
+pm: Sorry, carry on.
+id: 'Cause I I know as you add more buttons to the remote it sometimes gets so big and clunky and there's just like a hundred buttons on it, or you could have a really small slim one but then you could lose it easily.
+pm: Mm-hmm. Mm-hmm.
+ui: Then you lose it, yeah. Kind of um, maybe more like a P_D_A_ kind of, just hand held, like, 'cause
+pm: For for uh remember we're trying to make it for twelve Euros fifty.
+ui: Yeah. No, I wasn't, no sorry I wasn't thinking of the screen of like a P_D_A_ but
+pm: Okay well right we'll have to um I'll we're k having another meeting in half an hour so um we should all look into a bit
+pm: uh, oh actually, no, we'll allocate. So you do the looking around at other remote controls. Um, if you could maybe come up with sort of shapes and suggested shades or whatever, and you could look into um
+pm: basically how how it's made I_E_ like how you make it all in one, how what sort of materials are available to you whatever. And obviously, other instructions will come from the personal coach.
+pm: Which will probably just usurp what I said so
+ui: So you want me to look at shapes and everything you said? Yep.
+pm: Shapes and colours and um basically how to make it attractive.
+ui: Mm-hmm.
+pm: And you look at competition and design. Cool. So we have uh
+id: Wait for emails?
+pm: Okay, groovy. And no doubt we'll get um
+ui: Oh no,. Sorry it's okay.
+pm: Sorry. We'll get um warnings for next meetings as well. Okay. I shall I can't imagine these are worth much. Okay.
+ui: Okay, cool.
+pm: Fashion into electronic. Okay.
+
+meeting: ES2005b | 2026-02-09T09:00:00Z | ingested=2026-02-09T12:00:00Z
+pm: Um minutes from the last meeting which were essentially that we uh had decided on roles for each of you, however, um there are some changes that I've got from on high that um
+pm: are a bit uh well w what I didn't actually realise it was that the uh this is for a specific television. So the all in one idea goes out the window. And they require that the uh actually I'll get to that at the end point number four, um we'll get what you've got and then we can see what we can adapt from it. So um, presentations, were you anybody got, raring to go? Raring to go? Okay. Good stuff.
+ui: Mm-hmm.
+me: Yeah. Yeah.
+me: Um. So how
+pm: Oh I need to plug you in.
+pm: Just about.
+id: It's a inspired design.
+me: Sh do you want me to hold it?
+pm: Uh there we go, just screw 'em on in. Gonna have to swap them round so now, it was function F_ eight.
+me: So, after that? F_ eight.
+pm: That's the wee blue one.
+me: f oh sorry F_ eight.
+pm: Blue one F_ eight. Should do it, good one.
+me: Yeah. Uh, me again, Rajan the Marketing Expert. Uh, as we have decided in the last meeting that I have to find out, sorry, yeah sure.
+pm: Hold on, sorry. and if you just click that it'll go ahead, one at a time.
+me: Yeah, yeah. Uh actually, sorry I have to see the other, sorry.
+pm: Sorry, uh.
+me: Yeah, thank you. Uh, yes, I have to look at the uh market potential for this product, uh, like consumer likings and everything, what is the potential for this product and are we able to achieve our a net profit or our aims or not? Then
+pm: P press F_ five to start it first.
+me: Sorry. Okay. Yeah, I can, okay. Uh then uh the methodology I adopted to find out all this was market survey. A a detailed market survey on consumers was done to find out their likings and dislikings, what they prefer what they not prefer, w what problems they do encounter in all this type of things.
+me: And what we got was, we found that if you uh, what they th what problems they are having with different uh remote controls available in the market. Seventy five percent of users they do find it that the remote controls available in the market are ugly. They are not so good looking. So, we have to put stress on this, uh we have to take care of this fact also like our design, uh should be appropriate, should be good looking for the consumers. And yes that's wi uh this will definitely, this can definitely put uh uh enhance our sales. Uh and even uh the good thing about this is that eighty percent of users they are willing to pay high uh pay more for this uh good looking remote controls also. So even if the available market goes for the available uh even if the market goes for the available remote control is less even then we can sell it at twenty five Euros, which maybe which may seem quite high but if our looks are are if the re remote control we design have a good better uh better look uh designs, then we can hope that consumers will prefer these g remote controls. Then
+me: And the second thing, some some companies they think that they should have more and more functions of the users uh or in their remote controls, but rather than those having more functions in the remote controls we should emphasise what actually consumer want, what they operate, rather than making it too complicated. Because mostly it has been found that fifty percent of the users they use only ten percent of the buttons, so there is no point of having ninety percent buttons making the remote controls too bulky, too complicated too expensive a because I think I believe that technology is useful only if uh the consumers they want to use it. Otherwise there is no point of having all this type of things. So this will not only reduce the cost of our remote controls but it will increase our profit also. So we have to take care of this fact also. Then. Uh it was function I want to go to.
+pm: Oh you wanna go back? Just escape.
+me: Uh, escape, okay thank you. Then if we look at this slide, uh these are in your shared documents, you can see, like
+ui: So, sorry I was just gonna say, what was the question for this? Or is are you coming on to that?
+me: Uh, sorry.
+me: Ah t look all the market potential, what uh how we should design consu our remote controls, what they should be there so as to en enhance our profit, enhance our sales. Yeah, these are different age group persons like uh sorry, I can open it in another way.
+ui: So these percentages are are what?
+pm: Okay. Speech recognition.
+me: Uh, yes. If we look at the costs whether the consumers they are willing to uh pay more for speech recognition in a remote control or not, we can find that they up to a thirty five years age group we have a very good disliking for this uh this uh point, like for speech recognition in a remote control. So we can emphasise on this point also like, because it will definitely enhance our sales in this ag in this particular age group from uh fifteen to thirty five, and I uh and I think that most of the users of the rem uh T_V_ are belong to this age group. So we should look
+pm: Hmm. We're als we we're looking at who buys it as well.
+me: Yeah. We can look at that that factor also, so yes.
+pm: Uh, which I think the twenty five to thirty five is uh usual, sort of.
+ui: Mm, mm.
+me: Yeah. So, and
+me: And then
+pm: Fifteen to twe
+me: Yes. I think so. Uh if we look at this data how how uh h how what are the problems the consumers are facing with the existing remote controls in the market. They find that thirt uh thirty five percent uh thirty four percent of the consumers they find too difficult to operate a remote control. So it should be in such a way that it should be easy to learn how to operate these remote controls and we should provide pl uh spe uh proper manuals for its use also so as that people consumers could easily learn. They need not to have any, much technical knowledge to see uh to know how to operate these remote controls. So this is also a very goo uh major factor to loo uh take into consideration to enhance our profits and sales. So um this is all about
+ui: Mm-hmm.
+me: uh market potential by me. Uh, yes, th thank you.
+ui: Mm-hmm.
+pm: Okay, thank you. Um, follow on with Helen? Yeah please. Oh, so we do yeah. Fun and games.
+ui: Yep, sure, that's cool, um
+me: Yeah we have to take that out. Sorry.
+pm: Don't know if the cable's gonna be long enough. I think I just kicked over whatever it runs on underneath as well.
+me: Uh sorry, I have. Brian, this one also I. Yeah.
+ui: I can turn my computer quickly if that's okay.
+me: Thank you very much Brian. If you want me to help, yeah.
+ui: Um, yep.
+ui: Okay, and then what do I press, F_ eight?
+me: Uh F_ eight. Function F_ eight.
+pm: Function F_ eight.
+ui: Oh right.
+me: Mm s.
+ui: Okay, cool.
+me: It's not coming. Function F_ eight, okay.
+ui: Yeah. No signal.
+pm: There you go.
+me: Computer adjusting, yeah.
+ui: Okay. Cool.
+ui: Okay and then how do I press the the big one, to get it on to the big
+pm: Uh F_ five.
+ui: F_ five and I press that again to get it off as well do I?
+pm: Um, F_ five and escape'll bring it back and just uh the left button for advancing.
+ui: Okay, so um I'm the interface design designer, User Interface Designer sorry, uh I'm concerned with um w what effect the apparatus should have on the user and um I'm I'm also I want to point out that our motto, put the fashion in electronics, so obviously we as a company we want to make our products trendy and fashionable, it's a big concern of ours. Okay, and how do I press n just the next button? The arrow?
+pm: Uh just a left uh
+ui: Okay. So um I looked at existing designs and also um the information that Raj gave us was very useful about what people like, what people dislike. Um and what people fashionable, because we said people between twenty five and thirty five were the main um buyers of of our T_V_ I think. So um what they like and what they find fashionable. And ergonomics, we said um, I don't know I haven't actually been able to do any of this myself, but um maybe that comes up, I don't know. And the findings, well
+pm: left mouse button.
+pm: Mm-hmm.
+pm: That can come under Arlo as well.
+ui: the basic that was the basic function to send messages to the television set. That's what people want to do. Um, so they need to be included, um, but I've got some pictures here of some leading ones. I don't know how to get to them, do I press F_ five is it? escape?
+pm: Uh if you if you escape then you can see your bar.
+ui: Oh okay, cool. I haven't got my glasses on so I hope it's this one. These are two leading um remote controls at the moment. You know they're grey, they've I mean this one's got loads of buttons, it's hard to tell from here what they actually do, and they don't look very exciting at all. Um, personally I prefer this one just because it's looks easier use, it's a bit more sleek with more of this silver stuff, um, but there you go, that's what we're up against, and I think we can do much better than that.
+pm: Uh okay.
+pm: Mm-hmm.
+pm: We hope so.
+id: Of course.
+ui: Um hang on. F_ five, okay, sorry. Personal preferences. Um, well I think we need to l I think the ergonomics is quite um important, um
+pm: Yeah, particularly if we've uh there was a bit in Raj's about R_S_I_ and things as well.
+ui: Uh-huh. And um I thought not too edgy and like a box, more kind of hand-held more um not as uh computery and or organic, yeah, more organic shape I think. Um simple designs, like the last one we just saw, not too many buttons and as Raj pointed out, only ten percent fifty percent of people only use ten percent of the buttons, so I think what we can miss out on the buttons we can make up for in design and and how nice it looks.
+pm: Mm-hmm.
+pm: Sales,. Okay.
+ui: Um, hand-held and portable I think is portamint is important because T_F_T_ have just um released um I think is it a a remote control for presentations or uh and a big seven inch big screen, anyway, so um
+pm: Yeah it's like a, yeah.
+ui: Yeah, no seven inches isn't that big but um anyway um so hand-held and portable and uh m I thought about other functions for T_V_ but as you pointed out people don't actually want that, so maybe we forget about that.
+pm: And also the company want to keep it stuck to the T_V_ for uh to keep down the production time.
+ui: It's for one T_V_ oh right okay, sure. And so the last thing I thought w which I quickly mentioned in the other one was maybe a bit of a gimmick to set us apart from other people, like glow-in-the-dark um which does already e exist but it's not very widely used I don't think. Easy finder with the a whistle function or something, or rechargeable station because it's a pain when you run out of batteries. And I think that, yep, that's it. Okay?
+pm: Mm-hmm.
+me: Exactly. Yeah.
+pm: That's cool.
+id: So uh, I noticed your talk about speech recognition and whistling, and uh I was just curious to know, have we done any research into how many people can whistle? Um, or if is that a function we want in the remote?
+ui: Mm-hmm.
+ui: Um, I haven't been able to
+pm: Um, do you have trouble whistling? Really? Ooh.
+id: I don't, but I I know a lot of people do right. Yeah it just I mean it has to be a certain kind of whistle too, right?
+ui: Mm-hmm, yeah or some sort of voice
+pm: Yeah, I suppose that's true. Well I suppo uh you could y you could have the you could have the basically um instead of a whistle if it's got the voice recognition you could have it just, you know, where are you?.
+id: That's costly though. Um a much easier thing is just any loud noise like clapping um, shouting, you know, uh and then, what would the response be? It beeps back at you or something?
+ui: Mm-hmm.
+pm: Sounds good.
+ui: Yeah, something.
+id: Well, uh let me set this up. So I plug it in, press F_ five? Function F_ five?
+pm: Function F_ eight for the um the uh
+id: Or function F_ eight?
+ui: Oh you need to twiddle the thingamibobsy thing.
+id: Okay. I think it's uh just to lock it in.
+id: It's got it.
+id: Okay. Um. So as the Industrial Designer my job is to take an input from you guys, um so it's good you went first, and I jotted down some notes as to what are the b needs and uh what kind of novel features we can add to differentiate our product from the others.
+pm: Let's remember that.
+id: Um so Raj told us that uh consumers are willing to spend more for fancy products, and um he also mentioned that uh the current products don't always match users' operating behaviour. Um, a lot of the buttons aren't used, and uh he mentioned that they're not fun to use. And uh a novel feature which uh we just brought up was this this automatic speech recognition feature or noise detection feature for when you lose the remote, there could be a little microphone on it, and any noise over a certain threshold um it'll pick up as a a distress signal um from you and it'll beep back and say you know oh here I am or something of this sort.
+pm: Mm-hmm.
+pm: But sure surely that would have to be um sort of specific rather than above a threshold 'cause if you had a loud movie on you're likely to get it beeping back at you.
+ui: Mm-hmm.
+id: Oh yeah, yeah, that's true. Well maybe you could have a
+ui: Mm-hmm.
+id: um hmm tha that would be a consideration to take into account yes. Um.
+pm: Sorry I didn't mean to derail you there.
+id: Yeah well tha that's uh for later down the road um, and then as for the user interface it should be trendy, um and not computery, right, so more low tech and not too many buttons. So I took these all into consideration and also I have some limitations from the boss.
+ui: Mm-hmm.
+id: Right um, and practical limitations which I kinda threw out the window. And so I did a little research and unfortunately all I had to work on was our uh our corporate archives of the great products we've made before, which include, you know, um space craft, coffee makers, and bullet trains
+pm: Ah is that what that is?
+id: Or uh or a high speed train. Right and having personally worked with all these products uh I have a great deal of experience with uh with industrial design of these.
+pm: Well that's cool. If you if you can build space craft you'll have no problem with a remote control, yeah.
+id: Right. So,
+ui: Yeah sure.
+id: I figured, just put 'em all together. You got a a caffeine powered space shuttle train transport to your T_V_, and um
+id: as for the user interface problem, you know, too many buttons. Give it one button and and it's a you know, for the the cowboy in all of us I I'm not quite sure what the the function is there but
+ui: Well I like that design.
+pm: Right okay.
+id: Yeah it's a g I mean you could have a you know a
+pm: Is that just switches on the speech recognition and it's entirely speech operated, is it? Yeah. Yeah.
+id: Right. So I think I I missed the budget thing, it was fifty million Euros? And we gotta sell twenty five of them? Right. Okay.
+ui: Yeah, not a problem.
+me: Fifty million was uh prof
+pm: Ah now it's fif fifty million Euros we've gotta uh we've g gotta make profit, so we're making that at twelve and a half Euros a time.
+me: As a profit.
+id: Oh okay, so I I mixed those numbers.
+id: Okay. Well I guess more realistically then, we need a product that's got some kinda nifty outer casing, cheap plastic uh, you know, um that should be just like uh a tenth of the price maybe or less. An energy source which'd probably just be uh your regular batteries um, we don't wanna have it
+ui: Mm-hmm.
+pm: Okay. Would it be possible to have the rechargeable idea? Is that is that gonna mark up a lot? Yeah.
+ui: Or a little base station or something,.
+id: Yeah, yeah, we could do that too. Um, I hadn't thought of that. Yeah.
+ui: That might cost more though, 'cause obviously with batteries we don't need to provide, well we provide the first batteries, but it's more, it's that's cheaper to just provide batteries.
+pm: Yeah, yeah. I mean if you think about these base stations now it's essentially just a a lead with a sort of self connecting brake in it, so I don't think it'd up up the price that much.
+ui: A battery in it, kinda.
+id: Right, so so the unirs the user interface uh the canonical user interface for these would be just a bunch of buttons, but since we're a cutting edge company, we uh of course will have alternatives like uh speech recognition, whistling recognition and rocket power
+ui: Okay. Okay.
+id: behind our product. Um and lastly the transmission interface is uh, just some engineering thing you don't have to worry about.
+id: Um so here's you know, a great schematic that my uh apprentice designer gave me. Um as you can see the the remote control have parts and those parts look like that and um you know it's got a little operating procedure that looks something like that. And I suppose you all know how it works because we've all used it and we wouldn't be in a company designing remote controls if we didn't know what they were so uh personal preferences, I think uh programmable options which um just require a small amount of memory, uh non volatile memory, just um so the user can put in their favourite channels and maybe their preferred volume settings so that when they turn it on it's not blasting.
+ui: Mm that's a good idea actually I like the programmable options.
+me: Yeah, me too.
+id: Oh okay. And the uh, the bells and whistles that we mentioned you know, they take more budgeting, um more technical uh expenditure of effort and it's also much more likely to not work if if we add these bells and whistles.
+ui: Mm 'kay.
+pm: Right. Yeah.
+id: That's all I got.
+pm: 'Kay, thank you very much, um I'll take that back.
+id: Ooh that's tight.
+pm: Right, also so um a notice I got not very long before the meeting, so didn't manage to forward it on to you, it is let's see, I'll find it myself, um
+pm: Ta nah.
+id: Okay, I don't think we need to screw it in. Just push it.
+pm: We had that um to dis-include teletext um because it's become outdated, and everybody uses the internet anyway. Um, dunno what Oracle would have to say with that but never mind. Um it's only for the television, which I'm presuming means it's for a specific television, and um instead of colours and sorta colour options, they want corporate colour and slogan somehow implemented in the new design.
+ui: Mm-hmm.
+ui: Corporate colour.
+pm: Yellow. I presume. Um, everything, all their sort of uh you know the uh corporate website and everything's yellow.
+ui: Mm-hmm.
+pm: And the logo uh the sort of slogan we put the fa fashion in electronics uh I don't know exactly how sort of incorpor I mean, I guess if you're going for a sort of globular shape you could kind of have it working its way round it or something.
+pm: Uh, where am I?
+pm: Okay, so, we have to decide on which functions we're going to actually have.
+pm: Uh, now, we had as listed options we had speech recognition potentially, flat screen interface, L_C_D_ interface um we also want to limit the number of buttons so we'll pretty much take that one as read. We'll use the the basic functions for a television. No teletext. Um okay hold on.
+ui: Mm-hmm. Mm-hmm.
+ui: Although the the danger with that is, it could look a bit cheap.
+pm: Not enough buttons you mean? So sorta strike a balance between a a few and a or it looks like we're just cutting on the um
+ui: Yeah. Well
+ui: On the number of buttons, kind of functions and stuff.
+pm: I do however have this from over my head, that they don't want teletext on it.
+ui: Mm-hmm, okay. Okay, cool.
+pm: Uh maybe Raj you could find out what people would think about that, or maybe they'll send some information about that, about um what people, whether people would require um teletext in a remote teletext option in a remote control. Okay um. So uh I take it your position Arlo is that the bells and whistles we've gotta come up with the a gimmick but not too complicated a gimmick. Um so I mean a a the sort of inkling I'm getting from little bits of um web chatter that I'm getting sent is that they're quite interested in a T_F_T_ display, interactive display. However that does sound a bit like the
+me: About cost.
+id: Yeah yeah.
+pm: more complicated design that rav uh sorry Raj um
+pm: said people didn't like. Although I guess if there's a sort of If you think about standard interfaces that people use already, sort of Windows-style drop down menus or whatever, I think maybe that's a bit, going a bit far but you know like in a basic sense that you could have your basic selection of buttons, and if you hit a sort of menu at the top you have
+ui: Mm-hmm, mm-hmm.
+ui: Mm-hmm.
+pm: um it goes to a different selection of buttons, so it sorta keeps it simple. Um glow in the dark, is that sort of with a light inside it or is it sort of glow in the dark material?
+ui: Yeah. Okay.
+ui: Glow in the dark material I was thinking. Um, so I I guess that would be cheaper than a light I think.
+pm: Okay. So
+me: I Uh may I say something about? Uh actually I think it's really really very important point uh as if we look at the market because people mor fifty percent people they find that the remote controls are often lost somewhere in the remote, in the room. But yeah are lost and means they forget where they have kept the remote control last time.
+pm: Yeah. Yeah.
+ui: Often lost s was that, yeah.
+pm: Lost, yeah.
+ui: Mm-hmm.
+me: But if we add speech recognition as well as glow in the dark then both these factors will help their locating the remote control, like if they come and speak something at the remote control uh replies to something something and it glows in the dark. Both these factors uh both these points will help them to locate the where they have kept this remote control, and this will definitely enhance our uh market sales, so we should take it into consideration also.
+ui: Mm-hmm.
+pm: That's cool.
+ui: Mm-hmm, mm-hmm.
+pm: That's cool.
+pm: Okay, cool. Um
+id: Well hmm.
+pm: speech recognition I take it
+id: Oh it's
+pm: I don't, I've I know of no products um that use speech recognition well.
+id: They're act there there was a remote control that came out two years ago that had a some basic speech recognition on it. You could programme it with your channels and then you say you know like uh B_B_C_ one and it goes to that channel. Yeah, it didn't work very well though because of this noise interference problem. They mentioned you know if the television says you are listening to B_B_C_ one.
+pm: Mm-hmm.
+pm: Yeah, or a yeah an advert an advert for B_B_C_ two on B_B_C_ one'll switch the channel for you kinda thing.
+id: Right, right, and so there was a lot of this, you'd be watching the T_V_ and then all of a sudden it'd it'd pick up a noise and turn it off or you know or turn the volume off or something, but if you can work around that that noise problem
+ui: Mm-hmm.
+pm: Uh-huh.
+ui: Well what about this might get a bit too expensive actually, but what about um something that's built into the T_V_ um that you can press and it'll send out a little signal you know like the ones that we can't hear or something um that that will activate the remote control starts to beep. If you find if y
+pm: Ah, that's a good idea.
+pm: So like a kind of backwards remote from the telly.
+id: Right and then it would do just you know, uh subtractive kind of cancellation of the noise. What you could do then would be you have uh a remote controlled by the T_V_ speaker, or not a remo I'm sorry, a microphone by the T_V_ speaker and a transmitter there that sends back to your remote, 'cause you can't um expect uh the the television manufacturers to to put that feature into their T_V_s.
+ui: Mm. Yeah, that's the only thing, yeah.
+id: But yeah, then you have like the little se separate module by the T_V_ speaker
+pm: Right. That we should just stick on, yeah.
+ui: That comes with our remote control. Yeah.
+id: Right, and then the remote control would know um what's being produced by the television.
+pm: Yeah. And that's a sort of basic R_F_ kind of frequency so it'll be cheap.
+id: Right, right.
+ui: Mm-hmm.
+id: Right, right. Um. Yeah that's certainly possible then an another thing was about this losing the remote and trying to find it again. If you do have this sorta speech interface to it, you don't even need to find it. You just say you know, um whatever you whatever you want the remote for, you know to change the channel or to uh turn the T_V_ on and off, you just shout your command to it and it would do it for you if it's within you know, within hearing range. And uh you know it could be somewhere in the room y that you've no idea where it is and it would still do its job.
+pm: Uh-huh.
+ui: That could also be built into the T_V_ though, which might make our remote control a bit obsolete.
+pm: Yeah. It might do us out of a job. Um
+id: Well, hopefully we're uh we're ahead of the curve.
+ui: Yeah, okay.
+pm: Okay. I like the whole sort of remote feedback thing. Um so I think rather than and that also kind of takes out the speech recognition in terms of the interference of it not working very well and things like that, so I th yeah and expense and the time. So I think if we're going to go well I mean like the thing about the there's the problem with the T_F_T_ or the L_C_D_ kind of thing is if you're also wanting the the kind of
+ui: And the expense. Mm-hmm.
+pm: uh organic globby sort of feeling to it then you might have trouble incorporating the screen.
+pm: Um, but I guess not I thin we'll just we'll just pretend that's not a problem. Um uh and how are you about the glow in the dark material? Is that
+ui: Maybe not even all of it 'cause we said um colours and fashion w were important so maybe um just like a little l line that's kind of around the outside and then you can make the rest a different colour.
+pm: Contrast contra well.
+id: Yeah, no th the material's cheap but it's just uh the the glow in the dark material needs some light to charge it you know, and then uh if you're, if you're sitting in the dark for too long it uh it won't glow any more.
+ui: Mm-hmm.
+pm: Yeah, okay. So if it's dow it's d uh yeah. Or if it's down under the couch cushions um which is where I usually find mine. Um
+ui: Mm-hmm.
+pm: Okay, well we can use we can still use the glow in the dark as a gimmick essentially, um if we're gonna have to if we're gonna have the logo on as well, bright yellow logo in our our um  ## event colour.outcome = yellow | INITIAL | quote="Okay, well we can use we can still use the glow in the dark as a gimmick essentially, um if we're gonna have to if we're gonna have the logo on as well, bright yellow logo in our our um" | tags=win_235_271
+ui: Yeah, 'cause what I thought, main
+pm: slogan. Uh then you know they're gonna be fairly brightly coloured anyway, and we can have sort of a a a trimming as well, of the glow in the dark material, just as gimmickyness.  ## event glow.outcome = included | INITIAL | quote="Uh then you know they're gonna be fairly brightly coloured anyway, and we can have sort of a a a trimming as well, of the glow in the dark material, just as gimmickyness." | tags=win_237_271
+ui: Slogan, yeah.
+ui: Mm-hmm. 'Cause yeah, that w more than finding it, that was more like you know if you're watching a film in the dark, you can um still see the remote control.
+pm: Mm-hmm.
+id: Mm-hmm.
+pm: Alright, so n sorta if if if we're gon if we're gonna go with the idea of um uh of feedback, sort of remote finder, then that kinda stuffs that one out then.
+ui: That was more of a a gimmick.
+pm: Do you think?
+pm: Uh it makes it fairly unnecessary then. Okay. Um, okay so scratch that. Uh so we've got do we want to go with the T_F_T_ idea or the is that far too expensive? Well I mean I think I think the sort of find the finder things I mean it's uh I could probably write the circuit diagram for that myself. Um
+ui: Yeah, unnecessary. Yeah.
+id: Um yeah we're getting a lot of features now, I I think
+id: Yeah. Well, I think a consideration too is that these uh remotes get abused a lot, you know they get thrown around, there's a good chance the the T_F_T_ screen would break or uh get damaged. They're pretty fragile.
+pm: Mm-hmm.
+ui: So is that one of our definite requirements that they wa that it needs a T_F_T_ screen?
+pm: Um no, I mean that was going on ravs uh Raj's sort of um marketing research I guess. Um Uh So we'll stick with sort of programmability um for the buttons that we do have. Um. So that's sort of included in your sub-module kind of stuff, um  ## event programmable.outcome = included | INITIAL | quote="Um Uh So we'll stick with sort of programmability um for the buttons that we do have." | tags=win_251_267
+id: Yeah mm.
+pm: Uh you were finding out about teletext. If you could find out that uh
+me: Totally, it takes cheap speech recognition, she they wi
+pm: Um I think we're gonna scratch the speech recognition as a bit of a
+ui: Yeah you think so?
+pm: um expensive, no?
+id: Oh no it's it's much cheaper than the T_F_T_, it's just a microphone and some some integrated circuits.
+pm: Oh right, okay.
+pm: Is it not the circuits that cost
+id: And it'd it'd be a small vocabulary speech recognition system, like a
+pm: Oh right, okay. Uh well that kind of takes back the R_F_ the R_F_ remote sort of idea as well. Um.
+pm: Five minutes. Okay. Decisions. Uh, votes, let's vote. Who wants T_F_T_? No-one does. Excellent, so we'll go with speech recognition, yeah? Um, speech recognition, limited buttons, organic design.
+ui: Mm-hmm, that's cool.
+pm: And what else was I thinking of that I haven't written down and therefore fallen out my head, programmability.
+me: Glow in dark.
+ui: if it's not too expensive s I think it's a good gimmick.
+pm: Uh o okay. And also, integrating the, remember to integrate the logo and the s slogan.
+ui: Mm-hmm.
+pm: Okay, so. Um can you put all these reports in the project documents folder if they're not already in there as well. So, it just helps me summarize them. And um I'll put any I'm I'm putting anything I do in there anyway, so uh
+id: Yeah yeah.
+me: Here? Sure.
+ui: And where is it sorry?
+pm: Uh pro uh project documents. On
+id: So it should be when you save
+pm: A_M_I_ scenario controller.
+id: on your desktop, so it goes save as, or
+me: Uh it is in shared documents?
+id: And then uh hit that little folder up thing again.
+pm: Where am I? Project documents, yeah, it's on your desktop as well.
+me: Projoct uh projector.
+id: Again. All the way to the top, yeah that's up to desktop.
+id: Right and then project documents.
+ui: Okay, cool.
+me: Hmm. It is not giving anything. Shared documents.
+pm: And I will tr getting strings of um information, I'll try and forward any specific to anybody in particular, as soon as I get them now, rather than I was about to sort of tell you about the changes before the meeting, and then the meeting turned up, so
+id: Mm. Did you get my email?
+pm: I did.
+id: Okay. Just making sure.
+ui: Okay. What I thought as well about the material is um maybe not this kind of material, but maybe more like um this kind of rubbery material, it's a bit more bouncy, like you said they get chucked around a lot. Um, a bit more durable and that can also be ergonomic and it kind of feels a bit different from all the other remote controls. The rubber rather than
+pm: More sort of um flesh-like than plasticky sort of.
+ui: Mm-hmm, mm-hmm.
+me: Um but we have to take care like But we have to take care of our children also if they means if children catch hold of your or if they chew it it shouldn't be too harmful. So, whatever material we use it should be yeah.
+pm: Oh no, ethics, that's gonna cost us money.
+me: So we have to safety point of view also, we have to take care.
+pm: Okay, safety.
+ui: Oh I think wi with the more organic shape of it it won't be as it won't as have many sharp corners as that, so that's something good, um
+ui: I dunno, I mean
+pm: It sme smells good for children.
+id: We could go comp yeah. We could go completely out of the box and make the thing a big red ball foam ball.
+id: And it's got the thing on the inside. And there's no buttons at all, it's always on, and just yell at it, and it works.
+ui: That's a good idea. Interesting.
+pm: That sounds, yeah it's gonna have to be it's gonna be have a big yellow foam ball, yeah, sorry.
+id: And then ch children will love it. Oh yellow, yellow ball. Right.
+ui: Yeah, d with the colour, um does it have to be all yellow, do you know?
+pm: Please God no. Um. Well, I wouldn't th I mean, my reaction to an all-yellow remote control wouldn't be anything other than horror, so I think just having it
+pm: surrounding the logo.
+me: Small logo with the like a small yellow strip or y yellow with the logo in it.
+ui: Having a little bit. Okay cool.
+ui: Mm mm.
+ui: Mm-hmm, okay. Cool.
+pm: And I'll see if I can argue with boss about putting the what was it? We put we put fashion into Whoops, it's not working. Can't believe I've forgotten it. We put the fashion in electronics. I bet that'll catch on well. Okay, any last
+ui: Oh yeah, that's a good one that. Yeah so.
+pm: worries, queries?
+id: Twelve thirty.
+pm: Okay. S s I know what you're thinking. Okay then, lunchtime, yay.
+me: That's good.
+pm: Okay, that felt a bit more like a something with order and and reason to it than the last one. This is quite fun actually.
+ui: Wow. Has anybo oh. Has anybody pressed okay, it vibrates. It's pretty cool.
+pm: I really don't
+pm: Yeah, yeah. Wow you've your first page. I was just writing really big.
+me: Check here.
+ui: Yeah, got small writing.
+id: Yeah I've been using up the pages.
+ui: I don't wanna waste it.
+pm: I've finished the meeting now.
+id: Another questionnaire.
+pm: Oh, everybody needs k questionnaire.
+
+meeting: ES2005c | 2026-02-16T09:00:00Z | ingested=2026-02-16T12:00:00Z
+pm: Um we are So the meeting will have about the same format as the last time. So switching over I've just left uh my first two screens. Um I have
+ui: Mm-hmm.
+pm: mailed you the minutes of the last meeting uh just to save time. Um and is there any questions you have that arised from last meeting that
+ui: Okay. Cool.
+pm: are particularly bothering you?
+ui: Mm um. No, I don't think so.
+pm: N No? Okay, cool. Then we shall start with a presentation from Raj.
+me: Yeah. Hi, me Raj, again. Uh in this meeting I I'm going to discuss about the trend watching, uh how these trends is going to affect our market potential and how important is this. So we have to look on this. First of all methodology. The met methodology to find out the trend was incl uh was done in a way We have done a rec not only a recent remote control market survey, but we also considered the latest fre fashion trends of the market, because we think that this is also a factor which will affect our sales and profit. So what are our findings? In our uh in our findings we have seen that when we did our remote control market survey we found that uh people l uh people do have preference for tho fancy mobi uh f remote controls which look and feel very good, rather than having a functional look and feel uh good. So this sh this clearly indicates their preference for the design their outlook of the remote controls. So we should take into uh we should consider this factor as the most important factor, because this factor is twice as important, the second factor which is further ti twice the as important as the sec as uh the third factor. So this factor becomes the most important factor in our surv uh uh in our mark uh means in take in designing our rem uh remote controls.
+ui: The last one is the most important one, is it? Oh, sorry.
+me: No the first one is the uh the outlook of the mobile, the it should have a fancy outlook, the fancy design uh rather than just having a functional look and feel good, it should have a fancy look and foo feel good. The second most important aspect is that remote control should be a technologically uh innovative. We must have some technological advancement in the remote control tha rather than just putting it as it is as the other remo uh remote controls are. So it uh should be technologically innovative like glow-in-the-dark or speech recognition, something like that. So that indicates our technological advancement.
+ui: Okay. Okay.
+ui: Mm-hmm.
+me: And the third most important aspect in the ta to take into consideration is that it should be easy to use, like it shouldn't be too much co complicated, there shouldn't be too many buttons on this mobi uh remote control, it shouldn't be too complicated uh like this way. And it should be uh and customers should be provided with manuals that is easy to understand in their local language, something. So that they could know how to use these remote controls.
+ui: Mm-hmm.
+me: When we did uh f fashions uh, recent fashion uh our recent fashion update shows that
+ui: Sorry. I was just reading fruit and vegetables. Hard to know how we are going to incorporate that.
+me: Ah yeah? Y yeah uh yeah, we have to, because uh d you can see how people have related their clothes, shoes, and everything with fruits and vegetables, because the g world is now changing it's trend towards organic, becoming more and more organic, becoming Yeah. So Yeah. So something like that we we should do.
+ui: Okay. Yeah.
+id: We should make a big sponge lemon, and then it'd be it would be yellow. It's Yeah.
+ui: Yeah. Th that's very good. Glow-in-the-dark. Okay.
+me: And people uh the f feel of the material is expected to be spongy rather than just having a plastic look, hard look. Yeah. Yeah. So so that they could play with it while handi uh while handling it. So that should also be taken into consideration. So these are my views. So
+ui: Well, that's good. That's what we kind of predicted anyway.
+ui: Okay. Okay. Okay. Okay, the spongy, not real spongy, you can Do you think like rubber would be good or does it really want to be like gel kind of stuff?
+me: No it ca y a The rubber which is good for health and which is quite disposable that we can take into co Yeah. 'Cause we It shouldn't be have any harm to the environment also, because our company is very well for taking all these concerns into consideration, so we don't want to have any harm to the society, so
+ui: Okay. Quite disposable. Okay.
+ui: Oh okay.
+pm: Alright, okay.
+ui: Uh-huh.
+pm: Mm 'kay. Fruit and veg, well there you go. Just what I think of when I think of a remote control.
+me: So that's all.
+ui: Mm. A remote control? Yeah.
+ui: And were there any factors that weren't important in the survey, that they said we don't want?
+me: S uh we didn't find out any such point. Uh yes, there could be, but we couldn't find out any, so
+ui: Or was it just Okay.
+pm: Mm-mm-mm-mm.
+pm: Mm-mm-mm-mm-mm.
+ui: F_, what is it? Um.
+pm: Function F_ eight.
+me: Oh no,.
+ui: No signal.
+ui: Is that?
+id: No, it's got it's got it.
+me: Yeah, uh yeah, uh yeah. Yeah.
+pm: Excuse me.
+ui: Okay, and then F_ five, right?
+pm: Uh, yeah.
+ui: Okay. Um okay, so the interface concept um. Yeah. The interface specification, what people um how they interact with it basically, I think. Um so the method, we looked at existing designs, what are the what's good about them, what's bad about them, um I looked at their flaws, so we're going to look at their flaws, everything. Um and what the survey told us and what we think would be good, so a bit of imagination. Uh the findings, I've got some pictures to show you as well. Yeah.
+pm: Mm 'kay. either.
+ui: Okay, so most remote controls use graphical interface, where you um have got s buttons and you point it rather than having the output as a a stream of text or something. Um and we also found that there's inconsistent layout, which makes it confusing. So I think for our remote control There is some inconsistency already in ec existing in between remote controls, but I think standard kind of um shape and uh play and those kind of but buttons like the the top right for on and off or something, I think, people find that important,'cause then it's easy to use.
+pm: Uh okay.
+pm: Right, okay. Yeah.
+ui: And we've got some pictures of some uh new remote controls to show you. Do I press Escape F_ five? Or just
+pm: Excellent. Uh no just escape
+ui: Escape, okay.
+pm: should uh
+ui: Um, oh I still haven't got my glasses on. Yeah, okay. So these are the some of the pictures of existing ones. I'll just walk you through them. This one is a voice recognition. And that's the kind of idea we're going for. There's um an L_C_D_ thing, which we thought could I thought could get a bit confusing and a bit expensive as well for us. This one is got a kind of scroll like a mouse, which Yeah. Um and But I'm not exactly sure how you'd use that, like would the computer come
+pm: 'Kay. Looks pretty complicated.
+pm: Right, okay.
+pm: Mm-hmm, like the middle button. Okay.
+pm: Ah it's kinda like scrolling uh right, well, if I s if I'm thinking of the right one, I've got the same thing in front of my monitor, you scroll it and the when you reach the sort of um menu item that you require, you press the middle of the scroll. Right, okay.
+ui: Uh-huh, that's like the L_C_D_ one, is it? But the one below that has got like a little scroll function on the side. But I presume that the functions must come up on the T_V_ screen.
+pm: Yeah, presumably.
+ui: I think that's what that is. So these are just a few ideas. Again that's just quite boring shape, grey, looks quite space-agey, but too many buttons, I think on that one.
+id: Uh it looks threatening.
+pm: Yeah, looks like uh looks like something out of a jet.
+ui: Yeah, it does look kind of dangerous.
+id: It looks like yeah.
+ui: Um this one I thought was really cool. It's w it's got the programmability function that we talked about. You can put it in there, it's for your kids, and it's quite an organic shape and the little circle around there is pretty cool. And that's really easy to use, bright, so I like this one lot for our design. I think something like that would be good. Of course yellow.
+pm: Yeah, I m I mean the one thing I think about about these ones is um these kl uh secured areas um, I've seen a lot of them with the the cover missing. So like have it hinge rather than sort of clip on or whatever.
+ui: Right, yeah. Yeah, that's true. Yeah. Um so maybe that could be built into one of the things and it comes up on the T_V_ or something. And this one, the over-sized one, I don't know about you, but I think it's a bit too gimmicky. I don't think that will sell very well.
+pm: Yeah. I mean is that not sort of to assist the blind or something, is it?
+ui: I guess so. I don't know. I think that's a bit
+id: Then d blind don't watch T_V_. They do?
+ui: Yeah exactly. Yeah. And um this one is just pointing out. I like some of these things um the the raised symbols and everything, but pointing out um that this one the volume it is kind of pressing down, but it would actually go up, because of the shape. So that could that's a bit confusing. Um but the buttons on this I think are it's just showing you how you can have different different um buttons. They don't have to be all the same. So that's quite cool. Um.
+pm: No they do, they do. They listen to it. Yeah.
+pm: Right, okay.
+pm: 'Kay but people tend to recognise certain shapes to do certain things anyway, don't they?
+ui: Yeah, exactly. Um F_ five. Yes. So there are some of the findings. So we need to combine those ones um and I've just got an e-mail from our technical department saying that they have broken through with some new speech recognition software that you can program in. Um yeah it is, just in time, very handy. Um so I think maybe incorporating that in our design would be good. It's you program it like you say, record, um and then, play, and then, record, play machine, and stuff like that, so that's And it's much Yeah.
+pm: Brilliant. That's handy.
+ui: So that's quite cool. Uh personal preferences just some imagination, the raised symbols I thought were good, the L_C_D_, it does look smart, but I think maybe for our budget, do you think that would be a bit too expensive to have the
+id: The L_C_D_ and the other stuff uh, I think.
+ui: Yeah. And the speech recognition, 'cause I think we're definitely going for the speech recognition, are we?
+me: But in our market survey we have seen that people are willing to pay more, but they want the quality, they want f fancy look, they want some new design, something new. Uh yeah. Yeah. So even if we increase our cost little bit, within uh some limits, and we give something new technological advancement as well as new design with fancy outlook, I think we will meet the requirements and we will be able to have a good sales in the market.
+ui: Uh-huh.
+ui: Uh-huh. But our budget, we've Yeah.
+pm: It's still it's still got to get within our twelve fifty, you know.
+ui: Uh-huh.
+ui: I'm not sure if the if for twenty five Euros uh per uh twelve Euros fifty m manufacturing cost,.
+id: Ben bana
+pm: Yeah. I can't see tha Although, th I mean to be to be sure they have got I mean they are going crazy with the L_C_D_ technology now, so that you've got your L_C_D_ T_V_s and everything so maybe the small
+ui: The L_C_D_.
+pm: But I mean like I I the black and white, I guess, it just doesn't look funky enough. Um but, I mean, like even mobile phones or whatever have now have colour L_C_D_ screens, w I ju I mean I wouldn't know about the costs of them.
+ui: Yeah. S
+ui: Uh-huh.
+id: But uh price price not withstanding um, is it too complicated, is it gonna be too much just overload?
+pm: Twelve fifty.
+me: And the
+me: Uh i it will be easy because there will be, on L_C_D_ s screen, there will be different frent icons, they can just click ok okay, whatever they wa
+ui: Yeah, that's the thing, because
+id: But but the thing is when you use a remote control, you never look at it, right? You're looking at the T_V_ and and it's uh It just seems kind of like a a needless th
+ui: That's true, yeah.
+ui: And one of the survey findings was that they want it easy to use, so I think I'm not sure about the L_C_D_. It's a it's great, it's a good idea, but for our budget and for the thing we're trying to go for eas easy to use, it's not the thing we should go for, I think. Child-friendly, I thought this was good, as you pointed out the um
+ui: the bit, it often goes missing especially with children, but it's a good shape and the organic is kind of we could make a vegetabley kind of round shape, I think.
+pm: Yeah. Well I mean we could make a Yeah. Well, si since we're going for the uh the k the sort of company colours, I think your lemon wasn't that far s And if it doesn't work you know, we've just made a lemon.
+id: So which vegetable? Okay.
+ui: Yeah, I know, carrot.
+id: The the lemon. Well what are the options?
+ui: Yeah. But we don't want it to be Yeah. Um the child-friendly, yeah. Easy to use, it seems quite easy to use. I like the d the different shapes of the buttons and stuff. I think that's a good idea to go for.
+pm: Mm-hmm. I like I like the colourful buttons as well.
+ui: Yeah. And the mouse one, I thought it was a good idea, because people use mo mice mouses now with the scrolling thing. Um.
+pm: Yeah. I mean we are marketing to sort of twenty five to thirty five, so most people
+pm: will have come in contact with that kind of use.
+ui: S yeah. So they'd be able to use that um, as I said I think i I'd presume it would come up on the screen. Um so there you go.
+pm: Yeah. And that means tha that means you get to bump that bit to the T_V_ maker, so
+ui: So that's um the user interface
+ui: So okay, I'll take this out now then.
+id: Um so
+ui: There you go.
+id: I guess there are a lot of options that we're gonna have to choose from among,
+pm: Yeah, looks like it.
+id: and I'll I'll give you the uh, I guess, technical considerations for those.
+id: And I'm gonna use the whiteboard, just 'cause we haven't used it.
+pm: Yeah, I was just thinking the self same thing.
+id: Right. So, the way I'm gonna do this is uh we're gonna take a look at some old remote controls, see how they work, uh reuse the the vital kind of um essential pieces of it, and then we'll throw in our new innovations um and keep it all within budget.
+pm: Magic man.
+id: So uh yeah, looking inside a a very simple remote control. Um this is what they sent me. 'Kay. Here's uh the competition, I suppose. Um you open it up, there's a circuit board inside, um and there's a a chip, a processor, the T_A_ one one eight three five, which um receives input from the buttons, and ch
+pm: Mm-hmm.
+pm: So this is a standard off the shelf kind of a chip, is it?
+id: Right, it's very they're very cheap remote. This remote costs nothing, you know. Um so that takes a signals from the buttons and translates it into a sequence of pulses that it then sends to the to the amplifier, which is made of some transistors and amplifiers, op-amps, and then that gets sent to the uh to the L_E_D_ light, which I can kinda see is that little red light bulb at the end, and that sends out the infrared uh light signal to the television. Oh here it is.
+ui: Mm-hmm.
+id: Um so this is kind of the the bear essentials that we need to have in our remote control, because it it defines the uh
+pm: Okay. So can we make them to pretty much any size we like or is there a minimum or?
+id: R Um no, I mean this is a very old one, so now with the new technology this is a a minimally small and cheap thing to make.
+pm: They gotta be Almost a key-ring.
+id: Right. So this is what we need to have for certain.
+id: Um. So you know, as we said, we got the outer casing, which we have to decide, you know, what's it gonna be, um the board we have to use basically uh the same set-up, processor, um we'll probably use the more advanced processor than they had, amplifier and transmitter are all standard. Um so for the casing, uh this an e-mail I got from our manufacturing team uh, you know, we have a bunch of options from wood, titanium, rubber, plastic, whatnot, um latex, double-curved, curved. So lots of choices, what do we think?
+id: Uh or sponge, I guess, isn't on there, right. Organic sponge.
+ui: Mm. I'm not sure about the sponge.
+pm: Well, I mean like la latex has a kinda spongy feeling to it, doesn't it. Um
+id: Uh yeah, it's very elasticy for sure.
+pm: Yeah. And that would k also give it kinda durability and
+pm: and ther that's also f sorta relatively cheap to cast. Um so maybe s uh a sort of uh plastic initial plastic with a a latex kinda sheath?
+id: Yeah so
+id: Okay so, here are a a plastic, uh latex
+ui: I like the rubber, the stress balls, I think, you know, that could be a bit of a gimmick like it's good to hold and
+pm: Oh right, okay. I don't know what that stuff is.
+id: Oh right. So something with give to it. Okay. And
+ui: Yeah. And that might be quite durable and easy to chuck around.
+id: and the colour is yellow, right?
+ui: Yeah, y yellow incorporated, yeah.
+pm: Or at least incorporating, yeah.
+id: Yellow, okay. Um.
+pm: I mean I forgot i we're sort of uh I don't know what other standard silver kind of
+ui: I think
+pm: Other parts or uh
+ui: Yeah, the buttons w like, 'cause there's gonna be the the cover the the rubber or the plastic casing and then the buttons in probably two different colours or i if we're having buttons actually, I don
+pm: Mm-hmm.
+id: Mm' kay. So yellow for the body, and then what colour for the buttons?
+pm: Um I quite like the multi-coloured buttons myself.
+id: So multi-coloured buttons.
+ui: You do have ones like um play could be green or on and off is red, and stuff like that, yeah.
+pm: Yeah or yeah a limit uh maybe even just a limited multi-colour so it it doesn't look too childish, perhaps.
+ui: Makes it easy to use.
+ui: Yeah, that's true, because that blue one did look quite hardish.
+pm: Yeah. Although I mean this uh uh also comes to shape as well. I mean if we are gonna make it a novel I mean double-curved sounds good to me if we're talking about sorta ergonomic and easy use,
+ui: Mm-hmm. Mm-hmm. Yeah.
+pm: a bit comfier, you know.
+id: Mm 'kay so the shape we wanna go Um how exactly? Maybe double
+ui: Like uh an hour glass kind of figure, is that what you're thinking of, or just like a
+pm: Yeah it's uh, yeah, that that'd be that's sort of comfortable to hold, easy to hold so you don't drop it.
+ui: It's not Yeah.
+id: What about a banana?
+ui: We could make novelty remote controls.
+id: Yeah? Okay, like we could have a big banana shaped remote control, 'cause it's yellow fruit, right?
+pm: Well, yeah, I mean like
+pm: Yeah, yeah. Mm and a lemon might be a little hard to grip. Yeah.
+ui: Yeah. But then how would you point it?
+me: Ah yeah. Mm-hmm.
+ui: How would you point it? What
+id: Oh i it doesn't matter which end you point, I guess. We could have a little L_E_D_s on each end.
+me: Yeah, I appreciate this idea, because then this this will help us in our advertisement also and we can relate with fruits and vegetables, the people's choices. That what our data shows that, so this w this w
+pm: They only cost pennies.
+ui: Yeah. y I'm I'm not sure about the banana idea.
+pm: Huh? Um.
+id: So a spongy banana re Yeah.
+pm: I mean that that th
+ui: Rubber banana. Okay.
+pm: does it does seem a bit uh again childish maybe.
+ui: Yeah. I think maybe just draw on the kind of fruit and vegetable shape. And what else did you say about fashions? What was trendy?
+id: Okay, okay.
+me: Uh the fashion trend shows that fruits and vegetables, like people uh now
+pm: And sponginess.
+ui: And spongy, yeah.
+id: So maybe an an unidentifiable fruit or fiable fruit or vegetable like so it would have a stem perhaps and a
+ui: Yeah. Yeah.
+ui: Maybe, yeah.
+id: maybe a it'd be s axially symmetric.
+ui: Like what's what's that, I don't even know the name of it, some kind of, you know where it's like looks like a little snowman kind of thing. I don't know the name of that.
+id: So it'd look like this kinda.
+ui: Yeah, that's what I was thinking.
+id: Like a gourd almost, or a squash of some sort?
+ui: Yeah, maybe that's what they are. 'Cause that you can hold it in like the bottom bit and
+id: Yeah, and it has a a clear top and bottom so y so you could say, you know, it transmits from this end.
+pm: Yeah, why the hell not. Let's that'll make us fifty million Euros.
+ui: I don't know. What do you guy What do you think?
+pm: Um. Well, I guess it's kind of dra uh you don't necessarily have to have it sort of clearly identified as a fruit just to have that kind of fruitish shape, yeah?
+me: Yeah, then only we can relate it with something. Yeah. Exactly.
+pm: Yeah, we can relate it by advertising or
+id: Okay, so double-curved, single-curved, what do we feel?
+me: Or we can do something, we can design two three shapes and we can have a public survey, let the public choose what they want.
+ui: Uh-huh.
+pm: There's a good man. There's a good idea.
+id: Okay um, I guess, since you're the marketing guy.
+me: Yeah, sure. I will be happy to do that.
+id: We'll uh Okay, we could do that. Um.
+ui: Okay. And buttons would, did we say? Uh different shapes of buttons?
+pm: Um I l I su I mean for the specific functions, you know, up and down, uh play, stop. They've got, I mean, they've got standard sort of intuitive um
+id: Okay, so
+id: so buttons.
+pm: things that are always used.
+id: Okay, just like that.
+pm: That's cool. I like it. Um.
+id: Okay. With the scroll-wheel or no?
+ui: Yeah, what about the scroll wheel and speech recognition?
+pm: Uh speech recognition, I think, so we need a microphone presumably.
+id: Okay uh I could put the microphone here.
+ui: Mm-hmm.
+id: Okay there's the microphone.
+id: Where should I put the microphone?
+pm: I mean ho h h wel are we sure that scroll wheel does give ease of use?
+ui: Yeah, I'm not sure. Um I mean those ideas I saw were just for inspiration, I think. Um yeah, I can no I'm not sure.
+pm: Glad, we're not doing this for real.
+id: Okay, well we can do some user test with scroll-wheels, right?
+ui: I couldn Yeah.
+pm: And uh I think if this this new software for the sound recognition is the microphone
+id: Okay. So should the microphone be just anywhere on it or
+pm: I would put it sort of sub-centrally, so it's Yeah.
+id: 'Kay there's the mic.
+pm: So it can be sort of held and w We really need really gonna need to hold it, if it's gonna be voice recognition.
+ui: That's cool.
+id: Um n well we can
+pm: Oops. Um.
+ui: So let's not use the whiteboard any more.
+id: Yeah. Um.
+id: Oops, sorry. Okay.
+ui: And uh so what else was there? Um the What about the glow-in-the-dark thing, the strip around it? Are we just gonna leave that?
+pm: I s I still like it. Um but that's me.
+ui: You still like it. 'Cause we've got the uh technological innovation with the speech recognition system.
+pm: Yes, or maybe it's just going a bit uh too far. I mean we are pushing it probably with funny fruit shapes. Um don't wanna sort of overkill.
+ui: 'Cause um it could Yeah. Especially with yellow. Mm. I dunno.
+pm: 'Cause I mean like uh if we I mean how good is the speech recognition thing? Do we want to go for buttons at all, do we want to just have a device that maybe sits and pretends it's a fruit?
+ui: Then you put it in the fruit bowl?
+id: They can work from a You don't have to hold it.
+pm: Yeah, you know, and then you just tal I mean like everybody's got fruit bowl in front of the telly. Um.
+ui: Mm-hmm.
+id: I it could even encourage healthier habits for television watchers, you know they have uh fruits all round them. Now just make sure they don't eat the remote.
+pm: Yeah. Make them make them think of fruit, yeah.
+pm: I mean uh some uh I l like think of a fruit that could sit sort of independently on its own like uh, I dunno, an apple.
+ui: Yeah, do we need buttons?
+pm: Then it's just apple so sort of Uh, yellow apples though Hmm.
+ui: I quite like the shape. I quite like the design of that, uh 'cause that could sit on its own and it's quite got a quite steady base.
+pm: Yeah. Okay, yeah, that's good. Groovy.
+id: Okay. But yeah
+ui: Um and as we say we n we don't wanna be too ridiculous with the fruit things you know.
+id: But yeah, about the speech thing, it doesn't have to be hand held or close. It can sit at a distance and pick it up still.
+pm: Yeah. So I mean like you could actually
+me: Or we can we can do one thing, we can just have a remote control and casings of different different shapes, different fruit shapes in such a way that a any casing can be could be fit into this mobile general piece. So whatever people want, like if somebody want it in banana shape, we will put that casing onto that mobile phone, okay, it will look l Uh yeah. In that w
+pm: Yeah, gives you the options.
+ui: Mm-hmm.
+ui: Mm-hmm.
+ui: Mm-hmm.
+pm: So a selection of casings. It kind of fi it fits with f fits with marketing um
+ui: Yeah, 'cause you said about disposable, didn't you?
+me: S s sorry?
+ui: You said about disposable earli people want disposable things so we could do that, like have a choice.
+me: Uh like if this is a like if this is a mobile phone uh we will design casing in such a way like half of, we need not to have a full cover, we will just have a half of cover, okay? If somebody wants it i in banana shape, we will fit banana shape casing onto that, so it will give a banana shape look. If somebody wanted in apple shape we will design that, we will put we will put apple shape casing on that. It will give apple shape look. So in that way you can have any, that means whatever you want, without uh yeah.
+pm: Like like mobiles, yeah.
+ui: Okay. We still need the buttons in the same places thought, don't we?
+me: Yeah, button will be on the upper side, buttons will be the on the upper side. Yeah, buttons will be on the upper side, lower side we will just put the casing, so half of that will be look the Yeah, not not the upper side. So from lower you can, it means while you are holding of from this side you c you can have banana look or apple look, whatever. So in that way we need not to d have different different shape mobiles everything, we will just design casings fruit shape. And
+pm: You can standardise those, I mean.
+ui: Oh, that's the other side. Oh, okay.
+ui: Oh, half a fruit. Oh, okay, okay.
+ui: Okay, okay.
+id: Yeah yeah.
+pm: I think tho I think if you're gonna have a facia then you'd want to have it so that it does go over the buttons, 'cause when if you think about it if they're wanting it, 'cause they want to look at it, if they're using it, and what they want to look at is facing away from them. It doesn't really
+ui: Mm mm.
+pm: You know 'cause that'd be in the palm of their hand and they wouldn't be able to see it, unless you have sort of you got the buttons options on one side, and you get the facia on the other side with a microphone so that you can place it face down.
+pm: And you've got the facia, and you can just talk at the
+ui: Mm-hmm.
+id: Okay, um so
+pm: So you've narrowed it down to half a dozen options.
+id: Yeah, s I guess we decided on material, right? So that that spongy latex rubber everything feel, and the colours we got down, and the shape, maybe we'll just make it kinda mix and match type of shape or  ## event case_material.outcome = rubbery latex | INITIAL | quote="So that that spongy latex rubber everything feel, and the colours we got down, and the shape, maybe we'll just make it kinda mix and match type of shape or" | tags=win_139_293
+ui: Well, um because Well, I I'm not sure if we should go so far in the whole fruit thing, because I think we should maybe just take the inspiration from the fruit and uh because what Yeah, w I think wh wha would we're trying to get to twenty five, thirty five year olds who want it quite trendy as well they said. They wanted something that looks fancy and I think maybe fruit could be a bit of a too much of a gimmick, but something ergonomically shaped and organic, like good to hold, based on fruits and natural things like that, because al already we're going a bit gaudy with the yellow, you know. I mean we could make it nice pale yellow.  ## event colour.outcome = yellow | CONFIRM | quote="based on fruits and natural things like that, because al already we're going a bit gaudy with the yellow, you" | tags=win_290_301
+pm: Okay, so we stick with what we've got there.
+pm: Mm 'kay.
+pm: Mm-hmm. Well, it's kind of gotta be our company's yellow. So again I mean like we could have, uh I mean, we could quite easily have the the main body be a different
+ui: Yeah. Maybe we could have that pale yellow and then an outside bit bright yellow with, you said, the logan the slogan.
+pm: colour, but have
+pm: kinda going round, yeah.
+pm: Um I mean e even if I mean not necessarily that the um the whole body has to be of the company colour, so you know um blue and yellow tend to go to we well together. So you have the main body blue with the yellow logo and slogan running up one side of it kind of thing.
+ui: Yeah. Yeah. Uh-huh.
+pm: W sort of
+id: Mm-hmm. Great. Um as for the energy source um, you know, almost every remote control uses just batteries, but we don't have to be limited by that. We can use a hand-dynamo. Um I don't know what that means, we crank it?
+pm: Uh It's I think it's basically the more you move i it, it's got a wee thing inside that just kinda powers it. Uh yeah.
+id: Right, it's like those watches that you c So, this might be an idea for something that people really wanna grab, you can shake it if it's out of power.
+ui: Oh, a d a dynamo?
+pm: Yeah, I like that, yeah.
+ui: Yeah, like with those watches that you kind of twist. Yeah that's quite cool.
+id: Okay. So if it if it's not working, I guess people's natural reaction anyway is to just shake the thing.
+pm: You shake it and scream at it. Yeah.
+me: But but do you think that it will be a good idea to use dynamo, tha these type of cells? Because then people have to, well like if the cell is out of bat Yeah, to mo Yeah.
+ui: Yeah, it is, yeah.
+pm: It does leave them with an obligation to Especially if they want to use it uh uh sp uh specifically as um voice activated. Then if it's just sitting on the
+me: Yeah, because most of the people Yeah.
+ui: Yeah, then they have to pick it up and then activate it and then Yeah.
+pm: Okay, okay. Right um what are the other options?
+ui: That's true.
+id: Uh there's solar power. Um.
+me: Uh, solar power will w also not be a good idea, because then they have to keep m their mobiles outside in solar energy, and the days when there is no sola sunlight Yeah. Yeah. What we w yeah. I think we should a rechargeable battery will be a good idea. They can they can recharge it.  ## event battery.outcome = rechargeable | INITIAL | quote="I think we should a rechargeable battery will be a good idea." | tags=win_316_326
+pm: I'm I'm with uh Raj on that, I think, you know, I've got I've got no I've got a north facing house, there's not really ever sun coming in my window.
+id: Okay, so probably just
+ui: But w like just normal light?
+pm: Oh that's true. I mean I w I w uh that idea that I thought um just on the basis of like ridding them of batteries and that kind of bother is having a,
+ui: And we're a very environmentally friendly company, aren't we as well?
+pm: yeah, having a rechargeable stand, so that not only it doubles as a stand, but um for using it as uh recharging it, but also for using it as sound recognition.  ## event charging_stand.outcome = included | INITIAL | quote="yeah, having a rechargeable stand, so that not only it doubles as a stand, but um for using it as uh recharging it, but also for using it as sound recognition." | tags=win_316_326
+ui: Like like a hand like one of those portable phones kind of thing.
+pm: Yeah that kind of thing.
+me: Yeah, that's Yeah, exactly.
+id: Okay. So uh a rechargeable battery. Okay. Um the user interface, the buttons, I guess we talked about this already.
+pm: Yeah. Rechargeable.
+pm: . What's chip on print? What's
+id: Um. Hmm?
+pm: Sorry, never mind.
+id: Uh th the uh the electronics um, basically the more features we add um Oops, this one. So the more features we add the fancier chips we need to buy and put in, which adds to the cost as you can expect. Um.
+ui: Mm-hmm.
+ui: Mm-hmm.
+id: But uh I think we can keep it all under budget. So uh yes, so the speech thing you said our our techno our research and development department came up with some break-through. So just in time.
+ui: Mm-hmm. Just in time.
+pm: Yeah, and if we if we're just having buttons and the speech then we're getting our cheapest option of chipping.
+id: Right, right.
+pm: That's good. Uh woah. Okay, we're we're kind of uh we're kind of um Excuse m I've just deleted that whole thing. Um we're kind of running out of time, so if you could
+id: Yeah, and keeping the L_C_D_ screen out.
+pm: Was that you? Um that was your bit's covered, I just dele I just accidentally deleted what I was supposed to say next.
+id: Oh yeah that was that was it.
+me: Uh excuse me, Bri
+pm: Um, yeah. Oh, yeah.
+id: So control F_ eight, right?
+ui: Yeah, mine seems to have turned off. I can't do anything.
+pm: And I just touch the pad.
+me: You just touch the pad, yeah.
+pm: It's actually shut down.
+ui: It's on, but there's nothing on the screen.
+pm: Okay, um now what we have uh our next meeting's in half an hour and what I would like you guys to do is work on giving me a model in clay.
+id: Try uh flipping the screen down.
+id: Oh, I get to do it, too.
+pm: Yeah. It's you guys. Yeah. So um, you know I mean, luckily we chose a nice simple shape. Um and further instructions will be sent by your personal coaches.
+id: Oh neat.
+ui: Yeah. Mm.
+id: Yeah, yeah.
+me: That's great.
+id: Okay. Save everything to the shared documents, is that right?
+pm: Uh yeah, I hope I can recover this, 'cause I've accidentally deleted it. Which doesn't really help me much.
+me: Mm-hmm.
+ui: I think, I've saved mine already.
+pm: Yeah, can you save that uh send that last one again, please, Raj, as I still can't find it on the
+me: Yeah. Uh it was under a different name. I will show you, in shared documents.
+me: Uh working components. Oh, you didn't get that. I will send new. Uh I'll put it in shared documents, again.
+pm: No. Okay, thank you.
+pm: Um yeah, Project, Project Documents.
+me: Project documents, sorry, I put it in the shared documents.
+pm: Uh right, that's that's the that it goes there automatically if you put it in Project Documents. Project Documents is on the um desktop.
+me: Uh yeah.
+me: Right, that's great. But I cou can't open that, because it w asks uh for some username or password.
+me: I'll show you.
+id: Uh these lapel mics are trouble.
+pm: Oh right, I think um Hold on. Yeah, I don't know if y it it just ca it just came up on my um
+me: Sorry. Uh.
+pm: on my agenda. S Um presumably there's clay somewhere. Um.
+me: Yeah, that's great.
+pm: Whoops. Light, light, please. Light. Right, there you go.
+me: Yeah, th thank you.
+pm: Yeah, quite. And we're using this our basic chip set, so it's all good.
+me: Oh sorry.
+id: Are we done with our meeting?
+me: Uh excuse me, Brian. You have to keep your pen separate, because I used your pen.
+pm: Um I think we're almost done, yeah.
+pm: Oh oops. Sorry man.
+pm: Uh okay, still didn't manage to get down all the last bits so we had rechargeable and Uh. Apples. Mm-mm-mm-mm-mm. 'Kay, so we came up with that, that's okay. What's supplements? Supplements. Uh uh.
+pm: I shoulda something like that. If I kn see I I knew that. I shoulda sort of engineered it so we k ended up making a diffi difficult shape. Just for cruelty.
+ui: Yeah. Star fruit.
+pm: I wonder if they mean like literally make it, sort of buttons and everything.
+me: So sh should
+me: Should we leave now, Brian? Or we are going to discuss something?
+ui: No. Oh yeah, we can do buttons.
+pm: Uh no, I think that's us our discussion over unless anybody's got questions or confusions, 'cause I'm confused.
+ui: No I'm good.
+me: Yeah. Excuse me.
+pm: Um uh we'll probably get questionnaire in a minute, it's a
+me: Sorry. Thank you. Yeah.
+pm: There we go. Warning, finish meeting now.
+pm: I rounded it up far too fast. Um. Where are we going? My Documents, that's not what I want. My Project Documents. There we go.
+
+meeting: ES2005d | 2026-02-23T09:00:00Z | ingested=2026-02-23T12:00:00Z
+id: Okay, almost there.
+pm: Okay. We'll sta I'll use the PowerPoint, I guess. How was that, was that fun?
+ui: Mm. Very fun.
+id: Yeah, yeah.
+pm: Okay. Uh oh I've forgotten to mail you the minutes, but I will do. Upsidaisy. Um Um we Yeah.
+me: E excuse me I forgot my
+pm: Alright, okay, yeah.
+pm: He's gonna get his pen.
+ui: Oh right. Okay.
+pm: Um Will you guys first with your prototype um before we get to the good news?
+id: Yeah, there's good news? Oh.
+pm: Uh we have budget problems.
+pm: I'm afraid you're all sacked. Oops. I don't even have this on.
+pm: Okay, have you got a presentation to make? No. Okay so it's just your your show.
+me: No, not mine yet.
+id: Oh. Um maybe we should bring so that the camera can see. Yeah.
+ui: Okay. Sure.
+ui: We made three for you.
+pm: Three? Oh.
+ui: Um one's based on the banana, one's based on the tomato and the other one is st
+pm: Tomato? What tomato? I don't recall a tomato.
+ui: Look. Oh yeah, well yeah, we had v some red left over. So. Okay, so this is the um non to non uh no buttons one, or as mm few buttons as possible, mainly speak recognition. The yellow there is the um the slogan, yeah, that we need to incorporate, it's very simple. If you do need buttons, you can flip it over, and there's some there, um but mainly it's speech recognition.
+pm: Ah I see, okay.
+pm: Mm-hmm.
+pm: Logo. Okay, brilliant.
+pm: Okay, so the buttons would be like, you know individual users, or Yeah.
+ui: Yeah. Yeah and yeah they might project things onto the screen which you can do on there. Mm I'm not sure about that. Um and this one is the one w more like the one w that we looked at earlier. Yeah, you guys can have a look at that if you want.
+pm: Alright, okay.
+pm: Right. That's groovy.
+pm: Well I like the feel of it, I like the feel of it.
+me: Uh can I have
+ui: Yeah, sure. Um that one is Oh no, it's delicate.
+me: Oh sorry s
+pm: At Oh dear.
+ui: That's that's already got its stand that one. That's it stand. It does also lie flat, but that's the that yellow stand there represents the the charging stand. Um the black on the back is the slogan.  ## event charging_stand.outcome = included | CONFIRM | quote="That's that's already got its stand that one." | tags=win_32_36
+pm: Alright, okay.
+pm: Okay, brilliant mm.
+pm: Okay, nice and obvious there, if it's standing up, I guess, yeah.
+ui: Uh yeah, that Well, we did think of that. Yeah, if it's standing up it's it's on there, but also we're gonna have the company name on the front, which is the little black kind of line in the middle. So um and that's the um transmit the L_E_D_ thing. These are the s two scroll ones which we thought could be channel up and down and volume up and down. We n were weren't sure about putting them there, because um i it's it kind of could get bashed.
+pm: Oh right, okay, brilliant. Like that from its centre.
+pm: Where you're, yeah, uh were you're holding it kind of
+ui: Yeah. Well, if you hold it, you can you all can hold it, is it does actually feel quite ergonomic, if you've got small hands. Um, obviously I don't think that's real sized. It would have to be a bit bigger. Okay. Um that's a speaker at the top, so you can speak into it like a little walkie-talkie as well for speak recognition.
+pm: Mm-hmm. Yeah. Okay.
+pm: Yeah, okay. Yeah, scale model, yeah.
+pm: Mm-hmm.
+ui: Um and um then the buttons. Yeah kind of self-explanatory, just buttons whenever you need them. Tried to keep it simple. Oh that's the charging base prongs at the bottom. We used those. And um then the big red button in the middle is the on and off one. It's not in the traditional place, but um it's quite an obvious place.
+pm: Alright, excellent.
+pm: Okay. No. It's out of the way as well, I suppose, so. Excellent.
+ui: So there we go and and um we have the banana-based one too.
+id: Oh yeah, yeah.
+id: This one is uh, I suppose for the younger audiences.
+pm: Okay, so so Barney the banana.
+id: A a more friendly type of Right, right. It's to uh induce more television watching I suppose or
+pm: Ah excellent, just what we need.
+id: Yeah. Say it for the camera.
+pm: Lo Sort of Loch Ness banana.
+me: Mm-hmm.
+ui: Mm-hmm.
+id: Right, right.
+pm: Cool yeah. Well, nice to have uh options at least. 'Kay and
+ui: So are there any um improvements or issues or
+id: It won't stand.
+pm: Oh there are issues, oh there are issues.
+id: Just let it lie down, it wont stand.
+pm: Um main problem that we have unfortunately being finance.
+pm: Uh, let's just enter in the um evaluation criteria. Um unfortunately the unit we are currently going to produce minus the extra scroll buttons, uh it's gonna cost us fourteen point six Euros.
+pm: So we have to rea Sorry, I've accidentally highlighted somehow Um. There we go.
+id: What's on the uh on the left?
+pm: Oh god, why is it doing that?
+pm: There we go. So basically, um in order to save our two Euros um I was thinking that we could have essentially the same shape, but just have it flattened.
+ui: Mm-hmm. More like a traditional remote control.
+pm: Um. Yeah, I mean it's already got a kind of cool shape, so but it wouldn't have to be curved sort of in and out. And by doing so Oh no, hold on. Doesn't save us quite as much.
+ui: Mm-hmm. Mm-hmm.
+pm: I don't know what's going on with this again.
+id: W why is the uh double curved two of them?
+pm: Oh, good point.
+me: And double curve on both sides?
+me: Curve. Yeah, this is double-curve, no? This is double-curve. It This one is single curve.
+pm: That's sort of curve in and out.
+id: Is i
+me: 'Cause this is single curve, this is curved on both sides. So double-curve.
+pm: No, I think it means double curved as in um like uh a single curve on that bottom half, and the double curved would be if it was that similar curve upward. Okay, I might be wrong though.
+ui: Like an S_ shape.
+me: Like this, one curve on this side, one curve on that side. Hmm. Hmm.
+pm: I don't think that counts as a curve, I think that's just a shape.
+pm: A curvature is like the this case.
+id: 'Cause that's the uh the biggest expense there, right. got two of them
+pm: Yeah, and why why I've got it two, I don't know, I can't seem to select any more however.
+id: Okay. Well we can work around that um
+ui: Mm-hmm.
+pm: Right. No.
+id: Cut things out.
+id: But you think it should be one.
+pm: It's meant to be one, yeah, I don't know why I put two in there, but um Hold on till I find it, I think this shift button might be stuck again.
+pm: No maybe the shift button's stuck in. Um okay, so that would take away three, which would give us
+me: Mm. Should
+pm: Oh that's fine.
+id: Yeah, so we're
+pm: Eleven uh eleven Euros sixty.
+ui: Cool. Cool.
+ui: So we could even add something.
+pm: We cou Oh not quite, have the scroll-wheel, unfortunately. What?
+id: We should fire the accountants. Fire the accountants.
+id: Ah yeah, we could add things.
+id: Maybe if you click back in that bottom right cell, where you're starting from, and then use the arrow keys. Does that work? No mm.
+pm: Yeah. Yeah, I know, that just extends it as well. I don't know.
+me: Uh you can do one thing. You just select one box outsi yeah, this box. Then move it with the help of this Okay. Just uh just uh Okay, just a minute.
+pm: It One of the buttons is sticking, I don't know.
+me: Okay. No input, like this. Shift. No it's not. Yeah, it's not working. Should we ask Meli Should we ask our technical expert Melissa?
+pm: No, it's 'cause the uh the shift button's stuck, or something.
+id: Is it the other shift button maybe?
+pm: No that's fine. Um we've worked out what it would be anyway.
+id: Did you try both shift buttons? It could be the other side.
+pm: Cancel. Piss off.
+id: That's too bad.
+pm: Oh well, never mind. Um. Right, so that's finances and I dunno what we what could we reckon we could add? Um
+ui: Well maybe we could add something, but maybe if What do you th We're trying to save money, so. Yeah, if we're happy with the design there's no point in spending money, if we don't have to. But if there is anything you think we've missed out there, then, you know, feel free to add it. Maybe I mean obviously it would be bigger so there might be more space for the the slogan on the front, because it's not in an ideal place right now.
+pm: Well I suppose that's our that's that's our design that we've got. So
+pm: Yeah yeah. Well that's that's uh Okay, so project evaluation. We have under twelve Euros fifty. Project process, how do we think that went? Are we happy?
+id: Yeah I think we have a a winning product.
+pm: Okay. Evaluation. Oh we've been writing this up for m months.
+ui: I think it went quite smoothly.
+pm: Uh room for creativity, were we happy with that?
+ui: W I think we were very creative.
+pm: No, I mea I think it means sort of individually.
+ui: Oh right, okay.
+pm: Yes, no, maybe? Okay. Groovy. So uh we're just gonna. Uh yeah, okay. Teamwork? Leadership, sorry.
+ui: Mm-hmm.
+ui: Excellent leadership.
+id: Great leadership.
+pm: Thank you very much. You're all get you're all getting a raise. Uh teamwork. I thought went well. Yeah.
+id: Yeah, yeah.
+ui: Yeah, everyone got enough input, I think.
+pm: Uh and well means, yeah. The technical stuff was brilliant. Let's buy more. Uh Right. Um I don't know what, new ideas found, means, to be honest.
+me: Yeah, we
+id: These pens are are neat though.
+me: Yeah, these are new ideas, like glow-in-the-dark or something like that. We discussed all the new ideas, but of course we couldn't reach any proper goals, we couldn't use these, but we h we are using these scroll buttons like this. These are new ideas we And new shapes, everything. At le Yeah.
+ui: Mm-hmm.
+pm: Mm-hmm.
+pm: Mm 'kay. Groovy. So just general thumbs up for all of us then. That kind of unfortunately is too quick. Uh. I suppose yeah. Um.
+ui: Okay. Well um.
+id: Uh so let's talk about our bonuses and the raises we're getting for this, right.
+pm: That's it, um I think another couple of days holiday pay might be well in order for all of you. Uh Let's see if I can get this bloody thing to work. Whoops.
+id: Right, right.
+id: Uh maybe we should start cleaning up the clay.
+ui: Yeah, maybe.
+pm: Does it go back in, does it? Reusable.
+id: Something we should get.
+pm: I don't know what this is but it's really really annoying.
+me: So Uh Brian, have you have you finished? Uh mine needs also this.
+pm: Uh-huh. Um I have, yes. Huh?
+me: At last mine is also the presentation.
+pm: Oh right, okay, you've got more, okay. Sorry uh. It didn't bother to tell me that on this
+me: Yeah, yeah.
+ui: Oh, you got a presentation, sorry.
+id: Oh ok
+pm: thing. Is it? Okay.
+me: Uh is the project evaluated, that is mine.
+pm: Doesn't tell me. Oh you're doing that.
+pm: We evaluated ourselves, we thought we were great.
+ui: Mm, love to eat that now. Kind of a green banana now.
+id: Clay covered banana.
+ui: It's this as well, sorry, we forgot to mention it'll be made out of kind of a rubbery latex, new material that we've got. I've got.  ## event case_material.outcome = rubbery latex | CONFIRM | quote="It's this as well, sorry, we forgot to mention it'll be made out of kind of a rubbery latex, new material that we've got." | tags=win_160_164
+pm: O okay, hold on.
+pm: I wonder w which cell do I want.
+id: It's fun to touch.
+me: So. Yeah.
+pm: Okay, I didn't realise you had that bit.
+ui: Oh could you pass the tomato please. Sorry. Thank you.
+me: So now is the final evaluation, final evaluation of the uh uh of our product. How we are going to means uh at what standard what standard whether it meets our standards or not. How mu What rating we will give to these products. So of course this is will be a team work, w we together have to decide wha what rating we will give to this product and everything. So what methodology I will tell you on what basis we are going to discuss all this.
+ui: Mm-hmm.
+me: We will give the rating to this product based on the user requirements, whether it meets the user requirements or not, this product. Then trends, whether it is as fashion trends or not? Means because we have already stated that people do prefer fashionable things nowadays. So this is also an important factor for our evaluation also. Then marketing strategy of the company. As we have already discussed that our company is quite in the market, not only in terms of providing quality products, not only in pro providing latest technologies, but also in terms of providing environmental s
+ui: Mm-hmm.
+ui: Sorry. Sorry, carry on.
+me: Yeah. So but also in terms of providing environmental safe products, uh yeah like uh keeping uh keeping in mind all the safety issues. So Now comes the criteria rating with seven point scale. I'm having this scale this scale, so we have to do it on a board.
+ui: Mm-hmm.
+pm: Alright, okay. The board working again, is it?
+me: the user requirem I think.
+id: Do we have the uh the marker for the board?
+me: Thank you.
+id: There it is.
+me: So these are the three crite criterias for our evaluation of our product. First of all uh comes user requirement. So we will see whether this product meets all user requirements or not. I I will first I would like to have your views, what do you think whether it meets all user requirements or not?
+ui: Mm-hmm.
+ui: Um I think Yeah, it did. It had all the basic buttons that they needed as well as the uh new technology that people said they wanted. Um so. Does it work? Yeah. So.
+pm: Yeah. When the user requirement is essentially just to operate the T_V_, so yeah, of course we haven't actually got a working model yet.
+me: So what do you think you will personally give. Seven. Uh.
+ui: I would say seven. Seven is good, yeah, isn't it? I can't True or false? No sorry tr one is true.
+pm: One, yeah.
+me: Uh one is means highest ranking, okay. But I think highest ranking is seven, or one?
+pm: No it's it's like true is one end, and false is the oth
+id: No that's false.
+me: Okay, right right. So it's one for from your point of view. And what do you say our Industrial Expert?
+ui: Okay, so one.
+id: It's hard to know. I I give it a two.
+me: Uh d you can you can tell on on the like I think she has given her views on the basis of design, because she was our i Interface Expert. But you can give your views based on technology, whether the technology meets the requirements of the customers or not?
+id: Um yeah, I think i it might even exceed it um. But I guess there is a kind of a shortage of buttons. Um I'm gonna give it a two. Two.
+me: Two. And what about uh you, Brian? You will go for one. Okay. Uh for me personally it is everything fine, it may be having good design, it may be uh meeting all the requirements of the customers like technology-wise, price-wise, but there is one thing which limits the customers, like we are having only two, three designs, like we are having one banana design and the other one is orange, and Uh yeah, lower end. And the third one is what you ge uh that is not a f fruit look. But if a person doesn't like banana, or orange, you are limiting him. No, don't buy our product, because we are l we like this only. So we are showing our preference for particular fruits, two or three kinds rather, and Yeah. So.
+pm: Oh, I'll go for a one. Basic requirements but of the pro of the project.
+pm: Yeah th
+ui: Mm yellow.
+ui: Uh-huh.
+pm: Come on that was the tha
+ui: Uh-huh.
+pm: Being fruitist.
+ui: Is that no is that not trends?
+me: Uh no, uh personally as a Marketing Expert I don't believe that, because whatever companies they launch their products in the shape of fruits, they give a range of products, a range of shapes, like if we see, look at the smallest thing, toffee chocolates, they give a variety of different things. Some children like to buy banana shape, some apple shape, some even pineapple shape, some orange shape. So you can what shape a person will like. So in this case giving only one or two choices we are lim limiting our customers. And by limiting them, we are limiting our sales, limiting our profit also.
+ui: Mm-hmm.
+ui: Mm-hmm.
+ui: Uh-huh.
+ui: But in electronics, I think, it's not q always quite so um you don't always have so many choices as with chocolates. I think, you know, if you're going to buy a T_V_ maybe a company'll have That you're going to choose from, a company'll have two or three choices, but they're different designs. We were coming up with one product.
+me: Uh maybe. Okay but I will I will personally won't give it beyond three. So we can
+ui: No, I mean uh obviously your opinion, I'm just trying to
+pm: He's a tough cookie.
+me: Yeah, on an average we can think three, four sevenths, maybe. Three or four? Uh, no sorry, it should be
+pm: Six. Five or six.
+ui: What are we doing?
+me: No sorry, sorry, sorry, sorry, we are doing a very wrong thing. Yeah, yeah, we are taking everything, and that's I have taken it very wrongly. Yeah uh three four four two six seven seven sev Yeah one pe exactly. So we can say one or two. because it is one point eight uh two, so we will do two. Yeah. So where were the trends.
+id: What are we doing?
+ui: Adding them up?
+id: We're gonna average them? Okay. So seven fourths. About one point f one point eight.
+pm: Oh I see.
+id: Yeah round it up to two. So trends.
+ui: Okay, yeah.
+id: Can you explain what you want us to write there?
+id: How it how conforms to the current trends?
+me: Yeah, again the the fashion trends, this also like whether it it will be fashionable to have these products in the uh as a fruit shape or something. Uh.
+ui: Mm-hmm. Okay. Well um going on uh the specifications that we had, that fruit and vegetables are quite popular, and that people like something that is good to look at and not many buttons, I would give it um, well, because it's hard to make a fruit good to look at, that that looks cool, you know, so I would actually give it a three. Tha three or four, I'm not sure. Three. Go for three. That's fine.
+me: Okay. Yeah. Uh
+id: 'Kay. As far as the uh technology it its' got the latest trends in speech technology, but it's missing the screen, as we said, um but it does have the push-buttons, or the scroll-buttons, um but it doesn't have that fancy solar power or the the vibrating energy mechanism. So I give it a a four. I'd give it a kinda middle of the road for
+id: for technology.
+pm: Yeah, I am sort of pret uh Just the fruit does me in, I mean uh it might it might be trendy to some, but I'm just not swallowing the fruit, so um Uh also uh I would have liked to have seen the L_C_D_ screen in it. Um so yeah I'd say about four as well.
+me: Okay. Uh personally I wi uh I think that in terms of trends, these products are quite good, like, these products are in fruit shape, because that wha people now our fashion trend shows that people like everything all f everything that is being advertised, like clothes, shoes, and everything is being advertised in the form of fruits and vegetables, or getting them or showing some association with them.
+ui: Mm-hmm.
+me: So and in this way our product is good. And the second thing, now people don't want any complicated or bulky products and ours is quite simple and quite handy. So that is also ef that also Our product meets the f the fashion uh trends of the market. And yes. It is cus spongy also. So they can play with it, it's quite good. So then I think, maybe I can give it two. So four five ten thirteen thirteen. So we can Is it fine? So what about company strategy?
+ui: Mm-hmm.
+id: Well it was yellow.
+ui: Um. Yeah, the company strategy, okay. Um there was lot of discussing, that was good. Um I feel I got my say. Um so I'd give the company strategy a two.
+id: Well, I think it's the the remote control conforms to the the company strategy. Is that the question?
+ui: Okay. Is it? Okay.
+pm: Yeah, yeah.
+ui: Okay, so one or two. One. Okay, just leave it, it's fine.
+id: I'll go with two.
+me: So what about you, Brian?
+pm: Um yeah, a three. Pretty much kept to the company strategy, so I would go for a a one, as we not only kept it, but we were limited by
+me: Yeah, and me also, like, this product me uh me uh me uh this meets all company strategy like our product should be as per customers' requirement, as per latest technology, and it should be environmental safe. So since our product meets all these requirements, so I would also prefer to give it rank one. So four six six
+id: So one and a half.
+ui: Yeah, one.
+me: half. So we can say two or one Okay. So th seven seven.
+id: A two.
+me: Uh overall we are getting two something, but we can round it as two.
+pm: Cool, groovy.
+me: Yeah. So I think overall uh evaluation of our product is quite good. So we can launch it. Yeah.
+ui: Woo-hoo.
+pm: In which case we are done. 'Cause we've evaluated and we are within budget.
+me: So yeah. Great.
+pm: Champagne lunch anyone?
+
+question: q1 | current | programmable.outcome | gold=included
+question: q2 | as_of_valid | programmable.outcome | valid=2026-02-05 | gold=none
+question: q3 | n_changes | programmable.outcome | gold=0
+question: q4 | current | colour.outcome | gold=yellow
+question: q5 | as_of_valid | colour.outcome | valid=2026-02-05 | gold=none
+question: q6 | n_changes | colour.outcome | gold=0
+question: q7 | current | glow.outcome | gold=included
+question: q8 | as_of_valid | glow.outcome | valid=2026-02-05 | gold=none
+question: q9 | n_changes | glow.outcome | gold=0
+question: q10 | current | case_material.outcome | gold=rubbery latex
+question: q11 | as_of_valid | case_material.outcome | valid=2026-02-05 | gold=none
+question: q12 | n_changes | case_material.outcome | gold=0
+question: q13 | current | battery.outcome | gold=rechargeable
+question: q14 | as_of_valid | battery.outcome | valid=2026-02-05 | gold=none
+question: q15 | n_changes | battery.outcome | gold=0
+question: q16 | current | charging_stand.outcome | gold=included
+question: q17 | as_of_valid | charging_stand.outcome | valid=2026-02-05 | gold=none
+question: q18 | n_changes | charging_stand.outcome | gold=0
