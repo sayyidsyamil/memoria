@@ -20,6 +20,7 @@ one repository; the other folders were started here. Nothing in this folder is b
 | [`model-improvements/`](model-improvements/) | Extraction development experiments, stock/edited 0.8B controls, rejected candidate A and the empty-record baseline audit | new, 3 November 2026 |
 | [`weight-edit-loops/`](weight-edit-loops/) | Targeted 4B static edits and repetition stopping; measured effects, random controls and recovery failures | new, 3 November 2026 |
 | [`weight-edit-attribution/`](weight-edit-attribution/) | Source-labelled 4B attribution diagnostics, prompt alternatives and static edits; unsupported gains rejected | new, 3 November 2026 |
+| [`weight-edit-attribution/round2/`](weight-edit-attribution/round2/) | Native object-selection diagnostics and explicit untracked-component choices; short-context gains fail the full-window source-support screen | new, 3 November 2026 |
 
 The evidence inventory is [`docs/research/RESEARCH-EVIDENCE.md`](../docs/research/RESEARCH-EVIDENCE.md).
 The [3 November integration review](REVIEW-2026-11-03.md) records accepted fixes, rejected interventions,
