@@ -5,13 +5,10 @@ packages:
   - site/landing
 
 allowBuilds:
-  '@sentry/cli': set this to true or false
-  core-js: set this to true or false
-  esbuild: set this to true or false
-  protobufjs: set this to true or false
-
-ignoredBuiltDependencies:
-  - esbuild
+  '@sentry/cli': false
+  core-js: false
+  esbuild: true
+  protobufjs: false
 
 patchedDependencies:
   '@10play/tentap-editor@1.0.1': patches/@10play__tentap-editor@1.0.1.patch

@@ -45,7 +45,7 @@ The [`v0.3.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.0-u
 
 ## Develop
 
-Node.js 22+, pnpm 10, Rust stable; Homebrew Python 3.11 for the local models.
+Node.js 22.13+, pnpm 11.1.1 (pinned), Rust stable; Homebrew Python 3.11 for the local models.
 
 ```sh
 git clone https://github.com/sayyidsyamil/memoria.git

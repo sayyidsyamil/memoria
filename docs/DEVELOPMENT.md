@@ -2,7 +2,7 @@
 
 ## Frontend
 
-Requirements: Node.js 22+, pnpm 10, and Git.
+Requirements: Node.js 22.13+, pnpm 11.1.1, and Git. Corepack selects the version pinned in `package.json`.
 
 ```sh
 git clone https://github.com/sayyidsyamil/memoria.git
