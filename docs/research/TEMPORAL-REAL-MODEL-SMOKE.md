@@ -60,8 +60,8 @@ wrappers around `build_prompt`, `parse_events`, and `subprocess.Popen` preserve
 their actual results and capture prompts, raw output, candidates, and worker
 ownership. No generated result or proposal value is substituted. SHA-256 checks
 confirmed the five recorded source files were unchanged across the run. No
-source, UI, parent documentation, app registry, or original benchmark output was
-edited by this verification.
+source, UI, documentation, app registry, or original benchmark output was
+edited by this run.
 
 ## Reviewed fixtures
 
@@ -87,7 +87,7 @@ These are separate transcript files, each containing its corresponding line.
 The displayed clock truncates to whole seconds; stored evidence preserves the
 actual **12.5-second** start.
 
-## Ingestion and authorized proposal review
+## Ingestion and proposal review
 
 | Ingestion | API wall time | Pipeline time | Parsed cleanly | Pending result |
 | --- | ---: | ---: | --- | --- |
@@ -100,7 +100,7 @@ speaker **Maya**, and the corresponding fixture UUID. The first pending proposal
 had `current_value=null`; the second had `current_value="Beta"`.
 
 Review only selected a unique proposal whose object, attribute, value, meeting,
-speaker, and nonempty verbatim quote matched its fixture. Authorized acceptance
+speaker, and nonempty verbatim quote matched its fixture. Acceptance
 used `temporal_api` → `proposals.accept`, reviewer
 `authorized-temporal-smoke`, with a review note and no value edits. Proposal 1
 became fact 1; proposal 2 became fact 2; both returned `status="in_force"`.

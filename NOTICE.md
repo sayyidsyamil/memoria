@@ -50,7 +50,7 @@ are included; their terms restrict redistributing source and Memoria is licensed
 under AGPL-3.0-or-later. All components are original implementations on the existing
 Radix, Phosphor and project CSS foundations, and no dependency was added for them.
 See [docs/UI-PATTERNS.md](docs/UI-PATTERNS.md). The earlier
-[Unslop](docs/UNSLOP-PASS.md) pass credits its method separately (CC BY 4.0).
+[Unslop](docs/notes/UNSLOP-PASS.md) pass credits its method separately (CC BY 4.0).
 
 ## Local models
 

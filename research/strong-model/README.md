@@ -7,7 +7,7 @@ DeepSeek V4.1 Flash in place of Qwen3.5-4B on the frozen AMI test split. The Oct
 The October evaluation ([`../ledger-engine/`](../ledger-engine/), `results/ami/ami_test_report.md`) used one local
 model, Qwen3.5-4B, for all three methods. The Memoria ledger scored 59/96, full-context prompting with chain of thought
 41/96, and BM25 retrieval 37/96. With gold facts the ledger scores 96/96, so all of its errors are extraction errors.
-An examiner will ask:
+Two questions follow:
 
 1. **Does the ledger get better with a better extractor?**
 2. **Would a strong model with all transcripts in the prompt make the ledger unnecessary?**

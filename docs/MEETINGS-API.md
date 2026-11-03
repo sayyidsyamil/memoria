@@ -57,9 +57,8 @@ history.
 
 Meeting list/get/save/delete are migrated. Transcription, speaker memory,
 capture-chunk commands, approved knowledge, Search, Ask, and Briefs retain their
-existing transports. They should be migrated as subsequent vertical slices;
-they are not silently claimed to use this contract. Restore/trash is not introduced
-in this pass.
+existing transports. They may move to this contract later; this document does not
+claim they use it. Restore/trash is not introduced in this pass.
 
 Coverage: frontend client contract tests, existing meeting UI regressions, Python
 service CRUD/restart/validation tests, existing persistence tests, and Rust request

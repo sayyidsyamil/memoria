@@ -34,12 +34,13 @@ and select controls required explicit focus and observation.
 
 Scratch `opencode/native-integrated-check/` retains `prepare.py`, `add_audio.py`,
 `fixtures.json`, the disposable vault, `change-count.png`, and
-`history-after-restart.png`. The app was left open on disposable fact history.
+`history-after-restart.png`.
 
 ## Follow-ups
 
 Observed UX: query results render raw JSON, current fact says “1 changes”, dates
-are machine-formatted, and citations show UUIDs rather than meeting titles.
+are machine-formatted, and citations show UUIDs rather than meeting titles (all
+fixed in [M1](M1-NATIVE-LOOP.md)).
 
 Not exercised: native correction/retraction, Live Ask, native capture, End/final-turn
 processing, trimmed-caption review rendering, crash recovery, full capture queue

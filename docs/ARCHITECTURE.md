@@ -8,18 +8,20 @@ meeting ingestion preserves dates and offsets and uses `confirm_all` policy.
 Current/historical facts, human review, corrections, and retractions remain ledger
 operations. Change-count responses add history-backed evidence in the adapter.
 
-The recording HUD can opt into `live_memory_check` against approved tracked facts.
-The most recent transcript turn remains provisional; earlier turns are checked
-serially with deduplicated cues. Numeric checks require comparable scope/units;
-semantic checks use the existing Qwen worker. This new adapter is not the original
-benchmark guard configuration, and full live latency remains unmeasured.
+The meeting window checks each committed caption turn against approved tracked facts
+with `live_memory_check`, unless the check is switched off: differing figures and dates
+without the model, other statements with the guard's YES/NO question over candidates
+found by shared words and by meaning ([TEMPORAL-API.md](TEMPORAL-API.md)). It is measured
+on MemoriaBench and through the installed app in
+[research/live-verifier](../research/live-verifier/README.md) and
+[research/live-speech](../research/live-speech/README.md).
 
-Live overlap trimming preserves the original decoder interval and explicitly marks
-retained-word timing unresolved. Review/export labels distinguish this replay anchor;
-temporal ingestion rejects unresolved turns before extraction. Refinement remains
-available. Empty decoded windows no longer publish caption updates. Model-only cadence
-experiments are in [PUBLIC-STREAMING-CADENCE.md](research/PUBLIC-STREAMING-CADENCE.md);
-they do not measure native capture latency.
+Live captions (`streaming_speech.LiveTranscript`) read stretches of speech cut at pauses;
+stretches never overlap, so no word is committed twice. The earlier MOSS windows
+(`MEMORIA_SPEECH_ENGINE=moss`) trim overlapping context and mark the retained words'
+timing unresolved; review/export labels show such turns, and temporal ingestion rejects
+them before extraction. MOSS cadence experiments are in
+[PUBLIC-STREAMING-CADENCE.md](research/PUBLIC-STREAMING-CADENCE.md).
 
 ## Explicit meeting API
 
@@ -53,7 +55,7 @@ The Unslop follow-up uses `src/index.css` as the desktop surface/text contract;
 mobile palettes are regenerated from those tokens. Meeting components share
 typography, sentence-case labels, neutral chrome, and restrained control geometry.
 The public landing page presents Memoria's actual meeting workflow rather than
-inherited release and sponsorship claims. See [UNSLOP-PASS.md](UNSLOP-PASS.md).
+inherited release and sponsorship claims. See [UNSLOP-PASS.md](notes/UNSLOP-PASS.md).
 
 ## Permanent meeting workspace (1 November 2026)
 
@@ -74,7 +76,7 @@ automatic display-change repositioning are not yet implemented. The HUD uses
 its own lightweight React entry, not another full workspace.
 The compact charcoal capsule uses native-system typography, a tabular timer,
 accessible icon controls and restrained recording/End colours. Error states
-expand to 134px height. Native screenshot `meeting-hud-refined.png` was inspected
+expand to 184px height. Native screenshot `meeting-hud-refined.png` was inspected
 after installation; Pause and End were verified again in the installed app.
 
 The HUD requests microphone access through WKWebView getUserMedia and records
@@ -82,28 +84,31 @@ with MediaRecorder. The main workspace hides only after capture starts. Pause,
 Resume, Open workspace and End are available. Main-window close is intercepted
 while the HUD exists so it can be reopened without destroying recording.
 End stops tracks, waits for queued disk checkpoints, publishes a linked Source
-note with the original recording, opens that note, then destroys the HUD.
+note with the original recording, then opens review in the same window.
 The capture session is fixed to the vault selected when it started.
 
 Each nonempty segment is checkpointed using the validated native command into
 `.memoria-recordings/<session UUID>/<sequence>.audio`, using synced writes and
 atomic rename. Byte-identical retries succeed; conflicting bytes are refused.
 These are segments of one media container, not independently playable clips.
-Recovery currently requires concatenating segments in sequence; there is no
-in-app crash-recovery flow. Segments remain on disk after publication. Complete
+An interrupted recording is listed under Meetings and can be recovered in the app
+(`RecordingRecovery.tsx`; checked natively in [M1](research/M1-NATIVE-LOOP.md)).
+Segments remain on disk after publication. Complete
 audio is also retained in HUD memory until End; long-meeting memory usage and
 background/sleep behaviour require further testing. Explicit app Quit stops
 capture; only workspace window close/reopen is protected.
 
-This is microphone capture with live local captions (Parakeet Ultra over stretches of speech cut at pauses, speakers
-from Nemotron 3 Diarization; `streaming_speech.py`) and an editable review screen. Audio playing on this Mac (system
-audio) is captured only while Call audio is on; see "Call audio" below.
-End now expands the HUD into review rather than opening the recording note;
+Capture is the microphone, plus audio playing on this Mac while Call audio is on (see "Call audio" below), with live
+local captions (Parakeet Ultra over stretches of speech cut at pauses, speakers from Nemotron 3 Diarization;
+`streaming_speech.py`) and an editable review screen.
 Create transcript starts cancellable local inference, and Save reviewed transcript
-publishes the reviewed evidence. See `SPEECH-BAKEOFF.md` for measured checks and
-model pins. Recordings up to three hours are transcribed in overlapping five-minute
-parts (`transcript_chunks.py`); a part that cannot be decoded is reported as a gap,
-never dropped silently.
+publishes the reviewed evidence. Measurements are in
+[research/live-speech](../research/live-speech/README.md); model revisions in
+[DEVELOPMENT.md](DEVELOPMENT.md). Whole recordings up to three hours are read stretch by
+stretch, as live captions are, with speakers from the diarizer's offline preset
+(`streaming_speech.transcribe_audio`). With `MEMORIA_SPEECH_ENGINE=moss` they are
+transcribed in overlapping five-minute parts (`transcript_chunks.py`), and a part that
+cannot be decoded is reported as a gap, never dropped silently.
 Do not treat the recording metadata as transcribed meeting evidence.
 
 Verification: three focused frontend lifecycle tests and one native disk-write
@@ -112,7 +117,7 @@ installed app confirmed microphone capture, workspace hide, Pause/Resume,
 workspace reopen with recording continuing, End publication, and HUD shutdown.
 Native screenshot: temporary `meeting-hud-native.png`. A native test recording
 was saved in the existing disposable `Memoria-Native-Test/vault-p3` vault.
-First-time permission denial and crash recovery remain native acceptance gaps.
+First-time permission denial remains a native acceptance gap.
 
 ### Call audio (3 November 2026)
 
@@ -194,8 +199,9 @@ under `pnpm tauri dev`. The test procedure is in `docs/CALL-AUDIO-TEST.md`.
 prepares PDF, TXT, Markdown, SRT, and VTT files (20 MB limit) for explicit review.
 `sourceImport.ts` uses the existing PDF.js worker for text extraction, preserves
 page markers, and computes SHA-256 over original bytes. Scanned PDFs without text
-fail visibly; OCR, table reconstruction, and AI knowledge compilation are not
-connected. Transcript formats are retained as text, not parsed speaker timelines.
+fail visibly; OCR and table reconstruction are not connected. Building knowledge
+from an imported source is described in [IMPORT-REVIEW-FLOW.md](IMPORT-REVIEW-FLOW.md).
+Transcript formats are retained as text, not parsed speaker timelines.
 
 Apply uses the existing validated `save_image` binary-attachment command followed
 by create-only `create_note_content`. A Source Markdown page links to the original
@@ -219,8 +225,12 @@ valid relative original link and Page 1 marker. Five frontend tests passed,
 including recovery and Open source routing. The native Rust note-content
 round-trip test passed. The full macOS file-picker → native attachment command →
 Open source click flow remains a separate native acceptance check; browser bridge
-verification is not claimed as that check. OCR and AI memory proposals remain
-unconnected.
+verification is not claimed as that check. OCR remains unconnected.
+
+## Inherited Tolaria architecture
+
+The rest of this document is Tolaria's architecture description, inherited with the fork.
+The fork replaced the product name in it, so "Memoria" below means the inherited workspace.
 
 ## Desktop Note Save Transport
 
@@ -231,7 +241,7 @@ active-vault path validation and the existing off-thread atomic writer. This
 bounds the JSON note payload and avoids a full JSON copy of embedded image payloads; memory remains proportional
 to note length. Browser fixtures retain their JSON save API. See ADR 0278.
 
-Memoria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
+Tolaria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
 
 ## Design Principles
 

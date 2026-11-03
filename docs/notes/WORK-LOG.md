@@ -114,7 +114,7 @@ No historical benchmark score is attributed to a new integration without evaluat
   (overlapping coverage); 68 frontend tests. TypeScript and scoped lint passed.
   Initial Python invocation from repo root failed module discovery; corrected with
   explicit backend PYTHONPATH. This was a command error, not passing test evidence.
-- Evidence: research/PUBLIC-STREAMING-SMOKE.md and PUBLIC-STREAMING-CADENCE.md.
+- Evidence: docs/research/PUBLIC-STREAMING-SMOKE.md and PUBLIC-STREAMING-CADENCE.md.
   Native capture/queue/final-turn behaviour and latest installed build remain to verify.
 - Follow-up build: TypeScript, Vite production build, scoped lint and diff whitespace
   check passed. Tauri debug app bundle built (103.81 MiB); packaged live adapter
@@ -131,4 +131,4 @@ No historical benchmark score is attributed to a new integration without evaluat
   using packaged service. Fixture words are manually prepared, not speech output.
 - Observed UX follow-ups: raw JSON query results, “1 changes”, machine dates/UUID labels.
 - Native Live Ask, recording/End/final-turn, queue/crash recovery still unverified.
-  Detailed scope/evidence in research/NATIVE-INTEGRATED-CHECK.md.
+  Detailed scope/evidence in docs/research/NATIVE-INTEGRATED-CHECK.md.

@@ -17,14 +17,14 @@ capture, filesystem publication, or the resident inference workers.
 ```sh
 pnpm build
 pnpm test:memoria
-pnpm exec vitest run  # broader suite; known failures remain
+pnpm exec vitest run  # full frontend suite
 ```
 
 ## Native desktop
 
 Install Rust stable and the [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/).
-The new local meeting-model runtime is currently evaluated on Apple Silicon macOS;
-the inherited application foundations have a broader platform scope.
+The local meeting models run on Apple-silicon macOS only; the foundations inherited
+from Tolaria support more platforms.
 
 ```sh
 pnpm tauri dev
@@ -51,9 +51,12 @@ runs the helper's conversion and framing on a synthetic tone, with no permission
 
 ## Inference prerequisites
 
-The Python runtime is **not yet packaged or reproducibly pinned**. Bring separate
-compatible environments and configure these variables in the shell used to start
-Tauri; do not rely on the developer-machine fallback paths:
+The app does not bundle Python or the models. `scripts/install-shared-runtime.sh`
+builds the speech and embedding runtimes from the committed freezes
+(`scripts/runtime/*-requirements.txt`, pinned versions) and copies the model revisions of
+`scripts/runtime/models.json` from the developer's Hugging Face cache to `/Users/Shared/Memoria`;
+see [the AC7 install steps](GETTING-STARTED.md#install-for-another-macos-account-ac7).
+To use other environments, set these variables in the shell that starts Tauri:
 
 | Variable | Purpose |
 | --- | --- |
@@ -72,50 +75,53 @@ export MEMORIA_FFMPEG="$(command -v ffmpeg)"
 pnpm tauri dev
 ```
 
-These commands select existing environments; they do not create them. Without the
-variables, development builds fall back to the unversioned repository-local
+These commands select existing environments; they do not create them. The variables
+win, then a complete shared install in `/Users/Shared/Memoria`, then the repository-local
 `.speech-runtime/` and `.embed-runtime/` environments and Homebrew `python3.11`.
-The model adapters expect the following models to have been cached separately:
+The models, with the revisions in `scripts/runtime/models.json`:
 
 - Speech: `selcukkubur/parakeet-ultra-mlx` (revision `b554592c50b2a48471add2daa3d46fa9f00fef5e`) and
   `mlx-community/Nemotron-3-Diarization` (revision `59ed2dbfc1346dcea9d423c71306a3a2499c568f`). The earlier
   `OpenMOSS-Team/MOSS-Transcribe-Diarize` engine stays available with `MEMORIA_SPEECH_ENGINE=moss`.
-- Generation: `mlx-community/Qwen3.5-4B-MLX-4bit`.
-- Embedding: `mlx-community/embeddinggemma-2-5bit`.
+- Generation: `mlx-community/Qwen3.5-4B-MLX-4bit` (revision `32f3e8ecf65426fc3306969496342d504bfa13f3`).
+- Embedding: `mlx-community/embeddinggemma-2-5bit` (revision `261866f6805342b010554507220e02199a579c74`).
 
-Native workers use offline mode and do not download missing weights. Review model
-licenses before downloading or distributing them. Sidebar readiness reports
-preparation and failure; “ready” does not establish speech or answer accuracy.
-See [Model lifecycle](MODEL-LIFECYCLE.md) for implementation notes and historical observations.
+Native workers run offline and do not download missing weights. The model licences are
+listed in [NOTICE.md](../NOTICE.md). The footer shows Speech, Knowledge and Search
+readiness; Ready does not establish speech or answer accuracy.
+See [Model lifecycle](MODEL-LIFECYCLE.md) for the workers, their memory and restarts.
 
-## Engine tests without model downloads
+## Python tests without models
 
 ```sh
-python3 -m unittest discover -s src-tauri/resources/memory -p 'test_workspace_product.py'
-python3 -m unittest discover -s src-tauri/resources/memory -p 'test_engine.py'
+cd src-tauri/resources/memory && python3.11 -m unittest discover
 ```
 
-These deterministic tests cover journal and product behaviour using fixtures, not
-native media devices or live model inference.
+The app's Python suite (214 tests on 3 November 2026) fakes or injects every model
+call and uses temporary vaults. It covers journal, meeting, ledger and live-check
+behaviour, not native media devices or model accuracy. The ledger engine's own tests
+are run from `research/ledger-engine` ([research/README.md](../research/README.md)).
 
 ## Workspace fixtures
 
 Copy `memoria-demo/` to a temporary location before using it as a vault. Its people
 and project scenario are fictional. Runtime journals, microphone recordings,
-Python environments, and model weights are intentionally not versioned.
+Python environments, and model weights are not versioned. The UAT starter vault is
+built by `scripts/uat/build_demo_vault.py`.
 
 ## Automation and history
 
 The active GitHub workflow is `memoria-checks.yml`: frontend build, the scoped
-Memoria suite, and deterministic engine tests. It does not claim full-suite or
-native acceptance. Upstream CI and release workflows are archived under
+Memoria suite, and deterministic engine tests. It does not run the full frontend
+suite or native checks. Upstream CI and release workflows are archived under
 `reference/upstream-workflows/` because their services and signing identities are
 not Memoria infrastructure.
 
 The Git hooks use the same local policy: a staged whitespace check before commit,
 then build, scoped frontend tests, and deterministic Python tests before push.
-The original hooks are archived with the upstream workflow references. The known
-full-suite failures remain documented rather than represented as passing checks.
+The original hooks are archived with the upstream workflow references. The full
+frontend suite is run by hand; its latest result is in
+[WORKSPACE-PRODUCT-VERIFICATION.md](WORKSPACE-PRODUCT-VERIFICATION.md).
 
 `main` is the desktop workspace, `legacy` preserves the prior default Next.js app,
-and the existing `fyp2` and `master` branches retain their historical contents.
+and the `fyp2` and `master` branches keep their historical contents.

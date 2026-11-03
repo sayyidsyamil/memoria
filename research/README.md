@@ -1,14 +1,21 @@
 # Research evidence
 
-The evaluated research behind Memoria's final-year project report. It was moved here on
-2 November 2026 from the original working folders, so that Memoria lives in one repository.
-Nothing in this folder is bundled into the app.
+The research behind Memoria's final-year project report. `ledger-engine/` and `memoriabench/`
+were moved here on 2 November 2026 from the original working folders, so that Memoria lives in
+one repository; the other folders were started here. Nothing in this folder is bundled into the app.
 
-| Folder | What it is | Moved from |
+| Folder | What it is | Origin |
 |---|---|---|
 | [`ledger-engine/`](ledger-engine/) | Evaluation of the bitemporal decision ledger (FYP2 report, Chapter 6): tests, AMI-derived data, scripts, results and frozen run logs | `~/Desktop/FYP/engine` |
 | [`memoriabench/`](memoriabench/) | MemoriaBench and the live contradiction auditor and guard, as evaluated; `results/app_live_check/` scores the app's own live check (M2) | research files of `~/Documents/memoria` |
 | [`long-meeting/`](long-meeting/) | The 60-minute AMI end-to-end check of the installed app: transcription, joining, knowledge and tracked facts (M2) | new, 2 November 2026 |
+| [`strong-model/`](strong-model/) | The October ledger and baselines rerun with DeepSeek V4.1 Flash, and on series padded to 52 meetings | new, 2 November 2026 |
+| [`firmness-gate/`](firmness-gate/) | A preregistered YES/NO check between extraction and the ledger, against random thinning | new, 2 November 2026 |
+| [`local-9b/`](local-9b/) | Qwen3.5-9B as extractor and router, on the dev split only (the test split was not run) | new, 2 November 2026 |
+| [`model-bakeoff/`](model-bakeoff/) | Four local language models through the app's own code; Qwen3.5-4B kept | new, 2 November 2026 |
+| [`app-parity/`](app-parity/) | The app's Ask against the October pipeline on the same 96 AMI questions | new, 2 November 2026 |
+| [`live-verifier/`](live-verifier/) | The live check of `v0.3.0-uat` on written, spoken and noisy MemoriaBench probes | new, 3 November 2026 |
+| [`live-speech/`](live-speech/) | Parakeet Ultra with Nemotron 3 Diarization against MOSS on the AMI hour, live captions, and end-to-end runs through the installed app | new, 3 November 2026 |
 
 The evidence inventory is [`docs/research/RESEARCH-EVIDENCE.md`](../docs/research/RESEARCH-EVIDENCE.md).
 The report sources themselves are kept privately, outside this repository.
@@ -49,10 +56,11 @@ and were not rerun.
 - The ledger results (61% against 43% and 39% on 96 AMI questions) are the FYP2 report's
   evaluation. `HYBRID_RAG.md` and `SMALL_MODEL_REVIEW.md` record later exploratory runs made
   after the test split had been seen.
-- MemoriaBench (Macro-F1 0.87) is a draft extension. Whether it enters the report is a
-  supervisor decision.
-- Historical scores describe the evaluated configurations, not the current app. Results for
-  the current app must be measured separately.
+- MemoriaBench (Macro-F1 0.87) is reported as an extension, not an objective (decided on
+  2 November, to be confirmed with the supervisor; [roadmap](../docs/ROADMAP.md), M6).
+- Historical scores describe the evaluated configurations, not the current app. The current app
+  is measured in `app-parity/`, `live-verifier/`, `live-speech/`, `long-meeting/` and
+  `memoriabench/APP_LIVE_CHECK.md`.
 
 ## Licence and data
 

@@ -1,5 +1,10 @@
 # Local speech spike — 31 October 2026
 
+A record of the speech work of 31 October, when the app used MOSS-Transcribe-Diarize. Since
+3 November the app uses Parakeet Ultra with Nemotron 3 Diarization, and MOSS stays selectable
+with `MEMORIA_SPEECH_ENGINE=moss`; the current measurements are in
+[research/live-speech](../research/live-speech/README.md).
+
 ## MOSS near-live update
 
 Live speech now loads MOSS once per session and processes four-second cores with

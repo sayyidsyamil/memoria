@@ -1,6 +1,6 @@
 # FYP report supplement
 
-Evidence review: 2 November 2026. This text supplements Academic Project II Chapters 3–7. It describes the current workspace integration separately from the October experiments. Evidence locations and qualifications are recorded in [RESEARCH-EVIDENCE.md](RESEARCH-EVIDENCE.md).
+Evidence review: 2 November 2026. This text supplements Academic Project II Chapters 3–7. It describes the current workspace integration separately from the October experiments. Evidence locations and qualifications are recorded in [RESEARCH-EVIDENCE.md](../research/RESEARCH-EVIDENCE.md).
 
 ## Implementation update (Chapters 3–5)
 
@@ -48,7 +48,7 @@ Statuses concern the current combined workspace. **Implemented** means a code pa
 | FR4 | Validate typed values against a declared registry | Implemented | `M/memoria_engine/pipeline.py`; `E/tests/test_pipeline.py`; UI exposes text, number, date and enum, not full people setup. |
 | FR5 | Preserve history and prevent late imports replacing newer decisions | Implemented | `M/memoria_engine/ledger.py`, `M/memoria_engine/envelope.py`; `E/tests/test_properties.py`, `E/tests/test_durability.py`. |
 | FR6 | Current, past-valid, past-recorded and change-count lookups | Partial | `M/temporal_service.py`, `T/temporalService.ts`, `M/test_temporal_service.py`; UI does not expose two independent time axes for a recorded-time query. |
-| FR7 | Local capture and speaker-labelled transcription, including long recordings | Partial | `W/src/components/MeetingHud.tsx`, `M/test_live_speech.py`, `W/docs/ENGINEERING-LOOP-2026-11-01.md`; current long-meeting accuracy unverified. |
+| FR7 | Local capture and speaker-labelled transcription, including long recordings | Partial | `W/src/components/MeetingHud.tsx`, `M/test_live_speech.py`, `W/docs/notes/ENGINEERING-LOOP-2026-11-01.md`; current long-meeting accuracy unverified. |
 | FR8 | Default-off local voice profiles with opt-in and deletion | Partial | `M/test_voice_profiles.py`, `W/src/components/MeetingTranscriptReview.tsx`; integrated consent/deletion acceptance and temporary-data lifecycle need current verification. |
 | FR9 | Ground and validate extraction; report rejected or malformed output | Partial | `M/temporal_service.py`, `M/memoria_engine/pipeline.py`, `T/TemporalMemoryPanel.tsx`; counts shown, full parser-warning/reason presentation incomplete. |
 | FR10 | Review conflicts; accept, edit-accept or reject without early mutation | Partial | `M/test_temporal_service.py`, `T/TemporalMemoryPanel.tsx`; first values reviewed too; edit-before-accept absent from panel. |

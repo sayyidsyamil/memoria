@@ -6,10 +6,10 @@ the language-model router (prompt r1). Does the app's Ask give the same answers?
 
 **Answer.**
 
-- **v0.2.0 (the UAT release) used only the rule router.** It gave October's answer to 89, 86
+- **`v0.2.0-uat` used only the rule router.** It gave October's answer to 89, 86
   and 86 of 96 questions and scored 89, 54 and 80.
-- **The current app (`8bb6a30b0`) routes with the evaluated model router** when its Qwen worker
-  runs:
+- **From commit `8bb6a30b0` (in `v0.3.0-uat`) the app routes with the evaluated model router**
+  when its Qwen worker runs ("current" below):
   - With October's own router replies, it gives October's answer to 96, 94 and 94 of 96 and
     scores 96, 58 and 84.
   - Live through the running app's worker, the answers are identical: 96, 94 and 94; scores
@@ -137,7 +137,7 @@ miss on tender q12 ("done or cancelled by 25 March", which October routed as *cu
 ## Run
 
 ```sh
-cd ~/Documents/memoria-workspace && P=research/app-parity
+P=research/app-parity   # from the repository root
 env -u MEMORIA_QWEN_SOCKET /opt/homebrew/bin/python3.11 $P/ask_parity.py --router rules --out $P/results-rules.json    # no worker
 /opt/homebrew/bin/python3.11 $P/ask_parity.py --router replay --out $P/results-replay.json                            # October's replies, no model
 MEMORIA_QWEN_SOCKET=$(print -r -- ${TMPDIR%/}/mm-$(pgrep -f /Applications/Memoria.app/Contents/MacOS/memoria | head -1)-*-qwen.sock) \

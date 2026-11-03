@@ -1,10 +1,9 @@
 # Memoria UI patterns — 1 November 2026
 
-Why this exists: the meeting surfaces were rebuilt around a **Record / Transcript /
-Summary / Ask / Search** model to look like a purpose-built meeting product rather
-than generic generated UI. This file records the rules that pass followed, what is
-shared, and what has and has not been verified. Earlier passes are in
-[UNSLOP-PASS.md](UNSLOP-PASS.md) and [MEETING-UI-PASS.md](MEETING-UI-PASS.md).
+This file records the 1 November rebuild of the meeting surfaces around Record,
+Transcript, Summary, Ask and Search: the rules it followed, what is shared, and what
+has and has not been verified. Earlier passes are in
+[UNSLOP-PASS.md](notes/UNSLOP-PASS.md) and [MEETING-UI-PASS.md](notes/MEETING-UI-PASS.md).
 
 ## Provenance and licence
 
@@ -51,7 +50,7 @@ confidence or accuracy claim.
 
 ## Shared kit
 
-The product-wide Unslop follow-up in [UNSLOP-PASS.md](UNSLOP-PASS.md) supersedes
+The product-wide Unslop follow-up in [UNSLOP-PASS.md](notes/UNSLOP-PASS.md) supersedes
 the earlier visual treatment: labels use sentence case, shared controls use 8px
 corners inside 12px segmented groups, avatars are neutral, primary chrome is
 graphite, and the selected tab moves without bounce or animated width. Evidence
@@ -98,7 +97,7 @@ timestamps and semantic feedback retain meaningful accent colour.
 - **Meeting HUD** (`MeetingHud.tsx` logic, `MeetingHudView.tsx` presentation): a
   compact dark notch (392 x 68, wide enough for the Call audio toggle beside Open
   workspace, Pause and End) with a level meter; a preparation list (176 high);
-  the Record view (620 x 540) with status, 56-bar level display, avatar live turns,
+  the Record view (620 x 620) with status, 56-bar level display, avatar live turns,
   Mark moment, Pause and End meeting; review expands to 900 x 740 and follows the
   workspace theme. Recording starts only after the speech model, voice encoder,
   microphone and AudioWorklet are ready. Call audio (headset icon, `aria-pressed`)
@@ -153,16 +152,15 @@ and Ask results are covered by the harness, unit tests and engine tests only.
 macOS asks for microphone access again after each rebuild because the debug app is
 ad-hoc signed, so every native recording test needs that prompt answered by a person.
 
-The full frontend suite is not green: 97 of 6,424 tests fail in 20 files, the same count as
-before this pass. Thirteen files in `src/components` (67 tests) assert upstream chrome that the
-quiet-UI pass removed or renamed: the community banner, Discord button, git status-bar test ids
-and the `FAVORITES` / `FOLDERS` labels (`MemoriaQuietUi.test.tsx` asserts the banner is
-intentionally absent). Seven more files (30 tests: the updater, wikilink accent colours, and
-`App.*` git, sync and note-window cases) fail on missing status-bar ids, a disabled updater and
-vault-loader call counts, none of which touch the meeting surfaces. None has been updated or
-triaged individually. The full run did catch one regression from this work, a sidebar crash
-when the model-status call returns nothing; it is fixed and covered by
-`WorkspaceActions.test.tsx`.
+On 1 November the full frontend suite had 97 failures among 6,424 tests in 20 files, the same
+count as before this pass. Thirteen files in `src/components` (67 tests) asserted upstream chrome
+that the quiet-UI pass removed or renamed: the community banner, Discord button, git status-bar
+test ids and the `FAVORITES` / `FOLDERS` labels. Seven more files (30 tests: the updater,
+wikilink accent colours, and `App.*` git, sync and note-window cases) failed on missing
+status-bar ids, a disabled updater and vault-loader call counts, none of which touch the meeting
+surfaces. All were resolved on 2 November ([M3-FULL-SUITE-TRIAGE.md](M3-FULL-SUITE-TRIAGE.md)).
+The full run did catch one regression from this work, a sidebar crash when the model-status call
+returns nothing; it is fixed and covered by `WorkspaceActions.test.tsx`.
 
 Speech accuracy, long sessions, sleep and device changes, crash recovery of raw
 audio, model eviction and packaging are separate acceptance gaps and are not

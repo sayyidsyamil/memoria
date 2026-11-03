@@ -1,4 +1,6 @@
-# Permanent meeting workspace — 1 November 2026
+# Workspace product verification
+
+Test-suite runs and native checks of the meeting workspace, newest first (1 to 3 November 2026).
 
 ## Suites before the `v0.3.0-uat` build — 3 November 2026
 
@@ -106,7 +108,7 @@ cover mixed readiness, unavailable responses, and malformed individual workers.
 TypeScript, scoped lint, and the native debug build pass. The narrow-width wrapping
 rule is implemented but was not inspected in the native window during this check.
 
-## Navigation consistency follow-up
+## Navigation consistency follow-up — 2 November 2026
 
 The installed desktop build now separates meeting navigation from an expandable
 Document library. Both expanded and collapsed states were inspected natively with
@@ -127,7 +129,7 @@ the freshly installed debug build using agent-desktop. The scoped suite now pass
 67 frontend tests. Earlier broader-suite counts below are historical, not a fresh
 full-regression result.
 
-## Delivered surfaces
+## Delivered surfaces — 1 November 2026
 
 - **Meetings** lists ended captures, recording links, portable Meeting Markdown,
   saved editable turns/names and the reviewed Source used for outcome proposals.
@@ -172,7 +174,7 @@ in [UI-PATTERNS.md](UI-PATTERNS.md).
   Meeting Markdown lines are `[m:ss] Speaker: text`; timestamps are approximate. A
   meeting's status is derived from its `transcriptPath` on read and write.
 
-## Native observations
+## Native observations — 1 November 2026
 
 Installed app: `~/Applications/Memoria Workspace.app`, `my.memoria.workspace`.
 Disposable vault: `~/Memoria-Native-Test/vault-p3`. Observations 1-10 were made
@@ -244,14 +246,15 @@ Approved, Briefs and Ask tab layouts, dark mode, Summary to Create brief seeding
 and the Ask composer in the narrow side panel. Search and Ask results were checked
 only in the harness, unit tests and engine tests.
 
-## Checks and limits
+## Checks and limits — 1 November 2026
 
 66 focused frontend tests (14 files) and 30 engine/product tests pass. `tsc -b`, ESLint with
 zero warnings on the touched files and `git diff --check` are clean, and the debug app
 builds. The full frontend suite still has 97 failing tests in 20 files (6,326 pass), the
 same count as before the redesign, so it is not a regression gate: 67 are upstream-chrome
 expectations in 13 `src/components` files and 30 are in the updater, wikilink-colour and
-`App.*` git/note-window suites. They are untriaged. The run did catch one regression from
+`App.*` git/note-window suites. They are untriaged (resolved on 2 November; see the M3
+reconciliation above). The run did catch one regression from
 this work (the sidebar crashed when the model-status call returned nothing, failing two
 `App` suites); it is fixed and covered by `WorkspaceActions.test.tsx`.
 

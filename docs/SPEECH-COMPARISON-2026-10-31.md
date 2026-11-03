@@ -1,5 +1,9 @@
 # Local speech screening — 31 October 2026
 
+A record of the screening of 31 October. Since 3 November the app uses Parakeet Ultra (a
+post-training of Parakeet TDT v3) with Nemotron 3 Diarization; the measurements on meeting
+speech that led there are in [research/live-speech](../research/live-speech/README.md).
+
 ## Decision
 
 No general meeting-quality winner is established. In this bounded local screen,
@@ -97,7 +101,7 @@ Run `.speech-runtime/bin/python <temporary>/compare-speech.py <candidate>` and
 
 ## Next bounded experiment
 
-For Memoria's requested single evolving transcript, compare Parakeet overlapping
+For a single evolving transcript, compare Parakeet overlapping
 windows against VAD-gated Qwen and MOSS. Use the same paced PCM stream and a fixed
 commit policy, score final words and word revisions, record p50/p95 stable-word
 latency, test realistic microphone noise and a real annotated multi-speaker

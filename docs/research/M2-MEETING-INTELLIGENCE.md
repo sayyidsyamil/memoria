@@ -40,10 +40,14 @@ intervals by series.
 
 | App live check | Conflicts caught | False alarms | Alert precision | Latency p50 / p95 |
 |---|---|---|---|---|
-| **Guard on (shipped)** | **81.3%** (75.0–87.5) | **1.3%** (0–3.1) | 96.8% | 4.0 / 6.8 s |
+| **Guard on (shipped on 2 November)** | **81.3%** (75.0–87.5) | **1.3%** (0–3.1) | 96.8% | 4.0 / 6.8 s |
 | Guard on, item must be named | 58.0% (50.0–66.1) | 0.9% (0–2.2) | 97.0% | 3.4 / 5.9 s |
 | Guard off, item must be named | 56.3% (47.3–65.2) | 2.7% (0.9–4.9) | 91.3% | 3.7 / 5.7 s |
 | Research M2 auditor (reference) | 98.2% | 0.4% | | |
+
+On 3 November this check was replaced by the guard's question alone, with candidates also found
+by meaning: 87.5% (98 of 112) caught, 0.9% (2 of 224) false alarms, 0.26 s median
+([research/live-verifier](../../research/live-verifier/README.md)).
 
 The first full run used the gate inherited from M1: a conflict was suppressed unless the
 sentence named the tracked item. 40 of its 47 misses failed only on that gate, which
@@ -61,6 +65,10 @@ speech (all 852 turns of the hour below, checked against the UAT procurement fac
 raised no alert; 29 turns reached the model ([research/long-meeting](../../research/long-meeting/README.md)).
 
 ## A 60-minute recording, end to end
+
+Speech in this check was MOSS-Transcribe-Diarize. Since 3 November the app uses Parakeet Ultra
+with Nemotron 3 Diarization: on the same hour, WER 14.4% (fillers removed), 97.4% of labelled
+words on the right participant, 113 s ([research/live-speech](../../research/live-speech/README.md)).
 
 Fixture (`m2-long`, scratch): AMI ES2004b (39:05) followed by the first 20:55 of ES2004c, one
 mono recording of exactly 60:00, encoded as WebM/Opus 48 kb/s like the app's own recordings
@@ -131,7 +139,7 @@ their own (each through the same worker) and joined offline both ways:
 
 Elimination changed nothing here and was not shipped. The remaining "lost passage" near 42:10
 was not a joining fault: part 9 decoded alone contains it, but in the full run that part's
-decoding ended the turn early — run-to-run decoding variation that ownership cannot recover.
+decoding ended the turn early: run-to-run decoding variation that ownership cannot recover.
 
 ### Knowledge and tracked facts from the hour
 

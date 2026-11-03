@@ -2,8 +2,11 @@
 
 This bridge evaluates `src-tauri/resources/memory/live_assistance.py`, **not**
 `memoria.py`. Historical Macro-F1 0.87 and real-speech false-alert 0.21% do not
-transfer to this implementation. Results against the app's resident worker are
-under **Results** below.
+transfer to this implementation. **Results** below are for the check of 2 November:
+a written verdict, then the guard (now `MEMORIA_LIVE_CHECK=verifier`). The check in
+`v0.3.0-uat` asks the guard's question alone and also finds candidates by meaning:
+98 of 112 conflicts caught, 2 false alarms in 224, 0.26 s median
+([`../live-verifier/README.md`](../live-verifier/README.md)).
 
 ## Run after rebuilding the app's Qwen worker
 
@@ -35,9 +38,8 @@ and error counts: offline/old workers are not valid successful-model runs.
 
 The harness refuses real calls without `MEMORIA_QWEN_SOCKET`. It uses the app's
 existing verifier and the new socket scorer; neither harness nor scorer imports
-MLX, loads weights, or starts workers. An already-running pre-change worker does
-not understand scoring: rebuild/restart through the normal app workflow before
-the lead's model evaluation. This task itself must not build or restart the app.
+MLX, loads weights, or starts workers. A worker started before the scoring request
+existed does not understand it: rebuild and restart the app before a model run.
 
 ## Scoring and guard contract
 
@@ -135,22 +137,22 @@ cluster-bootstrap intervals by series. Predictions and the summary are in
 
 | App live check | Conflicts caught (recall) | False alarms | Alert precision | Uncertain | Latency p50 / p95 |
 |---|---|---|---|---|---|
-| **Guard on (final)** | 91 / 112, **81.3%** (75.0–87.5) | 3 / 224, **1.3%** (0–3.1) | 96.8% (93.2–100) | 3 | 4.0 / 6.8 s |
+| **Guard on (shipped on 2 November)** | 91 / 112, **81.3%** (75.0–87.5) | 3 / 224, **1.3%** (0–3.1) | 96.8% (93.2–100) | 3 | 4.0 / 6.8 s |
 | Guard on, item must be named | 65 / 112, 58.0% (50.0–66.1) | 2 / 224, 0.9% (0–2.2) | 97.0% (93.0–100) | 31 | 3.4 / 5.9 s |
 | Guard off, item must be named | 63 / 112, 56.3% (47.3–65.2) | 6 / 224, 2.7% (0.9–4.9) | 91.3% (84.7–97.2) | 33 | 3.7 / 5.7 s |
 | Research M2 (reference) | 110 / 112, 98.2% | 1 / 224, 0.4% | | | |
 
 - The guard, with the item-name gate in place, was right on all 6 probes where the
   two runs disagree (exact McNemar p = 0.031): it removed 4 of the 6 false alarms.
-- Dropping the item-name gate when the guard is on (final design) was better on 26
+- Dropping the item-name gate when the guard is on (the design shipped on 2 November) was better on 26
   probes and worse on 1 (exact p = 4.2e-7): recall +23.2 points (14.3 to 33.0), false
   alarms +0.4 points (0 to 1.3). 40 of the 47 conflicts the gated run missed failed
   only because the harness label (the sentence's first word, e.g. "team" for "The
   team will not work with teletext") was not in the sentence.
-- Against research M2 the final app check still misses more: recall −17.0 points
+- Against research M2 that check still misses more: recall −17.0 points
   (−24.1 to −10.7), false alarms +0.9 points (0 to 2.2), exact p = 1.9e-5.
 
-Failure cases of the final design:
+Failure cases of that design:
 
 - False alarms (3, all SUPPORTED_CURRENT): "Teletext will not be part of the design."
   confirmed against "Teletext will not be used."; "We will not include a help button
@@ -158,14 +160,15 @@ Failure cases of the final design:
   think the remote will not include speech recognition." re-cited to "The remote will
   include games and a simple parental control feature" (attribution chose a wrong
   slot and the model confirmed it).
-- Misses (21): 18 never reached a confirmed clash — the five-fact lexical selection
+- Misses (21): 18 never reached a confirmed clash, because the five-fact lexical selection
   did not include the decision (many slots share "remote"), or the app's verifier
   judged no conflict ("Well, we will make the case out of wood." against rubber;
   "So the remote will sell for 35 Euro."); 2 had invalid verifier output; 1 was dropped
   by the guard.
 - 6 of the 91 caught conflicts cite a different decision than the reference.
 
-Not measured here: speech-recognition errors and user-written tracked items instead of the
+Not measured here: speech-recognition errors (measured for the later check in
+[`../live-verifier/README.md`](../live-verifier/README.md)) and user-written tracked items instead of the
 one-slot-per-decision mapping. False alerts on real, unrelated speech were measured separately:
 0 alerts on the 852 turns of a 60-minute AMI meeting checked against the UAT procurement facts,
 of which 29 reached the model ([../long-meeting/README.md](../long-meeting/README.md)). That is

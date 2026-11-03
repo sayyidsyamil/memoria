@@ -34,7 +34,7 @@ audio and annotations are not committed.
 ## False alerts on unrelated speech
 
 `unrelated_speech.py` checks every turn of the reviewed 60-minute transcript (run 2, 852 turns
-of a design team discussing a TV remote) with the app's live check, guard on, against the six
+of a design team discussing a TV remote) with the app's live check of 2 November, guard on, against the six
 tracked items of the UAT engine dry run with all 17 of its proposals accepted (18 facts; the
 fictional procurement pilot: vendor, budget, go-live date, staff training, data migration,
 security review; `scripts/uat/build_demo_vault.py`, then `scripts/uat/dry_run.sh`). The meeting is about
@@ -51,3 +51,8 @@ turns never reach the model, because the live check only asks it about facts who
 or attribute shares a word with the sentence. This is one recording and one set of facts; the
 guarded false-alarm rate on MemoriaBench's must-not-alert probes is in
 [research/memoriabench/APP_LIVE_CHECK.md](../memoriabench/APP_LIVE_CHECK.md).
+
+The check of `v0.3.0-uat` raised no alert on the same hour either: on its Parakeet Ultra
+transcript (575 turns, `results/unrelated-speech-guard-*.jsonl`) and on its 899 live-caption turns
+(`results/unrelated-speech-live-captions.jsonl`); see
+[`../live-verifier/README.md`](../live-verifier/README.md).

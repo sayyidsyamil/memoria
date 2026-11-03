@@ -13,6 +13,7 @@ statement conflicts with the meeting decisions a person has approved.
 | `make_ch6_draft.py`, `results/chapter6_memoriabench_draft.md` | Draft report section, generated from the result files |
 | `results/` | Predictions, cached model calls, statistics and tables; `memoria_as_run.py` is the auditor exactly as run |
 | `GUARD.md` | Guard design and its measurements on real speech |
+| `app_live_check_bench.py`, `APP_LIVE_CHECK.md` | The app's own live check on the same probes (roadmap M2) |
 | `test_*.py` | Self-checking scripts: run each with `python3.11 test_name.py` |
 
 ## Results
@@ -40,15 +41,18 @@ python3.11 export_thesis_tables.py
 python3.11 make_ch6_draft.py
 ```
 
-`make_ch6_draft.py --report` still copies the draft to the old report folder
-`~/Desktop/FYP/report/ap2`. The report now lives privately in `~/Documents/Memoria-FYP/report/ap2`.
+`make_ch6_draft.py --report` copies the draft to the report's old folder,
+`~/Desktop/FYP/report/ap2`; the report is now kept privately, outside this repository.
 
 ## Caveats
 
-- This is a draft extension, not yet part of the FYP2 report. The report's objectives
-  concern the ledger; adding MemoriaBench as a new objective needs the supervisor's agreement.
+- MemoriaBench is reported as an extension, not an objective: the report's objectives concern
+  the ledger (decided on 2 November, to be confirmed with the supervisor).
 - Statements are template-generated clean text, not speech-recognition output; labels were
   audited by language models; memory is the annotators' decisions. Cite the series-level
   tests. The draft's limitations section lists the rest.
 - The current app's live check (`src-tauri/resources/memory/live_assistance.py`) is a different
-  implementation. These scores do not transfer to it until it is evaluated on this benchmark.
+  implementation, and these scores do not transfer to it. It is scored on the same test split in
+  `APP_LIVE_CHECK.md` (the check of 2 November) and
+  [`../live-verifier/README.md`](../live-verifier/README.md) (the check of `v0.3.0-uat`: 98 of 112
+  conflicts caught, 2 false alarms in 224).
