@@ -1,0 +1,28 @@
+{
+  "time": "2026-11-03T15:32:37+0800",
+  "source": "/Users/sayyid/Documents/memoria-wt-models/research/model-improvements/cache/4b.jsonl",
+  "source_bytes": 697653,
+  "source_mtime_ns": 1793690954283183923,
+  "complete_snapshot_sha256": "30329c6d8106f22f778868c6ef640102af118d6b9985db857d29afc63b819472",
+  "complete_snapshot_path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/weight-edit-attribution/source-cache-frozen.jsonl",
+  "dev_cache_sha256": "c0c4a0770a61f04875fbe2818b8192af009e78cfdec5f4a897136b553c451b47",
+  "records": 511,
+  "inputs": {
+    "research/ledger-engine/data/ami_v0/ES2003.chain": "b07bbf11eaf3d4172158fd950ef5411e8778bb8a078122e73aff79d76eb52192",
+    "research/ledger-engine/data/ami_v0/ES2003.ask": "05f92755a123984c62e26a11e5c81b33666a45e3848b2dc8a1872fca37d0a40c",
+    "research/ledger-engine/data/ami_v0/TS3004.chain": "0e1cc17a8b6cde1fcb3a082625bd049c592ccbb720c02fbb8c90a1f0c5ea01b2",
+    "research/ledger-engine/data/ami_v0/TS3004.ask": "ce7e41579b2572a363f6ef973689ccd9d22eb776a9125b6b452e34de0690364b",
+    "research/model-improvements/data/ami_new/ES2011.chain": "d569bb77e61984fe196c33b127060021915da1b8c56530f53f93d226d54d6147",
+    "research/model-improvements/data/ami_new/ES2011.ask": "50ea6b00f50187859a8e13bf7a01009caeba5d2f4ac83f65df6d9598f99853bc",
+    "research/model-improvements/data/ami_new/IS1008.chain": "dad8dcce043879e7d748e052331105e8cbad458954066e1b538bb2bc73d0e27f",
+    "research/model-improvements/data/ami_new/IS1008.ask": "cbbe063476cf637bfd232d39568e3eb025ac47728ba05f7769259dbc038c86cd",
+    "research/model-improvements/data/ami_new/TS3006.chain": "bafe7051a38f7c13552b502b2aaafdb9d062590bc18c0a34cfab6575cb4b6410",
+    "research/model-improvements/data/ami_new/TS3006.ask": "2f0e7b07585c055478a67bd8026dd0c06c6de022c4f54be8e5a04af5b9703512",
+    "research/model-improvements/lm.py": "1e870f97c757504c6cfc840ebb8d3ae086ce3c630d17bd327c1fb547091319ef",
+    "research/model-improvements/harness.py": "7cf4dcd07f69187e0d0c893a9ec4c2e03e3ffe1b0b7696e6554d0350e8f3465d",
+    "research/model-improvements/score.py": "6af0c62eada8d2350413a7149e65b5d59085d126df8aca13ecfa38fe4eb082da",
+    "research/model-improvements/audit.py": "5abcf8f9ed8a8486e434105ddb628e13f56fa57c37653620b5542a34df591343",
+    "research/model-improvements/run.py": "0d40e6211b6496e7e0bb24059d5534974c1ab6e61f8fe4f14d34d38f8b8f63bb",
+    "research/model-improvements/support.py": "b8a79581190647b0c466c55d1f4128b56756c1b13bf9c71a4d52afcf2f73fc85"
+  }
+}

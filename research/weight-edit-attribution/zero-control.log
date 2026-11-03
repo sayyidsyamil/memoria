@@ -1,0 +1,10 @@
+{
+  "preflight": {
+    "time": "2026-11-03T16:20:33+0800",
+    "conflicts": []
+  },
+  "original_key": "7a8ec0e9a261aa946a486f582750646cf39aedaacd049ebfd46d5cb01fe1e505",
+  "all_byte_identical_to_cached_base": true,
+  "native_repeat_identical": true,
+  "zero_equals_native": true
+}

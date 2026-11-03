@@ -1,0 +1,101 @@
+{
+  "preflight": {
+    "time": "2026-11-03T16:20:33+0800",
+    "conflicts": []
+  },
+  "original_key": "7a8ec0e9a261aa946a486f582750646cf39aedaacd049ebfd46d5cb01fe1e505",
+  "baseline_text": "{\"events\":[{\"turn\":43,\"quote\":\"the company uh wants to make at least uh the fifty million Euro\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false}]}",
+  "rows": [
+    {
+      "key": "b2096ea663c49a0fab1c4ee5adbd7ba8f5bf34b9feaa175cb01f878294842285",
+      "original_key": "7a8ec0e9a261aa946a486f582750646cf39aedaacd049ebfd46d5cb01fe1e505",
+      "condition": "native-before",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "intervention": {
+          "kind": "base",
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+        },
+        "condition": "native-before",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "loopstop": true,
+        "rendered_prompt_sha256": "15ffc7489d331b021c1fc0dc3a59fed3bfbef3db178eb69c9e59deb4c656d75b"
+      },
+      "text": "{\"events\":[{\"turn\":43,\"quote\":\"the company uh wants to make at least uh the fifty million Euro\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false}]}",
+      "seconds": 8.968453540990595,
+      "prompt_tokens": 2805,
+      "output_tokens": 52,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.988818456,
+      "tag": "IS1008b",
+      "generation_tps": 28.048510072699948,
+      "prompt_tps": 402.9278248625436
+    },
+    {
+      "key": "8ae62654beb351dd80ae7273ca101cf5692ac520c0a78aff777ac0f560cba614",
+      "original_key": "7a8ec0e9a261aa946a486f582750646cf39aedaacd049ebfd46d5cb01fe1e505",
+      "condition": "zero-norm",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "intervention": {
+          "kind": "rank-one",
+          "patch_sha256": "5c4aa47baeb311467a4bb5229b303bbf0779f59b61bcf4775834a5dc161d1c5b",
+          "strength": 0.0,
+          "random": false,
+          "layer": 8,
+          "code_sha256": "4e5fe9bfb806bbfe1112a2bc34edb2e86a2656c4b7a89845a24454210619816c"
+        },
+        "condition": "zero-norm",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "loopstop": true,
+        "rendered_prompt_sha256": "15ffc7489d331b021c1fc0dc3a59fed3bfbef3db178eb69c9e59deb4c656d75b"
+      },
+      "text": "{\"events\":[{\"turn\":43,\"quote\":\"the company uh wants to make at least uh the fifty million Euro\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false}]}",
+      "seconds": 7.442987750022439,
+      "prompt_tokens": 2805,
+      "output_tokens": 52,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.988828824,
+      "tag": "IS1008b",
+      "generation_tps": 29.295155042738713,
+      "prompt_tps": 520.0423527398744
+    },
+    {
+      "key": "e3ca72f3964e51e9deb1eb1a91ddfca3d3f45e2b6da7c3a01786821089d326c9",
+      "original_key": "7a8ec0e9a261aa946a486f582750646cf39aedaacd049ebfd46d5cb01fe1e505",
+      "condition": "native-after",
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "intervention": {
+          "kind": "base",
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+        },
+        "condition": "native-after",
+        "max_tokens": 1800,
+        "temperature": 0,
+        "thinking": false,
+        "loopstop": true,
+        "rendered_prompt_sha256": "15ffc7489d331b021c1fc0dc3a59fed3bfbef3db178eb69c9e59deb4c656d75b"
+      },
+      "text": "{\"events\":[{\"turn\":43,\"quote\":\"the company uh wants to make at least uh the fifty million Euro\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"confidence\":0.5,\"unresolved\":false}]}",
+      "seconds": 7.36429658299312,
+      "prompt_tokens": 2805,
+      "output_tokens": 52,
+      "hit_budget": false,
+      "cut_repeat": false,
+      "peak_gb": 3.988818456,
+      "tag": "IS1008b",
+      "generation_tps": 29.473878521105707,
+      "prompt_tps": 524.0304671895601
+    }
+  ],
+  "all_byte_identical_to_cached_base": true,
+  "native_repeat_identical": true,
+  "zero_equals_native": true
+}

@@ -1,0 +1,55 @@
+{
+  "not_for_selection": true,
+  "rows": [
+    {
+      "layer": 8,
+      "attribution_vs_status_direction_cosine": 0.49906671047210693,
+      "auc_by_series": {
+        "ES2003": 1.0,
+        "TS3004": 0.875,
+        "ES2011": 1.0,
+        "IS1008": 0.6666666666666666,
+        "TS3006": 0.0
+      }
+    },
+    {
+      "layer": 16,
+      "attribution_vs_status_direction_cosine": 0.5419635772705078,
+      "auc_by_series": {
+        "ES2003": 1.0,
+        "TS3004": 0.875,
+        "ES2011": 0.7777777777777778,
+        "IS1008": 1.0,
+        "TS3006": 0.3333333333333333
+      }
+    },
+    {
+      "layer": 24,
+      "attribution_vs_status_direction_cosine": 0.3291243314743042,
+      "auc_by_series": {
+        "ES2003": 0.6875,
+        "TS3004": 1.0,
+        "ES2011": 1.0,
+        "IS1008": 1.0,
+        "TS3006": 1.0
+      }
+    },
+    {
+      "layer": 28,
+      "attribution_vs_status_direction_cosine": 0.3300250768661499,
+      "auc_by_series": {
+        "ES2003": 0.625,
+        "TS3004": 1.0,
+        "ES2011": 1.0,
+        "IS1008": 1.0,
+        "TS3006": 1.0
+      }
+    }
+  ],
+  "u_largest_coordinate": 0.07807713747024536,
+  "u_top32_energy": 0.10867442190647125,
+  "u_effective_dimensions": 803.7109985351562,
+  "delta_norm_half": 0.07080043852329254,
+  "random_delta_norm_half": 0.07080043107271194,
+  "label_caveat": "Informal tentative/accepted language is inherently ambiguous. Frozen labels and intervention selection are unchanged; these are manually source-judged diagnostics, not human-adjudicated gold."
+}

@@ -1,0 +1,22 @@
+{
+  "derive": {
+    "correct": 12,
+    "n": 16,
+    "false_accept": 2,
+    "false_reject": 2,
+    "auc": 0.703125,
+    "mean_seconds": 0.8895070156813745
+  },
+  "check": {
+    "correct": 14,
+    "n": 16,
+    "false_accept": 0,
+    "false_reject": 2,
+    "auc": 0.984375,
+    "mean_seconds": 0.8332415391232644
+  }
+}
+{"condition": "amplify", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "amplify", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "amplify", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"closed": true, "preflight": {"time": "2026-11-03T16:14:07+0800", "conflicts": []}, "seconds": 24.72479187499266}
