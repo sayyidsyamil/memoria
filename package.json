@@ -2,7 +2,7 @@
   "name": "memoria",
   "private": true,
   "license": "AGPL-3.0-or-later",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "packageManager": "pnpm@10.34.8",
   "type": "module",
   "scripts": {

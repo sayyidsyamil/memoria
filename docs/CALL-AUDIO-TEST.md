@@ -3,11 +3,11 @@
 Call audio records what this Mac plays (the other side of a call) into the meeting's recording and live captions.
 These steps check it in the bundled app. About 20 minutes. Use headphones throughout unless a step says otherwise.
 
-**Run on 3 November 2026** (test build of `call-audio` merged with `main`, MacBook Air, speakers, microphone input set
-to 0 so that only the tap could be heard): steps 1, 2 and the end of 7 passed. The test meeting played on the Mac was
-captioned, both contradictions were cued, the saved recording holds it at −24.5 dBFS, and the helper exited at End. No
-permission prompt appeared in this run. In the next meeting Call audio started on, as left,
-and turning it off mid-meeting stopped the helper (part of step 4). Steps 3, 5 and 6 are still to be run.
+**Run on 3 November 2026:** a bundled test build on a MacBook Air, using speakers with microphone input set to 0 so
+that only the tap could be heard. The test meeting was captioned, both contradictions were cued, the saved recording
+holds it at −24.5 dBFS, and the helper exited at End. No permission prompt appeared. The next meeting remembered Call
+audio as on; turning it off stopped the helper. Headphones, a real call, device switching and denied permission remain
+unchecked.
 
 **Native lifecycle regression:** `sh scripts/test-call-audio.sh` creates and destroys the tap and aggregate device
 three times with logging off and three times with it on, without starting capture. All six pass. It checks the objects
@@ -15,20 +15,12 @@ from their owning process; it fails with the earlier bug that put the destructio
 
 ## 0. Before you start
 
-- **Last night's prompt.** If a macOS prompt asks whether **node** or **memoria-call-audio** may record audio from other
-  apps or this computer, it came from last night's shell tests (the helper run outside Memoria). Choose **Don't Allow**.
-  Memoria's own prompt may be queued behind it. An entry for either in the System Audio Recording Only list (below)
-  can be removed.
-- **Sound.** The Mac's output was muted at volume 0 last night (the tests did not change it). Unmute it.
-- **Prebuilt.** A debug bundle of this branch (merged with `main` at `173e987`, so it has everything in
-  `v0.3.0-uat`, the noise fix of `main` and call audio) is at
-  `/Users/sayyid/Documents/memoria-workspace/src-tauri/target/debug/bundle/macos/Memoria.app`. Quit the installed
-  Memoria first (two copies would load the models twice), then `open` that path; skip the build below.
-- **Build the bundle from this branch** (`call-audio`, not merged). Do not use `pnpm tauri dev` for this test: macOS
-  would ask on behalf of the terminal instead of Memoria.
+- Use a disposable workspace and set a comfortable headphone volume.
+- Quit the installed Memoria before opening a test bundle; two copies would load the models twice.
+- Build from the repository root, or use the released app. Use a bundle for the permission test: in `pnpm tauri dev`,
+  macOS may attribute the request to the terminal.
 
   ```sh
-  cd /Users/sayyid/Documents/memoria-wt-call-audio
   pnpm tauri build --debug --bundles app
   ```
 
