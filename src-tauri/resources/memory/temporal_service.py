@@ -60,16 +60,17 @@ def validate_params(method, params):
                     raise ValueError('Enum attributes require allowed values.')
 
 
-NUMBER = re.compile(r'(?<![\d.,])(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)\s*(million|thousand|k|m)?\b', re.I)
-SCALE = {'million': 1_000_000, 'm': 1_000_000, 'thousand': 1_000, 'k': 1_000}
+NUMBER = re.compile(r'(?<![\d.,])([+\-−]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:e[+\-−]?\d+)?)(?![.,]\d)\s*(billion|million|thousand|k|m)?\b', re.I)
+SCALE = {'billion': 1_000_000_000, 'million': 1_000_000, 'm': 1_000_000, 'thousand': 1_000, 'k': 1_000}
 
 
 def quoted_numbers(quote):
     """The amounts a quote states: '250,000 ringgit' -> 250000, 'RM2.5 million' -> 2500000."""
     found = set()
     for digits, scale in NUMBER.findall(quote or ''):
-        value = float(digits.replace(',', '')) * SCALE.get(scale.casefold(), 1)
-        found.add(int(value) if value.is_integer() else value)
+        value = float(digits.replace(',', '').replace('−', '-')) * SCALE.get(scale.casefold(), 1)
+        if math.isfinite(value):
+            found.add(int(value) if value.is_integer() else value)
     return found
 
 

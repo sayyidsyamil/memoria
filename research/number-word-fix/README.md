@@ -32,9 +32,8 @@ experiments; the regression fixture uses the AMI ES2003a turn already represente
   - number words next to digits;
   - unsupported magnitudes ("twenty grand", "five k", "two dozen", "twenty-ish");
   - a bare "one" ("the one", "no one").
-- The digit rules are unchanged. There is one deliberate exception: if the quote has one digit amount
-  and the value matches a different amount said in words, the value is kept. The old code replaced it
-  with the digit amount.
+- If the quote has one digit amount and the value matches a different amount said in words, the value is kept.
+  The old code replaced it with the digit amount. Further digit-format corrections are recorded below.
 
 ## Verification (deterministic, no model loaded)
 
@@ -68,6 +67,14 @@ Two further regressions were found and fixed before pushing:
 Both added tests fail before these corrections. The combined app suite passes 231 tests, including the five separate
 singleton-retrieval tests. Replaying all 5,104 cached development candidates gives identical results before and after
 these two corrections; no reserved validation series was read.
+
+### Digit-format corrections
+
+The old digit matcher dropped minus signs and cents after a thousands separator, and read `5 billion` as 5.
+It now keeps signed amounts, comma-separated decimals, billion units and scientific notation intact. Nonfinite
+values and malformed compound tokens such as `12.3.4` supply no amount. The original quote is never rewritten.
+Three further tests cover those formats through parsing and repair. All 234 combined app tests pass; the 5,104
+cached development candidates are unchanged by this format correction.
 
 ## Limits
 

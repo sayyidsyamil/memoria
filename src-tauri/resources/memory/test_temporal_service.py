@@ -234,6 +234,30 @@ class DraftRepairTests(unittest.TestCase):
         self.assertEqual(quoted_numbers('RM2.5 million, not 3m'), {2500000, 3000000})
         self.assertEqual(quoted_numbers('no change to the budget'), set())
 
+    def test_signed_decimal_and_scaled_amounts_are_not_corrupted_by_repair(self):
+        from temporal_service import quoted_numbers, repaired
+        for value, quote in [(-5, 'The balance is -5 ringgit.'), (-5, 'The balance is −5 ringgit.'),
+                             (1234.5, 'The price is RM1,234.50.'), (-1234.5, 'The adjustment is -1,234.50 ringgit.'),
+                             (5000000000, 'The budget is 5 billion ringgit.'),
+                             (1250000000, 'The budget is RM1.25e9.'), (-0.05, 'The adjustment is -5e-2 ringgit.'),
+                             (-0.05, 'The adjustment is −5e−2 ringgit.')]:
+            with self.subTest(quote=quote):
+                self.assertEqual(quoted_numbers(quote), {value})
+                candidate = Candidate('budget', 'amount', value, quote)
+                self.assertEqual(repaired(candidate, self.registry), candidate)
+
+    def test_multiple_numeric_amounts_stay_distinct_and_nonfinite_quotes_are_ignored(self):
+        from temporal_service import quoted_numbers
+        self.assertEqual(quoted_numbers('Not -5 but 6 ringgit.'), {-5, 6})
+        self.assertEqual(quoted_numbers('RM1,000.50 or RM2,000.75.'), {1000.5, 2000.75})
+        self.assertEqual(quoted_numbers('A budget of 1e999 ringgit.'), set())
+
+    def test_malformed_numeric_tokens_do_not_supply_a_partial_amount(self):
+        from temporal_service import quoted_numbers
+        for quote in ('RM1,2345', 'version 12.3.4', 'price 1,234.50.6'):
+            with self.subTest(quote=quote):
+                self.assertEqual(quoted_numbers(quote), set())
+
     def test_repairs_are_grounded_and_leave_ambiguity_alone(self):
         from temporal_service import repaired
         from memoria_engine.pipeline import Candidate
