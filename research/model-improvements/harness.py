@@ -216,14 +216,61 @@ def meeting_keep(name, chain, meeting, candidates, beliefs, lm):
     if name.startswith("support>="):
         tau = float(name.split(">=")[1])
         return {id(c) for c, v in valid if v.status != "valid" or support.score(meeting, chain.registry, v, lm) >= tau}
+    if name.startswith("support-changes>="):
+        # only writes that would change the value in force (from the beliefs at the meeting's start and this meeting's
+        # earlier kept writes) are asked about; a first value for an empty slot, and restatements, are never dropped
+        tau = float(name.split(">=")[1])
+        current, kept = dict(beliefs), set()
+        for c, v in sorted(valid, key=lambda cv: (cv[1].turn if cv[1].turn is not None else -1)):
+            if v.status != "valid":
+                kept.add(id(c))
+                continue
+            slot = (v.object_id, v.attribute)
+            changes = slot in current and not values_equal(current[slot], v.value)
+            if changes and support.score(meeting, chain.registry, v, lm) < tau:
+                continue
+            kept.add(id(c))
+            current[slot] = v.value
+        return kept
     if name == "lexsupport":
         return {id(c) for c, v in valid if v.status != "valid" or lexical_support(chain, meeting, c)}
-    if name == "lastvalue":
-        last = {}
+    if name.startswith("reanchor:"):
+        # a write whose turn (or the one before) names neither its item nor its value is moved to the nearest turn
+        # within k turns that does (earlier turns first at equal distance); with none, it is dropped. No model.
+        k = int(name.split(":")[1])
+        kept = set()
         for c, v in valid:
-            if v.status == "valid" and ((v.object_id, v.attribute) not in last or v.turn >= last[(v.object_id, v.attribute)][0]):
-                last[(v.object_id, v.attribute)] = (v.turn, v.value)
-        return {id(c) for c, v in valid if v.status != "valid" or values_equal(v.value, last[(v.object_id, v.attribute)][1])}
+            if v.status != "valid" or lexical_support(chain, meeting, c):
+                kept.add(id(c))
+                continue
+            spec = chain.registry.objects[v.object_id]
+            wanted = _words(f"{spec.label} {spec.object_id.replace('_', ' ')} {v.value}")
+            for distance in range(1, k + 1):
+                hit = next((t for t in (v.turn - distance, v.turn + distance) if 0 <= t < len(meeting.turns)
+                            and wanted & _words(meeting.turns[t].text)), None)
+                if hit is not None:
+                    c.quote, c.turn = meeting.turns[hit].text, meeting.turns[hit].index
+                    kept.add(id(c))
+                    break
+        return kept
+    if name in ("lastvalue", "modevalue"):
+        # within a meeting a slot keeps only one value: the value of its last write (lastvalue), or the value written
+        # most often, ties going to the later one (modevalue)
+        latest, counts = {}, {}
+        for c, v in valid:
+            if v.status != "valid":
+                continue
+            slot, key = (v.object_id, v.attribute), str(v.value).casefold()
+            counts.setdefault(slot, {}).setdefault(key, [0, -1, v.value])
+            counts[slot][key][0] += 1
+            counts[slot][key][1] = max(counts[slot][key][1], v.turn)
+            if slot not in latest or v.turn >= latest[slot][0]:
+                latest[slot] = (v.turn, v.value)
+        if name == "lastvalue":
+            chosen = {slot: value for slot, (_, value) in latest.items()}
+        else:
+            chosen = {slot: max(options.values(), key=lambda o: (o[0], o[1]))[2] for slot, options in counts.items()}
+        return {id(c) for c, v in valid if v.status != "valid" or values_equal(v.value, chosen[(v.object_id, v.attribute)])}
     if name in ("consolidate", "consolidate-think"):
         import consolidate
         kept, log = consolidate.consolidate_meeting(chain, meeting, valid, beliefs, lm, think=name.endswith("think"))

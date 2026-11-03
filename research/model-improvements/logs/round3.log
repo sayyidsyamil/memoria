@@ -1,1 +1,25 @@
 === 13:42:04 4b-c1-closed-a: extract 4b app-nosys-numwords-loopstop ES2003 TS3004 ES2011 IS1008
+{"series": "ES2003", "mechanism": "app-nosys-numwords-loopstop", "windows": 20, "seconds": 0.1, "hit_budget": 0, "unclean": 1, "misses": 0, "hits": 20}
+{"series": "TS3004", "mechanism": "app-nosys-numwords-loopstop", "windows": 21, "seconds": 80.3, "hit_budget": 0, "unclean": 1, "misses": 6, "hits": 35, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.35, "active_gb": 2.5}
+{"series": "ES2011", "mechanism": "app-nosys-numwords-loopstop", "windows": 16, "seconds": 0.0, "hit_budget": 0, "unclean": 1, "misses": 6, "hits": 51, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.35, "active_gb": 2.5}
+{"series": "IS1008", "mechanism": "app-nosys-numwords-loopstop", "windows": 15, "seconds": 0.1, "hit_budget": 0, "unclean": 0, "misses": 6, "hits": 66, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.35, "active_gb": 2.5}
+       82.26 real        23.46 user         8.40 sys
+          1390542848  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              364563  page reclaims
+                5863  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6837  voluntary context switches
+              174712  involuntary context switches
+        117418344976  instructions retired
+         62824336020  cycles elapsed
+          5050600688  peak memory footprint
+{"label": "4b-c1-closed-a", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop", "ES2003", "TS3004", "ES2011", "IS1008"], "asked": "2026-11-03 13:42:04", "waited_s": 608.7, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 82.3, "peak_footprint_gb": 5.051, "max_rss_gb": 1.391, "released": "2026-11-03 13:53:35"}
+=== 13:53:35 4b-c1-closed-b: extract 4b app-nosys-numwords-loopstop TS3006

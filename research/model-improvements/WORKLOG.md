@@ -95,3 +95,20 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   precision rises and answers do not.
 - **lexsupport rejected on QA**: its QA 92 is inside random removal of the same 49 writes (mean 90.9, 90th percentile
   94; 39% of draws reach 92), although it keeps more gold events than random removal (24 against 20.1).
+- 14:00 More no-model screening on dev (open loop; random removal of the same number of writes per meeting, 300 draws):
+  - Random removal alone raises QA (app base: 21 writes removed at random -> mean 92.8 of 124 from 90): the
+    change-count questions reward any thinning, so every filter below is read against its own random control.
+  - `support-changes>=0` (the support question asked only of writes that would change the value in force): QA 90
+    unchanged, gold 26 unchanged, inbox 119 -> 107. No QA effect; not pursued.
+  - `reanchor:k` (a write whose turn and the one before name neither item nor value moves to the nearest turn within
+    k that does, else it is dropped): k = 10 gives QA 95, gold 27, wrong 36, inbox 103; random removal of the same 21
+    writes: mean 92.8, 90th percentile 95 (15% of draws reach 95). At the edge of the rule; k = 3 fails it.
+  - `modevalue` (within a meeting, a slot keeps the value written most often, ties to the later): on the app base QA
+    98 but gold events 26 -> 21 (fails the guardrail and keeps fewer gold events than random removal, 22.7). On the
+    nosys base QA 95 -> **102**, gold 29 -> 28, wrong writes 45 -> 28, inbox 100 -> 84; random removal of the same 21
+    writes: mean 95.4, 90th percentile 98, 0.3% of draws reach 102; gold kept 28 against 26.3. Passes. `lastvalue` on
+    the nosys base: QA 100, gold 27 (passes, 1.3% of draws reach 100). Why the base matters is not established; a
+    plausible reading is that without the system message fewer wrong values are repeated, so the commonest value in a
+    meeting is more often the decided one. Selection bias: modevalue is the second variant of family (2) tried after
+    lastvalue failed on the app base; the dev number is optimistic.
+  - Next: closed loop on dev for `app-nosys-numwords-loopstop+modevalue` (its own beliefs in later prompts).
