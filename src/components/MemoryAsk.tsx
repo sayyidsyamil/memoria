@@ -8,6 +8,7 @@ import { MemoryReview } from './MemoryReview'
 import { SectionLabel, StateButton } from './memoriaUi'
 import { announceMemoryChanged } from '../hooks/useWorkspaceSummary'
 import { clock } from '../lib/speakers'
+import { citeLabel } from '../lib/citations'
 import './memoryAsk.css'
 
 interface Moment { meetingId: string; meetingTitle: string; at: number | null }
@@ -26,14 +27,6 @@ export type AskMode = 'ask' | 'brief'
 interface Entry {
   id: string; question: string; mode: AskMode; status: 'working' | 'done' | 'error'; stage: string
   result?: Result; error?: string; briefId: string; prepared: string; savedPath?: string; saving?: boolean
-}
-
-/** A citation chip: the meeting (or document) and where in it. Long titles are shortened; the chip keeps the full title on hover. */
-function citeLabel(evidence: Evidence) {
-  const title = evidence.moment?.meetingTitle ?? evidence.sourceTitle
-  const where = evidence.moment?.at != null ? clock(evidence.moment.at) : `p.${evidence.page}`
-  return { title: title.length > 40 ? `${title.slice(0, 39)}…` : title, where,
-    name: `Quote from ${title}${evidence.moment?.at != null ? ` at ${where}` : `, page ${evidence.page}`}`, full: `${title} · ${where}` }
 }
 
 export function MemoryAsk({ vaultPath, briefOnly = false, active = false, scope, placeholder, mode: controlledMode, onModeChange, seed, onSaved, onOpenMoment }: {

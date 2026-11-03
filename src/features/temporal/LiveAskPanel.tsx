@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { askLiveMeeting, warmLiveMeeting, type LiveAskResult } from './liveAskService'
+import { citeLabel } from '../../lib/citations'
 import './liveAsk.css'
 
 export interface LiveAskPanelProps { vaultPath: string; sessionText: string; enabled?: boolean }
@@ -93,13 +94,13 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
                 const key = `${sectionIndex}-${itemIndex}-${citeId}`
                 const expanded = citation === key
                 const quoteId = `${id}-quote-${sectionIndex}-${itemIndex}-${item.citations.indexOf(citeId)}`
+                const label = citeLabel(evidence)
                 return <div key={citeId} className="live-ask-citation">
-                  <button type="button" aria-label={`Evidence ${evidence.id}: ${evidence.sourceTitle}, page ${evidence.page}`}
-                    aria-expanded={expanded} aria-controls={quoteId} title={`${evidence.sourceTitle} · page ${evidence.page}`}
+                  <button type="button" aria-label={label.name} aria-expanded={expanded} aria-controls={quoteId} title={label.full}
                     onClick={() => setCitation(current => current === key ? null : key)}>
-                    {evidence.sourceTitle} · p.{evidence.page}
+                    <span>{label.title}</span><b>{label.where}</b>
                   </button>
-                  {expanded && <blockquote id={quoteId}><p>{evidence.quote}</p><footer>{evidence.sourceTitle} · page {evidence.page}<br />{evidence.sourcePath}</footer></blockquote>}
+                  {expanded && <blockquote id={quoteId}><p>{evidence.quote}</p><footer>{evidence.sourceTitle}{evidence.moment?.at != null ? '' : ` · page ${evidence.page}`}</footer></blockquote>}
                 </div>
               })}</div>
             </div>)}

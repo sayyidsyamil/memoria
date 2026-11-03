@@ -85,14 +85,32 @@ it('renders engine sections, warnings and review notices and discloses exact cit
   expect(screen.getByText('Transcript may contain recognition errors.')).toBeInTheDocument()
   expect(screen.getByText(/Old source needs review/)).toBeInTheDocument()
   expect(screen.queryByText('Maya approved the pilot.')).not.toBeInTheDocument()
-  const cite = screen.getByRole('button', { name: 'Evidence R1: Pilot kickoff, page 2' })
+  const cite = screen.getByRole('button', { name: 'Quote from Pilot kickoff, page 2' })
+  expect(cite).toHaveTextContent('Pilot kickoffp.2')
   fireEvent.click(cite)
   expect(cite).toHaveAttribute('aria-expanded', 'true')
   expect(screen.getByText('Maya approved the pilot.')).toBeInTheDocument()
-  expect(screen.getByText(/sources\/pilot.md/)).toBeInTheDocument()
+  expect(screen.getByText('Pilot kickoff · page 2')).toBeInTheDocument()
   fireEvent.click(cite)
   expect(cite).toHaveAttribute('aria-expanded', 'false')
   expect(screen.queryByText('Maya approved the pilot.')).not.toBeInTheDocument()
+})
+
+it('names a quote from a meeting as the main Ask does: the meeting and when it was said, with no page', async () => {
+  // The meeting window still read "Evidence R1: … reviewed transcript, page 1" after the main Ask was made readable.
+  vi.mocked(invoke).mockResolvedValue({
+    sections: [{ heading: 'Approved decision', items: [{ text: 'Go-live is 9 Nov 2026.', citations: ['R1'] }] }],
+    citations: [{ id: 'R1', quote: 'Then the go-live date is now 9 November 2026.', sourceTitle: 'Procurement pilot pre-launch review — reviewed transcript',
+      sourcePath: 'source-pre-launch.md', page: 1, moment: { meetingId: 'm2', meetingTitle: 'Procurement pilot pre-launch review', at: 45 } }],
+    warnings: [],
+  } satisfies LiveAskResult)
+  open(); type('When do we go live?'); fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
+  const cite = await screen.findByRole('button', { name: 'Quote from Procurement pilot pre-launch review at 0:45' })
+  expect(cite).toHaveTextContent('Procurement pilot pre-launch review0:45')
+  fireEvent.click(cite)
+  expect(screen.getByText('Then the go-live date is now 9 November 2026.')).toBeInTheDocument()
+  expect(screen.getByText('Procurement pilot pre-launch review — reviewed transcript')).toBeInTheDocument()
+  expect(screen.queryByText(/page 1|source-pre-launch/)).not.toBeInTheDocument()
 })
 
 it('uses the current transcript on each explicit question and keeps disclosure changes request-free', async () => {
