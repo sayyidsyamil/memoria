@@ -97,8 +97,14 @@ The live caption still heard "Maya" as "Maja"; Refine corrects it from the full 
 | D15 | A recovered meeting reopened as "No readable speech was detected" with no way to transcribe | An empty saved turn list replaced the created draft's segments | Saved turns replace the draft only when there are any |
 | D16 | Two sentences of an untagged recording came back as one 0–14.97 s turn reading "…test.We decided…" | The library parsed untagged output as one segment | When the model's timestamped passages hold exactly the parsed words, they are used, with the model's own timing (0.00–3.96 and 9.86–12.40 on the recorded output) |
 
-D13 (recovered WebM without a duration header) is recorded, not fixed: the original evidence
-file is kept byte-for-byte; a playable remux or decoder-derived duration is follow-up work.
+D13 (recovered WebM without a duration header) was recorded, not fixed, in this check. Since fixed
+(3 November): the original evidence is still kept byte for byte, and the player loads a stream copy
+that FFmpeg writes beside it with a duration and cue index; ordinary browser recordings had the
+same missing header and get the same copy. The same change lets the player read recordings:
+Tauri's file access for the webview, as configured, leaves out the vault's hidden folders, where
+recordings are kept (found in the code; the installed app was not run). Checked with unit tests
+and in the browser preview (0:01 before, 0:15 after, seekable to the end), not yet in the
+installed app.
 
 Also fixed from the earlier native temporal check: tracked-fact query results showed raw
 JSON, "1 changes", machine dates and meeting UUIDs. They now render readable values, correct
