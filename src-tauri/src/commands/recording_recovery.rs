@@ -26,10 +26,11 @@ const MAX_MANIFEST_BYTES: usize = 32 * 1024;
 const MAX_PATH_BYTES: usize = 4096;
 const COPY_BUFFER_BYTES: usize = 64 * 1024;
 const CONTAINER_PREFIX_BYTES: usize = 4096;
+// Shown with a recording's transcript; the interrupted-recordings list says the same once for all of them.
 const CONTAINER_WARNING: &str =
-    "Container tail completeness and decodability have not been verified.";
+    "The recording has not been played through to check that it is complete.";
 const INTERRUPTED_WARNING: &str =
-    "Capture may have been interrupted: uncheckpointed audio and final container data may be missing.";
+    "The recording stopped unexpectedly, so its last few seconds may be missing. Listen before relying on it.";
 
 // The app is single-instance; serialize journal transitions without a crash-stale disk lock.
 static RECORDING_OPERATIONS: Mutex<()> = Mutex::new(());
@@ -504,7 +505,13 @@ impl RecordingStorage {
                 original.display()
             )
         })?;
-        let warnings = recording_warnings(&ready, &inventory);
+        // The inventory was taken before the original was published; it exists now.
+        let published = ChunkInventory {
+            webm_original: inventory.webm_original || container == Container::Webm,
+            mp4_original: inventory.mp4_original || container == Container::Mp4,
+            ..inventory
+        };
+        let warnings = recording_warnings(&ready, &published);
         Ok(FinalizedMeetingRecording {
             session_id: id,
             original_path: path_string(&original)?,
@@ -568,7 +575,9 @@ impl RecordingStorage {
                 metadata: manifest.metadata.clone(),
                 chunk_count: inventory.chunk_count,
                 byte_length: inventory.byte_length,
-                warnings: recording_warnings(&manifest, &inventory),
+                warnings: recording_warnings(&manifest, &inventory).into_iter()
+                    .filter(|warning| warning != INTERRUPTED_WARNING && warning != CONTAINER_WARNING)
+                    .collect(),
             }));
         }
         candidates.sort_by(|left, right| {
@@ -1374,6 +1383,7 @@ mod tests {
         assert!(!result.interrupted);
         assert!(Path::new(&result.original_path).is_absolute());
         assert!(result.warnings.iter().any(|warning| warning == CONTAINER_WARNING));
+        assert!(!result.warnings.iter().any(|warning| warning.contains("original is missing")), "{:?}", result.warnings);
         assert_eq!(manifest(&storage, &id).state, RecordingState::Ready);
         assert_eq!(scan_chunks(&storage.directory(&id, false).unwrap()).unwrap().chunk_count, 3);
         let dto = serde_json::to_value(result).unwrap();
@@ -1698,6 +1708,22 @@ mod tests {
         assert_eq!(result.chunk_count, 1);
         assert!(result.warnings.iter().any(|warning| warning.contains("1 unpublished temporary")));
         assert!(temporary.exists());
+    }
+
+    #[test]
+    fn interrupted_recordings_are_listed_without_repeating_the_list_and_explained_plainly_in_review() {
+        // The list states once that these recordings stopped early; each item repeated it in engineering terms.
+        let (_root, storage, id) = fixture();
+        begin_with_audio(&storage, &id);
+        assert!(storage.list(false).unwrap().recordings[0].warnings.is_empty());
+        let recovered = storage.finalize(&id, None).unwrap();
+        assert!(recovered.warnings.iter().any(|warning| warning == INTERRUPTED_WARNING));
+        // Every finalized recording used to be told that its just-published original was missing.
+        assert!(!recovered.warnings.iter().any(|warning| warning.contains("original is missing")), "{:?}", recovered.warnings);
+        for warning in &recovered.warnings {
+            let lower = warning.to_lowercase();
+            assert!(!["container", "checkpoint", "decodab"].iter().any(|jargon| lower.contains(jargon)), "{warning}");
+        }
     }
 
     #[test]

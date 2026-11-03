@@ -2,9 +2,14 @@ import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
 import numpy as np
-from live_speech import WindowTranscript, has_speech, RATE, trim_context_repeat, trim_overlapping_context, assign_voice, voiced_span
+from live_speech import WindowTranscript, has_speech, RATE, trim_context_repeat, trim_overlapping_context, assign_voice, voiced_span, CAPTION_TIMES
 
 class LiveSpeechTests(unittest.TestCase):
+    def test_live_draft_explains_its_times_without_engineering_terms(self):
+        # Shown in review with every live draft; it read "Timestamps use caption PCM time".
+        self.assertNotIn('PCM', CAPTION_TIMES)
+        self.assertIn('pause', CAPTION_TIMES)
+
     def test_trimmed_context_preserves_raw_interval_and_marks_alignment_unresolved(self):
         with patch('live_speech.has_speech', return_value=True), patch('live_speech.voiced_span', return_value=None), patch('live_speech.emit') as emit, patch('voice_profiles.speaker_embeddings', return_value={}), patch('live_speech.decode_window', return_value=[{'start': 0, 'end': 6, 'speaker': 'S01', 'text': 'my role is the interface'}]):
             session = WindowTranscript(None)
