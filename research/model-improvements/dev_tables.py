@@ -49,7 +49,7 @@ def row(lm, chains, mechanism):
     return s
 
 
-def main():
+def main(out_path=None):
     chains = harness.load_series(harness.series_of(DEV))
     lm = LM("4b", HERE / "cache" / "4b.jsonl", offline=True)
     out = {"empty_ledger_right": empty_ledger(chains), "questions": sum(len(c.questions) for c in chains), "rows": {}}
@@ -68,7 +68,7 @@ def main():
               f"{t['a_only']} / {t['b_only']}, {t['p_two_sided']:.3f} |")
         out["rows"][mechanism] = {k: v for k, v in s.items() if k != "qa_flat"} | {"vs_app": t}
     (HERE / "results" / "dev").mkdir(parents=True, exist_ok=True)
-    (HERE / "results" / "dev" / "summary.json").write_text(json.dumps(out, indent=1, default=str) + "\n")
+    Path(out_path or HERE / "results" / "dev" / "summary.json").write_text(json.dumps(out, indent=1, default=str) + "\n")
 
 
 if __name__ == "__main__":

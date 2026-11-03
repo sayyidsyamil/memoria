@@ -4,7 +4,9 @@ and score.py (replays the cache, no model).
 The extractor is `temporal_service.SharedExtractor` with the worker request reproduced in-process (lm.LM.app_generate):
 the engine's `build_prompt`, the worker's system message and 1,800-token budget, `parse_events`, `repaired`, inside
 the engine's `WindowedExtractor` (7,000 characters), through `run_eval.run_pipeline` (immediate policy, as in October).
-Mechanisms under test are small changes to that path, named in MECHANISMS; "app" is the shipped path.
+Mechanisms under test are small changes to that path, named in MECHANISMS; "app" is the historical app path of
+f45bbe549 (= v0.3.1-uat): its app modules are the pinned copies in pinned/f45bbe549 (`pinned.py`), not whatever the
+checkout's src-tauri holds. A chain is read from its own file only (`load_series`); no other series' file is opened.
 """
 import json
 import sys
@@ -21,37 +23,52 @@ for _path in (str(MEMORY), str(LEDGER / "scripts" / "ami"), str(HERE)):
         sys.path.insert(0, _path)
 sys.dont_write_bytecode = True
 
+import pinned  # noqa: E402
+
+pinned.activate()  # the f45bbe549 app modules first on the path, every hash checked
+
 from memoria_engine.evaluation import metrics, run_eval  # noqa: E402
-from memoria_engine.evaluation.dataset import load_chains  # noqa: E402
+from memoria_engine.evaluation.dataset import parse_ask, parse_chain  # noqa: E402
 from memoria_engine.evaluation.oracle import ledger_answer, values_equal  # noqa: E402
 from memoria_engine.extractors import OracleExtractor, build_prompt, parse_events  # noqa: E402
 from memoria_engine.pipeline import Pipeline  # noqa: E402
 from memoria_engine.windowed import WindowedExtractor  # noqa: E402
 
 SPLITS = json.loads((HERE / "data" / "splits.json").read_text())
-DATA = {"old": LEDGER / "data" / "ami_v0", "new": HERE / "data" / "ami_new"}
+DATA = {"old": LEDGER / "data" / "ami_v0", "new": HERE / "data" / "ami_new", "demo": LEDGER / "data" / "demo"}
 
 
 def split_of(series):
     return next(name for name, part in SPLITS.items() if isinstance(part, dict) and series in part.get("series", ()))
 
 
+def read_chain(folder, name):
+    """One chain and its question wording, as the engine's load_chains reads each file, without listing or opening any
+    other series' files."""
+    path = folder / f"{name}.chain"
+    if not path.is_file():
+        raise SystemExit(f"no chain {name} in {folder}")
+    chain = parse_chain(path.read_text(encoding="utf-8"), path.name)
+    ask = path.with_suffix(".ask")
+    if ask.is_file():
+        chain = parse_ask(ask.read_text(encoding="utf-8"), chain, ask.name)
+    if chain.chain_id != name:
+        raise SystemExit(f"{path} holds chain {chain.chain_id}, not {name}")
+    return chain
+
+
 def load_series(names, allow_validation=False):
     out = []
     for name in names:
         if name == "demo":  # the fictional UAT series (regression only)
-            out += [c for c in load_chains(str(LEDGER / "data" / "demo")) if c.chain_id == "demo"]
+            out.append(read_chain(DATA["demo"], "demo"))
             continue
         split = split_of(name)
         if split == "new-val" and not allow_validation:
             raise SystemExit(f"{name} is in the reserved validation split; it is opened only by the preregistered final run")
         if split == "reserve":
             raise SystemExit(f"{name} is reserved and has no gold in this round")
-        folder = DATA["old" if split.startswith("old") else "new"]
-        chains = [c for c in load_chains(str(folder)) if c.chain_id == name]
-        if len(chains) != 1:
-            raise SystemExit(f"no chain {name} in {folder}")
-        out.append(chains[0])
+        out.append(read_chain(DATA["old" if split.startswith("old") else "new"], name))
     return out
 
 

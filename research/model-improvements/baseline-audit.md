@@ -29,9 +29,10 @@ routes alike.
 | gold facts (router only) | 96 | 34 | 29 | 33 | 4 | 38 | 58 | 38 / 0 |
 
 **What this means, read plainly.**
-- The October 4B ledger's 59/96 (61%) is **not distinguishable from recording nothing** (58/96; 18 questions only
-  the ledger gets right, 17 only the empty record, p = 1.0). It finds 18 of the 38 values or changes the questions
-  need, and loses 17 of the 58 "none"/0 answers to wrong writes.
+- On this reused set, **no paired difference is detected** between the October 4B ledger's 59/96 (61%) and recording
+  nothing (58/96; 18 questions only the ledger gets right, 17 only the empty record, p = 1.0). That is not evidence
+  that the two perform equally; it means the aggregate cannot show extraction value here. The ledger finds 18 of the
+  38 values or changes the questions need, and loses 17 of the 58 "none"/0 answers to wrong writes.
 - The published comparisons stay as published (ledger 59 against full context 41 and BM25 37, all with the 4B), but
   they must be read by question type. On the 38 questions that need a value, the 4B ledger (18) is behind full
   context (26) and BM25 (23). Its lead overall comes from the 58 questions whose answer is "none" or 0, where it
@@ -76,18 +77,30 @@ The attribution specialist found the consequence in practice (`research/weight-e
 turn about company profit; one of them was counted as a found gold event only because that event's window spans
 turns 14-117, and another matched the final current value by chance, while a matched random-direction edit earned
 the same false credit. Gold events found and current-value QA can therefore reward writes whose quote does not
-support them. Gold and scoring are unchanged here; such gains need a source audit before they count, and "gold
-found" should be reported with that caveat.
+support them. The error runs both ways: wide windows over-credit such writes, and incomplete gold under-credits true
+decisions the abstract did not list (they count as false writes), so the scorer's precision and recall are not
+bounds in either direction. Gold and scoring are unchanged here; a gain in gold events or current values needs a
+source audit before it counts.
 
 ## Baselines for the final validation
 
-- Every "app" number in this folder is the **historical app path at `f45bbe549` (the 0.3.1 release)**: the harness
-  imports that commit's `temporal_service.repaired` and `model_server.py`. `main` has since changed the production
-  extraction (`70707fa3b`: amounts stated in words kept, exact numeric parsing, quote and singleton fixes in
-  `temporal_service.py`), so these cached figures are historical and must not be called current `main`.
+- Every "app" number in this folder is the **historical app path of `f45bbe549`**. Its app modules
+  (`temporal_service.py`, `model_server.py`, `ask_facts.py`, `live_guard.py`, `live_assistance.py` and the modules they
+  import) are byte-identical, by git blob, to the `v0.3.1-uat` release tag, and since 3 November 18:45 they are loaded
+  from the pinned copies in `pinned/f45bbe549` with every hash checked (`pinned.py`); before that the harness imported
+  them from the checkout. `main` has changed two of them since: `temporal_service.py` (amounts stated in words kept,
+  `98440ef50`; exact numeric comparison, `7636708c2`; signed, decimal and scaled amounts, `70707fa3b`) and
+  `live_assistance.py` (semantic matching with a single approved decision, `44e190870`); the cue explanation that keeps
+  older source quotes is a frontend change (`ecbd33b3e`). The cached figures here are historical and are not current
+  `main`.
 - Before the reserved validation is run, the contemporary production baseline must be chosen and frozen explicitly
-  (the commit, and the hashes of its `temporal_service.py` and `model_server.py`) beside every candidate; the
+  as its own identity (its commit and pinned app files, an entry in `validate.BASELINES`) beside every candidate; the
   validation then compares candidates with that baseline, and reports the empty-record floor and the per-type and
   needs-a-value scores beside the aggregate.
 - Candidate A stays frozen as recorded (`results/validation/candidate-A.json`) and is rejected for default deployment
-  on the product-contract fixtures (`test_modevalue_contract.py`). The 247 reserved questions are untouched.
+  on the product-contract fixtures (`test_modevalue_contract.py`). No generation or scoring has touched the 247
+  reserved questions; their chain files were parsed into memory by the folder-wide loader used until 18:45 on
+  3 November (see PROTOCOL.md), which now reads only the requested file.
+- Reproduction: `test_integrity.py` recomputes this audit and the dev tables with every reserved file denied at the
+  operating-system open call and checks them against `results/baseline-audit.json` and `results/dev/summary.json`
+  (identical, in this worktree and in a checkout of `main` at `c9357d693`).

@@ -26,9 +26,10 @@ No number here is a held-out result.
 2. **QA has a high floor** ([`baseline-audit.md`](baseline-audit.md), measured with the real engine and both
    routers). An empty record answers 58 of October's 96 test questions and 69 of the 124 dev questions: on the 96,
    every past-date question has the answer "none" and 29 of 33 change counts are 0; only 38 questions need a value or
-   a real change. **October's 4B ledger headline (59/96, 61%) is indistinguishable from recording nothing** (18
-   questions only the ledger gets right, 17 only the empty record, p = 1.0); it has 18/34 current values and none of
-   the 4 real changes. The published comparisons with full context (41) and BM25 (37) stand, but the ledger leads only
+   a real change. **On this reused set no paired difference is detected between October's 4B ledger headline (59/96,
+   61%) and recording nothing** (18 questions only the ledger gets right, 17 only the empty record, p = 1.0; this is
+   not evidence that the two perform equally); the ledger has 18/34 current values and none of the 4 real changes. The
+   published comparisons with full context (41) and BM25 (37) stand, but the ledger leads only
    on the "none"/0 questions; on the 38 that need a value it is behind both (18 against 26 and 23). Every filter gains
    QA by writing less, so filters are judged against random removal, and current values and real changes are read
    separately.
@@ -49,11 +50,15 @@ No number here is a held-out result.
 
 ## 4B on development data
 
-"App" / "shipped" in this folder always means the **historical app path at `f45bbe549` (the 0.3.1 release)**: the
-harness imports that commit's `temporal_service.py` and `model_server.py`. `main` has since changed production
-extraction (`70707fa3b`: amounts in words, exact numeric parsing, quote and singleton fixes), so these figures are
-historical, not current `main`; see [`baseline-audit.md`](baseline-audit.md). Open loop = a filter on the app run's
-candidates (its prompts fixed);
+"App" / "shipped" in this folder always means the **historical app path of `f45bbe549`**, whose app modules are byte-
+identical (git blobs) to the `v0.3.1-uat` release: `temporal_service.py`, `model_server.py`, `ask_facts.py`,
+`live_guard.py`, `live_assistance.py` and the modules they import are archived in `pinned/f45bbe549` and loaded from
+there by `pinned.py`, with every hash checked, wherever this folder is checked out. Before 3 November 18:45 the harness
+imported them from the checkout instead; on `main` that would have changed the baseline, because `main` has since
+changed `temporal_service.py` (amounts stated in words kept, exact numeric comparison, signed/decimal/scaled amounts:
+`98440ef50`, `7636708c2`, `70707fa3b`) and `live_assistance.py` (semantic matching with one approved decision,
+`44e190870`). These figures are historical, not current `main`; see [`baseline-audit.md`](baseline-audit.md). Open
+loop = a filter on the app run's candidates (its prompts fixed);
 closed loop = the configuration's own beliefs in its later prompts. Empty ledger: 69/124. Regenerate with
 `python3.11 dev_tables.py` (no model; 27 s).
 
@@ -191,35 +196,50 @@ value, which is exactly what breaks the contract.
   passes fixture 2, gives up fixture 1's intermediate history by design). It is a new identity: on dev it exists only
   open loop (nosys base: QA 100, current 27/43, 27 gold events; random-removal control passed with 300 draws). It
   would need a closed-loop dev run (GPU) and its own freeze before any validation.
-- The parts of A that respect the contract are independent of the per-meeting rule: amounts in words (owned by the
-  number-word agent) and stopping a reply at its first repeated event (latency only).
+- The part of A that respects the contract independently of the per-meeting rule is keeping amounts stated in words
+  (now in `main`, owned by the number-word agent). Stopping a reply at its first exactly repeated event is **not
+  latency-only**: it also drops any distinct event written after that repeat (a reply [A, A, B] loses B). On the app
+  base it changed no written event on dev, but on the nosys base it removed two distinct writes after a repeat
+  (TS3004c, speech recognition excluded at turn 504 and included at 507), so the loss happens in practice; a worker
+  that stops at a repeat would need its own contract check. The research `numwords.py` also showed a limit on dev:
+  it admitted price = 50,000,000 for TS3006a from "sell as much as fifty million Euros" (a sales target), because the
+  words confirm the number, not the item; `main`'s production implementation was not tested here.
 
 ## Validation, prepared and not run
 
 - **Reserved data:** new-val, 8 AMI series never used for extraction (ES2002, ES2005, ES2010, ES2016, IS1001, IS1004,
   TS3005, TS3010): 106 gold events, 247 questions; gold built and hashed before any model read them (commit
-  `0a713e9b1`, `data/manifest.json`).
-- **Frozen:** candidate A and the hashes of the harness, mechanisms, engine files and data
-  (`results/validation/candidate-A.json`).
-- **Primary:** QA with exact routes against a production baseline that must be chosen and frozen at preregistration
-  (the commit of current `main` and the hashes of its `temporal_service.py` and `model_server.py`; not the historical
-  `f45bbe549` path cached here), paired exact sign test, Holm over all candidates
-  (A plus any specialist candidates). **Guardrails:** gold events found >= baseline - max(2, 5%); correct proposals
-  >= baseline - 2; wrong writes <= baseline; unclean replies <= baseline + 1; current-value questions >= baseline - 2.
-  Closed loop; one run; `validate.py` refuses changed files and a second scoring.
-- **To run once the parent supplies the specialists' outcomes:** `validate.py prereg A [specialist candidates]`, then
-  one `lease.py val-<series> -- <python> validate.py run <series>` per series (about 5-8 minutes each, baseline and
-  candidates), then `validate.py score`. Then the regression: old-test (96 questions) for baseline and A.
+  `0a713e9b1`, `data/manifest.json`). No generation or scoring has touched them. Their chain files were, however,
+  parsed into memory during development by the folder-wide loader the harness used until 18:45 on 3 November (see
+  PROTOCOL.md); the loader now reads only the requested file, which `test_integrity.py` checks with the reserved
+  files denied at the operating-system level. They are reserved, not wholly unseen corpus data: I read their human
+  abstracts to write the gold, and MemoriaBench used their decisions.
+- **Frozen:** candidate A as recorded at its freeze (`results/validation/candidate-A.json`, commit `a78112dee`); A is
+  **rejected for default deployment** and no recommendation here proposes it.
+- **Baseline:** a named, frozen identity is required (`validate.py prereg --baseline NAME ...`). The only one defined
+  is `app@f45bbe549`, the pinned 0.3.1-uat app path. A current-production baseline (e.g. `main`) must first get its
+  own pinned files and an entry in `validate.BASELINES`; it is not the historical path cached here.
+- **Primary:** QA with exact routes against that baseline, paired exact sign test, Holm over all candidates.
+  **Guardrails:** gold events found >= baseline - max(2, 5%); correct proposals >= baseline - 2; wrong writes <=
+  baseline; unclean replies <= baseline + 1; current-value questions >= baseline - 2. Reported beside it: the
+  empty-record floor, per-type and needs-a-value scores, and a source audit of any gain in gold events or current
+  values. Closed loop; one run; `validate.py` refuses changed files and a second scoring.
+- **To run, once the parent has chosen candidates and the baseline identity:**
+  `validate.py prereg --baseline <frozen identity> <candidates>`, one `lease.py val-<series> -- <python> validate.py
+  run <series>` per series, then `validate.py score`; then old-test as a regression for the baseline and each candidate.
 
 ## Limits
 
 - Development numbers were used to choose among about 15 variants; A's dev gain is optimistic. Five series, one
   machine, one greedy run per configuration; closed-loop prompt changes alone move a series by several questions.
 - Gold lists one event per abstract decision, evidence windows come from human links, and the slot lists were written
-  by the AI assistant (as in October); precision is a lower bound and "gold found" understates value-correct writes.
+  by the AI assistant (as in October). The scorer's precision and recall are **not bounds in either direction**:
+  incomplete gold under-credits (a true decision missing from the abstract counts as a false write), and wide evidence
+  windows over-credit (a write whose quote does not support it can match a gold event; see `baseline-audit.md`).
+  "Gold found" also misses value-correct writes cited outside the human-linked window.
 - Open-loop inbox counts hold extraction fixed under `confirm_all`; the perfect reviewer is an upper bound.
 - `loopstop` is simulated on cached replies (the same greedy prefix); its time saving is estimated from the reply's
-  token rate. A worker change is needed to obtain it in the app.
+  token rate, and it can drop distinct events after a repeat (see above). A worker change would be needed.
 - AMI is public since 2005; pretraining exposure cannot be excluded for any model.
 
 ## Reproduce
@@ -228,18 +248,25 @@ All commands from this folder. Model jobs go through `lease.py` (shared lock; pe
 `results/leases.jsonl`); every model call is cached under `cache/`, so the scoring scripts need no model.
 
 ```sh
+python3.11 pinned.py verify                      # the 8 pinned app files (f45bbe549 = v0.3.1-uat) and 69 files read in place
+python3.11 test_integrity.py                     # reserved files denied: dev/audit summaries reproduce; pinned modules only
 python3.11 build_gold.py verify-october          # October's 7 chains rebuild byte-identically from the pinned annotations
 python3.11 check_harness.py october              # October's replies through this harness give October's numbers
 python3.11 test_helpers.py                       # number words, repeated-event cut
+python3.11 test_modevalue_contract.py            # the product-contract fixtures (A's two expected failures)
 python3.11 dev_tables.py                         # every 4B dev table above, from cache/4b.jsonl
+python3.11 baseline_audit.py                     # the empty-record audit (baseline-audit.md)
 python3.11 small_tables.py                       # the 0.8B table, from cache/0.8b-*.jsonl
-python3.11 controls.py 4b app-nosys modevalue old-dev,new-dev --draws 300   # a random-removal control
+python3.11 recheck_controls.py logs/controls-1000-c1.log   # a 1,000-draw control recomputed with reserved files denied
 python3.11 audit.py 4b app old-dev,new-dev --md results/audit/x.md          # every write and miss, classified
 # with a model (Python with MLX, e.g. /Users/Shared/Memoria/runtime/speech/bin/python):
 python3.11 lease.py job -- $PY run.py extract 4b "app-nosys-numwords-loopstop+modevalue" ES2003 TS3004 --minutes 6
 python3.11 lease.py job -- $PY run.py guard 4b dev
-python3.11 lease.py job -- $PY run.py parity      # in-process requests against the app's model_server.py
+python3.11 lease.py job -- $PY run.py parity      # in-process requests against the pinned model_server.py run as a worker
 ```
+
+These work unchanged in a checkout of `main` (checked on `c9357d693`): the app modules come from `pinned/f45bbe549`,
+and the harness refuses to run if an app module was imported from elsewhere first.
 
 ## Files
 
@@ -258,4 +285,6 @@ python3.11 lease.py job -- $PY run.py parity      # in-process requests against 
 | `validate.py` | preregistration, single run and scoring of the final validation (not run) |
 | `build_gold.py`, `specs_new.py`, `show_abstracts.py`, `data/` | gold for the new series; splits; GSM8K sample (unused) |
 | `check_harness.py`, `test_helpers.py` | no-model checks |
+| `pinned.py`, `pinned/f45bbe549/` | the historical app modules (identical to v0.3.1-uat), their manifest, and the hash checks of everything else the harness reads |
+| `test_integrity.py`, `recheck_controls.py` | reserved files denied at the OS level while dev/audit summaries and controls are recomputed; pinned-module checks |
 | `results/` | leases, controls, guard predictions, audits, dev summaries, edit checks, frozen candidate |

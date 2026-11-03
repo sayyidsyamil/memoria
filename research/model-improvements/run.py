@@ -69,7 +69,11 @@ def guard(variant, split, lm=None):
     sys.path.insert(0, str(harness.ROOT / "research" / "memoriabench"))
     os.environ.pop("MEMORIA_EMBED_SOCKET", None)  # lexical candidates only: no embedding model is loaded
     os.environ["MEMORIA_LIVE_CHECK"] = "guard"
+    import live_assistance  # noqa: F401  (the pinned 0.3.1 copy; the bench below would otherwise import the checkout's)
+    import temporal_support  # noqa: F401
     import app_live_check_bench as bench
+    import pinned
+    pinned.check_imported()
     lm = lm or LM(variant, CACHE / f"{variant}.jsonl")
     probes, provenance, memories = bench.load_inputs(split)
     current = {}
@@ -113,9 +117,11 @@ def parity():
     scores = [{"type": "score", "messages": live_guard.question("We will go with a kinetic battery.", "Battery type is rechargeable. Approved quote: we'll use rechargeable batteries."), "candidates": ["YES", "NO"]},
               {"type": "score", "messages": live_guard.question("The case is plastic.", "Case material is plastic. Approved quote: plastic casing."), "candidates": ["YES", "NO"]}]
     address = tempfile.mktemp(prefix="mi-", suffix=".sock", dir="/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode")
-    server = subprocess.Popen([sys.executable, str(harness.MEMORY / "model_server.py"), address, "--resident"],
+    import pinned
+    server = subprocess.Popen([sys.executable, str(pinned.PIN / "model_server.py"), address, "--resident"],
                               stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True,
-                              env={**os.environ, "MEMORIA_LLM_MODEL": "mlx-community/Qwen3.5-4B-MLX-4bit"})
+                              env={**os.environ, "MEMORIA_LLM_MODEL": "mlx-community/Qwen3.5-4B-MLX-4bit",
+                                   "PYTHONPATH": str(harness.MEMORY)})  # the engine; app modules come from the script's own (pinned) folder
     try:
         ready = server.stdout.readline()
         print("worker", ready.strip(), flush=True)

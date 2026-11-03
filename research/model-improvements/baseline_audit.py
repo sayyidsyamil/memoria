@@ -155,7 +155,7 @@ def window_widths(split):
             "over_20_turns": sum(w > 20 for w in widths), "over_50_turns": sum(w > 50 for w in widths)}
 
 
-def main():
+def main(out_path=None):
     out = {}
     for label, build, empty_key in (("original96", original96, "empty record, exact routes"),
                                     ("development124", development124, "empty record, exact routes")):
@@ -163,7 +163,7 @@ def main():
         out[label] = {"counts": counts(questions), "systems": table(questions, systems, empty_key)}
     out["scorer_windows"] = {split: window_widths(split) for split in ("old-test", "old-dev", "new-dev")}
     (HERE / "results").mkdir(exist_ok=True)
-    (HERE / "results" / "baseline-audit.json").write_text(json.dumps(out, indent=1) + "\n")
+    Path(out_path or HERE / "results" / "baseline-audit.json").write_text(json.dumps(out, indent=1) + "\n")
     for label in ("original96", "development124"):
         print(f"\n## {label}: {json.dumps(out[label]['counts'])}")
         for name, r in out[label]["systems"].items():

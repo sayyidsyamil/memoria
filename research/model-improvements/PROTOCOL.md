@@ -142,3 +142,28 @@ line is edited.
   f45bbe549 figures are reported as historical. Candidate A remains frozen and is rejected for default deployment.
   Reports give the empty-record floor, per-type scores and the needs-a-value subset beside the aggregate
   (`baseline-audit.md`).
+- 18:45, two harness integrity issues found by the parent's review, disclosed and fixed (research files only):
+  1. **Reserved data were parsed into memory.** `harness.load_series` called the engine's folder-wide `load_chains`
+     and filtered afterwards, so every load of a new-dev series parsed all eight new-val chain and question files into
+     the process's memory (a spy confirms: 16 reserved files opened for one new-dev series). No reserved series was
+     ever sent to a model, extracted, routed or scored, and no reserved content was printed or used; but the earlier
+     wording "not opened by any other script" and "never read" was false. Gold building also read the reserved series'
+     AMI abstracts (to write `specs_new.py`) and transcripts (October's builder), and freezing hashed their chain files;
+     those reads were by design. The loader now reads exactly the requested file (`read_chain`, the engine's
+     `parse_chain`/`parse_ask`), and `test_integrity.py` denies every reserved file at the operating-system open call
+     while it loads development series and recomputes the dev and audit summaries. The reserved split stays reserved;
+     it is not described as wholly unseen data.
+  2. **The historical baseline was not pinned.** The harness imported `temporal_service.py`, `model_server.py`,
+     `ask_facts.py`, `live_guard.py` and `live_assistance.py` from whatever checkout it ran in; on `main`, two of them
+     differ, which would silently change "app" and cause cache misses. The `f45bbe549` copies (byte-identical to
+     `v0.3.1-uat`) are now archived in `pinned/f45bbe549` with a manifest; `pinned.py` checks their hashes and those of
+     the 69 engine, script, data and result files read in place, puts the copies first on the importing process's path
+     only, and refuses to run if an app module was imported from elsewhere. Numbers are unchanged: the dev tables, the
+     baseline audit and October's replay reproduce exactly, here and in a checkout of `main` (`c9357d693`).
+  These change the harness identity after candidate A's freeze. `results/validation/candidate-A.json` is not rewritten:
+  it records A as frozen at commit `a78112dee`, whose app modules were the same `f45bbe549` files now pinned.
+  `validate.py` now requires a named, frozen baseline identity (only `app@f45bbe549` is defined) and warns that A is
+  rejected. Corrections to earlier text: stopping at the first repeated event is not latency-only (it drops distinct
+  events after a repeat, and did so on dev); the scorer's precision is not a lower bound (incomplete gold
+  under-credits, wide windows over-credit); "indistinguishable from an empty record" means no paired difference was
+  detected on a reused set, not equal performance.

@@ -200,3 +200,15 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   50 turns (widest 369); the attribution specialist's false-credit case (a write about company profit counted as a gold
   event inside a 14-117 window) is cited, not copied. The "app" baseline here is labelled as `f45bbe549` / 0.3.1
   history; `main` 70707fa3b differs in production extraction.
+- 18:45 **Harness integrity fixes** after the parent's review (PROTOCOL amendment 18:45). (1) The folder-wide loader
+  parsed all eight reserved chains (16 files, confirmed with an open spy) whenever a new-dev series was loaded; nothing
+  reserved was generated, scored or used. Now `read_chain` opens exactly the requested files; `test_integrity.py`
+  denies every reserved file at the OS open call (audit hook) and recomputes the dev tables and the baseline audit:
+  identical to the committed JSON. (2) The app modules were imported from the checkout; they are now the pinned
+  `f45bbe549` copies (git blobs identical to `v0.3.1-uat`), hash-checked with 69 in-place files; mixing with a
+  checkout's app modules is refused. On a `git archive` of `main` (`c9357d693`, whose `temporal_service.py` and
+  `live_assistance.py` differ) the harness loads the pinned copies and every no-model check reproduces. Found while
+  checking the README's loopstop claim: on the nosys base, stopping at the first repeat dropped two distinct writes
+  (TS3004c speech excluded/included at turns 504/507); and the research `numwords.py` admitted TS3006a price =
+  50,000,000 from "sell as much as fifty million Euros" (words confirm a number, not its item). Candidate A's freeze
+  file is unchanged; A remains rejected.
