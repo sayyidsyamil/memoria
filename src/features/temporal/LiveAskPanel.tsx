@@ -6,6 +6,11 @@ import './liveAsk.css'
 
 export interface LiveAskPanelProps { vaultPath: string; sessionText: string; enabled?: boolean }
 
+/** A failure as people read it: the message, without a leading "Error:". */
+function errorText(failure: unknown): string {
+  return failure instanceof Error ? failure.message : String(failure)
+}
+
 // Changing vaults discards answers and prevents a late response entering another scope.
 export function LiveAskPanel(props: LiveAskPanelProps) {
   return <LiveAskComposer key={props.vaultPath} {...props} />
@@ -42,7 +47,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
     if (enabled) return
     const id = job.current; job.current = null; working.current = false
     setBusy(false)
-    if (id) void invoke('cancel_wiki_memory', { jobId: id }).catch(failure => setError(`Cancellation failed: ${String(failure)}`))
+    if (id) void invoke('cancel_wiki_memory', { jobId: id }).catch(failure => setError(`Could not cancel: ${errorText(failure)}`))
   }, [enabled])
 
   // While a question is typed, the model reads the turns added since the last question, so the answer starts sooner.
@@ -64,7 +69,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
       const answer = await askLiveMeeting(vaultPath, nextQuestion, sessionText, jobId)
       if (mounted.current && job.current === jobId) setResult(answer)
     } catch (failure) {
-      if (mounted.current && job.current === jobId) setError(failure instanceof Error ? failure.message : String(failure))
+      if (mounted.current && job.current === jobId) setError(`Could not answer: ${errorText(failure)}`)
     } finally {
       if (job.current === jobId) { job.current = null; working.current = false; if (mounted.current) setBusy(false) }
     }
@@ -75,14 +80,15 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
       <span aria-hidden="true">{open ? '▾' : '▸'}</span>Ask this meeting
     </button>
     {open && <div id={`${id}-body`} className="live-ask-body">
-      <div className="live-ask-scroll" tabIndex={0} role="region" aria-label="Meeting answer and evidence">
-        <p id={`${id}-notice`} className="live-ask-note">Approved decisions come from the record. What was said comes from this meeting's live transcript, which nobody has reviewed yet.</p>
+      <div className="live-ask-scroll" tabIndex={0} role="region" aria-label="Answer and sources">
+        <p id={`${id}-notice`} className="live-ask-note">Approved decisions come from the decision board. What was said comes from this meeting's live transcript, which nobody has reviewed yet.</p>
         {question && <p className="live-ask-question">{question}</p>}
         {busy && <p role="status" className="live-ask-note">Asking this meeting…</p>}
-        {error && <p role="alert" className="live-ask-error">Could not answer: {error}</p>}
+        {error && <p role="alert" className="live-ask-error">{error}</p>}
         {result && <div className="live-ask-answer">
-          {result.message && <p className="live-ask-note">{result.message}</p>}
-          {result.needsReview?.map(source => <p className="live-ask-note" key={source.sourcePath}>{source.sourceTitle} needs review before it can be used as approved evidence.</p>)}
+          {/* An answer that is only "nothing answers this" says it once, as its item. */}
+          {result.message && !result.sections.some(section => section.items.some(item => item.text === result.message)) && <p className="live-ask-note">{result.message}</p>}
+          {result.needsReview?.map(source => <p className="live-ask-note" key={source.sourcePath}>{source.sourceTitle} needs review before it can be used.</p>)}
           {result.sections.map((section, sectionIndex) => <section key={sectionIndex}>
             <h3>{section.heading}</h3>
             {!section.items.length && <p className="live-ask-note">No supporting evidence found.</p>}
@@ -113,7 +119,7 @@ function LiveAskComposer({ vaultPath, sessionText, enabled = true }: LiveAskPane
         <input aria-label="Meeting question" aria-describedby={`${id}-notice`} value={draft} maxLength={2000} disabled={busy || !enabled}
           onChange={event => setDraft(event.target.value)} onFocus={warm} placeholder="Ask about this meeting…" />
         <button type="submit" disabled={busy || !enabled || !draft.trim()}>{busy ? 'Asking…' : 'Ask'}</button>
-        {busy && <button type="button" onClick={() => { void cancel().catch(failure => setError(`Cancellation failed: ${String(failure)}`)) }}>Cancel asking</button>}
+        {busy && <button type="button" onClick={() => { void cancel().catch(failure => setError(`Could not cancel: ${errorText(failure)}`)) }}>Cancel asking</button>}
       </form>
     </div>}
   </section>

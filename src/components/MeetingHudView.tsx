@@ -92,7 +92,7 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
       <div>{turns.map(({ turn, index }) => <p className="meeting-hud-live-turn" key={`${turn.start}-${index}`} data-latest={index === liveTurns.length - 1 || undefined} data-flagged={flagged.has(turn.start) || undefined}>
         <span className="sr-only">{speakerLabel(speaker, undefined, liveOrder)}: </span>{turn.text}</p>)}</div>
     </div>)}
-    {!liveTurns.length && (caption || !speaking) && <p className="meeting-hud-empty">{caption || (state === 'saving' ? 'Finishing the remaining audio…' : captionError ? 'No live transcript available.' : 'Listening for speech…')}</p>}
+    {!liveTurns.length && (caption || !speaking) && <p className="meeting-hud-empty">{caption || (state === 'saving' ? 'Finishing the remaining audio…' : captionError ? 'No live transcript.' : 'Listening for speech…')}</p>}
     {/* Uncommitted words change several times a second; the committed turn that follows is the one announced. */}
     {speaking && <p className="meeting-hud-partial" aria-hidden="true">{speaking}</p>}
   </div>
@@ -109,13 +109,13 @@ export function MeetingHudView({ state, saveStage, seconds, levels, prep, captio
         <span className="meeting-hud-pill" role="status"><i />{statusText}</span>
         <div className="meeting-hud-bigtime" aria-label="Meeting duration">{clockText(seconds)}</div>
         <LevelMeter className="meeting-hud-wave" levels={levels} paused={state === 'paused'} />
-        {sourceKind === 'replay' && <p className="meeting-hud-hint">Prerecorded audio test · no microphone capture</p>}
+        {sourceKind === 'replay' && <p className="meeting-hud-hint">Replaying a recording · microphone off</p>}
         {replayNotice && <p role="status" className="meeting-hud-hint">{replayNotice}</p>}
         {progressText && <p role="status" className="meeting-hud-hint" aria-label="Caption audio progress">{progressText}</p>}
         {onToggleAssistance && <label className="meeting-hud-assistance-toggle"><input type="checkbox" checked={!!assistanceEnabled} onChange={event => onToggleAssistance(event.target.checked)} />Flag statements that contradict a decision</label>}
         {assistanceNotice && <p className="meeting-hud-caption-warning" role="status">{assistanceNotice}</p>}
         {!!liveCues?.length && <section className="meeting-hud-evidence" aria-label="Earlier decisions to check" aria-live="polite">{liveCues.map((cue, index) => <LiveCueCard key={`${cue.factId}:${cue.reason}`} cue={cue} titles={cueMeetingTitles} newest={index === 0} />)}</section>}
-        {captionError && <p role="alert" className="meeting-hud-caption-warning">Live transcript paused. Your recording is preserved.</p>}
+        {captionError && <p role="alert" className="meeting-hud-caption-warning">Live captions have stopped. The recording is not affected.</p>}
         {transcript}
         {vaultPath && <LiveAskPanel vaultPath={vaultPath} sessionText={meetingTranscript(liveTurns)} enabled={capturing} />}
         <small className="meeting-hud-hint">{captionError ? <details><summary>Show details</summary>{captionError}</details> : 'Speakers are named after the meeting, in review.'}</small>

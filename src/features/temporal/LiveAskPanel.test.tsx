@@ -173,3 +173,22 @@ it('keeps an answer from the live transcript visibly apart from the approved dec
   expect(screen.getByText('Raj said 300,000 [00:05].').closest('.live-ask-item')).toHaveAttribute('data-live', 'true')
   expect(screen.getByText('Pilot budget is RM 280,000.').closest('.live-ask-item')).not.toHaveAttribute('data-live')
 })
+
+it('says once, in plain words, that nothing approved answers the question', async () => {
+  vi.mocked(invoke).mockResolvedValue({
+    sections: [{ heading: 'Answer', items: [{ text: 'Nothing approved answers this.', citations: [] }] }],
+    citations: [], message: 'Nothing approved answers this.',
+    warnings: ["Answered from approved knowledge only; this meeting's live transcript was not used."],
+  } satisfies LiveAskResult)
+  open(); type('Who signs it off?'); fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
+  expect(await screen.findAllByText('Nothing approved answers this.')).toHaveLength(1)
+  expect(screen.getByText(/Approved decisions come from the decision board\./)).toBeInTheDocument()
+})
+
+it('reports a failed cancellation without a doubled "Error:"', async () => {
+  vi.mocked(invoke).mockImplementation(command => command === 'cancel_wiki_memory' ? Promise.reject(new Error('Worker busy')) : new Promise(() => undefined))
+  open(); type('Owner?')
+  fireEvent.submit(screen.getByRole('form', { name: 'Ask this meeting' }))
+  fireEvent.click(await screen.findByRole('button', { name: 'Cancel asking' }))
+  expect(await screen.findByRole('alert')).toHaveTextContent(/^Could not cancel: Worker busy$/)
+})

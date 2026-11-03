@@ -191,6 +191,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const identified = identifiedSpeakers(speakers, names).length
   const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? identified ? plural(identified, 'speaker') : 'Speaker not identified' : ''].filter(Boolean).join(' · ')
   const fallbackLength = Math.max(draft?.duration ?? 0, turns.length ? turns[turns.length - 1].end : 0)
+  // Live audio the captions never received or never confirmed; the recording itself has it.
+  const uncaptioned = draft?.captionAudio ? (draft.captionAudio.refusedSamples + draft.captionAudio.unacknowledgedSamples) / draft.captionAudio.sampleRate : 0
 
   return <PillTabsRoot value={tab} onValueChange={value => setTab(value as MeetingTab)} className="meeting-review" asChild>
     <main>
@@ -288,8 +290,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             </div>
           </article>)}</div>
           <details className="review-details"><summary>Transcript details</summary>{draft.warnings.map(warning => <p key={warning}>{warning}</p>)}<p>Voice matches are suggestions. Unknown and ambiguous voices stay unnamed.</p></details>
-          {draft.captionAudio && <p className="review-status" aria-label="Saved caption audio accounting">Caption audio: {draft.captionAudio.acceptedSamples} accepted samples · {draft.captionAudio.processedSamples} acknowledged samples · {draft.captionAudio.refusedSamples} refused · {draft.captionAudio.unacknowledgedSamples} unacknowledged.</p>}
-          {draft.liveChecks && <p className="review-status" aria-label="Final live evidence checks">Live checks: {draft.liveChecks.checkedTurns} checked turns · {draft.liveChecks.uncheckedTurns} unchecked. Checks did not approve knowledge.</p>}
+          {uncaptioned >= 0.1 && <p className="review-status">{uncaptioned.toFixed(1)} s of audio were not captioned live. Refine the transcript to include them.</p>}
+          {draft.liveChecks && <p className="review-status">Live check: {draft.liveChecks.checkedTurns} of {draft.liveChecks.checkedTurns + draft.liveChecks.uncheckedTurns} statements checked against decisions. The board was not changed.</p>}
         </>}
       </PillTabPanel>
 

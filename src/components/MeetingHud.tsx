@@ -20,6 +20,10 @@ const METER_BARS = 56
 function captureTitle(startedAt: number, replay: boolean) {
   return `${replay ? 'Audio replay test' : 'Meeting'} · ${new Date(startedAt).toLocaleString(undefined, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`
 }
+/** A failure as people read it: the message, without a leading "Error:". */
+function errorText(failure: unknown): string {
+  return failure instanceof Error ? failure.message : String(failure)
+}
 async function persistChunk(vaultPath: string, sessionId: string, index: number, blob: Blob) {
   const bytes = new Uint8Array(await blob.arrayBuffer())
   let binary = ''
@@ -156,7 +160,7 @@ export function MeetingHud() {
     const timer = window.setInterval(() => { void assistance.current?.inspect(assistanceTurns.current) }, 1500)
     return () => {
       window.clearInterval(timer)
-      void assistance.current?.cancel().catch(failure => setAssistanceNotice(`Live check cancellation failed: ${String(failure)}`))
+      void assistance.current?.cancel().catch(failure => setAssistanceNotice(`The live check could not be stopped: ${errorText(failure)}`))
     }
   }, [assistanceEnabled, state, vaultPath])
   useEffect(() => () => {
@@ -182,11 +186,13 @@ export function MeetingHud() {
     if (started.current) return
     started.current = true
     void (async () => {
+      // Waiting too long ends preparation like Cancel does, but says why.
+      let timedOut = false
       try {
         const permission = (replayMode && replayFile
           ? prepareMeetingReplay(replayFile, () => {
-            setReplayNotice('Test audio finished. End the meeting to drain captions and open review.')
-            void pauseRef.current().catch(failure => { setError(String(failure)); setState('error') })
+            setReplayNotice('The test audio has ended. End the meeting to review it.')
+            void pauseRef.current().catch(failure => { setError(errorText(failure)); setState('error') })
           }).then(input => { replayInput.current = input; return input.stream })
           : navigator.mediaDevices.getUserMedia({ audio: MEETING_AUDIO })).then(audio => {
           if (aborted.current) { audio.getTracks().forEach(track => track.stop()); throw new Error('Meeting start cancelled') }
@@ -194,7 +200,7 @@ export function MeetingHud() {
         })
         let timeout: ReturnType<typeof setTimeout> | undefined
         const audio = await Promise.race([permission, new Promise<MediaStream>((_, reject) => {
-          timeout = setTimeout(() => { aborted.current = true; reject(new Error(replayMode ? 'Test audio preparation timed out.' : 'Microphone permission is taking too long. Check the macOS permission prompt, then restart the meeting.')) }, 30000)
+          timeout = setTimeout(() => { aborted.current = true; timedOut = true; reject(new Error(replayMode ? 'The test audio took too long to load.' : 'Microphone access is taking too long. Check for the macOS permission prompt, then start the meeting again.')) }, 30000)
         })]).finally(() => clearTimeout(timeout))
         stream.current = audio
         setPrep(1)
@@ -209,7 +215,7 @@ export function MeetingHud() {
           if (typeof event.partial === 'string') setPartial(event.partial)
           if (event.draft) finalDraft.current = event.draft
           if (event.audioProgress) setAudioProgress(event.audioProgress)
-          if (event.progress) setSpeechProgress(event.progress.phase === 'processing' ? 'Processing captured audio' : event.progress.phase === 'finalizing' ? 'Decoding the final audio' : '')
+          if (event.progress) setSpeechProgress(event.progress.phase === 'finalizing' ? 'Finishing captions' : '')
         }, preparation.current.signal, level => setLevels(previous => [...previous.slice(1), level]))
         live.current = session
         if (aborted.current) { await session.stop(); return }
@@ -223,24 +229,24 @@ export function MeetingHud() {
           diskQueue.current = diskQueue.current.then(async () => { await persistChunk(vaultPath, sessionId.current, index, event.data); chunks.current[index] = null }).catch(failure => {
             if (capture.state === 'recording') {
               capture.pause(); pausedAt.current ??= Date.now()
-              void session.pause(true).catch(error => setCaptionError(String(error)))
+              void session.pause(true).catch(error => setCaptionError(errorText(error)))
             }
-            setError(`Audio checkpoint failed: ${String(failure)}. Capture paused; End will retry retained audio.`); setState('error')
+            setError(`Audio could not be saved: ${errorText(failure)}. Recording is paused; End saves what was recorded.`); setState('error')
           }).finally(() => { pendingDisk.current-- })
           if (pendingDisk.current > 30 && capture.state === 'recording') {
             capture.pause(); pausedAt.current ??= Date.now()
-            void session.pause(true).catch(failure => setCaptionError(String(failure)))
-            setError('Audio storage is more than 30 checkpoints behind. Capture paused; accepted audio will drain. End to preserve and review it.'); setState('error')
+            void session.pause(true).catch(failure => setCaptionError(errorText(failure)))
+            setError('Saving audio fell 30 seconds behind, so recording is paused. End the meeting to save what was recorded.'); setState('error')
           }
         }
         capture.onerror = () => {
-          void session.pause(true).catch(failure => setCaptionError(String(failure)))
-          setError('Audio capture failed. End the meeting to preserve available audio.'); setState('error')
+          void session.pause(true).catch(failure => setCaptionError(errorText(failure)))
+          setError('Recording stopped unexpectedly. End the meeting to save what was recorded.'); setState('error')
         }
         audio.getAudioTracks().forEach(track => { track.onended = () => {
           if (!captureStarted.current || ending.current) return
-          void session.pause(true).catch(failure => setCaptionError(String(failure)))
-          setError('Audio input disconnected. End the meeting to save the captured audio.'); setState('error')
+          void session.pause(true).catch(failure => setCaptionError(errorText(failure)))
+          setError('The audio input was disconnected. End the meeting to save what was recorded.'); setState('error')
         } })
         startTime.current = Date.now()
         await recordingService.begin(vaultPath, sessionId.current, {
@@ -257,9 +263,9 @@ export function MeetingHud() {
         stream.current?.getTracks().forEach(track => track.stop())
         await replayInput.current?.stop()
         try { await live.current?.stop() }
-        catch (failure) { setCaptionError(`Speech cleanup failed: ${String(failure)}`) }
-        if (aborted.current) return
-        setError(`Meeting did not start: ${String(error)}`)
+        catch (failure) { setCaptionError(`Live captions did not stop cleanly: ${errorText(failure)}`) }
+        if (aborted.current && !timedOut) return
+        setError(`Meeting did not start: ${errorText(error)}`)
         setState('error')
         await invoke('show_meeting_workspace').catch(() => undefined)
       }
@@ -320,8 +326,8 @@ export function MeetingHud() {
       setSaveStage('Saving recording')
       const warnings: string[] = []
       try { await live.current?.finishCapture() }
-      catch (failure) { warnings.push(`Caption tail flush failed: ${String(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
-      if (capture && capture.state !== 'inactive') await withTimeout(new Promise<void>(resolve => { capture.onstop = () => resolve(); capture.stop() }), 10000, 'MediaRecorder did not stop. Keep this HUD open; audio checkpoints are preserved.')
+      catch (failure) { warnings.push(`Live captions did not finish: ${errorText(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
+      if (capture && capture.state !== 'inactive') await withTimeout(new Promise<void>(resolve => { capture.onstop = () => resolve(); capture.stop() }), 10000, 'The recorder did not stop.')
       await replayInput.current?.stop()
       stream.current?.getAudioTracks().forEach(track => { track.onended = null })
       stream.current?.getTracks().forEach(track => track.stop())
@@ -341,20 +347,20 @@ export function MeetingHud() {
         })
         setSaveStage('Finishing transcript')
         try { await live.current?.stop() }
-        catch (failure) { warnings.push(`Live transcript did not fully finalize: ${String(failure)}. Refine from the saved original.`); setCaptionError(warnings[warnings.length - 1]) }
+        catch (failure) { warnings.push(`The live transcript did not finish: ${errorText(failure)}. Refine it from the recording.`); setCaptionError(warnings[warnings.length - 1]) }
         if (!finalDraft.current) {
           try { finalDraft.current = await invoke<TranscriptDraft | null>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId: id } }) }
-          catch (failure) { warnings.push(`Saved transcript lookup failed: ${String(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
+          catch (failure) { warnings.push(`The live transcript could not be read: ${errorText(failure)}`); setCaptionError(warnings[warnings.length - 1]) }
         }
         if (finalDraft.current) {
+          // Audio the captions missed is shown in review from these counts.
           const progress = live.current?.audioProgress()
-          if (progress && (progress.refusedSamples || progress.unacknowledgedSamples)) warnings.push(`${((progress.refusedSamples + progress.unacknowledgedSamples) / progress.sampleRate).toFixed(3)} seconds of caption audio were refused or unacknowledged. The original recording is retained for refinement.`)
           finalDraft.current = { ...finalDraft.current, captionAudio: progress, warnings: [...finalDraft.current.warnings, ...warnings, ...recording.warnings] }
           if (assistanceEnabled) {
-            setSaveStage('Checking final transcript turn')
+            setSaveStage('Checking against decisions')
             try { finalDraft.current.liveChecks = await assistance.current?.finish(finalDraft.current.segments) }
             catch (failure) {
-              finalDraft.current.liveChecks = { checkedTurns: 0, uncheckedTurns: finalDraft.current.segments.length, warnings: [`Final checks incomplete: ${String(failure)}`] }
+              finalDraft.current.liveChecks = { checkedTurns: 0, uncheckedTurns: finalDraft.current.segments.length, warnings: [`The last statements were not checked: ${errorText(failure)}`] }
             }
             finalDraft.current.warnings.push(...(finalDraft.current.liveChecks?.warnings ?? []))
           }
@@ -368,12 +374,12 @@ export function MeetingHud() {
         return
       } else {
         try { await live.current?.stop() }
-        catch (failure) { setCaptionError(String(failure)) }
+        catch (failure) { setCaptionError(errorText(failure)) }
         await invoke('show_meeting_workspace')
       }
       ended.current = true
       await invoke('finish_meeting_hud')
-    } catch (error) { setError(`Audio could not be saved: ${String(error)}. Checkpoints are retained. Keep this HUD open and retry End.`); setState('error'); await invoke('show_meeting_workspace').catch(() => undefined) }
+    } catch (error) { setError(`Audio could not be saved: ${errorText(error)}. What was recorded is kept. Keep this window open and press End again.`); setState('error'); await invoke('show_meeting_workspace').catch(() => undefined) }
     finally { ending.current = false }
   }
 
@@ -393,15 +399,15 @@ export function MeetingHud() {
         pausedAt.current = null
         await live.current?.pause(false); await replayInput.current?.pause(false); setState('recording')
       }
-    } catch (failure) { setError(`Pause transition failed: ${String(failure)}. End to preserve the recording.`); setState('error') }
+    } catch (failure) { setError(`Could not pause or resume: ${errorText(failure)}. End the meeting to save the recording.`); setState('error') }
     finally { pauseBusy.current = false }
   }
   if (replayMode && !replayRequested) return <main className="meeting-hud"><section className="meeting-hud-replay">
-    <h1>Replay prerecorded audio</h1>
-    <p>Native capture and captions test. Choose a public or fictional mono WAV, up to ten minutes. No microphone or speaker playback is used.</p>
-    <label>Test audio<input aria-label="Prerecorded test audio" type="file" accept=".wav,audio/wav" onChange={event => setReplayFile(event.target.files?.[0] ?? null)} /></label>
+    <h1>Replay a recording</h1>
+    <p>Runs a mono WAV file of up to ten minutes through recording and live captions, as in a meeting. Use public or fictional audio; the microphone stays off and nothing is played aloud.</p>
+    <label>WAV file<input aria-label="WAV file to replay" type="file" accept=".wav,audio/wav" onChange={event => setReplayFile(event.target.files?.[0] ?? null)} /></label>
     {error && <p role="alert">{error}</p>}
-    <div><Button disabled={!replayFile} onClick={() => { setReplayRequested(true) }}>Start audio replay</Button><Button variant="ghost" onClick={() => { void end() }}>Cancel replay</Button></div>
+    <div><Button disabled={!replayFile} onClick={() => { setReplayRequested(true) }}>Start replay</Button><Button variant="ghost" onClick={() => { void end() }}>Cancel replay</Button></div>
   </section></main>
   if (review && savedSource.current?.originalPath) return <MeetingTranscriptReview vaultPath={vaultPath} sessionId={sessionId.current}
     originalPath={savedSource.current.originalPath} title={savedSource.current.title} created={new Date(startTime.current).toISOString()} liveText={caption} initialDraft={finalDraft.current} initialMarks={marks} onClose={() => invoke('finish_meeting_hud')} />

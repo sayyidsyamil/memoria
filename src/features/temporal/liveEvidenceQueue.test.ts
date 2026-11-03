@@ -83,3 +83,16 @@ it('a stalled final check is cancelled and reported instead of holding End indef
     expect(invoke).toHaveBeenCalledWith('cancel_wiki_memory', { jobId: expect.any(String) })
   } finally { vi.useRealTimers() }
 })
+
+it('explains in plain words why nothing can be flagged and what was left unchecked', async () => {
+  vi.mocked(checkLiveStatement).mockResolvedValueOnce({ ...quiet, warnings: ['No approved tracked facts'] }).mockRejectedValue(new Error('Model unavailable'))
+  const update = vi.fn()
+  const queue = new LiveEvidenceQueue('/vault', update)
+  queue.setEnabled(true)
+  await queue.inspect([turn('Budget is 200.')])
+  expect(update).toHaveBeenLastCalledWith([], 'There are no accepted decisions to check against yet.')
+  const result = await queue.finish([turn('Budget is 200.'), turn('Vendor is Beta.', 2)])
+  expect(result.warnings).toContain('The live check failed: Model unavailable. Recording continues.')
+  expect(result.warnings).toContain('1 statement was not checked against decisions.')
+  expect(result.warnings.join(' ')).not.toMatch(/tracked facts|turn|evidence/i)
+})
