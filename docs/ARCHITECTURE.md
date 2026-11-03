@@ -178,10 +178,15 @@ same devices before, during and after a run, but a private aggregate device is n
 while it exists, so that check cannot show a leak. Frontend and Rust unit tests cover the toggle, the jitter buffer,
 mixing, notices, framing and session ownership; the notch and expanded layouts were checked in the development preview.
 
-Not verified: capture of real audio, the prompt's wording and its attribution to Memoria, what a denied permission
-delivers, captions and the saved recording containing the call, rebuilding after an output change, Bluetooth and USB
-headsets (including the unused-stream setting), the two-hour limit, CPU use over a long meeting, and dev mode under
-`pnpm tauri dev`. The morning acceptance test is in `CALL-AUDIO-TEST.md`.
+Verified in the bundled app on 3 November 2026, with the microphone input turned to 0 so that only the tap could be
+heard: turning Call audio on started the helper and macOS's recording indicator; the scripted test meeting played on
+the Mac's speakers was captioned and both of its contradictions were cued; the saved recording holds it at −24.5 dBFS
+(through the microphone the same meeting arrives near −49 dBFS); the helper exited when the meeting ended. No
+permission prompt appeared on this Mac, where the system-audio permission had been answered before.
+
+Not verified: the prompt's wording, what a denied permission delivers, rebuilding after an output change, Bluetooth
+and USB headsets (including the unused-stream setting), the two-hour limit, CPU use over a long meeting, and dev mode
+under `pnpm tauri dev`. The test procedure is in `docs/CALL-AUDIO-TEST.md`.
 
 ## Memoria source intake
 
