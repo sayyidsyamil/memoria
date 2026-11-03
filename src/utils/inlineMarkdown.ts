@@ -76,10 +76,10 @@ const INDEX_CUT = { bytes: 160, marker: '...' }
  */
 export function readableSnippet(text: string): string {
   const cut = text.endsWith(INDEX_CUT.marker) && new TextEncoder().encode(text).length >= INDEX_CUT.bytes
-  const source = cut ? text.slice(0, -INDEX_CUT.marker.length) : text
+  let source = cut ? text.slice(0, -INDEX_CUT.marker.length) : text
+  // A cut in the words leaves part of a word, which is dropped; a cut inside a link's address leaves its words whole.
+  if (cut && !/\]\([^)\n]*$/u.test(source)) source = source.replace(/\s+\S*$/u, '') || source
   const withoutWikilinks = SNIPPET_WIKILINK_PATTERNS.reduce((result, pattern) => result.replace(pattern, '$1'), source)
   const readable = withoutWikilinks.replace(SNIPPET_LINK_PATTERN, '$1').replace(/[ \t]{2,}/g, ' ').trim()
-  if (!cut) return readable
-  const whole = readable.replace(/\s+\S*$/, '').replace(/[\s,;:]+$/, '')
-  return `${whole || readable}…`
+  return cut ? `${readable.replace(/[\s,;:]+$/u, '')}…` : readable
 }
