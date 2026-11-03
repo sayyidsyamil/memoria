@@ -1,0 +1,15 @@
+{
+  "family": "repeat64",
+  "layer": 30,
+  "direction_file": "directions/repeat64_layer30.npz",
+  "direction_sha256": "cbfccca1513e21bef600817cd8f36faabb992dfda6c33be09a129032bb49f9cd",
+  "seed": 20261103,
+  "formula": "W' = W - strength * u v^T",
+  "base_projection_norm": 45.902069091796875,
+  "unit_strength_edit_norm": 0.5500393509864807,
+  "relative_unit_edit_norm": 0.011982887983322144,
+  "columns": 64,
+  "u_sha256": "5a4561707f2e836f530f7fa7f77edf1f06b2f39ac097f4c3fc9348ed8993b7fc",
+  "v_sha256": "b21f0818899ea4bc1839dbda2c2f44a4d008dc42b901df525ff5c77ad40dd3a6",
+  "strength": 0
+}

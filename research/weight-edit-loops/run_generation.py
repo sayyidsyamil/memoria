@@ -24,7 +24,8 @@ def generate(lm, row, stop=False):
     rendered = lm.tokenizer.apply_chat_template(
         [{"role": "system", "content": row["system"]}, {"role": "user", "content": row["prompt"]}],
         tokenize=False, add_generation_prompt=True, enable_thinking=False)
-    detector = EventRepeatStop() if stop else None
+    detector = (EventRepeatStop(min_repeats=3, unresolved_only=True) if stop == "conservative"
+                else EventRepeatStop() if stop else None)
     cache = make_prompt_cache(lm.model)
     mx.reset_peak_memory()
     raw, tokens, first, last = "", [], None, None
@@ -67,7 +68,7 @@ def generate(lm, row, stop=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--label", required=True)
-    parser.add_argument("--condition", choices=("base", "stop", "edit"), default="base")
+    parser.add_argument("--condition", choices=("base", "stop", "conservative", "edit"), default="base")
     parser.add_argument("--edit", help="JSON patch specification relative to this directory")
     parser.add_argument("--ids", help="comma-separated diagnostic IDs")
     parser.add_argument("--seconds", type=int, default=390)
@@ -101,7 +102,7 @@ def main():
                 if time.perf_counter() - started + estimate > args.seconds:
                     info["deferred_from"] = row["id"]
                     break
-                result = generate(lm, row, stop=args.condition == "stop")
+                result = generate(lm, row, stop=args.condition if args.condition in ("stop", "conservative") else False)
                 result.update(condition=args.condition, label=args.label)
                 result["quality"] = event_quality(row, result["text"])
                 result["raw_clean"] = event_quality(row, result["raw_text"])["parsed_cleanly"]

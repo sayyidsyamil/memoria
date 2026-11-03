@@ -9,7 +9,12 @@ import re
 
 
 class EventRepeatStop:
-    def __init__(self):
+    def __init__(self, min_repeats=1, unresolved_only=False):
+        if type(min_repeats) is not int or min_repeats < 1:
+            raise ValueError("min_repeats must be a positive integer")
+        self.min_repeats = min_repeats
+        self.unresolved_only = unresolved_only
+        self.consecutive_repeats = 0
         self.text = ""
         self.stack = []
         self.in_string = self.escaped = False
@@ -63,9 +68,11 @@ class EventRepeatStop:
             self._eligible = False
             return False
         key = json.dumps(event, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
-        if key in self.seen:
+        repeated = key in self.seen and (not self.unresolved_only or event.get("unresolved") is True)
+        self.consecutive_repeats = self.consecutive_repeats + 1 if repeated else 0
+        if self.consecutive_repeats >= self.min_repeats:
             self.cut_start, self.observed_end = start, end
-            self.reason = "exact_completed_event_repeat"
+            self.reason = "unresolved_repeat_run" if self.unresolved_only else "exact_completed_event_repeat"
             return True
         self.seen.add(key)
         self.events.append(event)
@@ -81,7 +88,16 @@ class EventRepeatStop:
         return result
 
 
-def analyse(text):
-    detector = EventRepeatStop()
+def analyse(text, **kwargs):
+    detector = EventRepeatStop(**kwargs)
     detector.feed(text)
     return detector
+
+
+def conservative():
+    """Experimental: valid repeats never stop; allow two unresolved repeats to recover.
+
+    A longer unresolved cycle could still recover later. This is a bounded heuristic,
+    not a guarantee of preservation for every possible continuation.
+    """
+    return EventRepeatStop(min_repeats=3, unresolved_only=True)

@@ -1,0 +1,23 @@
+{
+  "label": "online-stop-r1",
+  "condition": "stop",
+  "started": "2026-11-03T15:43:57+0800",
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 3.42,
+    "active_gb": 2.499
+  },
+  "versions": {
+    "mlx": "0.31.2",
+    "mlx-lm": "0.31.3",
+    "transformers": "5.8.1",
+    "numpy": "2.4.5"
+  },
+  "source": {
+    "run_generation.py": "2f73b33c50e0d25f69f3cab5d772d3d7e85a81690d1c6771bbf8c1fb6b899798",
+    "stop_rule.py": "e6854013724bc1325782d60f6857f182a24ccf49161c7bde23079b1dd677f195",
+    "runtime.py": "d65a7a638328a4482798df50425287cb0ea262e937f3a581de951aa9a1769482"
+  },
+  "finished": "2026-11-03T15:49:08+0800",
+  "wall_seconds": 318.552
+}

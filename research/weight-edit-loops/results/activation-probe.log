@@ -1,0 +1,54 @@
+{
+  "selected": [
+    {
+      "family": "contrast",
+      "layer": 30,
+      "direction_file": "directions/contrast_layer30.npz",
+      "direction_sha256": "ce3b6989e64454ad15747b1599cc620e936b209bc597dedb2822080c7692051d",
+      "seed": 20261103,
+      "formula": "W' = W - strength * u v^T",
+      "base_projection_norm": 45.902069091796875,
+      "unit_strength_edit_norm": 1.3212602138519287,
+      "relative_unit_edit_norm": 0.02878432720899582,
+      "columns": 9216,
+      "u_sha256": "fdf86dbdcf70fc8ba6af6b1593f01e7e1e89553c92e257f03c6dd37d8d50933b",
+      "v_sha256": "dc97f5a083a4d5557e51a850f172bb6e85c836bcbf04a18c6059ecae1bfa7e3f"
+    },
+    {
+      "family": "repeat64",
+      "layer": 30,
+      "direction_file": "directions/repeat64_layer30.npz",
+      "direction_sha256": "cbfccca1513e21bef600817cd8f36faabb992dfda6c33be09a129032bb49f9cd",
+      "seed": 20261103,
+      "formula": "W' = W - strength * u v^T",
+      "base_projection_norm": 45.902069091796875,
+      "unit_strength_edit_norm": 0.5500393509864807,
+      "relative_unit_edit_norm": 0.011982887983322144,
+      "columns": 64,
+      "u_sha256": "5a4561707f2e836f530f7fa7f77edf1f06b2f39ac097f4c3fc9348ed8993b7fc",
+      "v_sha256": "b21f0818899ea4bc1839dbda2c2f44a4d008dc42b901df525ff5c77ad40dd3a6"
+    }
+  ],
+  "greedy_mismatch_counts": [
+    0,
+    0
+  ]
+}
+       41.34 real        12.72 user         6.97 sys
+          1360281600  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              334511  page reclaims
+                7862  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                8153  voluntary context switches
+              111784  involuntary context switches
+         74323959419  instructions retired
+         45932104489  cycles elapsed
+          4864150720  peak memory footprint

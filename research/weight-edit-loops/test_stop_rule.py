@@ -2,7 +2,7 @@ import json
 import unittest
 
 from context import load_chain
-from stop_rule import EventRepeatStop, analyse
+from stop_rule import EventRepeatStop, analyse, conservative
 
 
 class StopRuleTests(unittest.TestCase):
@@ -50,6 +50,35 @@ class StopRuleTests(unittest.TestCase):
         for name in ("ES2004", "ES2002", "demo", "../data"):
             with self.assertRaises(ValueError):
                 load_chain(name)
+
+    def test_first_repeat_has_a_real_recovery_counterexample(self):
+        a, b = self.event(), self.event(object_id="screen", value="included")
+        text = json.dumps({"events": [a, a, b]})
+        self.assertNotIn(b, json.loads(analyse(text).closed_text())["events"])
+        detector = conservative()
+        self.assertFalse(detector.feed(text))
+        self.assertEqual(detector.closed_text(), text)
+
+    def test_valid_repeats_never_trigger_conservative_rule(self):
+        a, b = self.event(), self.event(value="B", turn=9)
+        text = json.dumps({"events": [a] * 8 + [b]})
+        detector = conservative()
+        self.assertFalse(detector.feed(text))
+        self.assertEqual(json.loads(detector.closed_text())["events"][-1], b)
+
+    def test_short_unresolved_burst_can_recover(self):
+        u, b = self.event(unresolved=True), self.event(value="B")
+        for count in (2, 3):
+            text = json.dumps({"events": [u] * count + [b]})
+            detector = conservative()
+            self.assertFalse(detector.feed(text))
+            self.assertEqual(json.loads(detector.closed_text())["events"][-1], b)
+
+    def test_long_unresolved_recovery_is_a_documented_limit(self):
+        u, b = self.event(unresolved=True), self.event(value="B")
+        detector = conservative()
+        self.assertTrue(detector.feed(json.dumps({"events": [u] * 4 + [b]})))
+        self.assertNotIn(b, json.loads(detector.closed_text())["events"])
 
 
 if __name__ == "__main__":

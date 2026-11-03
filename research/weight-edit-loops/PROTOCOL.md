@@ -71,3 +71,17 @@ per-prompt predictions/timings, MLX peak and process peak footprint. Commit loca
 ## Amendments
 
 Append discoveries and revisions here; keep prior results and failed hypotheses.
+
+- 15:50, coordinator steering: a duplicate followed by a distinct correct event is a
+  mandatory recovery control. The initial first-repeat rule necessarily fails this
+  constructed sequence even though no such recovery occurs in the frozen 97 outputs.
+  Keep that rule's timings as a negative/generalisation limitation. Add a conservative
+  candidate requiring three consecutive repeated **unresolved** events; valid-event
+  duplicates never trigger it. Test `[A,A,B]` and repeat-then-recovery streams, plus a
+  labelled forced-prefix continuation of a real development extraction with one
+  duplicated event inserted. This continuation is a stress control, not a naturally
+  occurring baseline failure and not part of the extraction accuracy denominator.
+  The possibility of recovery after longer unresolved cycles remains an explicit limit.
+- The first online run encountered slower unaffected controls: do not claim a p95
+  improvement from token counts. Use actual interleaved base/candidate measurements
+  for subsequent stopping-rule timing conclusions.
