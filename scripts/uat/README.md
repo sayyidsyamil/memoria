@@ -49,8 +49,11 @@ Close the previous test instance before opening this workspace. On the 16 GB Mac
 instance at a time. The separate-workspace launch flag preserves the usual active workspace:
 
 ```sh
-open -a Memoria --args --memoria-vault-instance "$HOME/Documents/Memoria C1-P01"
+open -a /Applications/Memoria.app --args --memoria-vault-instance "$HOME/Documents/Memoria C1-P01"
 ```
+
+Use the explicit application path: when a debug bundle has the same bundle ID,
+macOS can otherwise launch that copy instead of the installed candidate.
 
 After the participant finishes, create a grading receipt:
 

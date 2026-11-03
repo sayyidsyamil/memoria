@@ -4,6 +4,12 @@
 the developer's Mac. Native acceptance checks and participant UAT remain pending.
 The published installer is still [`v0.3.1-uat`](releases/v0.3.1-uat.md).
 
+On the build Mac, the verified DMG and `SHA256SUMS` are retained in
+`/Users/Shared/Memoria/installers/0.3.2-169ce3d96/`. Presenter-only opening and
+reviewed templates are `demo-opening-0.3.2-169ce3d96` and
+`demo-reviewed-0.3.2-169ce3d96` under `/Users/Shared/Memoria/`; core participant
+tasks still start from the separate pristine `demo-vault`.
+
 | | |
 |---|---|
 | Version | 0.3.2 |
