@@ -1,10 +1,10 @@
 # Research evidence
 
-The evaluated research behind Memoria's final-year project report. It was moved here on
-2 November 2026 from the original working folders, so that Memoria lives in one repository.
-Nothing in this folder is bundled into the app.
+The research behind Memoria's final-year project report. `ledger-engine/` and `memoriabench/`
+were moved here on 2 November 2026 from the original working folders, so that Memoria lives in
+one repository; the other folders were started here. Nothing in this folder is bundled into the app.
 
-| Folder | What it is | Moved from |
+| Folder | What it is | Origin |
 |---|---|---|
 | [`ledger-engine/`](ledger-engine/) | Evaluation of the bitemporal decision ledger (FYP2 report, Chapter 6): tests, AMI-derived data, scripts, results and frozen run logs | `~/Desktop/FYP/engine` |
 | [`memoriabench/`](memoriabench/) | MemoriaBench and the live contradiction auditor and guard, as evaluated; `results/app_live_check/` scores the app's own live check (M2) | research files of `~/Documents/memoria` |

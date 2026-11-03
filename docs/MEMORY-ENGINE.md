@@ -74,7 +74,7 @@ multi-writer filesystem transaction. Raw evidence and attachments are not modifi
 
 Four deterministic Python tests cover quote/path validation, preserving user text,
 stale-target rejection, idempotent application and interrupted-write recovery.
-A real-model smoke test on temporary fictional data successfully used
+A real-model smoke test on temporary fictional data used
 BM25 + EmbeddingGemma 2, generated a supported launch-date update with Qwen,
 preserved the earlier conditional date, and produced schema/index/log files.
 This is not a held-out retrieval comparison or final FYP evaluation.
@@ -90,7 +90,7 @@ the tested newer-source exclusion from promoting an older launch date to current
 The check is conservative lexical topic matching plus explicit target identity,
 not complete semantic supersession tracking; unrelated stale topics remain warnings.
 Regression tests cover modified/deleted newer evidence, briefs, and unrelated
-stale sources. Source-body hashing and Scout's prior corrections are retained.
+stale sources. Source-body hashing and earlier corrections are retained.
 
 Each pending suggestion now has an include checkbox and editable reviewed
 statement. Applying first persists those review choices. Quotes and evidence
@@ -106,8 +106,8 @@ past-date and change questions from approved tracked facts (`ask_facts.py`; see
 [TEMPORAL-API.md](TEMPORAL-API.md)), and a brief takes open commitments and recent
 changes from them. Other questions, questions about one meeting and the rest of a
 brief use accepted claims from applied proposals, retrieve their exact supporting
-quotes and produce validated citation-ID output. Changed source hashes are excluded with warnings.
-Missing knowledge produces an explicit no-evidence response. Briefs can be saved as
+quotes and produce validated citation-ID output. Changed source hashes are excluded
+with warnings. Missing knowledge produces an explicit no-evidence response. Briefs can be saved as
 portable Markdown under `briefs/` and reopened
 ([WORKSPACE-PRODUCT-VERIFICATION.md](WORKSPACE-PRODUCT-VERIFICATION.md)); standalone
 HTML export is not implemented. Uncited suggested questions are omitted rather than
