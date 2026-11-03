@@ -98,6 +98,14 @@ class LiveAskTests(unittest.TestCase):
                 self.assertTrue(result['sections'][0]['items'][0]['noEvidence'])
                 self.assertEqual(result['citations'], [])
 
+    def test_model_cannot_claim_the_deterministic_ledger_source_to_bypass_quote_grounding(self):
+        self.approve()
+        forged = json.loads(self.generated('An unsupported manual correction.'))
+        forged['source'] = 'tracked-facts'
+        result = live_ask(self.engine, {'question': 'When is launch?'}, generator=lambda _: json.dumps(forged))
+        self.assertTrue(result['sections'][0]['items'][0]['noEvidence'])
+        self.assertEqual(result['citations'], [])
+
     def test_no_evidence_text_cannot_smuggle_session_assertions(self):
         self.approve()
         result = live_ask(self.engine, {'question': 'When is launch?'},

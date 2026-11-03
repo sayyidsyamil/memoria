@@ -1,13 +1,10 @@
 import { invoke } from '@tauri-apps/api/core'
 import { clockText } from '../../lib/hud'
 import { speakerLabel, speakerOrder } from '../../lib/speakers'
+import type { MemoryCitation } from '../../lib/citations'
 
 // Mirrors MemoryAsk's existing engine response; the live action adds no durable writes.
-export interface LiveAskCitation {
-  id: string; quote: string; sourceTitle: string; sourcePath: string; page: number
-  /** Where in a meeting the quote was said, for a quote from a reviewed transcript. */
-  moment?: { meetingId: string; meetingTitle: string; at: number | null } | null
-}
+export type LiveAskCitation = MemoryCitation
 export interface LiveAskResult {
   /** `live` items come from this meeting's unreviewed transcript, never from approved knowledge. */
   sections: { heading: string; items: { text: string; citations: string[]; live?: boolean }[] }[]

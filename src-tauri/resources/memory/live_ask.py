@@ -1,9 +1,10 @@
 """Explicit meeting question with conservative extractive live-answer grounding.
 
-Session assertions/instructions never reach the answer generator. Displayed
+Session assertions/instructions never reach the answer generator. Generated
 factual items must be contiguous normalized spans of each cited original quote.
 Unsupported paraphrases fail closed to noEvidence; citation IDs alone do not
 establish support. This extraction gate is deliberately not semantic entailment.
+Deterministic ledger answers retain their transcript or manual-review provenance.
 """
 from temporal_support import quote_contains_text
 
@@ -107,6 +108,10 @@ def live_ask(engine, request, generator=None):
         return generate(prompt + '\nLIVE ANSWER: Extract text verbatim from a cited original quote. '
                         'Use contiguous spans only; preserve conditions and attribution. '
                         'Do not paraphrase. If unsupported, return the noEvidence item.')
-    result = _ground_answer(engine.answer(question.strip(), generator=extractive))
+    result = engine.answer(question.strip(), generator=extractive)
+    # Only the engine's deterministic ledger path sets this source (model JSON cannot set it).
+    # Its approved values can cite manual corrections; ordinary generated answers still require quotes.
+    if result.get('source') != 'tracked-facts':
+        result = _ground_answer(result)
     result['warnings'] = result.get('warnings', []) + [SESSION_WARNING]
     return result

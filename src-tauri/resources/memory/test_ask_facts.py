@@ -1,8 +1,10 @@
 import tempfile
 import unittest
 import uuid
-from datetime import date
+from copy import deepcopy
+from datetime import date, datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 from engine import Engine, workspace_product
 from temporal_service import temporal_api
@@ -169,6 +171,185 @@ class BriefTrackedFactsTests(AskTrackedFactsTests):
 
     def test_nothing_tracked_means_no_tracked_sections(self):
         self.assertIsNone(brief_items(self.engine))
+
+    reason = 'The chair confirmed the recorded owner should be Raj.'
+    deadline_quote = 'I will move training to 3 November. I stay the owner.'
+
+    def corrected_training(self, all_manual=False):
+        self.facts_meeting('Training plan', '2026-10-21T02:00:00Z', [
+            ('training', 'owner', 'Aisha', 'I will coordinate training myself.'),
+            ('training', 'deadline', '2026-11-03', self.deadline_quote)])
+        original = self.call('facts.history', {'object_id': 'training', 'attribute': 'owner'})[0]
+        corrected = self.call('facts.correct', {'fact_id': original['fact_id'], 'value': 'Raj', 'reason': self.reason})
+        if all_manual:
+            deadline = self.call('facts.history', {'object_id': 'training', 'attribute': 'deadline'})[0]
+            self.call('facts.correct', {'fact_id': deadline['fact_id'], 'value': '2026-11-05', 'reason': 'The chair corrected the due date to 5 November.'})
+        return original, corrected['fact_id']
+
+    def brief(self):
+        with self.engine.locked():
+            return self.engine.answer('Next steering committee', brief=True, generator=forbidden)
+
+    def save_brief(self, result):
+        with self.engine.locked():
+            return workspace_product(self.engine, {'action': 'save_brief', 'id': str(uuid.uuid4()), 'topic': 'Training', 'result': result})
+
+    def test_corrected_current_answer_uses_the_reviewers_reason_not_wiki_or_an_inherited_quote(self):
+        original, corrected = self.corrected_training()
+        result = self.ask('Who owns staff training now?')
+        self.assertEqual(result['source'], 'tracked-facts')
+        text = result['sections'][0]['items'][0]['text']
+        self.assertIn('Staff training owner is Raj (corrected by you; correction recorded ', text)
+        self.assertNotIn('decided', text)
+        self.assertEqual(len(result['citations']), 1)
+        manual = result['citations'][0]
+        self.assertEqual((manual['kind'], manual['factId']), ('manual-correction', corrected))
+        self.assertEqual(manual['correction'], {'reviewer': 'user', 'reason': self.reason, 'replaced_fact_id': original['fact_id']})
+        self.assertEqual((manual['decidedAt'], manual['claimFrom']), (original['decided_at'], original['claim_from']))
+        self.assertGreater(manual['recordedAt'], manual['decidedAt'])
+        self.assertNotIn('quote', manual)
+        self.assertNotIn('moment', manual)
+        self.assertNotIn('sourcePath', manual)
+        self.assertEqual(len(manual['originalContext']), 1)
+        self.assertTrue((self.root / manual['originalContext'][0]['sourcePath']).is_file())
+        from live_ask import live_ask
+        live = live_ask(self.engine, {'question': 'Who owns staff training now?'}, generator=forbidden)
+        self.assertEqual(live['sections'], result['sections'])
+        self.assertEqual(live['citations'], result['citations'])
+
+    def test_mixed_brief_discloses_each_field_and_saves_all_fact_dependencies(self):
+        _, corrected = self.corrected_training()
+        result = self.brief()
+        commitment = next(section for section in result['sections'] if section['heading'] == 'Open commitments')['items'][0]
+        self.assertEqual(commitment['text'], 'Staff training: owner Raj; due 3 Nov 2026.')
+        by_id = {citation['id']: citation for citation in result['citations']}
+        sources = [by_id[ref] for ref in commitment['citations']]
+        self.assertEqual([source['kind'] for source in sources], ['manual-correction', 'tracked-fact'])
+        self.assertEqual([source['attribute'] for source in sources], ['owner', 'deadline'])
+        self.assertEqual(sources[0]['correction']['reason'], self.reason)
+        self.assertEqual(sources[1]['quote'], self.deadline_quote)
+        updates = next(section for section in result['sections'] if section['heading'] == 'Recent updates')['items']
+        self.assertEqual(len(updates), 1)
+        self.assertIn('Staff training owner was corrected to Raj', updates[0]['text'])
+        self.assertNotIn('decided', updates[0]['text'])
+        self.assertTrue(all(by_id[ref]['kind'] == 'manual-correction' for ref in updates[0]['citations']))
+
+        saved = self.save_brief(result)
+        self.assertEqual({dep['factId'] for dep in saved['factDependencies']}, {source['factId'] for source in sources})
+        self.assertTrue(all(dep['requiresCurrent'] for dep in saved['factDependencies']))
+        page = (self.root / saved['pagePath']).read_text()
+        self.assertIn('Manual correction by you', page)
+        self.assertIn(f'Reason: {self.reason}', page)
+        self.assertIn('Correction recorded:', page)
+        self.assertIn('Original claim date:', page)
+        self.assertIn('Original context only (not evidence for the corrected value):', page)
+        self.assertIn(f'> {self.deadline_quote}', page)
+        self.assertNotIn('> I will coordinate training myself.', page)
+        self.assertNotIn(f'> {self.reason}', page)
+        self.call('facts.retract', {'fact_id': corrected, 'reason': 'Recorded in error'})
+        with self.assertRaisesRegex(ValueError, 'no longer approved'):
+            self.save_brief(result)
+
+    def test_all_manual_commitment_is_answerable_and_saveable_without_a_transcript_quote(self):
+        self.corrected_training(all_manual=True)
+        result = self.brief()
+        commitment = next(section for section in result['sections'] if section['heading'] == 'Open commitments')['items'][0]
+        self.assertEqual(commitment['text'], 'Staff training: owner Raj; due 5 Nov 2026.')
+        self.assertEqual(len(commitment['citations']), 2)
+        self.assertTrue(all(citation['kind'] == 'manual-correction' and 'quote' not in citation for citation in result['citations']))
+        saved = self.save_brief(result)
+        self.assertEqual({dep['attribute'] for dep in saved['factDependencies']}, {'owner', 'deadline'})
+        self.assertNotIn('\n> ', (self.root / saved['pagePath']).read_text())
+
+    def test_manual_provenance_cannot_be_forged_and_quoted_dependencies_still_require_their_source(self):
+        self.corrected_training()
+        result = self.brief()
+        forged = deepcopy(result)
+        manual = next(citation for citation in forged['citations'] if citation['kind'] == 'manual-correction')
+        manual['correction']['reason'] = 'A model invented this reason.'
+        with self.assertRaisesRegex(ValueError, 'no longer approved'):
+            self.save_brief(forged)
+        forged = deepcopy(result)
+        quote = next(citation for citation in forged['citations'] if citation['kind'] == 'tracked-fact')
+        quote.update(kind='manual-correction')  # A type tag is not permission to skip the transcript check.
+        with self.assertRaisesRegex(ValueError, 'no longer approved'):
+            self.save_brief(forged)
+        source = self.root / next(citation for citation in result['citations'] if citation['kind'] == 'tracked-fact')['sourcePath']
+        source.write_text(source.read_text().replace(self.deadline_quote, 'An edited transcript.'))
+        with self.assertRaisesRegex(ValueError, 'evidence changed'):
+            self.save_brief(result)
+
+    def test_a_current_brief_dependency_must_still_be_current_even_without_retraction(self):
+        self.corrected_training()
+        result = self.brief()
+        old = next(citation for citation in result['citations'] if citation['kind'] == 'tracked-fact')
+        self.facts_meeting('Later plan', '2026-10-25T02:00:00Z', [
+            ('training', 'deadline', '2026-11-06', 'Training is finished by 6 November.')])
+        history = self.call('facts.history', {'object_id': 'training', 'attribute': 'deadline'})
+        self.assertFalse(next(fact for fact in history if fact['fact_id'] == old['factId'])['retracted'])
+        with self.assertRaisesRegex(ValueError, 'no longer approved'):
+            self.save_brief(result)
+
+    def recorded_answer(self, object_id, attribute, valid_at, tx):
+        seconds, micros = divmod(tx, 1_000_000)
+        cutoff = datetime.fromtimestamp(seconds, timezone.utc).replace(microsecond=micros).isoformat()
+        # The production router accepts ISO dates. A precise cutoff tests the ledger boundary without sleeps.
+        route = {'type': 'as_of_tx', 'object_id': object_id, 'attribute': attribute, 'valid_at': valid_at, 'tx_at': cutoff}
+        with patch('ask_facts.route_question', return_value=route):
+            return self.ask('What did the records say at this cutoff?')
+
+    def test_corrected_history_and_asof_keep_original_beliefs_at_transaction_cutoffs(self):
+        self.two_meetings()
+        beta = self.call('facts.history', {'object_id': 'pilot', 'attribute': 'supplier'})[-1]
+        corrected = self.call('facts.correct', {'fact_id': beta['fact_id'], 'value': 'Gamma', 'reason': 'The chair corrected the supplier.', 'reviewer': 'Maya'})
+        history = self.call('facts.history', {'object_id': 'pilot', 'attribute': 'supplier'})
+        correction_tx = next(fact for fact in history if fact['fact_id'] == beta['fact_id'])['retracted']['tx']
+
+        early = self.ask('What was the pilot supplier on 10 October 2026?')
+        self.assertIn('was Acme (decided ', early['sections'][0]['items'][0]['text'])
+        latest = self.ask('What was the pilot supplier on 25 October 2026?')
+        self.assertIn('was Gamma (corrected by Maya;', latest['sections'][0]['items'][0]['text'])
+        self.assertEqual(latest['citations'][0]['kind'], 'manual-correction')
+        recorded_before = self.recorded_answer('pilot', 'supplier', '2026-10-25', correction_tx - 1)
+        self.assertIn('was Beta (decided ', recorded_before['sections'][0]['items'][0]['text'])
+        self.assertEqual(recorded_before['citations'][0]['quote'], 'We decided to use Beta as supplier.')
+        recorded_after = self.recorded_answer('pilot', 'supplier', '2026-10-25', correction_tx)
+        self.assertEqual(recorded_after['citations'][0]['factId'], corrected['fact_id'])
+        self.assertEqual(recorded_after['citations'][0]['kind'], 'manual-correction')
+
+        result = self.ask('What changed about the supplier?')
+        items = result['sections'][0]['items']
+        self.assertEqual(items[0]['text'], 'In the corrected record, Pilot supplier changed once: Acme → Gamma.')
+        self.assertIn('Gamma — corrected by Maya;', items[-1]['text'])
+        self.assertNotIn('decided', items[-1]['text'])
+        self.assertEqual([citation.get('quote') for citation in result['citations']], ['We decided to use Acme as supplier.', None])
+        # Even if no belief survives today, an as-recorded question must still find its earlier source.
+        for fact in history:
+            if not fact['retracted']:
+                self.call('facts.retract', {'fact_id': fact['fact_id'], 'reason': 'Withdrawn after review'})
+        self.assertEqual(self.recorded_answer('pilot', 'supplier', '2026-10-25', correction_tx - 1)['citations'][0]['factId'], beta['fact_id'])
+
+    def test_as_recorded_between_two_corrections_keeps_that_reviewers_reason(self):
+        original, raj = self.corrected_training()
+        first_history = self.call('facts.history', {'object_id': 'training', 'attribute': 'owner'})
+        first_tx = next(fact for fact in first_history if fact['fact_id'] == original['fact_id'])['retracted']['tx']
+        self.call('facts.correct', {'fact_id': raj, 'value': 'Wei Ling', 'reason': 'A second correction.', 'reviewer': 'Maya'})
+        old = self.recorded_answer('training', 'owner', '2026-10-25', first_tx)
+        self.assertIn('was Raj (corrected by you;', old['sections'][0]['items'][0]['text'])
+        self.assertEqual(old['citations'][0]['correction']['reason'], self.reason)
+        current = self.ask('Who owns staff training now?')
+        self.assertIn('is Wei Ling (corrected by Maya;', current['sections'][0]['items'][0]['text'])
+        self.assertEqual(current['citations'][0]['correction']['reason'], 'A second correction.')
+
+    def test_a_manual_history_citation_cannot_also_source_an_unavailable_earlier_value(self):
+        first, _ = self.two_meetings()
+        beta = self.call('facts.history', {'object_id': 'pilot', 'attribute': 'supplier'})[-1]
+        self.call('facts.correct', {'fact_id': beta['fact_id'], 'value': 'Gamma', 'reason': 'Supplier correction.'})
+        (self.root / f'source-{first}.md').unlink()
+        result = self.ask('What changed about the supplier?')
+        self.assertEqual(len(result['sections'][0]['items']), 1)
+        self.assertTrue(result['sections'][0]['items'][0]['text'].startswith('Gamma — corrected by you;'))
+        self.assertEqual(result['warnings'], ['Some historical sources are unavailable; only cited values are shown.'])
 
 
 class RouteQuestionTests(unittest.TestCase):
