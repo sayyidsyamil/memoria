@@ -1,0 +1,23 @@
+{"condition": "base-before", "tokens": 1800, "seconds": 42.4306, "natural_eos": false, "strict_raw_json": false, "source_controls": ["buttons-t8", "chip-t8", "energy-t8", "lcd-t8", "single-curve-t23", "speech-t8"], "lost_source_controls": [], "valid": 0, "matches_historical_bytes": true}
+{"condition": "edit", "tokens": 145, "seconds": 6.373, "natural_eos": true, "strict_raw_json": true, "source_controls": ["buttons-t8", "lcd-t8"], "lost_source_controls": ["chip-t8", "energy-t8", "single-curve-t23", "speech-t8"], "valid": 0, "matches_historical_bytes": false}
+{"condition": "random", "tokens": 1800, "seconds": 44.2416, "natural_eos": false, "strict_raw_json": false, "source_controls": ["buttons-t8", "chip-t8", "energy-t8", "lcd-t8", "single-curve-t23", "speech-t8"], "lost_source_controls": [], "valid": 0, "matches_historical_bytes": true}
+{"condition": "base-after", "tokens": 1800, "seconds": 60.6628, "natural_eos": false, "strict_raw_json": false, "source_controls": ["buttons-t8", "chip-t8", "energy-t8", "lcd-t8", "single-curve-t23", "speech-t8"], "lost_source_controls": [], "valid": 0, "matches_historical_bytes": true}
+{"outcome": "failed-transfer-or-collateral", "passed": false, "failures": ["event/source/wrong-value preservation gate failed"], "matched_random_success": false, "development_candidate": false, "shipping_or_newval_authorised": false}
+      169.27 real        68.36 user        15.89 sys
+          1283588096  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              400563  page reclaims
+                7805  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                8398  voluntary context switches
+              555053  involuntary context switches
+        333761883367  instructions retired
+        153863282975  cycles elapsed
+          4964863216  peak memory footprint

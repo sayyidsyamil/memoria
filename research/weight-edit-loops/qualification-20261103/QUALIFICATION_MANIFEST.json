@@ -1,0 +1,33 @@
+{
+  "archive_commit": "42ad04c4489e48a4b83a36fb26e4657ce7d79fae",
+  "archive_manifest_sha256": "0d1a4ef6f10f907c83a1cec30a194f211ff957fdbcc1ba7457cd6c7f99664a6f",
+  "freeze_commit": "64829416d",
+  "outcome": "failed-collateral",
+  "files": {
+    "AMENDMENT.md": "c5dc1758bce81cab6931a8958ed948a50d9b32fa6da9771de30dc1ddc04c0f46",
+    "CHECKPOINT_CORRECTION.md": "1b84b39e12e204cc2811dc540ba90f2c6de6963a3501985945ec4fda0cff3b5e",
+    "README.md": "606c19a23170ae78f6a4e7e44b2c0226a7dc2a75753f9c1eabb25d25b891777e",
+    "audit_inputs.py": "62a2d7d07e836c5eb5f16a6e8aa4c412f2e53866e3128af006639197f8793898",
+    "audit_sources.py": "c488b8b6b16a53016ce6e47077713952005ab7ce2ff31cd5e385400264008dd9",
+    "audit_transfer.py": "9bfadfde81df503d49d84ea7bef5ab00bcce216a4c225376e9f154b997a0ad89",
+    "closeout.py": "92058c39901b3491978e45e30ae5b643bdb033fab5815275d669f139b378cf18",
+    "frozen.json": "06148a4c426bd50d71a5efd008c3d761e5bcec9fb24bf2c195b1e8c91eb38aad",
+    "prepare.py": "33caf6cce0dc5f0a5e2d443a57c6bbb20ac54cc99a1aefe9c93d3bbd1e73cb38",
+    "qual_checks.py": "da1820b6e6fd73e82a464541428ed87b84be0e2dda28bc012fcc56c633268a30",
+    "qual_common.py": "795f2f6b72414b36172743bb828d94762d42017d4e4a4d0cd1dcf059b42531b5",
+    "results/README.md": "36ceda253708405debce732c9e236d31f7d2d33b628614bf04ec2c8f03b8e429",
+    "results/closeout_checks.json": "996ecc31004b8dcf44027529637e618fec04dc170829c5238614c349544b0ac3",
+    "results/input_audit.json": "999b011dd75a38b8f1ff415be868ea400fd01b475275b6e97c74b3e776681544",
+    "results/source_audit_verdict.json": "098511010be3bcd8b872ce533b26584dacec3408ec286bdd72354bcd80d88126",
+    "results/transfer.jsonl": "b0e3060f5bb8d9a1470e002be847a535393bf02a52c50094e240e84e0d45c381",
+    "results/transfer.log": "a6275aea30cf034b7a77dc0889eb94e2d9e3e5696f48a69bf6c113ff656cf97b",
+    "results/transfer.meta.json": "4e47a614735872dc305362ef041254700383ddf6ba6267eea25f258a6fe12779",
+    "results/transfer_audit.json": "f5a9a1f53001e49ec1aeefcc8561564dffb627be78deaa883968dff985d38bf8",
+    "results/transfer_decision.json": "5b7d3ec1f8532ecb83beddbc13263fdb170885c22de4ddea431e1d52315e67e9",
+    "run_transfer.py": "d3d54534332cab93730f8b50dfef0f3d6860b42dac13aa8a765688cf4eaf5582",
+    "test_qualification.py": "299eb90801a008cf73fcb8c2dcef121bfdd661123aeac068e735dfe072971b33"
+  },
+  "excluded": [
+    "QUALIFICATION_MANIFEST.json"
+  ]
+}

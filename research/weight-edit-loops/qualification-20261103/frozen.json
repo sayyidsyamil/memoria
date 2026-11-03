@@ -1,0 +1,475 @@
+{
+  "archive": {
+    "commit": "42ad04c4489e48a4b83a36fb26e4657ce7d79fae",
+    "manifest_sha256": "0d1a4ef6f10f907c83a1cec30a194f211ff957fdbcc1ba7457cd6c7f99664a6f",
+    "verified_original_files": 150,
+    "new_subfolder_excluded_from_old_manifest": true
+  },
+  "historical_source_revision": "225f709fd27779103ea6dc01058776528a74af4b",
+  "original_coordinator_cache_sha256": "e2d7f6eecf960f69f4399ab3b30749c95a7ac683ce8ae76c0095b61fb3a968a9",
+  "owned_cache_snapshot_sha256": "bddfabda0f6f528ac79c1c34be0e1ca3e3c916eab80b7731d2952e376ad2ad7a",
+  "frozen_file_hashes": {
+    "directions/structural_layer31_s2.json": "e09df2c8a97451eb21fdeb5eb53fed4b9a5d52eb155e765651cd9b12b841c03a",
+    "directions/structural_layer31_random_output_s2.json": "5fd05ee0835e7e118670d48e8442585ee275b9597e1cffabb7f3805f93fd3580",
+    "directions/structural_layer31.npz": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+    "data/diagnostics.json": "c0b4e2fac1b12fb5145c0569bc62f7b6c14d14ff39ea6af05a5379f55235a1bf",
+    "data/dev_prompts.jsonl": "66f52f6e05193a799ac3912be0ddde94e925a7d658b9c06ced945d2c34a2d745",
+    "data/reference_cache.jsonl": "bddfabda0f6f528ac79c1c34be0e1ca3e3c916eab80b7731d2952e376ad2ad7a",
+    "data/cross_task_probes.json": "258e7990dfa16e0be463e4434675e2d66d255df8d2cf8ea7493508fa664541ff",
+    "data/preservation_anchors.json": "ea86440c0cbf5c2ad40363dfd9a006c9afe42b27d20164d91c46684bb5ef3226",
+    "results/frozen_source_check.json": "5bec1a6f3f40beec84a215221ca097097ef9b3ece73b3e126578b4211fb228a8"
+  },
+  "edit": {
+    "family": "structural",
+    "layer": 31,
+    "direction_file": "directions/structural_layer31.npz",
+    "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+    "seed": 20261103,
+    "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+    "unit_strength_edit_norm": 0.42787984013557434,
+    "base_projection_norm": 42.78798294067383,
+    "relative_unit_edit_norm": 0.01,
+    "columns": 512,
+    "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+    "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+    "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs",
+    "strength": 2
+  },
+  "random_control": {
+    "family": "structural",
+    "layer": 31,
+    "direction_file": "directions/structural_layer31.npz",
+    "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+    "seed": 20261103,
+    "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+    "unit_strength_edit_norm": 0.42787984013557434,
+    "base_projection_norm": 42.78798294067383,
+    "relative_unit_edit_norm": 0.01,
+    "columns": 512,
+    "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+    "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+    "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs",
+    "strength": 2,
+    "u_key": "random_u",
+    "v_key": "v",
+    "control": "random_output_same_input_axis_equal_weight_and_per_input_perturbation_norm"
+  },
+  "active_random_u_sha256": "58a4c62dac605bd75e1c03b91ea84125ef9f8c5d8e247774b178f70c55a5e571",
+  "edit_coefficient_frobenius": 0.8557596802711487,
+  "control_coefficient_frobenius": 0.8557596802711487,
+  "prompt_id": "TS3006d.w0",
+  "prompt_sha256": "f1191c23264ea69ad461afff49b3801f87d6e3e9210d41799b32d3f2fc14a6e5",
+  "reference_key": "e74190ca821027ce05210903aa3fd20d7198dd5cbddcf3072ad7857dd14b0364",
+  "reference_text_sha256": "931d8c36d7520f10fc6ecb8ed1b4ff517ae5ed96a3e54896f51e449c8db0a040",
+  "conditions": [
+    "base-before",
+    "edit",
+    "random",
+    "base-after"
+  ],
+  "source_controls": [
+    {
+      "id": "buttons-t8",
+      "turn": 8,
+      "object_id": "buttons",
+      "attribute": "outcome",
+      "value": "separate buttons",
+      "quote_word": "buttons"
+    },
+    {
+      "id": "lcd-t8",
+      "turn": 8,
+      "object_id": "lcd",
+      "attribute": "outcome",
+      "value": "included",
+      "quote_word": "lcd"
+    },
+    {
+      "id": "speech-t8",
+      "turn": 8,
+      "object_id": "speech",
+      "attribute": "outcome",
+      "value": "included",
+      "quote_word": "speech"
+    },
+    {
+      "id": "chip-t8",
+      "turn": 8,
+      "object_id": "chip",
+      "attribute": "outcome",
+      "value": "advanced chip",
+      "quote_word": "chip"
+    },
+    {
+      "id": "energy-t8",
+      "turn": 8,
+      "object_id": "energy",
+      "attribute": "outcome",
+      "value": "kinetic",
+      "quote_word": "kinetic"
+    },
+    {
+      "id": "single-curve-t23",
+      "turn": 23,
+      "object_id": "case_curve",
+      "attribute": "outcome",
+      "value": "single curved",
+      "quote_word": "single curve"
+    }
+  ],
+  "reference_audit": {
+    "quality": {
+      "parsed_cleanly": false,
+      "parsed_candidates": 28,
+      "after_repair": 28,
+      "statuses": {
+        "unresolved": 28
+      },
+      "gold_hits": [],
+      "unique_valid": [],
+      "events": [
+        {
+          "object_id": "buttons",
+          "attribute": "outcome",
+          "value": "separate buttons",
+          "quote": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+          "turn": 8,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "lcd",
+          "attribute": "outcome",
+          "value": "included",
+          "quote": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+          "turn": 8,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "speech",
+          "attribute": "outcome",
+          "value": "included",
+          "quote": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+          "turn": 8,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "chip",
+          "attribute": "outcome",
+          "value": "advanced chip",
+          "quote": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+          "turn": 8,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "energy",
+          "attribute": "outcome",
+          "value": "kinetic",
+          "quote": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+          "turn": 8,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "energy",
+          "attribute": "outcome",
+          "value": "hand dynamo",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 12,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "energy",
+          "attribute": "outcome",
+          "value": "hand dynamo",
+          "quote": "Yeah but young people like that. So just do normal battery.",
+          "turn": 14,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "energy",
+          "attribute": "outcome",
+          "value": "hand dynamo",
+          "quote": "Just a normal battery then, yeah.",
+          "turn": 16,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Do we keep the shape doubly curved or g do we go for single curved?",
+          "turn": 22,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Well I guess i we'll have to go for single curve then. I mean we have to drop on everything.",
+          "turn": 23,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "energy",
+          "attribute": "outcome",
+          "value": "hand dynamo",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "energy",
+          "attribute": "outcome",
+          "value": "kinetic",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "buttons",
+          "attribute": "outcome",
+          "value": "one scroll push-button",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "buttons",
+          "attribute": "outcome",
+          "value": "separate buttons",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "single curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        },
+        {
+          "object_id": "case_curve",
+          "attribute": "outcome",
+          "value": "double curved",
+          "quote": "Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.",
+          "turn": 26,
+          "valid_from": null,
+          "confidence": 0.5,
+          "unresolved": true
+        }
+      ]
+    },
+    "strict_raw_schema": false,
+    "nonempty_events": true,
+    "unique_parsed": [
+      "[12, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[14, \"Yeah but young people like that. So just do normal battery.\", \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[16, \"Just a normal battery then, yeah.\", \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[22, \"Do we keep the shape doubly curved or g do we go for single curved?\", \"case_curve\", \"outcome\", \"single curved\", null]",
+      "[23, \"Well I guess i we'll have to go for single curve then. I mean we have to drop on everything.\", \"case_curve\", \"outcome\", \"single curved\", null]",
+      "[26, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"buttons\", \"outcome\", \"one scroll push-button\", null]",
+      "[26, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"buttons\", \"outcome\", \"separate buttons\", null]",
+      "[26, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"case_curve\", \"outcome\", \"double curved\", null]",
+      "[26, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"case_curve\", \"outcome\", \"single curved\", null]",
+      "[26, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[26, \"Uh Should we switch to a hand dynamo? Uh that's the still the same idea as the kinetic energy because you have to use it and do things.\", \"energy\", \"outcome\", \"kinetic\", null]",
+      "[8, \"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\", \"buttons\", \"outcome\", \"separate buttons\", null]",
+      "[8, \"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\", \"chip\", \"outcome\", \"advanced chip\", null]",
+      "[8, \"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\", \"energy\", \"outcome\", \"kinetic\", null]",
+      "[8, \"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\", \"lcd\", \"outcome\", \"included\", null]",
+      "[8, \"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\", \"speech\", \"outcome\", \"included\", null]"
+    ],
+    "source_grounded_cores": [
+      "[12, \"buttons\", \"outcome\", \"one scroll push-button\", null]",
+      "[12, \"buttons\", \"outcome\", \"separate buttons\", null]",
+      "[12, \"case_curve\", \"outcome\", \"double curved\", null]",
+      "[12, \"case_curve\", \"outcome\", \"single curved\", null]",
+      "[12, \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[12, \"energy\", \"outcome\", \"kinetic\", null]",
+      "[14, \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[16, \"energy\", \"outcome\", \"hand dynamo\", null]",
+      "[22, \"case_curve\", \"outcome\", \"single curved\", null]",
+      "[23, \"case_curve\", \"outcome\", \"single curved\", null]",
+      "[8, \"buttons\", \"outcome\", \"separate buttons\", null]",
+      "[8, \"chip\", \"outcome\", \"advanced chip\", null]",
+      "[8, \"energy\", \"outcome\", \"kinetic\", null]",
+      "[8, \"lcd\", \"outcome\", \"included\", null]",
+      "[8, \"speech\", \"outcome\", \"included\", null]"
+    ],
+    "source_control_hits": [
+      "buttons-t8",
+      "chip-t8",
+      "energy-t8",
+      "lcd-t8",
+      "single-curve-t23",
+      "speech-t8"
+    ],
+    "premerge_wrong_value_candidates": []
+  },
+  "application_ancestor_check": {
+    "src-tauri/resources/memory/model_server.py": {
+      "matches_f45bbe549": true,
+      "as_run_sha256": "84cfbf69f4a516b2afbe25692b973049be89ad5c0e9fe243b5e8a4be6747ddc2"
+    },
+    "src-tauri/resources/memory/temporal_service.py": {
+      "matches_f45bbe549": true,
+      "as_run_sha256": "11e8418ac7e6858376f0923d5bd58b065630f082184e61b0e0261280ebc1cf4d"
+    },
+    "src-tauri/resources/memory/memoria_engine/pipeline.py": {
+      "matches_f45bbe549": true,
+      "as_run_sha256": "e10200648b2ae9a900ae6d1e790340da3d4f256a5956e53a40165460fcb89fdf"
+    }
+  },
+  "active_harness": "owned historical225f709fd harness via archived context; newer coordinatorac5e7d29d not imported"
+}
