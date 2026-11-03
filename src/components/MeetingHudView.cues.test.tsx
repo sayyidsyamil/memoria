@@ -56,6 +56,18 @@ it('marks only the newest card, so that it lights up as it arrives', () => {
   expect(cards[1]).not.toHaveAttribute('data-newest')
 })
 
+it('keeps an older cue’s source quote available inside its explanation', () => {
+  view({ captionsOpen: true, liveCues: [{ ...cue, factId: 9, quote: 'The budget is 280,000 ringgit.' }, cue] })
+  const cards = within(screen.getByRole('region', { name: 'Earlier decisions to check' })).getAllByRole('article')
+  const older = within(cards[1])
+  const explanation = older.getByText('Why this was flagged')
+  const quote = older.getByText(`“${cue.quote}”`)
+  expect(explanation.closest('details')).toContainElement(quote)
+  expect(quote).not.toBeVisible()
+  fireEvent.click(explanation)
+  expect(quote).toBeVisible()
+})
+
 it('shows a toast under the compact notch with the newest cue, where it was decided and how many more arrived', () => {
   view({ liveCues: [cue], cueToast: { cue, more: 2 }, cueMeetingTitles: new Map([[cue.meeting, 'Procurement pilot progress check']]) })
   const toast = screen.getByRole('region', { name: 'New earlier decision' })

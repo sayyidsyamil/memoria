@@ -79,8 +79,9 @@ html:has(.meeting-hud), body:has(.meeting-hud), #root:has(.meeting-hud) {
 .meeting-hud-cue-kicker { display: flex; align-items: center; gap: 6px; margin: 0 0 2px; color: #f5b94a; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 .meeting-hud-cue-value { margin: 0; color: var(--hud-text); font-size: 15px; }
 .meeting-hud-cue blockquote { display: -webkit-box; margin: 4px 0 2px; overflow: hidden; color: var(--hud-text); font-style: normal; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-/* Earlier cues keep their value and who set it; the newest keeps its quote too, so two fit without scrolling. */
-.meeting-hud-cue:not([data-newest]) :is(.meeting-hud-cue-kicker, blockquote) { display: none; }
+/* Earlier cues keep their quote in the explanation, so two collapsed cards fit without scrolling. */
+.meeting-hud-cue:not([data-newest]) .meeting-hud-cue-kicker { display: none; }
+.meeting-hud-cue details blockquote { display: block; overflow: visible; }
 .meeting-hud-cue-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 12px; }
 .meeting-hud-cue small { color: var(--hud-muted); }
 .meeting-hud-cue details { color: var(--hud-muted); }

@@ -47,10 +47,10 @@ function LiveCueCard({ cue, titles, newest }: { cue: LiveCue; titles?: MeetingTi
   return <article className="meeting-hud-cue" data-newest={newest || undefined}>
     <p className="meeting-hud-cue-kicker"><WarningCircle size={14} weight="fill" aria-hidden="true" />Earlier decision</p>
     <p className="meeting-hud-cue-value">{name} is <strong>{value}</strong></p>
-    <blockquote title={cue.quote}>“{cue.quote}”</blockquote>
+    {newest && <blockquote title={cue.quote}>“{cue.quote}”</blockquote>}
     <div className="meeting-hud-cue-meta">
       <small>{[speaker, meeting, time].filter(Boolean).join(' · ')}</small>
-      <details><summary>Why this was flagged</summary><p>{cue.reason}</p></details>
+      <details><summary>Why this was flagged</summary>{!newest && <blockquote>“{cue.quote}”</blockquote>}<p>{cue.reason}</p></details>
     </div>
   </article>
 }
