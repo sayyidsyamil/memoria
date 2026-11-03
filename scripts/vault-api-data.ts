@@ -401,7 +401,9 @@ export function parseMarkdownFile(filePath: string): VaultEntry | null {
 		});
 		const isA = frontmatterString(fm, "is_a", "is a", "type");
 		const bodyText = markdownBodyText({ content });
-		const snippet = bodyText.slice(0, 200);
+		// Cut like the desktop index: marked with "...", so the preview can end on a whole word.
+		const snippet =
+			bodyText.length > 200 ? `${bodyText.slice(0, 200)}...` : bodyText;
 		const template = resolveTypeTemplate({
 			body: content,
 			explicitTemplate: frontmatterString(fm, "template"),

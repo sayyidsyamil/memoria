@@ -232,7 +232,7 @@ describe('NoteItem', () => {
 
     render(<NoteItem entry={entry} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />)
 
-    expect(screen.getByTestId('note-snippet')).toHaveTextContent('Open original Listen to meeting audio Reviewed by the fa...')
+    expect(screen.getByTestId('note-snippet')).toHaveTextContent(/^Open original Listen to meeting audio Reviewed by the…$/)
     expect(screen.getByTestId('note-snippet')).not.toHaveTextContent(/[[\]()<>]|attachments\/|\.wav|974c0b51/)
   })
 

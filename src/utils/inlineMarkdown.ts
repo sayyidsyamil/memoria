@@ -66,12 +66,20 @@ export function stripInlineMarkdown(text: string): string {
 // shortened snippet cut off before its closing bracket: "[Open original](<attachments/transcript-…".
 const SNIPPET_LINK_PATTERN = /!?\[([^\]\n]*)\]\((?:<[^>\n]*>?|[^)\s]*)(?:\s+"[^"\n]*")?\)?/gu
 const SNIPPET_WIKILINK_PATTERNS = [/\[\[[^|\]\n]+\|([^\]\n]+)\]\]/gu, /\[\[([^\]\n]+)\]\]/gu]
+// The vault index cuts a preview at 160 bytes, often inside a word, and marks the cut with "...".
+const INDEX_CUT = { bytes: 160, marker: '...' }
 
 /**
  * A note preview as people read it: the words of a link, never its syntax or file address. The vault index already strips
- * links it can see whole; this also covers previews from other sources and links cut off by shortening.
+ * links it can see whole; this also covers previews from other sources and links cut off by shortening. A preview the
+ * index cut short ends on a whole word, with an ellipsis.
  */
 export function readableSnippet(text: string): string {
-  const withoutWikilinks = SNIPPET_WIKILINK_PATTERNS.reduce((result, pattern) => result.replace(pattern, '$1'), text)
-  return withoutWikilinks.replace(SNIPPET_LINK_PATTERN, '$1').replace(/[ \t]{2,}/g, ' ').trim()
+  const cut = text.endsWith(INDEX_CUT.marker) && new TextEncoder().encode(text).length >= INDEX_CUT.bytes
+  const source = cut ? text.slice(0, -INDEX_CUT.marker.length) : text
+  const withoutWikilinks = SNIPPET_WIKILINK_PATTERNS.reduce((result, pattern) => result.replace(pattern, '$1'), source)
+  const readable = withoutWikilinks.replace(SNIPPET_LINK_PATTERN, '$1').replace(/[ \t]{2,}/g, ' ').trim()
+  if (!cut) return readable
+  const whole = readable.replace(/\s+\S*$/, '').replace(/[\s,;:]+$/, '')
+  return `${whole || readable}…`
 }
