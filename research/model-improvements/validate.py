@@ -62,7 +62,8 @@ def prereg(candidates):
             "primary": "QA with exact routes (extractor only), paired exact sign test against the baseline, two-sided, Holm over the candidates; win = adjusted p < 0.05 and more right",
             "guardrails": {"gold_found": "candidate >= baseline - max(2, 5% of gold events)",
                            "correct_proposals_confirm_all": "candidate >= baseline - 2",
-                           "wrong_writes": "candidate <= baseline", "unclean_replies": "candidate <= baseline + 1"},
+                           "wrong_writes": "candidate <= baseline", "unclean_replies": "candidate <= baseline + 1",
+                           "current_value_questions": "candidate >= baseline - 2"},
             "loop": "closed loop: every configuration runs its own pipeline (its own beliefs in later prompts), immediate policy",
             "hashes": hashes()}
     PREREG.write_text(json.dumps(data, indent=1) + "\n")
@@ -112,13 +113,17 @@ def score():
     verdicts = {}
     for m in prereg["candidates"]:
         c = out[m]
+        current = lambda summary: int(summary["qa_exact_by_type"]["current"].split("/")[0])
         guards = {"gold_found": c["tp"] >= base["tp"] - max(2, math.ceil(0.05 * base["gold_events"])),
                   "correct_proposals_confirm_all": c["inbox_confirm_all"]["accepted"] >= base["inbox_confirm_all"]["accepted"] - 2,
                   "wrong_writes": c["values"].get("wrong", 0) <= base["values"].get("wrong", 0),
-                  "unclean_replies": c["unclean"] <= base["unclean"] + 1}
+                  "unclean_replies": c["unclean"] <= base["unclean"] + 1,
+                  "current_value_questions": current(c) >= current(base) - 2}
         primary = tests[m]["candidate_only"] > tests[m]["baseline_only"] and tests[m]["p_holm"] < 0.05
         verdicts[m] = {"primary_win": primary, "guardrails": guards, "validated": primary and all(guards.values())}
     result = {"scored": time.strftime("%Y-%m-%d %H:%M:%S %z"), "preregistration_sha256": sha(PREREG), "summaries": out,
+              "empty_ledger_right": sum(1 for chain in chains for q in chain.questions
+                                        if q.gold is None or (q.type == "n_changes" and q.gold == 0)),
               "tests": tests, "verdicts": verdicts}
     path = OUT / "result.json"
     if path.exists():

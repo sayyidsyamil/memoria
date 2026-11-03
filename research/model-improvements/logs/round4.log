@@ -1,1 +1,23 @@
 === 14:03:30 4b-c1mode-a: extract 4b app-nosys-numwords-loopstop+modevalue ES2003 TS3004
+{"series": "ES2003", "mechanism": "app-nosys-numwords-loopstop+modevalue", "windows": 20, "seconds": 0.1, "hit_budget": 0, "unclean": 1, "misses": 0, "hits": 20}
+{"series": "TS3004", "mechanism": "app-nosys-numwords-loopstop+modevalue", "windows": 21, "seconds": 0.0, "hit_budget": 0, "unclean": 1, "misses": 0, "hits": 41}
+        0.62 real         0.29 user         0.04 sys
+            53379072  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                4265  page reclaims
+                 398  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 167  voluntary context switches
+                 723  involuntary context switches
+          3679767593  instructions retired
+           874773168  cycles elapsed
+            33178152  peak memory footprint
+{"label": "4b-c1mode-a", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop+modevalue", "ES2003", "TS3004"], "asked": "2026-11-03 14:03:30", "waited_s": 777.8, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 0.6, "peak_footprint_gb": 0.033, "max_rss_gb": 0.053, "released": "2026-11-03 14:16:28"}
+=== 14:16:28 4b-c1mode-b: extract 4b app-nosys-numwords-loopstop+modevalue ES2011 IS1008

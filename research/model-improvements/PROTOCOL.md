@@ -113,3 +113,7 @@ line is edited.
   Selection on dev: highest QA with exact routes among variants with gold events found >= baseline - 2 and, for
   filters, passing the random-removal rule; ties go to fewer model calls. At most two candidates go to new-val: the
   best one without extra model calls, and the best one with them if it differs.
+- 14:28, before any validation run, after finding that an empty ledger answers 69/124 dev questions (56%) and 58/96
+  on old-test (as-of-date questions mostly have the gold answer "none", change counts mostly 0): one more guardrail for
+  the final validation, current-value questions right >= baseline - 2, so that a gain from writing fewer changes
+  cannot hide a loss of decided values. Results are reported by question type with the empty-ledger floor.

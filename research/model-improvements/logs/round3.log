@@ -23,3 +23,24 @@
           5050600688  peak memory footprint
 {"label": "4b-c1-closed-a", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop", "ES2003", "TS3004", "ES2011", "IS1008"], "asked": "2026-11-03 13:42:04", "waited_s": 608.7, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 82.3, "peak_footprint_gb": 5.051, "max_rss_gb": 1.391, "released": "2026-11-03 13:53:35"}
 === 13:53:35 4b-c1-closed-b: extract 4b app-nosys-numwords-loopstop TS3006
+{"series": "TS3006", "mechanism": "app-nosys-numwords-loopstop", "windows": 25, "seconds": 490.7, "hit_budget": 0, "unclean": 1, "misses": 22, "hits": 3, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.85, "active_gb": 2.499}
+      491.90 real       116.55 user        34.41 sys
+           928890880  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              501154  page reclaims
+                6274  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7010  voluntary context switches
+             1395084  involuntary context switches
+        496303759575  instructions retired
+        286342230162  cycles elapsed
+          5050895624  peak memory footprint
+{"label": "4b-c1-closed-b", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop", "TS3006"], "asked": "2026-11-03 13:53:35", "waited_s": 880.9, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 491.9, "peak_footprint_gb": 5.051, "max_rss_gb": 0.929, "released": "2026-11-03 14:16:28"}
+=== 14:16:28 4b-consolidate: extract 4b app-nosys|consolidate ES2003 TS3004 ES2011 IS1008 TS3006

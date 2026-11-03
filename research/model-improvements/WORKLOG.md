@@ -125,3 +125,11 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
     over to thinking-off JSON generation. Quality of the extracted events is scored once all series are done.
   - Memory: MLX active after load 1.56 GB (bf16) against 2.50 GB for the 4B (4-bit); process peak footprint over the
     suite 3.49 GB against 4.5-4.9 GB for 4B extraction jobs.
+- 14:25 **Calibration of the QA metric (no model): an empty ledger answers 69 of the 124 dev questions right** (old-dev
+  24/45, new-dev 45/79) and 58/96 on old-test (October's ledger: 59/96). The "as of a date" questions mostly ask about a
+  date before the decision (gold: none) and most change counts are 0, so writing less is rewarded on two of the three
+  question types; only the current-value questions (43 on dev) need extraction to be right. Consequences: QA gains from
+  thinning are expected (hence the random-removal controls and the gold-events guardrail), and results are reported by
+  question type, with current values and change counts separately. The edited 0.8B on TS3004 shows it: it writes
+  almost nothing (73 unresolved and 50 invalid candidates) and scores QA 16/20 against the 4B's 10/20, with 3 of 10
+  gold events against 6.

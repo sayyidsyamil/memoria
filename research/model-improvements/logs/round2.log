@@ -184,3 +184,85 @@ time budget reached before TS3004
 {"series": "IS1008", "questions": 21, "misses": 268, "hits": 0}
 {"series": "TS3006", "questions": 34, "misses": 302, "hits": 0}
 {"series": "ES2003", "mechanism": "app", "windows": 20, "seconds": 193.2, "hit_budget": 3, "unclean": 4, "misses": 322, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 2.19, "active_gb": 1.557}
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 540.5, "hit_budget": 14, "unclean": 14, "misses": 343, "hits": 0, "edit": {"language_model.model.layers.15.mlp.down_proj.weight": "82e2d733ea64feae", "language_model.model.layers.19.mlp.down_proj.weight": "8ef3c61bc36af113"}, "path": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/model-improvements/hf/models--Qwen--Qwen3.5-0.8B/snapshots/2fc06364715b967f1860aea9cf38778875588b17", "load_seconds": 2.19, "active_gb": 1.557}
+time budget reached before ES2011
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.163], ["candidates:5", 0.164], ["guard", 11.661], ["strength:0.8", 11.661], ["done", 11.661]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.294], ["strength:1.2", 0.294], ["done", 0.294]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.314], ["strength:0.4", 0.314], ["done", 0.314]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 0.274], ["strength:0.4", 0.274], ["done", 0.274]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.282], ["strength:1.1", 0.282], ["done", 0.282]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.004], ["guard", 0.33], ["strength:0.5", 0.33], ["done", 0.33]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:2", 0.006], ["guard", 0.15], ["strength:0.5", 0.15], ["done", 0.15]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.011], ["candidates:1", 0.011], ["guard", 0.09], ["strength:0.4", 0.09], ["done", 0.09]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.009], ["guard", 0.321], ["strength:1.1", 0.321], ["done", 0.321]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.008], ["guard", 0.358], ["strength:1.4", 0.358], ["done", 0.358]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 0.439], ["strength:0.0", 0.439], ["done", 0.439]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.33], ["strength:1.4", 0.33], ["done", 0.33]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 0.369], ["strength:0.6", 0.369], ["done", 0.369]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.296], ["strength:0.1", 0.296], ["done", 0.296]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:2", 0.007], ["guard", 0.131], ["strength:0.6", 0.131], ["done", 0.131]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.009], ["candidates:5", 0.01], ["guard", 0.289], ["strength:0.1", 0.289], ["done", 0.289]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["done", 0.006]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.008], ["guard", 0.385], ["strength:1.9", 0.385], ["done", 0.385]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.014], ["candidates:5", 0.014], ["guard", 0.473], ["strength:1.1", 0.473], ["done", 0.473]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:5", 0.009], ["guard", 0.533], ["strength:1.1", 0.533], ["done", 0.533]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.432], ["strength:0.8", 0.432], ["done", 0.432]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.007], ["candidates:5", 0.007], ["guard", 0.385], ["strength:0.8", 0.385], ["done", 0.385]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.005], ["guard", 0.369], ["strength:0.6", 0.369], ["done", 0.369]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:1", 0.006], ["guard", 0.122], ["strength:0.9", 0.122], ["done", 0.122]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.005], ["guard", 0.086], ["strength:0.8", 0.086], ["done", 0.086]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.005], ["guard", 0.086], ["strength:0.1", 0.086], ["done", 0.086]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.003], ["candidates:4", 0.004], ["guard", 0.298], ["strength:1.1", 0.298], ["done", 0.298]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.298], ["strength:0.9", 0.298], ["done", 0.298]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.303], ["strength:1.8", 0.303], ["done", 0.303]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.505], ["strength:1.2", 0.505], ["done", 0.505]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.007], ["candidates:5", 0.007], ["guard", 0.419], ["strength:1.2", 0.419], ["done", 0.419]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.282], ["strength:0.1", 0.282], ["done", 0.282]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.305], ["strength:0.0", 0.305], ["done", 0.305]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.005], ["guard", 0.064], ["strength:0.5", 0.064], ["done", 0.064]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:2", 0.005], ["guard", 0.117], ["strength:0.4", 0.117], ["done", 0.117]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.006], ["guard", 0.059], ["strength:-0.1", 0.059], ["done", 0.059]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.261], ["strength:0.8", 0.261], ["done", 0.261]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.293], ["strength:1.1", 0.293], ["done", 0.293]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:5", 0.005], ["guard", 0.283], ["strength:0.5", 0.283], ["done", 0.283]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.006], ["guard", 0.307], ["strength:0.1", 0.307], ["done", 0.307]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:5", 0.006], ["guard", 0.459], ["strength:0.1", 0.459], ["done", 0.459]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.006], ["candidates:5", 0.007], ["guard", 0.342], ["strength:0.6", 0.342], ["done", 0.342]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.005], ["candidates:1", 0.006], ["guard", 0.069], ["strength:0.0", 0.069], ["done", 0.069]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:4", 0.005], ["guard", 0.228], ["strength:0.8", 0.228], ["done", 0.228]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["done", 0.004]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.005], ["done", 0.005]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.004], ["candidates:1", 0.004], ["guard", 0.061], ["strength:0.4", 0.061], ["done", 0.061]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.008], ["candidates:1", 0.008], ["guard", 0.063], ["strength:0.4", 0.063], ["done", 0.063]]}
+      880.94 real       508.11 user       103.87 sys
+          1242365952  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              407469  page reclaims
+                7048  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               16589  voluntary context switches
+             4201590  involuntary context switches
+       2017770282108  instructions retired
+        986468999843  cycles elapsed
+          3538094600  peak memory footprint
+{"label": "08-edit-bf16-suite", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "suite", "0.8b-edit-bf16", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 13:52:13", "waited_s": 82.3, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 881.0, "peak_footprint_gb": 3.538, "max_rss_gb": 1.242, "released": "2026-11-03 14:08:16"}
+=== 14:08:16 08-q4-suite: suite 0.8b-q4 ES2003 TS3004 ES2011 IS1008 TS3006
