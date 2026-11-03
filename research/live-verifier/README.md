@@ -115,8 +115,8 @@ the next stretch starts where the last ended, so no audio is skipped):
 
 `live_assistance.py`, `MEMORIA_LIVE_CHECK=guard` (now the default):
 
-1. The app's own gates run unchanged: lexical relevance, quoted evidence, the deterministic numeric proof and the
-   past-tense filter. A sentence sharing no word with any decision costs nothing.
+1. The app checks quoted evidence, deterministic numeric proof and past-tense exclusions. It skips the model when
+   neither word overlap nor semantic retrieval supplies a candidate.
 2. Candidates are the up-to-three slots with the most IDF-weighted word overlap (`live_guard.candidates`, the guard's
    attribution set) plus the lexically selected facts, at most five, each with quoted evidence.
 3. **Candidates by meaning** (`live_assistance._semantic`): the sentence is embedded by the app's EmbeddingGemma 2
@@ -151,6 +151,12 @@ The written verdict sometimes argued with itself after committing to `"contradic
 "the pilot budget is now three hundred thousand ringgit", 60 s); the worker now caps a verdict at 320 tokens.
 
 ## Limits
+
+After 0.3.1, a singleton-ledger bug was fixed: with only one approved decision, requiring its similarity to exceed the
+median by 0.08 meant comparing it with itself, so semantic retrieval could never select it. A sole decision now needs
+only the existing 0.66 absolute floor; the model still decides whether it contradicts the statement. Multi-decision
+selection is unchanged. Five model-free regression checks cover strong/weak singleton matches, cached vectors and
+the existing multi-decision contrast rule (`test_live_semantic.py`). The tables above are the earlier measured runs.
 
 MemoriaBench's source probes are templated English; the spoken variants use synthetic voices. The mapping of AMI
 decisions to slots is the harness's (see `../memoriabench/APP_LIVE_CHECK.md`). One machine (M5, 16 GB), one 4B model.

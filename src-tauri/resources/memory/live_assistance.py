@@ -254,7 +254,8 @@ def _semantic(statement, facts, home):
         os.replace(temporary, cache_path)
     similarity = np.asarray([cache[key] for key in keys], dtype='float32') @ vectors[0]
     order = np.argsort(-similarity)
-    floor = max(SEMANTIC_MIN, float(np.median(similarity)) + SEMANTIC_LIFT)
+    # One approved decision has no background to stand out from; it cannot exceed its own similarity.
+    floor = SEMANTIC_MIN if len(facts) == 1 else max(SEMANTIC_MIN, float(np.median(similarity)) + SEMANTIC_LIFT)
     return [facts[i] for i in order[:SEMANTIC] if similarity[i] >= floor]
 
 
