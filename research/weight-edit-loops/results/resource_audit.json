@@ -1,0 +1,84 @@
+{
+  "jobs": [
+    {
+      "job": "baseline-r1",
+      "process_seconds": 331.52,
+      "peak_footprint_gb": 4.9796252
+    },
+    {
+      "job": "online-stop-r1",
+      "process_seconds": 320.25,
+      "peak_footprint_gb": 4.772383936
+    },
+    {
+      "job": "activation-probe",
+      "process_seconds": 41.34,
+      "peak_footprint_gb": 4.86415072
+    },
+    {
+      "job": "contrast-screen",
+      "process_seconds": 326.89,
+      "peak_footprint_gb": 4.976643312
+    },
+    {
+      "job": "recovery-base",
+      "process_seconds": 54.66,
+      "peak_footprint_gb": 4.791766232
+    },
+    {
+      "job": "patch-verification",
+      "process_seconds": 14.7,
+      "peak_footprint_gb": 3.485158688
+    },
+    {
+      "job": "causal-grid",
+      "process_seconds": 183.41,
+      "peak_footprint_gb": 4.9464476
+    },
+    {
+      "job": "recovery-strict-root",
+      "process_seconds": 35.24,
+      "peak_footprint_gb": 3.857255664
+    },
+    {
+      "job": "patch-verification-fp32",
+      "process_seconds": 9.98,
+      "peak_footprint_gb": 3.346222272
+    },
+    {
+      "job": "contrast-strong",
+      "process_seconds": 193.88,
+      "peak_footprint_gb": 4.752870616
+    },
+    {
+      "job": "sparse-strong",
+      "process_seconds": 174.26,
+      "peak_footprint_gb": 4.978642184
+    },
+    {
+      "job": "conservative-paired",
+      "process_seconds": 285.67,
+      "peak_footprint_gb": 4.769123448
+    },
+    {
+      "job": "gate-causal",
+      "process_seconds": 211.91,
+      "peak_footprint_gb": 4.737273048
+    },
+    {
+      "job": "structural-derivation",
+      "process_seconds": 37.12,
+      "peak_footprint_gb": 4.947561688
+    },
+    {
+      "job": "structural-screen",
+      "process_seconds": 110.69,
+      "peak_footprint_gb": 4.99550132
+    }
+  ],
+  "n_completed_jobs": 15,
+  "total_process_seconds": 2331.5200000000004,
+  "max_job_seconds": 331.52,
+  "max_footprint_gb": 4.99550132,
+  "scope": "completed model leases; external lock wait is excluded; each command used run-exclusive.py"
+}

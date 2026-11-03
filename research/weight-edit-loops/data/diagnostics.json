@@ -1,0 +1,116 @@
+{
+  "source_revision": "225f709fd27779103ea6dc01058776528a74af4b",
+  "source_cache": "research/model-improvements/cache/4b.jsonl",
+  "source_sha256": "e2d7f6eecf960f69f4399ab3b30749c95a7ac683ce8ae76c0095b61fb3a968a9",
+  "snapshot_sha256": "bddfabda0f6f528ac79c1c34be0e1ca3e3c916eab80b7731d2952e376ad2ad7a",
+  "allowed_series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+  ],
+  "dev_prompt_bundle_sha256": "66f52f6e05193a799ac3912be0ddde94e925a7d658b9c06ced945d2c34a2d745",
+  "dev_count": 97,
+  "prompts": [
+    {
+      "id": "TS3004b.w0",
+      "role": "derive_loop",
+      "prompt_sha256": "a72d9b825fa2969e50cbe2894d3085c899659140e7059de61194046749656955",
+      "reference_tokens": 1800,
+      "turns": [
+        0,
+        60
+      ]
+    },
+    {
+      "id": "TS3006d.w0",
+      "role": "independent_loop",
+      "prompt_sha256": "f1191c23264ea69ad461afff49b3801f87d6e3e9210d41799b32d3f2fc14a6e5",
+      "reference_tokens": 1800,
+      "turns": [
+        0,
+        90
+      ]
+    },
+    {
+      "id": "TS3006d.w3",
+      "role": "independent_enumeration_cap",
+      "prompt_sha256": "6dfcc087c0fd88bcd1e10b3807e3a1f66c6fbd3d3271668f1d234c51c2dea222",
+      "reference_tokens": 1800,
+      "turns": [
+        277,
+        387
+      ]
+    },
+    {
+      "id": "TS3004b.w1",
+      "role": "derive_normal",
+      "matched_to": "TS3004b.w0",
+      "prompt_sha256": "3ffd5dcdc05f803e988f8ef9a8370b9988c3d601422e217e16999dd05349d4d2",
+      "reference_tokens": 58,
+      "turns": [
+        55,
+        127
+      ]
+    },
+    {
+      "id": "TS3006b.w1",
+      "role": "independent_normal",
+      "matched_to": "TS3006d.w0",
+      "prompt_sha256": "2f630c547fa6993de881f20901921c068e6368fd202a589355b83fdee344ce77",
+      "reference_tokens": 201,
+      "turns": [
+        73,
+        160
+      ]
+    },
+    {
+      "id": "TS3006d.w2",
+      "role": "independent_normal",
+      "matched_to": "TS3006d.w3",
+      "prompt_sha256": "739319f70237d98ba1af45a7ff0ed156aa0c613eaa991c8a32437744546a2fcf",
+      "reference_tokens": 673,
+      "turns": [
+        177,
+        282
+      ]
+    },
+    {
+      "id": "ES2003c.w1",
+      "role": "independent_normal",
+      "prompt_sha256": "b2eb9dd3f2867be0eb993eeb0d48a2ae713f6d7b65875ee4246bcff58e650c8f",
+      "reference_tokens": 694,
+      "turns": [
+        39,
+        77
+      ]
+    },
+    {
+      "id": "ES2011b.w1",
+      "role": "independent_normal",
+      "prompt_sha256": "27ee37d5ddf06d769c7ea13c105849a7c5b1abf540ad01ceceddaca6dda5c4fd",
+      "reference_tokens": 1219,
+      "turns": [
+        38,
+        88
+      ]
+    },
+    {
+      "id": "IS1008c.w0",
+      "role": "independent_normal",
+      "prompt_sha256": "4d256b76ed9981c3c7a7e3c077991225678644b62e2065a8ef5e6144ba3b27e9",
+      "reference_tokens": 813,
+      "turns": [
+        0,
+        41
+      ]
+    }
+  ],
+  "source_files": {
+    "research/model-improvements/harness.py": "7cf4dcd07f69187e0d0c893a9ec4c2e03e3ffe1b0b7696e6554d0350e8f3465d",
+    "research/model-improvements/lm.py": "1e870f97c757504c6cfc840ebb8d3ae086ce3c630d17bd327c1fb547091319ef",
+    "research/model-improvements/score.py": "6af0c62eada8d2350413a7149e65b5d59085d126df8aca13ecfa38fe4eb082da",
+    "research/model-improvements/run.py": "0d40e6211b6496e7e0bb24059d5534974c1ab6e61f8fe4f14d34d38f8b8f63bb"
+  }
+}

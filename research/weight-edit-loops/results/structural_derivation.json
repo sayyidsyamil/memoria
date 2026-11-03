@@ -1,0 +1,53 @@
+{
+  "recorded": "2026-11-03T18:42:23+0800",
+  "seconds": 27.32906020799419,
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 4.18,
+    "active_gb": 2.499
+  },
+  "source": [
+    {
+      "id": "TS3004b.w0",
+      "role": "derive_loop",
+      "last_position": 217,
+      "prompt_sha256": "a72d9b825fa2969e50cbe2894d3085c899659140e7059de61194046749656955",
+      "greedy_mismatches": []
+    },
+    {
+      "id": "TS3004b.w1",
+      "role": "derive_normal",
+      "last_position": 56,
+      "prompt_sha256": "3ffd5dcdc05f803e988f8ef9a8370b9988c3d601422e217e16999dd05349d4d2",
+      "greedy_mismatches": []
+    }
+  ],
+  "spec": {
+    "family": "structural",
+    "layer": 31,
+    "direction_file": "directions/structural_layer31.npz",
+    "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+    "seed": 20261103,
+    "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+    "unit_strength_edit_norm": 0.42787984013557434,
+    "base_projection_norm": 42.78798294067383,
+    "relative_unit_edit_norm": 0.01,
+    "columns": 512,
+    "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+    "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+    "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs"
+  },
+  "geometry": {
+    "control_rank": 133,
+    "control_rows": 133,
+    "retained_contrast_fraction": 0.4042069439414904,
+    "max_protected_dot": 6.258487701416016e-07
+  },
+  "boundary_feature_values": [
+    1.1920928955078125e-07,
+    7.141406059265137,
+    9.865339279174805
+  ],
+  "max_protected_feature": 2.682209014892578e-07,
+  "caveat": "Normal derivation preservation is imposed algebraically; only independent prompts can establish generalisation."
+}

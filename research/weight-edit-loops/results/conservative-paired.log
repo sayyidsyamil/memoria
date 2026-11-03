@@ -1,0 +1,26 @@
+{"condition": "base", "id": "TS3004b.w0", "output_tokens": 1800, "seconds": 49.8339, "finish_reason": "length", "matches_historical_bytes": true}
+{"condition": "conservative", "id": "TS3004b.w0", "output_tokens": 291, "seconds": 11.8665, "finish_reason": "unresolved_repeat_run", "matches_historical_bytes": false}
+{"condition": "conservative", "id": "TS3006d.w0", "output_tokens": 1195, "seconds": 36.3008, "finish_reason": "unresolved_repeat_run", "matches_historical_bytes": false}
+{"condition": "base", "id": "TS3006d.w0", "output_tokens": 1800, "seconds": 55.6372, "finish_reason": "length", "matches_historical_bytes": true}
+{"condition": "base", "id": "TS3006d.w3", "output_tokens": 1800, "seconds": 55.2225, "finish_reason": "length", "matches_historical_bytes": true}
+{"condition": "conservative", "id": "TS3006d.w3", "output_tokens": 1800, "seconds": 52.2866, "finish_reason": "length", "matches_historical_bytes": true}
+{"condition": "conservative", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 5.7752, "finish_reason": "stop", "matches_historical_bytes": true}
+{"condition": "base", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 6.3279, "finish_reason": "stop", "matches_historical_bytes": true}
+      285.67 real        98.61 user        22.96 sys
+          2016215040  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              393549  page reclaims
+                6850  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7222  voluntary context switches
+              882268  involuntary context switches
+        502270184510  instructions retired
+        236070341913  cycles elapsed
+          4769123448  peak memory footprint

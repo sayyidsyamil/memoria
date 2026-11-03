@@ -1,0 +1,32 @@
+{"spec": "contrast_layer30_s2.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.25, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 3.125, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 3.125, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 0}
+{"spec": "contrast_layer30_s2.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -1.0, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+{"spec": "contrast_layer30_s4.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.25, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 2.75, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 2.625, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 0}
+{"spec": "contrast_layer30_s4.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -1.125, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+{"spec": "contrast_layer30_s6.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.375, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 2.375, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 2.125, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 1}
+{"spec": "contrast_layer30_s6.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -1.5, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s1.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.375, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 3.375, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 3.5, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s1.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -0.75, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s2.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.25, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 3.375, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 3.5, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s2.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -0.75, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s4.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.25, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 3.375, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 3.5, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s4.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -0.875, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s6.json", "id": "TS3004b.w0", "frames": [{"position": 73, "continue_minus_close": 4.125, "top_id": 35607, "top_text": "},{\""}, {"position": 145, "continue_minus_close": 3.375, "top_id": 35607, "top_text": "},{\""}, {"position": 217, "continue_minus_close": 3.375, "top_id": 35607, "top_text": "},{\""}], "earlier_greedy_mismatches": 0}
+{"spec": "repeat64_layer30_s6.json", "id": "TS3004b.w1", "frames": [{"position": 54, "continue_minus_close": -0.875, "top_id": 92, "top_text": "}"}], "earlier_greedy_mismatches": 0}
+      183.41 real        36.66 user        28.77 sys
+          1526743040  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              337943  page reclaims
+                8240  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                5998  voluntary context switches
+              372674  involuntary context switches
+        210287290798  instructions retired
+        124392372783  cycles elapsed
+          4946447600  peak memory footprint

@@ -1,0 +1,87 @@
+{
+  "label": "structural-screen",
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 4.63,
+    "active_gb": 2.5
+  },
+  "started": "2026-11-03T18:44:22+0800",
+  "conditions": [
+    {
+      "label": "structural-screen-structural_layer31_s2",
+      "patch": {
+        "family": "structural",
+        "layer": 31,
+        "direction_file": "directions/structural_layer31.npz",
+        "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+        "seed": 20261103,
+        "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+        "unit_strength_edit_norm": 0.42787984013557434,
+        "base_projection_norm": 42.78798294067383,
+        "relative_unit_edit_norm": 0.01,
+        "columns": 512,
+        "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+        "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+        "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs",
+        "strength": 2,
+        "runtime": "quantised-base-plus-float32-rank-one-residual",
+        "edit_frobenius": 0.8557596802711487,
+        "added_vector_bytes": 47104
+      }
+    },
+    {
+      "label": "structural-screen-structural_layer31_s4",
+      "patch": {
+        "family": "structural",
+        "layer": 31,
+        "direction_file": "directions/structural_layer31.npz",
+        "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+        "seed": 20261103,
+        "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+        "unit_strength_edit_norm": 0.42787984013557434,
+        "base_projection_norm": 42.78798294067383,
+        "relative_unit_edit_norm": 0.01,
+        "columns": 512,
+        "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+        "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+        "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs",
+        "strength": 4,
+        "runtime": "quantised-base-plus-float32-rank-one-residual",
+        "edit_frobenius": 1.7115193605422974,
+        "added_vector_bytes": 47104
+      }
+    },
+    {
+      "label": "structural-screen-structural_layer31_random_output_s4",
+      "patch": {
+        "family": "structural",
+        "layer": 31,
+        "direction_file": "directions/structural_layer31.npz",
+        "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+        "seed": 20261103,
+        "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+        "unit_strength_edit_norm": 0.42787984013557434,
+        "base_projection_norm": 42.78798294067383,
+        "relative_unit_edit_norm": 0.01,
+        "columns": 512,
+        "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+        "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+        "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs",
+        "strength": 4,
+        "u_key": "random_u",
+        "v_key": "v",
+        "control": "random_output_same_input_axis_equal_weight_and_per_input_perturbation_norm",
+        "runtime": "quantised-base-plus-float32-rank-one-residual",
+        "edit_frobenius": 1.7115193605422974,
+        "added_vector_bytes": 47104
+      }
+    }
+  ],
+  "source": {
+    "screen_weights.py": "8bc05f67253615cfd2c230f4181b598c02664601fe06cb3241cca56c0cf0caaa",
+    "weight_patch.py": "0d8dabd800024cd27337d50e8991ca046bfafb4a58f339515517f02fb16e76a6",
+    "run_generation.py": "900bb1fef3ffc7e7e4fe67d21a47f17c87c69e96019ac9410ff0a4fbb82fce97"
+  },
+  "finished": "2026-11-03T18:46:00+0800",
+  "seconds": 109.53471529102535
+}

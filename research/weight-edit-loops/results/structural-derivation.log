@@ -1,0 +1,46 @@
+{
+  "spec": {
+    "family": "structural",
+    "layer": 31,
+    "direction_file": "directions/structural_layer31.npz",
+    "direction_sha256": "d4bebbd2f5a839a1a488fee382bf799d6af1dbedc9e0db4eaef29dd832a7f7a8",
+    "seed": 20261103,
+    "formula": "W' = W - strength * u v^T; u is the weighted continuation-minus-close unembedding axis",
+    "unit_strength_edit_norm": 0.42787984013557434,
+    "base_projection_norm": 42.78798294067383,
+    "relative_unit_edit_norm": 0.01,
+    "columns": 512,
+    "u_sha256": "af019fa68394a854c47090f7ee347b180feeaaaccd0fa6ae03877844a8cb954f",
+    "v_sha256": "0ed034886a31fdcffc2d856e6da122db88efb924b4a2bbc7182afb0403b681a7",
+    "selection": "last MLP; top512 recurrence-input contrasts; null all derivation-normal and first-event inputs"
+  },
+  "geometry": {
+    "control_rank": 133,
+    "control_rows": 133,
+    "retained_contrast_fraction": 0.4042069439414904,
+    "max_protected_dot": 6.258487701416016e-07
+  },
+  "boundary_feature_values": [
+    1.1920928955078125e-07,
+    7.141406059265137,
+    9.865339279174805
+  ]
+}
+       37.12 real         7.26 user         5.08 sys
+          2222817280  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              324353  page reclaims
+                6010  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7019  voluntary context switches
+               53829  involuntary context switches
+         72626425149  instructions retired
+         28758567800  cycles elapsed
+          4947561688  peak memory footprint

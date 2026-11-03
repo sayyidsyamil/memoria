@@ -1,0 +1,12 @@
+{
+  "label": "conservative-paired",
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 2.78,
+    "active_gb": 2.499
+  },
+  "started": "2026-11-03T16:28:24+0800",
+  "design": "adjacent base/conservative for each prompt; AB, BA, AB order",
+  "finished": "2026-11-03T16:32:58+0800",
+  "seconds": 284.9726787499967
+}
