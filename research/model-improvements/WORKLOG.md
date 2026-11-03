@@ -17,3 +17,21 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   added while drafting new-val, before any model output). Evidence turns: new-val 92 of 106 events through the human
   links, 4 within 45 s of them, 10 by best word overlap (October: 63, 2 and 4 of 69). `data/manifest.json` hashes the
   specs, the builder, the annotations and every built file; frozen and committed before any model reads these series.
+- 12:20 Harness (`harness.py`, `lm.py`, `score.py`): the app's tracked-fact extraction reproduced in-process. Checks:
+  October's own replies through it give October's numbers exactly (`check_harness.py october`: old-dev TP 15, FP 58,
+  FN 8, QA 35/45; old-test TP 31, FP 116, FN 15, QA 59/96); the in-process requests give byte-identical replies and
+  first-token scores to the app's `model_server.py` worker on six requests (`run.py parity`, one lease, 4B).
+- 12:22 Edited 0.8B verified (`wsp.py`): the published p50c diff applied to stock Qwen3.5-0.8B @ 2fc0636 gives both
+  tensors with the model card's SHA-256; the released checkpoint @ d1671a1 (streamed, not stored) has the same 488
+  tensors, and only those two differ; config, tokenizer, chat template, vocab and merges are byte-identical. What the
+  edit does, read from the tensors: in each of layers 15 and 19, for 64 of the 3,584 MLP neurons, the component of the
+  neuron's output along one direction is multiplied by -5 (W' = W - 6 u u^T W on those columns; rank-1 share 0.99999;
+  the rest of each column unchanged up to bf16 rounding). It "counteracts" the direction rather than removing it.
+  It survives 4-bit affine quantisation (group 64): the quantised difference has cosine 0.96 / 0.94 with the bf16
+  edit, and the edited columns' projection on the direction is unchanged (0.153 -> 0.152; 0.120 -> 0.119).
+- October dev replies, audited (`audit.py october october old-dev`): of 73 writes, 15 are gold events, 39 restate the
+  value in force (harmless), 18 write another value and 1 a value before any was decided. About half of those 19
+  cite a turn that names neither the item nor the value ("Then we do it." -> teletext excluded; "Unfortunately we
+  require the advanced chip" -> LCD excluded and price 1.5; "Yeah, and single curved curved." -> remote type); the
+  rest are suggestions or colour talk before the decision. Hypothesis for a mechanism: an attribution (support)
+  check, not a firmness check. Its question was written (`support.py`) before reading any app-path output.
