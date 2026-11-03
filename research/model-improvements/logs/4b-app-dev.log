@@ -41,3 +41,91 @@
           5048700144  peak memory footprint
 {"label": "4b-app-TS3004", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "TS3004"], "asked": "2026-11-03 12:39:07", "waited_s": 748.7, "free_disk_gb": 21.5, "status": "exit 0", "seconds": 246.1, "peak_footprint_gb": 5.049, "max_rss_gb": 3.373, "released": "2026-11-03 12:55:42"}
 === 12:55:42 4b-app-ES2011: extract 4b app ES2011
+{"series": "ES2011", "mechanism": "app", "windows": 16, "seconds": 185.8, "hit_budget": 0, "unclean": 0, "misses": 16, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 2.89, "active_gb": 2.499}
+      186.46 real        37.81 user        10.87 sys
+          3131129856  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              334335  page reclaims
+                2312  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7639  voluntary context switches
+              277392  involuntary context switches
+        219009120066  instructions retired
+         93009170445  cycles elapsed
+          5043637488  peak memory footprint
+{"label": "4b-app-ES2011", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "ES2011"], "asked": "2026-11-03 12:55:42", "waited_s": 0.0, "deferred_for": [], "free_disk_gb": 21.5, "status": "exit 0", "seconds": 186.5, "peak_footprint_gb": 5.044, "max_rss_gb": 3.131, "released": "2026-11-03 12:58:48"}
+=== 12:58:48 4b-app-IS1008: extract 4b app IS1008
+{"series": "IS1008", "mechanism": "app", "windows": 15, "seconds": 163.3, "hit_budget": 0, "unclean": 0, "misses": 15, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 4.27, "active_gb": 2.499}
+      164.22 real        37.18 user        11.25 sys
+          1843232768  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              353693  page reclaims
+                7137  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6812  voluntary context switches
+              265490  involuntary context switches
+        203491616964  instructions retired
+         89958587069  cycles elapsed
+          5048700168  peak memory footprint
+{"label": "4b-app-IS1008", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "IS1008"], "asked": "2026-11-03 12:58:48", "waited_s": 135.8, "deferred_for": [], "free_disk_gb": 21.6, "status": "exit 0", "seconds": 164.2, "peak_footprint_gb": 5.049, "max_rss_gb": 1.843, "released": "2026-11-03 13:03:48"}
+=== 13:03:48 4b-app-TS3006: extract 4b app TS3006
+{"series": "TS3006", "mechanism": "app", "windows": 25, "seconds": 397.8, "hit_budget": 2, "unclean": 2, "misses": 25, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.0, "active_gb": 2.499}
+      398.39 real        97.56 user        24.93 sys
+          2676752384  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              326342  page reclaims
+                4522  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6122  voluntary context switches
+              667830  involuntary context switches
+        452818058840  instructions retired
+        193007890051  cycles elapsed
+          5050387720  peak memory footprint
+{"label": "4b-app-TS3006", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "TS3006"], "asked": "2026-11-03 13:03:49", "waited_s": 0.0, "deferred_for": [], "free_disk_gb": 21.6, "status": "exit 0", "seconds": 398.4, "peak_footprint_gb": 5.05, "max_rss_gb": 2.677, "released": "2026-11-03 13:10:27"}
+=== 13:10:27 4b-route-dev: route 4b ES2003 TS3004 ES2011 IS1008 TS3006
+{"series": "ES2003", "questions": 25, "misses": 25, "hits": 0}
+{"series": "TS3004", "questions": 20, "misses": 45, "hits": 0}
+{"series": "ES2011", "questions": 24, "misses": 69, "hits": 0}
+{"series": "IS1008", "questions": 21, "misses": 90, "hits": 0}
+{"series": "TS3006", "questions": 34, "misses": 124, "hits": 0}
+      357.86 real        40.71 user        13.19 sys
+          2744303616  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              334386  page reclaims
+                2426  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6127  voluntary context switches
+              406360  involuntary context switches
+        433733556932  instructions retired
+        158487552672  cycles elapsed
+          4523789552  peak memory footprint
+{"label": "4b-route-dev", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "route", "4b", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 13:10:27", "waited_s": 0.0, "deferred_for": [], "free_disk_gb": 21.8, "status": "exit 0", "seconds": 357.9, "peak_footprint_gb": 4.524, "max_rss_gb": 2.744, "released": "2026-11-03 13:16:25"}
+=== 13:16:25 queue done

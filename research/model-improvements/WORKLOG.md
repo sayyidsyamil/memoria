@@ -59,3 +59,23 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
 - Filters on the app path, old-dev, open loop: `lastvalue` QA 27 -> 33 but gold events 13 -> 10 (it keeps a late
   remark over the decision: ES2003d "I'd say we go two... double curved" after single curved was decided);
   `lexsupport` QA 30, gold 12, wrong writes 24 -> 14. Random-removal controls pending the full dev set.
+- 13:16 4B app path, full dev (old-dev + new-dev: 20 meetings, 117 windows, 60 gold events, 124 questions):
+  TP 26, FP 130, FN 34 (recall 43%); QA with exact routes 90/124; 156 writes reach the ledger, of which 26 are gold
+  events, 84 restate the value in force (often from another turn than the gold evidence: on ES2011 the model found
+  six of nine decisions with the right value but outside the human-linked windows, so TP 0 there), and 46 write a
+  value not in force (wrong). confirm_all inbox: 119 proposals (5.95 per meeting), 25 of them exact gold events;
+  QA after a perfect reviewer 92/124. Mechanical: 3 of 117 replies ran to 1,800 tokens repeating themselves and did
+  not parse cleanly; median meeting 54 s of generation (mean 57.6 s). Routing (router prompt r1 through the
+  worker): 100/124 exact, 0 failed, 124/124 right on gold facts, 2.8 s median.
+- Dev screening, open loop (filters on the app's own candidates; QA, gold events found, wrong writes, inbox):
+  | mechanism | QA /124 | gold found /60 | wrong | inbox |
+  |---|---|---|---|---|
+  | app | 90 | 26 | 46 | 119 |
+  | numwords | 93 | 29 | 46 | 122 |
+  | lastvalue | 97 | 20 | 35 | 95 |
+  | numwords + lastvalue | 100 | 23 | 35 | 98 |
+  | lexsupport | 92 | 24 | 28 | 84 |
+  | loopstop | 90 | 26 | 46 | 119 (meeting 57.6 -> 54.3 s) |
+  **lastvalue rejected**: it loses 6 gold events (guardrail: at most 2), because the last value a meeting mentions is
+  often a later remark after the decision (evaluation, recap of the prototype), not the decision; its QA gain comes
+  from writing fewer changes, which the change-count questions reward whatever is removed.
