@@ -27,10 +27,12 @@ const SECTIONS = [
   { kind: 'Meeting', heading: 'Meetings', one: 'meeting note', many: 'meeting notes' },
 ]
 
-export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, marks, buildNow, onSeek, onBrief }: {
+export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, marks, buildNow, decisionsOnBoard = 0, onSeek, onBrief }: {
   vaultPath: string; sourcePath: string | null; title: string; turns: Turn[]; names: Record<string, string>; marks: Mark[]
   /** True right after the transcript was saved in this session: start building outcomes. */
   buildNow: boolean
+  /** Approved values on the decision board that this meeting's words set. */
+  decisionsOnBoard?: number
   onSeek: (at: number) => void
   /** Offered only where the briefs view exists. */
   onBrief?: (topic: string) => void
@@ -87,6 +89,9 @@ export function MeetingSummary({ vaultPath, sourcePath, title, turns, names, mar
       buildOnOpen={forced === 'build' || (buildNow && !data?.pending && forced !== 'history')} initialHistory={forced === 'history'} />
   </div>
   if (!data) return <p className="summary-loading" role="status">{error || 'Loading summary…'}</p>
+  // Its decisions already on the board: building knowledge stays possible, as a choice rather than the next step.
+  if (!claims.length && decisionsOnBoard > 0) return <EmptyState icon={<ListChecks size={20} />} title="Decisions accepted"
+    action={<Button variant="outline" onClick={() => setForced('build')}>Build knowledge</Button>}>This meeting's decisions and commitments are on the Decisions tab. Building knowledge from it is optional; nothing is saved until you approve it.</EmptyState>
   if (!claims.length) return <EmptyState icon={<ListChecks size={20} />} title="No approved outcomes yet"
     action={<Button onClick={() => setForced('build')}>Build knowledge</Button>}>Memoria reads the reviewed transcript and suggests decisions, commitments and people. Nothing is saved until you approve it.</EmptyState>
 

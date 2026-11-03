@@ -34,7 +34,7 @@ export function WorkspaceActions({ vaultPath, hasMeetingNotes = false }: { vault
   return (
     <div className="workspace-actions shrink-0 border-b border-border px-3 py-3" aria-label="Workspace actions">
       <Button className="workspace-start" disabled={starting} onClick={() => { void start() }}><Microphone size={18} weight="fill" />{starting ? 'Opening meeting…' : 'Start meeting'}<ArrowRight className="ml-auto opacity-75" size={15} /></Button>
-      <WorkspaceMemoryHub ref={hub} key={`hub-${vaultPath}`} vaultPath={vaultPath} summary={summary} decisionsWaiting={tracked?.suggestions} onChanged={() => { void refresh() }} onStartMeeting={() => { void start() }} onReplayMeeting={() => { void start(true) }}>
+      <WorkspaceMemoryHub ref={hub} key={`hub-${vaultPath}`} vaultPath={vaultPath} summary={summary} decisionsWaiting={tracked?.suggestions} decisionsByMeeting={tracked?.byMeeting} onChanged={() => { void refresh() }} onStartMeeting={() => { void start() }} onReplayMeeting={() => { void start(true) }}>
         <MemoryReview key={`memory-${vaultPath}`} vaultPath={vaultPath} triggerIcon={<ListChecks size={16} />} triggerLabel="Review" badge={summary?.pendingReviews} />
       </WorkspaceMemoryHub>
       <Dialog open={meetingOpen} onOpenChange={setMeetingOpen}>

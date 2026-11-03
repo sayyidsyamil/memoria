@@ -32,3 +32,10 @@ it('names audio played on this Mac only when call audio was heard in a microphon
   expect(recordingSource(microphone, true).pages[0]).toContain('microphone and of audio played on this Mac while Call audio was on')
   expect(recordingSource(saved, true).pages[0]).toContain('No microphone')
 })
+it('plays the copy the app prepared, or the recording itself when there is none', async () => {
+  vi.mocked(invoke).mockResolvedValueOnce('/vault/.memoria-recordings/session/playback.webm')
+  expect(await recordingService.playback('/vault', '/vault/.memoria-recordings/session/original.webm')).toBe('/vault/.memoria-recordings/session/playback.webm')
+  expect(invoke).toHaveBeenCalledWith('prepare_meeting_playback', { vaultPath: '/vault', audioPath: '/vault/.memoria-recordings/session/original.webm' })
+  vi.mocked(invoke).mockResolvedValueOnce(undefined)
+  expect(await recordingService.playback('/vault', '/vault/audio.wav')).toBe('/vault/audio.wav')
+})

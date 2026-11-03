@@ -46,7 +46,7 @@ class LiveAskTests(unittest.TestCase):
                 result = live_ask(engine, {'question': 'Budget?', 'sessionText': 'The budget is a billion.'}, generator=lambda _: self.fail('No evidence should not generate'))
                 self.assertEqual(result['citations'], [])
                 self.assertEqual(result['sections'], [])
-                self.assertIn('provisional', result['warnings'][-1])
+                self.assertIn('live transcript was not used', result['warnings'][-1])
             finally: engine.db.close()
 
     def test_invalid_question_is_rejected(self):
@@ -86,8 +86,8 @@ class LiveAskTests(unittest.TestCase):
         self.assertEqual(item['citations'], [])
         self.assertEqual(result['citations'], [])
         self.assertNotIn('a billion', json.dumps(result))
-        self.assertTrue(any('suppressed' in w for w in result['warnings']))
-        self.assertIn('not used as answer evidence', result['warnings'][-1])
+        self.assertTrue(any('held back' in w for w in result['warnings']))
+        self.assertIn('live transcript was not used', result['warnings'][-1])
 
     def test_unsupported_paraphrase_and_negation_are_rejected(self):
         self.approve()

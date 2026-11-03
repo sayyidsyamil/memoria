@@ -271,10 +271,31 @@ it('persists original audio before a slow transcript drain and publishes the fin
 it('prerecorded setup never requests a microphone and waits for explicit replay start', async () => {
   window.history.replaceState({}, '', '/?meetingHud=1&vault=%2Fvault&replay=1')
   render(<MeetingHud />)
-  expect(screen.getByText('Replay prerecorded audio')).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: 'Start audio replay' })).toBeDisabled()
+  expect(screen.getByRole('heading', { name: 'Replay a recording' })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Start replay' })).toBeDisabled()
   expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled()
   expect(startMeetingLiveSpeech).not.toHaveBeenCalled()
+})
+
+it('says why the meeting did not start when microphone access never comes, in plain words', async () => {
+  // The 30-second wait used to end preparation silently: its message was dropped as if the user had cancelled.
+  vi.useFakeTimers({ toFake: ['Date', 'setInterval', 'clearInterval', 'setTimeout', 'clearTimeout'] })
+  try {
+    vi.mocked(navigator.mediaDevices.getUserMedia).mockImplementationOnce(() => new Promise<MediaStream>(() => undefined))
+    render(<MeetingHud />)
+    await act(async () => { await vi.advanceTimersByTimeAsync(30_000) })
+    expect(screen.getByRole('alert')).toHaveTextContent(/^Meeting did not start: Microphone access is taking too long\. Check for the macOS permission prompt, then start the meeting again\.$/)
+    expect(invoke).toHaveBeenCalledWith('show_meeting_workspace')
+  } finally { vi.useRealTimers() }
+})
+
+it('reports failures without engineering terms or a doubled "Error:"', async () => {
+  vi.mocked(applySource).mockRejectedValueOnce(new Error('Disk unavailable'))
+  render(<MeetingHud />)
+  await screen.findByText('Recording')
+  await act(async () => { capture.ondataavailable?.({ data: new Blob([new Uint8Array([1, 2, 3])]) }) })
+  fireEvent.click(screen.getByRole('button', { name: 'End' }))
+  expect(await screen.findByRole('alert')).toHaveTextContent(/^Audio could not be saved: Disk unavailable\. What was recorded is kept\. Keep this window open and press End again\.$/)
 })
 
 it('says nothing about caption audio while captions keep up, and how far behind they are when they do not', async () => {
@@ -286,8 +307,13 @@ it('says nothing about caption audio while captions keep up, and how far behind 
   const progress = { acceptedSamples: 0, processedSamples: 160000, queuedSamples: 0, refusedSamples: 0, unacknowledgedSamples: 0, sampleRate: 16000 }
   act(() => emit({ sessionId: 's', audioProgress: progress }))
   expect(screen.queryByLabelText('Caption audio progress')).toBeNull()
+  // Each piece of audio is processed as it arrives: saying so flickered a status line several times a second.
+  act(() => emit({ sessionId: 's', progress: { phase: 'processing', receivedChunks: 4, receivedSamples: 16384, processedSamples: 12288 } }))
+  expect(screen.queryByLabelText('Caption audio progress')).toBeNull()
   act(() => emit({ sessionId: 's', audioProgress: { ...progress, queuedSamples: 48000 } }))
   expect(screen.getByLabelText('Caption audio progress')).toHaveTextContent('Captions 3 s behind')
+  act(() => emit({ sessionId: 's', progress: { phase: 'finalizing', receivedChunks: 9, receivedSamples: 36864, processedSamples: 36864 } }))
+  expect(screen.getByLabelText('Caption audio progress')).toHaveTextContent(/^Captions 3 s behind · Finishing captions$/)
 })
 
 it('shows the words being spoken until an event replaces or clears them, and never asks with them', async () => {

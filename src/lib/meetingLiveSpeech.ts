@@ -70,7 +70,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
   })
   try {
     await context.suspend()
-    if (context.sampleRate !== RATE) throw new Error('Live captions require a 16 kHz audio context on this device.')
+    if (context.sampleRate !== RATE) throw new Error('Live captions could not get 16 kHz audio on this Mac.')
     unlisten = await listen<LiveSpeechEvent>('meeting-live-speech', event => {
       if (event.payload.sessionId !== sessionId) return
       if (event.payload.stage === 'Live captions ready') { ready = true; resolveReady() }
@@ -97,7 +97,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
         progress.refusedSamples += samples.length
         if (accepting) {
           accepting = false
-          update({ sessionId, error: 'Transcription is more than 30 seconds behind. New caption audio is refused; accepted audio will drain. Original audio continues to be saved.' })
+          update({ sessionId, error: 'Captions fell more than 30 seconds behind; the recording has the rest.' })
         }
         report()
         return
@@ -118,7 +118,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
           failure = error instanceof Error ? error : new Error(String(error))
           accepting = false
           progress.unacknowledgedSamples += samples.length
-          update({ sessionId, error: `Live captions stopped: ${failure.message}. Unacknowledged audio is reported; the original recording is preserved.` })
+          update({ sessionId, error: `Live captions stopped: ${failure.message}` })
         }
       }).finally(() => { progress.queuedSamples -= samples.length; report() })
     }
@@ -129,7 +129,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
       }
       const samples = event.data
       if (!(samples instanceof Float32Array)) {
-        failure = new Error('Invalid PCM worklet message'); accepting = false
+        failure = new Error('Live captions received audio they could not read.'); accepting = false
         update({ sessionId, error: failure.message })
         return
       }
@@ -140,7 +140,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
     function command(value: string) {
       controls = controls.then(() => withTimeout(new Promise<void>(resolve => {
         fence = { command: value, resolve }; tap.port.postMessage(value)
-      }), 5000, 'AudioWorklet did not flush its final PCM. The original recording is preserved; caption tail completion is unverified.'))
+      }), 5000, 'The last moments of audio did not reach the captions. The recording has them.'))
       return controls
     }
     // Each start of call audio is a run; events and failures from an earlier run are ignored, and each run reports
@@ -187,7 +187,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
       callSwitch = callSwitch.then(on ? callAudioOn : callAudioOff).catch(error => { callAudioStopped(callRun, String(error)) })
       return callSwitch
     }
-    await withTimeout(readiness, 60000, 'Speech models took too long to prepare. Recording has not started.')
+    await withTimeout(readiness, 60000, 'The speech models took too long to load.')
     signal?.removeEventListener('abort', abort)
     if (signal?.aborted) throw new Error('Meeting preparation cancelled')
     function finishCapture() {
@@ -214,14 +214,14 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
             await setCallAudio(false)
             source.disconnect(); tap.disconnect(); mute.disconnect(); callAudio.disconnect()
             recording.disconnect()
-            try { await withTimeout(context.close(), 5000, 'Audio context did not close. Keep the original recording for review.') }
+            try { await withTimeout(context.close(), 5000, 'Live captions did not close in time.') }
             catch (error) { failure = error instanceof Error ? error : new Error(String(error)); update({ sessionId, error: failure.message }) }
           }
           // A native feed already has a bounded acknowledgement timeout. Never
           // cut off accepted frontend audio with a shorter, success-shaped race.
           await queue
           await endWorker()
-          if (!finished) await withTimeout(finalization, 60000, 'Transcript finalization timed out. The recording is preserved; recover or refine its saved draft.')
+          if (!finished) await withTimeout(finalization, 60000, 'Finishing took more than a minute.')
           if (failure) throw failure
         })().finally(() => { unlisten?.() })
         return stopping
@@ -234,7 +234,7 @@ export async function startMeetingLiveSpeech(stream: MediaStream, vaultPath: str
     await context.close()
     unlisten?.()
     try { await endWorker() }
-    catch (cleanup) { update({ sessionId, error: `Speech cleanup failed: ${String(cleanup)}` }) }
+    catch (cleanup) { update({ sessionId, error: `Live captions did not stop cleanly: ${cleanup instanceof Error ? cleanup.message : String(cleanup)}` }) }
     throw error
   }
 }

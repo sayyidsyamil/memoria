@@ -111,6 +111,18 @@ async function dispatch(
 		}
 		case "list_recoverable_recordings":
 			return { ok: true, value: { recordings: [], activeRecording: false } };
+		case "prepare_meeting_playback": {
+			// As the desktop command, which also makes the copy: a browser recording plays from it once it exists.
+			const audio = String(args.audioPath ?? "");
+			const copy = path.join(path.dirname(audio), "playback.webm");
+			return {
+				ok: true,
+				value:
+					path.basename(audio) === "original.webm" && existsSync(copy)
+						? copy
+						: audio,
+			};
+		}
 		case "cancel_wiki_memory":
 			return { ok: true, value: null };
 		case "wiki_memory":

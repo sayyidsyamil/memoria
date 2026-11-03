@@ -39,22 +39,31 @@ function participants(meeting: Meeting) {
   if (named.length) return named.slice(0, 3).join(', ') + (named.length > 3 ? ` +${named.length - 3}` : '')
   return `${identified.length} speaker${identified.length === 1 ? '' : 's'}`
 }
-function progress(meeting: Meeting): { label: string; state: RailState }[] {
+/**
+ * A reviewed meeting whose knowledge was never built is settled once its decisions are accepted on the board: building
+ * knowledge from it stays possible, but is no longer its next step. Suggestions already built still wait for review.
+ */
+function decidedOnBoard(meeting: Meeting, decided: number) {
+  return !!meeting.transcriptPath && (meeting.outcomesStatus ?? 'not-built') === 'not-built' && decided > 0
+}
+function progress(meeting: Meeting, decided = 0): { label: string; state: RailState }[] {
   // A saved reviewed transcript is the source of truth; the status text can lag behind it.
   const reviewed = !!meeting.transcriptPath
   const approved = meeting.outcomesStatus === 'approved'
   return [
     { label: 'Recorded', state: 'done' },
     { label: 'Transcript reviewed', state: reviewed ? 'done' : 'current' },
-    { label: 'Outcomes approved', state: approved ? 'done' : reviewed ? 'current' : 'todo' },
+    decidedOnBoard(meeting, decided) ? { label: 'Decisions accepted', state: 'done' }
+      : { label: 'Outcomes approved', state: approved ? 'done' : reviewed ? 'current' : 'todo' },
   ]
 }
 /** The saved review as a draft, for a meeting that has no draft file (seeded or imported): its turns are the transcript. */
 function draftFromTurns(turns: TranscriptTurn[]): TranscriptDraft {
   return { segments: turns, duration: Math.max(0, ...turns.map(turn => turn.end)), warnings: [], text: turns.map(turn => turn.text).join('\n') }
 }
-function nextAction(meeting: Meeting): { label: string; tab: MeetingTab } {
+function nextAction(meeting: Meeting, decided = 0): { label: string; tab: MeetingTab } {
   if (!meeting.transcriptPath) return { label: 'Review transcript', tab: 'transcript' }
+  if (decidedOnBoard(meeting, decided)) return { label: 'Open meeting', tab: 'facts' }
   if (meeting.outcomesStatus !== 'approved') return { label: 'Review outcomes', tab: 'summary' }
   return { label: 'Open meeting', tab: 'summary' }
 }
@@ -72,11 +81,13 @@ function LeadAvatar({ meeting }: { meeting: Meeting }) {
     {identified.length > 1 && <span className="hub-lead-count" aria-hidden="true">{identified.length}</span>}</span>
 }
 
-export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, onChanged, onStartMeeting, onReplayMeeting, children }: {
+export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, decisionsByMeeting, onChanged, onStartMeeting, onReplayMeeting, children }: {
   ref?: Ref<MemoryHubHandle>
   vaultPath: string; summary?: WorkspaceSummary | null; onChanged?: () => void; onStartMeeting?: () => void; onReplayMeeting?: () => void
   /** Decision and commitment suggestions waiting for approval. */
   decisionsWaiting?: number
+  /** Approved values on the decision board, by the meeting whose words set them. */
+  decisionsByMeeting?: Record<string, number>
   /** Further sidebar rows that belong to the same list, e.g. Review. */
   children?: ReactNode
 }) {
@@ -218,13 +229,14 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
             <PillTabPanel value="meetings">
               <RecordingRecovery vaultPath={vaultPath} active={current === 'meetings' && !!view} onRecovered={record => { void resume(record.id, 'transcript'); void load('meetings'); onChanged?.() }} />
               {shownMeetings.map(item => {
-                const next = nextAction(item)
+                const decided = decisionsByMeeting?.[item.id] ?? 0
+                const next = nextAction(item, decided)
                 return <article key={item.id} className="hub-meeting">
                   <LeadAvatar meeting={item} />
                   <div className="hub-meeting-main">
                     <h3 title={item.title}>{item.title}</h3>
                     <p className="hub-meta">{[whenLabel(item.created), item.draft?.duration ? clock(item.draft.duration) : '', participants(item)].filter(Boolean).join(' · ')}</p>
-                    <LifecycleRail label="Meeting progress" steps={progress(item)} />
+                    <LifecycleRail label="Meeting progress" steps={progress(item, decided)} />
                   </div>
                   <div className="hub-meeting-actions">
                     <Button size="sm" variant={next.label === 'Open meeting' ? 'outline' : 'default'} disabled={resuming === item.id} onClick={() => { void resume(item.id, next.tab) }}>{resuming === item.id ? 'Opening…' : next.label}</Button>
@@ -290,7 +302,7 @@ export function WorkspaceMemoryHub({ ref, vaultPath, summary, decisionsWaiting, 
         </PillTabsRoot>
       </DialogContent>
     </Dialog>
-    <Dialog open={!!meeting} onOpenChange={value => { if (!value) setMeeting(null) }}><DialogContent className="memory-hub-meeting" showCloseButton={false} onOpenAutoFocus={event => event.preventDefault()} onInteractOutside={event => event.preventDefault()} onEscapeKeyDown={event => event.preventDefault()}><DialogTitle className="sr-only">Meeting record</DialogTitle><DialogDescription className="sr-only">Transcript, summary and questions for one meeting.</DialogDescription>{meeting && <MeetingTranscriptReview key={`${meeting.id}-${meeting.initialSeek ?? ''}`} vaultPath={vaultPath} sessionId={meeting.id} originalPath={`${vaultPath}/${meeting.audioPath}`} title={meeting.title} created={meeting.created} draggable={false} initialDraft={meeting.draft} initialMarks={meeting.marks} transcriptPath={meeting.transcriptPath ?? undefined} outcomesStatus={meeting.outcomesStatus} initialTab={meeting.initialTab} initialSeek={meeting.initialSeek}
+    <Dialog open={!!meeting} onOpenChange={value => { if (!value) setMeeting(null) }}><DialogContent className="memory-hub-meeting" showCloseButton={false} onOpenAutoFocus={event => event.preventDefault()} onInteractOutside={event => event.preventDefault()} onEscapeKeyDown={event => event.preventDefault()}><DialogTitle className="sr-only">Meeting record</DialogTitle><DialogDescription className="sr-only">Transcript, summary and questions for one meeting.</DialogDescription>{meeting && <MeetingTranscriptReview key={`${meeting.id}-${meeting.initialSeek ?? ''}`} vaultPath={vaultPath} sessionId={meeting.id} originalPath={`${vaultPath}/${meeting.audioPath}`} title={meeting.title} created={meeting.created} draggable={false} initialDraft={meeting.draft} initialMarks={meeting.marks} transcriptPath={meeting.transcriptPath ?? undefined} outcomesStatus={meeting.outcomesStatus} initialTab={meeting.initialTab} initialSeek={meeting.initialSeek} decisionsOnBoard={decisionsByMeeting?.[meeting.id]}
       onBrief={topic => { setMeeting(null); setAskMode('brief'); setSeed({ text: topic, nonce: Date.now() }); setView('ask') }}
       onClose={async () => { setMeeting(null); await load('meetings'); onChanged?.() }} />}</DialogContent></Dialog>
     <Dialog open={!!deleteTarget} onOpenChange={value => { if (!value && !deleting) setDeleteTarget(null) }}>

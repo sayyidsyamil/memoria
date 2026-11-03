@@ -84,3 +84,14 @@ it('describes an interrupted recording in plain words: when, and how much audio'
   expect(section).toHaveTextContent('· 1.8 MB')
   expect(section).not.toHaveTextContent(/checkpoint|KiB|HUD|container tail may/)
 })
+
+it('gives the recovered draft the recording service\'s own note about missing seconds, once', async () => {
+  // The recovery used to add its own sentence beside the service's, even for a recording that had ended normally.
+  const stopped = { ...original, warnings: ['The recording stopped unexpectedly, so its last few seconds may be missing. Listen before relying on it.'] }
+  vi.mocked(recordingService.finalize).mockResolvedValue(stopped)
+  vi.mocked(invoke).mockResolvedValue({ segments: [], duration: 0, text: '', warnings: ['Live draft. Review words and speaker assignments.'] })
+  render(<RecordingRecovery vaultPath="/vault" active onRecovered={vi.fn()} />)
+  fireEvent.click(await screen.findByRole('button', { name: 'Recover recording' }))
+  await waitFor(() => expect(meetingService.save).toHaveBeenCalled())
+  expect(vi.mocked(meetingService.save).mock.calls[0][1].draft?.warnings).toEqual(['Live draft. Review words and speaker assignments.', stopped.warnings[0]])
+})

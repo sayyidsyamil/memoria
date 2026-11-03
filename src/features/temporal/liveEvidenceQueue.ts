@@ -29,7 +29,7 @@ export class LiveEvidenceQueue {
     if (!this.job) return
     try { await invoke('cancel_wiki_memory', { jobId: this.job.id }) }
     catch (error) {
-      this.warnings.add(`Live check cancellation could not be confirmed: ${String(error)}`)
+      this.warnings.add(`The live check may not have stopped: ${error instanceof Error ? error.message : String(error)}`)
       this.onUpdate(this.cues, [...this.warnings].join(' '))
       throw error
     }
@@ -48,14 +48,14 @@ export class LiveEvidenceQueue {
       this.checked.add(turnKey)
       this.cues = [...result.cues.map(cue => ({ ...cue, heardAt: turn.start, heard: turn.text })), ...this.cues].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3)
       const notice = result.warnings.includes('No approved tracked facts')
-        ? 'No approved tracked facts. Add and approve tracked items before using live checks.'
-        : result.status === 'uncertain' ? 'A statement could not be verified. Inspect the transcript.' : ''
+        ? 'There are no accepted decisions to check against yet.'
+        : result.status === 'uncertain' ? 'A statement could not be checked against the decisions.' : ''
       if (notice) this.warnings.add(notice)
       this.onUpdate(this.cues, notice)
     }).catch(error => {
       if (generation !== this.generation || !this.enabled) return
       const detail = error && typeof error === 'object' && 'message' in error ? String(error.message) : String(error)
-      const notice = `Live evidence check failed: ${detail}. Recording continues.`
+      const notice = `The live check failed: ${detail}. Recording continues.`
       this.warnings.add(notice); this.onUpdate(this.cues, notice)
     }).finally(() => { if (this.job?.id === id) this.job = null })
     this.job = { id, promise }
@@ -79,14 +79,14 @@ export class LiveEvidenceQueue {
         if (this.eligible(turn)) await this.check(turn)
       }
     })()
-    try { await withTimeout(drain, 30000, 'Final evidence checks exceeded 30 seconds; unchecked turns remain for review.') }
+    try { await withTimeout(drain, 30000, 'Checking the last statements took more than 30 seconds.') }
     catch (error) {
       this.warnings.add(error instanceof Error ? error.message : String(error))
       await this.cancel()
     }
     const checkedTurns = turns.filter(turn => this.checked.has(key(turn))).length
     const uncheckedTurns = turns.length - checkedTurns
-    if (uncheckedTurns) this.warnings.add(`${uncheckedTurns} transcript turn${uncheckedTurns === 1 ? ' was' : 's were'} not checked. Review the final transcript manually.`)
+    if (uncheckedTurns) this.warnings.add(`${uncheckedTurns} ${uncheckedTurns === 1 ? 'statement was' : 'statements were'} not checked against decisions.`)
     const warnings = [...this.warnings]
     this.onUpdate(this.cues, warnings.join(' '))
     return { checkedTurns, uncheckedTurns, warnings }

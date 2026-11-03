@@ -14,6 +14,7 @@ import { MeetingSummary, type Mark } from './MeetingSummary'
 import { MemoryAsk } from './MemoryAsk'
 import './meetingReview.css'
 import { meetingService } from '../features/meetings/meetingService'
+import { recordingService } from '../features/meetings/recordingService'
 import { loadKnownSpeakerNames, withoutNames } from '../features/meetings/knownSpeakerNames'
 import type { TranscriptDraft, TranscriptTurn as Turn } from '../features/meetings/meetingTypes'
 import { TemporalMemoryPanel } from '../features/temporal/TemporalMemoryPanel'
@@ -33,9 +34,11 @@ function Fold({ title, count, defaultOpen, aside, children }: { title: string; c
 }
 
 
-export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, title, created, liveText = '', initialDraft = null, transcriptPath, outcomesStatus, initialTab = 'transcript', initialSeek, initialMarks, draggable = true, onBrief, onClose }: {
+export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, title, created, liveText = '', initialDraft = null, transcriptPath, outcomesStatus, initialTab = 'transcript', initialSeek, initialMarks, decisionsOnBoard, draggable = true, onBrief, onClose }: {
   vaultPath: string; sessionId: string; originalPath: string; title: string; created?: string; liveText?: string; initialDraft?: TranscriptDraft | null; transcriptPath?: string
   outcomesStatus?: 'approved' | 'needs-review' | 'not-built'; initialTab?: MeetingTab; initialSeek?: number; initialMarks?: Mark[]
+  /** Approved values on the decision board that this meeting's words set. */
+  decisionsOnBoard?: number
   /** The HUD review window is dragged by its header; the workspace dialog is not. */
   draggable?: boolean
   /** Offered only where the briefs view exists (the workspace, not the HUD window). */
@@ -71,8 +74,16 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const [buildNow, setBuildNow] = useState(false)
   const [tab, setTab] = useState<MeetingTab>(() => initialTab !== 'transcript' && transcriptPath ? initialTab : 'transcript')
   const meetingTitle = name.trim() || title
-  const audioUrl = convertFileSrc(originalPath)
-  useEffect(() => { if (initialSeek !== undefined) player.current?.seek(initialSeek, false) }, [initialSeek])
+  // What the player loads: for a browser recording, a copy that states its length (the original states none).
+  const [playback, setPlayback] = useState<string | null>(null)
+  useEffect(() => {
+    let current = true
+    Promise.resolve().then(() => recordingService.playback(vaultPath, originalPath)).catch(() => originalPath)
+      .then(path => { if (current) setPlayback(path) })
+    return () => { current = false }
+  }, [vaultPath, originalPath])
+  const audioUrl = playback ? convertFileSrc(playback) : undefined
+  useEffect(() => { if (initialSeek !== undefined) player.current?.seek(initialSeek, false) }, [initialSeek, playback])
 
   async function persistReview(reviewedPath = outcomeSource) {
     return meetingService.save(vaultPath, {
@@ -182,6 +193,8 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
   const identified = identifiedSpeakers(speakers, names).length
   const meta = [startedAt, draft?.duration ? clock(draft.duration) : '', refined ? identified ? plural(identified, 'speaker') : 'Speaker not identified' : ''].filter(Boolean).join(' · ')
   const fallbackLength = Math.max(draft?.duration ?? 0, turns.length ? turns[turns.length - 1].end : 0)
+  // Live audio the captions never received or never confirmed; the recording itself has it.
+  const uncaptioned = draft?.captionAudio ? (draft.captionAudio.refusedSamples + draft.captionAudio.unacknowledgedSamples) / draft.captionAudio.sampleRate : 0
 
   return <PillTabsRoot value={tab} onValueChange={value => setTab(value as MeetingTab)} className="meeting-review" asChild>
     <main>
@@ -279,13 +292,13 @@ export function MeetingTranscriptReview({ vaultPath, sessionId, originalPath, ti
             </div>
           </article>)}</div>
           <details className="review-details"><summary>Transcript details</summary>{draft.warnings.map(warning => <p key={warning}>{warning}</p>)}<p>Voice matches are suggestions. Unknown and ambiguous voices stay unnamed.</p></details>
-          {draft.captionAudio && <p className="review-status" aria-label="Saved caption audio accounting">Caption audio: {draft.captionAudio.acceptedSamples} accepted samples · {draft.captionAudio.processedSamples} acknowledged samples · {draft.captionAudio.refusedSamples} refused · {draft.captionAudio.unacknowledgedSamples} unacknowledged.</p>}
-          {draft.liveChecks && <p className="review-status" aria-label="Final live evidence checks">Live checks: {draft.liveChecks.checkedTurns} checked turns · {draft.liveChecks.uncheckedTurns} unchecked. Checks did not approve knowledge.</p>}
+          {uncaptioned >= 0.1 && <p className="review-status">{uncaptioned.toFixed(1)} s of audio were not captioned live. The recording has them.</p>}
+          {draft.liveChecks && <p className="review-status">Live check: {draft.liveChecks.checkedTurns} of {draft.liveChecks.checkedTurns + draft.liveChecks.uncheckedTurns} statements checked against decisions. The board was not changed.</p>}
         </>}
       </PillTabPanel>
 
       <PillTabPanel value="summary" className="review-body review-summary">
-        <MeetingSummary vaultPath={vaultPath} sourcePath={outcomeSource} title={meetingTitle} turns={turns} names={names} marks={marks} buildNow={buildNow} onSeek={seekTo} onBrief={onBrief} />
+        <MeetingSummary vaultPath={vaultPath} sourcePath={outcomeSource} title={meetingTitle} turns={turns} names={names} marks={marks} buildNow={buildNow} decisionsOnBoard={decisionsOnBoard} onSeek={seekTo} onBrief={onBrief} />
       </PillTabPanel>
       <PillTabPanel value="facts" className="review-body"><TemporalMemoryPanel vaultPath={vaultPath} meetingId={sessionId} onOpenMoment={(_, at) => seekTo(at)} /></PillTabPanel>
       <PillTabPanel value="ask" forceMount hidden={tab !== 'ask'} className="review-ask">

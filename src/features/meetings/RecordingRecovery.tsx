@@ -42,8 +42,8 @@ export function RecordingRecovery({ vaultPath, active, onRecovered }: { vaultPat
       let record = existing
       if (!existing?.transcriptPath) {
         const draft = existing?.draft ?? await invoke<TranscriptDraft | null>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId } })
-        const warnings = [...original.warnings, 'Interrupted recording: the last few seconds may be missing. Listen before relying on it.']
-        const reviewedDraft = draft ? { ...draft, warnings: [...draft.warnings, ...warnings] } : null
+        // The recording service says when the last seconds may be missing; a recording that ended normally lost none.
+        const reviewedDraft = draft ? { ...draft, warnings: [...draft.warnings, ...original.warnings] } : null
         record = await meetingService.save(vaultPath, {
           id: sessionId, title: existing?.title ?? original.metadata.title, status: 'needs-review',
           created: existing?.created ?? original.metadata.created,

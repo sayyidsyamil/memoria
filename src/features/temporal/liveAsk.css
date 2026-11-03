@@ -18,7 +18,9 @@
 .live-ask-item[data-live] p { margin-left: -2px; padding-left: 10px; border-left: 2px dashed currentColor; }
 .live-ask-citations { display: flex; flex-wrap: wrap; gap: 4px; }
 .live-ask-citation { min-width: 0; max-width: 100%; }
-.live-ask-citation button { max-width: 100%; padding: 3px 7px; border: 1px solid var(--hud-line, var(--border)); border-radius: 6px; background: var(--muted); text-align: left; overflow-wrap: anywhere; font-size: 11px; }
+.live-ask-citation button { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 3px 7px; border: 1px solid var(--hud-line, var(--border)); border-radius: 6px; background: var(--muted); text-align: left; font-size: 11px; }
+.live-ask-citation button span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.live-ask-citation button b { flex-shrink: 0; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--hud-muted, var(--muted-foreground)); }
 .live-ask-citation blockquote { margin: 6px 0; padding: 6px 8px; border-left: 2px solid var(--hud-muted, var(--muted-foreground)); }
 .live-ask-citation footer { color: var(--hud-muted, var(--muted-foreground)); font-size: 10px; }
 .live-ask-composer { display: flex; flex-shrink: 0; min-width: 0; gap: 6px; padding: 6px 0 8px; }

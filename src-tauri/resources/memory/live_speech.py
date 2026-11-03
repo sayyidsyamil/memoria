@@ -18,6 +18,8 @@ os.environ['TRANSFORMERS_OFFLINE'] = '1'
 RATE = 16000
 HOP = int(os.environ.get('MEMORIA_SPEECH_HOP_SECONDS', '4')) * RATE
 CONTEXT = int(os.environ.get('MEMORIA_SPEECH_CONTEXT_SECONDS', '2')) * RATE
+# Shown with every live draft in review.
+CAPTION_TIMES = 'Times come from the live captions and can differ slightly from the recording, for example after a pause.'
 
 
 def engine():
@@ -269,7 +271,7 @@ def run_parakeet(models=None):
                       'speakerEmbeddings': voices, 'speakerMatches': match_profiles(root, voices), 'profiles': list_profiles(root),
                       'warnings': ['Live draft. Review words and speaker assignments.',
                                    'Overlapping speech can lose the quieter speaker\'s words.',
-                                   'Timestamps use caption PCM time; pauses and startup may differ from the original recording clock.'],
+                                   CAPTION_TIMES],
                       'nearLive': True, 'gaps': [],
                       'audioAccounting': {'receivedChunks': expected, 'receivedSamples': session.total,
                                           'processedSamples': session.total, 'sampleRate': RATE}}
@@ -340,7 +342,7 @@ def run_moss(model=None):
                       'speakerMatches': match_profiles(root, session.voices), 'profiles': list_profiles(root),
                       'warnings': ['MOSS near-live draft. Review words and speaker assignments.',
                                    'Window boundaries and overlapping speech can cause omissions or repeats.',
-                                   'Timestamps use caption PCM time; pauses and startup may differ from the original recording clock.'],
+                                   CAPTION_TIMES],
                       'nearLive': True, 'gaps': session.gaps,
                       'audioAccounting': {'receivedChunks': expected, 'receivedSamples': session.total,
                                           'processedSamples': session.committed, 'sampleRate': RATE}}

@@ -85,14 +85,32 @@ it('renders engine sections, warnings and review notices and discloses exact cit
   expect(screen.getByText('Transcript may contain recognition errors.')).toBeInTheDocument()
   expect(screen.getByText(/Old source needs review/)).toBeInTheDocument()
   expect(screen.queryByText('Maya approved the pilot.')).not.toBeInTheDocument()
-  const cite = screen.getByRole('button', { name: 'Evidence R1: Pilot kickoff, page 2' })
+  const cite = screen.getByRole('button', { name: 'Quote from Pilot kickoff, page 2' })
+  expect(cite).toHaveTextContent('Pilot kickoffp.2')
   fireEvent.click(cite)
   expect(cite).toHaveAttribute('aria-expanded', 'true')
   expect(screen.getByText('Maya approved the pilot.')).toBeInTheDocument()
-  expect(screen.getByText(/sources\/pilot.md/)).toBeInTheDocument()
+  expect(screen.getByText('Pilot kickoff · page 2')).toBeInTheDocument()
   fireEvent.click(cite)
   expect(cite).toHaveAttribute('aria-expanded', 'false')
   expect(screen.queryByText('Maya approved the pilot.')).not.toBeInTheDocument()
+})
+
+it('names a quote from a meeting as the main Ask does: the meeting and when it was said, with no page', async () => {
+  // The meeting window still read "Evidence R1: … reviewed transcript, page 1" after the main Ask was made readable.
+  vi.mocked(invoke).mockResolvedValue({
+    sections: [{ heading: 'Approved decision', items: [{ text: 'Go-live is 9 Nov 2026.', citations: ['R1'] }] }],
+    citations: [{ id: 'R1', quote: 'Then the go-live date is now 9 November 2026.', sourceTitle: 'Procurement pilot pre-launch review — reviewed transcript',
+      sourcePath: 'source-pre-launch.md', page: 1, moment: { meetingId: 'm2', meetingTitle: 'Procurement pilot pre-launch review', at: 45 } }],
+    warnings: [],
+  } satisfies LiveAskResult)
+  open(); type('When do we go live?'); fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
+  const cite = await screen.findByRole('button', { name: 'Quote from Procurement pilot pre-launch review at 0:45' })
+  expect(cite).toHaveTextContent('Procurement pilot pre-launch review0:45')
+  fireEvent.click(cite)
+  expect(screen.getByText('Then the go-live date is now 9 November 2026.')).toBeInTheDocument()
+  expect(screen.getByText('Procurement pilot pre-launch review — reviewed transcript')).toBeInTheDocument()
+  expect(screen.queryByText(/page 1|source-pre-launch/)).not.toBeInTheDocument()
 })
 
 it('uses the current transcript on each explicit question and keeps disclosure changes request-free', async () => {
@@ -154,4 +172,23 @@ it('keeps an answer from the live transcript visibly apart from the approved dec
   expect(await screen.findByRole('heading', { name: 'In this meeting' })).toBeInTheDocument()
   expect(screen.getByText('Raj said 300,000 [00:05].').closest('.live-ask-item')).toHaveAttribute('data-live', 'true')
   expect(screen.getByText('Pilot budget is RM 280,000.').closest('.live-ask-item')).not.toHaveAttribute('data-live')
+})
+
+it('says once, in plain words, that nothing approved answers the question', async () => {
+  vi.mocked(invoke).mockResolvedValue({
+    sections: [{ heading: 'Answer', items: [{ text: 'Nothing approved answers this.', citations: [] }] }],
+    citations: [], message: 'Nothing approved answers this.',
+    warnings: ["Answered from approved knowledge only; this meeting's live transcript was not used."],
+  } satisfies LiveAskResult)
+  open(); type('Who signs it off?'); fireEvent.click(screen.getByRole('button', { name: 'Ask', exact: true }))
+  expect(await screen.findAllByText('Nothing approved answers this.')).toHaveLength(1)
+  expect(screen.getByText(/Approved decisions come from the decision board\./)).toBeInTheDocument()
+})
+
+it('reports a failed cancellation without a doubled "Error:"', async () => {
+  vi.mocked(invoke).mockImplementation(command => command === 'cancel_wiki_memory' ? Promise.reject(new Error('Worker busy')) : new Promise(() => undefined))
+  open(); type('Owner?')
+  fireEvent.submit(screen.getByRole('form', { name: 'Ask this meeting' }))
+  fireEvent.click(await screen.findByRole('button', { name: 'Cancel asking' }))
+  expect(await screen.findByRole('alert')).toHaveTextContent(/^Could not cancel: Worker busy$/)
 })

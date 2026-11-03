@@ -48,7 +48,8 @@ review, refine, speaker naming, knowledge review and apply, Ask, Brief, Search, 
 restart persistence and crash recovery all work; 14 defects found on the way were fixed with
 tests. Remaining: microphone capture with real speech (permission prompt), visual checks of
 themes, narrow layouts and the HUD's first click (no Screen Recording permission was
-available), and a playable duration for recovered recordings (D13).
+available), and a check in the installed app that a recovered recording shows its length (D13,
+fixed on 3 November and checked in the browser preview).
 
 ## M2 Meeting intelligence
 
@@ -102,6 +103,8 @@ alarms in 224, 0.26 s median; [research/live-verifier](../research/live-verifier
 - The workspace window intermittently vanished from the accessibility tree after launch during
   the M2 check; confirm whether it is a real window-visibility bug.
 - Write a playable duration for recovered recordings without altering the original evidence.
+  (Done 3 November for every browser recording: the player loads a stream copy with a duration;
+  to check in the installed app.)
 - Sleep and wake, microphone disconnection, queue pressure and low disk space.
 - Resolve the 97 full-suite failures recorded on 1 November: fix them, or remove tests for
   inherited features that Memoria hides.

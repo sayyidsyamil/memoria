@@ -61,4 +61,19 @@ describe('readableSnippet', () => {
   it.each([['[26Q2] roadmap'], ['Plain words only.'], ['Costs (RM) rose']])('leaves %j as written', input => {
     expect(readableSnippet(input)).toBe(input)
   })
+
+  it('ends a preview the vault index cut short on a whole word, with an ellipsis', () => {
+    // The index cuts at 160 bytes ("…and numbers are i..."); the browser preview cut "Reviewed by the fa" with no mark at all.
+    const indexed = 'Fictional steering committee used for user acceptance testing. Three meetings were recorded and their transcripts reviewed. All names, vendors and numbers are i...'
+    expect(readableSnippet(indexed)).toBe('Fictional steering committee used for user acceptance testing. Three meetings were recorded and their transcripts reviewed. All names, vendors and numbers are…')
+    const raw = '[Open original](<attachments/transcript-974c0b51-61b4-53d4-9324-a24c194be887.txt>) [Listen to meeting audio](<.memoria-recordings/974c0b51-61b4-53d4-9324-a24c194be887/original.wav>) Reviewed by the fa...'
+    expect(readableSnippet(raw)).toBe('Open original Listen to meeting audio Reviewed by the…')
+    // Cut inside a link's address, the link's words are whole and stay.
+    const inLink = 'Transcript reviewed · Recorded 14 Sep 2026, 09:30 - [Recording](<../.memoria-recordings/974c0b51/original.wav>) - [Reviewed transcript](<../source-Procurement-pil...'
+    expect(readableSnippet(inLink)).toBe('Transcript reviewed · Recorded 14 Sep 2026, 09:30 - Recording - Reviewed transcript…')
+  })
+
+  it('keeps a short preview that ends in dots as written', () => {
+    expect(readableSnippet('To be continued...')).toBe('To be continued...')
+  })
 })

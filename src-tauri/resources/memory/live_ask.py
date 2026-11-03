@@ -7,8 +7,8 @@ establish support. This extraction gate is deliberately not semantic entailment.
 """
 from temporal_support import quote_contains_text
 
-NO_EVIDENCE = 'The reviewed knowledge does not support a grounded live answer.'
-SESSION_WARNING = 'Live session text is provisional reference context and is not used as answer evidence or sent to the answer generator.'
+NO_EVIDENCE = 'Nothing approved answers this.'
+SESSION_WARNING = "Answered from approved knowledge only; this meeting's live transcript was not used."
 
 
 def _no_evidence(result):
@@ -31,7 +31,7 @@ def _ground_answer(result):
                     item.get('text'), evidence[ref].get('quote')) for ref in refs):
                 result = _no_evidence(result)
                 result['warnings'] = result.get('warnings', []) + [
-                    'Live answer suppressed: displayed text was not an exact/normalized span of its cited quote. Unsupported paraphrases are rejected.']
+                    'An answer was held back because it did not quote its source exactly.']
                 return result
             items.append({'text': item['text'], 'citations': refs})
             used.update(refs)
