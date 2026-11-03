@@ -38,12 +38,17 @@ for required in memory/engine.py memory/live_assistance.py memory/ask_facts.py m
   [[ -e $resources/$required ]] || { print "Bundle check failed: $required missing"; exit 1; }
 done
 [[ -z "$(find $resources -name __pycache__ -print -quit)" ]] || { print "Bundle check failed: __pycache__ in the bundle"; exit 1; }
+# Call audio: the helper beside the app binary (signed with it) and the permission text macOS shows.
+[[ -x $app/Contents/MacOS/memoria-call-audio ]] || { print "Bundle check failed: Contents/MacOS/memoria-call-audio missing"; exit 1; }
+/usr/libexec/PlistBuddy -c 'Print :NSAudioCaptureUsageDescription' $app/Contents/Info.plist >/dev/null 2>&1 \
+  || { print "Bundle check failed: NSAudioCaptureUsageDescription missing from Info.plist"; exit 1; }
 if grep -rqE 'ingest(\.[a-z]+)?\.sentry\.io|phc_[A-Za-z0-9]{20,}' dist; then
   print "dist/ scan failed: a telemetry key is embedded"; exit 1
 fi
 
 dmg_sha=$(shasum -a 256 $dmg | cut -d' ' -f1)
 bin_sha=$(shasum -a 256 $app/Contents/MacOS/memoria | cut -d' ' -f1)
+helper_sha=$(shasum -a 256 $app/Contents/MacOS/memoria-call-audio | cut -d' ' -f1)
 dmg_size=$(du -h $dmg | cut -f1 | tr -d " ")
 cat > docs/RELEASE_RECORD.md <<EOF
 # Release record
@@ -62,12 +67,13 @@ cat > docs/RELEASE_RECORD.md <<EOF
 | pnpm | $(pnpm --version) |
 | tauri-cli | $(pnpm -s tauri --version 2>/dev/null | tail -1) |
 | Telemetry keys | none in the environment or .env files; \`dist/\` scan clean |
-| Bundle check | memory/*.py, memoria_engine (with schema.sql and evaluation/router.py) present; no __pycache__ |
+| Bundle check | memory/*.py, memoria_engine (with schema.sql and evaluation/router.py) present; no __pycache__; memoria-call-audio and NSAudioCaptureUsageDescription present |
 
-App binary SHA-256 (\`Memoria.app/Contents/MacOS\`):
+Binary SHA-256 (\`Memoria.app/Contents/MacOS\`):
 
 \`\`\`
 $bin_sha  memoria
+$helper_sha  memoria-call-audio
 \`\`\`
 
 The build is ad-hoc signed and not notarised, so on another Mac the first open needs right-click >

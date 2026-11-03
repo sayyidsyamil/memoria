@@ -292,6 +292,8 @@ macro_rules! app_invoke_handler {
             commands::start_live_speech,
             commands::feed_live_speech,
             commands::end_live_speech,
+            commands::start_call_audio,
+            commands::stop_call_audio,
             commands::meeting_capture_ready,
             commands::show_meeting_workspace,
             commands::read_vault_snapshot,

@@ -14,6 +14,7 @@ export const APP_STORAGE_KEYS = {
   layoutPanels: 'memoria:layout-panels',
   welcomeDismissed: 'memoria_welcome_dismissed',
   liveCheck: 'memoria:live-check',
+  callAudio: 'memoria:call-audio',
 } as const
 
 export const LEGACY_APP_STORAGE_KEYS = {

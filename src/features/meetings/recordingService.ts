@@ -40,13 +40,16 @@ export const recordingService = {
   },
 }
 
-export function recordingSource(recording: SavedRecording): PreparedSource {
+/** `callAudio`: audio playing on this Mac was heard and mixed into the recording for at least part of the meeting. */
+export function recordingSource(recording: SavedRecording, callAudio = false): PreparedSource {
   const extension = recording.metadata.mimeType.includes('webm') ? 'webm' : 'm4a'
   return {
     id: recording.sessionId, title: recording.metadata.title, filename: `meeting-${recording.sessionId}.${extension}`,
     originalPath: recording.originalPath, sha256: recording.sha256, bytes: new Uint8Array(), importedAt: recording.metadata.created,
     pages: [recording.metadata.sourceKind === 'replay'
       ? 'Native recording of prerecorded test audio. No microphone was used. Review the transcript before approving knowledge.'
-      : 'Original microphone recording. Review the transcript before approving knowledge.'],
+      : callAudio
+        ? 'Original recording of the microphone and of audio played on this Mac while Call audio was on, such as the other side of a call. Review the transcript before approving knowledge.'
+        : 'Original microphone recording. Review the transcript before approving knowledge.'],
   }
 }

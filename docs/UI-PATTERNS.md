@@ -35,6 +35,7 @@ Nothing animates or fills "to look alive". Each element has one source of truth:
 | Level meter (HUD) | RMS of each 4096-sample, 16 kHz PCM block (256 ms), `blockLevel` in `meetingLiveSpeech.ts`; flat while paused | a decorative waveform |
 | Preparation steps | live-speech events: microphone granted, speech model loading, warming, captions ready | progress it does not have |
 | "Waiting for microphone permission…" | Microphone step still pending after 4 s | that anything is recording |
+| Call audio toggle and its line (HUD) | the user's choice; "Recording the microphone and audio playing on this Mac" only once the helper's frames arrive; "waiting for macOS" after 3 s without a frame; "Nothing heard from this Mac yet" after 20 s of silent frames | that the other side is heard before audio with sound arrives |
 | Timer and marks | recorded time excluding pauses, equal to the audio file's time | wall-clock time |
 | Meeting lifecycle rail | saved state: transcript path, outcome status | an animation |
 | Summary lead sentence | counts of approved outcomes, computed | generated prose |
@@ -95,11 +96,13 @@ timestamps and semantic feedback retain meaningful accent colour.
   by type, a quote disclosure and a timestamp or page chip per outcome, key moments,
   share of words, and Create brief / Review or undo.
 - **Meeting HUD** (`MeetingHud.tsx` logic, `MeetingHudView.tsx` presentation): a
-  compact dark notch (360 x 68) with a level meter; a preparation list (176 high);
+  compact dark notch (392 x 68, wide enough for the Call audio toggle beside Open
+  workspace, Pause and End) with a level meter; a preparation list (176 high);
   the Record view (620 x 540) with status, 56-bar level display, avatar live turns,
   Mark moment, Pause and End meeting; review expands to 900 x 740 and follows the
   workspace theme. Recording starts only after the speech model, voice encoder,
-  microphone and AudioWorklet are ready.
+  microphone and AudioWorklet are ready. Call audio (headset icon, `aria-pressed`)
+  is off by default and remembered; see ARCHITECTURE.md, "Call audio".
 
 ## Interaction rules
 

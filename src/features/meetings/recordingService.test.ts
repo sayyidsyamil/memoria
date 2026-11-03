@@ -26,3 +26,9 @@ it('does not turn an unreadable recovery list into an empty success', async () =
   vi.mocked(invoke).mockResolvedValue(undefined)
   await expect(recordingService.list('/vault')).rejects.toThrow('could not be loaded')
 })
+it('names audio played on this Mac only when call audio was heard in a microphone recording', () => {
+  const microphone: SavedRecording = { ...saved, metadata: { ...saved.metadata, sourceKind: 'microphone' } }
+  expect(recordingSource(microphone).pages[0]).toMatch(/^Original microphone recording\./)
+  expect(recordingSource(microphone, true).pages[0]).toContain('microphone and of audio played on this Mac while Call audio was on')
+  expect(recordingSource(saved, true).pages[0]).toContain('No microphone')
+})

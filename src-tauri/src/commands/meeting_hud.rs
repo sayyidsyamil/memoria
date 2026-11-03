@@ -90,8 +90,8 @@ pub fn open_meeting_hud(app: tauri::AppHandle, vault_path: String, replay: Optio
     if replay == Some(true) { route.query_pairs_mut().append_pair("replay", "1"); }
     let relative = format!("/?{}", route.query().unwrap_or(""));
     WebviewWindowBuilder::new(&app, "meeting-hud", WebviewUrl::App(relative.into()))
-        .title("Memoria Meeting").inner_size(360.0, 68.0)
-        .position(position.x as f64 / scale + (size.width as f64 / scale - 360.0) / 2.0,
+        .title("Memoria Meeting").inner_size(392.0, 68.0)
+        .position(position.x as f64 / scale + (size.width as f64 / scale - 392.0) / 2.0,
                   position.y as f64 / scale + 38.0)
         // The HUD is used while another app (Zoom, Meet, Teams) is in front, so the first click must act on the
         // button instead of only activating the window.

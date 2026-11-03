@@ -38,6 +38,8 @@ const NO_CUES: LiveCue[] = []
 const CUE_TOAST_MS = 8000
 /** What the compact window grows by while a cue toast shows: the toast and its margins in meetingHud.css. */
 const CUE_TOAST_HEIGHT = 102
+/** The notch: status, timer, captions toggle, a cue badge and four controls (Call audio, workspace, Pause, End). */
+const COMPACT_WIDTH = 392
 
 /**
  * A cue that arrives while the window is compact is shown under the notch for eight seconds; the countdown waits while the
@@ -82,6 +84,19 @@ function captionLag(progress: CaptionAudioProgress | null, stage: string): strin
   const behind = seconds(progress.queuedSamples)
   const lost = seconds(progress.refusedSamples + progress.unacknowledgedSamples)
   return [behind >= 2 ? `Captions ${behind.toFixed(0)} s behind` : '', lost >= .1 ? `${lost.toFixed(1)} s not captioned` : '', stage].filter(Boolean).join(' · ')
+}
+
+/**
+ * Call audio is off, starting (no frame from the helper yet: macOS holds capture while its permission prompt is open),
+ * running (frames arrive, all silent so far) or heard (a frame had sound).
+ */
+type CallAudioPhase = 'off' | 'starting' | 'running' | 'heard'
+const CALL_AUDIO_WAITING_MS = 3000
+const CALL_AUDIO_SILENT_MS = 20000
+const CALL_AUDIO_STATUS = {
+  recording: 'Recording the microphone and audio playing on this Mac',
+  waiting: 'Call audio is waiting for macOS. If it asks whether Memoria may record this Mac’s audio, choose Allow.',
+  silent: 'Nothing heard from this Mac yet. If a call is playing, allow Memoria in System Settings › Privacy & Security › Screen & System Audio Recording › System Audio Recording Only.',
 }
 
 export function MeetingHud() {
@@ -140,6 +155,26 @@ export function MeetingHud() {
     setAssistanceEnabled(on)
     try { localStorage.setItem(APP_STORAGE_KEYS.liveCheck, on ? 'on' : 'off') } catch { /* the choice lasts for this meeting only */ }
   }
+  // Off unless the user turned it on: it records other people, and macOS asks for permission the first time.
+  const [callAudio, setCallAudio] = useState(() => { try { return localStorage.getItem(APP_STORAGE_KEYS.callAudio) === 'on' } catch { return false } })
+  const callAudioWanted = useRef(callAudio)
+  const callAudioRecorded = useRef(false)
+  const [callAudioPhase, setCallAudioPhase] = useState<CallAudioPhase>('off')
+  const [callAudioHint, setCallAudioHint] = useState<'' | 'waiting' | 'silent'>('')
+  const [callAudioNotice, setCallAudioNotice] = useState('')
+  const toggleCallAudio = (on: boolean) => {
+    setCallAudio(on); callAudioWanted.current = on; setCallAudioNotice('')
+    try { localStorage.setItem(APP_STORAGE_KEYS.callAudio, on ? 'on' : 'off') } catch { /* the choice lasts for this meeting only */ }
+    if (!captureStarted.current || !live.current) return
+    setCallAudioPhase(on ? 'starting' : 'off'); setCallAudioHint('')
+    void live.current.setCallAudio(on)
+  }
+  useEffect(() => {
+    if (callAudioPhase !== 'starting' && callAudioPhase !== 'running') return
+    const waiting = callAudioPhase === 'starting'
+    const timer = window.setTimeout(() => setCallAudioHint(waiting ? 'waiting' : 'silent'), waiting ? CALL_AUDIO_WAITING_MS : CALL_AUDIO_SILENT_MS)
+    return () => window.clearTimeout(timer)
+  }, [callAudioPhase])
   const [liveCues, setLiveCues] = useState<LiveCue[]>([])
   const { titles: cueMeetingTitles } = useMeetingTitles(vaultPath)
   const [assistanceNotice, setAssistanceNotice] = useState('')
@@ -171,7 +206,7 @@ export function MeetingHud() {
 
   useEffect(() => {
     layoutQueue.current = layoutQueue.current.catch(() => undefined).then(() => invoke<void>('layout_meeting_hud', {
-      width: review ? 900 : captionsOpen || (replayMode && !replayRequested) ? 620 : 360,
+      width: review ? 900 : captionsOpen || (replayMode && !replayRequested) ? 620 : COMPACT_WIDTH,
       height: review ? 740 : replayMode && !replayRequested ? 300 : captionsOpen ? 620 : (error ? 184 : state === 'starting' ? 176 : 68) + (cueToastShown ? CUE_TOAST_HEIGHT : 0),
       review,
     })).catch(() => undefined)
@@ -210,6 +245,12 @@ export function MeetingHud() {
           if (event.draft) finalDraft.current = event.draft
           if (event.audioProgress) setAudioProgress(event.audioProgress)
           if (event.progress) setSpeechProgress(event.progress.phase === 'processing' ? 'Processing captured audio' : event.progress.phase === 'finalizing' ? 'Decoding the final audio' : '')
+          if (event.callAudioStarted) { setCallAudioPhase(phase => phase === 'starting' ? 'running' : phase); setCallAudioHint('') }
+          if (event.callAudioHeard) { setCallAudioPhase('heard'); setCallAudioHint(''); callAudioRecorded.current = true }
+          if (event.callAudioError) {
+            setCallAudio(false); callAudioWanted.current = false
+            setCallAudioPhase('off'); setCallAudioHint(''); setCallAudioNotice(event.callAudioError)
+          }
         }, preparation.current.signal, level => setLevels(previous => [...previous.slice(1), level]))
         live.current = session
         if (aborted.current) { await session.stop(); return }
@@ -249,6 +290,8 @@ export function MeetingHud() {
         capture.start(1000)
         captureStarted.current = true
         await session.activate()
+        // The remembered choice applies once recording runs; a prerecorded test never records this Mac's audio.
+        if (!replayMode && callAudioWanted.current) { setCallAudioPhase('starting'); void session.setCallAudio(true) }
         await replayInput.current?.start()
         await invoke('meeting_capture_ready')
         setState('recording')
@@ -333,7 +376,7 @@ export function MeetingHud() {
       if (chunks.current.length) {
         const id = sessionId.current
         const recording = await recordingService.finalize(vaultPath, id, chunks.current.length)
-        savedSource.current ??= recordingSource(recording)
+        savedSource.current ??= recordingSource(recording, callAudioRecorded.current)
         const sourcePath = await applySource(savedSource.current, vaultPath)
         await meetingService.save(vaultPath, {
           id, title: savedSource.current.title, status: 'needs-review', audioPath: recording.originalPath.slice(vaultPath.replace(/\/$/, '').length + 1),
@@ -405,9 +448,11 @@ export function MeetingHud() {
   </section></main>
   if (review && savedSource.current?.originalPath) return <MeetingTranscriptReview vaultPath={vaultPath} sessionId={sessionId.current}
     originalPath={savedSource.current.originalPath} title={savedSource.current.title} created={new Date(startTime.current).toISOString()} liveText={caption} initialDraft={finalDraft.current} initialMarks={marks} onClose={() => invoke('finish_meeting_hud')} />
+  const callAudioStatus = state !== 'recording' ? '' : callAudioHint ? CALL_AUDIO_STATUS[callAudioHint] : callAudioPhase === 'running' || callAudioPhase === 'heard' ? CALL_AUDIO_STATUS.recording : ''
   return <MeetingHudView state={state} saveStage={saveStage} seconds={seconds} levels={levels} prep={prep} captionsOpen={captionsOpen}
     vaultPath={vaultPath}
     sourceKind={replayMode ? 'replay' : 'microphone'} replayNotice={replayNotice}
+    callAudio={callAudio} onToggleCallAudio={replayMode ? undefined : toggleCallAudio} callAudioStatus={callAudioStatus} callAudioNotice={callAudioNotice}
     progressText={captionLag(audioProgress, speechProgress)}
     assistanceEnabled={assistanceEnabled} onToggleAssistance={toggleAssistance} liveCues={shownCues} assistanceNotice={assistanceEnabled ? assistanceNotice : ''} cueMeetingTitles={cueMeetingTitles}
     cueToast={cueToast.toast} onHoldCueToast={cueToast.hold} onDismissCueToast={cueToast.dismiss}

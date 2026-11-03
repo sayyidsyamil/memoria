@@ -2,8 +2,8 @@ import { MeetingHudView } from './MeetingHudView'
 
 /**
  * Development only (`?hudPreview` on the Vite dev server): the meeting window at the moment a statement contradicts an
- * approved decision, with fixture data from the fictional UAT series, for screenshots and design review.
- * `?hudPreview=compact` shows the notch instead, with the toast of a cue that has just arrived (360 × 152).
+ * approved decision, with call audio on and fixture data from the fictional UAT series, for screenshots and design review.
+ * `?hudPreview=compact` shows the notch instead, with the toast of a cue that has just arrived (392 × 152).
  */
 export function MeetingHudPreview() {
   const compact = new URLSearchParams(location.search).get('hudPreview') === 'compact'
@@ -26,6 +26,7 @@ export function MeetingHudPreview() {
   }
   return <MeetingHudView state="recording" saveStage="" seconds={86} levels={Array.from({ length: 48 }, (_, index) => 0.2 + 0.6 * Math.abs(Math.sin(index / 3)))}
     prep={0} captionsOpen={!compact} liveTurns={turns} partial="So finance has to sign that off before the" vaultPath="/preview" transcriptRef={view => { if (view) view.scrollTop = view.scrollHeight }} caption="" captionError="" marks={[]} markNotice="" error=""
+    callAudio onToggleCallAudio={() => undefined} callAudioStatus="Recording the microphone and audio playing on this Mac"
     assistanceEnabled onToggleAssistance={() => undefined} liveCues={[budget, vendor]} assistanceNotice=""
     cueMeetingTitles={new Map([['preview', 'Procurement pilot progress check']])} cueToast={compact ? { cue: budget, more: 1 } : null}
     onToggleCaptions={() => undefined} onOpenWorkspace={() => undefined} onPause={() => undefined} onEnd={() => undefined} onMark={() => undefined} />
