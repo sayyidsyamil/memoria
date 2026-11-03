@@ -94,3 +94,28 @@
           4132687088  peak memory footprint
 {"label": "4b-consolidate-app", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app|consolidate", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:42:51", "waited_s": 1259.2, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 44.4, "peak_footprint_gb": 4.133, "max_rss_gb": 1.417, "released": "2026-11-03 15:04:34"}
 === 15:04:34 4b-consolidate-think: extract 4b app-nosys|consolidate-think ES2003 TS3004 ES2011 IS1008 TS3006
+{"series": "ES2003", "mechanism": "app-nosys|consolidate-think", "windows": 20, "seconds": 121.7, "hit_budget": 1, "unclean": 1, "misses": 3, "hits": 20, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "TS3004", "mechanism": "app-nosys|consolidate-think", "windows": 21, "seconds": 74.4, "hit_budget": 0, "unclean": 0, "misses": 5, "hits": 41, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "ES2011", "mechanism": "app-nosys|consolidate-think", "windows": 16, "seconds": 133.8, "hit_budget": 1, "unclean": 1, "misses": 9, "hits": 57, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "IS1008", "mechanism": "app-nosys|consolidate-think", "windows": 15, "seconds": 33.6, "hit_budget": 0, "unclean": 0, "misses": 10, "hits": 72, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "TS3006", "mechanism": "app-nosys|consolidate-think", "windows": 25, "seconds": 199.7, "hit_budget": 0, "unclean": 0, "misses": 16, "hits": 97, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+      564.43 real       252.58 user        53.26 sys
+          1384792064  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              474376  page reclaims
+                7693  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6458  voluntary context switches
+             1915344  involuntary context switches
+        840451121241  instructions retired
+        433684227629  cycles elapsed
+          4458089712  peak memory footprint
+{"label": "4b-consolidate-think", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys|consolidate-think", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 15:04:35", "waited_s": 646.0, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 564.4, "peak_footprint_gb": 4.458, "max_rss_gb": 1.385, "released": "2026-11-03 15:24:45"}
+=== 15:24:45 08-thinkcheck-stock: thinkcheck 0.8b-bf16

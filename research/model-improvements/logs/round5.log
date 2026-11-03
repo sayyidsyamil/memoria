@@ -67,3 +67,25 @@ time budget reached before TS3006
           3491793416  peak memory footprint
 {"label": "08-edit-bf16-x1", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "0.8b-edit-bf16", "app", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:54:23", "waited_s": 612.1, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 563.2, "peak_footprint_gb": 3.492, "max_rss_gb": 1.962, "released": "2026-11-03 15:13:58"}
 === 15:13:58 08-q4-x1: extract 0.8b-q4 app ES2003 TS3004 ES2011
+{"series": "ES2003", "mechanism": "app", "windows": 20, "seconds": 0.0, "hit_budget": 15, "unclean": 16, "misses": 0, "hits": 20}
+{"series": "TS3004", "mechanism": "app", "windows": 21, "seconds": 0.1, "hit_budget": 19, "unclean": 19, "misses": 0, "hits": 41}
+time: command terminated abnormally
+      126.66 real       101.68 user        22.85 sys
+          1921810432  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              201451  page reclaims
+                4736  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7638  voluntary context switches
+             1118295  involuntary context switches
+        545983617719  instructions retired
+        245059430889  cycles elapsed
+          2666710648  peak memory footprint
+{"label": "08-q4-x1", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "0.8b-q4", "app", "ES2003", "TS3004", "ES2011"], "asked": "2026-11-03 15:13:58", "waited_s": 646.9, "deferred_for": [], "free_disk_gb": 20.4, "status": "exit -15", "seconds": 126.7, "peak_footprint_gb": 2.667, "max_rss_gb": 1.922, "released": "2026-11-03 15:26:52"}

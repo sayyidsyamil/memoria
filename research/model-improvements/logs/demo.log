@@ -1,0 +1,20 @@
+{"series": "demo", "mechanism": "app", "windows": 3, "seconds": 63.6, "hit_budget": 0, "unclean": 1, "misses": 3, "hits": 0, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 6.23, "active_gb": 2.499}
+       65.10 real        26.24 user         7.59 sys
+          1210449920  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              324976  page reclaims
+                7418  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6439  voluntary context switches
+              178003  involuntary context switches
+        109650209326  instructions retired
+         60681125363  cycles elapsed
+          4844735752  peak memory footprint
+{"label": "4b-demo-regression", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app", "demo", "--minutes", "6"], "asked": "2026-11-03 15:27:03", "waited_s": 0.1, "deferred_for": [], "free_disk_gb": 19.9, "status": "exit 0", "seconds": 65.1, "peak_footprint_gb": 4.845, "max_rss_gb": 1.21, "released": "2026-11-03 15:28:08"}
