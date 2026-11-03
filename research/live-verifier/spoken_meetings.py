@@ -7,9 +7,10 @@ audio files), one second apart. The meeting is captioned by the app's `LiveTrans
 meeting window sends audio), and every committed turn is checked by the app's live check against that series'
 approved decisions, as the meeting window does. A statement counts as alerted when a turn overlapping it raised a cue.
 
-Latency: `commitLag` is how much audio had arrived after the statement ended when its turn was committed (independent
-of how fast this script runs); `checkSeconds` is the check's own time. In the app the two add up, because checks start
-as soon as a turn is committed.
+Timing: `commitLag` is additional audio after the statement ended when its turn was committed; `checkSeconds` is the
+check's wall time. Their sum (`statementEndToCue`) is an estimate, not measured real-time latency. This script feeds
+audio as fast as processing permits and blocks feeding during checks. The sum excludes ASR compute time, queueing,
+concurrent GPU contention and UI delivery. Use ../live-speech/e2e/e2e_live.py for paced installed-worker measurements.
 
 `--room SNR[,RT60[,DRR]]` plays each meeting into a simulated room first: a synthetic impulse response (reverberation
 time RT60 s, default 0.5; direct-to-reverberant ratio DRR dB, default 3) and pink noise SNR dB below the speech, both
@@ -132,6 +133,7 @@ def main(split, output, condition=None):
         for row in rows:
             out.write(json.dumps(bench.finite_json(row), ensure_ascii=False) + '\n')
     summary = bench.summarise(rows)
+    summary['timingMethod'] = 'Estimate: audio-time commit lag + check wall time; unpaced feed, no concurrent checks or UI'
     caught = [r for r in rows if r['expected_alert'] and r['alert'] and r['commitLag'] is not None]
     q = lambda values, p: round(float(np.percentile(values, p)), 2) if values else None
     summary['statementEndToCue'] = {'p50': q([r['commitLag'] + r['checkSeconds'] for r in caught], 50),

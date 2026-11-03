@@ -6,7 +6,7 @@ sentence, so a cue appeared 8–17 s after the words, and a sentence that did no
 never checked. Can the guard's question alone replace the written verdict, and can candidate decisions be found by
 meaning as well as by shared words?
 
-**Answer.** Yes to both. On the held-out MemoriaBench test split the shipped check catches 98 of 112 conflicts instead of
+**Answer.** Yes to both. On the fixed MemoriaBench test split the shipped check catches 98 of 112 conflicts instead of
 91, with 2 false alarms in 224 instead of 3, in 0.26 s instead of 4.0 s (median). On an hour of real, unrelated meeting
 speech it raised no alert.
 
@@ -59,8 +59,11 @@ checks the recognised text as above.
 one second apart, with the same audio as above. The meeting is captioned by the app's `LiveTranscript` in the meeting
 window's 0.256 s blocks, and every committed turn is checked against the series' approved decisions, as the meeting
 window does. A statement is alerted when a turn overlapping it raised a cue.
+Audio is fed as fast as processing permits; checks block further feeding. The delay below is an estimate: additional
+audio before commitment plus the check's wall time. It excludes ASR compute time, queueing, concurrent GPU contention
+and UI delivery. Paced installed-worker measurements are in `../live-speech/README.md`.
 
-| Shipped live check, test split | Conflicts caught | False alarms | Statement end → cue, p50 / p95 / max |
+| Shipped live check, test split | Conflicts caught | False alarms | Estimated statement end → cue, p50 / p95 / max |
 |---|---|---|---|
 | Spoken meetings, speakers labelled word by word | 93 / 112 (83.0%) | 2 / 224 | 1.34 / 2.24 / 2.59 s |
 | **Spoken meetings, one speaker per sentence (shipped)** | **98 / 112** (87.5%, CI 81.2–92.9) | **2 / 224** | **1.26 / 2.19 / 2.66 s** |
@@ -70,14 +73,13 @@ window does. A statement is alerted when a turn overlapping it raised a cue.
   and 5 conflicts were then judged on fragments and missed. One speaker per sentence (the most active over it) leaves
   4 statements in two turns and recovers all 5 (5 against 0, exact McNemar p = 0.062).
 - The shipped run gives the same verdict as the written statements on all 336.
-- Turns were committed 0.68 s after a statement ended (p50; p95 0.90 s). The cue latency adds the check, as in the app,
-  where checks start when a turn is committed.
+- Turns needed 0.68 s of audio after a statement ended to be committed (p50; p95 0.90 s).
 - No turn fell outside the statements and no statement went unheard.
 - The audio is clean and the voices take turns with one-second gaps; real meetings have overlap, noise and distance.
 
 **In a simulated room** (`--room SNR,RT60,DRR`: a synthetic impulse response and pink noise, seeded per series):
 
-| Shipped pipeline, test split | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Statements sharing a turn |
+| Shipped pipeline, test split | WER* | Caught (of 112) | False alarms (of 224) | Estimated statement end → cue p50 / p95 | Statements sharing a turn |
 |---|---|---|---|---|---|
 | Clean | 1.9% | 98 (87.5%) | 2 | 1.26 / 2.19 s | 0 |
 | SNR 10 dB, RT60 0.5 s, DRR 3 dB | 4.1% | 93 (83.0%, CI 75.0–90.2) | 6 (CI 0.9–4.9%) | 2.66 / 3.65 s | 22 |
@@ -97,7 +99,7 @@ window does. A statement is alerted when a turn overlapping it raised a cue.
 **After the `v0.3.0-uat` build (on `main`), a stretch also ends when the diarizer has heard nobody for 0.5 s** (`streaming_speech.LiveTranscript._speakers_quiet`;
 the next stretch starts where the last ended, so no audio is skipped):
 
-| Same runs, with the diarizer pause | WER* | Caught (of 112) | False alarms (of 224) | Statement end → cue p50 / p95 | Turn committed p50 | Sharing a turn |
+| Same runs, with the diarizer pause | WER* | Caught (of 112) | False alarms (of 224) | Estimated statement end → cue p50 / p95 | Audio after statement before commitment, p50 | Sharing a turn |
 |---|---|---|---|---|---|---|
 | Clean | 1.9% | 98, the same verdicts | 2 | 1.22 / 2.14 s | 0.68 s (unchanged) | 0 |
 | SNR 10 dB, RT60 0.5 s, DRR 3 dB | 3.9% | 94 (CI 75.0–91.1) | 4 | 1.91 / 2.87 s | 1.10 s (was 2.00) | 2 (was 22) |
@@ -150,9 +152,11 @@ The written verdict sometimes argued with itself after committing to `"contradic
 
 ## Limits
 
-MemoriaBench's sentences are clean templated English, not speech; the mapping of AMI decisions to slots is the
-harness's (see `../memoriabench/APP_LIVE_CHECK.md`). One machine (M5, 16 GB), one 4B model. The threshold was chosen on
-dev, then the test split was run once.
+MemoriaBench's source probes are templated English; the spoken variants use synthetic voices. The mapping of AMI
+decisions to slots is the harness's (see `../memoriabench/APP_LIVE_CHECK.md`). One machine (M5, 16 GB), one 4B model.
+The guard threshold was chosen on dev, but later candidate-selection and speech fixes were evaluated repeatedly on
+the test partition. These follow-ups are exploratory comparisons on a reused test set, not untouched confirmation.
+Their cue-delay estimates are separate from the paced installed-app and microphone tests.
 
 ## Files
 
