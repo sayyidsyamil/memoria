@@ -85,3 +85,27 @@ Append discoveries and revisions here; keep prior results and failed hypotheses.
 - The first online run encountered slower unaffected controls: do not claim a p95
   improvement from token counts. Use actual interleaved base/candidate measurements
   for subsequent stopping-rule timing conclusions.
+- After the first contrast screen: strengths 0.5/1/2 leave the derivation loop's entire
+  1,800-token output unchanged (zero control also matches). Before further long
+  generations, use fixed-prefix causal next-delimiter probes on both direction
+  families at existing strengths and bounded extensions 4/6. The stock first-loop
+  continuation margin is 4.375 logits; zero output changes at strength2 motivates
+  this extension, rather than importing a strength/layer from the 0.8B model.
+  Add a stronger direction control: random output unit vector with the **same v**,
+  matching both Frobenius edit norm and perturbation magnitude on every input.
+- Coordinator-requested nonlinear arm, frozen before its results: retain the same
+  layer30 contrast u/v and test `y' = y - alpha * max(v^T x - 2, 0) * u` on generated-token
+  forwards only. Prompt prefill, including the first output-token prediction, is
+  unchanged; the sampler enables the intervention after that prediction. This is a
+  **context-dependent nonlinear activation adapter**, never a static weight patch or
+  exported checkpoint. Threshold2 lies between the derivation first-event projection
+  0.044 and second-repetition projection3.744; normal closing is -3.749. Two strengths
+  only: 12 and24, motivated by the measured linear third-boundary slope (~0.25 logits
+  per strength) and the rectifier's smaller effective projection (5.280-2). No tuning
+  on independent prompts. Stop a variant if its causal derivation prefixes still
+  prefer repetition at every measured repeated boundary or it changes the derivation
+  normal's greedy output. A surviving variant must undergo actual interleaved free
+  generation on both loops, the enumeration cap, all six normal controls, and recovery
+  controls; compare a random output direction with identical input/gate/scalar norm.
+  This branch continues to import the assigned 225f709fd engine/harness snapshot;
+  the coordinator's newer repair changes are not adopted mid-experiment.

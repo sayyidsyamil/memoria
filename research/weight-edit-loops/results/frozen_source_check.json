@@ -1,0 +1,22 @@
+{
+  "src-tauri/resources/memory/model_server.py": {
+    "sha256": "84cfbf69f4a516b2afbe25692b973049be89ad5c0e9fe243b5e8a4be6747ddc2",
+    "matches_225f709fd": true
+  },
+  "src-tauri/resources/memory/temporal_service.py": {
+    "sha256": "11e8418ac7e6858376f0923d5bd58b065630f082184e61b0e0261280ebc1cf4d",
+    "matches_225f709fd": true
+  },
+  "src-tauri/resources/memory/memoria_engine/pipeline.py": {
+    "sha256": "e10200648b2ae9a900ae6d1e790340da3d4f256a5956e53a40165460fcb89fdf",
+    "matches_225f709fd": true
+  },
+  "research/model-improvements/harness.py": {
+    "sha256": "7cf4dcd07f69187e0d0c893a9ec4c2e03e3ffe1b0b7696e6554d0350e8f3465d",
+    "matches_225f709fd": true
+  },
+  "research/model-improvements/lm.py": {
+    "sha256": "1e870f97c757504c6cfc840ebb8d3ae086ce3c630d17bd327c1fb547091319ef",
+    "matches_225f709fd": true
+  }
+}

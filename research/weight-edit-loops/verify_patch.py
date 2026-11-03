@@ -3,6 +3,7 @@
 Use the exclusive model lease. Tests zero identity, numerical weight-equivalence,
 and untouched base arrays; never dequantises more than one projection.
 """
+import argparse
 import json
 
 from context import HERE, SCRATCH, sha256, write_new_json
@@ -14,6 +15,10 @@ def main():
     import mlx.core as mx
     import numpy as np
 
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--label", default="patch_verification")
+    parser.add_argument("--fp32-dequant", action="store_true")
+    args = parser.parse_args()
     hard_deadline()
     lm = load_model()
     rows = []
@@ -29,7 +34,9 @@ def main():
                         for name, value in (("weight", base.weight), ("scales", base.scales), ("biases", base.biases))}
 
             before = fingerprint()
-            matrix = mx.dequantize(base.weight, base.scales, base.biases, group_size=base.group_size, bits=base.bits).astype(mx.float32)
+            scales = base.scales.astype(mx.float32) if args.fp32_dequant else base.scales
+            biases = base.biases.astype(mx.float32) if args.fp32_dequant else base.biases
+            matrix = mx.dequantize(base.weight, scales, biases, group_size=base.group_size, bits=base.bits).astype(mx.float32)
             x = mx.array(activations["loop_x"][spec["layer"], [0, -1]]).astype(mx.float32)
             normal = base(x)
             arrays = np.load(HERE / spec["direction_file"], allow_pickle=False)
@@ -55,13 +62,14 @@ def main():
             row = {"family": family, "layer": spec["layer"], "zero_identity": identity, "base_unchanged": unchanged,
                    "runtime_vs_dense_max_abs": max_error, "runtime_vs_dense_relative_l2": relative_l2,
                    "edit_frobenius": info["edit_frobenius"], "random_control_frobenius": norm_control,
-                   "base_fingerprint": before, "projection_shape": list(matrix.shape), "dtype_for_equivalence_test": "float32 inputs"}
+                   "base_fingerprint": before, "projection_shape": list(matrix.shape), "dtype_for_equivalence_test": "float32 inputs",
+                   "fp32_dequant": args.fp32_dequant}
             rows.append(row)
             print(json.dumps(row), flush=True)
             assert identity and unchanged and relative_l2 < 2e-3
             del matrix, x, normal, runtime, dense
             mx.clear_cache()
-        write_new_json(HERE / "results" / "patch_verification.json", {"checks": rows, "peak_mlx_gb": mx.get_peak_memory() / 1e9})
+        write_new_json(HERE / "results" / (args.label + ".json"), {"checks": rows, "peak_mlx_gb": mx.get_peak_memory() / 1e9})
     finally:
         close_model(lm)
 

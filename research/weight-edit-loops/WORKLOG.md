@@ -37,3 +37,47 @@
 - Cross-task probes frozen before edited-model output: six synthetic guard cases,
   three synthetic live Ask cases, four real development router questions. These are
   narrow smoke probes, not a population benchmark.
+
+## 16:07 — first weight screen, negative
+
+- `contrast-screen`: zero, 0.5, 1 and 2 strengths all produce the exact same
+  1,800-token unresolved loop on TS3004b.w0. Matched normal TS3004b.w1 is unchanged
+  at zero/0.5/1. Strength2's normal was explicitly deferred by the bounded lease.
+  No success is claimed; each prediction and its condition are retained.
+- Lease: 326.89 s, MLX peak <=4.000 GB, process peak footprint 4.977 GB. Model
+  caches were new for each request and both shared worker caches cleared.
+- The saved activation geometry predicts a growing positive contrast projection
+  at successive loop boundaries (0.044, 3.744, 5.280) but a negative projection on
+  the normal boundary (-3.749), so stronger global removal could hurt normal
+  stopping. Fixed-prefix causal probes will test this before more long decodes.
+- Random projection controls are matched in weight norm. A further control using
+  the *same* learned input vector v and a random output u will also match the
+  perturbation's activation magnitude exactly, isolating output-direction effects.
+
+## Later static screens and recovery controls
+
+- Contrast strength6 changes some loop text but still exhausts1800 tokens; its
+  activation/norm-matched random-output control does too. Matched normal remains
+  byte-identical. The sparse64 strength6 output is exactly the original1800-token
+  loop; its random-output control also caps. These are negative results, not wins.
+- Fixed-prefix causal screen: contrast strength6 lowers the third-boundary
+  continuation-minus-close margin3.625→2.125, insufficient to choose closure. The
+  sparse64 edit hardly changes the margin (3.625→3.375). All fresh-state evidence
+  remains in `causal-grid.*`.
+- Fully generated strict-root recovery control: base247 tokens/9.545s preserves the
+  correct later LCD event; first-repeat163/7.015s discards it; conservative247/9.434s
+  preserves it. Earlier copy control wrapped its output in an outer array (detector
+  declines it); that attempt is retained. Forced-prefix extraction independently
+  recovers a correct TV-only event after the duplicate, also lost by first-repeat.
+- Numerical verification: zero-strength identity and unchanged quantised target
+  arrays pass. Against a single-matrix materialisation using fp32 dequantisation,
+  relative L2 differences are0.000414 (contrast) and0.000193 (sparse), reflecting
+  arithmetic/rounding differences; no exact finite-precision equivalence is claimed.
+- Interleaved conservative stopping, four diagnostic prompts (three caps plus the
+  matched normal): loop calls49.834→11.867s and55.637→36.301s, with291/1195 emitted
+  tokens; enumeration and normal remain byte-identical. All eight requests finish
+  in one285.67s lease; peak process footprint4.769GB. This is a small enriched
+  diagnostic, not a full-development p95 estimate.
+- Prepared but **not run**: `derive_structural.py`, a last-MLP recurrence-input feature
+  writing against a structural continuation axis. Coordinator's rectified-gate arm
+  takes priority over that optional third static hypothesis.

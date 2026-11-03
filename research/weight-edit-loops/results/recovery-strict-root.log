@@ -1,0 +1,21 @@
+{"mode": "copy", "policy": "base", "seconds": 9.545, "generated_tokens": 247, "early_stopped": false, "distinct_correct_event_preserved": true}
+{"mode": "copy", "policy": "first-repeat", "seconds": 7.0148, "generated_tokens": 163, "early_stopped": true, "distinct_correct_event_preserved": false}
+{"mode": "copy", "policy": "conservative", "seconds": 9.4344, "generated_tokens": 247, "early_stopped": false, "distinct_correct_event_preserved": true}
+       35.24 real        14.25 user         4.25 sys
+          2497478656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              329771  page reclaims
+                 446  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                5701  voluntary context switches
+              128602  involuntary context switches
+         86846185729  instructions retired
+         40658556349  cycles elapsed
+          3857255664  peak memory footprint

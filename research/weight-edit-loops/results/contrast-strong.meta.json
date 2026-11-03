@@ -1,0 +1,64 @@
+{
+  "label": "contrast-strong",
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 5.33,
+    "active_gb": 2.471
+  },
+  "started": "2026-11-03T16:22:15+0800",
+  "conditions": [
+    {
+      "label": "contrast-strong-contrast_layer30_s6",
+      "patch": {
+        "family": "contrast",
+        "layer": 30,
+        "direction_file": "directions/contrast_layer30.npz",
+        "direction_sha256": "ce3b6989e64454ad15747b1599cc620e936b209bc597dedb2822080c7692051d",
+        "seed": 20261103,
+        "formula": "W' = W - strength * u v^T",
+        "base_projection_norm": 45.902069091796875,
+        "unit_strength_edit_norm": 1.3212602138519287,
+        "relative_unit_edit_norm": 0.02878432720899582,
+        "columns": 9216,
+        "u_sha256": "fdf86dbdcf70fc8ba6af6b1593f01e7e1e89553c92e257f03c6dd37d8d50933b",
+        "v_sha256": "dc97f5a083a4d5557e51a850f172bb6e85c836bcbf04a18c6059ecae1bfa7e3f",
+        "strength": 6,
+        "extension": "initial contrast s<=2 has no free-generation effect; fixed-prefix causal screen first",
+        "runtime": "quantised-base-plus-float32-rank-one-residual",
+        "edit_frobenius": 7.927560806274414,
+        "added_vector_bytes": 47104
+      }
+    },
+    {
+      "label": "contrast-strong-contrast_layer30_random_output_s6",
+      "patch": {
+        "family": "contrast",
+        "layer": 30,
+        "direction_file": "directions/contrast_layer30.npz",
+        "direction_sha256": "ce3b6989e64454ad15747b1599cc620e936b209bc597dedb2822080c7692051d",
+        "seed": 20261103,
+        "formula": "W' = W - strength * u v^T",
+        "base_projection_norm": 45.902069091796875,
+        "unit_strength_edit_norm": 1.3212602138519287,
+        "relative_unit_edit_norm": 0.02878432720899582,
+        "columns": 9216,
+        "u_sha256": "fdf86dbdcf70fc8ba6af6b1593f01e7e1e89553c92e257f03c6dd37d8d50933b",
+        "v_sha256": "dc97f5a083a4d5557e51a850f172bb6e85c836bcbf04a18c6059ecae1bfa7e3f",
+        "strength": 6,
+        "u_key": "random_u",
+        "v_key": "v",
+        "control": "random_output_same_input_axis_equal_weight_and_per_input_perturbation_norm",
+        "runtime": "quantised-base-plus-float32-rank-one-residual",
+        "edit_frobenius": 7.927561283111572,
+        "added_vector_bytes": 47104
+      }
+    }
+  ],
+  "source": {
+    "screen_weights.py": "8bc05f67253615cfd2c230f4181b598c02664601fe06cb3241cca56c0cf0caaa",
+    "weight_patch.py": "db63079063968238193a5ce4d4e685e727b05659208bdbfd32a1df4c5f6df2b7",
+    "run_generation.py": "18c484bed99c4a8ca1a25a99888591cca523b31dd79d96ed4b11a65cd4fe563b"
+  },
+  "finished": "2026-11-03T16:25:17+0800",
+  "seconds": 192.5506677920057
+}

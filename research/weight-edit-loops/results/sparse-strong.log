@@ -1,0 +1,22 @@
+{"condition": "sparse-strong-repeat64_layer30_s6", "id": "TS3004b.w0", "output_tokens": 1800, "seconds": 74.1024, "finish_reason": "length", "peak_mlx_gb": 3.9889, "matches_historical_bytes": true, "gold": [], "lost_gold": [], "valid": 0}
+{"condition": "sparse-strong-repeat64_layer30_s6", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 9.8828, "finish_reason": "stop", "peak_mlx_gb": 3.9889, "matches_historical_bytes": true, "gold": ["TS3004b.t56.0"], "lost_gold": [], "valid": 1}
+{"condition": "sparse-strong-repeat64_layer30_random_output_s6", "id": "TS3004b.w0", "output_tokens": 1800, "seconds": 74.4697, "finish_reason": "length", "peak_mlx_gb": 3.9994, "matches_historical_bytes": false, "gold": [], "lost_gold": [], "valid": 0}
+{"condition": "sparse-strong-repeat64_layer30_random_output_s6", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 5.9715, "finish_reason": "stop", "peak_mlx_gb": 3.9889, "matches_historical_bytes": true, "gold": ["TS3004b.t56.0"], "lost_gold": [], "valid": 1}
+      174.26 real        69.72 user        18.26 sys
+          2189524992  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              347581  page reclaims
+                7132  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6361  voluntary context switches
+              638251  involuntary context switches
+        246377788284  instructions retired
+        133937408108  cycles elapsed
+          4978642184  peak memory footprint

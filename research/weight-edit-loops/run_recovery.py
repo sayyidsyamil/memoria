@@ -24,6 +24,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--label", required=True)
     parser.add_argument("--edit")
+    parser.add_argument("--mode", choices=("all", "copy", "forced-prefix"), default="all")
+    parser.add_argument("--strict-root", action="store_true", help="explicit top-level object instruction for the copy control")
     args = parser.parse_args()
     hard_deadline()
     source = next(r for r in prompt_rows() if r["id"] == "TS3006b.w1")
@@ -41,9 +43,13 @@ def main():
             from weight_patch import install
             meta["patch"], undo = install(lm.model, json.loads((HERE / args.edit).read_text()))
         with (HERE / "results" / (args.label + ".jsonl")).open("x") as out:
-            for mode in ("copy", "forced-prefix"):
+            for mode in (("copy", "forced-prefix") if args.mode == "all" else (args.mode,)):
                 prompt = ("Return this supplied extraction record exactly as JSON, preserving every array element including repeated entries:\n" + expected
                           if mode == "copy" else source["prompt"])
+                if mode == "copy" and args.strict_root:
+                    prompt = ('Copy the following JSON object exactly. Your response must start with { and end with }. '
+                              'The sole top-level property is "events". Do not wrap the object in an array. '
+                              'Preserve every array element, including the identical repeated entries.\nJSON object:\n' + expected)
                 for policy in ("base", "first-repeat", "conservative"):
                     reset_shared()
                     rendered = lm.tokenizer.apply_chat_template(
@@ -78,6 +84,7 @@ def main():
                            "generated_tokens": last.generation_tokens if last else 0,
                            "forced_prefix_tokens": len(lm.tokenizer.encode(initial, add_special_tokens=False)),
                            "early_stopped": early, "distinct_correct_event_preserved": later,
+                           "strict_root_requested": args.strict_root, "root_object": raw.lstrip().startswith("{"),
                            "text": text, "raw_text": raw, "quality": quality}
                     out.write(json.dumps(row, ensure_ascii=False) + "\n")
                     out.flush()
