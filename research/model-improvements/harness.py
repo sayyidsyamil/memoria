@@ -135,11 +135,13 @@ def make_extractor(lm, mechanism="app"):
 
 
 def run_chain(chain, lm, mechanism="app"):
-    """mechanism: a name in MECHANISMS, optionally followed by post-hoc filters on its candidates, open loop
-    ("app|support>=0"): the base run's candidates of each meeting, minus those a filter drops, go to a fresh pipeline.
-    "app>app-numwords": the app's replies, read the way app-numwords reads them, open loop (the prompts, and so the
-    beliefs they show, stay those of the app run)."""
+    """mechanism: a name in MECHANISMS, then optionally
+    "+filter" (closed loop: applied to each meeting's candidates before they are written, so later prompts show the
+    filtered beliefs) and "|filter" (open loop: the finished run's candidates of each meeting, minus those the filter
+    drops, go to a fresh pipeline; the prompts stay those of the run), e.g. "app+lastvalue" or "app|support>=0".
+    "app>app-numwords": the app's replies, read the way app-numwords reads them, open loop."""
     head, *filters = mechanism.split("|")
+    head, *gates = head.split("+")
     reader_lm = lm
     if ">" in head:
         source, reader = head.split(">")
@@ -147,7 +149,8 @@ def run_chain(chain, lm, mechanism="app"):
         reader_lm = _Recorded(recorded["records"])
         head = reader
     windowed, inner = make_extractor(reader_lm, head)
-    run = run_eval.run_pipeline(chain, windowed, "immediate")
+    extractor = _Gated(windowed, gates, chain, lm) if gates else windowed
+    run = run_eval.run_pipeline(chain, extractor, "immediate")
     run["calls"], run["records"] = inner.calls, inner.records
     for name in filters:
         run = {**replay_filtered(chain, run["results"], make_filter(name, chain, run, lm)), "calls": run["calls"],
@@ -170,46 +173,58 @@ class _Recorded:
         raise SystemExit("scores are not replayed by _Recorded")
 
 
+class _Gated:
+    """Closed loop: filters applied to a meeting's candidates inside the pipeline, before they are written."""
+
+    def __init__(self, inner, names, chain, lm):
+        self.inner, self.names, self.chain, self.lm = inner, names, chain, lm
+        self.name = getattr(inner, "name", "gated")
+        self.last_stats = {}
+
+    def extract(self, ctx):
+        candidates = self.inner.extract(ctx)
+        self.last_stats = getattr(self.inner, "last_stats", {})
+        for name in self.names:
+            kept = meeting_keep(name, self.chain, ctx.meeting, candidates, ctx.beliefs, self.lm)
+            candidates = [c for c in candidates if id(c) in kept]
+        return candidates
+
+
 def make_filter(name, chain, run, lm):
-    results = run["results"]
-    if name.startswith("support>="):
-        import support
-        tau = float(name.split(">=")[1])
-        scores = support.scored(chain, results, lm)
-        dropped = {(m, id(c)) for m, rows in scores.items() for c, v, s in rows if s is not None and s < tau}
-        return lambda meeting, candidate: (meeting.meeting_id, id(candidate)) not in dropped
-    if name == "lexsupport":
-        return lambda meeting, candidate: lexical_support(chain, meeting, candidate)
-    if name == "lastvalue":
-        return last_value_filter(chain, results)
-    if name in ("consolidate", "consolidate-think"):
-        import consolidate
-        keep, log = consolidate.consolidate_filter(chain, run, lm, think=name.endswith("think"))
-        CONSOLIDATION_LOG.extend(log)
-        return keep
-    raise SystemExit(f"unknown filter {name}")
+    """Open loop: keep(meeting, candidate) for the finished run's candidates, each meeting judged with the beliefs its
+    prompt showed."""
+    kept = set()
+    for gm, res in zip(chain.meetings, run["results"]):
+        beliefs = run["pipeline"].beliefs_at(gm.meeting.occurred_at)
+        kept |= meeting_keep(name, chain, gm.meeting, [d.candidate for d in res.dispositions], beliefs, lm)
+    return lambda meeting, candidate: id(candidate) in kept
 
 
 CONSOLIDATION_LOG = []
 
 
-def last_value_filter(chain, results):
-    """Within one meeting, a tracked slot keeps only writes of the value its last valid write states: earlier different
-    values in the same meeting (talk that the meeting moved past) are dropped. No model."""
+def meeting_keep(name, chain, meeting, candidates, beliefs, lm):
+    """ids of the candidates of one meeting that the filter keeps. Candidates the pipeline would not write are kept
+    (it drops or rejects them itself)."""
     import support
-    keep_ids = set()
-    for gm, res in zip(chain.meetings, results):
-        valid = [(d.candidate, support.valid(gm.meeting, chain.registry, d.candidate)) for d in res.dispositions]
+    valid = [(c, support.valid(meeting, chain.registry, c)) for c in candidates]
+    if name.startswith("support>="):
+        tau = float(name.split(">=")[1])
+        return {id(c) for c, v in valid if v.status != "valid" or support.score(meeting, chain.registry, v, lm) >= tau}
+    if name == "lexsupport":
+        return {id(c) for c, v in valid if v.status != "valid" or lexical_support(chain, meeting, c)}
+    if name == "lastvalue":
         last = {}
         for c, v in valid:
-            if v.status == "valid":
-                slot = (v.object_id, v.attribute)
-                if slot not in last or v.turn >= last[slot][0]:
-                    last[slot] = (v.turn, v.value)
-        for c, v in valid:
-            if v.status != "valid" or values_equal(v.value, last[(v.object_id, v.attribute)][1]):
-                keep_ids.add(id(c))
-    return lambda meeting, candidate: id(candidate) in keep_ids
+            if v.status == "valid" and ((v.object_id, v.attribute) not in last or v.turn >= last[(v.object_id, v.attribute)][0]):
+                last[(v.object_id, v.attribute)] = (v.turn, v.value)
+        return {id(c) for c, v in valid if v.status != "valid" or values_equal(v.value, last[(v.object_id, v.attribute)][1])}
+    if name in ("consolidate", "consolidate-think"):
+        import consolidate
+        kept, log = consolidate.consolidate_meeting(chain, meeting, valid, beliefs, lm, think=name.endswith("think"))
+        CONSOLIDATION_LOG.extend(log)
+        return kept
+    raise SystemExit(f"unknown filter {name}")
 
 
 def _words(text):

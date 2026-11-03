@@ -51,17 +51,7 @@ def valid(meeting, registry, candidate):
     return Pipeline._classify(SimpleNamespace(registry=registry), meeting, candidate)
 
 
-def scored(chain, results, lm):
-    """{meeting id: [(candidate, disposition-if-valid, score or None)]} for every candidate of the run."""
-    out = {}
-    for gm, res in zip(chain.meetings, results):
-        rows = []
-        for d in res.dispositions:
-            v = valid(gm.meeting, chain.registry, d.candidate)
-            score = None
-            if v.status == "valid":
-                record = lm.score(messages(gm.meeting, chain.registry, v), tag=f"support:{gm.meeting.meeting_id}:{v.turn}")
-                score = record["logprobs"]["YES"] - record["logprobs"]["NO"]
-            rows.append((d.candidate, v, score))
-        out[gm.meeting.meeting_id] = rows
-    return out
+def score(meeting, registry, v, lm):
+    """log P(YES) - log P(NO) for a valid disposition v (grounded turn, slot, value)."""
+    record = lm.score(messages(meeting, registry, v), tag=f"support:{meeting.meeting_id}:{v.turn}")
+    return record["logprobs"]["YES"] - record["logprobs"]["NO"]

@@ -52,30 +52,27 @@ def answer(text):
         return None
 
 
-def consolidate_filter(chain, run, lm, think=False):
-    import support
+def consolidate_meeting(chain, meeting, valid, beliefs, lm, think=False):
+    """(ids of the candidates kept, log) for one meeting; valid = [(candidate, disposition from support.valid)]."""
     from lm import APP_SYSTEM
-    keep_ids, log = set(), []
-    for gm, res in zip(chain.meetings, run["results"]):
-        beliefs = run["pipeline"].beliefs_at(gm.meeting.occurred_at)
-        valid = [(d.candidate, support.valid(gm.meeting, chain.registry, d.candidate)) for d in res.dispositions]
-        slots = {}
-        for c, v in valid:
-            if v.status == "valid":
-                slots.setdefault((v.object_id, v.attribute), []).append((c, v))
-        chosen = {}
-        for slot, rows in slots.items():
-            if len({str(v.value).casefold() for _, v in rows}) < 2:
-                continue
-            prompt = question(gm.meeting, chain.registry, slot, [(v.turn, v.value) for _, v in rows], beliefs.get(slot))
-            record = lm.app_generate(prompt, 1024 if think else 60, APP_SYSTEM, tag=f"consolidate:{gm.meeting.meeting_id}", think=think)
-            value = answer(record["text"]) if not (think and "</think>" not in record["text"]) else None
-            if value is not None and any(values_equal(v.value, value) for _, v in rows):
-                chosen[slot] = value
-            log.append({"meeting": gm.meeting.meeting_id, "slot": slot, "values": sorted({str(v.value) for _, v in rows}), "answer": value,
-                        "seconds": record["seconds"], "tokens": record["output_tokens"]})
-        for c, v in valid:
-            slot = (v.object_id, v.attribute) if v.status == "valid" else None
-            if slot not in chosen or values_equal(v.value, chosen[slot]):
-                keep_ids.add(id(c))
-    return (lambda meeting, candidate: id(candidate) in keep_ids), log
+    slots, log = {}, []
+    for c, v in valid:
+        if v.status == "valid":
+            slots.setdefault((v.object_id, v.attribute), []).append((c, v))
+    chosen = {}
+    for slot, rows in slots.items():
+        if len({str(v.value).casefold() for _, v in rows}) < 2:
+            continue
+        prompt = question(meeting, chain.registry, slot, [(v.turn, v.value) for _, v in rows], beliefs.get(slot))
+        record = lm.app_generate(prompt, 1024 if think else 60, APP_SYSTEM, tag=f"consolidate:{meeting.meeting_id}", think=think)
+        value = answer(record["text"]) if not (think and "</think>" not in record["text"]) else None
+        if value is not None and any(values_equal(v.value, value) for _, v in rows):
+            chosen[slot] = value
+        log.append({"meeting": meeting.meeting_id, "slot": slot, "values": sorted({str(v.value) for _, v in rows}), "answer": value,
+                    "seconds": record["seconds"], "tokens": record["output_tokens"]})
+    kept = set()
+    for c, v in valid:
+        slot = (v.object_id, v.attribute) if v.status == "valid" else None
+        if slot not in chosen or values_equal(v.value, chosen[slot]):
+            kept.add(id(c))
+    return kept, log
