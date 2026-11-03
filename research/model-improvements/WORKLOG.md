@@ -154,3 +154,11 @@ Newest last. Each entry: what was tried, on which split, the result, and what wa
   the harness); strongest-candidate AUROC 0.969; 0.33 s per question. 0.8B AUROC: stock 0.629 / edited 0.632 (bf16),
   0.619 / 0.620 (4-bit). Routing in 4-bit 0.8B collapses (51 and 54 of 124 replies unparsable; 52 and 53 right on
   gold facts against 95 and 103 in bf16).
+- 15:25-15:40 **Steering from the user (via the parent): narrow scope.** Cancelled the queued and in-flight 0.8B jobs
+  (one 0.8B 4-bit extraction stopped mid-series; its finished windows stay cached) and both thinking-on math checks
+  (never run). Protocol amended before any new result (new-val reserved, specialists' families recorded). Candidate A
+  frozen with hashes (`results/validation/candidate-A.json`), not preregistered. Demo regression, one short lease per
+  configuration: shipped path and A identical (14/18 gold events, 19/21 QA, no wrong value, 12 of 13 proposals
+  correct). Consolidation with thinking on: 13 of 16 questions ran out of the 1,024-token thinking budget, 552 s in
+  all, QA 95: rejected. README rewritten as the intermediate deliverable; every table regenerates from the caches
+  (`dev_tables.py`, `small_tables.py`). No change to `src-tauri/` or `research/ledger-engine/` on this branch.

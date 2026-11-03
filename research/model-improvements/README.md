@@ -1,17 +1,125 @@
 # Model improvements: extraction quality, and the edited Qwen3.5-0.8B
 
-Status: in progress (3 November 2026). Protocol: [`PROTOCOL.md`](PROTOCOL.md), written before any new model result.
-Running notes, including rejected ideas: [`WORKLOG.md`](WORKLOG.md).
+**Status (3 November 2026, 15:40): development complete, READY FOR VALIDATION, new-val not opened.** Candidate A is
+frozen (`results/validation/candidate-A.json`). On the user's steering the final validation waits until separate
+specialists report their own 4B candidates (weight-space repair of repetition loops, attribution edits); all
+candidates are then preregistered together and the reserved validation series are run once. Protocol and amendments:
+[`PROTOCOL.md`](PROTOCOL.md). Dated notes, including every rejected idea: [`WORKLOG.md`](WORKLOG.md).
 
-## Questions
+Everything below is **development data** (old-dev ES2003, TS3004 and new-dev ES2011, IS1008, TS3006: 20 meetings,
+60 gold events, 124 questions), already used to choose among variants, so the candidate's numbers are optimistic.
+No number here is a held-out result.
 
-1. Where does the shipped extractor (Qwen3.5-4B 4-bit through the app's `SharedExtractor`) lose correct decisions or
-   write wrong ones?
-2. Can stock Qwen3.5-0.8B, or the 0.8B edited by Weight-Space Programming (Experiment 8), do Memoria's small tasks at
-   lower memory or latency?
-3. Can a small, explainable change give more correct grounded decisions without losing recall?
+## Answers so far
 
-## The edited 0.8B: what was verified before any comparison
+1. **The shipped extraction is weaker than the configuration evaluated in October.** On old-dev the app's request
+   answers 27/45 questions against 35/45 for October's request with the same model and prompt (0 only-app against 8
+   only-October, p = 0.008). One cause is identified: `temporal_service.repaired` drops amounts whose quote spells the
+   number ("twelve point five Euros per unit"; keeping them recovers 3 gold events and 3 answers on dev). The other
+   difference is the worker's JSON system message: without it the 4B marks far more events unresolved and writes fewer
+   wrong changes, but on the full dev set that effect alone is within the run-to-run movement of greedy decoding
+   (QA 95 vs 90, p = 0.36; 90 again in a closed-loop variant), so it is a hypothesis, not a finding.
+2. **QA has a high floor.** An empty ledger answers 69 of the 124 dev questions (56%) and 58 of October's 96 test
+   questions: as-of-date questions mostly have the answer "none", change counts mostly 0. Only the 43 current-value
+   questions need a decision to be found. Every filter therefore gains QA by writing less; filters are judged against
+   random removal of the same number of writes, and against the gold events they keep.
+3. **Best 4B candidate on dev (A):** request without the system message, amounts in words kept, replies stopped at
+   their first repeated event, and one value per tracked item per meeting (the value written most often). QA 100/124
+   against 90 (17 only-A against 7 only-app, p = 0.064), gold events found 28 against 26, wrong-value writes 31 against
+   46, review inbox 89 against 119 proposals (-25%) with 27 correct proposals against 25. All of the gain is in change
+   counts (35 against 26 of 43); current values are unchanged (28/43). It costs 16% more generation time per meeting.
+4. **The 0.8B is not deployable for these tasks, edited or not.** As the live guard it never alerts (AUROC 0.62-0.63
+   against 0.97 for the 4B); it routes 95-103 of 124 questions right in bf16 (4B: 124) and 52-53 in 4-bit; it finds
+   2-6 of the gold events the 4B finds 13-16 of. The edit is real and transfers to Memoria's thinking-off JSON
+   requests: far fewer replies run into the token budget (bf16 41 -> 23 of 56; 4-bit 34 -> 11 of 41) and routing
+   improves (9 questions gained, 1 lost, p = 0.021), but it does not close the gap. A resident 0.8B beside the 4B would
+   add memory (0.5-1.6 GB of weights), not save it.
+
+## 4B on development data
+
+Shipped request (`app`) and mechanisms. Open loop = a filter on the shipped run's candidates (its prompts fixed);
+closed loop = the configuration's own beliefs in its later prompts. Empty ledger: 69/124. Regenerate with
+`python3.11 dev_tables.py` (no model; 27 s).
+
+| configuration | QA /124 | current /43 | as of /38 | changes /43 | gold found /60 | wrong writes | inbox | correct proposals | QA after review | gen s / meeting | only / only vs app, p |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| shipped app path (baseline) | 90 | 28 | 36 | 26 | 26 | 46 | 119 | 25 | 92 | 57.6 | |
+| + amounts in words kept (open loop) | 93 | 31 | 36 | 26 | 29 | 46 | 122 | 28 | 95 | 57.6 | 3 / 0, 0.25 |
+| + stop at the first repeated event (open loop) | 90 | 28 | 36 | 26 | 26 | 46 | 119 | 25 | 92 | 54.3 | 0 / 0 |
+| support check, tau 0 (open loop) | 87 | 23 | 36 | 28 | 23 | 27 | 80 | 22 | 89 | 57.6 | 3 / 6, 0.51 |
+| lexical support control (open loop) | 92 | 24 | 37 | 31 | 24 | 28 | 84 | 23 | 89 | 57.6 | 6 / 4, 0.75 |
+| re-anchor or drop unsupported quotes (open loop) | 95 | 29 | 37 | 29 | 27 | 36 | 103 | 26 | 93 | 57.6 | 5 / 0, 0.062 |
+| last value per slot per meeting (open loop) | 97 | 28 | 36 | 33 | 20 | 35 | 95 | 19 | 87 | 57.6 | 8 / 1, 0.039 |
+| commonest value per slot per meeting (open loop) | 98 | 30 | 36 | 32 | 21 | 30 | 97 | 20 | 89 | 57.6 | 10 / 2, 0.039 |
+| model consolidation, thinking off (open loop) | 102 | 32 | 36 | 34 | 23 | 29 | 96 | 22 | 89 | 57.6 | 13 / 1, 0.002 |
+| request without the JSON system message (nosys) | 95 | 27 | 37 | 31 | 29 | 45 | 100 | 27 | 97 | 67.1 | 12 / 7, 0.36 |
+| nosys + commonest value (open loop) | 102 | 27 | 37 | 38 | 28 | 28 | 84 | 27 | 96 | 67.1 | 18 / 6, 0.023 |
+| nosys + model consolidation, thinking off (open loop) | 101 | 27 | 37 | 37 | 27 | 32 | 85 | 26 | 96 | 67.1 | 17 / 6, 0.035 |
+| nosys + model consolidation, thinking on (open loop) | 95 | 27 | 37 | 31 | 27 | 44 | 93 | 25 | 95 | 67.1 | 12 / 7, 0.36 |
+| nosys + numwords + loopstop (closed loop) | 90 | 25 | 37 | 28 | 29 | 53 | 104 | 27 | 97 | 65.3 | 12 / 12, 1.0 |
+| **candidate A = nosys + numwords + loopstop + commonest value (closed loop)** | **100** | 28 | 37 | 35 | 28 | 31 | 89 | 27 | 98 | 67.1 | 17 / 7, 0.064 |
+
+"Wrong writes": writes whose value is not the gold value in force once the meeting's decisions are taken. "Inbox":
+belief-changing proposals under the app's `confirm_all` policy with a perfect reviewer (open loop), of which "correct
+proposals" match a gold event exactly. Generation seconds are summed model time per meeting on an M5 (16 GB).
+
+**Shipped baseline in detail.** Precision 16.7% [9-28], recall 43% [24-64], F1 24% (bootstrap over meetings); 7.8
+writes per meeting, 46 of 156 with a value not in force; 3 of 97 replies ran to 1,800 tokens repeating one event and
+did not parse cleanly; window p50/p95 7.9/29.9 s, meeting p50/p95 53/100 s; MLX peak 4.1 GB, process peak footprint
+4.9-5.1 GB per job. The router (prompt r1 through the worker) routes 100/124 exactly and 124/124 to a right answer on
+gold facts, 2.8 s median. On ES2011 the model found six of nine decisions with the right value but cited other turns
+than the human-linked evidence, so the October scorer counts none of them as found: "gold found" understates
+value-correct extraction, which is why wrong writes and QA are reported beside it.
+
+**Controls that ruled out easier explanations** (random removal of the same number of writes per meeting, 300 draws,
+`controls.py`, results in `results/controls.jsonl`):
+
+| filter on its base | writes removed | QA | random: mean, 90th pct | share of draws >= filter | gold kept vs random mean | passes |
+|---|---|---|---|---|---|---|
+| lexsupport on app | 49 | 92 | 90.9, 94 | 39% | 24 vs 20.1 | no |
+| reanchor:10 on app | 21 | 95 | 92.8, 95 | 15% | 27 vs 23.7 | at the edge |
+| commonest value on app | 23 | 98 | 90.5, 93 | 0% | 21 vs 22.7 | no (loses gold events) |
+| commonest value on nosys | 21 | 102 | 95.4, 98 | 0.3% | 28 vs 26.3 | **yes** |
+| last value on nosys | 25 | 100 | 95.4, 98 | 1.3% | 27 vs 25.9 | yes |
+
+**Rejected, and why** (all on dev):
+- *Support check* (one YES/NO question per write about attribution, not firmness): halves wrong writes but drops the
+  only write of slots whose value was right with a weak quote; QA and gold events both fall.
+- *Last value per meeting* on the shipped request: keeps a late remark over the decision ("I'd say we go two... double
+  curved" after single curved was decided); loses 6 gold events.
+- *Model consolidation with thinking on*: 13 of 16 questions ran out of a 1,024-token thinking budget (552 s for 16
+  questions); no gain. With thinking off it equals the deterministic rule, so ties go to the rule (no model calls).
+- *The request without the system message alone* is not shown to help: one closed-loop change of a later prompt moves
+  QA from 95 to 90. Greedy decoding of a changed prompt moves a series by several questions; A's robust part on dev
+  is one value per slot per meeting on top of that request.
+- *Support check only on value changes*: no QA effect (90), inbox -10%.
+
+**Demo regression** (fictional UAT series, 3 meetings, 18 gold events, 21 questions; `run.py extract 4b ... demo`):
+the shipped path and candidate A give identical results: 14/18 gold events, 19/21 QA, no wrong-value write, 13
+proposals of which 12 correct. old-test (96 questions) is kept for the final regression with the validation.
+
+## 0.8B against the 4B (development data; extraction coverage partial)
+
+Same requests as the app, thinking off, greedy. 4-bit = affine, group 64, quantised in memory from bf16 after the
+edit. Regenerate with `python3.11 small_tables.py` (no model).
+
+| | 4B (4-bit) | 0.8B stock bf16 | 0.8B edited bf16 | 0.8B stock 4-bit | 0.8B edited 4-bit |
+|---|---|---|---|---|---|
+| Guard, bench-dev at the shipped threshold 2.0: caught /20, false alarms /40 | 16, 2 | 0, 0 | 0, 0 | 0, 0 | 0, 0 |
+| Guard AUROC (strongest candidate) | 0.969 | 0.629 | 0.632 | 0.619 | 0.620 |
+| Routing: right on gold facts /124 (exact; unparsable) | 124 (100; 0) | 95 (85; 15) | 103 (93; 10) | 52 (35; 51) | 53 (39; 54) |
+| Routing median seconds | 2.8 | 0.95 | 0.90 | 0.79 | 0.75 |
+| Extraction, ES2003+TS3004+IS1008 (bf16 rows): gold found /33; QA /66 | 16; 44 | 6; 40 | 4; 42 | | |
+| Extraction, ES2003+TS3004 (4-bit rows): gold found /23; QA /45 | 13; 27 | | | 4; 31 | 2; 31 |
+| Replies run to the 1,800-token budget | 1/56 (bf16 set); 1/41 (4-bit set) | 41/56 | 23/56 | 34/41 | 11/41 |
+| Generation seconds per meeting | 48.5 (bf16 set); 54.1 (4-bit set) | 149 | 88 | 89 | 38 |
+| MLX active after load; process peak footprint | 2.50; 4.5-5.1 GB | 1.56; 3.5 GB | 1.56; 3.5 GB | 0.48; 2.6-2.7 GB | 0.48; 2.7 GB |
+
+The 0.8B's QA is near or above the 4B's only because it writes almost nothing (the empty-ledger floor); its gold
+events found and its guard and routing results are the informative rows. Edited against stock routing (bf16): 9
+questions only edited routes right, 1 only stock (p = 0.021).
+
+### The edited 0.8B: what was verified before any comparison
 
 - **Identity.** The published p50c diff (`RikiyaT/lm_understand-logs` @ `4d09ba6`) applied to stock
   `Qwen/Qwen3.5-0.8B` @ `2fc0636` gives both edited tensors with the model card's SHA-256. The released checkpoint
@@ -21,36 +129,71 @@ Running notes, including rejected ideas: [`WORKLOG.md`](WORKLOG.md).
 - **What the edit is**, read from the tensors (`results/wsp/quant.json`): in each of the two layers, 64 of 3,584 MLP
   neurons have the component of their output along one direction multiplied by **-5** (W' = W - 6uuᵀW on those
   columns; rank-1 share 0.99999; nothing else changes beyond bf16 rounding). The post describes it as subtracting the
-  direction; the final answer of the run says it "counteracts" it. 130,188 bf16 entries differ.
-- **It survives 4-bit quantisation** (affine, group 64, as MLX and the app's 4B use): the quantised difference has
-  cosine 0.96 and 0.94 with the bf16 edit, and the edited neurons' projection on the direction is unchanged
-  (0.153 -> 0.152, 0.120 -> 0.119; stock 0.031 and 0.024). Each 0.8B variant is therefore evaluated in bf16 and in
-  4-bit quantised in memory from bf16 after the edit, with the same quantisation for stock and edited.
+  direction; the run's final answer says it "counteracts" it. 130,188 bf16 entries differ.
+- **It survives 4-bit quantisation** (affine, group 64): the quantised difference has cosine 0.96 and 0.94 with the
+  bf16 edit, and the edited neurons' projection on the direction is unchanged (0.153 -> 0.152, 0.120 -> 0.119; stock
+  0.031 and 0.024).
+- In MLX the edited model is built at load time from the stock weights and the two rebuilt tensors (hash-checked in
+  memory), so no second full copy is stored.
 
-## Data
+## Validation, prepared and not run
 
-| Split | Series | Gold events | Questions | Role |
-|---|---|---|---|---|
-| old-dev | ES2003, TS3004 | 23 | 45 | development |
-| new-dev | ES2011, IS1008, TS3006 | 37 | 79 | development (gold built here, `specs_new.py`) |
-| old-test | ES2004, ES2014, IS1009, TS3003, TS3007 | 46 | 96 | regression only |
-| new-val | ES2002, ES2005, ES2010, ES2016, IS1001, IS1004, TS3005, TS3010 | 106 | 247 | the one final validation |
+- **Reserved data:** new-val, 8 AMI series never used for extraction (ES2002, ES2005, ES2010, ES2016, IS1001, IS1004,
+  TS3005, TS3010): 106 gold events, 247 questions; gold built and hashed before any model read them (commit
+  `0a713e9b1`, `data/manifest.json`).
+- **Frozen:** candidate A and the hashes of the harness, mechanisms, engine files and data
+  (`results/validation/candidate-A.json`).
+- **Primary:** QA with exact routes against the shipped path, paired exact sign test, Holm over all candidates
+  (A plus any specialist candidates). **Guardrails:** gold events found >= baseline - max(2, 5%); correct proposals
+  >= baseline - 2; wrong writes <= baseline; unclean replies <= baseline + 1; current-value questions >= baseline - 2.
+  Closed loop; one run; `validate.py` refuses changed files and a second scoring.
+- **To run once the parent supplies the specialists' outcomes:** `validate.py prereg A [specialist candidates]`, then
+  one `lease.py val-<series> -- <python> validate.py run <series>` per series (about 5-8 minutes each, baseline and
+  candidates), then `validate.py score`. Then the regression: old-test (96 questions) for baseline and A.
 
-Gold for the new series follows October's procedure exactly (`build_gold.py` imports October's `build_chains.py`
-unchanged; October's seven chains rebuild byte-identically from the same pinned annotations). It was hashed and
-committed before any model read those transcripts (`data/manifest.json`, commit `0a713e9b1`).
+## Limits
+
+- Development numbers were used to choose among about 15 variants; A's dev gain is optimistic. Five series, one
+  machine, one greedy run per configuration; closed-loop prompt changes alone move a series by several questions.
+- Gold lists one event per abstract decision, evidence windows come from human links, and the slot lists were written
+  by the AI assistant (as in October); precision is a lower bound and "gold found" understates value-correct writes.
+- Open-loop inbox counts hold extraction fixed under `confirm_all`; the perfect reviewer is an upper bound.
+- `loopstop` is simulated on cached replies (the same greedy prefix); its time saving is estimated from the reply's
+  token rate. A worker change is needed to obtain it in the app.
+- AMI is public since 2005; pretraining exposure cannot be excluded for any model.
+
+## Reproduce
+
+All commands from this folder. Model jobs go through `lease.py` (shared lock; peak footprint per job in
+`results/leases.jsonl`); every model call is cached under `cache/`, so the scoring scripts need no model.
+
+```sh
+python3.11 build_gold.py verify-october          # October's 7 chains rebuild byte-identically from the pinned annotations
+python3.11 check_harness.py october              # October's replies through this harness give October's numbers
+python3.11 test_helpers.py                       # number words, repeated-event cut
+python3.11 dev_tables.py                         # every 4B dev table above, from cache/4b.jsonl
+python3.11 small_tables.py                       # the 0.8B table, from cache/0.8b-*.jsonl
+python3.11 controls.py 4b app-nosys modevalue old-dev,new-dev --draws 300   # a random-removal control
+python3.11 audit.py 4b app old-dev,new-dev --md results/audit/x.md          # every write and miss, classified
+# with a model (Python with MLX, e.g. /Users/Shared/Memoria/runtime/speech/bin/python):
+python3.11 lease.py job -- $PY run.py extract 4b "app-nosys-numwords-loopstop+modevalue" ES2003 TS3004 --minutes 6
+python3.11 lease.py job -- $PY run.py guard 4b dev
+python3.11 lease.py job -- $PY run.py parity      # in-process requests against the app's model_server.py
+```
 
 ## Files
 
 | File | What it does |
 |---|---|
 | `PROTOCOL.md`, `WORKLOG.md` | protocol and amendments; dated notes |
-| `lease.py`, `queue.sh` | one bounded model job at a time under the shared model lock; peak footprint per job (`results/leases.jsonl`) |
+| `lease.py`, `queue.sh` | one bounded model job at a time under the shared model lock; waits (kqueue) while Memoria.app runs |
 | `lm.py` | model variants and the app worker's requests, cached (`cache/<variant>.jsonl`) |
 | `harness.py`, `score.py`, `audit.py`, `controls.py` | the app's extraction on AMI chains; scoring; per-write audit; random-removal controls |
+| `dev_tables.py`, `small_tables.py`, `guard_summary.py`, `route_summary.py` | the tables above, from the caches |
 | `support.py`, `consolidate.py`, `numwords.py` | mechanisms tested |
-| `wsp.py` | the edit rebuilt, checked against the release, and its survival under 4-bit quantisation |
-| `run.py` | model jobs (extract, route, guard, parity, thinkcheck, suite) |
-| `validate.py` | preregistration, single run and scoring of the final validation |
-| `build_gold.py`, `specs_new.py`, `show_abstracts.py`, `data/` | gold for the new series |
+| `wsp.py` | the edit rebuilt, checked against the release, its survival under 4-bit quantisation, applied at load |
+| `run.py` | model jobs (extract, route, guard, parity, suite) |
+| `validate.py` | preregistration, single run and scoring of the final validation (not run) |
+| `build_gold.py`, `specs_new.py`, `show_abstracts.py`, `data/` | gold for the new series; splits; GSM8K sample (unused) |
 | `check_harness.py`, `test_helpers.py` | no-model checks |
+| `results/` | leases, controls, guard predictions, audits, dev summaries, edit checks, frozen candidate |
