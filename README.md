@@ -42,6 +42,7 @@ AMI corpus: 20 test meetings from five series, 96 questions, the same local mode
 - Speech: Parakeet Ultra with Nemotron 3 Diarization transcribes a 60-minute AMI recording in 113 s, WER 14.4% (fillers removed), with 97.4% of labelled words on the right speaker. Live captions scored 15.2% WER in 0.3.0; the noisy-room pause fix in 0.3.1 scores 15.4%, with 97.6% speaker attribution ([live speech](research/live-speech/README.md)).
 
 Why Qwen3.5-4B: [model bake-off](research/model-bakeoff/README.md).
+The later [targeted 4B studies](research/REVIEW-2026-11-03.md) are complete; none qualified for deployment.
 
 ## Install (UAT build, Apple silicon, 16 GB)
 

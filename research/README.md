@@ -19,6 +19,7 @@ one repository; the other folders were started here. Nothing in this folder is b
 | [`number-word-fix/`](number-word-fix/) | Production repairs for amounts stated in words, signed decimals, billion units and scientific notation; cached development replay | new, 3 November 2026 |
 | [`model-improvements/`](model-improvements/) | Extraction development experiments, stock/edited 0.8B controls, rejected candidate A and the empty-record baseline audit | new, 3 November 2026 |
 | [`weight-edit-loops/`](weight-edit-loops/) | Targeted 4B static edits and repetition stopping; measured effects, random controls and recovery failures | new, 3 November 2026 |
+| [`weight-edit-loops/qualification-20261103/`](weight-edit-loops/qualification-20261103/) | The final static edit transfers early stopping to an independent loop but loses source-supported events; rejected | new, 3 November 2026 |
 | [`weight-edit-attribution/`](weight-edit-attribution/) | Source-labelled 4B attribution diagnostics, prompt alternatives and static edits; unsupported gains rejected | new, 3 November 2026 |
 | [`weight-edit-attribution/round2/`](weight-edit-attribution/round2/) | Native object-selection diagnostics and explicit untracked-component choices; short-context gains fail the full-window source-support screen | new, 3 November 2026 |
 
@@ -74,6 +75,8 @@ and were not rerun.
 - The 4B extraction experiments in `model-improvements/` use a historical 0.3.1-era baseline.
   The production amount repairs postdate it. Development selection and repeated benchmark checks
   are not fresh validation; the reserved extraction validation has had no model generation or scoring.
+- The targeted 4B research round is complete. No weight edit, stopping rule or attribution procedure
+  passed development qualification; see the [integration review](REVIEW-2026-11-03.md).
 
 ## Licence and data
 
