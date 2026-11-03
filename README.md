@@ -2,7 +2,7 @@
 
 Memoria is a meeting-memory app for Apple-silicon Macs. It transcribes meetings on the Mac, proposes the decisions and commitments it hears with their exact quotes, and keeps the approved ones in a ledger with their history.
 
-[UAT build `v0.3.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.0-uat) · [Documentation](docs/README.md) · [Roadmap](docs/ROADMAP.md) · [Research](research/)
+[UAT build `v0.3.1-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.1-uat) · [Documentation](docs/README.md) · [Roadmap](docs/ROADMAP.md) · [Research](research/)
 
 ![Native meeting summary with approved outcomes and source timestamps](docs/media/summary.webp)
 
@@ -12,11 +12,11 @@ Native macOS interface, shown with a fictional review fixture.
 
 To answer "who is our vendor now?" or "what was the budget on 27 September?" from transcripts or summaries, an assistant has to re-read the meetings and work out the state again for every question. Memoria does that work once, when a meeting ends:
 
-1. **Record.** Audio is transcribed on the Mac with speaker labels.
+1. **Record.** Microphone audio, plus audio playing on the Mac when Call audio is on, is transcribed locally with speaker labels.
 2. **Review.** A local model proposes each decision or commitment with its exact quote. You approve, correct or reject it.
 3. **Recall.** Approved values go into a ledger with their history. Questions about now, a past date or the number of changes are answered by lookup, with the quote and its time in the recording.
 
-During a meeting, a sentence that contradicts an approved decision raises a cue.
+During a meeting, Memoria can flag a sentence that contradicts an approved decision.
 
 ## Results
 
@@ -35,13 +35,13 @@ AMI corpus: 20 test meetings from five series, 96 questions, the same local mode
 - The app's Ask matches the evaluated pipeline: 96/96 with gold facts, and 58/96 with extracted facts where October scored 59/96 ([app parity](research/app-parity/README.md)).
 - Live contradiction check on the [MemoriaBench](research/memoriabench/) test split: 98/112 conflicts caught (87.5%), 2/224 false alarms (0.9%), 0.26 s per sentence (median). Spoken by six synthetic voices as 28 meetings and captioned live: the same 98/112. No alert on an hour of unrelated real speech. These follow-ups reuse the test partition ([method and limits](research/live-verifier/README.md)).
 - In the installed app, two scripted meetings fed in real time: sentences committed 0.45–2.1 s after they ended, contradictions cued 0.46–1.15 s after the statement when its item was heard correctly, no false alarm ([live speech](research/live-speech/README.md)).
-- Speech: Parakeet Ultra with Nemotron 3 Diarization transcribes a 60-minute AMI recording in 113 s, WER 14.4% (fillers removed), with 97.4% of labelled words on the right speaker; as live captions, WER 15.2% and 97.8% ([live speech](research/live-speech/README.md)).
+- Speech: Parakeet Ultra with Nemotron 3 Diarization transcribes a 60-minute AMI recording in 113 s, WER 14.4% (fillers removed), with 97.4% of labelled words on the right speaker. Live captions scored 15.2% WER in 0.3.0; the noisy-room pause fix in 0.3.1 scores 15.4%, with 97.6% speaker attribution ([live speech](research/live-speech/README.md)).
 
 Why Qwen3.5-4B: [model bake-off](research/model-bakeoff/README.md).
 
 ## Install (UAT build, Apple silicon, 16 GB)
 
-The [`v0.3.0-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.0-uat) disk image is ad-hoc signed (right-click > Open the first time). It does not bundle its Python runtimes or models. On the test Mac they are installed once for all accounts with `scripts/install-shared-runtime.sh`, and `scripts/uat/memoria-doctor.sh` prints READY when an account can run the app. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record](docs/RELEASE_RECORD.md).
+The [`v0.3.1-uat`](https://github.com/sayyidsyamil/memoria/releases/tag/v0.3.1-uat) disk image is ad-hoc signed (right-click > Open the first time). Call audio requires macOS 14.2+. Python runtimes and models are installed separately with `scripts/install-shared-runtime.sh`; `scripts/uat/memoria-doctor.sh` checks the setup. See [Install for another macOS account](docs/GETTING-STARTED.md#install-for-another-macos-account-ac7) and the [release record and remaining checks](docs/RELEASE_RECORD.md).
 
 ## Develop
 
@@ -57,7 +57,7 @@ pnpm tauri dev               # native app; model setup in docs/DEVELOPMENT.md
 
 To see Memoria's own screens in the browser build against a real vault: `MEMORIA_DEV_VAULT=<vault> VITE_MEMORIA_DEV_BRIDGE=1 pnpm exec vite`.
 
-Tests (3 November 2026, before the `v0.3.0-uat` build): Rust 1,234, frontend 6,769 and app Python 214, all passing ([verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)); ledger engine 291, all passing on 2 November ([research](research/README.md)).
+Tests (0.3.1, 3 November 2026): Rust 1,245, frontend 6,805 and app Python 216, all passing ([verification](docs/WORKSPACE-PRODUCT-VERIFICATION.md)); ledger engine 291, all passing on 2 November ([research](research/README.md)).
 
 React / TypeScript · Tauri / Rust · Python / MLX · Markdown / SQLite
 

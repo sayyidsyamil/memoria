@@ -15,7 +15,7 @@ faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
 | M1 Native meeting loop | Week 5–6 (mostly done 2 Nov) | Record → review → approve → reuse works in the installed app with real audio |
 | M2 Meeting intelligence | Week 6–7 (verified 2 Nov) | Measured live check, long meetings, safer tracked facts |
 | M3 Reliability | Week 7 (suite green 2 Nov; worker restart checked 3 Nov) | Recovers from failures; full test suite green |
-| M4 UAT build | End of week 7 (`v0.3.0-uat` built 3 Nov; clean-account check pending) | Tagged build that installs from the guide |
+| M4 UAT build | End of week 7 (`v0.3.1-uat` built 3 Nov; clean-account check pending) | Tagged build that installs from the guide |
 | M5 Evaluation and UAT | Weeks 8–10 | Participant results and current-app measurements |
 | M6 Report and viva | Weeks 10–14 | Report complete, viva ready |
 | M7 Installable product | After M4, in parallel | Installs and runs on a clean Mac without developer folders |
@@ -112,27 +112,27 @@ alarms in 224, 0.26 s median; [research/live-verifier](../research/live-verifier
 Acceptance: the full frontend suite passes; each failure mode above has a documented, tested
 behaviour that never promotes incomplete transcripts into reviewed knowledge.
 
-Status (3 November): the full frontend suite passes (6,648 tests on 2 November after the
-[triage](M3-FULL-SUITE-TRIAGE.md), 6,769 on 3 November). A stopped worker is started again,
-up to three times per run; in the `v0.3.0-uat` smoke test a killed Qwen worker was back after
-2 s ([RELEASE_RECORD.md](RELEASE_RECORD.md)). Each worker caps MLX's GPU cache at 256 MB
+Status (3 November): the full frontend suite passes (6,648 tests after the 2 November
+[triage](M3-FULL-SUITE-TRIAGE.md), 6,805 for 0.3.1). A stopped worker is started again,
+up to three times per run; in the `v0.3.1-uat` smoke test the replacement Qwen process appeared after
+5.06 s and its next check passed ([RELEASE_RECORD.md](RELEASE_RECORD.md)). Each worker caps MLX's GPU cache at 256 MB
 ([MODEL-LIFECYCLE.md](MODEL-LIFECYCLE.md)). With Parakeet Ultra, 4 words of the AMI hour are
 left on "Unknown speaker". Remaining: memory-pressure eviction and cross-worker scheduling,
-captions during a long transcription, the accessibility-tree observation, a playable duration
-for recovered recordings, and sleep and wake, disconnection, queue pressure and low disk space.
+captions during a long transcription, the accessibility-tree observation, native confirmation of the recovered-recording
+playback fix, and sleep and wake, disconnection, queue pressure and low disk space.
 
 ## M4 UAT build
 
-- Tag a UAT build and publish it as a GitHub release with notes (`v0.2.0-uat`, then `v0.3.0-uat`).
+- Tag a UAT build and publish it as a GitHub release with notes (`v0.2.0-uat`, `v0.3.0-uat`, then `v0.3.1-uat`).
 - Fictional demo vault and reset script for sessions; UAT protocol and forms ready.
 
 Acceptance: a second macOS account installs and completes the five acceptance tasks by
 following the guide alone.
 
-Status (3 November): version 0.3.0, tagged `v0.3.0-uat` (`v0.2.0-uat` was built on 2 November);
+Status (3 November): version 0.3.1, tagged `v0.3.1-uat` (`v0.2.0-uat` was built on 2 November);
 `scripts/build-release.sh` builds the disk image and writes [RELEASE_RECORD.md](RELEASE_RECORD.md),
-whose smoke test on this Mac covers T1, T4 and T5, Ask, a killed worker and two scripted live
-meetings. Another account of this Mac can run the app from a shared install in
+whose smoke test covers T1, T4 and T5, Ask and a killed worker. Microphone and call-audio checks passed on the earlier
+development bundle; the final playback UI check was blocked by the closed, locked Mac. A shared install is prepared for another account in
 `/Users/Shared/Memoria` (Python runtimes and model snapshots,
 `scripts/install-shared-runtime.sh`; provisioned and import-checked). The starter vault (three
 recorded, reviewed fictional meetings and six tracked items), `reset-demo.sh` and

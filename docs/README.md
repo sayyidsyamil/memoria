@@ -9,6 +9,7 @@ Memoria's own documents. `ABSTRACTIONS.md`, `PERFORMANCE.md`, `VISION.md`, `MOBI
   [install for another macOS account (AC7)](GETTING-STARTED.md#install-for-another-macos-account-ac7).
 - [DEVELOPMENT.md](DEVELOPMENT.md): development setup, model runtimes and model-free tests.
 - [RELEASE_RECORD.md](RELEASE_RECORD.md): the current UAT build, its checksums and its smoke test.
+- [CALL-AUDIO-TEST.md](CALL-AUDIO-TEST.md): call-audio checks, observed results and untested cases.
 - [ROADMAP.md](ROADMAP.md): milestones M0 to M7 and their status.
 
 The October build's deployment guide, cited by the FYP2 report as `docs/DEPLOYMENT.md`, is on the

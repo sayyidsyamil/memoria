@@ -19,8 +19,9 @@ Application code built from `8cf25aca5`; the model-improvement experiments run s
 | Clean dependency installation | pnpm 11.1.1 frozen offline install passed; lockfile hash unchanged |
 | App and disk image | Built; bundled helper, permission text and signature checked |
 
-The playback and recovery changes have unit and browser coverage. Installed-app results are recorded in
-[`RELEASE_RECORD.md`](RELEASE_RECORD.md) after the smoke test.
+The installed-worker smoke passed: 17/17 proposals, all 15 events, correct recall and brief, and a successful check
+after a worker restart. The playback and recovery changes have unit and browser coverage; the native player check was
+blocked by the locked Mac with its lid closed. Details are in [`RELEASE_RECORD.md`](RELEASE_RECORD.md).
 
 ## Suites before the `v0.3.0-uat` build — 3 November 2026
 

@@ -126,9 +126,9 @@ under `/opt/homebrew` must remain installed and readable by all users.
 2. In **System Settings → Users & Groups → Add User**, authenticate and create a
    new **Standard** account (for example `memoria-ac7`). Do not copy the developer's
    home, environment overrides, caches or vault settings into it. Quit the
-   developer's Memoria before switching accounts, so two ~5 GB model sets do not
+    developer's Memoria before switching accounts, so two ~6 GB model sets do not
    compete on the 16 GB Mac.
-3. Log in to that account. Open the **tagged release DMG** (`Memoria_0.3.0_aarch64.dmg`,
+3. Log in to that account. Open the **tagged release DMG** (`Memoria_0.3.1_aarch64.dmg`,
    checksum in [RELEASE_RECORD.md](RELEASE_RECORD.md)), drag `Memoria.app` to
    `/Applications` (authenticate if asked), and run
    `/Users/Shared/Memoria/reset-demo.sh` (copies the starter vault to
