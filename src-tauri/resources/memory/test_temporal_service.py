@@ -180,6 +180,44 @@ class TemporalIntegrationTests(unittest.TestCase):
         self.assertEqual(self.call('meetings.list'), [])
         self.assertIn('text timing unresolved', (self.root/f'meetings/meeting-{identifier}.md').read_text())
 
+    def test_amounts_said_in_words_reach_review_with_their_exact_evidence(self):
+        from engine import clock
+        self.call('registry.set', {'objects': [
+            {'object_id': 'prod_cost', 'label': 'Production cost per remote (euro)', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]},
+            {'object_id': 'price', 'label': 'Selling price (euro)', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]}]})
+        identifier = str(uuid.uuid4())
+        turns = [{'speaker': speaker, 'start': start, 'end': start + 20, 'text': text} for speaker, start, text in AMI_ES2003A_FINANCE]
+        names = {'S01': 'Adam', 'S02': 'Ebenezer'}
+        (self.root/'finance.md').write_text('\n'.join(f"[{clock(t['start'])}] {names[t['speaker']]}: {t['text']}" for t in turns))
+        workspace_product(self.engine, {'action': 'save_meeting', 'record': {
+            'id': identifier, 'title': 'Project finance', 'created': '2026-02-02T09:00:00Z',
+            'status': 'transcript-reviewed', 'transcriptPath': 'finance.md', 'names': names, 'turns': turns}})
+        with patch('engine.local_generator', return_value=lambda _prompt: AMI_ES2003A_REPLY):
+            self.call('ingest_reviewed_meeting', {'meetingId': identifier})
+        proposals = self.call('overview')['proposals']
+        self.assertEqual(sorted((p['object_id'], p['attribute'], p['value'], p['quote'], p['speaker'], p['meeting']) for p in proposals), [
+            ('price', 'amount', 25, 'sell them for twenty five', 'Adam', identifier),
+            ('prod_cost', 'amount', 12.5, 'twelve point five Euros per unit', 'Adam', identifier)])
+        for proposal in proposals:
+            self.call('proposals.accept', {'proposal_id': proposal['proposal_id']})
+        evidence = self.call('query', {'type': 'current', 'object_id': 'prod_cost', 'attribute': 'amount'})
+        self.assertEqual(evidence['answer'], 12.5)
+        self.assertEqual([(item['quote'], item['audio_start']) for item in evidence['evidence']], [('twelve point five Euros per unit', 641.5)])
+        self.assertTrue(self.call('overview')['check']['ok'])
+
+
+# AMI ES2003a (CC BY 4.0), as in research/ledger-engine/data/ami_v0/ES2003.chain, and the 4B model's reply to that window,
+# which reads both amounts correctly: production cost 12.5 and selling price 25 (gold events of the chain).
+AMI_ES2003A_FINANCE = [
+    ('S01', 641.5, "Right. I think we've all managed to master the whiteboard there by looks of it, so, on to it. Project finance. "
+                   "As you can see, twelve point five Euros per unit. That's not a terrible lot as far as I'm aware, and we're hoping to "
+                   "sell them for twenty five. If we're aiming for fifty million Euros we're gonna have to be selling an awful lot of them."),
+    ('S02', 668.0, "Oh, that was profiting, that was an amount, so that's the amount made, okay."),
+    ('S01', 671.25, "Yep. Well, fifty million, and if you're making twelve point five Euros on each one, then, awful lot need to be sold.")]
+AMI_ES2003A_REPLY = ('{"events":[{"turn":45,"quote":"twelve point five Euros per unit","object_id":"prod_cost","attribute":"amount",'
+                     '"value":12.5,"valid_from":null,"confidence":0.9,"unresolved":false},{"turn":45,"quote":"sell them for twenty five",'
+                     '"object_id":"price","attribute":"amount","value":25,"valid_from":null,"confidence":0.9,"unresolved":false}]}')
+
 
 class DraftRepairTests(unittest.TestCase):
     """Deterministic repairs of a small model's extraction draft (UAT demo dry run, 2 November)."""
@@ -206,3 +244,83 @@ class DraftRepairTests(unittest.TestCase):
         self.assertEqual(fix('budget', 'amount', 300000, 'Not 300,000 but 280,000.').value, 300000)  # two amounts: validation decides
         self.assertEqual(fix('training', 'value', 'Raj', 'Raj will do it.').attribute, 'value')  # two attributes: not guessed
         self.assertEqual(fix('unknown', 'value', 1, 'x').object_id, 'unknown')
+
+
+class SpokenAmountTests(unittest.TestCase):
+    """Amounts said in words (AMI manual transcripts spell them out) confirm the model's own value; they never supply one."""
+    def setUp(self):
+        from memoria_engine.service import registry_from_json
+        self.registry = registry_from_json({'objects': [
+            {'object_id': 'prod_cost', 'label': 'Production cost per remote (euro)', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]},
+            {'object_id': 'price', 'label': 'Selling price (euro)', 'kind': 'decision', 'attributes': [{'name': 'amount', 'type': 'number'}]}]})
+
+    def fix(self, value, quote, object_id='price', attribute='amount'):
+        from temporal_service import repaired
+        return repaired(Candidate(object_id, attribute, value, quote, 45, None, 0.9), self.registry)
+
+    def value(self, value, quote):
+        fixed = self.fix(value, quote)
+        return None if fixed is None else fixed.value
+
+    def test_amounts_read_correctly_from_words_are_kept_unchanged(self):
+        turn = AMI_ES2003A_FINANCE[0][2]
+        for object_id, value, quote in [('prod_cost', 12.5, 'twelve point five Euros per unit'), ('price', 25, 'sell them for twenty five'),
+                                        ('price', 25, turn), ('price', '25', turn), ('prod_cost', 12.5, turn), ('price', 50000000, turn)]:
+            self.assertEqual(self.fix(value, quote, object_id), Candidate(object_id, 'amount', value, quote, 45, None, 0.9))
+        renamed = self.fix(25, 'sell them for twenty five', 'price', 'value')
+        self.assertEqual((renamed.attribute, renamed.value, renamed.quote), ('amount', 25, 'sell them for twenty five'))
+
+    def test_words_never_supply_or_rescale_a_value(self):
+        turn = AMI_ES2003A_FINANCE[0][2]
+        for value, quote in [(125, 'twelve point five Euros per unit'), (12.5, 'a hundred and twenty five'), (25000, 'sell them for twenty-five'),
+                             (25, 'twenty-five thousand'), (2.5, 'two point five million ringgit'), (30, "we're hoping to sell them for twenty five"),
+                             (25, "we're hoping to sell them for thirty"), (37.5, turn), (30, turn), (5, 'twenty five')]:
+            self.assertIsNone(self.fix(value, quote), (value, quote))
+        for value, quote in [(125, 'a hundred and twenty five'), (25000, 'twenty-five thousand'), (2500000, 'two point five million ringgit'),
+                             (150000, 'a hundred and fifty thousand'), (0.05, 'zero point zero five'), (1250, 'one thousand two hundred and fifty')]:
+            self.assertEqual(self.value(value, quote), value, quote)
+
+    def test_two_amounts_negation_and_sign(self):
+        quote = 'Not three hundred thousand but two hundred and eighty thousand.'
+        self.assertEqual(self.value(300000, quote), 300000)  # both are said: validation decides, as for 'Not 300,000 but 280,000.'
+        self.assertEqual(self.value(280000, quote), 280000)
+        self.assertIsNone(self.fix(2800000, quote))
+        self.assertEqual(self.value(-5, 'a change of minus five'), -5)
+        self.assertEqual(self.value(-12.5, 'negative twelve point five'), -12.5)
+        self.assertIsNone(self.fix(5, 'a change of minus five'))
+        self.assertIsNone(self.fix(-5, 'five'))
+
+    def test_ambiguous_phrases_confirm_nothing(self):
+        for value, quote in [(25, 'between the age of uh fifteen and twenty five'), (15, 'fifteen and twenty five'),
+                             (20, 'twenty to thirty euros'), (30, 'twenty-thirty euros'), (12, 'twelve or thirteen'), (12, 'it costs twelve fifty'),
+                             (50, 'it costs twelve fifty'), (1250, 'it costs twelve fifty'), (12.3, 'Uh twelve point three point three.'),
+                             (12.33, 'Uh twelve point three point three.'), (25, 'twenty five percent of the market'), (25, 'twenty-five per cent'),
+                             (20, 'on the twenty fifth'), (25, 'on the twenty fifth'), (2, 'two and a half million'), (2500000, 'two and a half million'),
+                             (2, 'two thirds of it'), (20, 'twenty grand'), (50, 'fifty uh million Euros'), (25, 'twenty twenty five'),
+                             (2025, 'twenty twenty five'), (1, "that's the one"), (5, 'five point plan'), (12, 'twelve point fifty'),
+                             (1000000, 'half a million'), (1000000, 'three quarters of a million'), (5, 'five by five')]:
+            self.assertIsNone(self.fix(value, quote), (value, quote))
+
+    def test_no_amount_or_an_unusable_value_is_dropped(self):
+        self.assertIsNone(self.fix(25, 'Good, so no change to the price.'))
+        self.assertIsNone(self.fix(25, 'half of the selling price'))
+        for value in (float('nan'), float('inf'), -float('inf'), 10 ** 400, None, True, 'twenty five', '', '25-30', [25]):
+            self.assertIsNone(self.fix(value, 'sell them for twenty five'), value)
+
+    def test_digit_quotes_behave_as_before(self):
+        self.assertEqual(self.value(2500000, 'The pilot price is 250,000 ringgit for two branches.'), 250000)
+        self.assertEqual(self.value(300000, 'Not 300,000 but 280,000.'), 300000)
+        self.assertEqual(self.value(280000, 'Not 300,000 but two hundred and eighty thousand.'), 280000)  # said in words: not replaced
+        self.assertEqual(self.value(2800000, 'Not 300,000 but two hundred and eighty thousand.'), 300000)  # digit rule unchanged
+        self.assertIsNone(self.fix(2800000, 'Good, so no change to the price.'))
+
+    def test_spoken_numbers(self):
+        from temporal_service import spoken_numbers
+        self.assertEqual(spoken_numbers(AMI_ES2003A_FINANCE[0][2]), {12.5, 25, 50000000})
+        self.assertEqual(spoken_numbers(AMI_ES2003A_FINANCE[2][2]), {50000000, 12.5})
+        self.assertEqual(spoken_numbers("Twenty-five percent of the market to get to two million units. At two million units, we have to have "
+                                        "a profit of twenty-five Euro per unit to get to the fifty million unit Eu Euro profit."),
+                         {2000000, 25, 50000000})
+        self.assertEqual(spoken_numbers('Maybe even slight well oh yeah, pretty much point two Euros, I\'d say.'), {0.2})
+        self.assertEqual(spoken_numbers('twenty five, twenty-five Euros'), {25})  # a repeated amount is one amount
+        self.assertEqual(spoken_numbers('250,000 ringgit'), set())

@@ -7,6 +7,7 @@ import json
 import math
 import re
 from datetime import datetime
+from decimal import Decimal
 from memoria_engine.service import Service, METHODS
 from temporal_support import temporal_home, valid_current
 
@@ -72,12 +73,137 @@ def quoted_numbers(quote):
     return found
 
 
+WORD_ONES = dict(zip('one two three four five six seven eight nine'.split(), range(1, 10)))
+WORD_TENS = dict(zip('twenty thirty forty fifty sixty seventy eighty ninety'.split(), range(20, 100, 10)))
+WORD_BELOW_HUNDRED = {**WORD_ONES, **WORD_TENS,
+                      **dict(zip('ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split(), range(10, 20)))}
+WORD_SCALE = {'thousand': 1_000, 'million': 1_000_000, 'billion': 1_000_000_000}
+WORD_ZERO = {'zero', 'nought'}
+WORD_DIGITS = {**WORD_ONES, **dict.fromkeys((*WORD_ZERO, 'oh'), 0)}  # after 'point': 'point oh five' is 0.05
+NUMBER_WORDS = {*WORD_BELOW_HUNDRED, *WORD_SCALE, *WORD_ZERO, 'hundred'}
+SPOKEN_WORDS = NUMBER_WORDS | {'and', 'a', 'oh', 'point', 'minus', 'negative'}
+# Alone between two numbers, these make them one expression: a range, a choice, a ratio, a sum or a hesitation ("fifty uh million").
+LINKS = {'to', 'or', 'through', 'till', 'until', 'by', 'times', 'over', 'x', 'in', 'out', 'of', 'per', 'plus', 'vs', 'versus',
+         'uh', 'um', 'er', 'erm', 'ah', 'eh', 'mm', 'hmm'}
+FRACTION = re.compile(r'(?:first|second|third|\w*(?:fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth|teenth|tieth|hundredth'
+                      r'|thousandth|millionth|billionth))s?|half|halves|quarters?')
+# A number followed by one of these is not a plain amount: an ordinal or fraction, a percentage, digits, or a magnitude not read here.
+QUALIFIER = re.compile(FRACTION.pattern + r'|percent(?:age)?|pc|%|grand|k|m|bn|mn|mil|dozens?|score|hundreds|thousands|millions|billions'
+                       r'|trillions?|odd|ish|something|plus|\d+')
+
+
+def _below_hundred(words):
+    if len(words) == 2 and words[0] in WORD_TENS and words[1] in WORD_ONES:
+        return WORD_TENS[words[0]] + WORD_ONES[words[1]]
+    return WORD_BELOW_HUNDRED.get(words[0]) if len(words) == 1 else None
+
+
+def _below_thousand(words):
+    """'a hundred and fifty' -> 150, 'twenty five hundred' -> 2500, 'nine' -> 9; None if malformed."""
+    if 'hundred' not in words:
+        return _below_hundred(words)
+    at = words.index('hundred')
+    times = 1 if words[:at] == ['a'] else _below_hundred(words[:at])
+    rest = words[at + 1:]
+    tail = _below_hundred(rest[1:] if rest[:1] == ['and'] else rest) if rest else 0
+    return None if times is None or tail is None else times * 100 + tail
+
+
+def _whole(words):
+    """'a hundred and fifty thousand' -> 150000; None unless the words are one well-formed whole number."""
+    if len(words) == 1 and words[0] in WORD_ZERO:
+        return 0
+    total, group, last = 0, [], None
+    for word in words:
+        if word not in WORD_SCALE:
+            group.append(word)
+            continue
+        times = 1 if group == ['a'] else _below_thousand(group[1:] if last and group[:1] == ['and'] else group)
+        if not times or last and WORD_SCALE[word] >= last:
+            return None
+        total, group, last = total + times * WORD_SCALE[word], [], WORD_SCALE[word]
+    if last and group[:1] == ['and']:
+        group = group[1:]  # 'a thousand and five'
+    if not group:
+        return total if last else None
+    rest = _below_thousand(group)
+    return None if rest is None else total + rest
+
+
+def _spoken(words):
+    """'minus twelve point five' -> -12.5, 'two point five million' -> 2500000; None unless one well-formed number."""
+    sign = -1 if words[:1] in (['minus'], ['negative']) else 1
+    words = words[1:] if sign < 0 else words
+    if 'point' not in words:
+        whole = _whole(words)
+        return None if whole is None else sign * whole
+    at = words.index('point')
+    whole, decimals, scale = words[:at], words[at + 1:], 1
+    if decimals and decimals[-1] in WORD_SCALE and not {'hundred', *WORD_SCALE} & set(whole):
+        decimals, scale = decimals[:-1], WORD_SCALE[decimals[-1]]
+    whole = _whole(whole) if whole else 0
+    if whole is None or not decimals or any(word not in WORD_DIGITS for word in decimals):
+        return None
+    value = sign * scale * (whole + Decimal('0.' + ''.join(str(WORD_DIGITS[word]) for word in decimals)))
+    return int(value) if value == value.to_integral_value() else float(value)
+
+
+def _trimmed(words):
+    """Drops joining words at the edges of a phrase: 'a twenty five and' -> 'twenty five', but 'a hundred' keeps its 'a'."""
+    while words and words[0] in ('and', 'a', 'oh') and not (words[0] == 'a' and words[1:2] and words[1] in {'hundred', *WORD_SCALE}):
+        words = words[1:]
+    while words and words[-1] in ('and', 'a', 'oh'):
+        words = words[:-1]
+    return words
+
+
+def spoken_numbers(quote):
+    """The amounts a quote says in words: 'twelve point five Euros' -> 12.5, 'twenty-five' -> 25, 'a hundred and fifty
+    thousand' -> 150000, 'minus five' -> -5. A phrase gives nothing when it is not one plain amount: malformed or run into
+    another number ('twelve fifty', 'fifteen and twenty five', 'twenty to thirty', 'fifty uh million'), an ordinal, fraction
+    or percentage ('twenty fifth', 'two and a half', 'half a million', 'ten percent'), next to digits, a magnitude not read
+    here ('twenty grand'), or a bare 'one' (usually 'the one', 'no one'). The same amount said twice in a row is one amount."""
+    text = (quote or '').casefold()
+    tokens = list(re.finditer(r'\d+|%|[^\W\d_]+', text))
+    words = [token.group() for token in tokens]
+    runs, i = [], 0
+    while i < len(words):
+        j = i
+        while j < len(words) and words[j] in SPOKEN_WORDS and (j == i or re.fullmatch(r'\s+|-', text[tokens[j - 1].end():tokens[j].start()])):
+            j += 1
+        if NUMBER_WORDS & set(words[i:j]):
+            phrase, after, before = _trimmed(words[i:j]), words[j:j + 2], words[max(0, i - 2):i]
+            qualified = (after[:1] and QUALIFIER.fullmatch(after[0]) or after == ['per', 'cent']
+                         or before[-1:] and (before[-1].isdigit() or FRACTION.fullmatch(before[-1]))
+                         or len(before) == 2 and before[1] == 'of' and FRACTION.fullmatch(before[0]))
+            runs.append((i, j, None if qualified or phrase == ['one'] else _spoken(phrase)))
+        i = max(j, i + 1)
+    clusters = []
+    for start, end, value in runs:
+        gap = words[clusters[-1][-1][1]:start] if clusters else None
+        if gap == []:
+            clusters[-1].append((start, end, value))  # said again straight after: one amount only if the same
+        elif gap and all(word in LINKS for word in gap):
+            clusters[-1].append((start, end, None))  # a range, choice, ratio, sum or hesitation: not one amount
+        else:
+            clusters.append([(start, end, value)])
+    return {cluster[0][2] for cluster in clusters if all(run[2] is not None and run[2] == cluster[0][2] for run in cluster)}
+
+
+def said_in_words(value, quote):
+    """True when the quote says this finite amount in words."""
+    return value is not None and math.isfinite(value) and any(
+        abs(number - value) <= 1e-9 * max(1.0, abs(value)) for number in spoken_numbers(quote))
+
+
 def repaired(candidate, registry):
     """Two deterministic repairs of a small model's draft, both grounded in the registry or the quote:
     a generic attribute name ("value") on an item with exactly one attribute is that attribute, and
     a number that the quote does not state is replaced by the quote's only number (a 4B model wrote
-    "250,000 ringgit" as 2500000). An amount whose quote states no number at all is dropped (None):
-    nothing grounds it. Anything else ambiguous is left for validation to judge."""
+    "250,000 ringgit" as 2500000). A number the quote says in words ("twelve point five Euros per unit")
+    is kept as it is: words confirm the model's value but never supply or replace one. An amount whose
+    quote states no number at all is dropped (None): nothing grounds it. Anything else ambiguous is left
+    for validation to judge."""
     from dataclasses import replace
     spec = registry.objects.get(candidate.object_id) if candidate.object_id else None
     if spec is None:
@@ -92,6 +218,9 @@ def repaired(candidate, registry):
             value = float(re.sub(r'[^\d.\-]', '', str(candidate.value)))
         except ValueError:
             value = None
+        numeric = isinstance(candidate.value, (int, float, str)) and not isinstance(candidate.value, bool)
+        if numeric and value not in stated and said_in_words(value, candidate.quote):
+            return candidate
         if not stated:
             return None
         if len(stated) == 1 and value not in stated:
