@@ -27,245 +27,245 @@ Memoria keeps what was decided.
 A decision has a value, a source, and a history.
 
 8
-00:00:22,401 --> 00:00:25,310
+00:00:22,401 --> 00:00:25,942
 Memoria. Version control for decisions.
 
 9
-00:00:25,986 --> 00:00:29,339
-A local model proposes each change with its source quote,
+00:00:25,962 --> 00:00:29,138
+A local model proposes a change with its source quote,
 
 10
-00:00:29,359 --> 00:00:32,325
+00:00:29,158 --> 00:00:32,099
 and code copies the quote from the transcript.
 
 11
-00:00:32,345 --> 00:00:35,281
-A person approves first values and changes.
+00:00:32,119 --> 00:00:36,232
+You can inspect, edit, accept or reject proposed values.
 
 12
-00:00:35,301 --> 00:00:38,350
+00:00:36,252 --> 00:00:39,296
 The record keeps earlier values with their sources.
 
 13
-00:00:38,370 --> 00:00:40,899
+00:00:39,316 --> 00:00:41,845
 And if a recap repeats a replaced decision,
 
 14
-00:00:40,919 --> 00:00:43,874
+00:00:41,865 --> 00:00:44,820
 Memoria can ask: “Is this a change?”
 
 15
-00:00:45,215 --> 00:00:48,657
+00:00:46,161 --> 00:00:49,504
 This is the real interface, with a fictional project.
 
 16
-00:00:48,677 --> 00:00:51,358
-A suggested change waits with its quote.
+00:00:49,524 --> 00:00:52,504
+Here, Beta Cloud is proposed with its quote.
 
 17
-00:00:51,378 --> 00:00:53,970
+00:00:52,524 --> 00:00:55,091
 Accept it, and Beta Cloud becomes current,
 
 18
-00:00:53,990 --> 00:00:57,095
+00:00:55,111 --> 00:00:58,241
 while Alpha stays in history with its own words.
 
 19
-00:00:58,605 --> 00:01:00,707
+00:00:59,752 --> 00:01:01,854
 It starts with speech.
 
 20
-00:01:00,727 --> 00:01:03,583
+00:01:01,874 --> 00:01:04,730
 Local models turn the meeting into a transcript
 
 21
-00:01:03,603 --> 00:01:05,219
+00:01:04,750 --> 00:01:06,366
 and group the voices.
 
 22
-00:01:05,239 --> 00:01:08,838
+00:01:06,386 --> 00:01:09,985
 A person checks the words and names the speakers.
 
 23
-00:01:08,858 --> 00:01:12,379
+00:01:10,005 --> 00:01:13,526
 Then a local, 4-billion-parameter model fills in a form,
 
 24
-00:01:12,399 --> 00:01:14,259
+00:01:13,546 --> 00:01:15,406
 one token at a time.
 
 25
-00:01:14,279 --> 00:01:15,926
+00:01:15,426 --> 00:01:17,073
 This reply is real.
 
 26
-00:01:15,946 --> 00:01:19,576
+00:01:17,093 --> 00:01:20,723
 The quote is right: 250,000 ringgit.
 
 27
-00:01:19,596 --> 00:01:21,976
+00:01:20,743 --> 00:01:23,123
 But the value has an extra zero.
 
 28
-00:01:21,996 --> 00:01:24,576
+00:01:23,143 --> 00:01:25,723
 And the model wrote confidence 0.9
 
 29
-00:01:24,596 --> 00:01:27,184
+00:01:25,743 --> 00:01:28,357
 for both the right values and the wrong one.
 
 30
-00:01:27,204 --> 00:01:29,792
-So code checks the number against the quote,
+00:01:28,377 --> 00:01:30,789
+Code checks the number against the quote.
 
 31
-00:01:29,812 --> 00:01:32,263
-and the change still waits for a person.
+00:01:30,809 --> 00:01:35,026
+You can inspect, edit, accept or reject proposed values.
 
 32
-00:01:33,046 --> 00:01:35,488
+00:01:35,830 --> 00:01:38,272
 Every approved value keeps two clocks:
 
 33
-00:01:35,508 --> 00:01:38,257
+00:01:38,292 --> 00:01:41,041
 when it applied, and when it was recorded.
 
 34
-00:01:38,277 --> 00:01:39,157
+00:01:41,061 --> 00:01:41,941
 So you can ask
 
 35
-00:01:39,177 --> 00:01:42,695
+00:01:41,961 --> 00:01:45,479
 what the latest record says applied on 5 October,
 
 36
-00:01:42,715 --> 00:01:46,682
+00:01:45,499 --> 00:01:49,466
 or what records available by 4 November said about it.
 
 37
-00:01:49,237 --> 00:01:51,042
+00:01:52,021 --> 00:01:53,826
 Ask who proposed the change,
 
 38
-00:01:51,062 --> 00:01:54,105
+00:01:53,846 --> 00:01:56,889
 and the answer links to its meeting and the second.
 
 39
-00:01:54,125 --> 00:01:55,817
+00:01:56,909 --> 00:01:58,601
 In this text-fed example,
 
 40
-00:01:55,837 --> 00:01:58,667
+00:01:58,621 --> 00:02:01,451
 the meeting window flags a replaced vendor.
 
 41
-00:02:00,145 --> 00:02:03,850
+00:02:02,929 --> 00:02:06,634
 Hosted DeepSeek, on manual transcripts of public meetings:
 
 42
-00:02:03,870 --> 00:02:06,262
+00:02:06,654 --> 00:02:09,046
 the unreviewed record scored 82;
 
 43
-00:02:06,282 --> 00:02:09,400
+00:02:09,066 --> 00:02:12,184
 full transcripts 81, out of 96.
 
 44
-00:02:09,420 --> 00:02:11,100
+00:02:12,204 --> 00:02:13,884
 No difference detected.
 
 45
-00:02:11,120 --> 00:02:13,825
+00:02:13,904 --> 00:02:16,609
 Mean query input was 818
 
 46
-00:02:13,845 --> 00:02:19,725
+00:02:16,629 --> 00:02:22,509
 versus 31,337 tokens, excluding extraction.
 
 47
-00:02:20,159 --> 00:02:23,065
+00:02:22,943 --> 00:02:25,849
 On fictional histories of up to 53 meetings,
 
 48
-00:02:23,085 --> 00:02:26,741
+00:02:25,869 --> 00:02:29,525
 transcript search fell from 22 to 13 correct.
 
 49
-00:02:26,761 --> 00:02:30,110
+00:02:29,545 --> 00:02:32,894
 The record went from 28 to 24.
 
 50
-00:02:30,130 --> 00:02:33,306
+00:02:32,914 --> 00:02:36,090
 In one measured live-path replay of about two minutes,
 
 51
-00:02:33,326 --> 00:02:37,469
+00:02:36,110 --> 00:02:40,253
 Memoria's 14 processes sent 0 external bytes.
 
 52
-00:02:37,996 --> 00:02:40,467
+00:02:40,780 --> 00:02:43,251
 On a partial set of fictional text probes,
 
 53
-00:02:40,487 --> 00:02:43,629
+00:02:43,271 --> 00:02:46,413
 useful warnings rose from 3 to 10 of 12,
 
 54
-00:02:43,649 --> 00:02:46,504
+00:02:46,433 --> 00:02:49,288
 with 0 false warnings in both builds.
 
 55
-00:02:47,300 --> 00:02:49,728
+00:02:50,084 --> 00:02:52,449
 Decision extraction is the weak step.
 
 56
-00:02:49,748 --> 00:02:52,766
+00:02:52,469 --> 00:02:55,374
 Unreviewed, it scored 59 of 96.
 
 57
-00:02:52,786 --> 00:02:54,992
+00:02:55,394 --> 00:02:57,574
 An empty record scored 58.
 
 58
-00:02:55,012 --> 00:02:57,792
+00:02:57,594 --> 00:03:00,312
 On the 38 questions that need a recorded value
 
 59
-00:02:57,812 --> 00:02:59,667
+00:03:00,332 --> 00:03:02,099
 or a nonzero change count,
 
 60
-00:02:59,687 --> 00:03:03,104
+00:03:02,119 --> 00:03:05,374
 it got 18, against 26 for full transcripts
 
 61
-00:03:03,124 --> 00:03:04,904
+00:03:05,394 --> 00:03:07,036
 and 23 for search.
 
 62
-00:03:04,924 --> 00:03:07,116
-Proposed changes wait for review,
+00:03:07,056 --> 00:03:11,161
+You can inspect, edit, accept or reject proposed values.
 
 63
-00:03:07,136 --> 00:03:10,492
-but review accuracy and effort are still unmeasured.
+00:03:11,181 --> 00:03:14,274
+Review accuracy and effort are still unmeasured.
 
 64
-00:03:11,444 --> 00:03:15,074
+00:03:15,252 --> 00:03:18,882
 Next: decision audits for boards and investment committees.
 
 65
-00:03:15,094 --> 00:03:17,024
+00:03:18,902 --> 00:03:20,832
 Governance without re-listening.
 
 66
-00:03:17,044 --> 00:03:19,924
+00:03:20,852 --> 00:03:23,732
 And a memory that survives staff turnover.
 
 67
-00:03:20,514 --> 00:03:21,240
+00:03:24,322 --> 00:03:25,048
 Memoria.
 
 68
-00:03:21,260 --> 00:03:23,127
+00:03:25,068 --> 00:03:26,935
 Keep decisions checkable.
