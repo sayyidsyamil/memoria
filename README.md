@@ -33,6 +33,8 @@ Meetings make decisions. Then the decisions drift. Memoria keeps them as a recor
 2. **Approve.** A person approves first values and changes. Unchanged confirmations may record automatically.
 3. **Remember.** The record keeps earlier values with their sources.
 
+**One known gap:** confirming today's value can cancel an approved future change or swap the cited quote. Review found it; the staged fix checks the whole timeline and the sources first. It is staged, not built. [Full account](https://sayyidsyamil.github.io/memoria/#known-defect).
+
 > Language models are good at reading and bad at keeping state. Ledgers are good at state. So the model proposes, a person approves, and the ledger remembers.
 
 ## Ask what the record said on any date.
