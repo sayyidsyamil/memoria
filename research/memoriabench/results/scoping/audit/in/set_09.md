@@ -1,0 +1,86 @@
+# Meeting set 09
+
+## APPROVED DECISIONS
+
+- [d001] The remote will have LCD buttons.
+- [d002] The remote will look appealing.
+- [d003] The remote will not use a chip on print.
+- [d004] The remote will have international appeal.
+- [d005] Company aims to profit fifty million Euro.
+- [d006] They cannot make a device that works on the whole house- will need a focus.
+- [d007] The remote has to look good and be easy to use.
+- [d008] Will use personal face places.
+- [d009] The remote will be shockproof.
+- [d010] The remote has to be fashionable.
+- [d011] The remote will have a minimal number of buttons.
+- [d012] They will eliminate teletext. (replaces including teletext)
+- [d013] The case will be flat on top and curved on the bottom.
+- [d014] The important buttons will be on top.
+- [d015] The remote will use an infra-red sensor.
+- [d016] The project goal is to develop a new remote control.
+- [d017] The remote will have an enter button and number buttons.
+- [d018] The case will have a soft fruit-like feel to it.
+- [d019] The remote will have rubber buttons.
+- [d020] Will reserach environmental factor.
+- [d021] Their target group is basically everybody who owns a TV.
+- [d022] The remote should not have too many buttons.
+- [d023] The remote will only have a few buttons.
+- [d024] Another button to switch between two channels could also be implemented.
+- [d025] The remote will contain a simple chip. (replaces an advanced chip)
+- [d026] The remote will be waterproof.
+- [d027] They decided that the product should be bright, colorful, trendy in design, strong, compact, have push buttons, and contain supplement features (possibly mute button, swapping button, voice recognition).
+- [d028] The remote will have some buttons.
+- [d029] The remote will use a regular infra-red signal.
+- [d030] The remote should look fancy.
+- [d031] The remote will have a jog dial.
+- [d032] The remote will be extremely simple.
+- [d033] The remote will be yellow with black or gray buttons.
+- [d034] The remote is going to be a universal one.
+- [d035] The case will be double curved.
+- [d036] The case will be single curved. (replaces a double curved case)
+- [d037] Glow in the dark buttons, self-timed lighting.
+- [d038] The remote will be fancy.
+- [d039] The remote will not be too expensive.
+- [d040] The remote will not have an LCD screen. (replaces an LCD screen)
+- [d041] There will be a touch screen and not many buttons.
+- [d042] The interface will contain larger buttons.
+- [d043] The remote will use low level chips. (replaces an advanced chip)
+- [d044] Control will light up when you touch a button.
+- [d045] The remote will go into standby when idle.
+- [d046] The remote will have a docking station.
+- [d047] The remote will be simple.
+- [d048] The chip is going to be a standard one. (replaces an advanced chip)
+- [d049] The power source will be batteries because it is cost-effective.
+- [d050] No display screen.
+- [d051] They will maintain the corporate image by using the proper designs and colors.
+- [d052] The remote will have large buttons.
+- [d053] The remote will use an advanced chip.
+- [d054] The remote will be easy to learn.
+- [d055] It will have standard on/off, channel-changing, numerical, and volume buttons, with a menu on the screen.
+- [d056] Have a locator to help find the remote when it is lost. (replaces a remote without a locator function)
+- [d057] The latter would be preferable to implementing a backlight into the remote.
+- [d058] LCD is not going to be implemented. (replaces an LCD screen)
+- [d059] It should be compact, multi-functional, different in shape/color/material.
+- [d060] The remote will have a docking station.
+- [d061] The case will be single curved. (replaces a double curved case)
+- [d062] The remote is just going to be for TV.
+- [d063] The remote will have a simple chip.
+- [d064] The remote will be curvy.
+- [d065] The remote will incorporate a fruit and vegetable theme.
+- [d066] Selling price will be twenty five Euro.
+- [d067] The remote will use a chip on print.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: We will add a locator function to the remote.
+- s02: Okay, the remote will not have a locator function.
+- s03: Our profit aim is 20 million Euro.
+- s04: How about splash-proof seals?
+- s05: Okay, I forgot my umbrella again.
+- s06: Okay, let's add a sliding cover that hides the less used buttons.
+- s07: The tooling vendor has not replied to our email since Monday.
+- s08: Well, where did you go on holiday in the end?
+- s09: Right, we will leave the corporate image off the remote.
+- s10: The pilot customers in Spain asked for a bigger instruction sheet.
+- s11: So we will include teletext in the design.
+- s12: The remote will sell for 25 Euro.

@@ -1,0 +1,134 @@
+import type React from 'react'
+import { useCallback, useMemo, useRef } from 'react'
+import type { useCreateBlockNote } from '@blocknote/react'
+import type { AppLocale } from '../../lib/i18n'
+import type { NoteWidthMode, NoteStatus, VaultEntry } from '../../types'
+import { useEditorTheme } from '../../hooks/useTheme'
+import { updateVaultConfigField } from '../../utils/vaultConfigStore'
+import type { BlockNoteRenderRecoveryReason } from '../blockNoteRenderRecovery'
+import { deriveEditorContentState } from './editorContentState'
+import { useOfflineReadOnly } from '../../hooks/useOfflineReadOnly'
+import { useSharedReadOnly } from '../../hooks/useVaultAccess'
+import type { RawEditorFindRequest } from '../RawEditorFindBar'
+import type { ImageImportError } from '../../hooks/useImageDrop'
+
+export interface Tab {
+  entry: VaultEntry
+  content: string
+}
+
+export interface EditorContentProps {
+  activeTab: Tab | null
+  activeTabPath: string | null
+  isLoadingNewTab: boolean
+  isVaultLoading?: boolean
+  entries: VaultEntry[]
+  editor: ReturnType<typeof useCreateBlockNote>
+  diffMode: boolean
+  diffContent: string | null
+  diffLoading: boolean
+  richEditorContentReady: boolean
+  onToggleDiff: () => void
+  rawMode: boolean
+  onToggleRaw: (recoveryReason?: BlockNoteRenderRecoveryReason) => void
+  onRawContentChange?: (path: string, content: string) => void
+  onSave?: () => void
+  activeStatus: NoteStatus
+  showDiffToggle: boolean
+  showAIChat?: boolean
+  onToggleAIChat?: () => void
+  showTableOfContents?: boolean
+  onToggleTableOfContents?: () => void
+  inspectorCollapsed: boolean
+  onToggleInspector: () => void
+  onNavigateWikilink: (target: string) => void
+  onEditorChange?: () => void
+  onToggleFavorite?: (path: string) => void
+  onToggleOrganized?: (path: string) => void
+  onEnterNeighborhood?: (entry: VaultEntry) => void
+  onRevealFile?: (path: string) => void
+  onCopyFilePath?: (path: string) => void
+  onCopyDeepLink?: (entry: VaultEntry) => void
+  onCopyGitUrl?: (entry: VaultEntry) => void
+  onExportPdf?: () => void
+  onDeleteNote?: (path: string) => void
+  onArchiveNote?: (path: string) => void
+  onUnarchiveNote?: (path: string) => void
+  vaultPath?: string
+  rawModeContent?: string | null
+  findRequest?: RawEditorFindRequest | null
+  rawLatestContentRef?: React.MutableRefObject<string | null>
+  sheetFlushRef?: React.MutableRefObject<((path: string) => void) | null>
+  onRenameFilename?: (path: string, newFilenameStem: string) => void
+  noteWidth?: NoteWidthMode
+  onToggleNoteWidth?: () => void
+  isConflicted?: boolean
+  onKeepMine?: (path: string) => void
+  onKeepTheirs?: (path: string) => void
+  onImageImportError?: (error: ImageImportError) => void
+  locale?: AppLocale
+}
+
+export function useEditorContentModel(props: EditorContentProps) {
+  const {
+    activeTab,
+    activeTabPath,
+    entries,
+    rawMode,
+    diffMode,
+    onToggleRaw: toggleRaw,
+  } = props
+
+  const { cssVars } = useEditorTheme()
+  const {
+    isArchived,
+    isDeletedPreview,
+    isHtmlPreview,
+    isSheet,
+    isNonMarkdownText,
+    effectiveRawMode,
+    showEditor: showContentEditor,
+    path,
+    wordCount,
+  } = useMemo(() => deriveEditorContentState({
+    activeTab,
+    entries,
+    rawMode,
+    activeStatus: props.activeStatus,
+  }), [activeTab, entries, props.activeStatus, rawMode])
+  const showEditor = !diffMode && showContentEditor
+  const loadingEntry = !activeTab && activeTabPath
+    ? entries.find((entry) => entry.path === activeTabPath) ?? null
+    : null
+  const loadingTab = loadingEntry ? { entry: loadingEntry, content: '' } : null
+  const onToggleRaw = useCallback((recoveryReason?: BlockNoteRenderRecoveryReason) => {
+    if (recoveryReason === 'react_update_depth_exceeded') {
+      updateVaultConfigField('editor_mode', 'raw')
+      return
+    }
+
+    toggleRaw()
+  }, [toggleRaw])
+
+  const breadcrumbBarRef = useRef<HTMLDivElement | null>(null)
+  const offlineReadOnly = useOfflineReadOnly()
+  const sharedReadOnly = useSharedReadOnly(path ?? null)
+
+  return {
+    ...props,
+    onToggleRaw,
+    cssVars,
+    isArchived,
+    isDeletedPreview,
+    isHtmlPreview,
+    isSheet,
+    effectiveRawMode,
+    forceRawMode: isNonMarkdownText || isDeletedPreview,
+    showEditor,
+    loadingTab,
+    path,
+    breadcrumbBarRef,
+    wordCount,
+    readOnly: offlineReadOnly || sharedReadOnly,
+  }
+}

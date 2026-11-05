@@ -1,0 +1,66 @@
+{
+  "n": 336,
+  "tp": 91,
+  "fp": 2,
+  "fn": 21,
+  "tn": 222,
+  "alert_precision": 0.978494623655914,
+  "alert_recall": 0.8125,
+  "false_alarm": 0.008928571428571428,
+  "errors": 0,
+  "uncertain": 0,
+  "p50_ms": 805.15,
+  "p95_ms": 1831.325,
+  "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+  "ci": {
+    "alert_precision": [
+      0.9484536082474226,
+      1.0
+    ],
+    "alert_recall": [
+      0.7410714285714286,
+      0.875
+    ],
+    "false_alarm": [
+      0.0,
+      0.022321428571428572
+    ]
+  },
+  "split": "test",
+  "limit": null,
+  "guard": "on",
+  "socket": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/qwen-bench.sock",
+  "comparison": {
+    "reference": "APP_LIVE_CHECK",
+    "mcnemar_alert": {
+      "n": 672,
+      "both_right": 625,
+      "only_first": 0,
+      "only_second": 0,
+      "both_wrong": 47,
+      "discordant": 0,
+      "chi2": 0.0,
+      "chi2_p": 1.0,
+      "exact_p": 1.0
+    },
+    "series_sign_alert": {
+      "series": 28,
+      "first_better": 0,
+      "second_better": 0,
+      "tied": 28,
+      "exact_p": 1.0
+    },
+    "paired_bootstrap": {
+      "alert_recall": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "false_alarm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  }
+}

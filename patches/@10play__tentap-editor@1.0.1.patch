@@ -1,0 +1,123 @@
+diff --git a/lib/commonjs/RichText/RichText.js b/lib/commonjs/RichText/RichText.js
+index f1412dfb5526f8cbe2a943b13bb6ed908766f180..c818a78dfa9aa15965a52e6ba713e594c6afcd55 100644
+--- a/lib/commonjs/RichText/RichText.js
++++ b/lib/commonjs/RichText/RichText.js
+@@ -79,6 +79,7 @@ const RichText = ({
+         editor.webviewRef.current.injectJavaScript(`
+           doc = document.querySelector('.ProseMirror');
+           if(doc) doc.style.paddingBottom = '${height}px';
++          true;
+         `);
+       }
+     };
+@@ -131,7 +132,7 @@ const RichText = ({
+       setLoaded(true);
+       // This is a workaround for iOS to make sure the webview is loaded
+       // See https://github.com/react-native-webview/react-native-webview/issues/3578
+-      if (_reactNative.Platform.OS === 'ios' && key === 'webview') {
++      if (_reactNative.Platform.OS === 'ios' && key === 'webview' && !editor.customSource) {
+         setKey('webview_reloaded');
+       }
+       props.onLoad && props.onLoad(e);
+diff --git a/lib/commonjs/RichText/utils.js b/lib/commonjs/RichText/utils.js
+index 31d48dcef2d35a305f4fcf281f6ad1377adcd118..1d5adae664ffd8089ea849cde95829a9e354897b 100644
+--- a/lib/commonjs/RichText/utils.js
++++ b/lib/commonjs/RichText/utils.js
+@@ -27,6 +27,7 @@ const getStyleSheetCSS = (css, styleSheetTag) => {
+     }
+     
+     styleElement.innerHTML = cssContent;
++    true;
+     `;
+ };
+ exports.getStyleSheetCSS = getStyleSheetCSS;
+@@ -65,6 +66,7 @@ const getInjectedJSBeforeContentLoad = editor => {
+     window.dynamicHeight = ${editor.dynamicHeight};
+     window.contentInjected = true;
+     window.platform = "${_reactNative.Platform.OS}";
++    true;
+   `);
+ };
+ exports.getInjectedJSBeforeContentLoad = getInjectedJSBeforeContentLoad;
+diff --git a/lib/module/RichText/RichText.js b/lib/module/RichText/RichText.js
+index 482260a81fed9adb7485496894648c0dd23b92e0..eff0535646a39fc12bfed0d33ce6a8669447fce9 100644
+--- a/lib/module/RichText/RichText.js
++++ b/lib/module/RichText/RichText.js
+@@ -71,6 +71,7 @@ export const RichText = ({
+         editor.webviewRef.current.injectJavaScript(`
+           doc = document.querySelector('.ProseMirror');
+           if(doc) doc.style.paddingBottom = '${height}px';
++          true;
+         `);
+       }
+     };
+@@ -123,7 +124,7 @@ export const RichText = ({
+       setLoaded(true);
+       // This is a workaround for iOS to make sure the webview is loaded
+       // See https://github.com/react-native-webview/react-native-webview/issues/3578
+-      if (Platform.OS === 'ios' && key === 'webview') {
++      if (Platform.OS === 'ios' && key === 'webview' && !editor.customSource) {
+         setKey('webview_reloaded');
+       }
+       props.onLoad && props.onLoad(e);
+diff --git a/lib/module/RichText/utils.js b/lib/module/RichText/utils.js
+index 9b94291a928a611f188b25c83a5f21acd8eeca23..5fe8e4c5438d15ad299387834baf112bb0652b7d 100644
+--- a/lib/module/RichText/utils.js
++++ b/lib/module/RichText/utils.js
+@@ -21,6 +21,7 @@ export const getStyleSheetCSS = (css, styleSheetTag) => {
+     }
+     
+     styleElement.innerHTML = cssContent;
++    true;
+     `;
+ };
+ export const getInjectedJS = bridgeExtensions => {
+@@ -57,6 +58,7 @@ export const getInjectedJSBeforeContentLoad = editor => {
+     window.dynamicHeight = ${editor.dynamicHeight};
+     window.contentInjected = true;
+     window.platform = "${Platform.OS}";
++    true;
+   `);
+ };
+ const formatForInjection = js => {
+diff --git a/src/RichText/RichText.tsx b/src/RichText/RichText.tsx
+index 88867f95bcd0f6804e97f4958647ff334a17a42b..705ce9a2aa8ad26363bbd552cd95343ea6705767 100644
+--- a/src/RichText/RichText.tsx
++++ b/src/RichText/RichText.tsx
+@@ -81,6 +81,7 @@ export const RichText = ({
+         editor.webviewRef.current.injectJavaScript(`
+           doc = document.querySelector('.ProseMirror');
+           if(doc) doc.style.paddingBottom = '${height}px';
++          true;
+         `);
+       }
+     };
+@@ -151,7 +152,7 @@ export const RichText = ({
+           setLoaded(true);
+           // This is a workaround for iOS to make sure the webview is loaded
+           // See https://github.com/react-native-webview/react-native-webview/issues/3578
+-          if (Platform.OS === 'ios' && key === 'webview') {
++          if (Platform.OS === 'ios' && key === 'webview' && !editor.customSource) {
+             setKey('webview_reloaded');
+           }
+           props.onLoad && props.onLoad(e);
+diff --git a/src/RichText/utils.ts b/src/RichText/utils.ts
+index 652c018b570c6df9216793b94c68837fc9ac4da7..eaecce7aef5f783b09182f998bdc10c5afe6cc36 100644
+--- a/src/RichText/utils.ts
++++ b/src/RichText/utils.ts
+@@ -24,6 +24,7 @@ export const getStyleSheetCSS = (css: string, styleSheetTag: string) => {
+     }
+     
+     styleElement.innerHTML = cssContent;
++    true;
+     `;
+ };
+ 
+@@ -72,6 +73,7 @@ export const getInjectedJSBeforeContentLoad = (editor: EditorBridge) => {
+     window.dynamicHeight = ${editor.dynamicHeight};
+     window.contentInjected = true;
+     window.platform = "${Platform.OS}";
++    true;
+   `);
+ };
+ 

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Memoria's fast local commit check. Build and scoped tests run before pushing.
+set -eu
+git diff --cached --check

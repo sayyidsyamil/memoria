@@ -1,0 +1,2805 @@
+{
+ "config": {
+  "part": "memoria",
+  "split": "dev",
+  "levels": [
+   0,
+   8
+  ],
+  "chains": [
+   "crm",
+   "datacentre"
+  ],
+  "questions": 27,
+  "extractor": "mlx",
+  "router": "mlx",
+  "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+  "padding_seed": 0,
+  "generator": "g1",
+  "extractor_prompt": "v2",
+  "extractor_prompt_sha256_12": "7f816362cd95",
+  "router_prompt": "r1",
+  "baseline_configs": null,
+  "data_sha256_12": "92eaa27b5e5b",
+  "wording": "ask",
+  "ask_sha256_12": "3a4cc6404d7e",
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.11.17",
+  "date": "2026-10-10 20:22:34"
+ },
+ "levels": {
+  "0": {
+   "k": 0,
+   "shape": {
+    "crm": {
+     "meetings": 5,
+     "objects": 3,
+     "slots": 5,
+     "gold_events": 12
+    },
+    "datacentre": {
+     "meetings": 4,
+     "objects": 3,
+     "slots": 5,
+     "gold_events": 14
+    }
+   },
+   "qa": {
+    "ext+router": {
+     "overall": {
+      "correct": 23,
+      "n": 27,
+      "accuracy": 0.8518518518518519,
+      "ci_95": [
+       0.675,
+       0.941
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 7,
+      "n": 8,
+      "accuracy": 0.875,
+      "ci_95": [
+       0.529,
+       0.978
+      ]
+     },
+     "current": {
+      "correct": 8,
+      "n": 9,
+      "accuracy": 0.8888888888888888,
+      "ci_95": [
+       0.565,
+       0.98
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 6,
+      "accuracy": 0.6666666666666666,
+      "ci_95": [
+       0.3,
+       0.903
+      ]
+     }
+    },
+    "ext+oracle_route": {
+     "overall": {
+      "correct": 23,
+      "n": 27,
+      "accuracy": 0.8518518518518519,
+      "ci_95": [
+       0.675,
+       0.941
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 7,
+      "n": 8,
+      "accuracy": 0.875,
+      "ci_95": [
+       0.529,
+       0.978
+      ]
+     },
+     "current": {
+      "correct": 8,
+      "n": 9,
+      "accuracy": 0.8888888888888888,
+      "ci_95": [
+       0.565,
+       0.98
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 6,
+      "accuracy": 0.6666666666666666,
+      "ci_95": [
+       0.3,
+       0.903
+      ]
+     }
+    },
+    "oracle_ext+router": {
+     "overall": {
+      "correct": 27,
+      "n": 27,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.875,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 8,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.676,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 9,
+      "n": 9,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.701,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 6,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.61,
+       1.0
+      ]
+     }
+    },
+    "oracle_ext+oracle_route": {
+     "overall": {
+      "correct": 27,
+      "n": 27,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.875,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 8,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.676,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 9,
+      "n": 9,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.701,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 6,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.61,
+       1.0
+      ]
+     }
+    }
+   },
+   "router": {
+    "exact": 27,
+    "n": 27,
+    "failed": 0,
+    "by_type": {
+     "current": {
+      "correct": 9,
+      "n": 9
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 8
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 6
+     }
+    },
+    "mean_prompt_tokens": 808.296,
+    "mean_seconds": 3.045
+   },
+   "extraction_base": {
+    "gold_events": 26,
+    "tp": 24,
+    "fp": 2,
+    "fn": 2,
+    "precision": 0.9230769230769231,
+    "recall": 0.9230769230769231,
+    "f1": 0.9230769230769231,
+    "ci_95": {
+     "precision": [
+      0.818,
+      1.0
+     ],
+     "recall": [
+      0.765,
+      1.0
+     ],
+     "f1": [
+      0.811,
+      0.985
+     ]
+    },
+    "state_changing_recall": 0.9047619047619048,
+    "state_changing_gold": 21,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 9,
+      "found": 9,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 5,
+      "found": 5,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 9,
+      "found": 8,
+      "recall": 0.889
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "COMPLETE": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 19,
+      "found": 18,
+      "recall": 0.947
+     },
+     "relative_amount": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "reversal": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "relative_date": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 2
+    },
+    "fp_reasons": {
+     "distractor:untracked": 1,
+     "wrong_content": 1
+    },
+    "filtered": {
+     "invalid": 1,
+     "unresolved": 1
+    },
+    "distractor_hit_rate": 0.043478260869565216,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.02307692307692344,
+    "confidence_mean": 0.8999999999999997,
+    "confidence_distinct": 1
+   },
+   "extraction_filler": null,
+   "ledger_base": {
+    "supersession_tp": 9,
+    "supersession_fp": 2,
+    "supersession_fn": 2,
+    "state_gold": 10,
+    "state_correct": 9,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.8181818181818182,
+    "supersession_recall": 0.8181818181818182,
+    "supersession_f1": 0.8181818181818182,
+    "state_accuracy": 0.9
+   },
+   "ledger_all": {
+    "supersession_tp": 9,
+    "supersession_fp": 2,
+    "supersession_fn": 2,
+    "state_gold": 10,
+    "state_correct": 9,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.8181818181818182,
+    "supersession_recall": 0.8181818181818182,
+    "supersession_f1": 0.8181818181818182,
+    "state_accuracy": 0.9
+   },
+   "cost": {
+    "extract_seconds_per_meeting": 9.089,
+    "extract_prompt_tokens_mean": 1108.222,
+    "extract_output_tokens_mean": 203.111,
+    "meetings_extracted": 9,
+    "extract_seconds_total": 81.8
+   },
+   "rows": [
+    {
+     "chain": "crm",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Vendor B",
+     "question": "Which CRM vendor did we end up choosing?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor B",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor B",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor B",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor B",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q2",
+     "type": "current",
+     "gold": 2500000,
+     "question": "What is the CRM budget at the moment, in ringgit?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-04-30",
+     "question": "What is the current deadline for the CRM go-live?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-04-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-04-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q4",
+     "type": "current",
+     "gold": "done",
+     "question": "What is the status of the CRM rollout?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_rollout",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_rollout\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": "2026-03-01",
+     "question": "What was the CRM rollout deadline on 20 February 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": "2026-02-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":\"2026-02-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "2026-03-15",
+     "question": "What was the CRM rollout deadline on 10 March 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-03-01",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-03-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-03-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q7",
+     "type": "as_of_tx",
+     "gold": "2026-03-01",
+     "question": "According to what had been recorded by 1 April 2026, what was the CRM rollout deadline on 10 March 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": "2026-03-10",
+      "tx_at": "2026-04-01",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-10\",\"tx_at\":\"2026-04-01\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": "Vendor A",
+     "question": "Going by the records as of 1 March 2026, which CRM vendor was selected on 25 March 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "crm_vendor",
+      "attribute": "outcome",
+      "valid_at": "2026-03-25",
+      "tx_at": "2026-03-01",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"crm_vendor\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-25\",\"tx_at\":\"2026-03-01\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor A",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor A",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor A",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor A",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": 2000000,
+     "question": "What was the CRM budget on January 15, 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_budget",
+      "attribute": "amount",
+      "valid_at": "2026-01-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_budget\",\"attribute\":\"amount\",\"valid_at\":\"2026-01-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q10",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "What was the status of the CRM rollout on 2026-04-01?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_rollout",
+      "attribute": "status",
+      "valid_at": "2026-04-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_rollout\",\"attribute\":\"status\",\"valid_at\":\"2026-04-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the CRM vendor choice change? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "crm_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"crm_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 2,
+     "question": "How many times was the CRM rollout deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q13",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times has the CRM budget been changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "crm_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"crm_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Johor",
+     "question": "Where will the data centre be built?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_site",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_site\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Johor",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Johor",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Johor",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Johor",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q2",
+     "type": "current",
+     "gold": 4500000,
+     "question": "What is the current budget for the data centre, in ringgit?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q3",
+     "type": "current",
+     "gold": "approved",
+     "question": "What is the approval status of the data centre budget right now?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "approved",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "approved",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "approved",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "approved",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q4",
+     "type": "current",
+     "gold": "mei",
+     "question": "Who is currently leading phase one of the build?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_phase1",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_phase1\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "mei",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "mei",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "mei",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "mei",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q5",
+     "type": "current",
+     "gold": "2026-08-31",
+     "question": "When is phase one due to be finished?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_phase1",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_phase1\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-08-31",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-08-31",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-08-31",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-08-31",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "on_hold",
+     "question": "What was the status of the data centre budget on 30 April 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": "2026-04-30",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":\"2026-04-30\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "question": "What was the data centre budget on 20 February 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_budget",
+      "attribute": "amount",
+      "valid_at": "2026-02-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_budget\",\"attribute\":\"amount\",\"valid_at\":\"2026-02-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": "on_hold",
+     "question": "As recorded by 25 April 2026, what was the budget status on 20 May 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": "2026-05-20",
+      "tx_at": "2026-04-25",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":\"2026-05-20\",\"tx_at\":\"2026-04-25\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "Cyberjaya",
+     "question": "Which site was chosen for the data centre on 1 March 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_site",
+      "attribute": "outcome",
+      "valid_at": "2026-03-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_site\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Cyberjaya",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Cyberjaya",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Cyberjaya",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Cyberjaya",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q10",
+     "type": "as_of_valid",
+     "gold": "farid",
+     "question": "Who led phase one on 1 April 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_phase1",
+      "attribute": "owner",
+      "valid_at": "2026-04-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_phase1\",\"attribute\":\"owner\",\"valid_at\":\"2026-04-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "farid",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "farid",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "farid",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "farid",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 2,
+     "question": "How many times has the budget's approval status changed since it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 2,
+     "question": "How many times was the data centre budget amount changed after first being set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "dc_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"dc_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q13",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times was the phase one deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "dc_phase1",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"dc_phase1\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q14",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "question": "Going by what had been recorded as of 20 February 2026, what deadline applied to phase one on 1 July 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "dc_phase1",
+      "attribute": "deadline",
+      "valid_at": "2026-07-01",
+      "tx_at": "2026-02-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"dc_phase1\",\"attribute\":\"deadline\",\"valid_at\":\"2026-07-01\",\"tx_at\":\"2026-02-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    }
+   ],
+   "wall_seconds": 164.5
+  },
+  "8": {
+   "k": 8,
+   "shape": {
+    "crm": {
+     "meetings": 13,
+     "objects": 9,
+     "slots": 15,
+     "gold_events": 26
+    },
+    "datacentre": {
+     "meetings": 12,
+     "objects": 9,
+     "slots": 15,
+     "gold_events": 26
+    }
+   },
+   "qa": {
+    "ext+router": {
+     "overall": {
+      "correct": 22,
+      "n": 27,
+      "accuracy": 0.8148148148148148,
+      "ci_95": [
+       0.633,
+       0.918
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 7,
+      "n": 8,
+      "accuracy": 0.875,
+      "ci_95": [
+       0.529,
+       0.978
+      ]
+     },
+     "current": {
+      "correct": 7,
+      "n": 9,
+      "accuracy": 0.7777777777777778,
+      "ci_95": [
+       0.453,
+       0.937
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 6,
+      "accuracy": 0.6666666666666666,
+      "ci_95": [
+       0.3,
+       0.903
+      ]
+     }
+    },
+    "ext+oracle_route": {
+     "overall": {
+      "correct": 22,
+      "n": 27,
+      "accuracy": 0.8148148148148148,
+      "ci_95": [
+       0.633,
+       0.918
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 7,
+      "n": 8,
+      "accuracy": 0.875,
+      "ci_95": [
+       0.529,
+       0.978
+      ]
+     },
+     "current": {
+      "correct": 7,
+      "n": 9,
+      "accuracy": 0.7777777777777778,
+      "ci_95": [
+       0.453,
+       0.937
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 6,
+      "accuracy": 0.6666666666666666,
+      "ci_95": [
+       0.3,
+       0.903
+      ]
+     }
+    },
+    "oracle_ext+router": {
+     "overall": {
+      "correct": 27,
+      "n": 27,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.875,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 8,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.676,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 9,
+      "n": 9,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.701,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 6,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.61,
+       1.0
+      ]
+     }
+    },
+    "oracle_ext+oracle_route": {
+     "overall": {
+      "correct": 27,
+      "n": 27,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.875,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 8,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.676,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 9,
+      "n": 9,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.701,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 6,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.61,
+       1.0
+      ]
+     }
+    }
+   },
+   "router": {
+    "exact": 27,
+    "n": 27,
+    "failed": 0,
+    "by_type": {
+     "current": {
+      "correct": 9,
+      "n": 9
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 8
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4
+     },
+     "n_changes": {
+      "correct": 6,
+      "n": 6
+     }
+    },
+    "mean_prompt_tokens": 964.333,
+    "mean_seconds": 3.343
+   },
+   "extraction_base": {
+    "gold_events": 26,
+    "tp": 22,
+    "fp": 1,
+    "fn": 4,
+    "precision": 0.9565217391304348,
+    "recall": 0.8461538461538461,
+    "f1": 0.8979591836734695,
+    "ci_95": {
+     "precision": [
+      0.88,
+      1.0
+     ],
+     "recall": [
+      0.682,
+      0.967
+     ],
+     "f1": [
+      0.788,
+      0.966
+     ]
+    },
+    "state_changing_recall": 0.8571428571428571,
+    "state_changing_gold": 21,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 9,
+      "found": 9,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 5,
+      "found": 4,
+      "recall": 0.8
+     },
+     "REVISE": {
+      "gold": 9,
+      "found": 7,
+      "recall": 0.778
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "COMPLETE": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 19,
+      "found": 17,
+      "recall": 0.895
+     },
+     "relative_amount": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "reversal": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "relative_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 4
+    },
+    "fp_reasons": {
+     "wrong_content": 1
+    },
+    "filtered": {
+     "invalid": 2
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.05652173913043501,
+    "confidence_mean": 0.8999999999999998,
+    "confidence_distinct": 1
+   },
+   "extraction_filler": {
+    "gold_events": 26,
+    "tp": 18,
+    "fp": 1,
+    "fn": 8,
+    "precision": 0.9473684210526315,
+    "recall": 0.6923076923076923,
+    "f1": 0.7999999999999999,
+    "ci_95": {
+     "precision": [
+      0.812,
+      1.0
+     ],
+     "recall": [
+      0.45,
+      0.871
+     ],
+     "f1": [
+      0.588,
+      0.926
+     ]
+    },
+    "state_changing_recall": 0.6666666666666666,
+    "state_changing_gold": 24,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 16,
+      "found": 15,
+      "recall": 0.938
+     },
+     "REVISE": {
+      "gold": 7,
+      "found": 1,
+      "recall": 0.143
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CANCEL": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 24,
+      "found": 18,
+      "recall": 0.75
+     },
+     "anaphora": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "relative_amount": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 6,
+     "attribute_error": 1,
+     "value_error": 1
+    },
+    "fp_reasons": {
+     "wrong_content": 1
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 26,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.047368421052631504,
+    "confidence_mean": 0.9,
+    "confidence_distinct": 1
+   },
+   "ledger_base": {
+    "supersession_tp": 8,
+    "supersession_fp": 2,
+    "supersession_fn": 3,
+    "state_gold": 10,
+    "state_correct": 8,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.8,
+    "supersession_recall": 0.7272727272727273,
+    "supersession_f1": 0.761904761904762,
+    "state_accuracy": 0.8
+   },
+   "ledger_all": {
+    "supersession_tp": 9,
+    "supersession_fp": 3,
+    "supersession_fn": 9,
+    "state_gold": 27,
+    "state_correct": 18,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.75,
+    "supersession_recall": 0.5,
+    "supersession_f1": 0.6,
+    "state_accuracy": 0.6666666666666666
+   },
+   "cost": {
+    "extract_seconds_per_meeting": 7.161,
+    "extract_prompt_tokens_mean": 1311.4,
+    "extract_output_tokens_mean": 109.48,
+    "meetings_extracted": 25,
+    "extract_seconds_total": 179.0
+   },
+   "rows": [
+    {
+     "chain": "crm",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Vendor B",
+     "question": "Which CRM vendor did we end up choosing?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor B",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor B",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor B",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor B",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q2",
+     "type": "current",
+     "gold": 2500000,
+     "question": "What is the CRM budget at the moment, in ringgit?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-04-30",
+     "question": "What is the current deadline for the CRM go-live?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-04-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-04-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q4",
+     "type": "current",
+     "gold": "done",
+     "question": "What is the status of the CRM rollout?",
+     "route": {
+      "type": "current",
+      "object_id": "crm_rollout",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"crm_rollout\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": "2026-03-01",
+     "question": "What was the CRM rollout deadline on 20 February 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": "2026-02-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":\"2026-02-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "2026-03-15",
+     "question": "What was the CRM rollout deadline on 10 March 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-03-01",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-03-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-03-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q7",
+     "type": "as_of_tx",
+     "gold": "2026-03-01",
+     "question": "According to what had been recorded by 1 April 2026, what was the CRM rollout deadline on 10 March 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": "2026-03-10",
+      "tx_at": "2026-04-01",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-10\",\"tx_at\":\"2026-04-01\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-03-01",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-03-01",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": "Vendor A",
+     "question": "Going by the records as of 1 March 2026, which CRM vendor was selected on 25 March 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "crm_vendor",
+      "attribute": "outcome",
+      "valid_at": "2026-03-25",
+      "tx_at": "2026-03-01",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"crm_vendor\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-25\",\"tx_at\":\"2026-03-01\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor A",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor A",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor A",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor A",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": 2000000,
+     "question": "What was the CRM budget on January 15, 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_budget",
+      "attribute": "amount",
+      "valid_at": "2026-01-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_budget\",\"attribute\":\"amount\",\"valid_at\":\"2026-01-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q10",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "What was the status of the CRM rollout on 2026-04-01?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "crm_rollout",
+      "attribute": "status",
+      "valid_at": "2026-04-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"crm_rollout\",\"attribute\":\"status\",\"valid_at\":\"2026-04-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the CRM vendor choice change? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "crm_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"crm_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 2,
+     "question": "How many times was the CRM rollout deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "crm_rollout",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"crm_rollout\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "crm",
+     "qid": "q13",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times has the CRM budget been changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "crm_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"crm_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Johor",
+     "question": "Where will the data centre be built?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_site",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_site\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Johor",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Johor",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Johor",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Johor",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q2",
+     "type": "current",
+     "gold": 4500000,
+     "question": "What is the current budget for the data centre, in ringgit?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q3",
+     "type": "current",
+     "gold": "approved",
+     "question": "What is the approval status of the data centre budget right now?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "approved",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "approved",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "approved",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "approved",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q4",
+     "type": "current",
+     "gold": "mei",
+     "question": "Who is currently leading phase one of the build?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_phase1",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_phase1\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "farid",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "farid",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "mei",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "mei",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q5",
+     "type": "current",
+     "gold": "2026-08-31",
+     "question": "When is phase one due to be finished?",
+     "route": {
+      "type": "current",
+      "object_id": "dc_phase1",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"dc_phase1\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-08-31",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-08-31",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-08-31",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-08-31",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "on_hold",
+     "question": "What was the status of the data centre budget on 30 April 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": "2026-04-30",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":\"2026-04-30\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "question": "What was the data centre budget on 20 February 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_budget",
+      "attribute": "amount",
+      "valid_at": "2026-02-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_budget\",\"attribute\":\"amount\",\"valid_at\":\"2026-02-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": "on_hold",
+     "question": "As recorded by 25 April 2026, what was the budget status on 20 May 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": "2026-05-20",
+      "tx_at": "2026-04-25",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":\"2026-05-20\",\"tx_at\":\"2026-04-25\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "on_hold",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "on_hold",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "Cyberjaya",
+     "question": "Which site was chosen for the data centre on 1 March 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_site",
+      "attribute": "outcome",
+      "valid_at": "2026-03-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_site\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Cyberjaya",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Cyberjaya",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Cyberjaya",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Cyberjaya",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q10",
+     "type": "as_of_valid",
+     "gold": "farid",
+     "question": "Who led phase one on 1 April 2026?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "dc_phase1",
+      "attribute": "owner",
+      "valid_at": "2026-04-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"dc_phase1\",\"attribute\":\"owner\",\"valid_at\":\"2026-04-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "farid",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "farid",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "farid",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "farid",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 2,
+     "question": "How many times has the budget's approval status changed since it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "dc_budget",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"dc_budget\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 2,
+     "question": "How many times was the data centre budget amount changed after first being set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "dc_budget",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"dc_budget\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 2,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q13",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times was the phase one deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "dc_phase1",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"dc_phase1\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "datacentre",
+     "qid": "q14",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "question": "Going by what had been recorded as of 20 February 2026, what deadline applied to phase one on 1 July 2026?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "dc_phase1",
+      "attribute": "deadline",
+      "valid_at": "2026-07-01",
+      "tx_at": "2026-02-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"dc_phase1\",\"attribute\":\"deadline\",\"valid_at\":\"2026-07-01\",\"tx_at\":\"2026-02-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    }
+   ],
+   "wall_seconds": 269.8
+  }
+ },
+ "cache": {
+  "hits": 0,
+  "misses": 88
+ }
+}

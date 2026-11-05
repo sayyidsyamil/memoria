@@ -1,0 +1,811 @@
+{
+  "status": "NO QUALIFYING DEVELOPMENT / VALIDATION CANDIDATE",
+  "reason": "The shadow procedure has narrow source-valid improvements, but the four-window transfer improves only change-count QA, leaves current QA 28/43, and produces/reanchors unsupported off-target writes. Stop this bounded path; no promotion or further tuning on checks.",
+  "baseline": {
+    "source_revision": "225f709fd27779103ea6dc01058776528a74af4b",
+    "first_round_commit": "cc51a9a5e",
+    "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "decode": "thinking off, greedy, 1800 extraction tokens, historical app system/repairs",
+    "current_main": "Not evaluated. Parent reports newer amounts/singleton/HUD fixes and integration commits; they are not silently included in this historical baseline."
+  },
+  "case_identity": {
+    "sha256": "d941a56bce4c4c50ff5ba3ee0ef428056fb9423b81a4306b90272bcbc2d33076",
+    "controlled": 24,
+    "natural": 6,
+    "derive": "ES2003b/c and TS3004c/d: 16 controlled + 3 natural fixtures",
+    "check": "IS1008b/d and TS3006d: 8 controlled + 3 natural fixtures",
+    "unique_shadow_requests": 29,
+    "duplicate_proof": "results/duplicate-fixture-proof.json",
+    "labels": "AI-assisted source judgments, not independent human gold"
+  },
+  "native": {
+    "scope": "conditional full-target sequence likelihood rankings after a teacher-forced native quoted-event prefix, not free-generation accuracy",
+    "derivation_correct": "12/16",
+    "check_correct": "6/8",
+    "dual_registered": {
+      "derive": "8/8",
+      "check": "4/4"
+    },
+    "single_registered_case": {
+      "derive": "4/4",
+      "check": "2/2"
+    },
+    "untracked_should_be_null": {
+      "derive": "0/4",
+      "check": "0/2"
+    },
+    "localization": {
+      "derive_only": true,
+      "old_dual_native_errors": 0,
+      "old_dual_n": 8,
+      "layers": [
+        {
+          "layer": 7,
+          "held_pair_cosines": [
+            0.41901981830596924,
+            0.5778930187225342,
+            0.596541166305542,
+            0.046275846660137177
+          ],
+          "positive_held_pairs": 4,
+          "median_cosine": 0.4984564185142517,
+          "centered_input_held_examples_correct": 7,
+          "held_examples": 8
+        },
+        {
+          "layer": 17,
+          "held_pair_cosines": [
+            0.7256410121917725,
+            0.7466857433319092,
+            0.7540995478630066,
+            0.36356320977211
+          ],
+          "positive_held_pairs": 4,
+          "median_cosine": 0.7361633777618408,
+          "centered_input_held_examples_correct": 7,
+          "held_examples": 8
+        },
+        {
+          "layer": 25,
+          "held_pair_cosines": [
+            0.7274354696273804,
+            0.7664582133293152,
+            0.7155126333236694,
+            0.6380596160888672
+          ],
+          "positive_held_pairs": 4,
+          "median_cosine": 0.7214740514755249,
+          "centered_input_held_examples_correct": 7,
+          "held_examples": 8
+        }
+      ],
+      "eligible_layer": null,
+      "decision": "no justified native binding weight edit on this evidence",
+      "rule": ">=2 old dual native errors; >=3/4 positive held-pair cosines, median>.1, centered input >=6/8"
+    },
+    "weights_modified": false,
+    "neural_gate": "Closed: 0 errors on old dual-tracked binding rankings; no weight or activation intervention was justified."
+  },
+  "source_generation": {
+    "base": {
+      "derive": {
+        "result": {
+          "cases": 19,
+          "success": 13,
+          "expected": 20,
+          "found": 17,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 1021,
+          "unclean": 1,
+          "seconds": 50.3121144209872,
+          "p50_seconds": 2.221123458002694,
+          "peak_mlx_gb": 3.606622754
+        },
+        "matched_baseline": {
+          "cases": 19,
+          "success": 13,
+          "expected": 20,
+          "found": 17,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 1021,
+          "unclean": 1,
+          "seconds": 50.3121144209872,
+          "p50_seconds": 2.221123458002694,
+          "peak_mlx_gb": 3.606622754
+        },
+        "lost_source_binding_cases": []
+      },
+      "check": {
+        "result": {
+          "cases": 11,
+          "success": 4,
+          "expected": 18,
+          "found": 11,
+          "wrong_writes": 4,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 774,
+          "unclean": 0,
+          "seconds": 39.6105743329972,
+          "p50_seconds": 3.1397155419981573,
+          "peak_mlx_gb": 3.644273314
+        },
+        "matched_baseline": {
+          "cases": 11,
+          "success": 4,
+          "expected": 18,
+          "found": 11,
+          "wrong_writes": 4,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 774,
+          "unclean": 0,
+          "seconds": 39.6105743329972,
+          "p50_seconds": 3.1397155419981573,
+          "peak_mlx_gb": 3.644273314
+        },
+        "lost_source_binding_cases": []
+      },
+      "all": {
+        "result": {
+          "cases": 30,
+          "success": 17,
+          "expected": 38,
+          "found": 28,
+          "wrong_writes": 6,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 1795,
+          "unclean": 1,
+          "seconds": 89.9226887539844,
+          "p50_seconds": 2.5827578335010912,
+          "peak_mlx_gb": 3.644273314
+        },
+        "matched_baseline": {
+          "cases": 30,
+          "success": 17,
+          "expected": 38,
+          "found": 28,
+          "wrong_writes": 6,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 1795,
+          "unclean": 1,
+          "seconds": 89.9226887539844,
+          "p50_seconds": 2.5827578335010912,
+          "peak_mlx_gb": 3.644273314
+        },
+        "lost_source_binding_cases": []
+      }
+    },
+    "sentinel": {
+      "derive": {
+        "result": {
+          "cases": 12,
+          "success": 8,
+          "expected": 14,
+          "found": 12,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 750,
+          "unclean": 0,
+          "seconds": 60.437216291058576,
+          "p50_seconds": 4.149876270501409,
+          "peak_mlx_gb": 3.642667778
+        },
+        "matched_baseline": {
+          "cases": 12,
+          "success": 8,
+          "expected": 14,
+          "found": 12,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 745,
+          "unclean": 0,
+          "seconds": 32.99395691996324,
+          "p50_seconds": 2.2592827710031997,
+          "peak_mlx_gb": 3.606622754
+        },
+        "lost_source_binding_cases": []
+      },
+      "check": {
+        "result": {
+          "cases": 0,
+          "success": 0,
+          "expected": 0,
+          "found": 0,
+          "wrong_writes": 0,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 0,
+          "unclean": 0,
+          "seconds": 0,
+          "p50_seconds": null,
+          "peak_mlx_gb": 0
+        },
+        "matched_baseline": {
+          "cases": 0,
+          "success": 0,
+          "expected": 0,
+          "found": 0,
+          "wrong_writes": 0,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 0,
+          "unclean": 0,
+          "seconds": 0,
+          "p50_seconds": null,
+          "peak_mlx_gb": 0
+        },
+        "lost_source_binding_cases": []
+      },
+      "all": {
+        "result": {
+          "cases": 12,
+          "success": 8,
+          "expected": 14,
+          "found": 12,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 750,
+          "unclean": 0,
+          "seconds": 60.437216291058576,
+          "p50_seconds": 4.149876270501409,
+          "peak_mlx_gb": 3.642667778
+        },
+        "matched_baseline": {
+          "cases": 12,
+          "success": 8,
+          "expected": 14,
+          "found": 12,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 745,
+          "unclean": 0,
+          "seconds": 32.99395691996324,
+          "p50_seconds": 2.2592827710031997,
+          "peak_mlx_gb": 3.606622754
+        },
+        "lost_source_binding_cases": []
+      }
+    },
+    "shadow": {
+      "derive": {
+        "result": {
+          "cases": 18,
+          "success": 15,
+          "expected": 20,
+          "found": 17,
+          "wrong_writes": 0,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 1059,
+          "unclean": 0,
+          "seconds": 55.17615649898653,
+          "p50_seconds": 2.7438062079891097,
+          "peak_mlx_gb": 3.636900482
+        },
+        "matched_baseline": {
+          "cases": 18,
+          "success": 12,
+          "expected": 20,
+          "found": 17,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 1016,
+          "unclean": 1,
+          "seconds": 48.421456211974146,
+          "p50_seconds": 2.266003708005883,
+          "peak_mlx_gb": 3.606622754
+        },
+        "lost_source_binding_cases": []
+      },
+      "check": {
+        "result": {
+          "cases": 11,
+          "success": 5,
+          "expected": 18,
+          "found": 12,
+          "wrong_writes": 3,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 908,
+          "unclean": 0,
+          "seconds": 35.96562512405217,
+          "p50_seconds": 2.7555580000043847,
+          "peak_mlx_gb": 3.662869338
+        },
+        "matched_baseline": {
+          "cases": 11,
+          "success": 4,
+          "expected": 18,
+          "found": 11,
+          "wrong_writes": 4,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 774,
+          "unclean": 0,
+          "seconds": 39.6105743329972,
+          "p50_seconds": 3.1397155419981573,
+          "peak_mlx_gb": 3.644273314
+        },
+        "lost_source_binding_cases": []
+      },
+      "all": {
+        "result": {
+          "cases": 29,
+          "success": 20,
+          "expected": 38,
+          "found": 29,
+          "wrong_writes": 3,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 1967,
+          "unclean": 0,
+          "seconds": 91.1417816230387,
+          "p50_seconds": 2.7555580000043847,
+          "peak_mlx_gb": 3.662869338
+        },
+        "matched_baseline": {
+          "cases": 29,
+          "success": 16,
+          "expected": 38,
+          "found": 28,
+          "wrong_writes": 6,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 1790,
+          "unclean": 1,
+          "seconds": 88.03203054497135,
+          "p50_seconds": 2.6287622500094585,
+          "peak_mlx_gb": 3.644273314
+        },
+        "lost_source_binding_cases": []
+      }
+    },
+    "subject-first": {
+      "derive": {
+        "result": {
+          "cases": 19,
+          "success": 14,
+          "expected": 20,
+          "found": 17,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 2477,
+          "unclean": 0,
+          "seconds": 121.27492249797797,
+          "p50_seconds": 4.236439750005957,
+          "peak_mlx_gb": 3.75422692
+        },
+        "matched_baseline": {
+          "cases": 19,
+          "success": 13,
+          "expected": 20,
+          "found": 17,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 0,
+          "tokens": 1021,
+          "unclean": 1,
+          "seconds": 50.3121144209872,
+          "p50_seconds": 2.221123458002694,
+          "peak_mlx_gb": 3.606622754
+        },
+        "lost_source_binding_cases": []
+      },
+      "check": {
+        "result": {
+          "cases": 11,
+          "success": 4,
+          "expected": 18,
+          "found": 3,
+          "wrong_writes": 2,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 2338,
+          "unclean": 0,
+          "seconds": 117.69999550102511,
+          "p50_seconds": 6.476302583003417,
+          "peak_mlx_gb": 3.786290538
+        },
+        "matched_baseline": {
+          "cases": 11,
+          "success": 4,
+          "expected": 18,
+          "found": 11,
+          "wrong_writes": 4,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 774,
+          "unclean": 0,
+          "seconds": 39.6105743329972,
+          "p50_seconds": 3.1397155419981573,
+          "peak_mlx_gb": 3.644273314
+        },
+        "lost_source_binding_cases": [
+          "p4-1-case",
+          "p4-1-buttons",
+          "p4-0-case",
+          "p4-0-buttons",
+          "n4"
+        ]
+      },
+      "all": {
+        "result": {
+          "cases": 30,
+          "success": 18,
+          "expected": 38,
+          "found": 20,
+          "wrong_writes": 4,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 4815,
+          "unclean": 0,
+          "seconds": 238.97491799900308,
+          "p50_seconds": 5.301064479499473,
+          "peak_mlx_gb": 3.786290538
+        },
+        "matched_baseline": {
+          "cases": 30,
+          "success": 17,
+          "expected": 38,
+          "found": 28,
+          "wrong_writes": 6,
+          "invalid": 0,
+          "ungrounded": 1,
+          "tokens": 1795,
+          "unclean": 1,
+          "seconds": 89.9226887539844,
+          "p50_seconds": 2.5827578335010912,
+          "peak_mlx_gb": 3.644273314
+        },
+        "lost_source_binding_cases": [
+          "p4-1-case",
+          "p4-1-buttons",
+          "p4-0-case",
+          "p4-0-buttons",
+          "n4"
+        ]
+      }
+    }
+  },
+  "full_window": {
+    "scope": "4 original OLD-DEV windows regenerated; other 93 windows replayed unchanged; original prompt beliefs fixed (open loop), not a 97-window closed-loop run",
+    "baseline": {
+      "qa_exact": "90/124",
+      "qa_exact_by_type": {
+        "as_of_valid": "36/38",
+        "current": "28/43",
+        "n_changes": "26/43"
+      },
+      "tp": 26,
+      "values": {
+        "agrees": 110,
+        "changes_belief": 78,
+        "no_gold_value_yet": 12,
+        "other_value": 29,
+        "earlier_value": 5,
+        "wrong": 46
+      },
+      "inbox_confirm_all": {
+        "proposals": 119,
+        "accepted": 25,
+        "edited": 6,
+        "rejected": 88,
+        "per_meeting": 5.95,
+        "qa_after_review": "92/124"
+      },
+      "unclean": 3
+    },
+    "shadow": {
+      "qa_exact": "91/124",
+      "qa_exact_by_type": {
+        "as_of_valid": "36/38",
+        "current": "28/43",
+        "n_changes": "27/43"
+      },
+      "tp": 26,
+      "values": {
+        "agrees": 111,
+        "changes_belief": 73,
+        "other_value": 28,
+        "earlier_value": 5,
+        "wrong": 44,
+        "no_gold_value_yet": 11
+      },
+      "inbox_confirm_all": {
+        "proposals": 116,
+        "accepted": 25,
+        "edited": 5,
+        "rejected": 86,
+        "per_meeting": 5.8,
+        "qa_after_review": "92/124"
+      },
+      "unclean": 3
+    },
+    "source_focus_passed": "6/6 (two misbindings removed, four source-supported controls kept)",
+    "off_target_audit": "results/source-audit-final.json",
+    "question_flips": [
+      {
+        "series": "TS3004",
+        "qid": "q17",
+        "type": "n_changes",
+        "slot": "case_material",
+        "gold": 0,
+        "before": 4,
+        "after": 0
+      }
+    ],
+    "generation_seconds": 36.09251387498807,
+    "historical_baseline_seconds_same_windows": 49.79,
+    "new_call_tokens": 1072,
+    "baseline_tokens_same_windows": 873
+  },
+  "contracts": {
+    "supplied_base_and_subject_first": "6/6",
+    "active_material_domain_base_and_shadow": "8/8",
+    "rows": [
+      {
+        "condition": "base",
+        "fixture": "two_changes",
+        "passed": true,
+        "actual": {
+          "values": [
+            250000,
+            280000,
+            300000
+          ],
+          "changes": 2,
+          "current": 300000
+        }
+      },
+      {
+        "condition": "base",
+        "fixture": "recaps_then_switch",
+        "passed": true,
+        "actual": {
+          "values": [
+            "Alpha",
+            "Beta"
+          ],
+          "changes": 1,
+          "current": "Beta"
+        }
+      },
+      {
+        "condition": "base",
+        "fixture": "unchanged_recaps",
+        "passed": true,
+        "actual": {
+          "values": [
+            "Alpha"
+          ],
+          "changes": 0,
+          "current": "Alpha"
+        }
+      },
+      {
+        "condition": "subject-first",
+        "fixture": "two_changes",
+        "passed": true,
+        "actual": {
+          "values": [
+            250000,
+            280000,
+            300000
+          ],
+          "changes": 2,
+          "current": 300000
+        }
+      },
+      {
+        "condition": "subject-first",
+        "fixture": "recaps_then_switch",
+        "passed": true,
+        "actual": {
+          "values": [
+            "Alpha",
+            "Beta"
+          ],
+          "changes": 1,
+          "current": "Beta"
+        }
+      },
+      {
+        "condition": "subject-first",
+        "fixture": "unchanged_recaps",
+        "passed": true,
+        "actual": {
+          "values": [
+            "Alpha"
+          ],
+          "changes": 0,
+          "current": "Alpha"
+        }
+      },
+      {
+        "condition": "base",
+        "fixture": "two_material_changes",
+        "passed": true,
+        "actual": {
+          "case_material": "wood",
+          "case_changes": 2,
+          "at_500": "rubber",
+          "at_2000": "wood"
+        }
+      },
+      {
+        "condition": "base",
+        "fixture": "recaps_then_material_change",
+        "passed": true,
+        "actual": {
+          "case_material": "rubber",
+          "case_changes": 1
+        }
+      },
+      {
+        "condition": "base",
+        "fixture": "unchanged_case_untracked_buttons",
+        "passed": true,
+        "actual": {
+          "case_material": "plastic",
+          "case_changes": 0
+        }
+      },
+      {
+        "condition": "base",
+        "fixture": "registered_button_decision_retained",
+        "passed": true,
+        "actual": {
+          "case_material": "plastic",
+          "button_material": "wood",
+          "case_changes": 0
+        }
+      },
+      {
+        "condition": "shadow",
+        "fixture": "two_material_changes",
+        "passed": true,
+        "actual": {
+          "case_material": "wood",
+          "case_changes": 2,
+          "at_500": "rubber",
+          "at_2000": "wood"
+        }
+      },
+      {
+        "condition": "shadow",
+        "fixture": "recaps_then_material_change",
+        "passed": true,
+        "actual": {
+          "case_material": "rubber",
+          "case_changes": 1
+        }
+      },
+      {
+        "condition": "shadow",
+        "fixture": "unchanged_case_untracked_buttons",
+        "passed": true,
+        "actual": {
+          "case_material": "plastic",
+          "case_changes": 0
+        }
+      },
+      {
+        "condition": "shadow",
+        "fixture": "registered_button_decision_retained",
+        "passed": true,
+        "actual": {
+          "case_material": "plastic",
+          "button_material": "wood",
+          "case_changes": 0
+        }
+      }
+    ]
+  },
+  "cost": {
+    "extra_product_model_calls_per_extraction": 0,
+    "native_target_continuations_scored": 72,
+    "fixture_generations": 101,
+    "contract_generations": 14,
+    "full_window_generations": 4,
+    "peak_mlx_gb": 3.988820644,
+    "peak_process_rss_gb": 2.280914944,
+    "memory_note": "Different memory accounting, not additive; MLX allocator cache capped at 256 MiB.",
+    "leases": [
+      {
+        "log": "shadow-contracts.log",
+        "closed": true,
+        "seconds": 39.753347042016685
+      },
+      {
+        "log": "contracts.log",
+        "closed": true,
+        "seconds": 30.10584158299025
+      },
+      {
+        "log": "shadow-old.log",
+        "closed": true,
+        "preflight": {
+          "time": "2026-11-03T18:53:19+0800",
+          "conflicts": []
+        },
+        "seconds": 44.849680750019616,
+        "peak_process_rss_gb": 1.354334208
+      },
+      {
+        "log": "native.log",
+        "closed": true,
+        "seconds": 225.5040748329775
+      },
+      {
+        "log": "generation.log",
+        "closed": true,
+        "preflight": {
+          "time": "2026-11-03T18:35:54+0800",
+          "conflicts": []
+        },
+        "seconds": 347.11217579199,
+        "peak_process_rss_gb": 2.145468416
+      },
+      {
+        "log": "shadow-rest.log",
+        "closed": true,
+        "preflight": {
+          "time": "2026-11-03T19:02:29+0800",
+          "conflicts": []
+        },
+        "seconds": 54.789582041994436,
+        "peak_process_rss_gb": 1.279279104
+      },
+      {
+        "log": "sentinel-old.log",
+        "closed": true,
+        "preflight": {
+          "time": "2026-11-03T18:46:40+0800",
+          "conflicts": []
+        },
+        "seconds": 71.60477475001244,
+        "peak_process_rss_gb": 1.693548544
+      }
+    ],
+    "timing_note": "Recorded wall times exclude model-load/queue wait; historical cached timings are not synchronized speed benchmarks."
+  },
+  "repeat_stop": {
+    "configured_in_research_driver": true,
+    "actual_cut_count": 0,
+    "hit_budget_count": 0,
+    "interpretation": "Zero invocations in every round-2 generated reply. No result or proposed product change depends on naive repeat stopping; it remains rejected."
+  },
+  "integrity": {
+    "round1_hashes_preserved": 55,
+    "frozen_case_hash_matches": true,
+    "complete_sequence_sums_verified": 72,
+    "source_score_replay_matches": true,
+    "chronology_checks_passed": 14,
+    "positive_full_window_quotes_checked": 4,
+    "exact_dev_only_loader": "r2_common imports round1 common.load_dev: explicitly named .chain/.ask files, no held-out directory scan",
+    "final_validation_generation_or_scoring": false,
+    "protected_engine_or_weights_modified": false
+  },
+  "rejections": [
+    "Round1 layer-8 adapter",
+    "Candidate A majority-value rule",
+    "naive repeat stopping",
+    "subject-first fields (recall loss)",
+    "generic untracked sentinel (no improvement)",
+    "shadow procedure for promotion (current-value/source-support gate not met)"
+  ]
+}

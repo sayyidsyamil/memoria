@@ -1,0 +1,28 @@
+{
+  "name": "@memoria/videos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "brand:sync": "bash scripts/sync-brand.sh",
+    "render": "remotion render",
+    "preview": "remotion preview",
+    "studio": "remotion studio"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.281",
+    "@remotion/player": "^4.0.281",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "remotion": "^4.0.281"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@vitejs/plugin-react": "^5.1.1",
+    "tailwindcss": "^4.1.18",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,134 @@
+# Memoria CircleCI
+
+`.circleci/config.yml` is the source of truth for validation, cross-platform release builds,
+GitHub Release publication, documentation deployment, and pull-request branch maintenance.
+
+## Workflows
+
+- `validation` runs frontend lint/build/coverage, parallel Rust lint and coverage jobs, the curated
+  Playwright smoke lane, CodeScene, Codacy, and Linux build verification.
+- `alpha-release` runs on qualifying `main` pushes and publishes signed macOS ARM64/x86_64,
+  Linux x86_64, and Windows x86_64 artifacts.
+- `stable-release` runs for `v20*` and `stable-v*` tags and publishes the same platform set plus
+  stable macOS DMGs.
+
+The frontend and Playwright jobs reuse `.chunk/` lane scripts. The parallel Rust jobs run the same
+lint, format, and coverage commands as `.chunk/run-rust-gate.sh`. Chunk sidecars remain the preferred
+pre-push path; CircleCI is the authoritative outer loop.
+
+## Shadow mode and cutover
+
+The migration from GitHub Actions is staged:
+
+- Pipeline parameters default to shadow mode. `validation` runs on every push, while
+  `alpha-release` and `stable-release` only run when a pipeline is triggered with
+  `run_release_workflows: true`. GitHub Actions keeps owning signed alpha/stable releases,
+  documentation deployment, and pull-request branch updates until the release contexts below are
+  provisioned and a full shadow release has produced every platform artifact.
+- Codecov uploads run in validation but do not fail the job while `codecov_required` is `false`.
+  Codecov rejects tokenless uploads to the protected `main` branch, so add `CODECOV_TOKEN` to the
+  `memoria-ci` context and set `codecov_required` to `true` before GitHub Actions `ci.yml` is
+  retired.
+- Disable a GitHub Actions workflow only after the matching CircleCI jobs are green on `main`.
+- Validation is split into independent jobs so the slowest job (`static-gates`, mostly the
+  Codacy scan) sets the wall clock: about 4-5 minutes per main push on the Free plan (Docker
+  large), down from about 16. Vitest coverage runs as `frontend_coverage_shards` CircleCI
+  containers whose reports `frontend-coverage-report` merges before enforcing the global
+  thresholds. Playwright smoke runs its 8 shards on two containers (4 each, 2 at a time), and
+  `playwright-smoke-report` records the pass once both containers are green. Parallel jobs never
+  record a pass marker themselves, because a passing container would mark the whole job as passed.
+- Every job except `static-gates` halts early (and reports success) when none of its inputs
+  changed since the last `main` commit on which that same job passed (`skip_unless_changed`,
+  with the pass recorded as a small `validated-v1-<job>-main-<sha>` cache entry). Frontend jobs ignore
+  `src-tauri/**/*.rs` and `docs/`; Rust jobs only need `src-tauri/`, `src/shared/`,
+  `mcp-server/`, or `.circleci/`. Trigger a pipeline with `run_all_validation: true` to run
+  everything.
+
+| GitHub Actions workflow | CircleCI replacement | Status |
+| --- | --- | --- |
+| `ci.yml` frontend static quality + tests | `validation/static-gates` (Codacy, CodeScene, docs), `validation/frontend-lint-build`, `validation/frontend-coverage` (6 containers) + `validation/frontend-coverage-report` | Shadow |
+| `ci.yml` Rust tests, coverage, Clippy, rustfmt | `validation/rust-coverage`, `validation/rust-lint` | Shadow |
+| `ci.yml` Linux build verification (PRs) | `validation/linux-build-verification` (non-main branches) | Shadow |
+| none (pre-push only) | `validation/playwright-smoke` | New |
+| none | `performance/performance-regression` | Opt-in (`run_performance_gate`); thresholds need CI baselines |
+| `release.yml` + `release-build-artifacts.yml` | `alpha-release` | Gated off |
+| `release-stable.yml` | `stable-release` | Gated off |
+| `deploy-docs.yml` | `publish-docs` | Gated off (needs Pages source change) |
+| `auto-update-prs.yml` | `update-pr-branches` | Gated off |
+
+## Contexts
+
+Create three restricted CircleCI contexts.
+
+### `memoria-ci`
+
+| Variable | Purpose |
+| --- | --- |
+| `CODESCENE_PAT` | Read the CodeScene project analysis. |
+| `CODESCENE_PROJECT_ID` | Select the Memoria CodeScene project. |
+
+### `memoria-release`
+
+| Variable | Purpose |
+| --- | --- |
+| `TAURI_SIGNING_PRIVATE_KEY` | Sign Tauri updater artifacts. |
+| `TAURI_KEY_PASSWORD` | Unlock the Tauri updater key. |
+| `APPLE_CERTIFICATE` | Base64 Apple Developer certificate. |
+| `APPLE_CERTIFICATE_PASSWORD` | Unlock the Apple certificate. |
+| `APPLE_SIGNING_IDENTITY` | Select the Apple signing identity. |
+| `APPLE_ID` | Authenticate Apple notarization. |
+| `APPLE_PASSWORD` | App-specific Apple notarization password. |
+| `APPLE_TEAM_ID` | Select the Apple developer team. |
+| `VITE_SENTRY_DSN` | Configure frontend crash reporting in packaged builds. |
+| `SENTRY_DSN` | Configure native crash reporting in packaged builds. |
+| `VITE_POSTHOG_KEY` | Configure packaged-build analytics. |
+| `VITE_POSTHOG_HOST` | Select the PostHog endpoint. |
+
+### `memoria-github`
+
+| Variable | Purpose |
+| --- | --- |
+| `GH_TOKEN` | Publish releases and Pages, and update pull-request branches. |
+
+Optional Windows Authenticode variables are
+`WINDOWS_CODE_SIGNING_CERTIFICATE`, `WINDOWS_CODE_SIGNING_CERTIFICATE_PASSWORD`,
+`WINDOWS_CODE_SIGNING_CERTIFICATE_THUMBPRINT`, and
+`WINDOWS_CODE_SIGNING_TIMESTAMP_URL`. The legacy `WINDOWS_CERTIFICATE*` aliases remain supported.
+
+`GH_TOKEN` should be a fine-grained token or GitHub App installation token restricted to
+`refactoringhq/memoria`. It needs repository contents and pull-request write access. Keeping it in
+its own context prevents build jobs from receiving GitHub write access and prevents publication
+jobs from receiving signing credentials.
+
+## GitHub configuration
+
+Install the CircleCI GitHub App for the repository and enable CircleCI Checks. Require these checks
+for protected branches:
+
+- `validation/static-gates`
+- `validation/frontend-lint-build`
+- `validation/frontend-coverage-report`
+- `validation/rust-coverage`
+- `validation/rust-lint`
+- `validation/playwright-smoke`
+
+Configure GitHub Pages to publish from the root of the `gh-pages` branch. CircleCI builds the site,
+commits generated output to that branch, and GitHub performs only its managed Pages deployment.
+
+## Local validation
+
+Install the CircleCI CLI and validate the expanded configuration:
+
+```bash
+circleci config validate .circleci/config.yml
+circleci config process .circleci/config.yml
+```
+
+The normal repository gates remain mandatory:
+
+```bash
+pnpm lint
+pnpm test:coverage
+cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85
+pnpm playwright:smoke
+```

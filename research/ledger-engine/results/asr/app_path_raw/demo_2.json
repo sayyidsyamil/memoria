@@ -1,0 +1,209 @@
+{
+  "run": "demo_2",
+  "item": "demo_2",
+  "kind": "demo",
+  "meeting": "meeting_2",
+  "source": "/Users/sayyid/Desktop/FYP/engine/data/demo/audio/meeting_2.wav",
+  "audio_s": 127.566375,
+  "models": {
+    "stt": "mlx-community/parakeet-tdt-0.6b-v3",
+    "diarization": "mlx-community/diar_streaming_sortformer_4spk-v2.1-fp16"
+  },
+  "app": {
+    "STREAM_MIN_SECONDS": 120.0,
+    "STREAM_CHUNK_SECONDS": 5.0,
+    "DIAR_THRESHOLD": 0.5,
+    "capture_block_samples": 1600,
+    "git_head": "2ffe32ba80299db3b7ed5c611d38b787fa85544a",
+    "git_status_short": "",
+    "sha256": {
+      "diar_stream.py": "7522e6bfa04eaa721cacd8b1c486097063f81da040500ab1dd67fd4d4709e1a8",
+      "transcribe_v3.py": "dcfdb0c0f1e6964b3b034b40761083aa32e015e71b87f455c5a183dfa0a368e7",
+      "transcribe_server.py": "acc8258f1ea3792a952ee6825ed105c795f471e428989311daaad2e049bf9b65"
+    },
+    "stt_chunk_duration": 120.0
+  },
+  "diarize_info": {
+    "mode": "stream",
+    "duration_s": 127.566375
+  },
+  "diar_frames": {
+    "streamed": 1595,
+    "expected": 1595
+  },
+  "timing_s": {
+    "load_models_s": 5.355107750045136,
+    "cold_first_calls_s": {
+      "stt_s": 0.2219841669430025,
+      "diarize_stream_s": 0.20298529200954363,
+      "diarize_oneshot_s": 0.047430875012651086
+    },
+    "finalize_s": 7.272526458022185,
+    "stt_s": 3.9972738339565694,
+    "diarize_s": 3.2677031669882126,
+    "other_s": 0.0075494570774026215
+  },
+  "rtf": {
+    "finalize": 0.057009744597839244,
+    "stt": 0.03133485476840248,
+    "diarize": 0.025615709210112875
+  },
+  "mlx_peak_gb": {
+    "stt": 4.531143516,
+    "diarize": 3.266052548,
+    "finalize": 3.266052548
+  },
+  "mlx_cache_limit_gb": null,
+  "mem_guard_gb": 8.0,
+  "ru_maxrss_bytes": 3276455936,
+  "final_event": {
+    "type": "final",
+    "turns": [
+      {
+        "t0": 0.2,
+        "t1": 6.2,
+        "speaker": "Speaker 0",
+        "text": "Morning, two weeks in, let's go through progress, and there is a security question we have to settle."
+      },
+      {
+        "t0": 6.2,
+        "t1": 17.9,
+        "speaker": "Speaker 1",
+        "text": "Before anything else, I have bad news on alpha systems. They failed our security questionnaire, they could not show that data stays in Malaysia, and they do not have the audit certificate we need."
+      },
+      {
+        "t0": 17.9,
+        "t1": 23.8,
+        "speaker": "Speaker 2",
+        "text": "That is a problem, are we sure? Their sales team told us it was all covered."
+      },
+      {
+        "t0": 23.8,
+        "t1": 24.9,
+        "speaker": "Speaker 1",
+        "text": "I asked twice"
+      },
+      {
+        "t0": 24.9,
+        "t1": 44.9,
+        "speaker": "Speaker 0",
+        "text": "in writing, their answer was that it is on the roadmap for next year. Then we cannot use them for a pilot with procurement data, what about Beta Cloud? BetaCloud hosts in Cybergire and has the certificate, they can start next week. Okay, we drop alpha systems and move to Beta Cloud, this is final."
+      },
+      {
+        "t0": 44.9,
+        "t1": 50.1,
+        "speaker": "Speaker 2",
+        "text": "Fine, but then finance has to say the budget does not survive this change."
+      },
+      {
+        "t0": 50.1,
+        "t1": 52.1,
+        "speaker": "Speaker 0",
+        "text": "How much more is it?"
+      },
+      {
+        "t0": 52.1,
+        "t1": 62.2,
+        "speaker": "Speaker 2",
+        "text": "Beta Cloud's license is 30,000 Ringit higher, so the pilot budget has to go from 2x50,000 to 2x80,000 ringgit."
+      },
+      {
+        "t0": 62.2,
+        "t1": 65.2,
+        "speaker": "Speaker 0",
+        "text": "Can we absorb part of it from training costs?"
+      },
+      {
+        "t0": 65.2,
+        "t1": 70.6,
+        "speaker": "Speaker 2",
+        "text": "No, training is already tight, I would rather ask for a clean increase."
+      },
+      {
+        "t0": 70.6,
+        "t1": 76.6,
+        "speaker": "Speaker 0",
+        "text": "Fine, the pilot budget is now 280,000 ringgit, I will take it to the board."
+      },
+      {
+        "t0": 76.6,
+        "t1": 80.4,
+        "speaker": "Speaker 2",
+        "text": "Thanks, I will update the finance sheet today."
+      },
+      {
+        "t0": 80.4,
+        "t1": 100.2,
+        "speaker": "Speaker 0",
+        "text": "Golift stays on October 26 for now. Migration is going okay, I am still on track for the 9th of October. Good, now security. Beta cloud still needs our own review before we sign. Who can do it? I can do it, I will own the security review and have it done by the 5th of October."
+      },
+      {
+        "t0": 100.2,
+        "t1": 104.4,
+        "speaker": "Speaker 2",
+        "text": "Is that realistic with migration running at the same time?"
+      },
+      {
+        "t0": 104.4,
+        "t1": 106.7,
+        "speaker": "Speaker 0",
+        "text": "It will be busy, but yes."
+      },
+      {
+        "t0": 106.7,
+        "t1": 110.8,
+        "speaker": "Speaker 2",
+        "text": "Maybe we should hire an outside consultant for the review?"
+      },
+      {
+        "t0": 110.8,
+        "t1": 127.4,
+        "speaker": "Speaker 0",
+        "text": "Let's not spend money on that, Wei Ling will do it. Also, maybe we could add a second pilot team in Penang. Interesting, but that is out of scope for now. Anything else? No? Then the next meeting is on October 12th, thanks."
+      }
+    ],
+    "speakers": [
+      {
+        "id": "Speaker 0",
+        "suggested": null
+      },
+      {
+        "id": "Speaker 1",
+        "suggested": null
+      },
+      {
+        "id": "Speaker 2",
+        "suggested": null
+      }
+    ],
+    "sessionId": "",
+    "duration": 127.6
+  },
+  "other_events": [],
+  "interpreter": "/opt/homebrew/opt/python@3.11/bin/python3.11",
+  "versions": {
+    "python": "3.11.17",
+    "mlx": "0.31.2",
+    "mlx-audio": "0.4.3",
+    "numpy": "2.4.5",
+    "scipy": "1.17.1",
+    "soundfile": "0.13.1",
+    "torch": "2.12.0",
+    "huggingface_hub": "1.15.0",
+    "jiwer": null,
+    "pyannote.metrics": null,
+    "pyannote.core": null
+  },
+  "machine": {
+    "platform": "macOS-26.7.1-arm64-arm-64bit",
+    "chip": "Apple M5",
+    "ram_gb": 16.0
+  },
+  "finished": "2026-10-14T03:34:00+08:00",
+  "complete": true,
+  "process": {
+    "wall_s": 14.63,
+    "max_rss_bytes": 3276455936.0,
+    "peak_footprint_bytes": 7175835296.0
+  }
+}

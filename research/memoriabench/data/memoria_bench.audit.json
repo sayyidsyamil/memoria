@@ -1,0 +1,57 @@
+{
+ "what": "Blind second-labeller audit of data/memoria_bench.jsonl: every probe was labelled by a language model that was shown only the series' approved decisions (with the '(replaces ...)' notes an auditor will read) and the auditor's own class definitions, never the gold labels.",
+ "labellers": {
+  "round 1": "gpt-5.5",
+  "rounds 2 and 3": "gpt-5.6-sol"
+ },
+ "rounds": [
+  {
+   "round": 1,
+   "dataset_sha256": "47310d9bc80c5887248118815d48729bd76af7bc1ca9440dbfea9f4e840cb1ad",
+   "rows": 336,
+   "agree": 334,
+   "per_class_agree": {
+    "SUPPORTED_CURRENT": "55/56",
+    "OUTDATED": "56/56",
+    "CONTRADICTS": "56/56",
+    "UPDATES": "55/56",
+    "IRRELEVANT": "56/56",
+    "INSUFFICIENT_EVIDENCE": "56/56"
+   },
+   "disagreements": {
+    "ES2008-S-01": "'rubber' restated a decision that says 'latex' (labelled CONTRADICTS)",
+    "IS1001-U-01": "a scratch-resistant coating is covered by the approved 'optional damage protection' (labelled SUPPORTED_CURRENT)"
+   },
+   "borderline_notes_acted_on": [
+    "docking station vs charging station wording",
+    "a logo flashed at boot-up is not the corporate image on the remote",
+    "'older people' vs the replaced 'people over sixty'",
+    "a stated cost of 12.50 is not the same as a cap of 12.50",
+    "TS3012 says both 'TV only' and 'universal': devices are no longer used there"
+   ],
+   "fixed_in_generator": true
+  },
+  {
+   "round": 2,
+   "dataset_sha256": "111757b5bd88858662912f7e57825d0a4842d9099ead40aeec2fac9dcf738a9f",
+   "rows": 336,
+   "agree": 336,
+   "notes_acted_on": [
+    "TS3012-C-01 was a flip of a sentence that already says 'without ...' and read as a double negative: such flips are refused now"
+   ]
+  },
+  {
+   "round": 3,
+   "dataset_sha256": "8d8f9ca6237b793adb628c579b62a88e7026ea070750c3fd0f25ccedd6c94793",
+   "rows": 24,
+   "agree": 24,
+   "scope": "the two series (IS1001, TS3012) that changed after round 2; the other 26 series are byte for byte what round 2 labelled"
+  }
+ ],
+ "what_this_shows": "the gold labels follow the auditor's own definitions as a second, strong reader understands them",
+ "what_it_does_not_show": [
+  "that the probes are hard: they are built from templates and a strong model finds them easy",
+  "that any of this resembles live speech",
+  "that a human would agree: both labellers are language models, and 51 of the 56 OUTDATED probes rest on a synthetic '(replaces ...)' note that both were shown"
+ ]
+}

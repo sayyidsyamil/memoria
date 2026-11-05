@@ -1,0 +1,97 @@
+# Series ES2010
+
+## APPROVED DECISIONS
+
+- [ES2010c:28:06] To incorporate the company logo and color, the buttons will be illuminated yellow when pressed and the logo will be displayed through a cutout in the latex casing. (replaces a remote without the corporate image)
+- [ES2008a:07:35#2] The profit aim is fifteen million Euro.
+- [ES2015a:14:28] The profit will be fifty million Euros.
+- [TS3008a:15:18] The remote will be sold for 25 Euros.
+- [ES2010c:19:29] The remote will be covered by a soft latex casing that can be changed.
+- [TS3007c:34:18] There will be a touch screen and not many buttons.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [TS3008a:15:31] It will cost no more than 12.5 Euros to make.
+- [ES2015b:06:48] Will reserach environmental factor.
+- [ES2007b:23:40] The remote will use a regular infra-red signal.
+- [IS1006c:27:28] The remote will have some buttons.
+- [ES2006a:15:44] They will aim for a profit of fifty million Euros.
+- [TS3012b:31:31] The important buttons will be on top.
+- [IS1001c:16:47] It will be placed at the top of the banana shape.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2002b:28:23] The remote will use an infra-red sensor.
+- [ES2010b:24:58] The remote will include the company color and logo in its design.
+- [TS3003c:32:18] The case will be single curved. (replaces a double curved case)
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [ES2002a:07:50] The remote will sell for 25 Euro.
+- [TS3003a:18:35] The selling price will be 25 Euro.
+- [IS1000c:31:43] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [ES2010c:17:48] The device be small and compact and will feature a locator function that uses voice recognition. (replaces a remote without a locator function)
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [TS3003a:22:54] The remote will be shockproof.
+- [ES2016a:09:32] The remote will sell for 25 Euro.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [ES2007c:09:59] The remote will have rubber push buttons.
+- [ES2010c:19:02] There will be only one design of the remote rather than producing it in several different materials.
+- [ES2010b:18:11] The device will be marketed to all age groups, and made simple for those with less technical skills.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [TS3005c:28:24] The case will be single curved. (replaces a double curved case)
+- [ES2010b:23:18] The group will consider including speech recognition and a locator function in the functional design.
+- [ES2002c:24:29] The remote will be curvy.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [IS1003b:16:07] The remote should look fancy.
+- [IS1004a:10:32] They will generate a proft of fifty million Euros.
+- [TS3003c:21:37] The remote will have a docking station.
+- [ES2002c:27:28] The remote will be shaped like a snowman.
+- [IS1003c:27:20] The remote will have LCD buttons.
+- [ES2006c:34:15] The remote will have push buttons outside, and an LCD and spinning wheel inside.
+- [IS1004a:10:21] The target selling price will be 25 Euro dollars.
+- [ES2007a:09:41] The selling price of the remote will be 25 Euro.
+- [ES2016a:19:36] The team will not create a ball shaped remote. (replaces creating a ball shaped remote)
+- [ES2010c:20:40] Voice recognition will not be incorporated for other functions.
+- [ES2012c:34:15] If used, face plates will be cheap.
+- [ES2010b:15:10] The interface will contain larger buttons.
+- [ES2015c:22:55] Will use personal face places.
+- [IS1006a:05:48] The remote will be child proof.
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [ES2016b:23:35] The remote will look appealing.
+- [ES2007c:14:26] The case will be double curved.
+- [ES2006c:28:46] The case will be flat on top and curved on the bottom.
+- [ES2007a:09:45] The profit aim will be 50 million Euro.
+- [ES2013c:37:17] The remote will use push buttons.
+- [ES2008a:07:35] The remote will be sold for 25 Euro.
+- [ES2016b:39:18] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [ES2015a:14:07] The selling price will be twenty five Euros.
+- [TS3008a:15:22] The profit aim is 15 million Euros.
+- [ES2010b:12:04] The remote will feature a smart processor chip to accomodate all of the remote's functions.
+- [TS3011a:11:39] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [IS1009a:06:12] Selling price will be twenty five Euro.
+- [ES2010b:14:27] The remote will feature an extra lightbulb that will light up when the remote is communicating with the television.
+- [ES2006a:15:38] They will sell the remotes for twenty five Euros each.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [ES2002b:20:58] The target demographic is people aged fifteen to thirty five.
+- [ES2010b:25:44] There will be no buttons for controlling a VCR or other device; the interface will feature only channel and volume up/down buttons, a number pad, and a menu button to access the menu functions on a television.
+- [IS1006a:04:47] The remote will be sold for 25 Euro.
+- [TS3011c:26:48] LCD is not going to be implemented. (replaces an LCD screen)
+- [ES2015c:28:21] Push buttons will be used.
+- [ES2013a:07:41] The remote will be sold for 25 Euro.
+- [IS1001b:32:18] The remote will not have an LCD screen. (replaces an LCD screen)
+- [TS3003b:31:26] The remote will be fancy.
+- [TS3003a:22:59] The remote will be waterproof.
+
+## LIVE STATEMENTS (label each one)
+
+- ES2010-S-01: The corporate image will be shown on the remote.
+- ES2010-S-02: Right, the remote will have a locator function so it can be found when lost.
+- ES2010-O-01: I think we will leave the corporate image off the remote.
+- ES2010-O-02: Well, the remote will not have a locator function.
+- ES2010-C-01: The remote will use a simple chip.
+- ES2010-C-02: The interface will not contain larger buttons.
+- ES2010-U-01: Right, we could include a built-in thermometer.
+- ES2010-U-02: Right, can we add a hidden compartment for spare batteries?
+- ES2010-I-01: Okay, I'm hopeless at parallel parking.
+- ES2010-I-02: I'm so tired, I barely slept last night.
+- ES2010-E-01: The pilot users reported no problems with the first batch.
+- ES2010-E-02: I think the prototype box was crushed during the courier test.

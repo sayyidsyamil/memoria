@@ -1,0 +1,335 @@
+{
+  "preflight": {
+    "time": "2026-11-03T19:05:17+0800",
+    "conflicts": []
+  },
+  "rows": [
+    {
+      "condition": "base",
+      "fixture": "two_material_changes",
+      "expected": {
+        "case_material": "wood",
+        "case_changes": 2,
+        "at_500": "rubber",
+        "at_2000": "wood"
+      },
+      "actual": {
+        "case_material": "wood",
+        "case_changes": 2,
+        "at_500": "rubber",
+        "at_2000": "wood"
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "two_material_changes",
+          "key": "7fd9e77ffa70e4c2f304a8d60d9a56c7465b65da941fc13172c0362a22585df6",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "acff4a523717a8eff96b47fbf94272507e1db673114efae289971c9385d61f87",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[{\"turn\":0,\"quote\":\"We approve changing the case material to rubber.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":2,\"quote\":\"After the prototype review, we approve a further change of the case material to wood.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 4.7715462500054855,
+          "prompt_tokens": 941,
+          "output_tokens": 104,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.512339088,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] r: We approve changing the case material to rubber.\n[1] a: Next item: training dates.\n[2] r: After the prototype review, we approve a further change of the case material to wood.\n"
+        }
+      ]
+    },
+    {
+      "condition": "base",
+      "fixture": "recaps_then_material_change",
+      "expected": {
+        "case_material": "rubber",
+        "case_changes": 1
+      },
+      "actual": {
+        "case_material": "rubber",
+        "case_changes": 1
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "recaps_then_material_change",
+          "key": "061cc2f60591f2668104a6b1c7d794b65768ab762eed68ff85380b33b012e0ef",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "29d9cc2fc0bea844fc7f036cf548c1f81b73ee0c577970ff6dd34d12f791efba",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[{\"turn\":2,\"quote\":\"For now we stay with plastic as the case material.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Decision: we switch the case material to rubber, effective today.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"valid_from\":\"2026-09-15\",\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 4.592638250003802,
+          "prompt_tokens": 973,
+          "output_tokens": 112,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.487681534,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] a: As agreed last time, the case material is plastic.\n[1] r: Right, plastic is the case material in the current design.\n[2] a: For now we stay with plastic as the case material.\n[3] r: The drop test failed.\n[4] a: Decision: we switch the case material to rubber, effective today.\n"
+        }
+      ]
+    },
+    {
+      "condition": "base",
+      "fixture": "unchanged_case_untracked_buttons",
+      "expected": {
+        "case_material": "plastic",
+        "case_changes": 0
+      },
+      "actual": {
+        "case_material": "plastic",
+        "case_changes": 0
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "unchanged_case_untracked_buttons",
+          "key": "293388759666f14614be3014cab5df3e98d8979ee39d54c1fb2571397b5649d8",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "f050f3a4059370ea1083f9b3db82db1c7e894774cb38406f49c37134d8514b4e",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[{\"turn\":1,\"quote\":\"No change to the case material: plastic.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9}]}",
+          "seconds": 2.6716866249917075,
+          "prompt_tokens": 944,
+          "output_tokens": 46,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.51592722,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] a: The case material is still plastic.\n[1] r: No change to the case material: plastic.\n[2] a: The case remains plastic.\n[3] r: We will use wood for the buttons.\n"
+        }
+      ]
+    },
+    {
+      "condition": "base",
+      "fixture": "registered_button_decision_retained",
+      "expected": {
+        "case_material": "plastic",
+        "button_material": "wood",
+        "case_changes": 0
+      },
+      "actual": {
+        "case_material": "plastic",
+        "button_material": "wood",
+        "case_changes": 0
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "registered_button_decision_retained",
+          "key": "4df9f942fc5216f7c5e6b43530fe780a2cf49e4964fc07dc5ae66ea4388d4dd3",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "base",
+            "prompt_sha256": "b5440ed4d9e9f9b2f8bd781f66bae98cdda0ada8ef0a0fadd5fb2467e1998806",
+            "procedure_sha256": "native",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none"
+          },
+          "condition": "base",
+          "text": "{\"events\":[{\"turn\":0,\"quote\":\"The case material is still plastic.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":1,\"quote\":\"We will use wood for the buttons.\",\"object_id\":\"button_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 4.0495041249960195,
+          "prompt_tokens": 942,
+          "output_tokens": 93,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.514010268,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\n- button_material: Material of the remote control buttons (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] a: The case material is still plastic.\n[1] r: We will use wood for the buttons.\n"
+        }
+      ]
+    },
+    {
+      "condition": "shadow",
+      "fixture": "two_material_changes",
+      "expected": {
+        "case_material": "wood",
+        "case_changes": 2,
+        "at_500": "rubber",
+        "at_2000": "wood"
+      },
+      "actual": {
+        "case_material": "wood",
+        "case_changes": 2,
+        "at_500": "rubber",
+        "at_2000": "wood"
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "two_material_changes",
+          "key": "9fcc62f7f490aef7222652aeee7d624445fb3a2882faedea872d3e0ddae73f2a",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "shadow",
+            "prompt_sha256": "18c4726be022434d07dc62017d497387cdd7d795e28ed3a07bb067a792518fd0",
+            "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none",
+            "shadow_ids": [
+              "case_button_material"
+            ]
+          },
+          "condition": "shadow",
+          "text": "{\"events\":[{\"turn\":0,\"quote\":\"We approve changing the case material to rubber.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":2,\"quote\":\"After the prototype review, we approve a further change of the case material to wood.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 4.991427250002744,
+          "prompt_tokens": 966,
+          "output_tokens": 104,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.480587178,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] r: We approve changing the case material to rubber.\n[1] a: Next item: training dates.\n[2] r: After the prototype review, we approve a further change of the case material to wood.\n"
+        }
+      ]
+    },
+    {
+      "condition": "shadow",
+      "fixture": "recaps_then_material_change",
+      "expected": {
+        "case_material": "rubber",
+        "case_changes": 1
+      },
+      "actual": {
+        "case_material": "rubber",
+        "case_changes": 1
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "recaps_then_material_change",
+          "key": "7f6222681ab3bbb4f282873fc3607b0a72fcb20bd5d167cc428791d18d545641",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "shadow",
+            "prompt_sha256": "7e3badb209466f7e68f33b2bcbc2c5ad29d05630e70ee1da9cc4001a18bfcc2e",
+            "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none",
+            "shadow_ids": [
+              "case_button_material"
+            ]
+          },
+          "condition": "shadow",
+          "text": "{\"events\":[{\"turn\":2,\"quote\":\"For now we stay with plastic as the case material.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Decision: we switch the case material to rubber, effective today.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"rubber\",\"valid_from\":\"2026-09-15\",\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 5.097227500024019,
+          "prompt_tokens": 998,
+          "output_tokens": 112,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.514436906,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] a: As agreed last time, the case material is plastic.\n[1] r: Right, plastic is the case material in the current design.\n[2] a: For now we stay with plastic as the case material.\n[3] r: The drop test failed.\n[4] a: Decision: we switch the case material to rubber, effective today.\n"
+        }
+      ]
+    },
+    {
+      "condition": "shadow",
+      "fixture": "unchanged_case_untracked_buttons",
+      "expected": {
+        "case_material": "plastic",
+        "case_changes": 0
+      },
+      "actual": {
+        "case_material": "plastic",
+        "case_changes": 0
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "unchanged_case_untracked_buttons",
+          "key": "79041242affebd7afe73d78d854ebe5da8739be9c123b1664a3fc636e785dc12",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "shadow",
+            "prompt_sha256": "6f1860974aba7dd4992e91b2f17fa027eaeb00cb4fbdcee5cb2f9e619910b9ba",
+            "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none",
+            "shadow_ids": [
+              "case_button_material"
+            ]
+          },
+          "condition": "shadow",
+          "text": "{\"events\":[{\"turn\":1,\"quote\":\"No change to the case material: plastic.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9},{\"turn\":3,\"quote\":\"We will use wood for the buttons.\",\"object_id\":\"case_button_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9}]}",
+          "seconds": 4.3484142080124,
+          "prompt_tokens": 969,
+          "output_tokens": 86,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.48343803,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] a: The case material is still plastic.\n[1] r: No change to the case material: plastic.\n[2] a: The case remains plastic.\n[3] r: We will use wood for the buttons.\n"
+        }
+      ]
+    },
+    {
+      "condition": "shadow",
+      "fixture": "registered_button_decision_retained",
+      "expected": {
+        "case_material": "plastic",
+        "button_material": "wood",
+        "case_changes": 0
+      },
+      "actual": {
+        "case_material": "plastic",
+        "button_material": "wood",
+        "case_changes": 0
+      },
+      "passed": true,
+      "records": [
+        {
+          "id": "registered_button_decision_retained",
+          "key": "cb377e0e52347313b581b99f7c219756c37210ebe09e3d4a9231839b6bc3ca3f",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "condition": "shadow",
+            "prompt_sha256": "b5440ed4d9e9f9b2f8bd781f66bae98cdda0ada8ef0a0fadd5fb2467e1998806",
+            "procedure_sha256": "6f0c0e03cc344b292b0a5b1b2b11729c1160fb6438714e5f17a018b6ea4714f3",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "intervention": "none",
+            "shadow_ids": []
+          },
+          "condition": "shadow",
+          "text": "{\"events\":[{\"turn\":0,\"quote\":\"The case material is still plastic.\",\"object_id\":\"case_material\",\"attribute\":\"outcome\",\"value\":\"plastic\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":1,\"quote\":\"We will use wood for the buttons.\",\"object_id\":\"button_material\",\"attribute\":\"outcome\",\"value\":\"wood\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 4.995780584024033,
+          "prompt_tokens": 942,
+          "output_tokens": 93,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.514026652,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- case_material: Material of the remote control case (decision): outcome[plastic|rubber|wood]\n- button_material: Material of the remote control buttons (decision): outcome[plastic|rubber|wood]\nPeople: a = Aisha; r = Raj\nCurrent beliefs when this meeting took place:\n- case_material.outcome = plastic\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] a: The case material is still plastic.\n[1] r: We will use wood for the buttons.\n"
+        }
+      ]
+    }
+  ],
+  "peak_process_rss_gb": 1.554382848
+}

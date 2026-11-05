@@ -1,0 +1,23 @@
+memoria ES2003: 4 meetings, 25 questions
+memoria TS3004: 4 meetings, 20 questions
+done in 1215.8s -> /Users/sayyid/Documents/memoria-workspace/research/local-9b/results/memoria_dev.json
+[run] dev: {'hits': 0, 'misses': 86}; weights 5.038 GB, MLX peak 6.584 GB, load 3.75 s
+[run] 1225 s
+     1228.70 real       176.14 user        73.90 sys
+          1361625088  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             1668476  page reclaims
+               24987  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               25117  voluntary context switches
+             2459655  involuntary context switches
+        749259520137  instructions retired
+        488501360333  cycles elapsed
+          7855657904  peak memory footprint

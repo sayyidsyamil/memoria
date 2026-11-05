@@ -1,0 +1,73 @@
+{
+ "knowledge": [
+  {
+   "status": "rejected",
+   "claims": 49,
+   "units": 854,
+   "byTenMinutes": {
+    "00–10 min": 6,
+    "10–20 min": 11,
+    "20–30 min": 3,
+    "30–40 min": 10,
+    "40–50 min": 2,
+    "50–60 min": 17
+   },
+   "latestEvidence": "59:43",
+   "kinds": {
+    "Decision": 8,
+    "Topic": 37,
+    "Commitment": 3,
+    "Meeting": 1
+   }
+  },
+  {
+   "status": "pending",
+   "claims": 77,
+   "units": 854,
+   "byTenMinutes": {
+    "00–10 min": 10,
+    "10–20 min": 15,
+    "20–30 min": 10,
+    "30–40 min": 15,
+    "40–50 min": 10,
+    "50–60 min": 17
+   },
+   "latestEvidence": "59:43",
+   "kinds": {
+    "Decision": 22,
+    "Topic": 51,
+    "Commitment": 3,
+    "Meeting": 1
+   }
+  }
+ ],
+ "tracked": {
+  "proposals": [
+   {
+    "item": "battery",
+    "value": "rechargeable",
+    "at": [
+     "32:07"
+    ],
+    "quote": "Rechargeable with a docking station."
+   },
+   {
+    "item": "docking",
+    "value": "included",
+    "at": [
+     "32:07"
+    ],
+    "quote": "Rechargeable with a docking station."
+   },
+   {
+    "item": "speech",
+    "value": "excluded",
+    "at": [
+     "41:30"
+    ],
+    "quote": "We have decided on a- leaving out the voice recognition."
+   }
+  ],
+  "facts": []
+ }
+}

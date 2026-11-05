@@ -1,0 +1,115 @@
+# Meeting set 20
+
+## APPROVED DECISIONS
+
+- [d001] Alarm locator will be implemented.
+- [d002] The remote will use low level chips. (replaces an advanced chip)
+- [d003] The remote has to be fashionable.
+- [d004] The remote will be yellow with black or gray buttons.
+- [d005] The remote will be curvy.
+- [d006] Control will light up when you touch a button.
+- [d007] The remote will use a kinetic battery. (replaces regular batteries)
+- [d008] There will be no display physically featured on the remote itself.
+- [d009] No display screen.
+- [d010] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d011] The project goal is to develop a new remote control.
+- [d012] The remote will use push buttons.
+- [d013] No LCD, no voice recognition. (replaces speech recognition)
+- [d014] An automatic on/off feature will not be used.
+- [d015] The remote will not be too expensive.
+- [d016] The remote will be waterproof.
+- [d017] The remote will have an enter button and number buttons.
+- [d018] The remote will not feature an LCD screen.
+- [d019] The team must incorporate the corporate image, color, and slogan in the design of the remote.
+- [d020] The remote will be shaped like a snowman.
+- [d021] The remote will be button-less.
+- [d022] The remote should look fancy.
+- [d023] The remote will feature Video Plus capabilities and a seashell-like shape to accomodate the LCD display and the flip screen.
+- [d024] The remote will have a jog dial.
+- [d025] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d026] Thus far, LCD and ASR have been ruled out.
+- [d027] The remote will be fancy.
+- [d028] If used, face plates will be cheap.
+- [d029] The remote has to look good and be easy to use.
+- [d030] The remote will only be for televisions.
+- [d031] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d032] Will use personal face places.
+- [d033] Will be curved, shape similar to a computer mouse, but narrower.
+- [d034] The chip is going to be a standard one. (replaces an advanced chip)
+- [d035] Glow in the dark buttons, self-timed lighting.
+- [d036] The remote will be made to accommodate different languages.
+- [d037] The important buttons will be on top.
+- [d038] The remote will be yellow or partially yellow and have an organic shape.
+- [d039] The remote will have functions for power, channels, and volume.
+- [d040] The remote will have a docking station.
+- [d041] The remote control should be fancy, a good shape, and not too small or too big.
+- [d042] The remote will be used with a recharging stand. (replaces a remote without a recharging dock)
+- [d043] The remote will be easy to find.
+- [d044] The remote will be simple.
+- [d045] Will have voice with fewer buttons.
+- [d046] The remote will not include a pen.
+- [d047] The remote will use an advanced chip.
+- [d048] The remote will feature a small LCD screen.
+- [d049] The remote will be easy to learn.
+- [d050] The team will not work with teletext.
+- [d051] The remote will be shockproof.
+- [d052] The remote will include a scroll action.
+- [d053] The remote will contain a speech recognizer.
+- [d054] There will be a touch screen and not many buttons.
+- [d055] The remote will use a chip on print.
+- [d056] The remote will contain a simple chip. (replaces an advanced chip)
+- [d057] Parts of the front (like the bottom where the LCD is and the top corner where the logo is) will also be titanium.
+- [d058] It was also decided that the remote will not have the traditional look of a hand-held remote since it can be stationary with voice recognition software.
+- [d059] The remote will feature an LCD screen. (replaces a remote without a screen)
+- [d060] TV settings will be included in menus there instead of having separate buttons for them.
+- [d061] The remote will use speech recognition for simple commands.
+- [d062] The remote will look appealing.
+- [d063] LCD is not going to be implemented. (replaces an LCD screen)
+- [d064] The remote will not contain a voice activation feature.
+- [d065] LED's can be used to light up the remote.
+- [d066] The remote will only have a few buttons.
+- [d067] The remote will contain a custom chip.
+- [d068] The remote should not have too many buttons.
+- [d069] The less frequently used buttons will not be hidden under a flip, as it had been previously suggested, as there are not that many of them; they will just be clearly separated from the more important ones.
+- [d070] It will be placed at the top of the banana shape.
+- [d071] The remote will include games and a simple parental control feature.
+- [d072] The remote will have LCD buttons.
+- [d073] The remote will have some buttons.
+- [d074] The case of the remote will be made of rubber.
+- [d075] The latter would be preferable to implementing a backlight into the remote.
+- [d076] The remote will feature an LCD screen.
+- [d077] The remote will have a docking station.
+- [d078] They will look further at the idea of covers in the mext meeting too.
+- [d079] Will reserach environmental factor.
+- [d080] The remote will be sold for 25 Euro.
+- [d081] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d082] The user target group will be younger consumers. (replaces targeting people over sixty)
+- [d083] The remote will not have an LCD screen. (replaces an LCD screen)
+- [d084] The remote will go into standby when idle.
+- [d085] Production costs cannot exceed 12.50 Euro.
+- [d086] It will not use speech recognition. (replaces speech recognition)
+- [d087] The remote will have a simple chip.
+- [d088] The remote will contain a hard plastic inner shell to protect the interior.
+- [d089] The remote will not use a chip on print.
+- [d090] The remote will be a radiaclly different shape.
+- [d091] The remote will feature speech recognition. (replaces a remote without speech recognition)
+- [d092] The remote will be child proof.
+- [d093] The remote will have large buttons.
+- [d094] The remote will use an infra-red sensor.
+- [d095] The remote will not include speech recognition.
+- [d096] Because symbols may fade, the additional covers could include those.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: Okay, the remote is aimed at people over sixty.
+- s02: The corporate image will not be shown on the remote.
+- s03: The remote will control multiple devices, not just the television.
+- s04: Okay, my phone battery died on the way here.
+- s05: Right, the first prototype passed the one-metre drop test yesterday.
+- s06: We will power the remote with regular batteries.
+- s07: Okay, let's add favourite-channel shortcut buttons.
+- s08: Right, I think the heating just came on.
+- s09: Right, the board has approved extra budget for tooling.
+- s10: How about Bluetooth pairing with a phone app?
+- s11: Well, the production cost cannot exceed 12.50 Euro.
+- s12: Okay, the team will not work with teletext.

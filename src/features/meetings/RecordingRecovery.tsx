@@ -1,0 +1,74 @@
+import { useEffect, useState } from 'react'
+import { invoke } from '@tauri-apps/api/core'
+import { Button } from '../../components/ui/button'
+import { applySource } from '../../lib/sourceImport'
+import { whenLabel } from '../../lib/format'
+import { meetingService, MeetingServiceError } from './meetingService'
+import { recordingService, recordingSource, type RecordingList } from './recordingService'
+import type { MeetingRecord, TranscriptDraft } from './meetingTypes'
+
+/** A failure as people read it: the message, without a leading "Error:". */
+function errorText(failure: unknown): string {
+  return failure instanceof Error ? failure.message : String(failure)
+}
+
+/** "540 KB", "1.8 MB". */
+function size(bytes: number): string {
+  return bytes < 1_000_000 ? `${Math.max(1, Math.round(bytes / 1000))} KB` : `${(bytes / 1_000_000).toFixed(1)} MB`
+}
+
+export function RecordingRecovery({ vaultPath, active, onRecovered }: { vaultPath: string; active: boolean; onRecovered: (record: MeetingRecord) => void }) {
+  const [list, setList] = useState<RecordingList | null>(null)
+  const [error, setError] = useState('')
+  const [recovering, setRecovering] = useState<string | null>(null)
+  const [version, setVersion] = useState(0)
+  useEffect(() => {
+    if (!active) return
+    let current = true
+    void recordingService.list(vaultPath).then(result => { if (current) { setList(result); setError('') } })
+      .catch(failure => { if (current) setError(`Interrupted recordings could not be listed: ${errorText(failure)}`) })
+    return () => { current = false }
+  }, [active, vaultPath, version])
+
+  async function recover(sessionId: string) {
+    if (recovering) return
+    setRecovering(sessionId); setError('')
+    try {
+      const original = await recordingService.finalize(vaultPath, sessionId)
+      let existing: MeetingRecord | null = null
+      try { existing = await meetingService.get(vaultPath, sessionId) }
+      catch (failure) { if (!(failure instanceof MeetingServiceError) || failure.code !== 'MEETING_NOT_FOUND') throw failure }
+      const sourcePath = existing?.sourcePath ?? await applySource(recordingSource(original), vaultPath)
+      let record = existing
+      if (!existing?.transcriptPath) {
+        const draft = existing?.draft ?? await invoke<TranscriptDraft | null>('wiki_memory', { request: { action: 'meeting_draft', vaultPath, sessionId } })
+        // The recording service says when the last seconds may be missing; a recording that ended normally lost none.
+        const reviewedDraft = draft ? { ...draft, warnings: [...draft.warnings, ...original.warnings] } : null
+        record = await meetingService.save(vaultPath, {
+          id: sessionId, title: existing?.title ?? original.metadata.title, status: 'needs-review',
+          created: existing?.created ?? original.metadata.created,
+          audioPath: existing?.audioPath ?? original.originalPath.slice(vaultPath.replace(/\/$/, '').length + 1), sourcePath,
+          draft: reviewedDraft, turns: existing?.turns ?? reviewedDraft?.segments ?? [],
+        })
+      }
+      await recordingService.complete(vaultPath, sessionId, sourcePath)
+      if (!record) throw new Error('Recovered meeting publication could not be confirmed.')
+      setList(previous => previous ? { ...previous, recordings: previous.recordings.filter(item => item.sessionId !== sessionId) } : previous)
+      onRecovered(record)
+    } catch (failure) { setError(`This recording could not be recovered: ${errorText(failure)}. Its saved audio is kept, so you can try again.`) }
+    finally { setRecovering(null) }
+  }
+  if (!active || (!error && !list?.recordings.length && !list?.activeRecording)) return null
+  return <section className="hub-page hub-recovery" aria-label="Interrupted recordings">
+    <h2>Interrupted recordings</h2>
+    {error && <p role="alert" className="hub-error">{error}</p>}
+    {list?.activeRecording && <p className="hub-muted">Finish the meeting in progress before recovering another recording.</p>}
+    {!!list?.recordings.length && <p className="hub-muted">These recordings stopped before they were saved. Recovering one opens it for review; the last few seconds may be missing.</p>}
+    {list?.recordings.map(item => <article key={item.sessionId} className="hub-meeting">
+      <div className="hub-meeting-main"><h3>{item.metadata.title}</h3><p className="hub-meta">{whenLabel(item.metadata.created)} · {size(item.byteLength)}</p>
+        {item.warnings.map(warning => <p key={warning} className="hub-muted">{warning}</p>)}</div>
+      <Button disabled={!!recovering} onClick={() => { void recover(item.sessionId) }}>{recovering === item.sessionId ? 'Recovering…' : 'Recover recording'}</Button>
+    </article>)}
+    {error && <Button variant="outline" disabled={!!recovering} onClick={() => setVersion(value => value + 1)}>Try again</Button>}
+  </section>
+}

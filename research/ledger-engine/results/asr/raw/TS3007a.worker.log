@@ -1,0 +1,27 @@
+{"meeting": "TS3007a", "audio_s": 1609.344, "timing_s": {"load_stt": 8.127542734146118, "load_diar": 0.40871620178222656, "warmup": 1.0730681419372559, "stt": 53.888622999191284, "diar": 87.55290603637695, "stt_plus_diar": 141.44152903556824}, "rtf": {"stt": 0.0334848379210357, "diar": 0.05440285360766682, "stt_plus_diar": 0.08788769152870252}, "mlx_peak_gb": {"stt": 4.673375066, "diar": 4.55692781}}
+
+--- stderr ---
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 42908.48it/s]
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 18850.80it/s]
+      153.53 real        18.81 user        15.99 sys
+          2437840896  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              328748  page reclaims
+                6245  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  43  messages sent
+                 119  messages received
+                   0  signals received
+                8209  voluntary context switches
+              197108  involuntary context switches
+        136433769609  instructions retired
+         65642329618  cycles elapsed
+          5850320520  peak memory footprint

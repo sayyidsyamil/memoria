@@ -1,0 +1,78 @@
+TOPIC-SCOPED VERIFICATION: RESULTS
+====================================
+
+Pre-registration: code, config, conditions and the benchmark are those pinned on 2026-10-16 00:14:34 +0800; memoria.py was changed afterwards (the citation-parser fix of 16 October 2026), and the memoria.py the runs used is kept as results/memoria_as_run.py, which has the pinned hash
+k = 4 (chosen on the development series), money/time rule on, extra 2. Conditions: C0 own memory, C1 + up to 30 other-topic decisions, C2 + up to 150.
+Memory = decisions in the memory the auditor could read (median per probe); Scope = decisions it was shown; Tokens = prompt tokens; 'Cites gold' = true alerts that cite the gold decision (reply read with the corrected parser); 'Other-topic' = alerts that cite a decision that was added as another topic's.
+
+System   Memory Scope  Tokens  Macro-F1                 Alert rec False al.  P50 ms  P95 ms  Cites gold Other-topic
+-------------------------------------------------------------------------------------------------------------------
+M3@C0        12     4     623      0.87    [0.84, 0.90]      0.92      1.8%    1360    2088     100/103           0
+M2@C0        12    12     914      0.87    [0.84, 0.90]      0.98      0.4%    1562    2231     103/110           0
+M3@C1        42     4     604      0.78    [0.73, 0.83]      0.73      1.3%    1031    1599       74/82           3
+M2@C1        42    42    1718      0.82    [0.78, 0.85]      0.97      0.4%    2443    3132      94/109           1
+M3@C2        86     4     603      0.76    [0.71, 0.81]      0.66      0.4%    1044    1596       69/74           0
+M2@C2        86    86    2906      0.77    [0.73, 0.81]      0.90      0.0%    3871    6117      79/101           0
+
+E1. ACCURACY AT C0 (does scoping lose anything?)
+------------------------------------
+Macro-F1 of M3 minus M2: -0.000 [-0.036, +0.032] (paired, series resampled).
+Scoping preserves accuracy at C0: the lower bound -0.036 is above -0.05.
+Alert recall -0.062 [-0.116, -0.009]; false-alarm rate +0.013 [+0.000, +0.027].
+Alert decision right: only M3 2, only M2 12 (exact McNemar p 0.0129); by series M3 better in 2, worse in 10, tied in 16.
+
+E2. SPEED (prompt tokens and latency)
+------------------------------------
+C0: tokens 623 against 914 (P50); latency P50 1360 against 1562 ms, P95 2088 against 2231 ms; ratio of medians 0.87 [0.81, 0.92].
+C1: tokens 604 against 1718 (P50); latency P50 1031 against 2443 ms, P95 1599 against 3132 ms; ratio of medians 0.42 [0.41, 0.43].
+C2: tokens 603 against 2906 (P50); latency P50 1044 against 3871 ms, P95 1596 against 6117 ms; ratio of medians 0.27 [0.25, 0.29].
+Scoping is faster at C0: median latency 0.87 of M2's (below 0.9).
+
+E3. SCOPE RECALL (does the scope contain the decision a probe is about?)
+------------------------------------
+C0 at k = 4: 156 of 168 (92.9%); by class: CONTRADICTS 89.3%, OUTDATED 91.1%, SUPPORTED_CURRENT 98.2%. Mean scope 4.1 decisions.
+C1 at k = 4: 130 of 168 (77.4%); by class: CONTRADICTS 67.9%, OUTDATED 76.8%, SUPPORTED_CURRENT 87.5%. Mean scope 4.2 decisions.
+C2 at k = 4: 120 of 168 (71.4%); by class: CONTRADICTS 58.9%, OUTDATED 69.6%, SUPPORTED_CURRENT 85.7%. Mean scope 4.2 decisions.
+C0 sweep (found / 168): k=1: 128 (+rule 132); k=2: 144 (+rule 146); k=3: 152; k=4: 156; k=5: 158; k=6: 161; k=7: 163; k=8: 164
+C1 sweep (found / 168): k=1: 103 (+rule 107); k=2: 114 (+rule 118); k=3: 124 (+rule 126); k=4: 129 (+rule 130); k=5: 132 (+rule 133); k=6: 133 (+rule 134); k=7: 137 (+rule 138); k=8: 139 (+rule 140)
+C2 sweep (found / 168): k=1: 100 (+rule 105); k=2: 109 (+rule 113); k=3: 113 (+rule 115); k=4: 119 (+rule 120); k=5: 120 (+rule 121); k=6: 123 (+rule 124); k=7: 124 (+rule 125); k=8: 125 (+rule 126)
+
+E4. SCALE
+------------------------------------
+Unscoped M2 degrades at C1: Macro-F1 -0.053 [-0.090, -0.019] against C0, wholly below 0.
+No evidence that scoping helps at C1: Macro-F1 -0.035 [-0.096, +0.019] against M2.
+  C1: M2 alert recall 0.97, false alarms 1; M3 alert recall 0.73, false alarms 3.
+Unscoped M2 degrades at C2: Macro-F1 -0.099 [-0.136, -0.061] against C0, wholly below 0.
+No evidence that scoping helps at C2: Macro-F1 -0.010 [-0.062, +0.037] against M2.
+  C2: M2 alert recall 0.90, false alarms 0; M3 alert recall 0.66, false alarms 1.
+
+E5. CITATIONS AND TOPICS MIXED UP
+------------------------------------
+M3@C0: 100 of 103 true alerts cite the gold decision (the shipped parser reads 99); 0 alerts cite another topic's decision (0 true, 0 false alarms).
+M2@C0: 103 of 110 true alerts cite the gold decision (the shipped parser reads 101); 0 alerts cite another topic's decision (0 true, 0 false alarms).
+M3@C1: 74 of 82 true alerts cite the gold decision (the shipped parser reads 74); 3 alerts cite another topic's decision (2 true, 1 false alarms).
+M2@C1: 94 of 109 true alerts cite the gold decision (the shipped parser reads 92); 1 alerts cite another topic's decision (1 true, 0 false alarms).
+M3@C2: 69 of 74 true alerts cite the gold decision (the shipped parser reads 69); 0 alerts cite another topic's decision (0 true, 0 false alarms).
+M2@C2: 79 of 101 true alerts cite the gold decision (the shipped parser reads 77); 0 alerts cite another topic's decision (0 true, 0 false alarms).
+
+E6. WHAT ONE LLM TOPIC CALL COSTS
+------------------------------------
+Naming the topic of a statement with Qwen: P50 327 ms, P95 362 ms over 30 statements; the embedding step: P50 7.0 ms. A topic label from an LLM is free text (for example: Remote, Trademark, Usability, Schedule, Lunch), so statements and decisions would still have to be matched by similarity.
+
+WHERE SCOPING LOST
+------------------------------------
+M3@C0: 13 wrong alert decisions; 10 on probes that have a gold decision, of which 9 had it outside the scope (9 of them missed alerts).
+M3@C1: 33 wrong alert decisions; 30 on probes that have a gold decision, of which 28 had it outside the scope (28 of them missed alerts).
+M3@C2: 39 wrong alert decisions; 39 on probes that have a gold decision, of which 39 had it outside the scope (38 of them missed alerts).
+
+SIDE FINDINGS
+------------------------------------
+M2 at C0 re-run in this session: 336 of 336 labels and 336 of 336 raw replies identical to the run behind Table 6.1 (temperature 0).
+Until the fix of 16 October 2026, memoria._parse read the cited id as the first known id that is a substring of the citation: on M2's 111 alerts it returned a different decision from the one the model cited in 3 (IS1003-O-01, IS1003-O-02, TS3003-C-01); read exactly, 103 of 110 true alerts cite the gold decision, against 101 as stored. memoria._parse now reads the id exactly (the old code is kept as results/memoria_as_run.py). No label is affected.
+
+WHAT THIS DOES NOT SHOW
+------------------------------------
+- Distractors are other groups' decisions on other topics of the same product, filtered by regular expression so that no gold label can change; they are not a month of real meetings, and a vault that mixes projects needs a project scope first.
+- MemoriaBench has no probe whose conflict is implicit (a titanium case needs the budget): the money/time rule is tested only where a statement says so.
+- Decisions are the annotators' (as for Table 6.1): this measures auditing from clean memory, not extraction of decisions from speech.
+- 336 probes in 28 series; intervals resample series. Everything is exploratory in the sense of the thesis, and every endpoint is reported whatever it shows.

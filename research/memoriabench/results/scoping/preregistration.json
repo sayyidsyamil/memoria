@@ -1,0 +1,12 @@
+{
+ "written": "2026-10-16 00:14:34 +0800",
+ "files": {
+  "scoping.py": "6b618aefdc704cea187f1fc7d2b735223a2e095d5d67fa0c24d1fc41a880026f",
+  "run_scoping.py": "f70fce86dc7fde8e7a53be5063aedcf46b262fee8de2094495c106dce8cdd991"
+ },
+ "config": "564f4556e5aa435ffea3c483aefda073731e5a0d36a149d4a64c4cfe4c5a1b71",
+ "benchmark": "8d8f9ca6237b793adb628c579b62a88e7026ea070750c3fd0f25ccedd6c94793",
+ "memoria_py": "751e2ed08e3021902a03e100eb16b7544883d4f424f5d8eaf4bc3c8d2899fcca",
+ "conditions": "6497d962f312b1ab52935b84165b6649cb33958a13bccad0dd5a25b01df9b466",
+ "k": 4
+}

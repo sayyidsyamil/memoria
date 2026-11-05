@@ -1,0 +1,7259 @@
+{
+ "config": {
+  "part": "memoria",
+  "split": "test",
+  "levels": [
+   0,
+   8,
+   24,
+   48
+  ],
+  "chains": [
+   "hiring",
+   "portfolio",
+   "tender"
+  ],
+  "questions": 37,
+  "extractor": "mlx",
+  "router": "mlx",
+  "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+  "padding_seed": 0,
+  "generator": "g1",
+  "extractor_prompt": "v2",
+  "extractor_prompt_sha256_12": "7f816362cd95",
+  "router_prompt": "r1",
+  "baseline_configs": null,
+  "cot_max_tokens": 4096,
+  "data_sha256_12": "92eaa27b5e5b",
+  "wording": "alt",
+  "ask_sha256_12": "f9b944169efa",
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.11.17",
+  "date": "2026-10-11 04:44:32"
+ },
+ "levels": {
+  "0": {
+   "k": 0,
+   "shape": {
+    "hiring": {
+     "meetings": 3,
+     "objects": 3,
+     "slots": 7,
+     "gold_events": 10
+    },
+    "portfolio": {
+     "meetings": 5,
+     "objects": 3,
+     "slots": 5,
+     "gold_events": 12
+    },
+    "tender": {
+     "meetings": 3,
+     "objects": 3,
+     "slots": 5,
+     "gold_events": 9
+    }
+   },
+   "qa": {
+    "ext+router": {
+     "overall": {
+      "correct": 27,
+      "n": 37,
+      "accuracy": 0.7297297297297297,
+      "ci_95": [
+       0.57,
+       0.846
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 10,
+      "n": 16,
+      "accuracy": 0.625,
+      "ci_95": [
+       0.386,
+       0.815
+      ]
+     },
+     "current": {
+      "correct": 10,
+      "n": 12,
+      "accuracy": 0.8333333333333334,
+      "ci_95": [
+       0.552,
+       0.953
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    },
+    "ext+oracle_route": {
+     "overall": {
+      "correct": 28,
+      "n": 37,
+      "accuracy": 0.7567567567567568,
+      "ci_95": [
+       0.599,
+       0.866
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 11,
+      "n": 16,
+      "accuracy": 0.6875,
+      "ci_95": [
+       0.444,
+       0.858
+      ]
+     },
+     "current": {
+      "correct": 10,
+      "n": 12,
+      "accuracy": 0.8333333333333334,
+      "ci_95": [
+       0.552,
+       0.953
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    },
+    "oracle_ext+router": {
+     "overall": {
+      "correct": 34,
+      "n": 37,
+      "accuracy": 0.918918918918919,
+      "ci_95": [
+       0.787,
+       0.972
+      ]
+     },
+     "as_of_tx": {
+      "correct": 3,
+      "n": 4,
+      "accuracy": 0.75,
+      "ci_95": [
+       0.301,
+       0.954
+      ]
+     },
+     "as_of_valid": {
+      "correct": 14,
+      "n": 16,
+      "accuracy": 0.875,
+      "ci_95": [
+       0.64,
+       0.965
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    },
+    "oracle_ext+oracle_route": {
+     "overall": {
+      "correct": 37,
+      "n": 37,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.906,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    }
+   },
+   "router": {
+    "exact": 34,
+    "n": 37,
+    "failed": 0,
+    "by_type": {
+     "current": {
+      "correct": 12,
+      "n": 12
+     },
+     "as_of_valid": {
+      "correct": 14,
+      "n": 16
+     },
+     "as_of_tx": {
+      "correct": 3,
+      "n": 4
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5
+     }
+    },
+    "mean_prompt_tokens": 802.892,
+    "mean_seconds": 5.088
+   },
+   "extraction_base": {
+    "gold_events": 31,
+    "tp": 22,
+    "fp": 2,
+    "fn": 9,
+    "precision": 0.9166666666666666,
+    "recall": 0.7096774193548387,
+    "f1": 0.7999999999999999,
+    "ci_95": {
+     "precision": [
+      0.765,
+      1.0
+     ],
+     "recall": [
+      0.481,
+      0.893
+     ],
+     "f1": [
+      0.596,
+      0.939
+     ]
+    },
+    "state_changing_recall": 0.7241379310344828,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 7,
+      "recall": 0.7
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 4,
+      "recall": 0.571
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 6,
+      "recall": 0.75
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 7,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 4,
+     "unresolved": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.01666666666666683,
+    "confidence_mean": 0.8999999999999998,
+    "confidence_distinct": 1
+   },
+   "extraction_filler": null,
+   "ledger_base": {
+    "supersession_tp": 5,
+    "supersession_fp": 3,
+    "supersession_fn": 7,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.625,
+    "supersession_recall": 0.4166666666666667,
+    "supersession_f1": 0.5,
+    "state_accuracy": 0.875
+   },
+   "ledger_all": {
+    "supersession_tp": 5,
+    "supersession_fp": 3,
+    "supersession_fn": 7,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.625,
+    "supersession_recall": 0.4166666666666667,
+    "supersession_f1": 0.5,
+    "state_accuracy": 0.875
+   },
+   "cost": {
+    "extract_seconds_per_meeting": 5.327,
+    "extract_prompt_tokens_mean": 1070.455,
+    "extract_output_tokens_mean": 153.091,
+    "meetings_extracted": 11,
+    "extract_seconds_total": 58.6
+   },
+   "rows": [
+    {
+     "chain": "hiring",
+     "qid": "q1",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the data scientist role still being hired for?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q2",
+     "type": "current",
+     "gold": "done",
+     "question": "Did we manage to hire the data engineer yet?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-07-15",
+     "question": "What's the current target date for getting the data engineer on board?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q4",
+     "type": "current",
+     "gold": "raj",
+     "question": "Who's got the data scientist hire?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "How many heads was the data team approved for on 15 June?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-06-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-06-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "By 15 July, what was the data team's headcount?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-07-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-07-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "What will the data team's headcount be in mid-August (the 15th), as things stand?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 6,
+     "question": "Back on 20 May, what did the plan say the data team's headcount would be on 15 August?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": "2026-05-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":\"2026-05-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 6,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 6,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "question": "As of 20 June, what date were we targeting for the engineer hire?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": "2026-06-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 0,
+     "question": "Has the data team's headcount actually changed? Plans that were withdrawn don't count.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the engineer hire's date move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q12",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "question": "Using only what had been written down by 20 April, what deadline did the engineer hire have for 1 June?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": "2026-06-01",
+      "tx_at": "2026-04-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-01\",\"tx_at\":\"2026-04-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q13",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Had the data scientist hire been done or cancelled by 1 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": "2026-05-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":\"2026-05-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q1",
+     "type": "current",
+     "gold": 25,
+     "question": "Berapa peratus stake logistics yang kita nak jual sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q2",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "question": "Siapa buyer pilihan kita sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-06-30",
+     "question": "Bila tarikh akhir untuk siapkan divestment tu sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q4",
+     "type": "current",
+     "gold": "done",
+     "question": "Dah siap ke divestment tu?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": 20,
+     "question": "What share of the stake were we planning to sell on 8 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-08",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-08\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 20,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 20,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 25,
+     "question": "Percentage of the logistics stake as of 15 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "question": "What was the execution date on 7 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-07",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-07\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-10",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-10",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-08",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-08",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q8",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "question": "Pada 14 Mei, bila deadline execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-14",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-14\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-22",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "question": "On 25 May, which deadline was in force for the execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-29",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-29",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-29",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-29",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q10",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "question": "Kalau tengok rekod setakat 5 Jun, apa deadline execution untuk 25 Mei?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2025-05-25",
+      "tx_at": "2025-06-05",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2025-05-25\",\"tx_at\":\"2025-06-05\"}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q11",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "question": "Who was the preferred buyer around 20 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": "2025-05-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":\"2025-05-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Fund X",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 3,
+     "question": "Berapa kali tarikh execution tu dah berubah?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 3,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 3,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 3,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 3,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "question": "Which vendor are we using for the tender at the moment?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q2",
+     "type": "current",
+     "gold": 5500000,
+     "question": "Berapa had kontrak tender sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q3",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "question": "What was the cut-off for tender documents on 18 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": "2026-03-18",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-18\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q4",
+     "type": "current",
+     "gold": "kelvin",
+     "question": "Siapa yang uruskan tender submission sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q5",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the tender submission still on, done or cancelled?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "question": "Which vendor were we on with as of 25 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_vendor",
+      "attribute": "outcome",
+      "valid_at": "2026-03-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Beta",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Beta",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "question": "What was the contract cap on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "question": "Mengikut rekod pada 10 Mac, berapa had kontrak untuk 20 Mac?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-20",
+      "tx_at": "2026-03-10",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-20\",\"tx_at\":\"2026-03-10\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "question": "Who was in charge of the submission on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the contract cap move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "Berapa kali deadline submission tender ditangguh?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q12",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Was the tender submission done or cancelled by 25 March?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    }
+   ],
+   "wall_seconds": 190.9
+  },
+  "8": {
+   "k": 8,
+   "shape": {
+    "hiring": {
+     "meetings": 11,
+     "objects": 5,
+     "slots": 11,
+     "gold_events": 23
+    },
+    "portfolio": {
+     "meetings": 13,
+     "objects": 9,
+     "slots": 15,
+     "gold_events": 28
+    },
+    "tender": {
+     "meetings": 11,
+     "objects": 9,
+     "slots": 15,
+     "gold_events": 22
+    }
+   },
+   "qa": {
+    "ext+router": {
+     "overall": {
+      "correct": 24,
+      "n": 37,
+      "accuracy": 0.6486486486486487,
+      "ci_95": [
+       0.488,
+       0.782
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 16,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.28,
+       0.72
+      ]
+     },
+     "current": {
+      "correct": 10,
+      "n": 12,
+      "accuracy": 0.8333333333333334,
+      "ci_95": [
+       0.552,
+       0.953
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5,
+      "accuracy": 0.8,
+      "ci_95": [
+       0.376,
+       0.964
+      ]
+     }
+    },
+    "ext+oracle_route": {
+     "overall": {
+      "correct": 26,
+      "n": 37,
+      "accuracy": 0.7027027027027027,
+      "ci_95": [
+       0.542,
+       0.825
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 10,
+      "n": 16,
+      "accuracy": 0.625,
+      "ci_95": [
+       0.386,
+       0.815
+      ]
+     },
+     "current": {
+      "correct": 10,
+      "n": 12,
+      "accuracy": 0.8333333333333334,
+      "ci_95": [
+       0.552,
+       0.953
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5,
+      "accuracy": 0.8,
+      "ci_95": [
+       0.376,
+       0.964
+      ]
+     }
+    },
+    "oracle_ext+router": {
+     "overall": {
+      "correct": 33,
+      "n": 37,
+      "accuracy": 0.8918918918918919,
+      "ci_95": [
+       0.753,
+       0.957
+      ]
+     },
+     "as_of_tx": {
+      "correct": 3,
+      "n": 4,
+      "accuracy": 0.75,
+      "ci_95": [
+       0.301,
+       0.954
+      ]
+     },
+     "as_of_valid": {
+      "correct": 13,
+      "n": 16,
+      "accuracy": 0.8125,
+      "ci_95": [
+       0.57,
+       0.934
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    },
+    "oracle_ext+oracle_route": {
+     "overall": {
+      "correct": 37,
+      "n": 37,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.906,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    }
+   },
+   "router": {
+    "exact": 33,
+    "n": 37,
+    "failed": 0,
+    "by_type": {
+     "current": {
+      "correct": 12,
+      "n": 12
+     },
+     "as_of_valid": {
+      "correct": 13,
+      "n": 16
+     },
+     "as_of_tx": {
+      "correct": 3,
+      "n": 4
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5
+     }
+    },
+    "mean_prompt_tokens": 923.054,
+    "mean_seconds": 5.916
+   },
+   "extraction_base": {
+    "gold_events": 31,
+    "tp": 21,
+    "fp": 2,
+    "fn": 10,
+    "precision": 0.9130434782608695,
+    "recall": 0.6774193548387096,
+    "f1": 0.7777777777777777,
+    "ci_95": {
+     "precision": [
+      0.75,
+      1.0
+     ],
+     "recall": [
+      0.429,
+      0.867
+     ],
+     "f1": [
+      0.556,
+      0.923
+     ]
+    },
+    "state_changing_recall": 0.6896551724137931,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 6,
+      "recall": 0.6
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 4,
+      "recall": 0.571
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 6,
+      "recall": 0.75
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 8,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 3,
+     "unresolved": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.013043478260869712,
+    "confidence_mean": 0.8999999999999998,
+    "confidence_distinct": 1
+   },
+   "extraction_filler": {
+    "gold_events": 42,
+    "tp": 29,
+    "fp": 1,
+    "fn": 13,
+    "precision": 0.9666666666666667,
+    "recall": 0.6904761904761905,
+    "f1": 0.8055555555555556,
+    "ci_95": {
+     "precision": [
+      0.886,
+      1.0
+     ],
+     "recall": [
+      0.489,
+      0.872
+     ],
+     "f1": [
+      0.645,
+      0.921
+     ]
+    },
+    "state_changing_recall": 0.6829268292682927,
+    "state_changing_gold": 41,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 19,
+      "found": 11,
+      "recall": 0.579
+     },
+     "REVISE": {
+      "gold": 18,
+      "found": 14,
+      "recall": 0.778
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 22,
+      "found": 19,
+      "recall": 0.864
+     },
+     "number_words": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 12,
+      "found": 4,
+      "recall": 0.333
+     },
+     "relative_date": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "relative_amount": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     },
+     "anaphora": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 11,
+     "unresolved": 1,
+     "value_error": 1
+    },
+    "fp_reasons": {
+     "wrong_content": 1
+    },
+    "filtered": {
+     "unresolved": 1,
+     "invalid": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 55,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.0666666666666671,
+    "confidence_mean": 0.8999999999999996,
+    "confidence_distinct": 1
+   },
+   "ledger_base": {
+    "supersession_tp": 5,
+    "supersession_fp": 2,
+    "supersession_fn": 7,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.7142857142857143,
+    "supersession_recall": 0.4166666666666667,
+    "supersession_f1": 0.5263157894736842,
+    "state_accuracy": 0.875
+   },
+   "ledger_all": {
+    "supersession_tp": 19,
+    "supersession_fp": 2,
+    "supersession_fn": 13,
+    "state_gold": 37,
+    "state_correct": 27,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.9047619047619048,
+    "supersession_recall": 0.59375,
+    "supersession_f1": 0.7169811320754718,
+    "state_accuracy": 0.7297297297297297
+   },
+   "cost": {
+    "extract_seconds_per_meeting": 5.218,
+    "extract_prompt_tokens_mean": 1239.486,
+    "extract_output_tokens_mean": 97.743,
+    "meetings_extracted": 35,
+    "extract_seconds_total": 182.6
+   },
+   "rows": [
+    {
+     "chain": "hiring",
+     "qid": "q1",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the data scientist role still being hired for?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q2",
+     "type": "current",
+     "gold": "done",
+     "question": "Did we manage to hire the data engineer yet?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-07-15",
+     "question": "What's the current target date for getting the data engineer on board?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q4",
+     "type": "current",
+     "gold": "raj",
+     "question": "Who's got the data scientist hire?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "How many heads was the data team approved for on 15 June?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-06-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-06-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "By 15 July, what was the data team's headcount?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-07-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-07-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "What will the data team's headcount be in mid-August (the 15th), as things stand?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 6,
+     "question": "Back on 20 May, what did the plan say the data team's headcount would be on 15 August?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": "2026-05-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":\"2026-05-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 6,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 6,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "question": "As of 20 June, what date were we targeting for the engineer hire?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": "2026-06-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 0,
+     "question": "Has the data team's headcount actually changed? Plans that were withdrawn don't count.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the engineer hire's date move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q12",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "question": "Using only what had been written down by 20 April, what deadline did the engineer hire have for 1 June?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": "2026-06-01",
+      "tx_at": "2026-04-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-01\",\"tx_at\":\"2026-04-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q13",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Had the data scientist hire been done or cancelled by 1 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": "2026-05-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":\"2026-05-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q1",
+     "type": "current",
+     "gold": 25,
+     "question": "Berapa peratus stake logistics yang kita nak jual sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q2",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "question": "Siapa buyer pilihan kita sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-06-30",
+     "question": "Bila tarikh akhir untuk siapkan divestment tu sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q4",
+     "type": "current",
+     "gold": "done",
+     "question": "Dah siap ke divestment tu?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": 20,
+     "question": "What share of the stake were we planning to sell on 8 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-08",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-08\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 20,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 20,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 25,
+     "question": "Percentage of the logistics stake as of 15 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "question": "What was the execution date on 7 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-07",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-07\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-11",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-11",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-08",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-08",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q8",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "question": "Pada 14 Mei, bila deadline execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-14",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-14\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-16",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-16",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-22",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "question": "On 25 May, which deadline was in force for the execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-16",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-16",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-29",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-29",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q10",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "question": "Kalau tengok rekod setakat 5 Jun, apa deadline execution untuk 25 Mei?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2025-05-25",
+      "tx_at": "2025-06-05",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2025-05-25\",\"tx_at\":\"2025-06-05\"}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-16",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q11",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "question": "Who was the preferred buyer around 20 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": "2025-05-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":\"2025-05-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Fund X",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 3,
+     "question": "Berapa kali tarikh execution tu dah berubah?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 3,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 3,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "question": "Which vendor are we using for the tender at the moment?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q2",
+     "type": "current",
+     "gold": 5500000,
+     "question": "Berapa had kontrak tender sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q3",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "question": "What was the cut-off for tender documents on 18 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": "2026-03-18",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-18\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q4",
+     "type": "current",
+     "gold": "kelvin",
+     "question": "Siapa yang uruskan tender submission sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q5",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the tender submission still on, done or cancelled?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "question": "Which vendor were we on with as of 25 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "p01_vendor",
+      "attribute": "outcome",
+      "valid_at": "2026-03-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"p01_vendor\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Orion",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Orion",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "question": "What was the contract cap on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "question": "Mengikut rekod pada 10 Mac, berapa had kontrak untuk 20 Mac?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-20",
+      "tx_at": "2026-03-10",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-20\",\"tx_at\":\"2026-03-10\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "question": "Who was in charge of the submission on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the contract cap move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "Berapa kali deadline submission tender ditangguh?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q12",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Was the tender submission done or cancelled by 25 March?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    }
+   ],
+   "wall_seconds": 221.5
+  },
+  "24": {
+   "k": 24,
+   "shape": {
+    "hiring": {
+     "meetings": 27,
+     "objects": 8,
+     "slots": 18,
+     "gold_events": 43
+    },
+    "portfolio": {
+     "meetings": 29,
+     "objects": 15,
+     "slots": 25,
+     "gold_events": 54
+    },
+    "tender": {
+     "meetings": 27,
+     "objects": 15,
+     "slots": 25,
+     "gold_events": 49
+    }
+   },
+   "qa": {
+    "ext+router": {
+     "overall": {
+      "correct": 24,
+      "n": 37,
+      "accuracy": 0.6486486486486487,
+      "ci_95": [
+       0.488,
+       0.782
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 16,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.28,
+       0.72
+      ]
+     },
+     "current": {
+      "correct": 10,
+      "n": 12,
+      "accuracy": 0.8333333333333334,
+      "ci_95": [
+       0.552,
+       0.953
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5,
+      "accuracy": 0.8,
+      "ci_95": [
+       0.376,
+       0.964
+      ]
+     }
+    },
+    "ext+oracle_route": {
+     "overall": {
+      "correct": 26,
+      "n": 37,
+      "accuracy": 0.7027027027027027,
+      "ci_95": [
+       0.542,
+       0.825
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 10,
+      "n": 16,
+      "accuracy": 0.625,
+      "ci_95": [
+       0.386,
+       0.815
+      ]
+     },
+     "current": {
+      "correct": 10,
+      "n": 12,
+      "accuracy": 0.8333333333333334,
+      "ci_95": [
+       0.552,
+       0.953
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5,
+      "accuracy": 0.8,
+      "ci_95": [
+       0.376,
+       0.964
+      ]
+     }
+    },
+    "oracle_ext+router": {
+     "overall": {
+      "correct": 33,
+      "n": 37,
+      "accuracy": 0.8918918918918919,
+      "ci_95": [
+       0.753,
+       0.957
+      ]
+     },
+     "as_of_tx": {
+      "correct": 3,
+      "n": 4,
+      "accuracy": 0.75,
+      "ci_95": [
+       0.301,
+       0.954
+      ]
+     },
+     "as_of_valid": {
+      "correct": 13,
+      "n": 16,
+      "accuracy": 0.8125,
+      "ci_95": [
+       0.57,
+       0.934
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    },
+    "oracle_ext+oracle_route": {
+     "overall": {
+      "correct": 37,
+      "n": 37,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.906,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    }
+   },
+   "router": {
+    "exact": 33,
+    "n": 37,
+    "failed": 0,
+    "by_type": {
+     "current": {
+      "correct": 12,
+      "n": 12
+     },
+     "as_of_valid": {
+      "correct": 13,
+      "n": 16
+     },
+     "as_of_tx": {
+      "correct": 3,
+      "n": 4
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5
+     }
+    },
+    "mean_prompt_tokens": 1058.676,
+    "mean_seconds": 6.007
+   },
+   "extraction_base": {
+    "gold_events": 31,
+    "tp": 21,
+    "fp": 2,
+    "fn": 10,
+    "precision": 0.9130434782608695,
+    "recall": 0.6774193548387096,
+    "f1": 0.7777777777777777,
+    "ci_95": {
+     "precision": [
+      0.75,
+      1.0
+     ],
+     "recall": [
+      0.429,
+      0.867
+     ],
+     "f1": [
+      0.556,
+      0.923
+     ]
+    },
+    "state_changing_recall": 0.6896551724137931,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 6,
+      "recall": 0.6
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 4,
+      "recall": 0.571
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 6,
+      "recall": 0.75
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 8,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 4
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.013043478260869712,
+    "confidence_mean": 0.8999999999999998,
+    "confidence_distinct": 1
+   },
+   "extraction_filler": {
+    "gold_events": 115,
+    "tp": 80,
+    "fp": 3,
+    "fn": 35,
+    "precision": 0.963855421686747,
+    "recall": 0.6956521739130435,
+    "f1": 0.808080808080808,
+    "ci_95": {
+     "precision": [
+      0.92,
+      1.0
+     ],
+     "recall": [
+      0.591,
+      0.795
+     ],
+     "f1": [
+      0.728,
+      0.877
+     ]
+    },
+    "state_changing_recall": 0.6826923076923077,
+    "state_changing_gold": 104,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 40,
+      "found": 28,
+      "recall": 0.7
+     },
+     "REVISE": {
+      "gold": 51,
+      "found": 35,
+      "recall": 0.686
+     },
+     "CONFIRM": {
+      "gold": 11,
+      "found": 9,
+      "recall": 0.818
+     },
+     "REVERSE": {
+      "gold": 9,
+      "found": 8,
+      "recall": 0.889
+     },
+     "COMPLETE": {
+      "gold": 4,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 69,
+      "found": 47,
+      "recall": 0.681
+     },
+     "relative_date": {
+      "gold": 11,
+      "found": 4,
+      "recall": 0.364
+     },
+     "anaphora": {
+      "gold": 8,
+      "found": 5,
+      "recall": 0.625
+     },
+     "codeswitch": {
+      "gold": 28,
+      "found": 22,
+      "recall": 0.786
+     },
+     "reversal": {
+      "gold": 9,
+      "found": 8,
+      "recall": 0.889
+     },
+     "relative_amount": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 30,
+     "value_error": 3,
+     "attribute_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 3
+    },
+    "filtered": {},
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 163,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.4875,
+    "confidence_ece": 0.07349397590361471,
+    "confidence_mean": 0.8903614457831323,
+    "confidence_distinct": 2
+   },
+   "ledger_base": {
+    "supersession_tp": 5,
+    "supersession_fp": 2,
+    "supersession_fn": 7,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.7142857142857143,
+    "supersession_recall": 0.4166666666666667,
+    "supersession_f1": 0.5263157894736842,
+    "state_accuracy": 0.875
+   },
+   "ledger_all": {
+    "supersession_tp": 40,
+    "supersession_fp": 11,
+    "supersession_fn": 32,
+    "state_gold": 60,
+    "state_correct": 42,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.7843137254901961,
+    "supersession_recall": 0.5555555555555556,
+    "supersession_f1": 0.6504065040650406,
+    "state_accuracy": 0.7
+   },
+   "cost": {
+    "extract_seconds_per_meeting": 5.53,
+    "extract_prompt_tokens_mean": 1448.337,
+    "extract_output_tokens_mean": 82.711,
+    "meetings_extracted": 83,
+    "extract_seconds_total": 459.0
+   },
+   "rows": [
+    {
+     "chain": "hiring",
+     "qid": "q1",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the data scientist role still being hired for?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q2",
+     "type": "current",
+     "gold": "done",
+     "question": "Did we manage to hire the data engineer yet?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-07-15",
+     "question": "What's the current target date for getting the data engineer on board?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q4",
+     "type": "current",
+     "gold": "raj",
+     "question": "Who's got the data scientist hire?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "How many heads was the data team approved for on 15 June?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-06-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-06-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "By 15 July, what was the data team's headcount?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-07-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-07-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "What will the data team's headcount be in mid-August (the 15th), as things stand?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 6,
+     "question": "Back on 20 May, what did the plan say the data team's headcount would be on 15 August?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": "2026-05-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":\"2026-05-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 6,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 6,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "question": "As of 20 June, what date were we targeting for the engineer hire?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": "2026-06-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 0,
+     "question": "Has the data team's headcount actually changed? Plans that were withdrawn don't count.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the engineer hire's date move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q12",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "question": "Using only what had been written down by 20 April, what deadline did the engineer hire have for 1 June?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": "2026-06-01",
+      "tx_at": "2026-04-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-01\",\"tx_at\":\"2026-04-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q13",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Had the data scientist hire been done or cancelled by 1 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": "2026-05-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":\"2026-05-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q1",
+     "type": "current",
+     "gold": 25,
+     "question": "Berapa peratus stake logistics yang kita nak jual sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q2",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "question": "Siapa buyer pilihan kita sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-06-30",
+     "question": "Bila tarikh akhir untuk siapkan divestment tu sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q4",
+     "type": "current",
+     "gold": "done",
+     "question": "Dah siap ke divestment tu?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": 20,
+     "question": "What share of the stake were we planning to sell on 8 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-08",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-08\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 20,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 20,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 25,
+     "question": "Percentage of the logistics stake as of 15 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "question": "What was the execution date on 7 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-07",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-07\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-11",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-11",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-08",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-08",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q8",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "question": "Pada 14 Mei, bila deadline execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-14",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-14\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-22",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "question": "On 25 May, which deadline was in force for the execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-29",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-29",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q10",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "question": "Kalau tengok rekod setakat 5 Jun, apa deadline execution untuk 25 Mei?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2025-05-25",
+      "tx_at": "2025-06-05",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2025-05-25\",\"tx_at\":\"2025-06-05\"}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q11",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "question": "Who was the preferred buyer around 20 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": "2025-05-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":\"2025-05-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Fund X",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 3,
+     "question": "Berapa kali tarikh execution tu dah berubah?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 3,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 3,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "question": "Which vendor are we using for the tender at the moment?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q2",
+     "type": "current",
+     "gold": 5500000,
+     "question": "Berapa had kontrak tender sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q3",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "question": "What was the cut-off for tender documents on 18 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": "2026-03-18",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-18\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q4",
+     "type": "current",
+     "gold": "kelvin",
+     "question": "Siapa yang uruskan tender submission sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q5",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the tender submission still on, done or cancelled?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "question": "Which vendor were we on with as of 25 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "p01_vendor",
+      "attribute": "outcome",
+      "valid_at": "2026-03-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"p01_vendor\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Sigma",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Sigma",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "question": "What was the contract cap on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "question": "Mengikut rekod pada 10 Mac, berapa had kontrak untuk 20 Mac?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-20",
+      "tx_at": "2026-03-10",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-20\",\"tx_at\":\"2026-03-10\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "question": "Who was in charge of the submission on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the contract cap move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "Berapa kali deadline submission tender ditangguh?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q12",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Was the tender submission done or cancelled by 25 March?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    }
+   ],
+   "wall_seconds": 225.1
+  },
+  "48": {
+   "k": 48,
+   "shape": {
+    "hiring": {
+     "meetings": 51,
+     "objects": 12,
+     "slots": 26,
+     "gold_events": 80
+    },
+    "portfolio": {
+     "meetings": 53,
+     "objects": 24,
+     "slots": 40,
+     "gold_events": 89
+    },
+    "tender": {
+     "meetings": 51,
+     "objects": 24,
+     "slots": 40,
+     "gold_events": 86
+    }
+   },
+   "qa": {
+    "ext+router": {
+     "overall": {
+      "correct": 21,
+      "n": 37,
+      "accuracy": 0.5675675675675675,
+      "ci_95": [
+       0.409,
+       0.713
+      ]
+     },
+     "as_of_tx": {
+      "correct": 1,
+      "n": 4,
+      "accuracy": 0.25,
+      "ci_95": [
+       0.046,
+       0.699
+      ]
+     },
+     "as_of_valid": {
+      "correct": 8,
+      "n": 16,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.28,
+       0.72
+      ]
+     },
+     "current": {
+      "correct": 9,
+      "n": 12,
+      "accuracy": 0.75,
+      "ci_95": [
+       0.468,
+       0.911
+      ]
+     },
+     "n_changes": {
+      "correct": 3,
+      "n": 5,
+      "accuracy": 0.6,
+      "ci_95": [
+       0.231,
+       0.882
+      ]
+     }
+    },
+    "ext+oracle_route": {
+     "overall": {
+      "correct": 25,
+      "n": 37,
+      "accuracy": 0.6756756756756757,
+      "ci_95": [
+       0.515,
+       0.804
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 10,
+      "n": 16,
+      "accuracy": 0.625,
+      "ci_95": [
+       0.386,
+       0.815
+      ]
+     },
+     "current": {
+      "correct": 9,
+      "n": 12,
+      "accuracy": 0.75,
+      "ci_95": [
+       0.468,
+       0.911
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5,
+      "accuracy": 0.8,
+      "ci_95": [
+       0.376,
+       0.964
+      ]
+     }
+    },
+    "oracle_ext+router": {
+     "overall": {
+      "correct": 32,
+      "n": 37,
+      "accuracy": 0.8648648648648649,
+      "ci_95": [
+       0.72,
+       0.941
+      ]
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4,
+      "accuracy": 0.5,
+      "ci_95": [
+       0.15,
+       0.85
+      ]
+     },
+     "as_of_valid": {
+      "correct": 14,
+      "n": 16,
+      "accuracy": 0.875,
+      "ci_95": [
+       0.64,
+       0.965
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5,
+      "accuracy": 0.8,
+      "ci_95": [
+       0.376,
+       0.964
+      ]
+     }
+    },
+    "oracle_ext+oracle_route": {
+     "overall": {
+      "correct": 37,
+      "n": 37,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.906,
+       1.0
+      ]
+     },
+     "as_of_tx": {
+      "correct": 4,
+      "n": 4,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.51,
+       1.0
+      ]
+     },
+     "as_of_valid": {
+      "correct": 16,
+      "n": 16,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.806,
+       1.0
+      ]
+     },
+     "current": {
+      "correct": 12,
+      "n": 12,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.757,
+       1.0
+      ]
+     },
+     "n_changes": {
+      "correct": 5,
+      "n": 5,
+      "accuracy": 1.0,
+      "ci_95": [
+       0.566,
+       1.0
+      ]
+     }
+    }
+   },
+   "router": {
+    "exact": 32,
+    "n": 37,
+    "failed": 0,
+    "by_type": {
+     "current": {
+      "correct": 12,
+      "n": 12
+     },
+     "as_of_valid": {
+      "correct": 14,
+      "n": 16
+     },
+     "as_of_tx": {
+      "correct": 2,
+      "n": 4
+     },
+     "n_changes": {
+      "correct": 4,
+      "n": 5
+     }
+    },
+    "mean_prompt_tokens": 1254.27,
+    "mean_seconds": 7.246
+   },
+   "extraction_base": {
+    "gold_events": 31,
+    "tp": 20,
+    "fp": 2,
+    "fn": 11,
+    "precision": 0.9090909090909091,
+    "recall": 0.6451612903225806,
+    "f1": 0.7547169811320754,
+    "ci_95": {
+     "precision": [
+      0.737,
+      1.0
+     ],
+     "recall": [
+      0.407,
+      0.848
+     ],
+     "f1": [
+      0.529,
+      0.912
+     ]
+    },
+    "state_changing_recall": 0.6896551724137931,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 6,
+      "recall": 0.6
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 3,
+      "recall": 0.429
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 6,
+      "recall": 0.75
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 9,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 4,
+     "unresolved": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.00909090909090915,
+    "confidence_mean": 0.8999999999999999,
+    "confidence_distinct": 1
+   },
+   "extraction_filler": {
+    "gold_events": 224,
+    "tp": 149,
+    "fp": 10,
+    "fn": 75,
+    "precision": 0.9371069182389937,
+    "recall": 0.6651785714285714,
+    "f1": 0.7780678851174935,
+    "ci_95": {
+     "precision": [
+      0.895,
+      0.97
+     ],
+     "recall": [
+      0.592,
+      0.735
+     ],
+     "f1": [
+      0.719,
+      0.83
+     ]
+    },
+    "state_changing_recall": 0.6504854368932039,
+    "state_changing_gold": 206,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 70,
+      "found": 54,
+      "recall": 0.771
+     },
+     "REVISE": {
+      "gold": 126,
+      "found": 75,
+      "recall": 0.595
+     },
+     "CONFIRM": {
+      "gold": 18,
+      "found": 15,
+      "recall": 0.833
+     },
+     "COMPLETE": {
+      "gold": 5,
+      "found": 1,
+      "recall": 0.2
+     },
+     "REVERSE": {
+      "gold": 5,
+      "found": 4,
+      "recall": 0.8
+     }
+    },
+    "by_tag": {
+     "(no tag)": {
+      "gold": 137,
+      "found": 99,
+      "recall": 0.723
+     },
+     "number_words": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     },
+     "relative_date": {
+      "gold": 19,
+      "found": 2,
+      "recall": 0.105
+     },
+     "anaphora": {
+      "gold": 15,
+      "found": 4,
+      "recall": 0.267
+     },
+     "codeswitch": {
+      "gold": 60,
+      "found": 41,
+      "recall": 0.683
+     },
+     "reversal": {
+      "gold": 5,
+      "found": 4,
+      "recall": 0.8
+     },
+     "relative_amount": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 61,
+     "value_error": 10,
+     "attribute_error": 4
+    },
+    "fp_reasons": {
+     "wrong_content": 10
+    },
+    "filtered": {
+     "invalid": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 309,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.03710691823899104,
+    "confidence_mean": 0.9000000000000027,
+    "confidence_distinct": 1
+   },
+   "ledger_base": {
+    "supersession_tp": 5,
+    "supersession_fp": 2,
+    "supersession_fn": 7,
+    "state_gold": 16,
+    "state_correct": 13,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.7142857142857143,
+    "supersession_recall": 0.4166666666666667,
+    "supersession_f1": 0.5263157894736842,
+    "state_accuracy": 0.8125
+   },
+   "ledger_all": {
+    "supersession_tp": 62,
+    "supersession_fp": 27,
+    "supersession_fn": 81,
+    "state_gold": 91,
+    "state_correct": 62,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.6966292134831461,
+    "supersession_recall": 0.43356643356643354,
+    "supersession_f1": 0.5344827586206896,
+    "state_accuracy": 0.6813186813186813
+   },
+   "cost": {
+    "extract_seconds_per_meeting": 6.795,
+    "extract_prompt_tokens_mean": 1763.639,
+    "extract_output_tokens_mean": 76.942,
+    "meetings_extracted": 155,
+    "extract_seconds_total": 1053.3
+   },
+   "rows": [
+    {
+     "chain": "hiring",
+     "qid": "q1",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the data scientist role still being hired for?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q2",
+     "type": "current",
+     "gold": "done",
+     "question": "Did we manage to hire the data engineer yet?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-07-15",
+     "question": "What's the current target date for getting the data engineer on board?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_de",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q4",
+     "type": "current",
+     "gold": "raj",
+     "question": "Who's got the data scientist hire?",
+     "route": {
+      "type": "current",
+      "object_id": "hire_ds",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "raj",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "raj",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "How many heads was the data team approved for on 15 June?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-06-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-06-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "By 15 July, what was the data team's headcount?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-07-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-07-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 4,
+     "question": "What will the data team's headcount be in mid-August (the 15th), as things stand?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 4,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 4,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 6,
+     "question": "Back on 20 May, what did the plan say the data team's headcount would be on 15 August?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": "2026-08-15",
+      "tx_at": "2026-05-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":\"2026-08-15\",\"tx_at\":\"2026-05-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 4,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 4,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 6,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 6,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "question": "As of 20 June, what date were we targeting for the engineer hire?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "h05_hire",
+      "attribute": "deadline",
+      "valid_at": "2026-06-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"h05_hire\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-29",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-29",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-07-15",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 0,
+     "question": "Has the data team's headcount actually changed? Plans that were withdrawn don't count.",
+     "route": {
+      "type": "n_changes",
+      "object_id": "hc_data",
+      "attribute": "headcount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 0,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 0,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the engineer hire's date move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "h05_hire",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"h05_hire\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q12",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "question": "Using only what had been written down by 20 April, what deadline did the engineer hire have for 1 June?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "h05_hire",
+      "attribute": "deadline",
+      "valid_at": "2026-06-20",
+      "tx_at": "2026-04-20",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"h05_hire\",\"attribute\":\"deadline\",\"valid_at\":\"2026-06-20\",\"tx_at\":\"2026-04-20\"}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-29",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-29",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "hiring",
+     "qid": "q13",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Had the data scientist hire been done or cancelled by 1 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "hire_ds",
+      "attribute": "status",
+      "valid_at": "2026-05-01",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"valid_at\":\"2026-05-01\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q1",
+     "type": "current",
+     "gold": 25,
+     "question": "Berapa peratus stake logistics yang kita nak jual sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q2",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "question": "Siapa buyer pilihan kita sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Strategic Buyer",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q3",
+     "type": "current",
+     "gold": "2026-06-30",
+     "question": "Bila tarikh akhir untuk siapkan divestment tu sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-06-30",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-06-30",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q4",
+     "type": "current",
+     "gold": "done",
+     "question": "Dah siap ke divestment tu?",
+     "route": {
+      "type": "current",
+      "object_id": "div_execution",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"div_execution\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "done",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "done",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q5",
+     "type": "as_of_valid",
+     "gold": 20,
+     "question": "What share of the stake were we planning to sell on 8 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-08",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-08\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 20,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 20,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": 25,
+     "question": "Percentage of the logistics stake as of 15 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_stake",
+      "attribute": "percent",
+      "valid_at": "2026-05-15",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"valid_at\":\"2026-05-15\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 25,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 25,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "question": "What was the execution date on 7 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-07",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-07\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-11",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-11",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-08",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-08",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q8",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "question": "Pada 14 Mei, bila deadline execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-14",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-14\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-22",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "question": "On 25 May, which deadline was in force for the execution?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2026-05-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2026-05-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "2026-05-29",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-29",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q10",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "question": "Kalau tengok rekod setakat 5 Jun, apa deadline execution untuk 25 Mei?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": "2025-05-25",
+      "tx_at": "2025-06-05",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":\"2025-05-25\",\"tx_at\":\"2025-06-05\"}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "2026-05-15",
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-05-22",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q11",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "question": "Who was the preferred buyer around 20 May?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "div_buyer",
+      "attribute": "outcome",
+      "valid_at": "2026-05-20",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"valid_at\":\"2026-05-20\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": "Fund X",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Fund X",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "portfolio",
+     "qid": "q12",
+     "type": "n_changes",
+     "gold": 3,
+     "question": "Berapa kali tarikh execution tu dah berubah?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "div_execution",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 2,
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": 2,
+       "correct": false
+      },
+      "oracle_ext+router": {
+       "answer": 3,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 3,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q1",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "question": "Which vendor are we using for the tender at the moment?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_vendor",
+      "attribute": "outcome",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Gamma",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q2",
+     "type": "current",
+     "gold": 5500000,
+     "question": "Berapa had kontrak tender sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5500000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5500000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q3",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "question": "What was the cut-off for tender documents on 18 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": "2026-03-18",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":\"2026-03-18\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "2026-04-03",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "2026-04-03",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q4",
+     "type": "current",
+     "gold": "kelvin",
+     "question": "Siapa yang uruskan tender submission sekarang?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "kelvin",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "kelvin",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q5",
+     "type": "current",
+     "gold": "cancelled",
+     "question": "Is the tender submission still on, done or cancelled?",
+     "route": {
+      "type": "current",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"current\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "cancelled",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "cancelled",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q6",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "question": "Which vendor were we on with as of 25 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "p01_vendor",
+      "attribute": "outcome",
+      "valid_at": "2026-03-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": false,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"p01_vendor\",\"attribute\":\"outcome\",\"valid_at\":\"2026-03-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "Vendor Birch",
+       "correct": false
+      },
+      "ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "Vendor Birch",
+       "correct": false
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "Vendor Beta",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q7",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "question": "What was the contract cap on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q8",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "question": "Mengikut rekod pada 10 Mac, berapa had kontrak untuk 20 Mac?",
+     "route": {
+      "type": "as_of_tx",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": "2026-03-20",
+      "tx_at": "2026-03-10",
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_tx\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":\"2026-03-20\",\"tx_at\":\"2026-03-10\"}",
+     "answers": {
+      "ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 5000000,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 5000000,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q9",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "question": "Who was in charge of the submission on 10 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "owner",
+      "valid_at": "2026-03-10",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"valid_at\":\"2026-03-10\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": "zul",
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": "zul",
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q10",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "How many times did the contract cap move?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_value",
+      "attribute": "amount",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q11",
+     "type": "n_changes",
+     "gold": 1,
+     "question": "Berapa kali deadline submission tender ditangguh?",
+     "route": {
+      "type": "n_changes",
+      "object_id": "tender_submission",
+      "attribute": "deadline",
+      "valid_at": null,
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"n_changes\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"valid_at\":null,\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": 1,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": 1,
+       "correct": true
+      }
+     }
+    },
+    {
+     "chain": "tender",
+     "qid": "q12",
+     "type": "as_of_valid",
+     "gold": null,
+     "question": "Was the tender submission done or cancelled by 25 March?",
+     "route": {
+      "type": "as_of_valid",
+      "object_id": "tender_submission",
+      "attribute": "status",
+      "valid_at": "2026-03-25",
+      "tx_at": null,
+      "ok": true,
+      "reason": ""
+     },
+     "route_exact": true,
+     "route_raw": "{\"type\":\"as_of_valid\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"valid_at\":\"2026-03-25\",\"tx_at\":null}",
+     "answers": {
+      "ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+router": {
+       "answer": null,
+       "correct": true
+      },
+      "oracle_ext+oracle_route": {
+       "answer": null,
+       "correct": true
+      }
+     }
+    }
+   ],
+   "wall_seconds": 272.1
+  }
+ },
+ "cache": {
+  "hits": 284,
+  "misses": 148
+ }
+}

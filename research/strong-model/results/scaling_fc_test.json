@@ -1,0 +1,2339 @@
+{
+ "config": {
+  "part": "baselines",
+  "split": "test",
+  "levels": [
+   0,
+   24,
+   48
+  ],
+  "chains": [
+   "hiring",
+   "portfolio",
+   "tender"
+  ],
+  "questions": 37,
+  "extractor": "mlx",
+  "router": "mlx",
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "padding_seed": 0,
+  "generator": "g1",
+  "extractor_prompt": "v2",
+  "extractor_prompt_sha256_12": "7f816362cd95",
+  "router_prompt": "r1",
+  "baseline_configs": [
+   "fc+cot"
+  ],
+  "cot_max_tokens": 4096,
+  "data_sha256_12": "92eaa27b5e5b",
+  "wording": "ask",
+  "ask_sha256_12": "3a4cc6404d7e",
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.11.18",
+  "date": "2026-11-02 21:22:51"
+ },
+ "levels": {
+  "0": {
+   "k": 0,
+   "systems": {
+    "full-context+cot": {
+     "qa": {
+      "overall": {
+       "correct": 32,
+       "n": 37,
+       "accuracy": 0.8648648648648649,
+       "ci_95": [
+        0.72,
+        0.941
+       ]
+      },
+      "as_of_tx": {
+       "correct": 3,
+       "n": 4,
+       "accuracy": 0.75,
+       "ci_95": [
+        0.301,
+        0.954
+       ]
+      },
+      "as_of_valid": {
+       "correct": 14,
+       "n": 16,
+       "accuracy": 0.875,
+       "ci_95": [
+        0.64,
+        0.965
+       ]
+      },
+      "current": {
+       "correct": 11,
+       "n": 12,
+       "accuracy": 0.9166666666666666,
+       "ci_95": [
+        0.646,
+        0.985
+       ]
+      },
+      "n_changes": {
+       "correct": 4,
+       "n": 5,
+       "accuracy": 0.8,
+       "ci_95": [
+        0.376,
+        0.964
+       ]
+      }
+     },
+     "items": [
+      {
+       "qid": "q1",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "cancelled",
+       "answer": "cancelled",
+       "raw": "- 2026-04-07: Data scientist hire assigned to Raj, offer by 15 June; status not yet done or cancelled.\n- 2026-05-12: Data scientist role dropped; hire cancelled.\n\nANSWER: cancelled",
+       "correct": true,
+       "seconds": 15.01,
+       "prompt_tokens": 781,
+       "output_tokens": 50,
+       "marker": true,
+       "question": "Where does the data scientist hire stand today?"
+      },
+      {
+       "qid": "q2",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "done",
+       "answer": "done",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June. (applies initially)\n- 2026-05-12: Engineer deadline moves to 15 July. (applies from that date)\n- 2026-06-09: Data engineer signed the offer yesterday \u2014 hire completed. (applies)\n\nANSWER: done",
+       "correct": true,
+       "seconds": 14.21,
+       "prompt_tokens": 783,
+       "output_tokens": 77,
+       "marker": true,
+       "question": "What is the current status of recruiting the data engineer?"
+      },
+      {
+       "qid": "q3",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "2026-07-15",
+       "answer": "2026-07-15",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (2026-06-30).\n- 2026-05-12: Data engineer deadline moves to 15 July (2026-07-15).\n- 2026-06-09: Data engineer signed the offer yesterday (status done), no new deadline set.\n\nThe most recent decision in effect on the current date (2026-06-20) is the 2026-05-12 move to 15 July; the 2026-06-09 note only confirms the hire is done and does not change the deadline.\n\nANSWER: 2026-07-15",
+       "correct": true,
+       "seconds": 27.75,
+       "prompt_tokens": 784,
+       "output_tokens": 142,
+       "marker": true,
+       "question": "What deadline is currently on record for the data engineer hire?"
+      },
+      {
+       "qid": "q4",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "raj",
+       "answer": null,
+       "raw": "- 2026-04-07: Raj assigned as owner of the data scientist hire (offer by 15 June).\n- 2026-05-12: The data scientist role is dropped, replacing the earlier hire decision.\n\nANSWER: none",
+       "correct": false,
+       "seconds": 28.83,
+       "prompt_tokens": 781,
+       "output_tokens": 51,
+       "marker": true,
+       "question": "Who is responsible for the data scientist hire?"
+      },
+      {
+       "qid": "q5",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": 4,
+       "raw": "- 2026-04-07: headcount approved at four, effective 1 July.\n- 2026-05-12: headcount goes up to six, effective 1 August.\n- 2026-06-09: increase to six is off; back to four, effective 1 August.\n\nOn 15 June 2026, the most recent decision already in effect is the 2026-04-07 decision (four, effective 1 July), since the 1 August changes are not yet in effect.\n\nANSWER: 4",
+       "correct": false,
+       "seconds": 39.72,
+       "prompt_tokens": 790,
+       "output_tokens": 115,
+       "marker": true,
+       "question": "What headcount was in effect for the data team on 15 June 2026?"
+      },
+      {
+       "qid": "q6",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": 4,
+       "answer": 4,
+       "raw": "- 2026-04-07: headcount approved at four, effective 1 July.\n- 2026-05-12: headcount goes up to six, effective 1 August.\n- 2026-06-09: increase to six is off; back to four, effective 1 August.\n\nOn 15 July 2026, the most recent decision already in effect is the 2026-04-07 decision (four, effective 1 July); the 2026-05-12 and 2026-06-09 changes to six/back to four are not yet in effect until 1 August.\n\nANSWER: 4",
+       "correct": true,
+       "seconds": 25.56,
+       "prompt_tokens": 788,
+       "output_tokens": 136,
+       "marker": true,
+       "question": "What headcount applied to the data team on 15 July 2026?"
+      },
+      {
+       "qid": "q7",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": 4,
+       "answer": 4,
+       "raw": "- 2026-04-07: headcount approved at four, effective 1 July.\n- 2026-05-12: headcount goes up to six, effective 1 August.\n- 2026-06-09: increase to six is off; back to four, effective 1 August. This is the most recent decision in effect on 2026-08-15.\n\nANSWER: 4",
+       "correct": true,
+       "seconds": 28.99,
+       "prompt_tokens": 796,
+       "output_tokens": 87,
+       "marker": true,
+       "question": "Given everything decided so far, what headcount will apply to the data team on August 15, 2026?"
+      },
+      {
+       "qid": "q8",
+       "chain": "hiring",
+       "type": "as_of_tx",
+       "gold": 6,
+       "answer": 6,
+       "raw": "- 2026-04-07: headcount approved at four, effective 1 July.\n- 2026-05-12: headcount goes up to six, effective 1 August.\n\nThe 2026-05-12 decision is the most recent one already in effect on 15 August 2026, so it applies.\n\nANSWER: 6",
+       "correct": true,
+       "seconds": 32.33,
+       "prompt_tokens": 705,
+       "output_tokens": 75,
+       "marker": true,
+       "question": "According to what had been recorded by 20 May 2026, what headcount was planned for the data team on 15 August 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": "2026-07-15",
+       "answer": "2026-07-15",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June. (applies)\n- 2026-05-12: Data engineer deadline moves to 15 July. (applies, supersedes April deadline)\n- 2026-06-09: Data engineer signed the offer; no new deadline set. (does not change the target date)\n\nANSWER: 2026-07-15",
+       "correct": true,
+       "seconds": 2.33,
+       "prompt_tokens": 791,
+       "output_tokens": 90,
+       "marker": true,
+       "question": "On 20 June 2026, what was the target date for hiring the data engineer?"
+      },
+      {
+       "qid": "q10",
+       "chain": "hiring",
+       "type": "n_changes",
+       "gold": 0,
+       "answer": 1,
+       "raw": "Let me trace the headcount decisions and their effective dates.\n\n- **2026-04-07 meeting:** headcount approved at **four, effective 1 July**. (This is a firm decision.)\n- **2026-05-12 meeting:** headcount goes up to **six, effective 1 August**. (Firm decision, later than the four decision's effective date.)\n- **2026-06-09 meeting:** the increase to six is **off**; back to **four, effective 1 August**. This corrects/withdraws the six decision *before* it took effect (1 August is after 9 June), so the six never stuck.\n\nNow, which changes \"stuck\"?\n\n- The \"four, effective 1 July\" decision: was it ever in effect? On 1 July, the most recent decision in effect was the 2026-05-12 decision (six, effective 1 August). But the six decision's effective date (1 Aug) is later than 1 July, so on 1 July the four decision was still the operative one. Then on 1 August, the 2026-06-09 decision (four, effective 1 August) applies. So the headcount was four from 1 July onward \u2014 the value never actually changed from its prior state? We need to consider the baseline before 1 July.\n\nBefore 1 July, no headcount decision was in effect (the four decision was \"effective 1 July\"). So:\n- Before 1 July: none (no decided headcount).\n- From 1 July: four (2026-04-07 decision).\n- From 1 August: four (2026-06-09 decision, which supersedes the six decision that never took effect).\n\nSo the headcount value went: none \u2192 four (on 1 July) \u2192 four (on 1 Aug, no change in value). The six never took effect.\n\nCounting changes that stuck: the change to four (effective 1 July) stuck. The change to six was withdrawn before taking effect, so it doesn't count. The 2026-06-09 decision restates four effective 1 August \u2014 but the value was already four, so it's not a change in the number.\n\nDecisions that matter:\n- 2026-04-07: headcount = four, effective 1 July \u2014 applies (this is the change that stuck).\n- 2026-05-12: headcount = six, effective 1 August \u2014 withdrawn before taking effect, does not count.\n- 2026-06-09: headcount = four, effective 1 August \u2014 corrects the six decision; value stays four, no net change.\n\nSo the number of headcount changes that stuck = **1** (the move to four, effective 1 July).\n\nANSWER: 1",
+       "correct": false,
+       "seconds": 7.18,
+       "prompt_tokens": 803,
+       "output_tokens": 589,
+       "marker": true,
+       "question": "How many times has the data team's headcount changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q11",
+       "chain": "hiring",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the data engineer hire's deadline through the meetings.\n\n**Meeting 2026-04-07:** Ling is assigned the data engineer hire, target \"end of June\" (2026-06-30). This is the first setting of the deadline.\n\n**Meeting 2026-05-12:** Salmah moves the engineer deadline to 15 July (2026-07-15). This is a change that took effect (announced at the meeting, no later correction of this specific change).\n\n**Meeting 2026-06-09:** The engineer signed the offer (status done), but no deadline change is made here. The headcount change is reversed, but that's headcount, not the engineer deadline.\n\nSo the deadline was first set on 2026-04-07 (end of June), then changed once on 2026-05-12 (to 15 July). That change stuck \u2014 it was never withdrawn or corrected.\n\nDecisions that matter:\n- 2026-04-07: data engineer deadline first set to end of June (2026-06-30).\n- 2026-05-12: data engineer deadline moved to 2026-07-15 (this change applies/sticks).\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 3.49,
+       "prompt_tokens": 808,
+       "output_tokens": 260,
+       "marker": true,
+       "question": "How many times was the data engineer hire's deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q12",
+       "chain": "hiring",
+       "type": "as_of_tx",
+       "gold": "2026-06-30",
+       "answer": "2026-06-30",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target the end of June (deadline 2026-06-30). This applies on 2026-06-01.\n\nANSWER: 2026-06-30",
+       "correct": true,
+       "seconds": 1.39,
+       "prompt_tokens": 581,
+       "output_tokens": 53,
+       "marker": true,
+       "question": "Going by what had been recorded as of 20 April 2026, what was the data engineer hire's deadline on 1 June 2026?"
+      },
+      {
+       "qid": "q13",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "- 2026-04-07: Data scientist hire owned by Raj, offer deadline 15 June, status active.\n- 2026-05-12: Data scientist role dropped (cancelled).\n\nThe most recent decision in effect on 2026-05-01 is the 2026-04-07 decision, so the hire was still active (not cancelled, not done).\n\nANSWER: none",
+       "correct": true,
+       "seconds": 2.52,
+       "prompt_tokens": 790,
+       "output_tokens": 85,
+       "marker": true,
+       "question": "What was the status of the data scientist hire on 2026-05-01?"
+      },
+      {
+       "qid": "q1",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": 25,
+       "answer": 25,
+       "raw": "- 2026-05-05: Sell 20 percent (dato: \"Kita jual dua puluh peratus dulu\").\n- 2026-05-12: Corrected to 25 percent (dato: \"dua puluh lima peratus, bukan tiga puluh\").\n- 2026-06-02: Stake stays at 25 percent (dato: \"the stake stays at twenty five percent\").\nThe most recent decision in effect is 25 percent.\n\nANSWER: 25",
+       "correct": true,
+       "seconds": 2.81,
+       "prompt_tokens": 955,
+       "output_tokens": 107,
+       "marker": true,
+       "question": "What percentage of the logistics stake are we planning to sell right now?"
+      },
+      {
+       "qid": "q2",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "Strategic Buyer",
+       "answer": "Strategic Buyer",
+       "raw": "- 2026-05-05: Preferred buyer = Fund X (negotiate with Fund X first).\n- 2026-06-02: Fund X pulled out; buyer is now the Strategic Buyer.\n\nANSWER: Strategic Buyer",
+       "correct": true,
+       "seconds": 1.47,
+       "prompt_tokens": 950,
+       "output_tokens": 48,
+       "marker": true,
+       "question": "Who is the preferred buyer at the moment?"
+      },
+      {
+       "qid": "q3",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "2026-06-30",
+       "answer": "2026-06-30",
+       "raw": "- 2026-05-05: Jason to execute the divestment by Friday (2026-05-08).\n- 2026-05-12: Deadline postponed to next week Friday (2026-05-15).\n- 2026-05-19: Date brought forward to 2026-05-29.\n- 2026-06-02: Date moved to end of month (2026-06-30); this is the latest decision in effect.\n- 2026-06-12: Sale closed (status done), but no new deadline set.\n\nANSWER: 2026-06-30",
+       "correct": true,
+       "seconds": 2.12,
+       "prompt_tokens": 955,
+       "output_tokens": 132,
+       "marker": true,
+       "question": "By when must the divestment be executed, as things stand?"
+      },
+      {
+       "qid": "q4",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "done",
+       "answer": "done",
+       "raw": "- 2026-05-05: Jason made owner of the divestment execution, deadline Friday (2026-05-08).  \n- 2026-05-12: Deadline postponed to next Friday (2026-05-15).  \n- 2026-05-19: Deadline brought forward to 2026-05-29.  \n- 2026-06-02: Deadline moved to end of month (2026-06-30); Jason keeps ownership.  \n- 2026-06-12: Sale closed; item closed.  \n\nANSWER: done",
+       "correct": true,
+       "seconds": 2.04,
+       "prompt_tokens": 953,
+       "output_tokens": 123,
+       "marker": true,
+       "question": "What is the current status of the divestment execution?"
+      },
+      {
+       "qid": "q5",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": 20,
+       "answer": 20,
+       "raw": "- 2026-05-05: Decided to sell 20 percent of the logistics stake (dato: \"Kita jual dua puluh peratus dulu\"). This applies on 8 May 2026.\n- 2026-05-12: Changed to 30 percent, then corrected to 25 percent \u2014 but this is after 8 May, so it does not apply.\n\nANSWER: 20",
+       "correct": true,
+       "seconds": 2.82,
+       "prompt_tokens": 959,
+       "output_tokens": 87,
+       "marker": true,
+       "question": "What percentage of the stake were we planning to sell on 8 May 2026?"
+      },
+      {
+       "qid": "q6",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": 25,
+       "answer": 25,
+       "raw": "- 2026-05-05: sell 20 percent (dato: \"Kita jual dua puluh peratus dulu\") \u2014 applies from that date.\n- 2026-05-12: corrected to 25 percent (dato: \"dua puluh lima peratus, bukan tiga puluh\") \u2014 applies from that date.\n\nOn 15 May 2026, the most recent decision in effect is the 25 percent from 12 May.\n\nANSWER: 25",
+       "correct": true,
+       "seconds": 1.53,
+       "prompt_tokens": 956,
+       "output_tokens": 100,
+       "marker": true,
+       "question": "On 15 May 2026, what stake percentage was in force?"
+      },
+      {
+       "qid": "q7",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-08",
+       "answer": "2026-05-08",
+       "raw": "- 2026-05-05: deadline set to Friday (2026-05-08), owner Jason, 20% stake, buyer Fund X.\n- 2026-05-12: deadline postponed to next week Friday (2026-05-22); stake corrected to 25%.\n\nOn 2026-05-07, the most recent decision in effect was from 2026-05-05, setting the deadline to Friday 2026-05-08.\n\nANSWER: 2026-05-08",
+       "correct": true,
+       "seconds": 1.89,
+       "prompt_tokens": 958,
+       "output_tokens": 110,
+       "marker": true,
+       "question": "What was the divestment execution deadline on 2026-05-07?"
+      },
+      {
+       "qid": "q8",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-22",
+       "answer": "2026-05-22",
+       "raw": "- 2026-05-05: Jason to run execution, complete by Friday (2026-05-08).\n- 2026-05-12: Deadline postponed to next week Friday (2026-05-22).\n- 2026-05-19: Date brought forward to 2026-05-29 (applies from this meeting).\n- 2026-06-02: Date moved to end of month (applies from this meeting, after May 14).\n\nOn May 14, 2026, the most recent decision in effect was the 2026-05-12 postponement to 2026-05-22.\n\nANSWER: 2026-05-22",
+       "correct": true,
+       "seconds": 2.18,
+       "prompt_tokens": 958,
+       "output_tokens": 147,
+       "marker": true,
+       "question": "What was the divestment execution deadline on May 14, 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-29",
+       "answer": "2026-05-29",
+       "raw": "- 2026-05-05: Jason to run execution, complete by Friday (2026-05-08).\n- 2026-05-12: Deadline postponed to next week Friday (2026-05-22).\n- 2026-05-19: Date brought forward to 29 May (2026-05-29), effective from that meeting.\n\nOn 25 May 2026, the most recent decision in effect is the 2026-05-19 one setting the deadline to 2026-05-29.\n\nANSWER: 2026-05-29",
+       "correct": true,
+       "seconds": 1.56,
+       "prompt_tokens": 953,
+       "output_tokens": 123,
+       "marker": true,
+       "question": "What execution deadline applied on 25 May 2026?"
+      },
+      {
+       "qid": "q10",
+       "chain": "portfolio",
+       "type": "as_of_tx",
+       "gold": "2026-05-22",
+       "answer": "2026-05-15",
+       "raw": "- 2026-05-05: Divestment execution deadline set to Friday of that week (2026-05-08), owner Jason.\n- 2026-05-12: Deadline postponed to the following Friday (2026-05-15); owner Jason.\n- 2026-06-02: Deadline moved to end of month (2026-06-30); owner Jason.\n\nOn 25 May 2026, the most recent decision in effect was the 2026-05-12 postponement to 2026-05-15.\n\nANSWER: 2026-05-15",
+       "correct": false,
+       "seconds": 2.56,
+       "prompt_tokens": 884,
+       "output_tokens": 127,
+       "marker": true,
+       "question": "Based on what had been recorded by 5 June 2026, what was the execution deadline on 25 May 2026?"
+      },
+      {
+       "qid": "q11",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "Fund X",
+       "answer": "Fund X",
+       "raw": "- 2026-05-05: Preferred buyer = Fund X (to negotiate with Fund X first).\n- 2026-05-12: No change to buyer; Fund X remains preferred.\n- 2026-05-19: No change to buyer; Fund X remains preferred.\n\nANSWER: Fund X",
+       "correct": true,
+       "seconds": 4.25,
+       "prompt_tokens": 953,
+       "output_tokens": 65,
+       "marker": true,
+       "question": "Which buyer was preferred on 20 May 2026?"
+      },
+      {
+       "qid": "q12",
+       "chain": "portfolio",
+       "type": "n_changes",
+       "gold": 3,
+       "answer": 3,
+       "raw": "2026-05-05: deadline set to Friday (2026-05-08), owner Jason \u2014 applies.\n2026-05-12: deadline postponed to the following Friday (2026-05-15) \u2014 applies.\n2026-05-19: deadline brought forward to 2026-05-29 \u2014 applies.\n2026-06-02: deadline moved to end of month (2026-06-30) \u2014 applies.\n2026-06-12: sale closed, item closed \u2014 no further deadline change.\n\nANSWER: 3",
+       "correct": true,
+       "seconds": 2.3,
+       "prompt_tokens": 975,
+       "output_tokens": 116,
+       "marker": true,
+       "question": "How many times has the execution deadline been moved since it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q1",
+       "chain": "tender",
+       "type": "current",
+       "gold": "Vendor Gamma",
+       "answer": "Vendor Gamma",
+       "raw": "2026-03-02: Vendor Beta chosen.\n2026-04-06: Vendor Beta failed due diligence; decision changed to Vendor Gamma (final).\nThe most recent decision in effect is Vendor Gamma.\n\nANSWER: Vendor Gamma",
+       "correct": true,
+       "seconds": 1.37,
+       "prompt_tokens": 907,
+       "output_tokens": 47,
+       "marker": true,
+       "question": "Which vendor are we going with for the tender right now?"
+      },
+      {
+       "qid": "q2",
+       "chain": "tender",
+       "type": "current",
+       "gold": 5500000,
+       "answer": 5500000,
+       "raw": "- 2026-03-02: Contract cap set at RM5,000,000 (5 million ringgit).\n- 2026-03-16: Contract cap raised to RM5.5 million (5,500,000), effective from that meeting.\n\nThe most recent decision in effect is the 2026-03-16 raise.\n\nANSWER: 5500000",
+       "correct": true,
+       "seconds": 2.0,
+       "prompt_tokens": 909,
+       "output_tokens": 79,
+       "marker": true,
+       "question": "What is the current cap on the contract value, in ringgit?"
+      },
+      {
+       "qid": "q3",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "2026-04-03",
+       "answer": "2026-04-03",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 20 March 2026, owner Zul.\n- 2026-03-16: Deadline postponed to 3 April 2026.\n\nANSWER: 2026-04-03",
+       "correct": true,
+       "seconds": 1.4,
+       "prompt_tokens": 912,
+       "output_tokens": 56,
+       "marker": true,
+       "question": "What was the deadline for submitting the tender documents on 18 March 2026?"
+      },
+      {
+       "qid": "q4",
+       "chain": "tender",
+       "type": "current",
+       "gold": "kelvin",
+       "answer": "kelvin",
+       "raw": "Let me trace the decisions about the tender document submission owner.\n\n- 2026-03-02: Hassan says documents must be in before 20 March, and Zul will handle it. Owner = zul.\n- 2026-03-16: Deadline extended to 3 April; no change of owner.\n- 2026-04-06: Hassan says Kelvin takes over from Zul for this tender. Owner = kelvin.\n\nThe most recent decision in effect (as of today, 2026-05-01) is the 2026-04-06 handover to Kelvin.\n\nANSWER: kelvin",
+       "correct": true,
+       "seconds": 1.98,
+       "prompt_tokens": 907,
+       "output_tokens": 129,
+       "marker": true,
+       "question": "Who is in charge of the tender document submission at present?"
+      },
+      {
+       "qid": "q5",
+       "chain": "tender",
+       "type": "current",
+       "gold": "cancelled",
+       "answer": "cancelled",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 2026-03-20, owner Zul (zul), status not yet done.\n- 2026-03-16: Deadline postponed to 2026-04-03.\n- 2026-04-06: The old tender submission was cancelled and new documents to be re-issued; Kelvin (kelvin) takes over as owner.\n\nANSWER: cancelled",
+       "correct": true,
+       "seconds": 4.26,
+       "prompt_tokens": 906,
+       "output_tokens": 94,
+       "marker": true,
+       "question": "What is the status of the tender document submission today?"
+      },
+      {
+       "qid": "q6",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "Vendor Beta",
+       "answer": "Vendor Beta",
+       "raw": "- 2026-03-02: Vendor Beta selected for the tender. This decision applies from 2 March 2026.\n- 2026-04-06: Vendor Gamma selected, replacing Vendor Beta. This decision applies from 6 April 2026, so it does not apply on 25 March 2026.\n\nANSWER: Vendor Beta",
+       "correct": true,
+       "seconds": 4.26,
+       "prompt_tokens": 911,
+       "output_tokens": 73,
+       "marker": true,
+       "question": "On 25 March 2026, which vendor was selected for the tender?"
+      },
+      {
+       "qid": "q7",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": 5000000,
+       "answer": 5000000,
+       "raw": "- 2026-03-02: Contract cap set at RM5,000,000 (5 million). This applies on 10 March 2026.\n- 2026-03-16: Contract cap raised to RM5.5 million, but this is after 10 March, so it does not apply.\n\nANSWER: 5000000",
+       "correct": true,
+       "seconds": 1.89,
+       "prompt_tokens": 909,
+       "output_tokens": 73,
+       "marker": true,
+       "question": "What was the contract value cap on 10 March 2026?"
+      },
+      {
+       "qid": "q8",
+       "chain": "tender",
+       "type": "as_of_tx",
+       "gold": 5000000,
+       "answer": 5000000,
+       "raw": "- 2026-03-02: Contract cap set at five million ringgit (5000000), effective from that meeting.\n\nANSWER: 5000000",
+       "correct": true,
+       "seconds": 4.26,
+       "prompt_tokens": 620,
+       "output_tokens": 34,
+       "marker": true,
+       "question": "As recorded by 10 March 2026, what was the contract value cap for 20 March 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "zul",
+       "answer": "zul",
+       "raw": "- 2026-03-02: Tender document submission owner set to Zul (zul), deadline 20 March.  \n- 2026-03-16: Deadline postponed to 3 April; owner unchanged.  \n- 2026-04-06: Kelvin took over ownership from Zul, but this was after 10 March and does not apply.\n\nANSWER: zul",
+       "correct": true,
+       "seconds": 2.26,
+       "prompt_tokens": 908,
+       "output_tokens": 82,
+       "marker": true,
+       "question": "Who owned the tender submission on 10 March 2026?"
+      },
+      {
+       "qid": "q10",
+       "chain": "tender",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "2026-03-02: contract cap set at RM5,000,000 (applies from this date).\n2026-03-16: contract cap raised to RM5,500,000 (applies from this date; no later correction/withdrawal).\nANSWER: 1",
+       "correct": true,
+       "seconds": 1.36,
+       "prompt_tokens": 929,
+       "output_tokens": 60,
+       "marker": true,
+       "question": "How many times was the contract value cap changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q11",
+       "chain": "tender",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the tender submission deadline decisions:\n\n- **2026-03-02**: Deadline first set to 20 March 2026 (2026-03-20), owner Zul. This is the initial setting, not a move.\n- **2026-03-16**: Deadline postponed to 3 April 2026 (2026-04-03). This is a move that took effect (change #1).\n- **2026-04-06**: The old submission was cancelled and documents re-issued; a new date to be announced later. This cancels the submission, but no new deadline was set, so it doesn't count as a \"move\" of the deadline to a new date.\n\nSo only one change to the deadline actually stuck: 20 March \u2192 3 April.\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 2.58,
+       "prompt_tokens": 929,
+       "output_tokens": 170,
+       "marker": true,
+       "question": "How many times was the tender submission deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q12",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": "done",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 2026-03-20, owner Zul, status done.\n- 2026-03-16: Deadline postponed to 2026-04-03; owner remains Zul; status still done.\n\nANSWER: done",
+       "correct": false,
+       "seconds": 1.47,
+       "prompt_tokens": 912,
+       "output_tokens": 64,
+       "marker": true,
+       "question": "What was the status of the tender document submission on 25 March 2026?"
+      }
+     ],
+     "median_seconds": 2.52,
+     "mean_prompt_tokens": 866.189,
+     "mean_output_tokens": 109.622,
+     "answer_marker_rate": 1.0
+    }
+   },
+   "strong_model_calls": [
+    {
+     "key": "7f0000352cdd2662f22eca321dca12c652d4ede6809190a86364a7720b33991e",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "600f9a4e6e61711a9f0ae6d71df4d8f14f11338cfb8eaa7c0f174d2bf9c04a26",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "45221a984397599c03412359a32adeb83e53f717c0decc9d422dde4dcc398933",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f7cee3d968a29a7bf416d3a74a3439d60627aeab78ce58b8c837acdb4f63a4cc",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f341c9e4dd6539fdc0989d2316025c27a6fccc092897fd7c2346046128b51010",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "ee437df7ce7e141d6679816904aff77e73515081accddcd6719b4edab283739a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "04bc78cef74dc7df3dcfe22c59713cbcd9a3b54fb3d3a64f51c461e5eddd1f62",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "eb792f3a37e0de654c41a64f3ae87eb8f89c5b6d208e43572a06b302ab87b5a8",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "b34c71bdd2f240727745143396dcf9a0eca265164601ac8689a7dd0c37a5b045",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f0a161d2dfc24dfd15968cc5de85e1323332b5c55cf138d3f77ab8234633afda",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "9b8f1509ac08b89ae9ab7f80cc10529534a7900839ff59361b80241366ac5c37",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "550f7553e7a0cf6011bda1c6c7307efb6b9ef513b5e9448670c05fee6839fbd7",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "b952ea37cbd3867c143f1f33c1cc151ccae6bb5a138c9c9d06f11571ec2ba31f",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "31d6a299cacd9700ac3746fe14519673eba6abd9f2d53ecc8543e3290cb9f126",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "aaf0765d8df6658cbfa7d3f6a7126298271d400f519f1e9ff4fb3b733dbb8646",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "74c62600e8ec5c4c25e4678eeb4ef73c2ce8a953c3b74aa1bd96c00f0c7579b9",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "5addf5d195c9094934e16d7151edf9e8384c411fc9156d84fd9414c48b653ccc",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2ccdbbcb1f910f1bbee996f5254d2a81e61ba66f7857d97882b13fed3413289a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "aacc029616d1e9954ecc5599602bd9e05d50c7e45daf111ab3ba6da929d6f131",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "5521f2275b8d1113546e8c5a11cb73764495b0b8bbb80227f672a050be4ebe95",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "fa83b63688a0c8f554fd544f0aefa5620899d8974c9a0a1617d681c9dc350d7f",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "35ab8d3818c259d48eddd26db0b217b7967940933b80c15994c5be55f90b8c3c",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "e89244d7ba05e09cd9e4898e05c782f84d31d40755131043991eb58748128ea9",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "6ef78da0145b41c20c0c10a975f6c1eb4ff17ae0f5980aebf04569ab8b225b15",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2f8f84d37340400a22cb8ad812f68b25590539c58609adf4e991083be2bdccf4",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2bfccf7236535f850e65c441c06bb30b75d30b3a6d436ad5de51f30e8dd169dd",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "819d8a787e6d7b237630eb99956e47cbe109eecdd6268090d71afd175746c2df",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "507b7db36b4cd97768fcc6ce8f69a05c5712b1230479b9079158d16673084228",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "a3b7d4a666e658d9a25cda992c69c7ea3924ec23bda913430e5cf0b4a137b7e1",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "01d7fc14dc831b75c614497a2dcd853409b19b5565d12cd8a815bc8f5591961f",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "6f7db1e3e28dcd43bd8d73225a5ec045911d0f1bcc8cfb63d0de3b8d8131d5f0",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "ceee4eaf7bcd0b27e95a059d9ebec3654dee0fd0beacd1675a2ea6ca37d87033",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "100b79befb94e036a79e1abd96a118a2b9a23ab9a7d90b9b48ff22855fa07740",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "d1b1541bc8c0aa0a3ca4153196f7a00d085608969b2a420febcf15dc78e0c379",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "22752378a8def2c0f9987ae5b1baa0d0f51fefe4a51bd73a440450297f44f0d1",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "e5ea7749a00f16fe4fdeba0284d3e433952c43899ddb8d6335b44debbbc8660c",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "540f6a186b89275c9416aeb62f051aa06aadb5f5f59c815d073809d5c027f388",
+     "hit": false,
+     "tag": null
+    }
+   ],
+   "wall_seconds": 286.5
+  },
+  "24": {
+   "k": 24,
+   "systems": {
+    "full-context+cot": {
+     "qa": {
+      "overall": {
+       "correct": 30,
+       "n": 37,
+       "accuracy": 0.8108108108108109,
+       "ci_95": [
+        0.658,
+        0.905
+       ]
+      },
+      "as_of_tx": {
+       "correct": 3,
+       "n": 4,
+       "accuracy": 0.75,
+       "ci_95": [
+        0.301,
+        0.954
+       ]
+      },
+      "as_of_valid": {
+       "correct": 14,
+       "n": 16,
+       "accuracy": 0.875,
+       "ci_95": [
+        0.64,
+        0.965
+       ]
+      },
+      "current": {
+       "correct": 9,
+       "n": 12,
+       "accuracy": 0.75,
+       "ci_95": [
+        0.468,
+        0.911
+       ]
+      },
+      "n_changes": {
+       "correct": 4,
+       "n": 5,
+       "accuracy": 0.8,
+       "ci_95": [
+        0.376,
+        0.964
+       ]
+      }
+     },
+     "items": [
+      {
+       "qid": "q1",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "cancelled",
+       "answer": "owner = raj; deadline = 2026-06-15; status = cancelled",
+       "raw": "- 2026-04-07: Raj owns the data scientist hire, offer out by 15 June.  \n- 2026-05-12: The data scientist role is dropped (cancelled).  \n- 2026-06-09: The data scientist budget line is confirmed closed.\n\nThe 2026-05-12 decision cancels the hire and remains in effect; the 2026-06-09 note only confirms the budget closure.\n\nANSWER: owner = raj; deadline = 2026-06-15; status = cancelled",
+       "correct": false,
+       "seconds": 2.0,
+       "prompt_tokens": 3647,
+       "output_tokens": 116,
+       "marker": true,
+       "question": "Where does the data scientist hire stand today?"
+      },
+      {
+       "qid": "q2",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "done",
+       "answer": "owner = ling; deadline = 2026-07-15; status = done",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (deadline 2026-06-30).\n- 2026-05-12: Engineer deadline moves to 15 July (2026-07-15).\n- 2026-06-09: Data engineer signed the offer yesterday \u2014 hire completed (done).\n\nThe 2026-06-09 note confirms the offer was signed, so the hire is done; the applicable deadline is 2026-07-15 and owner is Ling.\n\nANSWER: owner = ling; deadline = 2026-07-15; status = done",
+       "correct": false,
+       "seconds": 2.84,
+       "prompt_tokens": 3649,
+       "output_tokens": 133,
+       "marker": true,
+       "question": "What is the current status of recruiting the data engineer?"
+      },
+      {
+       "qid": "q3",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "2026-07-15",
+       "answer": "2026-07-15",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (2026-06-30).\n- 2026-05-12: Data engineer deadline moves to 15 July (2026-07-15).\n- 2026-06-09: Data engineer signed the offer yesterday (status done).\n\nANSWER: 2026-07-15",
+       "correct": true,
+       "seconds": 1.83,
+       "prompt_tokens": 3650,
+       "output_tokens": 82,
+       "marker": true,
+       "question": "What deadline is currently on record for the data engineer hire?"
+      },
+      {
+       "qid": "q4",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "raj",
+       "answer": null,
+       "raw": "- 2026-04-07: Raj owns the data scientist hire, offer by 15 June.\n- 2026-05-12: The data scientist role is dropped (cancelled).\n\nThe most recent decision (2026-05-12) cancels the role, so the owner from 2026-04-07 no longer applies.\n\nANSWER: none",
+       "correct": false,
+       "seconds": 1.62,
+       "prompt_tokens": 3647,
+       "output_tokens": 78,
+       "marker": true,
+       "question": "Who is responsible for the data scientist hire?"
+      },
+      {
+       "qid": "q5",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "- 2026-04-07: data team headcount approved at 4, effective 2026-07-01.\n- 2026-05-12: data team headcount goes up to 6, effective 2026-08-01.\n- 2026-06-09: increase to 6 is off; back to 4, effective 2026-08-01.\n\nOn 2026-06-15, no data team headcount decision was yet in effect (the 4 and 6 decisions both take effect 2026-08-01).\n\nANSWER: none",
+       "correct": true,
+       "seconds": 1.84,
+       "prompt_tokens": 3656,
+       "output_tokens": 127,
+       "marker": true,
+       "question": "What headcount was in effect for the data team on 15 June 2026?"
+      },
+      {
+       "qid": "q6",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": 4,
+       "answer": 4,
+       "raw": "- 2026-04-07: data team headcount approved at 4, effective 1 July 2026.\n- 2026-05-12: data team headcount goes up to 6, effective 1 August 2026 (not yet in effect on 15 July).\n- 2026-06-09: increase to 6 is off; back to 4, effective 1 August 2026 (not yet in effect on 15 July).\n\nThe decision in effect on 15 July 2026 is the 2026-04-07 approval of 4.\n\nANSWER: 4",
+       "correct": true,
+       "seconds": 1.72,
+       "prompt_tokens": 3654,
+       "output_tokens": 130,
+       "marker": true,
+       "question": "What headcount applied to the data team on 15 July 2026?"
+      },
+      {
+       "qid": "q7",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": 4,
+       "answer": 4,
+       "raw": "- 2026-04-07: Data team headcount approved at 4, effective 2026-07-01.\n- 2026-05-12: Data team headcount goes up to 6, effective 2026-08-01.\n- 2026-06-09: Increase to 6 is off; back to 4, effective 2026-08-01.\n\nThe 2026-06-09 decision replaces the 2026-05-12 one, so on 2026-08-15 the headcount is 4.\n\nANSWER: 4",
+       "correct": true,
+       "seconds": 2.06,
+       "prompt_tokens": 3662,
+       "output_tokens": 126,
+       "marker": true,
+       "question": "Given everything decided so far, what headcount will apply to the data team on August 15, 2026?"
+      },
+      {
+       "qid": "q8",
+       "chain": "hiring",
+       "type": "as_of_tx",
+       "gold": 6,
+       "answer": 6,
+       "raw": "Let me trace the data team headcount decisions:\n\n- **2026-04-07**: \"For now, headcount is approved at four, effective 1 July.\" \u2192 data team headcount = 4, effective 2026-07-01.\n- **2026-05-12**: \"headcount goes up to six, effective 1 August.\" \u2192 data team headcount = 6, effective 2026-08-01.\n\nOn 15 August 2026, the most recent decision in effect is the 2026-05-12 one (effective 1 August), so headcount = 6.\n\nANSWER: 6",
+       "correct": true,
+       "seconds": 1.8,
+       "prompt_tokens": 2851,
+       "output_tokens": 135,
+       "marker": true,
+       "question": "According to what had been recorded by 20 May 2026, what headcount was planned for the data team on 15 August 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": "2026-07-15",
+       "answer": "2026-07-15",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (2026-06-30).\n- 2026-05-12: Data engineer deadline moves to 15 July (2026-07-15); this is the latest decision in effect on 20 June 2026.\n\nANSWER: 2026-07-15",
+       "correct": true,
+       "seconds": 1.73,
+       "prompt_tokens": 3657,
+       "output_tokens": 78,
+       "marker": true,
+       "question": "On 20 June 2026, what was the target date for hiring the data engineer?"
+      },
+      {
+       "qid": "q10",
+       "chain": "hiring",
+       "type": "n_changes",
+       "gold": 0,
+       "answer": 1,
+       "raw": "Let me trace the data team headcount decisions.\n\n- 2026-04-07: \"headcount is approved at four, effective 1 July\" \u2014 this is a decision, effective 1 July.\n- 2026-05-12: \"headcount goes up to six, effective 1 August\" \u2014 decision, effective 1 August.\n- 2026-06-09: \"the increase to six is off. Back to four, effective 1 August\" \u2014 this corrects/withdraws the increase to six before it took effect (1 August). So the six never took effect.\n\nNow, which changes \"stuck\"? The headcount was approved at four effective 1 July (from 2026-04-07). Then the increase to six (effective 1 August) was withdrawn before taking effect, replaced by \"back to four, effective 1 August\" \u2014 which is no change from four. So the only change that took effect is the move to four on 1 July.\n\nBut wait \u2014 was there any prior headcount value? The notes don't state an earlier data team headcount. The first decision is \"approved at four, effective 1 July.\" That's a change (from unspecified/none to four) that took effect. The six was withdrawn before effect. So only one change stuck.\n\nLet me verify no other data team headcount decisions exist. Searching: 2026-04-07 (four, effective 1 July), 2026-05-12 (six, effective 1 August), 2026-06-09 (six off, back to four effective 1 August). No others.\n\nDecisions that matter:\n- 2026-04-07: data team headcount approved at 4, effective 2026-07-01 \u2014 applies (took effect).\n- 2026-05-12: increase to 6, effective 2026-08-01 \u2014 withdrawn before effect, does not apply.\n- 2026-06-09: increase to 6 withdrawn, back to 4 effective 2026-08-01 \u2014 correction, no net change.\n\nSo only one change stuck (to four).\n\nANSWER: 1",
+       "correct": false,
+       "seconds": 4.33,
+       "prompt_tokens": 3669,
+       "output_tokens": 458,
+       "marker": true,
+       "question": "How many times has the data team's headcount changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q11",
+       "chain": "hiring",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the data engineer hire deadline decisions.\n\n- 2026-04-07: Ling owns the data engineer hire, target \"end of June\" (first set \u2192 2026-06-30).\n- 2026-05-12: Ling's engineer deadline moves to 15 July (change #1, stuck).\n- No later decisions change the data engineer deadline (2026-06-09 confirms the engineer signed, but no deadline change).\n\nThe 2026-06-09 meeting mentions the data scientist role closed and budget to engineer team, but no deadline change for the engineer.\n\nSo the deadline was changed once after being first set.\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 2.41,
+       "prompt_tokens": 3674,
+       "output_tokens": 140,
+       "marker": true,
+       "question": "How many times was the data engineer hire's deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q12",
+       "chain": "hiring",
+       "type": "as_of_tx",
+       "gold": "2026-06-30",
+       "answer": "2026-06-30",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target the end of June (deadline 2026-06-30). This is the only decision on the data engineer hire and applies on 2026-06-01.\n\nANSWER: 2026-06-30",
+       "correct": true,
+       "seconds": 1.73,
+       "prompt_tokens": 2219,
+       "output_tokens": 63,
+       "marker": true,
+       "question": "Going by what had been recorded as of 20 April 2026, what was the data engineer hire's deadline on 1 June 2026?"
+      },
+      {
+       "qid": "q13",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "- 2026-04-07: Raj owns the data scientist hire, offer out by 15 June (in effect from this date).\n- 2026-05-12: The data scientist role is dropped (cancelled), effective from this meeting.\n\nThe most recent decision in effect on 2026-05-01 is the 2026-04-07 decision, so the hire was still active (not cancelled) as of that date.\n\nANSWER: none",
+       "correct": true,
+       "seconds": 2.04,
+       "prompt_tokens": 3656,
+       "output_tokens": 98,
+       "marker": true,
+       "question": "What was the status of the data scientist hire on 2026-05-01?"
+      },
+      {
+       "qid": "q1",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": 25,
+       "answer": 25,
+       "raw": "- 2026-05-05: Decided to sell 20 percent of the logistics stake (Kita jual dua puluh peratus dulu).\n- 2026-05-12: Corrected the figure to 25 percent, not 30 (Saya maksudkan dua puluh lima peratus, bukan tiga puluh).\n- 2026-06-02: Stake stays at 25 percent (the stake stays at twenty five percent).\n\nANSWER: 25",
+       "correct": true,
+       "seconds": 1.77,
+       "prompt_tokens": 4295,
+       "output_tokens": 98,
+       "marker": true,
+       "question": "What percentage of the logistics stake are we planning to sell right now?"
+      },
+      {
+       "qid": "q2",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "Strategic Buyer",
+       "answer": "Strategic Buyer",
+       "raw": "- 2026-05-05: Discussed Fund X as buyer, but only \"kita rundingkan dengan Fund X dulu\" \u2014 no firm decision. Not applicable.\n- 2026-06-02: Fund X pulled out; buyer is now the Strategic Buyer. This is the most recent firm decision in effect.\n\nANSWER: Strategic Buyer",
+       "correct": true,
+       "seconds": 1.9,
+       "prompt_tokens": 4290,
+       "output_tokens": 74,
+       "marker": true,
+       "question": "Who is the preferred buyer at the moment?"
+      },
+      {
+       "qid": "q3",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "2026-06-30",
+       "answer": "2026-06-30",
+       "raw": "- 2026-05-05: Jason to run the divestment execution, complete by Friday (2026-05-08).\n- 2026-05-12: Deadline postponed to next week Friday (2026-05-22); stake set at 25 percent.\n- 2026-06-02: Date moved to end of month (2026-06-30); Jason keeps ownership.\n- 2026-06-12: Sale to strategic buyer closed (done).\n\nThe most recent decision in effect sets the deadline at end of June 2026.\n\nANSWER: 2026-06-30",
+       "correct": true,
+       "seconds": 2.14,
+       "prompt_tokens": 4295,
+       "output_tokens": 130,
+       "marker": true,
+       "question": "By when must the divestment be executed, as things stand?"
+      },
+      {
+       "qid": "q4",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "done",
+       "answer": "done",
+       "raw": "- 2026-05-05: Divestment execution owner set to Jason, deadline \"by Friday\" (2026-05-08).\n- 2026-05-12: Deadline postponed to next Friday (2026-05-15); stake set at 25 percent.\n- 2026-06-02: Buyer changed to Strategic Buyer; deadline moved to end of month (2026-06-30); Jason keeps ownership; stake stays 25 percent.\n- 2026-06-12: Sale to strategic buyer closed, all done \u2014 status done.\n\nANSWER: done",
+       "correct": true,
+       "seconds": 3.6,
+       "prompt_tokens": 4293,
+       "output_tokens": 124,
+       "marker": true,
+       "question": "What is the current status of the divestment execution?"
+      },
+      {
+       "qid": "q5",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": 20,
+       "answer": 20,
+       "raw": "- 2026-05-05: Decided to sell 20 percent of the logistics stake (dato: \"Kita jual dua puluh peratus dulu\").\n- 2026-05-12: Corrected the figure to 25 percent, not 30 (dato: \"Saya maksudkan dua puluh lima peratus, bukan tiga puluh\").\n\nThe 2026-05-12 correction is the most recent decision in effect on 8 May 2026? No \u2014 12 May is after 8 May, so it does not count. The decision in effect on 8 May 2026 is the 2026-05-05 decision of 20 percent.\n\nANSWER: 20",
+       "correct": true,
+       "seconds": 4.83,
+       "prompt_tokens": 4299,
+       "output_tokens": 150,
+       "marker": true,
+       "question": "What percentage of the stake were we planning to sell on 8 May 2026?"
+      },
+      {
+       "qid": "q6",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": 25,
+       "answer": 25,
+       "raw": "- 2026-05-05: 20 percent stake to sell (Dato' Seri: \"Kita jual dua puluh peratus dulu\")\n- 2026-05-12: 25 percent stake to sell (correction from 30 to 25 percent, effective that day)\n\nThe most recent decision in effect on 15 May 2026 is the 25 percent from 12 May 2026.\n\nANSWER: 25",
+       "correct": true,
+       "seconds": 1.87,
+       "prompt_tokens": 4296,
+       "output_tokens": 95,
+       "marker": true,
+       "question": "On 15 May 2026, what stake percentage was in force?"
+      },
+      {
+       "qid": "q7",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-08",
+       "answer": "2026-05-08",
+       "raw": "- 2026-05-05: Divestment execution deadline set to Friday (2026-05-08), owner Jason.\n- 2026-05-12: Deadline postponed to next week Friday (2026-05-15), stake corrected to 25 percent.\n\nThe most recent decision in effect on 2026-05-07 is the 2026-05-05 decision setting the deadline to Friday, 2026-05-08.\n\nANSWER: 2026-05-08",
+       "correct": true,
+       "seconds": 2.04,
+       "prompt_tokens": 4298,
+       "output_tokens": 106,
+       "marker": true,
+       "question": "What was the divestment execution deadline on 2026-05-07?"
+      },
+      {
+       "qid": "q8",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-22",
+       "answer": "2026-05-15",
+       "raw": "- 2026-05-05: divestment execution deadline set to Friday (2026-05-08), owner Jason.\n- 2026-05-12: deadline postponed to next week Friday (2026-05-15), owner Jason.\n\nOn 2026-05-14, the most recent decision in effect is the 2026-05-12 postponement to 2026-05-15.\n\nANSWER: 2026-05-15",
+       "correct": false,
+       "seconds": 1.74,
+       "prompt_tokens": 4298,
+       "output_tokens": 99,
+       "marker": true,
+       "question": "What was the divestment execution deadline on May 14, 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-29",
+       "answer": "2026-05-15",
+       "raw": "- 2026-05-05: Jason to run the divestment execution, complete by Friday (2026-05-08).\n- 2026-05-12: Deadline postponed to next Friday (2026-05-15); stake corrected to 25 percent.\n- 2026-06-02: Date moved to end of month (2026-06-30); Jason keeps ownership.\n\nOn 25 May 2026, the most recent decision in effect was the 2026-05-12 postponement to 2026-05-15.\n\nANSWER: 2026-05-15",
+       "correct": false,
+       "seconds": 2.24,
+       "prompt_tokens": 4293,
+       "output_tokens": 129,
+       "marker": true,
+       "question": "What execution deadline applied on 25 May 2026?"
+      },
+      {
+       "qid": "q10",
+       "chain": "portfolio",
+       "type": "as_of_tx",
+       "gold": "2026-05-22",
+       "answer": "2026-05-15",
+       "raw": "Let me trace the divestment execution deadline decisions.\n\n- 2026-05-05: Jason to run execution, \"Siapkan semua by Friday\" \u2014 deadline 2026-05-08 (Friday).\n- 2026-05-12: Deadline postponed \u2014 \"Kita buat minggu depan, Jumaat\" \u2014 new deadline 2026-05-15 (Friday next week).\n- 2026-06-02: Deadline moved again \u2014 \"tak boleh minggu ni. Kita buat hujung bulan\" \u2014 end of month, 2026-06-30. This is after 25 May, so it does not count for the 25 May question.\n\nOn 25 May 2026, the most recent decision in effect was the 2026-05-12 postponement to 2026-05-15.\n\nANSWER: 2026-05-15",
+       "correct": false,
+       "seconds": 2.51,
+       "prompt_tokens": 4005,
+       "output_tokens": 189,
+       "marker": true,
+       "question": "Based on what had been recorded by 5 June 2026, what was the execution deadline on 25 May 2026?"
+      },
+      {
+       "qid": "q11",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "Fund X",
+       "answer": "Fund X",
+       "raw": "- 2026-05-05: Decided to negotiate with Fund X first (preferred buyer Fund X).\n- 2026-06-02: Fund X pulled out; buyer is now the Strategic Buyer (effective from this date, after 20 May).\n\nANSWER: Fund X",
+       "correct": true,
+       "seconds": 1.51,
+       "prompt_tokens": 4293,
+       "output_tokens": 60,
+       "marker": true,
+       "question": "Which buyer was preferred on 20 May 2026?"
+      },
+      {
+       "qid": "q12",
+       "chain": "portfolio",
+       "type": "n_changes",
+       "gold": 3,
+       "answer": 3,
+       "raw": "Let me trace the divestment execution deadline decisions.\n\n- 2026-05-05: Jason to run execution, \"Siapkan semua by Friday\" \u2014 first deadline set (Friday = 2026-05-08).\n- 2026-05-12: Deadline postponed (\"tak sempat siap by Friday... kita buat minggu depan, Jumaat\") \u2192 moved to 2026-05-15. This stuck (no correction of the date itself; the 30%\u219225% correction was about percentage, not date).\n- 2026-05-19: Date brought forward to 29 May (\"bring the date forward to 29 May\"). This stuck.\n- 2026-06-02: Date moved again (\"the date has to move... hujung bulan\") \u2192 end of month (2026-06-30). This stuck.\n\nChanges that stuck: 2026-05-12 (move to next Friday), 2026-05-19 (forward to 29 May), 2026-06-02 (move to end of month) = 3 changes.\n\nANSWER: 3",
+       "correct": true,
+       "seconds": 3.39,
+       "prompt_tokens": 4315,
+       "output_tokens": 238,
+       "marker": true,
+       "question": "How many times has the execution deadline been moved since it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q1",
+       "chain": "tender",
+       "type": "current",
+       "gold": "Vendor Gamma",
+       "answer": "Vendor Gamma",
+       "raw": "- 2026-03-02: Tender vendor decided as Vendor Beta.\n- 2026-04-06: Vendor Beta failed due diligence; tender switched to Vendor Gamma (final decision).\n\nANSWER: Vendor Gamma",
+       "correct": true,
+       "seconds": 3.28,
+       "prompt_tokens": 4272,
+       "output_tokens": 46,
+       "marker": true,
+       "question": "Which vendor are we going with for the tender right now?"
+      },
+      {
+       "qid": "q2",
+       "chain": "tender",
+       "type": "current",
+       "gold": 5500000,
+       "answer": 5500000,
+       "raw": "- 2026-03-02: Tender contract cap set at RM5,000,000 (5 million ringgit).\n- 2026-03-16: Tender contract cap raised to RM5,500,000 (5.5 million ringgit).\n\nThe most recent decision in effect is the 2026-03-16 raise to RM5.5 million.\n\nANSWER: 5500000",
+       "correct": true,
+       "seconds": 1.7,
+       "prompt_tokens": 4274,
+       "output_tokens": 86,
+       "marker": true,
+       "question": "What is the current cap on the contract value, in ringgit?"
+      },
+      {
+       "qid": "q3",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "2026-04-03",
+       "answer": "2026-04-03",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 20 March, owner Zul.\n- 2026-03-16: Tender document submission deadline postponed to 3 April.\n\nThe most recent decision in effect on 18 March 2026 is the 2026-03-16 postponement to 3 April.\n\nANSWER: 2026-04-03",
+       "correct": true,
+       "seconds": 1.82,
+       "prompt_tokens": 4277,
+       "output_tokens": 83,
+       "marker": true,
+       "question": "What was the deadline for submitting the tender documents on 18 March 2026?"
+      },
+      {
+       "qid": "q4",
+       "chain": "tender",
+       "type": "current",
+       "gold": "kelvin",
+       "answer": "kelvin",
+       "raw": "Let me trace the tender document submission decisions in date order.\n\n- 2026-03-02: Tender vendor = Vendor Beta; contract cap RM5,000,000; tender document submission deadline 20 March, owner Zul (zul).\n- 2026-03-16: Deadline postponed to 3 April; contract cap raised to RM5.5 million. Owner unchanged (zul).\n- 2026-04-06: Vendor switched to Vendor Gamma; the old tender submission was cancelled and to be re-issued; Kelvin (kelvin) takes over from Zul for the tender. New date to be announced later.\n\nThe most recent decision in effect is 2026-04-06, which transfers ownership to Kelvin.\n\nANSWER: kelvin",
+       "correct": true,
+       "seconds": 2.58,
+       "prompt_tokens": 4272,
+       "output_tokens": 159,
+       "marker": true,
+       "question": "Who is in charge of the tender document submission at present?"
+      },
+      {
+       "qid": "q5",
+       "chain": "tender",
+       "type": "current",
+       "gold": "cancelled",
+       "answer": "cancelled",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 2026-03-20, owner Zul (zul), status active.\n- 2026-03-16: Deadline postponed to 2026-04-03.\n- 2026-04-06: Old tender submission cancelled; re-issue of new documents, Kelvin takes over. This is the most recent decision in effect, so status = cancelled.\n\nANSWER: cancelled",
+       "correct": true,
+       "seconds": 2.83,
+       "prompt_tokens": 4271,
+       "output_tokens": 97,
+       "marker": true,
+       "question": "What is the status of the tender document submission today?"
+      },
+      {
+       "qid": "q6",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "Vendor Beta",
+       "answer": "Vendor Beta",
+       "raw": "- 2026-03-02: Tender vendor decided as Vendor Beta (effective that day).\n- 2026-04-06: Tender vendor changed to Vendor Gamma (after 25 March, so not in effect on that date).\n\nANSWER: Vendor Beta",
+       "correct": true,
+       "seconds": 1.44,
+       "prompt_tokens": 4276,
+       "output_tokens": 56,
+       "marker": true,
+       "question": "On 25 March 2026, which vendor was selected for the tender?"
+      },
+      {
+       "qid": "q7",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": 5000000,
+       "answer": 5000000,
+       "raw": "- 2026-03-02: Tender contract cap set to RM5,000,000 (5 million ringgit).\n- 2026-03-16: Tender contract cap raised to RM5,500,000.\n\nThe most recent decision in effect on 10 March 2026 is the 2026-03-02 decision (RM5,000,000), since the 2026-03-16 increase came after that date.\n\nANSWER: 5000000",
+       "correct": true,
+       "seconds": 3.25,
+       "prompt_tokens": 4274,
+       "output_tokens": 102,
+       "marker": true,
+       "question": "What was the contract value cap on 10 March 2026?"
+      },
+      {
+       "qid": "q8",
+       "chain": "tender",
+       "type": "as_of_tx",
+       "gold": 5000000,
+       "answer": 5000000,
+       "raw": "Let me trace the tender contract cap decisions.\n\n- Meeting 2026-03-02: Tender vendor = Vendor Beta; contract cap set at \"lima juta ringgit\" = RM5,000,000. This is the only decision on the tender contract cap.\n\nNo later meeting changes the tender contract cap. The question asks for the value in effect on 2026-03-20, which is after 2026-03-02, so the 2026-03-02 decision applies.\n\nDecisions that matter:\n- 2026-03-02: Tender contract cap set to RM5,000,000 (applies from this date onward, including 2026-03-20).\n\nANSWER: 5000000",
+       "correct": true,
+       "seconds": 2.28,
+       "prompt_tokens": 2326,
+       "output_tokens": 155,
+       "marker": true,
+       "question": "As recorded by 10 March 2026, what was the contract value cap for 20 March 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "zul",
+       "answer": "zul",
+       "raw": "- 2026-03-02: Tender document submission owner set to Zul (zul), deadline 20 March.\n- 2026-03-16: Deadline postponed to 3 April; owner unchanged (zul).\n- 2026-04-06: Submission cancelled and Kelvin takes over from Zul; this is after 10 March, so it does not apply.\n\nANSWER: zul",
+       "correct": true,
+       "seconds": 1.69,
+       "prompt_tokens": 4273,
+       "output_tokens": 86,
+       "marker": true,
+       "question": "Who owned the tender submission on 10 March 2026?"
+      },
+      {
+       "qid": "q10",
+       "chain": "tender",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the tender contract cap decisions:\n\n- **2026-03-02**: First set \u2014 \"Had kontrak kita tetapkan lima juta ringgit\" \u2192 RM5,000,000.\n- **2026-03-16**: Raised to RM5.5 million \u2192 RM5,500,000. This stuck (no later correction/withdrawal of this change).\n\nNo other meetings change the contract cap. The 2026-03-01 and other \"Any update on the tender contract cap?\" lines are just questions, not decisions.\n\nSo the cap was first set on 2026-03-02, and changed once (2026-03-16) after that.\n\nDecisions that matter:\n- 2026-03-02: contract cap first set at RM5,000,000\n- 2026-03-16: contract cap raised to RM5,500,000 (stuck)\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 2.45,
+       "prompt_tokens": 4294,
+       "output_tokens": 197,
+       "marker": true,
+       "question": "How many times was the contract value cap changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q11",
+       "chain": "tender",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the tender submission deadline decisions.\n\n- **2026-03-02**: Deadline first set \u2014 documents must be in before 20 March (owner Zul).\n- **2026-03-16**: Deadline postponed to 3 April. This took effect and stuck (no later correction of this date before 2026-04-06).\n- **2026-04-06**: The old tender submission was cancelled and a new document re-issued; a new date was to be announced later. This cancels the submission (status cancelled), but no new deadline was set that day.\n\nSo the deadline was moved once after being first set (20 March \u2192 3 April), and that change stuck. The 2026-04-06 cancellation is not a \"move\" of the deadline \u2014 it cancelled the submission and left the new date unannounced.\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 2.97,
+       "prompt_tokens": 4294,
+       "output_tokens": 182,
+       "marker": true,
+       "question": "How many times was the tender submission deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q12",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "Let me trace the tender document submission decisions:\n\n- **2026-03-02**: Tender vendor = Vendor Beta; contract cap RM5,000,000; tender documents due before 20 March, owner Zul.\n- **2026-03-16**: Deadline postponed to 3 April (owner still Zul, vendor still Beta).\n- **2026-04-06**: Vendor switched to Gamma; the old tender submission was **cancelled** (\"submission tender yang lama tu kita batalkan\"), Kelvin takes over from Zul; new date to be announced later.\n\nOn 25 March 2026, the most recent decision in effect was from 2026-03-16: deadline 3 April, owner Zul, status not cancelled (still pending/active \u2014 no cancellation yet). The cancellation only happened on 2026-04-06, after 25 March, so it does not apply.\n\nThe question asks for the **status** of the tender document submission on 25 March 2026. At that point, the submission had not been cancelled (cancellation came 2026-04-06), and it was not marked done. The status field options are done | cancelled. Since neither applies as of 25 March (it was still pending, not done, not cancelled), the answer is none.\n\nDecisions that matter:\n- 2026-03-02: tender documents due before 20 March, owner Zul (applies until 2026-03-16)\n- 2026-03-16: deadline postponed to 3 April (applies on 25 March)\n- 2026-04-06: submission cancelled, Kelvin takes over (after 25 March, does not apply)\n\nANSWER: none",
+       "correct": true,
+       "seconds": 4.28,
+       "prompt_tokens": 4277,
+       "output_tokens": 364,
+       "marker": true,
+       "question": "What was the status of the tender document submission on 25 March 2026?"
+      }
+     ],
+     "median_seconds": 2.04,
+     "mean_prompt_tokens": 3944.351,
+     "mean_output_tokens": 131.595,
+     "answer_marker_rate": 1.0
+    }
+   },
+   "strong_model_calls": [
+    {
+     "key": "f004fa27834d98ff7956afddb408497a382e01601dba22d0528c524780d1b58b",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "606900e7a83f236afd97de715d5ec7e6f026f84aff814323924a0195c335dad0",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "a98c524c4df4c51c8a9086ae046e65650973e83e070f87452c26ba9109b8dd06",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "309bbc0cbc2438d104290704e486397793925804956b2577d03780f84fe803a5",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "ce5d7fbea4401f2010db9d9c3e8ad83b6eea00b8533e73dc0247708092bb188a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "fcd51a465cc98a05c19f30b2d4184fb9354ec85ce01f23c6f133faa919d108fa",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "e8bdb329ffac1045f6ce07cd20d3597f4bc4e2971dcc9f3208a7fafabf405632",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "ea5b7875069dabe3b18150a324a1c5f6f2976510b51da237a9ca0df781401c63",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f58c01b52611d1860727ce947c08cbe9648ec930dabd6a9df37fc601989750bb",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "ae140fdab7446b495e35b2de91d15ee8e62fe1dc0f9eaaf703a6a2594d2632dd",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "aadb95de545060bb1ee72389fa5b55a2c0d795ca16c40352a3f756dc4575511c",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "988659e090716f9d9d8c69bbc0f73a8d701af066cbf97ab94d2def8a15567408",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "0a496cde179990364d176172e5b4a3f5702e89fbd0c3da1b3e1ab4aba7ff32b9",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "0ea28aeb2b51365af80d13f1ab7ecf775635161e0c2ea588cc9c42ce851fee05",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "b470ef423140449d7d934cc10e34794478040f6aa94ad5b7aaeacacb95169a7d",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "9e196a5f426f804dca6effd1fc13922e7953c1f81ea4f43ca1c5e7a7b104705b",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "e975e4a26da2fe2a8ddaa6d3b4ac79596b8b825637f5122ba0ee486885bb92a2",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f70915b73a2dbdbc20e294915243eeaf9a190016e195a031cc67eb4a05fb46e4",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "1585712f51242bd419d2e85b580ec66b6d71afa5327b22fd7176b2169b4e4492",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "865c8590d47be00dd9c378ac566b7270f5f33a2fc7ca79de0d88c52836fd926a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "8991fa50bee44fcae359349f6ee62b31204daddb6d2092f10cdf0dcc2a972c62",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "a159c6139eed3dd253e43026f68bc11fe4a63f24cea82697d4d668c4e1e4c674",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "7d2f0b6e7fa79fa977d3154b32cd6c4460abb3849f00671733f933ade790e7e9",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "5943032fb192dce01a27b08247055d5a6fc47841cf74db43ff22f2fcfcf16ed2",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2810e749037e877296e92b52b13c3a75fe3149e4c82560fcc1e685ad4e2ffec9",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "8f52a6bcd3495ba93728bd3172c903993362b1c5f570b90cf3b4a7af131c18c6",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "451a00d953407f0bce5d651c71af52a8d5d6d1eca3f91bbbd8b0afdfc3fa1c34",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "8ccc0ef50b4b9fafac2677db9d002aff4bc596caaf7afe379820424cbfe17150",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "11d8bfc0afd0e092d3f03f31eabc970fb19e7e62d37168dc565798d682a3b1a9",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "c60f46b197a9e19d788ca77a792cb956d5145d470c89aa7cc6dda17d54644cea",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f4016d49f061d9281fb1df71fee28dd36e385d6a07f85c509f087d8a1bbd573b",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "af05c9c4b6f8b4882baab9d2958b1e0351539e64327d2bbc0025fa786e92d004",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "f7e08fd1906f238395380ffcc243ca001af58c0fa64135048d9a3353681317d3",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "22c8579dcdbe156384096aeaf175f9114727200c0d4eee788a16a176aa11b469",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "868e1c1d9f14f750a9219ded337bf8c64326525baa2a6f0ec299f78d347fae97",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "fc59089169cf33e9738ba5a08e734f7a8acee612417c17198e97ca2bf13e6ab6",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "63fdd585c25e3c8ab356d5fbd97cebea061389f3ecc1acd2ce4b578ebfb207a3",
+     "hit": false,
+     "tag": null
+    }
+   ],
+   "wall_seconds": 89.1
+  },
+  "48": {
+   "k": 48,
+   "systems": {
+    "full-context+cot": {
+     "qa": {
+      "overall": {
+       "correct": 34,
+       "n": 37,
+       "accuracy": 0.918918918918919,
+       "ci_95": [
+        0.787,
+        0.972
+       ]
+      },
+      "as_of_tx": {
+       "correct": 4,
+       "n": 4,
+       "accuracy": 1.0,
+       "ci_95": [
+        0.51,
+        1.0
+       ]
+      },
+      "as_of_valid": {
+       "correct": 14,
+       "n": 16,
+       "accuracy": 0.875,
+       "ci_95": [
+        0.64,
+        0.965
+       ]
+      },
+      "current": {
+       "correct": 11,
+       "n": 12,
+       "accuracy": 0.9166666666666666,
+       "ci_95": [
+        0.646,
+        0.985
+       ]
+      },
+      "n_changes": {
+       "correct": 5,
+       "n": 5,
+       "accuracy": 1.0,
+       "ci_95": [
+        0.566,
+        1.0
+       ]
+      }
+     },
+     "items": [
+      {
+       "qid": "q1",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "cancelled",
+       "answer": "cancelled",
+       "raw": "- 2026-04-07: Raj owns the data scientist hire, offer by 15 June.\n- 2026-05-12: The data scientist role is dropped.\n- 2026-06-09: The data scientist budget line is closed.\n\nANSWER: cancelled",
+       "correct": true,
+       "seconds": 1.43,
+       "prompt_tokens": 6496,
+       "output_tokens": 59,
+       "marker": true,
+       "question": "Where does the data scientist hire stand today?"
+      },
+      {
+       "qid": "q2",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "done",
+       "answer": "done",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June.\n- 2026-05-12: Data engineer deadline moves to 15 July.\n- 2026-06-09: Data engineer signed the offer yesterday (done).\n\nThe 2026-06-09 decision applies (offer signed, so status done).\n\nANSWER: done",
+       "correct": true,
+       "seconds": 1.55,
+       "prompt_tokens": 6498,
+       "output_tokens": 79,
+       "marker": true,
+       "question": "What is the current status of recruiting the data engineer?"
+      },
+      {
+       "qid": "q3",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "2026-07-15",
+       "answer": "2026-07-15",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (2026-06-30).\n- 2026-05-12: Engineer deadline moves to 15 July (2026-07-15).\n- 2026-06-09: Data engineer signed the offer (done).\n\nThe most recent decision in effect is the 2026-05-12 deadline change, and the 2026-06-09 note confirms the hire is done.\n\nANSWER: 2026-07-15",
+       "correct": true,
+       "seconds": 1.64,
+       "prompt_tokens": 6499,
+       "output_tokens": 113,
+       "marker": true,
+       "question": "What deadline is currently on record for the data engineer hire?"
+      },
+      {
+       "qid": "q4",
+       "chain": "hiring",
+       "type": "current",
+       "gold": "raj",
+       "answer": null,
+       "raw": "- 2026-04-07: Raj owns the data scientist hire, offer by 15 June.\n- 2026-05-12: The data scientist role is dropped.\n\nANSWER: none",
+       "correct": false,
+       "seconds": 1.51,
+       "prompt_tokens": 6496,
+       "output_tokens": 42,
+       "marker": true,
+       "question": "Who is responsible for the data scientist hire?"
+      },
+      {
+       "qid": "q5",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "- 2026-04-07: Data team headcount approved at 4, effective 1 July 2026.\n- 2026-05-12: Data team headcount increased to 6, effective 1 August 2026.\n- 2026-06-09: Increase to 6 withdrawn; headcount back to 4, effective 1 August 2026.\n\nOn 15 June 2026, no decision was yet in effect (the 4-headcount decision takes effect 1 July 2026), so the answer is none.\n\nANSWER: none",
+       "correct": true,
+       "seconds": 4.79,
+       "prompt_tokens": 6505,
+       "output_tokens": 122,
+       "marker": true,
+       "question": "What headcount was in effect for the data team on 15 June 2026?"
+      },
+      {
+       "qid": "q6",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": 4,
+       "answer": 4,
+       "raw": "- 2026-04-07: Data team headcount approved at 4, effective 1 July.\n- 2026-05-12: Headcount goes up to 6, effective 1 August.\n- 2026-06-09: Increase to 6 is off; back to 4, effective 1 August.\n\nOn 15 July 2026, the most recent decision already in effect is the 2026-04-07 approval of 4 (the 1 August changes are not yet in effect).\n\nANSWER: 4",
+       "correct": true,
+       "seconds": 4.92,
+       "prompt_tokens": 6503,
+       "output_tokens": 116,
+       "marker": true,
+       "question": "What headcount applied to the data team on 15 July 2026?"
+      },
+      {
+       "qid": "q7",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": 4,
+       "answer": 4,
+       "raw": "Let me trace the data team headcount decisions in date order:\n\n- 2026-04-07: \"headcount is approved at four, effective 1 July\" \u2192 4, effective 2026-07-01.\n- 2026-05-12: \"headcount goes up to six, effective 1 August\" \u2192 6, effective 2026-08-01.\n- 2026-06-09: \"the increase to six is off. Back to four, effective 1 August\" \u2192 4, effective 2026-08-01 (replaces the 6).\n\nFor August 15, 2026, the most recent decision in effect is the 2026-06-09 one: headcount = 4.\n\nANSWER: 4",
+       "correct": true,
+       "seconds": 2.38,
+       "prompt_tokens": 6511,
+       "output_tokens": 165,
+       "marker": true,
+       "question": "Given everything decided so far, what headcount will apply to the data team on August 15, 2026?"
+      },
+      {
+       "qid": "q8",
+       "chain": "hiring",
+       "type": "as_of_tx",
+       "gold": 6,
+       "answer": 6,
+       "raw": "- 2026-04-07: data team headcount approved at 4, effective 2026-07-01.\n- 2026-05-12: data team headcount goes up to 6, effective 2026-08-01. This is the most recent decision in effect on 2026-08-15.\n\nANSWER: 6",
+       "correct": true,
+       "seconds": 1.46,
+       "prompt_tokens": 5569,
+       "output_tokens": 77,
+       "marker": true,
+       "question": "According to what had been recorded by 20 May 2026, what headcount was planned for the data team on 15 August 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": "2026-07-15",
+       "answer": "2026-07-15",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (2026-06-30).\n- 2026-05-12: Data engineer deadline moves to 2026-07-15.\n- 2026-06-09: Data engineer signed the offer (hire completed).\n\nThe most recent decision in effect on 2026-06-20 is the 2026-05-12 deadline of 2026-07-15; the 2026-06-09 note confirms the hire was signed but does not change the target date.\n\nANSWER: 2026-07-15",
+       "correct": true,
+       "seconds": 1.96,
+       "prompt_tokens": 6506,
+       "output_tokens": 133,
+       "marker": true,
+       "question": "On 20 June 2026, what was the target date for hiring the data engineer?"
+      },
+      {
+       "qid": "q10",
+       "chain": "hiring",
+       "type": "n_changes",
+       "gold": 0,
+       "answer": 0,
+       "raw": "Let me trace the data team headcount decisions.\n\n- 2026-04-07: headcount approved at four, effective 1 July.\n- 2026-05-12: headcount goes up to six, effective 1 August.\n- 2026-06-09: the increase to six is off; back to four, effective 1 August.\n\nThe 2026-05-12 increase to six never took effect (it was corrected on 2026-06-09 before 1 August), so it doesn't count as a change that stuck. The 2026-04-07 decision (four, effective 1 July) and the 2026-06-09 decision (four, effective 1 August) both set the same value of four \u2014 so no actual change in headcount value occurred.\n\nDecisions that matter:\n- 2026-04-07: data team headcount = 4, effective 2026-07-01\n- 2026-05-12: data team headcount = 6, effective 2026-08-01 (withdrawn before taking effect)\n- 2026-06-09: data team headcount = 4, effective 2026-08-01 (corrects the 2026-05-12 decision)\n\nThe only value that ever took effect is 4 (from 2026-07-01 onward). No change in the headcount number ever stuck.\n\nANSWER: 0",
+       "correct": true,
+       "seconds": 3.66,
+       "prompt_tokens": 6518,
+       "output_tokens": 309,
+       "marker": true,
+       "question": "How many times has the data team's headcount changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q11",
+       "chain": "hiring",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the data engineer hire decisions.\n\n- **2026-04-07**: First set \u2014 Ling owns the data engineer hire, target end of June (2026-06-30).\n- **2026-05-12**: Deadline moves to 15 July (2026-07-15). This stuck (no later correction before it took effect).\n- **2026-06-09**: The engineer signed the offer (status done), but no deadline change is stated here.\n\nChecking for any other data engineer deadline changes: none appear in the notes. The 2026-05-12 change is the only one after the initial setting, and it stuck.\n\nDecisions that matter:\n- 2026-04-07: data engineer hire first set, deadline 2026-06-30 (baseline, not counted).\n- 2026-05-12: data engineer deadline moved to 2026-07-15 \u2014 this change stuck (counts as 1).\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 3.39,
+       "prompt_tokens": 6523,
+       "output_tokens": 209,
+       "marker": true,
+       "question": "How many times was the data engineer hire's deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q12",
+       "chain": "hiring",
+       "type": "as_of_tx",
+       "gold": "2026-06-30",
+       "answer": "2026-06-30",
+       "raw": "- 2026-04-07: Ling owns the data engineer hire, target end of June (applies from 2026-04-07; deadline 2026-06-30).\n\nANSWER: 2026-06-30",
+       "correct": true,
+       "seconds": 1.48,
+       "prompt_tokens": 4746,
+       "output_tokens": 51,
+       "marker": true,
+       "question": "Going by what had been recorded as of 20 April 2026, what was the data engineer hire's deadline on 1 June 2026?"
+      },
+      {
+       "qid": "q13",
+       "chain": "hiring",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "Let me trace the decisions about the data scientist hire.\n\n- 2026-04-07: Raj owns the data scientist hire, offer out by 15 June. (firm decision)\n- 2026-05-12: \"we drop the data scientist role\" \u2014 the role is cancelled. (firm decision)\n\nOn 2026-05-01, the most recent decision in effect is the 2026-04-07 one: the hire was active (not cancelled, not done). No status of done/cancelled applies yet \u2014 it was still an open commitment. The question asks for status (done | cancelled). Since neither applies, the answer is none.\n\n- 2026-04-07: data scientist hire owned by Raj, offer by 15 June \u2014 applies on 2026-05-01.\n- 2026-05-12: data scientist role dropped \u2014 after 2026-05-01, does not apply.\n\nANSWER: none",
+       "correct": true,
+       "seconds": 2.94,
+       "prompt_tokens": 6505,
+       "output_tokens": 203,
+       "marker": true,
+       "question": "What was the status of the data scientist hire on 2026-05-01?"
+      },
+      {
+       "qid": "q1",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": 25,
+       "answer": 25,
+       "raw": "- 2026-05-05: Decided to sell 20 percent of the logistics stake (dato: \"Kita jual dua puluh peratus dulu\").\n- 2026-05-12: Proposed raising to 30 percent, then corrected to 25 percent (\"dua puluh lima peratus, bukan tiga puluh\").\n- 2026-06-02: Stake stays at 25 percent (\"the stake stays at twenty five percent\").\n\nThe most recent decision in effect is 25 percent.\n\nANSWER: 25",
+       "correct": true,
+       "seconds": 2.83,
+       "prompt_tokens": 7498,
+       "output_tokens": 112,
+       "marker": true,
+       "question": "What percentage of the logistics stake are we planning to sell right now?"
+      },
+      {
+       "qid": "q2",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "Strategic Buyer",
+       "answer": "Strategic Buyer",
+       "raw": "- 2026-05-05: Decided to negotiate with Fund X first (preferred buyer = Fund X).\n- 2026-06-02: Fund X pulled out; buyer is now the Strategic Buyer (replaces Fund X).\n\nANSWER: Strategic Buyer",
+       "correct": true,
+       "seconds": 1.67,
+       "prompt_tokens": 7493,
+       "output_tokens": 56,
+       "marker": true,
+       "question": "Who is the preferred buyer at the moment?"
+      },
+      {
+       "qid": "q3",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "2026-06-30",
+       "answer": "2026-06-30",
+       "raw": "- 2026-05-05: Sell 20% of the logistics stake, negotiate with Fund X first, Jason to run execution by Friday.  \n- 2026-05-12: Execution postponed to next Friday; stake corrected to 25%.  \n- 2026-05-19: Date brought forward to 29 May.  \n- 2026-06-02: Fund X pulled out; buyer is now Strategic Buyer; date moved to end of month; stake stays 25%.  \n- 2026-06-12: Sale to strategic buyer closed.\n\nANSWER: 2026-06-30",
+       "correct": true,
+       "seconds": 2.51,
+       "prompt_tokens": 7498,
+       "output_tokens": 130,
+       "marker": true,
+       "question": "By when must the divestment be executed, as things stand?"
+      },
+      {
+       "qid": "q4",
+       "chain": "portfolio",
+       "type": "current",
+       "gold": "done",
+       "answer": "done",
+       "raw": "- 2026-05-05: Sell 20% of the logistics stake, negotiate with Fund X first, Jason to run execution and finish by Friday.\n- 2026-05-12: Execution delayed to next Friday; stake changed to 25% (correction from 30%).\n- 2026-05-19: Date brought forward to 29 May.\n- 2026-06-02: Fund X pulled out; buyer is now Strategic Buyer; date moved to end of month; stake stays 25%; Jason keeps ownership.\n- 2026-06-12: Sale to the strategic buyer has closed; all done.\n\nANSWER: done",
+       "correct": true,
+       "seconds": 2.56,
+       "prompt_tokens": 7496,
+       "output_tokens": 139,
+       "marker": true,
+       "question": "What is the current status of the divestment execution?"
+      },
+      {
+       "qid": "q5",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": 20,
+       "answer": 20,
+       "raw": "- 2026-05-05: Sell 20 percent of the logistics stake (applies from this date).\n- 2026-05-12: Corrected to 25 percent (applies from this date).\n\nANSWER: 20",
+       "correct": true,
+       "seconds": 1.82,
+       "prompt_tokens": 7502,
+       "output_tokens": 51,
+       "marker": true,
+       "question": "What percentage of the stake were we planning to sell on 8 May 2026?"
+      },
+      {
+       "qid": "q6",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": 25,
+       "answer": 25,
+       "raw": "- 2026-05-05: Decided to sell 20 percent of the logistics stake (dato: \"Kita jual dua puluh peratus dulu\").\n- 2026-05-12: Corrected the figure to 25 percent (dato: \"saya maksudkan dua puluh lima peratus, bukan tiga puluh\").\n- 2026-06-02: Stake stays at 25 percent, but this is after 15 May and does not count.\n\nThe most recent decision in effect on 15 May 2026 is the 2026-05-12 correction: 25 percent.\n\nANSWER: 25",
+       "correct": true,
+       "seconds": 2.24,
+       "prompt_tokens": 7499,
+       "output_tokens": 136,
+       "marker": true,
+       "question": "On 15 May 2026, what stake percentage was in force?"
+      },
+      {
+       "qid": "q7",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-08",
+       "answer": "2026-05-06",
+       "raw": "- 2026-05-05: Divestment execution owner set to Jason, deadline \"by Friday\" (2026-05-06).\n- 2026-05-12: Deadline postponed to next week Friday (2026-05-15); stake corrected to 25 percent.\n- 2026-05-19: Date brought forward to 2026-05-29.\n\nOn 2026-05-07, the most recent decision in effect was the 2026-05-05 one: deadline 2026-05-06.\n\nANSWER: 2026-05-06",
+       "correct": false,
+       "seconds": 2.04,
+       "prompt_tokens": 7501,
+       "output_tokens": 127,
+       "marker": true,
+       "question": "What was the divestment execution deadline on 2026-05-07?"
+      },
+      {
+       "qid": "q8",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-22",
+       "answer": "2026-05-15",
+       "raw": "- 2026-05-05: Jason to run the divestment execution, complete by Friday (2026-05-08).\n- 2026-05-12: Deadline postponed to next Friday (2026-05-15).\n- 2026-05-19: Date brought forward to 29 May (after May 14, so not in effect).\n- 2026-06-02: Date moved to end of month (after May 14, so not in effect).\n\nThe most recent decision in effect on 2026-05-14 is the 2026-05-12 postponement to 2026-05-15.\n\nANSWER: 2026-05-15",
+       "correct": false,
+       "seconds": 2.16,
+       "prompt_tokens": 7501,
+       "output_tokens": 148,
+       "marker": true,
+       "question": "What was the divestment execution deadline on May 14, 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "2026-05-29",
+       "answer": "2026-05-29",
+       "raw": "- 2026-05-05: Divestment execution deadline set to Friday (2026-05-08), owner Jason.\n- 2026-05-12: Deadline postponed to next Friday (2026-05-15).\n- 2026-05-19: Deadline brought forward to 2026-05-29.\n\nThe most recent decision in effect on 25 May 2026 is the 2026-05-19 decision setting the deadline to 2026-05-29.\n\nANSWER: 2026-05-29",
+       "correct": true,
+       "seconds": 1.6,
+       "prompt_tokens": 7496,
+       "output_tokens": 116,
+       "marker": true,
+       "question": "What execution deadline applied on 25 May 2026?"
+      },
+      {
+       "qid": "q10",
+       "chain": "portfolio",
+       "type": "as_of_tx",
+       "gold": "2026-05-22",
+       "answer": "2026-05-22",
+       "raw": "Let me trace the divestment execution deadline decisions:\n\n- 2026-05-05: Jason to run execution, \"Siapkan semua by Friday\" \u2014 Friday from 5 May 2026 (Tuesday) = 2026-05-08.\n- 2026-05-12: Deadline postponed \u2014 \"Kita buat minggu depan, Jumaat\" = 2026-05-22.\n- 2026-06-02: Date moved again \u2014 \"Kita buat hujung bulan\" (end of month) = 2026-06-30.\n\nOn 25 May 2026, the most recent decision in effect was the 2026-05-12 postponement to 2026-05-22.\n\nANSWER: 2026-05-22",
+       "correct": true,
+       "seconds": 2.9,
+       "prompt_tokens": 6817,
+       "output_tokens": 169,
+       "marker": true,
+       "question": "Based on what had been recorded by 5 June 2026, what was the execution deadline on 25 May 2026?"
+      },
+      {
+       "qid": "q11",
+       "chain": "portfolio",
+       "type": "as_of_valid",
+       "gold": "Fund X",
+       "answer": "Fund X",
+       "raw": "- 2026-05-05: Preferred buyer set to Fund X (negotiate with Fund X first).\n- 2026-06-02: Fund X pulled out; buyer is now the Strategic Buyer.\n\nOn 20 May 2026, the most recent decision in effect was the 2026-05-05 decision, so the preferred buyer was Fund X.\n\nANSWER: Fund X",
+       "correct": true,
+       "seconds": 2.1,
+       "prompt_tokens": 7496,
+       "output_tokens": 82,
+       "marker": true,
+       "question": "Which buyer was preferred on 20 May 2026?"
+      },
+      {
+       "qid": "q12",
+       "chain": "portfolio",
+       "type": "n_changes",
+       "gold": 3,
+       "answer": 3,
+       "raw": "Let me trace the divestment execution deadline decisions.\n\n- 2026-05-05: Jason to run execution, \"Siapkan semua by Friday\" \u2192 deadline 2026-05-08 (first set).\n- 2026-05-12: Fund X needs more time; \"kita tangguh. Kita buat minggu depan, Jumaat\" \u2192 moved to 2026-05-15 (change 1, stuck).\n- 2026-05-19: \"bring the date forward to 29 May\" \u2192 moved to 2026-05-29 (change 2, stuck).\n- 2026-06-02: \"the date has to move... Kita buat hujung bulan\" \u2192 moved to end of June 2026-06-30 (change 3, stuck).\n- 2026-06-12: sale closed (done).\n\nChanges that stuck: 3.\n\nANSWER: 3",
+       "correct": true,
+       "seconds": 2.69,
+       "prompt_tokens": 7518,
+       "output_tokens": 202,
+       "marker": true,
+       "question": "How many times has the execution deadline been moved since it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q1",
+       "chain": "tender",
+       "type": "current",
+       "gold": "Vendor Gamma",
+       "answer": "Vendor Gamma",
+       "raw": "- 2026-03-02: Tender vendor decided as Vendor Beta.\n- 2026-04-06: Tender vendor switched to Vendor Gamma (final decision).\n\nANSWER: Vendor Gamma",
+       "correct": true,
+       "seconds": 1.9,
+       "prompt_tokens": 7500,
+       "output_tokens": 42,
+       "marker": true,
+       "question": "Which vendor are we going with for the tender right now?"
+      },
+      {
+       "qid": "q2",
+       "chain": "tender",
+       "type": "current",
+       "gold": 5500000,
+       "answer": 5500000,
+       "raw": "- 2026-03-02: Tender contract cap set at RM5,000,000 (5 million ringgit).\n- 2026-03-16: Tender contract cap raised to RM5,500,000.\n\nThe most recent decision in effect is the 2026-03-16 raise.\n\nANSWER: 5500000",
+       "correct": true,
+       "seconds": 3.69,
+       "prompt_tokens": 7502,
+       "output_tokens": 73,
+       "marker": true,
+       "question": "What is the current cap on the contract value, in ringgit?"
+      },
+      {
+       "qid": "q3",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "2026-04-03",
+       "answer": "2026-04-03",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 20 March 2026, owner Zul (zul).\n- 2026-03-16: Deadline postponed to 3 April 2026.\n\nOn 18 March 2026, the most recent decision in effect was the 2026-03-16 postponement to 3 April 2026.\n\nANSWER: 2026-04-03",
+       "correct": true,
+       "seconds": 4.54,
+       "prompt_tokens": 7505,
+       "output_tokens": 92,
+       "marker": true,
+       "question": "What was the deadline for submitting the tender documents on 18 March 2026?"
+      },
+      {
+       "qid": "q4",
+       "chain": "tender",
+       "type": "current",
+       "gold": "kelvin",
+       "answer": "kelvin",
+       "raw": "- 2026-03-02: Tender document submission deadline set to 20 March, owner Zul (zul).\n- 2026-03-16: Deadline postponed to 3 April; owner unchanged (zul).\n- 2026-04-06: Old tender submission cancelled and re-issued; Kelvin (kelvin) takes over from Zul for the tender.\n\nThe most recent decision in effect is the 2026-04-06 handover to Kelvin.\n\nANSWER: kelvin",
+       "correct": true,
+       "seconds": 5.29,
+       "prompt_tokens": 7500,
+       "output_tokens": 106,
+       "marker": true,
+       "question": "Who is in charge of the tender document submission at present?"
+      },
+      {
+       "qid": "q5",
+       "chain": "tender",
+       "type": "current",
+       "gold": "cancelled",
+       "answer": "cancelled",
+       "raw": "- 2026-03-02: Tender document submission deadline 2026-03-20, owner Zul, status not yet done (pending).\n- 2026-03-16: Deadline postponed to 2026-04-03, owner Zul.\n- 2026-04-06: Vendor Beta failed due diligence; switched to Vendor Gamma; the old tender submission was cancelled and a new document to be re-issued; Kelvin takes over from Zul; new date to be announced later.\n\nThe most recent decision in effect on 2026-05-01 is the 2026-04-06 cancellation of the old submission.\n\nANSWER: cancelled",
+       "correct": true,
+       "seconds": 4.55,
+       "prompt_tokens": 7499,
+       "output_tokens": 140,
+       "marker": true,
+       "question": "What is the status of the tender document submission today?"
+      },
+      {
+       "qid": "q6",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "Vendor Beta",
+       "answer": "Vendor Beta",
+       "raw": "- 2026-03-02: Tender vendor selected as Vendor Beta (applies from this date).\n- 2026-04-06: Tender vendor switched to Vendor Gamma (after 25 March, so does not apply).\n\nANSWER: Vendor Beta",
+       "correct": true,
+       "seconds": 1.5,
+       "prompt_tokens": 7504,
+       "output_tokens": 55,
+       "marker": true,
+       "question": "On 25 March 2026, which vendor was selected for the tender?"
+      },
+      {
+       "qid": "q7",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": 5000000,
+       "answer": 5000000,
+       "raw": "- 2026-03-02: Tender contract cap set to RM5,000,000 (five million ringgit).\n- 2026-03-16: Tender contract cap raised to RM5,500,000.\n\nThe most recent decision in effect on 10 March 2026 is the 2026-03-02 cap of RM5,000,000.\n\nANSWER: 5000000",
+       "correct": true,
+       "seconds": 1.52,
+       "prompt_tokens": 7502,
+       "output_tokens": 87,
+       "marker": true,
+       "question": "What was the contract value cap on 10 March 2026?"
+      },
+      {
+       "qid": "q8",
+       "chain": "tender",
+       "type": "as_of_tx",
+       "gold": 5000000,
+       "answer": 5000000,
+       "raw": "- 2026-03-02: Tender contract cap set at RM5,000,000 (five million ringgit), decided at the tender relocation meeting; this is the only decision on the cap and is in effect on 20 March 2026.\n\nANSWER: 5000000",
+       "correct": true,
+       "seconds": 1.7,
+       "prompt_tokens": 4434,
+       "output_tokens": 61,
+       "marker": true,
+       "question": "As recorded by 10 March 2026, what was the contract value cap for 20 March 2026?"
+      },
+      {
+       "qid": "q9",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": "zul",
+       "answer": "zul",
+       "raw": "- 2026-03-02: Tender document submission owner set to Zul (zul), deadline 20 March.\n- 2026-03-16: Deadline postponed to 3 April; owner unchanged (zul).\n- 2026-04-06: Old tender submission cancelled; Kelvin (kelvin) takes over the tender from Zul.\n\nOn 10 March 2026, the most recent decision in effect was the 2026-03-02 one, so the owner was zul.\n\nANSWER: zul",
+       "correct": true,
+       "seconds": 1.93,
+       "prompt_tokens": 7501,
+       "output_tokens": 113,
+       "marker": true,
+       "question": "Who owned the tender submission on 10 March 2026?"
+      },
+      {
+       "qid": "q10",
+       "chain": "tender",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the tender contract cap decisions:\n\n- 2026-03-02: First set at RM5 million (5,000,000).\n- 2026-03-16: Raised to RM5.5 million (5,500,000). This took effect and stuck.\n\nNo other tender contract cap decisions appear. The 2026-03-16 change is the only change after the first setting, and it stuck.\n\nDecisions that matter:\n- 2026-03-02: contract cap first set at 5000000\n- 2026-03-16: contract cap changed to 5500000 (stuck)\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 2.29,
+       "prompt_tokens": 7522,
+       "output_tokens": 141,
+       "marker": true,
+       "question": "How many times was the contract value cap changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q11",
+       "chain": "tender",
+       "type": "n_changes",
+       "gold": 1,
+       "answer": 1,
+       "raw": "Let me trace the tender submission deadline decisions in date order.\n\n- 2026-03-02: deadline first set to 20 March (owner Zul).\n- 2026-03-16: deadline moved to 3 April (Vendor Beta asked for extension). This took effect and stuck.\n- 2026-04-06: the old submission was cancelled (\"kita batalkan\") and a new document re-issued; new date to be announced later. This withdraws the 3 April deadline but no new date is set yet.\n\nSo the deadline was moved once after being first set (20 March \u2192 3 April), and that change stuck. The 2026-04-06 cancellation is not a \"move\" to a new date; it cancels the submission entirely.\n\n- 2026-03-02: tender submission deadline set to 2026-03-20, owner zul.\n- 2026-03-16: tender submission deadline moved to 2026-04-03 (stuck).\n- 2026-04-06: old tender submission cancelled, re-issue planned, no new date announced.\n\nANSWER: 1",
+       "correct": true,
+       "seconds": 5.98,
+       "prompt_tokens": 7522,
+       "output_tokens": 243,
+       "marker": true,
+       "question": "How many times was the tender submission deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect."
+      },
+      {
+       "qid": "q12",
+       "chain": "tender",
+       "type": "as_of_valid",
+       "gold": null,
+       "answer": null,
+       "raw": "- 2026-03-02: Tender document submission deadline set to 20 March, owner Zul (zul), status not stated as done/cancelled.\n- 2026-03-16: Deadline postponed to 3 April; owner remains Zul (zul).\n- 2026-04-06: Old tender submission cancelled and to be re-issued; Kelvin takes over from Zul. This is after 25 March, so it does not apply.\n\nOn 25 March 2026, the most recent decision in effect was the 16 March postponement: deadline 3 April, owner zul, and no firm status of done or cancelled had been recorded.\n\nANSWER: none",
+       "correct": true,
+       "seconds": 2.64,
+       "prompt_tokens": 7505,
+       "output_tokens": 147,
+       "marker": true,
+       "question": "What was the status of the tender document submission on 25 March 2026?"
+      }
+     ],
+     "median_seconds": 2.24,
+     "mean_prompt_tokens": 6978.0,
+     "mean_output_tokens": 120.162,
+     "answer_marker_rate": 1.0
+    }
+   },
+   "strong_model_calls": [
+    {
+     "key": "b8b2d47e43d58b1eb241b09550a94b1c871cf2417aba4bc50752229c6d602f81",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "d0943e16c2fb16a1ad58cd66f83481c817cb2a586d40b8beb534394256615f3a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "8a1cc501452fed3c44866e5186fbbf62d8a74f42d6e84e70a0312fc24b4576db",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "a74ecb430b0183f16a2c9db54959f29ffcd980bd958367647d863bdd9ab9c079",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "8cf9413799b0dfce32d7f5fe0ef5ebd639875d07577b5a5f6081a94769ce87cb",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "77e04b5dece5749903c66d0e878d6177b00f08b26298d0258565d96032a96686",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "469044631f5eb02fb8b477d36c11d8a9883370cc216ac78f681a5e0dd3be5ec8",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "1e163c3a31a01c8fa73bfd7f5c9e0050ff8220d29f29cfccec591f91abfb7994",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "c197b64032eb5fc07c8cebd22212de1367af919e8a863b19072c2d237acf5225",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "448ee9bdc9be22d12149e6004cccb201dcdfe96f1097bd860de723ed0c916c75",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "4144c3106564a92c494deaaf0b1ae9665c08038eb940a96a48a2b7d57e469359",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "4e934f43962a9902ab2bd666103bf95e6f82231bfb471bcff9646573c4624b04",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "ff1fac8daf813caaeab9cb9b85c0a4af48b8c4c0e7c2c792f3a130ee595c2cb8",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "09e955c3c5e94e513e3212177e6b8d344b705ee4662308277e37c590301b7c1a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "79b2e08d638c9caba40055ecebce3d5f9876e79a9980e847adb15bd0255028ce",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "155414d73e2f125cf644371a0722d17840d48b5dc8541499f660059705d44e7f",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "09bcf900eee651999444be529d64b0377e2c8f7971119fe4f52ab4722875d9cf",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "12533827e04940ce8217127541c2acefbb7075bc4f48de00afc3fb43d75791e4",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "db83004296fb31d5317466ae0c0ded87a25acb75749f8bdbe60df9241bda1f9e",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "8f6dceba3ce88d1f77accb3ba12d4423f1e447b67ba8ddc2bfef11cdb4691ca4",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "00b7d0db128e9cb7efb7f895ec37d80f7e68e5207deb7d5d47ed93d5a814c59f",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "45dea7d1f056d09758b9f1c192dcaaebea736631fe9486221cc1966dc1daad8d",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "7724da7ac16e3dd9f8f57b4c7395c141d59859fc5c01e618cdbbdc68651b276a",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2bfdcb6d3203428924210d337d649d923fd76ab8387276980a0507f17aeafc16",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "7481da8c8dade30e0ea867be94940854cda8bbab46ac3097e04fc75a2ae21a7e",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "d681dd3fd114ede40f09a8ce8cd34052ae30dbfbfc8cd699968a2ff1378f2a66",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "489d18ea442f1eb148ecd55af1e9f952a006a2c7efb1fa6b32771bfba867b418",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2176998ce07b5e599e6b838a8539ccc8f43020d198350b726ebd6e41e93c1131",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "03db4da6918c0cd1a0631a2e1da53fd86a983444d3f9d03861e53da930038b28",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "469010948939bbb120aaccddb45d6f1e291fa7caa7fa0314a8b72da884d849fe",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "26ede0330e378da75c13c42295fca87a33f66b6fc1fc765bcc22aa4ec3f498da",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "2412f2a4470e8b96a857c7c23583b20f94c0dbd577b68b2b2ec53300943561f3",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "620ccb89286cf395072c1d86724234a2f89f8d6b548ccf52fd86db1bad1b0ceb",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "b1adcea3b0fb0ed144a42c95faf1f4c1e80244436f7887c3b8b2aa48e1d33865",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "85d3f71158ecf3f1280a081a5325b7d9c1e9db94b21ce6e655caa3e63e003486",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "061fee4481f1b2935ff77c42310c7c7e09e92bf466a889a8d21ec822dcc8b0f4",
+     "hit": false,
+     "tag": null
+    },
+    {
+     "key": "0da135b00abce1af477d6f2dcdfcb3bf6d4320546090eefb05dabb9e65993aaa",
+     "hit": false,
+     "tag": null
+    }
+   ],
+   "wall_seconds": 98.5
+  }
+ },
+ "cache": {
+  "hits": 0,
+  "misses": 111
+ }
+}

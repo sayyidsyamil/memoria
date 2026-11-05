@@ -1,0 +1,26 @@
+{
+ "proposals": 21,
+ "matchGold": 18,
+ "wrong": [
+  [
+   "migration",
+   "status",
+   "cancelled",
+   "Data migration is now due on 23 October, same owner."
+  ],
+  [
+   "migration",
+   "status",
+   "cancelled",
+   "I will own the data migration and have it finished by 9 October"
+  ],
+  [
+   "training",
+   "status",
+   "cancelled",
+   "I will coordinate it with HR myself and make sure training is finished"
+  ]
+ ],
+ "goldFound": 15,
+ "goldMissing": []
+}

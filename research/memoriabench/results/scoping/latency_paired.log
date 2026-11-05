@@ -1,0 +1,64 @@
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 10495.12it/s]
+{
+ "condition": "C0",
+ "probes": 112,
+ "p50_ms": {
+  "M3": 933.895,
+  "M2": 1264.805
+ },
+ "p95_ms": {
+  "M3": 1436.8314999999998,
+  "M2": 1790.6125
+ },
+ "ratio_of_medians": {
+  "ratio": 0.7383707369910776,
+  "lo": 0.701226424992874,
+  "hi": 0.7898658654707631
+ },
+ "median_paired_difference_ms": -312.235,
+ "share_of_probes_where_m3_was_faster": 0.9375,
+ "median_when_first_ms": {
+  "M3": 890.5450000000001,
+  "M2": 1490.595
+ },
+ "median_when_second_ms": {
+  "M3": 1022.385,
+  "M2": 1186.715
+ },
+ "same_label_as_batch_run": {
+  "M3": "112/112",
+  "M2": "112/112"
+ }
+}
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 24551.90it/s]
+{
+ "condition": "C2",
+ "probes": 112,
+ "p50_ms": {
+  "M3": 978.645,
+  "M2": 3776.065
+ },
+ "p95_ms": {
+  "M3": 1435.7835,
+  "M2": 6014.4079999999985
+ },
+ "ratio_of_medians": {
+  "ratio": 0.2591705916079305,
+  "lo": 0.23818095969859585,
+  "hi": 0.2767966717121264
+ },
+ "median_paired_difference_ms": -2685.2999999999997,
+ "share_of_probes_where_m3_was_faster": 1.0,
+ "median_when_first_ms": {
+  "M3": 974.145,
+  "M2": 3877.355
+ },
+ "median_when_second_ms": {
+  "M3": 984.7950000000001,
+  "M2": 3632.09
+ },
+ "same_label_as_batch_run": {
+  "M3": "112/112",
+  "M2": "112/112"
+ }
+}

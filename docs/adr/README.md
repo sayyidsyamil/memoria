@@ -1,0 +1,295 @@
+# Architecture Decision Records
+
+This folder contains Architecture Decision Records (ADRs) for the Memoria app.
+
+## Format
+
+Each ADR is a markdown note with YAML frontmatter. Template:
+
+```markdown
+---
+type: ADR
+id: "0001"
+title: "Short decision title"
+status: proposed        # proposed | active | superseded | retired
+date: YYYY-MM-DD
+superseded_by: "0007"  # only if status: superseded
+---
+
+## Context
+What situation led to this decision? What forces and constraints are at play?
+
+## Decision
+**What was decided.** State it clearly in one or two sentences — bold so it stands out.
+
+## Options considered
+- **Option A** (chosen): brief description — pros / cons
+- **Option B**: brief description — pros / cons
+- **Option C**: brief description — pros / cons
+
+## Consequences
+What becomes easier or harder as a result?
+What are the positive and negative ramifications?
+What would trigger re-evaluation of this decision?
+
+## Advice
+*(optional)* Input received before making this decision — who was consulted, what they said, when.
+Omit if the decision was made unilaterally with no external input.
+```
+
+### Status lifecycle
+
+```
+proposed → active → superseded
+                 ↘ retired      (decision no longer relevant, not replaced)
+```
+
+## Rules
+
+- One decision per file
+- Files named `NNNN-short-title.md` (monotonic numbering)
+- Once `active`, never edit — supersede instead
+- When superseded: update `status: superseded` and add `superseded_by: "NNNN"`
+- ARCHITECTURE.md reflects the current state (active decisions only)
+
+## Index
+
+| ID | Title | Status |
+|----|-------|--------|
+| [0001](0001-tauri-react-stack.md) | Tauri v2 + React as application stack | active |
+| [0002](0002-filesystem-source-of-truth.md) | Filesystem as the single source of truth | active |
+| [0003](0003-single-note-model.md) | Single note open at a time (no tabs) | active |
+| [0004](0004-vault-vs-app-settings-storage.md) | Vault vs app settings for state storage | active |
+| [0005](0005-tauri-ios-for-ipad.md) | Tauri v2 iOS for iPad support (vs SwiftUI rewrite) | active |
+| [0006](0006-flat-vault-structure.md) | Flat vault structure (no type-based folders) | active |
+| [0007](0007-title-filename-sync.md) | Title equals filename (slug sync) | active |
+| [0008](0008-underscore-system-properties.md) | Underscore convention for system properties | active |
+| [0009](0009-keyword-only-search.md) | Keyword-only search (remove semantic indexing) | active |
+| [0010](0010-dynamic-wikilink-relationship-detection.md) | Dynamic wikilink relationship detection | active |
+| [0011](0011-mcp-server-for-ai-integration.md) | MCP server for AI tool integration | superseded → [0074](0074-explicit-external-ai-tool-setup-and-least-privilege-desktop-scope.md) |
+| [0012](0012-claude-cli-for-ai-agent.md) | Claude CLI subprocess for AI agent | active |
+| [0013](0013-remove-theming-system.md) | Remove vault-based theming system | superseded -> [0081](0081-internal-light-dark-theme-runtime.md) |
+| [0014](0014-git-based-vault-cache.md) | Git-based incremental vault cache | active |
+| [0015](0015-auto-save-with-debounce.md) | Auto-save with 500ms debounce | superseded → [0102](0102-low-end-safe-autosave-idle-window.md) |
+| [0016](0016-sentry-posthog-telemetry.md) | Sentry + PostHog telemetry with consent | active |
+| [0017](canary-release-channel-and-local-feature-flags.md) | Canary release channel and feature flags | superseded → [0057](0057-alpha-stable-release-channels-and-beta-cohorts.md) |
+| [0018](0018-codescene-code-health-gates.md) | CodeScene code health gates in CI | superseded → [0064](0064-ratcheted-codescene-thresholds.md) |
+| [0019](0019-github-device-flow-oauth.md) | GitHub device flow OAuth for vault sync | superseded → [0056](0056-system-git-cli-auth-no-provider-oauth.md) |
+| [0020](0020-keyboard-first-design.md) | Keyboard-first design principle | active |
+| [0021](0021-push-to-main-workflow.md) | Push directly to main (no PRs) | active |
+| [0022](0022-blocknote-rich-text-editor.md) | BlockNote as the rich text editor | active |
+| [0023](0023-repair-vault-auto-bootstrap.md) | Repair Vault auto-bootstrap pattern | active |
+| [0024](0024-cache-outside-vault.md) | Vault cache stored outside vault directory | active |
+| [0025](0025-type-field-canonical.md) | type: as canonical field (replacing Is A:) | active |
+| [0026](0026-props-down-no-global-state.md) | Props-down callbacks-up (no global state) | superseded → [0115](0115-scoped-react-context-for-shared-ui-preferences.md) |
+| [0027](0027-dual-ai-architecture.md) | Dual AI architecture (API chat + CLI agent) | superseded |
+| [0028](0028-cli-agent-only-no-api-key.md) | CLI agent only — no direct Anthropic API key | active |
+| [0029](0029-domain-command-builder-pattern.md) | Domain command builder pattern for useCommandRegistry | active |
+| [0030](0030-rust-commands-module-split.md) | Rust commands/ module split by domain | active |
+| [0031](0031-full-app-for-note-windows.md) | Full App instance for secondary note windows | active |
+| [0032](0032-status-bar-for-git-actions.md) | Git actions (Changes, Pulse, Commit) in status bar, not sidebar | active |
+| [0033](0033-subfolder-scanning-and-folder-tree.md) | Subfolder scanning and folder tree navigation | active |
+| [0034](0034-git-repo-required-for-vault.md) | Git repo required — blocking modal enforces vault prerequisite | superseded → [0085](0085-non-git-vault-support.md) |
+| [0035](0035-path-suffix-wikilink-resolution.md) | Path-suffix wikilink resolution for subfolder vaults | active |
+| [0036](0036-external-rename-detection-via-git-diff.md) | External rename detection via git diff on focus regain | active |
+| [0037](0037-codemirror-language-markdown-highlighting.md) | Language-based markdown syntax highlighting in raw editor | active |
+| [0038](0038-frontmatter-backed-favorites.md) | Frontmatter-backed favorites (_favorite, _favorite_index) | active |
+| [0039](0039-git-history-for-note-dates.md) | Git history as source of truth for note creation/modification dates | active |
+| [0040](0040-custom-views-yml-filter-engine.md) | Custom Views — .laputa/views/*.yml with YAML filter engine | active |
+| [0041](0041-filekind-all-files-in-vault-scanner.md) | fileKind field — scan all vault files, not just markdown | active |
+| [0264](0264-posthog-release-channels-feature-flags.md) | PostHog-based release channels and feature flags | superseded → [0057](0057-alpha-stable-release-channels-and-beta-cohorts.md) |
+| [0042](0042-trash-auto-purge-safety-model.md) | Trash auto-purge safety model | superseded → [0045](0045-permanent-delete-no-trash.md) |
+| [0043](0043-reactive-vault-state-on-save.md) | Reactive vault state: editor changes propagate immediately to all UI | active |
+| [0044](0044-h1-as-title-primary-source.md) | H1 as primary title source — filename as stable identifier | superseded → [0055](0055-h1-is-the-only-editor-title-surface.md) |
+| [0045](0045-permanent-delete-no-trash.md) | Permanent delete with confirm modal — no Trash system | active |
+| [0046](0046-starter-vault-cloned-from-github.md) | Starter vault cloned from GitHub at runtime — no bundled content | active |
+| [0047](0047-regex-mode-for-view-filter-conditions.md) | Regex mode for view filter conditions | active |
+| [0048](0048-relative-date-expressions-in-view-filters.md) | Relative date expressions in view filter conditions | active |
+| [0049](0049-per-note-icon-property.md) | Per-note icon property (_icon on individual notes) | active |
+| [0050](0050-deterministic-shortcut-command-routing.md) | Deterministic shortcut command routing | superseded → [0051](0051-shared-shortcut-manifest-for-testable-routing.md) |
+| [0051](0051-shared-shortcut-manifest-for-testable-routing.md) | Shared shortcut manifest for testable routing | superseded → [0052](0052-renderer-first-shortcut-execution-with-native-menu-dedupe.md) |
+| [0052](0052-renderer-first-shortcut-execution-with-native-menu-dedupe.md) | Renderer-first shortcut execution with native-menu dedupe | active |
+| [0053](0053-webview-init-prevention-for-browser-reserved-shortcuts.md) | Webview-init prevention for browser-reserved shortcuts | active |
+| [0054](0054-deterministic-shortcut-qa-matrix.md) | Deterministic shortcut QA matrix | active |
+| [0055](0055-h1-is-the-only-editor-title-surface.md) | H1 is the only editor title surface | superseded → [0068](0068-h1-only-title-surface-with-optional-untitled-auto-rename.md) |
+| [0056](0056-system-git-cli-auth-no-provider-oauth.md) | System git auth only — no provider-specific OAuth or repo APIs | active |
+| [0057](0057-alpha-stable-release-channels-and-beta-cohorts.md) | Alpha/stable release channels with PostHog beta cohorts | superseded → [0066](0066-calendar-semver-versioning-for-alpha-and-stable-releases.md) |
+| [0058](0058-claude-code-first-launch-onboarding-gate.md) | Claude Code first-launch onboarding gate | superseded → [0062](0062-selectable-cli-ai-agents.md) |
+| [0059](0059-local-only-git-commits-without-remote.md) | Local-only git commits for vaults without a remote | active |
+| [0060](0060-network-aware-ui-gating-for-remote-features.md) | Network-aware UI gating for remote-dependent features | active |
+| [0061](0061-ai-prompt-bridge-event-bus.md) | AI prompt bridge — module-level event bus for cross-component prompt routing | active |
+| [0062](0062-selectable-cli-ai-agents.md) | Selectable CLI AI agents with a shared panel architecture | active |
+| [0063](0063-blocknote-code-block-package-for-editor-highlighting.md) | BlockNote code-block package for editor syntax highlighting | active |
+| [0064](0064-ratcheted-codescene-thresholds.md) | Ratcheted CodeScene thresholds as the quality gate baseline | active |
+| [0065](0065-root-managed-ai-guidance-files.md) | Root-managed AI guidance files with Claude shim | active |
+| [0066](0066-calendar-semver-versioning-for-alpha-and-stable-releases.md) | Calendar-semver versioning for alpha and stable releases | superseded -> [0173](0173-future-calendar-version-recovery.md) |
+| [0067](0067-autogit-idle-and-inactive-checkpoints.md) | AutoGit idle and inactive checkpoints | active |
+| [0068](0068-h1-only-title-surface-with-optional-untitled-auto-rename.md) | H1-only title surface with optional untitled auto-rename | active |
+| [0069](0069-neighborhood-mode-for-note-list-relationship-browsing.md) | Neighborhood mode for note-list relationship browsing | active |
+| [0070](0070-starter-vaults-local-first-with-explicit-remote-connection.md) | Starter vaults are local-first with explicit remote connection | active |
+| [0071](0071-external-vault-refresh-and-clean-tab-reopen.md) | External vault updates reload derived state and reopen the clean active note | superseded → [0111](0111-path-aware-external-vault-refresh-with-focused-editor-preservation.md) |
+| [0072](0072-confirmed-vault-paths-gate-startup-state.md) | Confirmed vault paths gate startup state | active |
+| [0073](0073-persistent-linkify-protocol-registry-across-editor-remounts.md) | Persistent linkify protocol registry across editor remounts | active |
+| [0074](0074-explicit-external-ai-tool-setup-and-least-privilege-desktop-scope.md) | Explicit external AI tool setup and least-privilege desktop scope | active |
+| [0075](0075-crash-safe-note-rename-transactions.md) | Crash-safe note rename transactions | active |
+| [0076](0076-note-retargeting-separates-type-and-folder-moves.md) | Note retargeting separates type changes from folder moves | active |
+| [0077](0077-concurrent-safe-vault-cache-replacement.md) | Concurrent-safe vault cache replacement | active |
+| [0078](0078-scoped-unsigned-fallback-for-app-managed-git-commits.md) | Scoped unsigned fallback for app-managed git commits | active |
+| [0079](0079-linux-window-chrome-and-menu-reuse.md) | Linux window chrome and menu reuse | active |
+| [0080](0080-cross-platform-desktop-release-artifacts-and-portable-vault-names.md) | Cross-platform desktop release artifacts and portable vault names | superseded → [0083](0083-dual-architecture-macos-release-artifacts.md) |
+| [0081](0081-internal-light-dark-theme-runtime.md) | Internal light and dark theme runtime | active |
+| [0082](0082-markdown-durable-math-notes.md) | Markdown-durable math in notes | active |
+| [0083](0083-dual-architecture-macos-release-artifacts.md) | Dual-architecture macOS release artifacts | active |
+| [0084](0084-app-localization-foundation.md) | App-owned localization foundation | superseded → [0087](0087-json-catalogs-and-lara-cli-localization.md) |
+| [0085](0085-non-git-vault-support.md) | Non-git vaults open with explicit later Git initialization | active |
+| [0086](0086-in-app-image-file-preview.md) | In-app image previews for binary vault files | superseded → [0098](0098-in-app-image-and-pdf-file-previews.md) |
+| [0087](0087-json-catalogs-and-lara-cli-localization.md) | JSON locale catalogs with Lara CLI synchronization | active |
+| [0088](0088-markdown-durable-mermaid-diagrams.md) | Markdown-durable Mermaid diagrams in notes | active |
+| [0089](0089-active-vault-filesystem-watcher.md) | Active vault filesystem watcher | superseded -> [0165](0165-window-owned-vault-watchers-and-main-window-git-background-work.md) |
+| [0090](0090-pi-cli-agent-adapter.md) | Pi CLI agent adapter | active |
+| [0091](0091-gemini-cli-external-ai-setup.md) | Gemini CLI external AI setup | superseded -> [0147](0147-antigravity-cli-agent-adapter.md) |
+| [0092](0092-vault-ai-agent-permission-modes.md) | Vault-scoped AI agent permission modes | superseded -> [0103](0103-adapter-specific-ai-permission-semantics.md) |
+| [0093](0093-shared-cli-agent-runtime-adapters.md) | Shared CLI agent runtime adapters | active |
+| [0094](0094-gitignored-content-visibility-boundary-filter.md) | Gitignored content visibility as a command-boundary filter | active |
+| [0095](0095-saved-view-order-field.md) | Saved views use an explicit YAML order field | active |
+| [0096](0096-root-created-type-documents.md) | Root-created type documents | active |
+| [0097](0097-gemini-cli-agent-adapter.md) | Gemini CLI agent adapter | superseded -> [0147](0147-antigravity-cli-agent-adapter.md) |
+| [0098](0098-in-app-image-and-pdf-file-previews.md) | In-app image and PDF previews for binary vault files | superseded → [0110](0110-in-app-media-and-pdf-file-previews.md) |
+| [0099](0099-cumulative-vault-asset-scope.md) | Cumulative vault asset scope for previews | active |
+| [0100](0100-synthetic-vault-root-folder-row.md) | Synthetic vault-root row in folder navigation | active |
+| [0101](0101-categorical-product-analytics-events.md) | Categorical product analytics events | active |
+| [0102](0102-low-end-safe-autosave-idle-window.md) | Low-end-safe autosave idle window | active |
+| [0103](0103-adapter-specific-ai-permission-semantics.md) | Adapter-specific AI permission semantics | active |
+| [0104](0104-tauri-frontend-readiness-watchdog.md) | Tauri frontend readiness watchdog | active |
+| [0105](0105-editor-correctness-and-responsiveness-contract.md) | Editor correctness and responsiveness contract | active |
+| [0106](0106-shared-app-command-manifest.md) | Shared app command manifest | active |
+| [0265](0265-markdown-durable-tldraw-whiteboards.md) | Markdown-durable tldraw whiteboards in notes | active |
+| [0107](0107-pointer-owned-editor-block-reordering.md) | Pointer-owned editor block reordering | active |
+| [0266](0266-direct-model-ai-targets.md) | Direct model AI targets alongside coding agents | active |
+| [0108](0108-sanitized-rendered-markup-and-safe-regex.md) | Sanitized rendered markup and safe user regex | active |
+| [0109](0109-debounced-worker-derived-editor-indexes.md) | Debounced worker-derived editor indexes | active |
+| [0110](0110-in-app-media-and-pdf-file-previews.md) | In-app media and PDF previews for binary vault files | superseded → [0121](0121-appimage-external-fallback-for-audio-and-video-previews.md) |
+| [0111](0111-path-aware-external-vault-refresh-with-focused-editor-preservation.md) | Path-aware external vault refresh with focused-editor preservation | superseded → [0135](0135-clean-active-note-refresh-after-external-edit.md) |
+| [0112](0112-system-theme-mode.md) | System theme mode | active |
+| [0113](0113-shared-renderer-attachment-path-normalization.md) | Shared renderer attachment path normalization | active |
+| [0114](0114-mounted-workspaces-unified-graph.md) | Mounted workspaces unified graph | active |
+| [0115](0115-scoped-react-context-for-shared-ui-preferences.md) | Scoped React Context for shared UI preferences | active |
+| [0116](0116-rich-raw-transition-and-serialization-ownership.md) | Rich/raw transition and serialization ownership | active |
+| [0117](0117-appimage-fcitx-gtk3-frontend-bundle.md) | Bundle the fcitx GTK3 frontend in Linux AppImages | superseded → [0184](0184-host-compatible-appimage-library-boundary.md) |
+| [0118](0118-entry-scoped-note-windows-without-vault-index-scans.md) | Entry-scoped note windows without vault index scans | superseded -> [0123](0123-full-vault-graph-for-secondary-note-windows.md) |
+| [0119](0119-vault-neutral-mcp-registration-with-mounted-workspace-guidance.md) | Vault-neutral MCP registration with mounted workspace guidance | active |
+| [0120](0120-stable-appimage-mcp-server-path-with-opencode-registration.md) | Stable AppImage MCP server path with OpenCode registration | active |
+| [0121](0121-appimage-external-fallback-for-audio-and-video-previews.md) | AppImage external fallback for audio and video previews | active |
+| [0122](0122-scalar-array-frontmatter-properties.md) | Scalar array frontmatter properties | active |
+| [0123](0123-full-vault-graph-for-secondary-note-windows.md) | Full vault graph for secondary note windows | superseded -> [0124](0124-cached-secondary-note-window-startup.md) |
+| [0124](0124-cached-secondary-note-window-startup.md) | Cached secondary note window startup | superseded -> [0146](0146-cached-main-window-startup-with-empty-reload-recovery.md) |
+| [0126](0126-renderer-action-history.md) | Renderer action history for app-level undo and redo | active |
+| [0127](0127-native-ai-workspace-window.md) | Native AI workspace window | superseded -> [0128](0128-lightweight-ai-workspace-window.md) |
+| [0128](0128-lightweight-ai-workspace-window.md) | Lightweight AI workspace window | active |
+| [0129](0129-memoria-vault-item-deep-links.md) | Memoria vault item deep links | active |
+| [0130](0130-windows-authenticode-release-signing.md) | Windows Authenticode signing for release installers | amended -> [0139](0139-temporary-windows-authenticode-soft-gate.md) |
+| [0131](0131-reusable-release-artifact-build-workflow.md) | Reusable release artifact build workflow | active |
+| [0132](0132-alpha-authenticode-soft-gate.md) | Alpha Authenticode soft gate | superseded -> [0139](0139-temporary-windows-authenticode-soft-gate.md) |
+| [0133](0133-request-scoped-ai-stream-events.md) | Request-scoped AI stream event channels | active |
+| [0134](0134-sheet-nodes-with-plain-text-workbook-storage.md) | Sheet nodes with plain-text workbook storage | experimental |
+| [0267](0267-direct-shiki-language-registrations.md) | Direct Shiki language registrations for code blocks | active |
+| [0135](0135-clean-active-note-refresh-after-external-edit.md) | Clean active notes refresh immediately after external edits | active |
+| [0136](0136-macos-webview-pdf-export.md) | macOS Webview PDF export | active |
+| [0137](0137-shared-rich-editor-input-transforms.md) | Shared rich-editor input transforms | active |
+| [0138](0138-authenticode-required-for-all-release-channels.md) | Require Authenticode signing for all Windows release channels | superseded -> [0139](0139-temporary-windows-authenticode-soft-gate.md) |
+| [0139](0139-temporary-windows-authenticode-soft-gate.md) | Temporary Windows Authenticode soft gate | active |
+| [0140](0140-extension-based-raw-text-syntax-highlighting.md) | Extension-based raw text syntax highlighting | active |
+| [0141](0141-scoped-linux-webkit-rendering-safeguards.md) | Scoped Linux WebKit rendering safeguards | active |
+| [0142](0142-rich-editor-prosemirror-decoration-dependency.md) | Rich editor ProseMirror decoration dependency | active |
+| [0143](0143-shared-focus-ownership-guard.md) | Shared focus ownership guard | active |
+| [0144](0144-collections-and-presentations.md) | Collections carry presentation configuration | active |
+| [0145](0145-xdg-backed-app-config-path.md) | XDG-backed app config path | active |
+| [0146](0146-cached-main-window-startup-with-empty-reload-recovery.md) | Cached main-window startup with empty reload recovery | superseded -> [0166](0166-snapshot-first-progressive-vault-startup.md) |
+| [0147](0147-antigravity-cli-agent-adapter.md) | Antigravity CLI agent adapter | superseded -> [0151](0151-antigravity-add-dir-workspace-flag.md) |
+| [0148](0148-cancellable-ai-agent-streams.md) | Cancellable AI agent streams | active |
+| [0149](0149-shared-app-config-policy-manifest.md) | Shared app config policy manifest | active |
+| [0151](0151-antigravity-add-dir-workspace-flag.md) | Antigravity add-dir workspace flag | superseded -> [0159](0159-antigravity-permission-flags-aligned-with-cli.md) |
+| [0152](0152-wsl2-git-provider.md) | WSL2 Git provider | active |
+| [0153](0153-conservative-markdown-delimiter-parsing.md) | Conservative Markdown delimiter parsing | active |
+| [0154](0154-sandboxed-fenced-html-blocks.md) | Sandboxed fenced HTML blocks | active |
+| [0155](0155-html-block-source-edits-use-raw-editor.md) | HTML block source edits use the raw editor | active |
+| [0156](0156-vault-expression-html-blocks-and-line-references.md) | Vault expressions in sandboxed HTML blocks and line references | amended -> [0157](0157-opt-in-sandboxed-html-block-scripts.md) |
+| [0157](0157-opt-in-sandboxed-html-block-scripts.md) | Opt-in sandboxed scripts for HTML block dashboards | amended -> [0178](0178-custom-protocol-for-scripted-html-blocks.md) |
+| [0158](0158-vault-write-mcp-tools-update-and-append.md) | Vault-write MCP tools: update_note and append_to_note | active |
+| [0159](0159-antigravity-permission-flags-aligned-with-cli.md) | Antigravity permission flags aligned with CLI | active |
+| [0160](0160-editable-markdown-durable-callout-blocks.md) | Editable Markdown-durable callout blocks | amended -> [0167](0167-non-collapsible-callout-scope.md) |
+| [0161](0161-parent-git-workspace-context.md) | Parent Git workspace context | active |
+| [0162](0162-safe-local-import-of-remote-paste-images.md) | Safe local import of remote paste images | active |
+| [0163](0163-agent-owned-model-selection.md) | Agent-owned model discovery and selection | active |
+| [0165](0165-window-owned-vault-watchers-and-main-window-git-background-work.md) | Window-owned vault watchers and main-window Git background work | active |
+| [0166](0166-snapshot-first-progressive-vault-startup.md) | Snapshot-first progressive vault startup | active |
+| [0167](0167-non-collapsible-callout-scope.md) | Non-collapsible callout scope | active |
+| [0168](0168-sandboxed-standalone-html-file-previews.md) | Sandboxed standalone HTML file previews | active |
+| [0170](0170-measurable-crash-safe-startup.md) | Measurable, crash-safe startup | active |
+| [0171](0171-separate-vault-application-instances.md) | Separate vault application instances | active |
+| [0172](0172-local-codescene-change-safeguards.md) | Local CodeScene safeguards before commits and direct-to-main pushes | active |
+| [0175](0175-mcp-vault-lifecycle-uses-app-registry.md) | MCP vault lifecycle uses the app registry | active |
+| [0176](0176-bundled-font-assets-for-offline-startup.md) | Bundled font assets for offline startup | active |
+| [0173](0173-future-calendar-version-recovery.md) | Future calendar version rejection and recovery | active |
+| [0178](0178-custom-protocol-for-scripted-html-blocks.md) | Custom protocol for scripted HTML blocks | active |
+| [0180](0180-shared-cross-runtime-word-count-contract.md) | Shared cross-runtime word-count contract | active |
+| [0181](0181-shared-cross-runtime-inline-markdown-stripping-contract.md) | Shared cross-runtime inline-markdown stripping contract | active |
+| [0182](0182-app-owned-cross-platform-pdf-rendering.md) | App-owned cross-platform PDF rendering | active |
+| [0183](0183-normalize-stale-prosemirror-selection-boundaries.md) | Normalize stale ProseMirror selection boundaries | active |
+| [0184](0184-host-compatible-appimage-library-boundary.md) | Host-compatible AppImage library boundary | active |
+| [0185](0185-memoria-web-target-and-vault-backend-seam.md) | Memoria Web target and VaultBackend seam | active |
+| [0186](0186-memoria-remote-file-service-and-protocol.md) | Memoria remote: git-backed file service and versioned protocol | active |
+| [0187](0187-yjs-collaboration-with-markdown-as-canonical-form.md) | Yjs collaboration with the markdown file as canonical form | active |
+| [0248](0248-expo-react-native-mobile-ui-foundation.md) | Expo React Native mobile UI foundation | active |
+| [0249](0249-nativewind-react-native-reusables-mobile-primitives.md) | Nativewind and React Native Reusables for mobile primitives | active |
+| [0250](0250-expo-sdk-54-for-ipad-expo-go-preview.md) | Expo SDK 54 for iPad Expo Go preview | superseded -> [0246](0246-mobile-expo-57-scene-lifecycle.md) |
+| [0251](0251-expo-file-system-mobile-vault-repository.md) | Expo FileSystem mobile vault repository | amended -> [0190](0190-explicit-session-scoped-ios-vault-selection.md) |
+| [0252](0252-expo-clipboard-mobile-deep-link-copy.md) | Expo Clipboard for mobile deep-link copy | active |
+| [0253](0253-mobile-folder-mutation-write-contract.md) | Mobile folder mutation write contract | active |
+| [0254](0254-mobile-note-move-write-contract.md) | Mobile note move write contract | active |
+| [0255](0255-tentap-mobile-wysiwyg-editor.md) | TenTap mobile WYSIWYG editor | active |
+| [0256](0256-expo-print-sharing-mobile-pdf-export.md) | Expo Print and Sharing for mobile PDF export | active |
+| [0257](0257-expo-document-picker-mobile-attachments.md) | Expo Document Picker for mobile attachments | active |
+| [0258](0258-mobile-vault-config-persistence.md) | Mobile vault-scoped config persistence | active |
+| [0259](0259-mobile-tentap-inline-math-node.md) | Mobile TenTap inline math node | active |
+| [0260](0260-mobile-inline-math-mathml-rendering.md) | Mobile inline math MathML rendering | active |
+| [0261](0261-mobile-tentap-code-block-node.md) | Mobile TenTap code block node | active |
+| [0262](0262-mobile-tentap-table-node.md) | Mobile TenTap table node | active |
+| [0189](0189-mobile-tentap-aligned-table-metadata.md) | Mobile TenTap aligned table metadata | active |
+| [0190](0190-explicit-session-scoped-ios-vault-selection.md) | Explicit session-scoped iOS vault selection | superseded -> [0191](0191-durable-ios-vault-bookmarks.md) |
+| [0191](0191-durable-ios-vault-bookmarks.md) | Durable iOS vault bookmarks | active |
+| [0203](0203-recoverable-ios-editor-text-saves.md) | Recoverable standalone iOS text saves | active |
+| [0204](0204-recoverable-ios-entry-mutations.md) | Recoverable standalone iOS moves and deletions | active |
+| [0235](0235-mobile-bounded-editor-document-reads.md) | Bounded native editor document reads | active |
+| [0236](0236-cooperative-mobile-workspace-preparation.md) | Cooperative mobile workspace preparation | active |
+| [0237](0237-mobile-completed-conflict-backup-retention.md) | Completed mobile conflict-backup retention | active |
+| [0238](0238-mobile-fresh-input-validated-snapshot-cache.md) | Fresh-input-validated mobile snapshot cache | active |
+| [0239](0239-mobile-known-remote-fetch-negotiation.md) | Negotiate mobile fetches from the known remote tip | active |
+| [0240](0240-mobile-bounded-git-filesystem-sessions.md) | Bounded mobile Git filesystem sessions | active |
+| [0241](0241-mobile-source-free-snapshot-previews.md) | Source-free mobile snapshot previews | active |
+| [0242](0242-mobile-startup-presentation-boundary.md) | Mobile startup presentation boundary | active |
+| [0246](0246-mobile-expo-57-scene-lifecycle.md) | Supported mobile scene lifecycle | active |
+| [0247](0247-automatic-alpha-manual-stable-mobile-ota.md) | Automatic alpha and manual stable mobile OTA | active |
+| [0269](0269-mobile-ota-validated-main-range.md) | Mobile OTA validated main range | active |
+| [0270](0270-expiring-exact-codacy-approval-records.md) | Expiring exact Codacy approval records | temporary; expires 2026-10-21 |
+| [0271](0271-mobile-revisioned-pending-note-indicators.md) | Mobile revisioned pending-note indicators | active |
+| [0277](0277-mobile-read-only-reload-reconciliation.md) | Reconcile read-only mobile reloads in the existing snapshot frame | active |
+| [0278](0278-desktop-note-save-byte-transport.md) | Desktop note saves use UTF-8 byte transport | active |
+| [0279](0279-mobile-preview-configuration-tolerance.md) | Mobile preview configuration tolerance | active |
+| [0280](0280-debounced-push-and-background-fetch.md) | Debounced push and background fetch for Memoria remote | active |
+| [0282](0282-web-offline-read-service-worker.md) | Web offline read with a hand-written, per-account service worker | active |
+| [0283](0283-web-attachments-portable-paths-and-guarded-import.md) | Web attachments: portable paths, token-authorized object URLs and a server-side guarded image import | active |
+| [0284](0284-web-url-routing-with-query-routes.md) | Web URL routing with query routes over the History API | active |
+| [0285](0285-mobile-disk-authoritative-note-editing-and-index-reconciliation.md) | Disk-authoritative mobile note editing and index reconciliation | active |
+| [0286](0286-web-phone-layout-as-a-url-driven-pane-stack.md) | Web phone layout as a URL-driven pane stack | active |
+| [0287](0287-web-tablet-layout-and-browser-safe-shortcuts.md) | Web tablet layout and browser-safe shortcuts | active |
+| [0288](0288-web-touch-input-long-press-menus-and-touch-targets.md) | Web touch input: long-press menus and 44 px touch targets | active |
+| [0289](0289-server-rename-transaction-with-live-link-patches.md) | Server rename transaction with live wikilink patches | active |
+| [0290](0290-live-document-keeps-its-edits-on-a-desktop-conflict.md) | A live document keeps its edits on a desktop conflict; the incoming version becomes the conflict copy | active |
+| [0291](0291-presence-in-the-web-note-view.md) | Presence in the web note view: device names, paced awareness, clear within 5 s | active |
+| [0292](0292-in-process-request-and-websocket-limits-on-the-server.md) | In-process request and websocket limits on the server, per account | active |
+| [0293](0293-folder-create-and-delete-on-the-server.md) | Folders created on the server hold a .keep file; folder deletes take every file in one commit | active |
+| [0294](0294-web-build-error-telemetry-and-hidden-source-maps.md) | Web build error telemetry: build-time DSN, commit releases and hidden source maps | active |
+| [0295](0295-mobile-note-reads-during-linked-folder-sync.md) | Mobile note reads during linked-folder sync | active |
+| [0296](0296-sharing-enforced-in-the-server-with-signed-access-tickets.md) | Sharing is enforced in the open server with signed, short-lived access tickets; share records stay with the front end | active |
+| [0297](0297-collaborator-attribution-in-co-authored-by-trailers.md) | Shared edits name their collaborators in Co-authored-by trailers; the identity comes from the access ticket | active |

@@ -1,0 +1,72 @@
+[
+ {
+  "turn": 1,
+  "voice": "Daniel",
+  "start": 7.47,
+  "end": 11.72,
+  "text": "Good morning everyone. This is the go-live check for the procurement pilot."
+ },
+ {
+  "turn": 2,
+  "voice": "Flo (English (UK))",
+  "start": 13.22,
+  "end": 17.24,
+  "text": "Thanks. Training is on track and the materials are ready."
+ },
+ {
+  "turn": 3,
+  "voice": "Aman",
+  "start": 18.74,
+  "end": 26.15,
+  "text": "Data migration is almost done. We finished the supplier records yesterday."
+ },
+ {
+  "turn": 4,
+  "voice": "Daniel",
+  "start": 27.65,
+  "end": 31.24,
+  "text": "Good. Before we close the plan, one thing about the vendor."
+ },
+ {
+  "turn": 5,
+  "voice": "Flo (English (UK))",
+  "start": 32.74,
+  "end": 35.14,
+  "text": "Gamma Solutions is our vendor now."
+ },
+ {
+  "turn": 6,
+  "voice": "Aman",
+  "start": 36.64,
+  "end": 38.39,
+  "text": "I thought we moved to Beta Cloud in September."
+ },
+ {
+  "turn": 7,
+  "voice": "Daniel",
+  "start": 39.89,
+  "end": 42.4,
+  "text": "The go-live date is still the ninth of November."
+ },
+ {
+  "turn": 8,
+  "voice": "Flo (English (UK))",
+  "start": 43.9,
+  "end": 47.75,
+  "text": "And the pilot budget is now three hundred thousand ringgit."
+ },
+ {
+  "turn": 9,
+  "voice": "Aman",
+  "start": 49.25,
+  "end": 52.23,
+  "text": "That is more than we agreed. Let us check the record."
+ },
+ {
+  "turn": 10,
+  "voice": "Daniel",
+  "start": 53.73,
+  "end": 57.25,
+  "text": "Okay. Let us meet again next week. Thank you all."
+ }
+]

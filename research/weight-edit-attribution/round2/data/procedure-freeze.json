@@ -1,0 +1,14 @@
+{
+  "time": "2026-11-03T18:34:31.812580",
+  "procedure": "For each event, GENERATE the source-evidence fields before selecting its registry ID:\n1. subject_turn and subject_quote identify the exact component or its referent. Copy subject_quote from that transcript turn, not from the registry.\n2. value_quote copies the words that support this property's value from the main quote.\n3. Only after those fields, map that component/property to object_id and attribute. A component absent from the registry must be omitted or use object_id null and unresolved true, even if its material is an allowed value of another component.\nGenerate every genuinely adopted change in chronological order. Two real changes in one meeting remain two events; repeated old-value recaps do not outvote a later decision.\n",
+  "schema": "{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"subject_turn\":<int>,\"subject_quote\":\"<exact component or antecedent words>\",\"value_quote\":\"<exact value evidence words>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}",
+  "procedure_sha256": "73956a3d0b3567ea9abaa41a2a713595b30f89a526b518e00cd0922f6de67751",
+  "cases_sha256": "d941a56bce4c4c50ff5ba3ee0ef428056fb9423b81a4306b90272bcbc2d33076",
+  "code_sha256": {
+    "generation.py": "73db3f96974c7f429d686941e6c5e0879588db1eb168a38c8e3698b8003185ac",
+    "build_cases.py": "8572fa154b40780528a243877e000652cf6ae0c1c7ce81b76a9b7431657098ff",
+    "native.py": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1",
+    "r2_common.py": "9fcf6cb348dc4763dd8ef50aca1a2779a7823d76d6a8484ca80b10337bee83df"
+  },
+  "round1_hashes_verified": 55
+}

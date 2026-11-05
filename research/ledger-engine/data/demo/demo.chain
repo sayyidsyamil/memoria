@@ -1,0 +1,112 @@
+chain: demo
+language: en
+note: FICTIONAL demo series (invented people, vendors and numbers), authored by the AI assistant and the project author. Used for system tests, the demo and user acceptance testing. Not real meetings.
+now: 2026-10-14T00:00:00Z
+people: aisha=Aisha, raj=Raj, wei_ling=Wei Ling
+object: vendor | decision | Vendor | outcome:enum[Alpha Systems,Beta Cloud,Gamma Soft]!reverse
+object: budget | decision | Pilot budget (RM) | amount:number
+object: golive | decision | Go-live date | date:date
+object: training | commitment | Staff training | owner:person, deadline:date, status:enum[done,cancelled]
+object: migration | commitment | Data migration | owner:person, deadline:date, status:enum[done,cancelled]
+object: security | commitment | Security review | owner:person, deadline:date, status:enum[done,cancelled]
+
+meeting: m1 | 2026-09-14T09:30:00Z | ingested=2026-09-14T12:30:00Z
+aisha: Good morning everyone, thanks for making time. Today we need to settle the basics of the procurement pilot: the vendor, the budget, and when we go live.
+raj: Morning. Finance has only seen draft numbers so far, so I would like to keep the budget talk practical.
+wei_ling: And from IT, I have done demos with all three vendors over the past two weeks, so I can speak to the technical fit.
+aisha: Great. Wei Ling, give us the short version.
+wei_ling: Gamma Soft is the cheapest, but their reporting cannot do approvals by department, so I would drop them.  ## distractor tentative
+raj: Agreed, Gamma Soft is out for me too.  ## distractor tentative
+wei_ling: Alpha Systems and Beta Cloud both work. Alpha Systems has the better demo and can start immediately. Beta Cloud is more flexible but slower to onboard.
+raj: On price, Alpha Systems is cheaper. Beta Cloud's licence is about 30,000 ringgit more for the pilot.
+aisha: Then let's be decisive. We go with Alpha Systems for the pilot. Any objection?  ## event vendor.outcome = Alpha Systems | INITIAL | quote="We go with Alpha Systems for the pilot"
+raj: No objection from finance.
+wei_ling: Fine by me. I will tell Alpha Systems we are proceeding.
+aisha: Good. Next, the budget. Raj, what number do you need?
+raj: My draft says 300,000 ringgit, but honestly that includes a lot of contingency.  ## distractor tentative
+aisha: 300,000 is too high for a pilot. The board will not approve that without a business case.
+raj: Then I can make 250,000 ringgit work if we are careful with the training costs.  ## distractor tentative
+aisha: Okay, the pilot budget is 250,000 ringgit. Raj, please note that down.  ## event budget.amount = 250000 | INITIAL | quote="the pilot budget is 250,000 ringgit"
+raj: Noted.
+aisha: Now timing. I would like to be live before the end of October. How about 26 October?
+wei_ling: That is tight but doable if migration starts this week.
+aisha: Then let's fix it. We go live on 26 October 2026.  ## event golive.date = 2026-10-26 | INITIAL | quote="We go live on 26 October 2026"
+raj: Do we need a security review before go-live? I am not sure who would do that.  ## distractor question
+aisha: Good question. Let's not decide the owner today. I will bring it back at the next meeting once we are sure about the vendor.  ## distractor tentative
+wei_ling: Okay. For migration, I can take that. I will own the data migration and have it finished by 9 October.  ## event migration.owner = wei_ling | INITIAL | quote="I will own the data migration" ;; event migration.deadline = 2026-10-09 | INITIAL | quote="have it finished by 9 October"
+aisha: Thank you Wei Ling.
+aisha: And training. Staff need a week of training before go-live. I will coordinate it with HR myself and make sure training is finished by 16 October.  ## event training.owner = aisha | INITIAL | quote="I will coordinate it with HR myself" ;; event training.deadline = 2026-10-16 | INITIAL | quote="training is finished by 16 October"
+raj: Do you want me to book the training room?  ## distractor question
+aisha: Yes please, but that is only a favour. I remain the owner.  ## distractor untracked
+wei_ling: One more thing. Maybe we should think about a mobile app later, but that is for another day.  ## distractor hypothetical
+aisha: Parked. Let's meet again on 28 September. Thanks everyone.
+
+meeting: m2 | 2026-09-28T09:30:00Z | ingested=2026-09-28T12:30:00Z
+aisha: Morning. Two weeks in. Let's go through progress, and there is a security question we have to settle.
+wei_ling: Before anything else, I have bad news on Alpha Systems. They failed our security questionnaire. They could not show that data stays in Malaysia, and they do not have the audit certificate we need.
+raj: That is a problem. Are we sure? Their sales team told us it was all covered.  ## distractor question
+wei_ling: I asked twice in writing. Their answer was that it is on the roadmap for next year.  ## distractor ignorable
+aisha: Then we cannot use them for a pilot with procurement data. What about Beta Cloud?
+wei_ling: Beta Cloud hosts in Cyberjaya and has the certificate. They can start next week.
+aisha: Okay. We drop Alpha Systems and move to Beta Cloud. This is final.  ## event vendor.outcome = Beta Cloud | REVERSE | quote="We drop Alpha Systems and move to Beta Cloud"
+raj: Fine, but then finance has to say the budget does not survive this change.
+aisha: How much more is it?
+raj: Beta Cloud's licence is 30,000 ringgit higher, so the pilot budget has to go from 250,000 to 280,000 ringgit.  ## distractor tentative
+aisha: Can we absorb part of it from training costs?  ## distractor question
+raj: No, training is already tight. I would rather ask for a clean increase.  ## distractor tentative
+aisha: Fine. The pilot budget is now 280,000 ringgit. I will take it to the board.  ## event budget.amount = 280000 | REVISE | quote="The pilot budget is now 280,000 ringgit"
+raj: Thanks. I will update the finance sheet today.
+aisha: Go-live stays on 26 October for now.  ## event golive.date = 2026-10-26 | CONFIRM | quote="Go-live stays on 26 October"
+wei_ling: Migration is going okay. I am still on track for 9 October.  ## event migration.deadline = 2026-10-09 | CONFIRM | quote="still on track for 9 October"
+aisha: Good. Now security. Beta Cloud still needs our own review before we sign. Who can do it?
+wei_ling: I can do it. I will own the security review and have it done by 5 October.  ## event security.owner = wei_ling | INITIAL | quote="I will own the security review" ;; event security.deadline = 2026-10-05 | INITIAL | quote="have it done by 5 October"
+raj: Is that realistic with migration running at the same time?  ## distractor question
+wei_ling: It will be busy, but yes.
+raj: Maybe we should hire an outside consultant for the review?  ## distractor hypothetical
+aisha: Let's not spend money on that. Wei Ling will do it.  ## distractor untracked
+wei_ling: Also, maybe we could add a second pilot team in Penang.  ## distractor hypothetical
+aisha: Interesting, but that is out of scope for now.
+aisha: Anything else? No? Then the next meeting is on 12 October. Thanks.
+
+meeting: m3 | 2026-10-12T09:30:00Z | ingested=2026-10-12T12:30:00Z
+aisha: Morning. This is the last review before launch, so let's be straightforward about where we are.
+wei_ling: I have to start with a miss. The data migration did not finish on the 9th. The old supplier records had duplicates and the clean-up took longer than planned.
+aisha: How much longer do you need?
+wei_ling: Two weeks. I can finish by 23 October.  ## distractor tentative
+aisha: Okay. Data migration is now due on 23 October, same owner.  ## event migration.deadline = 2026-10-23 | REVISE | quote="Data migration is now due on 23 October"
+raj: If migration finishes on the 23rd, then 26 October is unrealistic. Nobody can train on data that is not there.
+aisha: Agreed. We have to move go-live. Let's say 9 November.  ## distractor tentative
+wei_ling: 9 November works for me. That gives us over two weeks of testing after migration.
+aisha: Then the go-live date is now 9 November 2026.  ## event golive.date = 2026-11-09 | REVISE | quote="the go-live date is now 9 November 2026"
+raj: That also affects training. It was due on 16 October, but nobody can train on a system that is not ready.
+aisha: Right. I will move training to 3 November so staff are trained a week before go-live. I stay the owner.  ## event training.deadline = 2026-11-03 | REVISE | quote="I will move training to 3 November"
+wei_ling: Good news on security. The review of Beta Cloud is finished and they passed.
+aisha: Excellent. Security review is done.  ## event security.status = done | COMPLETE | quote="Security review is done"
+raj: On the budget, I checked again. The pilot is still 280,000 ringgit.  ## event budget.amount = 280000 | CONFIRM | quote="The pilot is still 280,000 ringgit"
+aisha: Good, so no change to the budget.
+raj: One more thing. Aisha will be travelling in the first week of November. Maybe I should cover the training for her.  ## distractor tentative
+aisha: That is kind, Raj, but let's see how my calendar looks. I will keep it for now.  ## distractor untracked
+wei_ling: Should we plan a lessons-learned session after go-live?  ## distractor question
+aisha: Yes, but we will plan it later. Thank you everyone, see you after the launch.
+
+question: q1 | current | vendor.outcome | gold=Beta Cloud
+question: q2 | current | budget.amount | gold=280000
+question: q3 | current | golive.date | gold=2026-11-09
+question: q4 | current | migration.deadline | gold=2026-10-23
+question: q5 | current | migration.owner | gold=wei_ling
+question: q6 | current | training.owner | gold=aisha
+question: q7 | current | training.deadline | gold=2026-11-03
+question: q8 | current | security.status | gold=done
+question: q9 | current | security.owner | gold=wei_ling
+question: q10 | as_of_valid | budget.amount | valid=2026-09-27 | gold=250000
+question: q11 | as_of_valid | golive.date | valid=2026-10-05 | gold=2026-10-26
+question: q12 | as_of_valid | vendor.outcome | valid=2026-09-20 | gold=Alpha Systems
+question: q13 | as_of_valid | migration.deadline | valid=2026-10-10 | gold=2026-10-09
+question: q14 | as_of_valid | security.owner | valid=2026-09-20 | gold=none
+question: q15 | as_of_tx | golive.date | valid=2026-10-16 | tx=2026-10-06T00:00:00Z | gold=2026-10-26
+question: q16 | n_changes | vendor.outcome | gold=1
+question: q17 | n_changes | budget.amount | gold=1
+question: q18 | n_changes | golive.date | gold=1
+question: q19 | n_changes | migration.deadline | gold=1
+question: q20 | n_changes | training.deadline | gold=1
+question: q21 | n_changes | security.owner | gold=0

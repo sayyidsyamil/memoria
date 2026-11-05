@@ -1,0 +1,137 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+.expo/
+site/.vitepress/cache/
+site/.vitepress/dist/
+site/landing/dist/
+_site/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Playwright
+/test-results/
+/playwright-report/
+
+# Coverage reports
+/coverage/
+
+# Demo vault and helper scripts
+demo-vault/
+generated-fixtures/
+select_demo_notes*.py
+final_selection.py
+
+# Claude Code task signals
+.claude-done
+.claude-blocked
+src-tauri/target
+
+# Generated mcp-server bundle (built by scripts/bundle-mcp-server.mjs)
+src-tauri/resources/mcp-server/
+
+# Python cache
+.speech-runtime/
+.embed-runtime/
+__pycache__/
+*.py[cod]
+
+# Dev screenshots
+screenshots/
+
+# Stale planning docs (keep locally if needed, not in repo)
+REDESIGN-PLAN.md
+SF-SYMBOLS-MIGRATION.md
+CODE-HEALTH-REPORT.md
+
+# Local home dir artifact from worktree ops
+(HOME)/
+
+# Runtime / process files
+.claude-pid
+
+# Generated vault index files (qmd/search artifacts)
+.laputa-index.json
+
+# Tauri signing keys (never commit private keys)
+*.key
+*.key.pub
+
+# Local environment variables (never commit)
+.env
+.env.local
+.env.*.local
+
+# Codacy's runtime cache is local, while the pinned launcher, the CLI mode file
+# and the tool configurations used by the repository gate are versioned. The
+# generated files (cli-config.yaml, eslint.config.mjs, languages-config.yaml,
+# pylint.rc, ruleset.xml) come from `.codacy/cli.sh init`; without them a fresh
+# clone runs ESLint without the project config and every tool on every file.
+.codacy/*
+!.codacy/cli.sh
+!.codacy/cli-config.yaml
+!.codacy/codacy.yaml
+!.codacy/codacy.config.json
+!.codacy/tools-configs/
+.codacy/tools-configs/*
+!.codacy/tools-configs/semgrep.yaml
+!.codacy/tools-configs/trivy.yaml
+!.codacy/tools-configs/lizard.yaml
+!.codacy/tools-configs/eslint.config.mjs
+!.codacy/tools-configs/languages-config.yaml
+!.codacy/tools-configs/pylint.rc
+!.codacy/tools-configs/ruleset.xml
+
+# Verity — machine-local state. Everything in .verity/ is ignored except the
+# shared standard, which is meant to be committed. The knowledge graph under
+# .verity/memory/ is machine-local too: the service rebuilds it, and committing
+# it puts generated notes in every diff and pull request.
+.verity/*
+!.verity/standard.yaml
+# Expo native projects are generated locally by `expo prebuild`.
+apps/mobile/ios/
+apps/mobile/android/
+
+# Videos package (Remotion promo generation, isolated from main build)
+videos/node_modules/
+videos/output/
+videos/dist/
+videos/.remotion/
+
+# Hidden source maps of the web build, uploaded to Sentry by the deploy (TOL-232)
+apps/web/sourcemaps/
+
+# Machine-local meeting data and inference environments
+**/.memoria-memory/
+**/.memoria-recordings/
+.runtime/
+.venv/
+*.sqlite-wal
+*.sqlite-shm
+
+# Local UI verification harness
+/harness.html
+/harness/
+
+# Research evidence keeps its frozen run logs (see research/README.md)
+!research/**/logs/
+!research/**/*.log

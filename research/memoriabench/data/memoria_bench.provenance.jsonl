@@ -1,0 +1,336 @@
+{"id": "ES2002-S-01", "basis": "restatement", "method": "template", "attribute": "devices", "decision": "ES2002b:02:01", "decision_text": "The remote will only control televisions."}
+{"id": "ES2002-S-02", "basis": "restatement", "method": "template", "attribute": "market", "decision": "ES2002a:08:52", "decision_text": "The remote will be sold on an international scale."}
+{"id": "ES2002-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "teletext", "decision": "ES2002b:01:44", "replaces": "including teletext", "value": "no", "old_value": "yes", "decision_text": "The team will not work with teletext."}
+{"id": "ES2002-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "material", "decision": "ES2002c:38:36", "replaces": "a wooden case", "value": "plastic+rubber", "old_value": "wood", "decision_text": "The materials used will be plastic and rubber."}
+{"id": "ES2002-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "power", "decision": "ES2002b:30:20", "decision_text": "The remote will use regular batteries.", "value": "regular", "swapped_to": "kinetic"}
+{"id": "ES2002-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "price", "decision": "ES2002a:07:50", "decision_text": "The remote will sell for 25 Euro.", "value": "25", "swapped_to": "45"}
+{"id": "ES2002-U-01", "basis": "pool", "method": "update", "pool_index": 20}
+{"id": "ES2002-U-02", "basis": "pool", "method": "update", "pool_index": 51}
+{"id": "ES2002-I-01", "basis": "pool", "method": "chatter", "pool_index": 54}
+{"id": "ES2002-I-02", "basis": "pool", "method": "chatter", "pool_index": 5}
+{"id": "ES2002-E-01", "basis": "pool", "method": "claim", "pool_index": 68}
+{"id": "ES2002-E-02", "basis": "pool", "method": "claim", "pool_index": 47}
+{"id": "ES2004-S-01", "basis": "restatement", "method": "template", "attribute": "dock", "decision": "ES2004b:30:44", "decision_text": "The remote will be bundled with a docking station to recharge the remote's batteries and a user-friendly instruction manual, and multiple casings will be made available."}
+{"id": "ES2004-S-02", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "ES2004b:27:02", "decision_text": "The remote will feature Video Plus capabilities and a seashell-like shape to accomodate the LCD display and the flip screen."}
+{"id": "ES2004-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "lcd", "decision": "ES2004c:32:41", "replaces": "a remote without a screen", "value": "yes", "old_value": "no", "decision_text": "It was decided that the remote would feature an LCD screen, rubber buttons, colorful rubber changeable skins, a kinetic battery, and possibly speech recognition if it is still within the budget to include it."}
+{"id": "ES2004-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "covers", "decision": "ES2004b:30:44", "replaces": "a remote without changeable covers", "value": "yes", "old_value": "no", "decision_text": "The remote will be bundled with a docking station to recharge the remote's batteries and a user-friendly instruction manual, and multiple casings will be made available."}
+{"id": "ES2004-C-01", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "ES2004b:27:02", "decision_text": "The remote will feature Video Plus capabilities and a seashell-like shape to accomodate the LCD display and the flip screen."}
+{"id": "ES2004-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "target", "decision": "ES2004b:22:42", "decision_text": "The marketing will be focused towards a young, business-class buyer.", "value": "young", "swapped_to": "elderly"}
+{"id": "ES2004-U-01", "basis": "pool", "method": "update", "pool_index": 59}
+{"id": "ES2004-U-02", "basis": "pool", "method": "update", "pool_index": 6}
+{"id": "ES2004-I-01", "basis": "pool", "method": "chatter", "pool_index": 34}
+{"id": "ES2004-I-02", "basis": "pool", "method": "chatter", "pool_index": 28}
+{"id": "ES2004-E-01", "basis": "pool", "method": "claim", "pool_index": 5}
+{"id": "ES2004-E-02", "basis": "pool", "method": "claim", "pool_index": 7}
+{"id": "ES2005-S-01", "basis": "restatement", "method": "template", "attribute": "speech", "decision": "ES2005b:33:13", "decision_text": "The remote will feature speech recognition and programmable channel and volume preferences."}
+{"id": "ES2005-S-02", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "ES2005c:29:27", "decision_text": "The remote will be yellow or partially yellow and have an organic shape."}
+{"id": "ES2005-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "power", "decision": "ES2005c:31:55", "replaces": "solar power", "value": "rechargeable", "old_value": "solar", "decision_text": "The remote will be powered by rechargeable batteries and come with a recharging stand."}
+{"id": "ES2005-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "speech", "decision": "ES2005c:12:15", "replaces": "a remote without speech recognition", "value": "yes", "old_value": "no", "decision_text": "The remote will feature speech recognition."}
+{"id": "ES2005-C-01", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "ES2005b:23:09", "decision_text": "The number of button functions will be limited to make the remote user-friendly."}
+{"id": "ES2005-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "dock", "decision": "ES2005c:31:55", "decision_text": "The remote will be powered by rechargeable batteries and come with a recharging stand.", "value": "yes", "swapped_to": "no"}
+{"id": "ES2005-U-01", "basis": "pool", "method": "update", "pool_index": 21}
+{"id": "ES2005-U-02", "basis": "pool", "method": "update", "pool_index": 10}
+{"id": "ES2005-I-01", "basis": "pool", "method": "chatter", "pool_index": 64}
+{"id": "ES2005-I-02", "basis": "pool", "method": "chatter", "pool_index": 58}
+{"id": "ES2005-E-01", "basis": "pool", "method": "claim", "pool_index": 23}
+{"id": "ES2005-E-02", "basis": "pool", "method": "claim", "pool_index": 10}
+{"id": "ES2006-S-01", "basis": "restatement", "method": "template", "attribute": "price", "decision": "ES2006a:15:38", "decision_text": "They will sell the remotes for twenty five Euros each."}
+{"id": "ES2006-S-02", "basis": "restatement", "method": "template", "attribute": "lcd", "decision": "ES2006c:34:15", "decision_text": "The remote will have push buttons outside, and an LCD and spinning wheel inside."}
+{"id": "ES2006-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "chip", "decision": "ES2006c:33:24", "replaces": "a simple chip", "value": "advanced", "old_value": "simple", "decision_text": "It will have voice recognition, use a simple battery, and contain an advanced chip."}
+{"id": "ES2006-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "material", "decision": "ES2006c:29:05", "replaces": "a wooden case", "value": "rubber", "old_value": "wood", "decision_text": "The remote control and its buttons will be made of rubber."}
+{"id": "ES2006-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "market", "decision": "ES2006a:15:52", "decision_text": "The remotes will target the international market.", "value": "international", "swapped_to": "home"}
+{"id": "ES2006-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "profit", "decision": "ES2006a:15:44", "decision_text": "They will aim for a profit of fifty million Euros.", "value": "50 million", "swapped_to": "20 million"}
+{"id": "ES2006-U-01", "basis": "pool", "method": "update", "pool_index": 9}
+{"id": "ES2006-U-02", "basis": "pool", "method": "update", "pool_index": 64}
+{"id": "ES2006-I-01", "basis": "pool", "method": "chatter", "pool_index": 7}
+{"id": "ES2006-I-02", "basis": "pool", "method": "chatter", "pool_index": 70}
+{"id": "ES2006-E-01", "basis": "pool", "method": "claim", "pool_index": 4}
+{"id": "ES2006-E-02", "basis": "pool", "method": "claim", "pool_index": 43}
+{"id": "ES2007-S-01", "basis": "restatement", "method": "template", "attribute": "shape", "decision": "ES2007c:14:26", "decision_text": "The case will be double curved."}
+{"id": "ES2007-S-02", "basis": "restatement", "method": "template", "attribute": "profit", "decision": "ES2007a:09:45", "decision_text": "The profit aim will be 50 million Euro."}
+{"id": "ES2007-O-01", "basis": "real-supersession", "method": "replaced-decision", "decision": "ES2007c:28:10", "old_decision": "ES2007b:23:43", "old_text": "The remote will use regular batteries.", "replaces": "regular batteries", "decision_text": "The remote will use a kinetic battery."}
+{"id": "ES2007-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "corporate", "decision": "ES2007b:15:38", "replaces": "a remote without the corporate image", "value": "yes", "old_value": "no", "decision_text": "The corporate image will be displayed on the remote."}
+{"id": "ES2007-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "material", "decision": "ES2007c:07:52", "decision_text": "The case will be made of rubber.", "value": "rubber", "swapped_to": "wood"}
+{"id": "ES2007-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "cost", "decision": "ES2007a:09:57", "decision_text": "The production cost cannot exceed 12.50 Euro.", "value": "12.50", "swapped_to": "20"}
+{"id": "ES2007-U-01", "basis": "pool", "method": "update", "pool_index": 18}
+{"id": "ES2007-U-02", "basis": "pool", "method": "update", "pool_index": 7}
+{"id": "ES2007-I-01", "basis": "pool", "method": "chatter", "pool_index": 17}
+{"id": "ES2007-I-02", "basis": "pool", "method": "chatter", "pool_index": 14}
+{"id": "ES2007-E-01", "basis": "pool", "method": "claim", "pool_index": 14}
+{"id": "ES2007-E-02", "basis": "pool", "method": "claim", "pool_index": 9}
+{"id": "ES2008-S-01", "basis": "restatement", "method": "template", "attribute": "cost", "decision": "ES2008a:07:51", "decision_text": "The maximum production cost for the remote is 12.50 Euro."}
+{"id": "ES2008-S-02", "basis": "restatement", "method": "template", "attribute": "chip", "decision": "ES2008c:34:39", "decision_text": "The remote will have a simple chip."}
+{"id": "ES2008-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "locator", "decision": "ES2008b:32:31", "replaces": "a remote without a locator function", "value": "yes", "old_value": "no", "decision_text": "The remote will contain a function to aid in its recovery when lost."}
+{"id": "ES2008-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "dock", "decision": "ES2008b:34:15", "replaces": "a remote without a recharging dock", "value": "yes", "old_value": "no", "decision_text": "The remote will have a charging station."}
+{"id": "ES2008-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "teletext", "decision": "ES2008b:21:21", "decision_text": "The team will not work with teletext.", "value": "no", "swapped_to": "yes"}
+{"id": "ES2008-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "corporate", "decision": "ES2008b:22:59", "decision_text": "The corporate image must be recognizable on the remote.", "value": "yes", "swapped_to": "no"}
+{"id": "ES2008-U-01", "basis": "pool", "method": "update", "pool_index": 19}
+{"id": "ES2008-U-02", "basis": "pool", "method": "update", "pool_index": 23}
+{"id": "ES2008-I-01", "basis": "pool", "method": "chatter", "pool_index": 40}
+{"id": "ES2008-I-02", "basis": "pool", "method": "chatter", "pool_index": 37}
+{"id": "ES2008-E-01", "basis": "pool", "method": "claim", "pool_index": 33}
+{"id": "ES2008-E-02", "basis": "pool", "method": "claim", "pool_index": 38}
+{"id": "ES2009-S-01", "basis": "restatement", "method": "template", "attribute": "power", "decision": "ES2009c:22:23", "decision_text": "The device will be powered by solar power, with a small backup battery."}
+{"id": "ES2009-S-02", "basis": "restatement", "method": "template", "attribute": "target", "decision": "ES2009b:11:29", "decision_text": "The marketing will be focused towards the youth market."}
+{"id": "ES2009-O-01", "basis": "real-supersession", "method": "replaced-decision", "decision": "ES2009c:21:36", "old_decision": "ES2009b:17:55", "old_text": "The group decided to keep the touch screen interface, and to keep the main interface simple.", "replaces": "keeping the touch screen interface", "decision_text": "The group realized that it would be too costly to add both a voice recognition component and a touch screen, so they decided between the two and will now only add the voice recognition component."}
+{"id": "ES2009-O-02", "basis": "real-supersession", "method": "replaced-decision", "decision": "ES2009c:25:19", "old_decision": "ES2009b:10:42", "old_text": "The group decided to use plastic as their casing material instead of metal.", "replaces": "a plastic casing", "decision_text": "The remote control will be made of a soft rubber material."}
+{"id": "ES2009-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "covers", "decision": "ES2009c:30:58", "decision_text": "The group decided to have optional alternative cases for the device to suit different consumer tastes.", "value": "yes", "swapped_to": "no"}
+{"id": "ES2009-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "locator", "decision": "ES2009b:12:23", "decision_text": "The remote will have a locating device that operates either through voice recognition or through paging.", "value": "yes", "swapped_to": "no"}
+{"id": "ES2009-U-01", "basis": "pool", "method": "update", "pool_index": 8}
+{"id": "ES2009-U-02", "basis": "pool", "method": "update", "pool_index": 16}
+{"id": "ES2009-I-01", "basis": "pool", "method": "chatter", "pool_index": 20}
+{"id": "ES2009-I-02", "basis": "pool", "method": "chatter", "pool_index": 57}
+{"id": "ES2009-E-01", "basis": "pool", "method": "claim", "pool_index": 58}
+{"id": "ES2009-E-02", "basis": "pool", "method": "claim", "pool_index": 21}
+{"id": "ES2010-S-01", "basis": "restatement", "method": "template", "attribute": "corporate", "decision": "ES2010b:24:58", "decision_text": "The remote will include the company color and logo in its design."}
+{"id": "ES2010-S-02", "basis": "restatement", "method": "template", "attribute": "locator", "decision": "ES2010c:17:48", "decision_text": "The device be small and compact and will feature a locator function that uses voice recognition."}
+{"id": "ES2010-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "corporate", "decision": "ES2010c:28:06", "replaces": "a remote without the corporate image", "value": "yes", "old_value": "no", "decision_text": "To incorporate the company logo and color, the buttons will be illuminated yellow when pressed and the logo will be displayed through a cutout in the latex casing."}
+{"id": "ES2010-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "locator", "decision": "ES2010c:17:48", "replaces": "a remote without a locator function", "value": "yes", "old_value": "no", "decision_text": "The device be small and compact and will feature a locator function that uses voice recognition."}
+{"id": "ES2010-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "chip", "decision": "ES2010b:12:04", "decision_text": "The remote will feature a smart processor chip to accomodate all of the remote's functions.", "value": "advanced", "swapped_to": "simple"}
+{"id": "ES2010-C-02", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "ES2010b:15:10", "decision_text": "The interface will contain larger buttons."}
+{"id": "ES2010-U-01", "basis": "pool", "method": "update", "pool_index": 43}
+{"id": "ES2010-U-02", "basis": "pool", "method": "update", "pool_index": 38}
+{"id": "ES2010-I-01", "basis": "pool", "method": "chatter", "pool_index": 38}
+{"id": "ES2010-I-02", "basis": "pool", "method": "chatter", "pool_index": 8}
+{"id": "ES2010-E-01", "basis": "pool", "method": "claim", "pool_index": 41}
+{"id": "ES2010-E-02", "basis": "pool", "method": "claim", "pool_index": 50}
+{"id": "ES2012-S-01", "basis": "restatement", "method": "template", "attribute": "corporate", "decision": "ES2012b:04:48", "decision_text": "Device will incorporate company logo and colors."}
+{"id": "ES2012-S-02", "basis": "restatement", "method": "template", "attribute": "profit", "decision": "ES2012a:07:47", "decision_text": "The company should profit fifty million Euros overall."}
+{"id": "ES2012-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "devices", "decision": "ES2012b:03:53", "replaces": "controlling multiple devices", "value": "tv_only", "old_value": "multi", "decision_text": "The remote will be for television only."}
+{"id": "ES2012-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "teletext", "decision": "ES2012b:03:39", "replaces": "including teletext", "value": "no", "old_value": "yes", "decision_text": "Teletext no longer important given rise of internet and thus will not be used."}
+{"id": "ES2012-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "lcd", "decision": "ES2012c:31:16", "decision_text": "No display screen.", "value": "no", "swapped_to": "yes"}
+{"id": "ES2012-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "price", "decision": "ES2012a:07:39", "decision_text": "The product will be sold for twenty five Euro.", "value": "25", "swapped_to": "35"}
+{"id": "ES2012-U-01", "basis": "pool", "method": "update", "pool_index": 28}
+{"id": "ES2012-U-02", "basis": "pool", "method": "update", "pool_index": 34}
+{"id": "ES2012-I-01", "basis": "pool", "method": "chatter", "pool_index": 62}
+{"id": "ES2012-I-02", "basis": "pool", "method": "chatter", "pool_index": 55}
+{"id": "ES2012-E-01", "basis": "pool", "method": "claim", "pool_index": 16}
+{"id": "ES2012-E-02", "basis": "pool", "method": "claim", "pool_index": 67}
+{"id": "ES2013-S-01", "basis": "restatement", "method": "template", "attribute": "teletext", "decision": "ES2013b:07:16", "decision_text": "The team will not work with teletext."}
+{"id": "ES2013-S-02", "basis": "restatement", "method": "template", "attribute": "cost", "decision": "ES2013a:08:15", "decision_text": "Production costs cannot exceed 12.50 Euro."}
+{"id": "ES2013-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "target", "decision": "ES2013b:26:54", "replaces": "targeting people over sixty", "value": "young", "old_value": "elderly", "decision_text": "The user target group will be younger consumers."}
+{"id": "ES2013-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "power", "decision": "ES2013c:33:59", "replaces": "regular batteries", "value": "kinetic", "old_value": "regular", "decision_text": "The remote will use a kinetic battery."}
+{"id": "ES2013-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "devices", "decision": "ES2013b:07:23", "decision_text": "The remote will only be for televisions.", "value": "tv_only", "swapped_to": "multi"}
+{"id": "ES2013-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "corporate", "decision": "ES2013b:07:27", "decision_text": "The team must incorporate the corporate image, color, and slogan in the design of the remote.", "value": "yes", "swapped_to": "no"}
+{"id": "ES2013-U-01", "basis": "pool", "method": "update", "pool_index": 24}
+{"id": "ES2013-U-02", "basis": "pool", "method": "update", "pool_index": 5}
+{"id": "ES2013-I-01", "basis": "pool", "method": "chatter", "pool_index": 43}
+{"id": "ES2013-I-02", "basis": "pool", "method": "chatter", "pool_index": 48}
+{"id": "ES2013-E-01", "basis": "pool", "method": "claim", "pool_index": 1}
+{"id": "ES2013-E-02", "basis": "pool", "method": "claim", "pool_index": 20}
+{"id": "ES2014-S-01", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "ES2014b:33:40", "decision_text": "The remote will feature a panel that hides complicated functions on the back of the device."}
+{"id": "ES2014-S-02", "basis": "restatement", "method": "template", "attribute": "corporate", "decision": "ES2014c:29:59", "decision_text": "The remote will feature the company logo, possibly in a sticker form."}
+{"id": "ES2014-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "shape", "decision": "ES2014c:27:31", "replaces": "a double curved case", "value": "single", "old_value": "double", "decision_text": "The remote will also feature a rubber case and rubber buttons, and a single-curved design."}
+{"id": "ES2014-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "chip", "decision": "ES2014c:13:18", "replaces": "an advanced chip", "value": "simple", "old_value": "advanced", "decision_text": "The remote will contain a simple chip."}
+{"id": "ES2014-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "power", "decision": "ES2014c:34:34", "decision_text": "The remote will feature push buttons instead of scroll buttons, and a kinetic power supply.", "value": "kinetic", "swapped_to": "regular"}
+{"id": "ES2014-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "locator", "decision": "ES2014b:29:34", "decision_text": "The remote will feature a locator function that responds to clapping.", "value": "yes", "swapped_to": "no"}
+{"id": "ES2014-U-01", "basis": "pool", "method": "update", "pool_index": 13}
+{"id": "ES2014-U-02", "basis": "pool", "method": "update", "pool_index": 46}
+{"id": "ES2014-I-01", "basis": "pool", "method": "chatter", "pool_index": 16}
+{"id": "ES2014-I-02", "basis": "pool", "method": "chatter", "pool_index": 1}
+{"id": "ES2014-E-01", "basis": "pool", "method": "claim", "pool_index": 34}
+{"id": "ES2014-E-02", "basis": "pool", "method": "claim", "pool_index": 60}
+{"id": "ES2015-S-01", "basis": "restatement", "method": "template", "attribute": "material", "decision": "ES2015c:29:02", "decision_text": "Case will be plastic and coated in rubber."}
+{"id": "ES2015-S-02", "basis": "restatement", "method": "template", "attribute": "power", "decision": "ES2015c:26:59", "decision_text": "The remote will run on kinetic energy."}
+{"id": "ES2015-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "devices", "decision": "ES2015b:25:20", "replaces": "controlling multiple devices", "value": "tv_only", "old_value": "multi", "decision_text": "The remote will be a single function design- television only."}
+{"id": "ES2015-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "speech", "decision": "ES2015b:28:46", "replaces": "speech recognition", "value": "no", "old_value": "yes", "decision_text": "No LCD, no voice recognition."}
+{"id": "ES2015-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "cost", "decision": "ES2015a:14:52", "decision_text": "The control will cost a maximum of twelve Euro and fifty cents to produce.", "value": "12.50", "swapped_to": "20"}
+{"id": "ES2015-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "profit", "decision": "ES2015a:14:28", "decision_text": "The profit will be fifty million Euros.", "value": "50 million", "swapped_to": "20 million"}
+{"id": "ES2015-U-01", "basis": "pool", "method": "update", "pool_index": 55}
+{"id": "ES2015-U-02", "basis": "pool", "method": "update", "pool_index": 32}
+{"id": "ES2015-I-01", "basis": "pool", "method": "chatter", "pool_index": 36}
+{"id": "ES2015-I-02", "basis": "pool", "method": "chatter", "pool_index": 46}
+{"id": "ES2015-E-01", "basis": "pool", "method": "claim", "pool_index": 57}
+{"id": "ES2015-E-02", "basis": "pool", "method": "claim", "pool_index": 6}
+{"id": "ES2016-S-01", "basis": "restatement", "method": "template", "attribute": "price", "decision": "ES2016a:09:32", "decision_text": "The remote will sell for 25 Euro."}
+{"id": "ES2016-S-02", "basis": "restatement", "method": "template", "attribute": "power", "decision": "ES2016c:33:34", "decision_text": "The remote will use conventional batteries."}
+{"id": "ES2016-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "negation", "decision": "ES2016a:19:36", "replaces": "creating a ball shaped remote", "old_value": "the ruled-out option", "decision_text": "The team will not create a ball shaped remote."}
+{"id": "ES2016-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "devices", "decision": "ES2016b:22:11", "replaces": "controlling multiple devices", "value": "tv_only", "old_value": "multi", "decision_text": "The remote will only be used for televisions."}
+{"id": "ES2016-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "material", "decision": "ES2016c:34:50", "decision_text": "The case will be made of plastic with rubber grips.", "value": "plastic+rubber", "swapped_to": "wood"}
+{"id": "ES2016-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "teletext", "decision": "ES2016b:22:42", "decision_text": "The team will not work with teletext.", "value": "no", "swapped_to": "yes"}
+{"id": "ES2016-U-01", "basis": "pool", "method": "update", "pool_index": 26}
+{"id": "ES2016-U-02", "basis": "pool", "method": "update", "pool_index": 62}
+{"id": "ES2016-I-01", "basis": "pool", "method": "chatter", "pool_index": 26}
+{"id": "ES2016-I-02", "basis": "pool", "method": "chatter", "pool_index": 30}
+{"id": "ES2016-E-01", "basis": "pool", "method": "claim", "pool_index": 51}
+{"id": "ES2016-E-02", "basis": "pool", "method": "claim", "pool_index": 36}
+{"id": "IS1000-S-01", "basis": "restatement", "method": "template", "attribute": "cost", "decision": "IS1000a:18:31", "decision_text": "The production cost will be twelve Euros and fifty cents."}
+{"id": "IS1000-S-02", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "IS1000b:29:37", "decision_text": "The remote should be trendy as possible but still have a reliable image so that it does not appear poorly-functional."}
+{"id": "IS1000-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "target", "decision": "IS1000b:29:01", "replaces": "targeting people over sixty", "value": "young", "old_value": "elderly", "decision_text": "They will target the 20-40 age group."}
+{"id": "IS1000-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "teletext", "decision": "IS1000b:27:42", "replaces": "including teletext", "value": "no", "old_value": "yes", "decision_text": "Teletext is a well known feature of televisions but is no longer in frequent use because of the internet, will not be used."}
+{"id": "IS1000-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "market", "decision": "IS1000a:17:59", "decision_text": "The profit will be about fifty million Euro. -The remote will target an international market.", "value": "international", "swapped_to": "europe"}
+{"id": "IS1000-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "price", "decision": "IS1000a:17:25", "decision_text": "The selling price of the product will be about twenty five Euros each.", "value": "25", "swapped_to": "30"}
+{"id": "IS1000-U-01", "basis": "pool", "method": "update", "pool_index": 30}
+{"id": "IS1000-U-02", "basis": "pool", "method": "update", "pool_index": 29}
+{"id": "IS1000-I-01", "basis": "pool", "method": "chatter", "pool_index": 61}
+{"id": "IS1000-I-02", "basis": "pool", "method": "chatter", "pool_index": 0}
+{"id": "IS1000-E-01", "basis": "pool", "method": "claim", "pool_index": 35}
+{"id": "IS1000-E-02", "basis": "pool", "method": "claim", "pool_index": 45}
+{"id": "IS1001-S-01", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "IS1001c:14:15", "decision_text": "The group decided to keep the wheel sensor despite the added cost."}
+{"id": "IS1001-S-02", "basis": "restatement", "method": "template", "attribute": "lcd", "decision": "IS1001b:32:18", "decision_text": "The remote will not have an LCD screen."}
+{"id": "IS1001-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "lcd", "decision": "IS1001b:32:18", "replaces": "an LCD screen", "value": "no", "old_value": "yes", "decision_text": "The remote will not have an LCD screen."}
+{"id": "IS1001-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "power", "decision": "IS1001c:18:19", "replaces": "solar power", "value": "regular", "old_value": "solar", "decision_text": "The remote will use standard batteries."}
+{"id": "IS1001-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "speech", "decision": "IS1001b:32:27", "decision_text": "The remote will not include speech recognition.", "value": "no", "swapped_to": "yes"}
+{"id": "IS1001-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "power", "decision": "IS1001c:18:19", "decision_text": "The remote will use standard batteries.", "value": "regular", "swapped_to": "kinetic"}
+{"id": "IS1001-U-01", "basis": "pool", "method": "update", "pool_index": 57}
+{"id": "IS1001-U-02", "basis": "pool", "method": "update", "pool_index": 37}
+{"id": "IS1001-I-01", "basis": "pool", "method": "chatter", "pool_index": 13}
+{"id": "IS1001-I-02", "basis": "pool", "method": "chatter", "pool_index": 25}
+{"id": "IS1001-E-01", "basis": "pool", "method": "claim", "pool_index": 64}
+{"id": "IS1001-E-02", "basis": "pool", "method": "claim", "pool_index": 3}
+{"id": "IS1003-S-01", "basis": "restatement", "method": "template", "attribute": "teletext", "decision": "IS1003b:20:44", "decision_text": "Teletext will not be used."}
+{"id": "IS1003-S-02", "basis": "restatement", "method": "template", "attribute": "devices", "decision": "IS1003b:21:14", "decision_text": "The remote will only be used for televisions."}
+{"id": "IS1003-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "material", "decision": "IS1003c:27:06#3", "replaces": "a titanium case", "value": "wood", "old_value": "titanium", "decision_text": "The case of the remote will be made of wood."}
+{"id": "IS1003-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "chip", "decision": "IS1003c:27:06#2", "replaces": "an advanced chip", "value": "simple", "old_value": "advanced", "decision_text": "The remote will use low level chips."}
+{"id": "IS1003-C-01", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "negation", "decision": "IS1003c:11:18", "decision_text": "The team will not use the intelligent controller proposed by the User Interface Designer."}
+{"id": "IS1003-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "speech", "decision": "IS1003c:28:41", "decision_text": "The remote will use speech recognition for simple commands.", "value": "yes", "swapped_to": "no"}
+{"id": "IS1003-U-01", "basis": "pool", "method": "update", "pool_index": 48}
+{"id": "IS1003-U-02", "basis": "pool", "method": "update", "pool_index": 53}
+{"id": "IS1003-I-01", "basis": "pool", "method": "chatter", "pool_index": 12}
+{"id": "IS1003-I-02", "basis": "pool", "method": "chatter", "pool_index": 59}
+{"id": "IS1003-E-01", "basis": "pool", "method": "claim", "pool_index": 53}
+{"id": "IS1003-E-02", "basis": "pool", "method": "claim", "pool_index": 27}
+{"id": "IS1004-S-01", "basis": "restatement", "method": "template", "attribute": "price", "decision": "IS1004a:10:21", "decision_text": "The target selling price will be 25 Euro dollars."}
+{"id": "IS1004-S-02", "basis": "restatement", "method": "template", "attribute": "market", "decision": "IS1004a:10:38", "decision_text": "They will target the international market."}
+{"id": "IS1004-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "speech", "decision": "IS1004b:28:23", "replaces": "speech recognition", "value": "no", "old_value": "yes", "decision_text": "Because of budget restrictions, they cannot do speech recognition technologies."}
+{"id": "IS1004-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "corporate", "decision": "IS1004b:11:21", "replaces": "a remote without the corporate image", "value": "yes", "old_value": "no", "decision_text": "Corporate logo will be clearly displayed on product."}
+{"id": "IS1004-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "devices", "decision": "IS1004b:10:46", "decision_text": "The remote control will be for television only.", "value": "tv_only", "swapped_to": "multi"}
+{"id": "IS1004-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "market", "decision": "IS1004a:10:38", "decision_text": "They will target the international market.", "value": "international", "swapped_to": "europe"}
+{"id": "IS1004-U-01", "basis": "pool", "method": "update", "pool_index": 58}
+{"id": "IS1004-U-02", "basis": "pool", "method": "update", "pool_index": 45}
+{"id": "IS1004-I-01", "basis": "pool", "method": "chatter", "pool_index": 23}
+{"id": "IS1004-I-02", "basis": "pool", "method": "chatter", "pool_index": 29}
+{"id": "IS1004-E-01", "basis": "pool", "method": "claim", "pool_index": 49}
+{"id": "IS1004-E-02", "basis": "pool", "method": "claim", "pool_index": 11}
+{"id": "IS1006-S-01", "basis": "restatement", "method": "template", "attribute": "speech", "decision": "IS1006c:27:26", "decision_text": "The remote will contain a speech recognizer."}
+{"id": "IS1006-S-02", "basis": "restatement", "method": "template", "attribute": "price", "decision": "IS1006a:04:47", "decision_text": "The remote will be sold for 25 Euro."}
+{"id": "IS1006-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "covers", "decision": "IS1006a:06:37", "replaces": "a remote without changeable covers", "value": "yes", "old_value": "no", "decision_text": "The remote will be colorful and will have different colored changeable face plates."}
+{"id": "IS1006-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "lcd", "decision": "IS1006c:30:54", "replaces": "a remote without a screen", "value": "yes", "old_value": "no", "decision_text": "The remote will feature an LCD screen."}
+{"id": "IS1006-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "cost", "decision": "IS1006a:05:13", "decision_text": "The production costs for the remote will be 12.50 Euro maximum.", "value": "12.50", "swapped_to": "15"}
+{"id": "IS1006-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "teletext", "decision": "IS1006b:33:09", "decision_text": "The team will not work with teletext.", "value": "no", "swapped_to": "yes"}
+{"id": "IS1006-U-01", "basis": "pool", "method": "update", "pool_index": 15}
+{"id": "IS1006-U-02", "basis": "pool", "method": "update", "pool_index": 22}
+{"id": "IS1006-I-01", "basis": "pool", "method": "chatter", "pool_index": 35}
+{"id": "IS1006-I-02", "basis": "pool", "method": "chatter", "pool_index": 11}
+{"id": "IS1006-E-01", "basis": "pool", "method": "claim", "pool_index": 55}
+{"id": "IS1006-E-02", "basis": "pool", "method": "claim", "pool_index": 42}
+{"id": "IS1007-S-01", "basis": "restatement", "method": "template", "attribute": "dock", "decision": "IS1007b:06:48", "decision_text": "The remote will be used with a recharging stand."}
+{"id": "IS1007-S-02", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "IS1007c:16:11", "decision_text": "The group decided not to include a help button on the device because it would make the remote seem more complicated."}
+{"id": "IS1007-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "dock", "decision": "IS1007b:06:48", "replaces": "a remote without a recharging dock", "value": "yes", "old_value": "no", "decision_text": "The remote will be used with a recharging stand."}
+{"id": "IS1007-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "negation", "decision": "IS1007c:16:11", "replaces": "including a help button on the device", "old_value": "the ruled-out option", "decision_text": "The group decided not to include a help button on the device because it would make the remote seem more complicated."}
+{"id": "IS1007-C-01", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "negation", "decision": "IS1007b:01:26", "decision_text": "The group decided not to include a lighting adaptation system."}
+{"id": "IS1007-C-02", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "IS1007a:09:36", "decision_text": "The group decided to include an option for the user to choose what to watch by channel or by content or program type."}
+{"id": "IS1007-U-01", "basis": "pool", "method": "update", "pool_index": 4}
+{"id": "IS1007-U-02", "basis": "pool", "method": "update", "pool_index": 17}
+{"id": "IS1007-I-01", "basis": "pool", "method": "chatter", "pool_index": 63}
+{"id": "IS1007-I-02", "basis": "pool", "method": "chatter", "pool_index": 65}
+{"id": "IS1007-E-01", "basis": "pool", "method": "claim", "pool_index": 65}
+{"id": "IS1007-E-02", "basis": "pool", "method": "claim", "pool_index": 25}
+{"id": "IS1009-S-01", "basis": "restatement", "method": "template", "attribute": "price", "decision": "IS1009a:06:12", "decision_text": "Selling price will be twenty five Euro."}
+{"id": "IS1009-S-02", "basis": "restatement", "method": "template", "attribute": "locator", "decision": "IS1009a:09:02", "decision_text": "Have a locator to help find the remote when it is lost."}
+{"id": "IS1009-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "locator", "decision": "IS1009a:09:02", "replaces": "a remote without a locator function", "value": "yes", "old_value": "no", "decision_text": "Have a locator to help find the remote when it is lost."}
+{"id": "IS1009-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "teletext", "decision": "IS1009b:05:53", "replaces": "including teletext", "value": "no", "old_value": "yes", "decision_text": "They will eliminate teletext."}
+{"id": "IS1009-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "profit", "decision": "IS1009a:06:17", "decision_text": "Company aims to profit fifty million Euro.", "value": "50 million", "swapped_to": "20 million"}
+{"id": "IS1009-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "corporate", "decision": "IS1009b:06:24", "decision_text": "They will maintain the corporate image by using the proper designs and colors.", "value": "yes", "swapped_to": "no"}
+{"id": "IS1009-U-01", "basis": "pool", "method": "update", "pool_index": 42}
+{"id": "IS1009-U-02", "basis": "pool", "method": "update", "pool_index": 11}
+{"id": "IS1009-I-01", "basis": "pool", "method": "chatter", "pool_index": 22}
+{"id": "IS1009-I-02", "basis": "pool", "method": "chatter", "pool_index": 19}
+{"id": "IS1009-E-01", "basis": "pool", "method": "claim", "pool_index": 59}
+{"id": "IS1009-E-02", "basis": "pool", "method": "claim", "pool_index": 28}
+{"id": "TS3003-S-01", "basis": "restatement", "method": "template", "attribute": "target", "decision": "TS3003b:34:02", "decision_text": "The user target group consists of adults age sixty to eighty."}
+{"id": "TS3003-S-02", "basis": "restatement", "method": "template", "attribute": "dock", "decision": "TS3003c:21:37", "decision_text": "The remote will have a docking station."}
+{"id": "TS3003-O-01", "basis": "real-supersession", "method": "replaced-decision", "decision": "TS3003b:17:41", "old_decision": "TS3003a:22:05", "old_text": "The remote will be able to control multiple devices.", "replaces": "controlling multiple devices", "decision_text": "The remote will only be used for televisions."}
+{"id": "TS3003-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "shape", "decision": "TS3003c:32:18", "replaces": "a double curved case", "value": "single", "old_value": "double", "decision_text": "The case will be single curved."}
+{"id": "TS3003-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "dock", "decision": "TS3003c:21:37#2", "decision_text": "The remote will use a conventional battery and a docking station which recharges the battery.", "value": "yes", "swapped_to": "no"}
+{"id": "TS3003-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "chip", "decision": "TS3003c:21:53", "decision_text": "The remote will use an advanced chip.", "value": "advanced", "swapped_to": "simple"}
+{"id": "TS3003-U-01", "basis": "pool", "method": "update", "pool_index": 35}
+{"id": "TS3003-U-02", "basis": "pool", "method": "update", "pool_index": 49}
+{"id": "TS3003-I-01", "basis": "pool", "method": "chatter", "pool_index": 27}
+{"id": "TS3003-I-02", "basis": "pool", "method": "chatter", "pool_index": 44}
+{"id": "TS3003-E-01", "basis": "pool", "method": "claim", "pool_index": 40}
+{"id": "TS3003-E-02", "basis": "pool", "method": "claim", "pool_index": 30}
+{"id": "TS3005-S-01", "basis": "restatement", "method": "template", "attribute": "material", "decision": "TS3005c:27:12", "decision_text": "The case will be made of rubber."}
+{"id": "TS3005-S-02", "basis": "restatement", "method": "template", "attribute": "lcd", "decision": "TS3005b:30:56", "decision_text": "The remote will have buttons within the LCD display for power, volume selection, channel selection, digits from zero to nine, mute, a menu for teletext, a battery indicator, to access double digits, screen settings, channel settings, and audio settings."}
+{"id": "TS3005-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "shape", "decision": "TS3005c:28:24", "replaces": "a double curved case", "value": "single", "old_value": "double", "decision_text": "The case will be single curved."}
+{"id": "TS3005-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "target", "decision": "TS3005b:15:40", "replaces": "targeting people over sixty", "value": "young", "old_value": "elderly", "decision_text": "The product needs to reach a new market with customers under forty."}
+{"id": "TS3005-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "lcd", "decision": "TS3005b:24:56", "decision_text": "The LCD screen will have a low battery indicator.", "value": "yes", "swapped_to": "no"}
+{"id": "TS3005-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "dock", "decision": "TS3005c:24:25", "decision_text": "The remote will use rechargeable batteries which recharge in a docking station.", "value": "yes", "swapped_to": "no"}
+{"id": "TS3005-U-01", "basis": "pool", "method": "update", "pool_index": 31}
+{"id": "TS3005-U-02", "basis": "pool", "method": "update", "pool_index": 14}
+{"id": "TS3005-I-01", "basis": "pool", "method": "chatter", "pool_index": 45}
+{"id": "TS3005-I-02", "basis": "pool", "method": "chatter", "pool_index": 2}
+{"id": "TS3005-E-01", "basis": "pool", "method": "claim", "pool_index": 56}
+{"id": "TS3005-E-02", "basis": "pool", "method": "claim", "pool_index": 19}
+{"id": "TS3007-S-01", "basis": "restatement", "method": "template", "attribute": "covers", "decision": "TS3007c:34:08", "decision_text": "The case will be double-curved and made of rubber, with fruity-coloured removable covers."}
+{"id": "TS3007-S-02", "basis": "restatement", "method": "template", "attribute": "speech", "decision": "TS3007c:31:04", "decision_text": "It will not use speech recognition."}
+{"id": "TS3007-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "covers", "decision": "TS3007c:34:08", "replaces": "a remote without changeable covers", "value": "yes", "old_value": "no", "decision_text": "The case will be double-curved and made of rubber, with fruity-coloured removable covers."}
+{"id": "TS3007-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "speech", "decision": "TS3007c:31:04", "replaces": "speech recognition", "value": "no", "old_value": "yes", "decision_text": "It will not use speech recognition."}
+{"id": "TS3007-C-01", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "TS3007c:34:37", "decision_text": "The remote will include games and a simple parental control feature."}
+{"id": "TS3007-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "shape", "decision": "TS3007c:34:08", "decision_text": "The case will be double-curved and made of rubber, with fruity-coloured removable covers.", "value": "double", "swapped_to": "single"}
+{"id": "TS3007-U-01", "basis": "pool", "method": "update", "pool_index": 3}
+{"id": "TS3007-U-02", "basis": "pool", "method": "update", "pool_index": 54}
+{"id": "TS3007-I-01", "basis": "pool", "method": "chatter", "pool_index": 33}
+{"id": "TS3007-I-02", "basis": "pool", "method": "chatter", "pool_index": 52}
+{"id": "TS3007-E-01", "basis": "pool", "method": "claim", "pool_index": 37}
+{"id": "TS3007-E-02", "basis": "pool", "method": "claim", "pool_index": 61}
+{"id": "TS3008-S-01", "basis": "restatement", "method": "template", "attribute": "market", "decision": "TS3008a:15:28", "decision_text": "The remote will be sold internationally."}
+{"id": "TS3008-S-02", "basis": "restatement", "method": "template", "attribute": "profit", "decision": "TS3008a:15:22", "decision_text": "The profit aim is 15 million Euros."}
+{"id": "TS3008-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "covers", "decision": "TS3008c:29:42", "replaces": "changeable covers", "value": "no", "old_value": "yes", "decision_text": "The remote will be available in different colour schemes, but not with changeable fronts."}
+{"id": "TS3008-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "material", "decision": "TS3008c:34:09", "replaces": "a metal case", "value": "plastic+rubber", "old_value": "metal", "decision_text": "The case will be made of plastic and rubber."}
+{"id": "TS3008-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "lcd", "decision": "TS3008c:27:22", "decision_text": "The remote will not feature an LCD screen.", "value": "no", "swapped_to": "yes"}
+{"id": "TS3008-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "price", "decision": "TS3008a:15:18", "decision_text": "The remote will be sold for 25 Euros.", "value": "25", "swapped_to": "50"}
+{"id": "TS3008-U-01", "basis": "pool", "method": "update", "pool_index": 44}
+{"id": "TS3008-U-02", "basis": "pool", "method": "update", "pool_index": 41}
+{"id": "TS3008-I-01", "basis": "pool", "method": "chatter", "pool_index": 68}
+{"id": "TS3008-I-02", "basis": "pool", "method": "chatter", "pool_index": 3}
+{"id": "TS3008-E-01", "basis": "pool", "method": "claim", "pool_index": 13}
+{"id": "TS3008-E-02", "basis": "pool", "method": "claim", "pool_index": 46}
+{"id": "TS3009-S-01", "basis": "restatement", "method": "template", "attribute": "corporate", "decision": "TS3009c:34:36", "decision_text": "The logo will be both at the front and the back of the remote; the company slogan will be engraved at the back."}
+{"id": "TS3009-S-02", "basis": "restatement", "method": "template", "attribute": "lcd", "decision": "TS3009c:17:13", "decision_text": "The team agreed to place the LCD at the bottom of the device, below the buttons."}
+{"id": "TS3009-O-01", "basis": "real-supersession", "method": "replaced-decision", "decision": "TS3009c:26:39", "old_decision": "TS3009c:12:36", "old_text": "The chip needs to be an advanced one to be compatible with the LCD screen that is going to be incorporated in the design.", "replaces": "an advanced chip", "decision_text": "The chip is going to be a standard one."}
+{"id": "TS3009-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "lcd", "decision": "TS3009b:27:24", "replaces": "a remote without a screen", "value": "yes", "old_value": "no", "decision_text": "An LCD screen is going to be used to display information, but would not be interactive."}
+{"id": "TS3009-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "speech", "decision": "TS3009c:30:01", "decision_text": "They will implement speech recognition as well, because their target group like such gimmicks.", "value": "yes", "swapped_to": "no"}
+{"id": "TS3009-C-02", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "negation", "decision": "TS3009b:37:33", "decision_text": "The less frequently used buttons will not be hidden under a flip, as it had been previously suggested, as there are not that many of them; they will just be clearly separated from the more important ones."}
+{"id": "TS3009-U-01", "basis": "pool", "method": "update", "pool_index": 65}
+{"id": "TS3009-U-02", "basis": "pool", "method": "update", "pool_index": 33}
+{"id": "TS3009-I-01", "basis": "pool", "method": "chatter", "pool_index": 24}
+{"id": "TS3009-I-02", "basis": "pool", "method": "chatter", "pool_index": 49}
+{"id": "TS3009-E-01", "basis": "pool", "method": "claim", "pool_index": 52}
+{"id": "TS3009-E-02", "basis": "pool", "method": "claim", "pool_index": 29}
+{"id": "TS3010-S-01", "basis": "restatement", "method": "template", "attribute": "material", "decision": "TS3010c:32:20", "decision_text": "The case will be made of hard plastic and rubber."}
+{"id": "TS3010-S-02", "basis": "restatement", "method": "template", "attribute": "power", "decision": "TS3010c:29:25", "decision_text": "The remote will use a normal battery."}
+{"id": "TS3010-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "power", "decision": "TS3010c:29:25", "replaces": "solar power", "value": "regular", "old_value": "solar", "decision_text": "The remote will use a normal battery."}
+{"id": "TS3010-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "material", "decision": "TS3010c:32:20", "replaces": "a titanium case", "value": "plastic+rubber", "old_value": "titanium", "decision_text": "The case will be made of hard plastic and rubber."}
+{"id": "TS3010-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "material", "decision": "TS3010c:32:20", "decision_text": "The case will be made of hard plastic and rubber.", "value": "plastic+rubber", "swapped_to": "metal"}
+{"id": "TS3010-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "power", "decision": "TS3010c:29:25", "decision_text": "The remote will use a normal battery.", "value": "regular", "swapped_to": "kinetic"}
+{"id": "TS3010-U-01", "basis": "pool", "method": "update", "pool_index": 47}
+{"id": "TS3010-U-02", "basis": "pool", "method": "update", "pool_index": 36}
+{"id": "TS3010-I-01", "basis": "pool", "method": "chatter", "pool_index": 10}
+{"id": "TS3010-I-02", "basis": "pool", "method": "chatter", "pool_index": 69}
+{"id": "TS3010-E-01", "basis": "pool", "method": "claim", "pool_index": 44}
+{"id": "TS3010-E-02", "basis": "pool", "method": "claim", "pool_index": 63}
+{"id": "TS3011-S-01", "basis": "restatement", "method": "template", "attribute": "profit", "decision": "TS3011a:11:39", "decision_text": "The remote control will be sold for 25 euros with a profit aim of 50 million euros."}
+{"id": "TS3011-S-02", "basis": "restatement", "method": "template", "attribute": "speech", "decision": "TS3011b:27:43", "decision_text": "The remote will also include volume and program selection, and speech recognition."}
+{"id": "TS3011-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "devices", "decision": "TS3011a:17:17", "replaces": "a television-only remote", "value": "multi", "old_value": "tv_only", "decision_text": "The remote will control multiple devices."}
+{"id": "TS3011-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "lcd", "decision": "TS3011c:26:48", "replaces": "an LCD screen", "value": "no", "old_value": "yes", "decision_text": "LCD is not going to be implemented."}
+{"id": "TS3011-C-01", "basis": "value-swap", "method": "value-swap", "attribute": "market", "decision": "TS3011a:11:59", "decision_text": "The remote will be sold internationally.", "value": "international", "swapped_to": "europe"}
+{"id": "TS3011-C-02", "basis": "value-swap", "method": "value-swap", "attribute": "cost", "decision": "TS3011a:12:09", "decision_text": "The production costs should be no more than 12.50 euros.", "value": "12.50", "swapped_to": "20"}
+{"id": "TS3011-U-01", "basis": "pool", "method": "update", "pool_index": 50}
+{"id": "TS3011-U-02", "basis": "pool", "method": "update", "pool_index": 12}
+{"id": "TS3011-I-01", "basis": "pool", "method": "chatter", "pool_index": 56}
+{"id": "TS3011-I-02", "basis": "pool", "method": "chatter", "pool_index": 9}
+{"id": "TS3011-E-01", "basis": "pool", "method": "claim", "pool_index": 26}
+{"id": "TS3011-E-02", "basis": "pool", "method": "claim", "pool_index": 15}
+{"id": "TS3012-S-01", "basis": "restatement", "method": "verbatim", "attribute": "verbatim", "decision": "TS3012a:11:54", "decision_text": "The design should generally be intuitive without changes that would render it an unfamiliar object to customers."}
+{"id": "TS3012-S-02", "basis": "restatement", "method": "template", "attribute": "target", "decision": "TS3012b:13:10", "decision_text": "The target group will be people below 40."}
+{"id": "TS3012-O-01", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "target", "decision": "TS3012b:13:10", "replaces": "targeting people over sixty", "value": "young", "old_value": "elderly", "decision_text": "The target group will be people below 40."}
+{"id": "TS3012-O-02", "basis": "synthetic-supersession", "method": "synthetic-supersession", "attribute": "corporate", "decision": "TS3012b:13:39", "replaces": "a remote without the corporate image", "value": "yes", "old_value": "no", "decision_text": "The company colours and slogan will have to be shown on the device."}
+{"id": "TS3012-C-01", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "TS3012a:12:10", "decision_text": "The team will also take into account possible usability issues concerning disabled people."}
+{"id": "TS3012-C-02", "basis": "polarity-flip", "method": "polarity-flip", "attribute": "affirmation", "decision": "TS3012b:31:31", "decision_text": "The important buttons will be on top."}
+{"id": "TS3012-U-01", "basis": "pool", "method": "update", "pool_index": 66}
+{"id": "TS3012-U-02", "basis": "pool", "method": "update", "pool_index": 39}
+{"id": "TS3012-I-01", "basis": "pool", "method": "chatter", "pool_index": 4}
+{"id": "TS3012-I-02", "basis": "pool", "method": "chatter", "pool_index": 67}
+{"id": "TS3012-E-01", "basis": "pool", "method": "claim", "pool_index": 0}
+{"id": "TS3012-E-02", "basis": "pool", "method": "claim", "pool_index": 54}

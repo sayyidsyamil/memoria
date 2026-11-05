@@ -1,0 +1,29 @@
+{
+ "n": 336,
+ "tp": 97,
+ "fp": 2,
+ "fn": 15,
+ "tn": 222,
+ "alert_precision": 0.9797979797979798,
+ "alert_recall": 0.8660714285714286,
+ "false_alarm": 0.008928571428571428,
+ "errors": 0,
+ "uncertain": 0,
+ "p50_ms": 327.75,
+ "p95_ms": 1526.5749999999998,
+ "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+ "ci": {
+  "alert_precision": [
+   0.9509803921568627,
+   1.0
+  ],
+  "alert_recall": [
+   0.8035714285714286,
+   0.9285714285714286
+  ],
+  "false_alarm": [
+   0.0,
+   0.022321428571428572
+  ]
+ }
+}

@@ -1,0 +1,422 @@
+{
+  "set_01/s01": {
+    "label": "OUTDATED",
+    "decisions_used": ["d043"],
+    "note": "Help button inclusion was explicitly replaced."
+  },
+  "set_01/s02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Unrelated parking chatter."
+  },
+  "set_01/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d117"],
+    "note": "A recharging dock replaced the dockless design."
+  },
+  "set_01/s04": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Photo-retouching progress is not covered by approved decisions."
+  },
+  "set_01/s05": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "The distributor request is not established by approved decisions."
+  },
+  "set_01/s06": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d044"],
+    "note": "Lighting adaptation was explicitly rejected."
+  },
+  "set_01/s07": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d117"],
+    "note": "The approved design uses a recharging stand."
+  },
+  "set_01/s08": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d021"],
+    "note": "Approved design includes channel and content-based selection."
+  },
+  "set_01/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal travel chatter is unrelated to the project."
+  },
+  "set_01/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a child lock."
+  },
+  "set_01/s11": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d043"],
+    "note": "The approved design excludes a help button."
+  },
+  "set_01/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a record button."
+  },
+  "set_02/s01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d001"],
+    "note": "Video Plus capabilities are approved."
+  },
+  "set_02/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d085"],
+    "note": "The approved bundle includes a recharging docking station."
+  },
+  "set_02/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Test results are not established by approved decisions."
+  },
+  "set_02/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d054"],
+    "note": "An LCD screen replaced the screenless design."
+  },
+  "set_02/s05": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Factory capacity status is not established by approved decisions."
+  },
+  "set_02/s06": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d001"],
+    "note": "Video Plus capabilities are approved."
+  },
+  "set_02/s07": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a one-button movie mode."
+  },
+  "set_02/s08": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d041"],
+    "note": "The approved market is young business-class buyers."
+  },
+  "set_02/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Sports chatter is unrelated to the project."
+  },
+  "set_02/s10": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room-comfort logistics are unrelated to the project."
+  },
+  "set_02/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d085"],
+    "note": "Changeable covers replaced the coverless design."
+  },
+  "set_02/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a dedicated mute button."
+  },
+  "set_03/s01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d054"],
+    "note": "The approved docking station recharges the battery."
+  },
+  "set_03/s02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Drawing delivery is not established by approved decisions."
+  },
+  "set_03/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d024"],
+    "note": "A single-curved case replaced the double-curved case."
+  },
+  "set_03/s04": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d022"],
+    "note": "The approved chip is advanced, not simple."
+  },
+  "set_03/s05": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d066"],
+    "note": "The approved target group is adults aged sixty to eighty."
+  },
+  "set_03/s06": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Printer logistics are unrelated to the project."
+  },
+  "set_03/s07": {
+    "label": "OUTDATED",
+    "decisions_used": ["d030"],
+    "note": "Television-only control replaced control of multiple devices."
+  },
+  "set_03/s08": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "The procurement back-order is not established by approved decisions."
+  },
+  "set_03/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Meeting-room chatter is unrelated to the project."
+  },
+  "set_03/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a countdown timer."
+  },
+  "set_03/s11": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a macro button."
+  },
+  "set_03/s12": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d054"],
+    "note": "The approved docking station recharges the battery."
+  },
+  "set_04/s01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Seasonal demand expectations are not established by approved decisions."
+  },
+  "set_04/s02": {
+    "label": "OUTDATED",
+    "decisions_used": ["d027"],
+    "note": "Soft rubber replaced the plastic casing."
+  },
+  "set_04/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d087"],
+    "note": "Approved optional cases provide changeable covers."
+  },
+  "set_04/s04": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Social walking chatter is unrelated to the project."
+  },
+  "set_04/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a motion wake sensor."
+  },
+  "set_04/s06": {
+    "label": "OUTDATED",
+    "decisions_used": ["d060"],
+    "note": "Voice recognition replaced keeping the touch screen."
+  },
+  "set_04/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lunch chatter is unrelated to the project."
+  },
+  "set_04/s08": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d049"],
+    "note": "The approved power source includes solar power."
+  },
+  "set_04/s09": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d065"],
+    "note": "The approved design includes a locating device."
+  },
+  "set_04/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a programme-guide button."
+  },
+  "set_04/s11": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d052"],
+    "note": "The approved marketing focus is the youth market."
+  },
+  "set_04/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Sound-lab findings are not established by approved decisions."
+  },
+  "set_05/s01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a screen lock."
+  },
+  "set_05/s02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d024"],
+    "note": "Approved less-used buttons remain visible rather than hidden under a flip."
+  },
+  "set_05/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d047"],
+    "note": "An LCD screen replaced the screenless design."
+  },
+  "set_05/s04": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room-comfort chatter is unrelated to the project."
+  },
+  "set_05/s05": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Canteen logistics are unrelated to the project."
+  },
+  "set_05/s06": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d026"],
+    "note": "Approved logo and slogan placement displays the corporate image."
+  },
+  "set_05/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d072"],
+    "note": "The approved design implements speech recognition."
+  },
+  "set_05/s08": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Pilot-run timing is not established by approved decisions."
+  },
+  "set_05/s09": {
+    "label": "OUTDATED",
+    "decisions_used": ["d014"],
+    "note": "A standard chip replaced the advanced chip."
+  },
+  "set_05/s10": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d047"],
+    "note": "The approved design uses an LCD screen."
+  },
+  "set_05/s11": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "The sample-quality prediction is not established by approved decisions."
+  },
+  "set_05/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a built-in bottle opener."
+  },
+  "set_06/s01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d028"],
+    "note": "The approved case has removable covers."
+  },
+  "set_06/s02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal travel logistics are unrelated to the project."
+  },
+  "set_06/s03": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Concert chatter is unrelated to the project."
+  },
+  "set_06/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d007"],
+    "note": "Excluding speech recognition replaced speech recognition."
+  },
+  "set_06/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a button-press speaker."
+  },
+  "set_06/s06": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "The journalist inquiry is not established by approved decisions."
+  },
+  "set_06/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d102"],
+    "note": "The approved design includes games."
+  },
+  "set_06/s08": {
+    "label": "OUTDATED",
+    "decisions_used": ["d028"],
+    "note": "Removable covers replaced the coverless design."
+  },
+  "set_06/s09": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d007"],
+    "note": "The approved design excludes speech recognition."
+  },
+  "set_06/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers haptic feedback."
+  },
+  "set_06/s11": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Pre-order page visits are not established by approved decisions."
+  },
+  "set_06/s12": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d028"],
+    "note": "The approved case is double-curved, not single-curved."
+  },
+  "set_07/s01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d050"],
+    "note": "Twenty Euro exceeds the 12.50 Euro production cap."
+  },
+  "set_07/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d005"],
+    "note": "The approved design runs on kinetic energy."
+  },
+  "set_07/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d002"],
+    "note": "Television-only control replaced control of multiple devices."
+  },
+  "set_07/s04": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers an inactivity auto-off."
+  },
+  "set_07/s05": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d009"],
+    "note": "Twenty million conflicts with the approved fifty-million profit."
+  },
+  "set_07/s06": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "The competitor launch is not established by approved decisions."
+  },
+  "set_07/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Quiz chatter is unrelated to the project."
+  },
+  "set_07/s08": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Sunset chatter is unrelated to the project."
+  },
+  "set_07/s09": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "Trade-stand acceptance is not established by approved decisions."
+  },
+  "set_07/s10": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d013"],
+    "note": "The approved case combines plastic and rubber."
+  },
+  "set_07/s11": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "No approved decision covers a travel pouch."
+  },
+  "set_07/s12": {
+    "label": "OUTDATED",
+    "decisions_used": ["d026"],
+    "note": "Excluding speech recognition replaced speech recognition."
+  }
+}

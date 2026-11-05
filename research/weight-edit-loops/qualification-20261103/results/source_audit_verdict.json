@@ -1,0 +1,104 @@
+{
+  "outcome": "failed-collateral",
+  "development_candidate": false,
+  "reason": "Natural EOS transfers by terminating after two distinct source-supported entries and losing four prespecified source controls, including the later single-curve decision.",
+  "source_controls": [
+    {
+      "id": "buttons-t8",
+      "turn": 8,
+      "object_id": "buttons",
+      "attribute": "outcome",
+      "value": "separate buttons",
+      "quote_word": "buttons",
+      "source_turn_text": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+      "preserved_by_edit": true
+    },
+    {
+      "id": "lcd-t8",
+      "turn": 8,
+      "object_id": "lcd",
+      "attribute": "outcome",
+      "value": "included",
+      "quote_word": "lcd",
+      "source_turn_text": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+      "preserved_by_edit": true
+    },
+    {
+      "id": "speech-t8",
+      "turn": 8,
+      "object_id": "speech",
+      "attribute": "outcome",
+      "value": "included",
+      "quote_word": "speech",
+      "source_turn_text": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+      "preserved_by_edit": false
+    },
+    {
+      "id": "chip-t8",
+      "turn": 8,
+      "object_id": "chip",
+      "attribute": "outcome",
+      "value": "advanced chip",
+      "quote_word": "chip",
+      "source_turn_text": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+      "preserved_by_edit": false
+    },
+    {
+      "id": "energy-t8",
+      "turn": 8,
+      "object_id": "energy",
+      "attribute": "outcome",
+      "value": "kinetic",
+      "quote_word": "kinetic",
+      "source_turn_text": "At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.",
+      "preserved_by_edit": false
+    },
+    {
+      "id": "single-curve-t23",
+      "turn": 23,
+      "object_id": "case_curve",
+      "attribute": "outcome",
+      "value": "single curved",
+      "quote_word": "single curve",
+      "source_turn_text": "Well I guess i we'll have to go for single curve then. I mean we have to drop on everything.",
+      "preserved_by_edit": false
+    }
+  ],
+  "chronology_excerpt": [
+    {
+      "turn": 22,
+      "text": "Do we keep the shape doubly curved or g do we go for single curved?"
+    },
+    {
+      "turn": 23,
+      "text": "Well I guess i we'll have to go for single curve then. I mean we have to drop on everything."
+    },
+    {
+      "turn": 24,
+      "text": "Mm-hmm. Uh"
+    },
+    {
+      "turn": 25,
+      "text": "But we can keep it single curved with uh top view still curved, but from the side it's it's flat, and the screen screen is just Well you just have to hold it like this then. So"
+    }
+  ],
+  "edit_raw": "{\"events\":[{\"turn\":8,\"quote\":\"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\",\"object_id\":\"buttons\",\"attribute\":\"outcome\",\"value\":\"separate buttons\",\"confidence\":0.5,\"unresolved\":true},{\"turn\":8,\"quote\":\"At the moment we have fifteen buttons, one L_C_D_ screen, one advanced chip-on-print. We use a uh sensor, that's for the speech. Uh we use kinetic energy.\",\"object_id\":\"lcd\",\"attribute\":\"outcome\",\"value\":\"included\",\"confidence\":0.5,\"unresolved\":true}]}",
+  "edit_has_exact_repeated_event": false,
+  "edit_is_first_two_base_event_objects_then_natural_closure": true,
+  "baseline_first_exact_repeat_start_char": 3971,
+  "baseline_unique_parsed": 16,
+  "edit_unique_parsed": 2,
+  "lost_unique_parsed_count": 14,
+  "count_caveat": "Not all 14 omitted baseline candidates are correct; many are tentative or wrong. The decisive loss is the four source controls fixed before inference.",
+  "quote_caveat": "The first three omitted items are still mentioned inside the retained full turn8 quote, but their structured event records are absent. The later turn23 decision and its quote are absent entirely.",
+  "zero_valid_event_trap": "All four conditions have zero valid ledger candidates and zero gold hits because replies mark entries unresolved. Those coarse counts alone would hide the source-event loss.",
+  "stop_after_first_lease": true,
+  "unrun_due_to_failure": [
+    "six normal prompts",
+    "distinct-event enumeration overrun",
+    "generated and forced-prefix recovery, including long unresolved cycle",
+    "narrow Ask/guard/router probes",
+    "further development or validation generation"
+  ],
+  "shipping_or_newval_authorised": false
+}

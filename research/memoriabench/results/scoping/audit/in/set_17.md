@@ -1,0 +1,118 @@
+# Meeting set 17
+
+## APPROVED DECISIONS
+
+- [d001] The case will be flat on top and curved on the bottom.
+- [d002] An automatic on/off feature will not be used.
+- [d003] The buttons for extra, infrequently used functions will be hidden in the design in some manner.
+- [d004] The remote will have a scrolling device.
+- [d005] They will aim for a profit of fifty million Euros.
+- [d006] They will look further at the idea of covers in the mext meeting too.
+- [d007] The remote will be easy to find.
+- [d008] The project goal is to develop a new remote control.
+- [d009] The remote will have new functions that existing remotes do not have.
+- [d010] It will have standard on/off, channel-changing, numerical, and volume buttons, with a menu on the screen.
+- [d011] The remote will not be too expensive.
+- [d012] They will sell the remotes for twenty five Euros each.
+- [d013] Will consider using number-shaped buttons.
+- [d014] The remote will control multiple devices. (replaces a television-only remote)
+- [d015] The remote will only be used for televisions. (replaces controlling multiple devices)
+- [d016] They cannot make a device that works on the whole house- will need a focus.
+- [d017] The remote will feature an extra lightbulb that will light up when the remote is communicating with the television.
+- [d018] The remote control and its buttons will be made of rubber. (replaces a wooden case)
+- [d019] The remote will only be for televisions.
+- [d020] The remote will use an infra-red sensor.
+- [d021] Teletext will not be used.
+- [d022] The group decided on the features that will be incorporated into the design of the prototype.
+- [d023] The remote will be made to accommodate different languages.
+- [d024] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [d025] The remote will use a regular infra-red signal.
+- [d026] Several shapes will be designed and shown to the public so that the most popular shape is chosen.
+- [d027] The important buttons will be on top.
+- [d028] The group discussed the function of the prototype and decided that they should restrict the remote to television for the time being instead of allowing it to control multiple devices.
+- [d029] The remote will have a docking station.
+- [d030] The remote has to be fashionable.
+- [d031] Have a locator to help find the remote when it is lost. (replaces a remote without a locator function)
+- [d032] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [d033] The remote should look fancy.
+- [d034] The remote will be button-less.
+- [d035] The remote control will be for television only.
+- [d036] The remote will only be used for televisions. (replaces controlling multiple devices)
+- [d037] The remotes will target the international market.
+- [d038] The solution to complaints about remote controls being difficult to learn is to focus on an intuitive design instead of a thorough manual.
+- [d039] The remote will be adaptable so that it can be used by right-handed and left-handed people.
+- [d040] The remote will have push buttons outside, and an LCD and spinning wheel inside.
+- [d041] Control will light up when you touch a button.
+- [d042] The group decided that it was important to incorporate a feature that would make the product very unique.
+- [d043] The remote will be waterproof.
+- [d044] The remote will be used only with televisions.
+- [d045] The remote will have large buttons.
+- [d046] It will be a television remote control.
+- [d047] Alarm locator will be implemented.
+- [d048] The remote should be trendy as possible but still have a reliable image so that it does not appear poorly-functional.
+- [d049] The remote will have a lock function.
+- [d050] The group will design a trendy, original and user friendly television remote control.
+- [d051] Will use personal face places.
+- [d052] The remote will control televisions and devices connected to televisions.
+- [d053] It will be placed at the top of the banana shape.
+- [d054] The remote will be a single function design- television only. (replaces controlling multiple devices)
+- [d055] The remote will have an ergonomic design.
+- [d056] The group would like the remote to control multiple devices and have optional water and other damage protection.
+- [d057] The remote will be a radiaclly different shape.
+- [d058] The remote will only be used for televisions.
+- [d059] The remote will have a docking station.
+- [d060] It was decided that the group will produce one product design instead of creating alternate designs in an attempt to accomodate different users' preferences.
+- [d061] The remote will have a possibility to get extra functions.
+- [d062] The remote will be child proof.
+- [d063] The remote will have a jog dial.
+- [d064] The remote will be fancy.
+- [d065] The remote is going to be a universal one.
+- [d066] The remote will have an enter button and number buttons.
+- [d067] The number of button functions will be limited to make the remote user-friendly.
+- [d068] The remote will be yellow with black or gray buttons.
+- [d069] The remote will have some buttons.
+- [d070] It will have voice recognition, use a simple battery, and contain an advanced chip. (replaces a simple chip)
+- [d071] The remote will only control televisions.
+- [d072] The remote will look appealing.
+- [d073] The remote control should be fancy, a good shape, and not too small or too big.
+- [d074] The remote will resemble a vegetable and be in bright vegetable colors.
+- [d075] LED's can be used to light up the remote.
+- [d076] The remote is just going to be for TV.
+- [d077] The remote has to look good and be easy to use.
+- [d078] The remote will be shaped like a snowman.
+- [d079] The remote will be easy to learn.
+- [d080] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d081] The remote will be yellow or partially yellow and have an organic shape.
+- [d082] Using them sparsely, as in mobile phones, could bring down the cost.
+- [d083] The remote will be for television only. (replaces controlling multiple devices)
+- [d084] The remote will have a minimal number of buttons.
+- [d085] Teletext is outdated and will not be used.
+- [d086] The remote will have large buttons for essential functions.
+- [d087] The remote will be shockproof.
+- [d088] There will be a device that allows the user to enter two numbers separately to get a two-digit number in order to reduce the overall number of buttons.
+- [d089] The remote will shut down when the television shuts down.
+- [d090] If used, face plates will be cheap.
+- [d091] The remote will only be used for televisions.
+- [d092] The remote will be for use with the television set.
+- [d093] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d094] The group will design a trendy, original and user-friendly remote control.
+- [d095] Glow in the dark buttons, self-timed lighting.
+- [d096] The remote will feature a locator function that responds to clapping.
+- [d097] The remote will allow users to have the possibility to enlarge the buttons.
+- [d098] The remote should not have too many buttons.
+- [d099] The remote will only have a few buttons.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: What is everyone having for lunch?
+- s02: Legal has not cleared the slogan yet.
+- s03: The case will be made of wood.
+- s04: Well, my bike got a flat tyre on the way in.
+- s05: Okay, what about adding a recess for the thumb?
+- s06: So we are aiming for a profit of 20 million Euro.
+- s07: So the remote will only be sold in our home market.
+- s08: I think the software team says the demo build is almost ready.
+- s09: Okay, the remote will have an LCD screen.
+- s10: I'd like us to include a magnetic back so it sticks to the fridge.
+- s11: Okay, the remote will use a simple chip.
+- s12: Well, the remote will sell for 25 Euro.

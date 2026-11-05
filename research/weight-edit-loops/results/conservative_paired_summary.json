@@ -1,0 +1,99 @@
+{
+  "scope": "four enriched diagnostic prompts, adjacent AB/BA; not full-dev population p95",
+  "summary": {
+    "base": {
+      "prompts": 4,
+      "seconds": 167.0215,
+      "tokens": 5458,
+      "p95_seconds": 55.575,
+      "caps": 3,
+      "raw_unclean": 3,
+      "returned_unclean": 3,
+      "max_mlx_gb": 3.9888
+    },
+    "conservative": {
+      "prompts": 4,
+      "seconds": 106.2291,
+      "tokens": 3344,
+      "p95_seconds": 49.8887,
+      "caps": 1,
+      "raw_unclean": 3,
+      "returned_unclean": 1,
+      "max_mlx_gb": 3.9888
+    }
+  },
+  "pairs": [
+    {
+      "id": "TS3004b.w0",
+      "base_seconds": 49.8339,
+      "conservative_seconds": 11.8665,
+      "base_tokens": 1800,
+      "conservative_tokens": 291,
+      "raw_prefix_identical": true,
+      "bytes_equal": false,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": [],
+      "reference_anchors": [],
+      "anchor_hits": [],
+      "lost_anchors": []
+    },
+    {
+      "id": "TS3006d.w0",
+      "base_seconds": 55.6372,
+      "conservative_seconds": 36.3008,
+      "base_tokens": 1800,
+      "conservative_tokens": 1195,
+      "raw_prefix_identical": true,
+      "bytes_equal": false,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": [],
+      "reference_anchors": [],
+      "anchor_hits": [],
+      "lost_anchors": []
+    },
+    {
+      "id": "TS3006d.w3",
+      "base_seconds": 55.2225,
+      "conservative_seconds": 52.2866,
+      "base_tokens": 1800,
+      "conservative_tokens": 1800,
+      "raw_prefix_identical": true,
+      "bytes_equal": true,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": [],
+      "reference_anchors": [
+        "late-plastic-correction",
+        "late-scroll-wheel-correction",
+        "late-single-curve-confirmation"
+      ],
+      "anchor_hits": [
+        "late-plastic-correction",
+        "late-scroll-wheel-correction",
+        "late-single-curve-confirmation"
+      ],
+      "lost_anchors": []
+    },
+    {
+      "id": "TS3004b.w1",
+      "base_seconds": 6.3279,
+      "conservative_seconds": 5.7752,
+      "base_tokens": 58,
+      "conservative_tokens": 58,
+      "raw_prefix_identical": true,
+      "bytes_equal": true,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": [],
+      "reference_anchors": [],
+      "anchor_hits": [],
+      "lost_anchors": []
+    }
+  ]
+}

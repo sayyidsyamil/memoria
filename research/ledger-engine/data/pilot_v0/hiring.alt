@@ -1,0 +1,14 @@
+# Second phrasing of each question in hiring.chain (authored by the AI assistant, written before any router result was seen). TEST split. Router robustness probe only.
+q1 | Is the data scientist role still being hired for?
+q2 | Did we manage to hire the data engineer yet?
+q3 | What's the current target date for getting the data engineer on board?
+q4 | Who's got the data scientist hire?
+q5 | How many heads was the data team approved for on 15 June?
+q6 | By 15 July, what was the data team's headcount?
+q7 | What will the data team's headcount be in mid-August (the 15th), as things stand?
+q8 | Back on 20 May, what did the plan say the data team's headcount would be on 15 August?
+q9 | As of 20 June, what date were we targeting for the engineer hire?
+q10 | Has the data team's headcount actually changed? Plans that were withdrawn don't count.
+q11 | How many times did the engineer hire's date move?
+q12 | Using only what had been written down by 20 April, what deadline did the engineer hire have for 1 June?
+q13 | Had the data scientist hire been done or cancelled by 1 May?

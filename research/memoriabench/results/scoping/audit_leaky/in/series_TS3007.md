@@ -1,0 +1,160 @@
+# Series TS3007
+
+## APPROVED DECISIONS
+
+- [TS3011b:16:50] It would be a good idea to integrate a mechanism for finding the remote control, when the user loses it.
+- [TS3011a:11:59] The remote will be sold internationally.
+- [ES2002c:27:28] The remote will be shaped like a snowman.
+- [ES2007a:09:51] The remote will be sold internationally.
+- [ES2007a:17:40] The remote will have a lock function.
+- [ES2015c:28:35] Regular chip will be used.
+- [TS3007c:31:04] It will not use speech recognition. (replaces speech recognition)
+- [ES2002a:08:52] The remote will be sold on an international scale.
+- [IS1006b:33:09] The team will not work with teletext.
+- [TS3012b:16:15] The remote is going to be a universal one.
+- [ES2008a:07:35#2] The profit aim is fifteen million Euro.
+- [TS3005c:25:07] The remote will use a chip on print.
+- [TS3008a:15:31] It will cost no more than 12.5 Euros to make.
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [TS3003b:31:26] The remote will be fancy.
+- [TS3003b:17:41] The remote will only be used for televisions. (replaces controlling multiple devices)
+- [TS3011a:17:31] The remote will be sold directly to individual consumers rather than companies.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [ES2015b:06:48] Will reserach environmental factor.
+- [ES2008b:33:05] The buttons for extra, infrequently used functions will be hidden in the design in some manner.
+- [IS1006a:05:48] The remote will be child proof.
+- [TS3003a:22:59] The remote will be waterproof.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [TS3011b:11:07] Using them sparsely, as in mobile phones, could bring down the cost.
+- [ES2012b:34:52] The remote will be a radiaclly different shape.
+- [TS3007a:19:47] The group decided that it was important to incorporate a feature that would make the product very unique.
+- [TS3005b:24:42] The remote will shut down when the television shuts down.
+- [TS3007c:34:08] The case will be double-curved and made of rubber, with fruity-coloured removable covers. (replaces a remote without changeable covers)
+- [IS1004b:27:47] To target towards young people will bring in new technology.
+- [TS3003a:18:35] The selling price will be 25 Euro.
+- [TS3011b:10:13] LED's can be used to light up the remote.
+- [ES2002b:28:23] The remote will use an infra-red sensor.
+- [IS1006c:27:28] The remote will have some buttons.
+- [TS3005b:31:26] The remote will allow users to have the possibility to enlarge the buttons.
+- [ES2015a:14:07] The selling price will be twenty five Euros.
+- [ES2007a:15:42] The team will create a back-up plan for a remote that only controls televisions.
+- [ES2016b:29:15] The corporate slogan will appear on the bottom of the remote.
+- [TS3003a:22:54] The remote will be shockproof.
+- [ES2015c:15:29] Command interface is the best for a remote, so it will be used.
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [ES2007a:09:45] The profit aim will be 50 million Euro.
+- [ES2006a:15:52] The remotes will target the international market.
+- [ES2007b:23:40] The remote will use a regular infra-red signal.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [ES2012b:03:53] The remote will be for television only. (replaces controlling multiple devices)
+- [ES2013b:28:47] The remote will have an enter button and number buttons.
+- [IS1004a:10:38] They will target the international market.
+- [IS1006a:04:47] The remote will be sold for 25 Euro.
+- [IS1004a:10:21] The target selling price will be 25 Euro dollars.
+- [IS1001c:16:47] It will be placed at the top of the banana shape.
+- [ES2007c:12:10] The remote will not use a chip on print.
+- [ES2015a:14:36] The remote will target the international market.
+- [ES2016b:22:42] The team will not work with teletext.
+- [ES2013b:07:16] The team will not work with teletext.
+- [TS3009b:11:15] The solution to complaints about remote controls being difficult to learn is to focus on an intuitive design instead of a thorough manual.
+- [ES2012c:07:44] The remote will contain a custom chip.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [TS3005b:15:22] The team will not pay any attention to teletext.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [IS1009b:04:59] They cannot make a device that works on the whole house- will need a focus.
+- [ES2016a:09:32] The remote will sell for 25 Euro.
+- [IS1009a:06:12] Selling price will be twenty five Euro.
+- [IS1003b:21:14] The remote will only be used for televisions.
+- [TS3003c:21:37] The remote will have a docking station.
+- [ES2015b:31:33] Glow in the dark buttons, self-timed lighting.
+- [ES2008a:07:35] The remote will be sold for 25 Euro.
+- [IS1003b:20:44] Teletext will not be used.
+- [TS3012a:11:32] The remote is just going to be for TV.
+- [TS3008a:15:18] The remote will be sold for 25 Euros.
+- [ES2008a:12:32] An additional remote will contain special functions.
+- [TS3003b:34:42] The remote will be made to accommodate different languages.
+- [ES2015c:22:55] Will use personal face places.
+- [ES2009b:11:29] The marketing will be focused towards the youth market.
+- [TS3003a:18:57] The focus will be on an international market.
+- [IS1003a:07:40] The remote will have new functions that existing remotes do not have.
+- [ES2015c:28:21] Push buttons will be used.
+- [TS3009c:26:39] The chip is going to be a standard one. (replaces an advanced chip)
+- [ES2004b:22:42] The marketing will be focused towards a young, business-class buyer.
+- [ES2015a:14:28] The profit will be fifty million Euros.
+- [ES2013a:07:41] The remote will be sold for 25 Euro.
+- [IS1003c:11:18] The team will not use the intelligent controller proposed by the User Interface Designer.
+- [TS3005c:36:19] The remote will have a scrolling device.
+- [TS3008a:15:28] The remote will be sold internationally.
+- [IS1003a:03:24] The remote will have international appeal.
+- [ES2006a:15:44] They will aim for a profit of fifty million Euros.
+- [ES2007a:15:20] The remote will control televisions and devices connected to televisions.
+- [ES2005c:22:37] Several shapes will be designed and shown to the public so that the most popular shape is chosen.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [IS1003b:16:07] The remote should look fancy.
+- [ES2012a:07:47] The company should profit fifty million Euros overall.
+- [IS1000b:29:37] The remote should be trendy as possible but still have a reliable image so that it does not appear poorly-functional.
+- [ES2016b:23:35] The remote will look appealing.
+- [ES2015b:32:48] Will consider using number-shaped buttons.
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [TS3003b:24:01] The team will implement teletext in their design if it does not cost too much.
+- [TS3008a:15:22] The profit aim is 15 million Euros.
+- [ES2013c:37:17] The remote will use push buttons.
+- [TS3005b:39:04] The remote will be button-less.
+- [IS1003c:27:06#2] The remote will use low level chips. (replaces an advanced chip)
+- [ES2008a:07:43] The remote will be sold on an international scale.
+- [TS3007c:34:37] The remote will include games and a simple parental control feature.
+- [ES2002c:30:39] The remote will not have a talk-back function.
+- [TS3007c:34:18] There will be a touch screen and not many buttons.
+- [ES2015b:25:50] Teletext is outdated and will not be used.
+- [ES2015b:29:48] Alarm locator will be implemented.
+- [IS1009a:06:17] Company aims to profit fifty million Euro.
+- [TS3005b:15:27] The remote will only be used for televisions.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [ES2005b:23:09] The number of button functions will be limited to make the remote user-friendly.
+- [IS1000a:20:12] The remote will be for use with the television set.
+- [ES2007a:09:41] The selling price of the remote will be 25 Euro.
+- [ES2015a:04:45] It will be a television remote control.
+- [TS3011a:17:17] The remote will control multiple devices. (replaces a television-only remote)
+- [TS3012b:09:07] It would be a good idea to integrate a mechanism for finding the remote control, when the user loses it.
+- [IS1004b:10:46] The remote control will be for television only.
+- [ES2016b:39:18] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [ES2007b:22:34] The remote will have an ergonomic design.
+- [ES2008b:32:52] The remote will have a possibility to get extra functions.
+- [ES2010b:15:10] The interface will contain larger buttons.
+- [ES2013b:07:23] The remote will only be for televisions.
+- [ES2006a:15:38] They will sell the remotes for twenty five Euros each.
+- [TS3011a:11:39] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [TS3009c:34:36] The logo will be both at the front and the back of the remote; the company slogan will be engraved at the back.
+- [IS1000a:17:59] The profit will be about fifty million Euro. -The remote will target an international market.
+- [IS1004a:10:32] They will generate a proft of fifty million Euros.
+- [ES2008b:21:21] The team will not work with teletext.
+- [TS3003c:21:53] The remote will use an advanced chip.
+- [ES2016b:26:49] The remote will have a minimal number of buttons.
+- [ES2016b:22:11] The remote will only be used for televisions. (replaces controlling multiple devices)
+- [TS3007c:33:59] The energy source will be a combination of batteries and kinetic energy.
+- [ES2016b:23:40] The remote will be easy to find.
+- [ES2005c:29:27] The remote will be yellow or partially yellow and have an organic shape.
+- [ES2002a:07:50] The remote will sell for 25 Euro.
+- [ES2002b:20:58] The target demographic is people aged fifteen to thirty five.
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [ES2002b:02:01] The remote will only control televisions.
+- [ES2008b:22:45] The remote will be used only with televisions.
+- [ES2008b:32:36] The remote will have large buttons for essential functions.
+- [ES2013b:28:52] The remote will have large buttons.
+- [ES2016a:19:36] The team will not create a ball shaped remote. (replaces creating a ball shaped remote)
+
+## LIVE STATEMENTS (label each one)
+
+- TS3007-S-01: Well, we will offer changeable covers for the remote.
+- TS3007-S-02: I think the remote will not include speech recognition.
+- TS3007-O-01: There will be no changeable covers.
+- TS3007-O-02: Okay, the remote will include speech recognition.
+- TS3007-C-01: So the remote will not include games.
+- TS3007-C-02: We will use a single curved case.
+- TS3007-U-01: Right, I'd like us to include a small speaker that beeps when you press a button.
+- TS3007-U-02: Why don't we add haptic feedback when a button is pressed?
+- TS3007-I-01: Okay, my train pass runs out next week.
+- TS3007-I-02: Did you manage to get tickets for the concert?
+- TS3007-E-01: So a journalist from a trade magazine called to ask about the launch.
+- TS3007-E-02: Right, the pre-order page got two hundred visits on its first day.

@@ -1,0 +1,121 @@
+=== 13:42:04 4b-c1-closed-a: extract 4b app-nosys-numwords-loopstop ES2003 TS3004 ES2011 IS1008
+{"series": "ES2003", "mechanism": "app-nosys-numwords-loopstop", "windows": 20, "seconds": 0.1, "hit_budget": 0, "unclean": 1, "misses": 0, "hits": 20}
+{"series": "TS3004", "mechanism": "app-nosys-numwords-loopstop", "windows": 21, "seconds": 80.3, "hit_budget": 0, "unclean": 1, "misses": 6, "hits": 35, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.35, "active_gb": 2.5}
+{"series": "ES2011", "mechanism": "app-nosys-numwords-loopstop", "windows": 16, "seconds": 0.0, "hit_budget": 0, "unclean": 1, "misses": 6, "hits": 51, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.35, "active_gb": 2.5}
+{"series": "IS1008", "mechanism": "app-nosys-numwords-loopstop", "windows": 15, "seconds": 0.1, "hit_budget": 0, "unclean": 0, "misses": 6, "hits": 66, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.35, "active_gb": 2.5}
+       82.26 real        23.46 user         8.40 sys
+          1390542848  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              364563  page reclaims
+                5863  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6837  voluntary context switches
+              174712  involuntary context switches
+        117418344976  instructions retired
+         62824336020  cycles elapsed
+          5050600688  peak memory footprint
+{"label": "4b-c1-closed-a", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop", "ES2003", "TS3004", "ES2011", "IS1008"], "asked": "2026-11-03 13:42:04", "waited_s": 608.7, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 82.3, "peak_footprint_gb": 5.051, "max_rss_gb": 1.391, "released": "2026-11-03 13:53:35"}
+=== 13:53:35 4b-c1-closed-b: extract 4b app-nosys-numwords-loopstop TS3006
+{"series": "TS3006", "mechanism": "app-nosys-numwords-loopstop", "windows": 25, "seconds": 490.7, "hit_budget": 0, "unclean": 1, "misses": 22, "hits": 3, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.85, "active_gb": 2.499}
+      491.90 real       116.55 user        34.41 sys
+           928890880  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              501154  page reclaims
+                6274  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                7010  voluntary context switches
+             1395084  involuntary context switches
+        496303759575  instructions retired
+        286342230162  cycles elapsed
+          5050895624  peak memory footprint
+{"label": "4b-c1-closed-b", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys-numwords-loopstop", "TS3006"], "asked": "2026-11-03 13:53:35", "waited_s": 880.9, "deferred_for": [], "free_disk_gb": 22.7, "status": "exit 0", "seconds": 491.9, "peak_footprint_gb": 5.051, "max_rss_gb": 0.929, "released": "2026-11-03 14:16:28"}
+=== 14:16:28 4b-consolidate: extract 4b app-nosys|consolidate ES2003 TS3004 ES2011 IS1008 TS3006
+{"series": "ES2003", "mechanism": "app-nosys|consolidate", "windows": 20, "seconds": 16.5, "hit_budget": 1, "unclean": 1, "misses": 3, "hits": 20, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.45, "active_gb": 2.5}
+{"series": "TS3004", "mechanism": "app-nosys|consolidate", "windows": 21, "seconds": 3.7, "hit_budget": 0, "unclean": 0, "misses": 5, "hits": 41, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.45, "active_gb": 2.5}
+{"series": "ES2011", "mechanism": "app-nosys|consolidate", "windows": 16, "seconds": 8.1, "hit_budget": 1, "unclean": 1, "misses": 9, "hits": 57, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.45, "active_gb": 2.5}
+{"series": "IS1008", "mechanism": "app-nosys|consolidate", "windows": 15, "seconds": 1.3, "hit_budget": 0, "unclean": 0, "misses": 10, "hits": 72, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.45, "active_gb": 2.5}
+{"series": "TS3006", "mechanism": "app-nosys|consolidate", "windows": 25, "seconds": 10.6, "hit_budget": 0, "unclean": 0, "misses": 16, "hits": 97, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 5.45, "active_gb": 2.5}
+       41.40 real        12.49 user         4.02 sys
+          1208041472  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              339624  page reclaims
+                7088  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                8068  voluntary context switches
+               65640  involuntary context switches
+         91369332712  instructions retired
+         36924337747  cycles elapsed
+          4482567432  peak memory footprint
+{"label": "4b-consolidate", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys|consolidate", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:16:28", "waited_s": 1541.5, "deferred_for": [], "free_disk_gb": 22.8, "status": "exit 0", "seconds": 41.4, "peak_footprint_gb": 4.483, "max_rss_gb": 1.208, "released": "2026-11-03 14:42:51"}
+=== 14:42:51 4b-consolidate-app: extract 4b app|consolidate ES2003 TS3004 ES2011 IS1008 TS3006
+{"series": "ES2003", "mechanism": "app|consolidate", "windows": 20, "seconds": 24.3, "hit_budget": 0, "unclean": 0, "misses": 6, "hits": 20, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 4.7, "active_gb": 2.491}
+{"series": "TS3004", "mechanism": "app|consolidate", "windows": 21, "seconds": 8.2, "hit_budget": 1, "unclean": 1, "misses": 11, "hits": 41, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 4.7, "active_gb": 2.491}
+{"series": "ES2011", "mechanism": "app|consolidate", "windows": 16, "seconds": 0.1, "hit_budget": 0, "unclean": 0, "misses": 11, "hits": 58, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 4.7, "active_gb": 2.491}
+{"series": "IS1008", "mechanism": "app|consolidate", "windows": 15, "seconds": 0.2, "hit_budget": 0, "unclean": 0, "misses": 11, "hits": 73, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 4.7, "active_gb": 2.491}
+{"series": "TS3006", "mechanism": "app|consolidate", "windows": 25, "seconds": 9.8, "hit_budget": 2, "unclean": 2, "misses": 17, "hits": 98, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 4.7, "active_gb": 2.491}
+       44.41 real        15.39 user         4.45 sys
+          1417166848  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              343653  page reclaims
+                6140  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6940  voluntary context switches
+               80526  involuntary context switches
+         91756292134  instructions retired
+         43386258762  cycles elapsed
+          4132687088  peak memory footprint
+{"label": "4b-consolidate-app", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app|consolidate", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 14:42:51", "waited_s": 1259.2, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 44.4, "peak_footprint_gb": 4.133, "max_rss_gb": 1.417, "released": "2026-11-03 15:04:34"}
+=== 15:04:34 4b-consolidate-think: extract 4b app-nosys|consolidate-think ES2003 TS3004 ES2011 IS1008 TS3006
+{"series": "ES2003", "mechanism": "app-nosys|consolidate-think", "windows": 20, "seconds": 121.7, "hit_budget": 1, "unclean": 1, "misses": 3, "hits": 20, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "TS3004", "mechanism": "app-nosys|consolidate-think", "windows": 21, "seconds": 74.4, "hit_budget": 0, "unclean": 0, "misses": 5, "hits": 41, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "ES2011", "mechanism": "app-nosys|consolidate-think", "windows": 16, "seconds": 133.8, "hit_budget": 1, "unclean": 1, "misses": 9, "hits": 57, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "IS1008", "mechanism": "app-nosys|consolidate-think", "windows": 15, "seconds": 33.6, "hit_budget": 0, "unclean": 0, "misses": 10, "hits": 72, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+{"series": "TS3006", "mechanism": "app-nosys|consolidate-think", "windows": 25, "seconds": 199.7, "hit_budget": 0, "unclean": 0, "misses": 16, "hits": 97, "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3", "load_seconds": 3.95, "active_gb": 2.499}
+      564.43 real       252.58 user        53.26 sys
+          1384792064  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              474376  page reclaims
+                7693  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6458  voluntary context switches
+             1915344  involuntary context switches
+        840451121241  instructions retired
+        433684227629  cycles elapsed
+          4458089712  peak memory footprint
+{"label": "4b-consolidate-think", "command": ["/Users/Shared/Memoria/runtime/speech/bin/python", "-B", "run.py", "extract", "4b", "app-nosys|consolidate-think", "ES2003", "TS3004", "ES2011", "IS1008", "TS3006"], "asked": "2026-11-03 15:04:35", "waited_s": 646.0, "deferred_for": [], "free_disk_gb": 20.5, "status": "exit 0", "seconds": 564.4, "peak_footprint_gb": 4.458, "max_rss_gb": 1.385, "released": "2026-11-03 15:24:45"}
+=== 15:24:45 08-thinkcheck-stock: thinkcheck 0.8b-bf16

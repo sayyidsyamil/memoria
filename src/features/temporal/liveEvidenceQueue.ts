@@ -1,0 +1,94 @@
+import { invoke } from '@tauri-apps/api/core'
+import type { TranscriptDraft, TranscriptTurn } from '../meetings/meetingTypes'
+import { withTimeout } from '../../lib/asyncTimeout'
+import { checkLiveStatement, type LiveCue } from './liveAssistanceService'
+
+const key = (turn: TranscriptTurn) => `${turn.start}:${turn.end}:${turn.text}`
+
+/**
+ * Caller-owned serial checks, oldest unchecked turn first. The speech worker only appends turns and never rewrites
+ * one, so a turn is checked as soon as it is published: waiting for the next turn only delayed the cue.
+ */
+export class LiveEvidenceQueue {
+  private enabled = false
+  private generation = 0
+  private job: { id: string; promise: Promise<void> } | null = null
+  private checked = new Set<string>()
+  private attempts = new Map<string, number>()
+  private warnings = new Set<string>()
+  private cues: LiveCue[] = []
+  private vaultPath: string
+  private onUpdate: (cues: LiveCue[], notice: string) => void
+  constructor(vaultPath: string, onUpdate: (cues: LiveCue[], notice: string) => void) {
+    this.vaultPath = vaultPath; this.onUpdate = onUpdate
+  }
+
+  setEnabled(enabled: boolean) { this.enabled = enabled }
+  async cancel() {
+    this.generation++
+    if (!this.job) return
+    try { await invoke('cancel_wiki_memory', { jobId: this.job.id }) }
+    catch (error) {
+      this.warnings.add(`The live check may not have stopped: ${error instanceof Error ? error.message : String(error)}`)
+      this.onUpdate(this.cues, [...this.warnings].join(' '))
+      throw error
+    }
+  }
+  private eligible(turn: TranscriptTurn) {
+    return turn.text.trim() && !this.checked.has(key(turn)) && (this.attempts.get(key(turn)) ?? 0) < 2
+  }
+  private async check(turn: TranscriptTurn) {
+    if (this.job || !this.enabled || !this.eligible(turn)) return
+    const generation = this.generation
+    const turnKey = key(turn)
+    const id = crypto.randomUUID()
+    this.attempts.set(turnKey, (this.attempts.get(turnKey) ?? 0) + 1)
+    const promise = checkLiveStatement(this.vaultPath, turn.text, id).then(result => {
+      if (generation !== this.generation || !this.enabled) return
+      this.checked.add(turnKey)
+      this.cues = [...result.cues.map(cue => ({ ...cue, heardAt: turn.start, heard: turn.text })), ...this.cues].filter((cue, index, all) => all.findIndex(item => item.factId === cue.factId && item.reason === cue.reason) === index).slice(0, 3)
+      const notice = result.warnings.includes('No approved tracked facts')
+        ? 'There are no accepted decisions to check against yet.'
+        : result.status === 'uncertain' ? 'A statement could not be checked against the decisions.' : ''
+      if (notice) this.warnings.add(notice)
+      this.onUpdate(this.cues, notice)
+    }).catch(error => {
+      if (generation !== this.generation || !this.enabled) return
+      const detail = error && typeof error === 'object' && 'message' in error ? String(error.message) : String(error)
+      const notice = `The live check failed: ${detail}. Recording continues.`
+      this.warnings.add(notice); this.onUpdate(this.cues, notice)
+    }).finally(() => { if (this.job?.id === id) this.job = null })
+    this.job = { id, promise }
+    await promise
+  }
+  async inspect(turns: TranscriptTurn[]) {
+    if (this.job || !this.enabled) return
+    const turn = turns.find(item => this.eligible(item))
+    if (turn) await this.check(turn)
+  }
+  async finish(turns: TranscriptTurn[]): Promise<NonNullable<TranscriptDraft['liveChecks']>> {
+    const previous = this.job
+    await this.cancel()
+    const generation = this.generation
+    const finalTurns = turns.length ? [turns[turns.length - 1], ...turns.slice(0, -1)] : []
+    const drain = (async () => {
+      if (previous) await previous.promise
+      for (const turn of finalTurns) {
+        if (!this.enabled || generation !== this.generation) return
+        // A cancelled provisional check may be retried during finalization.
+        if (this.eligible(turn)) await this.check(turn)
+      }
+    })()
+    try { await withTimeout(drain, 30000, 'Checking the last statements took more than 30 seconds.') }
+    catch (error) {
+      this.warnings.add(error instanceof Error ? error.message : String(error))
+      await this.cancel()
+    }
+    const checkedTurns = turns.filter(turn => this.checked.has(key(turn))).length
+    const uncheckedTurns = turns.length - checkedTurns
+    if (uncheckedTurns) this.warnings.add(`${uncheckedTurns} ${uncheckedTurns === 1 ? 'statement was' : 'statements were'} not checked against decisions.`)
+    const warnings = [...this.warnings]
+    this.onUpdate(this.cues, warnings.join(' '))
+    return { checkedTurns, uncheckedTurns, warnings }
+  }
+}

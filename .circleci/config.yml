@@ -1,0 +1,2092 @@
+version: 2.1
+
+parameters:
+  run_release_workflows:
+    type: boolean
+    default: false
+    description: >-
+      Run the CircleCI alpha/stable release, docs publication, and PR-branch maintenance workflows.
+      GitHub Actions keeps owning signed releases until the release contexts are provisioned.
+  run_performance_gate:
+    type: boolean
+    default: false
+    description: >-
+      Run the core editor performance regression gate. Its thresholds are calibrated on Apple
+      Silicon and fail on CircleCI Docker large, so it stays opt-in until CI baselines exist.
+  frontend_coverage_shards:
+    type: integer
+    default: 6
+    description: Number of CircleCI containers (one Vitest coverage shard each) for frontend-coverage.
+  run_all_validation:
+    type: boolean
+    default: false
+    description: >-
+      Run every validation job even when its inputs are unchanged since the job last passed.
+  codecov_required:
+    type: boolean
+    default: false
+    description: >-
+      Fail validation when the Codecov upload fails. Keep false while GitHub Actions remains the
+      authoritative Codecov uploader.
+  publish-mobile-ota:
+    type: boolean
+    default: false
+  mobile-ota-channel:
+    type: enum
+    enum: [alpha, stable, ota-validation]
+    default: alpha
+  mobile-ota-runtime:
+    type: string
+    default: ""
+  mobile-ota-build-number:
+    type: string
+    default: ""
+  mobile-ota-base-ref:
+    type: string
+    default: ""
+  mobile-ota-group:
+    type: string
+    default: ""
+
+executors:
+  node:
+    docker:
+      - image: cimg/node:22.23.2
+    # The CircleCI Free plan tops out at Docker large (4 vCPU / 8 GB).
+    resource_class: large
+    environment:
+      NODE_OPTIONS: --max-old-space-size=4096
+
+  browser:
+    docker:
+      - image: cimg/node:22.23.2-browsers
+    resource_class: large
+    environment:
+      NODE_OPTIONS: --max-old-space-size=4096
+
+  rust:
+    docker:
+      - image: cimg/rust:1.88.0
+    resource_class: large
+
+commands:
+  setup_pnpm:
+    steps:
+      - run:
+          name: Enable pnpm
+          command: |
+            sudo corepack enable
+            corepack prepare pnpm@10.33.0 --activate
+            pnpm --version
+
+  restore_pnpm_cache:
+    steps:
+      - restore_cache:
+          keys:
+            - pnpm-v1-{{ checksum "pnpm-lock.yaml" }}
+            - pnpm-v1-
+
+  save_pnpm_cache:
+    steps:
+      - save_cache:
+          key: pnpm-v1-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - ~/.local/share/pnpm/store
+
+  resolve_diff_base:
+    steps:
+      - run:
+          name: Resolve diff base revision
+          command: |
+            set -euo pipefail
+            git fetch origin main --no-tags
+            # GitHub App pipelines do not expose the push "before" SHA. Main pushes are
+            # checked against the previous commit (the pre-push hook already gates the full
+            # pushed range); branches are checked against their merge base with main.
+            if [[ "${CIRCLE_BRANCH:-}" == "main" ]]; then
+              base_sha="$(git rev-parse HEAD~1)"
+            else
+              base_sha="$(git merge-base origin/main HEAD)"
+              if [[ "$base_sha" == "$(git rev-parse HEAD)" ]]; then
+                base_sha="$(git rev-parse HEAD~1)"
+              fi
+            fi
+            echo "export DIFF_BASE_SHA=${base_sha}" >> "$BASH_ENV"
+            echo "Diff base: ${base_sha}"
+
+  install_rust_ci_toolchain:
+    steps:
+      - run:
+          name: Install Tauri Linux dependencies and Rust toolchain
+          command: |
+            set -euo pipefail
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends \
+              build-essential \
+              file \
+              libayatana-appindicator3-dev \
+              librsvg2-dev \
+              libsoup-3.0-dev \
+              libssl-dev \
+              libwebkit2gtk-4.1-dev \
+              libxdo-dev \
+              pkg-config
+            rustup toolchain install stable --profile minimal --component clippy,rustfmt,llvm-tools-preview
+            rustup default stable
+            rustc --version
+
+  skip_unless_changed:
+    description: >-
+      Halt the job (it then reports success) when none of its inputs changed since the last
+      main commit on which this same job passed. Each passing job saves that commit as a tiny
+      cache entry (mark_validated); only main markers are read, so the marker is always an
+      ancestor of later main commits. With no marker, or one that is not an ancestor of HEAD,
+      the job runs. The comparison covers every commit since that pass, not just the last one.
+    parameters:
+      scope:
+        type: string
+      ignore:
+        type: string
+        default: "^$"
+        description: Extended regex of changed paths this job never needs to re-check.
+      paths:
+        type: string
+        default: "."
+        description: Extended regex; the job runs when any remaining changed path matches.
+    steps:
+      - restore_cache:
+          keys:
+            - validated-v1-<< parameters.scope >>-main-
+      - run:
+          name: Skip when << parameters.scope >> inputs are unchanged
+          command: |
+            set -euo pipefail
+            marker="$HOME/.memoria-validated/<< parameters.scope >>"
+            if [[ "<< pipeline.parameters.run_all_validation >>" == "true" || ! -s "$marker" ]]; then
+              echo "No pass marker for << parameters.scope >> (or run_all_validation); running."
+              exit 0
+            fi
+            base="$(tr -d '[:space:]' < "$marker")"
+            if ! git merge-base --is-ancestor "$base" HEAD 2>/dev/null; then
+              echo "Last pass ${base} is not an ancestor of HEAD; running."
+              exit 0
+            fi
+            relevant="$(git diff --name-only "$base" HEAD |
+              { grep -vE '<< parameters.ignore >>' || true; } |
+              { grep -E '<< parameters.paths >>' || true; })"
+            if [[ -n "$relevant" ]]; then
+              echo "<< parameters.scope >> inputs changed since its last pass (${base}):"
+              printf '%s\n' "$relevant" | sed -n '1,20p'
+              exit 0
+            fi
+            echo "No << parameters.scope >> inputs changed since its last pass (${base}); skipping."
+            circleci-agent step halt
+
+  mark_validated:
+    parameters:
+      scope:
+        type: string
+    steps:
+      - run:
+          name: Record << parameters.scope >> pass
+          command: |
+            # In a parallel job each container would record a pass for the whole job even when
+            # another container failed (this happened to playwright-smoke in pipeline 14), so
+            # only single-container jobs may record one. Parallel jobs need a follow-up job.
+            if [[ "${CIRCLE_NODE_TOTAL:-1}" != "1" ]]; then
+              echo "mark_validated must run in a single-container job" >&2
+              exit 1
+            fi
+            mkdir -p "$HOME/.memoria-validated"
+            git rev-parse HEAD > "$HOME/.memoria-validated/<< parameters.scope >>"
+      - save_cache:
+          key: validated-v1-<< parameters.scope >>-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ~/.memoria-validated/<< parameters.scope >>
+
+  upload_codecov:
+    parameters:
+      file:
+        type: string
+      flag:
+        type: string
+    steps:
+      - run:
+          name: Upload << parameters.flag >> coverage to Codecov
+          command: |
+            set -uo pipefail
+            upload() {
+              set -e
+              curl --proto '=https' --tlsv1.2 -fsSLo /tmp/codecov https://cli.codecov.io/latest/linux/codecov
+              curl --proto '=https' --tlsv1.2 -fsSLo /tmp/codecov.SHA256SUM https://cli.codecov.io/latest/linux/codecov.SHA256SUM
+              (cd /tmp && sha256sum -c codecov.SHA256SUM)
+              chmod +x /tmp/codecov
+              # The CLI reads CODECOV_TOKEN from the environment when it is configured.
+              /tmp/codecov --verbose upload-process \
+                --disable-search \
+                --fail-on-error \
+                --git-service github \
+                --slug refactoringhq/memoria \
+                --file "<< parameters.file >>" \
+                --flag "<< parameters.flag >>" \
+                --name "circleci-<< parameters.flag >>"
+            }
+            if (upload); then
+              exit 0
+            fi
+            if [[ "<< pipeline.parameters.codecov_required >>" == "true" ]]; then
+              exit 1
+            fi
+            echo "Codecov upload failed; continuing because codecov_required is false."
+
+  install_node_runtime:
+    steps:
+      - run:
+          name: Install Node.js runtime
+          command: |
+            set -euo pipefail
+            version=v22.14.0
+            archive="node-${version}-linux-x64.tar.xz"
+            cd /tmp
+            curl --proto '=https' --tlsv1.2 -fsSLO "https://nodejs.org/dist/${version}/${archive}"
+            curl --proto '=https' --tlsv1.2 -fsSL "https://nodejs.org/dist/${version}/SHASUMS256.txt" |
+              grep " ${archive}\$" | sha256sum -c -
+            sudo tar -xJf "$archive" -C /usr/local --strip-components=1
+            node --version
+
+  install_frontend_dependencies:
+    steps:
+      - setup_pnpm
+      - restore_pnpm_cache
+      - run:
+          name: Install frontend dependencies
+          command: pnpm install --frozen-lockfile
+      - save_pnpm_cache
+
+  restore_rust_cache:
+    parameters:
+      target:
+        type: string
+    steps:
+      - restore_cache:
+          keys:
+            - rust-release-v2026-07-24-<< parameters.target >>-{{ checksum "src-tauri/Cargo.lock" }}
+            - rust-release-v2026-07-24-<< parameters.target >>-
+
+  save_rust_cache:
+    parameters:
+      target:
+        type: string
+    steps:
+      - save_cache:
+          key: rust-release-v2026-07-24-<< parameters.target >>-{{ checksum "src-tauri/Cargo.lock" }}
+          paths:
+            - ~/.cargo/registry
+            - ~/.cargo/git
+            - src-tauri/target
+
+  attach_release_workspace:
+    steps:
+      - attach_workspace:
+          at: /tmp/memoria-release
+
+  halt_if_release_skipped:
+    steps:
+      - run:
+          name: Check whether this release should run
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            if [[ "${SKIP_RELEASE:-false}" == "true" ]]; then
+              echo "Release skipped because this push only changed CI, site, or Memoria Web files."
+              circleci-agent step halt
+            fi
+
+  configure_release_version:
+    steps:
+      - run:
+          name: Set application version
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            jq --arg version "$VERSION" '.version = $version' src-tauri/tauri.conf.json > /tmp/tauri.conf.json
+            mv /tmp/tauri.conf.json src-tauri/tauri.conf.json
+            if [[ "$(uname -s)" == "Darwin" ]]; then
+              sed -i '' "s/^version = \".*\"/version = \"$VERSION\"/" src-tauri/Cargo.toml
+            else
+              sed -i "s/^version = \".*\"/version = \"$VERSION\"/" src-tauri/Cargo.toml
+            fi
+
+  validate_release_secrets:
+    steps:
+      - run:
+          name: Validate release secrets
+          command: |
+            set -euo pipefail
+            required=(
+              TAURI_SIGNING_PRIVATE_KEY
+              TAURI_KEY_PASSWORD
+              VITE_SENTRY_DSN
+              SENTRY_DSN
+              VITE_POSTHOG_KEY
+              VITE_POSTHOG_HOST
+            )
+            for name in "${required[@]}"; do
+              if [[ -z "${!name:-}" ]]; then
+                echo "$name is required for release builds." >&2
+                exit 1
+              fi
+            done
+
+jobs:
+  mobile-ota-quality:
+    executor: node
+    steps:
+      - checkout
+      - install_frontend_dependencies
+      - run:
+          name: Verify mobile source and publishing safeguards
+          command: |
+            set -euo pipefail
+            pnpm mobile:lint
+            pnpm mobile:typecheck
+            pnpm mobile:test
+            node --test apps/mobile/scripts/mobile-*.test.mjs
+
+  mobile-ota-publish:
+    executor: node
+    parameters:
+      channel:
+        type: enum
+        enum: [alpha, stable, ota-validation]
+        default: alpha
+    environment:
+      MEMORIA_OTA_CHANNEL: << parameters.channel >>
+      MEMORIA_OTA_RUNTIME: << pipeline.parameters.mobile-ota-runtime >>
+      MEMORIA_IOS_BUILD_NUMBER: << pipeline.parameters.mobile-ota-build-number >>
+      MEMORIA_OTA_BASE_REF: << pipeline.parameters.mobile-ota-base-ref >>
+      MEMORIA_OTA_GROUP: << pipeline.parameters.mobile-ota-group >>
+      MEMORIA_EAS_CLI: /tmp/memoria-eas/node_modules/.bin/eas
+    steps:
+      - checkout
+      - install_frontend_dependencies
+      - run:
+          name: Install pinned official publishing CLI
+          command: npm install --prefix /tmp/memoria-eas --no-save eas-cli@25.2.0
+      - when:
+          condition:
+            equal: [alpha, << parameters.channel >>]
+          steps:
+            - restore_cache:
+                keys:
+                  - v1-mobile-ota-alpha-main-
+      - run:
+          name: Publish compatible iOS update after Sentry source-map upload
+          command: |
+            set -euo pipefail
+            if [[ "$MEMORIA_OTA_CHANNEL" == "stable" ]]; then
+              export MEMORIA_OTA_RUNTIME="${MEMORIA_OTA_RUNTIME:-${MEMORIA_ACCEPTED_STABLE_RUNTIME:-}}"
+              node apps/mobile/scripts/promote-mobile-update.mjs
+            else
+              export MEMORIA_OTA_RUNTIME="${MEMORIA_OTA_RUNTIME:-${MEMORIA_ACCEPTED_ALPHA_RUNTIME:-}}"
+              export MEMORIA_IOS_BUILD_NUMBER="${MEMORIA_IOS_BUILD_NUMBER:-${MEMORIA_ACCEPTED_ALPHA_BUILD_NUMBER:-}}"
+              if [[ -z "$MEMORIA_OTA_BASE_REF" && "$MEMORIA_OTA_CHANNEL" == "alpha" && -r /tmp/memoria-mobile-ota/alpha.sha ]]; then
+                export MEMORIA_OTA_BASE_REF="$(cat /tmp/memoria-mobile-ota/alpha.sha)"
+              fi
+              node apps/mobile/scripts/publish-mobile-update.mjs
+              if [[ "$MEMORIA_OTA_CHANNEL" == "alpha" ]]; then
+                mkdir -p /tmp/memoria-mobile-ota
+                git rev-parse HEAD > /tmp/memoria-mobile-ota/alpha.sha
+              fi
+            fi
+      - when:
+          condition:
+            equal: [alpha, << parameters.channel >>]
+          steps:
+            - save_cache:
+                key: v1-mobile-ota-alpha-main-{{ .Revision }}
+                paths:
+                  - /tmp/memoria-mobile-ota/alpha.sha
+
+  # Validation runs as independent jobs so the slowest one, not their sum, sets the wall clock.
+  # Job inputs, for skip_unless_changed: frontend jobs ignore Rust sources and docs/; Rust jobs
+  # need src-tauri/, the shared JSON contracts it embeds (src/shared/, mcp-server/), or CI config.
+  static-gates:
+    executor: node
+    steps:
+      - checkout
+      - install_frontend_dependencies
+      - resolve_diff_base
+      - run:
+          name: Codacy differential gate
+          command: |
+            set -euo pipefail
+            CODACY_BASE_REF="$DIFF_BASE_SHA" pnpm codacy:gate
+      - run:
+          name: CodeScene project health gate
+          command: |
+            set -euo pipefail
+            if [[ -z "${CODESCENE_PAT:-}" || -z "${CODESCENE_PROJECT_ID:-}" ]]; then
+              echo "CODESCENE_PAT and CODESCENE_PROJECT_ID are required." >&2
+              exit 1
+            fi
+            hotspot_threshold="$(awk -F= '/^HOTSPOT_THRESHOLD=/{print $2}' .codescene-thresholds)"
+            average_threshold="$(awk -F= '/^AVERAGE_THRESHOLD=/{print $2}' .codescene-thresholds)"
+            response="$(curl -fsS \
+              -H "Authorization: Bearer ${CODESCENE_PAT}" \
+              -H "Accept: application/json" \
+              "https://api.codescene.io/v2/projects/${CODESCENE_PROJECT_ID}")"
+            HOTSPOT_SCORE="$(jq -r '.analysis.hotspot_code_health.now' \<<<"$response")" \
+            AVERAGE_SCORE="$(jq -r '.analysis.code_health.now' \<<<"$response")" \
+            HOTSPOT_THRESHOLD="$hotspot_threshold" \
+            AVERAGE_THRESHOLD="$average_threshold" \
+              node -e '
+                const read = (name) => {
+                  const value = Number.parseFloat(process.env[name] ?? "");
+                  if (!Number.isFinite(value)) throw new Error(`${name} is not numeric`);
+                  return value;
+                };
+                const hotspot = read("HOTSPOT_SCORE");
+                const average = read("AVERAGE_SCORE");
+                const hotspotThreshold = read("HOTSPOT_THRESHOLD");
+                const averageThreshold = read("AVERAGE_THRESHOLD");
+                console.log(`Hotspot Code Health: ${hotspot.toFixed(2)} (threshold ${hotspotThreshold.toFixed(2)})`);
+                console.log(`Average Code Health: ${average.toFixed(2)} (threshold ${averageThreshold.toFixed(2)})`);
+                if (hotspot < hotspotThreshold || average < averageThreshold) {
+                  console.error("CodeScene project health gate failed");
+                  process.exit(1);
+                }
+              '
+      - run:
+          name: Documentation build check
+          command: |
+            set -euo pipefail
+            bash scripts/verify-pages-site.test.sh
+            if git diff --name-only "$DIFF_BASE_SHA" HEAD | grep -qE '^(docs/|site/|scripts/build-agent-docs\.mjs|package\.json|pnpm-lock\.yaml|\.circleci/)'; then
+              pnpm docs:build
+            else
+              echo "Documentation inputs unchanged; skipping docs build."
+            fi
+
+  frontend-lint-build:
+    executor: node
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: frontend-lint-build
+          ignore: "^(src-tauri/.*\\.rs|docs/)"
+      - install_frontend_dependencies
+      - run:
+          name: Frontend lint and build (in parallel)
+          command: |
+            set -uo pipefail
+            pnpm lint > /tmp/frontend-lint.log 2>&1 &
+            lint_pid=$!
+            pnpm build > /tmp/frontend-build.log 2>&1 &
+            build_pid=$!
+            wait "$lint_pid"; lint_status=$?
+            wait "$build_pid"; build_status=$?
+            echo "--- pnpm lint (exit ${lint_status})"; cat /tmp/frontend-lint.log
+            echo "--- pnpm build (exit ${build_status})"; cat /tmp/frontend-build.log
+            exit $(( lint_status || build_status ))
+      - mark_validated:
+          scope: frontend-lint-build
+
+  frontend-coverage:
+    executor: node
+    # Each container runs one Vitest shard; frontend-coverage-report merges them and enforces
+    # the global thresholds exactly like scripts/run-vitest-coverage-shards.mjs does locally.
+    parallelism: << pipeline.parameters.frontend_coverage_shards >>
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: frontend-coverage
+          ignore: "^(src-tauri/.*\\.rs|docs/)"
+      - install_frontend_dependencies
+      - run:
+          name: Vitest coverage shard
+          command: |
+            set -euo pipefail
+            shard=$((CIRCLE_NODE_INDEX + 1))
+            VITEST_COVERAGE_SHARD="${shard}/${CIRCLE_NODE_TOTAL}" \
+            VITEST_COVERAGE_FINAL_DIR="/tmp/coverage-shards/shard-${shard}" \
+            VITEST_COVERAGE_SKIP_THRESHOLDS=1 \
+            VITEST_COVERAGE_SKIP_CLEAR_CACHE=1 \
+            VITEST_COVERAGE_MAX_WORKERS=3 \
+              node scripts/run-vitest-coverage.mjs --coverage.reporter=json --silent
+      - persist_to_workspace:
+          root: /tmp/coverage-shards
+          paths:
+            - shard-*/coverage-final.json
+
+  frontend-coverage-report:
+    executor: node
+    resource_class: medium
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: frontend-coverage
+          ignore: "^(src-tauri/.*\\.rs|docs/)"
+      - attach_workspace:
+          at: /tmp/coverage-shards
+      - install_frontend_dependencies
+      - run:
+          name: Merge coverage shards and enforce thresholds
+          command: |
+            set -euo pipefail
+            FRONTEND_COVERAGE_SHARDS="<< pipeline.parameters.frontend_coverage_shards >>" \
+            VITEST_COVERAGE_SHARD_ROOT=/tmp/coverage-shards \
+              node scripts/run-vitest-coverage-shards.mjs --merge-only
+      - upload_codecov:
+          file: coverage/lcov.info
+          flag: frontend
+      - mark_validated:
+          scope: frontend-coverage
+
+  rust-coverage:
+    executor: rust
+    environment:
+      CARGO_BUILD_JOBS: "4"
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: rust-coverage
+          paths: "^(src-tauri/|src/shared/|mcp-server/|\\.circleci/|rust-toolchain)"
+      - install_rust_ci_toolchain
+      - install_node_runtime
+      - restore_cache:
+          keys:
+            - rust-ci-v2026-10-08-{{ checksum "src-tauri/Cargo.lock" }}
+            - rust-ci-v2026-10-08-
+      - run:
+          name: Install cargo-llvm-cov
+          command: |
+            set -euo pipefail
+            if ! command -v cargo-llvm-cov >/dev/null 2>&1; then
+              mkdir -p "$HOME/.cargo/bin"
+              curl --proto '=https' --tlsv1.2 -fsSL \
+                https://github.com/taiki-e/cargo-llvm-cov/releases/latest/download/cargo-llvm-cov-x86_64-unknown-linux-gnu.tar.gz |
+                tar -xzf - -C "$HOME/.cargo/bin"
+            fi
+            cargo llvm-cov --version
+      - run:
+          name: Rust tests and coverage
+          command: |
+            mkdir -p "$HOME/Documents" coverage
+            cargo llvm-cov \
+              --manifest-path src-tauri/Cargo.toml \
+              --no-clean \
+              --ignore-filename-regex "lib\\.rs|main\\.rs|menu\\.rs" \
+              --fail-under-lines 85 \
+              --lcov \
+              --output-path coverage/rust.lcov \
+              -- \
+              --test-threads=1
+      - save_cache:
+          key: rust-ci-v2026-10-08-{{ checksum "src-tauri/Cargo.lock" }}
+          paths:
+            - ~/.cargo/registry
+            - ~/.cargo/git
+            - ~/.cargo/bin/cargo-llvm-cov
+            - src-tauri/target
+      - upload_codecov:
+          file: coverage/rust.lcov
+          flag: rust
+      - mark_validated:
+          scope: rust-coverage
+
+  rust-lint:
+    executor: rust
+    environment:
+      CARGO_BUILD_JOBS: "4"
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: rust-lint
+          paths: "^(src-tauri/|src/shared/|mcp-server/|\\.circleci/|rust-toolchain)"
+      - install_rust_ci_toolchain
+      - restore_cache:
+          keys:
+            # clippy's dependency metadata lives in target/debug, which the llvm-cov cache
+            # (rust-ci-*) does not contain, so rust-lint keeps its own cache.
+            - rust-lint-v2026-10-08-{{ checksum "src-tauri/Cargo.lock" }}
+            - rust-lint-v2026-10-08-
+      - run:
+          name: Rust lint and format
+          command: |
+            cargo clippy --manifest-path=src-tauri/Cargo.toml -- -D warnings
+            cargo fmt --manifest-path=src-tauri/Cargo.toml -- --check
+      - save_cache:
+          key: rust-lint-v2026-10-08-{{ checksum "src-tauri/Cargo.lock" }}
+          paths:
+            - ~/.cargo/registry
+            - ~/.cargo/git
+            - src-tauri/target
+      - mark_validated:
+          scope: rust-lint
+
+  playwright-smoke:
+    executor: browser
+    # 8 smoke shards, 4 per container, 2 at a time per container. Containers in a parallel job
+    # cannot record a pass marker (see mark_validated); playwright-smoke-report does that once
+    # every container has passed.
+    parallelism: 2
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: playwright-smoke
+          ignore: "^(src-tauri/.*\\.rs|docs/)"
+      - install_frontend_dependencies
+      - restore_cache:
+          keys:
+            - playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+            - playwright-v1-
+      - run:
+          name: Install Playwright Chromium
+          command: pnpm exec playwright install --with-deps chromium
+      - save_cache:
+          key: playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - ~/.cache/ms-playwright
+      - run:
+          name: Run curated Playwright smoke suite
+          command: |
+            per_node=4
+            first=$((CIRCLE_NODE_INDEX * per_node + 1))
+            PLAYWRIGHT_SHARED_SERVER=1 \
+            PLAYWRIGHT_WARM_SERVER=1 \
+            PLAYWRIGHT_CONCURRENCY=2 \
+            PLAYWRIGHT_FIRST_SHARD="$first" \
+            PLAYWRIGHT_LAST_SHARD=$((first + per_node - 1)) \
+              bash .chunk/run-playwright-shards.sh $((per_node * CIRCLE_NODE_TOTAL))
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: playwright
+
+  playwright-smoke-report:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - checkout
+      - mark_validated:
+          scope: playwright-smoke
+
+  performance-regression:
+    executor: browser
+    steps:
+      - checkout
+      - install_frontend_dependencies
+      - restore_cache:
+          keys:
+            - playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+            - playwright-v1-
+      - run:
+          name: Install Playwright Chromium
+          command: pnpm exec playwright install --with-deps chromium
+      - save_cache:
+          key: playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - ~/.cache/ms-playwright
+      - run:
+          name: Verify performance harness logic
+          command: pnpm perf:test
+      - run:
+          name: Run core performance regression gate
+          no_output_timeout: 5m
+          command: timeout --kill-after=30s 15m pnpm perf:ci
+      - store_artifacts:
+          path: test-results/performance-summary.json
+          destination: performance-summary.json
+
+  server-docker-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Build server Docker image
+          command: |
+            set -euo pipefail
+            docker build -f apps/server/Dockerfile -t memoria-server:test .
+      - run:
+          name: Container smoke test
+          command: |
+            set -euo pipefail
+            # Create test remote
+            test_remote="$(mktemp -d)"
+            cd "$test_remote"
+            git init --bare -b main
+            temp_work="$(mktemp -d)"
+            cd "$temp_work"
+            git clone "$test_remote" .
+            echo "# Test Vault" > README.md
+            git add .
+            git config user.name "Test"
+            git config user.email "test@test.invalid"
+            git commit -m "Initial commit"
+            git push origin main
+            
+            # The container cannot see host paths: mount the bare remote and give it to the
+            # image's `node` user (UID 1000) so git's safe.directory ownership check passes.
+            sudo chown -R 1000:1000 "$test_remote"
+
+            # Start container
+            container_id=$(docker run -d \
+              -v "$test_remote:/test-remote.git" \
+              -e MEMORIA_SERVER_TOKEN=test-token-1234567890 \
+              -e MEMORIA_VAULT_REMOTE_URL=/test-remote.git \
+              -e MEMORIA_SERVER_ALLOW_NON_LOOPBACK=1 \
+              -p 8787:8787 \
+              memoria-server:test)
+            
+            # Wait for readiness
+            for i in {1..30}; do
+              if curl -f http://localhost:8787/healthz 2>/dev/null; then
+                echo "Server ready"
+                break
+              fi
+              if [ $i -eq 30 ]; then
+                echo "Server failed to become ready"
+                docker logs "$container_id"
+                exit 1
+              fi
+              sleep 1
+            done
+            
+            # Test SIGTERM handling
+            docker kill --signal=SIGTERM "$container_id"
+            docker wait "$container_id"
+            
+            echo "Container smoke test passed"
+
+  web-build:
+    executor: node
+    # Builds apps/web/dist once and hands it to every web-gates container through the workspace
+    # (TOL-241), instead of each container building the same bundle.
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: web-gates
+          ignore: "^(src-tauri/.*\\.rs|docs/(?!web/))"
+          paths: "^(apps/|packages/|src/|docs/web/)"
+      - install_frontend_dependencies
+      - run:
+          name: Build web bundle
+          command: pnpm build:web
+      - persist_to_workspace:
+          root: apps/web
+          paths:
+            - dist
+
+  web-server-tests:
+    executor: node
+    # The server tests run beside the Playwright shards rather than on one of them, so the
+    # timing-based split below keeps the containers even.
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: web-gates
+          ignore: "^(src-tauri/.*\\.rs|docs/(?!web/))"
+          paths: "^(apps/|packages/|src/|docs/web/)"
+      - install_frontend_dependencies
+      - run:
+          name: Server tests with coverage
+          command: pnpm test:server
+
+  web-gates:
+    executor: browser
+    # Each container runs a timing-balanced set of web spec files (every project) on the bundle
+    # from web-build into a blob report; web-gates-report merges the blobs into one HTML/JUnit
+    # report and records the pass marker (containers in a parallel job cannot, see mark_validated).
+    parallelism: 6
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: web-gates
+          ignore: "^(src-tauri/.*\\.rs|docs/(?!web/))"
+          paths: "^(apps/|packages/|src/|docs/web/)"
+      - attach_workspace:
+          at: apps/web
+      - install_frontend_dependencies
+      - restore_cache:
+          keys:
+            - playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+            - playwright-v1-
+      - run:
+          name: Install Playwright browsers
+          command: pnpm exec playwright install --with-deps chromium webkit
+      - save_cache:
+          key: playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - ~/.cache/ms-playwright
+      - run:
+          name: Web Playwright shard (Chromium, WebKit, iPhone, iPad, collab)
+          command: |
+            set -euo pipefail
+            test -f apps/web/dist/index.html
+            # Playwright's own --shard splits by test count in project order, which left one
+            # container with most of the WebKit run. Splitting whole spec files by the timings
+            # this job stored last time keeps the containers even; web-gates-report checks that
+            # the shards together ran every listed test.
+            mapfile -t specs < <(
+              cd apps/web/tests &&
+                find . -name '*.spec.ts' | sed 's#^\./##' | sort |
+                circleci tests split --split-by=timings --timings-type=classname --time-default=30s
+            )
+            if [[ "${#specs[@]}" -eq 0 ]]; then
+              echo "No spec files for container ${CIRCLE_NODE_INDEX}" >&2
+              exit 1
+            fi
+            printf 'Container %s specs:\n' "${CIRCLE_NODE_INDEX}"
+            printf '  %s\n' "${specs[@]}"
+            shard=$((CIRCLE_NODE_INDEX + 1))
+            PLAYWRIGHT_BLOB_OUTPUT_DIR=/tmp/web-blob-reports \
+            PLAYWRIGHT_BLOB_OUTPUT_NAME="report-${shard}.zip" \
+            PLAYWRIGHT_JUNIT_OUTPUT_FILE=/tmp/web-junit/results.xml \
+              pnpm playwright:web --reporter=dot,blob,junit "${specs[@]/#/apps/web/tests/}"
+      - store_test_results:
+          path: /tmp/web-junit
+      - persist_to_workspace:
+          root: /tmp/web-blob-reports
+          paths:
+            - report-*.zip
+      - store_artifacts:
+          path: test-results
+          destination: web-playwright
+
+  web-gates-report:
+    executor: node
+    resource_class: medium
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: web-gates
+          ignore: "^(src-tauri/.*\\.rs|docs/(?!web/))"
+          paths: "^(apps/|packages/|src/|docs/web/)"
+      - attach_workspace:
+          at: /tmp/web-blob-reports
+      - install_frontend_dependencies
+      - run:
+          name: Merge web Playwright shard reports
+          command: |
+            set -euo pipefail
+            PLAYWRIGHT_HTML_OUTPUT_DIR=test-results/web-report \
+            PLAYWRIGHT_HTML_OPEN=never \
+            PLAYWRIGHT_JUNIT_OUTPUT_FILE=test-results/web-junit/results.xml \
+              pnpm exec playwright merge-reports --config apps/web/playwright.config.ts \
+                --reporter=html,junit /tmp/web-blob-reports
+      - run:
+          name: Check the shards ran every web test once
+          command: |
+            set -euo pipefail
+            listed="$(pnpm exec playwright test --config apps/web/playwright.config.ts --list |
+              sed -n 's/^Total: \([0-9]*\) tests\{0,1\} in .*/\1/p')"
+            merged="$(grep -o '<testsuites [^>]*' test-results/web-junit/results.xml |
+              sed -n 's/.* tests="\([0-9]*\)".*/\1/p')"
+            echo "Listed ${listed:-?} tests; the merged shard report has ${merged:-?}."
+            [[ -n "$listed" && "$listed" == "$merged" ]]
+      - store_artifacts:
+          path: test-results/web-report
+          destination: web-playwright-report
+      - store_artifacts:
+          path: test-results/web-junit
+          destination: web-playwright-junit
+      - mark_validated:
+          scope: web-gates
+
+  web-bench:
+    executor: browser
+    # TOL-225: the 6,000-note big-vault bench (docs/PERFORMANCE.md), in parallel with
+    # web-gates. Fails when a measurement is over its budget; the table is in the step log
+    # and the web-bench artifact.
+    steps:
+      - checkout
+      - skip_unless_changed:
+          scope: web-bench
+          paths: "^(apps/web/|apps/server/|packages/|src/|public/|index\\.html|vite\\.config\\.ts|tsconfig|package\\.json|pnpm-lock\\.yaml)"
+      - install_frontend_dependencies
+      - restore_cache:
+          keys:
+            - playwright-v1-{{ checksum "pnpm-lock.yaml" }}
+            - playwright-v1-
+      - run:
+          name: Install Playwright Chromium
+          command: pnpm exec playwright install --with-deps chromium
+      - run:
+          name: Build web bundle
+          command: pnpm build:web
+      - run:
+          name: Big-vault web bench (6,000 notes)
+          command: pnpm bench:web
+      - store_artifacts:
+          path: test-results/web-bench
+          destination: web-bench
+      - mark_validated:
+          scope: web-bench
+
+  linux-build-verification:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large
+    steps:
+      - checkout
+      - run:
+          name: Install Linux build dependencies
+          command: |
+            # Keep needrestart from opening an interactive prompt on machine images.
+            export DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a
+            sudo -E apt-get update
+            sudo -E apt-get install -y \
+              build-essential \
+              libayatana-appindicator3-dev \
+              librsvg2-dev \
+              libsoup-3.0-dev \
+              libssl-dev \
+              libwebkit2gtk-4.1-dev \
+              libxdo-dev \
+              pkg-config
+      - install_node_runtime
+      - run:
+          name: Configure pnpm and Rust
+          command: |
+            set -euo pipefail
+            sudo corepack enable
+            corepack prepare pnpm@10.33.0 --activate
+            if ! command -v rustup >/dev/null 2>&1; then
+              curl --proto '=https' --tlsv1.2 -sSf -o /tmp/rustup-init.sh https://sh.rustup.rs
+              sh /tmp/rustup-init.sh -y --profile minimal
+            fi
+            echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+            source "$HOME/.cargo/env"
+            rustup default stable
+            rustup component add clippy
+      - restore_pnpm_cache
+      - restore_rust_cache:
+          target: x86_64-unknown-linux-gnu-check
+      - run:
+          name: Install dependencies
+          command: pnpm install --frozen-lockfile
+      - run:
+          name: Verify Linux build
+          command: |
+            pnpm build
+            cargo check --manifest-path=src-tauri/Cargo.toml
+            cargo clippy --manifest-path=src-tauri/Cargo.toml -- -D warnings
+      - save_pnpm_cache
+      - save_rust_cache:
+          target: x86_64-unknown-linux-gnu-check
+
+  compute-alpha-version:
+    docker:
+      - image: cimg/node:22.14.0
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Compute alpha version
+          command: |
+            set -euo pipefail
+            mkdir -p /tmp/memoria-release
+            git fetch --tags --force
+            node --test scripts/release-version.test.mjs
+            node scripts/release-version.mjs alpha > /tmp/memoria-release/release.env
+            cat /tmp/memoria-release/release.env
+      - persist_to_workspace:
+          root: /tmp/memoria-release
+          paths:
+            - release.env
+
+  compute-stable-version:
+    docker:
+      - image: cimg/node:22.14.0
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Compute stable version
+          command: |
+            set -euo pipefail
+            mkdir -p /tmp/memoria-release
+            node --test scripts/release-version.test.mjs
+            CIRCLE_TAG_VALUE="$CIRCLE_TAG" node scripts/release-version.mjs stable > /tmp/memoria-release/release.env
+            cat /tmp/memoria-release/release.env
+      - persist_to_workspace:
+          root: /tmp/memoria-release
+          paths:
+            - release.env
+
+  build-macos:
+    parameters:
+      channel:
+        type: enum
+        enum: [alpha, stable]
+      arch:
+        type: enum
+        enum: [aarch64, x86_64]
+      target:
+        type: enum
+        enum: [aarch64-apple-darwin, x86_64-apple-darwin]
+    macos:
+      xcode: 16.4.0
+    resource_class: m4pro.medium
+    environment:
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - checkout
+      - attach_release_workspace
+      - halt_if_release_skipped
+      - run:
+          name: Configure Node, pnpm, Bun, and Rust
+          command: |
+            set -euo pipefail
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm install 22
+            nvm use 22
+            sudo corepack enable
+            corepack prepare pnpm@10.33.0 --activate
+            if ! command -v bun >/dev/null 2>&1; then
+              brew install oven-sh/bun/bun
+            fi
+            rustup default stable
+            rustup target add "<< parameters.target >>"
+            echo 'export NVM_DIR="$HOME/.nvm"' >> "$BASH_ENV"
+            echo 'source "$NVM_DIR/nvm.sh"' >> "$BASH_ENV"
+            echo 'nvm use 22 >/dev/null' >> "$BASH_ENV"
+      - restore_pnpm_cache
+      - restore_rust_cache:
+          target: << parameters.target >>
+      - run:
+          name: Install frontend dependencies
+          command: pnpm install --frozen-lockfile
+      - run:
+          name: Clear cached bundle artifacts
+          command: rm -rf "src-tauri/target/<< parameters.target >>/release/bundle"
+      - configure_release_version
+      - validate_release_secrets
+      - run:
+          name: Import Apple Developer certificate
+          command: |
+            set -euo pipefail
+            required=(APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID)
+            for name in "${required[@]}"; do
+              if [[ -z "${!name:-}" ]]; then
+                echo "$name is required for signed and notarized macOS builds." >&2
+                exit 1
+              fi
+            done
+            cert_path="$(mktemp /tmp/memoria-cert.XXXXXX.p12)"
+            keychain_path="$HOME/Library/Keychains/memoria-signing-${CIRCLE_WORKFLOW_JOB_ID}.keychain-db"
+            keychain_password="$(uuidgen)"
+            printf '%s' "$APPLE_CERTIFICATE" | base64 --decode > "$cert_path"
+            security create-keychain -p "$keychain_password" "$keychain_path"
+            security set-keychain-settings -lut 21600 "$keychain_path"
+            security unlock-keychain -p "$keychain_password" "$keychain_path"
+            security import "$cert_path" -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$keychain_path"
+            security list-keychains -d user -s "$keychain_path"
+            security set-key-partition-list -S apple-tool:,apple: -s -k "$keychain_password" "$keychain_path"
+            rm -f "$cert_path"
+      - run:
+          name: Build signed and notarized macOS bundle
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="$TAURI_KEY_PASSWORD"
+            export VITE_SENTRY_RELEASE="$VERSION"
+            if [[ "<< parameters.channel >>" == "alpha" ]]; then
+              pnpm tauri build --target "<< parameters.target >>" --bundles app
+            else
+              pnpm tauri build --target "<< parameters.target >>"
+            fi
+      - run:
+          name: Collect macOS artifacts
+          command: |
+            set -euo pipefail
+            artifact_root="/tmp/memoria-release/artifacts"
+            updater_dir="${artifact_root}/updater-<< parameters.arch >>"
+            dmg_dir="${artifact_root}/dmg-<< parameters.arch >>"
+            mkdir -p "$updater_dir" "$dmg_dir"
+            find "src-tauri/target/<< parameters.target >>/release/bundle/macos" \
+              -maxdepth 1 -type f \( -name '*.app.tar.gz' -o -name '*.app.tar.gz.sig' \) \
+              -exec cp {} "$updater_dir/" \;
+            if [[ "<< parameters.channel >>" == "stable" ]]; then
+              find "src-tauri/target/<< parameters.target >>/release/bundle/dmg" \
+                -maxdepth 1 -type f -name '*.dmg' -exec cp {} "$dmg_dir/" \;
+            fi
+            test -n "$(find "$updater_dir" -name '*.app.tar.gz' -print -quit)"
+            test -n "$(find "$updater_dir" -name '*.app.tar.gz.sig' -print -quit)"
+      - save_pnpm_cache
+      - save_rust_cache:
+          target: << parameters.target >>
+      - persist_to_workspace:
+          root: /tmp/memoria-release
+          paths:
+            - artifacts/updater-<< parameters.arch >>
+            - artifacts/dmg-<< parameters.arch >>
+
+  build-linux-release:
+    parameters:
+      channel:
+        type: enum
+        enum: [alpha, stable]
+    machine:
+      image: ubuntu-2204:current
+    resource_class: xlarge
+    environment:
+      APPIMAGE_EXTRACT_AND_RUN: "1"
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - checkout
+      - attach_release_workspace
+      - halt_if_release_skipped
+      - run:
+          name: Install Linux release dependencies
+          command: |
+            # Keep needrestart from opening an interactive prompt on machine images.
+            export DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a
+            sudo -E apt-get update
+            sudo -E apt-get install -y \
+              build-essential \
+              cpio \
+              curl \
+              fcitx5-frontend-gtk3 \
+              file \
+              libayatana-appindicator3-dev \
+              libfuse2 \
+              librsvg2-dev \
+              libsoup-3.0-dev \
+              libssl-dev \
+              libwebkit2gtk-4.1-dev \
+              libxdo-dev \
+              patchelf \
+              pkg-config \
+              rpm \
+              wget
+      - install_node_runtime
+      - run:
+          name: Configure pnpm and Rust
+          command: |
+            set -euo pipefail
+            sudo corepack enable
+            corepack prepare pnpm@10.33.0 --activate
+            if ! command -v rustup >/dev/null 2>&1; then
+              curl --proto '=https' --tlsv1.2 -sSf -o /tmp/rustup-init.sh https://sh.rustup.rs
+              sh /tmp/rustup-init.sh -y --profile minimal
+            fi
+            source "$HOME/.cargo/env"
+            rustup default stable
+            rustup target add x86_64-unknown-linux-gnu
+            echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+      - restore_pnpm_cache
+      - restore_rust_cache:
+          target: x86_64-unknown-linux-gnu
+      - run:
+          name: Install frontend dependencies
+          command: pnpm install --frozen-lockfile
+      - run:
+          name: Clear cached bundle artifacts
+          command: rm -rf src-tauri/target/x86_64-unknown-linux-gnu/release/bundle
+      - configure_release_version
+      - validate_release_secrets
+      - run:
+          name: Build Linux bundles
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="$TAURI_KEY_PASSWORD"
+            export VITE_SENTRY_RELEASE="$VERSION"
+            export LINUXDEPLOY_EXCLUDED_LIBRARIES
+            LINUXDEPLOY_EXCLUDED_LIBRARIES="$(node scripts/appimage-launcher-tools.mjs print-linuxdeploy-exclusions)"
+            pnpm tauri build --target x86_64-unknown-linux-gnu --bundles deb,rpm,appimage
+      - run:
+          name: Validate and collect Linux bundles
+          command: |
+            set -euo pipefail
+            shopt -s nullglob
+            bundle_root="src-tauri/target/x86_64-unknown-linux-gnu/release/bundle"
+            appimages=("$bundle_root"/appimage/*.AppImage)
+            installers=("${appimages[@]}" "$bundle_root"/deb/*.deb "$bundle_root"/rpm/*.rpm)
+            signatures=(
+              "$bundle_root"/appimage/*.AppImage.sig
+              "$bundle_root"/appimage/*.AppImage.tar.gz.sig
+              "$bundle_root"/deb/*.deb.sig
+            )
+            if (( ${#appimages[@]} == 0 || ${#installers[@]} == 0 || ${#signatures[@]} == 0 )); then
+              echo "Linux build did not produce all required installers and updater signatures." >&2
+              exit 1
+            fi
+            node scripts/appimage-launcher-tools.mjs validate-appimage-libraries "${appimages[@]}"
+            validate_desktop_categories() {
+              local package_path="$1"
+              local extract_dir="$2"
+              rm -rf "$extract_dir"
+              mkdir -p "$extract_dir"
+              case "$package_path" in
+                *.deb) dpkg-deb -x "$package_path" "$extract_dir" ;;
+                *.rpm) (cd "$extract_dir" && rpm2cpio "$CIRCLE_WORKING_DIRECTORY/$package_path" | cpio -id --quiet) ;;
+                *) return 1 ;;
+              esac
+              mapfile -t desktop_files < <(find "$extract_dir/usr/share/applications" -type f -name '*.desktop' 2>/dev/null)
+              (( ${#desktop_files[@]} > 0 ))
+              for desktop_file in "${desktop_files[@]}"; do
+                categories="$(grep '^Categories=' "$desktop_file" | cut -d= -f2-)"
+                [[ -n "$categories" && "$categories" == *";" ]]
+                [[ ";$categories" == *";Office;"* || ";$categories" == *";Utility;"* ]]
+              done
+            }
+            for package in "$bundle_root"/deb/*.deb "$bundle_root"/rpm/*.rpm; do
+              validate_desktop_categories "$package" "/tmp/memoria-package-validation"
+            done
+            artifact_dir="/tmp/memoria-release/artifacts/linux-x86_64-bundles"
+            mkdir -p "$artifact_dir"
+            find "$bundle_root" -type f \
+              \( -name '*.deb' -o -name '*.deb.sig' -o -name '*.rpm' -o -name '*.AppImage' \
+              -o -name '*.AppImage.sig' -o -name '*.AppImage.tar.gz' -o -name '*.AppImage.tar.gz.sig' \) \
+              -exec cp {} "$artifact_dir/" \;
+      - save_pnpm_cache
+      - save_rust_cache:
+          target: x86_64-unknown-linux-gnu
+      - persist_to_workspace:
+          root: /tmp/memoria-release
+          paths:
+            - artifacts/linux-x86_64-bundles
+
+  build-windows-release:
+    parameters:
+      channel:
+        type: enum
+        enum: [alpha, stable]
+    machine:
+      image: windows-server-2022-gui:current
+      shell: powershell.exe -ExecutionPolicy Bypass
+    resource_class: windows.large
+    environment:
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - checkout
+      - attach_workspace:
+          at: "C:\\tmp\\memoria-release"
+      - run:
+          name: Check whether this release should run
+          command: |
+            $release = @{}
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
+              $name, $value = $_ -split "=", 2
+              $release[$name] = $value
+            }
+            if ($release["SKIP_RELEASE"] -eq "true") {
+              Write-Host "Release skipped because this push only changed CI, site, or Memoria Web files."
+              circleci-agent step halt
+            }
+      - run:
+          name: Configure Node, pnpm, and Rust
+          command: |
+            choco upgrade nodejs --version=22.14.0 --allow-downgrade --yes
+            $env:Path = "C:\Program Files\nodejs;$env:USERPROFILE\.cargo\bin;$env:Path"
+            corepack enable
+            corepack prepare pnpm@10.33.0 --activate
+            if (-not (Get-Command rustup -ErrorAction SilentlyContinue)) {
+              Invoke-WebRequest -Uri "https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe" -OutFile "$env:TEMP\rustup-init.exe"
+              & "$env:TEMP\rustup-init.exe" -y --profile minimal
+            }
+            rustup default stable
+            rustup target add x86_64-pc-windows-msvc
+      - restore_cache:
+          keys:
+            - windows-node-v1-{{ checksum "pnpm-lock.yaml" }}
+            - windows-node-v1-
+      - restore_cache:
+          keys:
+            - windows-rust-release-v2026-07-24-{{ checksum "src-tauri/Cargo.lock" }}
+            - windows-rust-release-v2026-07-24-
+      - restore_cache:
+          keys:
+            - windows-tauri-tools-nsis-3.11-tauri-utils-0.5.3
+      - run:
+          name: Install dependencies and prefetch NSIS
+          command: |
+            $env:Path = "C:\Program Files\nodejs;$env:USERPROFILE\.cargo\bin;$env:Path"
+            corepack prepare pnpm@10.33.0 --activate
+            pnpm install --frozen-lockfile
+            ./.github/scripts/prefetch-tauri-nsis.ps1
+      - run:
+          name: Set application version
+          command: |
+            $release = @{}
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
+              $name, $value = $_ -split "=", 2
+              $release[$name] = $value
+            }
+            $version = $release["VERSION"]
+            $tauri = Get-Content "src-tauri/tauri.conf.json" | ConvertFrom-Json
+            $tauri.version = $version
+            $tauri | ConvertTo-Json -Depth 100 | Set-Content "src-tauri/tauri.conf.json"
+            (Get-Content "src-tauri/Cargo.toml") -replace '^version = ".*"$', "version = `"$version`"" |
+              Set-Content "src-tauri/Cargo.toml"
+      - run:
+          name: Validate release environment and configure Authenticode
+          command: |
+            $required = @(
+              "TAURI_SIGNING_PRIVATE_KEY",
+              "TAURI_KEY_PASSWORD",
+              "VITE_SENTRY_DSN",
+              "SENTRY_DSN",
+              "VITE_POSTHOG_KEY",
+              "VITE_POSTHOG_HOST"
+            )
+            foreach ($name in $required) {
+              if ([string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($name))) {
+                throw "$name is required for release builds."
+              }
+            }
+            $certificate = if ($env:WINDOWS_CODE_SIGNING_CERTIFICATE) {
+              $env:WINDOWS_CODE_SIGNING_CERTIFICATE
+            } else {
+              $env:WINDOWS_CERTIFICATE
+            }
+            $password = if ($env:WINDOWS_CODE_SIGNING_CERTIFICATE_PASSWORD) {
+              $env:WINDOWS_CODE_SIGNING_CERTIFICATE_PASSWORD
+            } else {
+              $env:WINDOWS_CERTIFICATE_PASSWORD
+            }
+            if ([bool]$certificate -ne [bool]$password) {
+              throw "Windows Authenticode signing is partially configured."
+            }
+            if ($certificate) {
+              ./.github/scripts/configure-windows-authenticode.ps1
+              "true" | Set-Content "C:\tmp\memoria-release\authenticode.txt"
+            } else {
+              Write-Warning "Authenticode certificate is not configured; updater signatures remain required."
+              "false" | Set-Content "C:\tmp\memoria-release\authenticode.txt"
+            }
+      - run:
+          name: Build Windows bundle
+          command: |
+            $release = @{}
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
+              $name, $value = $_ -split "=", 2
+              $release[$name] = $value
+            }
+            $env:Path = "C:\Program Files\nodejs;$env:USERPROFILE\.cargo\bin;$env:Path"
+            $env:TAURI_SIGNING_PRIVATE_KEY_PASSWORD = $env:TAURI_KEY_PASSWORD
+            $env:VITE_SENTRY_RELEASE = $release["VERSION"]
+            corepack prepare pnpm@10.33.0 --activate
+            $authenticodeAvailable = (Get-Content "C:\tmp\memoria-release\authenticode.txt").Trim()
+            if ($authenticodeAvailable -eq "true") {
+              pnpm tauri build --target x86_64-pc-windows-msvc --bundles nsis --config src-tauri/tauri.windows-signing.conf.json
+            } else {
+              pnpm tauri build --target x86_64-pc-windows-msvc --bundles nsis
+            }
+      - run:
+          name: Validate and collect Windows bundles
+          command: |
+            $release = @{}
+            Get-Content "C:\tmp\memoria-release\release.env" | ForEach-Object {
+              $name, $value = $_ -split "=", 2
+              $release[$name] = $value
+            }
+            $bundleRoot = "src-tauri\target\x86_64-pc-windows-msvc\release\bundle"
+            $installers = @(
+              Get-ChildItem "$bundleRoot\nsis\*-setup.exe" -File -ErrorAction SilentlyContinue
+              Get-ChildItem "$bundleRoot\msi\*.msi" -File -ErrorAction SilentlyContinue
+            )
+            $signatures = @(
+              Get-ChildItem "$bundleRoot\nsis\*.sig" -File -ErrorAction SilentlyContinue
+              Get-ChildItem "$bundleRoot\msi\*.sig" -File -ErrorAction SilentlyContinue
+            )
+            if ($installers.Count -eq 0 -or $signatures.Count -eq 0) {
+              throw "Windows build did not produce installers and updater signatures."
+            }
+            $authenticodeAvailable = (Get-Content "C:\tmp\memoria-release\authenticode.txt").Trim()
+            foreach ($installer in $installers) {
+              if ($installer.Name -notlike "*$($release['VERSION'])*") {
+                throw "Installer has an unexpected version: $($installer.Name)"
+              }
+              if ($authenticodeAvailable -eq "true") {
+                $signature = Get-AuthenticodeSignature -FilePath $installer.FullName
+                if ($signature.Status -ne "Valid") {
+                  throw "Invalid Authenticode signature for $($installer.FullName): $($signature.Status)"
+                }
+              }
+            }
+            $artifactDir = "C:\tmp\memoria-release\artifacts\windows-x86_64-bundles"
+            New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
+            Get-ChildItem "$bundleRoot\nsis\*" -File -ErrorAction SilentlyContinue | Copy-Item -Destination $artifactDir
+            Get-ChildItem "$bundleRoot\msi\*" -File -ErrorAction SilentlyContinue | Copy-Item -Destination $artifactDir
+      - save_cache:
+          key: windows-node-v1-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - ~\AppData\Local\pnpm\store
+      - save_cache:
+          key: windows-rust-release-v2026-07-24-{{ checksum "src-tauri/Cargo.lock" }}
+          paths:
+            - ~\.cargo\registry
+            - ~\.cargo\git
+            - src-tauri\target
+      - save_cache:
+          key: windows-tauri-tools-nsis-3.11-tauri-utils-0.5.3
+          paths:
+            - ~\AppData\Local\tauri
+      - persist_to_workspace:
+          root: "C:\\tmp\\memoria-release"
+          paths:
+            - artifacts/windows-x86_64-bundles
+
+  publish-github-release:
+    parameters:
+      channel:
+        type: enum
+        enum: [alpha, stable]
+    docker:
+      - image: cimg/node:22.14.0
+    resource_class: medium
+    steps:
+      - checkout
+      - attach_release_workspace
+      - halt_if_release_skipped
+      - run:
+          name: Validate publishing credentials
+          command: |
+            if [[ -z "${GH_TOKEN:-}" ]]; then
+              echo "GH_TOKEN is required to publish GitHub releases." >&2
+              exit 1
+            fi
+            gh auth status
+      - run:
+          name: Normalize release artifacts
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            cd /tmp/memoria-release/artifacts
+            normalize_updater() {
+              local arch="$1"
+              local output_name="$2"
+              local artifact_dir="updater-${arch}"
+              local updater_file
+              updater_file="$(find "$artifact_dir" -maxdepth 1 -name '*.app.tar.gz' -print -quit)"
+              [[ -n "$updater_file" && -f "${updater_file}.sig" ]]
+              mv "$updater_file" "${artifact_dir}/${output_name}"
+              mv "${updater_file}.sig" "${artifact_dir}/${output_name}.sig"
+            }
+            normalize_updater aarch64 "Memoria_${VERSION}_macOS_Silicon.app.tar.gz"
+            normalize_updater x86_64 "Memoria_${VERSION}_macOS_Intel.app.tar.gz"
+            if [[ "<< parameters.channel >>" == "stable" ]]; then
+              arm_dmg="$(find dmg-aarch64 -maxdepth 1 -name '*.dmg' -print -quit)"
+              intel_dmg="$(find dmg-x86_64 -maxdepth 1 -name '*.dmg' -print -quit)"
+              [[ -n "$arm_dmg" && -n "$intel_dmg" ]]
+              mv "$arm_dmg" "dmg-aarch64/Memoria_${VERSION}_macOS_Silicon.dmg"
+              mv "$intel_dmg" "dmg-x86_64/Memoria_${VERSION}_macOS_Intel.dmg"
+            fi
+      - run:
+          name: Generate release notes and updater manifest
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            artifact_root="/tmp/memoria-release/artifacts"
+            git fetch --tags --force
+            if [[ "<< parameters.channel >>" == "stable" && -f "release-notes/${TAG}.md" ]]; then
+              cp "release-notes/${TAG}.md" /tmp/memoria-release/release-notes.md
+            else
+              if [[ "<< parameters.channel >>" == "alpha" ]]; then
+                previous_tag="$(
+                  git tag --list 'alpha-v*' |
+                    grep -vx "$TAG" |
+                    sort -V |
+                    tail -n 1 || true
+                )"
+                heading="## What's Changed (Alpha)"
+              else
+                previous_tag="$(
+                  git for-each-ref --sort=-creatordate --format='%(refname:short)' \
+                    'refs/tags/v20*' 'refs/tags/stable-v*' |
+                    grep -vx "$TAG" |
+                    head -n 1 || true
+                )"
+                heading="## What's Changed"
+              fi
+              if [[ -n "$previous_tag" ]]; then
+                notes="$(git log --oneline --no-merges "${previous_tag}..HEAD")"
+              else
+                notes="$(git log --oneline --no-merges -20)"
+              fi
+              {
+                echo "$heading"
+                echo
+                while IFS= read -r line; do
+                  [[ -n "$line" ]] && printf -- '- %s\n' "$line"
+                done \<<<"$notes"
+              } > /tmp/memoria-release/release-notes.md
+            fi
+            {
+              echo
+              echo "---"
+              if [[ "<< parameters.channel >>" == "alpha" ]]; then
+                echo '**Alpha build — updated on every qualifying push to `main`**'
+              else
+                echo '**Stable release — manually promoted from `main`**'
+              fi
+              echo
+              echo '**Includes macOS (Apple Silicon and Intel), Linux x64, and Windows x64 bundles**'
+              echo
+              echo "*Built from \`$(git rev-parse --short HEAD)\` on $(date -u +%Y-%m-%d)*"
+            } >> /tmp/memoria-release/release-notes.md
+
+            find_required() {
+              local pattern
+              local match
+              for pattern in "$@"; do
+                match="$(compgen -G "${artifact_root}/${pattern}" | head -n 1 || true)"
+                if [[ -n "$match" ]]; then
+                  printf '%s\n' "$match"
+                  return 0
+                fi
+              done
+              echo "Missing required artifact matching: $*" >&2
+              return 1
+            }
+
+            arm_signature_file="$(find_required 'updater-aarch64/*.app.tar.gz.sig')"
+            arm_updater_file="${arm_signature_file%.sig}"
+            intel_signature_file="$(find_required 'updater-x86_64/*.app.tar.gz.sig')"
+            intel_updater_file="${intel_signature_file%.sig}"
+            linux_signature_file="$(find_required \
+              'linux-x86_64-bundles/*.AppImage.sig' \
+              'linux-x86_64-bundles/*.AppImage.tar.gz.sig' \
+              'linux-x86_64-bundles/*.deb.sig')"
+            linux_updater_file="${linux_signature_file%.sig}"
+            linux_download_file="$(find_required \
+              'linux-x86_64-bundles/*.AppImage' \
+              'linux-x86_64-bundles/*.deb' \
+              'linux-x86_64-bundles/*.AppImage.tar.gz')"
+            windows_signature_file="$(find_required \
+              'windows-x86_64-bundles/*-setup.exe.sig' \
+              'windows-x86_64-bundles/*.msi.sig' \
+              'windows-x86_64-bundles/*.nsis.zip.sig' \
+              'windows-x86_64-bundles/*.msi.zip.sig')"
+            windows_updater_file="${windows_signature_file%.sig}"
+            windows_download_file="$(find_required \
+              'windows-x86_64-bundles/*-setup.exe' \
+              'windows-x86_64-bundles/*.msi' \
+              'windows-x86_64-bundles/*.nsis.zip' \
+              'windows-x86_64-bundles/*.msi.zip')"
+
+            repo="refactoringhq/memoria"
+            base_url="https://github.com/${repo}/releases/download/${TAG}"
+            common_args=(
+              --arg version "$VERSION"
+              --arg notes "<< parameters.channel >> release. See https://tolaria.md/ for full release notes."
+              --arg pub_date "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              --arg arm_signature "$(cat "$arm_signature_file")"
+              --arg arm_updater "${base_url}/$(basename "$arm_updater_file")"
+              --arg intel_signature "$(cat "$intel_signature_file")"
+              --arg intel_updater "${base_url}/$(basename "$intel_updater_file")"
+              --arg linux_signature "$(cat "$linux_signature_file")"
+              --arg linux_updater "${base_url}/$(basename "$linux_updater_file")"
+              --arg linux_download "${base_url}/$(basename "$linux_download_file")"
+              --arg windows_signature "$(cat "$windows_signature_file")"
+              --arg windows_updater "${base_url}/$(basename "$windows_updater_file")"
+              --arg windows_download "${base_url}/$(basename "$windows_download_file")"
+            )
+            if [[ "<< parameters.channel >>" == "stable" ]]; then
+              arm_dmg_file="$(find_required 'dmg-aarch64/*.dmg')"
+              intel_dmg_file="$(find_required 'dmg-x86_64/*.dmg')"
+              jq -n "${common_args[@]}" \
+                --arg arm_dmg "${base_url}/$(basename "$arm_dmg_file")" \
+                --arg intel_dmg "${base_url}/$(basename "$intel_dmg_file")" \
+                '{
+                  version: $version,
+                  notes: $notes,
+                  pub_date: $pub_date,
+                  platforms: {
+                    "darwin-aarch64": {signature: $arm_signature, url: $arm_updater, dmg_url: $arm_dmg},
+                    "darwin-x86_64": {signature: $intel_signature, url: $intel_updater, dmg_url: $intel_dmg},
+                    "linux-x86_64": {signature: $linux_signature, url: $linux_updater, download_url: $linux_download},
+                    "windows-x86_64": {signature: $windows_signature, url: $windows_updater, download_url: $windows_download}
+                  }
+                }' > /tmp/memoria-release/stable-latest.json
+            else
+              jq -n "${common_args[@]}" \
+                '{
+                  version: $version,
+                  notes: $notes,
+                  pub_date: $pub_date,
+                  platforms: {
+                    "darwin-aarch64": {signature: $arm_signature, url: $arm_updater, download_url: $arm_updater},
+                    "darwin-x86_64": {signature: $intel_signature, url: $intel_updater, download_url: $intel_updater},
+                    "linux-x86_64": {signature: $linux_signature, url: $linux_updater, download_url: $linux_download},
+                    "windows-x86_64": {signature: $windows_signature, url: $windows_updater, download_url: $windows_download}
+                  }
+                }' > /tmp/memoria-release/alpha-latest.json
+            fi
+      - run:
+          name: Publish GitHub release
+          command: |
+            set -euo pipefail
+            source /tmp/memoria-release/release.env
+            artifact_root="/tmp/memoria-release/artifacts"
+            manifest="/tmp/memoria-release/<< parameters.channel >>-latest.json"
+            title="Memoria ${DISPLAY_VERSION}"
+            if gh release view "$TAG" --repo refactoringhq/memoria >/dev/null 2>&1; then
+              if [[ "<< parameters.channel >>" == "alpha" ]]; then
+                gh release edit "$TAG" \
+                  --repo refactoringhq/memoria \
+                  --title "$title" \
+                  --notes-file /tmp/memoria-release/release-notes.md \
+                  --prerelease
+              else
+                gh release edit "$TAG" \
+                  --repo refactoringhq/memoria \
+                  --title "$title" \
+                  --notes-file /tmp/memoria-release/release-notes.md
+              fi
+            else
+              create_args=(
+                "$TAG"
+                --repo refactoringhq/memoria
+                --target "$CIRCLE_SHA1"
+                --title "$title"
+                --notes-file /tmp/memoria-release/release-notes.md
+              )
+              if [[ "<< parameters.channel >>" == "alpha" ]]; then
+                create_args+=(--prerelease)
+              fi
+              gh release create "${create_args[@]}"
+            fi
+            mapfile -d '' release_files < <(find "$artifact_root" -type f -print0)
+            release_files+=("$manifest")
+            gh release upload "$TAG" \
+              --repo refactoringhq/memoria \
+              --clobber \
+              "${release_files[@]}"
+
+  publish-docs:
+    executor: node
+    steps:
+      - checkout
+      - install_frontend_dependencies
+      - run:
+          name: Validate GitHub publishing credentials
+          command: |
+            if [[ -z "${GH_TOKEN:-}" ]]; then
+              echo "GH_TOKEN is required to publish documentation." >&2
+              exit 1
+            fi
+            gh auth status
+      - run:
+          name: Build documentation and release pages
+          command: |
+            set -euo pipefail
+            GITHUB_REPOSITORY=refactoringhq/memoria bash scripts/build-pages-site.sh site/.vitepress/dist
+            touch site/.vitepress/dist/.nojekyll
+      - run:
+          name: Publish gh-pages branch
+          command: |
+            set -euo pipefail
+            gh auth setup-git
+            deploy_dir="$(mktemp -d)"
+            if git clone \
+              --branch gh-pages \
+              --single-branch \
+              "https://github.com/refactoringhq/tolaria.git" \
+              "$deploy_dir"; then
+              :
+            else
+              git clone --no-checkout "https://github.com/refactoringhq/tolaria.git" "$deploy_dir"
+              git -C "$deploy_dir" checkout --orphan gh-pages
+              git -C "$deploy_dir" rm -rf . >/dev/null 2>&1 || true
+            fi
+            rsync -a --delete --exclude .git/ site/.vitepress/dist/ "$deploy_dir/"
+            git -C "$deploy_dir" config user.name "Memoria CircleCI"
+            git -C "$deploy_dir" config user.email "ci@memoria.md"
+            git -C "$deploy_dir" add --all
+            if git -C "$deploy_dir" diff --cached --quiet; then
+              echo "Documentation output is unchanged."
+              exit 0
+            fi
+            git -C "$deploy_dir" commit -m "docs: publish ${CIRCLE_SHA1:0:12}"
+            git -C "$deploy_dir" push origin gh-pages
+
+  update-pr-branches:
+    docker:
+      - image: cimg/base:2026.07
+    resource_class: small
+    steps:
+      - run:
+          name: Update open pull request branches
+          command: |
+            set -euo pipefail
+            if [[ -z "${GH_TOKEN:-}" ]]; then
+              echo "GH_TOKEN is required to update pull request branches." >&2
+              exit 1
+            fi
+            gh pr list \
+              --repo refactoringhq/memoria \
+              --base main \
+              --state open \
+              --json number \
+              --jq '.[].number' |
+              while IFS= read -r number; do
+                if ! gh pr update-branch "$number" --repo refactoringhq/memoria; then
+                  echo "PR #${number} is already current or has a merge conflict."
+                fi
+              done
+
+workflows:
+  validation:
+    unless: << pipeline.parameters.publish-mobile-ota >>
+    jobs:
+      - static-gates:
+          context: memoria-ci
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - frontend-lint-build:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - frontend-coverage:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - frontend-coverage-report:
+          context: memoria-ci
+          requires:
+            - frontend-coverage
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - rust-coverage:
+          context: memoria-ci
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - rust-lint:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - playwright-smoke:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - playwright-smoke-report:
+          requires:
+            - playwright-smoke
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - mobile-ota-quality:
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - mobile-ota-publish:
+          name: publish-mobile-alpha
+          channel: alpha
+          context: memoria-release
+          serial-group: << pipeline.project.slug >>/mobile-ota-alpha
+          requires:
+            - static-gates
+            - frontend-lint-build
+            - frontend-coverage-report
+            - rust-coverage
+            - rust-lint
+            - playwright-smoke-report
+            - mobile-ota-quality
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - server-docker-build:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - web-build:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - web-server-tests:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - web-gates:
+          requires:
+            - web-build
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - web-gates-report:
+          requires:
+            - web-gates
+            - web-server-tests
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - web-bench:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+      - linux-build-verification:
+          filters:
+            branches:
+              ignore:
+                - main
+                - gh-pages
+            tags:
+              ignore: /.*/
+
+  performance:
+    when: << pipeline.parameters.run_performance_gate >>
+    jobs:
+      - performance-regression:
+          filters:
+            branches:
+              ignore: gh-pages
+            tags:
+              ignore: /.*/
+
+  alpha-release:
+    when:
+      and:
+        - << pipeline.parameters.run_release_workflows >>
+        - not: << pipeline.parameters.publish-mobile-ota >>
+    jobs:
+      - compute-alpha-version:
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - build-macos:
+          name: alpha-macos-aarch64
+          channel: alpha
+          arch: aarch64
+          target: aarch64-apple-darwin
+          context: memoria-release
+          requires:
+            - compute-alpha-version
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - build-macos:
+          name: alpha-macos-x86_64
+          channel: alpha
+          arch: x86_64
+          target: x86_64-apple-darwin
+          context: memoria-release
+          requires:
+            - compute-alpha-version
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - build-linux-release:
+          name: alpha-linux-x86_64
+          channel: alpha
+          context: memoria-release
+          requires:
+            - compute-alpha-version
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - build-windows-release:
+          name: alpha-windows-x86_64
+          channel: alpha
+          context: memoria-release
+          requires:
+            - compute-alpha-version
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - publish-github-release:
+          name: publish-alpha-release
+          channel: alpha
+          context: memoria-github
+          requires:
+            - alpha-macos-aarch64
+            - alpha-macos-x86_64
+            - alpha-linux-x86_64
+            - alpha-windows-x86_64
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - publish-docs:
+          name: publish-main-docs
+          context: memoria-github
+          requires:
+            - publish-alpha-release
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+      - update-pr-branches:
+          context: memoria-github
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
+
+  stable-release:
+    when:
+      and:
+        - << pipeline.parameters.run_release_workflows >>
+        - not: << pipeline.parameters.publish-mobile-ota >>
+    jobs:
+      - compute-stable-version:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+      - build-macos:
+          name: stable-macos-aarch64
+          channel: stable
+          arch: aarch64
+          target: aarch64-apple-darwin
+          context: memoria-release
+          requires:
+            - compute-stable-version
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+      - build-macos:
+          name: stable-macos-x86_64
+          channel: stable
+          arch: x86_64
+          target: x86_64-apple-darwin
+          context: memoria-release
+          requires:
+            - compute-stable-version
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+      - build-linux-release:
+          name: stable-linux-x86_64
+          channel: stable
+          context: memoria-release
+          requires:
+            - compute-stable-version
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+      - build-windows-release:
+          name: stable-windows-x86_64
+          channel: stable
+          context: memoria-release
+          requires:
+            - compute-stable-version
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+      - publish-github-release:
+          name: publish-stable-release
+          channel: stable
+          context: memoria-github
+          requires:
+            - stable-macos-aarch64
+            - stable-macos-x86_64
+            - stable-linux-x86_64
+            - stable-windows-x86_64
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+      - publish-docs:
+          name: publish-stable-docs
+          context: memoria-github
+          requires:
+            - publish-stable-release
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v20.*|stable-v.*)$/
+
+  mobile-ota:
+    when: << pipeline.parameters.publish-mobile-ota >>
+    jobs:
+      - static-gates:
+          context: memoria-ci
+      - frontend-lint-build
+      - frontend-coverage
+      - frontend-coverage-report:
+          context: memoria-ci
+          requires:
+            - frontend-coverage
+      - rust-coverage:
+          context: memoria-ci
+      - rust-lint
+      - playwright-smoke
+      - playwright-smoke-report:
+          requires:
+            - playwright-smoke
+      - mobile-ota-quality
+      - approve-mobile-ota:
+          type: approval
+          requires:
+            - static-gates
+            - frontend-lint-build
+            - frontend-coverage-report
+            - rust-coverage
+            - rust-lint
+            - playwright-smoke-report
+            - mobile-ota-quality
+      - mobile-ota-publish:
+          channel: << pipeline.parameters.mobile-ota-channel >>
+          context: memoria-release
+          serial-group: << pipeline.project.slug >>/mobile-ota-<< pipeline.parameters.mobile-ota-channel >>
+          requires:
+            - approve-mobile-ota

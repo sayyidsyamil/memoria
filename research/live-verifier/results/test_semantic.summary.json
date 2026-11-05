@@ -1,0 +1,33 @@
+{
+  "n": 336,
+  "tp": 100,
+  "fp": 2,
+  "fn": 12,
+  "tn": 222,
+  "alert_precision": 0.9803921568627451,
+  "alert_recall": 0.8928571428571429,
+  "false_alarm": 0.008928571428571428,
+  "errors": 0,
+  "uncertain": 0,
+  "p50_ms": 560.9,
+  "p95_ms": 1699.3000000000002,
+  "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+  "ci": {
+    "alert_precision": [
+      0.9523809523809523,
+      1.0
+    ],
+    "alert_recall": [
+      0.8303571428571429,
+      0.9464285714285714
+    ],
+    "false_alarm": [
+      0.0,
+      0.022321428571428572
+    ]
+  },
+  "split": "test",
+  "limit": null,
+  "guard": "on",
+  "socket": "/private/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T/opencode/qwen-bench.sock"
+}

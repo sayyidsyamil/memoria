@@ -1,0 +1,633 @@
+import type React from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef } from 'react'
+import { cn } from '@/lib/utils'
+import { translate, type AppLocale } from '../../lib/i18n'
+import type { VaultEntry } from '../../types'
+import { useEditorFocusScope } from '../../hooks/editorFocusOwnership'
+import { dispatchEditorFindAvailability } from '../../utils/editorFindEvents'
+import { DiffView } from '../DiffView'
+import { BreadcrumbBar } from '../BreadcrumbBar'
+import { HtmlFilePreview } from '../HtmlFilePreview'
+import { ArchivedNoteBanner } from '../ArchivedNoteBanner'
+import { ConflictNoteBanner } from '../ConflictNoteBanner'
+import { RawEditorView } from '../RawEditorView'
+import { SingleEditorView } from '../SingleEditorView'
+import type { useEditorContentModel } from './useEditorContentModel'
+
+type EditorContentModel = ReturnType<typeof useEditorContentModel>
+
+type BreadcrumbActions = Pick<
+  EditorContentModel,
+  | 'diffMode'
+  | 'diffLoading'
+  | 'onToggleDiff'
+  | 'effectiveRawMode'
+  | 'onToggleRaw'
+  | 'forceRawMode'
+  | 'showAIChat'
+  | 'onToggleAIChat'
+  | 'showTableOfContents'
+  | 'onToggleTableOfContents'
+  | 'inspectorCollapsed'
+  | 'onToggleInspector'
+  | 'showDiffToggle'
+  | 'onToggleFavorite'
+  | 'onToggleOrganized'
+  | 'onEnterNeighborhood'
+  | 'onRevealFile'
+  | 'onCopyFilePath'
+  | 'onCopyDeepLink'
+  | 'onCopyGitUrl'
+  | 'onExportPdf'
+  | 'onDeleteNote'
+  | 'onArchiveNote'
+  | 'onUnarchiveNote'
+  | 'onRenameFilename'
+  | 'noteWidth'
+  | 'onToggleNoteWidth'
+>
+
+const LOADING_BREADCRUMB_ENTRY: VaultEntry = {
+  path: '',
+  filename: 'loading.md',
+  title: '',
+  isA: 'Note',
+  aliases: [],
+  belongsTo: [],
+  relatedTo: [],
+  status: null,
+  archived: false,
+  modifiedAt: null,
+  createdAt: null,
+  fileSize: 0,
+  snippet: '',
+  wordCount: 0,
+  relationships: {},
+  icon: null,
+  color: null,
+  order: null,
+  sidebarLabel: null,
+  template: null,
+  sort: null,
+  view: null,
+  visible: true,
+  organized: false,
+  favorite: false,
+  favoriteIndex: null,
+  listPropertiesDisplay: [],
+  outgoingLinks: [],
+  properties: {},
+  hasH1: false,
+  fileKind: 'markdown',
+}
+
+const LazySheetEditor = lazy(() => import('../SheetEditor').then((module) => ({ default: module.SheetEditor })))
+
+function SheetEditorLoading({ locale = 'en' }: { locale?: AppLocale }) {
+  return (
+    <div
+      className="flex flex-1 items-center justify-center px-6 py-5 text-sm text-muted-foreground"
+      data-testid="sheet-editor-loading"
+    >
+      {translate(locale, 'editor.sheet.loading')}
+    </div>
+  )
+}
+
+function reportRawImageImportFailure(
+  result: { failedCount: number; totalCount: number },
+  onImageImportError: EditorContentModel['onImageImportError'],
+): void {
+  if (result.failedCount === 0) return
+
+  onImageImportError?.({
+    failedCount: result.failedCount,
+    kind: 'remote-download',
+    totalCount: result.totalCount,
+  })
+}
+
+function DiffModeView({
+  diffContent,
+  locale = 'en',
+  onToggleDiff,
+}: {
+  diffContent: string | null
+  locale?: AppLocale
+  onToggleDiff: () => void
+}) {
+  const label = translate(locale, 'editor.toolbar.rawReturn')
+
+  return (
+    <div className="flex-1 overflow-auto">
+      <button
+        type="button"
+        className="flex items-center gap-1.5 px-4 py-2 text-xs text-primary bg-muted border-b border-border cursor-pointer hover:bg-accent transition-colors w-full border-t-0 border-l-0 border-r-0"
+        onClick={onToggleDiff}
+        title={label}
+      >
+        <span style={{ fontSize: 14, lineHeight: 1 }}>&larr;</span>
+        {label}
+      </button>
+      <DiffView diff={diffContent ?? ''} />
+    </div>
+  )
+}
+
+function RawModeEditorSection(
+  options: Pick<
+    EditorContentModel,
+    | 'activeTab'
+    | 'entries'
+    | 'findRequest'
+    | 'onImageImportError'
+    | 'onRawContentChange'
+    | 'onSave'
+    | 'rawLatestContentRef'
+    | 'rawModeContent'
+    | 'readOnly'
+    | 'vaultPath'
+  > & {
+    rawMode: boolean
+    locale?: AppLocale
+  },
+) {
+  const {
+    activeTab,
+    entries,
+    findRequest,
+    rawMode,
+    rawModeContent,
+    onRawContentChange,
+    onImageImportError,
+    onSave,
+    rawLatestContentRef,
+    readOnly,
+    vaultPath,
+    locale,
+  } = options
+  if (!rawMode || !activeTab) return null
+
+  return (
+    <ActiveRawModeEditorSection
+      activeTab={activeTab}
+      entries={entries}
+      findRequest={findRequest}
+      locale={locale}
+      onImageImportError={onImageImportError}
+      onRawContentChange={onRawContentChange}
+      onSave={onSave}
+      rawLatestContentRef={rawLatestContentRef}
+      rawModeContent={rawModeContent}
+      readOnly={readOnly}
+      vaultPath={vaultPath}
+    />
+  )
+}
+
+function ActiveRawModeEditorSection(
+  options: Omit<Parameters<typeof RawModeEditorSection>[0], 'activeTab' | 'rawMode'> & {
+    activeTab: NonNullable<EditorContentModel['activeTab']>
+  },
+) {
+  const {
+    activeTab,
+    entries,
+    findRequest,
+    rawModeContent,
+    onRawContentChange,
+    onImageImportError,
+    onSave,
+    rawLatestContentRef,
+    readOnly,
+    vaultPath,
+    locale,
+  } = options
+
+  return (
+    <EditorFindScope className="editor-scroll-area">
+      <RawEditorView
+        key={activeTab.entry.path}
+        content={rawModeContent ?? activeTab.content}
+        path={activeTab.entry.path}
+        entries={entries}
+        sourceEntry={activeTab.entry}
+        findRequest={findRequest}
+        onContentChange={onRawContentChange ?? (() => {})}
+        onImageImportResult={(result) => reportRawImageImportFailure(result, onImageImportError)}
+        onSave={onSave ?? (() => {})}
+        latestContentRef={rawLatestContentRef}
+        readOnly={readOnly}
+        vaultPath={vaultPath}
+        locale={locale}
+      />
+    </EditorFindScope>
+  )
+}
+
+function bindPath(cb: ((path: string) => void) | undefined, path: string) {
+  return cb ? () => cb(path) : undefined
+}
+
+type ActiveTabBreadcrumbProps = {
+  activeTab: NonNullable<EditorContentModel['activeTab']>
+  barRef: React.RefObject<HTMLDivElement | null>
+  wordCount: number
+  path: string
+  actions: BreadcrumbActions
+  locale?: AppLocale
+  loadingTitle?: boolean
+}
+
+function ActiveTabBreadcrumb({
+  activeTab,
+  barRef,
+  wordCount,
+  path,
+  actions,
+  locale,
+  loadingTitle,
+}: ActiveTabBreadcrumbProps) {
+  return (
+    <BreadcrumbBar
+      entry={activeTab.entry}
+      content={activeTab.content}
+      wordCount={wordCount}
+      barRef={barRef}
+      loadingTitle={loadingTitle}
+      showDiffToggle={actions.showDiffToggle}
+      diffMode={actions.diffMode}
+      diffLoading={actions.diffLoading}
+      onToggleDiff={actions.onToggleDiff}
+      rawMode={actions.effectiveRawMode}
+      onToggleRaw={actions.onToggleRaw}
+      forceRawMode={actions.forceRawMode}
+      showAIChat={actions.showAIChat}
+      onToggleAIChat={actions.onToggleAIChat}
+      showTableOfContents={actions.showTableOfContents}
+      onToggleTableOfContents={actions.onToggleTableOfContents}
+      inspectorCollapsed={actions.inspectorCollapsed}
+      onToggleInspector={actions.onToggleInspector}
+      onToggleFavorite={bindPath(actions.onToggleFavorite, path)}
+      onToggleOrganized={bindPath(actions.onToggleOrganized, path)}
+      onEnterNeighborhood={actions.onEnterNeighborhood}
+      onRevealFile={actions.onRevealFile}
+      onCopyFilePath={actions.onCopyFilePath}
+      onCopyDeepLink={actions.onCopyDeepLink}
+      onCopyGitUrl={actions.onCopyGitUrl}
+      onExportPdf={actions.onExportPdf}
+      onDelete={bindPath(actions.onDeleteNote, path)}
+      onArchive={bindPath(actions.onArchiveNote, path)}
+      onUnarchive={bindPath(actions.onUnarchiveNote, path)}
+      onRenameFilename={actions.onRenameFilename}
+      noteWidth={actions.noteWidth}
+      onToggleNoteWidth={actions.onToggleNoteWidth}
+      locale={locale}
+    />
+  )
+}
+
+function EditorLoadingBreadcrumb({
+  actions,
+  barRef,
+  locale,
+}: {
+  actions: BreadcrumbActions
+  barRef: React.RefObject<HTMLDivElement | null>
+  locale?: AppLocale
+}) {
+  return (
+    <BreadcrumbBar
+      entry={LOADING_BREADCRUMB_ENTRY}
+      wordCount={0}
+      barRef={barRef}
+      loadingTitle
+      showDiffToggle={false}
+      diffMode={false}
+      diffLoading={false}
+      onToggleDiff={actions.onToggleDiff}
+      rawMode={false}
+      forceRawMode={false}
+      showAIChat={actions.showAIChat}
+      onToggleAIChat={actions.onToggleAIChat}
+      showTableOfContents={actions.showTableOfContents}
+      onToggleTableOfContents={actions.onToggleTableOfContents}
+      inspectorCollapsed={actions.inspectorCollapsed}
+      onToggleInspector={actions.onToggleInspector}
+      noteWidth={actions.noteWidth}
+      onToggleNoteWidth={actions.onToggleNoteWidth}
+      locale={locale}
+    />
+  )
+}
+
+function buildBreadcrumbActions(model: EditorContentModel): BreadcrumbActions {
+  return {
+    diffMode: model.diffMode,
+    diffLoading: model.diffLoading,
+    onToggleDiff: model.onToggleDiff,
+    effectiveRawMode: model.effectiveRawMode,
+    onToggleRaw: model.onToggleRaw,
+    forceRawMode: model.forceRawMode,
+    showAIChat: model.showAIChat,
+    onToggleAIChat: model.onToggleAIChat,
+    showTableOfContents: model.showTableOfContents,
+    onToggleTableOfContents: model.onToggleTableOfContents,
+    inspectorCollapsed: model.inspectorCollapsed,
+    onToggleInspector: model.onToggleInspector,
+    showDiffToggle: model.showDiffToggle,
+    onToggleFavorite: model.onToggleFavorite,
+    onToggleOrganized: model.onToggleOrganized,
+    onEnterNeighborhood: model.onEnterNeighborhood,
+    onRevealFile: model.onRevealFile,
+    onCopyFilePath: model.onCopyFilePath,
+    onCopyDeepLink: model.onCopyDeepLink,
+    onCopyGitUrl: model.onCopyGitUrl,
+    onExportPdf: model.onExportPdf,
+    onDeleteNote: model.onDeleteNote,
+    onArchiveNote: model.onArchiveNote,
+    onUnarchiveNote: model.onUnarchiveNote,
+    onRenameFilename: model.onRenameFilename,
+    noteWidth: model.noteWidth,
+    onToggleNoteWidth: model.onToggleNoteWidth,
+  }
+}
+
+function EditorBreadcrumbArea({
+  actions,
+  barRef,
+  chromePath,
+  chromeTab,
+  chromeWordCount,
+  isVaultLoading,
+  locale,
+}: {
+  actions: BreadcrumbActions
+  barRef: React.RefObject<HTMLDivElement | null>
+  chromePath: string
+  chromeTab: EditorContentModel['activeTab'] | EditorContentModel['loadingTab']
+  chromeWordCount: number
+  isVaultLoading?: boolean
+  locale?: AppLocale
+}) {
+  if (chromeTab) {
+    return (
+      <ActiveTabBreadcrumb
+        activeTab={chromeTab}
+        barRef={barRef}
+        wordCount={chromeWordCount}
+        path={chromePath}
+        locale={locale}
+        loadingTitle={isVaultLoading}
+        actions={actions}
+      />
+    )
+  }
+
+  if (!isVaultLoading) return null
+
+  return <EditorLoadingBreadcrumb actions={actions} barRef={barRef} locale={locale} />
+}
+
+function EditorChrome(
+  options: Pick<
+    EditorContentModel,
+    | 'isArchived'
+    | 'onUnarchiveNote'
+    | 'path'
+    | 'isConflicted'
+    | 'onKeepMine'
+    | 'onKeepTheirs'
+    | 'diffMode'
+    | 'diffContent'
+    | 'onToggleDiff'
+    | 'locale'
+  >,
+) {
+  const {
+    isArchived,
+    onUnarchiveNote,
+    path,
+    isConflicted,
+    onKeepMine,
+    onKeepTheirs,
+    diffMode,
+    diffContent,
+    onToggleDiff,
+    locale,
+  } = options
+  return (
+    <>
+      {isArchived && onUnarchiveNote && (
+        <ArchivedNoteBanner onUnarchive={() => onUnarchiveNote(path)} locale={locale} />
+      )}
+      {isConflicted && (
+        <ConflictNoteBanner
+          onKeepMine={() => onKeepMine?.(path)}
+          onKeepTheirs={() => onKeepTheirs?.(path)}
+          locale={locale}
+        />
+      )}
+      {diffMode && <DiffModeView diffContent={diffContent} locale={locale} onToggleDiff={onToggleDiff} />}
+    </>
+  )
+}
+
+type EditorCanvasProps = Pick<
+  EditorContentModel,
+  | 'showEditor'
+  | 'isHtmlPreview'
+  | 'isSheet'
+  | 'richEditorContentReady'
+  | 'cssVars'
+  | 'editor'
+  | 'activeTab'
+  | 'entries'
+  | 'onNavigateWikilink'
+  | 'onEditorChange'
+  | 'onToggleRaw'
+  | 'onRawContentChange'
+  | 'sheetFlushRef'
+  | 'isDeletedPreview'
+  | 'readOnly'
+  | 'vaultPath'
+  | 'locale'
+  | 'onImageImportError'
+>
+
+function EditorCanvas(props: EditorCanvasProps) {
+  if (!props.showEditor) return null
+  if (props.isHtmlPreview && props.activeTab) {
+    return (
+      <HtmlFilePreview
+        content={props.activeTab.content}
+        path={props.activeTab.entry.path}
+        title={props.activeTab.entry.title}
+        vaultPath={props.vaultPath ?? ''}
+      />
+    )
+  }
+  return <StandardEditorCanvas {...props} />
+}
+
+function StandardEditorCanvas(options: EditorCanvasProps) {
+  const {
+    isSheet,
+    richEditorContentReady,
+    cssVars,
+    editor,
+    activeTab,
+    entries,
+    onNavigateWikilink,
+    onEditorChange,
+    onToggleRaw,
+    onRawContentChange,
+    sheetFlushRef,
+    isDeletedPreview,
+    readOnly,
+    vaultPath,
+    locale,
+    onImageImportError,
+  } = options
+  if (!isSheet && !richEditorContentReady) return null
+
+  if (isSheet && activeTab) {
+    return (
+      <EditorFindScope className="editor-scroll-area editor-scroll-area--sheet" style={cssVars as React.CSSProperties}>
+        <Suspense fallback={<SheetEditorLoading locale={locale} />}>
+          <LazySheetEditor
+            key={activeTab.entry.path}
+            content={activeTab.content}
+            entries={entries}
+            flushContentRef={sheetFlushRef}
+            locale={locale}
+            path={activeTab.entry.path}
+            onContentChange={onRawContentChange ?? (() => {})}
+            onNavigateWikilink={onNavigateWikilink}
+            sourceEntry={activeTab.entry}
+            vaultPath={vaultPath}
+          />
+        </Suspense>
+      </EditorFindScope>
+    )
+  }
+
+  return (
+    <EditorFindScope className="editor-scroll-area" style={cssVars as React.CSSProperties}>
+      <div className="editor-content-wrapper" data-note-pdf-export-root="true">
+        <SingleEditorView
+          currentContent={activeTab?.content ?? ''}
+          editor={editor}
+          entries={entries}
+          onNavigateWikilink={onNavigateWikilink}
+          onChange={onEditorChange}
+          onImageImportError={onImageImportError}
+          onRecoveryFallback={onToggleRaw}
+          sourceEntry={activeTab?.entry ?? null}
+          vaultPath={vaultPath}
+          editable={!isDeletedPreview && !readOnly}
+          locale={locale}
+        />
+      </div>
+    </EditorFindScope>
+  )
+}
+
+function EditorFindScope({
+  children,
+  className,
+  style,
+}: {
+  children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
+}) {
+  const scopeRef = useRef<HTMLDivElement | null>(null)
+  useEditorFocusScope(scopeRef)
+  const syncAvailability = useCallback(() => {
+    const activeElement = document.activeElement
+    const enabled = activeElement instanceof Node && scopeRef.current?.contains(activeElement) === true
+    dispatchEditorFindAvailability(enabled)
+  }, [])
+
+  useEffect(() => () => dispatchEditorFindAvailability(false), [])
+
+  return (
+    <div
+      ref={scopeRef}
+      className={className}
+      data-editor-find-scope="true"
+      onFocusCapture={() => dispatchEditorFindAvailability(true)}
+      onBlurCapture={() => requestAnimationFrame(syncAvailability)}
+      style={style}
+    >
+      {children}
+    </div>
+  )
+}
+
+function ActiveEditorChrome(model: EditorContentModel) {
+  return (
+    <EditorChrome
+      isArchived={model.isArchived}
+      onUnarchiveNote={model.onUnarchiveNote}
+      path={model.path}
+      isConflicted={model.isConflicted}
+      onKeepMine={model.onKeepMine}
+      onKeepTheirs={model.onKeepTheirs}
+      diffMode={model.diffMode}
+      diffContent={model.diffContent}
+      onToggleDiff={model.onToggleDiff}
+      locale={model.locale}
+    />
+  )
+}
+
+function ActiveRawModeEditor(model: EditorContentModel & { activeTab: NonNullable<EditorContentModel['activeTab']> }) {
+  return (
+    <RawModeEditorSection
+      activeTab={model.activeTab}
+      entries={model.entries}
+      findRequest={model.findRequest}
+      rawMode={model.effectiveRawMode}
+      rawModeContent={model.rawModeContent}
+      onRawContentChange={model.onRawContentChange}
+      onImageImportError={model.onImageImportError}
+      onSave={model.onSave}
+      rawLatestContentRef={model.rawLatestContentRef}
+      readOnly={model.readOnly}
+      vaultPath={model.vaultPath}
+      locale={model.locale}
+    />
+  )
+}
+
+export function EditorContentLayout(model: EditorContentModel) {
+  const { activeTab, loadingTab, path, breadcrumbBarRef, wordCount, locale, isVaultLoading, isHtmlPreview, isSheet, noteWidth } = model
+  const rootClassName = cn(
+    'flex flex-1 flex-col min-w-0 min-h-0',
+    isHtmlPreview || isSheet || noteWidth === 'wide' ? 'editor-content-width--wide' : 'editor-content-width--normal',
+  )
+  const chromeTab = activeTab ?? loadingTab
+
+  return (
+    <div className={rootClassName}>
+      <EditorBreadcrumbArea
+        actions={buildBreadcrumbActions(model)}
+        barRef={breadcrumbBarRef}
+        chromePath={chromeTab?.entry.path ?? path}
+        chromeTab={chromeTab}
+        chromeWordCount={activeTab ? wordCount : 0}
+        isVaultLoading={isVaultLoading}
+        locale={locale}
+      />
+      {activeTab && !isVaultLoading && (
+        <>
+          <ActiveEditorChrome {...model} />
+          <ActiveRawModeEditor {...model} activeTab={activeTab} />
+          <EditorCanvas {...model} activeTab={activeTab} />
+        </>
+      )}
+    </div>
+  )
+}

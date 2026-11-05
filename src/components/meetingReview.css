@@ -1,0 +1,90 @@
+html:has(.meeting-review), body:has(.meeting-review), #root:has(.meeting-review) { background: transparent !important; }
+.meeting-review {
+  height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--background); color: var(--foreground);
+  border: 1px solid var(--border); border-radius: 16px;
+  font-family: inherit;
+}
+.review-header { flex-shrink: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 24px 32px 0; }
+.review-heading { flex: 1; min-width: 0; }
+.review-title { display: block; width: calc(100% + 8px); margin: 0 -4px; padding: 4px; border-radius: 4px; background: transparent; font-size: 24px; font-weight: 500; letter-spacing: -.4px; line-height: 32px; text-overflow: ellipsis; outline: none; transition: background 160ms, box-shadow 160ms; }
+.review-title:hover:not(:disabled) { background: var(--muted); }
+.review-title:focus { background: var(--muted); box-shadow: 0 0 0 2px var(--ring); }
+.review-meta { margin: 2px 0 0; font-size: 12px; color: var(--muted-foreground); }
+.review-tabbar { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 32px 16px; border-bottom: 1px solid var(--border); }
+.review-global-error { flex-shrink: 0; margin: 0; padding: 12px 32px; border-bottom: 1px solid var(--border); background: var(--feedback-error-bg); color: var(--destructive); font-size: 13px; line-height: 20px; overflow-wrap: anywhere; }
+.review-body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px 32px 24px; scrollbar-width: thin; }
+.review-body > * { max-width: 760px; margin-left: auto; margin-right: auto; }
+.review-summary { padding-top: 20px; }
+.review-summary > * { max-width: 980px; }
+.review-summary:has(.summary-review) { padding: 0; }
+.review-summary:has(.summary-review) > * { max-width: none; }
+.review-ask { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.review-ask[hidden] { display: none; }
+.review-ask > .chat { max-width: 760px; width: 100%; margin: 0 auto; padding-inline: 28px; }
+.review-status { margin: 12px 0 0; font-size: 13px; line-height: 1.55; color: var(--muted-foreground); }
+.review-error { margin: 12px 0 0; font-size: 13px; line-height: 1.55; color: var(--destructive); overflow-wrap: anywhere; }
+.review-processing { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+.review-processing p { margin: 0; font-size: 13px; color: var(--muted-foreground); }
+.review-actions { margin: 16px auto 8px; }
+.review-notice { display: flex; gap: 10px; margin-top: 16px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.5; }
+.review-notice[data-tone='warn'] { background: var(--accent-orange-light); }
+.review-notice p { margin: 0; }
+.review-notice p + p { margin-top: 4px; color: var(--muted-foreground); }
+
+/* Collapsible metadata blocks, folded with the same caret as the decision board */
+.review-fold > summary { display: flex; align-items: center; gap: 8px; width: fit-content; padding: 6px 0; border-radius: 4px; list-style: none; cursor: pointer; }
+.review-fold > summary::-webkit-details-marker { display: none; }
+.review-fold > summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.review-fold-caret { flex-shrink: 0; color: var(--muted-foreground); transform: rotate(-90deg); transition: transform 120ms; }
+.review-fold[open] > summary .review-fold-caret { transform: none; }
+.review-fold-avatars { display: inline-flex; margin-left: 4px; }
+.review-fold-avatars > * + * { margin-left: -5px; box-shadow: 0 0 0 2px var(--background); }
+
+/* Speakers: naming and share of words in one list */
+.review-speakers { margin-top: 16px; }
+.review-section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 2px 0 6px; }
+.review-remember { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-foreground); cursor: pointer; }
+.review-speaker { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+.review-speaker-fields { display: flex; flex: 1; gap: 8px; min-width: 0; }
+.review-speaker select, .review-speaker input { height: 32px; min-width: 0; padding: 0 10px; border: 1px solid transparent; border-radius: 8px; background: var(--muted); font-size: 13px; }
+.review-speaker select:hover, .review-speaker input:hover { border-color: var(--border); }
+.review-speaker input:focus, .review-speaker select:focus { border-color: var(--ring); background: var(--background); outline: none; }
+.review-speaker select { flex: 1; cursor: pointer; }
+.review-speaker input { flex: 1; }
+.review-share-bar { flex-shrink: 0; width: 120px; height: 4px; border-radius: 2px; background: var(--muted); overflow: hidden; }
+.review-share-bar i { display: block; height: 100%; border-radius: 2px; background: var(--muted-foreground); }
+.review-share { flex-shrink: 0; min-width: 34px; font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; color: var(--muted-foreground); }
+
+/* Marked moments */
+.review-marks { margin-top: 12px; }
+.review-mark { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+.review-mark input { flex: 1; min-width: 0; height: 30px; padding: 0 10px; border: 1px solid transparent; border-radius: 8px; background: transparent; font-size: 13px; outline: none; transition: background 120ms; }
+.review-mark input:hover { background: var(--muted); }
+.review-mark input:focus { border-color: var(--ring); background: var(--background); }
+
+/* Transcript rows: avatar, name, time, text. The playing line is highlighted. */
+.review-transcript-label { margin-top: 24px; }
+.review-turns { margin-top: 8px; }
+.review-turn { display: flex; align-items: flex-start; gap: 14px; margin: 0 -14px; padding: 14px; border-radius: 12px; transition: background 200ms; }
+.review-turn[data-active] { background: color-mix(in srgb, var(--accent-orange) 10%, transparent); }
+.review-turn-body { flex: 1; min-width: 0; }
+.review-turn-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 2px; }
+.review-turn-speaker { position: relative; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--foreground); }
+.review-turn-speaker select { appearance: none; max-width: 220px; padding: 0; background: transparent; font-weight: 600; color: var(--foreground); cursor: pointer; field-sizing: content; }
+.review-turn-speaker svg { color: var(--muted-foreground); }
+.review-time { padding: 0; border-radius: 4px; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--muted-foreground); cursor: pointer; transition: color 120ms; }
+.review-turn[data-active] .review-time, .review-time:hover { color: color-mix(in srgb, var(--accent-orange) 75%, var(--foreground)); }
+.review-time:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.review-turn textarea { display: block; width: 100%; padding: 2px 0; border-radius: 4px; background: transparent; font-size: 15px; line-height: 1.65; resize: none; overflow: hidden; outline: none; field-sizing: content; }
+.review-turn textarea:focus { box-shadow: 0 0 0 2px var(--ring); padding-inline: 6px; margin-inline: -6px; width: calc(100% + 12px); }
+.review-details { margin-top: 20px; font-size: 12px; color: var(--muted-foreground); }
+.review-details summary { cursor: pointer; }
+.review-details p { margin: 8px 0 0; }
+
+/* Footer: the player is the primary control on the Transcript tab */
+.review-footer { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 28px; border-top: 1px solid var(--border); background: var(--background); }
+.review-footer[hidden] { display: none; }
+@media (max-width: 600px) { .review-body { padding: 8px 20px 20px; } .review-header, .review-tabbar, .review-footer { padding-inline: 20px; } .review-share-bar { display: none; } }
+@media (max-width: 600px) { .review-header { gap: 12px; } .review-title { font-size: 20px; line-height: 28px; } .review-tabbar { flex-wrap: wrap; gap: 12px; } .review-footer { flex-wrap: wrap; gap: 12px; } .review-global-error { padding-inline: 20px; } }
+@media (prefers-reduced-motion: reduce) { .review-turn, .review-share-bar i, .review-fold-caret { transition: none; } }

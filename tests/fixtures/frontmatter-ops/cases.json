@@ -1,0 +1,734 @@
+{
+  "_comment": "Desktop writer golden cases: `expected` (or `error`) is what src-tauri/src/frontmatter/ops.rs writes, checked by ops_update_tests.rs. src/lib/frontmatterText/ops.test.ts expects the same bytes, except where `web` is \"refused\": the web port refuses that edit (UnsafeFrontmatterEditError) because the desktop's bytes do not read back as written.",
+  "cases": [
+    {
+      "name": "replaces a string",
+      "content": "---\ntitle: Note\nStatus: Draft\nowner: Ana\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "update",
+      "value": "Active",
+      "expected": "---\ntitle: Note\nStatus: Active\nowner: Ana\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "appends a new key at the end",
+      "content": "---\ntitle: Note\nStatus: Draft\n---\n# Note\n\nBody text.\n",
+      "key": "Owner",
+      "op": "update",
+      "value": "Luca",
+      "expected": "---\ntitle: Note\nStatus: Draft\nOwner: Luca\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "deletes a key",
+      "content": "---\ntitle: Note\nStatus: Draft\nowner: Ana\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "delete",
+      "expected": "---\ntitle: Note\nowner: Ana\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "deletes the only key",
+      "content": "---\nStatus: Draft\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "delete",
+      "expected": "---\n\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "deletes a missing key",
+      "content": "---\ntitle: Note\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "delete",
+      "expected": "---\ntitle: Note\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "keeps CRLF line endings",
+      "content": "---\r\ntype: Note\r\nrelated_to:\r\n  - \"[[memoria]]\"\r\n---\r\n# Properties Panel\r\n",
+      "key": "_organized",
+      "op": "update",
+      "value": true,
+      "expected": "---\r\ntype: Note\r\nrelated_to:\r\n  - \"[[memoria]]\"\r\n_organized: true\r\n---\r\n# Properties Panel\r\n"
+    },
+    {
+      "name": "replaces a list in a CRLF file",
+      "content": "---\r\ntype: Note\r\naliases:\r\n  - \"One\"\r\n  - \"Two\"\r\nStatus: Draft\r\n---\r\nBody\r\n",
+      "key": "aliases",
+      "op": "update",
+      "value": [
+        "Three",
+        "Four"
+      ],
+      "expected": "---\r\ntype: Note\r\naliases:\r\n  - \"Three\"\n  - \"Four\"\r\nStatus: Draft\r\n---\r\nBody\r\n"
+    },
+    {
+      "name": "keeps CR line endings",
+      "content": "---\rtitle: Note\rStatus: Draft\r---\rBody\r",
+      "key": "Status",
+      "op": "update",
+      "value": "Done",
+      "expected": "---\rtitle: Note\rStatus: Done\r---\rBody\r"
+    },
+    {
+      "name": "prepends frontmatter to a note without it",
+      "content": "# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "update",
+      "value": "Draft",
+      "expected": "---\nStatus: Draft\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "prepends a list to a note without frontmatter",
+      "content": "# Note\n\nBody text.\n",
+      "key": "aliases",
+      "op": "update",
+      "value": [
+        "A",
+        "B"
+      ],
+      "expected": "---\naliases:\n  - \"A\"\n  - \"B\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "leaves a note without frontmatter alone on delete",
+      "content": "# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "delete",
+      "expected": "# Note\n\nBody text.\n"
+    },
+    {
+      "name": "fills an empty block",
+      "content": "---\n---\n\n# Test\n",
+      "key": "title",
+      "op": "update",
+      "value": "New Title",
+      "expected": "---\ntitle: New Title\n---\n\n# Test\n"
+    },
+    {
+      "name": "canonicalizes Is A to type",
+      "content": "---\n\"Is A\": Note\nStatus: Draft\n---\n# Note\n\nBody text.\n",
+      "key": "Is A",
+      "op": "update",
+      "value": "Project",
+      "expected": "---\nStatus: Draft\ntype: Project\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "drops every type alias",
+      "content": "---\nis_a: Note\ntitle: T\ntype: Topic\n---\n# Note\n\nBody text.\n",
+      "key": "type",
+      "op": "update",
+      "value": "Project",
+      "expected": "---\ntitle: T\ntype: Project\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "canonicalizes the archived alias",
+      "content": "---\nArchived: false\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "archived",
+      "op": "update",
+      "value": true,
+      "expected": "---\ntitle: T\n_archived: true\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "drops icon aliases",
+      "content": "---\nicon: star\n_icon: moon\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "icon",
+      "op": "update",
+      "value": "sun",
+      "expected": "---\ntitle: T\n_icon: sun\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "canonicalizes width",
+      "content": "---\nwidth: normal\n---\n# Note\n\nBody text.\n",
+      "key": "width",
+      "op": "update",
+      "value": "wide",
+      "expected": "---\n\n_width: wide\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "matches keys exactly when not canonicalizing",
+      "content": "---\nStatus: Draft\n---\n# Note\n\nBody text.\n",
+      "key": "status",
+      "op": "update",
+      "value": "Done",
+      "expected": "---\nStatus: Draft\nstatus: Done\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "matches a double-quoted key",
+      "content": "---\n\"Created at\": 2026-01-01\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Created at",
+      "op": "update",
+      "value": "2026-02-02",
+      "expected": "---\n\"Created at\": 2026-02-02\ntitle: T\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "matches a single-quoted key",
+      "content": "---\n'Due date': soon\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Due date",
+      "op": "update",
+      "value": "later",
+      "expected": "---\n\"Due date\": later\ntitle: T\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes keys that need it",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "état.key",
+      "op": "update",
+      "value": "x",
+      "expected": "---\ntitle: T\n\"état.key\": x\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes list items and escapes quotes",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "tags",
+      "op": "update",
+      "value": [
+        "say \"hi\"",
+        "a: b",
+        "plain"
+      ],
+      "expected": "---\ntitle: T\ntags:\n  - \"say \\\"hi\\\"\"\n  - \"a: b\"\n  - \"plain\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes an empty list inline",
+      "content": "---\ntags:\n  - \"a\"\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "tags",
+      "op": "update",
+      "value": [],
+      "expected": "---\ntags: []\ntitle: T\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes integers without a fraction",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Priority",
+      "op": "update",
+      "value": 5,
+      "expected": "---\ntitle: T\nPriority: 5\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes floats",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Score",
+      "op": "update",
+      "value": -3.25,
+      "expected": "---\ntitle: T\nScore: -3.25\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes small floats in decimal form",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Epsilon",
+      "op": "update",
+      "value": 1e-07,
+      "expected": "---\ntitle: T\nEpsilon: 0.0000001\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "saturates huge integers like i64",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Huge",
+      "op": "update",
+      "value": 1e+21,
+      "expected": "---\ntitle: T\nHuge: 9223372036854775807\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes booleans",
+      "content": "---\nDone: true\n---\n# Note\n\nBody text.\n",
+      "key": "Done",
+      "op": "update",
+      "value": false,
+      "expected": "---\nDone: false\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes null",
+      "content": "---\nOwner: Ana\n---\n# Note\n\nBody text.\n",
+      "key": "Owner",
+      "op": "update",
+      "value": null,
+      "expected": "---\nOwner: null\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes a string that reads as true",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Flag",
+      "op": "update",
+      "value": "true",
+      "expected": "---\ntitle: T\nFlag: \"true\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes a string that reads as a number",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Code",
+      "op": "update",
+      "value": "42",
+      "expected": "---\ntitle: T\nCode: \"42\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes exponent and inf strings",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Exp",
+      "op": "update",
+      "value": "1e5",
+      "expected": "---\ntitle: T\nExp: \"1e5\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes inf",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Inf",
+      "op": "update",
+      "value": "inf",
+      "expected": "---\ntitle: T\nInf: \"inf\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes NaN",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Nan",
+      "op": "update",
+      "value": "NaN",
+      "expected": "---\ntitle: T\nNan: \"NaN\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "does not quote 1_000",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Count",
+      "op": "update",
+      "value": "1_000",
+      "expected": "---\ntitle: T\nCount: 1_000\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "does not quote hex",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Hex",
+      "op": "update",
+      "value": "0x10",
+      "expected": "---\ntitle: T\nHex: 0x10\n---\n# Note\n\nBody text.\n",
+      "web": "refused"
+    },
+    {
+      "name": "does not quote a leading-space number",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Spaced",
+      "op": "update",
+      "value": " 5",
+      "expected": "---\ntitle: T\nSpaced:  5\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes colons and hashes",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Link",
+      "op": "update",
+      "value": "see: #here",
+      "expected": "---\ntitle: T\nLink: \"see: #here\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes collection-looking strings",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Arr",
+      "op": "update",
+      "value": "[not a list",
+      "expected": "---\ntitle: T\nArr: \"[not a list\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "quotes object-looking strings",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Obj",
+      "op": "update",
+      "value": "{x",
+      "expected": "---\ntitle: T\nObj: \"{x\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "leaves inner quotes unquoted",
+      "content": "---\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Said",
+      "op": "update",
+      "value": "say \"hi\"",
+      "expected": "---\ntitle: T\nSaid: say \"hi\"\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes multi-line strings as block scalars",
+      "content": "---\ntype: Type\n---\n# Project\n",
+      "key": "template",
+      "op": "update",
+      "value": "## Objective\n\nDescribe the goal.\n\n## Timeline",
+      "expected": "---\ntype: Type\ntemplate: |\n  ## Objective\n\n  Describe the goal.\n\n  ## Timeline\n---\n# Project\n"
+    },
+    {
+      "name": "replaces a block scalar",
+      "content": "---\ntype: Type\ntemplate: |\n  ## Old\n  \n  ## Stuff\ncolor: green\n---\n# Project\n",
+      "key": "template",
+      "op": "update",
+      "value": "## New\n\n## Content",
+      "expected": "---\ntype: Type\ntemplate: |\n  ## New\n\n  ## Content\ncolor: green\n---\n# Project\n"
+    },
+    {
+      "name": "deletes a block scalar",
+      "content": "---\ntype: Type\ntemplate: |\n  ## Heading\n\n  ## Body\ncolor: green\n---\n# Project\n",
+      "key": "template",
+      "op": "delete",
+      "expected": "---\ntype: Type\ncolor: green\n---\n# Project\n"
+    },
+    {
+      "name": "writes a block scalar into a CRLF file",
+      "content": "---\r\ntype: Type\r\n---\r\nBody\r\n",
+      "key": "template",
+      "op": "update",
+      "value": "line 1\r\nline 2\n",
+      "expected": "---\r\ntype: Type\r\ntemplate: |\n  line 1\n  line 2\r\n---\r\nBody\r\n"
+    },
+    {
+      "name": "skips tab-indented continuation lines",
+      "content": "---\nnotes: |\n\tfirst\n\tsecond\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "notes",
+      "op": "update",
+      "value": "short",
+      "expected": "---\nnotes: short\ntitle: T\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "replaces an indented key the desktop way",
+      "content": "---\nparent:\n  Status: nested\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "update",
+      "value": "top",
+      "expected": "---\nparent:\nStatus: top\ntitle: T\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "replaces every duplicate key",
+      "content": "---\nStatus: A\ntitle: T\nStatus: B\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "update",
+      "value": "C",
+      "expected": "---\nStatus: C\ntitle: T\nStatus: C\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "accepts a closing delimiter with trailing whitespace",
+      "content": "---\ntitle: Note\n--- \t\nBody\n",
+      "key": "Status",
+      "op": "update",
+      "value": "Draft",
+      "expected": "---\ntitle: Note\nStatus: Draft\n---\nBody\n"
+    },
+    {
+      "name": "ignores dashes that are not a delimiter",
+      "content": "---\ntitle: Note\n---bar\nstatus: active\n---\nBody\n",
+      "key": "title",
+      "op": "update",
+      "value": "Renamed",
+      "expected": "---\ntitle: Renamed\n---bar\nstatus: active\n---\nBody\n"
+    },
+    {
+      "name": "updates frontmatter with no body",
+      "content": "---\ntitle: Old\n---",
+      "key": "title",
+      "op": "update",
+      "value": "New",
+      "expected": "---\ntitle: New\n---"
+    },
+    {
+      "name": "updates frontmatter with no body and a final newline",
+      "content": "---\ntitle: Old\n---\n",
+      "key": "title",
+      "op": "update",
+      "value": "New",
+      "expected": "---\ntitle: New\n---\n"
+    },
+    {
+      "name": "keeps a key with no space after the colon",
+      "content": "---\ntitle:T\nStatus:Draft\n---\n# Note\n\nBody text.\n",
+      "key": "Status",
+      "op": "update",
+      "value": "Done",
+      "expected": "---\ntitle:T\nStatus: Done\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "keeps comments and other lines byte for byte",
+      "content": "---\n# a comment\ntitle:   Spaced   \nStatus: Draft # trailing\n---\n# Note\n\nBody text.\n",
+      "key": "Owner",
+      "op": "update",
+      "value": "Ana",
+      "expected": "---\n# a comment\ntitle:   Spaced   \nStatus: Draft # trailing\nOwner: Ana\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "writes a list after a block of continuations",
+      "content": "---\nrelated_to:\n  - \"[[a]]\"\n\n  - \"[[b]]\"\ntitle: T\n---\n# Note\n\nBody text.\n",
+      "key": "related_to",
+      "op": "update",
+      "value": [
+        "[[c]]"
+      ],
+      "expected": "---\nrelated_to:\n  - \"[[c]]\"\ntitle: T\n---\n# Note\n\nBody text.\n"
+    },
+    {
+      "name": "does not treat a byte-order mark as whitespace in keys",
+      "content": "---\n﻿Status: A\n---\n",
+      "key": "Status",
+      "op": "update",
+      "value": "B",
+      "expected": "---\n﻿Status: A\nStatus: B\n---\n"
+    },
+    {
+      "name": "ignores a quoted key without a closing quote or colon",
+      "content": "---\n\"Status\n'Status' x\n---\n",
+      "key": "Status",
+      "op": "update",
+      "value": "B",
+      "expected": "---\n\"Status\n'Status' x\nStatus: B\n---\n"
+    },
+    {
+      "name": "writes negative small floats in decimal form",
+      "content": "",
+      "key": "n",
+      "op": "update",
+      "value": -2.5e-08,
+      "expected": "---\nn: -0.000000025\n---\n"
+    },
+    {
+      "name": "saturates very negative integers like i64",
+      "content": "",
+      "key": "n",
+      "op": "update",
+      "value": -1e+21,
+      "expected": "---\nn: -9223372036854775808\n---\n"
+    },
+    {
+      "name": "quotes \"1.\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "1.",
+      "expected": "---\nv: \"1.\"\n---\n"
+    },
+    {
+      "name": "quotes \".5\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": ".5",
+      "expected": "---\nv: \".5\"\n---\n"
+    },
+    {
+      "name": "quotes \"+3\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "+3",
+      "expected": "---\nv: \"+3\"\n---\n"
+    },
+    {
+      "name": "quotes \"-2.5E-3\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "-2.5E-3",
+      "expected": "---\nv: \"-2.5E-3\"\n---\n"
+    },
+    {
+      "name": "quotes \"1e+5\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "1e+5",
+      "expected": "---\nv: \"1e+5\"\n---\n"
+    },
+    {
+      "name": "quotes \"INF\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "INF",
+      "expected": "---\nv: \"INF\"\n---\n"
+    },
+    {
+      "name": "quotes \"-Infinity\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "-Infinity",
+      "expected": "---\nv: \"-Infinity\"\n---\n"
+    },
+    {
+      "name": "quotes \".\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": ".",
+      "expected": "---\nv: .\n---\n"
+    },
+    {
+      "name": "quotes \"e5\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "e5",
+      "expected": "---\nv: e5\n---\n"
+    },
+    {
+      "name": "quotes \"1e\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "1e",
+      "expected": "---\nv: 1e\n---\n"
+    },
+    {
+      "name": "quotes \"1e+\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "1e+",
+      "expected": "---\nv: 1e+\n---\n"
+    },
+    {
+      "name": "quotes \"1.2.3\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "1.2.3",
+      "expected": "---\nv: 1.2.3\n---\n"
+    },
+    {
+      "name": "quotes \"1e5e5\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "1e5e5",
+      "expected": "---\nv: 1e5e5\n---\n"
+    },
+    {
+      "name": "quotes \"+\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "+",
+      "expected": "---\nv: +\n---\n"
+    },
+    {
+      "name": "quotes \"\" only if Rust reads it as a float",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "",
+      "expected": "---\nv: \n---\n"
+    },
+    {
+      "name": "leaves an alias-looking value unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "*ref",
+      "expected": "---\nv: *ref\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves an anchor-looking value unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "&anchor x",
+      "expected": "---\nv: &anchor x\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves a tag-looking value unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "!secret",
+      "expected": "---\nv: !secret\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves a leading quote unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "'open",
+      "expected": "---\nv: 'open\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves a sequence entry unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "- item",
+      "expected": "---\nv: - item\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves a tilde unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "~",
+      "expected": "---\nv: ~\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves capitalized null unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "NULL",
+      "expected": "---\nv: NULL\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves capitalized booleans unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "True",
+      "expected": "---\nv: True\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves YAML infinity unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "-.inf",
+      "expected": "---\nv: -.inf\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "leaves YAML octal unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "0o17",
+      "expected": "---\nv: 0o17\n---\n",
+      "web": "refused"
+    },
+    {
+      "name": "keeps a hyphenated word unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "-flag",
+      "expected": "---\nv: -flag\n---\n"
+    },
+    {
+      "name": "keeps an empty value unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "",
+      "expected": "---\nv: \n---\n"
+    },
+    {
+      "name": "keeps yes unquoted",
+      "content": "",
+      "key": "v",
+      "op": "update",
+      "value": "yes",
+      "expected": "---\nv: yes\n---\n"
+    },
+    {
+      "name": "rejects frontmatter with no closing delimiter",
+      "content": "---\ntitle: Note\nBody\n",
+      "key": "Status",
+      "op": "update",
+      "value": "Draft",
+      "error": "Malformed frontmatter: no closing ---"
+    },
+    {
+      "name": "rejects an unclosed block on delete",
+      "content": "---\ntitle: Note\n",
+      "key": "title",
+      "op": "delete",
+      "error": "Malformed frontmatter: no closing ---"
+    }
+  ]
+}

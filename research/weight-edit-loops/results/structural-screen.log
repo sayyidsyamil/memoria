@@ -1,0 +1,24 @@
+{"condition": "structural-screen-structural_layer31_s2", "id": "TS3004b.w0", "output_tokens": 149, "seconds": 8.5577, "finish_reason": "stop", "peak_mlx_gb": 3.9721, "matches_historical_bytes": false, "gold": [], "lost_gold": [], "valid": 0}
+{"condition": "structural-screen-structural_layer31_s2", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 5.5631, "finish_reason": "stop", "peak_mlx_gb": 3.9196, "matches_historical_bytes": true, "gold": ["TS3004b.t56.0"], "lost_gold": [], "valid": 1}
+{"condition": "structural-screen-structural_layer31_s4", "id": "TS3004b.w0", "output_tokens": 149, "seconds": 8.1961, "finish_reason": "stop", "peak_mlx_gb": 3.9889, "matches_historical_bytes": false, "gold": [], "lost_gold": [], "valid": 0}
+{"condition": "structural-screen-structural_layer31_s4", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 5.8086, "finish_reason": "stop", "peak_mlx_gb": 3.9889, "matches_historical_bytes": true, "gold": ["TS3004b.t56.0"], "lost_gold": [], "valid": 1}
+{"condition": "structural-screen-structural_layer31_random_output_s4", "id": "TS3004b.w0", "output_tokens": 1800, "seconds": 61.556, "finish_reason": "length", "peak_mlx_gb": 3.9889, "matches_historical_bytes": true, "gold": [], "lost_gold": [], "valid": 0}
+{"condition": "structural-screen-structural_layer31_random_output_s4", "id": "TS3004b.w1", "output_tokens": 58, "seconds": 7.6363, "finish_reason": "stop", "peak_mlx_gb": 3.9223, "matches_historical_bytes": true, "gold": ["TS3004b.t56.0"], "lost_gold": [], "valid": 1}
+      110.69 real        51.91 user        13.19 sys
+          1838612480  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              352884  page reclaims
+                2465  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                5949  voluntary context switches
+              298889  involuntary context switches
+        178045344734  instructions retired
+         94614449228  cycles elapsed
+          4995501320  peak memory footprint

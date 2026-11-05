@@ -1,0 +1,73 @@
+{
+ "complete": true,
+ "conditions": {
+  "0/hybrid-k12-w3-a0.75-r60-c50": {
+   "level": 0,
+   "config": "hybrid-k12-w3-a0.75-r60-c50",
+   "qa": {
+    "overall": {
+     "correct": 39,
+     "n": 96,
+     "accuracy": 0.40625,
+     "ci_95": [
+      0.313,
+      0.506
+     ]
+    },
+    "as_of_valid": {
+     "correct": 15,
+     "n": 29,
+     "accuracy": 0.5172413793103449,
+     "ci_95": [
+      0.344,
+      0.686
+     ]
+    },
+    "current": {
+     "correct": 22,
+     "n": 34,
+     "accuracy": 0.6470588235294118,
+     "ci_95": [
+      0.479,
+      0.785
+     ]
+    },
+    "n_changes": {
+     "correct": 2,
+     "n": 33,
+     "accuracy": 0.06060606060606061,
+     "ci_95": [
+      0.017,
+      0.196
+     ]
+    }
+   },
+   "median_generation_seconds": 3.454242792000514,
+   "mean_prompt_tokens": 2735.6979166666665,
+   "evidence_found": 26,
+   "evidence_total": 91
+  }
+ },
+ "sensitivity": [],
+ "comparisons": [
+  {
+   "config": "hybrid-k12-w3-a0.75-r60-c50",
+   "hybrid_minus_memoria": {
+    "delta": -0.20833333333333334,
+    "ci_95": [
+     -0.29,
+     -0.11956521739130435
+    ],
+    "clusters": 5,
+    "note": "exploratory; only five test teams (two on dev); intervals are unstable at small cluster counts"
+   },
+   "question_sign_test_exploratory": {
+    "a_only": 10,
+    "b_only": 30,
+    "both": 29,
+    "neither": 27,
+    "p_two_sided": 0.0022214337732293643
+   }
+  }
+ ]
+}

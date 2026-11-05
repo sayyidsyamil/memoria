@@ -1,0 +1,28 @@
+import { invoke } from '@tauri-apps/api/core'
+import { isTauri } from '../mock-tauri'
+import { resolveThemeMode, type ResolvedThemeMode, type ThemeMode } from './themeMode'
+
+export async function syncAppIconThemeMode(themeMode: ResolvedThemeMode): Promise<void> {
+  if (!isTauri()) return
+
+  try {
+    await invoke('update_app_icon', { themeMode })
+  } catch (error) {
+    console.warn('Failed to update app icon for theme mode', error)
+  }
+}
+
+export async function syncNativeWindowBackground(themeMode: ThemeMode): Promise<void> {
+  if (!isTauri()) return
+
+  const color = themeMode === 'hybrid'
+    ? '#191814'
+    : resolveThemeMode(themeMode) === 'dark' ? '#1F1E1B' : '#F7F6F3'
+
+  try {
+    const { getCurrentWindow } = await import('@tauri-apps/api/window')
+    await getCurrentWindow().setBackgroundColor(color)
+  } catch (error) {
+    console.warn('Failed to update native window background for theme mode', error)
+  }
+}

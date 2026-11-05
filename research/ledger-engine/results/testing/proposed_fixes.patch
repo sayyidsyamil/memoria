@@ -1,0 +1,434 @@
+--- a/memoria_engine/extractors.py
++++ b/memoria_engine/extractors.py
+@@ -178,27 +178,37 @@
+     )
+ 
+ 
++def _flag(x: Any) -> bool:
++    """A model may write a flag as true, 1 or "false": the word "false" must not read as true."""
++    if isinstance(x, str):
++        return x.strip().casefold() not in ("", "false", "no", "0")
++    return bool(x)
++
++
+ def parse_events(text: str) -> Tuple[List[Candidate], bool]:
+-    """(candidates, parsed_cleanly). Falls back to salvaging individual event objects."""
++    """(candidates, parsed_cleanly). Clean only when the reply holds an "events" list; otherwise individual event
++    objects are salvaged. Never raises, whatever the model wrote."""
+     def to_candidate(e: Dict[str, Any]) -> Candidate:
+         turn = e.get("turn")
+         return Candidate(e.get("object_id"), e.get("attribute"), e.get("value"), str(e.get("quote") or ""),
+                          turn if isinstance(turn, int) else None, e.get("valid_from") or None,
+                          e.get("confidence") if isinstance(e.get("confidence"), (int, float)) else None,
+-                         bool(e.get("unresolved")))
++                         _flag(e.get("unresolved")))
+ 
+     start, end = text.find("{"), text.rfind("}")
+     if start >= 0 and end > start:
+         try:
+-            events = json.loads(text[start:end + 1]).get("events", [])
+-            return [to_candidate(e) for e in events if isinstance(e, dict)], True
+-        except (json.JSONDecodeError, AttributeError):
++            doc = json.loads(text[start:end + 1])
++            events = doc.get("events") if isinstance(doc, dict) else None
++            if isinstance(events, list):
++                return [to_candidate(e) for e in events if isinstance(e, dict)], True
++        except (ValueError, TypeError, RecursionError):
+             pass
+     salvaged = []
+     for m in re.finditer(r"\{[^{}]*\"quote\"[^{}]*\}", text):
+         try:
+             salvaged.append(to_candidate(json.loads(m.group(0))))
+-        except json.JSONDecodeError:
++        except (ValueError, TypeError):
+             continue
+     return salvaged, False
+ 
+--- a/memoria_engine/ledger.py
++++ b/memoria_engine/ledger.py
+@@ -192,6 +192,7 @@
+             "reject": self._op_reject,
+         }
+         self._noop = False
++        self._log_mark: Optional[int] = None  # log size before the record being written, to undo a failed write
+         self._init_schema()
+         self._catch_up_from_log()
+ 
+@@ -230,13 +231,25 @@
+     @contextmanager
+     def _txn(self) -> Iterator[None]:
+         self._db.execute("BEGIN IMMEDIATE")
++        self._log_mark = None
+         try:
+             yield
++            self._db.execute("COMMIT")
+         except BaseException:
+-            self._db.execute("ROLLBACK")
++            self._unwind_log()  # a record whose write failed must not stay in the log
++            if self._db.in_transaction:
++                self._db.execute("ROLLBACK")
+             raise
+-        self._db.execute("COMMIT")
++        self._log_mark = None
+ 
++    def _unwind_log(self) -> None:
++        mark, self._log_mark = self._log_mark, None
++        if mark is not None and self._log_path is not None:
++            try:
++                os.truncate(self._log_path, mark)
++            except OSError:
++                pass
++
+     def _meta(self, key: str) -> int:
+         return self._db.execute("SELECT value FROM meta WHERE key = ?", (key,)).fetchone()[0]
+ 
+@@ -266,6 +279,7 @@
+             sort_keys=True, separators=(",", ":"), ensure_ascii=False,
+         )
+         with open(self._log_path, "a", encoding="utf-8") as f:
++            self._log_mark = os.fstat(f.fileno()).st_size
+             f.write(line + "\n")
+             f.flush()
+             os.fsync(f.fileno())
+@@ -280,13 +294,18 @@
+             with open(path, "r+b") as f:
+                 f.truncate(end)
+             raw = raw[:end]
++        try:
++            text = raw.decode("utf-8")
++        except UnicodeDecodeError as exc:
++            raise LogCorrupt("the log is not valid UTF-8") from exc
+         events = []
+-        for n, line in enumerate(raw.decode("utf-8").splitlines(), start=1):
++        # records end at "\n" only: str.splitlines() would also cut at U+2028, U+2029 and U+0085 inside a record
++        for n, line in enumerate(text.split("\n")[:-1], start=1):
+             try:
+                 event = json.loads(line)
+-            except json.JSONDecodeError as exc:
++            except (ValueError, RecursionError) as exc:
+                 raise LogCorrupt(f"log line {n} is not valid JSON") from exc
+-            if event.get("seq") != n or event.get("op") not in self._handlers:
++            if not isinstance(event, dict) or event.get("seq") != n or event.get("op") not in self._handlers:
+                 raise LogCorrupt(f"log line {n}: unexpected sequence number or operation")
+             events.append(event)
+         return events
+@@ -299,10 +318,16 @@
+         if done > len(events):
+             raise LogCorrupt(f"database has {done} events but the log has only {len(events)}")
+         for event in events[done:]:
+-            with self._txn():
+-                self._handlers[event["op"]](event["tx"], event["args"])
+-                self._set_meta("last_tx", max(self._meta("last_tx"), event["tx"]))
+-                self._set_meta("last_seq", event["seq"])
++            try:
++                with self._txn():
++                    self._handlers[event["op"]](event["tx"], event["args"])
++                    self._set_meta("last_tx", max(self._meta("last_tx"), event["tx"]))
++                    self._set_meta("last_seq", event["seq"])
++            except LogCorrupt:
++                raise
++            except (LedgerError, KeyError, TypeError, AttributeError, ValueError, OverflowError,
++                    sqlite3.IntegrityError, sqlite3.ProgrammingError, sqlite3.InterfaceError) as exc:
++                raise LogCorrupt(f"log line {event['seq']} cannot be replayed: {exc!r}") from exc
+ 
+     # ---- reference data ----------------------------------------------------------------------
+ 
+@@ -462,6 +487,7 @@
+     def _op_correct(self, tx: int, a: Dict[str, Any]) -> AssertOutcome:
+         old = self._fact_row(a["fact_id"])
+         self._not_retracted(a["fact_id"])
++        _nonempty(a["reason"], "reason")
+         changes = a["changes"]
+         if set(changes) - {"value", "valid_from", "valid_to"}:
+             raise InvalidAssertion("only value, valid_from and valid_to can be corrected")
+@@ -512,6 +538,9 @@
+             "SELECT occurred_at FROM sources WHERE source_id = ?", (evidence[0].source_id,)).fetchone()[0]
+         decided_at = occurred + round((evidence[0].audio_start or 0.0) * 1_000_000)
+         valid_from, valid_to = a["valid_from"], a["valid_to"]
++        for what, bound in (("valid_from", valid_from), ("valid_to", valid_to)):
++            if bound is not None and (isinstance(bound, bool) or not isinstance(bound, int) or not -2**63 <= bound < 2**63):
++                raise InvalidAssertion(f"{what} must be an integer number of microseconds or None")
+         basis = "meeting_time" if valid_from is None else "stated"
+         if valid_from is None:
+             valid_from = decided_at
+--- a/memoria_engine/pipeline.py
++++ b/memoria_engine/pipeline.py
+@@ -10,13 +10,15 @@
+ from __future__ import annotations
+ 
+ import difflib
++import math
+ import re
++import sqlite3
+ import time
+ from dataclasses import dataclass, field
+ from datetime import date
+ from typing import Any, Dict, List, Optional, Sequence, Tuple
+ 
+-from .ledger import Evidence, Ledger, ts
++from .ledger import Evidence, Ledger, LedgerError, ts
+ 
+ STATE_CHANGING = ("INITIAL", "REVISE", "REVERSE", "CANCEL", "COMPLETE")
+ STATUS_KINDS = {"done": "COMPLETE", "cancelled": "CANCEL"}
+@@ -67,15 +69,17 @@
+                     return v
+             raise ValueError(f"{raw!r} is not one of {spec.values}")
+         if spec.type == "date":
+-            text = str(raw).strip()
+-            date.fromisoformat(text)
+-            return text
++            return date.fromisoformat(str(raw).strip()).isoformat()
+         if spec.type == "number":
+-            if isinstance(raw, bool):
++            if isinstance(raw, bool) or not isinstance(raw, (int, float, str)):
+                 raise ValueError("a number is expected")
+-            n = raw if isinstance(raw, (int, float)) else float(re.sub(r"[^\d.\-]", "", str(raw)) or "nan")
+-            if n != n:
+-                raise ValueError(f"{raw!r} is not a number")
++            try:
++                n = raw if isinstance(raw, (int, float)) else float(re.sub(r"[^\d.\-]", "", raw) or "nan")
++                finite = math.isfinite(n)
++            except OverflowError:
++                finite = False
++            if not finite:
++                raise ValueError(f"{raw!r} is not a finite number")
+             return int(n) if float(n).is_integer() else n
+         if spec.type == "person":
+             wanted = str(raw).strip().casefold()
+@@ -149,6 +153,13 @@
+     unresolved: bool = False
+ 
+ 
++def _confidence(x: Any) -> Optional[float]:
++    """The extractor's confidence when it is a real number in [0, 1]; otherwise None, which reads as "not sure"."""
++    if isinstance(x, bool) or not isinstance(x, (int, float)):
++        return None
++    return x if 0 <= x <= 1 else None
++
++
+ # ---- grounding -------------------------------------------------------------------------------
+ 
+ def _tokens(text: str) -> List[str]:
+@@ -174,11 +185,11 @@
+     if len(qt) < 3:
+         return None
+     best: Optional[Tuple[float, int]] = None
+-    for t in meeting.turns:
++    for i, t in enumerate(meeting.turns):
+         matched = sum(b.size for b in difflib.SequenceMatcher(None, qt, _tokens(t.text), autojunk=False).get_matching_blocks())
+         coverage = matched / len(qt)
+         if coverage >= 0.8 and (best is None or coverage > best[0]):
+-            best = (coverage, t.index)
++            best = (coverage, i)
+     if best:
+         return best[1], spans[best[1]][0], spans[best[1]][1], False
+     return None
+@@ -205,7 +216,10 @@
+ 
+ def make_policy(spec: str) -> Policy:
+     if spec.startswith("threshold:"):
+-        return Policy(spec, "threshold", float(spec.split(":", 1)[1]))
++        tau = float(spec.split(":", 1)[1])
++        if tau != tau:
++            raise ValueError(f"unknown policy {spec!r}: the threshold is not a number")
++        return Policy(spec, "threshold", tau)
+     if spec in ("immediate", "confirm_conflicts", "confirm_all"):
+         return Policy(spec, spec)
+     raise ValueError(f"unknown policy {spec!r}")
+@@ -265,6 +279,13 @@
+         return out
+ 
+     def ingest(self, meeting: Meeting) -> MeetingResult:
++        for t in meeting.turns:
++            try:
++                finite = math.isfinite(t.start)
++            except (TypeError, OverflowError):
++                finite = False
++            if not finite:
++                raise ValueError(f"turn {t.index} of meeting {meeting.meeting_id!r} has no usable start time: {t.start!r}")
+         self.clock.t = meeting.ingested_at
+         source_id = self.ledger.add_source(meeting.text, meeting.meeting_id, meeting.occurred_at)
+         self.meeting_of_source[source_id] = meeting.meeting_id
+@@ -293,8 +314,7 @@
+             d.object_id, d.attribute = c.object_id, c.attribute
+             d.value = self.registry.normalise(c.object_id, c.attribute, c.value)
+             if c.valid_from:
+-                date.fromisoformat(str(c.valid_from))
+-                d.valid_from = str(c.valid_from)
++                d.valid_from = date.fromisoformat(str(c.valid_from)).isoformat()
+         except (KeyError, ValueError, TypeError) as exc:
+             d.status, d.reason = "invalid", str(exc)
+         return d
+@@ -309,19 +329,28 @@
+         spec = self.registry.spec(d.object_id, d.attribute)
+         hint = STATUS_KINDS.get(d.value) if spec.name == "status" else (spec.change_kind if spec.change_kind != "REVISE" else None)
+         start, end = d.span
++        confidence = _confidence(d.candidate.confidence)
+         evidence = Evidence(
+             source_id, meeting.text[start:end], speaker_id=turn.speaker, char_start=start, char_end=end,
+             audio_start=turn.start, extractor_model=getattr(self.extractor, "name", None),
+-            confidence=d.candidate.confidence)
++            confidence=confidence)
+         if not self.policy.needs_review(conflict=d.conflict, changes_belief=d.changes_belief,
+-                                        confidence=d.candidate.confidence):
+-            out = self.ledger.assert_fact(d.object_id, d.attribute, d.value, evidence, valid_from=valid_from, kind_hint=hint)
++                                        confidence=confidence):
++            try:
++                out = self.ledger.assert_fact(d.object_id, d.attribute, d.value, evidence, valid_from=valid_from, kind_hint=hint)
++            except (LedgerError, sqlite3.IntegrityError) as exc:
++                d.status, d.reason = "invalid", f"ledger rejected the write: {exc}"
++                return
+             d.status, d.fact_id, d.outcome = "applied", out.fact_id, out.status
+             return
++        try:
++            d.proposal_id = self.ledger.propose(
++                d.object_id, d.attribute, d.value, evidence, valid_from=valid_from, kind_hint=hint,
++                confidence=confidence, reason=self.policy.name)
++        except (LedgerError, sqlite3.IntegrityError) as exc:
++            d.status, d.reason = "invalid", f"ledger rejected the write: {exc}"
++            return
+         d.status = "proposed"
+-        d.proposal_id = self.ledger.propose(
+-            d.object_id, d.attribute, d.value, evidence, valid_from=valid_from, kind_hint=hint,
+-            confidence=d.candidate.confidence, reason=self.policy.name)
+         if self.reviewer is None:
+             d.review = "pending"
+         else:
+--- a/tests/test_error_handling.py
++++ b/tests/test_error_handling.py
+@@ -422,7 +422,6 @@
+                 self.assertEqual(getattr(one(**{field: raw}), attribute), expected)
+         self.observe("14 type confusions handled without an exception")
+ 
+-    @known_defect("DEF-03")
+     def test_unresolved_flag_written_as_text_is_read_literally(self):
+         """TC-ERR-08 | FR4, NFR-Robustness | Input: unresolved is the string "false", "False", "no", "0" or "true", "yes" | Expected: the first four read as False (the event is kept), the others as True"""
+         read = {}
+@@ -432,7 +431,6 @@
+         self.observe("unresolved text read as " + ", ".join(f"{raw.strip()!r} -> {value}" for raw, value in read.items()))
+         self.assertEqual(read, {"false": False, "False": False, " no ": False, "0": False, "true": True, "yes": True})
+ 
+-    @known_defect("DEF-01", "DEF-02")
+     def test_reply_with_events_of_the_wrong_shape_never_raises(self):
+         """TC-ERR-09 | NFR-Robustness | Input: "events" is null/5/"none"/true/an object, no "events" key, a bare event, a top-level array | Expected: never an exception; a lone event is recovered; clean only when "events" is a list"""
+         one = [Candidate(None, None, None, "q")]
+@@ -479,7 +477,6 @@
+                 self.assertEqual([c.quote for c in candidates], quotes)
+         self.observe("6 quotes x 2 encodings round-trip exactly")
+ 
+-    @known_defect("DEF-01")
+     def test_pathological_sizes_finish_quickly_without_exceptions(self):
+         """TC-ERR-12 | NFR-Robustness | Input: 200k "{", 200k "}", 30k unfinished events, 50k-deep nesting, a 5000-digit integer, 1 MB of prose, 5000 valid events | Expected: no exception, each under 5 s, the 5000 events all returned"""
+         cases = {
+@@ -505,7 +502,6 @@
+         self.observe("; ".join(timings))
+         self.assertEqual(problems, [])
+ 
+-    @known_defect("DEF-01")
+     def test_seeded_fuzz_of_model_replies_never_raises(self):
+         """TC-ERR-13 | NFR-Robustness | Input: 3000 structurally and 3000 textually mutated replies (fixed seed) | Expected: parse_events always returns (list of Candidate, bool); zero exceptions"""
+         rng = random.Random(20260513)
+@@ -560,7 +556,6 @@
+         self.rejected("rollout", "deadline", ["1 March 2026", "2026-13-01", "2026-02-30", "", None, "tomorrow", "2026/03/01", 2026])
+         self.observe("2 ISO spellings accepted, 8 non-dates rejected with ValueError")
+ 
+-    @known_defect("DEF-06")
+     def test_dates_in_other_iso_forms_are_stored_in_canonical_form(self):
+         """TC-ERR-16 | FR4, FR5 | Input: the deadline "20260301", 20260301 and "2026-W10-1" (valid ISO 8601 spellings the model may use) | Expected: stored as "2026-03-01" / "2026-03-02", so one date is one value"""
+         stored = {raw: self.reg.normalise("rollout", "deadline", raw) for raw in ("20260301", 20260301, "2026-W10-1")}
+@@ -575,7 +570,6 @@
+         self.rejected("budget", "amount", [True, None, "abc", "", float("nan")])
+         self.observe("6 numbers accepted; 5 non-numbers rejected with ValueError")
+ 
+-    @known_defect("DEF-04")
+     def test_numbers_must_be_finite_and_scalar(self):
+         """TC-ERR-18 | FR4, NFR-Robustness | Input: the amount inf, -inf, 10**400, "9"*400 (not finite), [1, 2] and {"a": 2} (not scalars) | Expected: ValueError every time (never OverflowError, never a silent inf or 12)"""
+         outcomes = []
+@@ -686,7 +680,6 @@
+                 self.assertEqual((found[0], found[3]), (turn, True))
+         self.observe("6 quotes in 4 scripts/whitespace styles grounded exactly")
+ 
+-    @known_defect("DEF-07")
+     def test_turn_indices_that_do_not_start_at_zero(self):
+         """TC-ERR-28 | FR2, FR3 | Input: transcripts whose Turn.index is 1-based, gapped or offset by 10, quoted almost (not exactly) | Expected: the fuzzy match cites the turn's position in the transcript (no IndexError, no wrong turn)"""
+         cited = {}
+@@ -756,7 +749,6 @@
+                 self.assertEqual(pipe.ledger.check_invariants(), [])
+         self.observe("5 garbage replies -> no candidates, 1 stored transcript, 0 facts; the clean empty list is the only one flagged parsed_cleanly")
+ 
+-    @known_defect("DEF-05")
+     def test_out_of_range_or_non_finite_confidence_does_not_abort_the_meeting(self):
+         """TC-ERR-32 | FR4, NFR-Robustness | Input: events with confidence 95, -0.2, NaN and 1e999 followed by one with 0.75 | Expected: no exception, all five grounded events are applied, the four unusable confidences are stored as NULL and 0.75 is kept"""
+         slots = (("vendor", "outcome"), ("rollout", "owner"), ("rollout", "deadline"), ("budget", "amount"), ("rollout", "status"))
+@@ -775,7 +767,6 @@
+         self.assertEqual(stored, [None, None, None, None, 0.75])
+         self.observe(f"5 applied; stored confidences {stored}")
+ 
+-    @known_defect("DEF-09")
+     def test_a_ledger_rejection_for_one_candidate_does_not_abort_the_meeting(self):
+         """TC-ERR-33 | FR5, NFR-Robustness | Input: three valid candidates and an injected fault (InvalidAssertion, then sqlite3.IntegrityError) on the ledger write of the second | Expected: that candidate is dropped as invalid with the ledger's reason, the other two are applied, no exception, invariants hold"""
+         outcomes = {}
+@@ -816,7 +807,6 @@
+         self.assertEqual((value_at(pipe.ledger, "vendor", "outcome"), n_changes(pipe.ledger, "vendor", "outcome")), ("Vendor B", 1))
+         self.observe("RuntimeError propagated; 1 fact kept, failed meeting stored as a source only; retry applied Vendor B")
+ 
+-    @known_defect("DEF-08")
+     def test_non_finite_turn_times_are_refused_before_anything_is_stored(self):
+         """TC-ERR-35 | FR2, NFR-Robustness | Input: a transcript whose second turn starts at NaN, Infinity or -Infinity seconds | Expected: ValueError before any write: no source row, the extractor is never called, the ledger is unchanged"""
+         seen = {}
+@@ -961,7 +951,6 @@
+                          ["immediate", "confirm_conflicts", "confirm_all", "threshold"])
+         self.observe("7 bad specs rejected, 4 good ones accepted")
+ 
+-    @known_defect("DEF-10")
+     def test_a_nan_threshold_is_refused_instead_of_switching_review_off(self):
+         """TC-ERR-43 | NFR-Robustness | Input: the policy spec "threshold:nan" (a typo that compares false with every confidence) | Expected: ValueError, because accepting it would silently apply every candidate without review"""
+         try:
+@@ -1224,7 +1213,6 @@
+         self.assertEqual((fixed.status, env.values("dec1", "outcome", [3000]), L.check_invariants()), ("in_force", ["A2"], []))
+         self.observe("retraction restored A; correction added A2; all three facts remain in history with their retraction flags")
+ 
+-    @known_defect("DEF-15")
+     def test_a_correction_needs_a_reason(self):
+         """TC-ERR-54 | FR5, NFR-Traceability | Input: correct() called with an empty, a blank and a None reason | Expected: InvalidAssertion and nothing changed (the audit trail must say why a fact was corrected)"""
+         got = {}
+@@ -1240,7 +1228,6 @@
+         self.observe("; ".join(f"reason {reason!r} -> {verdict}" for reason, (verdict, _) in got.items()))
+         self.assertEqual(got, {reason: ("refused", True) for reason in got})
+ 
+-    @known_defect("DEF-14")
+     def test_validity_bounds_must_be_integers(self):
+         """TC-ERR-55 | FR5, NFR-Robustness | Input: assert_fact, propose and correct with valid_from or valid_to given as "2026-01-01", 1500.5 or True | Expected: InvalidAssertion, nothing stored, and the slot stays writable (a text bound would otherwise make every later write to the slot fail)"""
+         outcomes = {}
+@@ -1462,7 +1449,6 @@
+         self.assertEqual(Ledger(str(db), log_path=str(log)).check_invariants(), [])
+         self.observe(f"{len(variants) + 2} damaged logs -> LogCorrupt, bytes untouched; the restored log opens again")
+ 
+-    @known_defect("DEF-12")
+     def test_every_other_kind_of_log_damage_is_also_logcorrupt(self):
+         """TC-ERR-59 | NFR-Recoverability, NFR-Robustness | Input: a log line that is the JSON number 123, [1], null or "s"; a byte that is not UTF-8; a record without args or without tx; args that is a list; a record naming an unknown object; a define_attribute with cardinality "several" | Expected: LogCorrupt in every case (not AttributeError, KeyError, TypeError, UnicodeDecodeError, UnknownReference or InvalidAssertion) and the log bytes untouched"""
+         _, log = self.paths()
+@@ -1503,7 +1489,6 @@
+         self.observe(f"{len(raised) - len(other)} of {len(raised)} damaged logs raised LogCorrupt" + (f"; other errors: {other}" if other else "") + "; log bytes untouched")
+         self.assertEqual(raised, {name: ("LogCorrupt", True) for name in raised})
+ 
+-    @known_defect("DEF-11")
+     def test_text_with_unicode_line_separators_does_not_make_the_ledger_unopenable(self):
+         """TC-ERR-60 | NFR-Recoverability, NFR-Robustness | Input: evidence text containing U+2028, U+2029, U+0085, vertical tab, form feed, file separator or a carriage return, stored in an on-disk ledger that is closed and reopened and also rebuilt from the log alone | Expected: reopening and rebuilding succeed and equal the live state"""
+         separators = {"U+2028": "\u2028", "U+2029": "\u2029", "U+0085": "\x85", "vertical tab": "\x0b",
+@@ -1528,7 +1513,6 @@
+         self.observe(f"{len(reopened_as) - len(bad)} of {len(reopened_as)} separators survive close, reopen and rebuild" + (f"; the ledger could not be opened after {bad}" if bad else ""))
+         self.assertEqual(bad, {})
+ 
+-    @known_defect("DEF-13")
+     def test_a_failed_log_append_leaves_no_residue_for_the_next_start(self):
+         """TC-ERR-61 | NFR-Recoverability | Input: in a live process the log write fails (fsync reports EIO; the disk fills up after half a record; COMMIT fails after the record was logged) | Expected: the write raises, database and log are unchanged, the next write works with the next sequence number, and a restart and a rebuild both equal the live state"""
+         def fsync_fails(env, evidence):
+@@ -1851,7 +1835,6 @@
+         self.assertEqual(top_level & third_party, set())
+         self.observe(f"no socket call during the run; {len(files)} modules import nothing network-capable; the only third-party import is a lazy mlx_lm")
+ 
+-    @known_defect("DEF-05", "DEF-09")
+     def test_seeded_mutations_of_model_replies_never_abort_a_meeting_or_break_the_ledger(self):
+         """TC-ERR-70 | NFR-Robustness, FR3 | Input: 200 seeded mutations (junk values of random JSON types in random places, deleted, inserted or truncated characters) of a valid three-event reply, each ingested into a fresh pipeline | Expected: ingest never raises, only the five documented statuses appear, invariants hold and every stored fact cites the exact transcript span"""
+         rng = random.Random(20260301)

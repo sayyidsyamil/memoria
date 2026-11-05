@@ -1,0 +1,2564 @@
+{
+  "preflight": {
+    "time": "2026-11-03T18:32:01+0800",
+    "conflicts": []
+  },
+  "rows": [
+    {
+      "id": "p0-1-case",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_curve",
+      "predicted": "case_curve",
+      "correct": true,
+      "margin": 3.688138961791992,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "f753618c4e81fe780904501a6e6eeb76564efc100fb6785af5fca4015418a9e7",
+        "targets": [
+          "\"case_curve\",",
+          "\"case_button_curve\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1165,
+        "native_prefix": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the case.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "e614e5176449110dd79ea0bd1bc509f31282deff182d2465734c5a89f751b4f6",
+      "alternatives": [
+        {
+          "object_id": "case_curve",
+          "target_text": "\"case_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000347137451171875,
+            -0.0032444000244140625,
+            -0.008020401000976562,
+            -11.187578201293945
+          ],
+          "sum_logp": -11.199190139770508,
+          "mean_logp": -2.799797534942627,
+          "seconds": 5.712563249981031,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_curve",
+          "target_text": "\"case_button_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000347137451171875,
+            -0.0032444000244140625,
+            -5.258020401000977,
+            -0.0001773834228515625,
+            -9.625539779663086
+          ],
+          "sum_logp": -14.8873291015625,
+          "mean_logp": -2.9774658203125,
+          "seconds": 5.192681208980503,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.625347137451172,
+            -0.00775909423828125,
+            -11.562671661376953
+          ],
+          "sum_logp": -21.195777893066406,
+          "mean_logp": -7.065259297688802,
+          "seconds": 4.474682958010817,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p0-1-buttons",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_button_curve",
+      "predicted": "case_button_curve",
+      "correct": true,
+      "margin": 2.0036468505859375,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "4c111d28de0b2696462796794569cb15ea0ce3077a42ee8063c73dcd63e29eda",
+        "targets": [
+          "\"case_curve\",",
+          "\"case_button_curve\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1167,
+        "native_prefix": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the enter button.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "fd6e9d4fce400439d5f94af4b2c74135666dc6e13d87c5b70fa4b7689400da68",
+      "alternatives": [
+        {
+          "object_id": "case_curve",
+          "target_text": "\"case_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0015392303466796875,
+            -0.00140380859375,
+            -6.626483917236328,
+            -6.691289901733398
+          ],
+          "sum_logp": -13.320716857910156,
+          "mean_logp": -3.330179214477539,
+          "seconds": 4.8123360839963425,
+          "peak_mlx_gb": 2.79219531
+        },
+        {
+          "object_id": "case_button_curve",
+          "target_text": "\"case_button_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0015392303466796875,
+            -0.00140380859375,
+            -0.001483917236328125,
+            -0.00011444091796875,
+            -11.312528610229492
+          ],
+          "sum_logp": -11.317070007324219,
+          "mean_logp": -2.263414001464844,
+          "seconds": 4.796979709004518,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -6.87653923034668,
+            -0.008655548095703125,
+            -12.000221252441406
+          ],
+          "sum_logp": -18.88541603088379,
+          "mean_logp": -6.295138676961263,
+          "seconds": 4.478815292008221,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p0-0-case",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": "case_curve",
+      "predicted": "case_curve",
+      "correct": true,
+      "margin": 9.449176788330078,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "920ff4941299c11ebfac90e5bfea62d2d0a1ede666eb35c680707edc2d694fa7",
+        "targets": [
+          "\"case_curve\",",
+          "\"case_button_curve\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1141,
+        "native_prefix": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the case.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "a2115cfe09d0116ec401ffd7f3f891b95a5b0aea8e6c45ffa94f95a88bba2675",
+      "alternatives": [
+        {
+          "object_id": "case_curve",
+          "target_text": "\"case_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000152587890625,
+            -0.0008697509765625,
+            -0.000339508056640625,
+            -12.562517166137695
+          ],
+          "sum_logp": -12.563879013061523,
+          "mean_logp": -3.140969753265381,
+          "seconds": 4.526776540995343,
+          "peak_mlx_gb": 2.786194618
+        },
+        {
+          "object_id": "case_button_curve",
+          "target_text": "\"case_button_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000152587890625,
+            -0.0008697509765625,
+            -17.25033950805664,
+            -4.209314346313477,
+            -6.344785690307617
+          ],
+          "sum_logp": -27.805461883544922,
+          "mean_logp": -5.561092376708984,
+          "seconds": 4.506846542004496,
+          "peak_mlx_gb": 2.786194618
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -10.625152587890625,
+            -0.012681961059570312,
+            -11.375221252441406
+          ],
+          "sum_logp": -22.0130558013916,
+          "mean_logp": -7.337685267130534,
+          "seconds": 4.614101292012492,
+          "peak_mlx_gb": 2.786194618
+        }
+      ]
+    },
+    {
+      "id": "p0-0-buttons",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": null,
+      "predicted": "case_curve",
+      "correct": false,
+      "margin": -6.81373405456543,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "db5a7ebb1133385d60ba1ee5e36e39043846cf4c38a22d0ebe53c93747567117",
+        "targets": [
+          "\"case_curve\",",
+          "\"case_button_curve\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1143,
+        "native_prefix": "{\"events\":[{\"turn\":177,\"quote\":\"We will use a double-curved shape for the enter button.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "668f07111c808108f701695e4d3dd3bb3dde606b16c7f67b17cbbd9ab6ca74d3",
+      "alternatives": [
+        {
+          "object_id": "case_curve",
+          "target_text": "\"case_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0018177032470703125,
+            -0.0048618316650390625,
+            -0.0006256103515625,
+            -12.18754768371582
+          ],
+          "sum_logp": -12.194852828979492,
+          "mean_logp": -3.048713207244873,
+          "seconds": 6.362087083020015,
+          "peak_mlx_gb": 2.786194618
+        },
+        {
+          "object_id": "case_button_curve",
+          "target_text": "\"case_button_curve\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            41972,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_curve",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0018177032470703125,
+            -0.0048618316650390625,
+            -14.000625610351562,
+            -0.4786643981933594,
+            -7.259651184082031
+          ],
+          "sum_logp": -21.745620727539062,
+          "mean_logp": -4.349124145507813,
+          "seconds": 5.8085185830132104,
+          "peak_mlx_gb": 2.786194618
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -6.75181770324707,
+            -0.0066127777099609375,
+            -12.25015640258789
+          ],
+          "sum_logp": -19.008586883544922,
+          "mean_logp": -6.336195627848308,
+          "seconds": 6.021539583976846,
+          "peak_mlx_gb": 2.786194618
+        }
+      ]
+    },
+    {
+      "id": "p1-1-case",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 1.3141632080078125,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "ef009fe67a203d1185d450f7d71ca7721460369f09f9bb3075889eec96e28288",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1293,
+        "native_prefix": "{\"events\":[{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the case.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "620e307850a801a2cc134ca5361b88f7c71bf51fc71026c465b215ca9e5e6144",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000148773193359375,
+            -0.0006427764892578125,
+            -0.017251968383789062,
+            -12.750036239624023
+          ],
+          "sum_logp": -12.76807975769043,
+          "mean_logp": -3.1920199394226074,
+          "seconds": 6.753673166997032,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000148773193359375,
+            -0.0006427764892578125,
+            -4.142251968383789,
+            -0.0009250640869140625,
+            -9.938274383544922
+          ],
+          "sum_logp": -14.082242965698242,
+          "mean_logp": -2.8164485931396483,
+          "seconds": 6.399118500004988,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -10.37514877319336,
+            -0.039142608642578125,
+            -11.812681198120117
+          ],
+          "sum_logp": -22.226972579956055,
+          "mean_logp": -7.408990859985352,
+          "seconds": 5.805693875008728,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p1-1-buttons",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_button_material",
+      "predicted": "case_button_material",
+      "correct": true,
+      "margin": 4.003385543823242,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "521938c6ec3db987425d4737695d51735207651e061fe0c60fa25e705f2eb890",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1293,
+        "native_prefix": "{\"events\":[{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the buttons.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "ad1b48c2edc8debab90efa84d624bac97ba8e582143a0be6e5dfd646a917dfa8",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0002613067626953125,
+            -0.0005645751953125,
+            -7.001180648803711,
+            -9.00361442565918
+          ],
+          "sum_logp": -16.0056209564209,
+          "mean_logp": -4.001405239105225,
+          "seconds": 6.213981917011552,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0002613067626953125,
+            -0.0005645751953125,
+            -0.0011806488037109375,
+            -0.0002040863037109375,
+            -12.000024795532227
+          ],
+          "sum_logp": -12.002235412597656,
+          "mean_logp": -2.4004470825195314,
+          "seconds": 5.8237850409932435,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.500261306762695,
+            -0.03783226013183594,
+            -12.437662124633789
+          ],
+          "sum_logp": -21.97575569152832,
+          "mean_logp": -7.3252518971761065,
+          "seconds": 6.011406999983592,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p1-0-case",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 9.677108764648438,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "6047c1f81202b89ba19407d94d83588690b6b1f5c92e223c17fbd65c4e91cbcf",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1271,
+        "native_prefix": "{\"events\":[{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the case.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "d6b601d23ec7b461213dc547761ecd154117115e4eda169b817ff54627376fa6",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.00011444091796875,
+            -0.0004711151123046875,
+            -0.000904083251953125,
+            -12.812519073486328
+          ],
+          "sum_logp": -12.814008712768555,
+          "mean_logp": -3.2035021781921387,
+          "seconds": 5.65600308298599,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.00011444091796875,
+            -0.0004711151123046875,
+            -16.813404083251953,
+            -3.5181827545166016,
+            -6.155570983886719
+          ],
+          "sum_logp": -26.487743377685547,
+          "mean_logp": -5.29754867553711,
+          "seconds": 5.141421500011347,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -10.625114440917969,
+            -0.053302764892578125,
+            -11.812700271606445
+          ],
+          "sum_logp": -22.491117477416992,
+          "mean_logp": -7.497039159138997,
+          "seconds": 5.4060946670069825,
+          "peak_mlx_gb": 2.786195118
+        }
+      ]
+    },
+    {
+      "id": "p1-0-buttons",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": null,
+      "predicted": "case_material",
+      "correct": false,
+      "margin": -9.23723030090332,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "5a34528ea41b27f27ecfd1b4c10c45d491b73ff816ec6296350e25c614433143",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1271,
+        "native_prefix": "{\"events\":[{\"turn\":102,\"quote\":\"we've decided on flexible rubber for the buttons.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "c13498882ed2cd295329ed019608820dbe378aa7645c546722aac4e3d8a3e8ea",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.00020599365234375,
+            -0.0012054443359375,
+            -0.000797271728515625,
+            -13.437522888183594
+          ],
+          "sum_logp": -13.43973159790039,
+          "mean_logp": -3.3599328994750977,
+          "seconds": 5.604218458000105,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.00020599365234375,
+            -0.0012054443359375,
+            -12.500797271728516,
+            -0.5749683380126953,
+            -7.584232330322266
+          ],
+          "sum_logp": -20.661409378051758,
+          "mean_logp": -4.132281875610351,
+          "seconds": 4.898802417010302,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -10.000205993652344,
+            -0.05163002014160156,
+            -12.625125885009766
+          ],
+          "sum_logp": -22.67696189880371,
+          "mean_logp": -7.558987299601237,
+          "seconds": 5.178871667012572,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p2-1-case",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 1.3135128021240234,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "eeb0db9387b3f37ed4ef427732d1046aea11060f8be5c63eb7645b42df8600ea",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1226,
+        "native_prefix": "{\"events\":[{\"turn\":117,\"quote\":\"We will use rubber for the case.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "432b5775d4fc130705710d3eeb7bbbff9330e239fcc93de5fc4343eeee277fb7",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.00028228759765625,
+            -0.0005702972412109375,
+            -0.010541915893554688,
+            -12.687536239624023
+          ],
+          "sum_logp": -12.698930740356445,
+          "mean_logp": -3.1747326850891113,
+          "seconds": 5.809343333996367,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.00028228759765625,
+            -0.0005702972412109375,
+            -4.635541915893555,
+            -0.00042724609375,
+            -9.375621795654297
+          ],
+          "sum_logp": -14.012443542480469,
+          "mean_logp": -2.8024887084960937,
+          "seconds": 5.678790834004758,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.625282287597656,
+            -0.0233917236328125,
+            -11.937772750854492
+          ],
+          "sum_logp": -21.58644676208496,
+          "mean_logp": -7.19548225402832,
+          "seconds": 1.3253694169980008,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p2-1-buttons",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_button_material",
+      "predicted": "case_button_material",
+      "correct": true,
+      "margin": 5.814186096191406,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "aba7b2412edb9856dcc3cc15e43e64be80c579dc0955c423e54f46baf6b215bd",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1226,
+        "native_prefix": "{\"events\":[{\"turn\":117,\"quote\":\"We will use rubber for the buttons.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "53ff286456882d539fa836e09e6e2f5d245778458c9133844915fc5d13a1c874",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0016918182373046875,
+            -0.0014820098876953125,
+            -8.000602722167969,
+            -9.501958847045898
+          ],
+          "sum_logp": -17.505735397338867,
+          "mean_logp": -4.376433849334717,
+          "seconds": 1.3148789999831934,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0016918182373046875,
+            -0.0014820098876953125,
+            -0.00060272216796875,
+            -0.000240325927734375,
+            -11.687532424926758
+          ],
+          "sum_logp": -11.691549301147461,
+          "mean_logp": -2.3383098602294923,
+          "seconds": 1.340441042004386,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -7.001691818237305,
+            -0.014455795288085938,
+            -12.437746047973633
+          ],
+          "sum_logp": -19.453893661499023,
+          "mean_logp": -6.484631220499675,
+          "seconds": 1.3059476659982465,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p2-0-case",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 8.771913528442383,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "1e1c860c30c2ca7ba37252f4e6cd088c88c6aeb54f8c7c5a80d568acbc1bb50a",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1203,
+        "native_prefix": "{\"events\":[{\"turn\":117,\"quote\":\"We will use rubber for the case.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "e0bfee9b57884771f012406c862a40643fc11862e38f6c862d613684007869d5",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000347137451171875,
+            -0.0002956390380859375,
+            -0.0004482269287109375,
+            -12.18752670288086
+          ],
+          "sum_logp": -12.188617706298828,
+          "mean_logp": -3.047154426574707,
+          "seconds": 1.273616916994797,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000347137451171875,
+            -0.0002956390380859375,
+            -19.43794822692871,
+            -3.1058692932128906,
+            -8.135881423950195
+          ],
+          "sum_logp": -30.680341720581055,
+          "mean_logp": -6.136068344116211,
+          "seconds": 1.3013801249908283,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.250347137451172,
+            -0.02233123779296875,
+            -11.68785285949707
+          ],
+          "sum_logp": -20.96053123474121,
+          "mean_logp": -6.986843744913737,
+          "seconds": 1.2526762080087792,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p2-0-buttons",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": null,
+      "predicted": "case_material",
+      "correct": false,
+      "margin": -8.83076286315918,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "7c39517963c84b0da1c185b59e52c62390e7b06cc16da31341173eed3432afbb",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1203,
+        "native_prefix": "{\"events\":[{\"turn\":117,\"quote\":\"We will use rubber for the buttons.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "732664109da8a6ec7330a3b04f4e42fd49a550c82305c17fed03935c9806ffb0",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0007152557373046875,
+            -0.001720428466796875,
+            -0.0003814697265625,
+            -11.812570571899414
+          ],
+          "sum_logp": -11.815387725830078,
+          "mean_logp": -2.9538469314575195,
+          "seconds": 1.3025187499879394,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0007152557373046875,
+            -0.001720428466796875,
+            -15.500381469726562,
+            -0.39421844482421875,
+            -7.57280158996582
+          ],
+          "sum_logp": -23.469837188720703,
+          "mean_logp": -4.69396743774414,
+          "seconds": 1.2931223750056233,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -8.250715255737305,
+            -0.020275115966796875,
+            -12.375160217285156
+          ],
+          "sum_logp": -20.646150588989258,
+          "mean_logp": -6.882050196329753,
+          "seconds": 1.2753658339788672,
+          "peak_mlx_gb": 2.798384838
+        }
+      ]
+    },
+    {
+      "id": "p3-1-case",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 3.375387191772461,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "6d29a2d4c9d9693c777669ed5086a8c9c8c3225ca8c125de96d712c125a0baed",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1235,
+        "native_prefix": "{\"events\":[{\"turn\":176,\"quote\":\"Just hard plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "4d2eeb233918e4db5a6eef7e3ba3da7f512434d490b925da44d408fdef5e1e19",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000911712646484375,
+            -0.0015850067138671875,
+            -0.009389877319335938,
+            -12.562662124633789
+          ],
+          "sum_logp": -12.574548721313477,
+          "mean_logp": -3.143637180328369,
+          "seconds": 1.3426024159998633,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.000911712646484375,
+            -0.0015850067138671875,
+            -4.759389877319336,
+            -0.0004024505615234375,
+            -11.187646865844727
+          ],
+          "sum_logp": -15.949935913085938,
+          "mean_logp": -3.1899871826171875,
+          "seconds": 1.3797583330015186,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -7.750911712646484,
+            -0.019626617431640625,
+            -12.000255584716797
+          ],
+          "sum_logp": -19.770793914794922,
+          "mean_logp": -6.590264638264974,
+          "seconds": 1.3348884159931913,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p3-1-buttons",
+      "split": "derive",
+      "dual_tracked": true,
+      "expected": "case_button_material",
+      "predicted": "case_button_material",
+      "correct": true,
+      "margin": 3.1273117065429688,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "7a0927e88cecd76193f7fa1be7b858b1a8f24baff87d7674b27e01c5d4e73cf0",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1235,
+        "native_prefix": "{\"events\":[{\"turn\":176,\"quote\":\"Just hard plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "74523f1afbba42eac1d70d3c6ebed52ef67eb97f1fbdd94946c4f114bc27e054",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0009555816650390625,
+            -0.001628875732421875,
+            -5.504512786865234,
+            -10.065011978149414
+          ],
+          "sum_logp": -15.57210922241211,
+          "mean_logp": -3.8930273056030273,
+          "seconds": 1.3608962919970509,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0009555816650390625,
+            -0.001628875732421875,
+            -0.004512786865234375,
+            -0.00016021728515625,
+            -12.437540054321289
+          ],
+          "sum_logp": -12.44479751586914,
+          "mean_logp": -2.4889595031738283,
+          "seconds": 1.3884362080134451,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -7.750955581665039,
+            -0.021924972534179688,
+            -12.250226974487305
+          ],
+          "sum_logp": -20.023107528686523,
+          "mean_logp": -6.674369176228841,
+          "seconds": 1.342514249990927,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p3-0-case",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 7.46104621887207,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "86a8ce6ea82de8c0fbc4548ba675f8aed4363cc8f05a35aa6335d9764672b6e7",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1212,
+        "native_prefix": "{\"events\":[{\"turn\":176,\"quote\":\"Just hard plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "1b35d993cd4a9504ad7ac39eb39a0099e3244158894b19960216611e451848ba",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0007476806640625,
+            -0.0007495880126953125,
+            -0.0004482269287109375,
+            -12.500068664550781
+          ],
+          "sum_logp": -12.50201416015625,
+          "mean_logp": -3.1255035400390625,
+          "seconds": 1.3338929580058903,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0007476806640625,
+            -0.0007495880126953125,
+            -19.37544822692871,
+            -2.0423545837402344,
+            -8.081428527832031
+          ],
+          "sum_logp": -29.500728607177734,
+          "mean_logp": -5.900145721435547,
+          "seconds": 1.3677486669912469,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -8.000747680664062,
+            -0.024526596069335938,
+            -11.937786102294922
+          ],
+          "sum_logp": -19.96306037902832,
+          "mean_logp": -6.6543534596761065,
+          "seconds": 1.3287314159970265,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p3-0-buttons",
+      "split": "derive",
+      "dual_tracked": false,
+      "expected": null,
+      "predicted": "case_material",
+      "correct": false,
+      "margin": -7.071796417236328,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "8bf40344b113e60bb2791d405334299a63315bc007dee2d9cdf609412f52cfd9",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1212,
+        "native_prefix": "{\"events\":[{\"turn\":176,\"quote\":\"Just hard plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "e27852b3290569f6a6b70680fd8930c26fe02f7d06dae5c6d9e97df26a352f0c",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0015010833740234375,
+            -0.0068836212158203125,
+            -0.00048828125,
+            -12.562667846679688
+          ],
+          "sum_logp": -12.571540832519531,
+          "mean_logp": -3.142885208129883,
+          "seconds": 1.3322181660041679,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0015010833740234375,
+            -0.0068836212158203125,
+            -15.25048828125,
+            -0.11621475219726562,
+            -8.386636734008789
+          ],
+          "sum_logp": -23.7617244720459,
+          "mean_logp": -4.7523448944091795,
+          "seconds": 1.3812537500052713,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -7.376501083374023,
+            -0.01663970947265625,
+            -12.25019645690918
+          ],
+          "sum_logp": -19.64333724975586,
+          "mean_logp": -6.547779083251953,
+          "seconds": 1.312370125000598,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p4-1-case",
+      "split": "check",
+      "dual_tracked": true,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 4.887628555297852,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "41752575f106a34582c93bf4cfbb63fe1c2bb39f3c35927f3179de70835a427e",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1200,
+        "native_prefix": "{\"events\":[{\"turn\":19,\"quote\":\"the material that we chose for the case was wood\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "4994cbc7c8a66061f4d3bde40803135c16cdc943ecf6304212c12bd63e701670",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0002040863037109375,
+            -0.00041961669921875,
+            -0.0006237030029296875,
+            -12.687545776367188
+          ],
+          "sum_logp": -12.688793182373047,
+          "mean_logp": -3.1721982955932617,
+          "seconds": 1.3630640000046697,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0002040863037109375,
+            -0.00041961669921875,
+            -10.50062370300293,
+            -0.0022716522216796875,
+            -7.072902679443359
+          ],
+          "sum_logp": -17.5764217376709,
+          "mean_logp": -3.5152843475341795,
+          "seconds": 1.3791141670080833,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.500204086303711,
+            -0.073089599609375,
+            -11.312902450561523
+          ],
+          "sum_logp": -20.88619613647461,
+          "mean_logp": -6.96206537882487,
+          "seconds": 1.34719537498313,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p4-1-buttons",
+      "split": "check",
+      "dual_tracked": true,
+      "expected": "case_button_material",
+      "predicted": "case_button_material",
+      "correct": true,
+      "margin": 7.93638801574707,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "01dd908f9d4bbb858bdebea46cb2ad589fa85fffad425d4634420b3b387ef23d",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1200,
+        "native_prefix": "{\"events\":[{\"turn\":19,\"quote\":\"the material that we chose for the buttons was wood\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "8102ecaaa4b6240298349e94b044313e9a87f1501a43eb334dc35b0635dceea3",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0005168914794921875,
+            -0.0003757476806640625,
+            -6.2522430419921875,
+            -9.689569473266602
+          ],
+          "sum_logp": -15.942705154418945,
+          "mean_logp": -3.9856762886047363,
+          "seconds": 1.357568374980474,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0005168914794921875,
+            -0.0003757476806640625,
+            -0.0022430419921875,
+            -9.5367431640625e-05,
+            -8.00308609008789
+          ],
+          "sum_logp": -8.006317138671875,
+          "mean_logp": -1.601263427734375,
+          "seconds": 1.3772206249996088,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -8.500516891479492,
+            -0.04053497314453125,
+            -12.125226974487305
+          ],
+          "sum_logp": -20.666278839111328,
+          "mean_logp": -6.888759613037109,
+          "seconds": 1.3518625409924425,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p4-0-case",
+      "split": "check",
+      "dual_tracked": false,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 8.904809951782227,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "a7bcfb651e2faa2fb02f8e772a59e4785728bc794965165651af64342ae7fdfc",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1175,
+        "native_prefix": "{\"events\":[{\"turn\":19,\"quote\":\"the material that we chose for the case was wood\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "80b96f323a57644ce10499b1851640db3f28331e540a00812ab6a282982e6ff8",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0001697540283203125,
+            -0.000179290771484375,
+            -0.000396728515625,
+            -12.312522888183594
+          ],
+          "sum_logp": -12.313268661499023,
+          "mean_logp": -3.078317165374756,
+          "seconds": 1.318768375000218,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0001697540283203125,
+            -0.000179290771484375,
+            -20.531646728515625,
+            -4.941064834594727,
+            -6.976572036743164
+          ],
+          "sum_logp": -32.44963264465332,
+          "mean_logp": -6.489926528930664,
+          "seconds": 1.3665536670014262,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.62516975402832,
+            -0.09253501892089844,
+            -11.500373840332031
+          ],
+          "sum_logp": -21.21807861328125,
+          "mean_logp": -7.07269287109375,
+          "seconds": 1.3094721250236034,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p4-0-buttons",
+      "split": "check",
+      "dual_tracked": false,
+      "expected": null,
+      "predicted": "case_material",
+      "correct": false,
+      "margin": -8.428264617919922,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "e4f0593a73626af78c070374c7a56dd5ab76225dcc2cb4919a72934dbeb24471",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1175,
+        "native_prefix": "{\"events\":[{\"turn\":19,\"quote\":\"the material that we chose for the buttons was wood\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "fa66645f87a825efa269e759b5bd7e244da30503ced677416c1153ddea016c75",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0002994537353515625,
+            -0.0003261566162109375,
+            -0.0003948211669921875,
+            -12.500036239624023
+          ],
+          "sum_logp": -12.501056671142578,
+          "mean_logp": -3.1252641677856445,
+          "seconds": 1.3363000829995144,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0002994537353515625,
+            -0.0003261566162109375,
+            -18.406644821166992,
+            -0.6387710571289062,
+            -8.818048477172852
+          ],
+          "sum_logp": -27.864089965820312,
+          "mean_logp": -5.572817993164063,
+          "seconds": 1.3572614580043592,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -9.000299453735352,
+            -0.0537872314453125,
+            -11.875234603881836
+          ],
+          "sum_logp": -20.9293212890625,
+          "mean_logp": -6.9764404296875,
+          "seconds": 1.319576790992869,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p5-1-case",
+      "split": "check",
+      "dual_tracked": true,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 1.814422607421875,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "8954eb92e588faae56ec11d2e8961669bb029ec28288340b643cde6627af08c1",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1239,
+        "native_prefix": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "1d08e3a0ad80a4757f1241178173f50a227073a22052113c1a42ed4f9d2cf9a7",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0004062652587890625,
+            -0.0011444091796875,
+            -0.012186050415039062,
+            -12.000139236450195
+          ],
+          "sum_logp": -12.013875961303711,
+          "mean_logp": -3.0034689903259277,
+          "seconds": 1.4805478330235928,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0004062652587890625,
+            -0.0011444091796875,
+            -4.512186050415039,
+            -0.0010242462158203125,
+            -9.31353759765625
+          ],
+          "sum_logp": -13.828298568725586,
+          "mean_logp": -2.765659713745117,
+          "seconds": 1.4432893340126611,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -8.875406265258789,
+            -0.04448699951171875,
+            -11.68777084350586
+          ],
+          "sum_logp": -20.607664108276367,
+          "mean_logp": -6.869221369425456,
+          "seconds": 1.421048417018028,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p5-1-buttons",
+      "split": "check",
+      "dual_tracked": true,
+      "expected": "case_button_material",
+      "predicted": "case_button_material",
+      "correct": true,
+      "margin": 3.8160781860351562,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "46f14c61bf65f7c0e8325240d137f0e4ea2c8503500976463e015e3189bf6802",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1239,
+        "native_prefix": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "15736307a605e7b9efea4e4c456e1670da417eef29d7b05b7b3a3507e4a58635",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0006732940673828125,
+            -0.05590629577636719,
+            -6.876380920410156,
+            -8.878890991210938
+          ],
+          "sum_logp": -15.811851501464844,
+          "mean_logp": -3.952962875366211,
+          "seconds": 1.4276777920022141,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0006732940673828125,
+            -0.05590629577636719,
+            -0.00138092041015625,
+            -0.0002613067626953125,
+            -11.937551498413086
+          ],
+          "sum_logp": -11.995773315429688,
+          "mean_logp": -2.3991546630859375,
+          "seconds": 1.4757015420182142,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -8.250673294067383,
+            -0.04144096374511719,
+            -11.812726974487305
+          ],
+          "sum_logp": -20.104841232299805,
+          "mean_logp": -6.701613744099935,
+          "seconds": 1.4021901670203079,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p5-0-case",
+      "split": "check",
+      "dual_tracked": false,
+      "expected": "case_material",
+      "predicted": "case_material",
+      "correct": true,
+      "margin": 7.865924835205078,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "6823699817996dfdaa9cb9bc2e204e2a35cf6436487aac5879817b76fe8652eb",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1217,
+        "native_prefix": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "a979a6dbaeba01d911c1792327fd7f5f419623dabe61c24e1aca31409f942194",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0003986358642578125,
+            -0.0005092620849609375,
+            -0.0005321502685546875,
+            -12.562522888183594
+          ],
+          "sum_logp": -12.563962936401367,
+          "mean_logp": -3.140990734100342,
+          "seconds": 1.3932351669936907,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.0003986358642578125,
+            -0.0005092620849609375,
+            -16.875532150268555,
+            -1.5931644439697266,
+            -6.526037216186523
+          ],
+          "sum_logp": -24.995641708374023,
+          "mean_logp": -4.999128341674805,
+          "seconds": 1.38930054201046,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -8.750398635864258,
+            -0.05419349670410156,
+            -11.625295639038086
+          ],
+          "sum_logp": -20.429887771606445,
+          "mean_logp": -6.8099625905354815,
+          "seconds": 1.379727500025183,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    },
+    {
+      "id": "p5-0-buttons",
+      "split": "check",
+      "dual_tracked": false,
+      "expected": null,
+      "predicted": "case_material",
+      "correct": false,
+      "margin": -8.20665168762207,
+      "config": {
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "prompt_sha256": "4245458b8c596447e7d03fb6b1153628497bb3188fffddf6b716c6381b6dce84",
+        "targets": [
+          "\"case_material\",",
+          "\"case_button_material\",",
+          "null,"
+        ],
+        "intervention": "none",
+        "prefix_tokens": 1217,
+        "native_prefix": "{\"events\":[{\"turn\":530,\"quote\":\"It's plastic.\",\"object_id\":",
+        "joint_tokenization": true,
+        "code_sha256": "c956a7f3cd08d30c742d133379cb5fe26e8746df00d4d1d9d5bc8260196ab0f1"
+      },
+      "key": "041b3c550a5a1ef4111b83800e2a1cf538fbefdaaf5bb60d7df519e090d85959",
+      "alternatives": [
+        {
+          "object_id": "case_material",
+          "target_text": "\"case_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.001316070556640625,
+            -0.0879364013671875,
+            -0.0012359619140625,
+            -11.18797492980957
+          ],
+          "sum_logp": -11.278463363647461,
+          "mean_logp": -2.8196158409118652,
+          "seconds": 1.3769781250157394,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": "case_button_material",
+          "target_text": "\"case_button_material\",",
+          "token_ids": [
+            3147,
+            5461,
+            8227,
+            32763,
+            487
+          ],
+          "token_text": [
+            "\":\"",
+            "case",
+            "_button",
+            "_material",
+            "\","
+          ],
+          "token_logprobs": [
+            -0.001316070556640625,
+            -0.0879364013671875,
+            -9.063735961914062,
+            -0.2936210632324219,
+            -7.653131484985352
+          ],
+          "sum_logp": -17.099740982055664,
+          "mean_logp": -3.419948196411133,
+          "seconds": 1.4111554579867516,
+          "peak_mlx_gb": 2.798368454
+        },
+        {
+          "object_id": null,
+          "target_text": "null,",
+          "token_ids": [
+            763,
+            2827,
+            11
+          ],
+          "token_text": [
+            "\":",
+            "null",
+            ","
+          ],
+          "token_logprobs": [
+            -7.501316070556641,
+            -0.04608917236328125,
+            -11.93770980834961
+          ],
+          "sum_logp": -19.48511505126953,
+          "mean_logp": -6.495038350423177,
+          "seconds": 1.3552893750020303,
+          "peak_mlx_gb": 2.798368454
+        }
+      ]
+    }
+  ],
+  "localization": {
+    "derive_only": true,
+    "old_dual_native_errors": 0,
+    "old_dual_n": 8,
+    "layers": [
+      {
+        "layer": 7,
+        "held_pair_cosines": [
+          0.41901981830596924,
+          0.5778930187225342,
+          0.596541166305542,
+          0.046275846660137177
+        ],
+        "positive_held_pairs": 4,
+        "median_cosine": 0.4984564185142517,
+        "centered_input_held_examples_correct": 7,
+        "held_examples": 8
+      },
+      {
+        "layer": 17,
+        "held_pair_cosines": [
+          0.7256410121917725,
+          0.7466857433319092,
+          0.7540995478630066,
+          0.36356320977211
+        ],
+        "positive_held_pairs": 4,
+        "median_cosine": 0.7361633777618408,
+        "centered_input_held_examples_correct": 7,
+        "held_examples": 8
+      },
+      {
+        "layer": 25,
+        "held_pair_cosines": [
+          0.7274354696273804,
+          0.7664582133293152,
+          0.7155126333236694,
+          0.6380596160888672
+        ],
+        "positive_held_pairs": 4,
+        "median_cosine": 0.7214740514755249,
+        "centered_input_held_examples_correct": 7,
+        "held_examples": 8
+      }
+    ],
+    "eligible_layer": null,
+    "decision": "no justified native binding weight edit on this evidence",
+    "rule": ">=2 old dual native errors; >=3/4 positive held-pair cosines, median>.1, centered input >=6/8"
+  },
+  "summary": {
+    "derive": {
+      "correct": 12,
+      "n": 16
+    },
+    "check": {
+      "correct": 6,
+      "n": 8
+    }
+  },
+  "peak_process_rss_gb": 2.280914944
+}

@@ -1,0 +1,23 @@
+{
+ "statements": 30,
+ "llm_topic_call_ms": {
+  "p50": 327.0597294977051,
+  "p95": 362.19817484816303
+ },
+ "embedding_step_ms": {
+  "p50": 6.9717500009574,
+  "p95": 9.708171201054936
+ },
+ "topics_named": [
+  "Remote",
+  "Trademark",
+  "Usability",
+  "Schedule",
+  "Lunch",
+  "Wrist strap",
+  "Sleep-mode button",
+  "Function",
+  "Chip",
+  "Teletext"
+ ]
+}

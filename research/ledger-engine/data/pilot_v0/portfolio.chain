@@ -1,0 +1,58 @@
+chain: portfolio
+language: en-ms
+note: PILOT DEV SET v0, authored by the AI assistant. Bahasa Malaysia and English code-switching written by the assistant, not recorded from real speakers. For debugging and regression only, not evidence of real-world performance.
+now: 2026-06-15T00:00:00Z
+people: dato=Dato' Seri, farah=Farah, jason=Jason, nadia=Nadia
+object: div_stake | decision | Percentage of the logistics stake to sell | percent:number
+object: div_buyer | decision | Preferred buyer | outcome:enum[Fund X,Fund Y,Strategic Buyer]!reverse
+object: div_execution | commitment | Divestment execution | deadline:date, owner:person, status:enum[done,cancelled]
+
+meeting: p1 | 2026-05-05T09:30:00Z | ingested=2026-05-05T13:00:00Z
+dato: Okay, let's go through the portfolio review. Item one, the stake in the logistics company.
+farah: Market looks good right now. I think we can sell some of it.  ## distractor tentative
+dato: Kita jual dua puluh peratus dulu.  ## event div_stake.percent = 20 | INITIAL | quote="Kita jual dua puluh peratus dulu" | tags=codeswitch,number_words
+jason: Buyer-wise, Fund X has been calling us every week.  ## distractor hearsay
+dato: Okay, kita rundingkan dengan Fund X dulu.  ## event div_buyer.outcome = Fund X | INITIAL | quote="kita rundingkan dengan Fund X dulu" | tags=codeswitch
+dato: Jason, you run the execution. Siapkan semua by Friday.  ## event div_execution.owner = jason | INITIAL | quote="Jason, you run the execution" ;; event div_execution.deadline = 2026-05-08 | INITIAL | quote="Siapkan semua by Friday" | tags=codeswitch,relative_date
+jason: Baik Dato'.  ## distractor ignorable
+nadia: Should we bring in a second buyer to keep Fund X honest?  ## distractor question
+
+meeting: p2 | 2026-05-12T09:30:00Z | ingested=2026-05-12T13:00:00Z
+dato: Update on the logistics stake. Jason?
+jason: Fund X wants more time on their due diligence. Tak sempat siap by Friday.  ## distractor hearsay
+dato: Okay, benda tu kita tangguh. Kita buat minggu depan, Jumaat.  ## event div_execution.deadline = 2026-05-22 | REVISE | quote="Kita buat minggu depan, Jumaat" | tags=codeswitch,anaphora,relative_date
+farah: Saya cadangkan kita naikkan jumlah jualan kepada tiga puluh peratus sebab market kuat.  ## distractor tentative
+dato: Boleh, setuju. Tiga puluh peratus.  ## distractor ignorable
+dato: No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.  ## event div_stake.percent = 25 | REVISE | quote="dua puluh lima peratus" | tags=codeswitch,same_meeting_correction,number_words
+nadia: Okay, noted twenty five.  ## distractor ignorable
+jason: Saya akan inform Fund X.  ## distractor untracked
+
+meeting: p3 | 2026-06-02T09:30:00Z | ingested=2026-06-02T13:00:00Z
+dato: Right. Two updates. Fund X pulled out.
+dato: So the buyer is now a strategic buyer, we go with the Strategic Buyer.  ## event div_buyer.outcome = Strategic Buyer | REVERSE | quote="we go with the Strategic Buyer" | tags=reversal
+farah: Maybe Fund Y is still an option, they showed interest before?  ## distractor hypothetical
+dato: Not now. Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.  ## event div_execution.deadline = 2026-06-30 | REVISE | quote="Kita buat hujung bulan" | tags=codeswitch,anaphora,relative_date
+jason: Okay, I'll keep ownership.  ## event div_execution.owner = jason | CONFIRM | quote="I'll keep ownership"
+dato: And the stake stays at twenty five percent.  ## event div_stake.percent = 25 | CONFIRM | quote="the stake stays at twenty five percent" | tags=number_words
+nadia: Should I draft the announcement?  ## distractor question
+
+meeting: p2b | 2026-05-19T09:30:00Z | ingested=2026-06-10T12:00:00Z
+dato: Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.  ## event div_execution.deadline = 2026-05-29 | REVISE | quote="bring the date forward to 29 May" | tags=late_import
+jason: Okay, that works for me.  ## distractor ignorable
+
+meeting: p4 | 2026-06-12T09:30:00Z | ingested=2026-06-12T13:00:00Z
+jason: The sale to the strategic buyer has closed. Dah siap semua.  ## event div_execution.status = done | COMPLETE | quote="Dah siap semua" | tags=codeswitch
+dato: Well done. Closing this item.  ## distractor ignorable
+
+question: q1 | current | div_stake.percent | gold=25
+question: q2 | current | div_buyer.outcome | gold=Strategic Buyer
+question: q3 | current | div_execution.deadline | gold=2026-06-30
+question: q4 | current | div_execution.status | gold=done
+question: q5 | as_of_valid | div_stake.percent | valid=2026-05-08 | gold=20
+question: q6 | as_of_valid | div_stake.percent | valid=2026-05-15 | gold=25
+question: q7 | as_of_valid | div_execution.deadline | valid=2026-05-07 | gold=2026-05-08
+question: q8 | as_of_valid | div_execution.deadline | valid=2026-05-14 | gold=2026-05-22
+question: q9 | as_of_valid | div_execution.deadline | valid=2026-05-25 | gold=2026-05-29
+question: q10 | as_of_tx | div_execution.deadline | valid=2026-05-25 | tx=2026-06-05T00:00:00Z | gold=2026-05-22
+question: q11 | as_of_valid | div_buyer.outcome | valid=2026-05-20 | gold=Fund X
+question: q12 | n_changes | div_execution.deadline | gold=3

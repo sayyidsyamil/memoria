@@ -1,0 +1,1062 @@
+[
+  {
+    "projects/alpha.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 54,
+      "hasH1": true,
+      "isA": null,
+      "outgoingLinks": [
+        "welcome"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {},
+      "snippet": "Links to welcome and mentions the Heron.",
+      "status": null,
+      "title": "Alpha",
+      "wordCount": 6
+    },
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 38,
+      "hasH1": false,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "",
+      "status": null,
+      "title": "Weekly Sync",
+      "wordCount": 0
+    },
+    "welcome.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 59,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "A throwaway vault for tests.",
+      "status": null,
+      "title": "Welcome",
+      "wordCount": 5
+    }
+  },
+  {
+    "ada-lovelace.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 41,
+      "hasH1": false,
+      "isA": "Person",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[person]]"
+        ]
+      },
+      "snippet": "",
+      "status": null,
+      "title": "Ada Lovelace",
+      "wordCount": 0
+    }
+  },
+  {
+    "roadmap.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 37,
+      "hasH1": false,
+      "isA": "Project",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[project]]"
+        ]
+      },
+      "snippet": "",
+      "status": null,
+      "title": "Roadmap",
+      "wordCount": 0
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 73,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week.",
+      "status": null,
+      "title": "Weekly Sync",
+      "wordCount": 4
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 71,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week.",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 4
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 133,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 12
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 172,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 18
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 239,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 24
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 312,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 35
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 392,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 38
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 460,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 48
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 506,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": null,
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "ada-lovelace.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 96,
+      "hasH1": true,
+      "isA": "Person",
+      "outgoingLinks": [
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[person]]"
+        ]
+      },
+      "snippet": "First programmer. Works on roadmap.",
+      "status": null,
+      "title": "Ada Lovelace",
+      "wordCount": 4
+    }
+  },
+  {
+    "roadmap.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 78,
+      "hasH1": true,
+      "isA": "Project",
+      "outgoingLinks": [
+        "ada-lovelace"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[project]]"
+        ]
+      },
+      "snippet": "Owned by Ada.",
+      "status": null,
+      "title": "Roadmap",
+      "wordCount": 2
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 521,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Active",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 553,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Active",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 565,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "priority": 2,
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Active",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 581,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "priority": 2,
+        "published": true,
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Active",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 612,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "priority": 2,
+        "published": true,
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-lovelace]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-lovelace]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Active",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 641,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "priority": 2,
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-lovelace]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-lovelace]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Active",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 639,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "priority": 2,
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-lovelace]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-lovelace]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Done",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 627,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-lovelace",
+        "roadmap"
+      ],
+      "properties": {
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-lovelace]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-lovelace]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Done",
+      "title": "Team Sync",
+      "wordCount": 54
+    }
+  },
+  {
+    "ada-lovelace.md": {
+      "aliases": [
+        "Countess",
+        "Ada"
+      ],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 130,
+      "hasH1": true,
+      "isA": "Person",
+      "outgoingLinks": [
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[person]]"
+        ]
+      },
+      "snippet": "First programmer. Works on roadmap.",
+      "status": null,
+      "title": "Ada Lovelace",
+      "wordCount": 4
+    }
+  },
+  {
+    "projects/alpha.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 76,
+      "hasH1": true,
+      "isA": "Project",
+      "outgoingLinks": [
+        "welcome"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[project]]"
+        ]
+      },
+      "snippet": "Links to welcome and mentions the Heron.",
+      "status": null,
+      "title": "Alpha",
+      "wordCount": 6
+    }
+  },
+  {
+    "welcome.md": {
+      "aliases": [],
+      "belongsTo": [
+        "[[projects/alpha]]",
+        "[[roadmap]]"
+      ],
+      "fileKind": "markdown",
+      "fileSize": 114,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "belongs_to": [
+          "[[projects/alpha]]",
+          "[[roadmap]]"
+        ]
+      },
+      "snippet": "A throwaway vault for tests.",
+      "status": null,
+      "title": "Welcome",
+      "wordCount": 5
+    }
+  },
+  {
+    "welcome.md": {
+      "aliases": [],
+      "belongsTo": [
+        "[[projects/alpha]]",
+        "[[roadmap]]"
+      ],
+      "fileKind": "markdown",
+      "fileSize": 144,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Owner": [
+          "[[ada-lovelace|Ada]]"
+        ],
+        "Type": [
+          "[[note]]"
+        ],
+        "belongs_to": [
+          "[[projects/alpha]]",
+          "[[roadmap]]"
+        ]
+      },
+      "snippet": "A throwaway vault for tests.",
+      "status": null,
+      "title": "Welcome",
+      "wordCount": 5
+    }
+  },
+  {
+    "ada-king.md": {
+      "aliases": [
+        "Countess",
+        "Ada"
+      ],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 126,
+      "hasH1": true,
+      "isA": "Person",
+      "outgoingLinks": [
+        "roadmap"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[person]]"
+        ]
+      },
+      "snippet": "First programmer. Works on roadmap.",
+      "status": null,
+      "title": "Ada Lovelace",
+      "wordCount": 4
+    },
+    "ada-lovelace.md": null,
+    "roadmap.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 74,
+      "hasH1": true,
+      "isA": "Project",
+      "outgoingLinks": [
+        "ada-king"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[project]]"
+        ]
+      },
+      "snippet": "Owned by Ada.",
+      "status": null,
+      "title": "Roadmap",
+      "wordCount": 2
+    },
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 615,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-king",
+        "roadmap"
+      ],
+      "properties": {
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-king]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-king]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Done",
+      "title": "Team Sync",
+      "wordCount": 54
+    },
+    "welcome.md": {
+      "aliases": [],
+      "belongsTo": [
+        "[[projects/alpha]]",
+        "[[roadmap]]"
+      ],
+      "fileKind": "markdown",
+      "fileSize": 140,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Owner": [
+          "[[ada-king|Ada]]"
+        ],
+        "Type": [
+          "[[note]]"
+        ],
+        "belongs_to": [
+          "[[projects/alpha]]",
+          "[[roadmap]]"
+        ]
+      },
+      "snippet": "A throwaway vault for tests.",
+      "status": null,
+      "title": "Welcome",
+      "wordCount": 5
+    }
+  },
+  {
+    "ada-king.md": {
+      "aliases": [
+        "Countess",
+        "Ada"
+      ],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 131,
+      "hasH1": true,
+      "isA": "Person",
+      "outgoingLinks": [
+        "roadmap-2027"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[person]]"
+        ]
+      },
+      "snippet": "First programmer. Works on roadmap-2027.",
+      "status": null,
+      "title": "Ada Lovelace",
+      "wordCount": 4
+    },
+    "roadmap-2027.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 79,
+      "hasH1": true,
+      "isA": "Project",
+      "outgoingLinks": [
+        "ada-king"
+      ],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Type": [
+          "[[project]]"
+        ]
+      },
+      "snippet": "Owned by Ada.",
+      "status": null,
+      "title": "Roadmap",
+      "wordCount": 2
+    },
+    "roadmap.md": null,
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 620,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-king",
+        "roadmap-2027"
+      ],
+      "properties": {
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-king]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-king]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Done",
+      "title": "Team Sync",
+      "wordCount": 54
+    },
+    "welcome.md": {
+      "aliases": [],
+      "belongsTo": [
+        "[[projects/alpha]]",
+        "[[roadmap-2027]]"
+      ],
+      "fileKind": "markdown",
+      "fileSize": 145,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {
+        "Owner": [
+          "[[ada-king|Ada]]"
+        ],
+        "Type": [
+          "[[note]]"
+        ],
+        "belongs_to": [
+          "[[projects/alpha]]",
+          "[[roadmap-2027]]"
+        ]
+      },
+      "snippet": "A throwaway vault for tests.",
+      "status": null,
+      "title": "Welcome",
+      "wordCount": 5
+    }
+  },
+  {
+    "attachments/1767225600000-my_photo.png": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "binary",
+      "fileSize": 70,
+      "hasH1": false,
+      "isA": null,
+      "outgoingLinks": [],
+      "properties": {},
+      "relatedTo": [],
+      "relationships": {},
+      "snippet": "",
+      "status": null,
+      "title": "1767225600000-my_photo.png",
+      "wordCount": 0
+    },
+    "weekly-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 675,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-king",
+        "roadmap-2027"
+      ],
+      "properties": {
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-king]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-king]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Done",
+      "title": "Team Sync",
+      "wordCount": 59
+    }
+  },
+  {
+    "team-sync.md": {
+      "aliases": [],
+      "belongsTo": [],
+      "fileKind": "markdown",
+      "fileSize": 675,
+      "hasH1": true,
+      "isA": "Note",
+      "outgoingLinks": [
+        "ada-king",
+        "roadmap-2027"
+      ],
+      "properties": {
+        "published": true,
+        "summary": "Q4: plan & review",
+        "tags": [
+          "planning",
+          "team"
+        ]
+      },
+      "relatedTo": [
+        "[[ada-king]]"
+      ],
+      "relationships": {
+        "Type": [
+          "[[note]]"
+        ],
+        "related_to": [
+          "[[ada-king]]"
+        ]
+      },
+      "snippet": "Agenda for the week. Budget Hiring Backend Design Review Decide [ ] Send minutes [x] Book the room | Owner | Topic | | --- | --- | | Ada | Engine | | Luca | Not...",
+      "status": "Done",
+      "title": "Team Sync",
+      "wordCount": 59
+    },
+    "weekly-sync.md": null
+  }
+]

@@ -1,0 +1,7 @@
+{"condition": "base", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "base", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "base", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"condition": "subject-first", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "subject-first", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "subject-first", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"closed": true, "seconds": 30.10584158299025}

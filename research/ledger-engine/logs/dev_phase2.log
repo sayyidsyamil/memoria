@@ -1,0 +1,32 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 83886.08it/s]
+  K=24 full-context: finished crm
+  K=24 full-context: finished datacentre
+  K=24 full-context: {'correct': 17, 'n': 27, 'accuracy': 0.6296296296296297, 'ci_95': (0.442, 0.785)}
+  K=24 full-context+cot: finished crm
+  K=24 full-context+cot: finished datacentre
+  K=24 full-context+cot: {'correct': 15, 'n': 27, 'accuracy': 0.5555555555555556, 'ci_95': (0.373, 0.724)}
+  K=24 bm25-rag(k=6): finished crm
+  K=24 bm25-rag(k=6): finished datacentre
+  K=24 bm25-rag(k=6): {'correct': 14, 'n': 27, 'accuracy': 0.5185185185185185, 'ci_95': (0.34, 0.693)}
+  K=24 bm25-rag(k=12): finished crm
+  K=24 bm25-rag(k=12): finished datacentre
+  K=24 bm25-rag(k=12): {'correct': 18, 'n': 27, 'accuracy': 0.6666666666666666, 'ci_95': (0.478, 0.814)}
+  K=24 bm25-rag(k=6)+cot: finished crm
+  K=24 bm25-rag(k=6)+cot: finished datacentre
+  K=24 bm25-rag(k=6)+cot: {'correct': 14, 'n': 27, 'accuracy': 0.5185185185185185, 'ci_95': (0.34, 0.693)}
+  K=24 bm25-rag(k=12)+cot: finished crm
+  K=24 bm25-rag(k=12)+cot: finished datacentre
+  K=24 bm25-rag(k=12)+cot: {'correct': 12, 'n': 27, 'accuracy': 0.4444444444444444, 'ci_95': (0.276, 0.627)}
+level K=24 done in 1096.4s -> results/dev/baselines_dev_k24.json
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 58173.43it/s]
+  K=0 crm: extracted 5 meetings
+  K=0 crm: answered 13 questions
+  K=0 datacentre: extracted 4 meetings
+  K=0 datacentre: answered 14 questions
+level K=0 done in 164.5s -> results/dev/memoria_dev_k0_8.json
+  K=8 crm: extracted 13 meetings
+  K=8 crm: answered 13 questions
+  K=8 datacentre: extracted 12 meetings
+  K=8 datacentre: answered 14 questions
+level K=8 done in 269.8s -> results/dev/memoria_dev_k0_8.json
+ALL-DEV-DONE

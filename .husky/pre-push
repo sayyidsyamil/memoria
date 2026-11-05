@@ -1,0 +1,15 @@
+#!/bin/sh
+# Memoria local checks. No upstream services, signing identities, or account gates.
+# Full-suite results and native acceptance gaps are recorded in docs/WORKSPACE-PRODUCT-VERIFICATION.md.
+set -eu
+pnpm build
+pnpm test:memoria
+pnpm exec vitest run src/features/meetings/meetingService.test.ts
+pnpm exec vitest run src/features/temporal
+PYTHON="${MEMORIA_TEST_PYTHON:-python3}"
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_workspace_product.py
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_engine.py
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_meetings_service.py
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_temporal_service.py
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_live_assistance.py
+"$PYTHON" -m unittest discover -s src-tauri/resources/memory -p test_live_ask.py

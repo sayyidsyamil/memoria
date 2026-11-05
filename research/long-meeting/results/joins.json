@@ -1,0 +1,119 @@
+{
+ "A": {
+  "wer": 0.1373,
+  "turns": 850,
+  "labels": [
+   "S01",
+   "S02",
+   "S03",
+   "unassigned"
+  ],
+  "unassignedWords": 567,
+  "unassignedShare": 0.061,
+  "purityOfLabelled": 0.723,
+  "byLabel": {
+   "S01": {
+    "B": 2421,
+    "D": 2284,
+    "C": 35
+   },
+   "S02": {
+    "C": 2922,
+    "B": 34,
+    "D": 19
+   },
+   "S03": {
+    "A": 966,
+    "D": 6,
+    "B": 6
+   },
+   "unassigned": {
+    "D": 265,
+    "A": 165,
+    "B": 88
+   }
+  }
+ },
+ "B": {
+  "wer": 0.1339,
+  "turns": 848,
+  "labels": [
+   "S01",
+   "S02",
+   "S03",
+   "S04",
+   "unassigned"
+  ],
+  "unassignedWords": 568,
+  "unassignedShare": 0.061,
+  "purityOfLabelled": 0.966,
+  "byLabel": {
+   "S01": {
+    "B": 2405,
+    "D": 147,
+    "C": 32
+   },
+   "S02": {
+    "C": 2920,
+    "B": 35,
+    "D": 19
+   },
+   "S03": {
+    "A": 965,
+    "D": 6,
+    "B": 6
+   },
+   "S04": {
+    "D": 2137,
+    "B": 15,
+    "C": 4
+   },
+   "unassigned": {
+    "D": 265,
+    "A": 166,
+    "B": 88
+   }
+  }
+ },
+ "C": {
+  "wer": 0.1339,
+  "turns": 848,
+  "labels": [
+   "S01",
+   "S02",
+   "S03",
+   "S04",
+   "unassigned"
+  ],
+  "unassignedWords": 568,
+  "unassignedShare": 0.061,
+  "purityOfLabelled": 0.966,
+  "byLabel": {
+   "S01": {
+    "B": 2405,
+    "D": 147,
+    "C": 32
+   },
+   "S02": {
+    "C": 2920,
+    "B": 35,
+    "D": 19
+   },
+   "S03": {
+    "A": 965,
+    "D": 6,
+    "B": 6
+   },
+   "S04": {
+    "D": 2137,
+    "B": 15,
+    "C": 4
+   },
+   "unassigned": {
+    "D": 265,
+    "A": 166,
+    "B": 88
+   }
+  }
+ }
+}

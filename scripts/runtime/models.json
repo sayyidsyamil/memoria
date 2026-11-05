@@ -1,0 +1,62 @@
+[
+  {
+    "repo": "selcukkubur/parakeet-ultra-mlx",
+    "revision": "b554592c50b2a48471add2daa3d46fa9f00fef5e",
+    "files": {
+      "README.md": 3971,
+      "config.json": 244093,
+      "model.safetensors": 1254184462,
+      "tokenizer.model": 360916,
+      "tokenizer.vocab": 101024,
+      "vocab.txt": 46772
+    }
+  },
+  {
+    "repo": "mlx-community/Nemotron-3-Diarization",
+    "revision": "59ed2dbfc1346dcea9d423c71306a3a2499c568f",
+    "files": {
+      ".gitattributes": 1519,
+      "README.md": 1402,
+      "config.json": 1521,
+      "model.safetensors": 198632220
+    }
+  },
+  {
+    "repo": "mlx-community/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "files": {
+      ".gitattributes": 1570,
+      "README.md": 2273,
+      "chat_template.jinja": 7756,
+      "config.json": 3366,
+      "model.safetensors": 3034300695,
+      "model.safetensors.index.json": 101944,
+      "preprocessor_config.json": 390,
+      "processor_config.json": 1300,
+      "tokenizer.json": 19989343,
+      "tokenizer_config.json": 1139,
+      "video_preprocessor_config.json": 385,
+      "vocab.json": 6722759
+    }
+  },
+  {
+    "repo": "mlx-community/embeddinggemma-2-5bit",
+    "revision": "261866f6805342b010554507220e02199a579c74",
+    "files": {
+      "1_Pooling/config.json": 90,
+      "2_Normalize/config.json": 97,
+      "chat_template.jinja": 1016,
+      "config.json": 5463,
+      "config_sentence_transformers.json": 1565,
+      "model.safetensors": 1132345990,
+      "model.safetensors.index.json": 153721,
+      "modules.json": 413,
+      "preprocessor_config.json": 511,
+      "processor_config.json": 1788,
+      "sentence_bert_config.json": 747,
+      "tokenizer.json": 32170510,
+      "tokenizer_config.json": 1599,
+      "validation.json": 2414
+    }
+  }
+]

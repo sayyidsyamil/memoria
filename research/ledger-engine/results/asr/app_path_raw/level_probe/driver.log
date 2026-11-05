@@ -1,0 +1,10 @@
+0 original: 43 seg  peaknorm: 41 seg  minus20db: 42 seg
+        TS3007a@600+30 original: 8 seg  peaknorm: 9 seg  minus20db: 8 seg
+        TS3007a@600+60 original: 23 seg  peaknorm: 22 seg  minus20db: 17 seg
+       TS3007a@600+120 original: 48 seg  peaknorm: 47 seg  minus20db: 34 seg
+       TS3007a@1100+30 original: 17 seg  peaknorm: 16 seg  minus20db: 14 seg
+       TS3007a@1100+60 original: 31 seg  peaknorm: 30 seg  minus20db: 30 seg
+      TS3007a@1100+120 original: 66 seg  peaknorm: 65 seg  minus20db: 63 seg
+wrote /Users/sayyid/Desktop/FYP/engine/results/asr/app_path_raw/level_probe/raw.json
+
+wrote /Users/sayyid/Desktop/FYP/engine/results/asr/app_path_level_probe.md and /Users/sayyid/Desktop/FYP/engine/results/asr/app_path_level_probe.json

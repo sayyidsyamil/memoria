@@ -1,0 +1,104 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index cbd6ec9..fb45d82 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -49,17 +49,25 @@ var isEquivalentPosition = function isEquivalentPosition(node, off, targetNode,
+   return targetNode && (scanFor(node, off, targetNode, targetOff, -1) || scanFor(node, off, targetNode, targetOff, 1));
+ };
+ var atomElements = /^(img|br|input|textarea|hr)$/i;
++function equivalentPositionParent(node) {
++  var parent = node.parentNode;
++  return parent && parent.nodeType == 1 && !hasBlockDesc(node) && !atomElements.test(node.nodeName) && node.contentEditable != "false" ? parent : null;
++}
+ function scanFor(node, off, targetNode, targetOff, dir) {
+   var _a;
+   for (;;) {
+     if (node == targetNode && off == targetOff) return true;
+     if (off == (dir < 0 ? 0 : nodeSize(node))) {
+-      var parent = node.parentNode;
+-      if (!parent || parent.nodeType != 1 || hasBlockDesc(node) || atomElements.test(node.nodeName) || node.contentEditable == "false") return false;
++      var parent = equivalentPositionParent(node);
++      if (!parent) return false;
+       off = domIndex(node) + (dir < 0 ? 0 : 1);
+       node = parent;
+     } else if (node.nodeType == 1) {
+       var child = node.childNodes[off + (dir < 0 ? -1 : 0)];
++      if (!child) {
++        off = node.childNodes.length;
++        continue;
++      }
+       if (child.nodeType == 1 && child.contentEditable == "false") {
+         if ((_a = child.pmViewDesc) === null || _a === void 0 ? void 0 : _a.ignoreForSelection) off += dir;else return false;
+       } else {
+diff --git a/dist/index.js b/dist/index.js
+index 766b798..e57b657 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -34,21 +34,29 @@ export const isEquivalentPosition = function (node, off, targetNode, targetOff)
+         scanFor(node, off, targetNode, targetOff, 1));
+ };
+ const atomElements = /^(img|br|input|textarea|hr)$/i;
++function equivalentPositionParent(node) {
++    let parent = node.parentNode;
++    return parent && parent.nodeType == 1 && !hasBlockDesc(node) && !atomElements.test(node.nodeName) &&
++        node.contentEditable != "false" ? parent : null;
++}
+ function scanFor(node, off, targetNode, targetOff, dir) {
+     var _a;
+     for (;;) {
+         if (node == targetNode && off == targetOff)
+             return true;
+         if (off == (dir < 0 ? 0 : nodeSize(node))) {
+-            let parent = node.parentNode;
+-            if (!parent || parent.nodeType != 1 || hasBlockDesc(node) || atomElements.test(node.nodeName) ||
+-                node.contentEditable == "false")
++            let parent = equivalentPositionParent(node);
++            if (!parent)
+                 return false;
+             off = domIndex(node) + (dir < 0 ? 0 : 1);
+             node = parent;
+         }
+         else if (node.nodeType == 1) {
+             let child = node.childNodes[off + (dir < 0 ? -1 : 0)];
++            if (!child) {
++                off = node.childNodes.length;
++                continue;
++            }
+             if (child.nodeType == 1 && child.contentEditable == "false") {
+                 if ((_a = child.pmViewDesc) === null || _a === void 0 ? void 0 : _a.ignoreForSelection)
+                     off += dir;
+diff --git a/src/dom.ts b/src/dom.ts
+index 07b47c8..a0c7f2a 100644
+--- a/src/dom.ts
++++ b/src/dom.ts
+@@ -43,18 +43,26 @@ export const isEquivalentPosition = function(node: Node, off: number, targetNode
+ 
+ const atomElements = /^(img|br|input|textarea|hr)$/i
+ 
++function equivalentPositionParent(node: Node) {
++  let parent = node.parentNode
++  return parent && parent.nodeType == 1 && !hasBlockDesc(node) && !atomElements.test(node.nodeName) &&
++    (node as HTMLElement).contentEditable != "false" ? parent : null
++}
++
+ function scanFor(node: Node, off: number, targetNode: Node, targetOff: number, dir: number) {
+   for (;;) {
+     if (node == targetNode && off == targetOff) return true
+     if (off == (dir < 0 ? 0 : nodeSize(node))) {
+-      let parent = node.parentNode
+-      if (!parent || parent.nodeType != 1 || hasBlockDesc(node) || atomElements.test(node.nodeName) ||
+-          (node as HTMLElement).contentEditable == "false")
+-        return false
++      let parent = equivalentPositionParent(node)
++      if (!parent) return false
+       off = domIndex(node) + (dir < 0 ? 0 : 1)
+       node = parent
+     } else if (node.nodeType == 1) {
+       let child = node.childNodes[off + (dir < 0 ? -1 : 0)]
++      if (!child) {
++        off = node.childNodes.length
++        continue
++      }
+       if (child.nodeType == 1 && (child as HTMLElement).contentEditable == "false") {
+         if (child.pmViewDesc?.ignoreForSelection) off += dir
+         else return false

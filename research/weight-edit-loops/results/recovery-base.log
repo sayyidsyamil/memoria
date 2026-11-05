@@ -1,0 +1,24 @@
+{"mode": "copy", "policy": "base", "seconds": 6.6067, "generated_tokens": 145, "early_stopped": false, "distinct_correct_event_preserved": true}
+{"mode": "copy", "policy": "first-repeat", "seconds": 6.5694, "generated_tokens": 145, "early_stopped": false, "distinct_correct_event_preserved": true}
+{"mode": "copy", "policy": "conservative", "seconds": 6.5343, "generated_tokens": 145, "early_stopped": false, "distinct_correct_event_preserved": true}
+{"mode": "forced-prefix", "policy": "base", "seconds": 10.6121, "generated_tokens": 97, "early_stopped": false, "distinct_correct_event_preserved": false}
+{"mode": "forced-prefix", "policy": "first-repeat", "seconds": 0.0022, "generated_tokens": 0, "early_stopped": true, "distinct_correct_event_preserved": false}
+{"mode": "forced-prefix", "policy": "conservative", "seconds": 10.0452, "generated_tokens": 97, "early_stopped": false, "distinct_correct_event_preserved": false}
+       54.66 real        21.92 user         6.90 sys
+          1644560384  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              348372  page reclaims
+                7096  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                8164  voluntary context switches
+              156133  involuntary context switches
+         92210332733  instructions retired
+         48149935693  cycles elapsed
+          4791766232  peak memory footprint

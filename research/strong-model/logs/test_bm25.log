@@ -1,0 +1,14 @@
+[estimate] bm25: 96 requests, 96 not yet cached; ~240,940 input tokens (3.743 chars/token, DeepSeek, 508 paid requests), ~37,384 of them a prefix shared with the previous request; output ~150 tokens (October Qwen lengths), at most 2,304
+[estimate] bm25: $0.0362 without prompt caching, $0.0307 if every shared prefix is cached, $0.0375 worst case (no caching, every output at max_tokens)
+[key] before bm25: usage $0.0925, limit $1, remaining $0.9075; spend log $0.0930; cap $0.9
+[estimate] GO: $0.0362 expected (worst $0.0375), $0.8070 left under the cap
+bm25-rag(k=12): finished ES2004
+bm25-rag(k=12): finished ES2014
+bm25-rag(k=12): finished IS1009
+bm25-rag(k=12): finished TS3003
+bm25-rag(k=12): finished TS3007
+bm25-rag(k=12): {'correct': 70, 'n': 96, 'accuracy': 0.7291666666666666, 'ci_95': (0.633, 0.808)}
+done in 206.9s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/baselines_bm25_test.json
+[key] after bm25: usage $0.1214, limit $1, remaining $0.8786; spend log $0.1232; cap $0.9
+[spend] bm25: paid $0.0302 in this process (96 new requests, 0 from the cache)
+[run] 209 s

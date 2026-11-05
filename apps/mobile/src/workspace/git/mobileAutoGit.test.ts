@@ -1,0 +1,52 @@
+import { afterEach, expect, it, vi } from 'vitest'
+import { createMobileAutoGit } from './mobileAutoGit'
+
+afterEach(() => vi.useRealTimers())
+
+it('waits for an idle pause and coalesces edits into a single sync', async () => {
+  vi.useFakeTimers()
+  const run = vi.fn().mockResolvedValue(true)
+  const auto = createMobileAutoGit(run, 100)
+  auto.update({ enabled: true, foreground: true, blocked: false })
+  auto.dirty()
+  await vi.advanceTimersByTimeAsync(90)
+  auto.dirty()
+  await vi.advanceTimersByTimeAsync(90)
+  expect(run).not.toHaveBeenCalled()
+  await vi.advanceTimersByTimeAsync(10)
+  expect(run).toHaveBeenCalledOnce()
+  auto.dispose()
+})
+
+it('does not sync while backgrounded, disabled, or showing a blocking dialog', async () => {
+  vi.useFakeTimers()
+  const run = vi.fn().mockResolvedValue(true)
+  const auto = createMobileAutoGit(run, 100)
+  auto.dirty()
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(run).not.toHaveBeenCalled()
+  auto.update({ enabled: true, foreground: false, blocked: false })
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(run).not.toHaveBeenCalled()
+  auto.update({ enabled: true, foreground: true, blocked: true })
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(run).not.toHaveBeenCalled()
+  auto.update({ enabled: true, foreground: true, blocked: false })
+  await vi.advanceTimersByTimeAsync(100)
+  expect(run).toHaveBeenCalledOnce()
+  auto.dispose()
+})
+
+it('does not retry failures in a loop or run after disposal', async () => {
+  vi.useFakeTimers()
+  const run = vi.fn().mockRejectedValue(new Error('offline'))
+  const auto = createMobileAutoGit(run, 100)
+  auto.update({ enabled: true, foreground: true, blocked: false })
+  auto.dirty()
+  await vi.advanceTimersByTimeAsync(10000)
+  expect(run).toHaveBeenCalledOnce()
+  auto.dirty()
+  auto.dispose()
+  await vi.advanceTimersByTimeAsync(10000)
+  expect(run).toHaveBeenCalledOnce()
+})

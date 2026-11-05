@@ -1,0 +1,21 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 58826.14it/s]
+  K=0 crm: extracted 5 meetings
+  K=0 crm: answered 13 questions
+  K=0 datacentre: extracted 4 meetings
+  K=0 datacentre: answered 14 questions
+level K=0 done in 47.2s -> results/dev/router_scale_dev.json
+  K=8 crm: extracted 13 meetings
+  K=8 crm: answered 13 questions
+  K=8 datacentre: extracted 12 meetings
+  K=8 datacentre: answered 14 questions
+level K=8 done in 128.9s -> results/dev/router_scale_dev.json
+  K=24 crm: extracted 29 meetings
+  K=24 crm: answered 13 questions
+  K=24 datacentre: extracted 28 meetings
+  K=24 datacentre: answered 14 questions
+level K=24 done in 84.8s -> results/dev/router_scale_dev.json
+  K=48 crm: extracted 53 meetings
+  K=48 crm: answered 13 questions
+  K=48 datacentre: extracted 52 meetings
+  K=48 datacentre: answered 14 questions
+level K=48 done in 95.7s -> results/dev/router_scale_dev.json

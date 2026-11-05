@@ -1,0 +1,6 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 155922.08it/s]
+{'qid': 'ES2003.q1', 'identical_text': False, 'same_verdict': True, 'plain_seconds': 44.2, 'fast_seconds': 73.3, 'output_tokens': 161}
+{'qid': 'ES2003.q2', 'identical_text': False, 'same_verdict': False, 'plain_seconds': 366.1, 'fast_seconds': 11.7, 'output_tokens': 247}
+{'qid': 'ES2003.q3', 'identical_text': True, 'same_verdict': True, 'plain_seconds': 235.5, 'fast_seconds': 6.3, 'output_tokens': 119}
+{'qid': 'ES2003.q4', 'identical_text': False, 'same_verdict': True, 'plain_seconds': 231.0, 'fast_seconds': 10.7, 'output_tokens': 217}
+{"compared": 4, "identical_text": 1, "same_verdict": 3, "prefix_builds": 1, "prefix_hits": 3}

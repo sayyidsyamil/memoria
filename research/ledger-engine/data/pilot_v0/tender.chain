@@ -1,0 +1,50 @@
+chain: tender
+language: en-ms
+note: PILOT DEV SET v0, authored by the AI assistant. Bahasa Malaysia and English code-switching written by the assistant, not recorded from real speakers. For debugging and regression only, not evidence of real-world performance.
+now: 2026-05-01T00:00:00Z
+people: hassan=Encik Hassan, aini=Puan Aini, zul=Zulkifli, kelvin=Kelvin
+object: tender_vendor | decision | Tender vendor | outcome:enum[Vendor Alpha,Vendor Beta,Vendor Gamma]!reverse
+object: tender_value | decision | Tender contract cap in MYR | amount:number
+object: tender_submission | commitment | Tender document submission | deadline:date, owner:person, status:enum[done,cancelled]
+
+meeting: t1 | 2026-03-02T10:00:00Z | ingested=2026-03-02T14:00:00Z
+hassan: Okay semua, kita fokus pada tender relocation hari ni.
+aini: Shortlist kita ada tiga, Vendor Alpha, Vendor Beta dan Vendor Gamma.
+aini: Saya rasa Beta paling kukuh dari segi harga dan track record.  ## distractor tentative
+hassan: Okay, kalau semua setuju, kita pilih Vendor Beta. Setuju? Baik, kita go dengan Vendor Beta.  ## event tender_vendor.outcome = Vendor Beta | INITIAL | quote="kita go dengan Vendor Beta" | tags=codeswitch
+hassan: Had kontrak kita tetapkan lima juta ringgit.  ## event tender_value.amount = 5000000 | INITIAL | quote="tetapkan lima juta ringgit" | tags=codeswitch,number_words
+zul: Boleh, tapi kalau Beta minta lebih, macam mana?  ## distractor question
+hassan: Nanti kita bincang. Sekarang, dokumen tender mesti masuk sebelum 20 Mac, dan Zul akan uruskan.  ## event tender_submission.deadline = 2026-03-20 | INITIAL | quote="mesti masuk sebelum 20 Mac" | tags=codeswitch ;; event tender_submission.owner = zul | INITIAL | quote="Zul akan uruskan" | tags=codeswitch
+zul: Okay, noted.  ## distractor ignorable
+hassan: Terima kasih semua.  ## distractor ignorable
+
+meeting: t2 | 2026-03-16T10:00:00Z | ingested=2026-03-16T14:00:00Z
+hassan: Update tender. Zul, apa status?
+zul: Vendor Beta minta lanjut masa, mereka kata dokumen belum siap.  ## distractor hearsay
+hassan: Okay, kita tangguhkan tarikh akhir ke 3 April.  ## event tender_submission.deadline = 2026-04-03 | REVISE | quote="kita tangguhkan tarikh akhir ke 3 April" | tags=codeswitch
+aini: Kalau Beta masih tak boleh, kita boleh pertimbangkan Gamma lah.  ## distractor hypothetical
+hassan: Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.  ## event tender_value.amount = 5500000 | REVISE | quote="jadi RM5.5 juta" | tags=codeswitch,anaphora
+zul: Saya akan inform semua bidder pasal perubahan tu.  ## distractor untracked
+hassan: Bagus. Itu sahaja.  ## distractor ignorable
+
+meeting: t3 | 2026-04-06T10:00:00Z | ingested=2026-04-06T14:00:00Z
+hassan: Berita kurang baik. Vendor Beta gagal dalam due diligence.
+aini: Jadi kita tukar kepada Gamma, atau buka semula tender?  ## distractor question
+hassan: Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.  ## event tender_vendor.outcome = Vendor Gamma | REVERSE | quote="Kita tukar kepada Vendor Gamma" | tags=codeswitch,reversal
+hassan: Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.  ## event tender_submission.status = cancelled | CANCEL | quote="kita batalkan" | tags=codeswitch
+hassan: Kelvin, awak ambil alih daripada Zul untuk tender ni.  ## event tender_submission.owner = kelvin | REVISE | quote="Kelvin, awak ambil alih daripada Zul" | tags=codeswitch
+kelvin: Baik, saya akan siapkan jadual baru minggu depan.  ## distractor untracked
+hassan: Tarikh baru nanti kita umumkan lepas ni.  ## distractor ignorable
+
+question: q1 | current | tender_vendor.outcome | gold=Vendor Gamma
+question: q2 | current | tender_value.amount | gold=5500000
+question: q3 | as_of_valid | tender_submission.deadline | valid=2026-03-18 | gold=2026-04-03
+question: q4 | current | tender_submission.owner | gold=kelvin
+question: q5 | current | tender_submission.status | gold=cancelled
+question: q6 | as_of_valid | tender_vendor.outcome | valid=2026-03-25 | gold=Vendor Beta
+question: q7 | as_of_valid | tender_value.amount | valid=2026-03-10 | gold=5000000
+question: q8 | as_of_tx | tender_value.amount | valid=2026-03-20 | tx=2026-03-10T00:00:00Z | gold=5000000
+question: q9 | as_of_valid | tender_submission.owner | valid=2026-03-10 | gold=zul
+question: q10 | n_changes | tender_value.amount | gold=1
+question: q11 | n_changes | tender_submission.deadline | gold=1
+question: q12 | as_of_valid | tender_submission.status | valid=2026-03-25 | gold=none

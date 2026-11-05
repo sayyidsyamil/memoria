@@ -1,0 +1,424 @@
+{
+  "about": "Golden cases of a rename with link rewrite. Each case is a desktop `src-tauri/src/vault/rename.rs` test (or the function whose behaviour it pins), run through the server's POST /v1/rename with rewriteLinks: notes are the vault before, expected the files after (null: gone), rewritten the other notes whose links changed.",
+  "cases": [
+    {
+      "name": "title rename sets the title property and keeps the H1",
+      "desktopTest": "test_rename_note_basic",
+      "notes": {
+        "note/weekly-review.md": "---\nIs A: Note\n---\n# Weekly Review\n\nContent here.\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/sprint-retrospective.md",
+        "title": "Sprint Retrospective"
+      },
+      "expected": {
+        "note/weekly-review.md": null,
+        "note/sprint-retrospective.md": "---\nIs A: Note\ntitle: Sprint Retrospective\n---\n# Weekly Review\n\nContent here.\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "title links in bodies and frontmatter properties follow the rename",
+      "desktopTest": "test_rename_note_updates_wikilinks",
+      "notes": {
+        "note/weekly-review.md": "---\nIs A: Note\n---\n# Weekly Review\n\nContent.\n",
+        "note/other.md": "---\nIs A: Note\n---\n# Other\n\nSee [[Weekly Review]] for details.\n",
+        "project/my-project.md": "---\nIs A: Project\nRelated to:\n  - \"[[Weekly Review]]\"\n---\n# My Project\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/sprint-retrospective.md",
+        "title": "Sprint Retrospective"
+      },
+      "expected": {
+        "note/other.md": "---\nIs A: Note\n---\n# Other\n\nSee [[note/sprint-retrospective]] for details.\n",
+        "project/my-project.md": "---\nIs A: Project\nRelated to:\n  - \"[[note/sprint-retrospective]]\"\n---\n# My Project\n"
+      },
+      "rewritten": [
+        "note/other.md",
+        "project/my-project.md"
+      ]
+    },
+    {
+      "name": "an alias is kept",
+      "desktopTest": "test_rename_note_updates_legacy_wikilink_targets",
+      "notes": {
+        "note/weekly-review.md": "# Weekly Review\n",
+        "note/ref.md": "# Ref\n\nSee [[Weekly Review|my review]] for info.\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/sprint-retro.md",
+        "title": "Sprint Retro"
+      },
+      "expected": {
+        "note/ref.md": "# Ref\n\nSee [[note/sprint-retro|my review]] for info.\n"
+      },
+      "rewritten": [
+        "note/ref.md"
+      ]
+    },
+    {
+      "name": "a filename-stem link follows the rename",
+      "desktopTest": "test_rename_note_updates_legacy_wikilink_targets",
+      "notes": {
+        "note/weekly-review.md": "# Weekly Review\n",
+        "note/ref.md": "# Ref\n\nSee [[weekly-review]] for info.\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/sprint-retro.md",
+        "title": "Sprint Retro"
+      },
+      "expected": {
+        "note/ref.md": "# Ref\n\nSee [[note/sprint-retro]] for info.\n"
+      },
+      "rewritten": [
+        "note/ref.md"
+      ]
+    },
+    {
+      "name": "a title link from a note without frontmatter follows the rename",
+      "desktopTest": "test_rename_note_updates_legacy_wikilink_targets",
+      "notes": {
+        "note/weekly-review.md": "---\nIs A: Note\n---\n# Weekly Review\n\nContent.\n",
+        "note/ref.md": "See [[Weekly Review]] for details.\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/sprint-retrospective.md",
+        "title": "Sprint Retrospective"
+      },
+      "expected": {
+        "note/ref.md": "See [[note/sprint-retrospective]] for details.\n"
+      },
+      "rewritten": [
+        "note/ref.md"
+      ]
+    },
+    {
+      "name": "an existing title property is replaced in place",
+      "desktopTest": "test_rename_note_updates_title_frontmatter",
+      "notes": {
+        "note/old.md": "---\ntitle: Old Name\nIs A: Note\n---\n# Old Name\n"
+      },
+      "rename": {
+        "from": "note/old.md",
+        "to": "note/new-name.md",
+        "title": "New Name"
+      },
+      "expected": {
+        "note/new-name.md": "---\ntitle: New Name\nIs A: Note\n---\n# Old Name\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "an empty note gets a title property",
+      "desktopTest": "test_rename_note_empty_file",
+      "notes": {
+        "note/empty.md": ""
+      },
+      "rename": {
+        "from": "note/empty.md",
+        "to": "note/renamed-empty.md",
+        "title": "Renamed Empty"
+      },
+      "expected": {
+        "note/renamed-empty.md": "---\ntitle: Renamed Empty\n---\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "empty frontmatter gets a title property",
+      "desktopTest": "test_rename_note_empty_frontmatter_no_body",
+      "notes": {
+        "note/empty-fm.md": "---\n---\n"
+      },
+      "rename": {
+        "from": "note/empty-fm.md",
+        "to": "note/renamed-note.md",
+        "title": "Renamed Note"
+      },
+      "expected": {
+        "note/renamed-note.md": "---\ntitle: Renamed Note\n---\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "frontmatter without a body",
+      "desktopTest": "test_rename_note_frontmatter_title_no_body",
+      "notes": {
+        "note/titled.md": "---\ntitle: Old Title\ntype: Note\n---\n"
+      },
+      "rename": {
+        "from": "note/titled.md",
+        "to": "note/new-title.md",
+        "title": "New Title"
+      },
+      "expected": {
+        "note/new-title.md": "---\ntitle: New Title\ntype: Note\n---\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "an H1-only note keeps its H1",
+      "desktopTest": "test_rename_note_h1_only_no_body",
+      "notes": {
+        "note/heading-only.md": "# Old Heading\n"
+      },
+      "rename": {
+        "from": "note/heading-only.md",
+        "to": "note/new-heading.md",
+        "title": "New Heading"
+      },
+      "expected": {
+        "note/new-heading.md": "---\ntitle: New Heading\n---\n# Old Heading\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "frontmatter and H1 without a body",
+      "desktopTest": "test_rename_note_frontmatter_and_h1_no_body",
+      "notes": {
+        "note/full-empty.md": "---\ntitle: My Note\ntype: Note\nstatus: Active\n---\n\n# My Note\n\n"
+      },
+      "rename": {
+        "from": "note/full-empty.md",
+        "to": "note/renamed-note.md",
+        "title": "Renamed Note"
+      },
+      "expected": {
+        "note/renamed-note.md": "---\ntitle: Renamed Note\ntype: Note\nstatus: Active\n---\n\n# My Note\n\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "a stale filename is fixed without touching the content",
+      "desktopTest": "test_rename_note_filename_mismatch_same_title",
+      "notes": {
+        "note/untitled-note.md": "---\ntitle: My New Note\ntype: Note\n---\n\n# My New Note\n\nContent.\n"
+      },
+      "rename": {
+        "from": "note/untitled-note.md",
+        "to": "note/my-new-note.md",
+        "title": "My New Note"
+      },
+      "expected": {
+        "note/untitled-note.md": null,
+        "note/my-new-note.md": "---\ntitle: My New Note\ntype: Note\n---\n\n# My New Note\n\nContent.\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "a filename rename keeps the title and rewrites path and title links",
+      "desktopTest": "test_rename_note_filename_preserves_title_and_updates_path_wikilinks",
+      "notes": {
+        "note/project-kickoff.md": "---\ntitle: Project Kickoff\ntype: Note\n---\n\n# Project Kickoff\n\nBody.\n",
+        "note/ref.md": "# Ref\n\nSee [[note/project-kickoff]] and [[Project Kickoff]].\n"
+      },
+      "rename": {
+        "from": "note/project-kickoff.md",
+        "to": "note/manual-name.md"
+      },
+      "expected": {
+        "note/manual-name.md": "---\ntitle: Project Kickoff\ntype: Note\n---\n\n# Project Kickoff\n\nBody.\n",
+        "note/ref.md": "# Ref\n\nSee [[note/manual-name]] and [[note/manual-name]].\n"
+      },
+      "rewritten": [
+        "note/ref.md"
+      ]
+    },
+    {
+      "name": "a CRLF note's title is a link target",
+      "desktopTest": "test_rename_note_filename_uses_crlf_frontmatter_title_for_wikilinks",
+      "notes": {
+        "note/project-kickoff.md": "---\r\ntitle: Project Kickoff\r\ntype: Note\r\n---\r\n# Project Kickoff\r\n",
+        "note/ref.md": "See [[Project Kickoff]].\n"
+      },
+      "rename": {
+        "from": "note/project-kickoff.md",
+        "to": "note/manual-name.md"
+      },
+      "expected": {
+        "note/ref.md": "See [[note/manual-name]].\n"
+      },
+      "rewritten": [
+        "note/ref.md"
+      ]
+    },
+    {
+      "name": "a move to another folder rewrites the path link",
+      "desktopTest": "test_move_note_to_folder_preserves_filename_and_updates_wikilinks",
+      "notes": {
+        "projects/weekly-review.md": "---\ntitle: Weekly Review\n---\n# Weekly Review\nBody\n",
+        "areas/linked.md": "Reference [[projects/weekly-review]]\n"
+      },
+      "rename": {
+        "from": "projects/weekly-review.md",
+        "to": "areas/weekly-review.md"
+      },
+      "expected": {
+        "projects/weekly-review.md": null,
+        "areas/weekly-review.md": "---\ntitle: Weekly Review\n---\n# Weekly Review\nBody\n",
+        "areas/linked.md": "Reference [[areas/weekly-review]]\n"
+      },
+      "rewritten": [
+        "areas/linked.md"
+      ]
+    },
+    {
+      "name": "a move rewrites title, aliased path and stem links in body and frontmatter",
+      "desktopTest": "test_move_note_to_folder_updates_title_and_path_links_in_body_and_frontmatter",
+      "notes": {
+        "projects/weekly-review.md": "---\ntitle: Weekly Review\n---\n# Weekly Review\nBody\n",
+        "areas/linked.md": "---\nrelated_to:\n  - \"[[Weekly Review]]\"\n---\nReference [[projects/weekly-review|review notes]] and [[weekly-review]].\n"
+      },
+      "rename": {
+        "from": "projects/weekly-review.md",
+        "to": "areas/weekly-review.md"
+      },
+      "expected": {
+        "areas/linked.md": "---\nrelated_to:\n  - \"[[areas/weekly-review]]\"\n---\nReference [[areas/weekly-review|review notes]] and [[areas/weekly-review]].\n"
+      },
+      "rewritten": [
+        "areas/linked.md"
+      ]
+    },
+    {
+      "name": "the old title hint names the links when the H1 already changed",
+      "desktopTest": "test_rename_note_with_old_title_hint_updates_wikilinks",
+      "notes": {
+        "note/weekly-review.md": "---\nIs A: Note\n---\n# Sprint Retrospective\n\nContent.\n",
+        "note/other.md": "---\nIs A: Note\n---\n# Other\n\nSee [[Weekly Review]] for details.\n",
+        "project/my-project.md": "---\nIs A: Project\nRelated to:\n  - \"[[Weekly Review]]\"\n---\n# My Project\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/sprint-retrospective.md",
+        "title": "Sprint Retrospective",
+        "oldTitle": "Weekly Review"
+      },
+      "expected": {
+        "note/sprint-retrospective.md": "---\nIs A: Note\ntitle: Sprint Retrospective\n---\n# Sprint Retrospective\n\nContent.\n",
+        "note/other.md": "---\nIs A: Note\n---\n# Other\n\nSee [[note/sprint-retrospective]] for details.\n",
+        "project/my-project.md": "---\nIs A: Project\nRelated to:\n  - \"[[note/sprint-retrospective]]\"\n---\n# My Project\n"
+      },
+      "rewritten": [
+        "note/other.md",
+        "project/my-project.md"
+      ]
+    },
+    {
+      "name": "the H1 is never rewritten",
+      "desktopTest": "test_rename_note_does_not_modify_h1",
+      "notes": {
+        "note/old.md": "---\ntitle: Old Title\ntype: Note\n---\n\n# Old Title\n\nSome body text.\n"
+      },
+      "rename": {
+        "from": "note/old.md",
+        "to": "note/brand-new-title.md",
+        "title": "Brand New Title"
+      },
+      "expected": {
+        "note/brand-new-title.md": "---\ntitle: Brand New Title\ntype: Note\n---\n\n# Old Title\n\nSome body text.\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "heading links, other cases and other notes' paths are left alone, as on the desktop",
+      "desktopTest": "build_wikilink_pattern",
+      "notes": {
+        "note/weekly-review.md": "# Weekly Review\n",
+        "other/weekly-review.md": "# Weekly Review\n",
+        "note/ref.md": "[[Weekly Review#Agenda]] [[weekly review]] [[WEEKLY-REVIEW]] [[other/weekly-review]] [[note/weekly-review#Agenda|a]] [[Weekly Review]]\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/retro.md"
+      },
+      "expected": {
+        "other/weekly-review.md": "# Weekly Review\n",
+        "note/ref.md": "[[Weekly Review#Agenda]] [[weekly review]] [[WEEKLY-REVIEW]] [[other/weekly-review]] [[note/weekly-review#Agenda|a]] [[note/retro]]\n"
+      },
+      "rewritten": [
+        "note/ref.md"
+      ]
+    },
+    {
+      "name": "a same-titled note in another folder: title links move with the renamed note, as on the desktop",
+      "desktopTest": "collect_legacy_wikilink_targets",
+      "notes": {
+        "note/weekly-review.md": "# Weekly Review\n",
+        "other/weekly-review.md": "# Weekly Review\n\nSee [[Weekly Review]] and [[weekly-review]].\n"
+      },
+      "rename": {
+        "from": "note/weekly-review.md",
+        "to": "note/retro.md"
+      },
+      "expected": {
+        "other/weekly-review.md": "# Weekly Review\n\nSee [[note/retro]] and [[note/retro]].\n"
+      },
+      "rewritten": [
+        "other/weekly-review.md"
+      ]
+    },
+    {
+      "name": "embeds, code and several links on a line are raw text to the rewrite",
+      "desktopTest": "replace_wikilinks_in_content",
+      "notes": {
+        "plan.md": "# Plan\n",
+        "ref.md": "![[plan]] and [[plan]][[plan|p]]\n\n```\n[[Plan]]\n```\n\n`[[plan]]` [[[plan]]] [[plan|]] [[plan|a]b]]\n"
+      },
+      "rename": {
+        "from": "plan.md",
+        "to": "archive/roadmap.md"
+      },
+      "expected": {
+        "ref.md": "![[archive/roadmap]] and [[archive/roadmap]][[archive/roadmap|p]]\n\n```\n[[archive/roadmap]]\n```\n\n`[[archive/roadmap]]` [[[archive/roadmap]]] [[archive/roadmap|]] [[plan|a]b]]\n"
+      },
+      "rewritten": [
+        "ref.md"
+      ]
+    },
+    {
+      "name": "the renamed note's own links and non-markdown files are not rewritten",
+      "desktopTest": "is_replaceable_md_file",
+      "notes": {
+        "plan.md": "# Plan\n\nSee [[plan]].\n",
+        "data.txt": "[[plan]]\n",
+        "upper.MD": "[[plan]]\n"
+      },
+      "rename": {
+        "from": "plan.md",
+        "to": "roadmap.md"
+      },
+      "expected": {
+        "roadmap.md": "# Plan\n\nSee [[plan]].\n",
+        "data.txt": "[[plan]]\n",
+        "upper.MD": "[[plan]]\n"
+      },
+      "rewritten": []
+    },
+    {
+      "name": "unicode titles and paths",
+      "desktopTest": "test_rename_note_with_cjk_title_writes_unicode_filename",
+      "notes": {
+        "笔记/旧.md": "# 旧标题\n",
+        "ref.md": "[[旧标题]] [[笔记/旧|别名]]\n"
+      },
+      "rename": {
+        "from": "笔记/旧.md",
+        "to": "笔记/新标题.md",
+        "title": "新标题"
+      },
+      "expected": {
+        "笔记/新标题.md": "---\ntitle: 新标题\n---\n# 旧标题\n",
+        "ref.md": "[[笔记/新标题]] [[笔记/新标题|别名]]\n"
+      },
+      "rewritten": [
+        "ref.md"
+      ]
+    }
+  ]
+}

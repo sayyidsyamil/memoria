@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-03",
+  "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.11 -B research/weight-edit-attribution/verify.py",
+  "exit_code": 0,
+  "passed": [
+    "syntax",
+    "input hashes",
+    "exact prompt reconstruction",
+    "balanced source labels",
+    "explicit dev-only loader",
+    "app/A baseline parity",
+    "patch hash",
+    "matched random Frobenius norm",
+    "static weight-delta equivalence"
+  ],
+  "chronology_injected_baseline": "chronology-no-model.json: all three passed, including distinct turn.start claim times",
+  "model_contracts": "chronology-model.json and chronology-model-amplify.json: 18/18 passed for base/context/binding/target/random/amplify",
+  "restoration": "edit-probes.json: three source scores identical after removal; chronology-model.json: two guard scores and one Ask router reply identical after removal",
+  "generation_parity": "One native ES2003c extraction byte-identical to cached base. zero-control.json: native-before, zero-norm adapter and native-after on the exact IS1008b failure prompt all byte-identical to cached base.",
+  "note": "These checks verify experiment isolation, algebra, provenance, chronology and scoped restoration. They are not evidence that extraction quality improved. The A replay is historical; A is rejected on chronology contracts."
+}

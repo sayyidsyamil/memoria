@@ -1,0 +1,64 @@
+MEMORIABENCH: STATISTICAL SUMMARY
+==================================
+
+Predictions: results/predictions_raw.jsonl (sha256 5f0b37096e3b14dc...); benchmark sha256 8d8f9ca6237b793a...
+Tests: stat_tests.py, seed 20261015, 10,000 resamples, alpha 0.05. Nothing in this file is asserted: each number is computed from the predictions.
+
+1. HEADLINE (336 probes, 28 series)
+----------------------------------
+M2 (Full Memoria): Macro-F1 0.87 [0.84, 0.90], accuracy 87.2%, alert precision 0.99 [0.97, 1.00], alert recall 0.98 [0.96, 1.00], false alarms 1 of 224 non-conflicts (0.4%).
+Official AMI unseen subset (60 probes, 5 series; no interval): Macro-F1 0.85, alert precision 0.95, alert recall 1.00, false alarm 2.5%.
+Time and memory on the Apple M5 (16 GB), warm, per probe: P50 2,274 ms, P95 3,620 ms; peak footprint 3.5 GB.
+The AP2 report sets no speed target (requirement NFR10: "No speed target is set"), so these times are measurements, not a pass against a target.
+
+2. THE TESTS
+----------------------------------
+[Statistical Significance Tests] (336 probes in 28 series; every system answered the same probes)
+  ├── M2 vs B2 (Standard Transcript RAG):
+  │     ├── McNemar on the alert decision: only M2 right b=55, only B2 right c=1, both right 278, both wrong 2 | chi2=50.2 | exact p 1.6e-15 (Holm 3.2e-15) (significant at 0.001)
+  │     ├── By series (28 series, exact sign test): M2 better in 26, worse in 0, tied in 2 | p 3.0e-08 (significant at 0.001)
+  │     ├── False alarms on the 224 non-conflicts: 1.8% (B2) -> 0.4% (M2) | only M2 quiet b=4, only B2 quiet c=1 | exact p 0.375
+  │     └── Paired permutation on Macro-F1: +0.25 | series swapped p <= 0.0001 | single probes swapped p <= 0.0001
+  ├── M2 vs B1 (Embedding-Only (alert if sim >= t)):
+  │     ├── McNemar on the alert decision: only M2 right b=82, only B1 right c=2, both right 251, both wrong 1 | chi2=74.3 | exact p 3.7e-22 (Holm 1.5e-21) (significant at 0.001)
+  │     ├── By series (28 series, exact sign test): M2 better in 28, worse in 0, tied in 0 | p 7.5e-09 (significant at 0.001)
+  │     ├── False alarms on the 224 non-conflicts: 33.9% (B1) -> 0.4% (M2) | only M2 quiet b=75, only B1 quiet c=0 | exact p 5.3e-23
+  │     └── Paired permutation on Macro-F1: +0.71 | series swapped p <= 0.0001 | single probes swapped p <= 0.0001
+  ├── M2 vs B0 (Closed-Book Control):
+  │     ├── McNemar on the alert decision: only M2 right b=111, only B0 right c=1, both right 222, both wrong 2 | chi2=106.1 | exact p 4.4e-32 (Holm 2.2e-31) (significant at 0.001)
+  │     ├── By series (28 series, exact sign test): M2 better in 28, worse in 0, tied in 0 | p 7.5e-09 (significant at 0.001)
+  │     ├── False alarms on the 224 non-conflicts: 6.2% (B0) -> 0.4% (M2) | only M2 quiet b=14, only B0 quiet c=1 | exact p 0.0010
+  │     └── Paired permutation on Macro-F1: +0.45 | series swapped p <= 0.0001 | single probes swapped p <= 0.0001
+  ├── M2 vs B1b (Embedding-Only, 3 bands):
+  │     ├── McNemar on the alert decision: only M2 right b=63, only B1b right c=2, both right 270, both wrong 1 | chi2=55.4 | exact p 1.2e-16 (Holm 3.5e-16) (significant at 0.001)
+  │     ├── By series (28 series, exact sign test): M2 better in 26, worse in 0, tied in 2 | p 3.0e-08 (significant at 0.001)
+  │     ├── False alarms on the 224 non-conflicts: 23.7% (B1b) -> 0.4% (M2) | only M2 quiet b=52, only B1b quiet c=0 | exact p 4.4e-16
+  │     └── Paired permutation on Macro-F1: +0.62 | series swapped p <= 0.0001 | single probes swapped p <= 0.0001
+  └── M2 vs A1 (M2 without supersession notes):
+        ├── McNemar on the alert decision: only M2 right b=12, only A1 right c=1, both right 321, both wrong 2 | chi2=7.7 | exact p 0.0034 (Holm 0.0034) (significant at 0.05)
+        ├── By series (28 series, exact sign test): M2 better in 10, worse in 1, tied in 17 | p 0.0117 (significant at 0.05)
+        ├── False alarms on the 224 non-conflicts: 0.4% (A1) -> 0.4% (M2) | only M2 quiet b=1, only A1 quiet c=1 | exact p 1.000
+        └── Paired permutation on Macro-F1: +0.13 | series swapped p <= 0.0001 | single probes swapped p <= 0.0001
+
+3. WHAT THE TESTS SAY, AND WHAT THEY DO NOT
+----------------------------------
+- M2 against B2 (transcript RAG): the alert decision is right more often for M2 (b=55, c=1; exact p 1.6e-15; by series 26 won, 0 lost; p 3.0e-08), and the Macro-F1 difference is +0.25 (permutation by series p <= 0.0001). On the gold alerts only M2 right 51, only B2 right 0 (p 8.9e-16).
+- It is NOT a significant difference in false alarms: M2 raised 0.4% and B2 1.8% (only M2 quiet 4, only B2 quiet 1; exact p 0.375). Do not write that Memoria raises fewer false alarms than transcript RAG.
+- M2 against B1 (embeddings only): false alarms 33.9% -> 0.4% (exact p 5.3e-23, significant). Alert recall: on the gold alerts only M2 right 7, only B1 right 2, p 0.180 (not significant). An embedding threshold finds the conflicts about as well; the difference is in what else it flags: 34% of the probes that are not conflicts.
+- The ablation A1 (M2 without supersession notes): alert decision p 0.0034, Macro-F1 +0.13 [+0.10, +0.16]. OUTDATED is found for 4 of 5 real and 36 of 51 synthetic probes by M2, and for 0 of 5 real and 3 of 51 synthetic probes by A1.
+
+Why the OUTDATED collapse is not a proof of the thesis: the old value of a synthetic probe exists nowhere in memory except in the note, so a system without the note cannot find it. The ablation shows that M2 uses the notes it is given. It does not show that write-time supersession is better than another way of keeping memory, and it does not test whether Memoria can write correct notes during a live meeting, because here the notes are supplied.
+
+How to read the p-values:
+- They say the differences are unlikely to be chance on these probes and series. The probes were generated by rule from the annotators' decisions, not drawn at random from live speech, so no p-value here covers live speech.
+- M2 reads the annotators' decisions (and the notes); B2 reads the raw transcript. The comparison measures auditing clean approved memory against searching raw speech. It does not measure extraction of decisions from speech.
+- Probes of one series share one memory, so they are not independent. The probe-level McNemar p-values are therefore optimistic; cite the series-level tests (the sign test by series and the permutation test with series as the unit).
+- A Monte-Carlo permutation p cannot be smaller than 1/(10,000 + 1) = 0.0001. Where no resample reached the observed difference the honest statement is p <= 0.0001.
+- Holm's correction is applied across the 5 comparisons of M2 against another system. The tests against B2 and B1 were named in the plan before the results; the tests against B0, B1b and A1 were added afterwards and are exploratory. The existing Chapter 6 also calls its sign tests exploratory.
+- Only 5 OUTDATED probes rest on a real supersession: too few to say anything about natural supersession; the numbers for them are counts, not estimates.
+- M2's citation is exactly the gold decision on 101 of 110 true alerts (91.8%).
+
+4. FILES
+----------------------------------
+chapter_6_table_1.tex/.md (all systems), chapter_6_table_1b (official subset), chapter_6_table_2 (recall by class), chapter_6_table_3 (paired tests), confusion_matrix_m2.txt, stat_tests.json, results_manifest.sha256.
+The tables carry no table number: Chapter 6 already uses Table 6.1 to 6.17, so number them in place. The LaTeX needs \usepackage{booktabs}.

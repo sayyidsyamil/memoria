@@ -1,0 +1,47 @@
+chain: hiring
+language: en
+note: PILOT DEV SET v0, authored by the AI assistant. Not real meetings and not independent of the pipeline's author. For debugging and regression only, not evidence of real-world performance.
+now: 2026-06-20T00:00:00Z
+people: salmah=Dr. Salmah, raj=Raj, ling=Ling, omar=Omar
+object: hc_data | decision | Data team headcount | headcount:number
+object: hire_ds | commitment | Hire a data scientist | owner:person, deadline:date, status:enum[done,cancelled]
+object: hire_de | commitment | Hire a data engineer | owner:person, deadline:date, status:enum[done,cancelled]
+
+meeting: h1 | 2026-04-07T09:00:00Z | ingested=2026-04-07T12:00:00Z
+salmah: Let's sort out the data team hiring plan today.
+omar: We might ask for a fifth head if the workload keeps growing.  ## distractor hypothetical
+salmah: For now, headcount is approved at four, effective 1 July.  ## event hc_data.headcount = 4 | INITIAL | quote="headcount is approved at four, effective 1 July" | valid_from=2026-07-01 | tags=effective_date,number_words
+salmah: Raj, you own the data scientist hire, and I want an offer out by 15 June.  ## event hire_ds.owner = raj | INITIAL | quote="Raj, you own the data scientist hire" ;; event hire_ds.deadline = 2026-06-15 | INITIAL | quote="an offer out by 15 June"
+salmah: Ling, the data engineer is yours, target the end of June.  ## event hire_de.owner = ling | INITIAL | quote="Ling, the data engineer is yours" ;; event hire_de.deadline = 2026-06-30 | INITIAL | quote="target the end of June" | tags=relative_date
+raj: Understood.  ## distractor ignorable
+ling: Will we need approval from finance for the engineer?  ## distractor question
+salmah: I'll handle that.  ## distractor untracked
+
+meeting: h2 | 2026-05-12T09:00:00Z | ingested=2026-05-12T12:00:00Z
+salmah: Quick update. Business wants more capacity, so headcount goes up to six, effective 1 August.  ## event hc_data.headcount = 6 | REVISE | quote="headcount goes up to six, effective 1 August" | valid_from=2026-08-01 | tags=effective_date,number_words
+raj: On the data scientist, I think we should drop the role and put the money into a second engineer.  ## distractor tentative
+salmah: Agreed, we drop the data scientist role.  ## event hire_ds.status = cancelled | CANCEL | quote="we drop the data scientist role"
+salmah: Ling, the engineer deadline moves to 15 July.  ## event hire_de.deadline = 2026-07-15 | REVISE | quote="the engineer deadline moves to 15 July"
+ling: That gives me room, thanks.  ## distractor ignorable
+omar: I could start interviewing next week.  ## distractor untracked
+
+meeting: h3 | 2026-06-09T09:00:00Z | ingested=2026-06-09T12:00:00Z
+ling: Good news, the data engineer signed the offer yesterday.  ## event hire_de.status = done | COMPLETE | quote="the data engineer signed the offer yesterday"
+salmah: Excellent. Now, finance has pushed back, so the increase to six is off. Back to four, effective 1 August.  ## event hc_data.headcount = 4 | REVISE | quote="Back to four, effective 1 August" | valid_from=2026-08-01 | tags=effective_date,reversal,number_words
+raj: Do we still need the data scientist budget line?  ## distractor question
+salmah: No, that is closed, the budget goes to the engineer team.  ## distractor untracked
+omar: Maybe we hire a contractor for the gap in July.  ## distractor hypothetical
+
+question: q1 | current | hire_ds.status | gold=cancelled
+question: q2 | current | hire_de.status | gold=done
+question: q3 | current | hire_de.deadline | gold=2026-07-15
+question: q4 | current | hire_ds.owner | gold=raj
+question: q5 | as_of_valid | hc_data.headcount | valid=2026-06-15 | gold=none
+question: q6 | as_of_valid | hc_data.headcount | valid=2026-07-15 | gold=4
+question: q7 | as_of_valid | hc_data.headcount | valid=2026-08-15 | gold=4
+question: q8 | as_of_tx | hc_data.headcount | valid=2026-08-15 | tx=2026-05-20T00:00:00Z | gold=6
+question: q9 | as_of_valid | hire_de.deadline | valid=2026-06-20 | gold=2026-07-15
+question: q10 | n_changes | hc_data.headcount | gold=0
+question: q11 | n_changes | hire_de.deadline | gold=1
+question: q12 | as_of_tx | hire_de.deadline | valid=2026-06-01 | tx=2026-04-20T00:00:00Z | gold=2026-06-30
+question: q13 | as_of_valid | hire_ds.status | valid=2026-05-01 | gold=none

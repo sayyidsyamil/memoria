@@ -1,0 +1,9 @@
+[0.2s - 26.6s] Speaker 0: Morning, this is the last review before launch, so let's be straightforward about where we are. I have to start with a miss. The data migration did not finish on the 9th, the old supplier records had duplicates and the cleanup took longer than planned. How much longer do you need? Two weeks. I can finish by the 23rd of October. Okay, data migration is now due on October 23rd, same owner.
+[26.6s - 35.4s] Speaker 1: If migration finishes on the 23rd, then 26 October is unrealistic. Nobody can train on data that is not there.
+[35.4s - 50.2s] Speaker 0: Agreed, we have to move GoLive, let's say November 9th. The 9th of November works for me, that gives us over 2 weeks of testing after migration. Then the go live date is now November 9, 2026.
+[50.2s - 57.9s] Speaker 1: That also affects training. It was due on 16 October, but nobody can train on a system that is not ready.
+[57.9s - 72.4s] Speaker 0: Right, I will move training to November 3rd so staff are trained a week before go live, I stay the owner. Good news on security. The review of BetaCloud is finished and they passed. Excellent. Security review is done.
+[72.4s - 78.6s] Speaker 1: On the budget, I checked again, the pilot is still 2x80,000 ringit.
+[78.6s - 81.2s] Speaker 0: Good, so no change to the budget.
+[81.2s - 88.5s] Speaker 1: One more thing, Aisha will be traveling in the first week of November. Maybe I should cover the training for her.
+[88.5s - 103.4s] Speaker 0: That is kind, Raj, but let's see how my calendar looks. I will keep it for now. Should we plan a lessons learned session after go live? Yes, but we will plan it later. Thank you everyone. See you after the launch.

@@ -1,0 +1,273 @@
+import { fireEvent, render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
+import inlineMarkdownContract from '../shared/inlineMarkdownContract.json'
+import type { VaultEntry } from '../types'
+import { TableOfContentsPanel } from './TableOfContentsPanel'
+import { buildTableOfContents, buildTableOfContentsFromMarkdown } from './tableOfContentsModel'
+
+const entry = {
+  title: 'The Compounding Software Factory',
+  modifiedAt: 1700000000,
+  createdAt: 1700000000,
+  fileSize: 2048,
+  wordCount: 3,
+} as VaultEntry
+
+const blocks = [
+  { id: 'h1', type: 'heading', props: { level: 1 }, content: [{ type: 'text', text: 'The default path is degradation' }] },
+  { id: 'h2', type: 'heading', props: { level: 2 }, content: [{ type: 'text', text: 'What causes teams to degrade' }] },
+  { id: 'h3', type: 'heading', props: { level: 3 }, content: [{ type: 'text', text: 'Poor coding hygiene' }] },
+  { id: 'ignored', type: 'paragraph', props: {}, content: [{ type: 'text', text: 'Body' }] },
+]
+
+describe('TableOfContentsPanel', () => {
+  it.each(inlineMarkdownContract.fixtures)('matches the shared inline-markdown contract: $name', ({ input, expected }) => {
+    const toc = buildTableOfContentsFromMarkdown('Contract', `# Contract\n\n## ${input}`)
+
+    expect(toc.children).toHaveLength(1)
+    expect(toc.children[0].title).toBe(expected)
+  })
+
+  it('builds a title-rooted H1/H2/H3 hierarchy', () => {
+    const toc = buildTableOfContents(entry.title, blocks)
+
+    expect(toc.title).toBe('The Compounding Software Factory')
+    expect(toc.children[0].title).toBe('The default path is degradation')
+    expect(toc.children[0].children[0].title).toBe('What causes teams to degrade')
+    expect(toc.children[0].children[0].children[0].title).toBe('Poor coding hygiene')
+  })
+
+  it('does not duplicate the note title when the first markdown H1 matches it', () => {
+    const toc = buildTableOfContentsFromMarkdown(
+      'Introducing Memoria',
+      '# Introducing Memoria\n\n## Memoria + Refactoring\n\n## Principles',
+    )
+
+    expect(toc.title).toBe('Introducing Memoria')
+    expect(toc.children.map((item) => item.title)).toEqual(['Memoria + Refactoring', 'Principles'])
+  })
+
+  it('ignores heading-like frontmatter until an exact closing delimiter', () => {
+    const toc = buildTableOfContentsFromMarkdown(
+      'Frontmatter Outline',
+      [
+        '---',
+        'title: Frontmatter Outline',
+        '---suffix: not a delimiter',
+        '# Hidden frontmatter heading',
+        '---',
+        '# Frontmatter Outline',
+        '## Visible section',
+      ].join('\n'),
+    )
+
+    expect(toc.children.map((item) => item.title)).toEqual(['Visible section'])
+  })
+
+  it('preserves literal underscores and repairs legacy escapes in markdown headings', () => {
+    const toc = buildTableOfContentsFromMarkdown(
+      'Test_V1.0.0_Beta',
+      '# Test\\_V1.0.0\\_Beta\n\n## my_variable_name\n\n## _Formatted_ Test\\_Beta',
+    )
+
+    expect(toc.children.map((item) => item.title)).toEqual([
+      'my_variable_name',
+      'Formatted Test_Beta',
+    ])
+  })
+
+  it('ignores markdown headings inside fenced and inline code areas', () => {
+    const toc = buildTableOfContentsFromMarkdown(
+      'Markdown Outline',
+      [
+        '# Markdown Outline',
+        '',
+        '## Real Setup',
+        '',
+        '```ts',
+        '# Fenced code is not a heading',
+        '## Nested fenced code is not a heading',
+        '```',
+        '',
+        'This paragraph mentions `# Inline code is not a heading`.',
+        '',
+        '## Real Followup',
+      ].join('\n'),
+    )
+
+    expect(toc.children.map((item) => item.title)).toEqual(['Real Setup', 'Real Followup'])
+    expect(toc.children.flatMap((item) => item.children)).toEqual([])
+  })
+
+  it('keeps navigation ids after removing a duplicate markdown title H1', async () => {
+    const setTextCursorPosition = vi.fn()
+    render(
+      <TableOfContentsPanel
+        editor={{
+          document: [
+            { id: 'title-block', type: 'heading', props: { level: 1 }, content: [{ type: 'text', text: 'Introducing Memoria' }] },
+            { id: 'section-block', type: 'heading', props: { level: 2 }, content: [{ type: 'text', text: 'Memoria + Refactoring' }] },
+          ],
+          setTextCursorPosition,
+        }}
+        entry={{ ...entry, title: 'Introducing Memoria' } as VaultEntry}
+        sourceContent={'# Introducing Memoria\n\n## Memoria + Refactoring'}
+        onClose={vi.fn()}
+      />,
+    )
+
+    fireEvent.click(await screen.findByRole('button', { name: /Introducing Memoria/ }))
+    expect(setTextCursorPosition).toHaveBeenCalledWith('title-block', 'start')
+
+    fireEvent.click(await screen.findByRole('button', { name: /Memoria \+ Refactoring/ }))
+    expect(setTextCursorPosition).toHaveBeenCalledWith('section-block', 'start')
+  })
+
+  it('preserves literal tildes in headings and resolves their navigation ids', async () => {
+    const setTextCursorPosition = vi.fn()
+    render(
+      <TableOfContentsPanel
+        editor={{
+          document: [
+            { id: 'title-block', type: 'heading', props: { level: 1 }, content: [{ type: 'text', text: 'Tilde Headings' }] },
+            { id: 'tilde-block', type: 'heading', props: { level: 2 }, content: [{ type: 'text', text: 'Note~2~beta' }] },
+            { id: 'strike-block', type: 'heading', props: { level: 2 }, content: [{ type: 'text', text: 'Archived plan' }] },
+          ],
+          setTextCursorPosition,
+        }}
+        entry={{ ...entry, title: 'Tilde Headings' } as VaultEntry}
+        sourceContent={'# Tilde Headings\n\n## Note~2~beta\n\n## ~~Archived~~ plan'}
+        onClose={vi.fn()}
+      />,
+    )
+
+    fireEvent.click(await screen.findByRole('button', { name: /Note~2~beta/ }))
+    expect(setTextCursorPosition).toHaveBeenCalledWith('tilde-block', 'start')
+
+    fireEvent.click(screen.getByRole('button', { name: /Archived plan/ }))
+    expect(setTextCursorPosition).toHaveBeenCalledWith('strike-block', 'start')
+  })
+
+  it('resolves navigation ids on click after the async TOC build starts without ids', async () => {
+    const setTextCursorPosition = vi.fn()
+    const editor = {
+      document: [] as unknown[],
+      setTextCursorPosition,
+    }
+    render(
+      <TableOfContentsPanel
+        editor={editor}
+        entry={{ ...entry, title: 'New Note' } as VaultEntry}
+        sourceContent={'# New Note\n\n## New Heading'}
+        onClose={vi.fn()}
+      />,
+    )
+
+    await screen.findByRole('button', { name: /New Heading/ })
+    editor.document = [
+      { id: 'title-block', type: 'heading', props: { level: 1 }, content: [{ type: 'text', text: 'New Note' }] },
+      { id: 'new-heading-block', type: 'heading', props: { level: 2 }, content: [{ type: 'text', text: 'New Heading' }] },
+    ]
+
+    fireEvent.click(screen.getByRole('button', { name: /New Heading/ }))
+    expect(setTextCursorPosition).toHaveBeenCalledWith('new-heading-block', 'start')
+  })
+
+  it('updates from source content even when the editor document is stale', async () => {
+    const { rerender } = render(
+      <TableOfContentsPanel
+        editor={{ document: blocks, setTextCursorPosition: vi.fn() }}
+        entry={{ ...entry, title: 'Old Note' } as VaultEntry}
+        sourceContent={'# Old Note\n\n## Old Heading'}
+        onClose={vi.fn()}
+      />,
+    )
+
+    await screen.findByRole('button', { name: /Old Heading/ })
+    rerender(
+      <TableOfContentsPanel
+        editor={{ document: blocks, setTextCursorPosition: vi.fn() }}
+        entry={{ ...entry, title: 'New Note' } as VaultEntry}
+        sourceContent={'# New Note\n\n## New Heading'}
+        onClose={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByRole('button', { name: /New Note/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Old Heading/ })).not.toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /New Heading/ })).toBeInTheDocument()
+  })
+
+  it('does not show stale editor headings while new note source content is loading', () => {
+    render(
+      <TableOfContentsPanel
+        editor={{ document: blocks, setTextCursorPosition: vi.fn() }}
+        entry={{ ...entry, title: 'New Note' } as VaultEntry}
+        sourceContent={null}
+        onClose={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByRole('button', { name: /New Note/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /The default path is degradation/ })).not.toBeInTheDocument()
+  })
+
+  it('does not read the live editor document while source content is available', () => {
+    const documentGetter = vi.fn(() => {
+      throw new Error('live editor document should not be read')
+    })
+    const editor = {
+      get document() {
+        documentGetter()
+        return []
+      },
+      setTextCursorPosition: vi.fn(),
+    }
+
+    render(
+      <TableOfContentsPanel
+        editor={editor}
+        entry={{ ...entry, title: 'New Note' } as VaultEntry}
+        sourceContent="# New Note\n\n## Source Heading"
+        onClose={vi.fn()}
+      />,
+    )
+
+    expect(documentGetter).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', { name: /New Note/ })).toBeInTheDocument()
+  })
+
+  it('renders heading icons, nesting guides, and navigates to clicked headings', async () => {
+    const setTextCursorPosition = vi.fn()
+    render(
+      <TableOfContentsPanel
+        editor={{ document: blocks, setTextCursorPosition }}
+        entry={entry}
+        onClose={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByText('Table of Contents')).toBeInTheDocument()
+    expect(await screen.findByTestId('toc-connector:toc-title')).toBeInTheDocument()
+    expect(screen.getByTestId('toc-connector:h1')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: /What causes teams to degrade/ }))
+    expect(setTextCursorPosition).toHaveBeenCalledWith('h2', 'start')
+  })
+
+  it('shows indexed note info at the bottom of the table of contents', () => {
+    render(
+      <TableOfContentsPanel
+        editor={{ document: blocks, setTextCursorPosition: vi.fn() }}
+        entry={entry}
+        sourceContent="One two three"
+        onClose={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByText('Info')).toBeInTheDocument()
+    expect(screen.getByText('Words')).toBeInTheDocument()
+    expect(screen.getByText('3')).toBeInTheDocument()
+    expect(screen.getByText('2.0 KB')).toBeInTheDocument()
+  })
+})

@@ -1,0 +1,108 @@
+RETRIEVER BAKE-OFF FOR TOPIC SCOPING
+======================================
+
+Scope recall = of the probes that have a gold decision, the share whose gold decision is among the k highest-ranked decisions. No language model is involved.
+
+TEST SERIES (168 probes with a gold decision)
+---------------------------------------------
+retriever                        C0 k=4   C0 k=8   C1 k=4   C1 k=8   C2 k=4   C2 k=8   C3 k=4   C3 k=8
+bm25                                92%      96%      88%      89%      88%      89%      49%      65%
+bge-small dense                     93%      98%      77%      83%      71%      74%      41%      57%
+bge-small hybrid                    96%     100%      84%      90%      80%      88%      45%      67%
+eg2-4bit-asym@768 dense             96%      99%      86%      89%      81%      86%      46%      64%
+eg2-4bit-asym@768 hybrid            96%      99%      86%      92%      85%      89%      45%      69%
+eg2-4bit-asym@256 dense             95%     100%      84%      89%      79%      83%      45%      62%
+eg2-4bit-asym@256 hybrid            96%      99%      85%      93%      83%      89%      46%      67%
+eg2-5bit-asym@768 dense             98%     100%      86%      91%      81%      84%      44%      64%
+eg2-5bit-asym@768 hybrid            96%      99%      88%      93%      87%      90%      46%      67%
+eg2-5bit-asym@256 dense             98%     100%      86%      89%      80%      83%      45%      62%
+eg2-5bit-asym@256 hybrid            96%      99%      89%      94%      85%      90%      45%      68%
+eg2-8bit-asym@768 dense             96%     100%      86%      91%      82%      85%      42%      62%
+eg2-8bit-asym@768 hybrid            96%      99%      88%      93%      85%      90%      46%      66%
+eg2-8bit-asym@256 dense             95%     100%      85%      89%      79%      83%      43%      62%
+eg2-8bit-asym@256 hybrid            96%      99%      87%      93%      85%      90%      46%      68%
+eg2-bf16-asym@768 dense             96%     100%      86%      91%      83%      84%      42%      63%
+eg2-bf16-asym@768 hybrid            96%     100%      88%      93%      84%      90%      46%      67%
+eg2-bf16-asym@256 dense             95%     100%      85%      89%      80%      84%      43%      62%
+eg2-bf16-asym@256 hybrid            96%      99%      88%      93%      84%      90%      46%      69%
+eg2-bf16-sym@768 dense              95%      97%      82%      88%      74%      83%      38%      54%
+eg2-bf16-sym@768 hybrid             95%      99%      87%      91%      83%      87%      48%      63%
+eg2-bf16-sym@256 dense              96%      98%      84%      88%      74%      83%      40%      54%
+eg2-bf16-sym@256 hybrid             95%      99%      86%      93%      85%      89%      48%      65%
+
+DEVELOPMENT SERIES (30 probes with a gold decision; a second look, noisy)
+-------------------------------------------------------------------------
+retriever                        C0 k=4   C0 k=8   C1 k=4   C1 k=8   C2 k=4   C2 k=8   C3 k=4   C3 k=8
+bm25                                97%      97%      97%     100%      93%      93%      50%      50%
+bge-small dense                     97%     100%      70%      73%      67%      70%      33%      47%
+bge-small hybrid                   100%     100%      87%      97%      73%      90%      40%      53%
+eg2-4bit-asym@768 dense            100%     100%      87%      87%      77%      87%      43%      50%
+eg2-4bit-asym@768 hybrid           100%     100%     100%     100%      87%     100%      43%      60%
+eg2-4bit-asym@256 dense            100%     100%      80%      90%      63%      83%      40%      50%
+eg2-4bit-asym@256 hybrid           100%     100%      93%     100%      83%      97%      43%      57%
+eg2-5bit-asym@768 dense            100%     100%      87%      90%      80%      87%      43%      60%
+eg2-5bit-asym@768 hybrid           100%     100%     100%     100%      90%     100%      50%      60%
+eg2-5bit-asym@256 dense            100%     100%      87%      90%      80%      87%      40%      53%
+eg2-5bit-asym@256 hybrid           100%     100%      97%     100%      87%     100%      50%      60%
+eg2-8bit-asym@768 dense            100%     100%      87%      90%      80%      87%      43%      57%
+eg2-8bit-asym@768 hybrid           100%     100%     100%     100%      87%     100%      47%      60%
+eg2-8bit-asym@256 dense            100%     100%      87%      87%      80%      87%      40%      57%
+eg2-8bit-asym@256 hybrid           100%     100%      97%     100%      87%     100%      47%      60%
+eg2-bf16-asym@768 dense            100%     100%      87%      90%      83%      87%      43%      57%
+eg2-bf16-asym@768 hybrid           100%     100%     100%     100%      87%     100%      47%      60%
+eg2-bf16-asym@256 dense            100%     100%      87%      87%      80%      87%      40%      57%
+eg2-bf16-asym@256 hybrid           100%     100%      97%     100%      87%     100%      50%      60%
+eg2-bf16-sym@768 dense              93%     100%      77%      80%      60%      73%      30%      47%
+eg2-bf16-sym@768 hybrid            100%     100%      93%     100%      93%      97%      47%      57%
+eg2-bf16-sym@256 dense              93%     100%      80%      83%      63%      70%      33%      43%
+eg2-bf16-sym@256 hybrid            100%     100%      97%     100%      87%     100%      43%      53%
+
+PRE-REGISTERED RULE: recall at k = 8 of at least 95% on the test series in C2 and in C3
+--------------------------------------------------------------
+No retriever is recall-safe. The best at k = 8 is eg2-bf16-asym@256 hybrid: 90% in C2 and 69% in C3. Similarity scoping would still lose the right decision too often; a language-model run of it is not justified by this.
+
+POST-HOC: A HIT WHEN THE SCOPE HOLDS A DECISION WITH THE SAME WORDS AS THE GOLD ONE (test series)
+--------------------------------------------------------------
+In C3 other groups wrote the same sentence, so a scope can hold what the auditor needs without holding the gold id. Not the pre-registered metric.
+retriever                        C2 k=8   C3 k=4   C3 k=8  C3 k=12
+bm25                                89%      51%      66%      74%
+bge-small dense                     74%      42%      57%      62%
+bge-small hybrid                    88%      46%      67%      77%
+eg2-4bit-asym@768 dense             86%      46%      64%      73%
+eg2-4bit-asym@768 hybrid            89%      49%      70%      79%
+eg2-4bit-asym@256 dense             83%      45%      64%      73%
+eg2-4bit-asym@256 hybrid            89%      49%      68%      80%
+eg2-5bit-asym@768 dense             84%      45%      64%      73%
+eg2-5bit-asym@768 hybrid            90%      48%      67%      79%
+eg2-5bit-asym@256 dense             83%      46%      63%      74%
+eg2-5bit-asym@256 hybrid            90%      47%      68%      82%
+eg2-8bit-asym@768 dense             85%      43%      62%      73%
+eg2-8bit-asym@768 hybrid            90%      48%      67%      79%
+eg2-8bit-asym@256 dense             83%      44%      63%      73%
+eg2-8bit-asym@256 hybrid            90%      48%      70%      80%
+eg2-bf16-asym@768 dense             84%      43%      63%      73%
+eg2-bf16-asym@768 hybrid            90%      48%      67%      80%
+eg2-bf16-asym@256 dense             84%      44%      62%      74%
+eg2-bf16-asym@256 hybrid            90%      48%      70%      80%
+eg2-bf16-sym@768 dense              83%      39%      54%      67%
+eg2-bf16-sym@768 hybrid             87%      49%      64%      77%
+eg2-bf16-sym@256 dense              83%      41%      54%      69%
+eg2-bf16-sym@256 hybrid             89%      49%      67%      77%
+Counted this way no retriever would pass the rule either: the best at k = 8 is eg2-bf16-asym@256 hybrid, 90% in C2 and 70% in C3.
+
+COST OF ONE STATEMENT (embedding step, median over 30 statements) AND MEMORY OF THE EMBEDDER PROCESS
+--------------------------------------------------------------
+bge-small                      3.8 ms (P95 3.9), peak 0.787 GB (bge)
+eg2-4bit-asym                  8.1 ms (P95 10.5), peak 1.416638374 GB (mlx)
+eg2-5bit-asym                  8.6 ms (P95 11.1), peak 1.450602406 GB (mlx)
+eg2-8bit-asym                  8.5 ms (P95 11.4), peak 1.552461734 GB (mlx)
+eg2-bf16-asym                  8.0 ms (P95 11.4), peak 1.837354918 GB (mlx)
+eg2-bf16-sym                   7.2 ms (P95 8.9), peak 1.842811622 GB (mlx)
+
+READING THIS
+--------------------------------------------------------------
+- BM25 is favoured in C1 and C2: their other-topic decisions were chosen to share no word with the probes. C3 keeps every other decision, so it is the fair test of a lexical or hybrid retriever.
+- C3 is a harder memory than any real project's (it is made of the same product's decisions by 27 other groups): a result there is a stress test.
+- Scope recall is necessary, not sufficient: it says nothing about what the auditor does with a good scope.
+
+BM25 TIME FOR ONE STATEMENT (the memory tokenised once): C2 (86 decisions) 0.04 ms median, 0.07 ms 95th percentile, C3 (367 decisions) 0.20 ms median, 0.25 ms 95th percentile

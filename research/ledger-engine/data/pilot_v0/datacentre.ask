@@ -1,0 +1,15 @@
+# Natural-language wording of each question in datacentre.chain (authored by the AI assistant). DEV split.
+q1 | Where will the data centre be built?
+q2 | What is the current budget for the data centre, in ringgit?
+q3 | What is the approval status of the data centre budget right now?
+q4 | Who is currently leading phase one of the build?
+q5 | When is phase one due to be finished?
+q6 | What was the status of the data centre budget on 30 April 2026?
+q7 | What was the data centre budget on 20 February 2026?
+q8 | As recorded by 25 April 2026, what was the budget status on 20 May 2026?
+q9 | Which site was chosen for the data centre on 1 March 2026?
+q10 | Who led phase one on 1 April 2026?
+q11 | How many times has the budget's approval status changed since it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q12 | How many times was the data centre budget amount changed after first being set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q13 | How many times was the phase one deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q14 | Going by what had been recorded as of 20 February 2026, what deadline applied to phase one on 1 July 2026?

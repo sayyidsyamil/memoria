@@ -1,0 +1,58 @@
+# Long-meeting check (roadmap M2)
+
+Scripts and results of the 60-minute end-to-end check reported in
+[docs/research/M2-MEETING-INTELLIGENCE.md](../../docs/research/M2-MEETING-INTELLIGENCE.md).
+
+## Data
+
+AMI Meeting Corpus (CC BY 4.0, <https://groups.inf.ed.ac.uk/ami/corpus/>): `ES2004b.wav`,
+`ES2004c.wav` (mixed headset, 16 kHz mono) and the manual `words/` and `segments/` annotations
+of both meetings, placed under `ami/audio` and `ami/annotations` next to these scripts. The
+audio and annotations are not committed.
+
+## Steps
+
+| Script | What it does |
+|---|---|
+| `build_fixture.py` | Joins ES2004b and the start of ES2004c into exactly 60:00 (`es2004-60.wav`, and `original.webm` as Opus 48 kb/s like the app's recordings); writes `reference.json`, the AMI words of all four participants on the fixture clock |
+| `seed_vault.py` | Creates a disposable vault with the recording as an unreviewed meeting and the ES2004 tracked items from `research/ledger-engine/data/ami_v0/ES2004.chain`, through the app's own meeting and tracked-fact APIs |
+| *(app)* | Meetings → Review transcript → Create transcript; `watch_transcription.sh` logs the progress (run 1) |
+| `evaluate_transcript.py` | WER against `reference.json` (research normalisation), coverage per five minutes, local error at each part boundary against mid-part controls, speaker purity |
+| `collect_parts.py`, `compare_joins.py` | Decode each five-minute part alone through the app's speech worker, then join the same parts with the first and the fixed joining |
+| `save_reviewed.py` | Saves the draft as a reviewed transcript exactly as the review screen does |
+| `run_extraction.sh`, `evaluate_extraction.py` | Builds knowledge and tracked facts through the app's `engine.py` requests and resident workers, then reports where in the hour the evidence comes from |
+
+## Results
+
+- `results/transcript-eval-run1.json`, `results/transcript-eval-run2.json`: the two native
+  transcriptions (first build; fixed joining).
+- `results/joins.json`: one decoding of the 13 parts joined three ways (A first build, B shipped,
+  C shipped plus elimination).
+- `results/extraction-eval.json`: knowledge suggestions per ten minutes for the rejected and the
+  final build, and the tracked-fact proposals with their evidence times.
+
+## False alerts on unrelated speech
+
+`unrelated_speech.py` checks every turn of the reviewed 60-minute transcript (run 2, 852 turns
+of a design team discussing a TV remote) with the app's live check of 2 November, guard on, against the six
+tracked items of the UAT engine dry run with all 17 of its proposals accepted (18 facts; the
+fictional procurement pilot: vendor, budget, go-live date, staff training, data migration,
+security review; `scripts/uat/build_demo_vault.py`, then `scripts/uat/dry_run.sh`). The meeting is about
+something else, so every alert would be false. Result (2 November 2026, Qwen3.5-4B worker,
+`results/unrelated-speech.jsonl`):
+
+| Turns | Shared a word with a tracked item, so checked by the model | Alerts | Uncertain | Errors | Time |
+|---|---|---|---|---|---|
+| 852 | 29 (3.4%) | **0** | 0 | 0 | 1.5 min |
+
+The 29 model-checked turns include "We do have a budget limitation that we can't control
+ourselves" and "it would the chip would convert it into some form of IR data". The other 823
+turns never reach the model, because the live check only asks it about facts whose item name
+or attribute shares a word with the sentence. This is one recording and one set of facts; the
+guarded false-alarm rate on MemoriaBench's must-not-alert probes is in
+[research/memoriabench/APP_LIVE_CHECK.md](../memoriabench/APP_LIVE_CHECK.md).
+
+The check of `v0.3.0-uat` raised no alert on the same hour either: on its Parakeet Ultra
+transcript (575 turns, `results/unrelated-speech-guard-*.jsonl`) and on its 899 live-caption turns
+(`results/unrelated-speech-live-captions.jsonl`); see
+[`../live-verifier/README.md`](../live-verifier/README.md).

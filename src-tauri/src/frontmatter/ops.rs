@@ -1,0 +1,364 @@
+use super::keys::{frontmatter_key_rule, frontmatter_keys_match, FrontmatterKey};
+use super::yaml::{format_yaml_field, FrontmatterValue};
+
+/// Check if a line continues the previous key's value (indented list item,
+/// block scalar content, or blank line inside a block scalar).
+fn is_value_continuation(line: FrontmatterLine<'_>) -> bool {
+    line.0.is_empty() || line.0.starts_with("  ") || line.0.starts_with('\t')
+}
+
+#[derive(Clone, Copy)]
+enum KeyMatchMode {
+    Exact,
+    Canonical,
+}
+
+#[derive(Clone, Copy)]
+struct DocumentText<'a>(&'a str);
+
+#[derive(Clone, Copy)]
+struct FrontmatterLine<'a>(&'a str);
+
+#[derive(Clone, Copy)]
+struct PropertyKey<'a>(&'a str);
+
+#[derive(Clone, Copy)]
+struct FrontmatterBlock<'a> {
+    body: &'a str,
+    rest: &'a str,
+    line_ending: &'static str,
+}
+
+impl<'a> PropertyKey<'a> {
+    fn as_str(self) -> &'a str {
+        self.0
+    }
+
+    fn matches(self, candidate: &str, mode: KeyMatchMode) -> bool {
+        match mode {
+            KeyMatchMode::Exact => candidate == self.as_str(),
+            KeyMatchMode::Canonical => frontmatter_keys_match(
+                FrontmatterKey::new(candidate),
+                FrontmatterKey::new(self.as_str()),
+            ),
+        }
+    }
+}
+
+impl<'a> FrontmatterLine<'a> {
+    fn key(self) -> Option<&'a str> {
+        let trimmed = self.0.trim_start();
+        if let Some(raw) = trimmed.strip_prefix('"') {
+            return quoted_yaml_key(raw, '"');
+        }
+        if let Some(raw) = trimmed.strip_prefix('\'') {
+            return quoted_yaml_key(raw, '\'');
+        }
+        trimmed
+            .split_once(':')
+            .map(|(key, _)| key.trim())
+            .filter(|key| !key.is_empty())
+    }
+
+    fn scalar_value(self) -> Option<&'a str> {
+        let (_, value) = self.0.split_once(':')?;
+        let value = value.trim().trim_matches('"').trim_matches('\'');
+        (!value.is_empty()).then_some(value)
+    }
+}
+
+fn quoted_yaml_key(raw: &str, quote: char) -> Option<&str> {
+    let (key, rest) = raw.split_once(quote)?;
+    rest.trim_start().starts_with(':').then_some(key)
+}
+
+fn line_end(content: &str, start: usize) -> usize {
+    content.as_bytes()[start..]
+        .iter()
+        .position(|byte| matches!(byte, b'\n' | b'\r'))
+        .map(|offset| start + offset)
+        .unwrap_or(content.len())
+}
+
+fn line_break(content: &str, index: usize) -> Option<(&'static str, usize)> {
+    match (
+        content.as_bytes().get(index),
+        content.as_bytes().get(index + 1),
+    ) {
+        (Some(b'\r'), Some(b'\n')) => Some(("\r\n", 2)),
+        (Some(b'\n'), _) => Some(("\n", 1)),
+        (Some(b'\r'), _) => Some(("\r", 1)),
+        _ => None,
+    }
+}
+
+fn is_frontmatter_delimiter(line: &str) -> bool {
+    line.strip_prefix("---")
+        .is_some_and(|rest| rest.chars().all(|ch| matches!(ch, ' ' | '\t')))
+}
+
+fn frontmatter_open(content: &str) -> Option<(usize, &'static str)> {
+    let opening_end = line_end(content, 0);
+    if !is_frontmatter_delimiter(&content[..opening_end]) {
+        return None;
+    }
+    let (line_ending, break_len) = line_break(content, opening_end)?;
+    Some((opening_end + break_len, line_ending))
+}
+
+fn split_frontmatter_block(content: &str) -> Result<Option<FrontmatterBlock<'_>>, String> {
+    let Some((body_start, line_ending)) = frontmatter_open(content) else {
+        return Ok(None);
+    };
+
+    let mut line_start = body_start;
+    while line_start < content.len() {
+        let current_line_end = line_end(content, line_start);
+        if is_frontmatter_delimiter(&content[line_start..current_line_end]) {
+            return Ok(Some(FrontmatterBlock {
+                body: &content[body_start..line_start],
+                rest: &content[current_line_end..],
+                line_ending,
+            }));
+        }
+
+        let Some((_, break_len)) = line_break(content, current_line_end) else {
+            break;
+        };
+        line_start = current_line_end + break_len;
+    }
+
+    Err("Malformed frontmatter: no closing ---".to_string())
+}
+
+pub(crate) fn frontmatter_body(content: &str) -> &str {
+    let Some(block) = split_frontmatter_block(content).ok().flatten() else {
+        return content;
+    };
+    let break_len = line_break(block.rest, 0)
+        .map(|(_, break_len)| break_len)
+        .unwrap_or(0);
+    &block.rest[break_len..]
+}
+
+/// Extract the scalar `title` value from an LF or CRLF frontmatter block.
+pub fn extract_frontmatter_title(content: &str) -> Option<String> {
+    let block = split_frontmatter_block(content).ok()??;
+    block
+        .body
+        .split_terminator(block.line_ending)
+        .map(FrontmatterLine)
+        .find(|line| line.key() == Some("title"))?
+        .scalar_value()
+        .map(str::to_string)
+}
+
+#[derive(Clone, Copy)]
+struct FieldUpdate<'a> {
+    key: PropertyKey<'a>,
+    value: Option<&'a FrontmatterValue>,
+    match_mode: KeyMatchMode,
+}
+
+impl<'a> FieldUpdate<'a> {
+    fn matches_line(self, line: FrontmatterLine<'_>) -> bool {
+        line.key()
+            .is_some_and(|candidate| self.key.matches(candidate, self.match_mode))
+    }
+
+    fn prepend_to(self, content: DocumentText<'_>) -> String {
+        let field_lines =
+            format_yaml_field(self.key.as_str(), self.value.expect("value must exist"));
+        format!("---\n{}\n---\n{}", field_lines.join("\n"), content.0)
+    }
+
+    fn apply_to_lines(self, lines: &[FrontmatterLine<'_>]) -> Vec<String> {
+        let mut new_lines: Vec<String> = Vec::new();
+        let mut found_key = false;
+        let mut i = 0;
+
+        while i < lines.len() {
+            if !self.matches_line(lines[i]) {
+                new_lines.push(lines[i].0.to_string());
+                i += 1;
+                continue;
+            }
+
+            found_key = true;
+            i += 1;
+            while i < lines.len() && is_value_continuation(lines[i]) {
+                i += 1;
+            }
+            if let Some(v) = self.value {
+                new_lines.extend(format_yaml_field(self.key.as_str(), v));
+            }
+        }
+
+        if let (false, Some(v)) = (found_key, self.value) {
+            new_lines.extend(format_yaml_field(self.key.as_str(), v));
+        }
+
+        new_lines
+    }
+
+    fn apply_to_content(self, content: DocumentText<'_>) -> Result<String, String> {
+        let Some(block) = split_frontmatter_block(content.0)? else {
+            return match self.value {
+                Some(_) => Ok(self.prepend_to(content)),
+                None => Ok(content.0.to_string()),
+            };
+        };
+
+        let lines: Vec<FrontmatterLine<'_>> = block
+            .body
+            .split_terminator(block.line_ending)
+            .map(FrontmatterLine)
+            .collect();
+        let new_fm = self.apply_to_lines(&lines).join(block.line_ending);
+        Ok(format!(
+            "---{}{}{}---{}",
+            block.line_ending, new_fm, block.line_ending, block.rest
+        ))
+    }
+}
+
+/// Internal function to update frontmatter content
+pub fn update_frontmatter_content(
+    content: &str,
+    key: &str,
+    value: Option<FrontmatterValue>,
+) -> Result<String, String> {
+    let update = FieldUpdate {
+        key: PropertyKey(key),
+        value: value.as_ref(),
+        match_mode: KeyMatchMode::Exact,
+    };
+    let Some(rule) = frontmatter_key_rule(FrontmatterKey::new(update.key.as_str()))
+        .filter(|rule| rule.canonicalizes_on_write())
+    else {
+        return update.apply_to_content(DocumentText(content));
+    };
+
+    let updated = FieldUpdate {
+        key: PropertyKey(rule.write_key()),
+        value: None,
+        match_mode: KeyMatchMode::Canonical,
+    }
+    .apply_to_content(DocumentText(content))?;
+
+    FieldUpdate {
+        key: PropertyKey(rule.write_key()),
+        value: update.value,
+        match_mode: KeyMatchMode::Exact,
+    }
+    .apply_to_content(DocumentText(&updated))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn bool_value(value: bool) -> FrontmatterValue {
+        FrontmatterValue::Bool(value)
+    }
+
+    fn string_value(value: &str) -> FrontmatterValue {
+        FrontmatterValue::String(value.to_string())
+    }
+
+    fn frontmatter_delimiter_lines(content: &str) -> usize {
+        content.lines().filter(|line| *line == "---").count()
+    }
+
+    #[test]
+    fn frontmatter_body_uses_line_anchored_delimiters() {
+        let cases = [
+            ("lf", "---\ntitle: Note\n---\nBody", "Body"),
+            ("crlf", "---\r\ntitle: Note\r\n---\r\nBody", "Body"),
+            ("cr", "---\rtitle: Note\r---\rBody", "Body"),
+            ("empty", "---\n---", ""),
+            (
+                "unclosed",
+                "---\ntitle: Note\nBody",
+                "---\ntitle: Note\nBody",
+            ),
+            (
+                "closing whitespace",
+                "---\ntitle: Note\n--- \t\nBody",
+                "Body",
+            ),
+            (
+                "prefixed dashes inside yaml",
+                "---\ntitle: Note\n---bar\nstatus: active\n---\nBody",
+                "Body",
+            ),
+        ];
+
+        for (name, content, expected) in cases {
+            assert_eq!(frontmatter_body(content), expected, "{name}");
+        }
+    }
+
+    #[test]
+    fn extracts_title_from_lf_and_crlf_frontmatter() {
+        for content in [
+            "---\ntitle: My Note\ntype: Note\n---\n# My Note\n",
+            "---\r\n\"title\": 'My Note'\r\ntype: Note\r\n---\r\n# My Note\r\n",
+        ] {
+            assert_eq!(
+                extract_frontmatter_title(content).as_deref(),
+                Some("My Note")
+            );
+        }
+    }
+
+    #[test]
+    fn updates_existing_crlf_frontmatter_without_creating_a_second_block() {
+        let content = concat!(
+            "---\r\n",
+            "type: Note\r\n",
+            "related_to:\r\n",
+            "  - \"[[memoria]]\"\r\n",
+            "---\r\n",
+            "# Properties Panel\r\n",
+        );
+
+        let updated = update_frontmatter_content(content, "_organized", Some(bool_value(true)))
+            .expect("frontmatter update should succeed");
+
+        assert_eq!(frontmatter_delimiter_lines(&updated), 2);
+        assert_eq!(
+            updated,
+            concat!(
+                "---\r\n",
+                "type: Note\r\n",
+                "related_to:\r\n",
+                "  - \"[[memoria]]\"\r\n",
+                "_organized: true\r\n",
+                "---\r\n",
+                "# Properties Panel\r\n",
+            )
+        );
+    }
+
+    #[test]
+    fn repeated_crlf_updates_stay_in_the_original_frontmatter_block() {
+        let content = concat!(
+            "---\r\n",
+            "type: Note\r\n",
+            "related_to: \"[[memoria]]\"\r\n",
+            "---\r\n",
+            "# Properties Panel\r\n",
+        );
+
+        let widened = update_frontmatter_content(content, "_width", Some(string_value("wide")))
+            .expect("width update should succeed");
+        let organized = update_frontmatter_content(&widened, "_organized", Some(bool_value(true)))
+            .expect("organized update should succeed");
+
+        assert_eq!(frontmatter_delimiter_lines(&organized), 2);
+        assert!(organized.contains("type: Note\r\n"));
+        assert!(organized.contains("_width: wide\r\n"));
+        assert!(organized.contains("_organized: true\r\n"));
+    }
+}

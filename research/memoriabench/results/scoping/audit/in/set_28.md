@@ -1,0 +1,105 @@
+# Meeting set 28
+
+## APPROVED DECISIONS
+
+- [d001] The remote will not contain a voice activation feature.
+- [d002] If used, face plates will be cheap.
+- [d003] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [d004] The group decided to focus on a basic remote that will appeal to the widest market.
+- [d005] The remote will not use a chip on print.
+- [d006] The remote will be yellow or partially yellow and have an organic shape.
+- [d007] The remote will be easy to find.
+- [d008] Glow in the dark buttons, self-timed lighting.
+- [d009] The target demographic is people aged fifteen to thirty five.
+- [d010] To target towards young people will bring in new technology.
+- [d011] They will target the 20-40 age group. (replaces targeting people over sixty)
+- [d012] Alarm locator will be implemented.
+- [d013] The remote will be made to accommodate different languages.
+- [d014] There is no need for a special button to recognise two-digit numbers.
+- [d015] Control will light up when you touch a button.
+- [d016] The selling price of the remote will be 25 Euro.
+- [d017] The group decided to make the standby button in the shape of an apple.
+- [d018] The remote will have some buttons.
+- [d019] The remote will incorporate a fruit and vegetable theme.
+- [d020] The remote will use a kinetic battery. (replaces regular batteries)
+- [d021] The production cost cannot exceed 12.50 Euro.
+- [d022] The remote will be yellow with black or gray buttons.
+- [d023] The remote will be shaped like a snowman.
+- [d024] The marketing will be focused towards the youth market.
+- [d025] The remote will be extremely simple.
+- [d026] They will look further at the idea of covers in the mext meeting too.
+- [d027] The group decided not to include a lighting adaptation system.
+- [d028] The remote will have rubber push buttons.
+- [d029] A single, large, round button can be used for both volume and channel selection by using the four separate quadrants.
+- [d030] The remote will have a jog dial.
+- [d031] The remote will have an ergonomic design.
+- [d032] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d033] The group decided to include a previous channel change button to the standard remote buttons, and to have a wheel for changing channels in increments, with a smaller number pad below it.
+- [d034] The remote will be button-less.
+- [d035] There will be no display physically featured on the remote itself.
+- [d036] It will be placed at the top of the banana shape.
+- [d037] The remote will be sold internationally.
+- [d038] Will reserach environmental factor.
+- [d039] The remote has to be fashionable.
+- [d040] Another button to switch between two channels could also be implemented.
+- [d041] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [d042] The remote will not include a pen.
+- [d043] The remote will have large buttons.
+- [d044] The remote should not have too many buttons.
+- [d045] The necessary buttons are on/off, channel up/down browsing, volume, and record button(s).
+- [d046] The remote will be waterproof.
+- [d047] The profit aim will be 50 million Euro.
+- [d048] The remote will be a radiaclly different shape.
+- [d049] The remote will go into standby when idle.
+- [d050] The remote will be easy to learn.
+- [d051] The remote will look appealing.
+- [d052] The remote will have an enter button and number buttons.
+- [d053] The remote will be fancy.
+- [d054] The less frequently used buttons will not be hidden under a flip, as it had been previously suggested, as there are not that many of them; they will just be clearly separated from the more important ones.
+- [d055] The case will be made of rubber.
+- [d056] TV settings will be included in menus there instead of having separate buttons for them.
+- [d057] The target group will be people below 40. (replaces targeting people over sixty)
+- [d058] The project goal is to develop a new remote control.
+- [d059] The remote will not be too expensive.
+- [d060] The team will create a back-up plan for a remote that only controls televisions.
+- [d061] The remote will have few buttons, but the main ones such as channel, volume, on/off.
+- [d062] The remote will control televisions and devices connected to televisions.
+- [d063] The remote will be shockproof.
+- [d064] The important buttons will be on top.
+- [d065] Will have menu, channel, power, volume buttons.
+- [d066] The remote will have a docking station.
+- [d067] The remote will have a minimal number of buttons.
+- [d068] Will consider using number-shaped buttons.
+- [d069] The remote should look fancy.
+- [d070] The remote will have buttons for numbers, volume up and down, channel up and down, power, mute, and a menu.
+- [d071] The remote will have a lock function.
+- [d072] The remote will have a power button, volume buttons, channel preset buttons, and a menu button.
+- [d073] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [d074] Will use personal face places.
+- [d075] The remote will be child proof.
+- [d076] The marketing will be focused towards a young, business-class buyer.
+- [d077] The buttons will consist of number, a menu button, arrows for changing channel and volume, but also navigating the menu, and a mute button.
+- [d078] The remote will use a regular infra-red signal.
+- [d079] Will research changable covers.
+- [d080] The case will be double curved.
+- [d081] The remote has to look good and be easy to use.
+- [d082] The remote will be simple.
+- [d083] The remote will have a docking station.
+- [d084] LED's can be used to light up the remote.
+- [d085] The remote control should be fancy, a good shape, and not too small or too big.
+- [d086] The remote will only have a few buttons.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: Right, my bus was packed this morning.
+- s02: Okay, the case will be double curved.
+- s03: So production will cost us 20 Euro per remote.
+- s04: We should add a picture-in-picture button.
+- s05: Well, what about adding a wrist strap?
+- s06: Well, we are aiming for a profit of 50 million Euro.
+- s07: The air conditioning is far too loud.
+- s08: The corporate image will not be shown on the remote.
+- s09: The remote will run on regular batteries.
+- s10: So last month's survey says nine in ten users lose their remote every week.
+- s11: Okay, the case will be made of wood.
+- s12: I think the design team finished the first colour mock-ups on Tuesday.

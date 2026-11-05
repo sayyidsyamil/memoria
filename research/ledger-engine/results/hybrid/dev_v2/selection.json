@@ -1,0 +1,15 @@
+{
+ "dataset": "ami",
+ "split": "dev",
+ "config": {
+  "k": 12,
+  "window": 3,
+  "alpha": 1.0,
+  "rrf": 60,
+  "candidates": 50
+ },
+ "cot": false,
+ "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+ "answers_sha256": "20da354c709717009e7932d07a601eb2cf8342fef7870309df426d2668b00ade",
+ "rule": "highest dev exact-match accuracy at K=0, then lowest mean prompt tokens, then name"
+}

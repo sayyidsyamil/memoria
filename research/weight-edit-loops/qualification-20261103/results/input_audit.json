@@ -1,0 +1,28 @@
+{
+  "scope": "qualification CPU replay with non-TS3006 chain/ask opens denied; not a claim about other sessions' parsing",
+  "opened": [
+    "research/model-improvements/data/ami_new/TS3006.chain",
+    "research/model-improvements/data/ami_new/TS3006.ask",
+    "research/model-improvements/data/ami_new/TS3006.chain",
+    "research/model-improvements/data/ami_new/TS3006.ask"
+  ],
+  "directory_loader_disabled": true,
+  "reference_audit_reproduced": true,
+  "source_controls": [
+    "buttons-t8",
+    "chip-t8",
+    "energy-t8",
+    "lcd-t8",
+    "single-curve-t23",
+    "speech-t8"
+  ],
+  "newval_generation_or_scoring": false,
+  "harness_path": "/Users/sayyid/Documents/memoria-wt-loopedit/research/model-improvements/harness.py",
+  "harness_sha256": "7cf4dcd07f69187e0d0c893a9ec4c2e03e3ffe1b0b7696e6554d0350e8f3465d",
+  "versions": {
+    "mlx": "0.31.2",
+    "mlx-lm": "0.31.3",
+    "transformers": "5.8.1",
+    "numpy": "2.4.5"
+  }
+}

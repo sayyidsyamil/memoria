@@ -1,0 +1,23 @@
+{
+  "python": "3.11.18 (main, Oct 25 2026, 19:41:29) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-26.7.1-arm64-arm-64bit",
+  "hardware": [
+    "Apple M5",
+    "17179869184"
+  ],
+  "packages": {
+    "mlx": "0.31.2",
+    "mlx-lm": "0.31.3",
+    "transformers": "5.8.1",
+    "numpy": "2.4.5"
+  },
+  "model_files_sha256": {
+    "config.json": "f3efc81b2ea8d96a45301037d3ccccbcccdef44a961845c87f286aaddbc6eaaa",
+    "tokenizer_config.json": "e98f1901ac6f0adff67b1d540bfa0c36ac1a0cf59eb72ed78146ef89aafa1182",
+    "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+  },
+  "cache_limit_bytes": 268435456,
+  "model_job_python": "/Users/Shared/Memoria/runtime/speech/bin/python",
+  "model_base_is_quantized": true,
+  "dequantized_for_inspection": "one 2560 x 9216 down_proj only; temporary, not saved"
+}

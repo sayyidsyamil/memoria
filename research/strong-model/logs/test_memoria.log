@@ -1,0 +1,13 @@
+[estimate] memoria: 199 requests, 199 not yet cached; ~345,703 input tokens (3.762 chars/token, DeepSeek, 2 paid requests), ~154,803 of them a prefix shared with the previous request; output ~19,558 tokens (October Qwen lengths), at most 101,340
+[estimate] memoria: $0.0636 without prompt caching, $0.0408 if every shared prefix is cached, $0.1127 worst case (no caching, every output at max_tokens)
+[key] before memoria: usage $0.0000, limit $1, remaining $1.0000; spend log $0.0007; cap $0.9
+[estimate] GO: $0.0636 expected (worst $0.1127), $0.8993 left under the cap
+memoria ES2004: 4 meetings, 14 questions
+memoria ES2014: 4 meetings, 23 questions
+memoria IS1009: 4 meetings, 20 questions
+memoria TS3003: 4 meetings, 21 questions
+memoria TS3007: 4 meetings, 18 questions
+done in 592.7s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/memoria_test.json
+[key] after memoria: usage $0.0416, limit $1, remaining $0.9584; spend log $0.0418; cap $0.9
+[spend] memoria: paid $0.0411 in this process (199 new requests, 0 from the cache)
+[run] 594 s

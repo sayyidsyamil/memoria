@@ -1,0 +1,41 @@
+POST-HOC ANALYSES OF THE TOPIC-SCOPING EXPERIMENT
+====================================================
+
+These were added AFTER the pre-registered results were seen, to understand them. They change no pre-registered verdict and are exploratory.
+
+1. RECALL BY CLASS (% of the 56 probes of a class that got that class)
+----------------------------------------------------
+           SUPP   OUTD   CONT   UPDA   IRRE   INSU
+M3@C0        98     73     84     89     89     89
+M3@C1        95     62     59     89     86     80
+M3@C2        95     59     54     80     91     79
+M2@C0        98     71     82     96     91     84
+M2@C1        98     62     75     91     98     68
+M2@C2        98     55     62     82     98     70
+
+M2 from C0 to C2: 57 probes changed label, 12 became right and 44 wrong. Largest moves (gold: C0 label -> C2 label): OUTD: OUTD -> CONT x11; UPDA: UPDA -> SUPP x8; INSU: INSU -> IRRE x7; CONT: CONT -> OUTD x7; CONT: CONT -> SUPP x4; IRRE: INSU -> IRRE x4.
+24 of those moves are OUTDATED and CONTRADICTS taken for each other: both are alerts, so the alert still fires and only the label differs.
+
+2. IS THE LOSS OF M2 AT SCALE AN ARTIFACT OF THE OTHER-TOPIC MEMORY?
+----------------------------------------------------
+(a) The filter ignores words that nearly every decision has. 36 of 336 probes share 'button' or 'control' with a distractor in C2. Without them (300 probes), M2 goes from Macro-F1 0.87 at C0 to 0.78 at C2 and alert recall from 0.98 to 0.90; with all probes: 0.87 to 0.77 and 0.98 to 0.90.
+(b) Blind audit: a second labeller (a language model that saw only the C2 memory and the class definitions, never the gold labels or any system's answer) labelled 336 probes and agreed with the gold label on 336 (100%); at C0 the two earlier audits agreed on 334 and 336 of 336. By class: SUPP 56/56, OUTD 56/56, CONT 56/56, UPDA 56/56, IRRE 56/56, INSU 56/56. 0 labels rest on a decision that was added as another topic's.
+    On the 336 probes whose gold label the blind labeller confirms: M2 Macro-F1 0.87 at C0, 0.82 at C1, 0.77 at C2 (alert recall 0.98, 0.97, 0.90); M3 Macro-F1 0.87 at C0, 0.78 at C1, 0.76 at C2 (alert recall 0.92, 0.73, 0.66).
+    A first round, whose probe ids carried the class letter and the series and whose decision ids named their source series (so it was not blind), agreed on 336 of 336; it is not used.
+
+3. WHY THE SCOPE MISSES (probes whose gold decision is in the top k; of 168 with a gold decision)
+----------------------------------------------------
+        k   dense    BM25  hybrid
+C0      4     156     155     162
+C0      8     164     162     168
+C1      4     129     147     141
+C1      8     139     150     151
+C2      4     119     147     135
+C2      8     125     150     148
+Dense retrieval (what M3 used) loses the decision more as memory grows. BM25 does better, but the comparison favours it: the other-topic decisions were chosen to share no word with the probes. Treat it as a hint about what to try, not as a result.
+
+4. LATENCY, INTERLEAVED (both systems in one process, alternating which goes first)
+----------------------------------------------------
+C0 on 112 probes: M3 P50 934 ms, M2 P50 1265 ms; ratio of medians 0.74 [0.70, 0.79]; M3 faster on 94% of the probes; labels identical to the batch runs (M3 112/112, M2 112/112).
+C2 on 112 probes: M3 P50 979 ms, M2 P50 3776 ms; ratio of medians 0.26 [0.24, 0.28]; M3 faster on 100% of the probes; labels identical to the batch runs (M3 112/112, M2 112/112).
+The batch runs timed M3@C0 while Memoria's author was streaming text on the same Mac, which is why their C0 ratio (see the main summary) is higher than this one.

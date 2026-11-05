@@ -1,0 +1,5 @@
+[2026-10-13 22:33:45] run begins; code+data hash 70ce8922420a
+[2026-10-13 22:33:45] START dev_baselines (code+data hash 70ce8922420a)
+scripts/ami/run_all.sh: line 9: 57994 Abort trap: 6           "$@" >> "logs/ami_$name.log" 2>&1
+[2026-10-13 23:07:14] END   dev_baselines rc=134
+[2026-10-13 23:07:15] START test_memoria (code+data hash 70ce8922420a)

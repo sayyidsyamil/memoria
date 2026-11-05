@@ -1,0 +1,27 @@
+{"id": "TS3004b.w0", "output_tokens": 1800, "seconds": 44.2331, "finish_reason": "length", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "TS3006d.w0", "output_tokens": 1800, "seconds": 56.9299, "finish_reason": "length", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "TS3006d.w3", "output_tokens": 1800, "seconds": 71.2848, "finish_reason": "length", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "TS3004b.w1", "output_tokens": 58, "seconds": 6.8821, "finish_reason": "stop", "peak_mlx_gb": 3.9364, "matches_historical_bytes": true, "gold_hits": ["TS3004b.t56.0"], "lost_gold": []}
+{"id": "TS3006b.w1", "output_tokens": 201, "seconds": 12.1135, "finish_reason": "stop", "peak_mlx_gb": 3.9195, "matches_historical_bytes": true, "gold_hits": ["TS3006b.t107.1", "TS3006b.t114.2", "TS3006b.t441.3"], "lost_gold": []}
+{"id": "TS3006d.w2", "output_tokens": 673, "seconds": 26.5931, "finish_reason": "stop", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "ES2003c.w1", "output_tokens": 694, "seconds": 29.0197, "finish_reason": "stop", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "ES2011b.w1", "output_tokens": 1219, "seconds": 42.7205, "finish_reason": "stop", "peak_mlx_gb": 3.9223, "matches_historical_bytes": true, "gold_hits": ["ES2011b.t56.0", "ES2011b.t69.1"], "lost_gold": []}
+{"id": "IS1008c.w0", "output_tokens": 813, "seconds": 31.4954, "finish_reason": "stop", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": ["IS1008c.t14.0", "IS1008c.t14.2"], "lost_gold": []}
+      331.52 real       154.85 user        36.79 sys
+          1112276992  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              389941  page reclaims
+                8265  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                8135  voluntary context switches
+             1234664  involuntary context switches
+        517641988477  instructions retired
+        263522555488  cycles elapsed
+          4979625200  peak memory footprint

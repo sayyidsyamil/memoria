@@ -1,0 +1,89 @@
+{
+  "caveat": "Original distinct_correct_event_preserved field checks the specific expected LCD entry only. Compare all grounded/gold candidates here.",
+  "copy_note": "Model wrapped the object in an outer array; extraction parser tolerates it but the strict root-object streaming detector declines it.",
+  "manual_grounding": "Forced-prefix baseline returns devices=TV only. Transcript114 says only one device/only your television,115 confirms one device,117 says no extra options. First-repeat truncates this later correct event.",
+  "comparisons": [
+    {
+      "mode": "copy",
+      "policy": "base",
+      "gold_candidate_hits": [
+        "TS3006b.t107.1",
+        "TS3006b.t441.3"
+      ],
+      "complete_valid_events": 2,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": []
+    },
+    {
+      "mode": "copy",
+      "policy": "first-repeat",
+      "gold_candidate_hits": [
+        "TS3006b.t107.1",
+        "TS3006b.t441.3"
+      ],
+      "complete_valid_events": 2,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": []
+    },
+    {
+      "mode": "copy",
+      "policy": "conservative",
+      "gold_candidate_hits": [
+        "TS3006b.t107.1",
+        "TS3006b.t441.3"
+      ],
+      "complete_valid_events": 2,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": []
+    },
+    {
+      "mode": "forced-prefix",
+      "policy": "base",
+      "gold_candidate_hits": [
+        "TS3006b.t107.1",
+        "TS3006b.t114.2"
+      ],
+      "complete_valid_events": 3,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": []
+    },
+    {
+      "mode": "forced-prefix",
+      "policy": "first-repeat",
+      "gold_candidate_hits": [
+        "TS3006b.t107.1"
+      ],
+      "complete_valid_events": 1,
+      "lost_gold": [
+        "TS3006b.t114.2"
+      ],
+      "added_gold": [],
+      "lost_unique_valid": [
+        "[107, \"devices\", \"outcome\", \"TV and video\", null, \"And we do have to integrate the screen and the the speech alright.\"]",
+        "[117, \"devices\", \"outcome\", \"TV only\", null, \"So there are not extra options in this case, but uh\"]"
+      ],
+      "added_unique_valid": []
+    },
+    {
+      "mode": "forced-prefix",
+      "policy": "conservative",
+      "gold_candidate_hits": [
+        "TS3006b.t107.1",
+        "TS3006b.t114.2"
+      ],
+      "complete_valid_events": 3,
+      "lost_gold": [],
+      "added_gold": [],
+      "lost_unique_valid": [],
+      "added_unique_valid": []
+    }
+  ]
+}

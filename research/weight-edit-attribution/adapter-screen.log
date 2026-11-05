@@ -1,0 +1,28 @@
+{"condition": "binding", "tag": "ES2003c", "seconds": 9.276507708011195, "output_tokens": 141, "peak_gb": 3.922283978}
+{"condition": "binding", "tag": "ES2003d", "seconds": 8.54498891698313, "output_tokens": 145, "peak_gb": 3.98881938}
+{"condition": "binding", "tag": "TS3004c", "seconds": 8.900712125003338, "output_tokens": 138, "peak_gb": 3.92564366}
+{"condition": "binding", "tag": "TS3004c", "seconds": 20.640255290985806, "output_tokens": 513, "peak_gb": 3.988821132}
+{"condition": "binding", "tag": "TS3004d", "seconds": 6.590998250001576, "output_tokens": 45, "peak_gb": 4.047541296}
+{"condition": "binding", "tag": "ES2011b", "seconds": 27.505072624975583, "output_tokens": 842, "peak_gb": 3.988819288}
+{"condition": "binding", "tag": "IS1008b", "seconds": 6.032962124998448, "output_tokens": 52, "peak_gb": 3.988819036}
+{"condition": "binding", "tag": "IS1008c", "seconds": 7.150843499985058, "output_tokens": 90, "peak_gb": 3.97204236}
+{"condition": "binding", "tag": "IS1008d", "seconds": 17.241947750007967, "output_tokens": 426, "peak_gb": 3.988819156}
+{"condition": "binding", "tag": "TS3006d", "seconds": 8.766393708996475, "output_tokens": 110, "peak_gb": 3.993983298}
+{"condition": "target", "tag": "ES2003c", "seconds": 8.535503749997588, "output_tokens": 141, "peak_gb": 3.988829192}
+{"condition": "target", "tag": "ES2003d", "seconds": 9.67124816600699, "output_tokens": 199, "peak_gb": 3.988829168}
+{"condition": "target", "tag": "TS3004c", "seconds": 21.95187312498456, "output_tokens": 491, "peak_gb": 3.999315912}
+{"condition": "target", "tag": "TS3004c", "seconds": 11.261851582996314, "output_tokens": 181, "peak_gb": 3.972053704}
+{"condition": "target", "tag": "TS3004d", "seconds": 6.440879542002222, "output_tokens": 45, "peak_gb": 3.922295402}
+{"condition": "target", "tag": "ES2011b", "seconds": 43.91734870898654, "output_tokens": 1219, "peak_gb": 3.93404098}
+{"condition": "target", "tag": "IS1008b", "seconds": 22.140801417001057, "output_tokens": 420, "peak_gb": 3.972051608}
+{"condition": "target", "tag": "IS1008c", "seconds": 8.908266040991293, "output_tokens": 90, "peak_gb": 3.988829364}
+{"condition": "target", "tag": "IS1008d", "seconds": 23.168439792003483, "output_tokens": 489, "peak_gb": 3.919541056}
+{"condition": "target", "tag": "TS3006d", "seconds": 8.984624584001722, "output_tokens": 56, "peak_gb": 3.98883214}
+{"condition": "random", "tag": "ES2003c", "seconds": 9.358252499980154, "output_tokens": 143, "peak_gb": 3.922293766}
+{"condition": "random", "tag": "ES2003d", "seconds": 11.348498749983264, "output_tokens": 199, "peak_gb": 3.922310126}
+{"condition": "random", "tag": "TS3004c", "seconds": 25.528846000001067, "output_tokens": 630, "peak_gb": 3.988830152}
+{"condition": "random", "tag": "TS3004c", "seconds": 11.330015666986583, "output_tokens": 182, "peak_gb": 3.98883092}
+{"condition": "random", "tag": "TS3004d", "seconds": 6.499109166994458, "output_tokens": 45, "peak_gb": 3.988830828}
+{"condition": "random", "tag": "ES2011b", "seconds": 35.0072472920001, "output_tokens": 919, "peak_gb": 3.936138132}
+lease boundary: cached completed calls, rerun to continue
+{"closed": true, "preflight": {"time": "2026-11-03T15:49:51+0800", "conflicts": []}, "seconds": 400.41296083299676, "process_peak_gb": 1.533165568}

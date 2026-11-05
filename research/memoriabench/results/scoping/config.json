@@ -1,0 +1,200 @@
+{
+ "k": 4,
+ "extra": 2,
+ "rule": true,
+ "embedder": "BAAI/bge-small-en-v1.5",
+ "seed": 20261016,
+ "rule_for_k": "smallest k in [2, 3, 4, 5, 6] with development scope recall >= 0.95",
+ "development": {
+  "series": [
+   "ES2003",
+   "ES2011",
+   "IS1008",
+   "TS3004",
+   "TS3006"
+  ],
+  "probes": 60,
+  "sweep": {
+   "no_rule": {
+    "1": {
+     "n": 30,
+     "found": 22,
+     "recall": 0.7333333333333333,
+     "by_class": {
+      "CONTRADICTS": 0.7,
+      "OUTDATED": 0.5,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 1.0
+    },
+    "2": {
+     "n": 30,
+     "found": 24,
+     "recall": 0.8,
+     "by_class": {
+      "CONTRADICTS": 0.8,
+      "OUTDATED": 0.6,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 2.0
+    },
+    "3": {
+     "n": 30,
+     "found": 27,
+     "recall": 0.9,
+     "by_class": {
+      "CONTRADICTS": 0.9,
+      "OUTDATED": 0.8,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 3.0
+    },
+    "4": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 4.0
+    },
+    "5": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 5.0
+    },
+    "6": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 6.0
+    },
+    "7": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 7.0
+    },
+    "8": {
+     "n": 30,
+     "found": 30,
+     "recall": 1.0,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 1.0,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 8.0
+    }
+   },
+   "rule": {
+    "1": {
+     "n": 30,
+     "found": 22,
+     "recall": 0.7333333333333333,
+     "by_class": {
+      "CONTRADICTS": 0.7,
+      "OUTDATED": 0.5,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 1.0666666666666667
+    },
+    "2": {
+     "n": 30,
+     "found": 24,
+     "recall": 0.8,
+     "by_class": {
+      "CONTRADICTS": 0.8,
+      "OUTDATED": 0.6,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 2.05
+    },
+    "3": {
+     "n": 30,
+     "found": 27,
+     "recall": 0.9,
+     "by_class": {
+      "CONTRADICTS": 0.9,
+      "OUTDATED": 0.8,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 3.033333333333333
+    },
+    "4": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 4.033333333333333
+    },
+    "5": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 5.033333333333333
+    },
+    "6": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 6.033333333333333
+    },
+    "7": {
+     "n": 30,
+     "found": 29,
+     "recall": 0.9666666666666667,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 0.9,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 7.033333333333333
+    },
+    "8": {
+     "n": 30,
+     "found": 30,
+     "recall": 1.0,
+     "by_class": {
+      "CONTRADICTS": 1.0,
+      "OUTDATED": 1.0,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 8.033333333333333
+    }
+   }
+  }
+ }
+}

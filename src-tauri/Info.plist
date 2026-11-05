@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Memoria records microphone audio when you start a meeting, and saves it in your selected workspace.</string>
+  <key>NSAudioCaptureUsageDescription</key>
+  <string>Memoria records audio playing on this Mac, such as the other side of a call, when you include call audio in a meeting, and saves it with the meeting in your selected workspace.</string>
+  <key>NSLocalNetworkUsageDescription</key>
+  <string>Memoria connects to local model servers you configure for AI chat.</string>
+</dict>
+</plist>

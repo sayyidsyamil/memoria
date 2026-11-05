@@ -1,0 +1,37 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 113359.57it/s]
+  K=0 full-context+cot: finished hiring
+  K=0 full-context+cot: finished portfolio
+  K=0 full-context+cot: finished tender
+  K=0 full-context+cot: {'correct': 23, 'n': 37, 'accuracy': 0.6216216216216216, 'ci_95': (0.461, 0.759)}
+  K=0 bm25-rag(k=12): finished hiring
+  K=0 bm25-rag(k=12): finished portfolio
+  K=0 bm25-rag(k=12): finished tender
+  K=0 bm25-rag(k=12): {'correct': 22, 'n': 37, 'accuracy': 0.5945945945945946, 'ci_95': (0.435, 0.737)}
+level K=0 done in 503.5s -> results/test/baselines_test.json
+  K=8 full-context+cot: finished hiring
+  K=8 full-context+cot: finished portfolio
+  K=8 full-context+cot: finished tender
+  K=8 full-context+cot: {'correct': 22, 'n': 37, 'accuracy': 0.5945945945945946, 'ci_95': (0.435, 0.737)}
+  K=8 bm25-rag(k=12): finished hiring
+  K=8 bm25-rag(k=12): finished portfolio
+  K=8 bm25-rag(k=12): finished tender
+  K=8 bm25-rag(k=12): {'correct': 17, 'n': 37, 'accuracy': 0.4594594594594595, 'ci_95': (0.31, 0.616)}
+level K=8 done in 1163.5s -> results/test/baselines_test.json
+  K=24 full-context+cot: finished hiring
+  K=24 full-context+cot: finished portfolio
+  K=24 full-context+cot: finished tender
+  K=24 full-context+cot: {'correct': 24, 'n': 37, 'accuracy': 0.6486486486486487, 'ci_95': (0.488, 0.782)}
+  K=24 bm25-rag(k=12): finished hiring
+  K=24 bm25-rag(k=12): finished portfolio
+  K=24 bm25-rag(k=12): finished tender
+  K=24 bm25-rag(k=12): {'correct': 17, 'n': 37, 'accuracy': 0.4594594594594595, 'ci_95': (0.31, 0.616)}
+level K=24 done in 1703.5s -> results/test/baselines_test.json
+  K=48 full-context+cot: finished hiring
+  K=48 full-context+cot: finished portfolio
+  K=48 full-context+cot: finished tender
+  K=48 full-context+cot: {'correct': 23, 'n': 37, 'accuracy': 0.6216216216216216, 'ci_95': (0.461, 0.759)}
+  K=48 bm25-rag(k=12): finished hiring
+  K=48 bm25-rag(k=12): finished portfolio
+  K=48 bm25-rag(k=12): finished tender
+  K=48 bm25-rag(k=12): {'correct': 13, 'n': 37, 'accuracy': 0.35135135135135137, 'ci_95': (0.218, 0.512)}
+level K=48 done in 2599.7s -> results/test/baselines_test.json

@@ -1,0 +1,46 @@
+{
+ "parse_events": {
+  "exception_total": 803,
+  "exceptions": {
+   "structural:TypeError": 803
+  },
+  "runs": {
+   "structural": 24000,
+   "textual": 18000
+  }
+ },
+ "pipeline": {
+  "dispositions": {
+   "applied": 1991,
+   "invalid": 1568,
+   "proposed": 1097,
+   "ungrounded": 275,
+   "unresolved": 504
+  },
+  "exception_examples": {
+   "IntegrityError": "CHECK constraint failed: confidence IS NULL OR (confidence >= 0 AND confidence <= 1)",
+   "InvalidAssertion": "NaN and Infinity are not valid values",
+   "OverflowError": "Python int too large to convert to SQLite INTEGER",
+   "TypeError": "'int' object is not iterable"
+  },
+  "exception_total": 189,
+  "exceptions": {
+   "IntegrityError": 35,
+   "InvalidAssertion": 2,
+   "OverflowError": 10,
+   "TypeError": 142
+  },
+  "facts_applied": 1991,
+  "invariant_violations": 0,
+  "runs": 3300,
+  "runs_that_raised_after_part_of_the_meeting_was_stored": 23,
+  "traceability_violations": 0
+ },
+ "policies": [
+  "immediate",
+  "confirm_all",
+  "threshold:0.8"
+ ],
+ "seconds": 6.8,
+ "seed": 20260301
+}

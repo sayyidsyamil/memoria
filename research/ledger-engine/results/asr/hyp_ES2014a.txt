@@ -1,0 +1,68 @@
+[0.2s - 1.4s] Speaker 0: Kick off the meeting.
+[3.0s - 3.7s] Speaker 1: No.
+[5.0s - 15.6s] Speaker 2: Let's see. Take off the head sign. I think it's over here.
+[16.0s - 28.8s] Speaker 0: These both countries around the back and your ears. Forward.
+[34.7s - 104.7s] Speaker 1: No. Okay. Thanks. Right. Okay. Is that okay? Come on. Come on, come on, come on. Okay. Right, so start of the first meeting. Right, so agenda of the first meeting. We have twenty-five minutes for this meeting. Okay. We uh are to get acquainted. So does everyone want to say who they are? Sensible.
+[104.7s - 107.4s] Speaker 2: I'm Robin, I'm the marketing manager.
+[107.4s - 110.4s] Speaker 3: I'm Louisa. I'm the user interface designer.
+[110.4s - 113.0s] Speaker 2: I'm Nick, I'm the industrial designer.
+[113.1s - 137.2s] Speaker 1: And I'm Annostar, and I'm the project leader. All right, okay, so tool training. Um project plan. So does anyone have any uh thoughts as to the tool training that uh is required?
+[137.2s - 140.0s] Speaker 3: I'm not exactly sure what you mean by tool training.
+[145.8s - 280.7s] Speaker 1: Oh I see, so we shouldn't really be so uh let's talk about a little bit about the project and then you go on to the next slide and then try to put some. Alright, okay. So so we have the project aim, which is to um basically to come up with a new remote control device. Uh we have uh the starting base was the original, which has been in existence now for period of time. And uh our idea is to uh to make the new remote control device uh more user friendly than the previous one and to uh to be trendier to be with it and therefore to uh to get a bigger market share and bigger audience. So um the method of doing this is uh split up as you can see into uh the functional design, the conceptual design and the detailed design. So um each of these uh phases we'll uh basically be handing over to yourselves, the designers of this uh this device and uh having uh meetings so that we can uh during the course of today um come up with a better better implement than we had before and therefore um have a successful uh conclusion to the day um and you'll be doing uh various designs uh throughout the day to meet this end so we've got two tryout whiteboard uh so we will uh right so basically everyone's to uh supposedly uh draw their favorite animal over on the whiteboard over there I guess this is uh make sure the whiteboard works so uh I don't know who wishes to go first
+[281.9s - 282.9s] Speaker 3: do you wish to go
+[283.2s - 289.2s] Speaker 1: have a first bash at uh whatever um let's
+[289.2s - 291.4s] Speaker 3: see could have got pockets today
+[291.8s - 297.2s] Speaker 1: but now you you yeah you'll move out from the microphone and the camera I take it
+[298.1s - 299.0s] Speaker 3: right now do you think or
+[299.2s - 302.2s] Speaker 1: I would I would guess so or you've lost
+[302.4s - 303.3s] Speaker 2: uh your microphone
+[305.7s - 309.1s] Speaker 1: technical problems I mean you designers are meant to come up with things
+[322.7s - 363.0s] Speaker 3: okay I think that I would have to say that my favourite animal is the cat smiley cat day um and this would be because they're very independent uh they're very intelligent compare to dogs maybe um and they can be very very affectionate some people don't think so, but I know very effectionate cats. Um and they can look after themselves.
+[363.2s - 365.8s] Speaker 1: Thanks. Next.
+[366.3s - 366.9s] Speaker 2: Shall I rub
+[367.0s - 368.4s] Speaker 3: that out actually?
+[368.6s - 374.7s] Speaker 1: I don't see as there's any need to. There's plenty of space. I mean whatever.
+[374.7s - 380.8s] Speaker 2: Have a whole menagerie. Exactly. Shall I see if I can get across right distangling everything?
+[384.2s - 388.9s] Speaker 1: We've had more time to prepare over this side, so we've all stuck our bits and pieces in the pockets.
+[392.7s - 396.9s] Speaker 2: Okay. Um I'll try the
+[396.9s - 405.8s] Speaker 0: red pen. Okay. Um I'm gonna go for
+[407.1s - 412.6s] Speaker 2: the bear, which I'm gonna be able to draw very well. I'll have a bash of it.
+[412.7s - 415.7s] Speaker 1: You get marks for artistic impression.
+[427.8s - 428.7s] Speaker 2: Um so
+[428.7s - 430.6s] Speaker 1: you're just doing the face.
+[442.5s - 495.9s] Speaker 2: Um and I like my animal that looks nothing like a bear because um I don't know, maybe because there's so many cartoon characters made up after the bear, like the jungle boot characters and stuff like that. Right. Hello, um I'm gonna go for the dog. I'm gonna draw one badly as well. Um this looks like it's going to be a taxund or something.
+[496.0s - 497.6s] Speaker 3: That's quite good.
+[502.6s - 532.8s] Speaker 0: Right, there's my dog. Um I like dogs because they're very loyal and they're always happy. So whenever whenever you're feeling sort of a bit down or tired, they're always coming up and they're always um quite excited. So um you can always have a lot of fun with the dog. And they're also good for exercise as well, you can sort of get out and they they sort of never get tired and and when they're tired they're quite cute as well. So okay, that's why I like dogs.
+[536.1s - 738.5s] Speaker 1: Right. Um well I've not actually had too many pets uh over my uh time 'cause to be honest with you, uh well right. Um not too keen on them anyway, not to worry. So what my daughters have got at the moment is they've got uh a few fish and so hopefully um it won't prove too difficult to draw. Uh as you can see that my uh just artistic work is useless as well. Anyway, um and uh one of the best uh things about fish is that they don't really take uh too much uh looking after because uh with most of the animals, if you're gonna weigh on holiday or whatever, you've got to spend money or get a friend or whatever to look after them for you. Whereas if you got fish, you just gotta put the food in a dripper feed, which feeds them over the uh couple of weeks that you're weigh, and uh change the water every couple of months and buying a few plants, so other than the fact they keep dying, uh fish are uh are not are are are reasonable pets in that uh they're low maintenance. Right. Okay, uh we're still all with us. Right, okay, so work has been done on uh this uh project whereby um 25 euros is uh the uh expected uh sound price. That information has come from our marketing manager here. So we're looking to sell internationally, not just in Europe. We're looking at um having our production costs limited to uh 12 and a half euro per unit, and therefore making a profit margin of uh well, not actually a profit margin, it's uh because obviously you're gonna have overheads and various other costs to uh take uh from uh from that to give you your profit margin per unit. And so depending what the uh the overhead uh costs are will determine uh how many units we're uh looking to sell or projecting to sell at this point in time. So um experience with remote control first ideas. New remote. So I guess we're looking at um having a discussion at this point in time to help you um folks design or new model as it were. So uh any any thoughts
+[739.4s - 751.0s] Speaker 2: um maybe for having some remote controls the buttons are a little small they're quite hard to press. So maybe we can look at something with uh easy to press button as that is the main function.
+[751.1s - 779.3s] Speaker 1: Okay so basically we're looking for some um we're looking for a device that is um robust yeah and and therefore uh won't get damaged too easily um we're looking for a device that is uh what was the other things you said there
+[779.6s - 787.6s] Speaker 2: um sort of easy to use easy to use accessible use as it's easy to use and see
+[788.3s - 790.4s] Speaker 1: and see yeah okay
+[792.5s - 802.8s] Speaker 3: can't just check is this just a television remote because a lot of um systems are kind of TV video combined now or T V DVD combined
+[803.0s - 803.4s] Speaker 1: but one of
+[803.4s - 813.4s] Speaker 3: the most annoying things is having like five remotes in a house so if you've got a combined system it could be a combined remote or is it just a television that we're supposed to be doing
+[814.1s - 838.9s] Speaker 1: well um basically I'll get back to you on that but it seems to me sensible because as you rightly said there's nothing more annoying than having three or four devices littered about the uh about the room and uh So a device for for all remotes.
+[839.2s - 840.9s] Speaker 2: So it's one of the oh sorry you go.
+[840.9s - 886.1s] Speaker 0: Okay. Yeah. Um one of the things um we found from the market research is that people often get confused by the number of buttons on them as well, because there's quite often lots and lots. And um sometimes uh they'd sort of remote controls defeat their own purpose because you're sat in the chair and the remote is somewhere else in the room. So whereas in the past you'd have to get up to change the channel. Now you have to get up to sort of pick up the remote. So I don't we need to sort of maybe think about how um we could maybe uh develop a remote control which moves around through I don't know. That's that's maybe something for the future when you can talk to your television, but
+[887.5s - 931.0s] Speaker 1: is in a sense it's um mutually exclusive. You can't have both the the one device and then have few buttons on it to because you want you want simplicity as well, you want any idiot to be able to use it. Yeah. Whilst at the same time you want as you rightly said, one remote for all. And so these are probably mutually exclusive options. That uh you could argue that experience of using devices and similar devices, as people get more and more used to using remotes, therefore they're more off here with handling them, therefore you can make them more complicated as time goes on.
+[931.0s - 938.0s] Speaker 2: Maybe we could um have better instructions with the remote. Or we just doing the design of the remote control itself or sort of instructions that would come with it.
+[938.0s - 941.6s] Speaker 1: Oh. Better instructions.
+[941.7s - 974.2s] Speaker 0: Yeah. I mean we've done some research um about sort of you know what the cutting edge sort of handheld devices are and a lot of them sort of use you know they're like they're like mini laptops. So it's possible that we could devise a system where where you're you're basically sort of holding a miniature computer which is controlling all your your sort of your television, your stereo, and where you know if you buy a new thing then it's sort of you can link it to that as well, maybe.
+[974.6s - 988.6s] Speaker 1: Okay. Um well we've got five minutes before the end of the meeting. So uh we have to uh start winding up. Um is there next meeting in 30 minutes?
+[988.6s - 990.8s] Speaker 0: Okay. Okay.
+[990.9s - 999.8s] Speaker 1: So um right, so we've got ID, the come on, where's my
+[1000.3s - 1008.1s] Speaker 0: you just click return, it should be okay. Get rid of the message.
+[1008.2s - 1008.9s] Speaker 2: Or not
+[1011.2s - 1027.1s] Speaker 0: if you hit just hit return and it should get rid of the message. Oh, there we go.
+[1027.4s - 1037.1s] Speaker 1: Yeah. That's what we're looking for. Right. So we've got functional uh uh what happened to the
+[1037.4s - 1043.1s] Speaker 3: I think that might be back to the start. Um if you grab the kind of uh slide four.
+[1045.0s - 1053.4s] Speaker 0: Yeah.
+[1053.4s - 1099.2s] Speaker 1: Right. Right. Sorry about that. Okay, so we've got um the working design for ID, the UID, the technical functions design, marketing, the user requirement specification, specific instructions we've sent to you about your person by your personal coach. So are we all clear what objectives we're looking to meet in the next thirty minutes? And I guess I'll try and write up some minutes of uh this meeting to uh to give it to you for the next meeting.
+[1100.1s - 1108.6s] Speaker 3: I'm not exactly clear on what we're designing the ro remote for. Is this a m multifunctional one? Or do we decide that ourselves as we go away and work on it?
+[1108.9s - 1111.5s] Speaker 2: I think you just said at the start it was a television remote. Television
+[1111.9s - 1112.6s] Speaker 1: we should just stick
+[1112.6s - 1114.6s] Speaker 2: to that unless we get told otherwise.
+[1115.0s - 1142.7s] Speaker 1: That's true, because it during during the course of our day we might make decisions based on information or meetings that would change. Okay. But at this point in time I think you're right that uh so it would make it just a TV. Okay. Okay. So we'll depart. We will stay here and uh and break off. And I'll do minutes and and we'll see you in half an hour.
+[1142.7s - 1143.5s] Speaker 2: Okay, that's great.
+[1143.5s - 1144.0s] Speaker 0: Okay.
+[1144.0s - 1148.0s] Speaker 1: Hoki. Right.

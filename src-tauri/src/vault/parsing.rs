@@ -1,0 +1,349 @@
+//! Pure text-processing helpers for markdown content parsing.
+//! Snippet extraction, markdown stripping, date parsing, and string utilities.
+
+use regex::Regex;
+use serde::Deserialize;
+use std::sync::OnceLock;
+
+const WORD_COUNT_CONTRACT_JSON: &str = include_str!("../../../src/shared/wordCountContract.json");
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct WordCountPatternSources {
+    wikilink: String,
+    markdown_marker: String,
+    unspaced_cjk: String,
+    word: String,
+}
+
+#[derive(Deserialize)]
+struct WordCountContract {
+    patterns: WordCountPatternSources,
+}
+
+struct WordCountPatterns {
+    wikilink: Regex,
+    markdown_marker: Regex,
+    unspaced_cjk: Regex,
+    word: Regex,
+}
+
+fn compile_word_count_pattern(source: &str) -> Regex {
+    Regex::new(source).expect("shared word-count pattern must be a valid Rust regex")
+}
+
+fn inline_markdown_patterns() -> &'static [Regex; 5] {
+    static PATTERNS: OnceLock<[Regex; 5]> = OnceLock::new();
+    PATTERNS.get_or_init(|| {
+        [
+            r"~~(\S[^~]*\S|\S)~~",
+            r"\[([^\]]+)\]\([^)]+\)",
+            r"\[\[[^|\]]+\|([^\]]+)\]\]",
+            r"\[\[([^\]]+)\]\]",
+            r"\[\[([^\]]*)$",
+        ]
+        .map(|source| Regex::new(source).expect("inline-markdown pattern must be valid"))
+    })
+}
+
+fn word_count_patterns() -> &'static WordCountPatterns {
+    static PATTERNS: OnceLock<WordCountPatterns> = OnceLock::new();
+    PATTERNS.get_or_init(|| {
+        let contract: WordCountContract = serde_json::from_str(WORD_COUNT_CONTRACT_JSON)
+            .expect("shared word-count contract must be valid JSON");
+        let sources = contract.patterns;
+        WordCountPatterns {
+            wikilink: compile_word_count_pattern(&sources.wikilink),
+            markdown_marker: compile_word_count_pattern(&sources.markdown_marker),
+            unspaced_cjk: compile_word_count_pattern(&sources.unspaced_cjk),
+            word: compile_word_count_pattern(&sources.word),
+        }
+    })
+}
+
+#[derive(Clone, Copy)]
+struct TextSlice<'a>(&'a str);
+
+impl<'a> TextSlice<'a> {
+    fn as_str(self) -> &'a str {
+        self.0
+    }
+}
+
+/// Derive a human-readable title from a filename stem (slug).
+/// Converts hyphens to spaces and title-cases each word.
+/// Example: `career-tracks-depend-on-company-shape` → `Career Tracks Depend on Company Shape`
+pub(super) fn slug_to_title(stem: &str) -> String {
+    stem.split('-')
+        .filter(|s| !s.is_empty())
+        .map(|word| {
+            let mut chars = word.chars();
+            match chars.next() {
+                Some(c) => {
+                    let upper: String = c.to_uppercase().collect();
+                    format!("{}{}", upper, chars.as_str())
+                }
+                None => String::new(),
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
+/// Extract the H1 title from the first non-empty line of the body (after frontmatter).
+/// Returns `None` if no H1 is found on the first non-empty line.
+pub(super) fn extract_h1_title(content: &str) -> Option<String> {
+    let body = crate::frontmatter::frontmatter_body(content).trim_start();
+    let title =
+        first_non_empty_line(TextSlice(body)).and_then(|line| markdown_h1_text(TextSlice(line)))?;
+    let stripped = strip_markdown_chars(TextSlice(title));
+    non_empty_trimmed(TextSlice(&stripped)).map(str::to_string)
+}
+
+fn non_empty_trimmed(value: TextSlice<'_>) -> Option<&str> {
+    let trimmed = value.as_str().trim();
+    (!trimmed.is_empty()).then_some(trimmed)
+}
+
+fn first_non_empty_line(value: TextSlice<'_>) -> Option<&str> {
+    value
+        .as_str()
+        .lines()
+        .map(str::trim)
+        .find(|line| !line.is_empty())
+}
+
+fn markdown_h1_text(line: TextSlice<'_>) -> Option<&str> {
+    line.as_str()
+        .strip_prefix("# ")
+        .and_then(|text| non_empty_trimmed(TextSlice(text)))
+}
+
+/// Extract the display title for a note.
+/// Priority: H1 on first non-empty line → frontmatter `title:` → filename-derived title.
+pub(super) fn extract_title(fm_title: Option<&str>, content: &str, filename: &str) -> String {
+    // 1. H1 on first non-empty line of body
+    if let Some(h1) = extract_h1_title(content) {
+        return h1;
+    }
+    // 2. frontmatter title (legacy, backward compat)
+    if let Some(title) = fm_title {
+        if !title.is_empty() {
+            return title.to_string();
+        }
+    }
+    // 3. filename slug
+    let stem = filename.strip_suffix(".md").unwrap_or(filename);
+    slug_to_title(stem)
+}
+
+/// Check if a line is useful for snippet extraction (not blank, heading, code fence, or rule).
+fn is_snippet_line(line: TextSlice<'_>) -> bool {
+    let t = line.as_str().trim();
+    !t.is_empty() && !t.starts_with('#') && !t.starts_with("```") && !t.starts_with("---")
+}
+
+/// Extract sub-heading text (## , ### , etc.) stripped of the `#` prefix.
+fn extract_subheading_text(line: TextSlice<'_>) -> Option<&str> {
+    let t = line.as_str().trim();
+    let stripped = t.trim_start_matches('#');
+    if stripped.len() < t.len() && stripped.starts_with(' ') {
+        let text = stripped.trim();
+        if !text.is_empty() {
+            return Some(text);
+        }
+    }
+    None
+}
+
+/// Strip leading list markers (*, -, +, 1.) from a line.
+fn strip_list_marker(line: TextSlice<'_>) -> &str {
+    let t = line.as_str().trim_start();
+    strip_unordered_marker(TextSlice(t))
+        .or_else(|| strip_ordered_marker(TextSlice(t)))
+        .unwrap_or(t)
+}
+
+/// Strip unordered list markers: "* ", "- ", "+ "
+fn strip_unordered_marker(s: TextSlice<'_>) -> Option<&str> {
+    ["* ", "- ", "+ "]
+        .iter()
+        .find_map(|prefix| s.as_str().strip_prefix(prefix))
+}
+
+/// Strip ordered list markers: "1. ", "2. ", etc.
+fn strip_ordered_marker(s: TextSlice<'_>) -> Option<&str> {
+    let value = s.as_str();
+    let dot_pos = value.find(". ")?;
+    if dot_pos <= 3 && value[..dot_pos].chars().all(|c| c.is_ascii_digit()) {
+        Some(&value[dot_pos + 2..])
+    } else {
+        None
+    }
+}
+
+/// Truncate a string to `max_len` bytes at a valid UTF-8 boundary, appending "...".
+fn truncate_with_ellipsis(s: TextSlice<'_>, max_len: usize) -> String {
+    let value = s.as_str();
+    if value.len() <= max_len {
+        return value.to_string();
+    }
+    let mut idx = max_len;
+    while idx > 0 && !value.is_char_boundary(idx) {
+        idx -= 1;
+    }
+    format!("{}...", &value[..idx])
+}
+
+/// Count the number of words in the note body (excluding frontmatter and H1 title).
+pub(super) fn count_body_words(content: &str) -> u32 {
+    let without_fm = crate::frontmatter::frontmatter_body(content).trim_start();
+    let body = without_h1_line(TextSlice(without_fm)).unwrap_or(without_fm);
+    let patterns = word_count_patterns();
+    let without_wikilinks = patterns.wikilink.replace_all(body, "");
+    let text = patterns.markdown_marker.replace_all(&without_wikilinks, "");
+    count_multilingual_words(&text)
+}
+
+fn count_multilingual_words(text: &str) -> u32 {
+    let patterns = word_count_patterns();
+    let cjk_count = patterns.unspaced_cjk.find_iter(text).count();
+    let text_with_cjk_boundaries = patterns.unspaced_cjk.replace_all(text, " ");
+    let word_count = patterns.word.find_iter(&text_with_cjk_boundaries).count();
+    u32::try_from(cjk_count.saturating_add(word_count)).unwrap_or(u32::MAX)
+}
+
+/// Extract a snippet: first ~160 chars of content after frontmatter/title, stripped of markdown.
+pub(super) fn extract_snippet(content: &str) -> String {
+    let without_fm = crate::frontmatter::frontmatter_body(content).trim_start();
+    let body = without_h1_line(TextSlice(without_fm)).unwrap_or(without_fm);
+    let clean: String = body
+        .lines()
+        .filter(|line| is_snippet_line(TextSlice(line)))
+        .map(|line| strip_list_marker(TextSlice(line)))
+        .collect::<Vec<&str>>()
+        .join(" ");
+    let stripped = strip_markdown_chars(TextSlice(&clean));
+    let trimmed = stripped.trim();
+    if !trimmed.is_empty() {
+        return truncate_with_ellipsis(TextSlice(trimmed), 160);
+    }
+    // Fallback: collect sub-heading text when no paragraph content exists
+    let heading_text: String = body
+        .lines()
+        .filter_map(|line| extract_subheading_text(TextSlice(line)))
+        .collect::<Vec<&str>>()
+        .join(" ");
+    let heading_trimmed = strip_markdown_chars(TextSlice(&heading_text));
+    let heading_trimmed = heading_trimmed.trim();
+    if heading_trimmed.is_empty() {
+        return String::new();
+    }
+    truncate_with_ellipsis(TextSlice(heading_trimmed), 160)
+}
+
+fn without_h1_line(s: TextSlice<'_>) -> Option<&str> {
+    let value = s.as_str();
+    let mut offset = 0;
+    for line in value.split_inclusive('\n') {
+        let trimmed = line.trim_end_matches(['\r', '\n']).trim();
+        if trimmed.starts_with("# ") {
+            return Some(&value[offset + line.len()..]);
+        }
+        // If we hit non-empty non-heading content first, there's no H1 to skip
+        if !trimmed.is_empty() {
+            return None;
+        }
+        offset += line.len();
+    }
+    None
+}
+
+/// Check if a char is markdown formatting that should be stripped.
+fn is_markdown_formatting(ch: char) -> bool {
+    matches!(ch, '*' | '`')
+}
+
+fn is_escaped_markdown_formatting(ch: char) -> bool {
+    ch == '_' || is_markdown_formatting(ch)
+}
+
+fn is_identifier_underscore(result: &str, next: Option<&char>) -> bool {
+    result
+        .chars()
+        .next_back()
+        .is_some_and(char::is_alphanumeric)
+        && next.is_some_and(|character| character.is_alphanumeric())
+}
+
+fn strip_markdown_chars(s: TextSlice<'_>) -> String {
+    let value = strip_shared_inline_patterns(s);
+    let mut result = String::with_capacity(value.len());
+    let mut chars = value.chars().peekable();
+    while let Some(ch) = chars.next() {
+        match ch {
+            '\\' if chars
+                .peek()
+                .is_some_and(|character| is_escaped_markdown_formatting(*character)) =>
+            {
+                result.push(chars.next().expect("peeked escaped character must exist"));
+            }
+            '_' if is_identifier_underscore(&result, chars.peek()) => result.push(ch),
+            '_' => {}
+            c if is_markdown_formatting(c) => {}
+            _ => result.push(ch),
+        }
+    }
+    result
+}
+
+fn strip_shared_inline_patterns(s: TextSlice<'_>) -> String {
+    inline_markdown_patterns()
+        .iter()
+        .fold(s.as_str().to_string(), |text, pattern| {
+            pattern.replace_all(&text, "$1").into_owned()
+        })
+}
+
+/// Check if a string contains a wikilink pattern `[[...]]`.
+pub(super) fn contains_wikilink(s: &str) -> bool {
+    s.contains("[[") && s.contains("]]")
+}
+
+/// Extract all outgoing wikilink targets from content.
+/// Finds `[[target]]` and `[[target|display]]` patterns, returning just the target part.
+/// Returns a sorted, deduplicated Vec of targets.
+pub(super) fn extract_outgoing_links(content: &str) -> Vec<String> {
+    let mut links = Vec::new();
+    let mut search_from = 0;
+    let bytes = content.as_bytes();
+    while search_from + 3 < bytes.len() {
+        let Some(start) = content[search_from..].find("[[") else {
+            break;
+        };
+        let abs_start = search_from + start + 2;
+        let Some(end) = content[abs_start..].find("]]") else {
+            break;
+        };
+        let inner = &content[abs_start..abs_start + end];
+        let target = match inner.find('|') {
+            Some(idx) => &inner[..idx],
+            None => inner,
+        };
+        if !target.is_empty() {
+            links.push(target.to_string());
+        }
+        search_from = abs_start + end + 2;
+    }
+    links.sort();
+    links.dedup();
+    links
+}
+
+#[cfg(test)]
+#[path = "parsing_tests.rs"]
+mod tests;
+
+#[cfg(test)]
+#[path = "word_count_tests.rs"]
+mod word_count_tests;

@@ -1,0 +1,22 @@
+name: Feature proposal
+description: Propose a focused improvement to the meeting workflow.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What task is difficult today, and who encounters it?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behaviour
+      description: Describe the workflow and how you would verify it.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Alternatives and trade-offs

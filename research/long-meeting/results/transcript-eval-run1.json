@@ -1,0 +1,341 @@
+{
+ "draft": "vault/.memoria-recordings/786b9e3b-28a5-44c8-a4ab-e470939eb81c/transcript-draft.json",
+ "duration": 3600.0,
+ "processingSeconds": 713.3474442079896,
+ "segments": 852,
+ "lastSegmentEnd": 3598.68,
+ "firstSegmentStart": 0.17,
+ "gaps": [],
+ "chunks": [
+  {
+   "start": 0,
+   "end": 300,
+   "coreStart": 0,
+   "coreEnd": 290.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 280,
+   "end": 580,
+   "coreStart": 290.0,
+   "coreEnd": 570.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 560,
+   "end": 860,
+   "coreStart": 570.0,
+   "coreEnd": 850.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 840,
+   "end": 1140,
+   "coreStart": 850.0,
+   "coreEnd": 1130.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 1120,
+   "end": 1420,
+   "coreStart": 1130.0,
+   "coreEnd": 1410.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 1400,
+   "end": 1700,
+   "coreStart": 1410.0,
+   "coreEnd": 1690.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 1680,
+   "end": 1980,
+   "coreStart": 1690.0,
+   "coreEnd": 1970.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 1960,
+   "end": 2260,
+   "coreStart": 1970.0,
+   "coreEnd": 2250.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 2240,
+   "end": 2540,
+   "coreStart": 2250.0,
+   "coreEnd": 2530.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 2520,
+   "end": 2820,
+   "coreStart": 2530.0,
+   "coreEnd": 2810.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 2800,
+   "end": 3100,
+   "coreStart": 2810.0,
+   "coreEnd": 3090.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 3080,
+   "end": 3380,
+   "coreStart": 3090.0,
+   "coreEnd": 3370.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  },
+  {
+   "start": 3360,
+   "end": 3600.0,
+   "coreStart": 3370.0,
+   "coreEnd": 3600.0,
+   "status": "complete",
+   "retry": false,
+   "reason": null
+  }
+ ],
+ "warnings": [
+  "Machine draft: review words, timestamps and speaker labels against the audio.",
+  "Speaker labels are anonymous; overlap may cause missing words or incorrect assignments.",
+  "Pauses are omitted from the recording clock. Timestamps refer to saved audio, not wall-clock time."
+ ],
+ "speakers": {
+  "S01": 460,
+  "S02": 261,
+  "unassigned": 56,
+  "S03": 75
+ },
+ "fillersRemoved": {
+  "refTokens": 9808,
+  "hypTokens": 9496,
+  "wer": 0.1339,
+  "substitutions": 519,
+  "deletions": 553,
+  "insertions": 241
+ },
+ "boundaries": {
+  "count": 12,
+  "windowSeconds": 30,
+  "boundaryErrorRate": 0.1722,
+  "boundaryRefWords": 877,
+  "controlErrorRate": 0.1025,
+  "controlRefWords": 985,
+  "perBoundary": [
+   {
+    "at": 290.0,
+    "errors": 1,
+    "refWords": 78
+   },
+   {
+    "at": 570.0,
+    "errors": 1,
+    "refWords": 1
+   },
+   {
+    "at": 850.0,
+    "errors": 11,
+    "refWords": 85
+   },
+   {
+    "at": 1130.0,
+    "errors": 11,
+    "refWords": 91
+   },
+   {
+    "at": 1410.0,
+    "errors": 20,
+    "refWords": 74
+   },
+   {
+    "at": 1690.0,
+    "errors": 26,
+    "refWords": 107
+   },
+   {
+    "at": 1970.0,
+    "errors": 10,
+    "refWords": 94
+   },
+   {
+    "at": 2250.0,
+    "errors": 17,
+    "refWords": 81
+   },
+   {
+    "at": 2530.0,
+    "errors": 18,
+    "refWords": 60
+   },
+   {
+    "at": 2810.0,
+    "errors": 12,
+    "refWords": 66
+   },
+   {
+    "at": 3090.0,
+    "errors": 23,
+    "refWords": 81
+   },
+   {
+    "at": 3370.0,
+    "errors": 1,
+    "refWords": 59
+   }
+  ]
+ },
+ "perFiveMinutes": [
+  {
+   "from": 0,
+   "refTokens": 490,
+   "hypTokens": 486
+  },
+  {
+   "from": 300,
+   "refTokens": 708,
+   "hypTokens": 685
+  },
+  {
+   "from": 600,
+   "refTokens": 840,
+   "hypTokens": 807
+  },
+  {
+   "from": 900,
+   "refTokens": 900,
+   "hypTokens": 868
+  },
+  {
+   "from": 1200,
+   "refTokens": 866,
+   "hypTokens": 859
+  },
+  {
+   "from": 1500,
+   "refTokens": 950,
+   "hypTokens": 905
+  },
+  {
+   "from": 1800,
+   "refTokens": 1040,
+   "hypTokens": 1002
+  },
+  {
+   "from": 2100,
+   "refTokens": 731,
+   "hypTokens": 725
+  },
+  {
+   "from": 2400,
+   "refTokens": 605,
+   "hypTokens": 597
+  },
+  {
+   "from": 2700,
+   "refTokens": 870,
+   "hypTokens": 833
+  },
+  {
+   "from": 3000,
+   "refTokens": 947,
+   "hypTokens": 914
+  },
+  {
+   "from": 3300,
+   "refTokens": 861,
+   "hypTokens": 815
+  }
+ ],
+ "speakerPurity": {
+  "S01": {
+   "words": 4913,
+   "top": [
+    [
+     "ES2004b.D",
+     1819
+    ],
+    [
+     "ES2004b.B",
+     1793
+    ]
+   ]
+  },
+  "S02": {
+   "words": 2999,
+   "top": [
+    [
+     "ES2004c.C",
+     1535
+    ],
+    [
+     "ES2004b.C",
+     1395
+    ]
+   ]
+  },
+  "S03": {
+   "words": 1035,
+   "top": [
+    [
+     "ES2004b.A",
+     839
+    ],
+    [
+     "ES2004c.A",
+     176
+    ]
+   ]
+  },
+  "unassigned": {
+   "words": 308,
+   "top": [
+    [
+     "ES2004b.A",
+     100
+    ],
+    [
+     "ES2004b.D",
+     86
+    ]
+   ]
+  }
+ },
+ "withFillers": {
+  "refTokens": 10267,
+  "hypTokens": 9825,
+  "wer": 0.1487,
+  "substitutions": 589,
+  "deletions": 690,
+  "insertions": 248
+ }
+}

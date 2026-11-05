@@ -1,0 +1,10 @@
+{
+ "checks": {
+  "overall_qa_strictly_better": false,
+  "current_qa_not_worse": false,
+  "extraction_precision_not_worse": false,
+  "extraction_recall_not_worse": false
+ },
+ "eligible_for_test": false,
+ "automatic_default_switch": false
+}

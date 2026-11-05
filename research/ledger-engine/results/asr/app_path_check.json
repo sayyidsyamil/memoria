@@ -1,0 +1,7069 @@
+{
+  "generated": "2026-10-14T03:49:34+08:00",
+  "script": "engine/scripts/diar_app_check.py",
+  "task": "Real finalize() path of the app (streaming diarization for recordings of 2 min or more) versus the validated replica of asr_der_eval.py",
+  "interpreters": {
+    "evaluation": "/Users/sayyid/Desktop/FYP/engine/.venv-asr/bin/python",
+    "model_workers": [
+      "/opt/homebrew/opt/python@3.11/bin/python3.11"
+    ],
+    "app_python": "/opt/homebrew/bin/python3.11"
+  },
+  "app": {
+    "STREAM_MIN_SECONDS": 120.0,
+    "STREAM_CHUNK_SECONDS": 5.0,
+    "DIAR_THRESHOLD": 0.5,
+    "capture_block_samples": 1600,
+    "git_head": "2ffe32ba80299db3b7ed5c611d38b787fa85544a",
+    "git_status_short": [
+      "M src/components/ledger/ReviewTab.tsx",
+      "?? src/components/ledger/LedgerPanel.number.test.tsx",
+      "?? src/lib/ledgerNumbers.test.ts",
+      "?? src/lib/ledgerNumbers.ts",
+      "?? src/mock-tauri/mock-ledger-demo-snapshot.json"
+    ],
+    "sha256": {
+      "diar_stream.py": "7522e6bfa04eaa721cacd8b1c486097063f81da040500ab1dd67fd4d4709e1a8",
+      "transcribe_v3.py": "dcfdb0c0f1e6964b3b034b40761083aa32e015e71b87f455c5a183dfa0a368e7",
+      "transcribe_server.py": "acc8258f1ea3792a952ee6825ed105c795f471e428989311daaad2e049bf9b65"
+    },
+    "stt_chunk_duration": 120.0
+  },
+  "models": {
+    "stt": "mlx-community/parakeet-tdt-0.6b-v3",
+    "diarization": "mlx-community/diar_streaming_sortformer_4spk-v2.1-fp16"
+  },
+  "parameters": {
+    "collar_s": 0.25,
+    "uem": "[0, audio duration]",
+    "wer_normalisation": "asr_der_eval.norm_tokens",
+    "ami_reference": "seg_lex_gap0.3 (as the replica)",
+    "demo_reference": "meeting_N.rttm / meeting_N.ref.txt",
+    "capture_block_samples": 1600,
+    "warmup_s": 20,
+    "mem_guard_gb": 8.0,
+    "clip_lengths_s": [
+      10,
+      20,
+      30,
+      60,
+      90,
+      120
+    ],
+    "clip_starts_s": {
+      "IS1009a": [
+        60,
+        330,
+        600
+      ],
+      "ES2004a": [
+        100,
+        450,
+        800
+      ],
+      "ES2014a": [
+        100,
+        450,
+        800
+      ],
+      "TS3003a": [
+        100,
+        600,
+        1100
+      ],
+      "TS3007a": [
+        100,
+        600,
+        1100
+      ]
+    }
+  },
+  "code_check": {
+    "n_runs": 6,
+    "same_code_in_all_runs": true,
+    "runs_not_matching_files_now": [],
+    "stream_min_seconds_in_runs": [
+      120.0
+    ]
+  },
+  "ami_selection": {
+    "audio_dir": "/Users/sayyid/Desktop/FYP/data/ami/audio",
+    "rule": "shortest complete meeting (or --ami-meeting)",
+    "shortest_complete_min": {
+      "IS1009a": 13.98,
+      "ES2004a": 17.49,
+      "ES2014a": 19.15,
+      "TS3003a": 25.09,
+      "TS3007a": 26.82
+    }
+  },
+  "runs": {
+    "ami_IS1009a": {
+      "kind": "ami",
+      "meeting": "IS1009a",
+      "audio_s": 838.8333125,
+      "diarize_info": {
+        "mode": "stream",
+        "duration_s": 838.8333125
+      },
+      "mlx_cache_limit_gb": null,
+      "reference": "seg_lex_gap0.3",
+      "n_ref_tokens": 2015,
+      "wer": {
+        "n_ref": 2015,
+        "n_hyp": 1724,
+        "S": 87,
+        "D": 338,
+        "I": 47,
+        "H": 1590,
+        "wer": 0.23424317617866006
+      },
+      "der": {
+        "segments": {
+          "skip_overlap=False": {
+            "total_s": 638.1379999999995,
+            "miss_s": 132.00300000000044,
+            "fa_s": 5.858999999999796,
+            "conf_s": 17.363999999999663,
+            "correct_s": 488.77099999999933,
+            "der": 0.24324832559728468,
+            "miss": 0.20685651066070435,
+            "fa": 0.00918139963456149,
+            "conf": 0.027210415302018807
+          },
+          "skip_overlap=True": {
+            "total_s": 477.0270000000003,
+            "miss_s": 82.66100000000066,
+            "fa_s": 5.542999999999935,
+            "conf_s": 10.843999999999923,
+            "correct_s": 383.52199999999976,
+            "der": 0.20763604575841713,
+            "miss": 0.17328369253732095,
+            "fa": 0.011619887343902822,
+            "conf": 0.022732465877193356
+          }
+        },
+        "words": {
+          "skip_overlap=False": {
+            "total_s": 638.137999999999,
+            "miss_s": 164.44799999999861,
+            "fa_s": 88.56799999999996,
+            "conf_s": 18.969000000000122,
+            "correct_s": 454.72100000000023,
+            "der": 0.42621658638100085,
+            "miss": 0.2576997451961784,
+            "fa": 0.13879129592658657,
+            "conf": 0.029725545258235918
+          },
+          "skip_overlap=True": {
+            "total_s": 477.0270000000003,
+            "miss_s": 54.31799999999963,
+            "fa_s": 88.56799999999996,
+            "conf_s": 17.699000000000026,
+            "correct_s": 405.0100000000007,
+            "der": 0.3366371295545105,
+            "miss": 0.11386776849109084,
+            "fa": 0.18566663941454026,
+            "conf": 0.03710272164887944
+          }
+        }
+      },
+      "turns_rebuilt_equal": true,
+      "n_hyp_speakers": 4,
+      "n_ref_speakers": 4,
+      "n_turns": 83,
+      "frames": {
+        "streamed": 10486,
+        "expected": 10486
+      },
+      "timing_s": {
+        "load_models_s": 5.562716457992792,
+        "cold_first_calls_s": {
+          "stt_s": 0.2148676670040004,
+          "diarize_stream_s": 0.21460712503176183,
+          "diarize_oneshot_s": 0.05094574997201562
+        },
+        "finalize_s": 39.29788483300945,
+        "stt_s": 17.118595124979038,
+        "diarize_s": 22.01626370899612,
+        "other_s": 0.16302599903428927
+      },
+      "rtf": {
+        "finalize": 0.04684826442560893,
+        "stt": 0.02040762433952459,
+        "diarize": 0.02624629158250808
+      },
+      "mlx_peak_gb": {
+        "stt": 4.59939926,
+        "diarize": 3.875484488,
+        "finalize": 3.875484488
+      },
+      "process": {
+        "wall_s": 51.8,
+        "max_rss_bytes": 3372679168.0,
+        "peak_footprint_bytes": 7473729232.0
+      },
+      "ru_maxrss_bytes": 3372679168,
+      "stt_chunk_duration": 120.0,
+      "diarize_threshold": 0.5
+    },
+    "ami_IS1009a_cache0.5": {
+      "kind": "ami",
+      "meeting": "IS1009a",
+      "audio_s": 838.8333125,
+      "diarize_info": {
+        "mode": "stream",
+        "duration_s": 838.8333125
+      },
+      "mlx_cache_limit_gb": 0.5,
+      "reference": "seg_lex_gap0.3",
+      "n_ref_tokens": 2015,
+      "wer": {
+        "n_ref": 2015,
+        "n_hyp": 1724,
+        "S": 87,
+        "D": 338,
+        "I": 47,
+        "H": 1590,
+        "wer": 0.23424317617866006
+      },
+      "der": {
+        "segments": {
+          "skip_overlap=False": {
+            "total_s": 638.1379999999995,
+            "miss_s": 132.00300000000044,
+            "fa_s": 5.858999999999796,
+            "conf_s": 17.363999999999663,
+            "correct_s": 488.77099999999933,
+            "der": 0.24324832559728468,
+            "miss": 0.20685651066070435,
+            "fa": 0.00918139963456149,
+            "conf": 0.027210415302018807
+          },
+          "skip_overlap=True": {
+            "total_s": 477.0270000000003,
+            "miss_s": 82.66100000000066,
+            "fa_s": 5.542999999999935,
+            "conf_s": 10.843999999999923,
+            "correct_s": 383.52199999999976,
+            "der": 0.20763604575841713,
+            "miss": 0.17328369253732095,
+            "fa": 0.011619887343902822,
+            "conf": 0.022732465877193356
+          }
+        },
+        "words": {
+          "skip_overlap=False": {
+            "total_s": 638.137999999999,
+            "miss_s": 164.44799999999861,
+            "fa_s": 88.56799999999996,
+            "conf_s": 18.969000000000122,
+            "correct_s": 454.72100000000023,
+            "der": 0.42621658638100085,
+            "miss": 0.2576997451961784,
+            "fa": 0.13879129592658657,
+            "conf": 0.029725545258235918
+          },
+          "skip_overlap=True": {
+            "total_s": 477.0270000000003,
+            "miss_s": 54.31799999999963,
+            "fa_s": 88.56799999999996,
+            "conf_s": 17.699000000000026,
+            "correct_s": 405.0100000000007,
+            "der": 0.3366371295545105,
+            "miss": 0.11386776849109084,
+            "fa": 0.18566663941454026,
+            "conf": 0.03710272164887944
+          }
+        }
+      },
+      "turns_rebuilt_equal": true,
+      "n_hyp_speakers": 4,
+      "n_ref_speakers": 4,
+      "n_turns": 83,
+      "frames": {
+        "streamed": 10486,
+        "expected": 10486
+      },
+      "timing_s": {
+        "load_models_s": 6.2115588749875315,
+        "cold_first_calls_s": {
+          "stt_s": 0.18780708400299773,
+          "diarize_stream_s": 0.19224170898087323,
+          "diarize_oneshot_s": 0.05012337502557784
+        },
+        "finalize_s": 37.975088834005874,
+        "stt_s": 16.067647250019945,
+        "diarize_s": 21.80584683298366,
+        "other_s": 0.101594751002267
+      },
+      "rtf": {
+        "finalize": 0.045271317040125145,
+        "stt": 0.019154755790674376,
+        "diarize": 0.025995446899927048
+      },
+      "mlx_peak_gb": {
+        "stt": 4.599401308,
+        "diarize": 3.875484488,
+        "finalize": 3.875484488
+      },
+      "process": {
+        "wall_s": 51.24,
+        "max_rss_bytes": 3485384704.0,
+        "peak_footprint_bytes": 5628202584.0
+      },
+      "ru_maxrss_bytes": 3485384704,
+      "stt_chunk_duration": 120.0,
+      "diarize_threshold": 0.5
+    },
+    "demo_1": {
+      "kind": "demo",
+      "meeting": "meeting_1",
+      "audio_s": 162.0346875,
+      "diarize_info": {
+        "mode": "stream",
+        "duration_s": 162.0346875
+      },
+      "mlx_cache_limit_gb": null,
+      "reference": "demo_rttm",
+      "n_ref_tokens": 422,
+      "wer": {
+        "n_ref": 422,
+        "n_hyp": 421,
+        "S": 20,
+        "D": 5,
+        "I": 4,
+        "H": 397,
+        "wer": 0.06872037914691943
+      },
+      "der": {
+        "segments": {
+          "skip_overlap=False": {
+            "total_s": 136.088,
+            "miss_s": 0.08000000000000007,
+            "fa_s": 0.6249999999999858,
+            "conf_s": 38.26299999999999,
+            "correct_s": 97.745,
+            "der": 0.2863441302686495,
+            "miss": 0.0005878549174063847,
+            "fa": 0.0045926165422372715,
+            "conf": 0.2811636588090059
+          },
+          "skip_overlap=True": {
+            "total_s": 136.088,
+            "miss_s": 0.08000000000000007,
+            "fa_s": 0.6249999999999858,
+            "conf_s": 38.26299999999999,
+            "correct_s": 97.745,
+            "der": 0.2863441302686495,
+            "miss": 0.0005878549174063847,
+            "fa": 0.0045926165422372715,
+            "conf": 0.2811636588090059
+          }
+        },
+        "words": {
+          "skip_overlap=False": {
+            "total_s": 136.088,
+            "miss_s": 0.3199999999999932,
+            "fa_s": 10.980999999999977,
+            "conf_s": 38.52099999999999,
+            "correct_s": 97.24700000000001,
+            "der": 0.3661013461877606,
+            "miss": 0.0023514196696254866,
+            "fa": 0.08069043560049363,
+            "conf": 0.28305949091764143
+          },
+          "skip_overlap=True": {
+            "total_s": 136.088,
+            "miss_s": 0.3199999999999932,
+            "fa_s": 10.980999999999977,
+            "conf_s": 38.52099999999999,
+            "correct_s": 97.24700000000001,
+            "der": 0.3661013461877606,
+            "miss": 0.0023514196696254866,
+            "fa": 0.08069043560049363,
+            "conf": 0.28305949091764143
+          }
+        }
+      },
+      "turns_rebuilt_equal": true,
+      "n_hyp_speakers": 2,
+      "n_ref_speakers": 3,
+      "n_turns": 17,
+      "frames": {
+        "streamed": 2026,
+        "expected": 2026
+      },
+      "timing_s": {
+        "load_models_s": 5.75874149997253,
+        "cold_first_calls_s": {
+          "stt_s": 1.8531160000129603,
+          "diarize_stream_s": 0.2704753330326639,
+          "diarize_oneshot_s": 0.06021741696167737
+        },
+        "finalize_s": 9.06547287502326,
+        "stt_s": 4.783452708972618,
+        "diarize_s": 4.258140999998432,
+        "other_s": 0.023879166052211076
+      },
+      "rtf": {
+        "finalize": 0.05594772955650784,
+        "stt": 0.029521164775120255,
+        "diarize": 0.026279194076875866
+      },
+      "mlx_peak_gb": {
+        "stt": 4.534420316,
+        "diarize": 3.276911432,
+        "finalize": 3.276911432
+      },
+      "process": {
+        "wall_s": 18.93,
+        "max_rss_bytes": 2566258688.0,
+        "peak_footprint_bytes": 8181288536.0
+      },
+      "ru_maxrss_bytes": 2566258688,
+      "stt_chunk_duration": 120.0,
+      "diarize_threshold": 0.5
+    },
+    "demo_2": {
+      "kind": "demo",
+      "meeting": "meeting_2",
+      "audio_s": 127.566375,
+      "diarize_info": {
+        "mode": "stream",
+        "duration_s": 127.566375
+      },
+      "mlx_cache_limit_gb": null,
+      "reference": "demo_rttm",
+      "n_ref_tokens": 333,
+      "wer": {
+        "n_ref": 333,
+        "n_hyp": 335,
+        "S": 11,
+        "D": 3,
+        "I": 5,
+        "H": 319,
+        "wer": 0.057057057057057055
+      },
+      "der": {
+        "segments": {
+          "skip_overlap=False": {
+            "total_s": 105.316,
+            "miss_s": 0.3200000000000003,
+            "fa_s": 0.9739999999999931,
+            "conf_s": 21.693999999999996,
+            "correct_s": 83.30199999999999,
+            "der": 0.21827642523453217,
+            "miss": 0.0030384746857077772,
+            "fa": 0.009248357324622973,
+            "conf": 0.2059895932242014
+          },
+          "skip_overlap=True": {
+            "total_s": 105.316,
+            "miss_s": 0.3200000000000003,
+            "fa_s": 0.9739999999999931,
+            "conf_s": 21.693999999999996,
+            "correct_s": 83.30199999999999,
+            "der": 0.21827642523453217,
+            "miss": 0.0030384746857077772,
+            "fa": 0.009248357324622973,
+            "conf": 0.2059895932242014
+          }
+        },
+        "words": {
+          "skip_overlap=False": {
+            "total_s": 105.316,
+            "miss_s": 0.3550000000000074,
+            "fa_s": 9.748999999999945,
+            "conf_s": 21.214,
+            "correct_s": 83.747,
+            "der": 0.2973717193968623,
+            "miss": 0.003370807854457133,
+            "fa": 0.0925690303467654,
+            "conf": 0.20143188119563976
+          },
+          "skip_overlap=True": {
+            "total_s": 105.316,
+            "miss_s": 0.3550000000000074,
+            "fa_s": 9.748999999999945,
+            "conf_s": 21.214,
+            "correct_s": 83.747,
+            "der": 0.2973717193968623,
+            "miss": 0.003370807854457133,
+            "fa": 0.0925690303467654,
+            "conf": 0.20143188119563976
+          }
+        }
+      },
+      "turns_rebuilt_equal": true,
+      "n_hyp_speakers": 3,
+      "n_ref_speakers": 3,
+      "n_turns": 17,
+      "frames": {
+        "streamed": 1595,
+        "expected": 1595
+      },
+      "timing_s": {
+        "load_models_s": 5.355107750045136,
+        "cold_first_calls_s": {
+          "stt_s": 0.2219841669430025,
+          "diarize_stream_s": 0.20298529200954363,
+          "diarize_oneshot_s": 0.047430875012651086
+        },
+        "finalize_s": 7.272526458022185,
+        "stt_s": 3.9972738339565694,
+        "diarize_s": 3.2677031669882126,
+        "other_s": 0.0075494570774026215
+      },
+      "rtf": {
+        "finalize": 0.057009744597839244,
+        "stt": 0.03133485476840248,
+        "diarize": 0.025615709210112875
+      },
+      "mlx_peak_gb": {
+        "stt": 4.531143516,
+        "diarize": 3.266052548,
+        "finalize": 3.266052548
+      },
+      "process": {
+        "wall_s": 14.63,
+        "max_rss_bytes": 3276455936.0,
+        "peak_footprint_bytes": 7175835296.0
+      },
+      "ru_maxrss_bytes": 3276455936,
+      "stt_chunk_duration": 120.0,
+      "diarize_threshold": 0.5
+    },
+    "demo_3": {
+      "kind": "demo",
+      "meeting": "meeting_3",
+      "audio_s": 103.5699375,
+      "diarize_info": {
+        "mode": "oneshot",
+        "duration_s": 103.5699375
+      },
+      "mlx_cache_limit_gb": null,
+      "reference": "demo_rttm",
+      "n_ref_tokens": 270,
+      "wer": {
+        "n_ref": 270,
+        "n_hyp": 271,
+        "S": 15,
+        "D": 4,
+        "I": 5,
+        "H": 251,
+        "wer": 0.08888888888888889
+      },
+      "der": {
+        "segments": {
+          "skip_overlap=False": {
+            "total_s": 86.52100000000002,
+            "miss_s": 3.640000000000007,
+            "fa_s": 0.6310000000000198,
+            "conf_s": 22.541000000000004,
+            "correct_s": 60.34000000000001,
+            "der": 0.30989008448815925,
+            "miss": 0.042070711156829046,
+            "fa": 0.007293027126362614,
+            "conf": 0.26052634620496756
+          },
+          "skip_overlap=True": {
+            "total_s": 86.52100000000002,
+            "miss_s": 3.640000000000007,
+            "fa_s": 0.6310000000000198,
+            "conf_s": 22.541000000000004,
+            "correct_s": 60.34000000000001,
+            "der": 0.30989008448815925,
+            "miss": 0.042070711156829046,
+            "fa": 0.007293027126362614,
+            "conf": 0.26052634620496756
+          }
+        },
+        "words": {
+          "skip_overlap=False": {
+            "total_s": 86.52100000000002,
+            "miss_s": 0.3460000000000071,
+            "fa_s": 7.463999999999938,
+            "conf_s": 22.54999999999999,
+            "correct_s": 63.62500000000002,
+            "der": 0.35089746997838595,
+            "miss": 0.003999029137434923,
+            "fa": 0.08626807364685957,
+            "conf": 0.26063036719409144
+          },
+          "skip_overlap=True": {
+            "total_s": 86.52100000000002,
+            "miss_s": 0.3460000000000071,
+            "fa_s": 7.463999999999938,
+            "conf_s": 22.54999999999999,
+            "correct_s": 63.62500000000002,
+            "der": 0.35089746997838595,
+            "miss": 0.003999029137434923,
+            "fa": 0.08626807364685957,
+            "conf": 0.26063036719409144
+          }
+        }
+      },
+      "turns_rebuilt_equal": true,
+      "n_hyp_speakers": 2,
+      "n_ref_speakers": 3,
+      "n_turns": 9,
+      "frames": {
+        "streamed": null,
+        "expected": 1295
+      },
+      "timing_s": {
+        "load_models_s": 5.887622250011191,
+        "cold_first_calls_s": {
+          "stt_s": 0.2251142499735579,
+          "diarize_stream_s": 0.18726999999489635,
+          "diarize_oneshot_s": 0.05101200001081452
+        },
+        "finalize_s": 3.1262909159995615,
+        "stt_s": 2.530469749995973,
+        "diarize_s": 0.5891263750381768,
+        "other_s": 0.006694790965411812
+      },
+      "rtf": {
+        "finalize": 0.030185312374061843,
+        "stt": 0.024432473467467075,
+        "diarize": 0.005688198614952112
+      },
+      "mlx_peak_gb": {
+        "stt": 4.327736156,
+        "diarize": 3.591689822,
+        "finalize": 3.591689822
+      },
+      "process": {
+        "wall_s": 17.63,
+        "max_rss_bytes": 3275685888.0,
+        "peak_footprint_bytes": 8060964464.0
+      },
+      "ru_maxrss_bytes": 3275685888,
+      "stt_chunk_duration": 120.0,
+      "diarize_threshold": 0.5
+    }
+  },
+  "demo_pooled": {
+    "runs": [
+      "meeting_1",
+      "meeting_2",
+      "meeting_3"
+    ],
+    "n_ref_words": 1025,
+    "S": 46,
+    "D": 12,
+    "I": 14,
+    "H": 967,
+    "wer": 0.0702439024390244,
+    "total_s": 327.925,
+    "miss_s": 4.040000000000007,
+    "fa_s": 2.2299999999999986,
+    "conf_s": 82.49799999999999,
+    "der": 0.2706960433025844,
+    "miss": 0.012319890218800051,
+    "fa": 0.006800335442555458,
+    "conf": 0.2515758176412289
+  },
+  "ami_vs_replica": {
+    "ami_IS1009a": {
+      "meeting": "IS1009a",
+      "replica_recomputed": {
+        "wer": {
+          "n_ref": 2015,
+          "n_hyp": 1724,
+          "S": 87,
+          "D": 338,
+          "I": 47,
+          "H": 1590,
+          "wer": 0.23424317617866006
+        },
+        "der": {
+          "segments": {
+            "skip_overlap=False": {
+              "total_s": 638.1379999999995,
+              "miss_s": 132.00300000000044,
+              "fa_s": 5.858999999999796,
+              "conf_s": 17.363999999999663,
+              "correct_s": 488.77099999999933,
+              "der": 0.24324832559728468,
+              "miss": 0.20685651066070435,
+              "fa": 0.00918139963456149,
+              "conf": 0.027210415302018807
+            },
+            "skip_overlap=True": {
+              "total_s": 477.0270000000003,
+              "miss_s": 82.66100000000066,
+              "fa_s": 5.542999999999935,
+              "conf_s": 10.843999999999923,
+              "correct_s": 383.52199999999976,
+              "der": 0.20763604575841713,
+              "miss": 0.17328369253732095,
+              "fa": 0.011619887343902822,
+              "conf": 0.022732465877193356
+            }
+          },
+          "words": {
+            "skip_overlap=False": {
+              "total_s": 638.137999999999,
+              "miss_s": 164.44799999999861,
+              "fa_s": 88.56799999999996,
+              "conf_s": 18.969000000000122,
+              "correct_s": 454.72100000000023,
+              "der": 0.42621658638100085,
+              "miss": 0.2576997451961784,
+              "fa": 0.13879129592658657,
+              "conf": 0.029725545258235918
+            },
+            "skip_overlap=True": {
+              "total_s": 477.0270000000003,
+              "miss_s": 54.31799999999963,
+              "fa_s": 88.56799999999996,
+              "conf_s": 17.699000000000026,
+              "correct_s": 405.0100000000007,
+              "der": 0.3366371295545105,
+              "miss": 0.11386776849109084,
+              "fa": 0.18566663941454026,
+              "conf": 0.03710272164887944
+            }
+          }
+        }
+      },
+      "replica_stored": {
+        "wer": {
+          "n_ref": 2015,
+          "n_hyp": 1724,
+          "S": 87,
+          "D": 338,
+          "I": 47,
+          "H": 1590,
+          "wer": 0.23424317617866006,
+          "match_offset_s": {
+            "n": 1590,
+            "median": 0.03999999999996362,
+            "p05": -0.17549999999997962,
+            "p95": 0.22000000000002728,
+            "frac_within_1s": 0.9974842767295597
+          },
+          "ref_fragment_tokens": 31,
+          "ref_filler_tokens": 123,
+          "deleted_filler_tokens": 58,
+          "hyp_digit_token_rate": 0.0017401392111368909,
+          "ref_digit_token_rate": 0.0,
+          "ref_segment_order_leftover_words": 0,
+          "top_substitutions": [
+            [
+              "white",
+              "whiteboard",
+              3
+            ],
+            [
+              "a",
+              "uh",
+              2
+            ],
+            [
+              "wanna",
+              "to",
+              2
+            ],
+            [
+              "i",
+              "i'm",
+              2
+            ],
+            [
+              "mm",
+              "okay",
+              2
+            ],
+            [
+              "a",
+              "the",
+              2
+            ],
+            [
+              "beep",
+              "b",
+              2
+            ],
+            [
+              "and",
+              "time",
+              1
+            ],
+            [
+              "plan",
+              "uh",
+              1
+            ],
+            [
+              "everybody's",
+              "risname",
+              1
+            ],
+            [
+              "francina",
+              "francena",
+              1
+            ],
+            [
+              "jeanne",
+              "john",
+              1
+            ],
+            [
+              "oui",
+              "v",
+              1
+            ],
+            [
+              "is",
+              "as",
+              1
+            ],
+            [
+              "ins",
+              "in",
+              1
+            ]
+          ],
+          "top_deletions": [
+            [
+              "yeah",
+              33
+            ],
+            [
+              "mm",
+              23
+            ],
+            [
+              "hmm",
+              22
+            ],
+            [
+              "okay",
+              12
+            ],
+            [
+              "yes",
+              12
+            ],
+            [
+              "so",
+              10
+            ],
+            [
+              "i",
+              9
+            ],
+            [
+              "uh",
+              8
+            ],
+            [
+              "or",
+              8
+            ],
+            [
+              "it",
+              8
+            ],
+            [
+              "we",
+              8
+            ],
+            [
+              "a",
+              7
+            ],
+            [
+              "you",
+              6
+            ],
+            [
+              "um",
+              5
+            ],
+            [
+              "with",
+              4
+            ]
+          ],
+          "top_insertions": [
+            [
+              "uh",
+              7
+            ],
+            [
+              "to",
+              4
+            ],
+            [
+              "the",
+              2
+            ],
+            [
+              "right",
+              2
+            ],
+            [
+              "so",
+              2
+            ],
+            [
+              "want",
+              2
+            ],
+            [
+              "a",
+              2
+            ],
+            [
+              "we",
+              2
+            ],
+            [
+              "have",
+              2
+            ],
+            [
+              "microphone",
+              1
+            ],
+            [
+              "is",
+              1
+            ],
+            [
+              "supposed",
+              1
+            ],
+            [
+              "be",
+              1
+            ],
+            [
+              "your",
+              1
+            ],
+            [
+              "and",
+              1
+            ]
+          ]
+        },
+        "der": {
+          "total_s": 638.1379999999995,
+          "miss_s": 132.00300000000044,
+          "fa_s": 5.858999999999796,
+          "conf_s": 17.363999999999663,
+          "correct_s": 488.77099999999933,
+          "der": 0.24324832559728468,
+          "miss": 0.20685651066070435,
+          "fa": 0.00918139963456149,
+          "conf": 0.027210415302018807
+        },
+        "words_der": {
+          "total_s": 638.137999999999,
+          "miss_s": 164.44799999999861,
+          "fa_s": 88.56799999999996,
+          "conf_s": 18.969000000000122,
+          "correct_s": 454.72100000000023,
+          "der": 0.42621658638100085,
+          "miss": 0.2576997451961784,
+          "fa": 0.13879129592658657,
+          "conf": 0.029725545258235918
+        }
+      },
+      "app_probs_shape": [
+        10486,
+        4
+      ],
+      "replica_probs_shape": [
+        10486,
+        4
+      ],
+      "probs_identical": true,
+      "probs_max_abs_diff": 0.0,
+      "frames_with_different_activity": 0,
+      "segments_identical": true,
+      "stt_tokens_identical": true,
+      "transcript_words_identical": true,
+      "turns_identical": true,
+      "replica_speed": {
+        "timing_s": {
+          "load_stt": 11.144014120101929,
+          "load_diar": 0.5867960453033447,
+          "warmup": 1.545313835144043,
+          "stt": 23.693094968795776,
+          "diar": 38.42921710014343,
+          "stt_plus_diar": 62.12231206893921
+        },
+        "rtf": {
+          "stt": 0.02824529571695542,
+          "diar": 0.0458126978596161,
+          "stt_plus_diar": 0.07405799357657152
+        },
+        "mlx_peak_gb": {
+          "stt": 4.599401306,
+          "diar": 3.875484486
+        },
+        "mlx_cache_limit_gb": 0.5,
+        "process": {
+          "wall_s": 79.66,
+          "max_rss_bytes": 1675624448.0,
+          "peak_footprint_bytes": 5559963056.0
+        }
+      },
+      "recomputed_equals_stored": {
+        "wer": true,
+        "der": true,
+        "words_der": true
+      }
+    },
+    "ami_IS1009a_cache0.5": {
+      "meeting": "IS1009a",
+      "replica_recomputed": {
+        "wer": {
+          "n_ref": 2015,
+          "n_hyp": 1724,
+          "S": 87,
+          "D": 338,
+          "I": 47,
+          "H": 1590,
+          "wer": 0.23424317617866006
+        },
+        "der": {
+          "segments": {
+            "skip_overlap=False": {
+              "total_s": 638.1379999999995,
+              "miss_s": 132.00300000000044,
+              "fa_s": 5.858999999999796,
+              "conf_s": 17.363999999999663,
+              "correct_s": 488.77099999999933,
+              "der": 0.24324832559728468,
+              "miss": 0.20685651066070435,
+              "fa": 0.00918139963456149,
+              "conf": 0.027210415302018807
+            },
+            "skip_overlap=True": {
+              "total_s": 477.0270000000003,
+              "miss_s": 82.66100000000066,
+              "fa_s": 5.542999999999935,
+              "conf_s": 10.843999999999923,
+              "correct_s": 383.52199999999976,
+              "der": 0.20763604575841713,
+              "miss": 0.17328369253732095,
+              "fa": 0.011619887343902822,
+              "conf": 0.022732465877193356
+            }
+          },
+          "words": {
+            "skip_overlap=False": {
+              "total_s": 638.137999999999,
+              "miss_s": 164.44799999999861,
+              "fa_s": 88.56799999999996,
+              "conf_s": 18.969000000000122,
+              "correct_s": 454.72100000000023,
+              "der": 0.42621658638100085,
+              "miss": 0.2576997451961784,
+              "fa": 0.13879129592658657,
+              "conf": 0.029725545258235918
+            },
+            "skip_overlap=True": {
+              "total_s": 477.0270000000003,
+              "miss_s": 54.31799999999963,
+              "fa_s": 88.56799999999996,
+              "conf_s": 17.699000000000026,
+              "correct_s": 405.0100000000007,
+              "der": 0.3366371295545105,
+              "miss": 0.11386776849109084,
+              "fa": 0.18566663941454026,
+              "conf": 0.03710272164887944
+            }
+          }
+        }
+      },
+      "replica_stored": {
+        "wer": {
+          "n_ref": 2015,
+          "n_hyp": 1724,
+          "S": 87,
+          "D": 338,
+          "I": 47,
+          "H": 1590,
+          "wer": 0.23424317617866006,
+          "match_offset_s": {
+            "n": 1590,
+            "median": 0.03999999999996362,
+            "p05": -0.17549999999997962,
+            "p95": 0.22000000000002728,
+            "frac_within_1s": 0.9974842767295597
+          },
+          "ref_fragment_tokens": 31,
+          "ref_filler_tokens": 123,
+          "deleted_filler_tokens": 58,
+          "hyp_digit_token_rate": 0.0017401392111368909,
+          "ref_digit_token_rate": 0.0,
+          "ref_segment_order_leftover_words": 0,
+          "top_substitutions": [
+            [
+              "white",
+              "whiteboard",
+              3
+            ],
+            [
+              "a",
+              "uh",
+              2
+            ],
+            [
+              "wanna",
+              "to",
+              2
+            ],
+            [
+              "i",
+              "i'm",
+              2
+            ],
+            [
+              "mm",
+              "okay",
+              2
+            ],
+            [
+              "a",
+              "the",
+              2
+            ],
+            [
+              "beep",
+              "b",
+              2
+            ],
+            [
+              "and",
+              "time",
+              1
+            ],
+            [
+              "plan",
+              "uh",
+              1
+            ],
+            [
+              "everybody's",
+              "risname",
+              1
+            ],
+            [
+              "francina",
+              "francena",
+              1
+            ],
+            [
+              "jeanne",
+              "john",
+              1
+            ],
+            [
+              "oui",
+              "v",
+              1
+            ],
+            [
+              "is",
+              "as",
+              1
+            ],
+            [
+              "ins",
+              "in",
+              1
+            ]
+          ],
+          "top_deletions": [
+            [
+              "yeah",
+              33
+            ],
+            [
+              "mm",
+              23
+            ],
+            [
+              "hmm",
+              22
+            ],
+            [
+              "okay",
+              12
+            ],
+            [
+              "yes",
+              12
+            ],
+            [
+              "so",
+              10
+            ],
+            [
+              "i",
+              9
+            ],
+            [
+              "uh",
+              8
+            ],
+            [
+              "or",
+              8
+            ],
+            [
+              "it",
+              8
+            ],
+            [
+              "we",
+              8
+            ],
+            [
+              "a",
+              7
+            ],
+            [
+              "you",
+              6
+            ],
+            [
+              "um",
+              5
+            ],
+            [
+              "with",
+              4
+            ]
+          ],
+          "top_insertions": [
+            [
+              "uh",
+              7
+            ],
+            [
+              "to",
+              4
+            ],
+            [
+              "the",
+              2
+            ],
+            [
+              "right",
+              2
+            ],
+            [
+              "so",
+              2
+            ],
+            [
+              "want",
+              2
+            ],
+            [
+              "a",
+              2
+            ],
+            [
+              "we",
+              2
+            ],
+            [
+              "have",
+              2
+            ],
+            [
+              "microphone",
+              1
+            ],
+            [
+              "is",
+              1
+            ],
+            [
+              "supposed",
+              1
+            ],
+            [
+              "be",
+              1
+            ],
+            [
+              "your",
+              1
+            ],
+            [
+              "and",
+              1
+            ]
+          ]
+        },
+        "der": {
+          "total_s": 638.1379999999995,
+          "miss_s": 132.00300000000044,
+          "fa_s": 5.858999999999796,
+          "conf_s": 17.363999999999663,
+          "correct_s": 488.77099999999933,
+          "der": 0.24324832559728468,
+          "miss": 0.20685651066070435,
+          "fa": 0.00918139963456149,
+          "conf": 0.027210415302018807
+        },
+        "words_der": {
+          "total_s": 638.137999999999,
+          "miss_s": 164.44799999999861,
+          "fa_s": 88.56799999999996,
+          "conf_s": 18.969000000000122,
+          "correct_s": 454.72100000000023,
+          "der": 0.42621658638100085,
+          "miss": 0.2576997451961784,
+          "fa": 0.13879129592658657,
+          "conf": 0.029725545258235918
+        }
+      },
+      "app_probs_shape": [
+        10486,
+        4
+      ],
+      "replica_probs_shape": [
+        10486,
+        4
+      ],
+      "probs_identical": true,
+      "probs_max_abs_diff": 0.0,
+      "frames_with_different_activity": 0,
+      "segments_identical": true,
+      "stt_tokens_identical": true,
+      "transcript_words_identical": true,
+      "turns_identical": true,
+      "replica_speed": {
+        "timing_s": {
+          "load_stt": 11.144014120101929,
+          "load_diar": 0.5867960453033447,
+          "warmup": 1.545313835144043,
+          "stt": 23.693094968795776,
+          "diar": 38.42921710014343,
+          "stt_plus_diar": 62.12231206893921
+        },
+        "rtf": {
+          "stt": 0.02824529571695542,
+          "diar": 0.0458126978596161,
+          "stt_plus_diar": 0.07405799357657152
+        },
+        "mlx_peak_gb": {
+          "stt": 4.599401306,
+          "diar": 3.875484486
+        },
+        "mlx_cache_limit_gb": 0.5,
+        "process": {
+          "wall_s": 79.66,
+          "max_rss_bytes": 1675624448.0,
+          "peak_footprint_bytes": 5559963056.0
+        }
+      },
+      "recomputed_equals_stored": {
+        "wer": true,
+        "der": true,
+        "words_der": true
+      }
+    }
+  },
+  "mode_comparison": {
+    "timing_s": {
+      "load_diar_s": 4.855972541961819,
+      "cold_first_calls_s": {
+        "diarize_stream_s": 0.9416918749921024,
+        "diarize_oneshot_s": 0.15855295798974112
+      }
+    },
+    "app": {
+      "STREAM_MIN_SECONDS": 120.0,
+      "STREAM_CHUNK_SECONDS": 5.0,
+      "DIAR_THRESHOLD": 0.5,
+      "capture_block_samples": 1600,
+      "git_head": "57840cff3b82ab84027cf212eec89426ea744400",
+      "git_status_short": [],
+      "python_status_short": [],
+      "sha256": {
+        "diar_stream.py": "7522e6bfa04eaa721cacd8b1c486097063f81da040500ab1dd67fd4d4709e1a8",
+        "transcribe_v3.py": "dcfdb0c0f1e6964b3b034b40761083aa32e015e71b87f455c5a183dfa0a368e7",
+        "transcribe_server.py": "acc8258f1ea3792a952ee6825ed105c795f471e428989311daaad2e049bf9b65"
+      }
+    },
+    "runs": [
+      {
+        "kind": "demo",
+        "label": "meeting_1",
+        "mode": "stream",
+        "audio_s": 162.0346875,
+        "seconds": 8.540428166976199,
+        "mlx_peak_gb": 0.727268472,
+        "info": {
+          "mode": "stream",
+          "duration_s": 162.0346875
+        },
+        "der": {
+          "total_s": 136.088,
+          "miss_s": 0.08000000000000007,
+          "fa_s": 0.6249999999999858,
+          "conf_s": 38.26299999999999,
+          "correct_s": 97.745,
+          "der": 0.2863441302686495,
+          "miss": 0.0005878549174063847,
+          "fa": 0.0045926165422372715,
+          "conf": 0.2811636588090059
+        },
+        "n_segments": 30,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_1",
+        "mode": "oneshot",
+        "audio_s": 162.0346875,
+        "seconds": 1.7083348330343142,
+        "mlx_peak_gb": 1.492317816,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 162.0346875
+        },
+        "der": {
+          "total_s": 136.08799999999997,
+          "miss_s": 6.879999999999965,
+          "fa_s": 0.0,
+          "conf_s": 36.82299999999998,
+          "correct_s": 92.38500000000005,
+          "der": 0.32113779319263974,
+          "miss": 0.05055552289694879,
+          "fa": 0.0,
+          "conf": 0.27058227029569093
+        },
+        "n_segments": 67,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_2",
+        "mode": "stream",
+        "audio_s": 127.566375,
+        "seconds": 6.571506125037558,
+        "mlx_peak_gb": 0.716409684,
+        "info": {
+          "mode": "stream",
+          "duration_s": 127.566375
+        },
+        "der": {
+          "total_s": 105.316,
+          "miss_s": 0.3200000000000003,
+          "fa_s": 0.9739999999999931,
+          "conf_s": 21.693999999999996,
+          "correct_s": 83.30199999999999,
+          "der": 0.21827642523453217,
+          "miss": 0.0030384746857077772,
+          "fa": 0.009248357324622973,
+          "conf": 0.2059895932242014
+        },
+        "n_segments": 28,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_2",
+        "mode": "oneshot",
+        "audio_s": 127.566375,
+        "seconds": 1.0807269579963759,
+        "mlx_peak_gb": 1.133193448,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 127.566375
+        },
+        "der": {
+          "total_s": 105.316,
+          "miss_s": 5.6919999999999735,
+          "fa_s": 0.020000000000010232,
+          "conf_s": 31.718999999999983,
+          "correct_s": 67.90500000000004,
+          "der": 0.3554160811272738,
+          "miss": 0.05404686847202679,
+          "fa": 0.00018990466785683306,
+          "conf": 0.3011793079873902
+        },
+        "n_segments": 50,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_3",
+        "mode": "stream",
+        "audio_s": 103.5699375,
+        "seconds": 4.966693833004683,
+        "mlx_peak_gb": 0.713640756,
+        "info": {
+          "mode": "stream",
+          "duration_s": 103.5699375
+        },
+        "der": {
+          "total_s": 86.52100000000002,
+          "miss_s": 0.08000000000000007,
+          "fa_s": 0.21900000000001718,
+          "conf_s": 30.700999999999993,
+          "correct_s": 55.74000000000002,
+          "der": 0.35829451809387325,
+          "miss": 0.0009246310144358024,
+          "fa": 0.0025311774020182055,
+          "conf": 0.3548387096774192
+        },
+        "n_segments": 33,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_3",
+        "mode": "oneshot",
+        "audio_s": 103.5699375,
+        "seconds": 0.9060360419680364,
+        "mlx_peak_gb": 1.04205043,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 103.5699375
+        },
+        "der": {
+          "total_s": 86.52100000000002,
+          "miss_s": 3.640000000000007,
+          "fa_s": 0.6310000000000198,
+          "conf_s": 22.541000000000004,
+          "correct_s": 60.34000000000001,
+          "der": 0.30989008448815925,
+          "miss": 0.042070711156829046,
+          "fa": 0.007293027126362614,
+          "conf": 0.26052634620496756
+        },
+        "n_segments": 32,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.42836374999023974,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 10,
+        "der": {
+          "total_s": 8.941000000000003,
+          "miss_s": 0.7450000000000019,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.196000000000002,
+          "der": 0.08332401297394046,
+          "miss": 0.08332401297394046,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.19312891701702029,
+        "mlx_peak_gb": 0.320869562,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 10,
+        "der": {
+          "total_s": 8.941000000000003,
+          "miss_s": 1.103000000000002,
+          "fa_s": 0.0,
+          "conf_s": 2.2809999999999984,
+          "correct_s": 5.557000000000002,
+          "der": 0.3784811542333072,
+          "miss": 0.12336427692651847,
+          "fa": 0.0,
+          "conf": 0.25511687730678867
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.7604680830263533,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 20,
+        "der": {
+          "total_s": 18.671000000000006,
+          "miss_s": 1.5350000000000064,
+          "fa_s": 0.0,
+          "conf_s": 0.23000000000000398,
+          "correct_s": 16.906,
+          "der": 0.09453162658668575,
+          "miss": 0.08221305768303817,
+          "fa": 0.0,
+          "conf": 0.012318568903647577
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.16153270797803998,
+        "mlx_peak_gb": 0.424367974,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 20,
+        "der": {
+          "total_s": 18.671000000000006,
+          "miss_s": 2.040000000000005,
+          "fa_s": 0.15999999999999992,
+          "conf_s": 4.898000000000012,
+          "correct_s": 11.73299999999999,
+          "der": 0.38016174816560516,
+          "miss": 0.10926035027582905,
+          "fa": 0.008569439237319901,
+          "conf": 0.26233195865245623
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 1.4201086250250228,
+        "mlx_peak_gb": 0.63189698,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 30,
+        "der": {
+          "total_s": 25.92699999999998,
+          "miss_s": 2.503999999999997,
+          "fa_s": 0.0,
+          "conf_s": 0.85700000000001,
+          "correct_s": 22.565999999999974,
+          "der": 0.12963320091024838,
+          "miss": 0.09657885601882203,
+          "fa": 0.0,
+          "conf": 0.03305434489142634
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.3375520409899764,
+        "mlx_peak_gb": 0.543240414,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 30,
+        "der": {
+          "total_s": 25.92699999999998,
+          "miss_s": 3.4790000000000085,
+          "fa_s": 0.019000000000001682,
+          "conf_s": 5.60199999999999,
+          "correct_s": 16.84599999999998,
+          "der": 0.3509854591738345,
+          "miss": 0.13418444093030477,
+          "fa": 0.0007328267828904886,
+          "conf": 0.21606819146063927
+        },
+        "n_segments": 12,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 2.915218625043053,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 60,
+        "der": {
+          "total_s": 53.10699999999997,
+          "miss_s": 5.539999999999995,
+          "fa_s": 0.0,
+          "conf_s": 11.436000000000018,
+          "correct_s": 36.13099999999996,
+          "der": 0.31965654245203123,
+          "miss": 0.10431769823187147,
+          "fa": 0.0,
+          "conf": 0.21533884422015975
+        },
+        "n_segments": 28,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.4079859579796903,
+        "mlx_peak_gb": 0.954740392,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 60,
+        "der": {
+          "total_s": 53.10699999999997,
+          "miss_s": 6.64300000000001,
+          "fa_s": 0.2590000000000017,
+          "conf_s": 25.678999999999977,
+          "correct_s": 20.784999999999982,
+          "der": 0.6134972790780877,
+          "miss": 0.12508708833110538,
+          "fa": 0.004876946541887168,
+          "conf": 0.4835332442050952
+        },
+        "n_segments": 23,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 4.398131708032452,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 90,
+        "der": {
+          "total_s": 77.93899999999996,
+          "miss_s": 9.17099999999996,
+          "fa_s": 0.0,
+          "conf_s": 11.436000000000018,
+          "correct_s": 57.33199999999999,
+          "der": 0.26439908133283707,
+          "miss": 0.1176689462271772,
+          "fa": 0.0,
+          "conf": 0.14673013510565985
+        },
+        "n_segments": 41,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.8487356249825098,
+        "mlx_peak_gb": 1.060810352,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 90,
+        "der": {
+          "total_s": 77.93899999999996,
+          "miss_s": 10.834,
+          "fa_s": 0.15999999999999992,
+          "conf_s": 25.620999999999974,
+          "correct_s": 41.48399999999999,
+          "der": 0.46979047716804156,
+          "miss": 0.13900614583199689,
+          "fa": 0.0020528875145947472,
+          "conf": 0.3287314438214499
+        },
+        "n_segments": 41,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 4.936290083045606,
+        "mlx_peak_gb": 0.715541236,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 120,
+        "der": {
+          "total_s": 91.91199999999992,
+          "miss_s": 12.372999999999944,
+          "fa_s": 0.0,
+          "conf_s": 11.436000000000018,
+          "correct_s": 68.10299999999997,
+          "der": 0.2590412568543823,
+          "miss": 0.13461789537818733,
+          "fa": 0.0,
+          "conf": 0.12442336147619493
+        },
+        "n_segments": 49,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@60+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.9804613339947537,
+        "mlx_peak_gb": 1.22370203,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "IS1009a",
+        "start": 60,
+        "length": 120,
+        "der": {
+          "total_s": 91.91199999999992,
+          "miss_s": 13.635999999999978,
+          "fa_s": 1.0400000000000078,
+          "conf_s": 25.54099999999998,
+          "correct_s": 52.734999999999964,
+          "der": 0.43755983984680996,
+          "miss": 0.14835930020019136,
+          "fa": 0.01131517103316225,
+          "conf": 0.27788536861345636
+        },
+        "n_segments": 56,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.2171779170166701,
+        "mlx_peak_gb": 0.428084222,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 10,
+        "der": {
+          "total_s": 9.567999999999984,
+          "miss_s": 5.792999999999962,
+          "fa_s": 0.0,
+          "conf_s": 0.8990000000000147,
+          "correct_s": 2.8760000000000066,
+          "der": 0.6994147157190623,
+          "miss": 0.6054556856187262,
+          "fa": 0.0,
+          "conf": 0.09395903010033614
+        },
+        "n_segments": 10,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.057162542012520134,
+        "mlx_peak_gb": 0.320853178,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 10,
+        "der": {
+          "total_s": 9.567999999999984,
+          "miss_s": 4.94199999999995,
+          "fa_s": 0.0,
+          "conf_s": 1.7790000000000146,
+          "correct_s": 2.8470000000000186,
+          "der": 0.7024456521739105,
+          "miss": 0.5165133779264172,
+          "fa": 0.0,
+          "conf": 0.18593227424749348
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.3720280000125058,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 20,
+        "der": {
+          "total_s": 12.13900000000001,
+          "miss_s": 7.197000000000008,
+          "fa_s": 0.0,
+          "conf_s": 1.6790000000000123,
+          "correct_s": 3.2629999999999892,
+          "der": 0.7311969684488024,
+          "miss": 0.5928824450119451,
+          "fa": 0.0,
+          "conf": 0.13831452343685732
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.08892237499821931,
+        "mlx_peak_gb": 0.426448742,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 20,
+        "der": {
+          "total_s": 12.13900000000001,
+          "miss_s": 6.27199999999999,
+          "fa_s": 0.0,
+          "conf_s": 1.6760000000000406,
+          "correct_s": 4.19099999999998,
+          "der": 0.6547491556141383,
+          "miss": 0.5166817695032527,
+          "fa": 0.0,
+          "conf": 0.1380673861108855
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.627863708010409,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 30,
+        "der": {
+          "total_s": 18.161,
+          "miss_s": 12.32999999999999,
+          "fa_s": 0.0,
+          "conf_s": 1.8419999999999912,
+          "correct_s": 3.9890000000000203,
+          "der": 0.7803535047629525,
+          "miss": 0.678927371840757,
+          "fa": 0.0,
+          "conf": 0.10142613292219542
+        },
+        "n_segments": 18,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.12848587502958253,
+        "mlx_peak_gb": 0.538407086,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 30,
+        "der": {
+          "total_s": 18.161,
+          "miss_s": 10.265999999999972,
+          "fa_s": 0.0,
+          "conf_s": 2.4190000000000125,
+          "correct_s": 5.476000000000018,
+          "der": 0.6984747535928629,
+          "miss": 0.5652772424425951,
+          "fa": 0.0,
+          "conf": 0.13319751115026773
+        },
+        "n_segments": 10,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 1.22079179197317,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 60,
+        "der": {
+          "total_s": 42.84100000000001,
+          "miss_s": 17.381000000000007,
+          "fa_s": 0.0,
+          "conf_s": 1.8419999999999912,
+          "correct_s": 23.61800000000001,
+          "der": 0.4487056791391423,
+          "miss": 0.4057094839056045,
+          "fa": 0.0,
+          "conf": 0.04299619523353775
+        },
+        "n_segments": 27,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.3547219159663655,
+        "mlx_peak_gb": 0.949972648,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 60,
+        "der": {
+          "total_s": 42.84100000000001,
+          "miss_s": 12.158999999999955,
+          "fa_s": 1.414999999999985,
+          "conf_s": 5.859000000000015,
+          "correct_s": 24.82300000000004,
+          "der": 0.453607525501271,
+          "miss": 0.28381690436731055,
+          "fa": 0.033029107630540476,
+          "conf": 0.13676151350341995
+        },
+        "n_segments": 18,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 5.541396582964808,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 90,
+        "der": {
+          "total_s": 62.777000000000044,
+          "miss_s": 21.53700000000004,
+          "fa_s": 0.0,
+          "conf_s": 1.9219999999999895,
+          "correct_s": 39.31800000000001,
+          "der": 0.37368781560125547,
+          "miss": 0.3430715070806191,
+          "fa": 0.0,
+          "conf": 0.030616308520636352
+        },
+        "n_segments": 40,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.6928501249640249,
+        "mlx_peak_gb": 1.03900325,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 90,
+        "der": {
+          "total_s": 62.777000000000044,
+          "miss_s": 17.277999999999945,
+          "fa_s": 1.414999999999985,
+          "conf_s": 6.259000000000015,
+          "correct_s": 39.24000000000008,
+          "der": 0.39747041113783593,
+          "miss": 0.2752281886678231,
+          "fa": 0.02254010226675349,
+          "conf": 0.09970212020325933
+        },
+        "n_segments": 28,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 6.933436457999051,
+        "mlx_peak_gb": 0.715541236,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 120,
+        "der": {
+          "total_s": 90.774,
+          "miss_s": 25.75700000000004,
+          "fa_s": 0.0799999999999983,
+          "conf_s": 2.28099999999997,
+          "correct_s": 62.73599999999999,
+          "der": 0.30975830083504097,
+          "miss": 0.2837486504946355,
+          "fa": 0.0008813096261043724,
+          "conf": 0.02512834071430112
+        },
+        "n_segments": 54,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@330+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 1.3029799169744365,
+        "mlx_peak_gb": 1.21247899,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "IS1009a",
+        "start": 330,
+        "length": 120,
+        "der": {
+          "total_s": 90.774,
+          "miss_s": 20.354999999999972,
+          "fa_s": 1.414999999999985,
+          "conf_s": 7.878999999999985,
+          "correct_s": 62.54000000000005,
+          "der": 0.326624363804613,
+          "miss": 0.22423821799193572,
+          "fa": 0.015588164011721252,
+          "conf": 0.08679798180095606
+        },
+        "n_segments": 42,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.4748414999921806,
+        "mlx_peak_gb": 0.428084222,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 10,
+        "der": {
+          "total_s": 9.335000000000036,
+          "miss_s": 0.8000000000000003,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.535000000000036,
+          "der": 0.08569898232458459,
+          "miss": 0.08569898232458459,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 4,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.15040537499589846,
+        "mlx_peak_gb": 0.324559129,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 10,
+        "der": {
+          "total_s": 9.335000000000036,
+          "miss_s": 0.7550000000000003,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.580000000000036,
+          "der": 0.08087841456882672,
+          "miss": 0.08087841456882672,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 4,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.8411849169642664,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 20,
+        "der": {
+          "total_s": 18.7410000000001,
+          "miss_s": 2.55599999999999,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 16.18500000000011,
+          "der": 0.1363854650232099,
+          "miss": 0.1363854650232099,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.08245866699144244,
+        "mlx_peak_gb": 0.433579626,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 20,
+        "der": {
+          "total_s": 18.7410000000001,
+          "miss_s": 2.635999999999988,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 16.10500000000011,
+          "der": 0.14065418067338853,
+          "miss": 0.14065418067338853,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 1.4656199580058455,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 30,
+        "der": {
+          "total_s": 28.275999999999954,
+          "miss_s": 3.838999999999977,
+          "fa_s": 0.01900000000000901,
+          "conf_s": 0.0,
+          "correct_s": 24.436999999999976,
+          "der": 0.13644079784976632,
+          "miss": 0.13576884990804863,
+          "fa": 0.0006719479417176773,
+          "conf": 0.0
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.3122880409937352,
+        "mlx_peak_gb": 0.54322403,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 30,
+        "der": {
+          "total_s": 28.275999999999954,
+          "miss_s": 3.918999999999975,
+          "fa_s": 0.05700000000004479,
+          "conf_s": 0.08300000000000196,
+          "correct_s": 24.273999999999976,
+          "der": 0.1435492997595144,
+          "miss": 0.13859810439949008,
+          "fa": 0.00201584382515366,
+          "conf": 0.0029353515348706357
+        },
+        "n_segments": 16,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 3.062703125004191,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 60,
+        "der": {
+          "total_s": 58.82299999999975,
+          "miss_s": 8.423999999999904,
+          "fa_s": 0.3270000000000586,
+          "conf_s": 1.2029999999999994,
+          "correct_s": 49.19599999999985,
+          "der": 0.16921952297570683,
+          "miss": 0.1432092888835989,
+          "fa": 0.005559050031451302,
+          "conf": 0.020451184060656623
+        },
+        "n_segments": 39,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.46653862501261756,
+        "mlx_peak_gb": 0.954740392,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 60,
+        "der": {
+          "total_s": 58.82299999999975,
+          "miss_s": 10.132000000000065,
+          "fa_s": 0.7770000000000437,
+          "conf_s": 1.2049999999999592,
+          "correct_s": 47.48599999999973,
+          "der": 0.20593985345868315,
+          "miss": 0.17224555020995372,
+          "fa": 0.013209118882070736,
+          "conf": 0.020485184366658693
+        },
+        "n_segments": 34,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 5.038065833039582,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 90,
+        "der": {
+          "total_s": 88.65599999999984,
+          "miss_s": 13.782999999999927,
+          "fa_s": 0.39700000000002333,
+          "conf_s": 1.2580000000000062,
+          "correct_s": 73.61499999999991,
+          "der": 0.1741337303735786,
+          "miss": 0.15546607110629795,
+          "fa": 0.004477982313662065,
+          "conf": 0.014189676953618576
+        },
+        "n_segments": 55,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.8641481660306454,
+        "mlx_peak_gb": 1.060810352,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 90,
+        "der": {
+          "total_s": 88.65599999999984,
+          "miss_s": 13.399000000000122,
+          "fa_s": 0.40700000000006753,
+          "conf_s": 4.293999999999919,
+          "correct_s": 70.9629999999998,
+          "der": 0.20415989893521186,
+          "miss": 0.15113472297419403,
+          "fa": 0.004590777837936161,
+          "conf": 0.04843439812308165
+        },
+        "n_segments": 41,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 6.698699083994143,
+        "mlx_peak_gb": 0.715541236,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 120,
+        "der": {
+          "total_s": 116.99499999999978,
+          "miss_s": 18.249999999999996,
+          "fa_s": 0.659000000000109,
+          "conf_s": 1.2580000000000062,
+          "correct_s": 97.48699999999978,
+          "der": 0.1723748878157199,
+          "miss": 0.1559895722039406,
+          "fa": 0.005632719346981583,
+          "conf": 0.010752596264797715
+        },
+        "n_segments": 72,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "IS1009a@600+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 1.5187732499907725,
+        "mlx_peak_gb": 1.22370203,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "IS1009a",
+        "start": 600,
+        "length": 120,
+        "der": {
+          "total_s": 116.99499999999978,
+          "miss_s": 18.35199999999999,
+          "fa_s": 0.8000000000001251,
+          "conf_s": 11.791999999999884,
+          "correct_s": 86.85099999999991,
+          "der": 0.2644899354673282,
+          "miss": 0.15686140433351875,
+          "fa": 0.0068378990555162745,
+          "conf": 0.10079063207829314
+        },
+        "n_segments": 64,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.4846108749625273,
+        "mlx_peak_gb": 0.428084222,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 9.75,
+          "miss_s": 2.8,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 6.95,
+          "der": 0.28717948717948716,
+          "miss": 0.28717948717948716,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.223647249978967,
+        "mlx_peak_gb": 0.320853178,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 9.75,
+          "miss_s": 3.075,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 6.675,
+          "der": 0.31538461538461543,
+          "miss": 0.31538461538461543,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.7522561670048162,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 17.852000000000004,
+          "miss_s": 4.3999999999999995,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 13.452000000000005,
+          "der": 0.24647098364328918,
+          "miss": 0.24647098364328918,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.3051797499647364,
+        "mlx_peak_gb": 0.433563242,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 17.852000000000004,
+          "miss_s": 5.206999999999996,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 12.645000000000008,
+          "der": 0.2916760026887741,
+          "miss": 0.2916760026887741,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 10,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 1.4269094999763183,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 27.852000000000004,
+          "miss_s": 6.88,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 20.972000000000005,
+          "der": 0.24701996265977305,
+          "miss": 0.24701996265977305,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 13,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.12204970803577453,
+        "mlx_peak_gb": 0.543125726,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 27.852000000000004,
+          "miss_s": 7.846999999999993,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 20.00500000000001,
+          "der": 0.28173919287663335,
+          "miss": 0.28173919287663335,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 3.4388811249518767,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 57.852000000000004,
+          "miss_s": 15.679999999999986,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 42.17200000000002,
+          "der": 0.27103643780681713,
+          "miss": 0.27103643780681713,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 28,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.49479300004895777,
+        "mlx_peak_gb": 0.928214696,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 57.852000000000004,
+          "miss_s": 17.625000000000007,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 40.227,
+          "der": 0.30465671022609425,
+          "miss": 0.30465671022609425,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 29,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 5.556205082975794,
+        "mlx_peak_gb": 0.712084276,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 81.29699999999997,
+          "miss_s": 21.851999999999983,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 59.444999999999986,
+          "der": 0.2687922063544779,
+          "miss": 0.2687922063544779,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 40,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.8040928749833256,
+        "mlx_peak_gb": 1.051569776,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 81.29699999999997,
+          "miss_s": 21.146000000000004,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 60.15099999999997,
+          "der": 0.2601079990651563,
+          "miss": 0.2601079990651563,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 43,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 4.271804415970109,
+        "mlx_peak_gb": 0.715541332,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 84.59899999999996,
+          "miss_s": 23.18299999999997,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 61.41599999999999,
+          "der": 0.27403397203276614,
+          "miss": 0.27403397203276614,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 42,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@100+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.5780533750075847,
+        "mlx_peak_gb": 1.094958608,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2004a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 84.59899999999996,
+          "miss_s": 22.687999999999995,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 61.910999999999966,
+          "der": 0.26818283904065066,
+          "miss": 0.26818283904065066,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 46,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.22954212501645088,
+        "mlx_peak_gb": 0.428084222,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 10,
+        "der": {
+          "total_s": 6.353000000000009,
+          "miss_s": 2.3990000000000027,
+          "fa_s": 0.0,
+          "conf_s": 0.8890000000000268,
+          "correct_s": 3.064999999999979,
+          "der": 0.5175507634188612,
+          "miss": 0.377616873917834,
+          "fa": 0.0,
+          "conf": 0.13993388950102717
+        },
+        "n_segments": 11,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.06697508395882323,
+        "mlx_peak_gb": 0.314020954,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 10,
+        "der": {
+          "total_s": 6.353000000000009,
+          "miss_s": 2.955000000000031,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 3.3979999999999775,
+          "der": 0.46513458208720715,
+          "miss": 0.46513458208720715,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.4317726669833064,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 20,
+        "der": {
+          "total_s": 12.518999999999949,
+          "miss_s": 4.169999999999979,
+          "fa_s": 0.0,
+          "conf_s": 1.289000000000013,
+          "correct_s": 7.059999999999957,
+          "der": 0.43605719306654,
+          "miss": 0.33309369757967855,
+          "fa": 0.0,
+          "conf": 0.10296349548686144
+        },
+        "n_segments": 16,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.08797091600717977,
+        "mlx_peak_gb": 0.413898518,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 20,
+        "der": {
+          "total_s": 12.518999999999949,
+          "miss_s": 5.873999999999992,
+          "fa_s": 0.08000000000000007,
+          "conf_s": 0.40000000000000036,
+          "correct_s": 6.244999999999957,
+          "der": 0.5075485262401165,
+          "miss": 0.46920680565540507,
+          "fa": 0.006390286764118572,
+          "conf": 0.03195143382059286
+        },
+        "n_segments": 10,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.7336302080075257,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 30,
+        "der": {
+          "total_s": 18.606999999999857,
+          "miss_s": 6.8119999999999,
+          "fa_s": 0.0,
+          "conf_s": 1.289000000000013,
+          "correct_s": 10.505999999999943,
+          "der": 0.4353737840597612,
+          "miss": 0.36609878002901874,
+          "fa": 0.0,
+          "conf": 0.06927500403074235
+        },
+        "n_segments": 18,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.11648199998307973,
+        "mlx_peak_gb": 0.519035604,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 30,
+        "der": {
+          "total_s": 18.606999999999857,
+          "miss_s": 8.480999999999895,
+          "fa_s": 0.0,
+          "conf_s": 0.16000000000000014,
+          "correct_s": 9.965999999999962,
+          "der": 0.46439512011608325,
+          "miss": 0.4557962057290246,
+          "fa": 0.0,
+          "conf": 0.008598914387058707
+        },
+        "n_segments": 14,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 1.6297664999729022,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 60,
+        "der": {
+          "total_s": 49.66299999999967,
+          "miss_s": 20.734999999999793,
+          "fa_s": 0.0,
+          "conf_s": 1.871000000000034,
+          "correct_s": 27.05699999999984,
+          "der": 0.45518796689688457,
+          "miss": 0.4175140446610139,
+          "fa": 0.0,
+          "conf": 0.0376739222358707
+        },
+        "n_segments": 38,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.38754341698950157,
+        "mlx_peak_gb": 0.960327336,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 60,
+        "der": {
+          "total_s": 49.66299999999967,
+          "miss_s": 23.07199999999977,
+          "fa_s": 0.0,
+          "conf_s": 0.24,
+          "correct_s": 26.350999999999903,
+          "der": 0.46940378148722234,
+          "miss": 0.46457120995509577,
+          "fa": 0.0,
+          "conf": 0.004832571532126565
+        },
+        "n_segments": 20,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 2.4417935000383295,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 90,
+        "der": {
+          "total_s": 80.01899999999955,
+          "miss_s": 34.391999999999804,
+          "fa_s": 0.0,
+          "conf_s": 1.871000000000034,
+          "correct_s": 43.75599999999971,
+          "der": 0.4531798697809275,
+          "miss": 0.42979792299328906,
+          "fa": 0.0,
+          "conf": 0.023381946787638493
+        },
+        "n_segments": 55,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.16518283303594217,
+        "mlx_peak_gb": 1.029402224,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 90,
+        "der": {
+          "total_s": 80.01899999999955,
+          "miss_s": 37.41899999999976,
+          "fa_s": 0.0,
+          "conf_s": 0.24,
+          "correct_s": 42.359999999999786,
+          "der": 0.47062572638998207,
+          "miss": 0.46762643872080345,
+          "fa": 0.0,
+          "conf": 0.002999287669178587
+        },
+        "n_segments": 32,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 7.193175959051587,
+        "mlx_peak_gb": 0.715541212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 120,
+        "der": {
+          "total_s": 99.21599999999944,
+          "miss_s": 41.328999999999745,
+          "fa_s": 0.0,
+          "conf_s": 3.3960000000000328,
+          "correct_s": 54.49099999999966,
+          "der": 0.4507841477181103,
+          "miss": 0.41655579745202365,
+          "fa": 0.0,
+          "conf": 0.034228350266086636
+        },
+        "n_segments": 67,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@450+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 1.3173073749640025,
+        "mlx_peak_gb": 1.204254222,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2004a",
+        "start": 450,
+        "length": 120,
+        "der": {
+          "total_s": 99.21599999999944,
+          "miss_s": 45.398999999999674,
+          "fa_s": 0.1250000000000142,
+          "conf_s": 4.197999999999915,
+          "correct_s": 49.61899999999985,
+          "der": 0.5011490082244787,
+          "miss": 0.457577406869859,
+          "fa": 0.0012598774391228726,
+          "conf": 0.04231172391549688
+        },
+        "n_segments": 48,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.39016650000121444,
+        "mlx_peak_gb": 0.428067838,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 10,
+        "der": {
+          "total_s": 11.176000000000045,
+          "miss_s": 2.0950000000000006,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 9.081000000000044,
+          "der": 0.1874552612741582,
+          "miss": 0.1874552612741582,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 7,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.20805762498639524,
+        "mlx_peak_gb": 0.324624665,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 10,
+        "der": {
+          "total_s": 11.176000000000045,
+          "miss_s": 2.4250000000000007,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.751000000000044,
+          "der": 0.2169828203292762,
+          "miss": 0.2169828203292762,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.9559405839536339,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 20,
+        "der": {
+          "total_s": 22.436999999999898,
+          "miss_s": 6.0769999999998365,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 16.360000000000063,
+          "der": 0.2708472612202997,
+          "miss": 0.2708472612202997,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.2749226249870844,
+        "mlx_peak_gb": 0.43351409,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 20,
+        "der": {
+          "total_s": 22.436999999999898,
+          "miss_s": 5.616999999999839,
+          "fa_s": 0.0,
+          "conf_s": 1.4710000000000978,
+          "correct_s": 15.348999999999961,
+          "der": 0.3159067611534505,
+          "miss": 0.25034541159690976,
+          "fa": 0.0,
+          "conf": 0.06556134955654074
+        },
+        "n_segments": 14,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 1.4875013750279322,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 30,
+        "der": {
+          "total_s": 34.52999999999997,
+          "miss_s": 10.932999999999891,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 23.597000000000083,
+          "der": 0.31662322618013033,
+          "miss": 0.31662322618013033,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 23,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.3256889160256833,
+        "mlx_peak_gb": 0.53257435,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 30,
+        "der": {
+          "total_s": 34.52999999999997,
+          "miss_s": 7.3090000000000295,
+          "fa_s": 0.0,
+          "conf_s": 6.0600000000001435,
+          "correct_s": 21.160999999999802,
+          "der": 0.38717057631046004,
+          "miss": 0.21167101071532105,
+          "fa": 0.0,
+          "conf": 0.17549956559513896
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 3.342018916970119,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 60,
+        "der": {
+          "total_s": 65.95399999999984,
+          "miss_s": 18.784999999999847,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 47.169,
+          "der": 0.2848197228371273,
+          "miss": 0.2848197228371273,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 44,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.4622825830010697,
+        "mlx_peak_gb": 0.939634344,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 60,
+        "der": {
+          "total_s": 65.95399999999984,
+          "miss_s": 16.09699999999996,
+          "fa_s": 0.5599999999999987,
+          "conf_s": 8.47299999999988,
+          "correct_s": 41.384,
+          "der": 0.38102313733814325,
+          "miss": 0.24406404463717135,
+          "fa": 0.008490766291657823,
+          "conf": 0.12846832640931408
+        },
+        "n_segments": 31,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 2.738939417002257,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 90,
+        "der": {
+          "total_s": 92.25899999999979,
+          "miss_s": 22.691000000000052,
+          "fa_s": 0.0,
+          "conf_s": 0.16599999999993997,
+          "correct_s": 69.4019999999998,
+          "der": 0.24774818716873198,
+          "miss": 0.24594890471390438,
+          "fa": 0.0,
+          "conf": 0.0017992824548276087
+        },
+        "n_segments": 61,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.2198467500275001,
+        "mlx_peak_gb": 1.043492464,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 90,
+        "der": {
+          "total_s": 92.25899999999979,
+          "miss_s": 19.302,
+          "fa_s": 0.897000000000002,
+          "conf_s": 12.09400000000004,
+          "correct_s": 60.862999999999744,
+          "der": 0.3500254717696931,
+          "miss": 0.2092153611029823,
+          "fa": 0.009722628686632243,
+          "conf": 0.13108748198007855
+        },
+        "n_segments": 41,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.680428416992072,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 120,
+        "der": {
+          "total_s": 122.06700000000001,
+          "miss_s": 27.6860000000002,
+          "fa_s": 0.0309999999999917,
+          "conf_s": 0.30099999999991667,
+          "correct_s": 94.0799999999999,
+          "der": 0.22952968451751993,
+          "miss": 0.22680986671254472,
+          "fa": 0.0002539588914284098,
+          "conf": 0.002465858913546795
+        },
+        "n_segments": 79,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2004a@800+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.3337763749877922,
+        "mlx_peak_gb": 1.204254222,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2004a",
+        "start": 800,
+        "length": 120,
+        "der": {
+          "total_s": 122.06700000000001,
+          "miss_s": 25.79700000000013,
+          "fa_s": 0.23999999999999488,
+          "conf_s": 21.297000000000093,
+          "correct_s": 74.97299999999979,
+          "der": 0.38777065054437493,
+          "miss": 0.21133475878001529,
+          "fa": 0.001966133352994625,
+          "conf": 0.174469758411365
+        },
+        "n_segments": 54,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.06838562502525747,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 8.167000000000016,
+          "miss_s": 1.2180000000000057,
+          "fa_s": 0.0,
+          "conf_s": 0.003000000000006331,
+          "correct_s": 6.946000000000003,
+          "der": 0.1495041018733941,
+          "miss": 0.14913676992775846,
+          "fa": 0.0,
+          "conf": 0.00036733194563564654
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.01904587500030175,
+        "mlx_peak_gb": 0.320853178,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 8.167000000000016,
+          "miss_s": 1.8320000000000136,
+          "fa_s": 0.0,
+          "conf_s": 1.7340000000000089,
+          "correct_s": 4.600999999999994,
+          "der": 0.4366352393779865,
+          "miss": 0.22431737480102976,
+          "fa": 0.0,
+          "conf": 0.21231786457695673
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14738537499215454,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 17.38300000000001,
+          "miss_s": 3.0680000000000036,
+          "fa_s": 0.0,
+          "conf_s": 2.1820000000000066,
+          "correct_s": 12.133,
+          "der": 0.3020192141747689,
+          "miss": 0.17649427601679812,
+          "fa": 0.0,
+          "conf": 0.12552493815797075
+        },
+        "n_segments": 11,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.027113874966744334,
+        "mlx_peak_gb": 0.411014902,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 17.38300000000001,
+          "miss_s": 4.440000000000024,
+          "fa_s": 0.0,
+          "conf_s": 1.7310000000000016,
+          "correct_s": 11.211999999999984,
+          "der": 0.3550020134614291,
+          "miss": 0.2554219639878054,
+          "fa": 0.0,
+          "conf": 0.0995800494736237
+        },
+        "n_segments": 10,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.2596839999896474,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 24.41900000000001,
+          "miss_s": 5.077000000000007,
+          "fa_s": 0.0,
+          "conf_s": 2.1820000000000066,
+          "correct_s": 17.159999999999997,
+          "der": 0.2972685204144318,
+          "miss": 0.2079118719030265,
+          "fa": 0.0,
+          "conf": 0.08935664851140528
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.05664591595996171,
+        "mlx_peak_gb": 0.524589828,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 24.41900000000001,
+          "miss_s": 6.209000000000023,
+          "fa_s": 0.0,
+          "conf_s": 1.7310000000000016,
+          "correct_s": 16.478999999999985,
+          "der": 0.32515664032106234,
+          "miss": 0.25426921659363694,
+          "fa": 0.0,
+          "conf": 0.0708874237274254
+        },
+        "n_segments": 13,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 1.6747340420261025,
+        "mlx_peak_gb": 0.708496092,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 39.355999999999966,
+          "miss_s": 8.424999999999981,
+          "fa_s": 0.0,
+          "conf_s": 2.1820000000000066,
+          "correct_s": 28.748999999999977,
+          "der": 0.26951417827014934,
+          "miss": 0.21407155198699027,
+          "fa": 0.0,
+          "conf": 0.055442626283159074
+        },
+        "n_segments": 22,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.5831054159789346,
+        "mlx_peak_gb": 0.965602984,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 39.355999999999966,
+          "miss_s": 13.043999999999999,
+          "fa_s": 0.23999999999999488,
+          "conf_s": 1.6510000000000016,
+          "correct_s": 24.660999999999966,
+          "der": 0.37948470373005405,
+          "miss": 0.3314361215570691,
+          "fa": 0.006098180709421565,
+          "conf": 0.04195040146356345
+        },
+        "n_segments": 24,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.6869009169749916,
+        "mlx_peak_gb": 0.712084188,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 68.06599999999997,
+          "miss_s": 19.32399999999992,
+          "fa_s": 0.0,
+          "conf_s": 2.1820000000000066,
+          "correct_s": 46.560000000000045,
+          "der": 0.3159580407251775,
+          "miss": 0.2839009196955885,
+          "fa": 0.0,
+          "conf": 0.03205712102958904
+        },
+        "n_segments": 33,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.15417370799696073,
+        "mlx_peak_gb": 1.01636056,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 68.06599999999997,
+          "miss_s": 21.392999999999994,
+          "fa_s": 0.08000000000000007,
+          "conf_s": 1.7310000000000016,
+          "correct_s": 44.94199999999998,
+          "der": 0.3409044163018247,
+          "miss": 0.3142978873446361,
+          "fa": 0.0011753298269326846,
+          "conf": 0.02543119913025596
+        },
+        "n_segments": 32,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.3993380420142785,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 94.61299999999997,
+          "miss_s": 29.650999999999932,
+          "fa_s": 0.0,
+          "conf_s": 2.1820000000000066,
+          "correct_s": 62.78000000000003,
+          "der": 0.33645482121907083,
+          "miss": 0.3133924513544644,
+          "fa": 0.0,
+          "conf": 0.02306236986460642
+        },
+        "n_segments": 45,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@100+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.32956804195418954,
+        "mlx_peak_gb": 1.216116238,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2014a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 94.61299999999997,
+          "miss_s": 30.628999999999973,
+          "fa_s": 0.2400000000000002,
+          "conf_s": 1.7310000000000016,
+          "correct_s": 62.253,
+          "der": 0.3445615295995263,
+          "miss": 0.32372929724245064,
+          "fa": 0.0025366492976652286,
+          "conf": 0.018295583059410463
+        },
+        "n_segments": 49,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.07267783401766792,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 10,
+        "der": {
+          "total_s": 8.581999999999994,
+          "miss_s": 3.3819999999999935,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.2,
+          "der": 0.39408063388487485,
+          "miss": 0.39408063388487485,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 2,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.019748457998503,
+        "mlx_peak_gb": 0.306926618,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 10,
+        "der": {
+          "total_s": 8.581999999999994,
+          "miss_s": 2.5819999999999936,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 6.0,
+          "der": 0.3008622698671633,
+          "miss": 0.3008622698671633,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 2,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14391375001287088,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 20,
+        "der": {
+          "total_s": 9.256999999999948,
+          "miss_s": 3.8169999999999478,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.44,
+          "der": 0.4123366101328691,
+          "miss": 0.4123366101328691,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 3,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.02517920802347362,
+        "mlx_peak_gb": 0.391206454,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 20,
+        "der": {
+          "total_s": 9.256999999999948,
+          "miss_s": 3.6569999999999476,
+          "fa_s": 0.0,
+          "conf_s": 0.2400000000000002,
+          "correct_s": 5.36,
+          "der": 0.42097871880738574,
+          "miss": 0.3950523927838358,
+          "fa": 0.0,
+          "conf": 0.025926326023549915
+        },
+        "n_segments": 3,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.26253675000043586,
+        "mlx_peak_gb": 0.6318969,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 30,
+        "der": {
+          "total_s": 15.476999999999919,
+          "miss_s": 5.441999999999941,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 10.034999999999979,
+          "der": 0.35161853072300636,
+          "miss": 0.35161853072300636,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.049353167007211596,
+        "mlx_peak_gb": 0.496179716,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 30,
+        "der": {
+          "total_s": 15.476999999999919,
+          "miss_s": 6.691999999999946,
+          "fa_s": 0.0,
+          "conf_s": 0.08000000000000007,
+          "correct_s": 8.704999999999973,
+          "der": 0.4375524972539886,
+          "miss": 0.4323835368611476,
+          "fa": 0.0,
+          "conf": 0.005168960392841021
+        },
+        "n_segments": 11,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6513975830166601,
+        "mlx_peak_gb": 0.7084961,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 60,
+        "der": {
+          "total_s": 28.551999999999907,
+          "miss_s": 10.22299999999991,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 18.328999999999997,
+          "der": 0.3580484729616119,
+          "miss": 0.3580484729616119,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 12,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.08752554102102295,
+        "mlx_peak_gb": 0.962604712,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 60,
+        "der": {
+          "total_s": 28.551999999999907,
+          "miss_s": 10.497999999999916,
+          "fa_s": 0.16000000000000014,
+          "conf_s": 5.5200000000000005,
+          "correct_s": 12.53399999999999,
+          "der": 0.5666152984029129,
+          "miss": 0.3676800224152406,
+          "fa": 0.00560381059120204,
+          "conf": 0.19333146539647025
+        },
+        "n_segments": 12,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0162155829602852,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 90,
+        "der": {
+          "total_s": 56.277999999999906,
+          "miss_s": 20.943999999999942,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 35.33399999999996,
+          "der": 0.3721525285191367,
+          "miss": 0.3721525285191367,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 24,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.16719083400676027,
+        "mlx_peak_gb": 1.058664048,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 90,
+        "der": {
+          "total_s": 56.277999999999906,
+          "miss_s": 17.583999999999847,
+          "fa_s": 1.4359999999999769,
+          "conf_s": 9.909999999999993,
+          "correct_s": 28.784000000000063,
+          "der": 0.5140552258431335,
+          "miss": 0.3124489143182039,
+          "fa": 0.025516187497778516,
+          "conf": 0.1760901240271511
+        },
+        "n_segments": 29,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.3878801669925451,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 120,
+        "der": {
+          "total_s": 78.8599999999999,
+          "miss_s": 27.365999999999925,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 51.49399999999997,
+          "der": 0.34702003550595945,
+          "miss": 0.34702003550595945,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 31,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@450+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.2408412909717299,
+        "mlx_peak_gb": 1.136997902,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2014a",
+        "start": 450,
+        "length": 120,
+        "der": {
+          "total_s": 78.8599999999999,
+          "miss_s": 20.533999999999825,
+          "fa_s": 1.514999999999974,
+          "conf_s": 29.541999999999998,
+          "correct_s": 28.784000000000077,
+          "der": 0.6542099923915783,
+          "miss": 0.2603854932792271,
+          "fa": 0.019211260461577173,
+          "conf": 0.37461323865077395
+        },
+        "n_segments": 41,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.06887958297738805,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 10,
+        "der": {
+          "total_s": 9.399999999999977,
+          "miss_s": 1.0969999999999898,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.302999999999987,
+          "der": 0.11670212765957366,
+          "miss": 0.11670212765957366,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.016218915989156812,
+        "mlx_peak_gb": 0.31708481,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 10,
+        "der": {
+          "total_s": 9.399999999999977,
+          "miss_s": 1.1259999999999906,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.273999999999987,
+          "der": 0.11978723404255248,
+          "miss": 0.11978723404255248,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14369083300698549,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 20,
+        "der": {
+          "total_s": 17.004999999999995,
+          "miss_s": 1.595000000000005,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 15.40999999999999,
+          "der": 0.09379594236989153,
+          "miss": 0.09379594236989153,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.03349570801947266,
+        "mlx_peak_gb": 0.412768006,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 20,
+        "der": {
+          "total_s": 17.004999999999995,
+          "miss_s": 2.064999999999996,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 14.94,
+          "der": 0.12143487209644202,
+          "miss": 0.12143487209644202,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.26302291598403826,
+        "mlx_peak_gb": 0.6318969,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 30,
+        "der": {
+          "total_s": 25.623000000000047,
+          "miss_s": 4.953000000000055,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 20.66999999999999,
+          "der": 0.1933028919330307,
+          "miss": 0.1933028919330307,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 11,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.036579874984454364,
+        "mlx_peak_gb": 0.504863316,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 30,
+        "der": {
+          "total_s": 25.623000000000047,
+          "miss_s": 5.695000000000059,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 19.92799999999999,
+          "der": 0.22226124965851182,
+          "miss": 0.22226124965851182,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6518776249722578,
+        "mlx_peak_gb": 0.708496092,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 60,
+        "der": {
+          "total_s": 49.18300000000022,
+          "miss_s": 11.455000000000126,
+          "fa_s": 0.0,
+          "conf_s": 0.0029999999999787974,
+          "correct_s": 37.725000000000115,
+          "der": 0.23296667547730016,
+          "miss": 0.23290567879145385,
+          "fa": 0.0,
+          "conf": 6.099668584630429e-05
+        },
+        "n_segments": 29,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.12455091602168977,
+        "mlx_peak_gb": 0.948154024,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 60,
+        "der": {
+          "total_s": 49.18300000000022,
+          "miss_s": 25.652000000000193,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 23.531000000000027,
+          "der": 0.5215623284468226,
+          "miss": 0.5215623284468226,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 16,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0333229170064442,
+        "mlx_peak_gb": 0.712084196,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 90,
+        "der": {
+          "total_s": 82.07900000000006,
+          "miss_s": 24.220999999999982,
+          "fa_s": 0.0,
+          "conf_s": 0.0029999999999787974,
+          "correct_s": 57.8550000000001,
+          "der": 0.29513030129509304,
+          "miss": 0.29509375114219183,
+          "fa": 0.0,
+          "conf": 3.6550152901214626e-05
+        },
+        "n_segments": 41,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.2082812080043368,
+        "mlx_peak_gb": 1.011543664,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 90,
+        "der": {
+          "total_s": 82.07900000000006,
+          "miss_s": 26.16000000000009,
+          "fa_s": 0.0,
+          "conf_s": 8.397000000000025,
+          "correct_s": 47.52199999999995,
+          "der": 0.4210212112720682,
+          "miss": 0.3187173333008451,
+          "fa": 0.0,
+          "conf": 0.10230387797122308
+        },
+        "n_segments": 32,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.4087545829825103,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 120,
+        "der": {
+          "total_s": 109.72000000000014,
+          "miss_s": 32.910999999999994,
+          "fa_s": 0.006000000000000227,
+          "conf_s": 0.0029999999999787974,
+          "correct_s": 76.80600000000017,
+          "der": 0.30003645643456006,
+          "miss": 0.2999544294567987,
+          "fa": 5.468465184105195e-05,
+          "conf": 2.7342325920331695e-05
+        },
+        "n_segments": 62,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "ES2014a@800+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.24986858299234882,
+        "mlx_peak_gb": 1.174894094,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "ES2014a",
+        "start": 800,
+        "length": 120,
+        "der": {
+          "total_s": 109.72000000000014,
+          "miss_s": 36.20500000000014,
+          "fa_s": 0.1599999999999966,
+          "conf_s": 9.197000000000024,
+          "correct_s": 64.31799999999998,
+          "der": 0.4152570178636539,
+          "miss": 0.3299763033175364,
+          "fa": 0.0014582573824279655,
+          "conf": 0.08382245716368951
+        },
+        "n_segments": 60,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.06891387503128499,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 4.241,
+          "miss_s": 0.8280000000000047,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 3.412999999999995,
+          "der": 0.19523697241216809,
+          "miss": 0.19523697241216809,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 4,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.01911325001856312,
+        "mlx_peak_gb": 0.320853178,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 4.241,
+          "miss_s": 0.9880000000000049,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 3.252999999999995,
+          "der": 0.232963923602925,
+          "miss": 0.232963923602925,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 3,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14608924998901784,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 14.918999999999997,
+          "miss_s": 7.951000000000002,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 6.967999999999995,
+          "der": 0.5329445673302503,
+          "miss": 0.5329445673302503,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.036346916982438415,
+        "mlx_peak_gb": 0.425400166,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 14.918999999999997,
+          "miss_s": 6.751000000000001,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.167999999999996,
+          "der": 0.45251022186473644,
+          "miss": 0.45251022186473644,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.2637826249701902,
+        "mlx_peak_gb": 0.6318969,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 24.918999999999997,
+          "miss_s": 9.871000000000008,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 15.04799999999999,
+          "der": 0.39612343994542354,
+          "miss": 0.39612343994542354,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 14,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.04231554199941456,
+        "mlx_peak_gb": 0.522672884,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 24.918999999999997,
+          "miss_s": 8.866000000000003,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 16.052999999999994,
+          "der": 0.3557927685701675,
+          "miss": 0.3557927685701675,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6413619160302915,
+        "mlx_peak_gb": 0.7084961,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 49.923000000000016,
+          "miss_s": 18.80500000000005,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 31.117999999999967,
+          "der": 0.376680087334496,
+          "miss": 0.376680087334496,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 27,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.13439533294877037,
+        "mlx_peak_gb": 0.948170408,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 49.923000000000016,
+          "miss_s": 16.56500000000002,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 33.35799999999999,
+          "der": 0.3318109889229416,
+          "miss": 0.3318109889229416,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 23,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0414956670138054,
+        "mlx_peak_gb": 0.712084188,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 78.71300000000001,
+          "miss_s": 28.913000000000054,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 49.799999999999955,
+          "der": 0.3673217892851251,
+          "miss": 0.3673217892851251,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 43,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.21697083301842213,
+        "mlx_peak_gb": 1.051569776,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 78.71300000000001,
+          "miss_s": 23.11200000000001,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 55.60099999999999,
+          "der": 0.2936236708040604,
+          "miss": 0.2936236708040604,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 33,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.400392167037353,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 105.282,
+          "miss_s": 39.27600000000007,
+          "fa_s": 0.0,
+          "conf_s": 0.5659999999999883,
+          "correct_s": 65.43999999999994,
+          "der": 0.37843126080431655,
+          "miss": 0.37305522311506306,
+          "fa": 0.0,
+          "conf": 0.005376037689253513
+        },
+        "n_segments": 60,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@100+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.33797525003319606,
+        "mlx_peak_gb": 1.219982862,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3003a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 105.282,
+          "miss_s": 21.647000000000023,
+          "fa_s": 0.7420000000000062,
+          "conf_s": 0.0,
+          "correct_s": 83.63499999999996,
+          "der": 0.21265743431925715,
+          "miss": 0.2056096958644405,
+          "fa": 0.0070477384548166475,
+          "conf": 0.0
+        },
+        "n_segments": 44,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.07808737497543916,
+        "mlx_peak_gb": 0.428084222,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 10,
+        "der": {
+          "total_s": 7.192000000000007,
+          "miss_s": 3.8320000000000083,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 3.359999999999999,
+          "der": 0.5328142380422698,
+          "miss": 0.5328142380422698,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 3,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.018868584011215717,
+        "mlx_peak_gb": 0.309105722,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 10,
+        "der": {
+          "total_s": 7.192000000000007,
+          "miss_s": 2.975000000000002,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 4.217000000000006,
+          "der": 0.41365406006674066,
+          "miss": 0.41365406006674066,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 3,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.15226920798886567,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 20,
+        "der": {
+          "total_s": 9.840999999999894,
+          "miss_s": 4.8459999999998775,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 4.995000000000017,
+          "der": 0.49242963113504007,
+          "miss": 0.49242963113504007,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.024672499974258244,
+        "mlx_peak_gb": 0.340612166,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 20,
+        "der": {
+          "total_s": 9.840999999999894,
+          "miss_s": 5.063999999999888,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 4.777000000000006,
+          "der": 0.5145818514378562,
+          "miss": 0.5145818514378562,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 4,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.26076637499500066,
+        "mlx_peak_gb": 0.6318969,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 30,
+        "der": {
+          "total_s": 12.406999999999925,
+          "miss_s": 7.091999999999908,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.315000000000017,
+          "der": 0.5716127992262393,
+          "miss": 0.5716127992262393,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.05451762501616031,
+        "mlx_peak_gb": 0.52116554,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 30,
+        "der": {
+          "total_s": 12.406999999999925,
+          "miss_s": 7.231999999999926,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.175,
+          "der": 0.5828967518336398,
+          "miss": 0.5828967518336398,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6472087500151247,
+        "mlx_peak_gb": 0.708496116,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 60,
+        "der": {
+          "total_s": 36.918000000000006,
+          "miss_s": 19.891999999999904,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 17.026000000000103,
+          "der": 0.538815753832816,
+          "miss": 0.538815753832816,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 17,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.12439791695214808,
+        "mlx_peak_gb": 0.96550468,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 60,
+        "der": {
+          "total_s": 36.918000000000006,
+          "miss_s": 18.717999999999964,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 18.200000000000042,
+          "der": 0.5070155479711783,
+          "miss": 0.5070155479711783,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 19,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0331787079921924,
+        "mlx_peak_gb": 0.712084188,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 90,
+        "der": {
+          "total_s": 47.124000000000024,
+          "miss_s": 25.612000000000023,
+          "fa_s": 0.0,
+          "conf_s": 0.08599999999989905,
+          "correct_s": 21.4260000000001,
+          "der": 0.5453272217978081,
+          "miss": 0.5435022493846026,
+          "fa": 0.0,
+          "conf": 0.0018249724132055642
+        },
+        "n_segments": 25,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.21897558303317055,
+        "mlx_peak_gb": 1.043492464,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 90,
+        "der": {
+          "total_s": 47.124000000000024,
+          "miss_s": 23.58700000000004,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 23.536999999999985,
+          "der": 0.5005305152363981,
+          "miss": 0.5005305152363981,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 30,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.4185593339498155,
+        "mlx_peak_gb": 0.715541236,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 120,
+        "der": {
+          "total_s": 66.26099999999974,
+          "miss_s": 34.93099999999973,
+          "fa_s": 0.0,
+          "conf_s": 0.08599999999989905,
+          "correct_s": 31.244000000000113,
+          "der": 0.5284707444801582,
+          "miss": 0.5271728467726093,
+          "fa": 0.0,
+          "conf": 0.001297897707548926
+        },
+        "n_segments": 37,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@600+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.22095387504668906,
+        "mlx_peak_gb": 1.117550094,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3003a",
+        "start": 600,
+        "length": 120,
+        "der": {
+          "total_s": 66.26099999999974,
+          "miss_s": 30.74799999999975,
+          "fa_s": 0.47999999999998977,
+          "conf_s": 0.0,
+          "correct_s": 35.51299999999999,
+          "der": 0.4712877861788965,
+          "miss": 0.4640437059507081,
+          "fa": 0.007244080228188401,
+          "conf": 0.0
+        },
+        "n_segments": 45,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.07281945901922882,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 10,
+        "der": {
+          "total_s": 9.95900000000006,
+          "miss_s": 4.929000000000061,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.029999999999999,
+          "der": 0.4949292097600192,
+          "miss": 0.4949292097600192,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.01607254199916497,
+        "mlx_peak_gb": 0.315233386,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 10,
+        "der": {
+          "total_s": 9.95900000000006,
+          "miss_s": 1.4190000000000607,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 8.54,
+          "der": 0.14248418515915776,
+          "miss": 0.14248418515915776,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 2,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14797341596568003,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 20,
+        "der": {
+          "total_s": 18.65300000000002,
+          "miss_s": 8.974000000000062,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 9.678999999999958,
+          "der": 0.48110223556532744,
+          "miss": 0.48110223556532744,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 12,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.03392416599672288,
+        "mlx_peak_gb": 0.418354982,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 20,
+        "der": {
+          "total_s": 18.65300000000002,
+          "miss_s": 5.259000000000061,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 13.39399999999996,
+          "der": 0.2819385621615855,
+          "miss": 0.2819385621615855,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 11,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.2697888750117272,
+        "mlx_peak_gb": 0.6318969,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 30,
+        "der": {
+          "total_s": 28.65300000000002,
+          "miss_s": 11.454000000000066,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 17.198999999999952,
+          "der": 0.39974871741179135,
+          "miss": 0.39974871741179135,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 15,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.05653795902617276,
+        "mlx_peak_gb": 0.533846852,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 30,
+        "der": {
+          "total_s": 28.65300000000002,
+          "miss_s": 5.544000000000064,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 23.108999999999956,
+          "der": 0.1934875929222092,
+          "miss": 0.1934875929222092,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 13,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6499439170002006,
+        "mlx_peak_gb": 0.7084961,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 60,
+        "der": {
+          "total_s": 58.65300000000002,
+          "miss_s": 19.694000000000052,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 38.95899999999996,
+          "der": 0.3357714012923473,
+          "miss": 0.3357714012923473,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 28,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.09322291595162824,
+        "mlx_peak_gb": 0.949972648,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 60,
+        "der": {
+          "total_s": 58.65300000000002,
+          "miss_s": 11.304000000000064,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 47.348999999999954,
+          "der": 0.19272671474604983,
+          "miss": 0.19272671474604983,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 23,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0527712499606423,
+        "mlx_peak_gb": 0.712084188,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 90,
+        "der": {
+          "total_s": 87.33100000000013,
+          "miss_s": 26.433000000000042,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 60.89800000000008,
+          "der": 0.302676025695343,
+          "miss": 0.302676025695343,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 40,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.1685553750139661,
+        "mlx_peak_gb": 1.058664048,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 90,
+        "der": {
+          "total_s": 87.33100000000013,
+          "miss_s": 16.363000000000135,
+          "fa_s": 0.16000000000000014,
+          "conf_s": 0.0,
+          "correct_s": 70.96799999999999,
+          "der": 0.1891997114426734,
+          "miss": 0.1873676014244668,
+          "fa": 0.0018321100182065921,
+          "conf": 0.0
+        },
+        "n_segments": 37,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.4122297499561682,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 120,
+        "der": {
+          "total_s": 118.5120000000004,
+          "miss_s": 42.01300000000003,
+          "fa_s": 0.0,
+          "conf_s": 0.3199999999999932,
+          "correct_s": 76.17900000000037,
+          "der": 0.3572043337383546,
+          "miss": 0.3545041852301867,
+          "fa": 0.0,
+          "conf": 0.0027001485081678826
+        },
+        "n_segments": 57,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3003a@1100+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.3356549590243958,
+        "mlx_peak_gb": 1.219982862,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3003a",
+        "start": 1100,
+        "length": 120,
+        "der": {
+          "total_s": 118.5120000000004,
+          "miss_s": 18.93400000000011,
+          "fa_s": 0.021999999999970044,
+          "conf_s": 0.15600000000017644,
+          "correct_s": 99.42200000000011,
+          "der": 0.1612663696503324,
+          "miss": 0.15976441204266276,
+          "fa": 0.00018563520993629312,
+          "conf": 0.0013163223977333597
+        },
+        "n_segments": 44,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.07019508397206664,
+        "mlx_peak_gb": 0.428084222,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 3.7390000000000043,
+          "miss_s": 0.4800000000000004,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 3.259000000000004,
+          "der": 0.12837657127574215,
+          "miss": 0.12837657127574215,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 2,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.8445826669922099,
+        "mlx_peak_gb": 0.25633195,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 10,
+        "der": {
+          "total_s": 3.7390000000000043,
+          "miss_s": 0.5600000000000005,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 3.179000000000004,
+          "der": 0.14977266648836585,
+          "miss": 0.14977266648836585,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 2,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.15435087500372902,
+        "mlx_peak_gb": 0.517927818,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 12.65700000000001,
+          "miss_s": 1.8430000000000035,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 10.814000000000007,
+          "der": 0.14561112427905523,
+          "miss": 0.14561112427905523,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.021862416993826628,
+        "mlx_peak_gb": 0.359503126,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 20,
+        "der": {
+          "total_s": 12.65700000000001,
+          "miss_s": 2.2949999999999955,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 10.362000000000016,
+          "der": 0.18132258829106374,
+          "miss": 0.18132258829106374,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 7,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.2634099589777179,
+        "mlx_peak_gb": 0.6318969,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 22.65700000000001,
+          "miss_s": 3.043000000000003,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 19.614000000000008,
+          "der": 0.1343072781038973,
+          "miss": 0.1343072781038973,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.034252083976753056,
+        "mlx_peak_gb": 0.47443791,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 30,
+        "der": {
+          "total_s": 22.65700000000001,
+          "miss_s": 3.5199999999999987,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 19.13700000000001,
+          "der": 0.15536037427726518,
+          "miss": 0.15536037427726518,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 10,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6441147500299849,
+        "mlx_peak_gb": 0.7084961,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 50.138000000000034,
+          "miss_s": 7.650999999999993,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 42.48700000000004,
+          "der": 0.1525988272368261,
+          "miss": 0.1525988272368261,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 21,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.0876275830087252,
+        "mlx_peak_gb": 0.894873256,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 60,
+        "der": {
+          "total_s": 50.138000000000034,
+          "miss_s": 8.000999999999966,
+          "fa_s": 0.0,
+          "conf_s": 5.742000000000019,
+          "correct_s": 36.395000000000046,
+          "der": 0.27410347441062616,
+          "miss": 0.1595795604132586,
+          "fa": 0.0,
+          "conf": 0.11452391399736755
+        },
+        "n_segments": 19,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0358936669654213,
+        "mlx_peak_gb": 0.712084188,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 78.26700000000005,
+          "miss_s": 12.73400000000002,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 65.53300000000003,
+          "der": 0.16269947742982369,
+          "miss": 0.16269947742982369,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 31,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.20001950004370883,
+        "mlx_peak_gb": 0.9874428,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 90,
+        "der": {
+          "total_s": 78.26700000000005,
+          "miss_s": 12.32099999999997,
+          "fa_s": 0.0,
+          "conf_s": 8.298000000000023,
+          "correct_s": 57.64800000000006,
+          "der": 0.26344436352485695,
+          "miss": 0.15742266855762915,
+          "fa": 0.0,
+          "conf": 0.1060216949672278
+        },
+        "n_segments": 30,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.4143839159514755,
+        "mlx_peak_gb": 0.71554122,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 105.31100000000006,
+          "miss_s": 17.593000000000014,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 87.71800000000005,
+          "der": 0.1670575723333745,
+          "miss": 0.1670575723333745,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 43,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@100+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.23090912500629202,
+        "mlx_peak_gb": 1.147827726,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3007a",
+        "start": 100,
+        "length": 120,
+        "der": {
+          "total_s": 105.31100000000006,
+          "miss_s": 15.630999999999963,
+          "fa_s": 0.0,
+          "conf_s": 8.698000000000022,
+          "correct_s": 80.98200000000008,
+          "der": 0.23102050118221243,
+          "miss": 0.1484270399103603,
+          "fa": 0.0,
+          "conf": 0.0825934612718521
+        },
+        "n_segments": 39,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.07230254198657349,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 10,
+        "der": {
+          "total_s": 0.18600000000003547,
+          "miss_s": 0.08099999999998544,
+          "fa_s": 3.84,
+          "conf_s": 0.035,
+          "correct_s": 0.07000000000005002,
+          "der": 21.26881720429694,
+          "miss": 0.4354838709675806,
+          "fa": 20.645161290318644,
+          "conf": 0.18817204301071683
+        },
+        "n_segments": 4,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.018268166983034462,
+        "mlx_peak_gb": 0.315479146,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 10,
+        "der": {
+          "total_s": 0.18600000000003547,
+          "miss_s": 0.18600000000003547,
+          "fa_s": 5.919999999999999,
+          "conf_s": 0.0,
+          "correct_s": 0.0,
+          "der": 32.82795698924124,
+          "miss": 1.0,
+          "fa": 31.827956989241237,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14472179196309298,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 20,
+        "der": {
+          "total_s": 1.5860000000001264,
+          "miss_s": 0.609000000000041,
+          "fa_s": 3.84,
+          "conf_s": 0.035,
+          "correct_s": 0.9420000000000854,
+          "der": 2.827238335434857,
+          "miss": 0.3839848675914202,
+          "fa": 2.421185372004851,
+          "conf": 0.022068095838585884
+        },
+        "n_segments": 6,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.02614750002976507,
+        "mlx_peak_gb": 0.407885526,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 20,
+        "der": {
+          "total_s": 1.5860000000001264,
+          "miss_s": 0.315999999999967,
+          "fa_s": 9.411999999999924,
+          "conf_s": 0.24800000000007394,
+          "correct_s": 1.0220000000000855,
+          "der": 6.290037831020914,
+          "miss": 0.19924337957121172,
+          "fa": 5.934426229507676,
+          "conf": 0.1563682219420266
+        },
+        "n_segments": 11,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.26685258303768933,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 30,
+        "der": {
+          "total_s": 6.010000000000218,
+          "miss_s": 4.313000000000134,
+          "fa_s": 3.84,
+          "conf_s": 0.035,
+          "correct_s": 1.6620000000000843,
+          "der": 1.3623960066555467,
+          "miss": 0.7176372712146385,
+          "fa": 0.638935108153055,
+          "conf": 0.005823627287853367
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.038731457956600934,
+        "mlx_peak_gb": 0.51901922,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 30,
+        "der": {
+          "total_s": 6.010000000000218,
+          "miss_s": 3.4820000000000935,
+          "fa_s": 12.131999999999922,
+          "conf_s": 0.164000000000037,
+          "correct_s": 2.364000000000088,
+          "der": 2.625291181364306,
+          "miss": 0.5793677204658847,
+          "fa": 2.018635607321045,
+          "conf": 0.027287853577376214
+        },
+        "n_segments": 18,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6520275420043617,
+        "mlx_peak_gb": 0.7084961,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 60,
+        "der": {
+          "total_s": 19.895000000000323,
+          "miss_s": 8.037000000000045,
+          "fa_s": 3.84,
+          "conf_s": 0.2300000000000003,
+          "correct_s": 11.628000000000277,
+          "der": 0.6085448605177104,
+          "miss": 0.4039708469464647,
+          "fa": 0.19301331992962742,
+          "conf": 0.011560693641618325
+        },
+        "n_segments": 23,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.12435808300506324,
+        "mlx_peak_gb": 0.948170408,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 60,
+        "der": {
+          "total_s": 19.895000000000323,
+          "miss_s": 9.819000000000116,
+          "fa_s": 14.28599999999997,
+          "conf_s": 5.4250000000000185,
+          "correct_s": 4.651000000000188,
+          "der": 1.4842925358129995,
+          "miss": 0.49354109072631097,
+          "fa": 0.7180698668006905,
+          "conf": 0.27268157828599804
+        },
+        "n_segments": 29,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0325332910288125,
+        "mlx_peak_gb": 0.712084196,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 90,
+        "der": {
+          "total_s": 36.42500000000018,
+          "miss_s": 17.84199999999994,
+          "fa_s": 3.84,
+          "conf_s": 0.035,
+          "correct_s": 18.548000000000243,
+          "der": 0.5962113932738458,
+          "miss": 0.48982841455044196,
+          "fa": 0.10542210020590201,
+          "conf": 0.0009608785175017112
+        },
+        "n_segments": 32,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.16034591698553413,
+        "mlx_peak_gb": 1.00489176,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 90,
+        "der": {
+          "total_s": 36.42500000000018,
+          "miss_s": 19.60800000000009,
+          "fa_s": 10.591999999999928,
+          "conf_s": 9.561000000000098,
+          "correct_s": 7.255999999999995,
+          "der": 1.0915854495538755,
+          "miss": 0.5383115991763896,
+          "fa": 0.2907892930679444,
+          "conf": 0.2624845573095415
+        },
+        "n_segments": 40,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.4569154580240138,
+        "mlx_peak_gb": 0.715541212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 120,
+        "der": {
+          "total_s": 54.058999999999855,
+          "miss_s": 22.123999999999693,
+          "fa_s": 4.026999999999969,
+          "conf_s": 0.035,
+          "correct_s": 31.900000000000162,
+          "der": 0.48439667770398515,
+          "miss": 0.4092565530253936,
+          "fa": 0.074492683919421,
+          "conf": 0.0006474407591705377
+        },
+        "n_segments": 48,
+        "n_hyp_speakers": 4
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@600+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.20887941704131663,
+        "mlx_peak_gb": 1.008975376,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3007a",
+        "start": 600,
+        "length": 120,
+        "der": {
+          "total_s": 54.058999999999855,
+          "miss_s": 20.96900000000011,
+          "fa_s": 3.0500000000000433,
+          "conf_s": 20.530999999999878,
+          "correct_s": 12.558999999999866,
+          "der": 0.8240995948870706,
+          "miss": 0.3878910079727736,
+          "fa": 0.05641983758486194,
+          "conf": 0.3797887493294351
+        },
+        "n_segments": 36,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+10",
+        "mode": "stream",
+        "audio_s": 10.0,
+        "seconds": 0.06885666697053239,
+        "mlx_peak_gb": 0.428084206,
+        "info": {
+          "mode": "stream",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 10,
+        "der": {
+          "total_s": 6.778999999999769,
+          "miss_s": 2.0299999999998732,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 4.748999999999896,
+          "der": 0.29945419678417795,
+          "miss": 0.29945419678417795,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 8,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+10",
+        "mode": "oneshot",
+        "audio_s": 10.0,
+        "seconds": 0.01977595902280882,
+        "mlx_peak_gb": 0.320853178,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 10.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 10,
+        "der": {
+          "total_s": 6.778999999999769,
+          "miss_s": 1.7369999999998984,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.04199999999987,
+          "der": 0.2562324826670538,
+          "miss": 0.2562324826670538,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 5,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+20",
+        "mode": "stream",
+        "audio_s": 20.0,
+        "seconds": 0.14978266699472442,
+        "mlx_peak_gb": 0.517927802,
+        "info": {
+          "mode": "stream",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 20,
+        "der": {
+          "total_s": 7.808999999999742,
+          "miss_s": 2.0649999999998734,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 5.743999999999868,
+          "der": 0.2644384684338509,
+          "miss": 0.2644384684338509,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+20",
+        "mode": "oneshot",
+        "audio_s": 20.0,
+        "seconds": 0.03489225002704188,
+        "mlx_peak_gb": 0.424367974,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 20.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 20,
+        "der": {
+          "total_s": 7.808999999999742,
+          "miss_s": 2.1959999999997932,
+          "fa_s": 0.0,
+          "conf_s": 1.4650000000001562,
+          "correct_s": 4.147999999999792,
+          "der": 0.468818030477663,
+          "miss": 0.2812139838647542,
+          "fa": 0.0,
+          "conf": 0.18760404661290878
+        },
+        "n_segments": 4,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+30",
+        "mode": "stream",
+        "audio_s": 30.0,
+        "seconds": 0.2676947910222225,
+        "mlx_peak_gb": 0.631896916,
+        "info": {
+          "mode": "stream",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 30,
+        "der": {
+          "total_s": 15.9549999999997,
+          "miss_s": 4.7919999999999625,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 11.162999999999737,
+          "der": 0.3003447195236636,
+          "miss": 0.3003447195236636,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 17,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+30",
+        "mode": "oneshot",
+        "audio_s": 30.0,
+        "seconds": 0.03999137500068173,
+        "mlx_peak_gb": 0.535354196,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 30.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 30,
+        "der": {
+          "total_s": 15.9549999999997,
+          "miss_s": 4.6599999999997905,
+          "fa_s": 0.36199999999985266,
+          "conf_s": 3.436000000000175,
+          "correct_s": 7.858999999999735,
+          "der": 0.5301159511125024,
+          "miss": 0.2920714509558056,
+          "fa": 0.02268881228454149,
+          "conf": 0.21535568787215542
+        },
+        "n_segments": 9,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+60",
+        "mode": "stream",
+        "audio_s": 60.0,
+        "seconds": 0.6520979580236599,
+        "mlx_peak_gb": 0.7084961,
+        "info": {
+          "mode": "stream",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 60,
+        "der": {
+          "total_s": 45.3009999999997,
+          "miss_s": 9.956999999999969,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 35.34399999999973,
+          "der": 0.21979647248405187,
+          "miss": 0.21979647248405187,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 31,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+60",
+        "mode": "oneshot",
+        "audio_s": 60.0,
+        "seconds": 0.13044854102190584,
+        "mlx_peak_gb": 0.965602984,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 60.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 60,
+        "der": {
+          "total_s": 45.3009999999997,
+          "miss_s": 10.335999999999734,
+          "fa_s": 0.5219999999998528,
+          "conf_s": 14.919000000000338,
+          "correct_s": 20.04599999999963,
+          "der": 0.5690161365091299,
+          "miss": 0.22816273371448315,
+          "fa": 0.011522924438750937,
+          "conf": 0.3293304783558958
+        },
+        "n_segments": 21,
+        "n_hyp_speakers": 1
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+90",
+        "mode": "stream",
+        "audio_s": 90.0,
+        "seconds": 1.0386212909943424,
+        "mlx_peak_gb": 0.712084212,
+        "info": {
+          "mode": "stream",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 90,
+        "der": {
+          "total_s": 74.30300000000034,
+          "miss_s": 18.73500000000038,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 55.567999999999955,
+          "der": 0.2521432512819172,
+          "miss": 0.2521432512819172,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 51,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+90",
+        "mode": "oneshot",
+        "audio_s": 90.0,
+        "seconds": 0.22059345798334107,
+        "mlx_peak_gb": 1.060810352,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 90.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 90,
+        "der": {
+          "total_s": 74.30300000000034,
+          "miss_s": 19.12700000000028,
+          "fa_s": 0.9219999999998474,
+          "conf_s": 16.969999999999892,
+          "correct_s": 38.20600000000017,
+          "der": 0.498216761099819,
+          "miss": 0.2574189467450869,
+          "fa": 0.012408651063884947,
+          "conf": 0.22838916329084713
+        },
+        "n_segments": 54,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+120",
+        "mode": "stream",
+        "audio_s": 120.0,
+        "seconds": 1.4235777920112014,
+        "mlx_peak_gb": 0.715541236,
+        "info": {
+          "mode": "stream",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 120,
+        "der": {
+          "total_s": 103.59900000000039,
+          "miss_s": 26.880000000000404,
+          "fa_s": 0.0,
+          "conf_s": 0.0,
+          "correct_s": 76.71899999999998,
+          "der": 0.25946196391857357,
+          "miss": 0.25946196391857357,
+          "fa": 0.0,
+          "conf": 0.0
+        },
+        "n_segments": 66,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "clip",
+        "label": "TS3007a@1100+120",
+        "mode": "oneshot",
+        "audio_s": 120.0,
+        "seconds": 0.33377870899857953,
+        "mlx_peak_gb": 1.219999246,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 120.0
+        },
+        "meeting": "TS3007a",
+        "start": 1100,
+        "length": 120,
+        "der": {
+          "total_s": 103.59900000000039,
+          "miss_s": 26.45400000000017,
+          "fa_s": 0.9089999999999621,
+          "conf_s": 17.419999999999945,
+          "correct_s": 59.72500000000027,
+          "der": 0.4322725122829362,
+          "miss": 0.25534995511539754,
+          "fa": 0.008774215967335193,
+          "conf": 0.16814834120020347
+        },
+        "n_segments": 66,
+        "n_hyp_speakers": 2
+      }
+    ],
+    "demos": [
+      {
+        "kind": "demo",
+        "label": "meeting_1",
+        "mode": "stream",
+        "audio_s": 162.0346875,
+        "seconds": 8.540428166976199,
+        "mlx_peak_gb": 0.727268472,
+        "info": {
+          "mode": "stream",
+          "duration_s": 162.0346875
+        },
+        "der": {
+          "total_s": 136.088,
+          "miss_s": 0.08000000000000007,
+          "fa_s": 0.6249999999999858,
+          "conf_s": 38.26299999999999,
+          "correct_s": 97.745,
+          "der": 0.2863441302686495,
+          "miss": 0.0005878549174063847,
+          "fa": 0.0045926165422372715,
+          "conf": 0.2811636588090059
+        },
+        "n_segments": 30,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_1",
+        "mode": "oneshot",
+        "audio_s": 162.0346875,
+        "seconds": 1.7083348330343142,
+        "mlx_peak_gb": 1.492317816,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 162.0346875
+        },
+        "der": {
+          "total_s": 136.08799999999997,
+          "miss_s": 6.879999999999965,
+          "fa_s": 0.0,
+          "conf_s": 36.82299999999998,
+          "correct_s": 92.38500000000005,
+          "der": 0.32113779319263974,
+          "miss": 0.05055552289694879,
+          "fa": 0.0,
+          "conf": 0.27058227029569093
+        },
+        "n_segments": 67,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_2",
+        "mode": "stream",
+        "audio_s": 127.566375,
+        "seconds": 6.571506125037558,
+        "mlx_peak_gb": 0.716409684,
+        "info": {
+          "mode": "stream",
+          "duration_s": 127.566375
+        },
+        "der": {
+          "total_s": 105.316,
+          "miss_s": 0.3200000000000003,
+          "fa_s": 0.9739999999999931,
+          "conf_s": 21.693999999999996,
+          "correct_s": 83.30199999999999,
+          "der": 0.21827642523453217,
+          "miss": 0.0030384746857077772,
+          "fa": 0.009248357324622973,
+          "conf": 0.2059895932242014
+        },
+        "n_segments": 28,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_2",
+        "mode": "oneshot",
+        "audio_s": 127.566375,
+        "seconds": 1.0807269579963759,
+        "mlx_peak_gb": 1.133193448,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 127.566375
+        },
+        "der": {
+          "total_s": 105.316,
+          "miss_s": 5.6919999999999735,
+          "fa_s": 0.020000000000010232,
+          "conf_s": 31.718999999999983,
+          "correct_s": 67.90500000000004,
+          "der": 0.3554160811272738,
+          "miss": 0.05404686847202679,
+          "fa": 0.00018990466785683306,
+          "conf": 0.3011793079873902
+        },
+        "n_segments": 50,
+        "n_hyp_speakers": 2
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_3",
+        "mode": "stream",
+        "audio_s": 103.5699375,
+        "seconds": 4.966693833004683,
+        "mlx_peak_gb": 0.713640756,
+        "info": {
+          "mode": "stream",
+          "duration_s": 103.5699375
+        },
+        "der": {
+          "total_s": 86.52100000000002,
+          "miss_s": 0.08000000000000007,
+          "fa_s": 0.21900000000001718,
+          "conf_s": 30.700999999999993,
+          "correct_s": 55.74000000000002,
+          "der": 0.35829451809387325,
+          "miss": 0.0009246310144358024,
+          "fa": 0.0025311774020182055,
+          "conf": 0.3548387096774192
+        },
+        "n_segments": 33,
+        "n_hyp_speakers": 3
+      },
+      {
+        "kind": "demo",
+        "label": "meeting_3",
+        "mode": "oneshot",
+        "audio_s": 103.5699375,
+        "seconds": 0.9060360419680364,
+        "mlx_peak_gb": 1.04205043,
+        "info": {
+          "mode": "oneshot",
+          "duration_s": 103.5699375
+        },
+        "der": {
+          "total_s": 86.52100000000002,
+          "miss_s": 3.640000000000007,
+          "fa_s": 0.6310000000000198,
+          "conf_s": 22.541000000000004,
+          "correct_s": 60.34000000000001,
+          "der": 0.30989008448815925,
+          "miss": 0.042070711156829046,
+          "fa": 0.007293027126362614,
+          "conf": 0.26052634620496756
+        },
+        "n_segments": 32,
+        "n_hyp_speakers": 2
+      }
+    ],
+    "clips_by_length": [
+      {
+        "length_s": 10,
+        "modes": {
+          "oneshot": {
+            "n_clips": 15,
+            "total_ref_speech_s": 113.36799999999994,
+            "miss_s": 28.659999999999986,
+            "fa_s": 5.919999999999999,
+            "conf_s": 5.794000000000022,
+            "der": 0.35613224190247716,
+            "miss": 0.25280502434549434,
+            "fa": 0.05221932114882508,
+            "conf": 0.05110789640815772,
+            "mean_seconds": 0.12607141406430553,
+            "rtf": 0.012607141406430553,
+            "max_mlx_peak_gb": 0.324624665
+          },
+          "stream": {
+            "n_clips": 15,
+            "total_ref_speech_s": 113.36799999999994,
+            "miss_s": 32.50899999999989,
+            "fa_s": 3.84,
+            "conf_s": 1.8260000000000478,
+            "der": 0.33673523392844507,
+            "miss": 0.28675640392350493,
+            "fa": 0.03387199209653519,
+            "conf": 0.01610683790840492,
+            "mean_seconds": 0.19105471406364813,
+            "rtf": 0.019105471406364812,
+            "max_mlx_peak_gb": 0.428084222
+          }
+        },
+        "clips_where": {
+          "stream_better": 9,
+          "oneshot_better": 6,
+          "equal": 0
+        },
+        "delta_der": {
+          "point": 0.019397007974032092,
+          "ci95": [
+            -0.07519058030717772,
+            0.11980922177413174
+          ],
+          "resamples": 2000,
+          "seed": 0
+        }
+      },
+      {
+        "length_s": 20,
+        "modes": {
+          "oneshot": {
+            "n_clips": 15,
+            "total_ref_speech_s": 211.46899999999968,
+            "miss_s": 59.68899999999949,
+            "fa_s": 9.651999999999925,
+            "conf_s": 12.129000000000383,
+            "der": 0.38525741361617977,
+            "miss": 0.2822588653656071,
+            "fa": 0.04564262374154102,
+            "conf": 0.05735592450903159,
+            "mean_seconds": 0.0843081054626964,
+            "rtf": 0.0042154052731348205,
+            "max_mlx_peak_gb": 0.433579626
+          },
+          "stream": {
+            "n_clips": 15,
+            "total_ref_speech_s": 211.46899999999968,
+            "miss_s": 60.70299999999963,
+            "fa_s": 3.84,
+            "conf_s": 5.4150000000000365,
+            "der": 0.3308191744416429,
+            "miss": 0.28705389442424056,
+            "fa": 0.01815868992618306,
+            "conf": 0.025606590091219256,
+            "mean_seconds": 0.36292183892413354,
+            "rtf": 0.018146091946206675,
+            "max_mlx_peak_gb": 0.517927818
+          }
+        },
+        "clips_where": {
+          "stream_better": 12,
+          "oneshot_better": 3,
+          "equal": 0
+        },
+        "delta_der": {
+          "point": 0.054438239174536975,
+          "ci95": [
+            -0.02154391320712486,
+            0.1489625931872812
+          ],
+          "resamples": 2000,
+          "seed": 0
+        }
+      },
+      {
+        "length_s": 30,
+        "modes": {
+          "oneshot": {
+            "n_clips": 15,
+            "total_ref_speech_s": 329.4729999999996,
+            "miss_s": 93.2009999999998,
+            "fa_s": 12.56999999999982,
+            "conf_s": 19.73500000000036,
+            "der": 0.3809295450613559,
+            "miss": 0.28287902195324016,
+            "fa": 0.03815183641755117,
+            "conf": 0.05989868669056457,
+            "mean_seconds": 0.11676477213234951,
+            "rtf": 0.003892159071078317,
+            "max_mlx_peak_gb": 0.543240414
+          },
+          "stream": {
+            "n_clips": 15,
+            "total_ref_speech_s": 329.4729999999996,
+            "miss_s": 99.33499999999984,
+            "fa_s": 3.859000000000009,
+            "conf_s": 6.205000000000021,
+            "der": 0.3320423828356193,
+            "miss": 0.30149663250099384,
+            "fa": 0.011712644131689131,
+            "conf": 0.01883310620293629,
+            "mean_seconds": 0.6359448165361149,
+            "rtf": 0.02119816055120383,
+            "max_mlx_peak_gb": 0.63189698
+          }
+        },
+        "clips_where": {
+          "stream_better": 12,
+          "oneshot_better": 3,
+          "equal": 0
+        },
+        "delta_der": {
+          "point": 0.048887162225736566,
+          "ci95": [
+            -0.019832127569598047,
+            0.12841289854810412
+          ],
+          "resamples": 2000,
+          "seed": 0
+        }
+      },
+      {
+        "length_s": 60,
+        "modes": {
+          "oneshot": {
+            "n_clips": 15,
+            "total_ref_speech_s": 706.1589999999994,
+            "miss_s": 209.66499999999974,
+            "fa_s": 18.218999999999845,
+            "conf_s": 74.71300000000022,
+            "der": 0.42851114267466683,
+            "miss": 0.296909053060288,
+            "fa": 0.02580013849572102,
+            "conf": 0.10580195111865781,
+            "mean_seconds": 0.27089984966053937,
+            "rtf": 0.004514997494342323,
+            "max_mlx_peak_gb": 0.965602984
+          },
+          "stream": {
+            "n_clips": 15,
+            "total_ref_speech_s": 706.1589999999994,
+            "miss_s": 200.68399999999954,
+            "fa_s": 4.167000000000058,
+            "conf_s": 18.767000000000028,
+            "der": 0.31666805917647417,
+            "miss": 0.28419095416188095,
+            "fa": 0.005900937324313734,
+            "conf": 0.026576167690279446,
+            "mean_seconds": 1.4982762778022638,
+            "rtf": 0.024971271296704393,
+            "max_mlx_peak_gb": 0.708496116
+          }
+        },
+        "clips_where": {
+          "stream_better": 12,
+          "oneshot_better": 3,
+          "equal": 0
+        },
+        "delta_der": {
+          "point": 0.11184308349819269,
+          "ci95": [
+            0.03252222326699464,
+            0.204793553799032
+          ],
+          "resamples": 2000,
+          "seed": 0
+        }
+      },
+      {
+        "length_s": 90,
+        "modes": {
+          "oneshot": {
+            "n_clips": 15,
+            "total_ref_speech_s": 1091.533,
+            "miss_s": 298.63300000000027,
+            "fa_s": 16.068999999999807,
+            "conf_s": 103.37499999999997,
+            "der": 0.38301819551035104,
+            "miss": 0.2735904457309127,
+            "fa": 0.014721497197061206,
+            "conf": 0.09470625258237725,
+            "mean_seconds": 0.3539975193406766,
+            "rtf": 0.0039333057704519616,
+            "max_mlx_peak_gb": 1.060810352
+          },
+          "stream": {
+            "n_clips": 15,
+            "total_ref_speech_s": 1091.533,
+            "miss_s": 318.184,
+            "fa_s": 4.237000000000023,
+            "conf_s": 18.95899999999987,
+            "der": 0.3127527981288701,
+            "miss": 0.29150195184204236,
+            "fa": 0.003881696659652089,
+            "conf": 0.017369149627175607,
+            "mean_seconds": 2.379031027663344,
+            "rtf": 0.026433678085148266,
+            "max_mlx_peak_gb": 0.712084276
+          }
+        },
+        "clips_where": {
+          "stream_better": 11,
+          "oneshot_better": 4,
+          "equal": 0
+        },
+        "delta_der": {
+          "point": 0.07026539738148108,
+          "ci95": [
+            0.013553006263156506,
+            0.13058967396329385
+          ],
+          "resamples": 2000,
+          "seed": 0
+        }
+      },
+      {
+        "length_s": 120,
+        "modes": {
+          "oneshot": {
+            "n_clips": 15,
+            "total_ref_speech_s": 1441.7799999999995,
+            "miss_s": 367.9779999999998,
+            "fa_s": 10.738000000000069,
+            "conf_s": 157.9819999999999,
+            "der": 0.37224680603143334,
+            "miss": 0.2552247915770783,
+            "fa": 0.007447738212487392,
+            "conf": 0.10957427624186766,
+            "mean_seconds": 0.5679853917992053,
+            "rtf": 0.00473321159832671,
+            "max_mlx_peak_gb": 1.22370203
+          },
+          "stream": {
+            "n_clips": 15,
+            "total_ref_speech_s": 1441.7799999999995,
+            "miss_s": 421.32299999999964,
+            "fa_s": 4.803000000000068,
+            "conf_s": 21.86399999999981,
+            "der": 0.31072008212071167,
+            "miss": 0.29222419509217756,
+            "fa": 0.00333129881119177,
+            "conf": 0.015164588217342324,
+            "mean_seconds": 2.962391041731462,
+            "rtf": 0.02468659201442885,
+            "max_mlx_peak_gb": 0.715541332
+          }
+        },
+        "clips_where": {
+          "stream_better": 11,
+          "oneshot_better": 4,
+          "equal": 0
+        },
+        "delta_der": {
+          "point": 0.06152672391072163,
+          "ci95": [
+            -0.011305854234232167,
+            0.12907217777026803
+          ],
+          "resamples": 2000,
+          "seed": 0
+        }
+      }
+    ],
+    "threshold_rule": "STREAM_MIN_SECONDS = the smallest tested clip length L such that, for L and for every longer tested length, the pooled DER of streaming is at most that of the one-shot call and streaming's real-time factor is at most 0.05; none if the longest tested length already fails",
+    "threshold_suggestion_s": 10
+  },
+  "versions": {
+    "workers": {
+      "python": "3.11.17",
+      "mlx": "0.31.2",
+      "mlx-audio": "0.4.3",
+      "numpy": "2.4.5",
+      "scipy": "1.17.1",
+      "soundfile": "0.13.1",
+      "torch": "2.12.0",
+      "huggingface_hub": "1.15.0",
+      "jiwer": null,
+      "pyannote.metrics": null,
+      "pyannote.core": null
+    },
+    "evaluation": {
+      "python": "3.11.17",
+      "mlx": "0.31.2",
+      "mlx-audio": "0.4.3",
+      "numpy": "2.4.5",
+      "scipy": "1.17.1",
+      "soundfile": "0.13.1",
+      "torch": "2.12.0",
+      "huggingface_hub": "1.15.0",
+      "jiwer": "4.0.0",
+      "pyannote.metrics": "4.1",
+      "pyannote.core": "6.0.1"
+    }
+  },
+  "machine": {
+    "platform": "macOS-26.7.1-arm64-arm-64bit",
+    "chip": "Apple M5",
+    "ram_gb": 16.0
+  },
+  "missing": []
+}

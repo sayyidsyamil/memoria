@@ -1,0 +1,14 @@
+[estimate] fc: 96 requests, 96 not yet cached; ~3,008,599 input tokens (3.742 chars/token, DeepSeek, 412 paid requests), ~2,841,642 of them a prefix shared with the previous request; output ~43,130 tokens (October Qwen lengths), at most 393,216
+[estimate] fc: $0.4772 without prompt caching, $0.0594 if every shared prefix is cached, $0.6872 worst case (no caching, every output at max_tokens)
+[key] before fc: usage $0.0459, limit $1, remaining $0.9541; spend log $0.0465; cap $0.9
+[estimate] GO: $0.4772 expected (worst $0.6872), $0.8535 left under the cap
+full-context+cot: finished ES2004
+full-context+cot: finished ES2014
+full-context+cot: finished IS1009
+full-context+cot: finished TS3003
+full-context+cot: finished TS3007
+full-context+cot: {'correct': 81, 'n': 96, 'accuracy': 0.84375, 'ci_95': (0.758, 0.903)}
+done in 589.8s -> /Users/sayyid/Documents/memoria-workspace/research/strong-model/results/baselines_fc_test.json
+[key] after fc: usage $0.0918, limit $1, remaining $0.9082; spend log $0.0930; cap $0.9
+[spend] fc: paid $0.0466 in this process (96 new requests, 0 from the cache)
+[run] 591 s

@@ -1,0 +1,14 @@
+# Second phrasing of each question in crm.chain (authored by the AI assistant, written before any router result was seen). DEV split. Router robustness probe only.
+q1 | So which CRM vendor did we land on?
+q2 | How much money is set aside for the CRM right now?
+q3 | When does the CRM have to go live, per the latest decision?
+q4 | Is the CRM rollout finished?
+q5 | On 20 Feb, what go-live date was the CRM team working to?
+q6 | What was the CRM go-live date as of 10 March?
+q7 | If you had checked the CRM records on 1 April, what go-live date would they have shown for 10 March?
+q8 | Using only what was on file at the start of March, which vendor was the CRM vendor on 25 March?
+q9 | What was the CRM budget in mid-January (the 15th)?
+q10 | Was the CRM rollout already done by 1 April?
+q11 | How many times did we switch CRM vendors?
+q12 | How often has the CRM go-live date moved?
+q13 | Has the CRM budget been changed, and if so how many times?

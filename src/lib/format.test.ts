@@ -1,0 +1,46 @@
+import { expect, it } from 'vitest'
+import { dayLabel, formatDay, formatDayTime, highlightParts, initials, plural, whenLabel } from './format'
+
+it('builds readable initials for people, numbered speakers and unknown voices', () => {
+  expect(initials('Maya Chen')).toBe('MC')
+  expect(initials('Priya')).toBe('P')
+  expect(initials('Dana Marie Ruiz')).toBe('DR')
+  expect(initials('Speaker 2')).toBe('2')
+  expect(initials('Unknown speaker')).toBe('?')
+  expect(initials('  ')).toBe('?')
+})
+it('highlights query words by prefix and joins phrases into one run', () => {
+  const parts = highlightParts('Net revenue churn landed at 3.1 percent, down from 4.4', ['churn', 'landed'])
+  expect(parts.filter(part => part.hit).map(part => part.text)).toEqual(['churn landed'])
+  expect(parts.map(part => part.text).join('')).toBe('Net revenue churn landed at 3.1 percent, down from 4.4')
+  expect(highlightParts("I'd lead with the churn number", ['churn', 'number']).filter(part => part.hit).map(part => part.text)).toEqual(['churn number'])
+  expect(highlightParts('Churning customers', ['churn'])[0]).toEqual({ text: 'Churning', hit: true })
+  expect(highlightParts('Nothing here', [])).toEqual([{ text: 'Nothing here', hit: false }])
+})
+it('marks the matched word and leaves the punctuation around it unmarked', () => {
+  const parts = highlightParts('On the budget, I checked again. Good, so no change to the budget.', ['budget'])
+  expect(parts.filter(part => part.hit).map(part => part.text)).toEqual(['budget', 'budget'])
+  expect(parts.map(part => part.text).join('')).toBe('On the budget, I checked again. Good, so no change to the budget.')
+  expect(highlightParts('the "pilot budget" stays', ['pilot', 'budget']).filter(part => part.hit).map(part => part.text)).toEqual(['pilot budget'])
+  expect(highlightParts('budget, pilot', ['budget', 'pilot']).filter(part => part.hit).map(part => part.text)).toEqual(['budget', 'pilot'])
+})
+it('writes counts in singular and plural', () => {
+  expect(plural(0, 'meeting')).toBe('0 meetings')
+  expect(plural(1, 'meeting')).toBe('1 meeting')
+  expect(plural(2, 'brief')).toBe('2 briefs')
+  expect(plural(1, 'entry', 'entries')).toBe('1 entry')
+  expect(plural(2, 'entry', 'entries')).toBe('2 entries')
+})
+it('writes dates in one style everywhere, with a 24-hour time', () => {
+  expect(formatDay(new Date(Date.UTC(2026, 10, 9, 12)), 'UTC')).toBe('9 Nov 2026')
+  expect(formatDay(new Date(Date.UTC(2026, 8, 28)), 'UTC')).toBe('28 Sep 2026')
+  expect(formatDayTime(new Date('2026-10-12T01:30:45Z'), 'Asia/Kuala_Lumpur')).toBe('12 Oct 2026, 09:30')
+  expect(formatDayTime(new Date('2026-10-12T00:05:00Z'), 'UTC')).toBe('12 Oct 2026, 00:05')
+  expect(formatDayTime(new Date('2026-10-12T15:05:00Z'), 'UTC')).toBe('12 Oct 2026, 15:05')
+  const local = new Date(2026, 9, 12, 9, 30)
+  expect(formatDayTime(local)).toBe('12 Oct 2026, 09:30')
+  expect(dayLabel(local.toISOString())).toBe('12 Oct 2026')
+  expect(whenLabel(local.toISOString())).toBe('12 Oct 2026, 09:30')
+  expect(whenLabel('not a date')).toBe('')
+  expect(dayLabel(undefined)).toBe('')
+})

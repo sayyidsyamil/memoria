@@ -1,0 +1,14 @@
+# Natural-language wording of each question in crm.chain (authored by the AI assistant). DEV split.
+q1 | Which CRM vendor did we end up choosing?
+q2 | What is the CRM budget at the moment, in ringgit?
+q3 | What is the current deadline for the CRM go-live?
+q4 | What is the status of the CRM rollout?
+q5 | What was the CRM rollout deadline on 20 February 2026?
+q6 | What was the CRM rollout deadline on 10 March 2026?
+q7 | According to what had been recorded by 1 April 2026, what was the CRM rollout deadline on 10 March 2026?
+q8 | Going by the records as of 1 March 2026, which CRM vendor was selected on 25 March 2026?
+q9 | What was the CRM budget on January 15, 2026?
+q10 | What was the status of the CRM rollout on 2026-04-01?
+q11 | How many times did the CRM vendor choice change? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q12 | How many times was the CRM rollout deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q13 | How many times has the CRM budget been changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.

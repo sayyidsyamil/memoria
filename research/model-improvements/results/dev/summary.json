@@ -1,0 +1,2007 @@
+{
+ "empty_ledger_right": 69,
+ "questions": 124,
+ "rows": {
+  "app": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 26,
+   "fp": 130,
+   "fn": 34,
+   "precision": 0.167,
+   "recall": 0.433,
+   "f1": 0.241,
+   "ci_95": {
+    "precision": [
+     0.092,
+     0.278
+    ],
+    "recall": [
+     0.238,
+     0.636
+    ],
+    "f1": [
+     0.137,
+     0.364
+    ]
+   },
+   "miss_reasons": {
+    "missed": 15,
+    "wrong_evidence": 17,
+    "link_error": 1,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 124,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 7.8,
+   "values": {
+    "agrees": 110,
+    "changes_belief": 78,
+    "no_gold_value_yet": 12,
+    "other_value": 29,
+    "earlier_value": 5,
+    "wrong": 46
+   },
+   "qa_exact": "90/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "28/43",
+    "n_changes": "26/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 119,
+    "accepted": 25,
+    "edited": 6,
+    "rejected": 88,
+    "per_meeting": 5.95,
+    "qa_after_review": "92/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 7,
+     "fp": 20,
+     "fn": 6,
+     "qa_exact": "17/25",
+     "wrong": 8,
+     "proposals": 23
+    },
+    "TS3004": {
+     "tp": 6,
+     "fp": 33,
+     "fn": 4,
+     "qa_exact": "10/20",
+     "wrong": 16,
+     "proposals": 29
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 16,
+     "fn": 9,
+     "qa_exact": "21/24",
+     "wrong": 7,
+     "proposals": 16
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 13,
+     "fn": 7,
+     "qa_exact": "17/21",
+     "wrong": 4,
+     "proposals": 10
+    },
+    "TS3006": {
+     "tp": 10,
+     "fp": 48,
+     "fn": 8,
+     "qa_exact": "25/34",
+     "wrong": 11,
+     "proposals": 41
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 0,
+    "b_only": 0,
+    "both": 90,
+    "neither": 34,
+    "p_two_sided": 1.0
+   }
+  },
+  "app>app-numwords": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 29,
+   "fp": 131,
+   "fn": 31,
+   "precision": 0.181,
+   "recall": 0.483,
+   "f1": 0.264,
+   "ci_95": {
+    "precision": [
+     0.106,
+     0.298
+    ],
+    "recall": [
+     0.291,
+     0.683
+    ],
+    "f1": [
+     0.159,
+     0.402
+    ]
+   },
+   "miss_reasons": {
+    "wrong_evidence": 17,
+    "missed": 12,
+    "link_error": 1,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 125,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 31,
+    "invalid": 2
+   },
+   "writes_per_meeting": 8.0,
+   "values": {
+    "agrees": 114,
+    "changes_belief": 81,
+    "no_gold_value_yet": 12,
+    "other_value": 29,
+    "earlier_value": 5,
+    "wrong": 46
+   },
+   "qa_exact": "93/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "31/43",
+    "n_changes": "26/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 122,
+    "accepted": 28,
+    "edited": 6,
+    "rejected": 88,
+    "per_meeting": 6.1,
+    "qa_after_review": "95/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 9,
+     "fp": 21,
+     "fn": 4,
+     "qa_exact": "19/25",
+     "wrong": 8,
+     "proposals": 25
+    },
+    "TS3004": {
+     "tp": 6,
+     "fp": 33,
+     "fn": 4,
+     "qa_exact": "10/20",
+     "wrong": 16,
+     "proposals": 29
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 16,
+     "fn": 9,
+     "qa_exact": "21/24",
+     "wrong": 7,
+     "proposals": 16
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 13,
+     "fn": 7,
+     "qa_exact": "17/21",
+     "wrong": 4,
+     "proposals": 10
+    },
+    "TS3006": {
+     "tp": 11,
+     "fp": 48,
+     "fn": 7,
+     "qa_exact": "26/34",
+     "wrong": 11,
+     "proposals": 42
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 3,
+    "b_only": 0,
+    "both": 90,
+    "neither": 31,
+    "p_two_sided": 0.25
+   }
+  },
+  "app>app-loopstop": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 26,
+   "fp": 130,
+   "fn": 34,
+   "precision": 0.167,
+   "recall": 0.433,
+   "f1": 0.241,
+   "ci_95": {
+    "precision": [
+     0.092,
+     0.278
+    ],
+    "recall": [
+     0.238,
+     0.636
+    ],
+    "f1": [
+     0.137,
+     0.364
+    ]
+   },
+   "miss_reasons": {
+    "missed": 15,
+    "wrong_evidence": 17,
+    "link_error": 1,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 124,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 7.8,
+   "values": {
+    "agrees": 110,
+    "changes_belief": 78,
+    "no_gold_value_yet": 12,
+    "other_value": 29,
+    "earlier_value": 5,
+    "wrong": 46
+   },
+   "qa_exact": "90/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "28/43",
+    "n_changes": "26/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 119,
+    "accepted": 25,
+    "edited": 6,
+    "rejected": 88,
+    "per_meeting": 5.95,
+    "qa_after_review": "92/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 1,
+   "windows_with_repeats": 0,
+   "window_seconds_p50_p95": [
+    7.85,
+    28.98
+   ],
+   "meeting_seconds_p50_p95": [
+    49.8,
+    98.34
+   ],
+   "meeting_seconds_mean": 54.3,
+   "output_tokens_per_meeting": 875.0,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 7,
+     "fp": 20,
+     "fn": 6,
+     "qa_exact": "17/25",
+     "wrong": 8,
+     "proposals": 23
+    },
+    "TS3004": {
+     "tp": 6,
+     "fp": 33,
+     "fn": 4,
+     "qa_exact": "10/20",
+     "wrong": 16,
+     "proposals": 29
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 16,
+     "fn": 9,
+     "qa_exact": "21/24",
+     "wrong": 7,
+     "proposals": 16
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 13,
+     "fn": 7,
+     "qa_exact": "17/21",
+     "wrong": 4,
+     "proposals": 10
+    },
+    "TS3006": {
+     "tp": 10,
+     "fp": 48,
+     "fn": 8,
+     "qa_exact": "25/34",
+     "wrong": 11,
+     "proposals": 41
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 0,
+    "b_only": 0,
+    "both": 90,
+    "neither": 34,
+    "p_two_sided": 1.0
+   }
+  },
+  "app|support>=0": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 23,
+   "fp": 73,
+   "fn": 37,
+   "precision": 0.24,
+   "recall": 0.383,
+   "f1": 0.295,
+   "ci_95": {
+    "precision": [
+     0.135,
+     0.365
+    ],
+    "recall": [
+     0.215,
+     0.569
+    ],
+    "f1": [
+     0.164,
+     0.423
+    ]
+   },
+   "miss_reasons": {
+    "missed": 22,
+    "wrong_evidence": 13,
+    "link_error": 1,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 71,
+    "wrong_content": 2
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 4.8,
+   "values": {
+    "agrees": 69,
+    "changes_belief": 56,
+    "no_gold_value_yet": 8,
+    "other_value": 15,
+    "earlier_value": 4,
+    "wrong": 27
+   },
+   "qa_exact": "87/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "23/43",
+    "n_changes": "28/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 80,
+    "accepted": 22,
+    "edited": 3,
+    "rejected": 55,
+    "per_meeting": 4.0,
+    "qa_after_review": "89/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 7,
+     "fp": 17,
+     "fn": 6,
+     "qa_exact": "17/25",
+     "wrong": 8,
+     "proposals": 22
+    },
+    "TS3004": {
+     "tp": 4,
+     "fp": 18,
+     "fn": 6,
+     "qa_exact": "11/20",
+     "wrong": 9,
+     "proposals": 17
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 11,
+     "fn": 9,
+     "qa_exact": "20/24",
+     "wrong": 5,
+     "proposals": 11
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 3,
+     "fn": 7,
+     "qa_exact": "16/21",
+     "wrong": 0,
+     "proposals": 3
+    },
+    "TS3006": {
+     "tp": 9,
+     "fp": 24,
+     "fn": 9,
+     "qa_exact": "23/34",
+     "wrong": 5,
+     "proposals": 27
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 3,
+    "b_only": 6,
+    "both": 84,
+    "neither": 31,
+    "p_two_sided": 0.5078125
+   }
+  },
+  "app|lexsupport": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 24,
+   "fp": 83,
+   "fn": 36,
+   "precision": 0.224,
+   "recall": 0.4,
+   "f1": 0.287,
+   "ci_95": {
+    "precision": [
+     0.132,
+     0.338
+    ],
+    "recall": [
+     0.232,
+     0.574
+    ],
+    "f1": [
+     0.173,
+     0.407
+    ]
+   },
+   "miss_reasons": {
+    "missed": 20,
+    "wrong_evidence": 14,
+    "link_error": 1,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 78,
+    "wrong_content": 5
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 5.35,
+   "values": {
+    "agrees": 79,
+    "changes_belief": 58,
+    "no_gold_value_yet": 7,
+    "other_value": 16,
+    "earlier_value": 5,
+    "wrong": 28
+   },
+   "qa_exact": "92/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "24/43",
+    "n_changes": "31/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 84,
+    "accepted": 23,
+    "edited": 3,
+    "rejected": 58,
+    "per_meeting": 4.2,
+    "qa_after_review": "89/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 6,
+     "fp": 18,
+     "fn": 7,
+     "qa_exact": "17/25",
+     "wrong": 8,
+     "proposals": 20
+    },
+    "TS3004": {
+     "tp": 6,
+     "fp": 18,
+     "fn": 4,
+     "qa_exact": "13/20",
+     "wrong": 6,
+     "proposals": 15
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 9,
+     "fn": 9,
+     "qa_exact": "19/24",
+     "wrong": 4,
+     "proposals": 9
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 8,
+     "fn": 7,
+     "qa_exact": "18/21",
+     "wrong": 2,
+     "proposals": 8
+    },
+    "TS3006": {
+     "tp": 9,
+     "fp": 30,
+     "fn": 9,
+     "qa_exact": "25/34",
+     "wrong": 8,
+     "proposals": 32
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 6,
+    "b_only": 4,
+    "both": 86,
+    "neither": 28,
+    "p_two_sided": 0.75390625
+   }
+  },
+  "app|reanchor:10": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 27,
+   "fp": 108,
+   "fn": 33,
+   "precision": 0.2,
+   "recall": 0.45,
+   "f1": 0.277,
+   "ci_95": {
+    "precision": [
+     0.113,
+     0.323
+    ],
+    "recall": [
+     0.265,
+     0.644
+    ],
+    "f1": [
+     0.163,
+     0.404
+    ]
+   },
+   "miss_reasons": {
+    "missed": 15,
+    "wrong_evidence": 15,
+    "link_error": 2,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 102,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 6.75,
+   "values": {
+    "agrees": 99,
+    "changes_belief": 71,
+    "no_gold_value_yet": 9,
+    "other_value": 22,
+    "earlier_value": 5,
+    "wrong": 36
+   },
+   "qa_exact": "95/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "29/43",
+    "n_changes": "29/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 103,
+    "accepted": 26,
+    "edited": 5,
+    "rejected": 72,
+    "per_meeting": 5.15,
+    "qa_after_review": "93/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 7,
+     "fp": 18,
+     "fn": 6,
+     "qa_exact": "17/25",
+     "wrong": 8,
+     "proposals": 21
+    },
+    "TS3004": {
+     "tp": 6,
+     "fp": 25,
+     "fn": 4,
+     "qa_exact": "13/20",
+     "wrong": 10,
+     "proposals": 21
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "21/24",
+     "wrong": 6,
+     "proposals": 14
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 11,
+     "fn": 7,
+     "qa_exact": "18/21",
+     "wrong": 3,
+     "proposals": 9
+    },
+    "TS3006": {
+     "tp": 10,
+     "fp": 40,
+     "fn": 8,
+     "qa_exact": "26/34",
+     "wrong": 9,
+     "proposals": 38
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 5,
+    "b_only": 0,
+    "both": 90,
+    "neither": 29,
+    "p_two_sided": 0.0625
+   }
+  },
+  "app|lastvalue": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 20,
+   "fp": 107,
+   "fn": 40,
+   "precision": 0.157,
+   "recall": 0.333,
+   "f1": 0.214,
+   "ci_95": {
+    "precision": [
+     0.074,
+     0.29
+    ],
+    "recall": [
+     0.167,
+     0.511
+    ],
+    "f1": [
+     0.103,
+     0.352
+    ]
+   },
+   "miss_reasons": {
+    "missed": 22,
+    "wrong_evidence": 16,
+    "link_error": 1,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 101,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 6.35,
+   "values": {
+    "agrees": 92,
+    "changes_belief": 44,
+    "no_gold_value_yet": 10,
+    "earlier_value": 4,
+    "wrong": 35,
+    "other_value": 21
+   },
+   "qa_exact": "97/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "28/43",
+    "n_changes": "33/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 95,
+    "accepted": 19,
+    "edited": 4,
+    "rejected": 72,
+    "per_meeting": 4.75,
+    "qa_after_review": "87/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 5,
+     "fp": 13,
+     "fn": 8,
+     "qa_exact": "19/25",
+     "wrong": 3,
+     "proposals": 15
+    },
+    "TS3004": {
+     "tp": 5,
+     "fp": 25,
+     "fn": 5,
+     "qa_exact": "14/20",
+     "wrong": 14,
+     "proposals": 24
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 14,
+     "fn": 9,
+     "qa_exact": "21/24",
+     "wrong": 7,
+     "proposals": 14
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 13,
+     "fn": 7,
+     "qa_exact": "17/21",
+     "wrong": 4,
+     "proposals": 10
+    },
+    "TS3006": {
+     "tp": 7,
+     "fp": 42,
+     "fn": 11,
+     "qa_exact": "26/34",
+     "wrong": 7,
+     "proposals": 32
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 8,
+    "b_only": 1,
+    "both": 89,
+    "neither": 26,
+    "p_two_sided": 0.0390625
+   }
+  },
+  "app|modevalue": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 21,
+   "fp": 112,
+   "fn": 39,
+   "precision": 0.158,
+   "recall": 0.35,
+   "f1": 0.218,
+   "ci_95": {
+    "precision": [
+     0.077,
+     0.279
+    ],
+    "recall": [
+     0.173,
+     0.535
+    ],
+    "f1": [
+     0.108,
+     0.35
+    ]
+   },
+   "miss_reasons": {
+    "missed": 19,
+    "wrong_evidence": 17,
+    "link_error": 2,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 106,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 6.65,
+   "values": {
+    "agrees": 103,
+    "changes_belief": 47,
+    "no_gold_value_yet": 10,
+    "other_value": 17,
+    "earlier_value": 3,
+    "wrong": 30
+   },
+   "qa_exact": "98/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "30/43",
+    "n_changes": "32/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 97,
+    "accepted": 20,
+    "edited": 4,
+    "rejected": 73,
+    "per_meeting": 4.85,
+    "qa_after_review": "89/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 5,
+     "fp": 16,
+     "fn": 8,
+     "qa_exact": "20/25",
+     "wrong": 4,
+     "proposals": 18
+    },
+    "TS3004": {
+     "tp": 5,
+     "fp": 27,
+     "fn": 5,
+     "qa_exact": "14/20",
+     "wrong": 11,
+     "proposals": 23
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 14,
+     "fn": 9,
+     "qa_exact": "20/24",
+     "wrong": 5,
+     "proposals": 14
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 13,
+     "fn": 7,
+     "qa_exact": "17/21",
+     "wrong": 4,
+     "proposals": 10
+    },
+    "TS3006": {
+     "tp": 8,
+     "fp": 42,
+     "fn": 10,
+     "qa_exact": "27/34",
+     "wrong": 6,
+     "proposals": 32
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 10,
+    "b_only": 2,
+    "both": 88,
+    "neither": 24,
+    "p_two_sided": 0.03857421875
+   }
+  },
+  "app|consolidate": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 23,
+   "fp": 110,
+   "fn": 37,
+   "precision": 0.173,
+   "recall": 0.383,
+   "f1": 0.238,
+   "ci_95": {
+    "precision": [
+     0.084,
+     0.304
+    ],
+    "recall": [
+     0.19,
+     0.583
+    ],
+    "f1": [
+     0.118,
+     0.38
+    ]
+   },
+   "miss_reasons": {
+    "missed": 18,
+    "wrong_evidence": 16,
+    "link_error": 2,
+    "unresolved": 1
+   },
+   "fp_reasons": {
+    "spurious": 104,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 30,
+    "invalid": 2
+   },
+   "writes_per_meeting": 6.65,
+   "values": {
+    "agrees": 104,
+    "changes_belief": 47,
+    "no_gold_value_yet": 10,
+    "other_value": 17,
+    "wrong": 29,
+    "earlier_value": 2
+   },
+   "qa_exact": "102/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "36/38",
+    "current": "32/43",
+    "n_changes": "34/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 96,
+    "accepted": 22,
+    "edited": 2,
+    "rejected": 72,
+    "per_meeting": 4.8,
+    "qa_after_review": "89/124"
+   },
+   "windows": 97,
+   "unclean": 3,
+   "hit_budget": 3,
+   "windows_with_repeats": 2,
+   "window_seconds_p50_p95": [
+    7.89,
+    29.89
+   ],
+   "meeting_seconds_p50_p95": [
+    53.23,
+    99.78
+   ],
+   "meeting_seconds_mean": 57.6,
+   "output_tokens_per_meeting": 1001.7,
+   "peak_gb_max": 4.078,
+   "per_series": {
+    "ES2003": {
+     "tp": 6,
+     "fp": 15,
+     "fn": 7,
+     "qa_exact": "22/25",
+     "wrong": 3,
+     "proposals": 18
+    },
+    "TS3004": {
+     "tp": 6,
+     "fp": 26,
+     "fn": 4,
+     "qa_exact": "15/20",
+     "wrong": 9,
+     "proposals": 22
+    },
+    "ES2011": {
+     "tp": 0,
+     "fp": 14,
+     "fn": 9,
+     "qa_exact": "21/24",
+     "wrong": 7,
+     "proposals": 14
+    },
+    "IS1008": {
+     "tp": 3,
+     "fp": 13,
+     "fn": 7,
+     "qa_exact": "17/21",
+     "wrong": 4,
+     "proposals": 10
+    },
+    "TS3006": {
+     "tp": 8,
+     "fp": 42,
+     "fn": 10,
+     "qa_exact": "27/34",
+     "wrong": 6,
+     "proposals": 32
+    }
+   },
+   "model_questions": 18,
+   "vs_app": {
+    "a_only": 13,
+    "b_only": 1,
+    "both": 89,
+    "neither": 21,
+    "p_two_sided": 0.0018310546875
+   }
+  },
+  "app-nosys": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 29,
+   "fp": 132,
+   "fn": 31,
+   "precision": 0.18,
+   "recall": 0.483,
+   "f1": 0.262,
+   "ci_95": {
+    "precision": [
+     0.117,
+     0.274
+    ],
+    "recall": [
+     0.31,
+     0.661
+    ],
+    "f1": [
+     0.179,
+     0.368
+    ]
+   },
+   "miss_reasons": {
+    "missed": 17,
+    "wrong_evidence": 10,
+    "link_error": 2,
+    "unresolved": 1,
+    "value_error": 1
+   },
+   "fp_reasons": {
+    "spurious": 126,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 34,
+    "invalid": 3
+   },
+   "writes_per_meeting": 8.05,
+   "values": {
+    "agrees": 116,
+    "changes_belief": 61,
+    "other_value": 30,
+    "wrong": 45,
+    "no_gold_value_yet": 7,
+    "earlier_value": 8
+   },
+   "qa_exact": "95/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "27/43",
+    "n_changes": "31/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 100,
+    "accepted": 27,
+    "edited": 8,
+    "rejected": 65,
+    "per_meeting": 5.0,
+    "qa_after_review": "97/124"
+   },
+   "windows": 97,
+   "unclean": 2,
+   "hit_budget": 2,
+   "windows_with_repeats": 3,
+   "window_seconds_p50_p95": [
+    8.56,
+    37.96
+   ],
+   "meeting_seconds_p50_p95": [
+    49.79,
+    148.21
+   ],
+   "meeting_seconds_mean": 67.1,
+   "output_tokens_per_meeting": 1029.3,
+   "peak_gb_max": 4.057,
+   "per_series": {
+    "ES2003": {
+     "tp": 8,
+     "fp": 15,
+     "fn": 5,
+     "qa_exact": "20/25",
+     "wrong": 3,
+     "proposals": 15
+    },
+    "TS3004": {
+     "tp": 7,
+     "fp": 42,
+     "fn": 3,
+     "qa_exact": "15/20",
+     "wrong": 15,
+     "proposals": 25
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "18/24",
+     "wrong": 8,
+     "proposals": 15
+    },
+    "IS1008": {
+     "tp": 2,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "16/21",
+     "wrong": 6,
+     "proposals": 6
+    },
+    "TS3006": {
+     "tp": 11,
+     "fp": 47,
+     "fn": 7,
+     "qa_exact": "26/34",
+     "wrong": 13,
+     "proposals": 39
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 12,
+    "b_only": 7,
+    "both": 83,
+    "neither": 22,
+    "p_two_sided": 0.359283447265625
+   }
+  },
+  "app-nosys|modevalue": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 28,
+   "fp": 112,
+   "fn": 32,
+   "precision": 0.2,
+   "recall": 0.467,
+   "f1": 0.28,
+   "ci_95": {
+    "precision": [
+     0.123,
+     0.314
+    ],
+    "recall": [
+     0.295,
+     0.648
+    ],
+    "f1": [
+     0.18,
+     0.402
+    ]
+   },
+   "miss_reasons": {
+    "missed": 20,
+    "wrong_evidence": 9,
+    "link_error": 1,
+    "unresolved": 1,
+    "value_error": 1
+   },
+   "fp_reasons": {
+    "spurious": 107,
+    "wrong_content": 5
+   },
+   "filtered": {
+    "unresolved": 34,
+    "invalid": 3
+   },
+   "writes_per_meeting": 7.0,
+   "values": {
+    "agrees": 112,
+    "changes_belief": 43,
+    "wrong": 28,
+    "other_value": 17,
+    "no_gold_value_yet": 6,
+    "earlier_value": 5
+   },
+   "qa_exact": "102/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "27/43",
+    "n_changes": "38/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 84,
+    "accepted": 27,
+    "edited": 4,
+    "rejected": 53,
+    "per_meeting": 4.2,
+    "qa_after_review": "96/124"
+   },
+   "windows": 97,
+   "unclean": 2,
+   "hit_budget": 2,
+   "windows_with_repeats": 3,
+   "window_seconds_p50_p95": [
+    8.56,
+    37.96
+   ],
+   "meeting_seconds_p50_p95": [
+    49.79,
+    148.21
+   ],
+   "meeting_seconds_mean": 67.1,
+   "output_tokens_per_meeting": 1029.3,
+   "peak_gb_max": 4.057,
+   "per_series": {
+    "ES2003": {
+     "tp": 8,
+     "fp": 12,
+     "fn": 5,
+     "qa_exact": "23/25",
+     "wrong": 0,
+     "proposals": 13
+    },
+    "TS3004": {
+     "tp": 7,
+     "fp": 39,
+     "fn": 3,
+     "qa_exact": "16/20",
+     "wrong": 12,
+     "proposals": 22
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 9,
+     "fn": 8,
+     "qa_exact": "20/24",
+     "wrong": 5,
+     "proposals": 10
+    },
+    "IS1008": {
+     "tp": 2,
+     "fp": 13,
+     "fn": 8,
+     "qa_exact": "15/21",
+     "wrong": 5,
+     "proposals": 8
+    },
+    "TS3006": {
+     "tp": 10,
+     "fp": 39,
+     "fn": 8,
+     "qa_exact": "28/34",
+     "wrong": 6,
+     "proposals": 31
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 18,
+    "b_only": 6,
+    "both": 84,
+    "neither": 16,
+    "p_two_sided": 0.022655844688415527
+   }
+  },
+  "app-nosys|consolidate": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 27,
+   "fp": 113,
+   "fn": 33,
+   "precision": 0.193,
+   "recall": 0.45,
+   "f1": 0.27,
+   "ci_95": {
+    "precision": [
+     0.119,
+     0.303
+    ],
+    "recall": [
+     0.284,
+     0.618
+    ],
+    "f1": [
+     0.173,
+     0.388
+    ]
+   },
+   "miss_reasons": {
+    "missed": 21,
+    "wrong_evidence": 9,
+    "link_error": 1,
+    "unresolved": 1,
+    "value_error": 1
+   },
+   "fp_reasons": {
+    "spurious": 108,
+    "wrong_content": 5
+   },
+   "filtered": {
+    "unresolved": 34,
+    "invalid": 3
+   },
+   "writes_per_meeting": 7.0,
+   "values": {
+    "agrees": 108,
+    "changes_belief": 43,
+    "wrong": 32,
+    "other_value": 21,
+    "no_gold_value_yet": 6,
+    "earlier_value": 5
+   },
+   "qa_exact": "101/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "27/43",
+    "n_changes": "37/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 85,
+    "accepted": 26,
+    "edited": 4,
+    "rejected": 55,
+    "per_meeting": 4.25,
+    "qa_after_review": "96/124"
+   },
+   "windows": 97,
+   "unclean": 2,
+   "hit_budget": 2,
+   "windows_with_repeats": 3,
+   "window_seconds_p50_p95": [
+    8.56,
+    37.96
+   ],
+   "meeting_seconds_p50_p95": [
+    49.79,
+    148.21
+   ],
+   "meeting_seconds_mean": 67.1,
+   "output_tokens_per_meeting": 1029.3,
+   "peak_gb_max": 4.057,
+   "per_series": {
+    "ES2003": {
+     "tp": 8,
+     "fp": 12,
+     "fn": 5,
+     "qa_exact": "23/25",
+     "wrong": 0,
+     "proposals": 13
+    },
+    "TS3004": {
+     "tp": 7,
+     "fp": 39,
+     "fn": 3,
+     "qa_exact": "16/20",
+     "wrong": 12,
+     "proposals": 22
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 10,
+     "fn": 8,
+     "qa_exact": "20/24",
+     "wrong": 7,
+     "proposals": 11
+    },
+    "IS1008": {
+     "tp": 2,
+     "fp": 13,
+     "fn": 8,
+     "qa_exact": "15/21",
+     "wrong": 5,
+     "proposals": 8
+    },
+    "TS3006": {
+     "tp": 9,
+     "fp": 39,
+     "fn": 9,
+     "qa_exact": "27/34",
+     "wrong": 8,
+     "proposals": 31
+    }
+   },
+   "model_questions": 16,
+   "vs_app": {
+    "a_only": 17,
+    "b_only": 6,
+    "both": 84,
+    "neither": 17,
+    "p_two_sided": 0.03468966484069824
+   }
+  },
+  "app-nosys|consolidate-think": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 27,
+   "fp": 128,
+   "fn": 33,
+   "precision": 0.174,
+   "recall": 0.45,
+   "f1": 0.251,
+   "ci_95": {
+    "precision": [
+     0.107,
+     0.274
+    ],
+    "recall": [
+     0.284,
+     0.618
+    ],
+    "f1": [
+     0.16,
+     0.364
+    ]
+   },
+   "miss_reasons": {
+    "missed": 19,
+    "wrong_evidence": 11,
+    "link_error": 1,
+    "unresolved": 1,
+    "value_error": 1
+   },
+   "fp_reasons": {
+    "spurious": 123,
+    "wrong_content": 5
+   },
+   "filtered": {
+    "unresolved": 34,
+    "invalid": 3
+   },
+   "writes_per_meeting": 7.75,
+   "values": {
+    "agrees": 111,
+    "changes_belief": 57,
+    "other_value": 29,
+    "wrong": 44,
+    "no_gold_value_yet": 7,
+    "earlier_value": 8
+   },
+   "qa_exact": "95/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "27/43",
+    "n_changes": "31/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 93,
+    "accepted": 25,
+    "edited": 7,
+    "rejected": 61,
+    "per_meeting": 4.65,
+    "qa_after_review": "95/124"
+   },
+   "windows": 97,
+   "unclean": 2,
+   "hit_budget": 2,
+   "windows_with_repeats": 3,
+   "window_seconds_p50_p95": [
+    8.56,
+    37.96
+   ],
+   "meeting_seconds_p50_p95": [
+    49.79,
+    148.21
+   ],
+   "meeting_seconds_mean": 67.1,
+   "output_tokens_per_meeting": 1029.3,
+   "peak_gb_max": 4.057,
+   "per_series": {
+    "ES2003": {
+     "tp": 8,
+     "fp": 15,
+     "fn": 5,
+     "qa_exact": "20/25",
+     "wrong": 3,
+     "proposals": 15
+    },
+    "TS3004": {
+     "tp": 7,
+     "fp": 42,
+     "fn": 3,
+     "qa_exact": "15/20",
+     "wrong": 15,
+     "proposals": 25
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 13,
+     "fn": 8,
+     "qa_exact": "19/24",
+     "wrong": 7,
+     "proposals": 14
+    },
+    "IS1008": {
+     "tp": 2,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "16/21",
+     "wrong": 6,
+     "proposals": 6
+    },
+    "TS3006": {
+     "tp": 9,
+     "fp": 44,
+     "fn": 9,
+     "qa_exact": "25/34",
+     "wrong": 13,
+     "proposals": 33
+    }
+   },
+   "model_questions": 16,
+   "vs_app": {
+    "a_only": 12,
+    "b_only": 7,
+    "both": 83,
+    "neither": 22,
+    "p_two_sided": 0.359283447265625
+   }
+  },
+  "app-nosys-numwords-loopstop": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 29,
+   "fp": 137,
+   "fn": 31,
+   "precision": 0.175,
+   "recall": 0.483,
+   "f1": 0.257,
+   "ci_95": {
+    "precision": [
+     0.117,
+     0.257
+    ],
+    "recall": [
+     0.321,
+     0.653
+    ],
+    "f1": [
+     0.18,
+     0.348
+    ]
+   },
+   "miss_reasons": {
+    "missed": 15,
+    "wrong_evidence": 11,
+    "link_error": 3,
+    "unresolved": 1,
+    "value_error": 1
+   },
+   "fp_reasons": {
+    "spurious": 130,
+    "wrong_content": 7
+   },
+   "filtered": {
+    "unresolved": 35,
+    "invalid": 3
+   },
+   "writes_per_meeting": 8.3,
+   "values": {
+    "agrees": 113,
+    "changes_belief": 77,
+    "other_value": 35,
+    "wrong": 53,
+    "no_gold_value_yet": 7,
+    "earlier_value": 11
+   },
+   "qa_exact": "90/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "25/43",
+    "n_changes": "28/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 104,
+    "accepted": 27,
+    "edited": 9,
+    "rejected": 68,
+    "per_meeting": 5.2,
+    "qa_after_review": "97/124"
+   },
+   "windows": 97,
+   "unclean": 4,
+   "hit_budget": 0,
+   "windows_with_repeats": 0,
+   "window_seconds_p50_p95": [
+    8.38,
+    40.35
+   ],
+   "meeting_seconds_p50_p95": [
+    51.69,
+    163.42
+   ],
+   "meeting_seconds_mean": 65.3,
+   "output_tokens_per_meeting": 962.4,
+   "peak_gb_max": 4.065,
+   "per_series": {
+    "ES2003": {
+     "tp": 8,
+     "fp": 15,
+     "fn": 5,
+     "qa_exact": "20/25",
+     "wrong": 3,
+     "proposals": 15
+    },
+    "TS3004": {
+     "tp": 7,
+     "fp": 38,
+     "fn": 3,
+     "qa_exact": "13/20",
+     "wrong": 17,
+     "proposals": 22
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "18/24",
+     "wrong": 8,
+     "proposals": 15
+    },
+    "IS1008": {
+     "tp": 2,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "16/21",
+     "wrong": 6,
+     "proposals": 6
+    },
+    "TS3006": {
+     "tp": 11,
+     "fp": 56,
+     "fn": 7,
+     "qa_exact": "23/34",
+     "wrong": 19,
+     "proposals": 46
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 12,
+    "b_only": 12,
+    "both": 78,
+    "neither": 22,
+    "p_two_sided": 1.0
+   }
+  },
+  "app-nosys-numwords-loopstop+modevalue": {
+   "series": [
+    "ES2003",
+    "TS3004",
+    "ES2011",
+    "IS1008",
+    "TS3006"
+   ],
+   "meetings": 20,
+   "gold_events": 60,
+   "tp": 28,
+   "fp": 113,
+   "fn": 32,
+   "precision": 0.199,
+   "recall": 0.467,
+   "f1": 0.279,
+   "ci_95": {
+    "precision": [
+     0.136,
+     0.28
+    ],
+    "recall": [
+     0.304,
+     0.641
+    ],
+    "f1": [
+     0.195,
+     0.368
+    ]
+   },
+   "miss_reasons": {
+    "missed": 17,
+    "wrong_evidence": 11,
+    "link_error": 2,
+    "unresolved": 1,
+    "value_error": 1
+   },
+   "fp_reasons": {
+    "spurious": 107,
+    "wrong_content": 6
+   },
+   "filtered": {
+    "unresolved": 35,
+    "invalid": 3
+   },
+   "writes_per_meeting": 7.05,
+   "values": {
+    "agrees": 110,
+    "changes_belief": 51,
+    "wrong": 31,
+    "other_value": 20,
+    "no_gold_value_yet": 6,
+    "earlier_value": 5
+   },
+   "qa_exact": "100/124",
+   "qa_exact_by_type": {
+    "as_of_valid": "37/38",
+    "current": "28/43",
+    "n_changes": "35/43"
+   },
+   "inbox_confirm_all": {
+    "proposals": 89,
+    "accepted": 27,
+    "edited": 5,
+    "rejected": 57,
+    "per_meeting": 4.45,
+    "qa_after_review": "98/124"
+   },
+   "windows": 97,
+   "unclean": 4,
+   "hit_budget": 0,
+   "windows_with_repeats": 0,
+   "window_seconds_p50_p95": [
+    8.66,
+    40.35
+   ],
+   "meeting_seconds_p50_p95": [
+    61.28,
+    163.42
+   ],
+   "meeting_seconds_mean": 67.1,
+   "output_tokens_per_meeting": 999.5,
+   "peak_gb_max": 4.065,
+   "per_series": {
+    "ES2003": {
+     "tp": 8,
+     "fp": 12,
+     "fn": 5,
+     "qa_exact": "23/25",
+     "wrong": 0,
+     "proposals": 13
+    },
+    "TS3004": {
+     "tp": 7,
+     "fp": 33,
+     "fn": 3,
+     "qa_exact": "13/20",
+     "wrong": 14,
+     "proposals": 17
+    },
+    "ES2011": {
+     "tp": 1,
+     "fp": 14,
+     "fn": 8,
+     "qa_exact": "21/24",
+     "wrong": 7,
+     "proposals": 15
+    },
+    "IS1008": {
+     "tp": 2,
+     "fp": 13,
+     "fn": 8,
+     "qa_exact": "15/21",
+     "wrong": 5,
+     "proposals": 8
+    },
+    "TS3006": {
+     "tp": 10,
+     "fp": 41,
+     "fn": 8,
+     "qa_exact": "28/34",
+     "wrong": 5,
+     "proposals": 36
+    }
+   },
+   "model_questions": 0,
+   "vs_app": {
+    "a_only": 17,
+    "b_only": 7,
+    "both": 83,
+    "neither": 17,
+    "p_two_sided": 0.06391465663909912
+   }
+  }
+ }
+}

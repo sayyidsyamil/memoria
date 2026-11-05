@@ -1,0 +1,342 @@
+{
+  "rows": [
+    {
+      "condition": "amplify",
+      "fixture": "two_changes",
+      "expected": {
+        "values": [
+          250000,
+          280000,
+          300000
+        ],
+        "changes": 2,
+        "current": 300000
+      },
+      "actual": {
+        "values": [
+          250000,
+          280000,
+          300000
+        ],
+        "changes": 2,
+        "current": 300000
+      },
+      "claim_times": {
+        "500": {
+          "expected": 280000,
+          "actual": 280000
+        },
+        "2000": {
+          "expected": 300000,
+          "actual": 300000
+        }
+      },
+      "passed": true,
+      "records": [
+        {
+          "key": "ce7e99cb816eeac6c57540e3ebe71fd8b5e687f88e5300f2ff778bf924744e8a",
+          "original_key": "f1b5bdc29b761aac12b3c78731de333107b69f5f66d652bcd8b77eb0b4d6d3e7",
+          "condition": "amplify",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "intervention": {
+              "kind": "rank-one",
+              "patch_sha256": "5c4aa47baeb311467a4bb5229b303bbf0779f59b61bcf4775834a5dc161d1c5b",
+              "strength": -0.5,
+              "random": false,
+              "layer": 8,
+              "code_sha256": "4e5fe9bfb806bbfe1112a2bc34edb2e86a2656c4b7a89845a24454210619816c"
+            },
+            "condition": "amplify",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "loopstop": true,
+            "rendered_prompt_sha256": "d6fd742b4ce2772a8bb336bc4b69664880aa202906ab5a80ae2fa61461220bc3"
+          },
+          "text": "{\"events\":[{\"turn\":0,\"quote\":\"We approve raising the pilot budget to 280,000 ringgit.\",\"object_id\":\"budget\",\"attribute\":\"amount\",\"value\":280000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":2,\"quote\":\"After the vendor quote, we approve a further increase of the pilot budget to 300,000 ringgit.\",\"object_id\":\"budget\",\"attribute\":\"amount\",\"value\":300000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 6.3176429589802865,
+          "prompt_tokens": 976,
+          "output_tokens": 129,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.491083428,
+          "tag": "two_changes:m1",
+          "generation_tps": 30.69764320647398,
+          "prompt_tps": 510.92959412550346,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- budget: Pilot budget (RM) (decision): amount[number, MYR]\n- vendor: Pilot vendor (decision): outcome[Alpha|Beta|Gamma]\nPeople: aisha = Aisha; raj = Raj\nCurrent beliefs when this meeting took place:\n- budget.amount = 250000\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] raj: We approve raising the pilot budget to 280,000 ringgit.\n[1] aisha: Next item: training dates.\n[2] raj: After the vendor quote, we approve a further increase of the pilot budget to 300,000 ringgit.\n"
+        }
+      ],
+      "dispositions": [
+        {
+          "status": "applied",
+          "turn": 0,
+          "object_id": "budget",
+          "attribute": "amount",
+          "value": 280000
+        },
+        {
+          "status": "applied",
+          "turn": 2,
+          "object_id": "budget",
+          "attribute": "amount",
+          "value": 300000
+        }
+      ]
+    },
+    {
+      "condition": "amplify",
+      "fixture": "recaps_then_switch",
+      "expected": {
+        "current": "Beta",
+        "changes": 1
+      },
+      "actual": {
+        "values": [
+          "Alpha",
+          "Beta"
+        ],
+        "changes": 1,
+        "current": "Beta"
+      },
+      "claim_times": {},
+      "passed": true,
+      "records": [
+        {
+          "key": "b29662948d6653456c0faf31a996eed708a7640d48f8478d143f5b7590b4e417",
+          "original_key": "7310166fcbc9c89fec51da2e5c592dd7e77c56b090c8d68a587d804d0cd0736b",
+          "condition": "amplify",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "intervention": {
+              "kind": "rank-one",
+              "patch_sha256": "5c4aa47baeb311467a4bb5229b303bbf0779f59b61bcf4775834a5dc161d1c5b",
+              "strength": -0.5,
+              "random": false,
+              "layer": 8,
+              "code_sha256": "4e5fe9bfb806bbfe1112a2bc34edb2e86a2656c4b7a89845a24454210619816c"
+            },
+            "condition": "amplify",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "loopstop": true,
+            "rendered_prompt_sha256": "a481e91007893f258bd4046e60c767698cbcf759be5b70a1cac848725f0c896d"
+          },
+          "text": "{\"events\":[{\"turn\":4,\"quote\":\"Decision: we switch the pilot vendor to Beta, effective today.\",\"object_id\":\"vendor\",\"attribute\":\"outcome\",\"value\":\"Beta\",\"valid_from\":\"2026-09-15\",\"confidence\":0.9,\"unresolved\":false}]}",
+          "seconds": 3.864229625003645,
+          "prompt_tokens": 982,
+          "output_tokens": 62,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.497538796,
+          "tag": "recaps_then_switch:m1",
+          "generation_tps": 36.172771952148736,
+          "prompt_tps": 505.04651140352644,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- budget: Pilot budget (RM) (decision): amount[number, MYR]\n- vendor: Pilot vendor (decision): outcome[Alpha|Beta|Gamma]\nPeople: aisha = Aisha; raj = Raj\nCurrent beliefs when this meeting took place:\n- vendor.outcome = Alpha\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] aisha: As agreed last time, the vendor is Alpha.\n[1] raj: Right, Alpha is the vendor on the current contract.\n[2] aisha: So for now we stay with Alpha.\n[3] raj: Their security review failed.\n[4] aisha: Decision: we switch the pilot vendor to Beta, effective today.\n"
+        }
+      ],
+      "dispositions": [
+        {
+          "status": "applied",
+          "turn": 4,
+          "object_id": "vendor",
+          "attribute": "outcome",
+          "value": "Beta"
+        }
+      ]
+    },
+    {
+      "condition": "amplify",
+      "fixture": "unchanged_recaps",
+      "expected": {
+        "current": "Alpha",
+        "changes": 0
+      },
+      "actual": {
+        "values": [
+          "Alpha"
+        ],
+        "changes": 0,
+        "current": "Alpha"
+      },
+      "claim_times": {},
+      "passed": true,
+      "records": [
+        {
+          "key": "9d97608d046d09d741bf9ecd9d15ac641d909f95ec2d127eee3b83f9773f5720",
+          "original_key": "4984cbdada0288ea6ce0ac3eb1910fa864713f9ae251abb9eaa31049bbded8d4",
+          "condition": "amplify",
+          "config": {
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+            "intervention": {
+              "kind": "rank-one",
+              "patch_sha256": "5c4aa47baeb311467a4bb5229b303bbf0779f59b61bcf4775834a5dc161d1c5b",
+              "strength": -0.5,
+              "random": false,
+              "layer": 8,
+              "code_sha256": "4e5fe9bfb806bbfe1112a2bc34edb2e86a2656c4b7a89845a24454210619816c"
+            },
+            "condition": "amplify",
+            "max_tokens": 1800,
+            "temperature": 0,
+            "thinking": false,
+            "loopstop": true,
+            "rendered_prompt_sha256": "49c293e91281cdca33c17ebafbb2b228d612a060b1e8b9a7eb92d0e92198a142"
+          },
+          "text": "{\"events\":[]}",
+          "seconds": 2.5047787919756956,
+          "prompt_tokens": 970,
+          "output_tokens": 5,
+          "hit_budget": false,
+          "cut_repeat": false,
+          "peak_gb": 3.484808284,
+          "tag": "unchanged_recaps:m1",
+          "generation_tps": 47.05461629460706,
+          "prompt_tps": 434.11373904948505,
+          "prompt": "You maintain a decision and commitment ledger for a meeting series. Read the transcript and list every FIRM decision or commitment that sets, changes or confirms a tracked item.\n\nTracked items (object_id: label (kind): attribute[type or allowed values]):\n- budget: Pilot budget (RM) (decision): amount[number, MYR]\n- vendor: Pilot vendor (decision): outcome[Alpha|Beta|Gamma]\nPeople: aisha = Aisha; raj = Raj\nCurrent beliefs when this meeting took place:\n- vendor.outcome = Alpha\nMeeting date: 2026-09-15 (Tuesday)\n\nRules:\n1. Only firm decisions or commitments count. Ignore questions, hypotheticals (\"what if\", \"maybe\", \"should we\"), tentative leanings, suggestions nobody accepts, reports of what others might do, background information, and acknowledgements.\n2. Do not output an event just because a turn mentions a tracked item or value. The turn must itself decide it, change it, or explicitly reaffirm it as still in force (\"stays\", \"no change\", \"still\").\n3. A report that a commitment is finished or abandoned (\"done\", \"complete\", \"went live\", \"signed\", \"dropped\", \"cancelled\") is a status event.\n4. Resolve pronouns and references (\"that\", \"it\", \"we'll do it by Friday\") using earlier turns. If you cannot tell which tracked item a statement is about, set \"object_id\" to null and \"unresolved\" to true.\n5. \"value\" must be one of the allowed values, an ISO date (YYYY-MM-DD), a number in MYR without commas or units (2500000), or a person id. Convert relative dates using the meeting date, and relative changes (\"increase by 500k\") using the current belief.\n6. \"quote\" must be copied exactly from the transcript turn it comes from; \"turn\" is that turn's number.\n7. If a decision takes effect on a stated future date, put that date in \"valid_from\"; otherwise null.\n8. The transcript may mix English and Bahasa Malaysia.\n9. A turn may contain several decisions; output one event per decision.\n10. \"confidence\" is your probability (0 to 1) that the event is a firm decision read correctly; use below 0.5 when unsure.\n\nExample (a different meeting series, shown for format only)\nTracked items: fitout_vendor (decision): outcome[Firm P|Firm Q]; fitout_job (commitment): deadline[ISO date], status[done|cancelled]\nMeeting date: 2026-02-03\n[0] lee: Should we ask Firm Q for a revised quote?\n[1] sam: We could, but the demo from Firm P was stronger.\n[2] lee: Fine, we go with Firm P.\n[3] lee: Handover by 20 February.\n[4] sam: The electrical survey is finished.\nReply: {\"events\":[{\"turn\":2,\"quote\":\"we go with Firm P\",\"object_id\":\"fitout_vendor\",\"attribute\":\"outcome\",\"value\":\"Firm P\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Handover by 20 February\",\"object_id\":\"fitout_job\",\"attribute\":\"deadline\",\"value\":\"2026-02-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n(Turn 1 is an opinion, turn 0 a question, turn 4 is about an untracked item: no events.)\n\nNow the real task. Reply with JSON only, in this shape:\n{\"events\":[{\"turn\":<int>,\"quote\":\"<exact text>\",\"object_id\":\"<id or null>\",\"attribute\":\"<attribute>\",\"value\":<value>,\"valid_from\":\"<ISO date or null>\",\"confidence\":<0..1>,\"unresolved\":false}]}\n\nTranscript:\n[0] aisha: Reminder 0: the vendor is still Alpha.\n[1] aisha: Reminder 1: the vendor is still Alpha.\n[2] aisha: Reminder 2: the vendor is still Alpha.\n[3] aisha: Reminder 3: the vendor is still Alpha.\n"
+        }
+      ],
+      "dispositions": []
+    }
+  ],
+  "scoped_restoration": [
+    {
+      "task": "guard-0",
+      "identical": true,
+      "before": {
+        "intervention": {
+          "kind": "base",
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+        },
+        "key": "ad956424716153403e3f80694f4f4d37431b632e6fbee8636846f05529d3fd01",
+        "prompt_sha256": "031856096f16ea868986b2442554baaeedbcd407a8f8a559cea198cc655d22bd",
+        "prompt_tokens": 317,
+        "logprobs": {
+          "YES": -0.0012722015380859375,
+          "NO": -6.876272201538086
+        },
+        "margin": 6.875,
+        "seconds": 0.6792680830112658,
+        "peak_gb": 2.748321978,
+        "cache": "fresh per call, 128-token prefill"
+      },
+      "after": {
+        "intervention": {
+          "kind": "base",
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+        },
+        "key": "ad956424716153403e3f80694f4f4d37431b632e6fbee8636846f05529d3fd01",
+        "prompt_sha256": "031856096f16ea868986b2442554baaeedbcd407a8f8a559cea198cc655d22bd",
+        "prompt_tokens": 317,
+        "logprobs": {
+          "YES": -0.0012722015380859375,
+          "NO": -6.876272201538086
+        },
+        "margin": 6.875,
+        "seconds": 0.4713798329757992,
+        "peak_gb": 2.74832198,
+        "cache": "fresh per call, 128-token prefill"
+      }
+    },
+    {
+      "task": "guard-1",
+      "identical": true,
+      "before": {
+        "intervention": {
+          "kind": "base",
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+        },
+        "key": "877e961558d252134ec5c588542075c9ef1f38d65ff37082c62e860e6a470685",
+        "prompt_sha256": "5425b8f285e2c44e53b00175c2aaa9987c9c901a468e1111320a1e44392e4c6e",
+        "prompt_tokens": 317,
+        "logprobs": {
+          "YES": -5.131160736083984,
+          "NO": -0.006160736083984375
+        },
+        "margin": -5.125,
+        "seconds": 0.7794504170014989,
+        "peak_gb": 2.748321978,
+        "cache": "fresh per call, 128-token prefill"
+      },
+      "after": {
+        "intervention": {
+          "kind": "base",
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+        },
+        "key": "877e961558d252134ec5c588542075c9ef1f38d65ff37082c62e860e6a470685",
+        "prompt_sha256": "5425b8f285e2c44e53b00175c2aaa9987c9c901a468e1111320a1e44392e4c6e",
+        "prompt_tokens": 317,
+        "logprobs": {
+          "YES": -5.131160736083984,
+          "NO": -0.006160736083984375
+        },
+        "margin": -5.125,
+        "seconds": 0.5365053749992512,
+        "peak_gb": 2.74832198,
+        "cache": "fresh per call, 128-token prefill"
+      }
+    },
+    {
+      "task": "Ask router",
+      "identical": true,
+      "before": {
+        "key": "3f8e70db3018730019e1715f7525d9d7ac0a4257bde49dc7de8517aabb5e8490",
+        "original_key": "204fa90f91b5f4f46b65031234f20bcf8f654f907d0e0da8c7b982daaf06f6c9",
+        "condition": "scope-regression",
+        "config": {
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+          "intervention": {
+            "kind": "base",
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+          },
+          "condition": "scope-regression",
+          "max_tokens": 1800,
+          "temperature": 0,
+          "thinking": false,
+          "loopstop": true,
+          "rendered_prompt_sha256": "27f27621fd9f6258e937684e6a7097e3f28b05bb788e298c3f84f0cc919a2d65"
+        },
+        "text": "{\"type\":\"current\",\"object_id\":\"prod_cost\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+        "seconds": 2.7148242089897394,
+        "prompt_tokens": 927,
+        "output_tokens": 26,
+        "hit_budget": false,
+        "cut_repeat": false,
+        "peak_gb": 3.496528362,
+        "tag": "ask-route-regression",
+        "generation_tps": 37.88075393485455,
+        "prompt_tps": 568.2977522887094
+      },
+      "after": {
+        "key": "3f8e70db3018730019e1715f7525d9d7ac0a4257bde49dc7de8517aabb5e8490",
+        "original_key": "204fa90f91b5f4f46b65031234f20bcf8f654f907d0e0da8c7b982daaf06f6c9",
+        "condition": "scope-regression",
+        "config": {
+          "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+          "intervention": {
+            "kind": "base",
+            "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+          },
+          "condition": "scope-regression",
+          "max_tokens": 1800,
+          "temperature": 0,
+          "thinking": false,
+          "loopstop": true,
+          "rendered_prompt_sha256": "27f27621fd9f6258e937684e6a7097e3f28b05bb788e298c3f84f0cc919a2d65"
+        },
+        "text": "{\"type\":\"current\",\"object_id\":\"prod_cost\",\"attribute\":\"amount\",\"valid_at\":null,\"tx_at\":null}",
+        "seconds": 2.930481334013166,
+        "prompt_tokens": 927,
+        "output_tokens": 26,
+        "hit_budget": false,
+        "cut_repeat": false,
+        "peak_gb": 3.496511978,
+        "tag": "ask-route-regression",
+        "generation_tps": 43.08748633367228,
+        "prompt_tps": 424.48822355888876
+      }
+    }
+  ],
+  "process_peak_rss_gb": 2.107686912
+}

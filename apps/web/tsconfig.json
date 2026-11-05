@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.web.tsbuildinfo",
+    "baseUrl": "../..",
+    "paths": {
+      "@/*": ["./src/*"],
+      "yjs": ["./node_modules/.pnpm/node_modules/yjs"],
+      "y-protocols/*": ["./node_modules/.pnpm/node_modules/y-protocols/*"],
+      "lib0/*": ["./node_modules/.pnpm/node_modules/lib0/*"]
+    }
+  },
+  "include": ["src", "../../packages/markdown-yjs/src/shellGlobals.d.ts"],
+  "exclude": []
+}

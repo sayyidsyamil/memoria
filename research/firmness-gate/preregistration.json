@@ -1,0 +1,110 @@
+{
+ "title": "Firmness gate between extraction and ledger, AMI test split, single run",
+ "date": "2026-11-02 20:41:39 +08",
+ "gate": {
+  "wording": "w2",
+  "variant": "context",
+  "tau": -3,
+  "keep_if": "log P(YES) - log P(NO) of the first token >= tau",
+  "prompt_sha256": "158bd99178489e8086bde210fffe63796aeda6c05ab4d9a42c9caf794bd276da",
+  "system": "You check one entry proposed for a meeting's decision ledger against the meeting transcript.",
+  "user_template": "EXCERPT (the line marked >> holds the quote):\n{excerpt}\n\nQUOTE: \"{quote}\"\nENTRY: {item} ({attribute}) = {value}\n\n{ask}\nReply with one word: YES or NO.",
+  "question": "YES only if the speakers settle it here: they decide, agree, confirm or commit to {value} for {item}.\nNO if {value} is only suggested, proposed, preferred, asked about, discussed, hoped for, hypothetical or reported as someone's idea, or if the excerpt is not about {value} for {item}.\nExamples from another meeting series (entry: Caterer = Firm P):\n\"Fine, we go with Firm P.\" -> YES\n\"So Firm P it is then. Okay.\" -> YES\n\"Should we ask Firm P for a quote?\" -> NO\n\"I think Firm P would be nice.\" -> NO\n\"Firm P delivered the lunch late.\" -> NO\nIn this excerpt, is {value} for {item} firmly decided or committed, not proposed, discussed or hypothetical?",
+  "context_turns_before_after_clip": [
+   3,
+   2,
+   300
+  ],
+  "model": "mlx-community/Qwen3.5-4B-MLX-4bit@32f3e8ecf65426fc3306969496342d504bfa13f3 (the app's resident worker)",
+  "scorer": "src-tauri/resources/memory/qwen_scoring.py first_token_logprobs (YES - NO), app worker via MEMORIA_QWEN_SOCKET"
+ },
+ "chosen_on_dev": {
+  "rule": "wording: higher dev AUROC (gold-matched vs other events reaching the ledger), context variant; tau: integer grid -8..8 maximising dev QA (ext+router), ties by dev extraction F1, then |tau| smallest",
+  "dev_auroc": {
+   "w1/context": 0.486,
+   "w2/context": 0.525,
+   "w1/quote": 0.421,
+   "w2/quote": 0.499
+  },
+  "dev_at_tau": {
+   "kept": 48,
+   "qa": {
+    "overall": 38,
+    "current": 11,
+    "as_of_valid": 13,
+    "n_changes": 14
+   },
+   "tp": 13,
+   "fp": 35,
+   "fn": 10,
+   "precision": 0.2708333333333333,
+   "recall": 0.5652173913043478,
+   "f1": 0.3661971830985915
+  },
+  "dev_october": {
+   "qa": {
+    "overall": 35,
+    "current": 12,
+    "as_of_valid": 13,
+    "n_changes": 10
+   },
+   "n": {
+    "overall": 45,
+    "current": 16,
+    "as_of_valid": 13,
+    "n_changes": 16
+   },
+   "tp": 15,
+   "fp": 58,
+   "fn": 8,
+   "precision": 0.2054794520547945,
+   "recall": 0.6521739130434783,
+   "f1": 0.3125,
+   "fp_reasons": {
+    "spurious": 58
+   },
+   "state_correct": 12
+  },
+  "dev_sign_test_vs_october": {
+   "a_only": 5,
+   "b_only": 2,
+   "both": 33,
+   "neither": 5,
+   "p_two_sided": 0.453125
+  },
+  "caveat": "dev AUROC is near chance for every configuration and the dev QA gain is one grid point wide; a null test result is the expected outcome"
+ },
+ "test": {
+  "split": "test (ES2004, ES2014, IS1009, TS3003, TS3007): 20 meetings, 96 questions, 46 gold events",
+  "extraction": "October candidates replayed from results/cache (ami_test_memoria.jsonl; review: ami_test_memoria_review.jsonl); a cache miss stops the run",
+  "primary": "QA accuracy, ext+router, 96 questions, gated vs October ledger (59/96); exact two-sided paired sign test",
+  "secondary": [
+   "accuracy per question type (current, as_of_valid, n_changes) vs October 18/34, 29/29, 12/33",
+   "extraction precision, recall, F1 vs gold (October 21%, 67%, 32%)",
+   "suggestions a reviewer sees per meeting, confirm_conflicts with the perfect reviewer (October 1.75), and the app's confirm_all",
+   "perfect-reviewer QA (October 85/96), sign test; accepted proposals the gate removes",
+   "gate latency per event"
+  ],
+  "hypothesis": "fewer spurious events, higher current and n_changes accuracy, fewer suggestions, small recall loss"
+ },
+ "code_sha256": {
+  "gate.py": "72ac8845073a30928b7c41030b5f71b9f642ac816a0e60a0b394995eb0a2c70b",
+  "replay.py": "2bfe593c807c91c7b98791b5bb37ee2b42b7d1fedf94e5467be6307746f6755e",
+  "experiment.py": "8f1ef754a4b409f3b2049c5d71fa85f2d45ac7944f118847c886e8b91d5da41d"
+ },
+ "data_sha256": {
+  "ES2003.chain": "b07bbf11eaf3d4172158fd950ef5411e8778bb8a078122e73aff79d76eb52192",
+  "ES2004.chain": "4f45d338f0f469246cf5cfb4106f832e82e2ec89330f6e25bb0efb8502fc1b04",
+  "ES2014.chain": "22cf4e3636b583661cec29852e96412edc57da6001e020477f572ec5073398b4",
+  "IS1009.chain": "08d75a10030e93cd6d955faecaf6ca8349870430c62e6f622b22e0853d991a94",
+  "TS3003.chain": "e3a5ff12ab82209590db507e2e4663d7ab1e3c75db4b6c928fda0564c74d6e33",
+  "TS3004.chain": "0e1cc17a8b6cde1fcb3a082625bd049c592ccbb720c02fbb8c90a1f0c5ea01b2",
+  "TS3007.chain": "621154bd401b3eaaf5f2c8a8953076c7c01bab733841873829e129d1291ea1bc"
+ },
+ "cache_sha256": {
+  "ami_dev_memoria.jsonl": "d244a0e1fa5b2a02ad003376b9965b79162b9ab408f1055c8741aa56197c1398",
+  "ami_test_memoria.jsonl": "f576ca9f152a4110e7837b78a10b315bd28ed6af7ad58badf81fea2316592c93",
+  "ami_test_memoria_review.jsonl": "b7e873aaadac574de87dc064730a6bb6feda8a48c7c5bf5700a70802bc700657"
+ },
+ "gate_scores_sha256_at_preregistration": "f61bffbbaba4a9297e0149a457d316e4c2b56d0d89e1c4a9042926c8fb87fe75"
+}

@@ -1,0 +1,17 @@
+[0.2s - 6.2s] Speaker 0: Morning, two weeks in, let's go through progress, and there is a security question we have to settle.
+[6.2s - 17.9s] Speaker 1: Before anything else, I have bad news on alpha systems. They failed our security questionnaire, they could not show that data stays in Malaysia, and they do not have the audit certificate we need.
+[17.9s - 23.8s] Speaker 2: That is a problem, are we sure? Their sales team told us it was all covered.
+[23.8s - 24.9s] Speaker 1: I asked twice
+[24.9s - 44.9s] Speaker 0: in writing, their answer was that it is on the roadmap for next year. Then we cannot use them for a pilot with procurement data, what about Beta Cloud? BetaCloud hosts in Cybergire and has the certificate, they can start next week. Okay, we drop alpha systems and move to Beta Cloud, this is final.
+[44.9s - 50.1s] Speaker 2: Fine, but then finance has to say the budget does not survive this change.
+[50.1s - 52.1s] Speaker 0: How much more is it?
+[52.1s - 62.2s] Speaker 2: Beta Cloud's license is 30,000 Ringit higher, so the pilot budget has to go from 2x50,000 to 2x80,000 ringgit.
+[62.2s - 65.2s] Speaker 0: Can we absorb part of it from training costs?
+[65.2s - 70.6s] Speaker 2: No, training is already tight, I would rather ask for a clean increase.
+[70.6s - 76.6s] Speaker 0: Fine, the pilot budget is now 280,000 ringgit, I will take it to the board.
+[76.6s - 80.4s] Speaker 2: Thanks, I will update the finance sheet today.
+[80.4s - 100.2s] Speaker 0: Golift stays on October 26 for now. Migration is going okay, I am still on track for the 9th of October. Good, now security. Beta cloud still needs our own review before we sign. Who can do it? I can do it, I will own the security review and have it done by the 5th of October.
+[100.2s - 104.4s] Speaker 2: Is that realistic with migration running at the same time?
+[104.4s - 106.7s] Speaker 0: It will be busy, but yes.
+[106.7s - 110.8s] Speaker 2: Maybe we should hire an outside consultant for the review?
+[110.8s - 127.4s] Speaker 0: Let's not spend money on that, Wei Ling will do it. Also, maybe we could add a second pilot team in Penang. Interesting, but that is out of scope for now. Anything else? No? Then the next meeting is on October 12th, thanks.

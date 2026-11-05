@@ -1,0 +1,11 @@
+memoria.py as it ran
+====================
+
+Table 6.1, the significance tests, the topic-scoping experiment and every other result under results/ were produced with the memoria.py whose
+SHA-256 is 751e2ed08e3021902a03e100eb16b7544883d4f424f5d8eaf4bc3c8d2899fcca. A copy is kept here as results/memoria_as_run.py.
+
+On 16 October 2026 memoria._parse was changed in one respect: the citation. It used to return the first existing decision id that is a substring
+of the model's citation, so a reply that cited [IS1003c:27:06#3] came back as [IS1003c:27:06]. It now returns the id the model put in brackets if
+that decision exists, otherwise the longest existing id found in the reply. Labels and reasons are unchanged (test_parse.py checks this against the
+old code on the 336 replies behind Table 6.1 and on 400 random memories). Of the 110 true alerts in Table 6.1, 101 cited the gold decision as
+stored and 103 do once the id is read exactly; the three that change are IS1003-O-01, IS1003-O-02 and TS3003-C-01. No stored prediction was edited.

@@ -1,0 +1,17 @@
+Classes, in order:
+1. IRRELEVANT: social chatter or logistics unrelated to the project (food, weather, sport, greetings), even when phrased as a suggestion.
+2. OUTDATED: still uses the old thing named in a decision's "(replaces ...)" note.
+3. CONTRADICTS: conflicts with an approved decision (a different value, material or market; a figure above a cap or budget; a different date, quarter or deadline, earlier or later).
+4. SUPPORTED_CURRENT: consistent with an approved decision (reaffirms it, or stays within its cap).
+5. UPDATES: suggests adding or changing something that no approved decision covers.
+6. INSUFFICIENT_EVIDENCE: any other claim about the project (progress, results, events) that the decisions cannot confirm or refute.
+For OUTDATED or CONTRADICTS reply exactly: CLASS | reason in under 12 words | [citation]
+For every other class reply with the class name only.
+Examples, using other decisions: [M1:02:00] Supplier is Acme (replaces Globex). [M1:03:00] Budget cap is strictly $50k. [M2:01:00] Release deadline is strictly March.
+"We'll keep ordering from Globex." -> OUTDATED | Acme replaced Globex | [M1:02:00]
+"The budget will reach $65k." -> CONTRADICTS | Exceeds the $50k budget cap | [M1:03:00]
+"The release will go out in June." -> CONTRADICTS | Conflicts with the March release deadline | [M2:01:00]
+"Acme is confirmed for the contract." -> SUPPORTED_CURRENT
+"Let's add a dark mode." -> UPDATES
+"Did anyone watch the match?" -> IRRELEVANT
+"The client loved the demo." -> INSUFFICIENT_EVIDENCE

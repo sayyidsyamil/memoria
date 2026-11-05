@@ -1,0 +1,93 @@
+# Series ES2002
+
+## APPROVED DECISIONS
+
+- [TS3003b:32:22#2] The remote will have a docking station.
+- [ES2002b:02:01] The remote will only control televisions.
+- [ES2008c:34:39] The remote will have a simple chip.
+- [ES2013b:28:52] The remote will have large buttons.
+- [ES2002c:38:36] The materials used will be plastic and rubber. (replaces a wooden case)
+- [ES2002c:24:29] The remote will be curvy.
+- [TS3007c:34:18] There will be a touch screen and not many buttons.
+- [ES2014c:13:18] The remote will contain a simple chip. (replaces an advanced chip)
+- [ES2015b:06:48] Will reserach environmental factor.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [TS3003b:31:23] The remote will feature a small LCD screen.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [TS3005b:31:26] The remote will allow users to have the possibility to enlarge the buttons.
+- [ES2002b:28:23] The remote will use an infra-red sensor.
+- [ES2002b:01:44] The team will not work with teletext. (replaces including teletext)
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [ES2007b:21:24] The remote will not contain a voice activation feature.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2015c:23:12] Control will light up when you touch a button.
+- [ES2002b:20:58] The target demographic is people aged fifteen to thirty five.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [TS3009c:36:33] Parts of the front (like the bottom where the LCD is and the top corner where the logo is) will also be titanium.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [IS1001b:32:18] The remote will not have an LCD screen. (replaces an LCD screen)
+- [ES2002a:08:07] The production costs cannot exceed 12.50 Euro.
+- [TS3008c:27:22] The remote will not feature an LCD screen.
+- [IS1006c:27:26] The remote will contain a speech recognizer.
+- [IS1006a:05:48] The remote will be child proof.
+- [TS3003c:21:37] The remote will have a docking station.
+- [TS3005b:20:06] The remote will feature an LCD screen.
+- [ES2002a:08:52] The remote will be sold on an international scale.
+- [ES2012c:31:16] No display screen.
+- [IS1006c:30:54] The remote will feature an LCD screen. (replaces a remote without a screen)
+- [TS3003a:22:54] The remote will be shockproof.
+- [ES2013c:37:17] The remote will use push buttons.
+- [IS1003c:27:06#2] The remote will use low level chips. (replaces an advanced chip)
+- [ES2012b:05:27] The remote will be extremely simple.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [IS1004c:28:50] Thus far, LCD and ASR have been ruled out.
+- [TS3012b:31:31] The important buttons will be on top.
+- [ES2007c:20:07] There will be no display physically featured on the remote itself.
+- [TS3011c:26:48] LCD is not going to be implemented. (replaces an LCD screen)
+- [TS3003a:22:59] The remote will be waterproof.
+- [TS3003c:21:53] The remote will use an advanced chip.
+- [ES2009b:12:23] The remote will have a locating device that operates either through voice recognition or through paging.
+- [ES2002c:30:39] The remote will not have a talk-back function.
+- [ES2012c:30:32] Will have voice with fewer buttons.
+- [TS3007c:31:04] It will not use speech recognition. (replaces speech recognition)
+- [ES2016b:23:37] The remote will be simple.
+- [ES2012c:07:44] The remote will contain a custom chip.
+- [ES2002c:38:42] The case will have a soft fruit-like feel to it.
+- [TS3012b:24:40] A button that sticks on the TV could be pressed to make the lost remote beep, and perhaps also light up.
+- [ES2006c:34:15] The remote will have push buttons outside, and an LCD and spinning wheel inside.
+- [ES2002b:30:20] The remote will use regular batteries.
+- [ES2002c:27:28] The remote will be shaped like a snowman.
+- [ES2002a:07:50] The remote will sell for 25 Euro.
+- [ES2015c:22:55] Will use personal face places.
+- [TS3005c:36:19] The remote will have a scrolling device.
+- [ES2015b:31:33] Glow in the dark buttons, self-timed lighting.
+- [IS1003c:27:20] The remote will have LCD buttons.
+- [ES2008b:34:15] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [ES2015b:29:48] Alarm locator will be implemented.
+- [ES2005c:12:15] The remote will feature speech recognition. (replaces a remote without speech recognition)
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [TS3005b:39:04] The remote will be button-less.
+- [ES2002b:07:43] The remote will have buttons for the following functions: on and off, channel up and down, volume up and down, and entering channel numbers.
+- [IS1003c:28:41] The remote will use speech recognition for simple commands.
+- [IS1006c:27:28] The remote will have some buttons.
+- [ES2015b:28:46] No LCD, no voice recognition. (replaces speech recognition)
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [TS3003b:31:26] The remote will be fancy.
+- [TS3003b:34:42] The remote will be made to accommodate different languages.
+- [ES2002b:02:25] The corporate color and design must be incorporated into the design of the remote.
+
+## LIVE STATEMENTS (label each one)
+
+- ES2002-S-01: The remote will only control televisions.
+- ES2002-S-02: Well, we are targeting an international market.
+- ES2002-O-01: We will include teletext in the design.
+- ES2002-O-02: Well, we will make the case out of wood.
+- ES2002-C-01: We will use a kinetic battery in the remote.
+- ES2002-C-02: I think we are pricing the remote at 45 Euro.
+- ES2002-U-01: What about adding a button to jump back to the previous channel?
+- ES2002-U-02: We should add a built-in stand so it can stand up on the table.
+- ES2002-I-01: I think that coffee machine is on its last legs.
+- ES2002-I-02: The weather is lovely today, isn't it?
+- ES2002-E-01: I think the final sample sheet from the printer was not what we ordered.
+- ES2002-E-02: I think our trademark application is still waiting for a decision.

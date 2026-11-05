@@ -1,0 +1,422 @@
+{
+  "set_15/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room lighting is unrelated to the project."
+  },
+  "set_15/s02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d060"],
+    "note": "Conflicts with the approved twenty-five Euro selling price."
+  },
+  "set_15/s03": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d073"],
+    "note": "Matches the approved fifty-million-Euro profit goal."
+  },
+  "set_15/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d071"],
+    "note": "Teletext was explicitly removed."
+  },
+  "set_15/s05": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the safety approval status."
+  },
+  "set_15/s06": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Adds an uncovered family-profile feature."
+  },
+  "set_15/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d049"],
+    "note": "Conflicts with the approved no-screen design."
+  },
+  "set_15/s08": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the field-trial upload."
+  },
+  "set_15/s09": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d076"],
+    "note": "Consistent with the approved company branding."
+  },
+  "set_15/s10": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Carpet chatter is unrelated to the project."
+  },
+  "set_15/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d025"],
+    "note": "Television-only control replaced multi-device control."
+  },
+  "set_15/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered left-handed layout."
+  },
+  "set_16/s01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered thermometer feature."
+  },
+  "set_16/s02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal sleep chatter is unrelated to the project."
+  },
+  "set_16/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the pilot feedback."
+  },
+  "set_16/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d001"],
+    "note": "Corporate branding replaced the unbranded design."
+  },
+  "set_16/s05": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d064"],
+    "note": "A simple chip conflicts with the approved smart processor."
+  },
+  "set_16/s06": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d001"],
+    "note": "Matches the approved corporate branding."
+  },
+  "set_16/s07": {
+    "label": "OUTDATED",
+    "decisions_used": ["d023"],
+    "note": "Locator functionality replaced the no-locator design."
+  },
+  "set_16/s08": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered spare-battery compartment."
+  },
+  "set_16/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Parallel-parking chatter is unrelated to the project."
+  },
+  "set_16/s10": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d048"],
+    "note": "Conflicts with the approved larger-button interface."
+  },
+  "set_16/s11": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d023"],
+    "note": "Matches the approved locator functionality."
+  },
+  "set_16/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the courier-test damage."
+  },
+  "set_17/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lunch chatter is unrelated to the project."
+  },
+  "set_17/s02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the slogan's legal status."
+  },
+  "set_17/s03": {
+    "label": "OUTDATED",
+    "decisions_used": ["d018"],
+    "note": "Rubber explicitly replaced the wooden case."
+  },
+  "set_17/s04": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "The bicycle problem is unrelated to the project."
+  },
+  "set_17/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered thumb recess."
+  },
+  "set_17/s06": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d005"],
+    "note": "Conflicts with the approved fifty-million-Euro profit aim."
+  },
+  "set_17/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d037"],
+    "note": "Home-only sales conflict with the approved international market."
+  },
+  "set_17/s08": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the demo build's progress."
+  },
+  "set_17/s09": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d040"],
+    "note": "Matches the approved internal LCD."
+  },
+  "set_17/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered magnetic back."
+  },
+  "set_17/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d070"],
+    "note": "The advanced chip explicitly replaced a simple chip."
+  },
+  "set_17/s12": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d012"],
+    "note": "Matches the approved twenty-five Euro price."
+  },
+  "set_18/s01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the interview duration."
+  },
+  "set_18/s02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered sleep-mode button."
+  },
+  "set_18/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the photography booking."
+  },
+  "set_18/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d015"],
+    "note": "Locator functionality replaced the no-locator design."
+  },
+  "set_18/s05": {
+    "label": "OUTDATED",
+    "decisions_used": ["d034"],
+    "note": "A charging station replaced the no-dock design."
+  },
+  "set_18/s06": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d007"],
+    "note": "Matches the approved production-cost maximum."
+  },
+  "set_18/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lift maintenance is unrelated to the project."
+  },
+  "set_18/s08": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d003"],
+    "note": "Matches the approved simple chip."
+  },
+  "set_18/s09": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered flashlight feature."
+  },
+  "set_18/s10": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Kitchen supplies are unrelated to the project."
+  },
+  "set_18/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d063"],
+    "note": "Conflicts with the required recognizable corporate image."
+  },
+  "set_18/s12": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d048"],
+    "note": "Conflicts with the decision not to use teletext."
+  },
+  "set_19/s01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d051"],
+    "note": "Conflicts with the decision excluding speech recognition."
+  },
+  "set_19/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d011"],
+    "note": "Matches the approved no-LCD design."
+  },
+  "set_19/s03": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the usability lab's availability."
+  },
+  "set_19/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d008"],
+    "note": "Standard batteries explicitly replaced solar power."
+  },
+  "set_19/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered cable-based firmware update."
+  },
+  "set_19/s06": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Whiteboard-marker logistics are unrelated to the project."
+  },
+  "set_19/s07": {
+    "label": "OUTDATED",
+    "decisions_used": ["d011"],
+    "note": "The no-screen design explicitly replaced an LCD screen."
+  },
+  "set_19/s08": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d001"],
+    "note": "Exactly matches the approved wheel-sensor decision."
+  },
+  "set_19/s09": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Neighbourhood-dog chatter is unrelated to the project."
+  },
+  "set_19/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered dim-colour night mode."
+  },
+  "set_19/s11": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the focus-group reaction."
+  },
+  "set_19/s12": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d008"],
+    "note": "Kinetic power conflicts with the approved standard batteries."
+  },
+  "set_20/s01": {
+    "label": "OUTDATED",
+    "decisions_used": ["d082"],
+    "note": "Younger consumers explicitly replaced the over-sixty target."
+  },
+  "set_20/s02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d019"],
+    "note": "Conflicts with the required corporate image."
+  },
+  "set_20/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d030"],
+    "note": "Multi-device control conflicts with the television-only design."
+  },
+  "set_20/s04": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal phone-battery chatter is unrelated to the project."
+  },
+  "set_20/s05": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the reported drop-test result."
+  },
+  "set_20/s06": {
+    "label": "OUTDATED",
+    "decisions_used": ["d007"],
+    "note": "Kinetic power explicitly replaced regular batteries."
+  },
+  "set_20/s07": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered favourite-channel shortcut buttons."
+  },
+  "set_20/s08": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room-heating chatter is unrelated to the project."
+  },
+  "set_20/s09": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the tooling-budget approval."
+  },
+  "set_20/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered Bluetooth phone-app pairing."
+  },
+  "set_20/s11": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d085"],
+    "note": "Matches the approved production-cost cap."
+  },
+  "set_20/s12": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d050"],
+    "note": "Exactly matches the approved teletext exclusion."
+  },
+  "set_21/s01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms payment of the tooling deposit."
+  },
+  "set_21/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d002"],
+    "note": "Consistent with the approved plastic-and-rubber case."
+  },
+  "set_21/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d002"],
+    "note": "Metal conflicts with the approved plastic-and-rubber case."
+  },
+  "set_21/s04": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered display-dimming eco-mode."
+  },
+  "set_21/s05": {
+    "label": "OUTDATED",
+    "decisions_used": ["d002"],
+    "note": "Hard plastic and rubber explicitly replaced titanium."
+  },
+  "set_21/s06": {
+    "label": "OUTDATED",
+    "decisions_used": ["d088"],
+    "note": "Normal batteries explicitly replaced solar power."
+  },
+  "set_21/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Film chatter is unrelated to the project."
+  },
+  "set_21/s08": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Biscuit logistics are unrelated to the project."
+  },
+  "set_21/s09": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the humidity-test schedule."
+  },
+  "set_21/s10": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d088"],
+    "note": "Regular batteries match the approved normal battery."
+  },
+  "set_21/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d088"],
+    "note": "Kinetic power conflicts with the approved normal battery."
+  },
+  "set_21/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered coloured ring."
+  }
+}

@@ -1,0 +1,27 @@
+{"id": "TS3004b.w0", "output_tokens": 147, "seconds": 8.5073, "finish_reason": "exact_completed_event_repeat", "peak_mlx_gb": 3.9888, "matches_historical_bytes": false, "gold_hits": [], "lost_gold": []}
+{"id": "TS3006d.w0", "output_tokens": 1065, "seconds": 42.0063, "finish_reason": "exact_completed_event_repeat", "peak_mlx_gb": 3.9888, "matches_historical_bytes": false, "gold_hits": [], "lost_gold": []}
+{"id": "TS3006d.w3", "output_tokens": 1800, "seconds": 81.8104, "finish_reason": "length", "peak_mlx_gb": 3.9092, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "TS3004b.w1", "output_tokens": 58, "seconds": 7.4085, "finish_reason": "stop", "peak_mlx_gb": 3.9149, "matches_historical_bytes": true, "gold_hits": ["TS3004b.t56.0"], "lost_gold": []}
+{"id": "TS3006b.w1", "output_tokens": 201, "seconds": 13.4621, "finish_reason": "stop", "peak_mlx_gb": 3.9223, "matches_historical_bytes": true, "gold_hits": ["TS3006b.t107.1", "TS3006b.t114.2", "TS3006b.t441.3"], "lost_gold": []}
+{"id": "TS3006d.w2", "output_tokens": 673, "seconds": 30.3557, "finish_reason": "stop", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "ES2003c.w1", "output_tokens": 694, "seconds": 29.6884, "finish_reason": "stop", "peak_mlx_gb": 3.9223, "matches_historical_bytes": true, "gold_hits": [], "lost_gold": []}
+{"id": "ES2011b.w1", "output_tokens": 1219, "seconds": 57.3992, "finish_reason": "stop", "peak_mlx_gb": 3.9195, "matches_historical_bytes": true, "gold_hits": ["ES2011b.t56.0", "ES2011b.t69.1"], "lost_gold": []}
+{"id": "IS1008c.w0", "output_tokens": 813, "seconds": 38.2824, "finish_reason": "stop", "peak_mlx_gb": 3.9888, "matches_historical_bytes": true, "gold_hits": ["IS1008c.t14.0", "IS1008c.t14.2"], "lost_gold": []}
+      320.25 real       132.12 user        31.36 sys
+          2467102720  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              403414  page reclaims
+                4808  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                6269  voluntary context switches
+              975425  involuntary context switches
+        401952726826  instructions retired
+        224687763018  cycles elapsed
+          4772383936  peak memory footprint

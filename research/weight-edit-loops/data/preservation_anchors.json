@@ -1,0 +1,35 @@
+{
+  "scope": "Manual development-only preservation controls, frozen before any edited free generation on this window. These do not modify coordinator gold and are never supplied to an intervention.",
+  "anchors": [
+    {
+      "id": "late-scroll-wheel-correction",
+      "prompt_id": "TS3006d.w3",
+      "object_id": "buttons",
+      "attribute": "outcome",
+      "value": "one scroll push-button",
+      "turns": [320, 324],
+      "evidence": "[320] No, not anymore. Because he's now have a scroll-wheel that you can push in. [324] No we have n we have no buttons left. So the joystick was not an option.",
+      "reason": "Explicit correction of the earlier joystick description; the later current configuration must survive."
+    },
+    {
+      "id": "late-plastic-correction",
+      "prompt_id": "TS3006d.w3",
+      "object_id": "case_material",
+      "attribute": "outcome",
+      "value": "plastic",
+      "turns": [362],
+      "evidence": "[360] You still have rubber d Or no. [362] No you got a plastic.",
+      "reason": "Correct current material is explicitly supplied in reply to the rubber question."
+    },
+    {
+      "id": "late-single-curve-confirmation",
+      "prompt_id": "TS3006d.w3",
+      "object_id": "case_curve",
+      "attribute": "outcome",
+      "value": "single curved",
+      "turns": [367, 371],
+      "evidence": "[367] Yeah. Yeah still we we dropped also on the the double uh curve. [371] Yeah we have single curve now, and no and no material. So maybe in the middle or something.",
+      "reason": "Explicit still/now confirmation late in the capped response; a shorter prefix must not be rewarded for dropping it."
+    }
+  ]
+}

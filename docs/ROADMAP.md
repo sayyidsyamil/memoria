@@ -1,0 +1,199 @@
+# Memoria roadmap
+
+The plan to complete Memoria: first a submission-ready FYP2 prototype, then an installable
+product. Each milestone ends with an acceptance check; a milestone is done when its check
+passes on the installed app, not when code merges. Current evidence is recorded in
+[WORKSPACE-PRODUCT-VERIFICATION.md](WORKSPACE-PRODUCT-VERIFICATION.md) and
+[research/](../research/).
+
+Week numbers follow the WIA3003 semester (week 2 ended 16 October 2026); adjust them to the
+faculty calendar. User acceptance testing (UAT) is planned for weeks 8 to 10.
+
+| Milestone | Target | Outcome |
+|---|---|---|
+| M0 Consolidated | Done, 2 November | One repository, research evidence, backup, private report folder |
+| M1 Native meeting loop | Week 5–6 (mostly done 2 Nov) | Record → review → approve → reuse works in the installed app with real audio |
+| M2 Meeting intelligence | Week 6–7 (verified 2 Nov) | Measured live check, long meetings, safer tracked facts |
+| M3 Reliability | Week 7 (suite green 2 Nov; worker restart checked 3 Nov) | Recovers from failures; full test suite green |
+| M4 UAT build | End of week 7 (`v0.3.1-uat` built 3 Nov; clean-account check pending) | Tagged build that installs from the guide |
+| M5 Evaluation and UAT | Weeks 8–10 | Participant results and current-app measurements |
+| M6 Report and viva | Weeks 10–14 | Report complete, viva ready |
+| M7 Installable product | After M4, in parallel | Installs and runs on a clean Mac without developer folders |
+
+## M0 Consolidated (done)
+
+- Memoria lives in this repository only. Earlier versions were removed after a verified
+  backup (`~/Backups/memoria-2026-11-02`); the FYP2 app remains on branch `fyp2`
+  (tag `v0.1.0-uat`).
+- Engine evaluation and MemoriaBench moved to [research/](../research/); 291 engine tests and
+  900 MemoriaBench checks pass from there.
+- Report, slides, UAT kit and admin documents are private, in `~/Documents/Memoria-FYP`.
+- The app no longer depends on the retired `~/Documents/memoria` folder.
+
+## M1 Native meeting loop
+
+- Record, mark, pause and resume, End, then review with real microphone audio.
+- Recover an interrupted recording through the new recovery flow, natively.
+- Verify Live Ask and the final turn on End in the installed app.
+- Summary → approve → Ask, Search and saved Briefs; reuse knowledge across two meetings.
+- Fix the observed UX issues: raw JSON query results, "1 changes", machine dates and UUID labels.
+- Check the HUD's first click, the microphone-permission hint, narrow layouts and both themes.
+
+Acceptance: recording stops cleanly; marks align with recorded time; reviewed state survives
+restart; an interrupted recording is recovered; a saved brief cites only approved evidence.
+
+Status (2 November): verified natively with the replay path and fictional fixtures; see
+[M1-NATIVE-LOOP.md](research/M1-NATIVE-LOOP.md). Capture, captions, marks, pause/resume, End,
+review, refine, speaker naming, knowledge review and apply, Ask, Brief, Search, tracked facts,
+restart persistence and crash recovery all work; 14 defects found on the way were fixed with
+tests. Remaining: microphone capture with real speech (permission prompt), visual checks of
+themes, narrow layouts and the HUD's first click (no Screen Recording permission was
+available), and a check in the installed app that a recovered recording shows its length (D13,
+fixed on 3 November and checked in the browser preview).
+
+## M2 Meeting intelligence
+
+- Bring the evaluated guard (relevance → confirmation → attribution, `research/memoriabench/guard.py`)
+  into `live_assistance.py`, then score the app's live check on MemoriaBench.
+- Long meetings: chunked transcription beyond the current ten-minute limit, and windowed
+  tracked-fact extraction (reuse `memoria_engine.windowed`).
+- Tracked facts: stop offering registry edits that the ledger refuses.
+- Make saving across SQLite and Markdown recoverable after a crash (meetings API).
+- Route current-value and change questions in Ask to the tracked-fact ledger: the M1 check
+  answered "Which supplier do we use now?" with "does not answer" although tracked facts held
+  the current value.
+- Offer existing People and previously named voices in the speaker picker; label history
+  headings with the item label rather than its ID.
+
+Acceptance: a 60-minute recording is transcribed and extracted with no silent truncation; the
+live check has a reported MemoriaBench score with intervals and failure cases.
+
+Status (2 November): accepted; see [M2-MEETING-INTELLIGENCE.md](research/M2-MEETING-INTELLIGENCE.md).
+The app's live check with the guard, scored on MemoriaBench through its own Qwen worker, catches
+81.3% of conflicts (75.0–87.5) with 1.3% false alarms (0–3.1); the research auditor still
+catches more (98.2%). A 60-minute AMI recording was transcribed in 11.6 minutes with no gaps
+(WER 13.2%, four participants on four labels); knowledge was built from every part of the hour
+(77 suggestions, none skipped) and tracked facts were extracted in windows (three decisions,
+from 32:07 and 41:30). Ask answers current-value and change questions from tracked facts; meeting
+saves recover from a killed process; tracked-item setup offers only edits the ledger accepts;
+the speaker picker offers known names. Found on the way and fixed: worker deadlines, the
+knowledge-review passage limit and one-invalid-group failure, the meeting record cap, merged
+speakers and repeated passages at part boundaries, and model loading under memory pressure.
+Remaining: 6–9% of words left on "Unknown speaker"; live captions wait while a long recording
+is transcribed (M3). Since measured: no false alert on real unrelated speech (all 852 turns of
+the AMI hour checked against the UAT procurement facts, 29 of them reached the model;
+[research/long-meeting](../research/long-meeting/README.md)); and a November bake-off of newer
+local models kept Qwen3.5-4B ([research/model-bakeoff](../research/model-bakeoff/README.md)).
+
+Since then (3 November): speech moved to Parakeet Ultra with Nemotron 3 Diarization (the AMI hour
+in 113 s, WER 14.4%, 97.4% of labelled words on the right participant, 4 words on "Unknown
+speaker"; [research/live-speech](../research/live-speech/README.md)), and the live check to the
+guard's question alone with candidates found by meaning (98 of 112 conflicts caught, 2 false
+alarms in 224, 0.26 s median; [research/live-verifier](../research/live-verifier/README.md)).
+
+## M3 Reliability
+
+- Restart crashed model workers automatically; handle memory pressure; coordinate model use
+  across the three workers. (Workers no longer outlive a crashed app: done in M1. Model loading
+  now allows five minutes, after the M2 check saw all three 60-second attempts fail with other
+  apps holding memory.)
+- Live captions in a new meeting wait while a long recording is being transcribed (one resident
+  speech worker); let capture captions take priority or say so in the HUD.
+- Fewer turns on "Unknown speaker" after long transcriptions (6–9% of words in the M2 hour).
+- The workspace window intermittently vanished from the accessibility tree after launch during
+  the M2 check; confirm whether it is a real window-visibility bug.
+- Write a playable duration for recovered recordings without altering the original evidence.
+  (Done 3 November for every browser recording: the player loads a stream copy with a duration;
+  to check in the installed app.)
+- Sleep and wake, microphone disconnection, queue pressure and low disk space.
+- Resolve the 97 full-suite failures recorded on 1 November: fix them, or remove tests for
+  inherited features that Memoria hides.
+
+Acceptance: the full frontend suite passes; each failure mode above has a documented, tested
+behaviour that never promotes incomplete transcripts into reviewed knowledge.
+
+Status (3 November): the full frontend suite passes (6,648 tests after the 2 November
+[triage](M3-FULL-SUITE-TRIAGE.md), 6,805 for 0.3.1). A stopped worker is started again,
+up to three times per run; in the `v0.3.1-uat` smoke test the replacement Qwen process appeared after
+5.06 s and its next check passed ([RELEASE_RECORD.md](RELEASE_RECORD.md)). Each worker caps MLX's GPU cache at 256 MB
+([MODEL-LIFECYCLE.md](MODEL-LIFECYCLE.md)). With Parakeet Ultra, 4 words of the AMI hour are
+left on "Unknown speaker". Remaining: memory-pressure eviction and cross-worker scheduling,
+captions during a long transcription, the accessibility-tree observation, native confirmation of the recovered-recording
+playback fix, and sleep and wake, disconnection, queue pressure and low disk space.
+
+## M4 UAT build
+
+- Tag a UAT build and publish it as a GitHub release with notes (`v0.2.0-uat`, `v0.3.0-uat`, then `v0.3.1-uat`).
+- Fictional demo vault and reset script for sessions; UAT protocol and forms ready.
+
+Acceptance: a second macOS account installs and completes the five acceptance tasks by
+following the guide alone.
+
+Status (3 November): version 0.3.1, tagged `v0.3.1-uat` (`v0.2.0-uat` was built on 2 November);
+`scripts/build-release.sh` builds the disk image and writes [RELEASE_RECORD.md](RELEASE_RECORD.md),
+whose smoke test covers T1, T4 and T5, Ask and a killed worker. Microphone and call-audio checks passed on the earlier
+development bundle; the final playback UI check was blocked by the closed, locked Mac. A shared install is prepared for another account in
+`/Users/Shared/Memoria` (Python runtimes and model snapshots,
+`scripts/install-shared-runtime.sh`; provisioned and import-checked). The starter vault (three
+recorded, reviewed fictional meetings and six tracked items), `reset-demo.sh` and
+`memoria-doctor.sh` (READY check) are in place, and the UAT protocol, runbook and forms match
+the current app. An engine dry run of the five tasks (no UI) gave 17 suggestions, all correct,
+and found all 15 decisions of the answer key. Privacy for AC8: remembering voices is opt-in,
+"Forget remembered voices" deletes profiles, and saving a reviewed transcript removes the
+draft's voice embeddings. Remaining: the clean-account install and task 1 (needs a second macOS
+account), and a meeting with people speaking into the microphone (so far, synthetic voices played
+through the speakers: [research/live-speech](../research/live-speech/README.md)).
+
+## M5 Evaluation and UAT
+
+- UAT with 6–8 participants: task success, SUS, acceptance criteria AC1–AC8, signed acceptance.
+- Speech: WER and speaker-label accuracy on held-out English and code-switched Malay recordings,
+  using the current speech pipeline.
+- Live latency: P50 and P95 from speech to caption, and from caption to evidence cue.
+- Retrieval: lexical against hybrid on a controlled question set; citation entailment,
+  omissions and changed-source handling.
+
+Acceptance: repeatable scripts under `research/`, reported results including failures. Exact
+quote matching alone is not an accuracy metric.
+
+Status (3 November): first current-app measurements are in `research/`: Ask parity, the live
+check on written, spoken and noisy MemoriaBench probes, and speech and live latency on one AMI
+hour and through the installed app. Malay recordings, the retrieval comparison and UAT are
+still to come.
+
+## M6 Report and viva
+
+- Supervisor decisions: final title; MemoriaBench is reported as an extension (decided 2 Nov,
+  to confirm with the supervisor); whether the AP1 collaboration letter covers AP2.
+- Fill the report's and slides' remaining placeholders.
+- Point the report's appendix generator at `research/ledger-engine`; record the demo video.
+
+Acceptance: report and slides contain no placeholders; every number traces to a file in
+`research/` or the UAT records.
+
+## M7 Installable product
+
+- **Runtimes:** replace the three developer environments (`.speech-runtime`, `.embed-runtime`,
+  Homebrew `python3.11`) with a relocatable Python runtime and pinned, hashed requirements,
+  shipped in the app or installed on first run into Application Support.
+- **Models:** first-run download with progress, disk-space check, resume and SHA-256
+  verification; offline afterwards; licence notices for each model (listed in
+  [NOTICE.md](../NOTICE.md)).
+- **Paths:** remove compile-time developer fallbacks (`CARGO_MANIFEST_DIR`) and readiness
+  messages that mention developer folders.
+- **Release:** release (not debug) build, DMG, Memoria-owned update channel. Signing is ad-hoc
+  unless an Apple Developer ID is obtained; notarisation needs the paid Apple Developer Program.
+- **Scope:** hide or remove inherited Tolaria features that are not part of Memoria (agent
+  integrations, mobile, collaboration) and document what remains.
+- **Boundaries:** verify fresh installs, upgrades and private-data boundaries; publish the
+  supported-platform matrix (Apple silicon, 16 GB minimum).
+
+Acceptance: a clean Apple-silicon Mac installs the DMG, downloads models, records a meeting
+and answers a cited question without any developer folder, terminal step or network access
+after setup.
+
+## Decisions needed
+
+- Apple Developer Program membership for notarisation (cost), or ad-hoc signing.
+- Which inherited Tolaria features remain visible in the product.
+- Supervisor: title, agreement that MemoriaBench is an extension, collaboration letter scope.

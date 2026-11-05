@@ -1,0 +1,220 @@
+{
+  "run": "demo_3",
+  "item": "demo_3",
+  "kind": "demo",
+  "meeting": "meeting_3",
+  "source": "/Users/sayyid/Desktop/FYP/engine/data/demo/audio/meeting_3.wav",
+  "audio_s": 103.5699375,
+  "models": {
+    "stt": "mlx-community/parakeet-tdt-0.6b-v3",
+    "diarization": "mlx-community/diar_streaming_sortformer_4spk-v2.1-fp16"
+  },
+  "app": {
+    "STREAM_MIN_SECONDS": 10.0,
+    "STREAM_CHUNK_SECONDS": 5.0,
+    "DIAR_THRESHOLD": 0.5,
+    "capture_block_samples": 1600,
+    "git_head": "697708dc51ab7e9d5e2d062d00536c79e84b4125",
+    "git_status_short": [
+      "M src-tauri/resources/python/diar_stream.py",
+      " M src-tauri/resources/python/transcribe_server.py",
+      " M tests/python/test_diar_stream.py",
+      " M tests/python/test_transcribe_v3_diarize.py"
+    ],
+    "python_status_short": [
+      "M src-tauri/resources/python/diar_stream.py",
+      " M src-tauri/resources/python/transcribe_server.py",
+      " M tests/python/test_diar_stream.py",
+      " M tests/python/test_transcribe_v3_diarize.py"
+    ],
+    "sha256": {
+      "diar_stream.py": "2b4d25aac01fb38d319b24bbe9a77236b0a4cd2a7efef05532b86b2d95555827",
+      "transcribe_v3.py": "dcfdb0c0f1e6964b3b034b40761083aa32e015e71b87f455c5a183dfa0a368e7",
+      "transcribe_server.py": "bf60a7329fc2e6ad93b93f04d5b938dde5a8d8655e60d60f2fe702584c04ee6a"
+    },
+    "stt_chunk_duration": 120.0
+  },
+  "diarize_info": {
+    "mode": "stream",
+    "duration_s": 103.5699375
+  },
+  "diar_frames": {
+    "streamed": 1295,
+    "expected": 1295
+  },
+  "timing_s": {
+    "load_models_s": 6.12623720796546,
+    "cold_first_calls_s": {
+      "stt_s": 0.6072443330194801,
+      "diarize_stream_s": 1.1195235420018435,
+      "diarize_oneshot_s": 0.29392249998636544
+    },
+    "finalize_s": 21.423450250003953,
+    "stt_s": 16.136881959042512,
+    "diarize_s": 5.247586417011917,
+    "other_s": 0.038981873949524015
+  },
+  "rtf": {
+    "finalize": 0.20685008379003755,
+    "stt": 0.15580662061365552,
+    "diarize": 0.050667081043781814
+  },
+  "mlx_peak_gb": {
+    "stt": 4.327736156,
+    "diarize": 3.275167846,
+    "finalize": 3.275167846
+  },
+  "mlx_cache_limit_gb": null,
+  "mem_guard_gb": 8.0,
+  "ru_maxrss_bytes": 2473000960,
+  "final_event": {
+    "type": "final",
+    "turns": [
+      {
+        "t0": 0.2,
+        "t1": 5.7,
+        "speaker": "Speaker 0",
+        "text": "Morning, this is the last review before launch, so let's be straightforward about where we are."
+      },
+      {
+        "t0": 5.7,
+        "t1": 6.5,
+        "speaker": "Speaker 1",
+        "text": "I have to start"
+      },
+      {
+        "t0": 6.5,
+        "t1": 7.4,
+        "speaker": "Speaker 0",
+        "text": "with a miss."
+      },
+      {
+        "t0": 7.4,
+        "t1": 8.6,
+        "speaker": "Speaker 1",
+        "text": "The data migration"
+      },
+      {
+        "t0": 8.6,
+        "t1": 10.2,
+        "speaker": "Speaker 0",
+        "text": "did not finish on the 9th,"
+      },
+      {
+        "t0": 10.2,
+        "t1": 14.9,
+        "speaker": "Speaker 1",
+        "text": "the old supplier records had duplicates and the cleanup took longer than planned."
+      },
+      {
+        "t0": 14.9,
+        "t1": 17.2,
+        "speaker": "Speaker 0",
+        "text": "How much longer do you need?"
+      },
+      {
+        "t0": 17.2,
+        "t1": 21.4,
+        "speaker": "Speaker 1",
+        "text": "Two weeks. I can finish by the 23rd of October."
+      },
+      {
+        "t0": 21.4,
+        "t1": 26.6,
+        "speaker": "Speaker 0",
+        "text": "Okay, data migration is now due on October 23rd, same owner."
+      },
+      {
+        "t0": 26.6,
+        "t1": 35.4,
+        "speaker": "Speaker 2",
+        "text": "If migration finishes on the 23rd, then 26 October is unrealistic. Nobody can train on data that is not there."
+      },
+      {
+        "t0": 35.4,
+        "t1": 50.2,
+        "speaker": "Speaker 0",
+        "text": "Agreed, we have to move GoLive, let's say November 9th. The 9th of November works for me, that gives us over 2 weeks of testing after migration. Then the go live date is now November 9, 2026."
+      },
+      {
+        "t0": 50.2,
+        "t1": 57.9,
+        "speaker": "Speaker 1",
+        "text": "That also affects training. It was due on 16 October, but nobody can train on a system that is not ready."
+      },
+      {
+        "t0": 57.9,
+        "t1": 72.4,
+        "speaker": "Speaker 0",
+        "text": "Right, I will move training to November 3rd so staff are trained a week before go live, I stay the owner. Good news on security. The review of BetaCloud is finished and they passed. Excellent. Security review is done."
+      },
+      {
+        "t0": 72.4,
+        "t1": 78.6,
+        "speaker": "Speaker 1",
+        "text": "On the budget, I checked again, the pilot is still 2x80,000 ringit."
+      },
+      {
+        "t0": 78.6,
+        "t1": 81.2,
+        "speaker": "Speaker 0",
+        "text": "Good, so no change to the budget."
+      },
+      {
+        "t0": 81.2,
+        "t1": 88.5,
+        "speaker": "Speaker 1",
+        "text": "One more thing, Aisha will be traveling in the first week of November. Maybe I should cover the training for her."
+      },
+      {
+        "t0": 88.5,
+        "t1": 103.4,
+        "speaker": "Speaker 0",
+        "text": "That is kind, Raj, but let's see how my calendar looks. I will keep it for now. Should we plan a lessons learned session after go live? Yes, but we will plan it later. Thank you everyone. See you after the launch."
+      }
+    ],
+    "speakers": [
+      {
+        "id": "Speaker 0",
+        "suggested": null
+      },
+      {
+        "id": "Speaker 1",
+        "suggested": null
+      },
+      {
+        "id": "Speaker 2",
+        "suggested": null
+      }
+    ],
+    "sessionId": "",
+    "duration": 103.6
+  },
+  "other_events": [],
+  "interpreter": "/opt/homebrew/opt/python@3.11/bin/python3.11",
+  "versions": {
+    "python": "3.11.17",
+    "mlx": "0.31.2",
+    "mlx-audio": "0.4.3",
+    "numpy": "2.4.5",
+    "scipy": "1.17.1",
+    "soundfile": "0.13.1",
+    "torch": "2.12.0",
+    "huggingface_hub": "1.15.0",
+    "jiwer": null,
+    "pyannote.metrics": null,
+    "pyannote.core": null
+  },
+  "machine": {
+    "platform": "macOS-26.7.1-arm64-arm-64bit",
+    "chip": "Apple M5",
+    "ram_gb": 16.0
+  },
+  "finished": "2026-10-14T07:12:00+08:00",
+  "complete": true,
+  "process": {
+    "wall_s": 33.69,
+    "max_rss_bytes": 2473000960.0,
+    "peak_footprint_bytes": 8643350080.0
+  }
+}

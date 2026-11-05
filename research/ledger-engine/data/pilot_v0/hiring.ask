@@ -1,0 +1,14 @@
+# Natural-language wording of each question in hiring.chain (authored by the AI assistant; same author caveat as the chain files).
+q1 | Where does the data scientist hire stand today?
+q2 | What is the current status of recruiting the data engineer?
+q3 | What deadline is currently on record for the data engineer hire?
+q4 | Who is responsible for the data scientist hire?
+q5 | What headcount was in effect for the data team on 15 June 2026?
+q6 | What headcount applied to the data team on 15 July 2026?
+q7 | Given everything decided so far, what headcount will apply to the data team on August 15, 2026?
+q8 | According to what had been recorded by 20 May 2026, what headcount was planned for the data team on 15 August 2026?
+q9 | On 20 June 2026, what was the target date for hiring the data engineer?
+q10 | How many times has the data team's headcount changed? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q11 | How many times was the data engineer hire's deadline changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q12 | Going by what had been recorded as of 20 April 2026, what was the data engineer hire's deadline on 1 June 2026?
+q13 | What was the status of the data scientist hire on 2026-05-01?

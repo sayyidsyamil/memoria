@@ -1,0 +1,26 @@
+{
+  "started": "2026-11-03T21:09:46+0800",
+  "plan_sha256": "06148a4c426bd50d71a5efd008c3d761e5bcec9fb24bf2c195b1e8c91eb38aad",
+  "order": [
+    "base-before",
+    "edit",
+    "random",
+    "base-after"
+  ],
+  "historical_prompt_sha256": "f1191c23264ea69ad461afff49b3801f87d6e3e9210d41799b32d3f2fc14a6e5",
+  "source": {
+    "run_transfer.py": "d3d54534332cab93730f8b50dfef0f3d6860b42dac13aa8a765688cf4eaf5582",
+    "qual_checks.py": "da1820b6e6fd73e82a464541428ed87b84be0e2dda28bc012fcc56c633268a30",
+    "qual_common.py": "795f2f6b72414b36172743bb828d94762d42017d4e4a4d0cd1dcf059b42531b5"
+  },
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 3.31,
+    "active_gb": 2.499
+  },
+  "tokenizer_eos_ids": [
+    248046
+  ],
+  "finished": "2026-11-03T21:12:34+0800",
+  "process_seconds": 168.3098
+}

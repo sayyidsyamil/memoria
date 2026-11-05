@@ -1,0 +1,68 @@
+chain: crm
+language: en
+note: PILOT DEV SET v0, authored by the AI assistant. Not real meetings and not independent of the pipeline's author. For debugging and regression only, not evidence of real-world performance.
+now: 2026-05-01T00:00:00Z
+people: chair=Dato' Rahman, ali=Ali, siti=Siti, wei=Wei Jie
+object: crm_vendor | decision | Which CRM vendor | outcome:enum[Vendor A,Vendor B,Vendor C]!reverse
+object: crm_budget | decision | CRM budget in MYR | amount:number
+object: crm_rollout | commitment | CRM rollout | deadline:date, owner:person, status:enum[done,cancelled]
+
+meeting: m1 | 2026-01-10T09:00:00Z | ingested=2026-01-10T12:00:00Z
+chair: Morning all. Let's close out the CRM question today, I want a decision before we leave the room.
+siti: Before we do, what about Vendor C? Their pricing looked better on paper.  ## distractor question
+wei: We did the demos last month. Vendor C could not handle our reporting requirements.
+chair: Agreed. We go with Vendor A.  ## event crm_vendor.outcome = Vendor A | INITIAL | quote="We go with Vendor A"
+chair: Budget next. Let's cap it at RM2 million for the first year.  ## event crm_budget.amount = 2000000 | INITIAL | quote="cap it at RM2 million for the first year"
+siti: Does that include the integration work? That could blow past it.  ## distractor question
+chair: Integration is inside the cap. Ali, you own the rollout, and I want it live by 1 March.  ## event crm_rollout.owner = ali | INITIAL | quote="Ali, you own the rollout" ;; event crm_rollout.deadline = 2026-03-01 | INITIAL | quote="live by 1 March"
+ali: Understood, I'll get started this week.  ## distractor ignorable
+wei: I'll loop in security so they can review whichever vendor we pick.  ## distractor untracked
+chair: Good. Meeting adjourned.
+
+meeting: m2 | 2026-02-14T09:00:00Z | ingested=2026-02-14T12:00:00Z
+chair: Quick check-in on the CRM. Ali, where are we?
+ali: Data migration is taking longer than expected, but I think we can still hold the date.  ## distractor tentative
+chair: Fine. The deadline stays 1 March, no change.  ## event crm_rollout.deadline = 2026-03-01 | CONFIRM | quote="The deadline stays 1 March"
+siti: Finance is asking whether we should increase the budget.  ## distractor hearsay
+chair: Yes, bump it up by 500k to cover the extra integration work.  ## event crm_budget.amount = 2500000 | REVISE | quote="bump it up by 500k to cover the extra integration work" | tags=relative_amount,anaphora
+wei: I can start the security review once the Vendor A contract is signed.  ## distractor untracked
+siti: Maybe we should also run a small pilot with a second vendor, just in case?  ## distractor hypothetical
+chair: Let's not. One vendor, one rollout.  ## distractor untracked
+chair: Thanks everyone.
+
+meeting: m3 | 2026-03-20T09:00:00Z | ingested=2026-03-20T12:00:00Z
+chair: Security came back on Vendor A and it isn't good. Wei?
+wei: Two critical findings in their API layer. They won't be able to fix them before the end of the quarter.
+siti: So should we just go with Vendor C now? I did say their pricing was better.  ## distractor hypothetical
+chair: No. We switch to Vendor B. That's decided.  ## event crm_vendor.outcome = Vendor B | REVERSE | quote="We switch to Vendor B. That's decided." | tags=reversal
+chair: Ali, that means the rollout slips. Push it back to the end of April.  ## event crm_rollout.deadline = 2026-04-30 | REVISE | quote="Push it back to the end of April" | tags=relative_date,anaphora
+ali: End of April works. I'll stay on as owner.  ## event crm_rollout.owner = ali | CONFIRM | quote="I'll stay on as owner"
+chair: And the budget does not change, it stays at 2.5 million.  ## event crm_budget.amount = 2500000 | CONFIRM | quote="it stays at 2.5 million"
+siti: We might want to revisit Vendor A next year once they patch things.  ## distractor hypothetical
+chair: Maybe. Not today.  ## distractor ignorable
+
+meeting: m2b | 2026-03-05T09:00:00Z | ingested=2026-04-05T12:00:00Z
+chair: Stand-up on the CRM. We missed 1 March, so let's say 15 March is the new date.  ## event crm_rollout.deadline = 2026-03-15 | REVISE | quote="let's say 15 March is the new date" | tags=late_import
+ali: Okay, I'll update the plan.  ## distractor ignorable
+
+meeting: m4 | 2026-04-28T09:00:00Z | ingested=2026-04-28T12:00:00Z
+chair: Final CRM review. Ali, status?
+ali: Rollout is complete. Everything went live this morning.  ## event crm_rollout.status = done | COMPLETE | quote="Rollout is complete"
+chair: Excellent. Wei, any leftover security items?
+wei: Just a couple of low-severity findings, no blockers.
+siti: We could always reopen the Vendor A conversation for the analytics module.  ## distractor hypothetical
+chair: Let's see how Vendor B performs first. Thanks all.  ## distractor ignorable
+
+question: q1 | current | crm_vendor.outcome | gold=Vendor B
+question: q2 | current | crm_budget.amount | gold=2500000
+question: q3 | current | crm_rollout.deadline | gold=2026-04-30
+question: q4 | current | crm_rollout.status | gold=done
+question: q5 | as_of_valid | crm_rollout.deadline | valid=2026-02-20 | gold=2026-03-01
+question: q6 | as_of_valid | crm_rollout.deadline | valid=2026-03-10 | gold=2026-03-15
+question: q7 | as_of_tx | crm_rollout.deadline | valid=2026-03-10 | tx=2026-04-01T00:00:00Z | gold=2026-03-01
+question: q8 | as_of_tx | crm_vendor.outcome | valid=2026-03-25 | tx=2026-03-01T00:00:00Z | gold=Vendor A
+question: q9 | as_of_valid | crm_budget.amount | valid=2026-01-15 | gold=2000000
+question: q10 | as_of_valid | crm_rollout.status | valid=2026-04-01 | gold=none
+question: q11 | n_changes | crm_vendor.outcome | gold=1
+question: q12 | n_changes | crm_rollout.deadline | gold=2
+question: q13 | n_changes | crm_budget.amount | gold=1

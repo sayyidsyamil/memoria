@@ -1,0 +1,20 @@
+---
+exclude_paths:
+  - "apps/web/dist/**"
+  - "apps/web/tests/**"
+  - ".chunk/**"
+  - "coverage/**"
+  - "dist/**"
+  - "node_modules/**"
+  - "site/.vitepress/cache/**"
+  - "site/.vitepress/dist/**"
+  # Imported marketing code mirrored from refactoringhq/memoria-landing; edited upstream and
+  # copied in, and already ignored by eslint (eslint.config.js).
+  - "site/landing/**"
+  - "src-tauri/gen/**"
+  - "src-tauri/resources/agent-docs/**"
+  - "src-tauri/resources/mcp-server/**"
+  - "src-tauri/target/**"
+  - "target/**"
+  - "test-results/**"
+  - "**/package-lock.json"

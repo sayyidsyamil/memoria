@@ -1,0 +1,27 @@
+{"run": "ami_IS1009a_cache0.5", "audio_s": 838.8333125, "mode": "stream", "timing_s": {"load_models_s": 6.2115588749875315, "cold_first_calls_s": {"stt_s": 0.18780708400299773, "diarize_stream_s": 0.19224170898087323, "diarize_oneshot_s": 0.05012337502557784}, "finalize_s": 37.975088834005874, "stt_s": 16.067647250019945, "diarize_s": 21.80584683298366, "other_s": 0.101594751002267}, "rtf": {"finalize": 0.045271317040125145, "stt": 0.019154755790674376, "diarize": 0.025995446899927048}, "mlx_peak_gb": {"stt": 4.599401308, "diarize": 3.875484488, "finalize": 3.875484488}}
+
+--- stderr ---
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 60567.57it/s]
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 26630.50it/s]
+       51.24 real        11.68 user         7.80 sys
+          3485384704  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              296646  page reclaims
+                2369  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  43  messages sent
+                 114  messages received
+                   0  signals received
+                5493  voluntary context switches
+               93262  involuntary context switches
+         87062475048  instructions retired
+         36169672079  cycles elapsed
+          5628202584  peak memory footprint

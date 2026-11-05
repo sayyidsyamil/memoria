@@ -1,0 +1,19 @@
+{
+  "fields": [
+    ["Status", "Active"],
+    ["Budget", 250],
+    ["Archived", false],
+    ["Blank", "  "],
+    ["Color", "red"],
+    ["sidebar label", "Projects"],
+    ["_private", "hidden"],
+    ["Type", "Type"],
+    ["title", "Project"],
+    ["Depends On", ["[[Roadmap]]", "[[Plan]]"]]
+  ],
+  "expected": [
+    ["Status", "Active"],
+    ["Budget", 250],
+    ["Depends On", ["[[Roadmap]]", "[[Plan]]"]]
+  ]
+}

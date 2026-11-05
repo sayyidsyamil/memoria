@@ -1,0 +1,422 @@
+{
+  "ES2006-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2006a:15:38"],
+    "note": "Matches the approved 25 Euro sale price."
+  },
+  "ES2006-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2006c:34:15"],
+    "note": "The approved design includes an LCD."
+  },
+  "ES2006-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2006c:33:24"],
+    "note": "An advanced chip replaced the simple chip."
+  },
+  "ES2006-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2006c:29:05"],
+    "note": "Rubber replaced the wooden case."
+  },
+  "ES2006-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2006a:15:52"],
+    "note": "Home-only sales conflict with the international target market."
+  },
+  "ES2006-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2006a:15:44"],
+    "note": "The approved profit aim is 50 million Euros."
+  },
+  "ES2006-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered magnetic back feature."
+  },
+  "ES2006-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered thumb recess."
+  },
+  "ES2006-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Lunch chatter is unrelated to the project."
+  },
+  "ES2006-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A bicycle problem is unrelated to the project."
+  },
+  "ES2006-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision establishes the slogan's legal clearance."
+  },
+  "ES2006-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the demo build's progress."
+  },
+  "ES2010-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2010c:28:06"],
+    "note": "The approved design displays the corporate logo."
+  },
+  "ES2010-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2010c:17:48"],
+    "note": "The approved design includes a locator function."
+  },
+  "ES2010-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2010c:28:06"],
+    "note": "Displaying the corporate image replaced omitting it."
+  },
+  "ES2010-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2010c:17:48"],
+    "note": "A locator function replaced having none."
+  },
+  "ES2010-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2010b:12:04"],
+    "note": "A simple chip conflicts with the approved smart processor."
+  },
+  "ES2010-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2010b:15:10"],
+    "note": "The approved interface contains larger buttons."
+  },
+  "ES2010-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered thermometer feature."
+  },
+  "ES2010-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered spare-battery compartment."
+  },
+  "ES2010-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Parallel-parking chatter is unrelated to the project."
+  },
+  "ES2010-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal sleep chatter is unrelated to the project."
+  },
+  "ES2010-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms pilot feedback on the first batch."
+  },
+  "ES2010-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms courier damage to the prototype box."
+  },
+  "ES2015-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2015c:29:02"],
+    "note": "Matches the approved plastic case with rubber coating."
+  },
+  "ES2015-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["ES2015c:26:59"],
+    "note": "Kinetic power matches the approved energy source."
+  },
+  "ES2015-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2015b:25:20"],
+    "note": "Television-only operation replaced controlling multiple devices."
+  },
+  "ES2015-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["ES2015b:28:46"],
+    "note": "Excluding voice recognition replaced speech recognition."
+  },
+  "ES2015-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2015a:14:52"],
+    "note": "Twenty Euros exceeds the 12.50 Euro production cap."
+  },
+  "ES2015-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["ES2015a:14:28"],
+    "note": "The approved profit target is 50 million Euros."
+  },
+  "ES2015-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered automatic shutoff feature."
+  },
+  "ES2015-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered travel pouch."
+  },
+  "ES2015-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Sunset chatter is unrelated to the project."
+  },
+  "ES2015-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Quiz-result chatter is unrelated to the project."
+  },
+  "ES2015-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms acceptance of the trade-stand proposal."
+  },
+  "ES2015-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the competitor's planned launch."
+  },
+  "IS1003-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1003b:20:44"],
+    "note": "Matches the decision excluding teletext."
+  },
+  "IS1003-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1003b:21:14"],
+    "note": "Matches the approved television-only scope."
+  },
+  "IS1003-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1003c:27:06#3"],
+    "note": "A wooden case replaced the titanium case."
+  },
+  "IS1003-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1003c:27:06#2"],
+    "note": "Low-level chips replaced the advanced chip."
+  },
+  "IS1003-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1003c:11:18"],
+    "note": "The team decided not to use that intelligent controller."
+  },
+  "IS1003-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1003c:28:41"],
+    "note": "The approved design uses speech recognition for simple commands."
+  },
+  "IS1003-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered rotating volume control."
+  },
+  "IS1003-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered scratch-resistant coating."
+  },
+  "IS1003-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Weather chatter is unrelated to the project."
+  },
+  "IS1003-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Football chatter is unrelated to the project."
+  },
+  "IS1003-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms when the tooling estimate arrived."
+  },
+  "IS1003-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms an accounting error in the cost sheet."
+  },
+  "IS1009-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1009a:06:12"],
+    "note": "Matches the approved 25 Euro selling price."
+  },
+  "IS1009-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["IS1009a:09:02"],
+    "note": "The approved design includes a locator function."
+  },
+  "IS1009-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1009a:09:02"],
+    "note": "A locator function replaced having none."
+  },
+  "IS1009-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["IS1009b:05:53"],
+    "note": "Eliminating teletext replaced including it."
+  },
+  "IS1009-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1009a:06:17"],
+    "note": "The approved profit aim is 50 million Euros."
+  },
+  "IS1009-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["IS1009b:06:24"],
+    "note": "Omitting the corporate image conflicts with maintaining it."
+  },
+  "IS1009-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered sliding button cover."
+  },
+  "IS1009-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered seal implementation."
+  },
+  "IS1009-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Holiday chatter is unrelated to the project."
+  },
+  "IS1009-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Forgetting an umbrella is unrelated to the project."
+  },
+  "IS1009-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms Spanish pilot customers' request."
+  },
+  "IS1009-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the tooling vendor's response status."
+  },
+  "TS3008-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3008a:15:28"],
+    "note": "Matches the approved international market."
+  },
+  "TS3008-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3008a:15:22"],
+    "note": "Matches the approved 15 million Euro profit aim."
+  },
+  "TS3008-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3008c:29:42"],
+    "note": "Fixed colour schemes replaced changeable covers."
+  },
+  "TS3008-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3008c:34:09"],
+    "note": "Plastic and rubber replaced the metal case."
+  },
+  "TS3008-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3008c:27:22"],
+    "note": "The approved design excludes an LCD screen."
+  },
+  "TS3008-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3008a:15:18"],
+    "note": "Fifty Euros conflicts with the approved 25 Euro price."
+  },
+  "TS3008-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered second-television pairing button."
+  },
+  "TS3008-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered luminous numeral markings."
+  },
+  "TS3008-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Personal scheduling logistics are unrelated to the project."
+  },
+  "TS3008-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Travel-delay chatter is unrelated to the project."
+  },
+  "TS3008-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms receipt of the manufacturer's quote."
+  },
+  "TS3008-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the survey closure or response count."
+  },
+  "TS3012-S-01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3012a:11:54"],
+    "note": "Exactly matches the approved intuitive, familiar design."
+  },
+  "TS3012-S-02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["TS3012b:13:10"],
+    "note": "Young people fit the approved under-40 target."
+  },
+  "TS3012-O-01": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3012b:13:10"],
+    "note": "Targeting people below 40 replaced targeting those over sixty."
+  },
+  "TS3012-O-02": {
+    "label": "OUTDATED",
+    "decisions_used": ["TS3012b:13:39"],
+    "note": "Displaying company colours and slogan replaced omitting the corporate image."
+  },
+  "TS3012-C-01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3012a:12:10"],
+    "note": "The team agreed to consider disabled users' usability issues."
+  },
+  "TS3012-C-02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["TS3012b:31:31"],
+    "note": "The approved design places important buttons on top."
+  },
+  "TS3012-U-01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered dedicated weather channel."
+  },
+  "TS3012-U-02": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered menu text-size setting."
+  },
+  "TS3012-I-01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Searching for a pen is unrelated to the project."
+  },
+  "TS3012-I-02": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A slow wall clock is unrelated to the project."
+  },
+  "TS3012-E-01": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the supplier's six-week delivery."
+  },
+  "TS3012-E-02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the changed design-review date."
+  }
+}

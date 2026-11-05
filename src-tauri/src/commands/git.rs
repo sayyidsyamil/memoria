@@ -1,0 +1,549 @@
+use crate::git::{
+    GitAuthorIdentity, GitCommit, GitProviderProbe, GitProviderStatus, GitPullResult,
+    GitPushResult, GitRemoteStatus, GitWorkspaceInfo, LastCommitInfo, ModifiedFile, PulseCommit,
+};
+
+use super::expand_tilde;
+
+type VaultPathArg = String;
+type NotePathArg = String;
+type CommitHashArg = String;
+type CommitMessageArg = String;
+type ConflictStrategyArg = String;
+const GIT_PROVIDER_PROBE_TIMEOUT_SECONDS: u64 = 12;
+
+#[cfg(desktop)]
+async fn run_note_git_operation<T, F>(
+    vault_path: VaultPathArg,
+    path: NotePathArg,
+    operation: F,
+) -> Result<T, String>
+where
+    T: Send + 'static,
+    F: FnOnce(&str, &str) -> Result<T, String> + Send + 'static,
+{
+    run_vault_git_operation(vault_path, move |vault_path| {
+        let path = expand_tilde(&path);
+        operation(vault_path, &path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+async fn run_vault_git_operation<T, F>(vault_path: VaultPathArg, operation: F) -> Result<T, String>
+where
+    T: Send + 'static,
+    F: FnOnce(&str) -> T + Send + 'static,
+{
+    let vault_path = expand_tilde(&vault_path).into_owned();
+    crate::commands::blocking::run_blocking(move || operation(&vault_path)).await
+}
+
+// ── Git commands (desktop) ──────────────────────────────────────────────────
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_file_history(
+    vault_path: VaultPathArg,
+    path: NotePathArg,
+) -> Result<Vec<GitCommit>, String> {
+    run_note_git_operation(vault_path, path, crate::git::get_file_history).await
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_modified_files(
+    vault_path: VaultPathArg,
+    include_stats: Option<bool>,
+) -> Result<Vec<ModifiedFile>, String> {
+    let vault_path = expand_tilde(&vault_path).into_owned();
+    crate::commands::blocking::run_blocking(move || {
+        if include_stats.unwrap_or(false) {
+            crate::git::get_modified_files_with_stats(&vault_path)
+        } else {
+            crate::git::get_modified_files(&vault_path)
+        }
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_file_diff(vault_path: VaultPathArg, path: NotePathArg) -> Result<String, String> {
+    run_note_git_operation(vault_path, path, crate::git::get_file_diff).await
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_file_diff_at_commit(
+    vault_path: VaultPathArg,
+    path: NotePathArg,
+    commit_hash: CommitHashArg,
+) -> Result<String, String> {
+    run_note_git_operation(vault_path, path, move |vault_path, path| {
+        crate::git::get_file_diff_at_commit(vault_path, path, &commit_hash)
+    })
+    .await
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_vault_pulse(
+    vault_path: VaultPathArg,
+    limit: Option<usize>,
+    skip: Option<usize>,
+) -> Result<Vec<PulseCommit>, String> {
+    let limit = limit.unwrap_or(20);
+    let skip = skip.unwrap_or(0);
+    run_vault_git_operation(vault_path, move |vault_path| {
+        crate::git::get_vault_pulse(vault_path, limit, skip)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_commit(
+    vault_path: VaultPathArg,
+    message: CommitMessageArg,
+) -> Result<String, String> {
+    run_vault_git_operation(vault_path, move |vault_path| {
+        crate::git::git_commit(vault_path, &message)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_author_identity(vault_path: VaultPathArg) -> Result<GitAuthorIdentity, String> {
+    run_vault_git_operation(vault_path, |vault_path| {
+        crate::git::git_author_identity(vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_last_commit_info(
+    vault_path: VaultPathArg,
+) -> Result<Option<LastCommitInfo>, String> {
+    run_vault_git_operation(vault_path, |vault_path| {
+        crate::git::get_last_commit_info(vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_pull(vault_path: VaultPathArg) -> Result<GitPullResult, String> {
+    let vault_path = expand_tilde(&vault_path).into_owned();
+    crate::commands::blocking::run_blocking(move || {
+        if !crate::git::is_inside_work_tree(std::path::Path::new(&vault_path)) {
+            return Ok(GitPullResult {
+                status: "no_remote".to_string(),
+                message: "No remote configured".to_string(),
+                updated_files: vec![],
+                conflict_files: vec![],
+            });
+        }
+
+        crate::git::git_pull(&vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_conflict_files(vault_path: VaultPathArg) -> Result<Vec<String>, String> {
+    run_vault_git_operation(vault_path, |vault_path| {
+        crate::git::get_conflict_files(vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn get_conflict_mode(vault_path: VaultPathArg) -> Result<String, String> {
+    run_vault_git_operation(vault_path, |vault_path| {
+        crate::git::get_conflict_mode(vault_path)
+    })
+    .await
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_resolve_conflict(
+    vault_path: VaultPathArg,
+    file: NotePathArg,
+    strategy: ConflictStrategyArg,
+) -> Result<(), String> {
+    run_vault_git_operation(vault_path, move |vault_path| {
+        crate::git::git_resolve_conflict(vault_path, &file, &strategy)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_commit_conflict_resolution(vault_path: VaultPathArg) -> Result<String, String> {
+    run_vault_git_operation(vault_path, |vault_path| {
+        crate::git::git_commit_conflict_resolution(vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_push(vault_path: VaultPathArg) -> Result<GitPushResult, String> {
+    let vault_path = expand_tilde(&vault_path).into_owned();
+    crate::commands::blocking::run_blocking(move || {
+        if !crate::git::is_inside_work_tree(std::path::Path::new(&vault_path)) {
+            return Ok(GitPushResult {
+                status: "no_remote".to_string(),
+                message: "No remote configured".to_string(),
+            });
+        }
+
+        crate::git::git_push(&vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_remote_status(vault_path: VaultPathArg) -> Result<GitRemoteStatus, String> {
+    let vault_path = expand_tilde(&vault_path).into_owned();
+    crate::commands::blocking::run_blocking(move || {
+        if !crate::git::is_inside_work_tree(std::path::Path::new(&vault_path)) {
+            return Ok(GitRemoteStatus {
+                branch: String::new(),
+                has_remote: false,
+                has_upstream: false,
+                upstream: None,
+                ahead: 0,
+                behind: 0,
+            });
+        }
+
+        crate::git::git_remote_status(&vault_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_file_url(
+    vault_path: VaultPathArg,
+    path: NotePathArg,
+) -> Result<Option<String>, String> {
+    run_note_git_operation(vault_path, path, crate::git::git_file_url).await
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_discard_file(
+    vault_path: VaultPathArg,
+    relative_path: NotePathArg,
+) -> Result<(), String> {
+    run_vault_git_operation(vault_path, move |vault_path| {
+        crate::git::discard_file_changes(vault_path, &relative_path)
+    })
+    .await?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn is_git_repo(vault_path: VaultPathArg) -> bool {
+    let vault_path = expand_tilde(&vault_path).into_owned();
+    crate::commands::blocking::run_blocking(move || {
+        crate::git::is_inside_work_tree(std::path::Path::new(&vault_path))
+    })
+    .await
+    .unwrap_or(false)
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_workspace_info(vault_path: VaultPathArg) -> Result<GitWorkspaceInfo, String> {
+    run_vault_git_operation(vault_path, |vault_path| {
+        crate::git::git_workspace_info(std::path::Path::new(vault_path))
+    })
+    .await
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn git_provider_status() -> Result<GitProviderStatus, String> {
+    tokio::time::timeout(
+        std::time::Duration::from_secs(GIT_PROVIDER_PROBE_TIMEOUT_SECONDS),
+        crate::commands::blocking::run_blocking(crate::git::git_provider_status),
+    )
+    .await
+    .map_err(|_| "Git provider detection timed out".to_string())?
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub async fn test_git_provider(
+    provider: String,
+    distro: Option<String>,
+    vault_path: Option<String>,
+) -> Result<GitProviderProbe, String> {
+    tokio::time::timeout(
+        std::time::Duration::from_secs(GIT_PROVIDER_PROBE_TIMEOUT_SECONDS),
+        crate::commands::blocking::run_blocking(move || {
+            crate::git::test_git_provider(&provider, distro.as_deref(), vault_path.as_deref())
+        }),
+    )
+    .await
+    .map_err(|_| "Git provider test timed out".to_string())?
+}
+
+#[cfg(desktop)]
+fn validate_git_init_target(vault_path: &str) -> Result<(), String> {
+    let path = std::path::Path::new(vault_path);
+    if !path.exists() {
+        return Err("Choose an existing vault folder before initializing Git".to_string());
+    }
+    if !path.is_dir() {
+        return Err("Choose a folder before initializing Git".to_string());
+    }
+
+    if is_broad_personal_folder(path) && !has_memoria_vault_marker(path) {
+        return Err(format!(
+            "Choose a dedicated vault folder before initializing Git. '{}' looks like a broad personal folder; create or select a subfolder such as '{}' instead.",
+            path.display(),
+            path.join("Memoria").display()
+        ));
+    }
+
+    if crate::git::is_inside_work_tree(path) && !crate::git::has_direct_git_metadata(path) {
+        return Err(
+            "This vault is already inside a Git work tree. Memoria will use the parent repository instead of creating an embedded repository."
+                .to_string(),
+        );
+    }
+
+    Ok(())
+}
+
+#[cfg(desktop)]
+fn is_broad_personal_folder(path: &std::path::Path) -> bool {
+    let Some(name) = path.file_name().and_then(|name| name.to_str()) else {
+        return false;
+    };
+
+    matches!(
+        name.to_ascii_lowercase().as_str(),
+        "desktop"
+            | "documents"
+            | "downloads"
+            | "movies"
+            | "music"
+            | "pictures"
+            | "public"
+            | "templates"
+            | "videos"
+    )
+}
+
+#[cfg(desktop)]
+fn has_memoria_vault_marker(path: &std::path::Path) -> bool {
+    ["AGENTS.md", "CLAUDE.md", "type.md", "note.md"]
+        .iter()
+        .any(|file| path.join(file).is_file())
+        || ["attachments", "type", "views"]
+            .iter()
+            .any(|dir| path.join(dir).is_dir())
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+pub fn init_git_repo(vault_path: VaultPathArg) -> Result<(), String> {
+    let vault_path = expand_tilde(&vault_path);
+    validate_git_init_target(&vault_path)?;
+    crate::git::init_repo(std::path::Path::new(vault_path.as_ref()))
+}
+
+// ── Git commands (mobile stubs) ─────────────────────────────────────────────
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_file_history(
+    _vault_path: VaultPathArg,
+    _path: NotePathArg,
+) -> Result<Vec<GitCommit>, String> {
+    Err("Git history is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_modified_files(
+    _vault_path: VaultPathArg,
+    _include_stats: Option<bool>,
+) -> Result<Vec<ModifiedFile>, String> {
+    Ok(vec![])
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_file_diff(_vault_path: VaultPathArg, _path: NotePathArg) -> Result<String, String> {
+    Err("Git diff is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_file_diff_at_commit(
+    _vault_path: VaultPathArg,
+    _path: NotePathArg,
+    _commit_hash: CommitHashArg,
+) -> Result<String, String> {
+    Err("Git diff is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_vault_pulse(
+    _vault_path: VaultPathArg,
+    _limit: Option<usize>,
+    _skip: Option<usize>,
+) -> Result<Vec<PulseCommit>, String> {
+    Ok(vec![])
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn git_commit(_vault_path: VaultPathArg, _message: CommitMessageArg) -> Result<String, String> {
+    Err("Git commit is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn git_author_identity(_vault_path: VaultPathArg) -> Result<GitAuthorIdentity, String> {
+    Err("Git author identity is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_last_commit_info(_vault_path: VaultPathArg) -> Result<Option<LastCommitInfo>, String> {
+    Ok(None)
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub async fn git_pull(_vault_path: VaultPathArg) -> Result<GitPullResult, String> {
+    Err("Git pull is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_conflict_files(_vault_path: VaultPathArg) -> Result<Vec<String>, String> {
+    Ok(vec![])
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn get_conflict_mode(_vault_path: VaultPathArg) -> String {
+    "none".to_string()
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn git_resolve_conflict(
+    _vault_path: VaultPathArg,
+    _file: NotePathArg,
+    _strategy: ConflictStrategyArg,
+) -> Result<(), String> {
+    Err("Git conflict resolution is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn git_commit_conflict_resolution(_vault_path: VaultPathArg) -> Result<String, String> {
+    Err("Git conflict resolution is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub async fn git_push(_vault_path: VaultPathArg) -> Result<GitPushResult, String> {
+    Err("Git push is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub async fn git_remote_status(_vault_path: VaultPathArg) -> Result<GitRemoteStatus, String> {
+    Ok(GitRemoteStatus {
+        branch: String::new(),
+        has_remote: false,
+        has_upstream: false,
+        upstream: None,
+        ahead: 0,
+        behind: 0,
+    })
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub async fn git_file_url(
+    _vault_path: VaultPathArg,
+    _path: NotePathArg,
+) -> Result<Option<String>, String> {
+    Ok(None)
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn git_discard_file(
+    _vault_path: VaultPathArg,
+    _relative_path: NotePathArg,
+) -> Result<(), String> {
+    Err("Git discard is not available on mobile".into())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn is_git_repo(_vault_path: VaultPathArg) -> bool {
+    false
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn git_workspace_info(vault_path: VaultPathArg) -> GitWorkspaceInfo {
+    GitWorkspaceInfo {
+        vault_root: vault_path,
+        git_root: None,
+        vault_pathspec: None,
+        git_root_relation: "none".to_string(),
+        resolution_failure: None,
+    }
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub async fn git_provider_status() -> Result<GitProviderStatus, String> {
+    Ok(crate::git::git_provider_status())
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub async fn test_git_provider(
+    provider: String,
+    distro: Option<String>,
+    vault_path: Option<String>,
+) -> Result<GitProviderProbe, String> {
+    Ok(crate::git::test_git_provider(
+        &provider,
+        distro.as_deref(),
+        vault_path.as_deref(),
+    ))
+}
+
+#[cfg(mobile)]
+#[tauri::command]
+pub fn init_git_repo(_vault_path: VaultPathArg) -> Result<(), String> {
+    Err("Git init is not available on mobile".into())
+}
+
+#[cfg(test)]
+#[path = "git_tests.rs"]
+mod tests;

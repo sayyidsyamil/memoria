@@ -1,0 +1,13 @@
+# Natural-language wording of each question in tender.chain (authored by the AI assistant).
+q1 | Which vendor are we going with for the tender right now?
+q2 | What is the current cap on the contract value, in ringgit?
+q3 | What was the deadline for submitting the tender documents on 18 March 2026?
+q4 | Who is in charge of the tender document submission at present?
+q5 | What is the status of the tender document submission today?
+q6 | On 25 March 2026, which vendor was selected for the tender?
+q7 | What was the contract value cap on 10 March 2026?
+q8 | As recorded by 10 March 2026, what was the contract value cap for 20 March 2026?
+q9 | Who owned the tender submission on 10 March 2026?
+q10 | How many times was the contract value cap changed after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q11 | How many times was the tender submission deadline moved after it was first set? Count only changes that stuck; ignore anything announced and then withdrawn or corrected before it took effect.
+q12 | What was the status of the tender document submission on 25 March 2026?

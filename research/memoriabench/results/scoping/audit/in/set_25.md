@@ -1,0 +1,135 @@
+# Meeting set 25
+
+## APPROVED DECISIONS
+
+- [d001] The remote will have pushbuttons.
+- [d002] The remote will have new functions that existing remotes do not have.
+- [d003] The remote will contain a simple chip. (replaces an advanced chip)
+- [d004] Regular chip will be used.
+- [d005] The remote will be child proof.
+- [d006] The case will be single curved. (replaces a double curved case)
+- [d007] The remote will have a lock function.
+- [d008] The project goal is to develop a new remote control.
+- [d009] Alarm locator will be implemented.
+- [d010] The remote will incorporate a fruit and vegetable theme.
+- [d011] The remote control should be fancy, a good shape, and not too small or too big.
+- [d012] The case will be flat on top and curved on the bottom.
+- [d013] The case will be made of plastic with rubber grips.
+- [d014] LED's can be used to light up the remote.
+- [d015] The case will be single curved. (replaces a double curved case)
+- [d016] The remote will be simple.
+- [d017] The case will be made of rubber.
+- [d018] The case will be titanium with a plastic front with rounded buttons.
+- [d019] The case will be made of plastic and rubber. (replaces a metal case)
+- [d020] The energy source will be a combination of batteries and kinetic energy.
+- [d021] The remote will have a long-term battery source.
+- [d022] The materials used will be plastic and rubber. (replaces a wooden case)
+- [d023] The remote will be powered by rechargeable batteries and come with a recharging stand. (replaces solar power)
+- [d024] The remote will have large buttons.
+- [d025] The push buttons are going to be made of rubber.
+- [d026] Because of budget restrictions, they cannot do speech recognition technologies. (replaces speech recognition)
+- [d027] The remote will run on kinetic energy.
+- [d028] The remote will go into standby when idle.
+- [d029] The remote control will be made of a soft rubber material. (replaces a plastic casing)
+- [d030] Glow in the dark buttons, self-timed lighting.
+- [d031] The remote will feature a locator function that responds to clapping.
+- [d032] The remote will use an advanced chip.
+- [d033] The remote will be waterproof.
+- [d034] The remote will use a kinetic battery. (replaces regular batteries)
+- [d035] The remote will use a regular infra-red signal.
+- [d036] Will use personal face places.
+- [d037] An automatic on/off feature will not be used.
+- [d038] They will target the international market.
+- [d039] The remote will only have a few buttons.
+- [d040] A single-curved rubber casing can also be used.
+- [d041] Specific ideas as to components and materials are to be left to the next meeting.
+- [d042] They also agreed to choose light materials.
+- [d043] The remote will not have a talk-back function.
+- [d044] The remote will contain a custom chip.
+- [d045] The remote will use push buttons.
+- [d046] The remote will use low level chips. (replaces an advanced chip)
+- [d047] They will generate a proft of fifty million Euros.
+- [d048] The remote will be yellow with black or gray buttons.
+- [d049] The remote will use regular batteries.
+- [d050] The remote will use a normal battery. (replaces solar power)
+- [d051] The remote will be curvy.
+- [d052] The case will have a soft fruit-like feel to it.
+- [d053] Push buttons will be used.
+- [d054] The remote has to be fashionable.
+- [d055] The case will be made of rubber.
+- [d056] The remote will also feature a rubber case and rubber buttons, and a single-curved design. (replaces a double curved case)
+- [d057] The latter would be preferable to implementing a backlight into the remote.
+- [d058] The group decided on the features that will be incorporated into the design of the prototype.
+- [d059] Control will light up when you touch a button.
+- [d060] Case will be plastic and coated in rubber.
+- [d061] The important buttons will be on top.
+- [d062] The remote will look appealing.
+- [d063] Thus far, LCD and ASR have been ruled out.
+- [d064] The remote will use conventional batteries.
+- [d065] The remote will not be too expensive.
+- [d066] The remote should not have too many buttons.
+- [d067] The group will design a trendy, original and user-friendly remote control.
+- [d068] The remote will have a minimal number of buttons.
+- [d069] The remote will feature a smart processor chip to accomodate all of the remote's functions.
+- [d070] The remote will use a kinetic battery.
+- [d071] The remote will be easy to find.
+- [d072] The target selling price will be 25 Euro dollars.
+- [d073] The case of the remote will be made of wood. (replaces a titanium case)
+- [d074] The remote will have an enter button and number buttons.
+- [d075] The chip is going to be a standard one. (replaces an advanced chip)
+- [d076] The remote will not use a chip on print.
+- [d077] The remote will have large buttons for essential functions.
+- [d078] The case of the remote will be made of rubber.
+- [d079] The remote will use solar energy.
+- [d080] The remote will use standard batteries. (replaces solar power)
+- [d081] The remote will have a rechargeable battery which comes with a charger.
+- [d082] To target towards young people will bring in new technology.
+- [d083] The remote will use two regular batteries.
+- [d084] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d085] A recharging cradle can be added to compensate for the extra energy consumption.
+- [d086] The preferred energy source was a combination of batteries and solar cells.
+- [d087] The remote will be shockproof.
+- [d088] Corporate logo will be clearly displayed on product. (replaces a remote without the corporate image)
+- [d089] The remote will use an infra-red sensor.
+- [d090] The case will be double curved.
+- [d091] The remote control and its buttons will be made of rubber. (replaces a wooden case)
+- [d092] The remote will feature a rubber or latex casing.
+- [d093] The number of button functions will be limited to make the remote user-friendly.
+- [d094] The buttons for extra, infrequently used functions will be hidden in the design in some manner.
+- [d095] They will look further at the idea of covers in the mext meeting too.
+- [d096] The remote will use a chip on print.
+- [d097] Will reserach environmental factor.
+- [d098] The remote will have an ergonomic design.
+- [d099] The remote will have a base station, a button on the base station to press, 2 scroll wheels for the channels and volume, a turbo button (possibly underneath the device), and an on/off button for the TV.
+- [d100] The remote will have rubber buttons.
+- [d101] The remote will be made to accommodate different languages.
+- [d102] The remote will have rubber push buttons.
+- [d103] The remote will be extremely simple.
+- [d104] The remote will be button-less.
+- [d105] The remote will be easy to learn.
+- [d106] The remote will have some buttons.
+- [d107] The remote control will be for television only.
+- [d108] If used, face plates will be cheap.
+- [d109] The remote will use a kinetic battery. (replaces regular batteries)
+- [d110] An additional remote will contain special functions.
+- [d111] The case will be made of hard plastic and rubber. (replaces a titanium case)
+- [d112] The remote will have a simple, trendy design, with some kind of special feature that makes it stand out.
+- [d113] The remote will have a simple chip.
+- [d114] The remote will have a latex case.
+- [d115] The remote will have a jog dial.
+- [d116] The solution to complaints about remote controls being difficult to learn is to focus on an intuitive design instead of a thorough manual.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: The remote will work with several devices.
+- s02: Okay, the corporate image will not be shown on the remote.
+- s03: Right, the retailer wants a first order of fifty thousand units.
+- s04: I'm trying to cut down on sugar this month.
+- s05: We are pricing the remote at 25 Euro.
+- s06: Let's add a shake-to-wake gesture.
+- s07: I can't believe how busy the roads were today.
+- s08: So the project manager from the other team has asked for a progress report.
+- s09: Okay, we are targeting an international market.
+- s10: The remote will include speech recognition.
+- s11: Right, the remote will only be sold in Europe.
+- s12: Okay, let's add a high-contrast colour scheme for the buttons.

@@ -1,0 +1,422 @@
+{
+  "set_08/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Weather chatter is unrelated to the project."
+  },
+  "set_08/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d040"],
+    "note": "Matches the decision to exclude teletext."
+  },
+  "set_08/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d006"],
+    "note": "The approved decision rejects the proposed intelligent controller."
+  },
+  "set_08/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d054"],
+    "note": "Titanium was replaced by a wooden case."
+  },
+  "set_08/s05": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Football chatter is unrelated to the project."
+  },
+  "set_08/s06": {
+    "label": "OUTDATED",
+    "decisions_used": ["d070"],
+    "note": "An advanced chip was replaced by low-level chips."
+  },
+  "set_08/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d045"],
+    "note": "The approved design includes speech recognition."
+  },
+  "set_08/s08": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered scratch-resistant coating."
+  },
+  "set_08/s09": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d014"],
+    "note": "Matches the television-only scope."
+  },
+  "set_08/s10": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered rotating volume knob."
+  },
+  "set_08/s11": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the tooling estimate event."
+  },
+  "set_08/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the accounting error."
+  },
+  "set_09/s01": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d056"],
+    "note": "Matches the approved locator function."
+  },
+  "set_09/s02": {
+    "label": "OUTDATED",
+    "decisions_used": ["d056"],
+    "note": "A locator-less remote was replaced by the locator function."
+  },
+  "set_09/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d005"],
+    "note": "Twenty million conflicts with the fifty-million profit aim."
+  },
+  "set_09/s04": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered splash-proof seals."
+  },
+  "set_09/s05": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Umbrella chatter is unrelated to the project."
+  },
+  "set_09/s06": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered sliding button cover."
+  },
+  "set_09/s07": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the vendor's response status."
+  },
+  "set_09/s08": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Holiday chatter is unrelated to the project."
+  },
+  "set_09/s09": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d051"],
+    "note": "Excluding corporate imagery conflicts with the approved corporate styling."
+  },
+  "set_09/s10": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the Spanish pilot feedback."
+  },
+  "set_09/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d012"],
+    "note": "Including teletext was replaced by eliminating teletext."
+  },
+  "set_09/s12": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d066"],
+    "note": "Matches the approved twenty-five-Euro selling price."
+  },
+  "set_10/s01": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d051"],
+    "note": "Wood conflicts with the approved plastic-and-rubber case."
+  },
+  "set_10/s02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the customer's old-remote claim."
+  },
+  "set_10/s03": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes uncovered spoken channel feedback."
+  },
+  "set_10/s04": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d020"],
+    "note": "Regular batteries match the approved conventional batteries."
+  },
+  "set_10/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered menu-rotation tilt sensor."
+  },
+  "set_10/s06": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d030"],
+    "note": "A teletext button conflicts with rejecting teletext."
+  },
+  "set_10/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Sandwich plans are unrelated to the project."
+  },
+  "set_10/s08": {
+    "label": "OUTDATED",
+    "decisions_used": ["d023"],
+    "note": "Creating a ball-shaped remote was explicitly replaced."
+  },
+  "set_10/s09": {
+    "label": "OUTDATED",
+    "decisions_used": ["d018"],
+    "note": "Controlling multiple devices was replaced by television-only use."
+  },
+  "set_10/s10": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the regulator's document request."
+  },
+  "set_10/s11": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d052"],
+    "note": "Matches the approved twenty-five-Euro price."
+  },
+  "set_10/s12": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Borrowing a laptop charger is unrelated to the project."
+  },
+  "set_11/s01": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered subtitles button."
+  },
+  "set_11/s02": {
+    "label": "OUTDATED",
+    "decisions_used": ["d018"],
+    "note": "A double-curved case was replaced by a single-curved design."
+  },
+  "set_11/s03": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Television-series chatter is unrelated to the project."
+  },
+  "set_11/s04": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the sample delivery incident."
+  },
+  "set_11/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered fingerprint sensor."
+  },
+  "set_11/s06": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Room-temperature chatter is unrelated to the project."
+  },
+  "set_11/s07": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d061"],
+    "note": "Rejecting a locator conflicts with the approved clapping locator."
+  },
+  "set_11/s08": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d008"],
+    "note": "Regular batteries conflict with the approved kinetic power supply."
+  },
+  "set_11/s09": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d009"],
+    "note": "Matches the approved rear panel for complicated functions."
+  },
+  "set_11/s10": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d004"],
+    "note": "The approved company logo displays the corporate image."
+  },
+  "set_11/s11": {
+    "label": "OUTDATED",
+    "decisions_used": ["d005"],
+    "note": "An advanced chip was replaced by a simple chip."
+  },
+  "set_11/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms finance's second-phase approval."
+  },
+  "set_12/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A child's school schedule is unrelated to the project."
+  },
+  "set_12/s02": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the test group's comfort finding."
+  },
+  "set_12/s03": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d057"],
+    "note": "Matches the approved speech-recognition feature."
+  },
+  "set_12/s04": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered emergency-call button."
+  },
+  "set_12/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered quick-start card."
+  },
+  "set_12/s06": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d138"],
+    "note": "Unlimited button functions conflict with the approved limit."
+  },
+  "set_12/s07": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Pastry chatter is unrelated to the project."
+  },
+  "set_12/s08": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d014"],
+    "note": "Exactly matches the approved yellow organic design."
+  },
+  "set_12/s09": {
+    "label": "OUTDATED",
+    "decisions_used": ["d057"],
+    "note": "A remote without speech recognition was explicitly replaced."
+  },
+  "set_12/s10": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the pilot return rate."
+  },
+  "set_12/s11": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d132"],
+    "note": "Omitting the dock conflicts with the approved recharging stand."
+  },
+  "set_12/s12": {
+    "label": "OUTDATED",
+    "decisions_used": ["d132"],
+    "note": "Solar power was replaced by rechargeable batteries and a stand."
+  },
+  "set_13/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Weather chatter is unrelated to the project."
+  },
+  "set_13/s02": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d054"],
+    "note": "Kinetic power conflicts with the approved regular batteries."
+  },
+  "set_13/s03": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d056"],
+    "note": "Forty-five Euro conflicts with the approved twenty-five-Euro price."
+  },
+  "set_13/s04": {
+    "label": "OUTDATED",
+    "decisions_used": ["d005"],
+    "note": "A wooden case was replaced by plastic and rubber."
+  },
+  "set_13/s05": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered built-in tabletop stand."
+  },
+  "set_13/s06": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d031"],
+    "note": "Matches the approved international market."
+  },
+  "set_13/s07": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered previous-channel button."
+  },
+  "set_13/s08": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Coffee-machine chatter is unrelated to the project."
+  },
+  "set_13/s09": {
+    "label": "OUTDATED",
+    "decisions_used": ["d015"],
+    "note": "Including teletext was explicitly replaced."
+  },
+  "set_13/s10": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the trademark application's status."
+  },
+  "set_13/s11": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d002"],
+    "note": "Exactly matches the approved television-only scope."
+  },
+  "set_13/s12": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the printer sample problem."
+  },
+  "set_14/s01": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "A missing pen is unrelated to the project."
+  },
+  "set_14/s02": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d088"],
+    "note": "Exactly matches the approved intuitive-design decision."
+  },
+  "set_14/s03": {
+    "label": "SUPPORTED_CURRENT",
+    "decisions_used": ["d032"],
+    "note": "Young people fit the approved below-forty target."
+  },
+  "set_14/s04": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered one-touch weather channel."
+  },
+  "set_14/s05": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d013"],
+    "note": "Ignoring disabled users conflicts with the approved usability consideration."
+  },
+  "set_14/s06": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the review's rescheduling."
+  },
+  "set_14/s07": {
+    "label": "OUTDATED",
+    "decisions_used": ["d032"],
+    "note": "Targeting people over sixty was explicitly replaced."
+  },
+  "set_14/s08": {
+    "label": "OUTDATED",
+    "decisions_used": ["d096"],
+    "note": "A remote without corporate imagery was explicitly replaced."
+  },
+  "set_14/s09": {
+    "label": "CONTRADICTS",
+    "decisions_used": ["d007"],
+    "note": "Moving important buttons elsewhere conflicts with their approved top placement."
+  },
+  "set_14/s10": {
+    "label": "IRRELEVANT",
+    "decisions_used": [],
+    "note": "Wall-clock chatter is unrelated to the project."
+  },
+  "set_14/s11": {
+    "label": "INSUFFICIENT_EVIDENCE",
+    "decisions_used": [],
+    "note": "No decision confirms the supplier's delivery commitment."
+  },
+  "set_14/s12": {
+    "label": "UPDATES",
+    "decisions_used": [],
+    "note": "Proposes an uncovered menu text-size setting."
+  }
+}

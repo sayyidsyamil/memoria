@@ -1,0 +1,4154 @@
+{
+ "config": {
+  "extractor": "mlx",
+  "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+  "policies": [
+   "immediate",
+   "confirm_conflicts",
+   "confirm_all"
+  ],
+  "data": "data/pilot_v0",
+  "data_sha256_12": "92eaa27b5e5b",
+  "chains": [
+   "hiring",
+   "portfolio",
+   "tender"
+  ],
+  "meetings": 11,
+  "questions": 37,
+  "machine": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.11.17",
+  "date": "2026-10-10 17:28:57",
+  "prompt_version": "v2",
+  "prompt_sha256_12": "7f816362cd95",
+  "split": "test"
+ },
+ "pipeline": {
+  "immediate": {
+   "extraction": {
+    "gold_events": 31,
+    "tp": 22,
+    "fp": 2,
+    "fn": 9,
+    "precision": 0.9166666666666666,
+    "recall": 0.7096774193548387,
+    "f1": 0.7999999999999999,
+    "ci_95": {
+     "precision": [
+      0.765,
+      1.0
+     ],
+     "recall": [
+      0.481,
+      0.893
+     ],
+     "f1": [
+      0.596,
+      0.939
+     ]
+    },
+    "state_changing_recall": 0.7241379310344828,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 7,
+      "recall": 0.7
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 1,
+      "recall": 0.5
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 4,
+      "recall": 0.571
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 6,
+      "recall": 0.75
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 7,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 4,
+     "unresolved": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.01666666666666683,
+    "confidence_mean": 0.8999999999999998,
+    "confidence_distinct": 1
+   },
+   "ledger": {
+    "supersession_tp": 5,
+    "supersession_fp": 3,
+    "supersession_fn": 7,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.625,
+    "supersession_recall": 0.4166666666666667,
+    "supersession_f1": 0.5,
+    "state_accuracy": 0.875
+   },
+   "review": {
+    "meetings": 11,
+    "applied_directly": 24,
+    "proposed": 0,
+    "proposals_per_meeting": 0.0,
+    "accepted": 0,
+    "accepted_edited": 0,
+    "rejected": 0,
+    "pending": 0,
+    "acceptance_rate": null
+   },
+   "qa_memoria": {
+    "overall": {
+     "correct": 28,
+     "n": 37,
+     "accuracy": 0.7567567567567568,
+     "ci_95": [
+      0.599,
+      0.866
+     ]
+    },
+    "as_of_tx": {
+     "correct": 2,
+     "n": 4,
+     "accuracy": 0.5,
+     "ci_95": [
+      0.15,
+      0.85
+     ]
+    },
+    "as_of_valid": {
+     "correct": 11,
+     "n": 16,
+     "accuracy": 0.6875,
+     "ci_95": [
+      0.444,
+      0.858
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 12,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.552,
+      0.953
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    }
+   },
+   "qa_latency_micros_median": 10.834017302840948,
+   "extraction_seconds_per_meeting": 9.865608405446189,
+   "wall_seconds": 108.6,
+   "audit": [
+    {
+     "chain": "hiring",
+     "meeting": "h1",
+     "seconds": 16.95,
+     "stats": {
+      "prompt_tokens": 1072,
+      "output_tokens": 306,
+      "llm_seconds": 16.93,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"For now, headcount is approved at four, effective 1 July.\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"value\":4,\"valid_from\":\"2026-07-01\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Raj, you own the data scientist hire, and I want an offer out by 15 June.\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"value\":\"raj\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Raj, you own the data scientist hire, and I want an offer out by 15 June.\",\"object_id\":\"hire_ds\",\"attribute\":\"deadline\",\"value\":\"2026-06-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Ling, the data engineer is yours, target the end of June.\",\"object_id\":\"hire_de\",\"attribute\":\"owner\",\"value\":\"ling\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Ling, the data engineer is yours, target the end of June.\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"value\":\"2026-06-30\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "hc_data",
+       "attribute": "headcount",
+       "value": 4,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "For now, headcount is approved at four, effective 1 July.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_ds",
+       "attribute": "owner",
+       "value": "raj",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Raj, you own the data scientist hire, and I want an offer out by 15 June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-06-15",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Raj, you own the data scientist hire, and I want an offer out by 15 June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "hire_de",
+       "attribute": "owner",
+       "value": "ling",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Ling, the data engineer is yours, target the end of June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "hire_de",
+       "attribute": "deadline",
+       "value": "2026-06-30",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Ling, the data engineer is yours, target the end of June.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h2",
+     "seconds": 8.72,
+     "stats": {
+      "prompt_tokens": 1089,
+      "output_tokens": 110,
+      "llm_seconds": 8.71,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"we drop the data scientist role\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"value\":\"cancelled\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Ling, the engineer deadline moves to 15 July\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"value\":\"2026-07-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "hire_ds",
+       "attribute": "status",
+       "value": "cancelled",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "we drop the data scientist role",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_de",
+       "attribute": "deadline",
+       "value": "2026-07-15",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Ling, the engineer deadline moves to 15 July",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h3",
+     "seconds": 6.57,
+     "stats": {
+      "prompt_tokens": 1083,
+      "output_tokens": 64,
+      "llm_seconds": 6.56,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":1,\"quote\":\"Back to four, effective 1 August.\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"value\":4,\"valid_from\":\"2026-08-01\",\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "hc_data",
+       "attribute": "headcount",
+       "value": 4,
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Back to four, effective 1 August.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p1",
+     "seconds": 11.7,
+     "stats": {
+      "prompt_tokens": 1072,
+      "output_tokens": 210,
+      "llm_seconds": 11.69,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita jual dua puluh peratus dulu.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":20,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Okay, kita rundingkan dengan Fund X dulu.\",\"object_id\":\"div_buyer\",\"attribute\":\"value\",\"value\":\"Fund X\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"Jason, you run the execution. Siapkan semua by Friday.\",\"object_id\":\"div_execution\",\"attribute\":\"owner\",\"value\":\"jason\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"Jason, you run the execution. Siapkan semua by Friday.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-10\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 2,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Kita jual dua puluh peratus dulu.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_buyer.value'",
+       "turn": 4,
+       "object": "div_buyer",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Okay, kita rundingkan dengan Fund X dulu.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 5,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Jason, you run the execution. Siapkan semua by Friday.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 5,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-10",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Jason, you run the execution. Siapkan semua by Friday.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2",
+     "seconds": 11.64,
+     "stats": {
+      "prompt_tokens": 1099,
+      "output_tokens": 219,
+      "llm_seconds": 11.64,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita buat minggu depan, Jumaat.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-15\",\"valid_from\":\"2026-05-12\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Saya cadangkan kita naikkan jumlah jualan kepada tiga puluh peratus sebab market kuat.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":30,\"confidence\":0.5,\"unresolved\":true},{\"turn\":5,\"quote\":\"Boleh, setuju. Tiga puluh peratus.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":30,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":25,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-15",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita buat minggu depan, Jumaat.",
+       "confidence": 0.9
+      },
+      {
+       "status": "unresolved",
+       "reason": "extractor could not tell which item this is about",
+       "turn": 3,
+       "object": null,
+       "attribute": null,
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Saya cadangkan kita naikkan jumlah jualan kepada tiga puluh peratus sebab market kuat.",
+       "confidence": 0.5
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 4,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Boleh, setuju. Tiga puluh peratus.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 5,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p3",
+     "seconds": 9.67,
+     "stats": {
+      "prompt_tokens": 1074,
+      "output_tokens": 175,
+      "llm_seconds": 9.66,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":1,\"quote\":\"So the buyer is now a strategic buyer, we go with the Strategic Buyer.\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"value\":\"Strategic Buyer\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-06-30\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"And the stake stays at twenty five percent.\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"value\":25,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "So the buyer is now a strategic buyer, we go with the Strategic Buyer.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-06-30",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 5,
+       "object": "div_stake",
+       "attribute": "percent",
+       "value": 25,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "And the stake stays at twenty five percent.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2b",
+     "seconds": 6.32,
+     "stats": {
+      "prompt_tokens": 990,
+      "output_tokens": 87,
+      "llm_seconds": 6.31,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":0,\"quote\":\"Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-29\",\"valid_from\":\"2026-05-19\",\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 0,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-29",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p4",
+     "seconds": 3.19,
+     "stats": {
+      "prompt_tokens": 999,
+      "output_tokens": 9,
+      "llm_seconds": 3.18,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[]}\n```"
+     },
+     "dispositions": []
+    },
+    {
+     "chain": "tender",
+     "meeting": "t1",
+     "seconds": 13.21,
+     "stats": {
+      "prompt_tokens": 1100,
+      "output_tokens": 206,
+      "llm_seconds": 13.2,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":3,\"quote\":\"kita pilih Vendor Beta\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"value\":\"Vendor Beta\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Had kontrak kita tetapkan lima juta ringgit\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"value\":5000000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":6,\"quote\":\"dokumen tender mesti masuk sebelum 20 Mac\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"value\":\"2026-03-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":6,\"quote\":\"dan Zul akan uruskan\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"value\":\"zul\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Beta",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "kita pilih Vendor Beta",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5000000,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Had kontrak kita tetapkan lima juta ringgit",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 6,
+       "object": "tender_submission",
+       "attribute": "deadline",
+       "value": "2026-03-20",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "dokumen tender mesti masuk sebelum 20 Mac",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 6,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "zul",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "dan Zul akan uruskan",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t2",
+     "seconds": 9.63,
+     "stats": {
+      "prompt_tokens": 1097,
+      "output_tokens": 134,
+      "llm_seconds": 9.63,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Okay, kita tangguhkan tarikh akhir ke 3 April.\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"value\":\"2026-04-03\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"value\":5500000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_submission",
+       "attribute": "deadline",
+       "value": "2026-04-03",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Okay, kita tangguhkan tarikh akhir ke 3 April.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5500000,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t3",
+     "seconds": 10.93,
+     "stats": {
+      "prompt_tokens": 1100,
+      "output_tokens": 164,
+      "llm_seconds": 10.93,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"value\":\"Vendor Gamma\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"value\":\"cancelled\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Kelvin, awak ambil alih daripada Zul untuk tender ni.\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"value\":\"kelvin\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Gamma",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "tender_submission",
+       "attribute": "status",
+       "value": "cancelled",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "kelvin",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kelvin, awak ambil alih daripada Zul untuk tender ni.",
+       "confidence": 0.9
+      }
+     ]
+    }
+   ],
+   "answers": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "correct": true,
+     "micros": 24.250010028481483
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 7.708993507549167
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "correct": true,
+     "micros": 14.833000022917986
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": "raj",
+     "correct": true,
+     "micros": 13.00001167692244
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 25.165994884446263
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "correct": true,
+     "micros": 16.375008272007108
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "correct": true,
+     "micros": 14.082994312047958
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": 4,
+     "correct": false,
+     "micros": 235.95799575559795
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "correct": true,
+     "micros": 36.792014725506306
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "correct": true,
+     "micros": 107.25000174716115
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 25.416986318305135
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "correct": true,
+     "micros": 18.79202318377793
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 7.458002073690295
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": 25,
+     "correct": true,
+     "micros": 8.37500556372106
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "correct": true,
+     "micros": 5.417008651420474
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "correct": true,
+     "micros": 5.790992872789502
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 2.375018084421754
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": null,
+     "correct": false,
+     "micros": 10.834017302840948
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 2.9999937396496534
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": "2026-05-10",
+     "correct": false,
+     "micros": 6.249989382922649
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": "2026-05-15",
+     "correct": false,
+     "micros": 6.207992555573583
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "correct": true,
+     "micros": 5.458015948534012
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": "2026-05-15",
+     "correct": false,
+     "micros": 36.416982766240835
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": null,
+     "correct": false,
+     "micros": 3.4580007195472717
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 3,
+     "correct": true,
+     "micros": 42.87500632926822
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "correct": true,
+     "micros": 15.750003512948751
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "correct": true,
+     "micros": 7.249996997416019
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": "2026-04-03",
+     "correct": true,
+     "micros": 15.084020560607314
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "correct": true,
+     "micros": 5.875015631318092
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "correct": true,
+     "micros": 5.582987796515226
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Beta",
+     "correct": true,
+     "micros": 7.458991603925824
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": 5000000,
+     "correct": true,
+     "micros": 8.458999218419194
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": 5000000,
+     "correct": true,
+     "micros": 50.70798215456307
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": "zul",
+     "correct": true,
+     "micros": 7.208989700302482
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 51.54201062396169
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 12.999982573091984
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 4.291010554879904
+    }
+   ]
+  },
+  "confirm_conflicts": {
+   "extraction": {
+    "gold_events": 31,
+    "tp": 23,
+    "fp": 2,
+    "fn": 8,
+    "precision": 0.92,
+    "recall": 0.7419354838709677,
+    "f1": 0.8214285714285714,
+    "ci_95": {
+     "precision": [
+      0.773,
+      1.0
+     ],
+     "recall": [
+      0.5,
+      0.933
+     ],
+     "f1": [
+      0.605,
+      0.964
+     ]
+    },
+    "state_changing_recall": 0.7241379310344828,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 7,
+      "recall": 0.7
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 4,
+      "recall": 0.571
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 7,
+      "recall": 0.875
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 6,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 4,
+     "unresolved": 1
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.02000000000000035,
+    "confidence_mean": 0.8999999999999997,
+    "confidence_distinct": 1
+   },
+   "ledger": {
+    "supersession_tp": 7,
+    "supersession_fp": 1,
+    "supersession_fn": 5,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 0.875,
+    "supersession_recall": 0.5833333333333334,
+    "supersession_f1": 0.7000000000000001,
+    "state_accuracy": 0.875
+   },
+   "review": {
+    "meetings": 11,
+    "applied_directly": 17,
+    "proposed": 8,
+    "proposals_per_meeting": 0.7272727272727273,
+    "accepted": 7,
+    "accepted_edited": 1,
+    "rejected": 0,
+    "pending": 0,
+    "acceptance_rate": 0.875
+   },
+   "qa_memoria": {
+    "overall": {
+     "correct": 30,
+     "n": 37,
+     "accuracy": 0.8108108108108109,
+     "ci_95": [
+      0.658,
+      0.905
+     ]
+    },
+    "as_of_tx": {
+     "correct": 3,
+     "n": 4,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.301,
+      0.954
+     ]
+    },
+    "as_of_valid": {
+     "correct": 12,
+     "n": 16,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.505,
+      0.898
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 12,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.552,
+      0.953
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    }
+   },
+   "qa_latency_micros_median": 8.25000461190939,
+   "extraction_seconds_per_meeting": 10.226072386454854,
+   "wall_seconds": 112.5,
+   "audit": [
+    {
+     "chain": "hiring",
+     "meeting": "h1",
+     "seconds": 17.29,
+     "stats": {
+      "prompt_tokens": 1072,
+      "output_tokens": 306,
+      "llm_seconds": 17.29,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"For now, headcount is approved at four, effective 1 July.\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"value\":4,\"valid_from\":\"2026-07-01\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Raj, you own the data scientist hire, and I want an offer out by 15 June.\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"value\":\"raj\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Raj, you own the data scientist hire, and I want an offer out by 15 June.\",\"object_id\":\"hire_ds\",\"attribute\":\"deadline\",\"value\":\"2026-06-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Ling, the data engineer is yours, target the end of June.\",\"object_id\":\"hire_de\",\"attribute\":\"owner\",\"value\":\"ling\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Ling, the data engineer is yours, target the end of June.\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"value\":\"2026-06-30\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "hc_data",
+       "attribute": "headcount",
+       "value": 4,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "For now, headcount is approved at four, effective 1 July.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_ds",
+       "attribute": "owner",
+       "value": "raj",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Raj, you own the data scientist hire, and I want an offer out by 15 June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-06-15",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Raj, you own the data scientist hire, and I want an offer out by 15 June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "hire_de",
+       "attribute": "owner",
+       "value": "ling",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Ling, the data engineer is yours, target the end of June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "hire_de",
+       "attribute": "deadline",
+       "value": "2026-06-30",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Ling, the data engineer is yours, target the end of June.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h2",
+     "seconds": 8.14,
+     "stats": {
+      "prompt_tokens": 1089,
+      "output_tokens": 110,
+      "llm_seconds": 8.14,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"we drop the data scientist role\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"value\":\"cancelled\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Ling, the engineer deadline moves to 15 July\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"value\":\"2026-07-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 2,
+       "object": "hire_ds",
+       "attribute": "status",
+       "value": "cancelled",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "we drop the data scientist role",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_de",
+       "attribute": "deadline",
+       "value": "2026-07-15",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Ling, the engineer deadline moves to 15 July",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h3",
+     "seconds": 6.02,
+     "stats": {
+      "prompt_tokens": 1083,
+      "output_tokens": 64,
+      "llm_seconds": 6.01,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":1,\"quote\":\"Back to four, effective 1 August.\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"value\":4,\"valid_from\":\"2026-08-01\",\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "hc_data",
+       "attribute": "headcount",
+       "value": 4,
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Back to four, effective 1 August.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p1",
+     "seconds": 12.56,
+     "stats": {
+      "prompt_tokens": 1072,
+      "output_tokens": 210,
+      "llm_seconds": 12.56,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita jual dua puluh peratus dulu.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":20,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Okay, kita rundingkan dengan Fund X dulu.\",\"object_id\":\"div_buyer\",\"attribute\":\"value\",\"value\":\"Fund X\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"Jason, you run the execution. Siapkan semua by Friday.\",\"object_id\":\"div_execution\",\"attribute\":\"owner\",\"value\":\"jason\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"Jason, you run the execution. Siapkan semua by Friday.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-10\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 2,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Kita jual dua puluh peratus dulu.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_buyer.value'",
+       "turn": 4,
+       "object": "div_buyer",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Okay, kita rundingkan dengan Fund X dulu.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 5,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Jason, you run the execution. Siapkan semua by Friday.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 5,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-10",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Jason, you run the execution. Siapkan semua by Friday.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2",
+     "seconds": 13.16,
+     "stats": {
+      "prompt_tokens": 1099,
+      "output_tokens": 219,
+      "llm_seconds": 13.15,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita buat minggu depan, Jumaat.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-15\",\"valid_from\":\"2026-05-12\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Saya cadangkan kita naikkan jumlah jualan kepada tiga puluh peratus sebab market kuat.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":30,\"confidence\":0.5,\"unresolved\":true},{\"turn\":5,\"quote\":\"Boleh, setuju. Tiga puluh peratus.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":30,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":25,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-15",
+       "review": "accepted_edited",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita buat minggu depan, Jumaat.",
+       "confidence": 0.9
+      },
+      {
+       "status": "unresolved",
+       "reason": "extractor could not tell which item this is about",
+       "turn": 3,
+       "object": null,
+       "attribute": null,
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Saya cadangkan kita naikkan jumlah jualan kepada tiga puluh peratus sebab market kuat.",
+       "confidence": 0.5
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 4,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Boleh, setuju. Tiga puluh peratus.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 5,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p3",
+     "seconds": 13.08,
+     "stats": {
+      "prompt_tokens": 1074,
+      "output_tokens": 219,
+      "llm_seconds": 13.07,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":1,\"quote\":\"So the buyer is now a strategic buyer, we go with the Strategic Buyer.\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"value\":\"Strategic Buyer\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-06-30\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Okay, I'll keep ownership.\",\"object_id\":\"div_execution\",\"attribute\":\"owner\",\"value\":\"jason\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"And the stake stays at twenty five percent.\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"value\":25,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "So the buyer is now a strategic buyer, we go with the Strategic Buyer.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-06-30",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Okay, I'll keep ownership.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 5,
+       "object": "div_stake",
+       "attribute": "percent",
+       "value": 25,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "And the stake stays at twenty five percent.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2b",
+     "seconds": 6.86,
+     "stats": {
+      "prompt_tokens": 990,
+      "output_tokens": 87,
+      "llm_seconds": 6.86,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":0,\"quote\":\"Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-29\",\"valid_from\":\"2026-05-19\",\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-29",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p4",
+     "seconds": 3.13,
+     "stats": {
+      "prompt_tokens": 999,
+      "output_tokens": 9,
+      "llm_seconds": 3.13,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[]}\n```"
+     },
+     "dispositions": []
+    },
+    {
+     "chain": "tender",
+     "meeting": "t1",
+     "seconds": 12.71,
+     "stats": {
+      "prompt_tokens": 1100,
+      "output_tokens": 206,
+      "llm_seconds": 12.71,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":3,\"quote\":\"kita pilih Vendor Beta\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"value\":\"Vendor Beta\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Had kontrak kita tetapkan lima juta ringgit\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"value\":5000000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":6,\"quote\":\"dokumen tender mesti masuk sebelum 20 Mac\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"value\":\"2026-03-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":6,\"quote\":\"dan Zul akan uruskan\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"value\":\"zul\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Beta",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "kita pilih Vendor Beta",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5000000,
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Had kontrak kita tetapkan lima juta ringgit",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 6,
+       "object": "tender_submission",
+       "attribute": "deadline",
+       "value": "2026-03-20",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "dokumen tender mesti masuk sebelum 20 Mac",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 6,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "zul",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "dan Zul akan uruskan",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t2",
+     "seconds": 9.15,
+     "stats": {
+      "prompt_tokens": 1097,
+      "output_tokens": 134,
+      "llm_seconds": 9.14,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Okay, kita tangguhkan tarikh akhir ke 3 April.\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"value\":\"2026-04-03\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"value\":5500000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_submission",
+       "attribute": "deadline",
+       "value": "2026-04-03",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Okay, kita tangguhkan tarikh akhir ke 3 April.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5500000,
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t3",
+     "seconds": 10.38,
+     "stats": {
+      "prompt_tokens": 1100,
+      "output_tokens": 164,
+      "llm_seconds": 10.38,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"value\":\"Vendor Gamma\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"value\":\"cancelled\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Kelvin, awak ambil alih daripada Zul untuk tender ni.\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"value\":\"kelvin\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Gamma",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 3,
+       "object": "tender_submission",
+       "attribute": "status",
+       "value": "cancelled",
+       "review": null,
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "kelvin",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kelvin, awak ambil alih daripada Zul untuk tender ni.",
+       "confidence": 0.9
+      }
+     ]
+    }
+   ],
+   "answers": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "correct": true,
+     "micros": 8.25000461190939
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 2.874992787837982
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "correct": true,
+     "micros": 5.499983672052622
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": "raj",
+     "correct": true,
+     "micros": 4.958012141287327
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 5.082983989268541
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "correct": true,
+     "micros": 6.083020707592368
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "correct": true,
+     "micros": 5.250010872259736
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": 4,
+     "correct": false,
+     "micros": 37.83300053328276
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "correct": true,
+     "micros": 6.332993507385254
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "correct": true,
+     "micros": 29.457994969561696
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 11.541007552295923
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "correct": true,
+     "micros": 7.041991921141744
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 2.9579969123005867
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": 25,
+     "correct": true,
+     "micros": 7.4160052463412285
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "correct": true,
+     "micros": 4.917004844173789
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "correct": true,
+     "micros": 5.208014044910669
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 2.2500171326100826
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": null,
+     "correct": false,
+     "micros": 9.415991371497512
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 2.70901364274323
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": "2026-05-10",
+     "correct": false,
+     "micros": 5.790992872789502
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": "2026-05-22",
+     "correct": true,
+     "micros": 5.292007699608803
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "correct": true,
+     "micros": 5.209003575146198
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": "2026-05-22",
+     "correct": true,
+     "micros": 37.416990380734205
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": null,
+     "correct": false,
+     "micros": 4.8330111894756556
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 3,
+     "correct": true,
+     "micros": 37.83300053328276
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "correct": true,
+     "micros": 18.54199217632413
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "correct": true,
+     "micros": 13.20798764936626
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": "2026-04-03",
+     "correct": true,
+     "micros": 32.83398109488189
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "correct": true,
+     "micros": 13.082986697554588
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "correct": true,
+     "micros": 12.708012945950031
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Beta",
+     "correct": true,
+     "micros": 16.000005416572094
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": 5000000,
+     "correct": true,
+     "micros": 15.290977898985147
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": 5000000,
+     "correct": true,
+     "micros": 83.87499838136137
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": "zul",
+     "correct": true,
+     "micros": 14.416989870369434
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 70.33400470390916
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 28.12498132698238
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 8.333008736371994
+    }
+   ]
+  },
+  "confirm_all": {
+   "extraction": {
+    "gold_events": 31,
+    "tp": 23,
+    "fp": 2,
+    "fn": 8,
+    "precision": 0.92,
+    "recall": 0.7419354838709677,
+    "f1": 0.8214285714285714,
+    "ci_95": {
+     "precision": [
+      0.773,
+      1.0
+     ],
+     "recall": [
+      0.5,
+      0.933
+     ],
+     "f1": [
+      0.605,
+      0.964
+     ]
+    },
+    "state_changing_recall": 0.7241379310344828,
+    "state_changing_gold": 29,
+    "by_kind": {
+     "INITIAL": {
+      "gold": 13,
+      "found": 10,
+      "recall": 0.769
+     },
+     "CANCEL": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "REVISE": {
+      "gold": 10,
+      "found": 7,
+      "recall": 0.7
+     },
+     "COMPLETE": {
+      "gold": 2,
+      "found": 0,
+      "recall": 0.0
+     },
+     "REVERSE": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     },
+     "CONFIRM": {
+      "gold": 2,
+      "found": 2,
+      "recall": 1.0
+     }
+    },
+    "by_tag": {
+     "effective_date": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "number_words": {
+      "gold": 7,
+      "found": 4,
+      "recall": 0.571
+     },
+     "(no tag)": {
+      "gold": 8,
+      "found": 7,
+      "recall": 0.875
+     },
+     "relative_date": {
+      "gold": 4,
+      "found": 2,
+      "recall": 0.5
+     },
+     "reversal": {
+      "gold": 3,
+      "found": 3,
+      "recall": 1.0
+     },
+     "codeswitch": {
+      "gold": 16,
+      "found": 10,
+      "recall": 0.625
+     },
+     "anaphora": {
+      "gold": 3,
+      "found": 2,
+      "recall": 0.667
+     },
+     "same_meeting_correction": {
+      "gold": 1,
+      "found": 0,
+      "recall": 0.0
+     },
+     "late_import": {
+      "gold": 1,
+      "found": 1,
+      "recall": 1.0
+     }
+    },
+    "miss_reasons": {
+     "missed": 6,
+     "value_error": 2
+    },
+    "fp_reasons": {
+     "wrong_content": 2
+    },
+    "filtered": {
+     "invalid": 4
+    },
+    "distractor_hit_rate": 0.0,
+    "distractor_turns": 23,
+    "evidence_exact_turn": 1.0,
+    "confidence_auroc": 0.5,
+    "confidence_ece": 0.02000000000000035,
+    "confidence_mean": 0.8999999999999997,
+    "confidence_distinct": 1
+   },
+   "ledger": {
+    "supersession_tp": 8,
+    "supersession_fp": 0,
+    "supersession_fn": 4,
+    "state_gold": 16,
+    "state_correct": 14,
+    "phantom_beliefs": 0,
+    "supersession_precision": 1.0,
+    "supersession_recall": 0.6666666666666666,
+    "supersession_f1": 0.8,
+    "state_accuracy": 0.875
+   },
+   "review": {
+    "meetings": 11,
+    "applied_directly": 2,
+    "proposed": 23,
+    "proposals_per_meeting": 2.090909090909091,
+    "accepted": 21,
+    "accepted_edited": 2,
+    "rejected": 0,
+    "pending": 0,
+    "acceptance_rate": 0.9130434782608695
+   },
+   "qa_memoria": {
+    "overall": {
+     "correct": 31,
+     "n": 37,
+     "accuracy": 0.8378378378378378,
+     "ci_95": [
+      0.689,
+      0.923
+     ]
+    },
+    "as_of_tx": {
+     "correct": 3,
+     "n": 4,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.301,
+      0.954
+     ]
+    },
+    "as_of_valid": {
+     "correct": 13,
+     "n": 16,
+     "accuracy": 0.8125,
+     "ci_95": [
+      0.57,
+      0.934
+     ]
+    },
+    "current": {
+     "correct": 10,
+     "n": 12,
+     "accuracy": 0.8333333333333334,
+     "ci_95": [
+      0.552,
+      0.953
+     ]
+    },
+    "n_changes": {
+     "correct": 5,
+     "n": 5,
+     "accuracy": 1.0,
+     "ci_95": [
+      0.566,
+      1.0
+     ]
+    }
+   },
+   "qa_latency_micros_median": 7.0420210249722,
+   "extraction_seconds_per_meeting": 10.137395662909098,
+   "wall_seconds": 111.5,
+   "audit": [
+    {
+     "chain": "hiring",
+     "meeting": "h1",
+     "seconds": 16.26,
+     "stats": {
+      "prompt_tokens": 1072,
+      "output_tokens": 306,
+      "llm_seconds": 16.26,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"For now, headcount is approved at four, effective 1 July.\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"value\":4,\"valid_from\":\"2026-07-01\",\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Raj, you own the data scientist hire, and I want an offer out by 15 June.\",\"object_id\":\"hire_ds\",\"attribute\":\"owner\",\"value\":\"raj\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Raj, you own the data scientist hire, and I want an offer out by 15 June.\",\"object_id\":\"hire_ds\",\"attribute\":\"deadline\",\"value\":\"2026-06-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Ling, the data engineer is yours, target the end of June.\",\"object_id\":\"hire_de\",\"attribute\":\"owner\",\"value\":\"ling\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Ling, the data engineer is yours, target the end of June.\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"value\":\"2026-06-30\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "hc_data",
+       "attribute": "headcount",
+       "value": 4,
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "For now, headcount is approved at four, effective 1 July.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_ds",
+       "attribute": "owner",
+       "value": "raj",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Raj, you own the data scientist hire, and I want an offer out by 15 June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_ds",
+       "attribute": "deadline",
+       "value": "2026-06-15",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Raj, you own the data scientist hire, and I want an offer out by 15 June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "hire_de",
+       "attribute": "owner",
+       "value": "ling",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Ling, the data engineer is yours, target the end of June.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "hire_de",
+       "attribute": "deadline",
+       "value": "2026-06-30",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Ling, the data engineer is yours, target the end of June.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h2",
+     "seconds": 8.25,
+     "stats": {
+      "prompt_tokens": 1089,
+      "output_tokens": 110,
+      "llm_seconds": 8.25,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"we drop the data scientist role\",\"object_id\":\"hire_ds\",\"attribute\":\"status\",\"value\":\"cancelled\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Ling, the engineer deadline moves to 15 July\",\"object_id\":\"hire_de\",\"attribute\":\"deadline\",\"value\":\"2026-07-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "hire_ds",
+       "attribute": "status",
+       "value": "cancelled",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "we drop the data scientist role",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "hire_de",
+       "attribute": "deadline",
+       "value": "2026-07-15",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Ling, the engineer deadline moves to 15 July",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "hiring",
+     "meeting": "h3",
+     "seconds": 6.21,
+     "stats": {
+      "prompt_tokens": 1083,
+      "output_tokens": 64,
+      "llm_seconds": 6.2,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":1,\"quote\":\"Back to four, effective 1 August.\",\"object_id\":\"hc_data\",\"attribute\":\"headcount\",\"value\":4,\"valid_from\":\"2026-08-01\",\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 1,
+       "object": "hc_data",
+       "attribute": "headcount",
+       "value": 4,
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Back to four, effective 1 August.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p1",
+     "seconds": 12.77,
+     "stats": {
+      "prompt_tokens": 1072,
+      "output_tokens": 210,
+      "llm_seconds": 12.77,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita jual dua puluh peratus dulu.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":20,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Okay, kita rundingkan dengan Fund X dulu.\",\"object_id\":\"div_buyer\",\"attribute\":\"value\",\"value\":\"Fund X\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"Jason, you run the execution. Siapkan semua by Friday.\",\"object_id\":\"div_execution\",\"attribute\":\"owner\",\"value\":\"jason\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"Jason, you run the execution. Siapkan semua by Friday.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-10\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 2,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Kita jual dua puluh peratus dulu.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_buyer.value'",
+       "turn": 4,
+       "object": "div_buyer",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Okay, kita rundingkan dengan Fund X dulu.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 5,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Jason, you run the execution. Siapkan semua by Friday.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 5,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-10",
+       "review": "accepted_edited",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Jason, you run the execution. Siapkan semua by Friday.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2",
+     "seconds": 11.1,
+     "stats": {
+      "prompt_tokens": 1099,
+      "output_tokens": 169,
+      "llm_seconds": 11.1,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita buat minggu depan, Jumaat.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-15\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Boleh, setuju. Tiga puluh peratus.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":30,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.\",\"object_id\":\"div_stake\",\"attribute\":\"value\",\"value\":25,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-15",
+       "review": "accepted_edited",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita buat minggu depan, Jumaat.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 4,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "Boleh, setuju. Tiga puluh peratus.",
+       "confidence": 0.9
+      },
+      {
+       "status": "invalid",
+       "reason": "'unknown slot div_stake.value'",
+       "turn": 5,
+       "object": "div_stake",
+       "attribute": "value",
+       "value": null,
+       "review": null,
+       "outcome": null,
+       "conflict": false,
+       "quote": "No, sorry, silap. Saya maksudkan dua puluh lima peratus, bukan tiga puluh.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p3",
+     "seconds": 13.49,
+     "stats": {
+      "prompt_tokens": 1074,
+      "output_tokens": 219,
+      "llm_seconds": 13.49,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":1,\"quote\":\"So the buyer is now a strategic buyer, we go with the Strategic Buyer.\",\"object_id\":\"div_buyer\",\"attribute\":\"outcome\",\"value\":\"Strategic Buyer\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-06-30\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Okay, I'll keep ownership.\",\"object_id\":\"div_execution\",\"attribute\":\"owner\",\"value\":\"jason\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":5,\"quote\":\"And the stake stays at twenty five percent.\",\"object_id\":\"div_stake\",\"attribute\":\"percent\",\"value\":25,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 1,
+       "object": "div_buyer",
+       "attribute": "outcome",
+       "value": "Strategic Buyer",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "So the buyer is now a strategic buyer, we go with the Strategic Buyer.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-06-30",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Jason, the date has to move, tak boleh minggu ni. Kita buat hujung bulan.",
+       "confidence": 0.9
+      },
+      {
+       "status": "applied",
+       "reason": "",
+       "turn": 4,
+       "object": "div_execution",
+       "attribute": "owner",
+       "value": "jason",
+       "review": null,
+       "outcome": "reconfirmed",
+       "conflict": false,
+       "quote": "Okay, I'll keep ownership.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 5,
+       "object": "div_stake",
+       "attribute": "percent",
+       "value": 25,
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "And the stake stays at twenty five percent.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p2b",
+     "seconds": 6.9,
+     "stats": {
+      "prompt_tokens": 990,
+      "output_tokens": 87,
+      "llm_seconds": 6.89,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":0,\"quote\":\"Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.\",\"object_id\":\"div_execution\",\"attribute\":\"deadline\",\"value\":\"2026-05-29\",\"valid_from\":\"2026-05-19\",\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 0,
+       "object": "div_execution",
+       "attribute": "deadline",
+       "value": "2026-05-29",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Quick call. Fund X is ready earlier than expected, so let's bring the date forward to 29 May.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "portfolio",
+     "meeting": "p4",
+     "seconds": 3.19,
+     "stats": {
+      "prompt_tokens": 999,
+      "output_tokens": 9,
+      "llm_seconds": 3.18,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[]}\n```"
+     },
+     "dispositions": []
+    },
+    {
+     "chain": "tender",
+     "meeting": "t1",
+     "seconds": 12.89,
+     "stats": {
+      "prompt_tokens": 1100,
+      "output_tokens": 206,
+      "llm_seconds": 12.89,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":3,\"quote\":\"kita pilih Vendor Beta\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"value\":\"Vendor Beta\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Had kontrak kita tetapkan lima juta ringgit\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"value\":5000000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":6,\"quote\":\"dokumen tender mesti masuk sebelum 20 Mac\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"value\":\"2026-03-20\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":6,\"quote\":\"dan Zul akan uruskan\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"value\":\"zul\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Beta",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "kita pilih Vendor Beta",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5000000,
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Had kontrak kita tetapkan lima juta ringgit",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 6,
+       "object": "tender_submission",
+       "attribute": "deadline",
+       "value": "2026-03-20",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "dokumen tender mesti masuk sebelum 20 Mac",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 6,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "zul",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "dan Zul akan uruskan",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t2",
+     "seconds": 9.51,
+     "stats": {
+      "prompt_tokens": 1097,
+      "output_tokens": 134,
+      "llm_seconds": 9.51,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Okay, kita tangguhkan tarikh akhir ke 3 April.\",\"object_id\":\"tender_submission\",\"attribute\":\"deadline\",\"value\":\"2026-04-03\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.\",\"object_id\":\"tender_value\",\"attribute\":\"amount\",\"value\":5500000,\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_submission",
+       "attribute": "deadline",
+       "value": "2026-04-03",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Okay, kita tangguhkan tarikh akhir ke 3 April.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_value",
+       "attribute": "amount",
+       "value": 5500000,
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Tengok dulu. Satu lagi, had kontrak tu naik sikit, jadi RM5.5 juta.",
+       "confidence": 0.9
+      }
+     ]
+    },
+    {
+     "chain": "tender",
+     "meeting": "t3",
+     "seconds": 10.94,
+     "stats": {
+      "prompt_tokens": 1100,
+      "output_tokens": 164,
+      "llm_seconds": 10.94,
+      "parsed_cleanly": true,
+      "raw": "```json\n{\"events\":[{\"turn\":2,\"quote\":\"Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.\",\"object_id\":\"tender_vendor\",\"attribute\":\"outcome\",\"value\":\"Vendor Gamma\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":3,\"quote\":\"Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.\",\"object_id\":\"tender_submission\",\"attribute\":\"status\",\"value\":\"cancelled\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false},{\"turn\":4,\"quote\":\"Kelvin, awak ambil alih daripada Zul untuk tender ni.\",\"object_id\":\"tender_submission\",\"attribute\":\"owner\",\"value\":\"kelvin\",\"valid_from\":null,\"confidence\":0.9,\"unresolved\":false}]}\n```"
+     },
+     "dispositions": [
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 2,
+       "object": "tender_vendor",
+       "attribute": "outcome",
+       "value": "Vendor Gamma",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kita tukar kepada Vendor Gamma. Itu keputusan muktamad.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 3,
+       "object": "tender_submission",
+       "attribute": "status",
+       "value": "cancelled",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": false,
+       "quote": "Dan submission tender yang lama tu kita batalkan, kita re-issue dokumen baru.",
+       "confidence": 0.9
+      },
+      {
+       "status": "proposed",
+       "reason": "",
+       "turn": 4,
+       "object": "tender_submission",
+       "attribute": "owner",
+       "value": "kelvin",
+       "review": "accepted",
+       "outcome": "in_force",
+       "conflict": true,
+       "quote": "Kelvin, awak ambil alih daripada Zul untuk tender ni.",
+       "confidence": 0.9
+      }
+     ]
+    }
+   ],
+   "answers": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "correct": true,
+     "micros": 9.374984074383974
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 2.916989615187049
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "correct": true,
+     "micros": 6.665999535471201
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": "raj",
+     "correct": true,
+     "micros": 5.917012458667159
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 6.249989382922649
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "correct": true,
+     "micros": 7.374997949227691
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "correct": true,
+     "micros": 6.207992555573583
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": 4,
+     "correct": false,
+     "micros": 43.9999857917428
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "correct": true,
+     "micros": 7.208000170066953
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 0,
+     "correct": true,
+     "micros": 38.708996726199985
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 13.33397813141346
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "correct": true,
+     "micros": 7.958995411172509
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 3.4580007195472717
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": 25,
+     "correct": true,
+     "micros": 6.832997314631939
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "correct": true,
+     "micros": 5.332985892891884
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "correct": true,
+     "micros": 4.958012141287327
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": null,
+     "correct": false,
+     "micros": 2.040993422269821
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": null,
+     "correct": false,
+     "micros": 9.16598946787417
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": null,
+     "correct": false,
+     "micros": 2.7500209398567677
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": "2026-05-08",
+     "correct": true,
+     "micros": 5.665991920977831
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": "2026-05-22",
+     "correct": true,
+     "micros": 5.459005478769541
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "correct": true,
+     "micros": 5.165988113731146
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": "2026-05-22",
+     "correct": true,
+     "micros": 35.79101758077741
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": null,
+     "correct": false,
+     "micros": 3.4580007195472717
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 3,
+     "correct": true,
+     "micros": 42.45800664648414
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "correct": true,
+     "micros": 12.957985745742917
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "correct": true,
+     "micros": 7.0420210249722
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": "2026-04-03",
+     "correct": true,
+     "micros": 18.125021597370505
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "correct": true,
+     "micros": 6.084010237827897
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "correct": true,
+     "micros": 5.542009603232145
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Beta",
+     "correct": true,
+     "micros": 8.000002708286047
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": 5000000,
+     "correct": true,
+     "micros": 11.416996130719781
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": 5000000,
+     "correct": true,
+     "micros": 47.62498429045081
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": "zul",
+     "correct": true,
+     "micros": 7.5830030255019665
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 41.99999966658652
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "correct": true,
+     "micros": 12.708012945950031
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": null,
+     "correct": true,
+     "micros": 4.417001036927104
+    }
+   ]
+  }
+ },
+ "baselines": {
+  "full-context": {
+   "qa": {
+    "overall": {
+     "correct": 23,
+     "n": 37,
+     "accuracy": 0.6216216216216216,
+     "ci_95": [
+      0.461,
+      0.759
+     ]
+    },
+    "as_of_tx": {
+     "correct": 3,
+     "n": 4,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.301,
+      0.954
+     ]
+    },
+    "as_of_valid": {
+     "correct": 6,
+     "n": 16,
+     "accuracy": 0.375,
+     "ci_95": [
+      0.185,
+      0.614
+     ]
+    },
+    "current": {
+     "correct": 11,
+     "n": 12,
+     "accuracy": 0.9166666666666666,
+     "ci_95": [
+      0.646,
+      0.985
+     ]
+    },
+    "n_changes": {
+     "correct": 3,
+     "n": 5,
+     "accuracy": 0.6,
+     "ci_95": [
+      0.231,
+      0.882
+     ]
+    }
+   },
+   "items": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "raw": "cancelled",
+     "correct": true,
+     "seconds": 1.76,
+     "prompt_tokens": 539
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": "done",
+     "raw": "done",
+     "correct": true,
+     "seconds": 1.57,
+     "prompt_tokens": 539
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "raw": "2026-07-15",
+     "correct": true,
+     "seconds": 2.1,
+     "prompt_tokens": 535
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": "raj",
+     "raw": "raj",
+     "correct": true,
+     "seconds": 1.73,
+     "prompt_tokens": 543
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": 4,
+     "raw": "4",
+     "correct": false,
+     "seconds": 1.65,
+     "prompt_tokens": 546
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "raw": "4",
+     "correct": true,
+     "seconds": 1.67,
+     "prompt_tokens": 546
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "raw": "4",
+     "correct": true,
+     "seconds": 1.66,
+     "prompt_tokens": 546
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": 6,
+     "raw": "6",
+     "correct": true,
+     "seconds": 1.32,
+     "prompt_tokens": 442
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": "2026-06-09",
+     "raw": "2026-06-09",
+     "correct": false,
+     "seconds": 2.08,
+     "prompt_tokens": 543
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.75,
+     "prompt_tokens": 530
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "1",
+     "correct": true,
+     "seconds": 1.61,
+     "prompt_tokens": 530
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "raw": "2026-06-30",
+     "correct": true,
+     "seconds": 1.37,
+     "prompt_tokens": 301
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": "done",
+     "raw": "done",
+     "correct": false,
+     "seconds": 1.71,
+     "prompt_tokens": 547
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": 25,
+     "raw": "25",
+     "correct": true,
+     "seconds": 2.12,
+     "prompt_tokens": 717
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "raw": "Strategic Buyer",
+     "correct": true,
+     "seconds": 2.29,
+     "prompt_tokens": 720
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-06-12",
+     "raw": "2026-06-12",
+     "correct": false,
+     "seconds": 2.53,
+     "prompt_tokens": 711
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": "done",
+     "raw": "done",
+     "correct": true,
+     "seconds": 2.18,
+     "prompt_tokens": 715
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": 25,
+     "raw": "25",
+     "correct": false,
+     "seconds": 2.1,
+     "prompt_tokens": 725
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": 25,
+     "raw": "25",
+     "correct": true,
+     "seconds": 2.18,
+     "prompt_tokens": 725
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": "2026-05-05",
+     "raw": "2026-05-05",
+     "correct": false,
+     "seconds": 2.52,
+     "prompt_tokens": 719
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": "2026-05-19",
+     "raw": "2026-05-19",
+     "correct": false,
+     "seconds": 2.53,
+     "prompt_tokens": 719
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "raw": "2026-05-29",
+     "correct": true,
+     "seconds": 2.52,
+     "prompt_tokens": 719
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": "2026-06-30",
+     "raw": "2026-06-30",
+     "correct": false,
+     "seconds": 2.2,
+     "prompt_tokens": 622
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": "Fund X",
+     "raw": "Fund X",
+     "correct": true,
+     "seconds": 2.18,
+     "prompt_tokens": 728
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 2.02,
+     "prompt_tokens": 706
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "raw": "Vendor Gamma",
+     "correct": true,
+     "seconds": 1.79,
+     "prompt_tokens": 617
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "raw": "5500000",
+     "correct": true,
+     "seconds": 2.01,
+     "prompt_tokens": 613
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": "2026-03-20",
+     "raw": "2026-03-20",
+     "correct": false,
+     "seconds": 2.19,
+     "prompt_tokens": 616
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "raw": "kelvin",
+     "correct": true,
+     "seconds": 1.81,
+     "prompt_tokens": 617
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "raw": "cancelled",
+     "correct": true,
+     "seconds": 1.73,
+     "prompt_tokens": 612
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Gamma",
+     "raw": "Vendor Gamma",
+     "correct": false,
+     "seconds": 2.09,
+     "prompt_tokens": 625
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": 5500000,
+     "raw": "5500000",
+     "correct": false,
+     "seconds": 1.97,
+     "prompt_tokens": 621
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": 5000000,
+     "raw": "5000000",
+     "correct": true,
+     "seconds": 1.48,
+     "prompt_tokens": 337
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": "zul",
+     "raw": "zul",
+     "correct": true,
+     "seconds": 1.81,
+     "prompt_tokens": 625
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "1",
+     "correct": true,
+     "seconds": 1.94,
+     "prompt_tokens": 605
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "1",
+     "correct": true,
+     "seconds": 1.77,
+     "prompt_tokens": 603
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": "done",
+     "raw": "done",
+     "correct": false,
+     "seconds": 1.75,
+     "prompt_tokens": 620
+    }
+   ],
+   "median_seconds": 1.94,
+   "mean_prompt_tokens": 603.3513513513514
+  },
+  "bm25-rag": {
+   "qa": {
+    "overall": {
+     "correct": 24,
+     "n": 37,
+     "accuracy": 0.6486486486486487,
+     "ci_95": [
+      0.488,
+      0.782
+     ]
+    },
+    "as_of_tx": {
+     "correct": 3,
+     "n": 4,
+     "accuracy": 0.75,
+     "ci_95": [
+      0.301,
+      0.954
+     ]
+    },
+    "as_of_valid": {
+     "correct": 8,
+     "n": 16,
+     "accuracy": 0.5,
+     "ci_95": [
+      0.28,
+      0.72
+     ]
+    },
+    "current": {
+     "correct": 11,
+     "n": 12,
+     "accuracy": 0.9166666666666666,
+     "ci_95": [
+      0.646,
+      0.985
+     ]
+    },
+    "n_changes": {
+     "correct": 2,
+     "n": 5,
+     "accuracy": 0.4,
+     "ci_95": [
+      0.118,
+      0.769
+     ]
+    }
+   },
+   "items": [
+    {
+     "qid": "q1",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "raw": "cancelled",
+     "correct": true,
+     "seconds": 1.53,
+     "prompt_tokens": 541
+    },
+    {
+     "qid": "q2",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "done",
+     "answer": "done",
+     "raw": "done",
+     "correct": true,
+     "seconds": 1.32,
+     "prompt_tokens": 541
+    },
+    {
+     "qid": "q3",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "raw": "2026-07-15",
+     "correct": true,
+     "seconds": 2.02,
+     "prompt_tokens": 555
+    },
+    {
+     "qid": "q4",
+     "chain": "hiring",
+     "type": "current",
+     "gold": "raj",
+     "answer": "raj",
+     "raw": "raj",
+     "correct": true,
+     "seconds": 1.45,
+     "prompt_tokens": 563
+    },
+    {
+     "qid": "q5",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": 4,
+     "raw": "4",
+     "correct": false,
+     "seconds": 1.23,
+     "prompt_tokens": 566
+    },
+    {
+     "qid": "q6",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "raw": "4",
+     "correct": true,
+     "seconds": 1.59,
+     "prompt_tokens": 566
+    },
+    {
+     "qid": "q7",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": 4,
+     "answer": 4,
+     "raw": "4",
+     "correct": true,
+     "seconds": 1.46,
+     "prompt_tokens": 566
+    },
+    {
+     "qid": "q8",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": 6,
+     "answer": 6,
+     "raw": "6",
+     "correct": true,
+     "seconds": 1.31,
+     "prompt_tokens": 490
+    },
+    {
+     "qid": "q9",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": "2026-07-15",
+     "answer": "2026-07-15",
+     "raw": "2026-07-15",
+     "correct": true,
+     "seconds": 1.76,
+     "prompt_tokens": 563
+    },
+    {
+     "qid": "q10",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 0,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.41,
+     "prompt_tokens": 532
+    },
+    {
+     "qid": "q11",
+     "chain": "hiring",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "1",
+     "correct": true,
+     "seconds": 1.64,
+     "prompt_tokens": 518
+    },
+    {
+     "qid": "q12",
+     "chain": "hiring",
+     "type": "as_of_tx",
+     "gold": "2026-06-30",
+     "answer": "2026-06-30",
+     "raw": "2026-06-30",
+     "correct": true,
+     "seconds": 1.58,
+     "prompt_tokens": 329
+    },
+    {
+     "qid": "q13",
+     "chain": "hiring",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": "done",
+     "raw": "done",
+     "correct": false,
+     "seconds": 1.74,
+     "prompt_tokens": 549
+    },
+    {
+     "qid": "q1",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": 25,
+     "answer": 25,
+     "raw": "25",
+     "correct": true,
+     "seconds": 1.74,
+     "prompt_tokens": 532
+    },
+    {
+     "qid": "q2",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "Strategic Buyer",
+     "answer": "Strategic Buyer",
+     "raw": "Strategic Buyer",
+     "correct": true,
+     "seconds": 1.85,
+     "prompt_tokens": 531
+    },
+    {
+     "qid": "q3",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "2026-06-30",
+     "answer": "2026-05-29",
+     "raw": "2026-05-29",
+     "correct": false,
+     "seconds": 1.89,
+     "prompt_tokens": 556
+    },
+    {
+     "qid": "q4",
+     "chain": "portfolio",
+     "type": "current",
+     "gold": "done",
+     "answer": "done",
+     "raw": "done",
+     "correct": true,
+     "seconds": 1.51,
+     "prompt_tokens": 526
+    },
+    {
+     "qid": "q5",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 20,
+     "answer": 20,
+     "raw": "20",
+     "correct": true,
+     "seconds": 1.66,
+     "prompt_tokens": 540
+    },
+    {
+     "qid": "q6",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": 25,
+     "answer": 20,
+     "raw": "20",
+     "correct": false,
+     "seconds": 1.64,
+     "prompt_tokens": 540
+    },
+    {
+     "qid": "q7",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-08",
+     "answer": "2026-05-07",
+     "raw": "2026-05-07",
+     "correct": false,
+     "seconds": 2.07,
+     "prompt_tokens": 557
+    },
+    {
+     "qid": "q8",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-22",
+     "answer": "2026-05-19",
+     "raw": "2026-05-19",
+     "correct": false,
+     "seconds": 1.78,
+     "prompt_tokens": 557
+    },
+    {
+     "qid": "q9",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "2026-05-29",
+     "answer": "2026-05-29",
+     "raw": "2026-05-29",
+     "correct": true,
+     "seconds": 2.11,
+     "prompt_tokens": 557
+    },
+    {
+     "qid": "q10",
+     "chain": "portfolio",
+     "type": "as_of_tx",
+     "gold": "2026-05-22",
+     "answer": "2026-06-08",
+     "raw": "2026-06-08",
+     "correct": false,
+     "seconds": 1.93,
+     "prompt_tokens": 600
+    },
+    {
+     "qid": "q11",
+     "chain": "portfolio",
+     "type": "as_of_valid",
+     "gold": "Fund X",
+     "answer": "Fund X",
+     "raw": "Fund X",
+     "correct": true,
+     "seconds": 1.59,
+     "prompt_tokens": 542
+    },
+    {
+     "qid": "q12",
+     "chain": "portfolio",
+     "type": "n_changes",
+     "gold": 3,
+     "answer": 1,
+     "raw": "1",
+     "correct": false,
+     "seconds": 1.43,
+     "prompt_tokens": 530
+    },
+    {
+     "qid": "q1",
+     "chain": "tender",
+     "type": "current",
+     "gold": "Vendor Gamma",
+     "answer": "Vendor Gamma",
+     "raw": "Vendor Gamma",
+     "correct": true,
+     "seconds": 1.47,
+     "prompt_tokens": 582
+    },
+    {
+     "qid": "q2",
+     "chain": "tender",
+     "type": "current",
+     "gold": 5500000,
+     "answer": 5500000,
+     "raw": "5500000",
+     "correct": true,
+     "seconds": 1.65,
+     "prompt_tokens": 571
+    },
+    {
+     "qid": "q3",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "2026-04-03",
+     "answer": "2026-03-20",
+     "raw": "2026-03-20",
+     "correct": false,
+     "seconds": 1.83,
+     "prompt_tokens": 574
+    },
+    {
+     "qid": "q4",
+     "chain": "tender",
+     "type": "current",
+     "gold": "kelvin",
+     "answer": "kelvin",
+     "raw": "kelvin",
+     "correct": true,
+     "seconds": 1.67,
+     "prompt_tokens": 581
+    },
+    {
+     "qid": "q5",
+     "chain": "tender",
+     "type": "current",
+     "gold": "cancelled",
+     "answer": "cancelled",
+     "raw": "cancelled",
+     "correct": true,
+     "seconds": 1.42,
+     "prompt_tokens": 570
+    },
+    {
+     "qid": "q6",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "Vendor Beta",
+     "answer": "Vendor Beta",
+     "raw": "Vendor Beta",
+     "correct": true,
+     "seconds": 1.29,
+     "prompt_tokens": 590
+    },
+    {
+     "qid": "q7",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": 5000000,
+     "answer": 5500000,
+     "raw": "5500000",
+     "correct": false,
+     "seconds": 1.56,
+     "prompt_tokens": 579
+    },
+    {
+     "qid": "q8",
+     "chain": "tender",
+     "type": "as_of_tx",
+     "gold": 5000000,
+     "answer": 5000000,
+     "raw": "5000000",
+     "correct": true,
+     "seconds": 1.14,
+     "prompt_tokens": 365
+    },
+    {
+     "qid": "q9",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": "zul",
+     "answer": "zul",
+     "raw": "zul",
+     "correct": true,
+     "seconds": 1.5,
+     "prompt_tokens": 589
+    },
+    {
+     "qid": "q10",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 0,
+     "raw": "0",
+     "correct": false,
+     "seconds": 1.3,
+     "prompt_tokens": 512
+    },
+    {
+     "qid": "q11",
+     "chain": "tender",
+     "type": "n_changes",
+     "gold": 1,
+     "answer": 1,
+     "raw": "1",
+     "correct": true,
+     "seconds": 1.29,
+     "prompt_tokens": 510
+    },
+    {
+     "qid": "q12",
+     "chain": "tender",
+     "type": "as_of_valid",
+     "gold": null,
+     "answer": "cancelled",
+     "raw": "cancelled",
+     "correct": false,
+     "seconds": 1.55,
+     "prompt_tokens": 578
+    }
+   ],
+   "median_seconds": 1.58,
+   "mean_prompt_tokens": 541.8378378378378
+  }
+ }
+}

@@ -1,0 +1,15 @@
+{
+  "family": "contrast",
+  "layer": 30,
+  "direction_file": "directions/contrast_layer30.npz",
+  "direction_sha256": "ce3b6989e64454ad15747b1599cc620e936b209bc597dedb2822080c7692051d",
+  "seed": 20261103,
+  "formula": "W' = W - strength * u v^T",
+  "base_projection_norm": 45.902069091796875,
+  "unit_strength_edit_norm": 1.3212602138519287,
+  "relative_unit_edit_norm": 0.02878432720899582,
+  "columns": 9216,
+  "u_sha256": "fdf86dbdcf70fc8ba6af6b1593f01e7e1e89553c92e257f03c6dd37d8d50933b",
+  "v_sha256": "dc97f5a083a4d5557e51a850f172bb6e85c836bcbf04a18c6059ecae1bfa7e3f",
+  "strength": 1
+}

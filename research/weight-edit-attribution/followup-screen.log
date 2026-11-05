@@ -1,0 +1,16 @@
+{"condition": "random", "tag": "IS1008b", "seconds": 21.11973645800026, "output_tokens": 420, "peak_gb": 3.988828824}
+{"condition": "random", "tag": "IS1008c", "seconds": 9.076367833011318, "output_tokens": 90, "peak_gb": 3.988845748}
+{"condition": "random", "tag": "IS1008d", "seconds": 27.21500991701032, "output_tokens": 570, "peak_gb": 3.922293518}
+{"condition": "random", "tag": "TS3006d", "seconds": 9.894597458012868, "output_tokens": 59, "peak_gb": 3.98883214}
+{"condition": "amplify", "tag": "ES2003c", "seconds": 11.347511125000892, "output_tokens": 141, "peak_gb": 3.988829192}
+{"condition": "amplify", "tag": "ES2003d", "seconds": 13.230159416998504, "output_tokens": 199, "peak_gb": 3.988829168}
+{"condition": "amplify", "tag": "TS3004c", "seconds": 23.723656542017125, "output_tokens": 491, "peak_gb": 3.988830152}
+{"condition": "amplify", "tag": "TS3004c", "seconds": 13.731981958000688, "output_tokens": 181, "peak_gb": 3.98883092}
+{"condition": "amplify", "tag": "TS3004d", "seconds": 8.485098249977455, "output_tokens": 45, "peak_gb": 3.988830828}
+{"condition": "amplify", "tag": "ES2011b", "seconds": 68.52054058300564, "output_tokens": 1765, "peak_gb": 3.92229365}
+{"condition": "amplify", "tag": "IS1008b", "seconds": 20.05532079099794, "output_tokens": 420, "peak_gb": 3.988828824}
+{"condition": "amplify", "tag": "IS1008c", "seconds": 9.072230083984323, "output_tokens": 90, "peak_gb": 3.988829364}
+{"condition": "amplify", "tag": "IS1008d", "seconds": 22.799051415990107, "output_tokens": 489, "peak_gb": 3.988828944}
+{"condition": "amplify", "tag": "TS3006d", "seconds": 8.489274167019175, "output_tokens": 59, "peak_gb": 3.98883214}
+{"condition": "base-regression", "tag": "ES2003c", "seconds": 9.3750336660014, "output_tokens": 141, "peak_gb": 3.988818824}
+{"closed": true, "preflight": {"time": "2026-11-03T16:08:27+0800", "conflicts": []}, "seconds": 286.7930840420013, "process_peak_gb": 2.263400448}

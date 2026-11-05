@@ -1,0 +1,763 @@
+[
+  {
+    "path": "24q4-laputa-start.md",
+    "filename": "24q4-laputa-start.md",
+    "title": "Start Laputa App Project",
+    "isA": "Project",
+    "aliases": [
+      "[[Start Laputa App Project]]"
+    ],
+    "belongsTo": [
+      "[[24q4]]"
+    ],
+    "status": "Done",
+    "fileSize": 443,
+    "snippet": "The original spike that proved Memoria could read a markdown vault, render note metadata, and support keyboard-first navigation. Set the initial four-panel layo...",
+    "relationships": {
+      "belongs_to": [
+        "[[24q4]]"
+      ],
+      "Type": [
+        "[[project]]"
+      ],
+      "owner": [
+        "[[person-luca-rossi]]"
+      ]
+    },
+    "wordCount": 38,
+    "outgoingLinks": [
+      "25q1-laputa-v1"
+    ],
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "24q4.md",
+    "filename": "24q4.md",
+    "title": "Q4 2024",
+    "isA": "Quarter",
+    "aliases": [
+      "[[Q4 2024]]"
+    ],
+    "status": "Done",
+    "fileSize": 320,
+    "snippet": "The quarter where the Laputa prototype became real enough to replace sketches and notes. Started 24q4-laputa-start as the first working app spike. Captured the ...",
+    "relationships": {
+      "has": [
+        "[[24q4-laputa-start]]"
+      ],
+      "Type": [
+        "[[quarter]]"
+      ]
+    },
+    "wordCount": 29,
+    "outgoingLinks": [
+      "24q4-laputa-start"
+    ],
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "25q1-laputa-v1.md",
+    "filename": "25q1-laputa-v1.md",
+    "title": "Laputa App V1",
+    "isA": "Project",
+    "aliases": [
+      "[[Laputa App V1]]"
+    ],
+    "belongsTo": [
+      "[[25q1]]"
+    ],
+    "status": "Done",
+    "fileSize": 392,
+    "snippet": "The first usable release for daily browsing, quick open, and note-property editing. Shipped the working command palette. Made the inspector practical for real f...",
+    "relationships": {
+      "belongs_to": [
+        "[[25q1]]"
+      ],
+      "owner": [
+        "[[person-luca-rossi]]"
+      ],
+      "Type": [
+        "[[project]]"
+      ]
+    },
+    "wordCount": 31,
+    "outgoingLinks": [
+      "25q2-laputa-v2"
+    ],
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "25q1.md",
+    "filename": "25q1.md",
+    "title": "Q1 2025",
+    "isA": "Quarter",
+    "aliases": [
+      "[[Q1 2025]]"
+    ],
+    "status": "Done",
+    "fileSize": 201,
+    "snippet": "The first period where Laputa was usable for daily navigation, quick open, and inspector flows.",
+    "relationships": {
+      "Type": [
+        "[[quarter]]"
+      ],
+      "has": [
+        "[[25q1-laputa-v1]]"
+      ]
+    },
+    "wordCount": 15,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "25q2-laputa-v2.md",
+    "filename": "25q2-laputa-v2.md",
+    "title": "Laputa App V2",
+    "isA": "Project",
+    "aliases": [
+      "[[Laputa App V2]]"
+    ],
+    "belongsTo": [
+      "[[25q2]]"
+    ],
+    "relatedTo": [
+      "[[laputa-qa-reference]]"
+    ],
+    "status": "Active",
+    "fileSize": 463,
+    "snippet": "The active polish project used for current QA, especially richer editing, keyboard navigation, and attachment rendering. Tightened the editor interaction model....",
+    "relationships": {
+      "owner": [
+        "[[person-luca-rossi]]"
+      ],
+      "belongs_to": [
+        "[[25q2]]"
+      ],
+      "related_to": [
+        "[[laputa-qa-reference]]"
+      ],
+      "Type": [
+        "[[project]]"
+      ]
+    },
+    "wordCount": 33,
+    "outgoingLinks": [
+      "laputa-qa-reference"
+    ],
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "25q2.md",
+    "filename": "25q2.md",
+    "title": "Q2 2025",
+    "isA": "Quarter",
+    "aliases": [
+      "[[Q2 2025]]"
+    ],
+    "status": "Active",
+    "fileSize": 191,
+    "snippet": "The polish cycle focused on richer editing, faster linking, and better keyboard QA.",
+    "relationships": {
+      "has": [
+        "[[25q2-laputa-v2]]"
+      ],
+      "Type": [
+        "[[quarter]]"
+      ]
+    },
+    "wordCount": 13,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "area-building.md",
+    "filename": "area-building.md",
+    "title": "Building",
+    "isA": "Area",
+    "aliases": [
+      "[[Building]]"
+    ],
+    "fileSize": 203,
+    "snippet": "The business-facing area used in QA to anchor a responsibility with linked procedures and metrics.",
+    "relationships": {
+      "has": [
+        "[[responsibility-sponsorships]]"
+      ],
+      "Type": [
+        "[[area]]"
+      ]
+    },
+    "wordCount": 15,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "attachments/laputa-reference.png",
+    "filename": "laputa-reference.png",
+    "title": "laputa-reference.png",
+    "fileSize": 705442,
+    "snippet": "",
+    "wordCount": 0,
+    "hasH1": false,
+    "fileKind": "binary"
+  },
+  {
+    "path": "event-team-sync-2025-01-13.md",
+    "filename": "event-team-sync-2025-01-13.md",
+    "title": "Team sync — 2025-01-13",
+    "isA": "Event",
+    "belongsTo": [
+      "[[25q1-laputa-v1]]"
+    ],
+    "relatedTo": [
+      "[[person-luca-rossi]]",
+      "[[person-matteo-cellini]]"
+    ],
+    "fileSize": 286,
+    "snippet": "Short checkpoint on V1 priorities: stabilize quick open, tighten keyboard navigation, and keep the inspector fast.",
+    "relationships": {
+      "related_to": [
+        "[[person-luca-rossi]]",
+        "[[person-matteo-cellini]]"
+      ],
+      "belongs_to": [
+        "[[25q1-laputa-v1]]"
+      ],
+      "Type": [
+        "[[event]]"
+      ]
+    },
+    "wordCount": 16,
+    "properties": {
+      "date": "2025-01-13"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "laputa-qa-reference.md",
+    "filename": "laputa-qa-reference.md",
+    "title": "Laputa QA Reference",
+    "isA": "Note",
+    "aliases": [
+      "[[Laputa QA Reference]]"
+    ],
+    "relatedTo": [
+      "[[25q2-laputa-v2]]"
+    ],
+    "fileSize": 407,
+    "snippet": "This note anchors the fixture's binary attachment scenario and gives native QA a simple note with an embedded image. !Fixture reference image Use this note to c...",
+    "relationships": {
+      "Type": [
+        "[[note]]"
+      ],
+      "related_to": [
+        "[[25q2-laputa-v2]]"
+      ]
+    },
+    "wordCount": 44,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "measure-close-rate.md",
+    "filename": "measure-close-rate.md",
+    "title": "Sponsorship Close Rate",
+    "isA": "Measure",
+    "aliases": [
+      "[[Sponsorship Close Rate]]"
+    ],
+    "belongsTo": [
+      "[[responsibility-sponsorships]]"
+    ],
+    "fileSize": 221,
+    "snippet": "Tracks how many qualified sponsor conversations become signed deals.",
+    "relationships": {
+      "belongs_to": [
+        "[[responsibility-sponsorships]]"
+      ],
+      "Type": [
+        "[[measure]]"
+      ]
+    },
+    "wordCount": 9,
+    "properties": {
+      "unit": "percent"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "measure-sponsorship-mrr.md",
+    "filename": "measure-sponsorship-mrr.md",
+    "title": "Sponsorship MRR",
+    "isA": "Measure",
+    "aliases": [
+      "[[Sponsorship MRR]]"
+    ],
+    "belongsTo": [
+      "[[responsibility-sponsorships]]"
+    ],
+    "fileSize": 238,
+    "snippet": "Tracks monthly recurring sponsorship revenue so the responsibility note has a real linked metric.",
+    "relationships": {
+      "belongs_to": [
+        "[[responsibility-sponsorships]]"
+      ],
+      "Type": [
+        "[[measure]]"
+      ]
+    },
+    "wordCount": 14,
+    "properties": {
+      "unit": "EUR/month"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "memoria-sheet-prototype-sample.md",
+    "filename": "memoria-sheet-prototype-sample.md",
+    "title": "Memoria Sheet Prototype Sample",
+    "isA": "Note",
+    "fileSize": 507,
+    "snippet": "Metric,January,February,March,Quarter Subscriptions,1200,1350,1500,=SUM(B2:D2) Services,800,900,700,=SUM(B3:D3) Expenses,650,700,760,=SUM(B4:D4) Net,=B2+B3-B4,=...",
+    "relationships": {
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "display": "sheet",
+    "wordCount": 43,
+    "properties": {
+      "tags": "spreadsheet"
+    },
+    "hasH1": false,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "note-on-clear-prose.md",
+    "filename": "note-on-clear-prose.md",
+    "title": "On Clear Prose",
+    "isA": "Note",
+    "fileSize": 151,
+    "snippet": "Reference note for a book worth reopening whenever prose starts to feel bloated.",
+    "relationships": {
+      "topics": [
+        "[[topic-writing]]"
+      ],
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "wordCount": 13,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "person-luca-rossi.md",
+    "filename": "person-luca-rossi.md",
+    "title": "Luca Rossi",
+    "isA": "Person",
+    "aliases": [
+      "[[Luca Rossi]]"
+    ],
+    "fileSize": 168,
+    "snippet": "Owns the Laputa product work and remains the primary owner on the fixture's project notes.",
+    "relationships": {
+      "Type": [
+        "[[person]]"
+      ]
+    },
+    "wordCount": 15,
+    "properties": {
+      "tier": "1st"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "person-matteo-cellini.md",
+    "filename": "person-matteo-cellini.md",
+    "title": "Matteo Cellini",
+    "isA": "Person",
+    "aliases": [
+      "[[Matteo Cellini]]"
+    ],
+    "fileSize": 190,
+    "snippet": "Owns sponsor outreach and makes the responsibility/procedure relationships feel like real working notes.",
+    "relationships": {
+      "Type": [
+        "[[person]]"
+      ]
+    },
+    "wordCount": 14,
+    "properties": {
+      "tier": "1st"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "procedure-quarterly-sponsor-outreach.md",
+    "filename": "procedure-quarterly-sponsor-outreach.md",
+    "title": "Quarterly Sponsor Outreach",
+    "isA": "Procedure",
+    "aliases": [
+      "[[Quarterly Sponsor Outreach]]"
+    ],
+    "belongsTo": [
+      "[[responsibility-sponsorships]]"
+    ],
+    "fileSize": 422,
+    "snippet": "Review the pipeline, choose the next target companies, and send a fresh outreach batch each quarter. Start from last quarter's warm leads. Share the shortlist w...",
+    "relationships": {
+      "belongs_to": [
+        "[[responsibility-sponsorships]]"
+      ],
+      "owner": [
+        "[[person-matteo-cellini]]"
+      ],
+      "Type": [
+        "[[procedure]]"
+      ]
+    },
+    "wordCount": 29,
+    "outgoingLinks": [
+      "person-matteo-cellini"
+    ],
+    "properties": {
+      "cadence": "Quarterly"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "procedure-sponsor-onboarding.md",
+    "filename": "procedure-sponsor-onboarding.md",
+    "title": "Sponsor Onboarding",
+    "isA": "Procedure",
+    "aliases": [
+      "[[Sponsor Onboarding]]"
+    ],
+    "belongsTo": [
+      "[[responsibility-sponsorships]]"
+    ],
+    "fileSize": 389,
+    "snippet": "Turn a signed sponsor into a smooth first placement with minimal back-and-forth. Confirm the publication date. Review copy and assets. Hand off recurring commun...",
+    "relationships": {
+      "belongs_to": [
+        "[[responsibility-sponsorships]]"
+      ],
+      "owner": [
+        "[[person-luca-rossi]]"
+      ],
+      "Type": [
+        "[[procedure]]"
+      ]
+    },
+    "wordCount": 25,
+    "outgoingLinks": [
+      "person-matteo-cellini"
+    ],
+    "properties": {
+      "cadence": "As needed"
+    },
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "refactoring-business-plan.md",
+    "filename": "refactoring-business-plan.md",
+    "title": "Refactoring Business Plan",
+    "isA": "Note",
+    "fileSize": 12579,
+    "snippet": "Refactoring business plan,3-year monthly operating model,,,,,,,,,,,,,,,,, Start free newsletter subscribers,2500,,,,,,,,,,,,,,,,, Monthly free subscriber growth...",
+    "relationships": {
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "display": "sheet",
+    "wordCount": 2353,
+    "properties": {
+      "tags": [
+        "spreadsheet",
+        "business-plan"
+      ]
+    },
+    "hasH1": false,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "responsibility-sponsorships.md",
+    "filename": "responsibility-sponsorships.md",
+    "title": "Sponsorships",
+    "isA": "Responsibility",
+    "aliases": [
+      "[[Sponsorships]]"
+    ],
+    "belongsTo": [
+      "[[area-building]]"
+    ],
+    "status": "Open",
+    "fileSize": 547,
+    "snippet": "The compact responsibility used to verify that wikilink-valued fields render as relationships instead of plain text properties. status stays a normal property. ...",
+    "relationships": {
+      "has_measures": [
+        "[[measure-sponsorship-mrr]]",
+        "[[measure-close-rate]]"
+      ],
+      "Type": [
+        "[[responsibility]]"
+      ],
+      "belongs_to": [
+        "[[area-building]]"
+      ],
+      "has_procedures": [
+        "[[procedure-quarterly-sponsor-outreach]]",
+        "[[procedure-sponsor-onboarding]]"
+      ]
+    },
+    "wordCount": 31,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "rtl-mixed-direction-qa.md",
+    "filename": "rtl-mixed-direction-qa.md",
+    "title": "RTL Mixed Direction QA",
+    "isA": "Note",
+    "fileSize": 631,
+    "snippet": "مرحبا بالعالم. هذه فقرة عربية لاختبار اتجاه النص من اليمين إلى اليسار داخل محرر تولاريا....",
+    "relationships": {
+      "topics": [
+        "[[topic-writing]]"
+      ],
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "wordCount": 73,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "topic-writing.md",
+    "filename": "topic-writing.md",
+    "title": "Writing",
+    "isA": "Topic",
+    "aliases": [
+      "[[Writing]]"
+    ],
+    "fileSize": 219,
+    "snippet": "The exact-match Quick Open target for search ranking QA. writing-for-clarity-vs-writing-for-credit writing-weekly-rhythm note-on-clear-prose",
+    "relationships": {
+      "Type": [
+        "[[topic]]"
+      ]
+    },
+    "wordCount": 9,
+    "outgoingLinks": [
+      "note-on-clear-prose",
+      "writing-for-clarity-vs-writing-for-credit",
+      "writing-weekly-rhythm"
+    ],
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/area.md",
+    "filename": "area.md",
+    "title": "Area",
+    "isA": "Type",
+    "fileSize": 145,
+    "snippet": "Areas are ongoing domains of responsibility with no fixed end date.",
+    "icon": "folders",
+    "color": "amber",
+    "sidebarLabel": "Areas",
+    "wordCount": 11,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/event.md",
+    "filename": "event.md",
+    "title": "Event",
+    "isA": "Type",
+    "fileSize": 153,
+    "snippet": "Events are time-bound occurrences tied to projects, people, or periods.",
+    "icon": "calendar",
+    "color": "orange",
+    "sidebarLabel": "Events",
+    "wordCount": 10,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/measure.md",
+    "filename": "measure.md",
+    "title": "Measure",
+    "isA": "Type",
+    "fileSize": 160,
+    "snippet": "Measures track the numbers that matter for a responsibility or project.",
+    "icon": "chart-line-up",
+    "color": "cyan",
+    "sidebarLabel": "Measures",
+    "wordCount": 11,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/note.md",
+    "filename": "note.md",
+    "title": "Note",
+    "isA": "Type",
+    "fileSize": 162,
+    "snippet": "Notes capture references, ideas, or QA artifacts that do not need a more specific type.",
+    "icon": "note",
+    "color": "slate",
+    "sidebarLabel": "Notes",
+    "wordCount": 15,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/person.md",
+    "filename": "person.md",
+    "title": "Person",
+    "isA": "Type",
+    "fileSize": 145,
+    "snippet": "People notes represent collaborators, owners, or recurring contacts.",
+    "icon": "user",
+    "color": "rose",
+    "sidebarLabel": "People",
+    "wordCount": 8,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/procedure.md",
+    "filename": "procedure.md",
+    "title": "Procedure",
+    "isA": "Type",
+    "fileSize": 162,
+    "snippet": "Procedures describe repeatable workflows that support a responsibility.",
+    "icon": "checklist",
+    "color": "violet",
+    "sidebarLabel": "Procedures",
+    "wordCount": 8,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/project.md",
+    "filename": "project.md",
+    "title": "Project",
+    "isA": "Type",
+    "fileSize": 159,
+    "snippet": "Projects are time-bound efforts with an owner, a status, and a clear outcome.",
+    "icon": "rocket",
+    "color": "blue",
+    "sidebarLabel": "Projects",
+    "wordCount": 13,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/quarter.md",
+    "filename": "quarter.md",
+    "title": "Quarter",
+    "isA": "Type",
+    "fileSize": 165,
+    "snippet": "Quarter notes group the initiatives and outcomes for a planning window.",
+    "icon": "clock-countdown",
+    "color": "emerald",
+    "sidebarLabel": "Quarters",
+    "wordCount": 11,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/responsibility.md",
+    "filename": "responsibility.md",
+    "title": "Responsibility",
+    "isA": "Type",
+    "fileSize": 185,
+    "snippet": "Responsibilities are long-lived ownership areas with linked procedures and measures.",
+    "icon": "briefcase",
+    "color": "green",
+    "sidebarLabel": "Responsibilities",
+    "wordCount": 10,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "type/topic.md",
+    "filename": "topic.md",
+    "title": "Topic",
+    "isA": "Type",
+    "fileSize": 161,
+    "snippet": "Topics collect related notes and make search/navigation scenarios easy to inspect.",
+    "icon": "books",
+    "color": "indigo",
+    "sidebarLabel": "Topics",
+    "wordCount": 12,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "views/active-projects.yml",
+    "filename": "active-projects.yml",
+    "title": "Active Projects",
+    "fileSize": 141,
+    "snippet": "",
+    "wordCount": 0,
+    "hasH1": false,
+    "fileKind": "text"
+  },
+  {
+    "path": "writing-for-clarity-vs-writing-for-credit.md",
+    "filename": "writing-for-clarity-vs-writing-for-credit.md",
+    "title": "Writing for Clarity vs. Writing for Credit",
+    "isA": "Note",
+    "status": "Published",
+    "fileSize": 260,
+    "snippet": "Write to be understood before you write to impress. This note exists so Writing has a strong prefix match underneath the exact title result.",
+    "relationships": {
+      "topics": [
+        "[[topic-writing]]"
+      ],
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "wordCount": 24,
+    "hasH1": true,
+    "fileKind": "markdown"
+  },
+  {
+    "path": "writing-weekly-rhythm.md",
+    "filename": "writing-weekly-rhythm.md",
+    "title": "Writing Weekly Rhythm",
+    "isA": "Note",
+    "status": "Active",
+    "fileSize": 190,
+    "snippet": "A short operational note about keeping a weekly publishing cadence without overproducing drafts.",
+    "relationships": {
+      "topics": [
+        "[[topic-writing]]"
+      ],
+      "Type": [
+        "[[note]]"
+      ]
+    },
+    "wordCount": 13,
+    "hasH1": true,
+    "fileKind": "markdown"
+  }
+]

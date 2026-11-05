@@ -1,0 +1,135 @@
+# Series IS1004
+
+## APPROVED DECISIONS
+
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [IS1003a:07:40] The remote will have new functions that existing remotes do not have.
+- [ES2014c:13:18] The remote will contain a simple chip. (replaces an advanced chip)
+- [ES2015c:28:35] Regular chip will be used.
+- [IS1006a:05:48] The remote will be child proof.
+- [TS3005c:28:24] The case will be single curved. (replaces a double curved case)
+- [ES2007a:17:40] The remote will have a lock function.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2015b:29:48] Alarm locator will be implemented.
+- [IS1006c:27:31] The remote will incorporate a fruit and vegetable theme.
+- [IS1004b:27:38] The remote control should be fancy, a good shape, and not too small or too big.
+- [ES2006c:28:46] The case will be flat on top and curved on the bottom.
+- [ES2016c:34:50] The case will be made of plastic with rubber grips.
+- [TS3011b:10:13] LED's can be used to light up the remote.
+- [TS3003c:32:18] The case will be single curved. (replaces a double curved case)
+- [ES2016b:23:37] The remote will be simple.
+- [TS3005c:27:12] The case will be made of rubber.
+- [TS3009c:24:59] The case will be titanium with a plastic front with rounded buttons.
+- [TS3008c:34:09] The case will be made of plastic and rubber. (replaces a metal case)
+- [TS3007c:33:59] The energy source will be a combination of batteries and kinetic energy.
+- [ES2012c:07:29] The remote will have a long-term battery source.
+- [ES2002c:38:36] The materials used will be plastic and rubber. (replaces a wooden case)
+- [ES2005c:31:55] The remote will be powered by rechargeable batteries and come with a recharging stand. (replaces solar power)
+- [ES2013b:28:52] The remote will have large buttons.
+- [TS3009c:07:08] The push buttons are going to be made of rubber.
+- [IS1004b:28:23] Because of budget restrictions, they cannot do speech recognition technologies. (replaces speech recognition)
+- [ES2015c:26:59] The remote will run on kinetic energy.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [ES2009c:25:19] The remote control will be made of a soft rubber material. (replaces a plastic casing)
+- [ES2015b:31:33] Glow in the dark buttons, self-timed lighting.
+- [ES2014b:29:34] The remote will feature a locator function that responds to clapping.
+- [TS3003c:21:53] The remote will use an advanced chip.
+- [TS3003a:22:59] The remote will be waterproof.
+- [ES2007c:28:10] The remote will use a kinetic battery. (replaces regular batteries)
+- [ES2007b:23:40] The remote will use a regular infra-red signal.
+- [ES2015c:22:55] Will use personal face places.
+- [IS1006b:33:17] An automatic on/off feature will not be used.
+- [IS1004a:10:38] They will target the international market.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [TS3011c:30:09] A single-curved rubber casing can also be used.
+- [TS3009a:20:11] Specific ideas as to components and materials are to be left to the next meeting.
+- [TS3012a:12:39] They also agreed to choose light materials.
+- [ES2002c:30:39] The remote will not have a talk-back function.
+- [ES2012c:07:44] The remote will contain a custom chip.
+- [ES2013c:37:17] The remote will use push buttons.
+- [IS1003c:27:06#2] The remote will use low level chips. (replaces an advanced chip)
+- [IS1004a:10:32] They will generate a proft of fifty million Euros.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [ES2002b:30:20] The remote will use regular batteries.
+- [TS3010c:29:25] The remote will use a normal battery. (replaces solar power)
+- [ES2002c:24:29] The remote will be curvy.
+- [ES2002c:38:42] The case will have a soft fruit-like feel to it.
+- [ES2015c:28:21] Push buttons will be used.
+- [IS1003b:22:54] The remote has to be fashionable.
+- [ES2007c:07:52] The case will be made of rubber.
+- [ES2014c:27:31] The remote will also feature a rubber case and rubber buttons, and a single-curved design. (replaces a double curved case)
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [IS1001c:15:46] The group decided on the features that will be incorporated into the design of the prototype.
+- [ES2015c:23:12] Control will light up when you touch a button.
+- [ES2015c:29:02] Case will be plastic and coated in rubber.
+- [TS3012b:31:31] The important buttons will be on top.
+- [ES2016b:23:35] The remote will look appealing.
+- [IS1004c:28:50] Thus far, LCD and ASR have been ruled out.
+- [ES2016c:33:34] The remote will use conventional batteries.
+- [IS1003a:07:22] The remote will not be too expensive.
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [TS3011a:03:16] The group will design a trendy, original and user-friendly remote control.
+- [ES2016b:26:49] The remote will have a minimal number of buttons.
+- [ES2010b:12:04] The remote will feature a smart processor chip to accomodate all of the remote's functions.
+- [ES2008c:26:54] The remote will use a kinetic battery.
+- [ES2016b:23:40] The remote will be easy to find.
+- [IS1004a:10:21] The target selling price will be 25 Euro dollars.
+- [IS1003c:27:06#3] The case of the remote will be made of wood. (replaces a titanium case)
+- [ES2013b:28:47] The remote will have an enter button and number buttons.
+- [TS3009c:26:39] The chip is going to be a standard one. (replaces an advanced chip)
+- [ES2007c:12:10] The remote will not use a chip on print.
+- [ES2008b:32:36] The remote will have large buttons for essential functions.
+- [ES2013c:36:00] The case of the remote will be made of rubber.
+- [IS1003c:27:06] The remote will use solar energy.
+- [IS1001c:18:19] The remote will use standard batteries. (replaces solar power)
+- [TS3005b:25:09] The remote will have a rechargeable battery which comes with a charger.
+- [IS1004b:27:47] To target towards young people will bring in new technology.
+- [IS1006c:31:24] The remote will use two regular batteries.
+- [IS1000c:31:43] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [TS3011b:29:47] A recharging cradle can be added to compensate for the extra energy consumption.
+- [TS3011c:30:17] The preferred energy source was a combination of batteries and solar cells.
+- [TS3003a:22:54] The remote will be shockproof.
+- [IS1004b:11:21] Corporate logo will be clearly displayed on product. (replaces a remote without the corporate image)
+- [ES2002b:28:23] The remote will use an infra-red sensor.
+- [ES2007c:14:26] The case will be double curved.
+- [ES2006c:29:05] The remote control and its buttons will be made of rubber. (replaces a wooden case)
+- [ES2005c:28:53] The remote will feature a rubber or latex casing.
+- [ES2005b:23:09] The number of button functions will be limited to make the remote user-friendly.
+- [ES2008b:33:05] The buttons for extra, infrequently used functions will be hidden in the design in some manner.
+- [TS3009a:22:12] They will look further at the idea of covers in the mext meeting too.
+- [TS3005c:25:07] The remote will use a chip on print.
+- [ES2015b:06:48] Will reserach environmental factor.
+- [ES2007b:22:34] The remote will have an ergonomic design.
+- [IS1004c:32:57] The remote will have a base station, a button on the base station to press, 2 scroll wheels for the channels and volume, a turbo button (possibly underneath the device), and an on/off button for the TV.
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [TS3003b:34:42] The remote will be made to accommodate different languages.
+- [ES2007c:09:59] The remote will have rubber push buttons.
+- [ES2012b:05:27] The remote will be extremely simple.
+- [TS3005b:39:04] The remote will be button-less.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [IS1006c:27:28] The remote will have some buttons.
+- [IS1004b:10:46] The remote control will be for television only.
+- [ES2012c:34:15] If used, face plates will be cheap.
+- [ES2013c:33:59] The remote will use a kinetic battery. (replaces regular batteries)
+- [ES2008a:12:32] An additional remote will contain special functions.
+- [TS3010c:32:20] The case will be made of hard plastic and rubber. (replaces a titanium case)
+- [TS3008b:16:35] The remote will have a simple, trendy design, with some kind of special feature that makes it stand out.
+- [ES2008c:34:39] The remote will have a simple chip.
+- [ES2008c:30:28] The remote will have a latex case.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [TS3009b:11:15] The solution to complaints about remote controls being difficult to learn is to focus on an intuitive design instead of a thorough manual.
+
+## LIVE STATEMENTS (label each one)
+
+- IS1004-S-01: We are pricing the remote at 25 Euro.
+- IS1004-S-02: Okay, we are targeting an international market.
+- IS1004-O-01: The remote will include speech recognition.
+- IS1004-O-02: Okay, the corporate image will not be shown on the remote.
+- IS1004-C-01: The remote will work with several devices.
+- IS1004-C-02: Right, the remote will only be sold in Europe.
+- IS1004-U-01: Okay, let's add a high-contrast colour scheme for the buttons.
+- IS1004-U-02: Let's add a shake-to-wake gesture.
+- IS1004-I-01: I can't believe how busy the roads were today.
+- IS1004-I-02: I'm trying to cut down on sugar this month.
+- IS1004-E-01: So the project manager from the other team has asked for a progress report.
+- IS1004-E-02: Right, the retailer wants a first order of fifty thousand units.

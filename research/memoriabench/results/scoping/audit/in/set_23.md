@@ -1,0 +1,87 @@
+# Meeting set 23
+
+## APPROVED DECISIONS
+
+- [d001] The remote will also include volume and program selection, and speech recognition.
+- [d002] Changeable covers for the remote control can link the product to current fashion trends, but also trends followed by other age groups.
+- [d003] The target demographic is people aged fifteen to thirty five.
+- [d004] A recharging cradle can be added to compensate for the extra energy consumption.
+- [d005] The remote will have some buttons.
+- [d006] It will be placed at the top of the banana shape.
+- [d007] Another button to switch between two channels could also be implemented.
+- [d008] The remote will be easy to learn.
+- [d009] The remote will have a minimal number of buttons.
+- [d010] The remote will not use a chip on print.
+- [d011] The remote will feature a locator function that responds to clapping.
+- [d012] The preferred energy source was a combination of batteries and solar cells.
+- [d013] A scroll wheel will be included in the design.
+- [d014] It would be a good idea to integrate a mechanism for finding the remote control, when the user loses it.
+- [d015] The remote will have a jog dial.
+- [d016] The remote should not have too many buttons.
+- [d017] The remote will be sold internationally.
+- [d018] The remote will need to be different from those available in the market in terms of shape and colour.
+- [d019] The remote will go into standby when idle.
+- [d020] The important buttons will be on top.
+- [d021] The remote will be fancy.
+- [d022] The team will not create a ball shaped remote. (replaces creating a ball shaped remote)
+- [d023] Will use personal face places.
+- [d024] LED's can be used to light up the remote.
+- [d025] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [d026] A single-curved rubber casing can also be used.
+- [d027] Remotes must incorporate corporate logo and color.
+- [d028] The remote will use push buttons.
+- [d029] The remote will be shockproof.
+- [d030] The remote will have an enter button and number buttons.
+- [d031] The remote will have pushbuttons.
+- [d032] The remote will be button-less.
+- [d033] The remote will control multiple devices. (replaces a television-only remote)
+- [d034] LCD is not going to be implemented. (replaces an LCD screen)
+- [d035] Using them sparsely, as in mobile phones, could bring down the cost.
+- [d036] The corporate slogan will appear on the bottom of the remote.
+- [d037] The remote will have a lock function.
+- [d038] The corporate image will be displayed on the remote. (replaces a remote without the corporate image)
+- [d039] The remote will use a chip on print.
+- [d040] The remote will incorporate a fruit and vegetable theme.
+- [d041] The remote will be waterproof.
+- [d042] The remote will use low level chips. (replaces an advanced chip)
+- [d043] The remote will use an advanced chip.
+- [d044] The remote control will be sold for 25 euros with a profit aim of 50 million euros.
+- [d045] The remote will resemble a vegetable and be in bright vegetable colors.
+- [d046] The remote will be child proof.
+- [d047] The remote will be sold directly to individual consumers rather than companies.
+- [d048] The remote will use an infra-red sensor.
+- [d049] Will reserach environmental factor.
+- [d050] The remote will be made in fruity colors.
+- [d051] The remote will feature a smart processor chip to accomodate all of the remote's functions.
+- [d052] The remote should look fancy.
+- [d053] The remote will only have a few buttons.
+- [d054] The team will also take into account possible usability issues concerning disabled people.
+- [d055] The production costs should be no more than 12.50 euros.
+- [d056] The remote will not be too expensive.
+- [d057] The case will have a soft fruit-like feel to it.
+- [d058] The remote will be yellow with black or gray buttons.
+- [d059] A single, large, round button can be used for both volume and channel selection by using the four separate quadrants.
+- [d060] The remote will be yellow or partially yellow and have an organic shape.
+- [d061] The remote will be made to accommodate different languages.
+- [d062] The remote will have new functions that existing remotes do not have.
+- [d063] The group will design a trendy, original and user-friendly remote control.
+- [d064] The remote will be shaped like a snowman.
+- [d065] The remote will be a radiaclly different shape.
+- [d066] The latter would be preferable to implementing a backlight into the remote.
+- [d067] The remote will look appealing.
+- [d068] The remote will use a regular infra-red signal.
+
+## LIVE STATEMENTS (label each one)
+
+- s01: What about adding a simple games menu?
+- s02: Okay, we are aiming for a profit of 50 million Euro.
+- s03: Well, we will put an LCD screen on the remote.
+- s04: We will add voice recognition to the remote.
+- s05: So the reviewers at the trade fair gave the mock-up four stars.
+- s06: Okay, why don't we add a button that opens the television's settings menu?
+- s07: The remote will only be sold in Europe.
+- s08: Okay, this remote is for televisions only.
+- s09: Right, the projector keeps flickering.
+- s10: Well, customer service has already received complaints about the old model.
+- s11: Okay, each remote will cost about 20 Euro to produce.
+- s12: Okay, I'm completely out of milk at home.

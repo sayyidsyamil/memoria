@@ -1,0 +1,127 @@
+{
+  "scenarios": {
+    "small": {
+      "fixtureLabel": "5-section note in a 500-entry vault",
+      "metrics": {
+        "editorVisibleMs": {
+          "baselineMs": 153.2,
+          "maxMs": 207,
+          "p90Ms": 155.4
+        },
+        "firstContentMs": {
+          "baselineMs": 162.3,
+          "maxMs": 220,
+          "p90Ms": 163.7
+        },
+        "fullAppliedMs": {
+          "baselineMs": 163.4,
+          "maxMs": 221,
+          "p90Ms": 164.9
+        },
+        "editFrameMs": {
+          "baselineMs": 2.8,
+          "maxMs": 16,
+          "p90Ms": 6.9
+        },
+        "blockResolveMs": {
+          "baselineMs": 9.4,
+          "maxMs": 35,
+          "p90Ms": 11
+        },
+        "blockApplyMs": {
+          "baselineMs": 11.1,
+          "maxMs": 37,
+          "p90Ms": 11.4
+        },
+        "noteOpenEditorSwapMs": {
+          "baselineMs": 81.5,
+          "maxMs": 111,
+          "p90Ms": 82.6
+        },
+        "noteOpenTotalMs": {
+          "baselineMs": 88.5,
+          "maxMs": 120,
+          "p90Ms": 90.3
+        }
+      }
+    },
+    "large": {
+      "fixtureLabel": "460-section note in a 500-entry vault",
+      "metrics": {
+        "editorVisibleMs": {
+          "baselineMs": 148.8,
+          "maxMs": 201,
+          "p90Ms": 153.1
+        },
+        "firstContentMs": {
+          "baselineMs": 227.5,
+          "maxMs": 308,
+          "p90Ms": 232.6
+        },
+        "fullAppliedMs": {
+          "baselineMs": 383.5,
+          "maxMs": 518,
+          "p90Ms": 389.5
+        },
+        "editFrameMs": {
+          "baselineMs": 5.6,
+          "maxMs": 16,
+          "p90Ms": 11.6
+        },
+        "blockResolveMs": {
+          "baselineMs": 38.4,
+          "maxMs": 63,
+          "p90Ms": 42.5
+        },
+        "blockApplyMs": {
+          "baselineMs": 213.2,
+          "maxMs": 288,
+          "p90Ms": 216.3
+        },
+        "noteOpenEditorSwapMs": {
+          "baselineMs": 346.8,
+          "maxMs": 469,
+          "p90Ms": 351.8
+        },
+        "noteOpenTotalMs": {
+          "baselineMs": 355.5,
+          "maxMs": 480,
+          "p90Ms": 362.9
+        }
+      }
+    },
+    "startup": {
+      "fixtureLabel": "500 deterministic vault entries",
+      "metrics": {
+        "reactShellMs": {
+          "baselineMs": 469.5,
+          "maxMs": 634,
+          "p90Ms": 479.3
+        },
+        "activeVaultUsableMs": {
+          "baselineMs": 791.6,
+          "maxMs": 1069,
+          "p90Ms": 804.1
+        },
+        "appInteractiveMs": {
+          "baselineMs": 1027.2,
+          "maxMs": 1387,
+          "p90Ms": 1038.5
+        }
+      }
+    },
+    "list": {
+      "fixtureLabel": "2,000 deterministic virtualized rows",
+      "metrics": {
+        "listScrollReadyMs": {
+          "baselineMs": 30.1,
+          "maxMs": 56,
+          "p90Ms": 31.5
+        }
+      }
+    }
+  },
+  "version": 2,
+  "updatedAt": "2026-07-27T15:42:56Z",
+  "description": "Ratcheted perceived-latency budgets for stable synthetic Memoria flows. Lower is better; maxMs values only move down unless a reviewer explicitly changes the threshold file."
+}

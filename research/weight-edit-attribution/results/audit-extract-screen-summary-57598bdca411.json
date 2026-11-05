@@ -1,0 +1,468 @@
+{
+  "binding": {
+    "question_changes": [
+      {
+        "series": "ES2003",
+        "qid": "q13",
+        "type": "n_changes",
+        "slot": "lcd",
+        "gold": 0,
+        "before": 1,
+        "after": 0,
+        "before_correct": false,
+        "after_correct": true
+      },
+      {
+        "series": "TS3004",
+        "qid": "q17",
+        "type": "n_changes",
+        "slot": "case_material",
+        "gold": 0,
+        "before": 4,
+        "after": 0,
+        "before_correct": false,
+        "after_correct": true
+      },
+      {
+        "series": "ES2011",
+        "qid": "q7",
+        "type": "current",
+        "slot": "stand",
+        "gold": "excluded",
+        "before": null,
+        "after": "included",
+        "before_correct": false,
+        "after_correct": false
+      },
+      {
+        "series": "IS1008",
+        "qid": "q1",
+        "type": "current",
+        "slot": "locator",
+        "gold": "included",
+        "before": "included",
+        "after": null,
+        "before_correct": true,
+        "after_correct": false
+      },
+      {
+        "series": "IS1008",
+        "qid": "q4",
+        "type": "current",
+        "slot": "speech",
+        "gold": "included",
+        "before": "included",
+        "after": "excluded",
+        "before_correct": true,
+        "after_correct": false
+      },
+      {
+        "series": "IS1008",
+        "qid": "q6",
+        "type": "n_changes",
+        "slot": "speech",
+        "gold": 0,
+        "before": 0,
+        "after": 1,
+        "before_correct": true,
+        "after_correct": false
+      },
+      {
+        "series": "IS1008",
+        "qid": "q16",
+        "type": "current",
+        "slot": "battery_indicator",
+        "gold": "included",
+        "before": null,
+        "after": "excluded",
+        "before_correct": false,
+        "after_correct": false
+      }
+    ],
+    "gold_event_changes": [
+      {
+        "series": "ES2003",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "TS3004",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "ES2011",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "IS1008",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "TS3006",
+        "gained": [],
+        "lost": []
+      }
+    ],
+    "new_wrong_writes": [
+      {
+        "meeting": "TS3004c",
+        "turn": 68,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "We have to decide on that."
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 142,
+        "slot": "colour",
+        "value": "various colours",
+        "gold_in_force": "yellow",
+        "quote": "So the colours also. So we have ha to ma make it in black, black, yellow."
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 156,
+        "slot": "colour",
+        "value": "various colours",
+        "gold_in_force": "yellow",
+        "quote": "Like fronts in in red and yellow and blue and"
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 164,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "Yeah, we decided that, huh?"
+      },
+      {
+        "meeting": "ES2011b",
+        "turn": 56,
+        "slot": "stand",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "So do we wanna go ahead and design this thing with the finder button?"
+      },
+      {
+        "meeting": "IS1008d",
+        "turn": 19,
+        "slot": "battery_indicator",
+        "value": "excluded",
+        "gold_in_force": "included",
+        "quote": "in terms of function, you have to be able to turn the T_V_ on and off, volume and channel control, menu control, voice recognition control, and we've incorporated the L_C_D_ screen on the flip panel as part of the design, if we figure out it's too expensive, well then you just take it off."
+      },
+      {
+        "meeting": "IS1008d",
+        "turn": 20,
+        "slot": "button_material",
+        "value": "hard plastic",
+        "gold_in_force": "soft rubber",
+        "quote": "The yellow button you have is the on off button, so it's really big, hard to miss."
+      },
+      {
+        "meeting": "IS1008d",
+        "turn": 20,
+        "slot": "speech",
+        "value": "excluded",
+        "gold_in_force": "included",
+        "quote": "And then you have the numeric pad in the dark blue at the bottom, and on the right-hand side you have the access to the menu on the T_V_, and on the left-hand side you have the the the ability to turn off the voice recognition."
+      }
+    ]
+  },
+  "context": {
+    "question_changes": [
+      {
+        "series": "TS3004",
+        "qid": "q11",
+        "type": "n_changes",
+        "slot": "teletext",
+        "gold": 0,
+        "before": 2,
+        "after": 1,
+        "before_correct": false,
+        "after_correct": false
+      },
+      {
+        "series": "TS3004",
+        "qid": "q17",
+        "type": "n_changes",
+        "slot": "case_material",
+        "gold": 0,
+        "before": 4,
+        "after": 0,
+        "before_correct": false,
+        "after_correct": true
+      },
+      {
+        "series": "IS1008",
+        "qid": "q1",
+        "type": "current",
+        "slot": "locator",
+        "gold": "included",
+        "before": "included",
+        "after": null,
+        "before_correct": true,
+        "after_correct": false
+      }
+    ],
+    "gold_event_changes": [
+      {
+        "series": "ES2003",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "TS3004",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "ES2011",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "IS1008",
+        "gained": [],
+        "lost": [
+          "IS1008d.t19.0"
+        ]
+      },
+      {
+        "series": "TS3006",
+        "gained": [],
+        "lost": []
+      }
+    ],
+    "new_wrong_writes": [
+      {
+        "meeting": "TS3004c",
+        "turn": 86,
+        "slot": "colour",
+        "value": "various colours",
+        "gold_in_force": "yellow",
+        "quote": "And then the colour buttons, if we want it on. I don't find it very usable, but it's Uh I don't think it's fits in the the modern theme as well."
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 164,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "Yeah, I dunno. Maybe. But anyways uh it should be transparent. We decided that, huh? S"
+      }
+    ]
+  },
+  "random": {
+    "question_changes": [
+      {
+        "series": "TS3004",
+        "qid": "q17",
+        "type": "n_changes",
+        "slot": "case_material",
+        "gold": 0,
+        "before": 4,
+        "after": 0,
+        "before_correct": false,
+        "after_correct": true
+      },
+      {
+        "series": "ES2011",
+        "qid": "q15",
+        "type": "n_changes",
+        "slot": "buttons",
+        "gold": 0,
+        "before": 0,
+        "after": 1,
+        "before_correct": true,
+        "after_correct": false
+      }
+    ],
+    "gold_event_changes": [
+      {
+        "series": "ES2003",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "TS3004",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "ES2011",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "IS1008",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "TS3006",
+        "gained": [],
+        "lost": []
+      }
+    ],
+    "new_wrong_writes": [
+      {
+        "meeting": "TS3004c",
+        "turn": 101,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "By just putting the volume on the side. And and just channel buttons here."
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 119,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "And uh if you don't light 'em up, they don't uh you don't see 'em very good. I think it's modern to light this area up, and to light this area up. So the focus gets on these parts and not on there."
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 142,
+        "slot": "colour",
+        "value": "various colours",
+        "gold_in_force": "yellow",
+        "quote": "So the colours also. So we have ha to ma make it in black, black, yellow."
+      },
+      {
+        "meeting": "TS3004c",
+        "turn": 164,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": "excluded",
+        "quote": "We decided that, huh?"
+      },
+      {
+        "meeting": "ES2011b",
+        "turn": 73,
+        "slot": "buttons",
+        "value": "number pad",
+        "gold_in_force": "scroll wheel",
+        "quote": "Okay so are we gonna have just some kind of a like we'll have the buzzer on the som like on the T_V_ itself."
+      }
+    ]
+  },
+  "target": {
+    "question_changes": [
+      {
+        "series": "IS1008",
+        "qid": "q3",
+        "type": "n_changes",
+        "slot": "locator",
+        "gold": 0,
+        "before": 0,
+        "after": 1,
+        "before_correct": true,
+        "after_correct": false
+      },
+      {
+        "series": "IS1008",
+        "qid": "q16",
+        "type": "current",
+        "slot": "battery_indicator",
+        "gold": "included",
+        "before": null,
+        "after": "included",
+        "before_correct": false,
+        "after_correct": true
+      }
+    ],
+    "gold_event_changes": [
+      {
+        "series": "ES2003",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "TS3004",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "ES2011",
+        "gained": [],
+        "lost": []
+      },
+      {
+        "series": "IS1008",
+        "gained": [
+          "IS1008b.t61.1"
+        ],
+        "lost": []
+      },
+      {
+        "series": "TS3006",
+        "gained": [],
+        "lost": []
+      }
+    ],
+    "new_wrong_writes": [
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "button_material",
+        "value": "soft rubber",
+        "gold_in_force": null,
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      },
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "button_material",
+        "value": "hard plastic",
+        "gold_in_force": null,
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      },
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "chip",
+        "value": "simple chip",
+        "gold_in_force": null,
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      },
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "chip",
+        "value": "advanced chip",
+        "gold_in_force": null,
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      },
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "battery_indicator",
+        "value": "included",
+        "gold_in_force": null,
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      },
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "lcd",
+        "value": "included",
+        "gold_in_force": null,
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      },
+      {
+        "meeting": "IS1008b",
+        "turn": 43,
+        "slot": "locator",
+        "value": "excluded",
+        "gold_in_force": "included",
+        "quote": "the company uh wants to make at least uh the fifty million Euro"
+      }
+    ]
+  }
+}

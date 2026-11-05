@@ -1,0 +1,1 @@
+/opt/homebrew/bin/python3.11 run.py $v --split dev --output   0.68s user 0.52s system 0% cpu 3:31.00 total

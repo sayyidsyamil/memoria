@@ -1,0 +1,86 @@
+# Research evidence
+
+The research behind Memoria's final-year project report. `ledger-engine/` and `memoriabench/`
+were moved here on 2 November 2026 from the original working folders, so that Memoria lives in
+one repository; the other folders were started here. Nothing in this folder is bundled into the app.
+
+| Folder | What it is | Origin |
+|---|---|---|
+| [`ledger-engine/`](ledger-engine/) | Evaluation of the bitemporal decision ledger (FYP2 report, Chapter 6): tests, AMI-derived data, scripts, results and frozen run logs | `~/Desktop/FYP/engine` |
+| [`memoriabench/`](memoriabench/) | MemoriaBench and the live contradiction auditor and guard, as evaluated; `results/app_live_check/` scores the app's own live check (M2) | research files of `~/Documents/memoria` |
+| [`long-meeting/`](long-meeting/) | The 60-minute AMI end-to-end check of the installed app: transcription, joining, knowledge and tracked facts (M2) | new, 2 November 2026 |
+| [`strong-model/`](strong-model/) | The October ledger and baselines rerun with DeepSeek V4.1 Flash, and on series padded to 52 meetings | new, 2 November 2026 |
+| [`firmness-gate/`](firmness-gate/) | A preregistered YES/NO check between extraction and the ledger, against random thinning | new, 2 November 2026 |
+| [`local-9b/`](local-9b/) | Qwen3.5-9B as extractor and router, on the dev split only (the test split was not run) | new, 2 November 2026 |
+| [`model-bakeoff/`](model-bakeoff/) | Four local language models through the app's own code; Qwen3.5-4B kept | new, 2 November 2026 |
+| [`app-parity/`](app-parity/) | The app's Ask against the October pipeline on the same 96 AMI questions | new, 2 November 2026 |
+| [`live-verifier/`](live-verifier/) | The live check of `v0.3.0-uat` on written, spoken and noisy MemoriaBench probes | new, 3 November 2026 |
+| [`live-speech/`](live-speech/) | Parakeet Ultra with Nemotron 3 Diarization against MOSS on the AMI hour, live captions, and end-to-end runs through the installed app | new, 3 November 2026 |
+| [`number-word-fix/`](number-word-fix/) | Production repairs for amounts stated in words, signed decimals, billion units and scientific notation; cached development replay | new, 3 November 2026 |
+| [`model-improvements/`](model-improvements/) | Extraction development experiments, stock/edited 0.8B controls, rejected candidate A and the empty-record baseline audit | new, 3 November 2026 |
+| [`weight-edit-loops/`](weight-edit-loops/) | Targeted 4B static edits and repetition stopping; measured effects, random controls and recovery failures | new, 3 November 2026 |
+| [`weight-edit-loops/qualification-20261103/`](weight-edit-loops/qualification-20261103/) | The final static edit transfers early stopping to an independent loop but loses source-supported events; rejected | new, 3 November 2026 |
+| [`weight-edit-attribution/`](weight-edit-attribution/) | Source-labelled 4B attribution diagnostics, prompt alternatives and static edits; unsupported gains rejected | new, 3 November 2026 |
+| [`weight-edit-attribution/round2/`](weight-edit-attribution/round2/) | Native object-selection diagnostics and explicit untracked-component choices; short-context gains fail the full-window source-support screen | new, 3 November 2026 |
+
+The evidence inventory is [`docs/research/RESEARCH-EVIDENCE.md`](../docs/research/RESEARCH-EVIDENCE.md).
+The [3 November integration review](REVIEW-2026-11-03.md) records accepted fixes, rejected interventions,
+historical-checkout requirements and checks run before publication.
+The report sources themselves are kept privately, outside this repository.
+
+## One engine
+
+`ledger-engine/memoria_engine` is a link to
+[`src-tauri/resources/memory/memoria_engine`](../src-tauri/resources/memory/memoria_engine),
+the copy the app runs. Both were byte-identical (22 Python files) when moved; see its
+`PROVENANCE.md`. Change the engine in that one place only.
+
+## Checks that need no model
+
+```sh
+cd research/ledger-engine && python3.11 -m unittest discover -s tests
+cd research/memoriabench && for t in test_guard test_parse test_stats test_bench test_scoping \
+  test_scoping_report test_scoping_posthoc test_ch6_draft test_ami_loader; do python3.11 "$t.py"; done
+```
+
+At the move, all 291 engine tests passed and the nine MemoriaBench check scripts passed
+(900 checks). `test_guard_live.py`, `test_benchmarks.py` and `test_bakeoff.py` load models
+and were not rerun.
+
+## Data that is not in git
+
+- **Raw AMI audio and annotations** were used to derive `ledger-engine/data/ami_v0` and to
+  score speech (WER/DER). `scripts/ami/amilib.py` and `scripts/asr_der_eval.py` expect them at
+  `~/Desktop/FYP/data/ami`. To rerun those two steps, restore that folder from the backup
+  archive or download the AMI corpus there. The question-answering evaluation uses only the
+  derived `data/ami_v0`, which is included.
+- `ledger-engine/results/hybrid_embeddings` (23 MB of cached vectors from the exploratory
+  hybrid run) is regenerated by `scripts/hybrid_experiment.py`.
+- MemoriaBench downloads AMI annotations 1.6.2 into `~/Library/Caches/Memoria/ami`
+  (override with `MEMORIA_AMI_DIR`).
+
+## Status
+
+- The October ledger scored 59/96 against full context's 41 and BM25's 37. A later
+  [empty-record audit](model-improvements/baseline-audit.md) scores 58/96 with nothing extracted:
+  all past-date answers are "none", and 29 change counts are zero. On the 38 questions needing
+  a value or real change, the ledger trails both baselines (18 against 26 and 23). Its aggregate
+  lead does not establish better extraction. The historical results stay in `ledger-engine/`;
+  `HYBRID_RAG.md` and `SMALL_MODEL_REVIEW.md` there are exploratory follow-ups.
+- MemoriaBench (Macro-F1 0.87) is reported as an extension, not an objective (decided on
+  2 November, to be confirmed with the supervisor; [roadmap](../docs/ROADMAP.md), M6).
+- Historical scores describe the evaluated configurations, not the current app. The current app
+  is measured in `app-parity/`, `live-verifier/`, `live-speech/`, `long-meeting/` and
+  `memoriabench/APP_LIVE_CHECK.md`.
+- The 4B extraction experiments in `model-improvements/` use a historical 0.3.1-era baseline.
+  The production amount repairs postdate it. Development selection and repeated benchmark checks
+  are not fresh validation; the reserved extraction validation has had no model generation or scoring.
+- The targeted 4B research round is complete. No weight edit, stopping rule or attribution procedure
+  passed development qualification; see the [integration review](REVIEW-2026-11-03.md).
+
+## Licence and data
+
+Research code is original work by Sayyid Syamil, under this repository's
+AGPL-3.0-or-later licence. Data derived from the AMI Meeting Corpus is CC BY 4.0
+(Carletta et al., 2005). The fictional demonstration series contains no real people or
+organisations.

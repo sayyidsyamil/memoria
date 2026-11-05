@@ -1,0 +1,16 @@
+{"condition": "base", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "base", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "base", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"condition": "context", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "context", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "context", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"condition": "binding", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "binding", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "binding", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"condition": "target", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "target", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "target", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"condition": "random", "fixture": "two_changes", "passed": true, "actual": {"values": [250000, 280000, 300000], "changes": 2, "current": 300000}}
+{"condition": "random", "fixture": "recaps_then_switch", "passed": true, "actual": {"values": ["Alpha", "Beta"], "changes": 1, "current": "Beta"}}
+{"condition": "random", "fixture": "unchanged_recaps", "passed": true, "actual": {"values": ["Alpha"], "changes": 0, "current": "Alpha"}}
+{"closed": true, "preflight": {"time": "2026-11-03T16:00:15+0800", "conflicts": []}, "seconds": 85.78298887499841}

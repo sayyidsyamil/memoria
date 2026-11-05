@@ -1,0 +1,1 @@
+{"system": "M2@C1", "split": "test", "probes": 336, "peak_gb": 3.665, "load_s": 26.4, "wall_s": 875.1, "k": 4, "model": "mlx-community/Qwen3.5-4B-MLX-4bit", "embedder": "BAAI/bge-small-en-v1.5"}

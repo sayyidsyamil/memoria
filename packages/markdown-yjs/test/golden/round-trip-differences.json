@@ -1,0 +1,781 @@
+[
+  {
+    "note": "demo-vault-v2/24q4-laputa-start.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/24q4.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/25q1-laputa-v1.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/25q1.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/25q2-laputa-v2.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/25q2.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/area-building.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/event-team-sync-2025-01-13.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/laputa-qa-reference.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "image-path-prefix",
+        "source": [
+          "![Fixture reference image](attachments/laputa-reference.png)"
+        ],
+        "canonical": [
+          "![Fixture reference image](./attachments/laputa-reference.png)"
+        ]
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/measure-close-rate.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/measure-sponsorship-mrr.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/memoria-sheet-prototype-sample.md",
+    "byteStable": true,
+    "differences": []
+  },
+  {
+    "note": "demo-vault-v2/note-on-clear-prose.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/person-luca-rossi.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/person-matteo-cellini.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/procedure-quarterly-sponsor-outreach.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/procedure-sponsor-onboarding.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/refactoring-business-plan.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "escaping",
+        "source": [
+          "1,Jun 2026,=$B$2,=C15*$B$5,=D15/C15,=D15*$B$6,=C15*$B$10,=G15/1000*$B$8*$B$9,=1/36*$B$12*$B$11,=1*50…",
+          "2,Jul 2026,=C15*(1+$B$3-$B$4),=D15*(1-$B$7)+(C16-C15)*$B$5,=D16/C16,=D16*$B$6,=C16*$B$10,=G16/1000*$…",
+          "3,Aug 2026,=C16*(1+$B$3-$B$4),=D16*(1-$B$7)+(C17-C16)*$B$5,=D17/C17,=D17*$B$6,=C17*$B$10,=G17/1000*$…",
+          "4,Sep 2026,=C17*(1+$B$3-$B$4),=D17*(1-$B$7)+(C18-C17)*$B$5,=D18/C18,=D18*$B$6,=C18*$B$10,=G18/1000*$…",
+          "5,Oct 2026,=C18*(1+$B$3-$B$4),=D18*(1-$B$7)+(C19-C18)*$B$5,=D19/C19,=D19*$B$6,=C19*$B$10,=G19/1000*$…",
+          "6,Nov 2026,=C19*(1+$B$3-$B$4),=D19*(1-$B$7)+(C20-C19)*$B$5,=D20/C20,=D20*$B$6,=C20*$B$10,=G20/1000*$…",
+          "7,Dec 2026,=C20*(1+$B$3-$B$4),=D20*(1-$B$7)+(C21-C20)*$B$5,=D21/C21,=D21*$B$6,=C21*$B$10,=G21/1000*$…",
+          "8,Jan 2027,=C21*(1+$B$3-$B$4),=D21*(1-$B$7)+(C22-C21)*$B$5,=D22/C22,=D22*$B$6,=C22*$B$10,=G22/1000*$…",
+          "9,Feb 2027,=C22*(1+$B$3-$B$4),=D22*(1-$B$7)+(C23-C22)*$B$5,=D23/C23,=D23*$B$6,=C23*$B$10,=G23/1000*$…",
+          "10,Mar 2027,=C23*(1+$B$3-$B$4),=D23*(1-$B$7)+(C24-C23)*$B$5,=D24/C24,=D24*$B$6,=C24*$B$10,=G24/1000*…",
+          "11,Apr 2027,=C24*(1+$B$3-$B$4),=D24*(1-$B$7)+(C25-C24)*$B$5,=D25/C25,=D25*$B$6,=C25*$B$10,=G25/1000*…",
+          "12,May 2027,=C25*(1+$B$3-$B$4),=D25*(1-$B$7)+(C26-C25)*$B$5,=D26/C26,=D26*$B$6,=C26*$B$10,=G26/1000*…",
+          "13,Jun 2027,=C26*(1+$B$3-$B$4),=D26*(1-$B$7)+(C27-C26)*$B$5,=D27/C27,=D27*$B$6,=C27*$B$10,=G27/1000*…",
+          "14,Jul 2027,=C27*(1+$B$3-$B$4),=D27*(1-$B$7)+(C28-C27)*$B$5,=D28/C28,=D28*$B$6,=C28*$B$10,=G28/1000*…",
+          "15,Aug 2027,=C28*(1+$B$3-$B$4),=D28*(1-$B$7)+(C29-C28)*$B$5,=D29/C29,=D29*$B$6,=C29*$B$10,=G29/1000*…",
+          "16,Sep 2027,=C29*(1+$B$3-$B$4),=D29*(1-$B$7)+(C30-C29)*$B$5,=D30/C30,=D30*$B$6,=C30*$B$10,=G30/1000*…",
+          "17,Oct 2027,=C30*(1+$B$3-$B$4),=D30*(1-$B$7)+(C31-C30)*$B$5,=D31/C31,=D31*$B$6,=C31*$B$10,=G31/1000*…",
+          "18,Nov 2027,=C31*(1+$B$3-$B$4),=D31*(1-$B$7)+(C32-C31)*$B$5,=D32/C32,=D32*$B$6,=C32*$B$10,=G32/1000*…",
+          "19,Dec 2027,=C32*(1+$B$3-$B$4),=D32*(1-$B$7)+(C33-C32)*$B$5,=D33/C33,=D33*$B$6,=C33*$B$10,=G33/1000*…",
+          "20,Jan 2028,=C33*(1+$B$3-$B$4),=D33*(1-$B$7)+(C34-C33)*$B$5,=D34/C34,=D34*$B$6,=C34*$B$10,=G34/1000*…",
+          "21,Feb 2028,=C34*(1+$B$3-$B$4),=D34*(1-$B$7)+(C35-C34)*$B$5,=D35/C35,=D35*$B$6,=C35*$B$10,=G35/1000*…",
+          "22,Mar 2028,=C35*(1+$B$3-$B$4),=D35*(1-$B$7)+(C36-C35)*$B$5,=D36/C36,=D36*$B$6,=C36*$B$10,=G36/1000*…",
+          "23,Apr 2028,=C36*(1+$B$3-$B$4),=D36*(1-$B$7)+(C37-C36)*$B$5,=D37/C37,=D37*$B$6,=C37*$B$10,=G37/1000*…",
+          "24,May 2028,=C37*(1+$B$3-$B$4),=D37*(1-$B$7)+(C38-C37)*$B$5,=D38/C38,=D38*$B$6,=C38*$B$10,=G38/1000*…",
+          "25,Jun 2028,=C38*(1+$B$3-$B$4),=D38*(1-$B$7)+(C39-C38)*$B$5,=D39/C39,=D39*$B$6,=C39*$B$10,=G39/1000*…",
+          "26,Jul 2028,=C39*(1+$B$3-$B$4),=D39*(1-$B$7)+(C40-C39)*$B$5,=D40/C40,=D40*$B$6,=C40*$B$10,=G40/1000*…",
+          "27,Aug 2028,=C40*(1+$B$3-$B$4),=D40*(1-$B$7)+(C41-C40)*$B$5,=D41/C41,=D41*$B$6,=C41*$B$10,=G41/1000*…",
+          "28,Sep 2028,=C41*(1+$B$3-$B$4),=D41*(1-$B$7)+(C42-C41)*$B$5,=D42/C42,=D42*$B$6,=C42*$B$10,=G42/1000*…",
+          "29,Oct 2028,=C42*(1+$B$3-$B$4),=D42*(1-$B$7)+(C43-C42)*$B$5,=D43/C43,=D43*$B$6,=C43*$B$10,=G43/1000*…",
+          "30,Nov 2028,=C43*(1+$B$3-$B$4),=D43*(1-$B$7)+(C44-C43)*$B$5,=D44/C44,=D44*$B$6,=C44*$B$10,=G44/1000*…",
+          "31,Dec 2028,=C44*(1+$B$3-$B$4),=D44*(1-$B$7)+(C45-C44)*$B$5,=D45/C45,=D45*$B$6,=C45*$B$10,=G45/1000*…",
+          "32,Jan 2029,=C45*(1+$B$3-$B$4),=D45*(1-$B$7)+(C46-C45)*$B$5,=D46/C46,=D46*$B$6,=C46*$B$10,=G46/1000*…",
+          "33,Feb 2029,=C46*(1+$B$3-$B$4),=D46*(1-$B$7)+(C47-C46)*$B$5,=D47/C47,=D47*$B$6,=C47*$B$10,=G47/1000*…",
+          "34,Mar 2029,=C47*(1+$B$3-$B$4),=D47*(1-$B$7)+(C48-C47)*$B$5,=D48/C48,=D48*$B$6,=C48*$B$10,=G48/1000*…",
+          "35,Apr 2029,=C48*(1+$B$3-$B$4),=D48*(1-$B$7)+(C49-C48)*$B$5,=D49/C49,=D49*$B$6,=C49*$B$10,=G49/1000*…",
+          "36,May 2029,=C49*(1+$B$3-$B$4),=D49*(1-$B$7)+(C50-C49)*$B$5,=D50/C50,=D50*$B$6,=C50*$B$10,=G50/1000*…"
+        ],
+        "canonical": [
+          "1,Jun 2026,=$B$2,=C15\\*$B$5,=D15/C15,=D15\\*$B$6,=C15\\*$B$10,=G15/1000\\*$B$8\\*$B$9,=1/36\\*$B$12\\*$B$1…",
+          "2,Jul 2026,=C15\\*(1+$B$3-$B$4),=D15\\*(1-$B$7)+(C16-C15)*$B$5,=D16/C16,=D16*$B$6,=C16\\*$B$10,=G16/100…",
+          "3,Aug 2026,=C16\\*(1+$B$3-$B$4),=D16\\*(1-$B$7)+(C17-C16)*$B$5,=D17/C17,=D17*$B$6,=C17\\*$B$10,=G17/100…",
+          "4,Sep 2026,=C17\\*(1+$B$3-$B$4),=D17\\*(1-$B$7)+(C18-C17)*$B$5,=D18/C18,=D18*$B$6,=C18\\*$B$10,=G18/100…",
+          "5,Oct 2026,=C18\\*(1+$B$3-$B$4),=D18\\*(1-$B$7)+(C19-C18)*$B$5,=D19/C19,=D19*$B$6,=C19\\*$B$10,=G19/100…",
+          "6,Nov 2026,=C19\\*(1+$B$3-$B$4),=D19\\*(1-$B$7)+(C20-C19)*$B$5,=D20/C20,=D20*$B$6,=C20\\*$B$10,=G20/100…",
+          "7,Dec 2026,=C20\\*(1+$B$3-$B$4),=D20\\*(1-$B$7)+(C21-C20)*$B$5,=D21/C21,=D21*$B$6,=C21\\*$B$10,=G21/100…",
+          "8,Jan 2027,=C21*(1+$B$3-$B$4),=D21\\*(1-$B$7)+(C22-C21)*$B$5,=D22/C22,=D22*$B$6,=C22\\*$B$10,=G22/1000…",
+          "9,Feb 2027,=C22*(1+$B$3-$B$4),=D22\\*(1-$B$7)+(C23-C22)*$B$5,=D23/C23,=D23*$B$6,=C23\\*$B$10,=G23/1000…",
+          "10,Mar 2027,=C23*(1+$B$3-$B$4),=D23\\*(1-$B$7)+(C24-C23)*$B$5,=D24/C24,=D24*$B$6,=C24\\*$B$10,=G24/100…",
+          "11,Apr 2027,=C24*(1+$B$3-$B$4),=D24\\*(1-$B$7)+(C25-C24)*$B$5,=D25/C25,=D25*$B$6,=C25\\*$B$10,=G25/100…",
+          "12,May 2027,=C25*(1+$B$3-$B$4),=D25\\*(1-$B$7)+(C26-C25)*$B$5,=D26/C26,=D26*$B$6,=C26\\*$B$10,=G26/100…",
+          "13,Jun 2027,=C26*(1+$B$3-$B$4),=D26\\*(1-$B$7)+(C27-C26)*$B$5,=D27/C27,=D27*$B$6,=C27\\*$B$10,=G27/100…",
+          "14,Jul 2027,=C27*(1+$B$3-$B$4),=D27\\*(1-$B$7)+(C28-C27)*$B$5,=D28/C28,=D28*$B$6,=C28\\*$B$10,=G28/100…",
+          "15,Aug 2027,=C28*(1+$B$3-$B$4),=D28\\*(1-$B$7)+(C29-C28)*$B$5,=D29/C29,=D29*$B$6,=C29\\*$B$10,=G29/100…",
+          "16,Sep 2027,=C29*(1+$B$3-$B$4),=D29\\*(1-$B$7)+(C30-C29)*$B$5,=D30/C30,=D30*$B$6,=C30\\*$B$10,=G30/100…",
+          "17,Oct 2027,=C30*(1+$B$3-$B$4),=D30\\*(1-$B$7)+(C31-C30)*$B$5,=D31/C31,=D31*$B$6,=C31\\*$B$10,=G31/100…",
+          "18,Nov 2027,=C31*(1+$B$3-$B$4),=D31\\*(1-$B$7)+(C32-C31)*$B$5,=D32/C32,=D32*$B$6,=C32\\*$B$10,=G32/100…",
+          "19,Dec 2027,=C32*(1+$B$3-$B$4),=D32\\*(1-$B$7)+(C33-C32)*$B$5,=D33/C33,=D33*$B$6,=C33\\*$B$10,=G33/100…",
+          "20,Jan 2028,=C33*(1+$B$3-$B$4),=D33\\*(1-$B$7)+(C34-C33)*$B$5,=D34/C34,=D34*$B$6,=C34\\*$B$10,=G34/100…",
+          "21,Feb 2028,=C34*(1+$B$3-$B$4),=D34\\*(1-$B$7)+(C35-C34)*$B$5,=D35/C35,=D35*$B$6,=C35\\*$B$10,=G35/100…",
+          "22,Mar 2028,=C35*(1+$B$3-$B$4),=D35\\*(1-$B$7)+(C36-C35)*$B$5,=D36/C36,=D36*$B$6,=C36\\*$B$10,=G36/100…",
+          "23,Apr 2028,=C36*(1+$B$3-$B$4),=D36\\*(1-$B$7)+(C37-C36)*$B$5,=D37/C37,=D37*$B$6,=C37\\*$B$10,=G37/100…",
+          "24,May 2028,=C37*(1+$B$3-$B$4),=D37\\*(1-$B$7)+(C38-C37)*$B$5,=D38/C38,=D38*$B$6,=C38\\*$B$10,=G38/100…",
+          "25,Jun 2028,=C38*(1+$B$3-$B$4),=D38\\*(1-$B$7)+(C39-C38)*$B$5,=D39/C39,=D39*$B$6,=C39\\*$B$10,=G39/100…",
+          "26,Jul 2028,=C39*(1+$B$3-$B$4),=D39\\*(1-$B$7)+(C40-C39)*$B$5,=D40/C40,=D40*$B$6,=C40\\*$B$10,=G40/100…",
+          "27,Aug 2028,=C40*(1+$B$3-$B$4),=D40\\*(1-$B$7)+(C41-C40)*$B$5,=D41/C41,=D41*$B$6,=C41\\*$B$10,=G41/100…",
+          "28,Sep 2028,=C41*(1+$B$3-$B$4),=D41\\*(1-$B$7)+(C42-C41)*$B$5,=D42/C42,=D42*$B$6,=C42\\*$B$10,=G42/100…",
+          "29,Oct 2028,=C42*(1+$B$3-$B$4),=D42\\*(1-$B$7)+(C43-C42)*$B$5,=D43/C43,=D43*$B$6,=C43\\*$B$10,=G43/100…",
+          "30,Nov 2028,=C43*(1+$B$3-$B$4),=D43\\*(1-$B$7)+(C44-C43)*$B$5,=D44/C44,=D44*$B$6,=C44\\*$B$10,=G44/100…",
+          "31,Dec 2028,=C44*(1+$B$3-$B$4),=D44\\*(1-$B$7)+(C45-C44)*$B$5,=D45/C45,=D45*$B$6,=C45\\*$B$10,=G45/100…",
+          "32,Jan 2029,=C45*(1+$B$3-$B$4),=D45\\*(1-$B$7)+(C46-C45)*$B$5,=D46/C46,=D46*$B$6,=C46\\*$B$10,=G46/100…",
+          "33,Feb 2029,=C46*(1+$B$3-$B$4),=D46\\*(1-$B$7)+(C47-C46)*$B$5,=D47/C47,=D47*$B$6,=C47\\*$B$10,=G47/100…",
+          "34,Mar 2029,=C47*(1+$B$3-$B$4),=D47\\*(1-$B$7)+(C48-C47)*$B$5,=D48/C48,=D48*$B$6,=C48\\*$B$10,=G48/100…",
+          "35,Apr 2029,=C48*(1+$B$3-$B$4),=D48\\*(1-$B$7)+(C49-C48)*$B$5,=D49/C49,=D49*$B$6,=C49\\*$B$10,=G49/100…",
+          "36,May 2029,=C49*(1+$B$3-$B$4),=D49\\*(1-$B$7)+(C50-C49)*$B$5,=D50/C50,=D50*$B$6,=C50\\*$B$10,=G50/100…"
+        ]
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/responsibility-sponsorships.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/rtl-mixed-direction-qa.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/topic-writing.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/area.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/event.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/measure.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/note.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/person.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/procedure.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/project.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/quarter.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/responsibility.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/type/topic.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/writing-for-clarity-vs-writing-for-credit.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "demo-vault-v2/writing-weekly-rhythm.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      }
+    ]
+  },
+  {
+    "note": "fixtures/edge-cases.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "other",
+        "source": [
+          "Text with * a lone asterisk, an under_score, a \\{brace\\} and trailing spaces.  "
+        ],
+        "canonical": [
+          "Text with \\* a lone asterisk, an under_score, a \\{brace} and trailing spaces.",
+          ""
+        ]
+      },
+      {
+        "kind": "trailing-spaces",
+        "source": [
+          "- [ ]"
+        ],
+        "canonical": [
+          "- [ ] "
+        ]
+      },
+      {
+        "kind": "other",
+        "source": [
+          "<div>raw html</div>",
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "other",
+        "source": [],
+        "canonical": [
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "note": "fixtures/features.md",
+    "byteStable": false,
+    "differences": [
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "blank-lines",
+        "source": [
+          ""
+        ],
+        "canonical": []
+      },
+      {
+        "kind": "other",
+        "source": [],
+        "canonical": [
+          ""
+        ]
+      },
+      {
+        "kind": "image-path-prefix",
+        "source": [
+          "![An image](attachments/laputa-reference.png)"
+        ],
+        "canonical": [
+          "![An image](./attachments/laputa-reference.png)"
+        ]
+      }
+    ]
+  },
+  {
+    "note": "fixtures/no-frontmatter.md",
+    "byteStable": true,
+    "differences": []
+  }
+]

@@ -1,0 +1,117 @@
+{
+ "mode": "offline",
+ "model": "Parakeet TDT 0.6B v3 + Nemotron 3 Diarization",
+ "audioSeconds": 3600.0,
+ "loadSeconds": 6.2,
+ "processingSeconds": 88.8,
+ "peakMlxGB": 3.45,
+ "maxRssGB": 1.78,
+ "score": {
+  "werFillersRemoved": {
+   "refTokens": 9808,
+   "hypTokens": 8896,
+   "wer": 0.1703,
+   "substitutions": 434,
+   "deletions": 1074,
+   "insertions": 162
+  },
+  "werWithFillers": {
+   "refTokens": 10267,
+   "hypTokens": 9162,
+   "wer": 0.1847,
+   "substitutions": 469,
+   "deletions": 1266,
+   "insertions": 161
+  },
+  "speakers": {
+   "S01": 5,
+   "S02": 149,
+   "S03": 76,
+   "S04": 184,
+   "S05": 112,
+   "unassigned": 25
+  },
+  "labelledWordsOnTopPerson": 0.6608,
+  "unassignedWords": 20,
+  "perSpeaker": {
+   "S01": {
+    "words": 9,
+    "top": [
+     [
+      "ES2004b.B",
+      7
+     ],
+     [
+      "ES2004b.A",
+      1
+     ]
+    ]
+   },
+   "S02": {
+    "words": 2956,
+    "top": [
+     [
+      "ES2004c.C",
+      1522
+     ],
+     [
+      "ES2004b.C",
+      1308
+     ]
+    ]
+   },
+   "S03": {
+    "words": 1108,
+    "top": [
+     [
+      "ES2004b.A",
+      901
+     ],
+     [
+      "ES2004c.A",
+      174
+     ]
+    ]
+   },
+   "S04": {
+    "words": 2270,
+    "top": [
+     [
+      "ES2004b.B",
+      1585
+     ],
+     [
+      "ES2004c.B",
+      628
+     ]
+    ]
+   },
+   "S05": {
+    "words": 2371,
+    "top": [
+     [
+      "ES2004b.D",
+      1743
+     ],
+     [
+      "ES2004c.D",
+      588
+     ]
+    ]
+   },
+   "unassigned": {
+    "words": 20,
+    "top": [
+     [
+      "ES2004b.A",
+      5
+     ],
+     [
+      "ES2004c.B",
+      5
+     ]
+    ]
+   }
+  }
+ }
+}

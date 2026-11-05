@@ -1,0 +1,472 @@
+{
+ "extractor": "mlx",
+ "steps": {
+  "registry": {
+   "objects": 6
+  },
+  "ingest": [
+   {
+    "meeting": "m1",
+    "turns": 28,
+    "seconds": 11.31,
+    "counts": {
+     "applied": 6,
+     "proposed": 1
+    }
+   },
+   {
+    "meeting": "m2",
+    "turns": 24,
+    "seconds": 9.64,
+    "counts": {
+     "proposed": 1,
+     "applied": 4
+    }
+   },
+   {
+    "meeting": "m3",
+    "turns": 19,
+    "seconds": 8.95,
+    "counts": {
+     "proposed": 3,
+     "applied": 2
+    }
+   }
+  ],
+  "review": {
+   "pending": 5,
+   "items": [
+    {
+     "label": "Pilot budget (RM)",
+     "attribute": "amount",
+     "value": 2500000,
+     "current": 280000,
+     "quote": "Okay, the pilot budget is 250,000 ringgit. Raj, please note that down."
+    },
+    {
+     "label": "Vendor",
+     "attribute": "outcome",
+     "value": "Beta Cloud",
+     "current": "Alpha Systems",
+     "quote": "We drop Alpha Systems and move to Beta Cloud. This is final."
+    },
+    {
+     "label": "Data migration",
+     "attribute": "deadline",
+     "value": "2026-10-23",
+     "current": "2026-10-09",
+     "quote": "Okay. Data migration is now due on 23 October, same owner."
+    },
+    {
+     "label": "Go-live date",
+     "attribute": "date",
+     "value": "2026-11-09",
+     "current": "2026-10-26",
+     "quote": "Let's say 9 November."
+    },
+    {
+     "label": "Staff training",
+     "attribute": "deadline",
+     "value": "2026-11-03",
+     "current": "2026-10-16",
+     "quote": "I will move training to 3 November so staff are trained a week before go-live. I stay the owner."
+    }
+   ],
+   "reviewer": "careful",
+   "accepted": 5,
+   "edited": 1,
+   "rejected": 0,
+   "rejected_as_stale": 0
+  },
+  "facts": {
+   "slots": 12,
+   "correct": 10,
+   "phantom": [],
+   "rows": [
+    {
+     "slot": "vendor.outcome",
+     "gold": "Beta Cloud",
+     "got": "Beta Cloud",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "budget.amount",
+     "gold": 280000,
+     "got": 280000,
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "golive.date",
+     "gold": "2026-11-09",
+     "got": "2026-11-09",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "training.owner",
+     "gold": "aisha",
+     "got": "aisha",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "training.deadline",
+     "gold": "2026-11-03",
+     "got": "2026-11-03",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "training.status",
+     "gold": null,
+     "got": null,
+     "ok": true,
+     "evidence": false
+    },
+    {
+     "slot": "migration.owner",
+     "gold": "wei_ling",
+     "got": "wei_ling",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "migration.deadline",
+     "gold": "2026-10-23",
+     "got": "2026-10-23",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "migration.status",
+     "gold": null,
+     "got": null,
+     "ok": true,
+     "evidence": false
+    },
+    {
+     "slot": "security.owner",
+     "gold": "wei_ling",
+     "got": null,
+     "ok": false,
+     "evidence": false
+    },
+    {
+     "slot": "security.deadline",
+     "gold": "2026-10-05",
+     "got": "2026-10-05",
+     "ok": true,
+     "evidence": true
+    },
+    {
+     "slot": "security.status",
+     "gold": "done",
+     "got": null,
+     "ok": false,
+     "evidence": false
+    }
+   ]
+  },
+  "ask": {
+   "n": 21,
+   "correct": 19,
+   "by_type": {
+    "current": "7/9",
+    "as_of_valid": "5/5",
+    "as_of_tx": "1/1",
+    "n_changes": "6/6"
+   },
+   "rows": [
+    {
+     "qid": "q1",
+     "type": "current",
+     "question": "Which vendor are we using for the pilot now?",
+     "gold": "Beta Cloud",
+     "answer": "Beta Cloud",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.49,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q2",
+     "type": "current",
+     "question": "What is the pilot budget at the moment, in ringgit?",
+     "gold": 280000,
+     "answer": 280000,
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.54,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q3",
+     "type": "current",
+     "question": "What is the current go-live date?",
+     "gold": "2026-11-09",
+     "answer": "2026-11-09",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.5,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q4",
+     "type": "current",
+     "question": "When is the data migration due now?",
+     "gold": "2026-10-23",
+     "answer": "2026-10-23",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.48,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q5",
+     "type": "current",
+     "question": "Who owns the data migration?",
+     "gold": "wei_ling",
+     "answer": "wei_ling",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.59,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q6",
+     "type": "current",
+     "question": "Who is responsible for staff training?",
+     "gold": "aisha",
+     "answer": "aisha",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.46,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q7",
+     "type": "current",
+     "question": "When is staff training due?",
+     "gold": "2026-11-03",
+     "answer": "2026-11-03",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.58,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q8",
+     "type": "current",
+     "question": "What is the status of the security review?",
+     "gold": "done",
+     "answer": null,
+     "routed": true,
+     "correct": false,
+     "has_evidence": false,
+     "seconds": 1.48,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q9",
+     "type": "current",
+     "question": "Who owns the security review?",
+     "gold": "wei_ling",
+     "answer": null,
+     "routed": true,
+     "correct": false,
+     "has_evidence": false,
+     "seconds": 1.5,
+     "route": "current",
+     "route_source": "model"
+    },
+    {
+     "qid": "q10",
+     "type": "as_of_valid",
+     "question": "What was the pilot budget on 27 September 2026?",
+     "gold": 250000,
+     "answer": 250000,
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.75,
+     "route": "as_of_valid",
+     "route_source": "model"
+    },
+    {
+     "qid": "q11",
+     "type": "as_of_valid",
+     "question": "What was the go-live date on 5 October 2026?",
+     "gold": "2026-10-26",
+     "answer": "2026-10-26",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.79,
+     "route": "as_of_valid",
+     "route_source": "model"
+    },
+    {
+     "qid": "q12",
+     "type": "as_of_valid",
+     "question": "Which vendor had been chosen on 20 September 2026?",
+     "gold": "Alpha Systems",
+     "answer": "Alpha Systems",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.74,
+     "route": "as_of_valid",
+     "route_source": "model"
+    },
+    {
+     "qid": "q13",
+     "type": "as_of_valid",
+     "question": "What was the data migration deadline on 10 October 2026?",
+     "gold": "2026-10-09",
+     "answer": "2026-10-09",
+     "routed": true,
+     "correct": true,
+     "has_evidence": true,
+     "seconds": 1.69,
+     "route": "as_of_valid",
+     "route_source": "model"
+    },
+    {
+     "qid": "q14",
+     "type": "as_of_valid",
+     "question": "Who owned the security review on 20 September 2026?",
+     "gold": null,
+     "answer": null,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.8,
+     "route": "as_of_valid",
+     "route_source": "model"
+    },
+    {
+     "qid": "q15",
+     "type": "as_of_tx",
+     "question": "Going by what had been recorded by 6 October 2026, what was the go-live date for 16 October 2026?",
+     "gold": null,
+     "answer": null,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.89,
+     "route": "as_of_tx",
+     "route_source": "model"
+    },
+    {
+     "qid": "q16",
+     "type": "n_changes",
+     "question": "How many times did the vendor choice change?",
+     "gold": 1,
+     "answer": 1,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.57,
+     "route": "n_changes",
+     "route_source": "model"
+    },
+    {
+     "qid": "q17",
+     "type": "n_changes",
+     "question": "How many times did the pilot budget change?",
+     "gold": 1,
+     "answer": 1,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.52,
+     "route": "n_changes",
+     "route_source": "model"
+    },
+    {
+     "qid": "q18",
+     "type": "n_changes",
+     "question": "How many times did the go-live date change?",
+     "gold": 1,
+     "answer": 1,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.6,
+     "route": "n_changes",
+     "route_source": "rules"
+    },
+    {
+     "qid": "q19",
+     "type": "n_changes",
+     "question": "How many times did the data migration deadline change?",
+     "gold": 1,
+     "answer": 1,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.52,
+     "route": "n_changes",
+     "route_source": "model"
+    },
+    {
+     "qid": "q20",
+     "type": "n_changes",
+     "question": "How many times did the training deadline change?",
+     "gold": 1,
+     "answer": 1,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.52,
+     "route": "n_changes",
+     "route_source": "model"
+    },
+    {
+     "qid": "q21",
+     "type": "n_changes",
+     "question": "How many times did the owner of the security review change?",
+     "gold": 0,
+     "answer": 0,
+     "routed": true,
+     "correct": true,
+     "has_evidence": false,
+     "seconds": 1.5,
+     "route": "n_changes",
+     "route_source": "model"
+    }
+   ]
+  },
+  "brief": {
+   "open_commitments": [
+    "Staff training",
+    "Security review",
+    "Data migration"
+   ],
+   "recent_changes": 5,
+   "meetings": 3
+  },
+  "check": {
+   "ok": true,
+   "problems": []
+  }
+ },
+ "wall_seconds": 69.8
+}

@@ -1,0 +1,393 @@
+/opt/homebrew/lib/python3.11/site-packages/webrtcvad.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.176], ["done", 0.176]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.027], ["candidates:5", 0.027], ["guard", 0.972], ["strength:1.0", 0.972], ["done", 0.972]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.033], ["done", 0.033]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:2", 0.026], ["candidates:2", 0.027], ["guard", 0.458], ["strength:3.4", 0.458], ["done", 0.458]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.038], ["candidates:5", 0.039], ["guard", 0.994], ["strength:-3.1", 0.994], ["done", 0.994]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.038], ["done", 0.038]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.026], ["candidates:5", 0.027], ["guard", 1.047], ["strength:3.8", 1.047], ["done", 1.047]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.033], ["candidates:1", 0.033], ["guard", 0.276], ["strength:-7.6", 0.276], ["done", 0.276]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.028], ["candidates:1", 0.028], ["guard", 0.244], ["strength:-3.2", 0.244], ["done", 0.244]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.043], ["candidates:2", 0.043], ["guard", 0.524], ["strength:-1.9", 0.524], ["done", 0.524]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.035], ["candidates:2", 0.036], ["guard", 0.25], ["strength:5.5", 0.25], ["done", 0.25]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.027], ["candidates:5", 0.027], ["guard", 1.194], ["strength:4.6", 1.194], ["done", 1.194]]}
+ES2002: 4 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.078], ["candidates:1", 0.078], ["guard", 0.279], ["strength:-4.5", 0.279], ["done", 0.279]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.043], ["done", 0.043]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.02], ["candidates:2", 0.021], ["guard", 0.603], ["strength:-5.4", 0.603], ["done", 0.603]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.031], ["done", 0.031]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.028], ["candidates:2", 0.028], ["guard", 0.678], ["strength:-5.8", 0.678], ["done", 0.678]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.057], ["done", 0.058]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.028], ["candidates:5", 0.028], ["guard", 1.348], ["strength:0.6", 1.348], ["done", 1.348]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.037], ["done", 0.037]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.025], ["candidates:5", 0.026], ["guard", 1.41], ["strength:0.4", 1.41], ["done", 1.41]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.02], ["candidates:5", 0.02], ["guard", 1.234], ["strength:3.2", 1.234], ["done", 1.234]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.04], ["candidates:5", 0.04], ["guard", 1.349], ["strength:0.9", 1.349], ["done", 1.349]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.027], ["done", 0.027]]}
+ES2004: 1 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.016], ["meaning:0", 0.109], ["done", 0.109]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.022], ["done", 0.022]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.025], ["candidates:1", 0.025], ["guard", 0.317], ["strength:-2.0", 0.317], ["done", 0.317]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:2", 0.034], ["candidates:5", 0.035], ["guard", 0.26], ["strength:5.5", 0.26], ["done", 0.26]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.038], ["done", 0.038]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:2", 0.028], ["candidates:5", 0.029], ["guard", 1.203], ["strength:-0.6", 1.203], ["done", 1.203]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.047], ["done", 0.047]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.034], ["candidates:5", 0.034], ["guard", 1.36], ["strength:-0.1", 1.36], ["done", 1.36]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:2", 0.064], ["candidates:5", 0.064], ["guard", 1.132], ["strength:0.2", 1.132], ["done", 1.132]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:1", 0.067], ["candidates:5", 0.067], ["guard", 1.285], ["strength:4.6", 1.285], ["done", 1.285]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.037], ["candidates:1", 0.037], ["guard", 0.221], ["strength:-4.8", 0.221], ["done", 0.221]]}
+ES2005: 2 alerts, 11 turns
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.094], ["candidates:5", 0.095], ["guard", 1.271], ["strength:-2.5", 1.271], ["done", 1.271]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.041], ["candidates:3", 0.041], ["guard", 0.704], ["strength:-5.1", 0.704], ["done", 0.704]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:1", 0.048], ["candidates:5", 0.049], ["guard", 1.239], ["strength:0.2", 1.239], ["done", 1.239]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.026], ["candidates:5", 0.026], ["guard", 1.249], ["strength:-1.5", 1.249], ["done", 1.249]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:2", 0.037], ["candidates:2", 0.037], ["guard", 0.264], ["strength:5.1", 0.264], ["done", 0.264]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.022], ["done", 0.022]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.023], ["candidates:1", 0.023], ["guard", 0.255], ["strength:1.2", 0.255], ["done", 0.255]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.037], ["done", 0.037]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.026], ["candidates:1", 0.027], ["guard", 0.251], ["strength:-2.8", 0.251], ["done", 0.251]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.039], ["done", 0.039]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.024], ["done", 0.024]]}
+ES2006: 2 alerts, 13 turns
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.168], ["done", 0.168]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.038], ["candidates:5", 0.039], ["guard", 1.066], ["strength:0.6", 1.066], ["done", 1.066]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.022], ["candidates:5", 0.022], ["guard", 1.207], ["strength:-1.9", 1.207], ["done", 1.207]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.034], ["candidates:2", 0.035], ["guard", 0.55], ["strength:-4.0", 0.55], ["done", 0.55]]}
+{"liveCheckTiming": [["ledger", 0.016], ["meaning:0", 0.042], ["done", 0.042]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:2", 0.022], ["candidates:5", 0.023], ["guard", 1.124], ["strength:1.0", 1.124], ["done", 1.124]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.032], ["candidates:5", 0.032], ["guard", 1.333], ["strength:0.0", 1.333], ["done", 1.333]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:2", 0.033], ["candidates:2", 0.033], ["guard", 0.517], ["strength:0.0", 0.517], ["done", 0.517]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:2", 0.027], ["candidates:5", 0.027], ["guard", 0.201], ["strength:5.4", 0.201], ["done", 0.201]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.031], ["candidates:1", 0.031], ["guard", 0.248], ["strength:-1.2", 0.248], ["done", 0.248]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.032], ["done", 0.033]]}
+ES2007: 1 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.018], ["meaning:0", 0.417], ["candidates:5", 0.419], ["guard", 1.991], ["strength:-2.6", 1.991], ["done", 1.991]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.059], ["candidates:5", 0.06], ["guard", 1.317], ["strength:1.5", 1.317], ["done", 1.317]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.041], ["candidates:2", 0.041], ["guard", 0.534], ["strength:-1.5", 0.534], ["done", 0.534]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.046], ["candidates:1", 0.047], ["guard", 0.228], ["strength:-5.9", 0.228], ["done", 0.228]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.03], ["candidates:5", 0.03], ["guard", 1.265], ["strength:-2.6", 1.265], ["done", 1.265]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:2", 0.034], ["candidates:3", 0.035], ["guard", 0.718], ["strength:0.0", 0.718], ["done", 0.718]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.031], ["candidates:5", 0.031], ["guard", 1.222], ["strength:-0.6", 1.222], ["done", 1.222]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.068], ["done", 0.068]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.027], ["candidates:5", 0.028], ["guard", 1.243], ["strength:-5.0", 1.243], ["done", 1.243]]}
+ES2008: 0 alerts, 11 turns
+{"liveCheckTiming": [["ledger", 0.016], ["meaning:0", 0.13], ["candidates:1", 0.131], ["guard", 0.43], ["strength:-4.1", 0.43], ["done", 0.43]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.038], ["done", 0.038]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.026], ["candidates:5", 0.027], ["guard", 1.162], ["strength:-0.8", 1.162], ["done", 1.162]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.026], ["done", 0.026]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.02], ["done", 0.02]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.029], ["candidates:5", 0.029], ["guard", 1.325], ["strength:-1.9", 1.325], ["done", 1.325]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.031], ["candidates:2", 0.032], ["guard", 0.295], ["strength:5.6", 0.295], ["done", 0.295]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.023], ["candidates:2", 0.023], ["guard", 0.471], ["strength:-7.0", 0.471], ["done", 0.471]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.038], ["done", 0.038]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.021], ["candidates:1", 0.021], ["guard", 0.218], ["strength:-5.0", 0.218], ["done", 0.218]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.032], ["candidates:1", 0.032], ["guard", 0.334], ["strength:-4.2", 0.334], ["done", 0.334]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.024], ["done", 0.024]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.027], ["done", 0.027]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.032], ["candidates:5", 0.032], ["guard", 1.513], ["strength:0.1", 1.513], ["done", 1.513]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.045], ["done", 0.045]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.023], ["candidates:5", 0.023], ["guard", 1.536], ["strength:4.5", 1.536], ["done", 1.536]]}
+ES2009: 2 alerts, 16 turns
+{"liveCheckTiming": [["ledger", 0.003], ["meaning:0", 0.134], ["done", 0.134]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.033], ["done", 0.033]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.025], ["candidates:5", 0.026], ["guard", 1.416], ["strength:-2.5", 1.416], ["done", 1.416]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.032], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.024], ["done", 0.024]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.028], ["done", 0.028]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.027], ["candidates:5", 0.028], ["guard", 1.325], ["strength:-4.4", 1.325], ["done", 1.325]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.024], ["candidates:5", 0.024], ["guard", 1.195], ["strength:3.4", 1.195], ["done", 1.195]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:2", 0.031], ["candidates:5", 0.031], ["guard", 0.206], ["strength:7.0", 0.206], ["done", 0.206]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.022], ["done", 0.022]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.03], ["candidates:5", 0.031], ["guard", 1.255], ["strength:0.1", 1.255], ["done", 1.255]]}
+{"liveCheckTiming": [["ledger", 0.03], ["meaning:0", 0.055], ["candidates:1", 0.055], ["guard", 0.401], ["strength:-6.6", 0.401], ["done", 0.401]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.03], ["candidates:5", 0.031], ["guard", 0.264], ["strength:5.6", 0.264], ["done", 0.264]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.029], ["candidates:2", 0.029], ["guard", 0.519], ["strength:-1.9", 0.519], ["done", 0.519]]}
+ES2010: 3 alerts, 15 turns
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:1", 0.151], ["candidates:5", 0.152], ["guard", 1.254], ["strength:-1.4", 1.254], ["done", 1.254]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.074], ["done", 0.074]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.025], ["candidates:5", 0.026], ["guard", 1.321], ["strength:2.8", 1.321], ["done", 1.321]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.041], ["candidates:5", 0.042], ["guard", 1.133], ["strength:4.9", 1.133], ["done", 1.133]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.032], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.02], ["candidates:5", 0.02], ["guard", 1.201], ["strength:2.0", 1.201], ["done", 1.201]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.033], ["candidates:3", 0.034], ["guard", 0.587], ["strength:0.0", 0.587], ["done", 0.587]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.028], ["done", 0.028]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.026], ["candidates:2", 0.026], ["guard", 0.41], ["strength:-4.5", 0.41], ["done", 0.41]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.035], ["done", 0.035]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.019], ["done", 0.019]]}
+ES2012: 4 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.117], ["candidates:5", 0.117], ["guard", 1.324], ["strength:-0.9", 1.324], ["done", 1.324]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.05], ["candidates:5", 0.05], ["guard", 1.533], ["strength:1.9", 1.533], ["done", 1.533]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.052], ["done", 0.052]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.016], ["done", 0.016]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.014], ["done", 0.014]]}
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.013], ["done", 0.013]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.033], ["done", 0.033]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.03], ["candidates:3", 0.03], ["guard", 0.881], ["strength:-1.8", 0.881], ["done", 0.881]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.029], ["candidates:5", 0.029], ["guard", 1.309], ["strength:1.0", 1.309], ["done", 1.309]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:2", 0.031], ["candidates:2", 0.032], ["guard", 0.494], ["strength:-0.9", 0.494], ["done", 0.494]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.028], ["done", 0.028]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.026], ["candidates:5", 0.026], ["guard", 0.837], ["strength:5.6", 0.837], ["done", 0.837]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.021], ["done", 0.021]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.02], ["candidates:1", 0.021], ["guard", 0.267], ["strength:-4.5", 0.267], ["done", 0.267]]}
+ES2013: 1 alerts, 14 turns
+{"liveCheckTiming": [["ledger", 0.023], ["meaning:0", 0.175], ["done", 0.175]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.034], ["candidates:5", 0.036], ["guard", 0.365], ["strength:6.2", 0.365], ["done", 0.365]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.029], ["candidates:1", 0.029], ["guard", 0.311], ["strength:-4.8", 0.311], ["done", 0.311]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.029], ["candidates:5", 0.03], ["guard", 1.363], ["strength:-1.6", 1.363], ["done", 1.363]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.032], ["candidates:5", 0.033], ["guard", 1.117], ["strength:-1.4", 1.117], ["done", 1.117]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.032], ["candidates:5", 0.032], ["guard", 1.23], ["strength:2.6", 1.23], ["done", 1.23]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.035], ["candidates:1", 0.035], ["guard", 0.259], ["strength:-3.0", 0.259], ["done", 0.259]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.029], ["candidates:5", 0.03], ["guard", 1.25], ["strength:2.8", 1.25], ["done", 1.25]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.042], ["done", 0.042]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.026], ["candidates:5", 0.027], ["guard", 1.362], ["strength:-0.5", 1.362], ["done", 1.362]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.035], ["candidates:2", 0.036], ["guard", 0.408], ["strength:-4.5", 0.408], ["done", 0.408]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.032], ["done", 0.032]]}
+ES2014: 3 alerts, 13 turns
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:0", 0.157], ["done", 0.157]]}
+{"liveCheckTiming": [["ledger", 0.021], ["meaning:0", 0.051], ["candidates:1", 0.051], ["guard", 0.295], ["strength:-4.0", 0.295], ["done", 0.295]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.028], ["done", 0.028]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:2", 0.027], ["candidates:5", 0.027], ["guard", 1.404], ["strength:-2.0", 1.404], ["done", 1.404]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.047], ["done", 0.047]]}
+{"liveCheckTiming": [["ledger", 0.005], ["meaning:1", 0.019], ["candidates:5", 0.021], ["guard", 0.771], ["strength:6.2", 0.771], ["done", 0.771]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.029], ["candidates:1", 0.03], ["guard", 0.226], ["strength:-1.5", 0.226], ["done", 0.226]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.028], ["candidates:5", 0.028], ["guard", 1.108], ["strength:0.6", 1.108], ["done", 1.108]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.035], ["done", 0.035]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:2", 0.03], ["candidates:5", 0.03], ["guard", 1.265], ["strength:1.0", 1.265], ["done", 1.265]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.027], ["done", 0.027]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.028], ["candidates:1", 0.028], ["guard", 0.261], ["strength:-5.4", 0.261], ["done", 0.261]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:2", 0.03], ["candidates:2", 0.03], ["guard", 0.498], ["strength:2.9", 0.498], ["done", 0.498]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.039], ["candidates:5", 0.04], ["guard", 1.207], ["strength:3.6", 1.207], ["done", 1.207]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:1", 0.043], ["candidates:1", 0.043], ["guard", 0.222], ["strength:-3.5", 0.222], ["done", 0.222]]}
+ES2015: 3 alerts, 15 turns
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.156], ["done", 0.156]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.041], ["candidates:5", 0.042], ["guard", 1.321], ["strength:-0.2", 1.321], ["done", 1.321]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.05], ["done", 0.05]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.027], ["candidates:2", 0.027], ["guard", 0.605], ["strength:-1.2", 0.605], ["done", 0.605]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.038], ["candidates:5", 0.038], ["guard", 1.234], ["strength:0.4", 1.234], ["done", 1.234]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.035], ["candidates:5", 0.035], ["guard", 1.223], ["strength:1.0", 1.223], ["done", 1.223]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.035], ["done", 0.035]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.034], ["candidates:5", 0.034], ["guard", 1.064], ["strength:6.1", 1.064], ["done", 1.064]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.03], ["candidates:2", 0.03], ["guard", 0.494], ["strength:-3.1", 0.494], ["done", 0.494]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.026], ["candidates:5", 0.027], ["guard", 1.154], ["strength:0.1", 1.154], ["done", 1.154]]}
+{"liveCheckTiming": [["ledger", 0.016], ["meaning:0", 0.048], ["candidates:5", 0.049], ["guard", 1.246], ["strength:-0.2", 1.246], ["done", 1.246]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.027], ["candidates:2", 0.028], ["guard", 0.355], ["strength:1.4", 0.355], ["done", 0.355]]}
+ES2016: 1 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.017], ["meaning:0", 0.125], ["candidates:4", 0.126], ["guard", 1.064], ["strength:1.2", 1.064], ["done", 1.064]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:2", 0.047], ["candidates:5", 0.048], ["guard", 1.254], ["strength:-0.8", 1.254], ["done", 1.254]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.062], ["candidates:2", 0.062], ["guard", 0.558], ["strength:-5.4", 0.558], ["done", 0.558]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:2", 0.026], ["candidates:4", 0.026], ["guard", 0.846], ["strength:0.1", 0.846], ["done", 0.847]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.021], ["candidates:1", 0.021], ["guard", 0.205], ["strength:-2.5", 0.205], ["done", 0.205]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.032], ["candidates:4", 0.032], ["guard", 0.91], ["strength:-4.6", 0.91], ["done", 0.91]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.055], ["candidates:1", 0.056], ["guard", 0.3], ["strength:-3.4", 0.3], ["done", 0.3]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.026], ["done", 0.026]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.027], ["done", 0.027]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:2", 0.028], ["candidates:5", 0.029], ["guard", 1.445], ["strength:2.6", 1.445], ["done", 1.445]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.036], ["done", 0.036]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.028], ["done", 0.028]]}
+IS1000: 1 alerts, 13 turns
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.123], ["done", 0.123]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.036], ["done", 0.036]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.022], ["candidates:5", 0.022], ["guard", 1.316], ["strength:-0.9", 1.316], ["done", 1.316]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.045], ["candidates:5", 0.046], ["guard", 1.3], ["strength:4.1", 1.3], ["done", 1.3]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.038], ["candidates:1", 0.038], ["guard", 0.197], ["strength:0.9", 0.197], ["done", 0.197]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.029], ["candidates:5", 0.03], ["guard", 1.2], ["strength:0.5", 1.2], ["done", 1.2]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.024], ["done", 0.024]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.024], ["done", 0.024]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.021], ["done", 0.021]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:1", 0.023], ["candidates:5", 0.023], ["guard", 0.372], ["strength:6.5", 0.372], ["done", 0.372]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.026], ["candidates:5", 0.026], ["guard", 1.163], ["strength:4.9", 1.163], ["done", 1.163]]}
+IS1001: 3 alerts, 14 turns
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.156], ["candidates:5", 0.156], ["guard", 1.228], ["strength:-0.1", 1.229], ["done", 1.229]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.04], ["candidates:5", 0.04], ["guard", 0.941], ["strength:2.4", 0.941], ["done", 0.941]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.037], ["done", 0.037]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.03], ["candidates:1", 0.03], ["guard", 0.264], ["strength:1.9", 0.264], ["done", 0.264]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.033], ["candidates:5", 0.033], ["guard", 1.135], ["strength:4.9", 1.135], ["done", 1.135]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.03], ["candidates:5", 0.03], ["guard", 1.019], ["strength:-3.2", 1.019], ["done", 1.019]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.041], ["done", 0.041]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.025], ["candidates:2", 0.026], ["guard", 0.404], ["strength:-2.4", 0.404], ["done", 0.404]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.031], ["done", 0.031]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.025], ["candidates:3", 0.026], ["guard", 0.773], ["strength:-2.6", 0.773], ["done", 0.773]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:2", 0.066], ["candidates:5", 0.067], ["guard", 1.351], ["strength:4.1", 1.351], ["done", 1.351]]}
+IS1003: 3 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.017], ["meaning:1", 0.129], ["candidates:1", 0.13], ["guard", 0.298], ["strength:-2.1", 0.298], ["done", 0.298]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:2", 0.039], ["candidates:5", 0.041], ["guard", 1.248], ["strength:3.6", 1.248], ["done", 1.248]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.026], ["candidates:1", 0.026], ["guard", 0.347], ["strength:-4.0", 0.347], ["done", 0.347]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.032], ["candidates:2", 0.032], ["guard", 0.564], ["strength:-3.2", 0.564], ["done", 0.564]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.031], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.025], ["done", 0.025]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.021], ["candidates:5", 0.021], ["guard", 1.115], ["strength:-5.1", 1.115], ["done", 1.115]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.03], ["candidates:5", 0.031], ["guard", 1.34], ["strength:-0.8", 1.34], ["done", 1.34]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.063], ["done", 0.063]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:2", 0.029], ["candidates:4", 0.03], ["guard", 1.218], ["strength:1.6", 1.218], ["done", 1.218]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.03], ["done", 0.03]]}
+IS1004: 1 alerts, 13 turns
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.141], ["candidates:5", 0.141], ["guard", 1.357], ["strength:-0.2", 1.357], ["done", 1.357]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:2", 0.07], ["candidates:2", 0.07], ["guard", 0.527], ["strength:4.1", 0.527], ["done", 0.527]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.029], ["candidates:2", 0.029], ["guard", 0.409], ["strength:-4.9", 0.409], ["done", 0.409]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.026], ["candidates:1", 0.027], ["guard", 0.28], ["strength:-7.9", 0.28], ["done", 0.28]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["candidates:1", 0.029], ["guard", 0.278], ["strength:-2.6", 0.278], ["done", 0.278]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.033], ["candidates:5", 0.034], ["guard", 1.34], ["strength:2.0", 1.34], ["done", 1.34]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.056], ["candidates:5", 0.056], ["guard", 0.29], ["strength:5.6", 0.29], ["done", 0.29]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.04], ["done", 0.04]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.024], ["done", 0.024]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.035], ["candidates:1", 0.036], ["guard", 0.294], ["strength:-4.8", 0.294], ["done", 0.294]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.036], ["done", 0.036]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.027], ["candidates:5", 0.028], ["guard", 1.179], ["strength:-3.8", 1.179], ["done", 1.179]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:2", 0.034], ["candidates:5", 0.034], ["guard", 1.272], ["strength:-0.1", 1.272], ["done", 1.272]]}
+IS1006: 4 alerts, 14 turns
+{"liveCheckTiming": [["ledger", 0.017], ["meaning:1", 0.088], ["candidates:2", 0.088], ["guard", 0.529], ["strength:0.9", 0.529], ["done", 0.529]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.038], ["candidates:1", 0.038], ["guard", 0.221], ["strength:-4.5", 0.221], ["done", 0.221]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.028], ["candidates:1", 0.028], ["guard", 0.279], ["strength:-5.8", 0.279], ["done", 0.279]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.023], ["candidates:4", 0.023], ["guard", 0.893], ["strength:2.4", 0.893], ["done", 0.893]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:1", 0.026], ["candidates:2", 0.027], ["guard", 0.504], ["strength:4.1", 0.504], ["done", 0.504]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.035], ["candidates:4", 0.035], ["guard", 0.246], ["strength:5.0", 0.246], ["done", 0.246]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.037], ["candidates:3", 0.037], ["guard", 0.695], ["strength:1.8", 0.695], ["done", 0.695]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:1", 0.022], ["candidates:3", 0.022], ["guard", 0.723], ["strength:4.2", 0.723], ["done", 0.723]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.027], ["candidates:2", 0.027], ["guard", 0.413], ["strength:-0.4", 0.413], ["done", 0.413]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.027], ["done", 0.027]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.026], ["done", 0.026]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.024], ["done", 0.024]]}
+IS1007: 4 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.124], ["done", 0.124]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.037], ["candidates:1", 0.037], ["guard", 0.353], ["strength:-3.2", 0.353], ["done", 0.353]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.031], ["done", 0.031]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.032], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.032], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.028], ["candidates:5", 0.028], ["guard", 1.311], ["strength:1.0", 1.311], ["done", 1.311]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.035], ["candidates:3", 0.036], ["guard", 0.875], ["strength:-1.5", 0.875], ["done", 0.875]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.038], ["candidates:5", 0.039], ["guard", 1.098], ["strength:-2.0", 1.098], ["done", 1.098]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.052], ["candidates:5", 0.052], ["guard", 1.251], ["strength:1.0", 1.251], ["done", 1.251]]}
+IS1009: 0 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.162], ["candidates:5", 0.162], ["guard", 0.755], ["strength:6.1", 0.755], ["done", 0.755]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:1", 0.018], ["candidates:5", 0.019], ["guard", 1.208], ["strength:-0.9", 1.208], ["done", 1.208]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.034], ["candidates:5", 0.034], ["guard", 1.271], ["strength:2.4", 1.271], ["done", 1.271]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.032], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["candidates:2", 0.03], ["guard", 0.418], ["strength:1.5", 0.418], ["done", 0.418]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.033], ["done", 0.033]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.03], ["candidates:1", 0.03], ["guard", 0.26], ["strength:-6.4", 0.26], ["done", 0.26]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.026], ["candidates:5", 0.026], ["guard", 0.966], ["strength:2.2", 0.966], ["done", 0.966]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.034], ["candidates:2", 0.035], ["guard", 0.533], ["strength:-5.5", 0.534], ["done", 0.534]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.033], ["candidates:5", 0.033], ["guard", 1.101], ["strength:-0.1", 1.101], ["done", 1.101]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.061], ["done", 0.061]]}
+TS3003: 3 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.004], ["meaning:0", 0.188], ["candidates:5", 0.189], ["guard", 1.464], ["strength:4.1", 1.464], ["done", 1.464]]}
+{"liveCheckTiming": [["ledger", 0.021], ["meaning:0", 0.055], ["candidates:1", 0.055], ["guard", 0.271], ["strength:-5.2", 0.271], ["done", 0.271]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.028], ["candidates:5", 0.03], ["guard", 1.373], ["strength:-2.1", 1.373], ["done", 1.373]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.035], ["candidates:5", 0.036], ["guard", 1.438], ["strength:-2.9", 1.438], ["done", 1.438]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.063], ["candidates:1", 0.064], ["guard", 0.274], ["strength:-1.4", 0.274], ["done", 0.274]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.024], ["candidates:5", 0.024], ["guard", 1.382], ["strength:-0.1", 1.382], ["done", 1.382]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.025], ["candidates:2", 0.025], ["guard", 0.496], ["strength:-7.6", 0.496], ["done", 0.496]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.03], ["candidates:5", 0.031], ["guard", 1.237], ["strength:-0.9", 1.237], ["done", 1.237]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.037], ["done", 0.037]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:2", 0.025], ["candidates:5", 0.025], ["guard", 1.19], ["strength:5.2", 1.19], ["done", 1.19]]}
+{"liveCheckTiming": [["ledger", 0.007], ["meaning:0", 0.021], ["done", 0.021]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.027], ["candidates:1", 0.028], ["guard", 0.258], ["strength:-5.9", 0.258], ["done", 0.258]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.033], ["done", 0.033]]}
+TS3005: 2 alerts, 13 turns
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.087], ["done", 0.087]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.032], ["candidates:5", 0.033], ["guard", 1.083], ["strength:0.0", 1.083], ["done", 1.083]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.032], ["candidates:5", 0.032], ["guard", 1.123], ["strength:-1.1", 1.123], ["done", 1.123]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.023], ["candidates:5", 0.023], ["guard", 1.272], ["strength:0.2", 1.272], ["done", 1.272]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.051], ["done", 0.051]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.022], ["candidates:5", 0.022], ["guard", 1.153], ["strength:3.6", 1.153], ["done", 1.153]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.024], ["candidates:5", 0.025], ["guard", 1.144], ["strength:2.0", 1.144], ["done", 1.144]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.035], ["done", 0.035]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.03], ["candidates:5", 0.03], ["guard", 1.148], ["strength:3.6", 1.148], ["done", 1.148]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.029], ["done", 0.029]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.032], ["done", 0.032]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.029], ["candidates:2", 0.03], ["guard", 0.434], ["strength:-0.5", 0.434], ["done", 0.434]]}
+TS3007: 3 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.019], ["meaning:0", 0.123], ["candidates:3", 0.123], ["guard", 0.785], ["strength:-0.6", 0.785], ["done", 0.785]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.043], ["candidates:2", 0.043], ["guard", 0.461], ["strength:-1.9", 0.461], ["done", 0.461]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.035], ["done", 0.035]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.029], ["candidates:5", 0.03], ["guard", 1.148], ["strength:-0.8", 1.148], ["done", 1.148]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.05], ["candidates:5", 0.05], ["guard", 1.042], ["strength:-1.6", 1.042], ["done", 1.042]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.036], ["done", 0.036]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.026], ["done", 0.026]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.027], ["candidates:5", 0.027], ["guard", 1.026], ["strength:-1.9", 1.026], ["done", 1.026]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:2", 0.027], ["candidates:3", 0.028], ["guard", 0.687], ["strength:0.6", 0.687], ["done", 0.687]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.025], ["candidates:1", 0.025], ["guard", 0.267], ["strength:-1.4", 0.267], ["done", 0.267]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:0", 0.023], ["done", 0.023]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.026], ["done", 0.026]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:2", 0.031], ["candidates:5", 0.031], ["guard", 1.228], ["strength:3.4", 1.229], ["done", 1.229]]}
+TS3008: 1 alerts, 14 turns
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.228], ["candidates:1", 0.228], ["guard", 0.462], ["strength:-6.5", 0.462], ["done", 0.462]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.047], ["candidates:5", 0.049], ["guard", 1.451], ["strength:-4.8", 1.451], ["done", 1.451]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.036], ["done", 0.036]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.03], ["candidates:5", 0.031], ["guard", 1.327], ["strength:0.2", 1.327], ["done", 1.327]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.048], ["done", 0.048]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.027], ["candidates:2", 0.027], ["guard", 0.544], ["strength:-4.6", 0.544], ["done", 0.544]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.04], ["candidates:5", 0.04], ["guard", 1.286], ["strength:-2.4", 1.286], ["done", 1.286]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.031], ["candidates:5", 0.032], ["guard", 1.173], ["strength:0.5", 1.173], ["done", 1.173]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:1", 0.034], ["candidates:5", 0.035], ["guard", 1.324], ["strength:-3.0", 1.324], ["done", 1.324]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:2", 0.032], ["candidates:5", 0.032], ["guard", 1.203], ["strength:1.1", 1.203], ["done", 1.203]]}
+{"liveCheckTiming": [["ledger", 0.016], ["meaning:1", 0.039], ["candidates:5", 0.04], ["guard", 1.34], ["strength:2.0", 1.34], ["done", 1.34]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.05], ["done", 0.05]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:2", 0.023], ["candidates:5", 0.024], ["guard", 0.98], ["strength:0.0", 0.98], ["done", 0.98]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.035], ["candidates:2", 0.035], ["guard", 0.669], ["strength:-7.2", 0.669], ["done", 0.669]]}
+{"liveCheckTiming": [["ledger", 0.006], ["meaning:0", 0.017], ["done", 0.017]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.027], ["done", 0.027]]}
+TS3009: 1 alerts, 16 turns
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.06], ["candidates:3", 0.06], ["guard", 0.752], ["strength:2.1", 0.752], ["done", 0.752]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.042], ["done", 0.042]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:1", 0.023], ["candidates:1", 0.023], ["guard", 0.209], ["strength:-3.6", 0.209], ["done", 0.209]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.022], ["candidates:3", 0.023], ["guard", 0.666], ["strength:-0.1", 0.666], ["done", 0.666]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.021], ["done", 0.021]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.029], ["candidates:3", 0.029], ["guard", 0.739], ["strength:-0.2", 0.739], ["done", 0.739]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:0", 0.032], ["candidates:3", 0.032], ["guard", 0.246], ["strength:5.6", 0.246], ["done", 0.246]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.03], ["done", 0.03]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.025], ["candidates:3", 0.026], ["guard", 0.668], ["strength:3.9", 0.668], ["done", 0.668]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.035], ["done", 0.035]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.021], ["done", 0.021]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.022], ["done", 0.022]]}
+TS3010: 3 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.02], ["meaning:0", 0.194], ["done", 0.194]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.037], ["done", 0.037]]}
+{"liveCheckTiming": [["ledger", 0.01], ["meaning:0", 0.035], ["candidates:2", 0.035], ["guard", 0.561], ["strength:-2.8", 0.561], ["done", 0.561]]}
+{"liveCheckTiming": [["ledger", 0.008], ["meaning:2", 0.024], ["candidates:2", 0.025], ["guard", 0.5], ["strength:-1.4", 0.5], ["done", 0.5]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.031], ["done", 0.031]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.031], ["done", 0.031]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.034], ["candidates:5", 0.035], ["guard", 1.198], ["strength:0.6", 1.198], ["done", 1.198]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:1", 0.039], ["candidates:5", 0.04], ["guard", 1.199], ["strength:0.1", 1.199], ["done", 1.199]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.036], ["candidates:5", 0.037], ["guard", 1.237], ["strength:0.9", 1.237], ["done", 1.237]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.039], ["done", 0.039]]}
+{"liveCheckTiming": [["ledger", 0.022], ["meaning:0", 0.044], ["done", 0.044]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.034], ["done", 0.034]]}
+TS3011: 0 alerts, 12 turns
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:0", 0.151], ["candidates:1", 0.151], ["guard", 0.374], ["strength:-1.1", 0.374], ["done", 0.374]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:0", 0.039], ["candidates:5", 0.041], ["guard", 1.066], ["strength:-3.0", 1.066], ["done", 1.066]]}
+{"liveCheckTiming": [["ledger", 0.015], ["meaning:1", 0.044], ["candidates:1", 0.045], ["guard", 0.212], ["strength:-3.4", 0.212], ["done", 0.212]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.03], ["candidates:2", 0.031], ["guard", 0.488], ["strength:-5.0", 0.488], ["done", 0.488]]}
+{"liveCheckTiming": [["ledger", 0.014], ["meaning:2", 0.044], ["candidates:4", 0.044], ["guard", 0.829], ["strength:-0.9", 0.829], ["done", 0.829]]}
+{"liveCheckTiming": [["ledger", 0.013], ["meaning:0", 0.042], ["done", 0.042]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.024], ["candidates:1", 0.024], ["guard", 0.261], ["strength:-4.0", 0.261], ["done", 0.261]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:0", 0.036], ["done", 0.036]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.036], ["candidates:5", 0.037], ["guard", 0.269], ["strength:6.8", 0.269], ["done", 0.269]]}
+{"liveCheckTiming": [["ledger", 0.011], ["meaning:1", 0.031], ["candidates:5", 0.031], ["guard", 1.126], ["strength:2.8", 1.126], ["done", 1.126]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.03], ["candidates:1", 0.03], ["guard", 0.192], ["strength:-4.4", 0.192], ["done", 0.192]]}
+{"liveCheckTiming": [["ledger", 0.012], ["meaning:1", 0.032], ["candidates:5", 0.032], ["guard", 1.109], ["strength:1.1", 1.109], ["done", 1.109]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:1", 0.022], ["candidates:1", 0.022], ["guard", 0.184], ["strength:-2.8", 0.184], ["done", 0.184]]}
+{"liveCheckTiming": [["ledger", 0.009], ["meaning:0", 0.026], ["candidates:2", 0.026], ["guard", 0.498], ["strength:-1.2", 0.498], ["done", 0.498]]}
+TS3012: 2 alerts, 14 turns

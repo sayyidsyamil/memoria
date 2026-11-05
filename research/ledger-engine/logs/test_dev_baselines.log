@@ -1,0 +1,20 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 78840.30it/s]
+  K=24 full-context: finished crm
+  K=24 full-context: finished datacentre
+  K=24 full-context: {'correct': 17, 'n': 27, 'accuracy': 0.6296296296296297, 'ci_95': (0.442, 0.785)}
+  K=24 full-context+cot: finished crm
+  K=24 full-context+cot: finished datacentre
+  K=24 full-context+cot: {'correct': 18, 'n': 27, 'accuracy': 0.6666666666666666, 'ci_95': (0.478, 0.814)}
+  K=24 bm25-rag(k=6): finished crm
+  K=24 bm25-rag(k=6): finished datacentre
+  K=24 bm25-rag(k=6): {'correct': 14, 'n': 27, 'accuracy': 0.5185185185185185, 'ci_95': (0.34, 0.693)}
+  K=24 bm25-rag(k=12): finished crm
+  K=24 bm25-rag(k=12): finished datacentre
+  K=24 bm25-rag(k=12): {'correct': 18, 'n': 27, 'accuracy': 0.6666666666666666, 'ci_95': (0.478, 0.814)}
+  K=24 bm25-rag(k=6)+cot: finished crm
+  K=24 bm25-rag(k=6)+cot: finished datacentre
+  K=24 bm25-rag(k=6)+cot: {'correct': 14, 'n': 27, 'accuracy': 0.5185185185185185, 'ci_95': (0.34, 0.693)}
+  K=24 bm25-rag(k=12)+cot: finished crm
+  K=24 bm25-rag(k=12)+cot: finished datacentre
+  K=24 bm25-rag(k=12)+cot: {'correct': 14, 'n': 27, 'accuracy': 0.5185185185185185, 'ci_95': (0.34, 0.693)}
+level K=24 done in 1561.9s -> results/dev/baselines_dev_k24_fixedcot.json

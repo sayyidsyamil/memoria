@@ -1,0 +1,40 @@
+Line coverage of memoria_engine, measured with coverage.py 7.16.2 while running the whole test suite (271 tests, 12.2 s with the tracer switched on).
+Command: python3.11 scripts/run_test_report.py --coverage    Generated 2026-10-13 19:34 UTC
+Line coverage only (a statement counts as covered if it ran at least once); branches are not measured.
+Not measured: the child processes started by the crash test (their lines are exercised by other tests too).
+Not run on purpose: the model-loading and generation path of MLXExtractor (no language model or GPU is used in any test).
+
+Module                                          Stmts   Miss    Cover
+----------------------------------------------------------------------
+memoria_engine/__init__.py                          3      0   100.0%
+memoria_engine/demo.py                             59     59     0.0%
+memoria_engine/envelope.py                         55      0   100.0%
+memoria_engine/evaluation/__init__.py               0      0   100.0%
+memoria_engine/evaluation/baselines.py            121      5    95.9%
+memoria_engine/evaluation/dataset.py              199     12    94.0%
+memoria_engine/evaluation/metrics.py              186     15    91.9%
+memoria_engine/evaluation/oracle.py                40      1    97.5%
+memoria_engine/evaluation/padding.py              370      8    97.8%
+memoria_engine/evaluation/report.py                52     52     0.0%
+memoria_engine/evaluation/router.py                80      0   100.0%
+memoria_engine/evaluation/run_eval.py              95     67    29.5%
+memoria_engine/evaluation/run_scaling.py          112     37    67.0%
+memoria_engine/evaluation/scaling_report.py       156     17    89.1%
+memoria_engine/evaluation/select_baselines.py      35     10    71.4%
+memoria_engine/extractors.py                      161     15    90.7%
+memoria_engine/fallback_router.py                 100     14    86.0%
+memoria_engine/ledger.py                          513     16    96.9%
+memoria_engine/llmcache.py                         44      0   100.0%
+memoria_engine/pipeline.py                        299      6    98.0%
+memoria_engine/service.py                         251     37    85.3%
+memoria_engine/windowed.py                         45      1    97.8%
+----------------------------------------------------------------------
+core engine (ledger, envelope, pipeline, extractors)   1031     37    96.4%
+support (service, demo, llmcache, windowed)       399     97    75.7%
+evaluation scripts (memoria_engine/evaluation)   1446    224    84.5%
+ALL of memoria_engine                            2976    372    87.5%
+
+Lines not executed in the core engine (line numbers):
+  memoria_engine/ledger.py: 203, 206, 226-229, 250-251, 327, 493, 526, 759, 804, 808, 818, 820
+  memoria_engine/pipeline.py: 90, 314-315, 381-383
+  memoria_engine/extractors.py: 61, 96, 225-228, 231-241

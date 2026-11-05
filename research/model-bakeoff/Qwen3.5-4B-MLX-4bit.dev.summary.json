@@ -1,0 +1,19 @@
+{
+  "n": 60,
+  "tp": 14,
+  "fp": 3,
+  "fn": 6,
+  "tn": 37,
+  "alert_precision": 0.8235294117647058,
+  "alert_recall": 0.7,
+  "false_alarm": 0.075,
+  "errors": 0,
+  "uncertain": 2,
+  "p50_ms": 5532.0,
+  "p95_ms": 8825.169999999993,
+  "mapping": "binary alert/no-alert only; pred is a placeholder, not a six-class prediction",
+  "split": "dev",
+  "limit": null,
+  "guard": "on",
+  "socket": "/var/folders/mq/y5_t7z2x7498pv2q3dmdg2x00000gn/T//bake-Qwen3.5-4B-MLX-4bit.sock"
+}

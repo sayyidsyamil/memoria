@@ -1,0 +1,13 @@
+node_modules
+output
+dist
+.remotion
+*.mp4
+*.mov
+*.webm
+*.gif
+*.png
+*.jpg
+
+# Brand kit (private assets, synced from refactoringhq/brand)
+brand/

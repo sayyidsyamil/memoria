@@ -1,0 +1,14 @@
+{
+  "recorded": "2026-11-03T18:38:00+0800",
+  "system": "Darwin",
+  "release": "25.6.0",
+  "machine": "arm64",
+  "hardware": {
+    "hw.model": "Mac17,3",
+    "hw.memsize": "17179869184",
+    "machdep.cpu.brand_string": "Apple M5"
+  },
+  "disk_free_gb": 19.208818688,
+  "lease": "required external run-exclusive.py/flock",
+  "mlx_allocator_cache_mib": 256
+}

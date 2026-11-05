@@ -1,0 +1,14 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 78840.30it/s]
+memoria demo: 3 meetings, 21 questions
+full-context+cot: finished demo
+full-context+cot: {'correct': 19, 'n': 21, 'accuracy': 0.9047619047619048, 'ci_95': (0.711, 0.973)}
+bm25-rag(k=12): finished demo
+bm25-rag(k=12): {'correct': 12, 'n': 21, 'accuracy': 0.5714285714285714, 'ci_95': (0.365, 0.755)}
+done in 246.5 s -> /Users/sayyid/Desktop/FYP/engine/results/demo/demo_eval_immediate.json
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 71331.70it/s]
+memoria demo: 3 meetings, 21 questions
+full-context+cot: finished demo
+full-context+cot: {'correct': 19, 'n': 21, 'accuracy': 0.9047619047619048, 'ci_95': (0.711, 0.973)}
+bm25-rag(k=12): finished demo
+bm25-rag(k=12): {'correct': 12, 'n': 21, 'accuracy': 0.5714285714285714, 'ci_95': (0.365, 0.755)}
+done in 253.6 s -> /Users/sayyid/Desktop/FYP/engine/results/demo/demo_eval_immediate.json

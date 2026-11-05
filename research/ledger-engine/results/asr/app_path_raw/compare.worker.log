@@ -1,0 +1,209 @@
+             meeting_1  stream  162.0 s ->   8.54 s, 30 segments
+             meeting_1 oneshot  162.0 s ->   1.71 s, 67 segments
+             meeting_2  stream  127.6 s ->   6.57 s, 28 segments
+             meeting_2 oneshot  127.6 s ->   1.08 s, 50 segments
+             meeting_3  stream  103.6 s ->   4.97 s, 33 segments
+             meeting_3 oneshot  103.6 s ->   0.91 s, 32 segments
+         IS1009a@60+10  stream   10.0 s ->   0.43 s, 6 segments
+         IS1009a@60+10 oneshot   10.0 s ->   0.19 s, 5 segments
+         IS1009a@60+20  stream   20.0 s ->   0.76 s, 9 segments
+         IS1009a@60+20 oneshot   20.0 s ->   0.16 s, 9 segments
+         IS1009a@60+30  stream   30.0 s ->   1.42 s, 15 segments
+         IS1009a@60+30 oneshot   30.0 s ->   0.34 s, 12 segments
+         IS1009a@60+60  stream   60.0 s ->   2.92 s, 28 segments
+         IS1009a@60+60 oneshot   60.0 s ->   0.41 s, 23 segments
+         IS1009a@60+90  stream   90.0 s ->   4.40 s, 41 segments
+         IS1009a@60+90 oneshot   90.0 s ->   0.85 s, 41 segments
+        IS1009a@60+120  stream  120.0 s ->   4.94 s, 49 segments
+        IS1009a@60+120 oneshot  120.0 s ->   0.98 s, 56 segments
+        IS1009a@330+10  stream   10.0 s ->   0.22 s, 10 segments
+        IS1009a@330+10 oneshot   10.0 s ->   0.06 s, 6 segments
+        IS1009a@330+20  stream   20.0 s ->   0.37 s, 15 segments
+        IS1009a@330+20 oneshot   20.0 s ->   0.09 s, 8 segments
+        IS1009a@330+30  stream   30.0 s ->   0.63 s, 18 segments
+        IS1009a@330+30 oneshot   30.0 s ->   0.13 s, 10 segments
+        IS1009a@330+60  stream   60.0 s ->   1.22 s, 27 segments
+        IS1009a@330+60 oneshot   60.0 s ->   0.35 s, 18 segments
+        IS1009a@330+90  stream   90.0 s ->   5.54 s, 40 segments
+        IS1009a@330+90 oneshot   90.0 s ->   0.69 s, 28 segments
+       IS1009a@330+120  stream  120.0 s ->   6.93 s, 54 segments
+       IS1009a@330+120 oneshot  120.0 s ->   1.30 s, 42 segments
+        IS1009a@600+10  stream   10.0 s ->   0.47 s, 4 segments
+        IS1009a@600+10 oneshot   10.0 s ->   0.15 s, 4 segments
+        IS1009a@600+20  stream   20.0 s ->   0.84 s, 9 segments
+        IS1009a@600+20 oneshot   20.0 s ->   0.08 s, 9 segments
+        IS1009a@600+30  stream   30.0 s ->   1.47 s, 15 segments
+        IS1009a@600+30 oneshot   30.0 s ->   0.31 s, 16 segments
+        IS1009a@600+60  stream   60.0 s ->   3.06 s, 39 segments
+        IS1009a@600+60 oneshot   60.0 s ->   0.47 s, 34 segments
+        IS1009a@600+90  stream   90.0 s ->   5.04 s, 55 segments
+        IS1009a@600+90 oneshot   90.0 s ->   0.86 s, 41 segments
+       IS1009a@600+120  stream  120.0 s ->   6.70 s, 72 segments
+       IS1009a@600+120 oneshot  120.0 s ->   1.52 s, 64 segments
+        ES2004a@100+10  stream   10.0 s ->   0.48 s, 5 segments
+        ES2004a@100+10 oneshot   10.0 s ->   0.22 s, 5 segments
+        ES2004a@100+20  stream   20.0 s ->   0.75 s, 8 segments
+        ES2004a@100+20 oneshot   20.0 s ->   0.31 s, 10 segments
+        ES2004a@100+30  stream   30.0 s ->   1.43 s, 13 segments
+        ES2004a@100+30 oneshot   30.0 s ->   0.12 s, 15 segments
+        ES2004a@100+60  stream   60.0 s ->   3.44 s, 28 segments
+        ES2004a@100+60 oneshot   60.0 s ->   0.49 s, 29 segments
+        ES2004a@100+90  stream   90.0 s ->   5.56 s, 40 segments
+        ES2004a@100+90 oneshot   90.0 s ->   0.80 s, 43 segments
+       ES2004a@100+120  stream  120.0 s ->   4.27 s, 42 segments
+       ES2004a@100+120 oneshot  120.0 s ->   0.58 s, 46 segments
+        ES2004a@450+10  stream   10.0 s ->   0.23 s, 11 segments
+        ES2004a@450+10 oneshot   10.0 s ->   0.07 s, 6 segments
+        ES2004a@450+20  stream   20.0 s ->   0.43 s, 16 segments
+        ES2004a@450+20 oneshot   20.0 s ->   0.09 s, 10 segments
+        ES2004a@450+30  stream   30.0 s ->   0.73 s, 18 segments
+        ES2004a@450+30 oneshot   30.0 s ->   0.12 s, 14 segments
+        ES2004a@450+60  stream   60.0 s ->   1.63 s, 38 segments
+        ES2004a@450+60 oneshot   60.0 s ->   0.39 s, 20 segments
+        ES2004a@450+90  stream   90.0 s ->   2.44 s, 55 segments
+        ES2004a@450+90 oneshot   90.0 s ->   0.17 s, 32 segments
+       ES2004a@450+120  stream  120.0 s ->   7.19 s, 67 segments
+       ES2004a@450+120 oneshot  120.0 s ->   1.32 s, 48 segments
+        ES2004a@800+10  stream   10.0 s ->   0.39 s, 7 segments
+        ES2004a@800+10 oneshot   10.0 s ->   0.21 s, 6 segments
+        ES2004a@800+20  stream   20.0 s ->   0.96 s, 15 segments
+        ES2004a@800+20 oneshot   20.0 s ->   0.27 s, 14 segments
+        ES2004a@800+30  stream   30.0 s ->   1.49 s, 23 segments
+        ES2004a@800+30 oneshot   30.0 s ->   0.33 s, 15 segments
+        ES2004a@800+60  stream   60.0 s ->   3.34 s, 44 segments
+        ES2004a@800+60 oneshot   60.0 s ->   0.46 s, 31 segments
+        ES2004a@800+90  stream   90.0 s ->   2.74 s, 61 segments
+        ES2004a@800+90 oneshot   90.0 s ->   0.22 s, 41 segments
+       ES2004a@800+120  stream  120.0 s ->   1.68 s, 79 segments
+       ES2004a@800+120 oneshot  120.0 s ->   0.33 s, 54 segments
+        ES2014a@100+10  stream   10.0 s ->   0.07 s, 6 segments
+        ES2014a@100+10 oneshot   10.0 s ->   0.02 s, 5 segments
+        ES2014a@100+20  stream   20.0 s ->   0.15 s, 11 segments
+        ES2014a@100+20 oneshot   20.0 s ->   0.03 s, 10 segments
+        ES2014a@100+30  stream   30.0 s ->   0.26 s, 15 segments
+        ES2014a@100+30 oneshot   30.0 s ->   0.06 s, 13 segments
+        ES2014a@100+60  stream   60.0 s ->   1.67 s, 22 segments
+        ES2014a@100+60 oneshot   60.0 s ->   0.58 s, 24 segments
+        ES2014a@100+90  stream   90.0 s ->   1.69 s, 33 segments
+        ES2014a@100+90 oneshot   90.0 s ->   0.15 s, 32 segments
+       ES2014a@100+120  stream  120.0 s ->   1.40 s, 45 segments
+       ES2014a@100+120 oneshot  120.0 s ->   0.33 s, 49 segments
+        ES2014a@450+10  stream   10.0 s ->   0.07 s, 2 segments
+        ES2014a@450+10 oneshot   10.0 s ->   0.02 s, 2 segments
+        ES2014a@450+20  stream   20.0 s ->   0.14 s, 3 segments
+        ES2014a@450+20 oneshot   20.0 s ->   0.03 s, 3 segments
+        ES2014a@450+30  stream   30.0 s ->   0.26 s, 6 segments
+        ES2014a@450+30 oneshot   30.0 s ->   0.05 s, 11 segments
+        ES2014a@450+60  stream   60.0 s ->   0.65 s, 12 segments
+        ES2014a@450+60 oneshot   60.0 s ->   0.09 s, 12 segments
+        ES2014a@450+90  stream   90.0 s ->   1.02 s, 24 segments
+        ES2014a@450+90 oneshot   90.0 s ->   0.17 s, 29 segments
+       ES2014a@450+120  stream  120.0 s ->   1.39 s, 31 segments
+       ES2014a@450+120 oneshot  120.0 s ->   0.24 s, 41 segments
+        ES2014a@800+10  stream   10.0 s ->   0.07 s, 5 segments
+        ES2014a@800+10 oneshot   10.0 s ->   0.02 s, 5 segments
+        ES2014a@800+20  stream   20.0 s ->   0.14 s, 8 segments
+        ES2014a@800+20 oneshot   20.0 s ->   0.03 s, 8 segments
+        ES2014a@800+30  stream   30.0 s ->   0.26 s, 11 segments
+        ES2014a@800+30 oneshot   30.0 s ->   0.04 s, 9 segments
+        ES2014a@800+60  stream   60.0 s ->   0.65 s, 29 segments
+        ES2014a@800+60 oneshot   60.0 s ->   0.12 s, 16 segments
+        ES2014a@800+90  stream   90.0 s ->   1.03 s, 41 segments
+        ES2014a@800+90 oneshot   90.0 s ->   0.21 s, 32 segments
+       ES2014a@800+120  stream  120.0 s ->   1.41 s, 62 segments
+       ES2014a@800+120 oneshot  120.0 s ->   0.25 s, 60 segments
+        TS3003a@100+10  stream   10.0 s ->   0.07 s, 4 segments
+        TS3003a@100+10 oneshot   10.0 s ->   0.02 s, 3 segments
+        TS3003a@100+20  stream   20.0 s ->   0.15 s, 9 segments
+        TS3003a@100+20 oneshot   20.0 s ->   0.04 s, 8 segments
+        TS3003a@100+30  stream   30.0 s ->   0.26 s, 14 segments
+        TS3003a@100+30 oneshot   30.0 s ->   0.04 s, 9 segments
+        TS3003a@100+60  stream   60.0 s ->   0.64 s, 27 segments
+        TS3003a@100+60 oneshot   60.0 s ->   0.13 s, 23 segments
+        TS3003a@100+90  stream   90.0 s ->   1.04 s, 43 segments
+        TS3003a@100+90 oneshot   90.0 s ->   0.22 s, 33 segments
+       TS3003a@100+120  stream  120.0 s ->   1.40 s, 60 segments
+       TS3003a@100+120 oneshot  120.0 s ->   0.34 s, 44 segments
+        TS3003a@600+10  stream   10.0 s ->   0.08 s, 3 segments
+        TS3003a@600+10 oneshot   10.0 s ->   0.02 s, 3 segments
+        TS3003a@600+20  stream   20.0 s ->   0.15 s, 5 segments
+        TS3003a@600+20 oneshot   20.0 s ->   0.02 s, 4 segments
+        TS3003a@600+30  stream   30.0 s ->   0.26 s, 6 segments
+        TS3003a@600+30 oneshot   30.0 s ->   0.05 s, 6 segments
+        TS3003a@600+60  stream   60.0 s ->   0.65 s, 17 segments
+        TS3003a@600+60 oneshot   60.0 s ->   0.12 s, 19 segments
+        TS3003a@600+90  stream   90.0 s ->   1.03 s, 25 segments
+        TS3003a@600+90 oneshot   90.0 s ->   0.22 s, 30 segments
+       TS3003a@600+120  stream  120.0 s ->   1.42 s, 37 segments
+       TS3003a@600+120 oneshot  120.0 s ->   0.22 s, 45 segments
+       TS3003a@1100+10  stream   10.0 s ->   0.07 s, 6 segments
+       TS3003a@1100+10 oneshot   10.0 s ->   0.02 s, 2 segments
+       TS3003a@1100+20  stream   20.0 s ->   0.15 s, 12 segments
+       TS3003a@1100+20 oneshot   20.0 s ->   0.03 s, 11 segments
+       TS3003a@1100+30  stream   30.0 s ->   0.27 s, 15 segments
+       TS3003a@1100+30 oneshot   30.0 s ->   0.06 s, 13 segments
+       TS3003a@1100+60  stream   60.0 s ->   0.65 s, 28 segments
+       TS3003a@1100+60 oneshot   60.0 s ->   0.09 s, 23 segments
+       TS3003a@1100+90  stream   90.0 s ->   1.05 s, 40 segments
+       TS3003a@1100+90 oneshot   90.0 s ->   0.17 s, 37 segments
+      TS3003a@1100+120  stream  120.0 s ->   1.41 s, 57 segments
+      TS3003a@1100+120 oneshot  120.0 s ->   0.34 s, 44 segments
+        TS3007a@100+10  stream   10.0 s ->   0.07 s, 2 segments
+        TS3007a@100+10 oneshot   10.0 s ->   0.84 s, 2 segments
+        TS3007a@100+20  stream   20.0 s ->   0.15 s, 6 segments
+        TS3007a@100+20 oneshot   20.0 s ->   0.02 s, 7 segments
+        TS3007a@100+30  stream   30.0 s ->   0.26 s, 9 segments
+        TS3007a@100+30 oneshot   30.0 s ->   0.03 s, 10 segments
+        TS3007a@100+60  stream   60.0 s ->   0.64 s, 21 segments
+        TS3007a@100+60 oneshot   60.0 s ->   0.09 s, 19 segments
+        TS3007a@100+90  stream   90.0 s ->   1.04 s, 31 segments
+        TS3007a@100+90 oneshot   90.0 s ->   0.20 s, 30 segments
+       TS3007a@100+120  stream  120.0 s ->   1.41 s, 43 segments
+       TS3007a@100+120 oneshot  120.0 s ->   0.23 s, 39 segments
+        TS3007a@600+10  stream   10.0 s ->   0.07 s, 4 segments
+        TS3007a@600+10 oneshot   10.0 s ->   0.02 s, 5 segments
+        TS3007a@600+20  stream   20.0 s ->   0.14 s, 6 segments
+        TS3007a@600+20 oneshot   20.0 s ->   0.03 s, 11 segments
+        TS3007a@600+30  stream   30.0 s ->   0.27 s, 8 segments
+        TS3007a@600+30 oneshot   30.0 s ->   0.04 s, 18 segments
+        TS3007a@600+60  stream   60.0 s ->   0.65 s, 23 segments
+        TS3007a@600+60 oneshot   60.0 s ->   0.12 s, 29 segments
+        TS3007a@600+90  stream   90.0 s ->   1.03 s, 32 segments
+        TS3007a@600+90 oneshot   90.0 s ->   0.16 s, 40 segments
+       TS3007a@600+120  stream  120.0 s ->   1.46 s, 48 segments
+       TS3007a@600+120 oneshot  120.0 s ->   0.21 s, 36 segments
+       TS3007a@1100+10  stream   10.0 s ->   0.07 s, 8 segments
+       TS3007a@1100+10 oneshot   10.0 s ->   0.02 s, 5 segments
+       TS3007a@1100+20  stream   20.0 s ->   0.15 s, 9 segments
+       TS3007a@1100+20 oneshot   20.0 s ->   0.03 s, 4 segments
+       TS3007a@1100+30  stream   30.0 s ->   0.27 s, 17 segments
+       TS3007a@1100+30 oneshot   30.0 s ->   0.04 s, 9 segments
+       TS3007a@1100+60  stream   60.0 s ->   0.65 s, 31 segments
+       TS3007a@1100+60 oneshot   60.0 s ->   0.13 s, 21 segments
+       TS3007a@1100+90  stream   90.0 s ->   1.04 s, 51 segments
+       TS3007a@1100+90 oneshot   90.0 s ->   0.22 s, 54 segments
+      TS3007a@1100+120  stream  120.0 s ->   1.42 s, 66 segments
+      TS3007a@1100+120 oneshot  120.0 s ->   0.33 s, 66 segments
+
+--- stderr ---
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 30283.78it/s]
+      183.91 real        17.60 user        15.91 sys
+          1289109504  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              281323  page reclaims
+                3099  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  22  messages sent
+                  60  messages received
+                   0  signals received
+               18384  voluntary context switches
+              352366  involuntary context switches
+        253830913304  instructions retired
+        100135887723  cycles elapsed
+          4049291208  peak memory footprint

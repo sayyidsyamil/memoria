@@ -1,0 +1,4919 @@
+{
+ "k": 4,
+ "prereg": "code, config, conditions and the benchmark are those pinned on 2026-10-16 00:14:34 +0800; memoria.py was changed afterwards (the citation-parser fix of 16 October 2026), and the memoria.py the runs used is kept as results/memoria_as_run.py, which has the pinned hash",
+ "incomplete": [],
+ "summaries": {
+  "M3@C0": {
+   "n": 336,
+   "accuracy": 0.8720238095238095,
+   "macro_f1": 0.8712710389505721,
+   "class_recall": {
+    "SUPPORTED_CURRENT": 0.9821428571428571,
+    "OUTDATED": 0.7321428571428571,
+    "CONTRADICTS": 0.8392857142857143,
+    "UPDATES": 0.8928571428571429,
+    "IRRELEVANT": 0.8928571428571429,
+    "INSUFFICIENT_EVIDENCE": 0.8928571428571429
+   },
+   "class_f1": {
+    "SUPPORTED_CURRENT": 0.8943089430894309,
+    "OUTDATED": 0.7735849056603773,
+    "CONTRADICTS": 0.8318584070796461,
+    "UPDATES": 0.9090909090909091,
+    "IRRELEVANT": 0.9259259259259259,
+    "INSUFFICIENT_EVIDENCE": 0.8928571428571429
+   },
+   "alert_precision": 0.9626168224299065,
+   "alert_recall": 0.9196428571428571,
+   "false_alarm": 0.017857142857142856,
+   "tp": 103,
+   "fp": 4,
+   "fn": 9,
+   "tn": 220,
+   "p50_ms": 1360.145,
+   "p95_ms": 2087.92,
+   "peak_gb": 3.547,
+   "ci": {
+    "macro_f1": [
+     0.8399652210804714,
+     0.9013961708672051
+    ],
+    "accuracy": [
+     0.8422619047619048,
+     0.9017857142857143
+    ],
+    "alert_precision": [
+     0.9279279279279279,
+     0.9905682419326397
+    ],
+    "alert_recall": [
+     0.875,
+     0.9642857142857143
+    ],
+    "false_alarm": [
+     0.004464285714285714,
+     0.03571428571428571
+    ]
+   },
+   "memory_p50": 12.5,
+   "scope_p50": 4.0,
+   "tokens_p50": 623.0,
+   "tokens_p95": 684.0,
+   "citations": {
+    "true_alerts": 103,
+    "exact_as_parsed": 99,
+    "exact_fixed": 100,
+    "true_alerts_citing_distractor": 0,
+    "false_alarms_citing_distractor": 0,
+    "alerts_citing_distractor": 0
+   },
+   "unreadable": 0
+  },
+  "M2@C0": {
+   "n": 336,
+   "accuracy": 0.8720238095238095,
+   "macro_f1": 0.8713044662903421,
+   "class_recall": {
+    "SUPPORTED_CURRENT": 0.9821428571428571,
+    "OUTDATED": 0.7142857142857143,
+    "CONTRADICTS": 0.8214285714285714,
+    "UPDATES": 0.9642857142857143,
+    "IRRELEVANT": 0.9107142857142857,
+    "INSUFFICIENT_EVIDENCE": 0.8392857142857143
+   },
+   "class_f1": {
+    "SUPPORTED_CURRENT": 0.9322033898305085,
+    "OUTDATED": 0.7619047619047619,
+    "CONTRADICTS": 0.7796610169491526,
+    "UPDATES": 0.972972972972973,
+    "IRRELEVANT": 0.9107142857142857,
+    "INSUFFICIENT_EVIDENCE": 0.8703703703703703
+   },
+   "alert_precision": 0.990990990990991,
+   "alert_recall": 0.9821428571428571,
+   "false_alarm": 0.004464285714285714,
+   "tp": 110,
+   "fp": 1,
+   "fn": 2,
+   "tn": 223,
+   "p50_ms": 1562.495,
+   "p95_ms": 2230.92,
+   "peak_gb": 3.683,
+   "ci": {
+    "macro_f1": [
+     0.8357426789912057,
+     0.9044119106076491
+    ],
+    "accuracy": [
+     0.8363095238095238,
+     0.9047619047619048
+    ],
+    "alert_precision": [
+     0.972972972972973,
+     1.0
+    ],
+    "alert_recall": [
+     0.9553571428571429,
+     1.0
+    ],
+    "false_alarm": [
+     0.0,
+     0.013392857142857142
+    ]
+   },
+   "memory_p50": 12.5,
+   "scope_p50": 12.5,
+   "tokens_p50": 913.5,
+   "tokens_p95": 1157.0,
+   "citations": {
+    "true_alerts": 110,
+    "exact_as_parsed": 101,
+    "exact_fixed": 103,
+    "true_alerts_citing_distractor": 0,
+    "false_alarms_citing_distractor": 0,
+    "alerts_citing_distractor": 0
+   },
+   "unreadable": 0
+  },
+  "M3@C1": {
+   "n": 336,
+   "accuracy": 0.7857142857142857,
+   "macro_f1": 0.7839958828248039,
+   "class_recall": {
+    "SUPPORTED_CURRENT": 0.9464285714285714,
+    "OUTDATED": 0.625,
+    "CONTRADICTS": 0.5892857142857143,
+    "UPDATES": 0.8928571428571429,
+    "IRRELEVANT": 0.8571428571428571,
+    "INSUFFICIENT_EVIDENCE": 0.8035714285714286
+   },
+   "class_f1": {
+    "SUPPORTED_CURRENT": 0.7571428571428572,
+    "OUTDATED": 0.7,
+    "CONTRADICTS": 0.6804123711340206,
+    "UPDATES": 0.8264462809917357,
+    "IRRELEVANT": 0.9142857142857143,
+    "INSUFFICIENT_EVIDENCE": 0.8256880733944955
+   },
+   "alert_precision": 0.9647058823529412,
+   "alert_recall": 0.7321428571428571,
+   "false_alarm": 0.013392857142857142,
+   "tp": 82,
+   "fp": 3,
+   "fn": 30,
+   "tn": 221,
+   "p50_ms": 1030.5149999999999,
+   "p95_ms": 1599.48,
+   "peak_gb": 3.499,
+   "ci": {
+    "macro_f1": [
+     0.7342813460134178,
+     0.8263903636191395
+    ],
+    "accuracy": [
+     0.7351190476190477,
+     0.8303571428571429
+    ],
+    "alert_precision": [
+     0.9247311827956989,
+     1.0
+    ],
+    "alert_recall": [
+     0.6339285714285714,
+     0.8214285714285714
+    ],
+    "false_alarm": [
+     0.0,
+     0.03125
+    ]
+   },
+   "memory_p50": 42.5,
+   "scope_p50": 4.0,
+   "tokens_p50": 604.5,
+   "tokens_p95": 658.5,
+   "citations": {
+    "true_alerts": 82,
+    "exact_as_parsed": 74,
+    "exact_fixed": 74,
+    "true_alerts_citing_distractor": 2,
+    "false_alarms_citing_distractor": 1,
+    "alerts_citing_distractor": 3
+   },
+   "unreadable": 0
+  },
+  "M2@C1": {
+   "n": 336,
+   "accuracy": 0.8214285714285714,
+   "macro_f1": 0.8185041864272207,
+   "class_recall": {
+    "SUPPORTED_CURRENT": 0.9821428571428571,
+    "OUTDATED": 0.625,
+    "CONTRADICTS": 0.75,
+    "UPDATES": 0.9107142857142857,
+    "IRRELEVANT": 0.9821428571428571,
+    "INSUFFICIENT_EVIDENCE": 0.6785714285714286
+   },
+   "class_f1": {
+    "SUPPORTED_CURRENT": 0.9016393442622951,
+    "OUTDATED": 0.6730769230769231,
+    "CONTRADICTS": 0.7118644067796611,
+    "UPDATES": 0.9444444444444444,
+    "IRRELEVANT": 0.8799999999999999,
+    "INSUFFICIENT_EVIDENCE": 0.8
+   },
+   "alert_precision": 0.990909090909091,
+   "alert_recall": 0.9732142857142857,
+   "false_alarm": 0.004464285714285714,
+   "tp": 109,
+   "fp": 1,
+   "fn": 3,
+   "tn": 223,
+   "p50_ms": 2442.6099999999997,
+   "p95_ms": 3131.8325,
+   "peak_gb": 3.665,
+   "ci": {
+    "macro_f1": [
+     0.7809444413725168,
+     0.8542872331802248
+    ],
+    "accuracy": [
+     0.7857142857142857,
+     0.8571428571428571
+    ],
+    "alert_precision": [
+     0.9724770642201835,
+     1.0
+    ],
+    "alert_recall": [
+     0.9285714285714286,
+     1.0
+    ],
+    "false_alarm": [
+     0.0,
+     0.013392857142857142
+    ]
+   },
+   "memory_p50": 42.5,
+   "scope_p50": 42.5,
+   "tokens_p50": 1718.0,
+   "tokens_p95": 1930.0,
+   "citations": {
+    "true_alerts": 109,
+    "exact_as_parsed": 92,
+    "exact_fixed": 94,
+    "true_alerts_citing_distractor": 1,
+    "false_alarms_citing_distractor": 0,
+    "alerts_citing_distractor": 1
+   },
+   "unreadable": 0
+  },
+  "M3@C2": {
+   "n": 336,
+   "accuracy": 0.7619047619047619,
+   "macro_f1": 0.7628661755815603,
+   "class_recall": {
+    "SUPPORTED_CURRENT": 0.9464285714285714,
+    "OUTDATED": 0.5892857142857143,
+    "CONTRADICTS": 0.5357142857142857,
+    "UPDATES": 0.8035714285714286,
+    "IRRELEVANT": 0.9107142857142857,
+    "INSUFFICIENT_EVIDENCE": 0.7857142857142857
+   },
+   "class_f1": {
+    "SUPPORTED_CURRENT": 0.6973684210526316,
+    "OUTDATED": 0.7021276595744681,
+    "CONTRADICTS": 0.6451612903225806,
+    "UPDATES": 0.75,
+    "IRRELEVANT": 0.9444444444444444,
+    "INSUFFICIENT_EVIDENCE": 0.838095238095238
+   },
+   "alert_precision": 0.9866666666666667,
+   "alert_recall": 0.6607142857142857,
+   "false_alarm": 0.004464285714285714,
+   "tp": 74,
+   "fp": 1,
+   "fn": 38,
+   "tn": 223,
+   "p50_ms": 1044.37,
+   "p95_ms": 1596.4524999999999,
+   "peak_gb": 3.518,
+   "ci": {
+    "macro_f1": [
+     0.7133881801692529,
+     0.806527038165486
+    ],
+    "accuracy": [
+     0.7142113095238095,
+     0.8065476190476191
+    ],
+    "alert_precision": [
+     0.9583333333333334,
+     1.0
+    ],
+    "alert_recall": [
+     0.5714285714285714,
+     0.75
+    ],
+    "false_alarm": [
+     0.0,
+     0.013392857142857142
+    ]
+   },
+   "memory_p50": 85.5,
+   "scope_p50": 4.0,
+   "tokens_p50": 603.0,
+   "tokens_p95": 660.25,
+   "citations": {
+    "true_alerts": 74,
+    "exact_as_parsed": 69,
+    "exact_fixed": 69,
+    "true_alerts_citing_distractor": 0,
+    "false_alarms_citing_distractor": 0,
+    "alerts_citing_distractor": 0
+   },
+   "unreadable": 0
+  },
+  "M2@C2": {
+   "n": 336,
+   "accuracy": 0.7767857142857143,
+   "macro_f1": 0.7726544512935503,
+   "class_recall": {
+    "SUPPORTED_CURRENT": 0.9821428571428571,
+    "OUTDATED": 0.5535714285714286,
+    "CONTRADICTS": 0.625,
+    "UPDATES": 0.8214285714285714,
+    "IRRELEVANT": 0.9821428571428571,
+    "INSUFFICIENT_EVIDENCE": 0.6964285714285714
+   },
+   "class_f1": {
+    "SUPPORTED_CURRENT": 0.8208955223880596,
+    "OUTDATED": 0.6262626262626263,
+    "CONTRADICTS": 0.6140350877192983,
+    "UPDATES": 0.8679245283018867,
+    "IRRELEVANT": 0.8943089430894309,
+    "INSUFFICIENT_EVIDENCE": 0.8125
+   },
+   "alert_precision": 1.0,
+   "alert_recall": 0.9017857142857143,
+   "false_alarm": 0.0,
+   "tp": 101,
+   "fp": 0,
+   "fn": 11,
+   "tn": 224,
+   "p50_ms": 3870.8999999999996,
+   "p95_ms": 6117.1825,
+   "peak_gb": 3.78,
+   "ci": {
+    "macro_f1": [
+     0.7289280682228784,
+     0.81247711480829
+    ],
+    "accuracy": [
+     0.7351190476190477,
+     0.8154761904761905
+    ],
+    "alert_precision": [
+     1.0,
+     1.0
+    ],
+    "alert_recall": [
+     0.8571428571428571,
+     0.9464285714285714
+    ],
+    "false_alarm": [
+     0.0,
+     0.0
+    ]
+   },
+   "memory_p50": 85.5,
+   "scope_p50": 85.5,
+   "tokens_p50": 2906.0,
+   "tokens_p95": 4777.25,
+   "citations": {
+    "true_alerts": 101,
+    "exact_as_parsed": 77,
+    "exact_fixed": 79,
+    "true_alerts_citing_distractor": 0,
+    "false_alarms_citing_distractor": 0,
+    "alerts_citing_distractor": 0
+   },
+   "unreadable": 0
+  }
+ },
+ "contrasts": {
+  "M3@C0 vs M2@C0": {
+   "first": "M3@C0",
+   "second": "M2@C0",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -3.3427339769964703e-05,
+     -0.035605323085407495,
+     0.03231381571691061
+    ],
+    "alert_recall": [
+     -0.0625,
+     -0.1160714285714286,
+     -0.008928571428571397
+    ],
+    "false_alarm": [
+     0.013392857142857142,
+     0.0,
+     0.026785714285714288
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 321,
+    "only_first": 2,
+    "only_second": 12,
+    "both_wrong": 1,
+    "discordant": 14,
+    "chi2": 5.785714285714286,
+    "chi2_p": 0.016156931261181305,
+    "exact_p": 0.012939453125
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 274,
+    "only_first": 19,
+    "only_second": 19,
+    "both_wrong": 24,
+    "discordant": 38,
+    "chi2": 0.02631578947368421,
+    "chi2_p": 0.8711314915971582,
+    "exact_p": 1.0
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 2,
+    "second_better": 10,
+    "tied": 16,
+    "exact_p": 0.03857421875
+   },
+   "latency": {
+    "ratio": 0.8704955855858739,
+    "lo": 0.8072741372177238,
+    "hi": 0.9195309455450272
+   }
+  },
+  "M3@C1 vs M2@C1": {
+   "first": "M3@C1",
+   "second": "M2@C1",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -0.034508303602416746,
+     -0.09617995603766871,
+     0.0186792930408028
+    ],
+    "alert_recall": [
+     -0.2410714285714286,
+     -0.3482142857142857,
+     -0.1428571428571428
+    ],
+    "false_alarm": [
+     0.008928571428571428,
+     -0.008928571428571428,
+     0.026785714285714284
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 299,
+    "only_first": 4,
+    "only_second": 33,
+    "both_wrong": 0,
+    "discordant": 37,
+    "chi2": 21.18918918918919,
+    "chi2_p": 4.161050128347499e-06,
+    "exact_p": 1.0843941709026694e-06
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 232,
+    "only_first": 32,
+    "only_second": 44,
+    "both_wrong": 28,
+    "discordant": 76,
+    "chi2": 1.5921052631578947,
+    "chi2_p": 0.20702560815693152,
+    "exact_p": 0.20673684180839247
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 2,
+    "second_better": 19,
+    "tied": 7,
+    "exact_p": 0.00022125244140625
+   },
+   "latency": {
+    "ratio": 0.4218909281465318,
+    "lo": 0.4056195895583106,
+    "hi": 0.4313414040091423
+   }
+  },
+  "M3@C2 vs M2@C2": {
+   "first": "M3@C2",
+   "second": "M2@C2",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -0.009788275711989924,
+     -0.06173599169861374,
+     0.037122122294482446
+    ],
+    "alert_recall": [
+     -0.2410714285714286,
+     -0.3303571428571428,
+     -0.1517857142857143
+    ],
+    "false_alarm": [
+     0.004464285714285714,
+     0.0,
+     0.013392857142857142
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 291,
+    "only_first": 6,
+    "only_second": 34,
+    "both_wrong": 5,
+    "discordant": 40,
+    "chi2": 18.225,
+    "chi2_p": 1.962854058695214e-05,
+    "exact_p": 8.364584573428147e-06
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 222,
+    "only_first": 34,
+    "only_second": 39,
+    "both_wrong": 41,
+    "discordant": 73,
+    "chi2": 0.2191780821917808,
+    "chi2_p": 0.6396668933244998,
+    "exact_p": 0.6399729317539425
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 1,
+    "second_better": 20,
+    "tied": 7,
+    "exact_p": 2.09808349609375e-05
+   },
+   "latency": {
+    "ratio": 0.269800304838668,
+    "lo": 0.24580672270720205,
+    "hi": 0.28786132616353877
+   }
+  },
+  "M3@C1 vs M3@C0": {
+   "first": "M3@C1",
+   "second": "M3@C0",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -0.0872751561257682,
+     -0.13614798451841792,
+     -0.045180047664994866
+    ],
+    "alert_recall": [
+     -0.1875,
+     -0.2857142857142857,
+     -0.1071428571428571
+    ],
+    "false_alarm": [
+     -0.004464285714285714,
+     -0.02232142857142857,
+     0.00892857142857143
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 301,
+    "only_first": 2,
+    "only_second": 22,
+    "both_wrong": 11,
+    "discordant": 24,
+    "chi2": 15.041666666666666,
+    "chi2_p": 0.00010516355403363106,
+    "exact_p": 3.5881996154785156e-05
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 253,
+    "only_first": 11,
+    "only_second": 40,
+    "both_wrong": 32,
+    "discordant": 51,
+    "chi2": 15.372549019607844,
+    "chi2_p": 8.826126346812191e-05,
+    "exact_p": 5.703811637403078e-05
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 1,
+    "second_better": 14,
+    "tied": 13,
+    "exact_p": 0.0009765625
+   },
+   "latency": {
+    "ratio": 0.7576508386973447,
+    "lo": 0.7406633998786215,
+    "hi": 0.7971603132961251
+   }
+  },
+  "M3@C2 vs M3@C0": {
+   "first": "M3@C2",
+   "second": "M3@C0",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -0.10840486336901178,
+     -0.15456202137156905,
+     -0.06853028390296248
+    ],
+    "alert_recall": [
+     -0.2589285714285714,
+     -0.3571428571428571,
+     -0.1785714285714285
+    ],
+    "false_alarm": [
+     -0.013392857142857142,
+     -0.03125,
+     0.004464285714285714
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 293,
+    "only_first": 4,
+    "only_second": 30,
+    "both_wrong": 9,
+    "discordant": 34,
+    "chi2": 18.38235294117647,
+    "chi2_p": 1.807240237422998e-05,
+    "exact_p": 6.16488978266716e-06
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 242,
+    "only_first": 14,
+    "only_second": 51,
+    "both_wrong": 29,
+    "discordant": 65,
+    "chi2": 19.93846153846154,
+    "chi2_p": 7.997514362767597e-06,
+    "exact_p": 4.475224849487538e-06
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 2,
+    "second_better": 18,
+    "tied": 8,
+    "exact_p": 0.0004024505615234375
+   },
+   "latency": {
+    "ratio": 0.7678372526458576,
+    "lo": 0.7530304487668283,
+    "hi": 0.8077443496687361
+   }
+  },
+  "M2@C1 vs M2@C0": {
+   "first": "M2@C1",
+   "second": "M2@C0",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -0.05280027986312141,
+     -0.09044787849142859,
+     -0.01875214197401666
+    ],
+    "alert_recall": [
+     -0.008928571428571397,
+     -0.0267857142857143,
+     0.0
+    ],
+    "false_alarm": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 332,
+    "only_first": 0,
+    "only_second": 1,
+    "both_wrong": 3,
+    "discordant": 1,
+    "chi2": 0.0,
+    "chi2_p": 1.0,
+    "exact_p": 1.0
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 261,
+    "only_first": 15,
+    "only_second": 32,
+    "both_wrong": 28,
+    "discordant": 47,
+    "chi2": 5.446808510638298,
+    "chi2_p": 0.019604108570366055,
+    "exact_p": 0.018623836615006432
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 0,
+    "second_better": 1,
+    "tied": 27,
+    "exact_p": 1.0
+   },
+   "latency": {
+    "ratio": 1.5632754024812878,
+    "lo": 1.4970653131874665,
+    "hi": 1.6316346224219707
+   }
+  },
+  "M2@C2 vs M2@C0": {
+   "first": "M2@C2",
+   "second": "M2@C0",
+   "n": 336,
+   "bootstrap": {
+    "macro_f1": [
+     -0.09865001499679182,
+     -0.13633466664435875,
+     -0.06059917849530842
+    ],
+    "alert_recall": [
+     -0.0803571428571428,
+     -0.125,
+     -0.044642857142857095
+    ],
+    "false_alarm": [
+     -0.004464285714285714,
+     -0.013392857142857142,
+     0.0
+    ]
+   },
+   "mcnemar_alert": {
+    "n": 336,
+    "both_right": 324,
+    "only_first": 1,
+    "only_second": 9,
+    "both_wrong": 2,
+    "discordant": 10,
+    "chi2": 4.9,
+    "chi2_p": 0.026856695507524467,
+    "exact_p": 0.021484375
+   },
+   "mcnemar_label": {
+    "n": 336,
+    "both_right": 249,
+    "only_first": 12,
+    "only_second": 44,
+    "both_wrong": 31,
+    "discordant": 56,
+    "chi2": 17.160714285714285,
+    "chi2_p": 3.434665804698459e-05,
+    "exact_p": 2.0876568218419767e-05
+   },
+   "series_alert": {
+    "series": 28,
+    "first_better": 0,
+    "second_better": 8,
+    "tied": 20,
+    "exact_p": 0.0078125
+   },
+   "latency": {
+    "ratio": 2.4773839276285683,
+    "lo": 2.2360417583547467,
+    "hi": 2.8224321481089643
+   }
+  }
+ },
+ "table": [
+  {
+   "system": "M3@C0",
+   "kind": "M3",
+   "condition": "C0",
+   "n": 336,
+   "decisions_in_memory_p50": 12.5,
+   "scope_p50": 4.0,
+   "prompt_tokens_p50": 623.0,
+   "prompt_tokens_p95": 684.0,
+   "macro_f1": 0.8712710389505721,
+   "macro_f1_lo": 0.8399652210804714,
+   "macro_f1_hi": 0.9013961708672051,
+   "alert_precision": 0.9626168224299065,
+   "alert_recall": 0.9196428571428571,
+   "false_alarm": 0.017857142857142856,
+   "false_alarms": 4,
+   "missed_alerts": 9,
+   "p50_ms": 1360.145,
+   "p95_ms": 2087.92,
+   "peak_gb": 3.547,
+   "true_alerts": 103,
+   "cited_gold_as_parsed": 99,
+   "cited_gold_corrected": 100,
+   "alerts_citing_other_topic": 0,
+   "unreadable_replies": 0
+  },
+  {
+   "system": "M2@C0",
+   "kind": "M2",
+   "condition": "C0",
+   "n": 336,
+   "decisions_in_memory_p50": 12.5,
+   "scope_p50": 12.5,
+   "prompt_tokens_p50": 913.5,
+   "prompt_tokens_p95": 1157.0,
+   "macro_f1": 0.8713044662903421,
+   "macro_f1_lo": 0.8357426789912057,
+   "macro_f1_hi": 0.9044119106076491,
+   "alert_precision": 0.990990990990991,
+   "alert_recall": 0.9821428571428571,
+   "false_alarm": 0.004464285714285714,
+   "false_alarms": 1,
+   "missed_alerts": 2,
+   "p50_ms": 1562.495,
+   "p95_ms": 2230.92,
+   "peak_gb": 3.683,
+   "true_alerts": 110,
+   "cited_gold_as_parsed": 101,
+   "cited_gold_corrected": 103,
+   "alerts_citing_other_topic": 0,
+   "unreadable_replies": 0
+  },
+  {
+   "system": "M3@C1",
+   "kind": "M3",
+   "condition": "C1",
+   "n": 336,
+   "decisions_in_memory_p50": 42.5,
+   "scope_p50": 4.0,
+   "prompt_tokens_p50": 604.5,
+   "prompt_tokens_p95": 658.5,
+   "macro_f1": 0.7839958828248039,
+   "macro_f1_lo": 0.7342813460134178,
+   "macro_f1_hi": 0.8263903636191395,
+   "alert_precision": 0.9647058823529412,
+   "alert_recall": 0.7321428571428571,
+   "false_alarm": 0.013392857142857142,
+   "false_alarms": 3,
+   "missed_alerts": 30,
+   "p50_ms": 1030.5149999999999,
+   "p95_ms": 1599.48,
+   "peak_gb": 3.499,
+   "true_alerts": 82,
+   "cited_gold_as_parsed": 74,
+   "cited_gold_corrected": 74,
+   "alerts_citing_other_topic": 3,
+   "unreadable_replies": 0
+  },
+  {
+   "system": "M2@C1",
+   "kind": "M2",
+   "condition": "C1",
+   "n": 336,
+   "decisions_in_memory_p50": 42.5,
+   "scope_p50": 42.5,
+   "prompt_tokens_p50": 1718.0,
+   "prompt_tokens_p95": 1930.0,
+   "macro_f1": 0.8185041864272207,
+   "macro_f1_lo": 0.7809444413725168,
+   "macro_f1_hi": 0.8542872331802248,
+   "alert_precision": 0.990909090909091,
+   "alert_recall": 0.9732142857142857,
+   "false_alarm": 0.004464285714285714,
+   "false_alarms": 1,
+   "missed_alerts": 3,
+   "p50_ms": 2442.6099999999997,
+   "p95_ms": 3131.8325,
+   "peak_gb": 3.665,
+   "true_alerts": 109,
+   "cited_gold_as_parsed": 92,
+   "cited_gold_corrected": 94,
+   "alerts_citing_other_topic": 1,
+   "unreadable_replies": 0
+  },
+  {
+   "system": "M3@C2",
+   "kind": "M3",
+   "condition": "C2",
+   "n": 336,
+   "decisions_in_memory_p50": 85.5,
+   "scope_p50": 4.0,
+   "prompt_tokens_p50": 603.0,
+   "prompt_tokens_p95": 660.25,
+   "macro_f1": 0.7628661755815603,
+   "macro_f1_lo": 0.7133881801692529,
+   "macro_f1_hi": 0.806527038165486,
+   "alert_precision": 0.9866666666666667,
+   "alert_recall": 0.6607142857142857,
+   "false_alarm": 0.004464285714285714,
+   "false_alarms": 1,
+   "missed_alerts": 38,
+   "p50_ms": 1044.37,
+   "p95_ms": 1596.4524999999999,
+   "peak_gb": 3.518,
+   "true_alerts": 74,
+   "cited_gold_as_parsed": 69,
+   "cited_gold_corrected": 69,
+   "alerts_citing_other_topic": 0,
+   "unreadable_replies": 0
+  },
+  {
+   "system": "M2@C2",
+   "kind": "M2",
+   "condition": "C2",
+   "n": 336,
+   "decisions_in_memory_p50": 85.5,
+   "scope_p50": 85.5,
+   "prompt_tokens_p50": 2906.0,
+   "prompt_tokens_p95": 4777.25,
+   "macro_f1": 0.7726544512935503,
+   "macro_f1_lo": 0.7289280682228784,
+   "macro_f1_hi": 0.81247711480829,
+   "alert_precision": 1.0,
+   "alert_recall": 0.9017857142857143,
+   "false_alarm": 0.0,
+   "false_alarms": 0,
+   "missed_alerts": 11,
+   "p50_ms": 3870.8999999999996,
+   "p95_ms": 6117.1825,
+   "peak_gb": 3.78,
+   "true_alerts": 101,
+   "cited_gold_as_parsed": 77,
+   "cited_gold_corrected": 79,
+   "alerts_citing_other_topic": 0,
+   "unreadable_replies": 0
+  }
+ ],
+ "verdicts": {
+  "E1": {
+   "delta": -3.3427339769964703e-05,
+   "lo": -0.035605323085407495,
+   "hi": 0.03231381571691061,
+   "preserves_accuracy": true,
+   "loses_accuracy": false,
+   "text": "Scoping preserves accuracy at C0: the lower bound -0.036 is above -0.05."
+  },
+  "E2": {
+   "ratio": 0.8704955855858739,
+   "lo": 0.8072741372177238,
+   "hi": 0.9195309455450272,
+   "faster": true,
+   "text": "Scoping is faster at C0: median latency 0.87 of M2's (below 0.9)."
+  },
+  "E4_degrade_C1": {
+   "delta": -0.05280027986312141,
+   "lo": -0.09044787849142859,
+   "hi": -0.01875214197401666,
+   "degrades": true,
+   "text": "Unscoped M2 degrades at C1: Macro-F1 -0.053 [-0.090, -0.019] against C0, wholly below 0."
+  },
+  "E4_help_C1": {
+   "delta": -0.034508303602416746,
+   "lo": -0.09617995603766871,
+   "hi": 0.0186792930408028,
+   "helps": false,
+   "hurts": false,
+   "text": "No evidence that scoping helps at C1: Macro-F1 -0.035 [-0.096, +0.019] against M2."
+  },
+  "E4_degrade_C2": {
+   "delta": -0.09865001499679182,
+   "lo": -0.13633466664435875,
+   "hi": -0.06059917849530842,
+   "degrades": true,
+   "text": "Unscoped M2 degrades at C2: Macro-F1 -0.099 [-0.136, -0.061] against C0, wholly below 0."
+  },
+  "E4_help_C2": {
+   "delta": -0.009788275711989924,
+   "lo": -0.06173599169861374,
+   "hi": 0.037122122294482446,
+   "helps": false,
+   "hurts": false,
+   "text": "No evidence that scoping helps at C2: Macro-F1 -0.010 [-0.062, +0.037] against M2."
+  }
+ },
+ "scope_recall": {
+  "C0": {
+   "n": 168,
+   "found": 156,
+   "recall": 0.9285714285714286,
+   "by_class": {
+    "CONTRADICTS": 0.8928571428571429,
+    "OUTDATED": 0.9107142857142857,
+    "SUPPORTED_CURRENT": 0.9821428571428571
+   },
+   "mean_scope": 4.065476190476191
+  },
+  "C1": {
+   "n": 168,
+   "found": 130,
+   "recall": 0.7738095238095238,
+   "by_class": {
+    "CONTRADICTS": 0.6785714285714286,
+    "OUTDATED": 0.7678571428571429,
+    "SUPPORTED_CURRENT": 0.875
+   },
+   "mean_scope": 4.169642857142857
+  },
+  "C2": {
+   "n": 168,
+   "found": 120,
+   "recall": 0.7142857142857143,
+   "by_class": {
+    "CONTRADICTS": 0.5892857142857143,
+    "OUTDATED": 0.6964285714285714,
+    "SUPPORTED_CURRENT": 0.8571428571428571
+   },
+   "mean_scope": 4.184523809523809
+  }
+ },
+ "attribution": {
+  "M3@C0": {
+   "wrong": 13,
+   "wrong_with_gold_decision": 10,
+   "gold_outside_scope": 9,
+   "misses_among_wrong": 9,
+   "outside_scope_missed": 9
+  },
+  "M3@C1": {
+   "wrong": 33,
+   "wrong_with_gold_decision": 30,
+   "gold_outside_scope": 28,
+   "misses_among_wrong": 30,
+   "outside_scope_missed": 28
+  },
+  "M3@C2": {
+   "wrong": 39,
+   "wrong_with_gold_decision": 39,
+   "gold_outside_scope": 39,
+   "misses_among_wrong": 38,
+   "outside_scope_missed": 38
+  }
+ },
+ "disagreements": {
+  "M3@C0 vs M2@C0": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-I-01",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think that coffee machine is on its last legs."
+   },
+   {
+    "id": "ES2005-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we will not include a recharging dock."
+   },
+   {
+    "id": "ES2005-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "There will be no voice recognition in the remote."
+   },
+   {
+    "id": "ES2007-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The corporate image will not be shown on the remote."
+   },
+   {
+    "id": "ES2008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, we will include teletext in the design."
+   },
+   {
+    "id": "ES2008-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The photographer is booked for the product shoot on Thursday."
+   },
+   {
+    "id": "ES2008-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Okay, the lift is out of order again."
+   },
+   {
+    "id": "ES2009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Sales expects strong demand over the holiday season."
+   },
+   {
+    "id": "ES2010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will use a simple chip."
+   },
+   {
+    "id": "ES2012-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "We will put an LCD screen on the remote."
+   },
+   {
+    "id": "ES2013-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Okay, my phone battery died on the way here."
+   },
+   {
+    "id": "ES2013-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote is aimed at people over sixty."
+   },
+   {
+    "id": "ES2014-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2015-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "So the remote will include speech recognition."
+   },
+   {
+    "id": "ES2015-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Why don't we add an auto-off after ten minutes of no use?"
+   },
+   {
+    "id": "ES2016-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will have a teletext button."
+   },
+   {
+    "id": "ES2016-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will control multiple devices, not just the television."
+   },
+   {
+    "id": "IS1000-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1000-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Well, the warehouse can hold the first two thousand units."
+   },
+   {
+    "id": "IS1004-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "OUTDATED",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Right, the retailer wants a first order of fifty thousand units."
+   },
+   {
+    "id": "IS1004-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "The remote will include speech recognition."
+   },
+   {
+    "id": "IS1004-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the corporate image will not be shown on the remote."
+   },
+   {
+    "id": "IS1006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Each remote will cost about 15 Euro to produce."
+   },
+   {
+    "id": "IS1006-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will not have changeable covers."
+   },
+   {
+    "id": "IS1006-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "IS1009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, we will leave the corporate image off the remote."
+   },
+   {
+    "id": "IS1009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "How about splash-proof seals?"
+   },
+   {
+    "id": "TS3003-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "The remote will be able to control multiple devices."
+   },
+   {
+    "id": "TS3003-U-01",
+    "gold": "UPDATES",
+    "a": "OUTDATED",
+    "b": "UPDATES",
+    "statement": "Right, why don't we add a macro button that runs several commands?"
+   },
+   {
+    "id": "TS3005-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The packaging supplier is two weeks behind schedule."
+   },
+   {
+    "id": "TS3007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "So the remote will not include games."
+   },
+   {
+    "id": "TS3009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "I think there will be no voice recognition in the remote."
+   },
+   {
+    "id": "TS3009-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote needs an advanced chip to work with the LCD screen."
+   },
+   {
+    "id": "TS3009-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will not have an LCD screen."
+   },
+   {
+    "id": "TS3010-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of titanium."
+   },
+   {
+    "id": "TS3011-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, this remote is for televisions only."
+   },
+   {
+    "id": "TS3011-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3011-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, why don't we add a button that opens the television's settings menu?"
+   },
+   {
+    "id": "TS3012-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "OUTDATED",
+    "b": "UPDATES",
+    "statement": "The design review has been moved to the end of the month."
+   },
+   {
+    "id": "TS3012-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will leave the corporate image off the remote."
+   }
+  ],
+  "M3@C1 vs M2@C1": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "ES2002-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will make the case out of wood."
+   },
+   {
+    "id": "ES2002-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "What about adding a button to jump back to the previous channel?"
+   },
+   {
+    "id": "ES2004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will not feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "I think we are targeting people over sixty with this remote."
+   },
+   {
+    "id": "ES2004-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "I think that was a fantastic goal on Saturday."
+   },
+   {
+    "id": "ES2004-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "ES2004-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "I think there will be no changeable covers."
+   },
+   {
+    "id": "ES2004-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, why don't we add a one-button movie mode?"
+   },
+   {
+    "id": "ES2004-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "So can we add a dedicated mute button?"
+   },
+   {
+    "id": "ES2006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will only be sold in our home market."
+   },
+   {
+    "id": "ES2006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote will use a simple chip."
+   },
+   {
+    "id": "ES2006-U-02",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, what about adding a recess for the thumb?"
+   },
+   {
+    "id": "ES2007-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The air conditioning is far too loud."
+   },
+   {
+    "id": "ES2007-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The corporate image will not be shown on the remote."
+   },
+   {
+    "id": "ES2008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will include teletext in the design."
+   },
+   {
+    "id": "ES2008-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The photographer is booked for the product shoot on Thursday."
+   },
+   {
+    "id": "ES2008-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Okay, the lift is out of order again."
+   },
+   {
+    "id": "ES2008-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, how about a sleep-mode button?"
+   },
+   {
+    "id": "ES2009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will not have changeable covers."
+   },
+   {
+    "id": "ES2009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2009-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, the remote casing will be made of plastic."
+   },
+   {
+    "id": "ES2009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Why don't we add a one-touch button for the programme guide?"
+   },
+   {
+    "id": "ES2010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will use a simple chip."
+   },
+   {
+    "id": "ES2010-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have a locator function."
+   },
+   {
+    "id": "ES2012-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "We will put an LCD screen on the remote."
+   },
+   {
+    "id": "ES2012-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2013-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Okay, my phone battery died on the way here."
+   },
+   {
+    "id": "ES2013-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote is aimed at people over sixty."
+   },
+   {
+    "id": "ES2014-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2014-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think finance has already signed off on the second phase."
+   },
+   {
+    "id": "ES2014-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The delivery truck for the samples broke down on the way."
+   },
+   {
+    "id": "ES2014-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, the case will be double curved."
+   },
+   {
+    "id": "ES2014-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "ES2015-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Right, each remote will cost about 20 Euro to produce."
+   },
+   {
+    "id": "ES2015-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "IRRELEVANT",
+    "statement": "So our proposal for the trade stand was accepted."
+   },
+   {
+    "id": "ES2015-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2015-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "So the remote will include speech recognition."
+   },
+   {
+    "id": "ES2016-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote will have a teletext button."
+   },
+   {
+    "id": "ES2016-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the team will create a ball shaped remote."
+   },
+   {
+    "id": "IS1000-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "OUTDATED",
+    "b": "IRRELEVANT",
+    "statement": "Well, the warehouse can hold the first two thousand units."
+   },
+   {
+    "id": "IS1000-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "So a large retailer has asked us for an exclusive colour."
+   },
+   {
+    "id": "IS1000-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "So the remote will have a teletext button."
+   },
+   {
+    "id": "IS1000-U-02",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "How about a battery cover that opens without tools?"
+   },
+   {
+    "id": "IS1001-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will add voice recognition to the remote."
+   },
+   {
+    "id": "IS1001-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will be powered by a kinetic battery."
+   },
+   {
+    "id": "IS1001-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The usability lab has no free slot before the end of the month."
+   },
+   {
+    "id": "IS1001-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will have an LCD screen."
+   },
+   {
+    "id": "IS1001-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, we will use solar cells to power the remote."
+   },
+   {
+    "id": "IS1003-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "I think the accounting team found a small error in last quarter's cost sheet."
+   },
+   {
+    "id": "IS1003-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "IS1004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "IS1004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1004-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "OUTDATED",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Right, the retailer wants a first order of fifty thousand units."
+   },
+   {
+    "id": "IS1004-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "The remote will include speech recognition."
+   },
+   {
+    "id": "IS1006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Each remote will cost about 15 Euro to produce."
+   },
+   {
+    "id": "IS1006-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "IS1006-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "I think the remote will not have changeable covers."
+   },
+   {
+    "id": "IS1006-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "IS1007-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we will not include an option for the user to choose what to watch by channel or by content or program type."
+   },
+   {
+    "id": "IS1007-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "I think the distributor in Asia has asked for a sample next week."
+   },
+   {
+    "id": "IS1007-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "IS1007-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "We will include a help button on the device."
+   },
+   {
+    "id": "IS1009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The tooling vendor has not replied to our email since Monday."
+   },
+   {
+    "id": "IS1009-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will not have a locator function."
+   },
+   {
+    "id": "TS3003-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "So someone in procurement says the foam inserts are on back order."
+   },
+   {
+    "id": "TS3003-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Well, do you know if the printer is working again?"
+   },
+   {
+    "id": "TS3003-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will be able to control multiple devices."
+   },
+   {
+    "id": "TS3005-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The packaging supplier is two weeks behind schedule."
+   },
+   {
+    "id": "TS3007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will not include games."
+   },
+   {
+    "id": "TS3007-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "So a journalist from a trade magazine called to ask about the launch."
+   },
+   {
+    "id": "TS3007-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Did you manage to get tickets for the concert?"
+   },
+   {
+    "id": "TS3007-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will include speech recognition."
+   },
+   {
+    "id": "TS3007-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Well, we will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3008-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "I think there will be no voice recognition in the remote."
+   },
+   {
+    "id": "TS3009-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote needs an advanced chip to work with the LCD screen."
+   },
+   {
+    "id": "TS3009-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, the remote will have an LCD screen."
+   },
+   {
+    "id": "TS3010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3010-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will be powered by a kinetic battery."
+   },
+   {
+    "id": "TS3010-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "I loved the film we saw on Sunday."
+   },
+   {
+    "id": "TS3010-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will run on solar power."
+   },
+   {
+    "id": "TS3010-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of titanium."
+   },
+   {
+    "id": "TS3011-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Okay, each remote will cost about 20 Euro to produce."
+   },
+   {
+    "id": "TS3011-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, this remote is for televisions only."
+   },
+   {
+    "id": "TS3011-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3012-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The team will not take into account possible usability issues concerning disabled people."
+   },
+   {
+    "id": "TS3012-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Okay, the important buttons will not be on top."
+   },
+   {
+    "id": "TS3012-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "IRRELEVANT",
+    "statement": "Well, the supplier has confirmed it can deliver the casings within six weeks."
+   },
+   {
+    "id": "TS3012-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "OUTDATED",
+    "b": "IRRELEVANT",
+    "statement": "The design review has been moved to the end of the month."
+   }
+  ],
+  "M3@C2 vs M2@C2": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "I think our trademark application is still waiting for a decision."
+   },
+   {
+    "id": "ES2002-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "ES2002-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will make the case out of wood."
+   },
+   {
+    "id": "ES2004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will not feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "I think we are targeting people over sixty with this remote."
+   },
+   {
+    "id": "ES2004-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "ES2004-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "I think there will be no changeable covers."
+   },
+   {
+    "id": "ES2004-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, why don't we add a one-button movie mode?"
+   },
+   {
+    "id": "ES2004-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "So can we add a dedicated mute button?"
+   },
+   {
+    "id": "ES2005-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, we will not include a recharging dock."
+   },
+   {
+    "id": "ES2006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will only be sold in our home market."
+   },
+   {
+    "id": "ES2006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote will use a simple chip."
+   },
+   {
+    "id": "ES2006-U-02",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, what about adding a recess for the thumb?"
+   },
+   {
+    "id": "ES2007-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The air conditioning is far too loud."
+   },
+   {
+    "id": "ES2007-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will run on regular batteries."
+   },
+   {
+    "id": "ES2008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will include teletext in the design."
+   },
+   {
+    "id": "ES2008-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The photographer is booked for the product shoot on Thursday."
+   },
+   {
+    "id": "ES2008-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Okay, the lift is out of order again."
+   },
+   {
+    "id": "ES2008-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Right, how about a sleep-mode button?"
+   },
+   {
+    "id": "ES2008-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, can we add a tiny flashlight at the tip?"
+   },
+   {
+    "id": "ES2009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will not have changeable covers."
+   },
+   {
+    "id": "ES2009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2009-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Right, the sound lab says the click of the buttons is quite loud."
+   },
+   {
+    "id": "ES2009-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we are keeping the touch screen interface."
+   },
+   {
+    "id": "ES2009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Why don't we add a one-touch button for the programme guide?"
+   },
+   {
+    "id": "ES2010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will use a simple chip."
+   },
+   {
+    "id": "ES2010-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have a locator function."
+   },
+   {
+    "id": "ES2012-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "We will put an LCD screen on the remote."
+   },
+   {
+    "id": "ES2012-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2013-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The corporate image will not be shown on the remote."
+   },
+   {
+    "id": "ES2013-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Okay, my phone battery died on the way here."
+   },
+   {
+    "id": "ES2013-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote is aimed at people over sixty."
+   },
+   {
+    "id": "ES2013-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, let's add favourite-channel shortcut buttons."
+   },
+   {
+    "id": "ES2014-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2014-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think finance has already signed off on the second phase."
+   },
+   {
+    "id": "ES2014-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The delivery truck for the samples broke down on the way."
+   },
+   {
+    "id": "ES2014-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "ES2015-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Right, each remote will cost about 20 Euro to produce."
+   },
+   {
+    "id": "ES2015-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So our proposal for the trade stand was accepted."
+   },
+   {
+    "id": "ES2015-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2015-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will include speech recognition."
+   },
+   {
+    "id": "ES2016-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "The remote will have a teletext button."
+   },
+   {
+    "id": "IS1000-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "IRRELEVANT",
+    "statement": "Well, the warehouse can hold the first two thousand units."
+   },
+   {
+    "id": "IS1000-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "So a large retailer has asked us for an exclusive colour."
+   },
+   {
+    "id": "IS1000-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "So the remote will have a teletext button."
+   },
+   {
+    "id": "IS1000-U-02",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "How about a battery cover that opens without tools?"
+   },
+   {
+    "id": "IS1001-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will add voice recognition to the remote."
+   },
+   {
+    "id": "IS1001-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will be powered by a kinetic battery."
+   },
+   {
+    "id": "IS1001-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The usability lab has no free slot before the end of the month."
+   },
+   {
+    "id": "IS1001-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, we will use solar cells to power the remote."
+   },
+   {
+    "id": "IS1003-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "UPDATES",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "IS1004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1004-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will include speech recognition."
+   },
+   {
+    "id": "IS1006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Each remote will cost about 15 Euro to produce."
+   },
+   {
+    "id": "IS1006-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "IS1006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will not have changeable covers."
+   },
+   {
+    "id": "IS1006-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "IS1006-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "The remote will include speech recognition."
+   },
+   {
+    "id": "IS1006-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, we should add large-print labels."
+   },
+   {
+    "id": "IS1007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will include a lighting adaptation system."
+   },
+   {
+    "id": "IS1007-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will not include an option for the user to choose what to watch by channel or by content or program type."
+   },
+   {
+    "id": "IS1007-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "I think the distributor in Asia has asked for a sample next week."
+   },
+   {
+    "id": "IS1007-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Well, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "IS1007-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will include a help button on the device."
+   },
+   {
+    "id": "IS1007-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Can we add a child lock?"
+   },
+   {
+    "id": "IS1009-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The pilot customers in Spain asked for a bigger instruction sheet."
+   },
+   {
+    "id": "IS1009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The tooling vendor has not replied to our email since Monday."
+   },
+   {
+    "id": "IS1009-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "So we will include teletext in the design."
+   },
+   {
+    "id": "TS3003-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "TS3003-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "So someone in procurement says the foam inserts are on back order."
+   },
+   {
+    "id": "TS3003-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Well, do you know if the printer is working again?"
+   },
+   {
+    "id": "TS3003-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will be able to control multiple devices."
+   },
+   {
+    "id": "TS3005-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The packaging supplier is two weeks behind schedule."
+   },
+   {
+    "id": "TS3005-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "We are targeting people over sixty with this remote."
+   },
+   {
+    "id": "TS3007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "So the remote will not include games."
+   },
+   {
+    "id": "TS3007-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "We will use a single curved case."
+   },
+   {
+    "id": "TS3007-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "So a journalist from a trade magazine called to ask about the launch."
+   },
+   {
+    "id": "TS3007-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will include speech recognition."
+   },
+   {
+    "id": "TS3007-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Well, we will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3007-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Right, I'd like us to include a small speaker that beeps when you press a button."
+   },
+   {
+    "id": "TS3008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3008-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "We will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3008-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "I think there will be no voice recognition in the remote."
+   },
+   {
+    "id": "TS3009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, the less frequently used buttons will be hidden under a flip."
+   },
+   {
+    "id": "TS3009-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote needs an advanced chip to work with the LCD screen."
+   },
+   {
+    "id": "TS3009-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, the remote will have an LCD screen."
+   },
+   {
+    "id": "TS3010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3010-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The humidity test results are expected on Wednesday."
+   },
+   {
+    "id": "TS3010-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of titanium."
+   },
+   {
+    "id": "TS3011-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, this remote is for televisions only."
+   },
+   {
+    "id": "TS3011-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3012-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The design review has been moved to the end of the month."
+   }
+  ],
+  "M3@C1 vs M3@C0": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "ES2004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will not feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "I think we are targeting people over sixty with this remote."
+   },
+   {
+    "id": "ES2004-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "ES2004-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "I think there will be no changeable covers."
+   },
+   {
+    "id": "ES2004-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, why don't we add a one-button movie mode?"
+   },
+   {
+    "id": "ES2004-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "So can we add a dedicated mute button?"
+   },
+   {
+    "id": "ES2005-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will not include a recharging dock."
+   },
+   {
+    "id": "ES2006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will only be sold in our home market."
+   },
+   {
+    "id": "ES2006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote will use a simple chip."
+   },
+   {
+    "id": "ES2007-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The air conditioning is far too loud."
+   },
+   {
+    "id": "ES2008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Well, we will include teletext in the design."
+   },
+   {
+    "id": "ES2008-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, how about a sleep-mode button?"
+   },
+   {
+    "id": "ES2009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will not have changeable covers."
+   },
+   {
+    "id": "ES2009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Sales expects strong demand over the holiday season."
+   },
+   {
+    "id": "ES2009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Why don't we add a one-touch button for the programme guide?"
+   },
+   {
+    "id": "ES2010-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have a locator function."
+   },
+   {
+    "id": "ES2013-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, the remote is aimed at people over sixty."
+   },
+   {
+    "id": "ES2014-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2014-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think finance has already signed off on the second phase."
+   },
+   {
+    "id": "ES2014-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "ES2015-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Right, each remote will cost about 20 Euro to produce."
+   },
+   {
+    "id": "ES2015-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So our proposal for the trade stand was accepted."
+   },
+   {
+    "id": "ES2015-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2015-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Why don't we add an auto-off after ten minutes of no use?"
+   },
+   {
+    "id": "ES2016-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "The remote will have a teletext button."
+   },
+   {
+    "id": "IS1000-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "OUTDATED",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Well, the warehouse can hold the first two thousand units."
+   },
+   {
+    "id": "IS1000-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So a large retailer has asked us for an exclusive colour."
+   },
+   {
+    "id": "IS1000-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "So the remote will have a teletext button."
+   },
+   {
+    "id": "IS1001-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will add voice recognition to the remote."
+   },
+   {
+    "id": "IS1001-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will be powered by a kinetic battery."
+   },
+   {
+    "id": "IS1001-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The usability lab has no free slot before the end of the month."
+   },
+   {
+    "id": "IS1001-O-01",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will have an LCD screen."
+   },
+   {
+    "id": "IS1001-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, we will use solar cells to power the remote."
+   },
+   {
+    "id": "IS1003-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "IS1004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "IS1004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1006-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "IS1007-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "IS1009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, we will leave the corporate image off the remote."
+   },
+   {
+    "id": "IS1009-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The pilot customers in Spain asked for a bigger instruction sheet."
+   },
+   {
+    "id": "TS3003-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Right, why don't we add a macro button that runs several commands?"
+   },
+   {
+    "id": "TS3007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will not include games."
+   },
+   {
+    "id": "TS3007-I-02",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "Did you manage to get tickets for the concert?"
+   },
+   {
+    "id": "TS3007-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will include speech recognition."
+   },
+   {
+    "id": "TS3007-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Well, we will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3007-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Right, I'd like us to include a small speaker that beeps when you press a button."
+   },
+   {
+    "id": "TS3008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3008-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3009-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote needs an advanced chip to work with the LCD screen."
+   },
+   {
+    "id": "TS3009-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, the remote will have an LCD screen."
+   },
+   {
+    "id": "TS3010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3011-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Okay, each remote will cost about 20 Euro to produce."
+   },
+   {
+    "id": "TS3011-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, why don't we add a button that opens the television's settings menu?"
+   }
+  ],
+  "M3@C2 vs M3@C0": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "ES2002-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "What about adding a button to jump back to the previous channel?"
+   },
+   {
+    "id": "ES2004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will not feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "I think we are targeting people over sixty with this remote."
+   },
+   {
+    "id": "ES2004-I-02",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think that was a fantastic goal on Saturday."
+   },
+   {
+    "id": "ES2004-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "ES2004-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "I think there will be no changeable covers."
+   },
+   {
+    "id": "ES2004-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will feature Video Plus capabilities."
+   },
+   {
+    "id": "ES2004-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, why don't we add a one-button movie mode?"
+   },
+   {
+    "id": "ES2004-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "So can we add a dedicated mute button?"
+   },
+   {
+    "id": "ES2005-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will not include a recharging dock."
+   },
+   {
+    "id": "ES2005-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "There will be no voice recognition in the remote."
+   },
+   {
+    "id": "ES2006-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will only be sold in our home market."
+   },
+   {
+    "id": "ES2006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote will use a simple chip."
+   },
+   {
+    "id": "ES2007-I-01",
+    "gold": "IRRELEVANT",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The air conditioning is far too loud."
+   },
+   {
+    "id": "ES2008-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "I think we will not include a recharging dock."
+   },
+   {
+    "id": "ES2008-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, can we add a tiny flashlight at the tip?"
+   },
+   {
+    "id": "ES2009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will not have changeable covers."
+   },
+   {
+    "id": "ES2009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2009-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Right, the sound lab says the click of the buttons is quite loud."
+   },
+   {
+    "id": "ES2009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Sales expects strong demand over the holiday season."
+   },
+   {
+    "id": "ES2009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Why don't we add a one-touch button for the programme guide?"
+   },
+   {
+    "id": "ES2010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will use a simple chip."
+   },
+   {
+    "id": "ES2010-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have a locator function."
+   },
+   {
+    "id": "ES2012-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2013-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will control multiple devices, not just the television."
+   },
+   {
+    "id": "ES2013-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The corporate image will not be shown on the remote."
+   },
+   {
+    "id": "ES2013-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, let's add favourite-channel shortcut buttons."
+   },
+   {
+    "id": "ES2014-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will use regular batteries."
+   },
+   {
+    "id": "ES2014-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2014-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think finance has already signed off on the second phase."
+   },
+   {
+    "id": "ES2014-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "ES2015-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So our proposal for the trade stand was accepted."
+   },
+   {
+    "id": "ES2015-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2015-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Why don't we add an auto-off after ten minutes of no use?"
+   },
+   {
+    "id": "IS1000-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Well, the warehouse can hold the first two thousand units."
+   },
+   {
+    "id": "IS1000-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So a large retailer has asked us for an exclusive colour."
+   },
+   {
+    "id": "IS1000-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "So the remote will have a teletext button."
+   },
+   {
+    "id": "IS1001-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will add voice recognition to the remote."
+   },
+   {
+    "id": "IS1001-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will be powered by a kinetic battery."
+   },
+   {
+    "id": "IS1001-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "IRRELEVANT",
+    "statement": "The usability lab has no free slot before the end of the month."
+   },
+   {
+    "id": "IS1001-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, we will use solar cells to power the remote."
+   },
+   {
+    "id": "IS1004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "IS1004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1004-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Right, the retailer wants a first order of fifty thousand units."
+   },
+   {
+    "id": "IS1006-C-02",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "IS1006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "I think the remote will not have changeable covers."
+   },
+   {
+    "id": "IS1006-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "IS1006-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, we should add large-print labels."
+   },
+   {
+    "id": "IS1007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "We will include a lighting adaptation system."
+   },
+   {
+    "id": "IS1007-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will not include an option for the user to choose what to watch by channel or by content or program type."
+   },
+   {
+    "id": "IS1007-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "IS1007-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will include a help button on the device."
+   },
+   {
+    "id": "IS1007-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "I think we could include a record button."
+   },
+   {
+    "id": "IS1009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, we will leave the corporate image off the remote."
+   },
+   {
+    "id": "IS1009-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The pilot customers in Spain asked for a bigger instruction sheet."
+   },
+   {
+    "id": "TS3003-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Right, why don't we add a macro button that runs several commands?"
+   },
+   {
+    "id": "TS3005-O-02",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "We are targeting people over sixty with this remote."
+   },
+   {
+    "id": "TS3007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "So the remote will not include games."
+   },
+   {
+    "id": "TS3007-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will include speech recognition."
+   },
+   {
+    "id": "TS3007-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Well, we will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3007-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Right, I'd like us to include a small speaker that beeps when you press a button."
+   },
+   {
+    "id": "TS3008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3008-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "We will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3008-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3009-O-01",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "The remote needs an advanced chip to work with the LCD screen."
+   },
+   {
+    "id": "TS3009-S-02",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "CONTRADICTS",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Okay, the remote will have an LCD screen."
+   },
+   {
+    "id": "TS3010-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will make the case out of metal."
+   },
+   {
+    "id": "TS3010-I-02",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I loved the film we saw on Sunday."
+   },
+   {
+    "id": "TS3011-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3012-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "The design review has been moved to the end of the month."
+   }
+  ],
+  "M2@C1 vs M2@C0": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-I-01",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think that coffee machine is on its last legs."
+   },
+   {
+    "id": "ES2002-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we will make the case out of wood."
+   },
+   {
+    "id": "ES2002-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "What about adding a button to jump back to the previous channel?"
+   },
+   {
+    "id": "ES2004-I-02",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think that was a fantastic goal on Saturday."
+   },
+   {
+    "id": "ES2005-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "There will be no voice recognition in the remote."
+   },
+   {
+    "id": "ES2006-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, what about adding a recess for the thumb?"
+   },
+   {
+    "id": "ES2008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we will include teletext in the design."
+   },
+   {
+    "id": "ES2009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will not have changeable covers."
+   },
+   {
+    "id": "ES2009-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote casing will be made of plastic."
+   },
+   {
+    "id": "ES2012-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2014-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "There will be no locator function on the remote."
+   },
+   {
+    "id": "ES2014-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The delivery truck for the samples broke down on the way."
+   },
+   {
+    "id": "ES2014-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the case will be double curved."
+   },
+   {
+    "id": "ES2015-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So our proposal for the trade stand was accepted."
+   },
+   {
+    "id": "ES2015-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2016-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will have a teletext button."
+   },
+   {
+    "id": "ES2016-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, the team will create a ball shaped remote."
+   },
+   {
+    "id": "ES2016-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will control multiple devices, not just the television."
+   },
+   {
+    "id": "IS1000-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1000-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So a large retailer has asked us for an exclusive colour."
+   },
+   {
+    "id": "IS1000-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "How about a battery cover that opens without tools?"
+   },
+   {
+    "id": "IS1003-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think the accounting team found a small error in last quarter's cost sheet."
+   },
+   {
+    "id": "IS1004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "IS1004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1004-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the corporate image will not be shown on the remote."
+   },
+   {
+    "id": "IS1006-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "IS1006-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will not have changeable covers."
+   },
+   {
+    "id": "IS1007-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will not include an option for the user to choose what to watch by channel or by content or program type."
+   },
+   {
+    "id": "IS1007-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think the distributor in Asia has asked for a sample next week."
+   },
+   {
+    "id": "IS1007-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will include a help button on the device."
+   },
+   {
+    "id": "IS1009-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "UPDATES",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The pilot customers in Spain asked for a bigger instruction sheet."
+   },
+   {
+    "id": "IS1009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The tooling vendor has not replied to our email since Monday."
+   },
+   {
+    "id": "IS1009-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Okay, the remote will not have a locator function."
+   },
+   {
+    "id": "IS1009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "How about splash-proof seals?"
+   },
+   {
+    "id": "TS3003-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So someone in procurement says the foam inserts are on back order."
+   },
+   {
+    "id": "TS3003-I-01",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Well, do you know if the printer is working again?"
+   },
+   {
+    "id": "TS3003-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will be able to control multiple devices."
+   },
+   {
+    "id": "TS3007-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "So the remote will not include games."
+   },
+   {
+    "id": "TS3007-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So a journalist from a trade magazine called to ask about the launch."
+   },
+   {
+    "id": "TS3007-U-01",
+    "gold": "UPDATES",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Right, I'd like us to include a small speaker that beeps when you press a button."
+   },
+   {
+    "id": "TS3009-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will not have an LCD screen."
+   },
+   {
+    "id": "TS3010-C-02",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "I think the remote will be powered by a kinetic battery."
+   },
+   {
+    "id": "TS3010-I-02",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I loved the film we saw on Sunday."
+   },
+   {
+    "id": "TS3010-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will run on solar power."
+   },
+   {
+    "id": "TS3012-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The team will not take into account possible usability issues concerning disabled people."
+   },
+   {
+    "id": "TS3012-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the important buttons will not be on top."
+   },
+   {
+    "id": "TS3012-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "Well, the supplier has confirmed it can deliver the casings within six weeks."
+   },
+   {
+    "id": "TS3012-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "UPDATES",
+    "statement": "The design review has been moved to the end of the month."
+   },
+   {
+    "id": "TS3012-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will leave the corporate image off the remote."
+   }
+  ],
+  "M2@C2 vs M2@C0": [
+   {
+    "id": "ES2002-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "We will use a kinetic battery in the remote."
+   },
+   {
+    "id": "ES2002-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think our trademark application is still waiting for a decision."
+   },
+   {
+    "id": "ES2002-I-01",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think that coffee machine is on its last legs."
+   },
+   {
+    "id": "ES2002-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we will make the case out of wood."
+   },
+   {
+    "id": "ES2002-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "What about adding a button to jump back to the previous channel?"
+   },
+   {
+    "id": "ES2004-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think we are targeting people over sixty with this remote."
+   },
+   {
+    "id": "ES2004-I-02",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think that was a fantastic goal on Saturday."
+   },
+   {
+    "id": "ES2006-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, what about adding a recess for the thumb?"
+   },
+   {
+    "id": "ES2007-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will run on regular batteries."
+   },
+   {
+    "id": "ES2007-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The corporate image will not be shown on the remote."
+   },
+   {
+    "id": "ES2008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we will include teletext in the design."
+   },
+   {
+    "id": "ES2008-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "I think we will not include a recharging dock."
+   },
+   {
+    "id": "ES2008-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Right, how about a sleep-mode button?"
+   },
+   {
+    "id": "ES2009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will not have changeable covers."
+   },
+   {
+    "id": "ES2009-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, we are keeping the touch screen interface."
+   },
+   {
+    "id": "ES2012-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "ES2013-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "The remote will control multiple devices, not just the television."
+   },
+   {
+    "id": "ES2014-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will use regular batteries."
+   },
+   {
+    "id": "ES2014-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The delivery truck for the samples broke down on the way."
+   },
+   {
+    "id": "ES2015-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "Right, each remote will cost about 20 Euro to produce."
+   },
+   {
+    "id": "ES2015-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "So the remote will include speech recognition."
+   },
+   {
+    "id": "ES2016-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "The remote will have a teletext button."
+   },
+   {
+    "id": "ES2016-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the remote will control multiple devices, not just the television."
+   },
+   {
+    "id": "IS1000-C-01",
+    "gold": "CONTRADICTS",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Right, the remote will only be sold in Europe."
+   },
+   {
+    "id": "IS1000-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So a large retailer has asked us for an exclusive colour."
+   },
+   {
+    "id": "IS1000-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "How about a battery cover that opens without tools?"
+   },
+   {
+    "id": "IS1003-O-02",
+    "gold": "OUTDATED",
+    "a": "UPDATES",
+    "b": "OUTDATED",
+    "statement": "Well, we need an advanced chip in the remote."
+   },
+   {
+    "id": "IS1004-C-01",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "The remote will work with several devices."
+   },
+   {
+    "id": "IS1004-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "SUPPORTED_CURRENT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Right, the retailer wants a first order of fifty thousand units."
+   },
+   {
+    "id": "IS1004-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will include speech recognition."
+   },
+   {
+    "id": "IS1004-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Okay, the corporate image will not be shown on the remote."
+   },
+   {
+    "id": "IS1006-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will include teletext in the design."
+   },
+   {
+    "id": "IS1006-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not have an LCD screen."
+   },
+   {
+    "id": "IS1006-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "UPDATES",
+    "b": "SUPPORTED_CURRENT",
+    "statement": "The remote will include speech recognition."
+   },
+   {
+    "id": "IS1007-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I think the distributor in Asia has asked for a sample next week."
+   },
+   {
+    "id": "IS1007-O-01",
+    "gold": "OUTDATED",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "IS1007-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Can we add a child lock?"
+   },
+   {
+    "id": "IS1007-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "I think we could include a record button."
+   },
+   {
+    "id": "IS1009-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The tooling vendor has not replied to our email since Monday."
+   },
+   {
+    "id": "IS1009-O-02",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "So we will include teletext in the design."
+   },
+   {
+    "id": "IS1009-U-02",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "How about splash-proof seals?"
+   },
+   {
+    "id": "TS3003-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the remote will not come with a recharging dock."
+   },
+   {
+    "id": "TS3003-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So someone in procurement says the foam inserts are on back order."
+   },
+   {
+    "id": "TS3003-I-01",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "Well, do you know if the printer is working again?"
+   },
+   {
+    "id": "TS3003-O-01",
+    "gold": "OUTDATED",
+    "a": "CONTRADICTS",
+    "b": "OUTDATED",
+    "statement": "The remote will be able to control multiple devices."
+   },
+   {
+    "id": "TS3007-C-02",
+    "gold": "CONTRADICTS",
+    "a": "SUPPORTED_CURRENT",
+    "b": "CONTRADICTS",
+    "statement": "We will use a single curved case."
+   },
+   {
+    "id": "TS3007-E-01",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "So a journalist from a trade magazine called to ask about the launch."
+   },
+   {
+    "id": "TS3007-S-01",
+    "gold": "SUPPORTED_CURRENT",
+    "a": "SUPPORTED_CURRENT",
+    "b": "OUTDATED",
+    "statement": "Well, we will offer changeable covers for the remote."
+   },
+   {
+    "id": "TS3008-C-01",
+    "gold": "CONTRADICTS",
+    "a": "UPDATES",
+    "b": "CONTRADICTS",
+    "statement": "Well, we will put an LCD screen on the remote."
+   },
+   {
+    "id": "TS3009-C-01",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think there will be no voice recognition in the remote."
+   },
+   {
+    "id": "TS3009-C-02",
+    "gold": "CONTRADICTS",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "Right, the less frequently used buttons will be hidden under a flip."
+   },
+   {
+    "id": "TS3009-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "I think the remote will not have an LCD screen."
+   },
+   {
+    "id": "TS3010-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "The humidity test results are expected on Wednesday."
+   },
+   {
+    "id": "TS3010-I-02",
+    "gold": "IRRELEVANT",
+    "a": "IRRELEVANT",
+    "b": "INSUFFICIENT_EVIDENCE",
+    "statement": "I loved the film we saw on Sunday."
+   },
+   {
+    "id": "TS3011-U-01",
+    "gold": "UPDATES",
+    "a": "SUPPORTED_CURRENT",
+    "b": "UPDATES",
+    "statement": "Okay, why don't we add a button that opens the television's settings menu?"
+   },
+   {
+    "id": "TS3012-E-02",
+    "gold": "INSUFFICIENT_EVIDENCE",
+    "a": "INSUFFICIENT_EVIDENCE",
+    "b": "UPDATES",
+    "statement": "The design review has been moved to the end of the month."
+   },
+   {
+    "id": "TS3012-O-02",
+    "gold": "OUTDATED",
+    "a": "OUTDATED",
+    "b": "CONTRADICTS",
+    "statement": "We will leave the corporate image off the remote."
+   }
+  ]
+ },
+ "topic_latency": {
+  "statements": 30,
+  "llm_topic_call_ms": {
+   "p50": 327.0597294977051,
+   "p95": 362.19817484816303
+  },
+  "embedding_step_ms": {
+   "p50": 6.9717500009574,
+   "p95": 9.708171201054936
+  },
+  "topics_named": [
+   "Remote",
+   "Trademark",
+   "Usability",
+   "Schedule",
+   "Lunch",
+   "Wrist strap",
+   "Sleep-mode button",
+   "Function",
+   "Chip",
+   "Teletext"
+  ]
+ },
+ "sweep": {
+  "C0": {
+   "no_rule": {
+    "1": {
+     "n": 168,
+     "found": 128,
+     "recall": 0.7619047619047619,
+     "by_class": {
+      "CONTRADICTS": 0.6428571428571429,
+      "OUTDATED": 0.75,
+      "SUPPORTED_CURRENT": 0.8928571428571429
+     },
+     "mean_scope": 1.0
+    },
+    "2": {
+     "n": 168,
+     "found": 144,
+     "recall": 0.8571428571428571,
+     "by_class": {
+      "CONTRADICTS": 0.7857142857142857,
+      "OUTDATED": 0.8392857142857143,
+      "SUPPORTED_CURRENT": 0.9464285714285714
+     },
+     "mean_scope": 2.0
+    },
+    "3": {
+     "n": 168,
+     "found": 152,
+     "recall": 0.9047619047619048,
+     "by_class": {
+      "CONTRADICTS": 0.8392857142857143,
+      "OUTDATED": 0.8928571428571429,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 3.0
+    },
+    "4": {
+     "n": 168,
+     "found": 156,
+     "recall": 0.9285714285714286,
+     "by_class": {
+      "CONTRADICTS": 0.8928571428571429,
+      "OUTDATED": 0.9107142857142857,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 3.9642857142857144
+    },
+    "5": {
+     "n": 168,
+     "found": 158,
+     "recall": 0.9404761904761905,
+     "by_class": {
+      "CONTRADICTS": 0.9107142857142857,
+      "OUTDATED": 0.9285714285714286,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 4.892857142857143
+    },
+    "6": {
+     "n": 168,
+     "found": 161,
+     "recall": 0.9583333333333334,
+     "by_class": {
+      "CONTRADICTS": 0.9285714285714286,
+      "OUTDATED": 0.9642857142857143,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 5.785714285714286
+    },
+    "7": {
+     "n": 168,
+     "found": 163,
+     "recall": 0.9702380952380952,
+     "by_class": {
+      "CONTRADICTS": 0.9285714285714286,
+      "OUTDATED": 1.0,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 6.642857142857143
+    },
+    "8": {
+     "n": 168,
+     "found": 164,
+     "recall": 0.9761904761904762,
+     "by_class": {
+      "CONTRADICTS": 0.9285714285714286,
+      "OUTDATED": 1.0,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 7.5
+    }
+   },
+   "rule": {
+    "1": {
+     "n": 168,
+     "found": 132,
+     "recall": 0.7857142857142857,
+     "by_class": {
+      "CONTRADICTS": 0.7142857142857143,
+      "OUTDATED": 0.75,
+      "SUPPORTED_CURRENT": 0.8928571428571429
+     },
+     "mean_scope": 1.1726190476190477
+    },
+    "2": {
+     "n": 168,
+     "found": 146,
+     "recall": 0.8690476190476191,
+     "by_class": {
+      "CONTRADICTS": 0.8214285714285714,
+      "OUTDATED": 0.8392857142857143,
+      "SUPPORTED_CURRENT": 0.9464285714285714
+     },
+     "mean_scope": 2.1458333333333335
+    },
+    "3": {
+     "n": 168,
+     "found": 152,
+     "recall": 0.9047619047619048,
+     "by_class": {
+      "CONTRADICTS": 0.8392857142857143,
+      "OUTDATED": 0.8928571428571429,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 3.1339285714285716
+    },
+    "4": {
+     "n": 168,
+     "found": 156,
+     "recall": 0.9285714285714286,
+     "by_class": {
+      "CONTRADICTS": 0.8928571428571429,
+      "OUTDATED": 0.9107142857142857,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 4.065476190476191
+    },
+    "5": {
+     "n": 168,
+     "found": 158,
+     "recall": 0.9404761904761905,
+     "by_class": {
+      "CONTRADICTS": 0.9107142857142857,
+      "OUTDATED": 0.9285714285714286,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 4.976190476190476
+    },
+    "6": {
+     "n": 168,
+     "found": 161,
+     "recall": 0.9583333333333334,
+     "by_class": {
+      "CONTRADICTS": 0.9285714285714286,
+      "OUTDATED": 0.9642857142857143,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 5.8601190476190474
+    },
+    "7": {
+     "n": 168,
+     "found": 163,
+     "recall": 0.9702380952380952,
+     "by_class": {
+      "CONTRADICTS": 0.9285714285714286,
+      "OUTDATED": 1.0,
+      "SUPPORTED_CURRENT": 0.9821428571428571
+     },
+     "mean_scope": 6.696428571428571
+    },
+    "8": {
+     "n": 168,
+     "found": 164,
+     "recall": 0.9761904761904762,
+     "by_class": {
+      "CONTRADICTS": 0.9285714285714286,
+      "OUTDATED": 1.0,
+      "SUPPORTED_CURRENT": 1.0
+     },
+     "mean_scope": 7.5476190476190474
+    }
+   }
+  },
+  "C1": {
+   "no_rule": {
+    "1": {
+     "n": 168,
+     "found": 103,
+     "recall": 0.6130952380952381,
+     "by_class": {
+      "CONTRADICTS": 0.42857142857142855,
+      "OUTDATED": 0.625,
+      "SUPPORTED_CURRENT": 0.7857142857142857
+     },
+     "mean_scope": 1.0
+    },
+    "2": {
+     "n": 168,
+     "found": 114,
+     "recall": 0.6785714285714286,
+     "by_class": {
+      "CONTRADICTS": 0.5,
+      "OUTDATED": 0.6785714285714286,
+      "SUPPORTED_CURRENT": 0.8571428571428571
+     },
+     "mean_scope": 2.0
+    },
+    "3": {
+     "n": 168,
+     "found": 124,
+     "recall": 0.7380952380952381,
+     "by_class": {
+      "CONTRADICTS": 0.6071428571428571,
+      "OUTDATED": 0.7321428571428571,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 3.0
+    },
+    "4": {
+     "n": 168,
+     "found": 129,
+     "recall": 0.7678571428571429,
+     "by_class": {
+      "CONTRADICTS": 0.6607142857142857,
+      "OUTDATED": 0.7678571428571429,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 4.0
+    },
+    "5": {
+     "n": 168,
+     "found": 132,
+     "recall": 0.7857142857142857,
+     "by_class": {
+      "CONTRADICTS": 0.6964285714285714,
+      "OUTDATED": 0.7678571428571429,
+      "SUPPORTED_CURRENT": 0.8928571428571429
+     },
+     "mean_scope": 5.0
+    },
+    "6": {
+     "n": 168,
+     "found": 133,
+     "recall": 0.7916666666666666,
+     "by_class": {
+      "CONTRADICTS": 0.6964285714285714,
+      "OUTDATED": 0.7857142857142857,
+      "SUPPORTED_CURRENT": 0.8928571428571429
+     },
+     "mean_scope": 6.0
+    },
+    "7": {
+     "n": 168,
+     "found": 137,
+     "recall": 0.8154761904761905,
+     "by_class": {
+      "CONTRADICTS": 0.7321428571428571,
+      "OUTDATED": 0.7857142857142857,
+      "SUPPORTED_CURRENT": 0.9285714285714286
+     },
+     "mean_scope": 7.0
+    },
+    "8": {
+     "n": 168,
+     "found": 139,
+     "recall": 0.8273809523809523,
+     "by_class": {
+      "CONTRADICTS": 0.7321428571428571,
+      "OUTDATED": 0.8214285714285714,
+      "SUPPORTED_CURRENT": 0.9285714285714286
+     },
+     "mean_scope": 8.0
+    }
+   },
+   "rule": {
+    "1": {
+     "n": 168,
+     "found": 107,
+     "recall": 0.6369047619047619,
+     "by_class": {
+      "CONTRADICTS": 0.5,
+      "OUTDATED": 0.625,
+      "SUPPORTED_CURRENT": 0.7857142857142857
+     },
+     "mean_scope": 1.2053571428571428
+    },
+    "2": {
+     "n": 168,
+     "found": 118,
+     "recall": 0.7023809523809523,
+     "by_class": {
+      "CONTRADICTS": 0.5714285714285714,
+      "OUTDATED": 0.6785714285714286,
+      "SUPPORTED_CURRENT": 0.8571428571428571
+     },
+     "mean_scope": 2.1904761904761907
+    },
+    "3": {
+     "n": 168,
+     "found": 126,
+     "recall": 0.75,
+     "by_class": {
+      "CONTRADICTS": 0.6428571428571429,
+      "OUTDATED": 0.7321428571428571,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 3.1845238095238093
+    },
+    "4": {
+     "n": 168,
+     "found": 130,
+     "recall": 0.7738095238095238,
+     "by_class": {
+      "CONTRADICTS": 0.6785714285714286,
+      "OUTDATED": 0.7678571428571429,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 4.169642857142857
+    },
+    "5": {
+     "n": 168,
+     "found": 133,
+     "recall": 0.7916666666666666,
+     "by_class": {
+      "CONTRADICTS": 0.7142857142857143,
+      "OUTDATED": 0.7678571428571429,
+      "SUPPORTED_CURRENT": 0.8928571428571429
+     },
+     "mean_scope": 5.160714285714286
+    },
+    "6": {
+     "n": 168,
+     "found": 134,
+     "recall": 0.7976190476190477,
+     "by_class": {
+      "CONTRADICTS": 0.7142857142857143,
+      "OUTDATED": 0.7857142857142857,
+      "SUPPORTED_CURRENT": 0.8928571428571429
+     },
+     "mean_scope": 6.160714285714286
+    },
+    "7": {
+     "n": 168,
+     "found": 138,
+     "recall": 0.8214285714285714,
+     "by_class": {
+      "CONTRADICTS": 0.75,
+      "OUTDATED": 0.7857142857142857,
+      "SUPPORTED_CURRENT": 0.9285714285714286
+     },
+     "mean_scope": 7.157738095238095
+    },
+    "8": {
+     "n": 168,
+     "found": 140,
+     "recall": 0.8333333333333334,
+     "by_class": {
+      "CONTRADICTS": 0.75,
+      "OUTDATED": 0.8214285714285714,
+      "SUPPORTED_CURRENT": 0.9285714285714286
+     },
+     "mean_scope": 8.151785714285714
+    }
+   }
+  },
+  "C2": {
+   "no_rule": {
+    "1": {
+     "n": 168,
+     "found": 100,
+     "recall": 0.5952380952380952,
+     "by_class": {
+      "CONTRADICTS": 0.4107142857142857,
+      "OUTDATED": 0.6071428571428571,
+      "SUPPORTED_CURRENT": 0.7678571428571429
+     },
+     "mean_scope": 1.0
+    },
+    "2": {
+     "n": 168,
+     "found": 109,
+     "recall": 0.6488095238095238,
+     "by_class": {
+      "CONTRADICTS": 0.5,
+      "OUTDATED": 0.625,
+      "SUPPORTED_CURRENT": 0.8214285714285714
+     },
+     "mean_scope": 2.0
+    },
+    "3": {
+     "n": 168,
+     "found": 113,
+     "recall": 0.6726190476190477,
+     "by_class": {
+      "CONTRADICTS": 0.5535714285714286,
+      "OUTDATED": 0.6428571428571429,
+      "SUPPORTED_CURRENT": 0.8214285714285714
+     },
+     "mean_scope": 3.0
+    },
+    "4": {
+     "n": 168,
+     "found": 119,
+     "recall": 0.7083333333333334,
+     "by_class": {
+      "CONTRADICTS": 0.5714285714285714,
+      "OUTDATED": 0.6964285714285714,
+      "SUPPORTED_CURRENT": 0.8571428571428571
+     },
+     "mean_scope": 4.0
+    },
+    "5": {
+     "n": 168,
+     "found": 120,
+     "recall": 0.7142857142857143,
+     "by_class": {
+      "CONTRADICTS": 0.5714285714285714,
+      "OUTDATED": 0.6964285714285714,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 5.0
+    },
+    "6": {
+     "n": 168,
+     "found": 123,
+     "recall": 0.7321428571428571,
+     "by_class": {
+      "CONTRADICTS": 0.6071428571428571,
+      "OUTDATED": 0.7142857142857143,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 6.0
+    },
+    "7": {
+     "n": 168,
+     "found": 124,
+     "recall": 0.7380952380952381,
+     "by_class": {
+      "CONTRADICTS": 0.6071428571428571,
+      "OUTDATED": 0.7321428571428571,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 7.0
+    },
+    "8": {
+     "n": 168,
+     "found": 125,
+     "recall": 0.7440476190476191,
+     "by_class": {
+      "CONTRADICTS": 0.6071428571428571,
+      "OUTDATED": 0.75,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 8.0
+    }
+   },
+   "rule": {
+    "1": {
+     "n": 168,
+     "found": 105,
+     "recall": 0.625,
+     "by_class": {
+      "CONTRADICTS": 0.5,
+      "OUTDATED": 0.6071428571428571,
+      "SUPPORTED_CURRENT": 0.7678571428571429
+     },
+     "mean_scope": 1.2083333333333333
+    },
+    "2": {
+     "n": 168,
+     "found": 113,
+     "recall": 0.6726190476190477,
+     "by_class": {
+      "CONTRADICTS": 0.5714285714285714,
+      "OUTDATED": 0.625,
+      "SUPPORTED_CURRENT": 0.8214285714285714
+     },
+     "mean_scope": 2.2023809523809526
+    },
+    "3": {
+     "n": 168,
+     "found": 115,
+     "recall": 0.6845238095238095,
+     "by_class": {
+      "CONTRADICTS": 0.5892857142857143,
+      "OUTDATED": 0.6428571428571429,
+      "SUPPORTED_CURRENT": 0.8214285714285714
+     },
+     "mean_scope": 3.1904761904761907
+    },
+    "4": {
+     "n": 168,
+     "found": 120,
+     "recall": 0.7142857142857143,
+     "by_class": {
+      "CONTRADICTS": 0.5892857142857143,
+      "OUTDATED": 0.6964285714285714,
+      "SUPPORTED_CURRENT": 0.8571428571428571
+     },
+     "mean_scope": 4.184523809523809
+    },
+    "5": {
+     "n": 168,
+     "found": 121,
+     "recall": 0.7202380952380952,
+     "by_class": {
+      "CONTRADICTS": 0.5892857142857143,
+      "OUTDATED": 0.6964285714285714,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 5.175595238095238
+    },
+    "6": {
+     "n": 168,
+     "found": 124,
+     "recall": 0.7380952380952381,
+     "by_class": {
+      "CONTRADICTS": 0.625,
+      "OUTDATED": 0.7142857142857143,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 6.175595238095238
+    },
+    "7": {
+     "n": 168,
+     "found": 125,
+     "recall": 0.7440476190476191,
+     "by_class": {
+      "CONTRADICTS": 0.625,
+      "OUTDATED": 0.7321428571428571,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 7.1726190476190474
+    },
+    "8": {
+     "n": 168,
+     "found": 126,
+     "recall": 0.75,
+     "by_class": {
+      "CONTRADICTS": 0.625,
+      "OUTDATED": 0.75,
+      "SUPPORTED_CURRENT": 0.875
+     },
+     "mean_scope": 8.163690476190476
+    }
+   }
+  }
+ },
+ "determinism": {
+  "n": 336,
+  "same_label": 336,
+  "same_raw": 336
+ },
+ "parser": {
+  "alerts": 111,
+  "changed": 3,
+  "ids": [
+   "IS1003-O-01",
+   "IS1003-O-02",
+   "TS3003-C-01"
+  ],
+  "true_alerts": 110,
+  "exact_as_parsed": 101,
+  "exact_fixed": 103
+ }
+}

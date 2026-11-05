@@ -1,0 +1,21 @@
+{
+  "name": "@memoria/vault-index",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "TypeScript vault indexer: turns note files + frontmatter into VaultEntry objects",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "vault",
+    "index",
+    "markdown",
+    "frontmatter"
+  ],
+  "license": "AGPL-3.0-or-later"
+}

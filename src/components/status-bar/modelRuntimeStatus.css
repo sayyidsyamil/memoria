@@ -1,0 +1,7 @@
+.model-runtime-status { display: flex; flex: 1; min-width: 0; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 4px 16px; padding: 4px 8px; font-size: 12px; line-height: 20px; color: var(--muted-foreground); }
+.model-runtime-item { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.model-runtime-item i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted-foreground); }
+.model-runtime-item[data-state='ready'] i { background: var(--accent-green); }
+.model-runtime-item[data-state='failed'] i { background: var(--accent-orange); }
+.model-runtime-item b { font-weight: 400; color: var(--foreground); }
+@media (max-width: 640px) { .app-status-bar { flex-wrap: wrap !important; } .model-runtime-status { flex-basis: 100%; order: 3; justify-content: flex-start; gap: 2px 12px; padding-inline: 4px; font-size: 12px; } }

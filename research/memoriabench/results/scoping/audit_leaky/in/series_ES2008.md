@@ -1,0 +1,93 @@
+# Series ES2008
+
+## APPROVED DECISIONS
+
+- [ES2008b:32:36] The remote will have large buttons for essential functions.
+- [ES2012c:31:16] No display screen.
+- [ES2008c:34:39] The remote will have a simple chip.
+- [TS3005b:24:46] The remote will go into standby when idle.
+- [ES2015b:31:33] Glow in the dark buttons, self-timed lighting.
+- [ES2002c:24:29] The remote will be curvy.
+- [ES2008a:07:51] The maximum production cost for the remote is 12.50 Euro.
+- [TS3009a:22:12] They will look further at the idea of covers in the mext meeting too.
+- [TS3003a:22:54] The remote will be shockproof.
+- [TS3003a:22:59] The remote will be waterproof.
+- [ES2008c:01:36] The target group comprises of individuals who can afford the product.
+- [ES2013b:28:47] The remote will have an enter button and number buttons.
+- [ES2002b:35:35] The remote has to look good and be easy to use.
+- [ES2008c:26:54] The remote will use a kinetic battery.
+- [ES2008b:32:31] The remote will contain a function to aid in its recovery when lost. (replaces a remote without a locator function)
+- [ES2008b:33:05] The buttons for extra, infrequently used functions will be hidden in the design in some manner.
+- [TS3007c:34:18] There will be a touch screen and not many buttons.
+- [ES2005c:29:27] The remote will be yellow or partially yellow and have an organic shape.
+- [IS1004b:27:38] The remote control should be fancy, a good shape, and not too small or too big.
+- [TS3011b:17:32] The latter would be preferable to implementing a backlight into the remote.
+- [ES2004b:27:02] The remote will feature Video Plus capabilities and a seashell-like shape to accomodate the LCD display and the flip screen.
+- [IS1004c:28:50] Thus far, LCD and ASR have been ruled out.
+- [ES2008b:31:33] Rather than define a specific target group by age, the team will define objectives such as fashion and simplicity instead.
+- [ES2008a:07:35#2] The profit aim is fifteen million Euro.
+- [TS3012b:31:31] The important buttons will be on top.
+- [ES2002c:27:28] The remote will be shaped like a snowman.
+- [ES2008b:28:29] The team's design will focus on simplicity and fashion.
+- [TS3008c:27:22] The remote will not feature an LCD screen.
+- [TS3005b:20:06] The remote will feature an LCD screen.
+- [ES2015b:32:48] Will consider using number-shaped buttons.
+- [IS1000c:31:43] They decide that the keys on the remote should be smooth, big, and there should not be too many.
+- [ES2008c:30:28] The remote will have a latex case.
+- [ES2008a:07:43] The remote will be sold on an international scale.
+- [ES2008b:34:15] The remote will have a charging station. (replaces a remote without a recharging dock)
+- [ES2015c:23:12] Control will light up when you touch a button.
+- [TS3009c:36:33] Parts of the front (like the bottom where the LCD is and the top corner where the logo is) will also be titanium.
+- [ES2015b:06:48] Will reserach environmental factor.
+- [IS1003b:16:14] The remote should not have too many buttons.
+- [ES2012c:30:32] Will have voice with fewer buttons.
+- [ES2008a:12:41] One remote will contain main functions such as on, off, channel changing, and volume.
+- [TS3005b:39:04] The remote will be button-less.
+- [IS1001c:16:47] It will be placed at the top of the banana shape.
+- [ES2016b:39:18] The remote will be rounded in shape such that it fits comfortably in the hand.
+- [ES2008b:32:52] The remote will have a possibility to get extra functions.
+- [ES2008b:22:45] The remote will be used only with televisions.
+- [TS3003b:34:42] The remote will be made to accommodate different languages.
+- [IS1003c:27:20] The remote will have LCD buttons.
+- [ES2008b:21:21] The team will not work with teletext.
+- [ES2016b:29:13] The remote will be yellow with black or gray buttons.
+- [IS1006a:05:48] The remote will be child proof.
+- [TS3003b:31:23] The remote will feature a small LCD screen.
+- [IS1006c:27:28] The remote will have some buttons.
+- [ES2015c:22:55] Will use personal face places.
+- [ES2002c:38:03] The remote will have a jog dial.
+- [ES2002c:33:20] The remote will have rubber buttons.
+- [IS1001b:32:18] The remote will not have an LCD screen. (replaces an LCD screen)
+- [TS3003b:31:26] The remote will be fancy.
+- [ES2008a:07:35] The remote will be sold for 25 Euro.
+- [TS3003b:32:22] The remote will only have a few buttons.
+- [TS3011c:26:48] LCD is not going to be implemented. (replaces an LCD screen)
+- [ES2016b:26:49] The remote will have a minimal number of buttons.
+- [ES2016b:23:35] The remote will look appealing.
+- [ES2008b:22:59] The corporate image must be recognizable on the remote.
+- [TS3003b:31:23#2] The remote will be easy to learn.
+- [IS1004a:01:43] The project goal is to develop a new remote control.
+- [ES2008c:31:59] The remote will have pushbuttons.
+- [TS3005c:36:19] The remote will have a scrolling device.
+- [ES2008c:33:33] The remote will have a power button, volume buttons, channel preset buttons, and a menu button.
+- [ES2012b:34:52] The remote will be a radiaclly different shape.
+- [ES2007c:20:07] There will be no display physically featured on the remote itself.
+- [IS1003b:16:07] The remote should look fancy.
+- [ES2008a:12:32] An additional remote will contain special functions.
+- [ES2008c:31:20] The remote will be made in fruity colors.
+- [ES2007b:21:24] The remote will not contain a voice activation feature.
+
+## LIVE STATEMENTS (label each one)
+
+- ES2008-S-01: The production cost cannot exceed 12.50 Euro.
+- ES2008-S-02: So a simple chip is enough for the remote.
+- ES2008-O-01: So the remote will not have a locator function.
+- ES2008-O-02: I think we will not include a recharging dock.
+- ES2008-C-01: Well, we will include teletext in the design.
+- ES2008-C-02: We will leave the corporate image off the remote.
+- ES2008-U-01: Right, how about a sleep-mode button?
+- ES2008-U-02: Right, can we add a tiny flashlight at the tip?
+- ES2008-I-01: Okay, we're out of tea bags in the kitchen.
+- ES2008-I-02: Okay, the lift is out of order again.
+- ES2008-E-01: The photographer is booked for the product shoot on Thursday.
+- ES2008-E-02: So the first user interviews ran longer than expected.

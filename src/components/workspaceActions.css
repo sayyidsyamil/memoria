@@ -1,0 +1,24 @@
+/* Sidebar: one primary action, then one quiet list of Memoria places with live counts; files fold away below. */
+.workspace-actions { display: flex; flex-direction: column; gap: 10px; }
+.workspace-actions .workspace-start { display: flex; align-items: center; gap: 8px; width: 100%; height: 40px; padding: 0 12px; justify-content: flex-start; border-radius: 8px; font-size: 14px; font-weight: 500; box-shadow: none; }
+.workspace-rows, .memory-hub-navigation { display: grid; gap: 2px; }
+.workspace-row { display: flex; align-items: center; justify-content: flex-start; gap: 10px; width: 100%; height: 32px; padding: 0 10px; border-radius: 8px; font-size: 13px; font-weight: 450; text-align: left; color: var(--foreground); box-shadow: none; }
+.workspace-row > svg { color: var(--muted-foreground); transition: color 120ms; }
+.workspace-row:hover > svg { color: var(--foreground); }
+.workspace-row > span:first-of-type { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.workspace-row-count { margin-left: auto; min-width: 18px; padding: 0 6px; border-radius: 999px; font-size: 11px; font-variant-numeric: tabular-nums; line-height: 18px; text-align: center; color: var(--muted-foreground); }
+.workspace-row-count[data-attention] { color: color-mix(in srgb, var(--accent-orange) 66%, var(--foreground)); background: var(--accent-orange-light); font-weight: 600; }
+.workspace-group-label { margin: 24px 10px 8px; font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 16px; color: var(--muted-foreground); }
+.workspace-library { flex: 1; min-height: 0; overflow-y: auto; }
+.workspace-library > summary { display: flex; align-items: center; gap: 8px; margin: 8px 12px 4px; padding: 6px 10px; border-radius: 8px; cursor: pointer; list-style: none; font-size: 13px; font-weight: 500; color: var(--muted-foreground); }
+.workspace-library > summary::-webkit-details-marker { display: none; }
+.workspace-library > summary:hover { color: var(--foreground); background: var(--muted); }
+.workspace-library > summary svg { transition: transform 120ms; }
+.workspace-library > summary svg[data-open] { transform: rotate(90deg); }
+.workspace-library > summary:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+.workspace-library-actions { display: grid; padding: 0 12px 4px; }
+.workspace-library > nav { overflow-y: visible; }
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-library > summary svg { transition: none; }
+}

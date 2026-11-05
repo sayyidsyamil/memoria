@@ -1,0 +1,47 @@
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 37786.52it/s]
+         IS1009a@60+30 original: 15 seg  peaknorm: 15 seg  minus20db: 17 seg
+         IS1009a@60+60 original: 28 seg  peaknorm: 27 seg  minus20db: 34 seg
+        IS1009a@60+120 original: 49 seg  peaknorm: 49 seg  minus20db: 57 seg
+        IS1009a@330+30 original: 18 seg  peaknorm: 18 seg  minus20db: 12 seg
+        IS1009a@330+60 original: 27 seg  peaknorm: 27 seg  minus20db: 23 seg
+       IS1009a@330+120 original: 54 seg  peaknorm: 54 seg  minus20db: 51 seg
+        IS1009a@600+30 original: 15 seg  peaknorm: 15 seg  minus20db: 16 seg
+        IS1009a@600+60 original: 39 seg  peaknorm: 39 seg  minus20db: 37 seg
+       IS1009a@600+120 original: 72 seg  peaknorm: 72 seg  minus20db: 70 seg
+        ES2004a@100+30 original: 13 seg  peaknorm: 12 seg  minus20db: 13 seg
+        ES2004a@100+60 original: 28 seg  peaknorm: 27 seg  minus20db: 28 seg
+       ES2004a@100+120 original: 42 seg  peaknorm: 42 seg  minus20db: 41 seg
+        ES2004a@450+30 original: 18 seg  peaknorm: 18 seg  minus20db: 15 seg
+        ES2004a@450+60 original: 38 seg  peaknorm: 40 seg  minus20db: 34 seg
+       ES2004a@450+120 original: 67 seg  peaknorm: 68 seg  minus20db: 64 seg
+        ES2004a@800+30 original: 23 seg  peaknorm: 22 seg  minus20db: 22 seg
+        ES2004a@800+60 original: 44 seg  peaknorm: 42 seg  minus20db: 41 seg
+       ES2004a@800+120 original: 79 seg  peaknorm: 79 seg  minus20db: 75 seg
+        ES2014a@100+30 original: 15 seg  peaknorm: 14 seg  minus20db: 12 seg
+        ES2014a@100+60 original: 22 seg  peaknorm: 21 seg  minus20db: 19 seg
+       ES2014a@100+120 original: 45 seg  peaknorm: 45 seg  minus20db: 41 seg
+        ES2014a@450+30 original: 6 seg  peaknorm: 6 seg  minus20db: 6 seg
+        ES2014a@450+60 original: 12 seg  peaknorm: 12 seg  minus20db: 12 seg
+       ES2014a@450+120 original: 31 seg  peaknorm: 30 seg  minus20db: 31 seg
+        ES2014a@800+30 original: 11 seg  peaknorm: 11 seg  minus20db: 11 seg
+        ES2014a@800+60 original: 29 seg  peaknorm: 26 seg  minus20db: 28 seg
+       ES2014a@800+120 original: 62 seg  peaknorm: 64 seg  minus20db: 59 seg
+        TS3003a@100+30 original: 14 seg  peaknorm: 12 seg  minus20db: 12 seg
+        TS3003a@100+60 original: 27 seg  peaknorm: 25 seg  minus20db: 26 seg
+       TS3003a@100+120 original: 60 seg  peaknorm: 57 seg  minus20db: 62 seg
+        TS3003a@600+30 original: 6 seg  peaknorm: 6 seg  minus20db: 5 seg
+        TS3003a@600+60 original: 17 seg  peaknorm: 18 seg  minus20db: 17 seg
+       TS3003a@600+120 original: 37 seg  peaknorm: 38 seg  minus20db: 34 seg
+       TS3003a@1100+30 original: 15 seg  peaknorm: 14 seg  minus20db: 18 seg
+       TS3003a@1100+60 original: 28 seg  peaknorm: 27 seg  minus20db: 31 seg
+      TS3003a@1100+120 original: 57 seg  peaknorm: 58 seg  minus20db: 59 seg
+        TS3007a@100+30 original: 9 seg  peaknorm: 8 seg  minus20db: 8 seg
+        TS3007a@100+60 original: 21 seg  peaknorm: 19 seg  minus20db: 19 seg
+       TS3007a@100+120 original: 43 seg  peaknorm: 41 seg  minus20db: 42 seg
+        TS3007a@600+30 original: 8 seg  peaknorm: 9 seg  minus20db: 8 seg
+        TS3007a@600+60 original: 23 seg  peaknorm: 22 seg  minus20db: 17 seg
+       TS3007a@600+120 original: 48 seg  peaknorm: 47 seg  minus20db: 34 seg
+       TS3007a@1100+30 original: 17 seg  peaknorm: 16 seg  minus20db: 14 seg
+       TS3007a@1100+60 original: 31 seg  peaknorm: 30 seg  minus20db: 30 seg
+      TS3007a@1100+120 original: 66 seg  peaknorm: 65 seg  minus20db: 63 seg
+wrote /Users/sayyid/Desktop/FYP/engine/results/asr/app_path_raw/level_probe/raw.json

@@ -1,0 +1,19 @@
+\begin{table}[tbp]
+\centering
+\small
+\caption{Recall by gold class on MemoriaBench (336 probes). Recall by gold class, in percent: how often the class was found among the probes that belong to it. The OUTDATED probes are shown whole and split by what founds them: 5 rest on a decision the annotators replaced, 51 on a synthetic replacement note. Bold marks the best value in a column.}
+\label{tab:memoriabench-classes}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+System & Supported & Outdated & \hspace{1em}real (5) & \hspace{1em}synthetic (51) & Contradicts & Updates & Irrelevant & Insufficient \\
+\midrule
+B0 Closed book & 19.6 & 8.9 & 0.0 & 9.8 & 0.0 & \textbf{98.2} & 92.9 & 67.9 \\
+B1 Embeddings, alert if similarity $\ge \tau$ & 0.0 & 0.0 & 0.0 & 0.0 & \textbf{91.1} & 0.0 & \textbf{98.2} & 0.0 \\
+B1b Embeddings, three bands & 39.3 & 0.0 & 0.0 & 0.0 & 85.7 & 0.0 & \textbf{98.2} & 0.0 \\
+B2 Transcript RAG & 98.2 & 32.1 & 20.0 & 33.3 & 28.6 & 62.5 & 87.5 & 60.7 \\
+\midrule
+M2 Full Memoria (proposed) & 98.2 & \textbf{71.4} & \textbf{80.0} & \textbf{70.6} & 82.1 & 96.4 & 91.1 & 83.9 \\
+A1 M2 without supersession notes & \textbf{100.0} & 5.4 & 0.0 & 5.9 & \textbf{91.1} & 94.6 & 92.9 & \textbf{87.5} \\
+\bottomrule
+\end{tabular}
+\end{table}

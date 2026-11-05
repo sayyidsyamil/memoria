@@ -1,0 +1,18 @@
+{
+  "label": "recovery-strict-root",
+  "load": {
+    "path": "/Users/sayyid/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "load_seconds": 4.2,
+    "active_gb": 2.499
+  },
+  "started": "2026-11-03T16:20:06+0800",
+  "control": {
+    "source_prompt_sha256": "2f630c547fa6993de881f20901921c068e6368fd202a589355b83fdee344ce77",
+    "copy_json_sha256": "6e9a9a17b1f3f5c88dd61b1ef138f73c4ee81b3c88cf761fc9997dc7e6dcef9d",
+    "forced_prefix_sha256": "4cbb03b437406c5c4183be1c3a95d2171f33dd5dcb4737e7c707a77569813d36",
+    "source": "two distinct decisions explicitly stated at TS3006b turn107",
+    "expected_later_object": "lcd",
+    "expected_later_value": "included"
+  },
+  "finished": "2026-11-03T16:20:33+0800"
+}

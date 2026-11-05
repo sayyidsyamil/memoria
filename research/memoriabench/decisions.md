@@ -1,0 +1,4 @@
+- [M1:08:21] Production cost cap is strictly €12.50 per unit.
+- [M2:22:15] Case material is rubberized plastic.
+- [M3:14:02] Power source is Kinetic charging (replaces Standard battery).
+- [M3:30:10] Target market is Europe, launch deadline is strictly Q4.

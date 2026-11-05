@@ -1,0 +1,29 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 13833.46it/s]
+  K=0 hiring: extracted 3 meetings
+  K=0 hiring: answered 13 questions
+  K=0 portfolio: extracted 5 meetings
+  K=0 portfolio: answered 12 questions
+  K=0 tender: extracted 3 meetings
+  K=0 tender: answered 12 questions
+level K=0 done in 139.7s -> results/test/memoria_test.json
+  K=8 hiring: extracted 11 meetings
+  K=8 hiring: answered 13 questions
+  K=8 portfolio: extracted 13 meetings
+  K=8 portfolio: answered 12 questions
+  K=8 tender: extracted 11 meetings
+  K=8 tender: answered 12 questions
+level K=8 done in 277.3s -> results/test/memoria_test.json
+  K=24 hiring: extracted 27 meetings
+  K=24 hiring: answered 13 questions
+  K=24 portfolio: extracted 29 meetings
+  K=24 portfolio: answered 12 questions
+  K=24 tender: extracted 27 meetings
+  K=24 tender: answered 12 questions
+level K=24 done in 582.2s -> results/test/memoria_test.json
+  K=48 hiring: extracted 51 meetings
+  K=48 hiring: answered 13 questions
+  K=48 portfolio: extracted 53 meetings
+  K=48 portfolio: answered 12 questions
+  K=48 tender: extracted 51 meetings
+  K=48 tender: answered 12 questions
+level K=48 done in 1206.0s -> results/test/memoria_test.json

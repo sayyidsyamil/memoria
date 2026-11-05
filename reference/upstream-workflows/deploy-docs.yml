@@ -1,0 +1,87 @@
+# Archived upstream workflow; not active Memoria automation.
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/deploy-docs.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "scripts/build-agent-docs.mjs"
+      - "scripts/assemble-pages-site.sh"
+      - "scripts/build-pages-site.sh"
+      - "scripts/verify-pages-site.sh"
+      - "scripts/build-release-download-page.ts"
+      - "scripts/build-release-history-page.ts"
+      - "release-notes/**"
+      - "site/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+env:
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  build:
+    name: Build VitePress site
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: latest
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs and download pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash scripts/build-pages-site.sh site/.vitepress/dist
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/.vitepress/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
